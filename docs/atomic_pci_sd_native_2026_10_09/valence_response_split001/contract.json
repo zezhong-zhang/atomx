@@ -1,0 +1,15 @@
+{
+  "hypothesis": "For fixed core and energy the valence map is affine: sigma_prime=b_prime+L_prime(root)+L(prime). Reuse full root-map explicit derivative and exact source-free map instead of recomputing expensive core source a third time.",
+  "fixed": "All original diagrams, complete signed coordinates, core state, energy, residual and derivative gates unchanged; retain full affine root certificate and actual full derivative oracle in live tests.",
+  "acceptance": "Complete singles analytic response matches independent original full affine map at 1e-11 Ha plus existing re-solved finite difference at abs1e-9 rel1e-6. Both original and streamed core backends and full Sigma2 joint response pass.",
+  "stop": "No adoption if complete response or raw gates fail; no source interpolation or amplitude screening.",
+  "load": [
+    10.12255859375,
+    10.05810546875,
+    10.81787109375
+  ],
+  "before_sha256": {
+    "src/atomx/methods/valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+    "tests/test_valence_sd.py": "ccdd01899e7793485349c9e1f00e86371cb57a1ea05d7622407dd2d4756be8c0"
+  }
+}

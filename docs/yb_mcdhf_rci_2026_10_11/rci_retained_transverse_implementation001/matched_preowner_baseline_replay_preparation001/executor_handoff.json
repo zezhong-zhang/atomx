@@ -1,0 +1,31 @@
+{
+  "status": "frozen_SOURCE_ONLY_review_ready_native_not_executed",
+  "files": {
+    "executor_contract.json": "144828e28a3c5dd87d9efe1a5e0c688cf188ed57e5d33561be171c20f8ff6cae",
+    "worker.py": "cf27d95fff8b06d3aeb5fd0ea83ebb1dd70e705397cd39990688c019d23b5998",
+    "run.py": "afd8cc21429bc5ed2b2aae8aca0eef340521f5fc193fc307103ecaf0b3e0a27f",
+    "EXECUTOR.md": "3a26f486ead94c579612bd99d779c34a061c92cc2131f273e8a7c3b9e4bf3583",
+    "executor_documentation_impact.json": "da541dc547e4cc230233de9dc268c55c2dc1e3e0d660141d57ba4f31d8872e28",
+    "executor_EARS.md": "f18c42666006412c391fbf94f9a3a46acc41ac6be35541b9a8a1835313b18876"
+  },
+  "proposal_sha256": "6acbc1e3d9390b6e125cb09391202f579cc35895c6f88dbcf699097cced73311",
+  "source_recipe_sha256": "ccbcb17f9e018a84a4a6dd03cea56752469754e5c37ba79cd3d75d759836fbb5",
+  "full_source_files_per_epoch": 365,
+  "source_archives_match_recipe": true,
+  "archives_differ_only_authorized_2modules": true,
+  "literal_input_NPZ_per_worker": 3,
+  "controller_imports_stdlib_only": true,
+  "counter_profile_does_not_replace_physics": true,
+  "AST_compile": true,
+  "Ruff": true,
+  "NumPy_Atomx_imports_in_preparation": 0,
+  "NPZ_reads_in_preparation": 0,
+  "science_calls_in_preparation": 0,
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/run.py",
+    "--execute"
+  ],
+  "root_exact_once_seal_required": true
+}

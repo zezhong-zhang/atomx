@@ -1,0 +1,102 @@
+{
+  "status": "root_recovery_from_immutable_receipt_log_and_partial_JSON_only",
+  "receipt_sha256": "c3295d08a6131376ee7872ae8418cf6ce2bac2be572790819990b04e6441c472",
+  "log_sha256": "0d9311c4026f418991770d329787f7f1e972b71f3616619235395ef3eb8c5402",
+  "last_progress_sha256": "d88cf9301e12249a273fa208cf27f85e42d91d1ca03cb8ead14be8dcf8c04df7",
+  "exact_runtime_failed_control": "native_tracker_order",
+  "failure_reason": "Frozen SOURCE tracking uses list of tuple UID values; frozen001 control compares with contract list of list. This representation check is false for otherwise identical UIDs.",
+  "secondary_reporting_failure": "NumPy int64 in gradient work diagnostics is not accepted by the frozen JSON writer; exception capture therefore produced no failure.json.",
+  "last_observed_serialized_progress": {
+    "phase": "literal native filtered full gradient",
+    "counts": {
+      "NPZ_load": 6,
+      "tracker_overlap": 1,
+      "raw_hS": 7,
+      "angular_block_terms": 5,
+      "angular_projection": 5
+    },
+    "attempted": {
+      "NPZ_load": 6,
+      "tracker_overlap": 1,
+      "raw_hS": 7,
+      "angular_block_terms": 5,
+      "angular_projection": 5
+    },
+    "elapsed_uncontrolled_s": 66.19092427300347
+  },
+  "actual_decoded_selected_bytes": 105682480,
+  "complete_angular_rows": [
+    {
+      "raw_determinants": 2659,
+      "keys": 13127,
+      "shape": [
+        473897,
+        13127
+      ],
+      "nnz": 3369584,
+      "pairs": 473897,
+      "CSR_bytes": 42330600,
+      "pair_bytes": 7582352
+    },
+    {
+      "raw_determinants": 2623,
+      "keys": 13184,
+      "shape": [
+        450396,
+        13184
+      ],
+      "nnz": 3241770,
+      "pairs": 450396,
+      "CSR_bytes": 40702828,
+      "pair_bytes": 7206336
+    },
+    {
+      "raw_determinants": 2478,
+      "keys": 14693,
+      "shape": [
+        453905,
+        14693
+      ],
+      "nnz": 3180849,
+      "pairs": 453905,
+      "CSR_bytes": 39985812,
+      "pair_bytes": 7262480
+    },
+    {
+      "raw_determinants": 2466,
+      "keys": 15018,
+      "shape": [
+        441824,
+        15018
+      ],
+      "nnz": 3111938,
+      "pairs": 441824,
+      "CSR_bytes": 39110556,
+      "pair_bytes": 7069184
+    },
+    {
+      "raw_determinants": 1918,
+      "keys": 14949,
+      "shape": [
+        321688,
+        14949
+      ],
+      "nnz": 2394416,
+      "pairs": 321688,
+      "CSR_bytes": 30019748,
+      "pair_bytes": 5147008
+    }
+  ],
+  "inferred_from_frozen_driver_reaching_failed_control": {
+    "native_evaluate_returned": true,
+    "native_gradient_calls_lower_bound": 1,
+    "tracker_resolve_calls_lower_bound": 1,
+    "scope": "Source reachability inference only; exact post-evaluate counters and gradient arrays were not serialized and cannot be recovered from the log."
+  },
+  "exact_final_live_check_count": null,
+  "original_receipt_and_log_retained": true,
+  "scientific_success_claim": false,
+  "gradient_or_optimizer_qualified": false,
+  "NPZ_access_or_new_scientific_calls_in_recovery": 0,
+  "not_an_automatic_retry": true
+}

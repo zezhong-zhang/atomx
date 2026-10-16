@@ -1,0 +1,230 @@
+{
+  "hypothesis": "The current native coherent five-level EOL optimizer must reach its declared constrained stationarity before its same-orbital RCI spectrum is production evidence; a prior line-search failure cannot be repaired by declaring frozen DF orbitals MCDHF.",
+  "fixed_conditions": {
+    "Z": 70,
+    "charge": 1,
+    "electrons": 69,
+    "configs": [
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1",
+      "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1"
+    ],
+    "selected_levels": [
+      [
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        3,
+        1,
+        0,
+        1
+      ],
+      [
+        5,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        -1,
+        0,
+        1
+      ],
+      [
+        3,
+        -1,
+        0,
+        1
+      ]
+    ],
+    "weights": "equal 1/5 fixed by symmetry/local-root identity",
+    "Hamiltonian": "finite Fermi nucleus Dirac-Coulomb with fixed nuclear positive-energy B-spline projector",
+    "nuclear_mass_number": "public empirical default, not isotope-resolved",
+    "engine": "bspline",
+    "grid": {
+      "ks": 9,
+      "hi": 0.25,
+      "he": 0.25,
+      "hmax": 1.0,
+      "r_max": 60.0
+    },
+    "radial_optimization": "mcdhf",
+    "variational_projector": "nuclear",
+    "max_iter": 12,
+    "effective_gradient_max_iter": 384,
+    "scf_max_iter": 40,
+    "orbital_tolerance": 1e-07,
+    "energy_tolerance_Ha": 1e-08,
+    "all_24_radial_orbitals_optimized": true,
+    "frozen_core_radials": false,
+    "RCI": "same CSFs and stationary common orbitals, complete static Breit, no QED/recoil/empirical correction",
+    "threads": 1
+  },
+  "acceptance": {
+    "converged": true,
+    "orbital_residual_lt": 1e-07,
+    "estimated_energy_error_Ha_lt": 1e-08,
+    "metric_orthogonality_max_error_lt": 1e-08,
+    "dense_CI_residual_Ha_lt": 1e-08,
+    "NIST_relative_excitation_error_goal": 0.01
+  },
+  "distinguishing_outcomes": "A stationary five-state solve establishes the variational mean-field/EOL baseline only. Failure identifies numerical optimization work before adding correlation; larger active spaces do not excuse failed residual gates.",
+  "diagnostic_observation": {
+    "line_search_trace": true,
+    "rule": "Python frame observation only; returned energies/gradients, optimization directions, line-search decisions and convergence gates are unchanged"
+  },
+  "stopping_condition": {
+    "wall_seconds": 900,
+    "address_space_cap_GiB": 4,
+    "retain_exception_and_unconverged_outputs": true
+  },
+  "correlation_limit": "Five CSFs in five different symmetry blocks: no within-block correlation mixing or core-hole excitations. The 69-electron core participates in common radial optimization but core-valence dynamical correlation is absent.",
+  "reference": {
+    "path": "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json",
+    "sha256": "140af5746c837f40b607b9d2447ca57ce24d372dac527af19b160134006250c4",
+    "type": "NIST handbook measured level energies, uncertainty unspecified"
+  },
+  "historical_failed_same_model": [
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/dc_default_replay/structure.json",
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/dc_refined/structure.json"
+  ],
+  "not_claimed": [
+    "radial convergence",
+    "full electron correlation",
+    "isotope-resolved experiment",
+    "highest atomic accuracy",
+    "controlled performance speedup"
+  ],
+  "numerical_successor": {
+    "path": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment_contract.json",
+    "sha256": "a6f84bc12fe73c0f267dfcdf21e5306d5964f24de006ab21bfe2f8d0dffcb6a0",
+    "specification": {
+      "hypothesis": "A constrained Lagrangian-centered comparison removes only float-scale actual radial S Gram defects from the full same-objective finite-polynomial difference. Its normal multipliers must use the complete actual CI one-body h/n quotient derivative; physical polar quadratic curvature is not removed. Same initialization and original scientific gates remain required. Explicit increments through the unchanged linear projector map remove a second rounding floor from separately unpacked trial-base differences.",
+      "fixed_conditions": {
+        "Z": 70,
+        "charge": 1,
+        "electrons": 69,
+        "configs": [
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1",
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1"
+        ],
+        "selected_levels": [
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            3,
+            1,
+            0,
+            1
+          ],
+          [
+            5,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            -1,
+            0,
+            1
+          ],
+          [
+            3,
+            -1,
+            0,
+            1
+          ]
+        ],
+        "weights": "equal 1/5 fixed by symmetry/local-root identity",
+        "Hamiltonian": "finite Fermi nucleus Dirac-Coulomb with fixed nuclear positive-energy B-spline projector",
+        "nuclear_mass_number": "public empirical default, not isotope-resolved",
+        "engine": "bspline",
+        "grid": {
+          "ks": 9,
+          "hi": 0.25,
+          "he": 0.25,
+          "hmax": 1.0,
+          "r_max": 60.0
+        },
+        "radial_optimization": "mcdhf",
+        "variational_projector": "nuclear",
+        "max_iter": 12,
+        "effective_gradient_max_iter": 384,
+        "scf_max_iter": 40,
+        "orbital_tolerance": 1e-07,
+        "energy_tolerance_Ha": 1e-08,
+        "all_24_radial_orbitals_optimized": true,
+        "frozen_core_radials": false,
+        "RCI": "same CSFs and stationary common orbitals, complete static Breit, no QED/recoil/empirical correction",
+        "threads": 1
+      },
+      "acceptance": {
+        "converged": true,
+        "orbital_residual_lt": 1e-07,
+        "estimated_energy_error_Ha_lt": 1e-08,
+        "metric_orthogonality_max_error_lt": 1e-08,
+        "dense_CI_residual_Ha_lt": 1e-08,
+        "NIST_relative_excitation_error_goal": 0.01
+      },
+      "prior_failure": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/result.json",
+        "sha256": "5948e45493178c86846a354441ab7c98af2c8a0ffff76a1de99b2a4a3111fa5a",
+        "production_certified": false
+      },
+      "numerical_change_only": {
+        "Hamiltonian_and_space_changed": false,
+        "all_initialization_controls_unchanged": true,
+        "same_initial_solve_not_endpoint_restart": true,
+        "original_residual_metric_unchanged": true,
+        "polar_map": "Same polar retraction evaluated with wide near-unit Gram and correction rather than degenerate eig reconstruction; initial seed preparation remains unchanged.",
+        "complete_delta_API_preserved": true,
+        "centered_comparison": "delta_centered = full same-objective cell delta − sum_k trace(Lambda_k delta_G_k), with Lambda_k = 0.5 sym(C_k^T g_actual_quotient,k) and delta_G = C^T S delta_C + delta_C^T S C + delta_C^T S delta_C. Every quadratic curvature term enters delta_G, so correct physical polar curvature is retained.",
+        "actual_gradient_normal_convention": "Actual off-manifold CI h_ab/(b^T S b) quotient derivative, rather than the raw fixed-RDM gradient normal component. Original tangent gradient and original spectral metric stationarity gate remain unchanged.",
+        "scope_gate": "Only same fixed-RDM one-CSF blocks and numerical floating-point-scale original/trial S Gram defects. Unsupported cases retain original full CI response comparison; no physical density frozen or tolerance widened.",
+        "gradient_trapezoid_not_an_acceptance_rule": true,
+        "original_strict_scf_and_ci_gates_unchanged": true,
+        "normal_defect_diagnostic_source": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/radial_constraint_endpoint002/result.json",
+          "sha256": "409ec7d265a1e56fcc14eacac88149c2e1450badb90738af4172357c91c440d1"
+        },
+        "explicit_linear_map_increment": "Compute delta P/Q from projector@(candidate coordinates−accepted coordinates), not from separately rounded trial−reference spinors. Expand the same complete quadratic/quartic integral directly in reference and this explicit increment; keep actual stored CI trial and original tangent gradient/residual metric unchanged.",
+        "independent_increment_diagnostic": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/linear_map_increment_endpoint/result.json",
+          "sha256": "58acbcc15c337493f7b54814167a534d0b53d36d5035071985de9aca51ae103b",
+          "verification_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/linear_map_increment_endpoint/verification.json",
+          "verification_sha256": "076f495f6204ce92396795618242921967cabb67de5406123e72cb7df7d4281b"
+        }
+      },
+      "required_before_execution": [
+        "Parent shared distinct centered comparison implementation complete, source epoch frozen by this native runner",
+        "Independent manifold equivalence/normal quotient/curvature/large Gram rejection tests passed, original exact cell-difference oracle retained",
+        "Saved real endpoint complete delta and centered formula independently reproduced at actual trial P/Q",
+        "Original prospective resource and fixed-state preflight preserved; no heavy competing timing",
+        "Shared explicit increment API and numerical dispatcher reproduce the saved true trial plus delta-coordinate reference experiment, exact-zero control and complete original API semantics; independent tests passed"
+      ],
+      "stopping_condition": {
+        "wall_seconds": 900,
+        "address_space_cap_GiB": 4,
+        "retain_exception_and_unconverged_outputs": true
+      },
+      "correlation_scope": "Five CSFs in five different symmetry blocks: no within-block correlation mixing or core-hole excitations. The 69-electron core participates in common radial optimization but core-valence dynamical correlation is absent.",
+      "no_new_experimental_fitting": true,
+      "status": "Prospective; shared explicit-increment implementation and independent verification pending. The centered-only predecessor has not executed.",
+      "prospective_predecessor": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_centered_delta_contract.json",
+        "sha256": "3008bc2e0481a87f9f50ad3983ef356d9ba61415040d225944d647f1904dc7cb",
+        "executed": false
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "failed": 3,
+  "failures": [
+    {
+      "actual_Ha": -1.0000130822888613,
+      "cause": "test exact equality with independently strided matrix contraction",
+      "independent_Ha": -1.0000130822888615,
+      "test": "test_original_metric_roundtrip_and_full_recomputation[True]"
+    },
+    {
+      "actual_Ha": -1.0000130822888613,
+      "cause": "same test exact equality control",
+      "independent_Ha": -1.0000130822888615,
+      "test": "test_accepted_resume_step_has_independent_rayleigh_gram_and_shared_snapshots"
+    },
+    {
+      "cause": "test requested nonexistent DiracResult.negative_coefficients attribute",
+      "test": "test_invalid_geometry_is_rejected_without_repair[negative_branch]"
+    }
+  ],
+  "passed": 34,
+  "record": "actual earlier unfrozen test harness tool result",
+  "resolution": "independent Rayleigh tolerance2e-15Ha and separate full scipy generalized eigensolve; no production gate change",
+  "seconds": 0.51,
+  "unfrozen_attempt_source_hash_unavailable": true
+}

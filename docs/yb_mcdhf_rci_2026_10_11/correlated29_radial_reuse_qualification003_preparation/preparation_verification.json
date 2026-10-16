@@ -1,0 +1,237 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "bound_checkpoint_arrays",
+      "passed": true
+    },
+    {
+      "name": "bound_tracking_ci",
+      "passed": true
+    },
+    {
+      "name": "bound_tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "bound_geometry_workspace",
+      "passed": true
+    },
+    {
+      "name": "bound_original_layout",
+      "passed": true
+    },
+    {
+      "name": "bound_screened_models",
+      "passed": true
+    },
+    {
+      "name": "bound_screened_geometry",
+      "passed": true
+    },
+    {
+      "name": "bound_screened_basis",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_point",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_point_owner",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_gradient",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_layout",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_gradient_audit",
+      "passed": true
+    },
+    {
+      "name": "bound_saved_progress",
+      "passed": true
+    },
+    {
+      "name": "bound_ordinary_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_source_proposal",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_patch",
+      "passed": true
+    },
+    {
+      "name": "bound_anchor_bank_tests",
+      "passed": true
+    },
+    {
+      "name": "bound_anchor_analytic_tests",
+      "passed": true
+    },
+    {
+      "name": "bound_original_signed_density",
+      "passed": true
+    },
+    {
+      "name": "bound_original_probe_failure",
+      "passed": true
+    },
+    {
+      "name": "bound_original_rotation_failure",
+      "passed": true
+    },
+    {
+      "name": "bound_conditional_direction1",
+      "passed": true
+    },
+    {
+      "name": "bound_conditional_direction0",
+      "passed": true
+    },
+    {
+      "name": "bound_NumPy_Gauss_source",
+      "passed": true
+    },
+    {
+      "name": "bound_corrected_baseline_result",
+      "passed": true
+    },
+    {
+      "name": "bound_corrected_baseline_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_corrected_baseline_owner",
+      "passed": true
+    },
+    {
+      "name": "bound_corrected_baseline_root",
+      "passed": true
+    },
+    {
+      "name": "bound_inner_fix_closed_result",
+      "passed": true
+    },
+    {
+      "name": "bound_shared_fix_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_shared_fix_closed_result",
+      "passed": true
+    },
+    {
+      "name": "bound_predecessor_closed_failure",
+      "passed": true
+    },
+    {
+      "name": "bound_predecessor_closed_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_predecessor_driver",
+      "passed": true
+    },
+    {
+      "name": "bound_predecessor_contract",
+      "passed": true
+    },
+    {
+      "name": "bound_ordinary_centering_patch",
+      "passed": true
+    },
+    {
+      "name": "bound_prior002_closed_failure",
+      "passed": true
+    },
+    {
+      "name": "bound_prior002_root_execution",
+      "passed": true
+    },
+    {
+      "name": "bound_common_shift_result",
+      "passed": true
+    },
+    {
+      "name": "bound_common_shift_root",
+      "passed": true
+    },
+    {
+      "name": "bound_common_shift_shifted_arrays",
+      "passed": true
+    },
+    {
+      "name": "ordinary_map_full_archive",
+      "passed": true
+    },
+    {
+      "name": "ordinary_only_allowed_diff",
+      "passed": true
+    },
+    {
+      "name": "candidate_map_full_archive",
+      "passed": true
+    },
+    {
+      "name": "candidate_only_allowed_diff",
+      "passed": true
+    },
+    {
+      "name": "same_centered_ci_bytes",
+      "passed": true
+    },
+    {
+      "name": "matrix_route_unchanged002",
+      "passed": true
+    },
+    {
+      "name": "only_ci_solve_changed_existing_function",
+      "passed": true
+    },
+    {
+      "name": "only_added_centered_helper",
+      "passed": true
+    },
+    {
+      "name": "no_numeric_preparation",
+      "passed": true
+    },
+    {
+      "name": "original002_stillFAIL",
+      "passed": true
+    },
+    {
+      "name": "common_shift_completePASS",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61",
+  "contract_sha256": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+  "files": {
+    "run.py": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61",
+    "contract.json": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+    "README.md": "ea0612657563e5529b5659bbbcde537f07d9dbee8cf34aeaaaa8634151696291",
+    "ordinary_source_identity.json": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827",
+    "candidate_source_identity.json": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8",
+    "ordinary.patch": "aefce434382c5a87376acf39a5e91d724255d6a55b32673e5a43bac6cc437f79",
+    "candidate.patch": "390b0c404a22fdd28f46f208b81513fb33c7f37a4fff060d54ca1a0743477d5e"
+  },
+  "NumPy_or_Atomx_import_H_CI_g_eigen_calls": 0
+}

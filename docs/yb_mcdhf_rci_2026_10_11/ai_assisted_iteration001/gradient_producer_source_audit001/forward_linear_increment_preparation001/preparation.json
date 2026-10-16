@@ -1,0 +1,112 @@
+{
+  "status": "SOURCE_JSON_only_prepared_NOT_executed",
+  "all_SOURCE_checks_passed": true,
+  "checks": [
+    {
+      "name": "AST_parse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "metadata_no_imports",
+      "passed": true
+    },
+    {
+      "name": "exact_two_fullCI_archives_no_geometry",
+      "passed": true
+    },
+    {
+      "name": "unchanged_complete1595_31_ns123_fiveUID",
+      "passed": true
+    },
+    {
+      "name": "native_UID_order_preflight",
+      "passed": true
+    },
+    {
+      "name": "all19589keys_and_original_gates",
+      "passed": true
+    },
+    {
+      "name": "CPU30_AS4_90_105caps",
+      "passed": true
+    },
+    {
+      "name": "complete_tables_work_caps",
+      "passed": true
+    },
+    {
+      "name": "zero_producer_caps",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_fullmetadata_exit0",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_accessscope",
+      "passed": true
+    },
+    {
+      "name": "help_exit0",
+      "passed": true
+    },
+    {
+      "name": "Ruff",
+      "passed": true
+    },
+    {
+      "name": "local_links",
+      "passed": true
+    },
+    {
+      "name": "no_actual_binding_imports",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "8c79baba8d063e21308b7607b99e7b3ee22c463cb2abf75c2fc25f1ee2447d77",
+  "contract_sha256": "95e226fb4b3efeaac580d9f916c67c54d6392e9f0127b33fa1571f2dc78bda84",
+  "verifier_sha256": "aeb4e7a95d3fce5ba59c4e197b36f3b12239c16cbb61b3fc1c94667c319aede1",
+  "README_sha256": "c1f70f735c3af698ad401ea85ed354bb334f79c38229b7d4c43038f24f5934df",
+  "NPZ_stat_hash_header_ZIP_body_access": 0,
+  "numerical_imports_calls": 0,
+  "prior_failures_preserved": true,
+  "certified_error_bound": false,
+  "default_stdout": "SOURCE only: 0 NPZ access, numerical imports or scientific calls.",
+  "Ruff": "All checks passed!"
+}

@@ -1,0 +1,41 @@
+{
+  "hypothesis": "Removing only the duplicated antisymmetrization in dgd2b_2 repairs the original unchanged-H signed attachment equations.",
+  "fixed": "Complete saved ten-spinor Hamiltonian; 2 core electrons, eight active magnetic spinors and all 120 determinant rows. Full CCSDT, no Fov deletion or fitted shift.",
+  "gates": {
+    "strict_backend_Ha": 1e-10,
+    "complete_bloch_Ha": 1e-11,
+    "core_and_norm": 1e-12
+  },
+  "stop": "One candidate solve <=120 seconds, one BLAS thread, 4 GiB address cap. Any gate failure stays visible; no production backend replacement.",
+  "source_and_inputs": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.c": "29f9c909bd9702be8643f3136fa8e1d5f53c827268b7f99f416e539c56e1a231",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.h": "50378d2fe774d9b37c37281441e83000c40c4774a818df71f8cd83e66c111b3b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.c": "74c45e1382c2bbb30146632ab09240f4928e09cae9cd139f2a1b2a9fc9cff1dd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.h": "eabd67839634ad299b0da6bd006e5f552a34b425578f15e27ee771f71bbb0b8b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/comdef.h": "616ba79360f52c3a74a332e4df0bf9a1895bc88f0b1af387e4ce627f36a6c2e8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/options.h": "3c86fec4d2db6cdd2bea76ee53d06c9dce5ae95ada562a88a593b2aa573f074a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/io/io.c": "73d28e2357c8ac33bcd3ed6d0cdbefe99e114e738551d6ebadd334df1de4c3e4",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01.c": "42ee99ee532a00d8a29dbef5532b75d4717f46da71375ffbeb705334b980fc04",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01_ccsdt.c": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001-build/expt.x": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "531364f015a58d349cb27b4dc81a68dc4d1aaee0a3f96e53553dea8aa2882461",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_bloch_oracle.py": "28fd62d8681dc9142b71e4605bc65b06fa1997f90d4219a3db5b8c8c6f393383",
+    "/data/code/atomx/src/atomx/methods/fscc.py": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e",
+    "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "/data/code/atomx/tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/ATOMX_ONE": "c15833c64a9d7fc52bc6b65461d27e21bef5c196671eb23e2120fe112611928e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/ATOMX_TWO": "cc83b49ec1458b8de82d8d0d4765f26a0c14ab4bd03a3f49864a06851bd6821f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/integrals.json": "dad68816676ac725a98e6c6ce111a16cd1d33eb76dee6b590897c823061efb91",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/rotation.npz": "17289dfd2c15fd12e80b5c60865ea925260e4c2120e55a7cd28737603b63ee49",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/rotation_identity.json": "4ae465b01a83d5887bd891e65e6fc428bd785f39062ac8900840c20ee22e4c71",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/validate_candidate.py": "66da27e9393aaa6e91fe4976d70d581d60e4f53744b3e85baf4458832afa35cd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/expt.x": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/atomx_backend.json": "fd610d05ff7e8ef385e157213e85ba6daed3a757c99d3516fc90cc09d3092451"
+  },
+  "load": [
+    9.37451171875,
+    9.2587890625,
+    9.34619140625
+  ],
+  "available_bytes": 87747186688
+}

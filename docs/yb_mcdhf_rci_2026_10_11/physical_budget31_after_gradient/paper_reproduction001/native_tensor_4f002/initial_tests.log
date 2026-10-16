@@ -1,0 +1,39 @@
+.........F..                                                             [100%]
+=================================== FAILURES ===================================
+______ test_canonical_projection_composes_overlapping_signed_permutations ______
+
+    def test_canonical_projection_composes_overlapping_signed_permutations():
+        from atomx.numerics.tensor_recipes import contract
+        rng = np.random.default_rng(7301)
+        arrays = {'t3': (rng.normal(size=(3, 3, 3, 2, 2, 2))
+                         +1j*rng.normal(size=(3, 3, 3, 2, 2, 2)))*1e-200}
+        before = arrays['t3'].copy()
+        terms = (('-0.250', 'P(a,b)', 'P(b,c)', 't3(a,b,c,i,j,k)'),)
+        indices = tuple(rng.integers(dim, size=17) for dim in arrays['t3'].shape)
+        dense = contract(terms, 'abcijk', arrays, 2, intermediate_bytes=1024**2)
+        selected = contract(terms, 'abcijk', arrays, 2, intermediate_bytes=1024**2,
+                             output_indices=indices)
+>       np.testing.assert_allclose(selected, dense[indices], atol=0, rtol=3e-15)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-15, atol=0
+E       
+E       Mismatched elements: 1 / 17 (5.88%)
+E       Max absolute difference among violations: 9.065111e-218
+E       Max relative difference among violations: inf
+E        ACTUAL: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,
+E               4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,
+E              -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...
+E        DESIRED: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,
+E               4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,
+E              -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...
+
+tests/test_tensor_coupled_cluster.py:197: AssertionError
+=============================== warnings summary ===============================
+tests/test_tensor_coupled_cluster.py::test_preconditioned_core_and_explicit_warm_start_preserve_equations
+  /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/optimize/_nonlin.py:374: RuntimeWarning: invalid value encountered in scalar divide
+    and dx_norm/self.x_rtol <= x_norm))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_tensor_coupled_cluster.py::test_canonical_projection_composes_overlapping_signed_permutations
+1 failed, 11 passed, 1 warning in 13.79s

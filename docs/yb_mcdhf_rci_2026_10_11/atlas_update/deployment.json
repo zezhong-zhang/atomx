@@ -1,0 +1,39 @@
+{
+  "commit_sha": "b228bef8dd2dcfd7a170771e991056f7b0e8639d",
+  "deployment": {
+    "id": "appgdep_6acb4943e3248191a16f02c7b53418da",
+    "project_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f",
+    "title": "Atomx 原子谱学验证图谱",
+    "version_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f~appgver_af12ed7a058881918dd0fa9d6bcf401d",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6aca6d7b3a588191bcfa3af5b091801f",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-11T08:31:10.972906+00:00"
+  },
+  "owner_private_preserved": true,
+  "credentials_persisted": false,
+  "archive": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/site.tar",
+    "bytes": 43714560,
+    "sha256": "7340a660bc8146dde6ec0e458544b8dad98d8428569250c1ebf2d977a9f81365"
+  },
+  "preparation_manifest": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/handoff_manifest.json",
+    "sha256": "3cda94e20fd6581216a950f7df2271d0b1c45d3240dfeff5c6bd282864802c8a"
+  },
+  "previous_site_commit": "d987d8e02b7395bb8c16afae7c10b7c5eb726dd6",
+  "scope": "Separate website repository publication. No Atomx science source commit. Current five-reference MCDHF and balanced fixed-orbital RCI models; mixed-CI nonstationarity shown separately.",
+  "validation": {
+    "data": 6685,
+    "browser": 29,
+    "documentation": 31,
+    "original_gzip_files_byte_preserved": 6019
+  },
+  "remote_http_asset_hash_verified": false,
+  "remote_verification_boundary": "Sites private save-and-deploy returned succeeded for the exact pushed commit. Browser and asset checks were on the same local packaged content; no bypass token requested or rotated."
+}

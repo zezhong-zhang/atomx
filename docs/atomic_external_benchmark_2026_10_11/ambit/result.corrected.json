@@ -1,0 +1,1283 @@
+{
+  "created_at": "2026-10-11T04:08:56.160426+00:00",
+  "status": "complete bounded matched comparison and native scaling",
+  "matched": {
+    "orbitals": 19,
+    "integrals": 37350,
+    "signed_matrix_entries": 27,
+    "components": 3,
+    "max_error_Ha": 1.4293680984916318e-21,
+    "precision_absolute_gate_Ha": 1e-11,
+    "precision_relative_gate": 1e-10,
+    "all_precision_gates_pass": true,
+    "no_ambit_skipped_diagram_warning": true,
+    "same_Hamiltonian": true,
+    "independent_native_diagram_implementation": true,
+    "shared_atomx_radial_inputs": true,
+    "experimental_accuracy_claim": false,
+    "all_environment_gates_pass": true,
+    "statistics": {
+      "pairs": 5,
+      "controlled": true,
+      "left_median_seconds": 0.041159569984301925,
+      "right_median_seconds": 0.0186301,
+      "observational_ratios": [
+        2.2672523530729345,
+        2.251447193004979,
+        2.1611833863881516,
+        2.2587139119168884,
+        2.321109852531512
+      ],
+      "speedup": 2.2587139119168884
+    },
+    "pairs": [
+      {
+        "round": 0,
+        "order": [
+          "atomx",
+          "ambit"
+        ],
+        "atomx_seconds": 0.041159569984301925,
+        "ambit_seconds": 0.018153943,
+        "workflow_ratio": 2.2672523530729345,
+        "scientific_gate": true,
+        "controlled_timing": true,
+        "guards": {
+          "atomx": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          },
+          "ambit": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          }
+        },
+        "peak_rss_bytes": {
+          "atomx": 222248960,
+          "ambit": 9867264
+        },
+        "complete_array_file": "matched_v002_round00/complete_comparison.npz",
+        "complete_array_sha256": "0bb03c2112661eb139e2966b1708ba299e9133e30845bd62fe8d4c6086ab4093"
+      },
+      {
+        "round": 1,
+        "order": [
+          "ambit",
+          "atomx"
+        ],
+        "atomx_seconds": 0.04056958795990795,
+        "ambit_seconds": 0.018019338,
+        "workflow_ratio": 2.251447193004979,
+        "scientific_gate": true,
+        "controlled_timing": true,
+        "guards": {
+          "ambit": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          },
+          "atomx": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          }
+        },
+        "peak_rss_bytes": {
+          "ambit": 9703424,
+          "atomx": 221364224
+        },
+        "complete_array_file": "matched_v002_round01/complete_comparison.npz",
+        "complete_array_sha256": "0bb03c2112661eb139e2966b1708ba299e9133e30845bd62fe8d4c6086ab4093"
+      },
+      {
+        "round": 2,
+        "order": [
+          "atomx",
+          "ambit"
+        ],
+        "atomx_seconds": 0.040820140042342246,
+        "ambit_seconds": 0.018887865,
+        "workflow_ratio": 2.1611833863881516,
+        "scientific_gate": true,
+        "controlled_timing": true,
+        "guards": {
+          "atomx": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          },
+          "ambit": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          }
+        },
+        "peak_rss_bytes": {
+          "atomx": 221708288,
+          "ambit": 10207232
+        },
+        "complete_array_file": "matched_v002_round02/complete_comparison.npz",
+        "complete_array_sha256": "0bb03c2112661eb139e2966b1708ba299e9133e30845bd62fe8d4c6086ab4093"
+      },
+      {
+        "round": 3,
+        "order": [
+          "ambit",
+          "atomx"
+        ],
+        "atomx_seconds": 0.04208006605040282,
+        "ambit_seconds": 0.0186301,
+        "workflow_ratio": 2.2587139119168884,
+        "scientific_gate": true,
+        "controlled_timing": true,
+        "guards": {
+          "ambit": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          },
+          "atomx": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          }
+        },
+        "peak_rss_bytes": {
+          "ambit": 10125312,
+          "atomx": 222105600
+        },
+        "complete_array_file": "matched_v002_round03/complete_comparison.npz",
+        "complete_array_sha256": "0bb03c2112661eb139e2966b1708ba299e9133e30845bd62fe8d4c6086ab4093"
+      },
+      {
+        "round": 4,
+        "order": [
+          "atomx",
+          "ambit"
+        ],
+        "atomx_seconds": 0.043343736906535923,
+        "ambit_seconds": 0.018673712,
+        "workflow_ratio": 2.321109852531512,
+        "scientific_gate": true,
+        "controlled_timing": true,
+        "guards": {
+          "atomx": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          },
+          "ambit": {
+            "cpu_load": true,
+            "memory": true,
+            "disk": true,
+            "load_change": true
+          }
+        },
+        "peak_rss_bytes": {
+          "atomx": 222248960,
+          "ambit": 10104832
+        },
+        "complete_array_file": "matched_v002_round04/complete_comparison.npz",
+        "complete_array_sha256": "0bb03c2112661eb139e2966b1708ba299e9133e30845bd62fe8d4c6086ab4093"
+      }
+    ],
+    "timing_scope": "Warm complete same fixed-energy matrix output: Atomx additionally constructs reusable pole/residue snapshots and captures the radial physical binding; AMBiT directly sums each fixed-energy pp/hh/total request. CLI parse/setup/output excluded; no end-to-end ranking."
+  },
+  "ambit_native_scaling": {
+    "corrected_child_wall": true,
+    "threads": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "per_parallel_thread_pairs": 5,
+    "fixed_radial_points": 4000,
+    "all_full_signed_files_bitwise_equal": true,
+    "independent_atomx_matched": false,
+    "full_output_golden_sha256": {
+      "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+      "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+      "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+      "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+    },
+    "input_sha256": "1bcb7c8c3a93daa863a28c29a4867ce18dd0ec0d5e834e262411633050342331",
+    "results": {
+      "2": {
+        "statistics": {
+          "pairs": 5,
+          "controlled": true,
+          "left_median_seconds": 1.018314141,
+          "right_median_seconds": 0.824434738,
+          "observational_ratios": [
+            1.242524804674958,
+            1.2332046008473747,
+            1.242375043269693,
+            1.239094524547898,
+            1.2285546846333544
+          ],
+          "speedup": 1.239094524547898,
+          "parallel_efficiency": 0.619547262273949
+        },
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              1,
+              2
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.018314141,
+                "user_seconds": 0.965243,
+                "system_seconds": 0.051225,
+                "average_cpu_cores": 0.9981870614129082,
+                "peak_rss_bytes": 28704768,
+                "pid": 4109949,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round00_threads1"
+              },
+              "2": {
+                "child_wall_seconds": 0.819552364,
+                "user_seconds": 1.222287,
+                "system_seconds": 0.046934,
+                "average_cpu_cores": 1.548675906204817,
+                "peak_rss_bytes": 30257152,
+                "pid": 4109970,
+                "actual_threads": 2,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round00_threads2"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.242524804674958,
+            "parallel_efficiency": 0.621262402337479,
+            "observational_speedup": 1.242524804674958,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "2": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 1,
+            "order": [
+              2,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.016696712,
+                "user_seconds": 0.9611599999999999,
+                "system_seconds": 0.052953,
+                "average_cpu_cores": 0.9974587190363609,
+                "peak_rss_bytes": 28536832,
+                "pid": 4110000,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round01_threads1"
+              },
+              "2": {
+                "child_wall_seconds": 0.824434738,
+                "user_seconds": 1.223825,
+                "system_seconds": 0.050197,
+                "average_cpu_cores": 1.5453278971367168,
+                "peak_rss_bytes": 30044160,
+                "pid": 4109995,
+                "actual_threads": 2,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round01_threads2"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.2332046008473747,
+            "parallel_efficiency": 0.6166023004236874,
+            "observational_speedup": 1.2332046008473747,
+            "full_output_sha256": {
+              "2": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 2,
+            "order": [
+              1,
+              2
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.025957259,
+                "user_seconds": 0.967831,
+                "system_seconds": 0.056105999999999996,
+                "average_cpu_cores": 0.9980308546167226,
+                "peak_rss_bytes": 28123136,
+                "pid": 4110491,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round02_threads1"
+              },
+              "2": {
+                "child_wall_seconds": 0.825803178,
+                "user_seconds": 1.212315,
+                "system_seconds": 0.058918,
+                "average_cpu_cores": 1.5393898132951966,
+                "peak_rss_bytes": 28315648,
+                "pid": 4110598,
+                "actual_threads": 2,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round02_threads2"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.242375043269693,
+            "parallel_efficiency": 0.6211875216348465,
+            "observational_speedup": 1.242375043269693,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "2": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 3,
+            "order": [
+              2,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.021357789,
+                "user_seconds": 0.9610869999999999,
+                "system_seconds": 0.055005,
+                "average_cpu_cores": 0.9948443248225916,
+                "peak_rss_bytes": 28942336,
+                "pid": 4113091,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round03_threads1"
+              },
+              "2": {
+                "child_wall_seconds": 0.824277542,
+                "user_seconds": 1.229391,
+                "system_seconds": 0.047937,
+                "average_cpu_cores": 1.5496333879250586,
+                "peak_rss_bytes": 30863360,
+                "pid": 4113063,
+                "actual_threads": 2,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round03_threads2"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.239094524547898,
+            "parallel_efficiency": 0.619547262273949,
+            "observational_speedup": 1.239094524547898,
+            "full_output_sha256": {
+              "2": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 4,
+            "order": [
+              1,
+              2
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.016779298,
+                "user_seconds": 0.966961,
+                "system_seconds": 0.047998,
+                "average_cpu_cores": 0.9982097412844846,
+                "peak_rss_bytes": 28581888,
+                "pid": 218430,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round04_threads1"
+              },
+              "2": {
+                "child_wall_seconds": 0.827622336,
+                "user_seconds": 1.221328,
+                "system_seconds": 0.061065999999999995,
+                "average_cpu_cores": 1.549491772053866,
+                "peak_rss_bytes": 30765056,
+                "pid": 218452,
+                "actual_threads": 2,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair2_round04_threads2"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.2285546846333544,
+            "parallel_efficiency": 0.6142773423166772,
+            "observational_speedup": 1.2285546846333544,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "2": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          }
+        ],
+        "median_peak_rss_bytes": {
+          "1": 28581888,
+          "2": 30257152
+        },
+        "median_user_seconds": {
+          "1": 0.965243,
+          "2": 1.222287
+        },
+        "median_system_seconds": {
+          "1": 0.052953,
+          "2": 0.050197
+        }
+      },
+      "4": {
+        "statistics": {
+          "pairs": 5,
+          "controlled": true,
+          "left_median_seconds": 1.028347344,
+          "right_median_seconds": 0.751392575,
+          "observational_ratios": [
+            1.4130995301000102,
+            1.3580973487793646,
+            1.3881710485400545,
+            1.2337027236018165,
+            1.3788475260741953
+          ],
+          "speedup": 1.3788475260741953,
+          "parallel_efficiency": 0.3447118815185488
+        },
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              1,
+              4
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.028347344,
+                "user_seconds": 0.976236,
+                "system_seconds": 0.050062999999999996,
+                "average_cpu_cores": 0.9980081204935753,
+                "peak_rss_bytes": 28151808,
+                "pid": 219281,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round00_threads1"
+              },
+              "4": {
+                "child_wall_seconds": 0.727724638,
+                "user_seconds": 1.74403,
+                "system_seconds": 0.06193,
+                "average_cpu_cores": 2.4816529573099326,
+                "peak_rss_bytes": 31666176,
+                "pid": 219290,
+                "actual_threads": 4,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round00_threads4"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.4130995301000102,
+            "parallel_efficiency": 0.35327488252500255,
+            "observational_speedup": 1.4130995301000102,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "4": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 1,
+            "order": [
+              4,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.020464264,
+                "user_seconds": 0.9645389999999999,
+                "system_seconds": 0.054085999999999995,
+                "average_cpu_cores": 0.9981976203725249,
+                "peak_rss_bytes": 28315648,
+                "pid": 219786,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round01_threads1"
+              },
+              "4": {
+                "child_wall_seconds": 0.751392575,
+                "user_seconds": 1.808514,
+                "system_seconds": 0.054953999999999996,
+                "average_cpu_cores": 2.480019183048222,
+                "peak_rss_bytes": 30814208,
+                "pid": 219780,
+                "actual_threads": 4,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round01_threads4"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.3580973487793646,
+            "parallel_efficiency": 0.33952433719484115,
+            "observational_speedup": 1.3580973487793646,
+            "full_output_sha256": {
+              "4": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 2,
+            "order": [
+              1,
+              4
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.040887665,
+                "user_seconds": 0.991041,
+                "system_seconds": 0.048001999999999996,
+                "average_cpu_cores": 0.9982277962723286,
+                "peak_rss_bytes": 28569600,
+                "pid": 219824,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round02_threads1"
+              },
+              "4": {
+                "child_wall_seconds": 0.749826663,
+                "user_seconds": 1.7983289999999998,
+                "system_seconds": 0.063011,
+                "average_cpu_cores": 2.48236037986822,
+                "peak_rss_bytes": 31461376,
+                "pid": 219848,
+                "actual_threads": 4,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round02_threads4"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.3881710485400545,
+            "parallel_efficiency": 0.3470427621350136,
+            "observational_speedup": 1.3881710485400545,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "4": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 3,
+            "order": [
+              4,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.020765161,
+                "user_seconds": 0.962923,
+                "system_seconds": 0.055994999999999996,
+                "average_cpu_cores": 0.9981904153172799,
+                "peak_rss_bytes": 28684288,
+                "pid": 219981,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round03_threads1"
+              },
+              "4": {
+                "child_wall_seconds": 0.827399617,
+                "user_seconds": 1.9318089999999999,
+                "system_seconds": 0.059054999999999996,
+                "average_cpu_cores": 2.4061698351015797,
+                "peak_rss_bytes": 31715328,
+                "pid": 219879,
+                "actual_threads": 4,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round03_threads4"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.2337027236018165,
+            "parallel_efficiency": 0.30842568090045414,
+            "observational_speedup": 1.2337027236018165,
+            "full_output_sha256": {
+              "4": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 4,
+            "order": [
+              1,
+              4
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.047014905,
+                "user_seconds": 0.982181,
+                "system_seconds": 0.062947,
+                "average_cpu_cores": 0.9981978241274417,
+                "peak_rss_bytes": 28590080,
+                "pid": 219985,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round04_threads1"
+              },
+              "4": {
+                "child_wall_seconds": 0.759340598,
+                "user_seconds": 1.813549,
+                "system_seconds": 0.052957,
+                "average_cpu_cores": 2.458061645743851,
+                "peak_rss_bytes": 32079872,
+                "pid": 220010,
+                "actual_threads": 4,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair4_round04_threads4"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.3788475260741953,
+            "parallel_efficiency": 0.3447118815185488,
+            "observational_speedup": 1.3788475260741953,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "4": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          }
+        ],
+        "median_peak_rss_bytes": {
+          "1": 28569600,
+          "4": 31666176
+        },
+        "median_user_seconds": {
+          "1": 0.976236,
+          "4": 1.808514
+        },
+        "median_system_seconds": {
+          "1": 0.054085999999999995,
+          "4": 0.059054999999999996
+        }
+      },
+      "8": {
+        "statistics": {
+          "pairs": 5,
+          "controlled": true,
+          "left_median_seconds": 1.05617359,
+          "right_median_seconds": 0.762072999,
+          "observational_ratios": [
+            1.4006907050811153,
+            1.257818034148458,
+            1.3897680883455628,
+            1.354750513720361,
+            1.390617873372643
+          ],
+          "speedup": 1.3897680883455628,
+          "parallel_efficiency": 0.17372101104319534
+        },
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              1,
+              8
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.056282556,
+                "user_seconds": 1.000491,
+                "system_seconds": 0.053972,
+                "average_cpu_cores": 0.998277396526465,
+                "peak_rss_bytes": 28364800,
+                "pid": 220037,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round00_threads1"
+              },
+              "8": {
+                "child_wall_seconds": 0.754115489,
+                "user_seconds": 3.150812,
+                "system_seconds": 0.051126,
+                "average_cpu_cores": 4.2459517762272085,
+                "peak_rss_bytes": 32854016,
+                "pid": 220061,
+                "actual_threads": 8,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round00_threads8"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.4006907050811153,
+            "parallel_efficiency": 0.1750863381351394,
+            "observational_speedup": 1.4006907050811153,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "8": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 1,
+            "order": [
+              8,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.05617359,
+                "user_seconds": 1.001169,
+                "system_seconds": 0.053114999999999996,
+                "average_cpu_cores": 0.998210909628975,
+                "peak_rss_bytes": 28364800,
+                "pid": 220178,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round01_threads1"
+              },
+              "8": {
+                "child_wall_seconds": 0.83968711,
+                "user_seconds": 3.867422,
+                "system_seconds": 0.052978,
+                "average_cpu_cores": 4.668881960091063,
+                "peak_rss_bytes": 29061120,
+                "pid": 220072,
+                "actual_threads": 8,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round01_threads8"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.257818034148458,
+            "parallel_efficiency": 0.15722725426855724,
+            "observational_speedup": 1.257818034148458,
+            "full_output_sha256": {
+              "8": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 2,
+            "order": [
+              1,
+              8
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.059104735,
+                "user_seconds": 0.992201,
+                "system_seconds": 0.065013,
+                "average_cpu_cores": 0.9982147799575272,
+                "peak_rss_bytes": 28258304,
+                "pid": 220203,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round02_threads1"
+              },
+              "8": {
+                "child_wall_seconds": 0.762072999,
+                "user_seconds": 3.285979,
+                "system_seconds": 0.053030999999999995,
+                "average_cpu_cores": 4.381483144503851,
+                "peak_rss_bytes": 32923648,
+                "pid": 220208,
+                "actual_threads": 8,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round02_threads8"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.3897680883455628,
+            "parallel_efficiency": 0.17372101104319534,
+            "observational_speedup": 1.3897680883455628,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "8": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 3,
+            "order": [
+              8,
+              1
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.043912306,
+                "user_seconds": 0.9955149999999999,
+                "system_seconds": 0.045023,
+                "average_cpu_cores": 0.9967676346177684,
+                "peak_rss_bytes": 28397568,
+                "pid": 220265,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round03_threads1"
+              },
+              "8": {
+                "child_wall_seconds": 0.770556863,
+                "user_seconds": 3.28243,
+                "system_seconds": 0.053217,
+                "average_cpu_cores": 4.328878451634789,
+                "peak_rss_bytes": 31834112,
+                "pid": 220236,
+                "actual_threads": 8,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round03_threads8"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.354750513720361,
+            "parallel_efficiency": 0.16934381421504513,
+            "observational_speedup": 1.354750513720361,
+            "full_output_sha256": {
+              "8": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          },
+          {
+            "round": 4,
+            "order": [
+              1,
+              8
+            ],
+            "samples": {
+              "1": {
+                "child_wall_seconds": 1.043539303,
+                "user_seconds": 0.994691,
+                "system_seconds": 0.046083,
+                "average_cpu_cores": 0.9973500729756416,
+                "peak_rss_bytes": 28577792,
+                "pid": 220268,
+                "actual_threads": 1,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round04_threads1"
+              },
+              "8": {
+                "child_wall_seconds": 0.750414131,
+                "user_seconds": 3.1067299999999998,
+                "system_seconds": 0.044038,
+                "average_cpu_cores": 4.198705581145299,
+                "peak_rss_bytes": 31010816,
+                "pid": 220400,
+                "actual_threads": 8,
+                "actual_thread_scope": "program omp_get_max_threads() with OMP_DYNAMIC=FALSE; OS active-thread samples unavailable",
+                "guard": {
+                  "cpu_load": true,
+                  "memory": true,
+                  "disk": true,
+                  "load_change": true
+                },
+                "directory": "be_v003_pair8_round04_threads8"
+              }
+            },
+            "scientific_gate": true,
+            "controlled_timing": true,
+            "speedup": 1.390617873372643,
+            "parallel_efficiency": 0.17382723417158039,
+            "observational_speedup": 1.390617873372643,
+            "full_output_sha256": {
+              "1": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              },
+              "8": {
+                "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+                "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+                "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+                "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+              }
+            }
+          }
+        ],
+        "median_peak_rss_bytes": {
+          "1": 28364800,
+          "8": 31834112
+        },
+        "median_user_seconds": {
+          "1": 0.9955149999999999,
+          "8": 3.28243
+        },
+        "median_system_seconds": {
+          "1": 0.053114999999999996,
+          "8": 0.052978
+        }
+      }
+    },
+    "timing_scope": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking."
+  },
+  "identity": {
+    "source_files_checked": 621,
+    "source_mismatches": {},
+    "angular_files_checked": 8,
+    "angular_mismatches": {},
+    "actual_runtime_files_checked": 137,
+    "runtime_mismatches": {},
+    "strict_all_pass": true
+  },
+  "tests": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "xml": "final_test_checks.xml"
+  },
+  "evidence": {
+    "original_timeout_wait_observations": "result.json",
+    "measurement_amendment": "timer_amendment.json",
+    "corrected_native_raw_records": "accurate_scaling_result.json",
+    "actual_source_object_identity": "execution_identity.json",
+    "mapped_runtime_identity": "execution_identity.json",
+    "pre_sources": "pre_source_guard.json",
+    "post_sources": "post_identity_guard.json",
+    "original_source_object_archive": "actual_sources_objects.tar.gz",
+    "original_archive_sha256": "b3226b0ff72d77487d39cf3eeefa61c9cebe5823afcd78e5b0aa8915601f20ef",
+    "refinement_source_archive": "timing_refinement_sources.tar.gz",
+    "refinement_archive_sha256": "158804044520d9b261fd1b0f4e0b0251597659d41baba6bc05a14f2276706d7a",
+    "complete_artifact_manifest": "artifact_manifest.json"
+  },
+  "full_runtime_copied": false,
+  "highest_level_reached": false,
+  "limitations": [
+    "Finite19orbitalSigma panel does not independently validate radial physics/continuum convergence/experimental spectra.",
+    "Fixed-energy workflows differ in reusable energy-dependence and binding work; warm scope ratio is not a whole-software ranking.",
+    "Six-level BeII is small and uses separate native AMBiT physics; no matched Atomx BeII precision ranking exists.",
+    "OpenMP thread maxima are confirmed by actual program log; active OS worker occupancy was not sampled.",
+    "Shared-machine load gates pass but no exclusive-core/frequency isolation is claimed.",
+    "Native caches/angular data are warm; each scientific workspace is fresh; original and corrected entire observations retained."
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "version": "same-native-005-orbitals-68CSF-CV-discriminator-001",
+  "hypothesis": "The converged native five-state bare MCDHF baseline omits same-symmetry core-hole mixing. Adding the complete stated 4f13 6s5d and 4f13 6s6p CSF families in exactly the same saved orbital space can measure correlation-induced relative-energy shifts and character transfer without a radial-cutoff scan.",
+  "fixed_conditions": {
+    "input_run": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment",
+    "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source",
+    "source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f",
+    "source_python_files": 353,
+    "Z": 70,
+    "electrons": 69,
+    "charge": 1,
+    "nucleus": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    },
+    "same_24_saved_radial_spinors": true,
+    "ns": 123,
+    "ks": 9,
+    "families": [
+      {
+        "name": "bare_4f14",
+        "configs": [
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1",
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1"
+        ],
+        "expected_csfs": 5
+      },
+      {
+        "name": "hole_4f13_6s5d",
+        "configs": [
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1"
+        ],
+        "expected_csfs": 39
+      },
+      {
+        "name": "hole_4f13_6s6p",
+        "configs": [
+          "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1"
+        ],
+        "expected_csfs": 24
+      }
+    ],
+    "expected_CSFs": 68,
+    "Hamiltonians": [
+      "Dirac-Coulomb",
+      "Dirac-Coulomb + complete static Gaunt and retardation Breit"
+    ],
+    "all_J_parity_blocks_and_roots": true,
+    "solver": "public Atomx ci_solve dense; public build_ci_matrix retained",
+    "no_radial_reoptimization": true,
+    "QED_recoil_dynamic_Breit": "not included in this isolated CV comparison",
+    "reference_run_stationarity": {
+      "passed": true,
+      "residual": 5.143009363125294e-08,
+      "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe"
+    },
+    "NIST": "same original nominal 005 rows; uncertainties/isotope unresolved"
+  },
+  "state_binding": {
+    "DC": "Embed each signed bare five-state CI vector into the full 68-CSF basis; track within its exact (2J,parity) block by largest squared overlap. Retain the complete overlap distribution and all block roots.",
+    "static_Breit": "Complete one-to-one maximum-overlap assignment from DC to static CI vectors within exact symmetry blocks; retain bare-reference strongest-overlap alternative and any disagreement. Do not replace target identity with local-root zero.",
+    "unambiguous_individual_branch_minimum_squared_overlap": 0.5,
+    "squared_overlap_tie_window": 1e-10,
+    "near_degenerate_energy_window_Ha": 1e-08,
+    "ambiguity_action": "Retain candidates and complete-subspace data, flag ambiguous branch; do not certify a unique physical state or an experimental pass.",
+    "ground": "Find global minimum over all 68 roots and report its symmetry, complete family weights, and bare-state weights. Excitations from tracked 6s and from actual finite-model ground remain separate.",
+    "moments": "For each bare vector, report the full spectral measure, centroid and variance. Weighted-multiplet D/P centroids use degeneracy 2J+1; fine splittings retain upper/lower identity."
+  },
+  "acceptance": {
+    "bare_DC_principal_submatrix_replay_Ha": 1e-08,
+    "bare_static_replay_Ha": 1e-08,
+    "CI_residual_Ha": 1e-08,
+    "CI_orthogonality": 1e-08,
+    "matrix_hermiticity_Ha": 1e-10,
+    "different_symmetry_zero_Ha": 1e-10,
+    "finite_matrices_roots_and_amplitudes": true,
+    "every_CSF_electrons": 69,
+    "original_orbital_residual_gate": 1e-07,
+    "original_estimated_energy_error_Ha_gate": 1e-08,
+    "original_NIST_relative_excitation_gate": 0.01,
+    "no_68CSF_MCDHF_stationarity_claim": true,
+    "no_complete_correlation_or_highest_accuracy_claim": true
+  },
+  "resource": {
+    "threads": 1,
+    "wall_seconds": 900,
+    "address_space_cap_GiB": 4,
+    "resident_estimate_GiB_before_exact_integer_preflight": 2.5,
+    "max_raw_determinants_per_J_parity": 2000,
+    "no_physical_shrink_on_resource_fail": true,
+    "controlled_performance_claim": false,
+    "preflight": "integer pattern_m_counts per unique occupation pattern and J block before determinant/angular table construction"
+  },
+  "inputs": {
+    "contract.json": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461",
+    "source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "preflight.json": "b41e498133c5084bb3eb7208ae2702fb14da4accfa9c019e619748083dab3730",
+    "mcdhf_diagnostics.json": "9f7e45e34ea7d6b879365c18535a202333c4b300648fa4d6c6ef445e73626bf4",
+    "ci_arrays.npz": "8832bdddd490acf14b40b39386e5bf200d7126a49a355ac3a4e64ab7cc796a6e",
+    "orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+  },
+  "stopping": "Stop preserving all failures if input/source identity, exact family counts, raw determinant cap, memory/time cap, or numeric gates fail. Ambiguous branch assignment remains diagnostic; no fitting, threshold change, or radial-cutoff change."
+}

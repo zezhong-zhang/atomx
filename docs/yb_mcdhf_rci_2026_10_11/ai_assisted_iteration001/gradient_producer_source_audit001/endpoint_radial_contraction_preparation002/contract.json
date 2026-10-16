@@ -1,0 +1,498 @@
+{
+  "status": "SOURCE_only_NO_numerical_execution_authorization",
+  "hypothesis": "Separate complete signed ordinary endpoint radial-key minusstoredH contraction from polynomial+reconstruction minusordinaryendpoint at samebaseline/h0plus fivefull signedtrialCIcolumns. Compare h/r, actualnorm, association, dense/sparseprojection andforward/transpose table reduction without newCI/optimizer.",
+  "input_roles": {
+    "parent_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/result.json",
+      "sha256": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+      "kind": "metadata"
+    },
+    "parent_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/failure.json",
+      "sha256": "7d56149359905d5747308879cbea66e2be55572f6b986f20936ad91226026e6c",
+      "kind": "metadata"
+    },
+    "parent_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/root_execution.json",
+      "sha256": "06f62b9d1aa63fb44514403ba560476dbb58315c11b221b2f484db026290b2bd",
+      "kind": "metadata"
+    },
+    "parent_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json",
+      "sha256": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+      "kind": "metadata"
+    },
+    "parent_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py",
+      "sha256": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+      "kind": "metadata"
+    },
+    "parent_execution_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/execution_source.py",
+      "sha256": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+      "kind": "metadata"
+    },
+    "parent_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/preparation.json",
+      "sha256": "959879ab79113dddffe475bff3766e4852e65e2836a8e3eceacc6160db47a43b",
+      "kind": "metadata"
+    },
+    "parent_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/handoff.json",
+      "sha256": "a6b3c3a4a1aef1f5a21f0089de9ccdf9d2e95a46c7127688c45ee81bb389b648",
+      "kind": "metadata"
+    },
+    "parent_execution_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/execution_binding.json",
+      "sha256": "05a92b6a0cf5c15beb5d8d06ee78b51c29358de3216db2a39ec54e4837560eb3",
+      "kind": "metadata"
+    },
+    "states": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/five_point_reported_states.json",
+      "sha256": "d39a75535a8d89a9de7062fe497d1bd185647faff8e30cc05aa91e42813c3589",
+      "kind": "metadata"
+    },
+    "mixed": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_mixed_finite_change.json",
+      "sha256": "9cf55e555e48aa2264cea031802a294c003113f30688ccb53c31e178ae34fa6a",
+      "kind": "metadata"
+    },
+    "baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_owner.json",
+      "sha256": "c7f8ec39209c65a9317232a5d82ea03c1c5503dd8b5f7651149245ea1fbd9653",
+      "kind": "metadata"
+    },
+    "trial_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_owner.json",
+      "sha256": "dc2a6f0e72d4561812af0e362bd6ce217e4bf43bdbb2610e6a27e441394925ec",
+      "kind": "metadata"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false,
+      "kind": "metadata"
+    },
+    "baseline_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_whole_CI.npz",
+      "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+      "kind": "npz",
+      "parent_manifest_path": "actual/baseline_whole_CI.npz"
+    },
+    "trial_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_whole_CI.npz",
+      "sha256": "def009cd911c453848306f21e9b72577b61616414e6971235cceea65ee99264c",
+      "kind": "npz",
+      "parent_manifest_path": "actual/h0_plus_whole_CI.npz"
+    },
+    "replay_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/actual/result.json",
+      "sha256": "c21e42a6c8acbfb71e685b8ab46395712fb6fd2872e48de17092843818bf57dd",
+      "kind": "metadata"
+    },
+    "replay_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/root_execution.json",
+      "sha256": "d18a1fcd34d6c367799a436bba34a7af453d6878ce3830d60ca0295b9a2fb04c",
+      "kind": "metadata"
+    },
+    "replay_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/contract.json",
+      "sha256": "47441b29c2197a3b48cf6268d50e55769f394ea5a5b5554e929f6786403616a6",
+      "kind": "metadata"
+    },
+    "baseline_signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_signed_tables.json",
+      "sha256": "2698c2dde3c8b0fe9e9b3585726491e8b45f4c7af75faef981daad201514634a",
+      "kind": "metadata"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false,
+      "kind": "metadata"
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false,
+      "kind": "metadata"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true,
+      "kind": "npz"
+    },
+    "increments": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_increments.npz",
+      "sha256": "37d545cd78a9d75b5acd355a6b164d32ee370faa269bfcffc5aa73ecafd1fb02",
+      "kind": "npz",
+      "parent_manifest_path": "actual/h0_plus_increments.npz"
+    },
+    "raw_-4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_-4.npz",
+      "sha256": "162e42ee0141f3507c277f1714b69e173a4ca6ce09e97e2c7299559dca920e0a",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_-4.npz"
+    },
+    "raw_-3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_-3.npz",
+      "sha256": "66c9974c080cf88d1fe1477d59220c35a5e4598837fea276a2738482f7041532",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_-3.npz"
+    },
+    "raw_-2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_-2.npz",
+      "sha256": "a5d2ef5af96cf94621dd56b27c6736e050ae3a8d13cf95625a9080a0e6266e03",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_-2.npz"
+    },
+    "raw_-1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_-1.npz",
+      "sha256": "ba07f98c34afd6f220ac8c66f5fafce369804bb0ecc05007f60ecf08385038f8",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_-1.npz"
+    },
+    "raw_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_1.npz",
+      "sha256": "18f17fb61bdbc461eee0236ee661d646a6e6a09a42110d258c496fbad3bcb3e4",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_1.npz"
+    },
+    "raw_2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_2.npz",
+      "sha256": "b6033d65f5a5bcf7dc5df125f1e286ac20c6346ac626dd95561b3ab623325d4f",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_2.npz"
+    },
+    "raw_3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/raw_hS_3.npz",
+      "sha256": "26c6ff5d634701db6acbb2dbb0bb474d01d28fd027f43ebba8aa59e2e12f424d",
+      "kind": "npz",
+      "parent_manifest_path": "actual/raw_hS_3.npz"
+    },
+    "predecessor_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/actual/failure.json",
+      "sha256": "aa49147f32aa651a663bf3ed5d3b26eed0a70ce7ea4ed85de7bc0524017459a2",
+      "kind": "metadata"
+    },
+    "predecessor_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/root_execution.json",
+      "sha256": "f2c629497fe77a6bb6f2b701d04bc6a07af1a29ddbb423848ac7900995d16a4b",
+      "kind": "metadata"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/contract.json",
+      "sha256": "c7850f11ba343e1efcea4aedb01f64615a99fe9de4bd285427bc981450b8837d",
+      "kind": "metadata"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/run.py",
+      "sha256": "18ab92896c107934da765f08e544c36b61f014fbd62f9bd5f36e34d509d77058",
+      "kind": "metadata"
+    }
+  },
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "fixed": {
+    "target_pair": [
+      "baseline",
+      "h0_plus"
+    ],
+    "CSFs": 1595,
+    "ns": 123,
+    "orbitals": 31,
+    "keys_fields": [
+      "H",
+      "energies",
+      "mixing",
+      "keys",
+      "P",
+      "Q"
+    ],
+    "five_UIDs": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "original_phases": "exact mixed ledger whole-column phase; never rotate/truncate vectors",
+    "operator": "same f043 complete real Dirac-Coulomb retained H only",
+    "norms": "actual longdouble a@a and b@b; no forced unit normalization; exported scalar norms separately compared",
+    "arithmetic": "np.longdouble minimum63mantissafractionbits forcompleteDeltaH andsignedradialendpoint/keydifferences, actualwideCI norms. No commonorigin/absolutequotient replay claimed here. Completeforward signedpairs formedbyliteralnativeFP64 .5*(a[i]*a[j]+a[i]*a[j]), thenwidened forscalar sums; separateabsoluteendpointdifference andsignedforwardpairincrement.",
+    "all_rows": "Every1595 column has original residual/Gram gates, everyfive physical target separately reported; no magnitude threshold or diagonal-only approximation.",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "angular_term_capacity": 19589,
+    "trial_coefficients_at_both_radial_endpoints": true,
+    "fullCI_residual_Gram_reuse": "Closed96/96savedcontraction replay on exactsamewholeCIhashes; no repeat4densefullCIproducts. ActualfullH symmetry/ownerframe/all1595basis/fiveUID/phase/norm checked live.",
+    "native_aggregate_norm": "Exactly nativefloatweight*floatcoefficient/exportedfloatnorm1 and math.fsum in originaltarget order; separately wideperstate route uses actuallongdouble norm.",
+    "raw_operator_replay": "Explicit offlineadapter returns exactStageB savedrawh/S fromactualsamebuilderoutcome; notnativehSassembly orownercreation. Nuclearoperator frozenFermiA175/Z70 encodedbyoriginalownerandrawoperatorarchivebindings. None potentialadapterargumentunused; no nuclearoperator substitution.",
+    "sparse_projection": "Use genuineangular.csf_block_matrix(...,sparse=True) samegroupedsignaturesandcanonicalcolumns, verifyitsdense.toarray representedbytesmatchnativeCIRadialDensity denseprojection. Native sparseaccumulation order retained; neveronlyconverts dense toCSR.",
+    "display_UIDs": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    "target_order_semantics": "Literal immutable parent mixed JSON target accumulation order:1even,5even,3even,3odd,1odd. SamefiveUIDset/equal.2weights; display order separately retained, never used for native fsum replay."
+  },
+  "archive_fields": {
+    "baseline_arrays": [
+      "H",
+      "energies",
+      "mixing",
+      "keys",
+      "P",
+      "Q"
+    ],
+    "trial_arrays": [
+      "H",
+      "energies",
+      "mixing",
+      "keys",
+      "P",
+      "Q"
+    ],
+    "geometry_workspace": [
+      "orbital_keys",
+      "P",
+      "Q",
+      "basis_nv",
+      "basis_ks",
+      "basis_ksp",
+      "basis_ksq",
+      "basis_nsp",
+      "basis_nsq",
+      "basis_gr",
+      "basis_grw",
+      "basis_bsp_p",
+      "basis_bsp_q",
+      "basis_bsp_q_d",
+      "basis_bsp_p_d",
+      "basis_t",
+      "basis_tp",
+      "basis_ns"
+    ],
+    "increments": [
+      "keys",
+      "coordinate_delta",
+      "P",
+      "Q"
+    ],
+    "raw_-4": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_-3": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_-2": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_-1": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_1": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_2": [
+      "kappa",
+      "raw_h",
+      "S"
+    ],
+    "raw_3": [
+      "kappa",
+      "raw_h",
+      "S"
+    ]
+  },
+  "original_gates": {
+    "full_CI_residual_Ha": 1e-08,
+    "full_CI_Gram": 1e-10,
+    "H_symmetry": "bitwise",
+    "cross_sector_and_basis": "parentclosed binding retained; full owners/31orderedkeys/complete basis metadata immutable",
+    "ordinary_FD_failures": [
+      "ordinary_reported_FD_h0",
+      "ordinary_reported_FD_h1"
+    ],
+    "ordinary_FD_limit_Ha": 3.832315071504414e-07
+  },
+  "resources": {
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "CPU": 29,
+    "threads": 1,
+    "AS_GiB": 4,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "metadata_bytes_max": 134217728,
+    "decoded_array_bytes_max": 134217728,
+    "angular_nnz_max": 20000000,
+    "angular_pairs_max": 3000000,
+    "calls_max": {
+      "NPZ_load": 11,
+      "angular_nullspace": 128,
+      "angular_block_terms": 5,
+      "angular_projection": 10,
+      "signed_target_density": 10,
+      "density_kernel": 400000,
+      "banded_contraction": 400000,
+      "pair_potential": 100000,
+      "bank_getter": 400000,
+      "bank_transpose_miss": 128,
+      "polynomial_cache_miss": 19589,
+      "ordinary_radial_evaluation": 39178,
+      "polynomial_key_request": 19589,
+      "right_associated_onebody_endpoint": 1000,
+      "saved_raw_operator_requests": 69,
+      "stored_H_MV": 5,
+      "dense_projected_target": 25,
+      "sparse_projected_target": 25,
+      "angular_forward_table": 10,
+      "H": 0,
+      "native_hS_assembly": 0,
+      "CI_eigh": 0
+    },
+    "calls_exact": {
+      "NPZ_load": 11,
+      "angular_block_terms": 5,
+      "angular_projection": 10,
+      "signed_target_density": 10,
+      "ordinary_radial_evaluation": 39178,
+      "polynomial_key_request": 19589,
+      "saved_raw_operator_requests": 69,
+      "stored_H_MV": 5,
+      "dense_projected_target": 25,
+      "sparse_projected_target": 25,
+      "angular_forward_table": 10
+    },
+    "memory_estimate": "Bound original11NPZ input decode <=128MiB; two full1595 H/C arrays ~81.6MB plus one wideDeltaH40.7MB and projectedwavework; exactangular tables <=20millionnnz (~320MB withoutPythonkeys), <=3millionconnectedpairs; dense angular projections at rawdimension<=2000 and5blocks; fullns123 P/Q Coulombbanks ranksused retainnative caches, conservativeAS4GiB. No modelspace shrink. Capsstopwholeexperiment.",
+    "work_estimate": "One31wave baseline/h0pluspair, full1595storedCI reused;19589complete structuralkeys,39178ordinaryendpointevaluations+19589polynomialkeyrequests; <=100000 actualfullPP/QQ/PQ/QPpairpotentialproducers and<=400000nativebankgetter/banded/densitycalls; five angularstructures,128nullspaceuppercap,10RDM+10forwardtableproducts; no fullH or CIassembly.300s capnotcompletionpromise.",
+    "controlled_timing": false,
+    "geometry_archive_fields_max": 128,
+    "maximum_system_load1": 16,
+    "minimum_host_available_GiB": 8
+  },
+  "thread_environment": [
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMBA_NUM_THREADS",
+    "VECLIB_MAXIMUM_THREADS",
+    "BLIS_NUM_THREADS"
+  ],
+  "counts_semantics": "Dynamicforwarding counters count genuine module-level nativekernel and capturedLRUcomponent misses; endpoint_radial_evaluation counts exact logical requested allstructuralkeys, notLRUmisses. NativeConvolCache.get_rkb_t countrequests+observedTcachemisses. Savedrawadapter counts69calls(31orbitalsx2endpoint+7increment); no hSproducer. H/CIeigh/rawbuilder blockactualcalled functions. No gradient/optimizer function is constructed/called bydriver; no globallywrappedcallproof beyond listedentryguards. Importedmethodmodulepresence is neither a scientificcall nor a failure; allactualAtomxmodule originsmustfrozen.",
+  "comparison_policy": "Allroute signeddiscrepancies andcomplete absolute-term sums reported diagnostics. No zero tolerance/newgate tuned; no certifiedarithmetic bound, productionFD orstationarity qualification. Baseline rebuilt unfilteredtable differencesdiagnostic ratherthanforcedbitwisegate. Everykey/full amplitude participates even tinycoefficients; exactnative0dictsemantics preserved; no source/target integralpermutation.",
+  "preparation_access": "Onlysource+savedJSON metadata. NPZ shavalues copied fromclosedmanifests/contracts; no NPZstat/header/ZIP/body/hash or numericalimport; arrayhash/decode onlyafterrootseal.",
+  "distinguishing_outcomes": [
+    "poly-minusordinary survives: radial density/kernel/normalized increment arithmetic and representedreconstruction candidate",
+    "ordinary-minusstored survives: signedangular projection/table/symmetrization arithmeticcandidate",
+    "both survive: reportboth ratherthanattributefullerror toone",
+    "right/leftonebody anddense/sparse/forward differences remain diagnostic unless exactboundedattributionlaterproved"
+  ],
+  "stop": "Firstsource/input/originalidentity/structure/resource/countgate savesfailureandstops.300s inner315s rootouter, exactlyonce no retries/newh/cutoffscan/gaterelaxation. Completedperkeyledger savedafterallkeys; progress perphase only; finalfailure preservescounts andcompletedtargets.",
+  "outputs": [
+    "actual/result.json",
+    "actual/failure.json iffailure",
+    "actual/complete_ordered_radial_keys.json",
+    "actual/imported_module_origins.json",
+    "actual/progress.json"
+  ],
+  "archive_field_policy": {
+    "geometry_workspace": "Read exactly18requiredfields inherited fromclosedStageB decodeJSON, allowunconsumednonbasis archiveextras<=128fields. Allbasis_ names mustmatchcompleteclosedprefixcensus. No arraymember inspection duringpreparation.",
+    "others": "Declaredcomplete exactfieldsets fromunchangedproducer source."
+  },
+  "successor_scope": "metadata_error_successor_not_automatic_retry; root explicitly authorized separateSOURCEpreparation afterclosed001failedaccumulationorder. Preserve001160checks159PASSandfailedgate; samephysics/resources/keys/gates. Correctliteralnativeorder andprecheckit beforearrays/imports/angularwork; nofailedrun rerun orgate relaxation.",
+  "preflight_native_order": [
+    [
+      1,
+      1,
+      0
+    ],
+    [
+      5,
+      1,
+      0
+    ],
+    [
+      3,
+      1,
+      0
+    ],
+    [
+      3,
+      -1,
+      0
+    ],
+    [
+      1,
+      -1,
+      0
+    ]
+  ]
+}

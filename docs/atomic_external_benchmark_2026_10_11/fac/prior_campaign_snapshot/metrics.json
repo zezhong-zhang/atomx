@@ -1,0 +1,960 @@
+{
+  "cpu": [
+    {
+      "workload": "Atomx Na+ full SD action",
+      "workers": 1,
+      "rounds": 5,
+      "seconds_median": 0.026354539103340357,
+      "seconds_min": 0.02597583819879219,
+      "seconds_max": 0.027028662897646428,
+      "speedup": 1.0,
+      "speedup_min": 1.0,
+      "speedup_max": 1.0,
+      "efficiency": 1.0,
+      "efficiency_min": 1.0,
+      "efficiency_max": 1.0,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.02689978589769453,
+        0.026354539103340357,
+        0.02597583819879219,
+        0.026201628800481557,
+        0.027028662897646428
+      ],
+      "observed_paired_speedups": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "workload": "Atomx Na+ full SD action",
+      "workers": 2,
+      "rounds": 5,
+      "seconds_median": 0.022120470507070424,
+      "seconds_min": 0.02172937720315531,
+      "seconds_max": 0.023159928899258376,
+      "speedup": 1.1954248829101395,
+      "speedup_min": 1.1614796407494978,
+      "speedup_max": 1.2007386080770035,
+      "efficiency": 0.5977124414550697,
+      "efficiency_min": 0.5807398203747489,
+      "efficiency_max": 0.6003693040385017,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.023159928899258376,
+        0.02194860640447587,
+        0.02172937720315531,
+        0.022120470507070424,
+        0.022563302202615886
+      ],
+      "observed_paired_speedups": [
+        1.1614796407494978,
+        1.2007386080770035,
+        1.1954248829101395,
+        1.1844969026362555,
+        1.1979036869218924
+      ]
+    },
+    {
+      "workload": "Atomx Na+ full SD action",
+      "workers": 4,
+      "rounds": 5,
+      "seconds_median": 0.020375025097746403,
+      "seconds_min": 0.020210978796239943,
+      "seconds_max": 0.021014061802998186,
+      "speedup": 1.2921785322203896,
+      "speedup_min": 1.28008502829551,
+      "speedup_max": 1.293472718532029,
+      "efficiency": 0.3230446330550974,
+      "efficiency_min": 0.3200212570738775,
+      "efficiency_max": 0.32336817963300724,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.021014061802998186,
+        0.020375025097746403,
+        0.020210978796239943,
+        0.02027709650574252,
+        0.020910514600109308
+      ],
+      "observed_paired_speedups": [
+        1.28008502829551,
+        1.293472718532029,
+        1.285234053267363,
+        1.2921785322203896,
+        1.2925871703561584
+      ]
+    },
+    {
+      "workload": "Atomx Na+ full SD action",
+      "workers": 8,
+      "rounds": 5,
+      "seconds_median": 0.022412016103044153,
+      "seconds_min": 0.02184010189957917,
+      "seconds_max": 0.028482333198189734,
+      "speedup": 1.15901390037213,
+      "speedup_min": 0.948962386949546,
+      "speedup_max": 1.23166943182682,
+      "efficiency": 0.14487673754651625,
+      "efficiency_min": 0.11862029836869326,
+      "efficiency_max": 0.1539586789783525,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.02184010189957917,
+        0.02333632339723408,
+        0.022412016103044153,
+        0.021856019902043045,
+        0.028482333198189734
+      ],
+      "observed_paired_speedups": [
+        1.23166943182682,
+        1.1293355279119934,
+        1.15901390037213,
+        1.1988289230113802,
+        0.948962386949546
+      ]
+    },
+    {
+      "workload": "Atomx Yb term2 stress stage",
+      "workers": 1,
+      "rounds": 3,
+      "seconds_median": 82.11935197201092,
+      "seconds_min": 81.28612752398476,
+      "seconds_max": 83.76816617301665,
+      "speedup": 1.0,
+      "speedup_min": 1.0,
+      "speedup_max": 1.0,
+      "efficiency": 1.0,
+      "efficiency_min": 1.0,
+      "efficiency_max": 1.0,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        81.28612752398476,
+        83.76816617301665,
+        82.11935197201092
+      ],
+      "observed_paired_speedups": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "workload": "Atomx Yb term2 stress stage",
+      "workers": 2,
+      "rounds": 3,
+      "seconds_median": 43.95367749792058,
+      "seconds_min": 43.83414602896664,
+      "seconds_max": 44.04922381299548,
+      "speedup": 1.8683158417380645,
+      "speedup_min": 1.854401987671186,
+      "speedup_max": 1.9016944890707297,
+      "efficiency": 0.9341579208690323,
+      "efficiency_min": 0.927200993835593,
+      "efficiency_max": 0.9508472445353648,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        43.83414602896664,
+        44.04922381299548,
+        43.95367749792058
+      ],
+      "observed_paired_speedups": [
+        1.854401987671186,
+        1.9016944890707297,
+        1.8683158417380645
+      ]
+    },
+    {
+      "workload": "Atomx Yb term2 stress stage",
+      "workers": 4,
+      "rounds": 3,
+      "seconds_median": 24.56348076602444,
+      "seconds_min": 23.85039126803167,
+      "seconds_max": 25.265839557047002,
+      "speedup": 3.4081674640255555,
+      "speedup_min": 3.2502126749675595,
+      "speedup_max": 3.4102726307780684,
+      "efficiency": 0.8520418660063889,
+      "efficiency_min": 0.8125531687418899,
+      "efficiency_max": 0.8525681576945171,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        23.85039126803167,
+        24.56348076602444,
+        25.265839557047002
+      ],
+      "observed_paired_speedups": [
+        3.4081674640255555,
+        3.4102726307780684,
+        3.2502126749675595
+      ]
+    },
+    {
+      "workload": "Atomx Yb term2 stress stage",
+      "workers": 8,
+      "rounds": 3,
+      "seconds_median": 17.086523853009567,
+      "seconds_min": 16.971008494030684,
+      "seconds_max": 17.468902196967974,
+      "speedup": 4.7897051935703185,
+      "speedup_min": 4.700887957702581,
+      "speedup_max": 4.90258679258871,
+      "efficiency": 0.5987131491962898,
+      "efficiency_min": 0.5876109947128226,
+      "efficiency_max": 0.6128233490735887,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        16.971008494030684,
+        17.086523853009567,
+        17.468902196967974
+      ],
+      "observed_paired_speedups": [
+        4.7897051935703185,
+        4.90258679258871,
+        4.700887957702581
+      ]
+    },
+    {
+      "workload": "AMBiT BeII full CLI",
+      "workers": 2,
+      "rounds": 5,
+      "seconds_median": 0.824434738,
+      "seconds_min": 0.819552364,
+      "seconds_max": 0.827622336,
+      "speedup": 1.239094524547898,
+      "speedup_min": 1.2285546846333544,
+      "speedup_max": 1.242524804674958,
+      "efficiency": 0.619547262273949,
+      "efficiency_min": 0.6142773423166772,
+      "efficiency_max": 0.621262402337479,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking.",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.819552364,
+        0.824434738,
+        0.825803178,
+        0.824277542,
+        0.827622336
+      ],
+      "observed_paired_speedups": [
+        1.242524804674958,
+        1.2332046008473747,
+        1.242375043269693,
+        1.239094524547898,
+        1.2285546846333544
+      ]
+    },
+    {
+      "workload": "AMBiT BeII full CLI",
+      "workers": 4,
+      "rounds": 5,
+      "seconds_median": 0.751392575,
+      "seconds_min": 0.727724638,
+      "seconds_max": 0.827399617,
+      "speedup": 1.3788475260741953,
+      "speedup_min": 1.2337027236018165,
+      "speedup_max": 1.4130995301000102,
+      "efficiency": 0.3447118815185488,
+      "efficiency_min": 0.30842568090045414,
+      "efficiency_max": 0.35327488252500255,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking.",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.727724638,
+        0.751392575,
+        0.749826663,
+        0.827399617,
+        0.759340598
+      ],
+      "observed_paired_speedups": [
+        1.4130995301000102,
+        1.3580973487793646,
+        1.3881710485400545,
+        1.2337027236018165,
+        1.3788475260741953
+      ]
+    },
+    {
+      "workload": "AMBiT BeII full CLI",
+      "workers": 8,
+      "rounds": 5,
+      "seconds_median": 0.762072999,
+      "seconds_min": 0.750414131,
+      "seconds_max": 0.83968711,
+      "speedup": 1.3897680883455628,
+      "speedup_min": 1.257818034148458,
+      "speedup_max": 1.4006907050811153,
+      "efficiency": 0.17372101104319534,
+      "efficiency_min": 0.15722725426855724,
+      "efficiency_max": 0.1750863381351394,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking.",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.754115489,
+        0.83968711,
+        0.762072999,
+        0.770556863,
+        0.750414131
+      ],
+      "observed_paired_speedups": [
+        1.4006907050811153,
+        1.257818034148458,
+        1.3897680883455628,
+        1.354750513720361,
+        1.390617873372643
+      ]
+    },
+    {
+      "workload": "AMBiT BeII full CLI",
+      "workers": 1,
+      "rounds": 15,
+      "seconds_median": 1.028347344,
+      "seconds_min": 1.016696712,
+      "seconds_max": 1.059104735,
+      "speedup": 1.0,
+      "speedup_min": 1.0,
+      "speedup_max": 1.0,
+      "efficiency": 1.0,
+      "efficiency_min": 1.0,
+      "efficiency_max": 1.0,
+      "actual_threads_peak": null,
+      "process_thread_efficiency": null,
+      "controlled": true,
+      "scope": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking.",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        1.018314141,
+        1.016696712,
+        1.025957259,
+        1.021357789,
+        1.016779298,
+        1.028347344,
+        1.020464264,
+        1.040887665,
+        1.020765161,
+        1.047014905,
+        1.056282556,
+        1.05617359,
+        1.059104735,
+        1.043912306,
+        1.043539303
+      ],
+      "observed_paired_speedups": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "workload": "EXP-T finite CCSDT backend",
+      "workers": 1,
+      "rounds": 5,
+      "seconds_median": 0.6271017839899287,
+      "seconds_min": 0.623728564940393,
+      "seconds_max": 0.6388289709575474,
+      "speedup": 1.0,
+      "speedup_min": 1.0,
+      "speedup_max": 1.0,
+      "efficiency": 1.0,
+      "efficiency_min": 1.0,
+      "efficiency_max": 1.0,
+      "actual_threads_peak": 1,
+      "process_thread_efficiency": 1.0,
+      "controlled": true,
+      "scope": "4-core/12-spinor fixed full backend solve; private waitpid/watchdog; includes CLI/I/O, excludes integral export",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        0.6388289709575474,
+        0.6260961579391733,
+        0.623728564940393,
+        0.6271017839899287,
+        0.6333507139934227
+      ],
+      "observed_paired_speedups": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "workload": "EXP-T finite CCSDT backend",
+      "workers": 2,
+      "rounds": 5,
+      "seconds_median": 1.1210254529723898,
+      "seconds_min": 1.0500594939803705,
+      "seconds_max": 1.3753663130337372,
+      "speedup": 0.559400129878562,
+      "speedup_min": 0.4604960205811634,
+      "speedup_max": 0.593993548476076,
+      "efficiency": 0.279700064939281,
+      "efficiency_min": 0.2302480102905817,
+      "efficiency_max": 0.296996774238038,
+      "actual_threads_peak": 5,
+      "process_thread_efficiency": 0.11188002597571241,
+      "controlled": true,
+      "scope": "4-core/12-spinor fixed full backend solve; private waitpid/watchdog; includes CLI/I/O, excludes integral export",
+      "statistic": "median of within-round paired T1/Tp; times separate",
+      "observed_times_seconds": [
+        1.079604689963162,
+        1.211967637995258,
+        1.0500594939803705,
+        1.1210254529723898,
+        1.3753663130337372
+      ],
+      "observed_paired_speedups": [
+        0.5917248942104405,
+        0.5165947821633361,
+        0.593993548476076,
+        0.559400129878562,
+        0.4604960205811634
+      ]
+    }
+  ],
+  "matched_AMBiT": {
+    "orbitals": 19,
+    "integrals": 37350,
+    "signed_matrix_entries": 27,
+    "components": 3,
+    "max_error_Ha": 1.4293680984916318e-21,
+    "all_precision_gates_pass": true,
+    "all_environment_gates_pass": true,
+    "statistics": {
+      "pairs": 5,
+      "controlled": true,
+      "left_median_seconds": 0.041159569984301925,
+      "right_median_seconds": 0.0186301,
+      "observational_ratios": [
+        2.2672523530729345,
+        2.251447193004979,
+        2.1611833863881516,
+        2.2587139119168884,
+        2.321109852531512
+      ],
+      "speedup": 2.2587139119168884
+    },
+    "timing_scope": "Warm complete same fixed-energy matrix output: Atomx additionally constructs reusable pole/residue snapshots and captures the radial physical binding; AMBiT directly sums each fixed-energy pp/hh/total request. CLI parse/setup/output excluded; no end-to-end ranking.",
+    "experimental_accuracy_claim": false
+  },
+  "finite_SD": {
+    "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+    "maximum_signed_error_Ha": 8.673617379884035e-19,
+    "maximum_relative_error": 1.6904893255408627e-15,
+    "scaling": [
+      {
+        "backend": "original",
+        "median_per_five_column_map_seconds": 0.052125425997655836,
+        "observed_speedups_vs_current_one": [
+          0.5047225122187378,
+          0.5117793551141703,
+          0.5043655933186483,
+          0.5026650295704036,
+          0.5140875564669317
+        ],
+        "speedup": 0.5047225122187378,
+        "efficiency": null,
+        "observed_vs_original_diagrams": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "versus_original_diagrams_speedup": 1.0
+      },
+      {
+        "backend": 1,
+        "median_per_five_column_map_seconds": 0.026354539103340357,
+        "observed_speedups_vs_current_one": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "speedup": 1.0,
+        "efficiency": 1.0,
+        "observed_vs_original_diagrams": [
+          1.9812866987130102,
+          1.9539670563243312,
+          1.9826887742681918,
+          1.9893963995359643,
+          1.945193941033125
+        ],
+        "versus_original_diagrams_speedup": 1.9812866987130102
+      },
+      {
+        "backend": 2,
+        "median_per_five_column_map_seconds": 0.022120470507070424,
+        "observed_speedups_vs_current_one": [
+          1.1614796407494978,
+          1.2007386080770035,
+          1.1954248829101395,
+          1.1844969026362555,
+          1.1979036869218924
+        ],
+        "speedup": 1.1954248829101395,
+        "efficiency": 0.5977124414550697,
+        "observed_vs_original_diagrams": [
+          2.3012241630429453,
+          2.3462036834391973,
+          2.3701554958268014,
+          2.356433873366069,
+          2.3301549937417065
+        ],
+        "versus_original_diagrams_speedup": 2.3462036834391973
+      },
+      {
+        "backend": 4,
+        "median_per_five_column_map_seconds": 0.020375025097746403,
+        "observed_speedups_vs_current_one": [
+          1.28008502829551,
+          1.293472718532029,
+          1.285234053267363,
+          1.2921785322203896,
+          1.2925871703561582
+        ],
+        "speedup": 1.2921785322203896,
+        "efficiency": 0.3230446330550974,
+        "observed_vs_original_diagrams": [
+          2.5362154397835615,
+          2.527403080265859,
+          2.5482191297204078,
+          2.5706553195569097,
+          2.514332732033951
+        ],
+        "versus_original_diagrams_speedup": 2.5362154397835615
+      },
+      {
+        "backend": 8,
+        "median_per_five_column_map_seconds": 0.022412016103044153,
+        "observed_speedups_vs_current_one": [
+          1.2316694318268202,
+          1.1293355279119934,
+          1.15901390037213,
+          1.1988289230113804,
+          0.9489623869495459
+        ],
+        "speedup": 1.15901390037213,
+        "efficiency": 0.14487673754651625,
+        "observed_vs_original_diagrams": [
+          2.4402902624898895,
+          2.2066844170766826,
+          2.2979638494886148,
+          2.3849459430984177,
+          1.8459158853625885
+        ],
+        "versus_original_diagrams_speedup": 2.2979638494886148
+      }
+    ],
+    "setup_seconds": {
+      "original": 4.136024605948478,
+      "1": 4.183538964018226,
+      "2": 4.242421726929024,
+      "4": 4.190065140952356,
+      "8": 4.38829362206161
+    },
+    "scf_and_virtual_seconds": null,
+    "peak_rss_bytes": 333312000
+  },
+  "Yb_complete_stage": {
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "cold_setup_seconds": [
+      109.86742717900779,
+      115.88361010688823,
+      108.00932927499525
+    ],
+    "peak_rss_bytes": 3223339008,
+    "complete_shape": [
+      64,
+      64,
+      1076
+    ],
+    "full_core_electrons": 68,
+    "full_virtual_orbitals": 414,
+    "full_response": true,
+    "amplitude_input": "Archived complete signed Gaussian stress numerator/response on the full physical orbital space; zero core seed, not a converged Yb SD wavefunction.",
+    "whole_SD_solve_speedup_claim": false
+  },
+  "FSCC_accuracy": {
+    "two_core": {
+      "default": {
+        "nspinors": 10,
+        "noccupied": 2,
+        "core_determinants": 45,
+        "attachment_determinants": 120,
+        "model_dimension": 8,
+        "core_projected_rank123_max_Ha": 2.948776516834933e-17,
+        "attachment_projected_rank012_max_Ha": 4.1639109324767554e-07,
+        "heff_signed_projection_max_Ha": 2.1094237467877974e-15,
+        "core_unretained_rank4_max_Ha": 0.0,
+        "attachment_unretained_rank34_max_Ha": 0.0,
+        "full_attachment_bloch_max_Ha": 4.1639109324767554e-07,
+        "attachment_fci_method_error_max_Ha": 8.728964218107649e-10,
+        "fock_occupied_virtual_max_Ha": 0.000127231825498883,
+        "gates": {
+          "core_projected": true,
+          "attachment_projected": false,
+          "heff_projection": true,
+          "intermediate_normalization": true,
+          "positive_metric": true
+        },
+        "exact_two_core_gate": false
+      },
+      "corrected": {
+        "nspinors": 10,
+        "noccupied": 2,
+        "core_determinants": 45,
+        "attachment_determinants": 120,
+        "model_dimension": 8,
+        "core_projected_rank123_max_Ha": 2.948776516834933e-17,
+        "attachment_projected_rank012_max_Ha": 1.7763568394002505e-15,
+        "heff_signed_projection_max_Ha": 2.1094237467877974e-15,
+        "core_unretained_rank4_max_Ha": 0.0,
+        "attachment_unretained_rank34_max_Ha": 0.0,
+        "full_attachment_bloch_max_Ha": 1.7763568394002505e-15,
+        "attachment_fci_method_error_max_Ha": 1.2434497875801753e-14,
+        "fock_occupied_virtual_max_Ha": 0.000127231825498883,
+        "gates": {
+          "core_projected": true,
+          "attachment_projected": true,
+          "heff_projection": true,
+          "intermediate_normalization": true,
+          "positive_metric": true
+        },
+        "exact_two_core_gate": true
+      }
+    },
+    "four_core": {
+      "default": {
+        "nspinors": 12,
+        "noccupied": 4,
+        "core_determinants": 495,
+        "attachment_determinants": 792,
+        "model_dimension": 8,
+        "core_projected_rank123_max_Ha": 5.62007072010904e-14,
+        "attachment_projected_rank012_max_Ha": 0.010312570731558557,
+        "heff_signed_projection_max_Ha": 5.245803791353865e-15,
+        "core_unretained_rank4_max_Ha": 0.002116726338513911,
+        "attachment_unretained_rank34_max_Ha": 0.002296709945969974,
+        "full_attachment_bloch_max_Ha": 0.010312570731558557,
+        "attachment_fci_method_error_max_Ha": 0.003515325850365514,
+        "fock_occupied_virtual_max_Ha": 0.054697657625909654,
+        "gates": {
+          "core_projected": true,
+          "attachment_projected": false,
+          "heff_projection": true,
+          "intermediate_normalization": true,
+          "positive_metric": true
+        },
+        "exact_two_core_gate": null
+      },
+      "corrected": {
+        "nspinors": 12,
+        "noccupied": 4,
+        "core_determinants": 495,
+        "attachment_determinants": 792,
+        "model_dimension": 8,
+        "core_projected_rank123_max_Ha": 5.62007072010904e-14,
+        "attachment_projected_rank012_max_Ha": 6.483789199984713e-14,
+        "heff_signed_projection_max_Ha": 5.009881398621019e-15,
+        "core_unretained_rank4_max_Ha": 0.002116726338513911,
+        "attachment_unretained_rank34_max_Ha": 0.0022838708058473354,
+        "full_attachment_bloch_max_Ha": 0.0022838708058473354,
+        "attachment_fci_method_error_max_Ha": 9.093014787353582e-06,
+        "fock_occupied_virtual_max_Ha": 0.054697657625909654,
+        "gates": {
+          "core_projected": true,
+          "attachment_projected": true,
+          "heff_projection": true,
+          "intermediate_normalization": true,
+          "positive_metric": true
+        },
+        "exact_two_core_gate": null
+      }
+    }
+  },
+  "FSCC_resource_rejections": {
+    "4": {
+      "status": "resource_rejected",
+      "requested_OpenMP_team_size": 4,
+      "observed_total_threads_peak": 10,
+      "speedup": null,
+      "logical_requested_team_parallel_efficiency": null,
+      "observed_process_thread_resource_efficiency": null,
+      "controlled_timing": false,
+      "evidence": "../thread_preflight002/p4/runtime_thread_cap_rejection.json",
+      "first_cap_crossing_thread_count": 9
+    },
+    "8": {
+      "status": "resource_rejected",
+      "requested_OpenMP_team_size": 8,
+      "observed_total_threads_peak": 25,
+      "speedup": null,
+      "logical_requested_team_parallel_efficiency": null,
+      "observed_process_thread_resource_efficiency": null,
+      "controlled_timing": false,
+      "evidence": "../run001/stopped_thread_budget.json"
+    }
+  },
+  "FSCC_paired_speedups": [
+    0.5917248942104405,
+    0.5165947821633361,
+    0.593993548476076,
+    0.559400129878562,
+    0.4604960205811634
+  ],
+  "private_wrapper_paired_extra_seconds": [
+    0.00575949705671519,
+    0.011792380013503134,
+    -0.0024595570284873247,
+    0.001395540894009173,
+    0.00672366505023092
+  ],
+  "private_wrapper_median_paired_extra_seconds": 0.00575949705671519,
+  "private_wrapper_difference_of_median_times_seconds": 0.003034780966117978,
+  "GPU": {
+    "scope": {
+      "model": "dynamic signed complete PP/HH 10x12; excludes source owner setup and entire SD solve",
+      "pairs": [
+        {
+          "cpu_warm_host_seconds": 9.343598503619432e-06,
+          "gpu_warm_transfer_inclusive_seconds": 0.0001397875021211803,
+          "cpu_warm_kernel_and_scoped_workers_seconds": 2.6724999770522116e-06,
+          "gpu_complete_amplitude_upload_seconds": 5.9853075072169304e-05,
+          "gpu_warm_resident_host_seconds": 3.5679747816175224e-05,
+          "gpu_warm_device_event_seconds": 3.5582399368286135e-05,
+          "gpu_complete_separated_output_download_seconds": 4.2209052480757236e-05
+        },
+        {
+          "gpu_warm_transfer_inclusive_seconds": 0.00013387484941631555,
+          "cpu_warm_host_seconds": 7.783150067552924e-06,
+          "cpu_warm_kernel_and_scoped_workers_seconds": 2.3133994545787574e-06,
+          "gpu_complete_amplitude_upload_seconds": 6.388104520738125e-05,
+          "gpu_warm_resident_host_seconds": 3.544079954735935e-05,
+          "gpu_warm_device_event_seconds": 3.531360030174255e-05,
+          "gpu_complete_separated_output_download_seconds": 3.9453967474401e-05
+        },
+        {
+          "cpu_warm_host_seconds": 7.84480362199247e-06,
+          "gpu_warm_transfer_inclusive_seconds": 0.0001338167523499578,
+          "cpu_warm_kernel_and_scoped_workers_seconds": 2.436595968902111e-06,
+          "gpu_complete_amplitude_upload_seconds": 5.755806341767311e-05,
+          "gpu_warm_resident_host_seconds": 3.46843502484262e-05,
+          "gpu_warm_device_event_seconds": 3.451200127601624e-05,
+          "gpu_complete_separated_output_download_seconds": 3.941403701901436e-05
+        },
+        {
+          "gpu_warm_transfer_inclusive_seconds": 0.0001491806993726641,
+          "cpu_warm_host_seconds": 7.748650386929511e-06,
+          "cpu_warm_kernel_and_scoped_workers_seconds": 2.1776475477963684e-06,
+          "gpu_complete_amplitude_upload_seconds": 5.787890404462814e-05,
+          "gpu_warm_resident_host_seconds": 3.382275463081896e-05,
+          "gpu_warm_device_event_seconds": 3.3686399459838866e-05,
+          "gpu_complete_separated_output_download_seconds": 3.8812984712421894e-05
+        },
+        {
+          "cpu_warm_host_seconds": 7.693999214097857e-06,
+          "gpu_warm_transfer_inclusive_seconds": 0.00013231890043243765,
+          "cpu_warm_kernel_and_scoped_workers_seconds": 2.453650813549757e-06,
+          "gpu_complete_amplitude_upload_seconds": 5.8330013416707516e-05,
+          "gpu_warm_resident_host_seconds": 3.413785016164184e-05,
+          "gpu_warm_device_event_seconds": 3.399200141429901e-05,
+          "gpu_complete_separated_output_download_seconds": 3.91440698876977e-05
+        }
+      ],
+      "repeats_per_pair": 20,
+      "event_scope": "CUDA events bracket all 20 kernels and intervening host-launch gaps, not a single-kernel device duration",
+      "comparison_scope": "CPU warm host and GPU transfer-inclusive use same full apply_into validation; resident observations have separate explicit scopes"
+    },
+    "observed_median_seconds": {
+      "cpu_warm_host_seconds": 7.783150067552924e-06,
+      "gpu_warm_transfer_inclusive_seconds": 0.00013387484941631555,
+      "cpu_warm_kernel_and_scoped_workers_seconds": 2.436595968902111e-06,
+      "gpu_complete_amplitude_upload_seconds": 5.8330013416707516e-05,
+      "gpu_warm_resident_host_seconds": 3.46843502484262e-05,
+      "gpu_warm_device_event_seconds": 3.451200127601624e-05,
+      "gpu_complete_separated_output_download_seconds": 3.941403701901436e-05
+    },
+    "guard": {
+      "parent_cpu_load_before_plus1": true,
+      "parent_cpu_load_drift_le4": true,
+      "original_gpu_load_passed": false
+    },
+    "controlled_cpu_gpu_speedup": null,
+    "controlled_gpu_efficiency": null,
+    "realized_owned_device_bytes": 1361840,
+    "process_peak_rss_bytes": 530800640,
+    "wall_seconds": 4.22426321299281,
+    "gates": {
+      "cpu_density": {
+        "rank0_public_full_signed_max": 0.0,
+        "rank1_public_full_signed_max": 0.0,
+        "rank2_public_full_signed_max": 0.0,
+        "rank3_public_full_signed_max": 0.0
+      },
+      "cpu_ladders": {
+        "dc": {
+          "pp_complete_max_Ha": 1.3877787807814457e-17,
+          "hh_complete_max_Ha": 6.938893903907228e-18
+        },
+        "static": {
+          "pp_complete_max_Ha": 6.938893903907228e-18,
+          "hh_complete_max_Ha": 2.7755575615628914e-17
+        },
+        "dynamic": {
+          "pp_complete_max_Ha": 3.469446951953614e-18,
+          "hh_complete_max_Ha": 0.0
+        }
+      },
+      "caller_workers_restored": true,
+      "cpu_complete_signed_correctness": true,
+      "gpu_admitted": true,
+      "gpu_complete_signed_correctness": true,
+      "gpu_controlled_timing": false,
+      "ptx_no_fma_or_atomic": true,
+      "source_and_input_unchanged": true,
+      "caller_workers_restored_after_cuda": true,
+      "complete_runtime_dependencies_unchanged": true
+    },
+    "source_and_runtime_fixed": true,
+    "files_sha256": {
+      "actual001/inputs.npz": "bb83f71005f99d4662554822c648c1c0658fd101cd019e1119ceae4fccc48667",
+      "actual001/sources.tar.gz": "ab62d4de4adf4de841a3f383ff2ccfb2c8feae9f83391ba4d2900f6bdd3b515f",
+      "actual001/result.json": "ea89df8d785b09cebeeea5fd7493fac5cc60e58989e638596c50daaaeccda53a",
+      "actual001/density_0.ptx": "3e2557851714703c3541daa2b4b3173e08cb60dd8325f1ccd9396ae0ac509626",
+      "actual001/density_1.ptx": "615c8e33e0bf6f0d05477894bb935769ddfe02a4797e280e1ad28c07c4f49ac9",
+      "actual001/arrays.npz": "9d82cd739c48648be3fb30020a83d35366d825fee5eefec0cad82cb432ca10d9",
+      "actual001/ladder_0.ptx": "fa896ebf1683b9fe14889ee92238a967cfc5ee3aab798807a1dcd4f4edf3afe5",
+      "actual001/density_2.ptx": "601529319aa7d81d9023efc5dee042e913cf97f3c71da4d8d4d8d90265a2e8b8",
+      "actual001/source_sha256.json": "bf2ad7e4fd986c284e138bfe425ccb76d0973cd8b18d374575ede882673424b0"
+    },
+    "source_result_sha256": "ea89df8d785b09cebeeea5fd7493fac5cc60e58989e638596c50daaaeccda53a",
+    "interpretation": "Actual tiny complete matrices are upload/launch/download dominated. Other GPU compute PIDs persist, so timings remain observations and no controlled speedup, efficiency or production inference is admitted.",
+    "highest_level_reached": false
+  },
+  "experimental_baseline": {
+    "scope": "Experimental precision of the original complete saved YbII five states; source-bound current NIST audit, no new spectral roots and no matched external production Yb spectrum in this comparison.",
+    "citation_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_b9d63532c7e444e11ab8/probe/result.json",
+    "sha256": "b9816d2639591ae2d194187242bcf1b05e1e71914deb931c68f38f9b5cb0ed12",
+    "gates": {
+      "actual_full_theory_same_H_core_space_zero": true,
+      "current_whole_array_norm_consumed": true,
+      "strict_unique_state_matching": true,
+      "observed_not_Ritz_or_level_derived": true,
+      "multipole_species_medium_coverage_preserved": true,
+      "missing_uncertainty_never_zero": true,
+      "original1percent_accuracy_failures_preserved": true,
+      "whole_state_gap_requests_emitted": true,
+      "source_and_input_unchanged": true
+    },
+    "scientific_accuracy_gates": {
+      "excitation": false,
+      "splitting": false,
+      "observed_wavelength": false
+    },
+    "metrics": {
+      "excitation_cm1": {
+        "required": 4,
+        "scored": 4,
+        "missing_or_ambiguous": 0,
+        "passing": 1,
+        "complete_and_all_pass": false,
+        "max_absolute_error": 950.8665190086285,
+        "mean_absolute_error": 594.6813576128679,
+        "rms_error": 665.0754031151098,
+        "max_absolute_relative_error": 0.041412604047273115
+      },
+      "splitting_cm1": {
+        "required": 2,
+        "scored": 2,
+        "missing_or_ambiguous": 0,
+        "passing": 0,
+        "complete_and_all_pass": false,
+        "max_absolute_error": 128.4361878975028,
+        "mean_absolute_error": 116.61321714985525,
+        "rms_error": 117.21102785719023,
+        "max_absolute_relative_error": 0.09361988781717402
+      },
+      "observed_wavelength_nm": {
+        "required": 4,
+        "scored": 2,
+        "missing_or_ambiguous": 2,
+        "passing": 1,
+        "complete_and_all_pass": false,
+        "max_absolute_error": 3.800607925385407,
+        "mean_absolute_error": 3.5935238340485682,
+        "rms_error": 3.599485708647824,
+        "max_absolute_relative_error": 0.011550876283721362
+      }
+    },
+    "coverage": {
+      "required_states": 5,
+      "unique_nominal_states": 5,
+      "snapshot_levels": 349,
+      "snapshot_lines": 327
+    },
+    "reference_scope": "localASD5.12 YbII 349 levels /327 lines, exact underlying frozen snapshot",
+    "cannot_infer": "Matched numerical operators vs AMBiT/pCI/EXP-T do not certify complete physical space/correlation or NIST accuracy. Other software production accuracy must use separately matched complete spectra, not shared-integral tests.",
+    "highest_level_reached": false
+  },
+  "highest_level_reached": false,
+  "independent_standalone_pCI_claim": false,
+  "whole_production_software_rank": null
+}

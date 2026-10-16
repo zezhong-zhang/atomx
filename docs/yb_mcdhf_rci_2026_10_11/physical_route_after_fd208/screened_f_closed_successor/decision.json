@@ -1,0 +1,144 @@
+{
+  "status": "source_JSON route successor bound to actual screenedclosure; not newscience",
+  "previous_FD_nuclear_scope_immutable": true,
+  "closed_actual_screened_execution": {
+    "result_sha256": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d",
+    "receipt_sha256": "241fa059f19e3807c565f9699ace4f28eff038eac744bfea72801bc89fb61ab5",
+    "live_checks": 941,
+    "all_passed": true,
+    "H": 2,
+    "CI": 2,
+    "gradient": 0,
+    "optimizer": 0,
+    "original_metric_provenance_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "old29_208_changed": false
+  },
+  "same_model_response": [
+    {
+      "label": "5d_3/2",
+      "screened_upper_delta_Ha": -0.0012453819908841979,
+      "screened_lower_delta_Ha": -0.00030086171318544075,
+      "screened_transition_delta_cm1": -207.2982397629464,
+      "nuclear_transition_delta_cm1": -6.396354108815869,
+      "screened_minus_nuclear_transition_cm1": -200.90188565413052,
+      "screened_NIST_nominal_gap_cm1": 2729.6790686056484
+    },
+    {
+      "label": "5d_5/2",
+      "screened_upper_delta_Ha": -0.0012231026867084438,
+      "screened_lower_delta_Ha": -0.00030086171318544075,
+      "screened_transition_delta_cm1": -202.40849769194548,
+      "nuclear_transition_delta_cm1": -3.1847713782919564,
+      "screened_minus_nuclear_transition_cm1": -199.22372631365351,
+      "screened_NIST_nominal_gap_cm1": 2236.4991882690665
+    },
+    {
+      "label": "6p_1/2",
+      "screened_upper_delta_Ha": -0.00022824419647804461,
+      "screened_lower_delta_Ha": -0.00030086171318544075,
+      "screened_transition_delta_cm1": 15.937702709862508,
+      "nuclear_transition_delta_cm1": 8.180120451014519,
+      "screened_minus_nuclear_transition_cm1": 7.7575822588479895,
+      "screened_NIST_nominal_gap_cm1": -1080.2385606603566
+    },
+    {
+      "label": "6p_3/2",
+      "screened_upper_delta_Ha": -0.00021077693781990092,
+      "screened_lower_delta_Ha": -0.00030086171318544075,
+      "screened_transition_delta_cm1": 19.77132286478323,
+      "nuclear_transition_delta_cm1": 9.101962440820833,
+      "screened_minus_nuclear_transition_cm1": 10.669360423962397,
+      "screened_NIST_nominal_gap_cm1": -1031.4925216798547
+    }
+  ],
+  "radial_support_consumed_from_existing_JSON": [
+    {
+      "key": [
+        5,
+        3
+      ],
+      "norm": 0.9999999999999999,
+      "mean_r_a0": 9.011336018646416,
+      "median_quadrature_r_a0": 8.731136390075799,
+      "rms_r_a0": 9.498338046088067,
+      "cumulative_mass": {
+        "0.25": 1.5732961640757348e-05,
+        "0.5": 0.0001480270390577459,
+        "1.0": 0.00034008624066807474,
+        "2.0": 0.00047408434321359914,
+        "5.0": 0.06443492712666099,
+        "10.0": 0.6607725009666776
+      },
+      "adequacy_bound": false,
+      "nuclear_failed_run_diagnostic_mean_r_a0": 0.2965477601072716,
+      "screened_minus_nuclear_mean_r_a0": 8.714788258539144
+    },
+    {
+      "key": [
+        5,
+        -4
+      ],
+      "norm": 1.0,
+      "mean_r_a0": 9.018800602743422,
+      "median_quadrature_r_a0": 8.731136390075799,
+      "rms_r_a0": 9.505643504918243,
+      "cumulative_mass": {
+        "0.25": 1.8361542272569516e-05,
+        "0.5": 0.00017822648101944481,
+        "1.0": 0.00042347642621397844,
+        "2.0": 0.0005481713961851708,
+        "5.0": 0.06394720919873989,
+        "10.0": 0.6599111055149376
+      },
+      "adequacy_bound": false,
+      "nuclear_failed_run_diagnostic_mean_r_a0": 0.2990910253946141,
+      "screened_minus_nuclear_mean_r_a0": 8.719709577348809
+    }
+  ],
+  "RMS": {
+    "baseline": 2054.3164606344617,
+    "nuclear_seed": 2048.8342930560993,
+    "screened_seed": 1915.9833380624045
+  },
+  "priority": {
+    "title": "Native complete31/1595 correlated Euler qualification before further cutoff",
+    "status": "source-only proposed; exact new source/point/model/metric/resources admission required; unexecuted",
+    "why": "Measured finite same-family radial seed sensitivity is large forD; auxiliary closed68 field is not full mixed CI EOL Euler. Complete31 correlated gradient/relaxation is unmeasured.",
+    "fixed": [
+      "declared closed screenedseed and all nuclearseed historical responses retained; no best-gap selection",
+      "scalar originalP no-pair DC/FermiA175 only",
+      "complete91NR/1595five targetblocks,31radial keys; no amplitude/config pruning",
+      "original immutable tracker/fiveUID and equal.2 weights; no rebase"
+    ],
+    "coordinate_metric_boundary": {
+      "new_coordinates": 3689,
+      "old_coordinates": 3451,
+      "old_metric_resume_claim": false,
+      "original7P_preserved": true,
+      "new_metric_identity_required": true,
+      "newobjective_identity_required": true,
+      "baseline_point_seam": "Rawscreened31 versus public P@x must be measured and bound explicitly before comparingH/owners. If coordinates reconstruct differentphysicalwave, record a distinct canonical31point and budget freshHCI; do not claim bitwise resume or restore another owner."
+    },
+    "first_small_measurement": {
+      "baseline_native_H_CI": 1,
+      "candidate_public_gradient_contractions": 2,
+      "scope": "one production retained full31gradient plus separately fullsigned target-normalized RDM control through nativegradient_from_weights; raw h/ketnorm ambient quotient correction and actualSGram/tangent/originalP checked. Full31 vector, not closed68meanfield substitution.",
+      "then_conditional_direction_check": "Ifbaseline identity/whole roots/normalization/newgeometry arequalified, one declared projected-direction ±h pair is sufficient for first local test; candidateh1e-5,originalabs1e-8/relative1e-5 derivative gates, completeCIresponses/actualquadraticGram retained. No hscan; failurestops.",
+      "total_H_CI_if_only_one_baselineplus_twotrials": 3,
+      "total_gradient_contractions_if_two_baselinecontrols": 2,
+      "extra_point_identity_evaluation": "Any needed canonical31/rawseed comparison requires an additional explicitHCI count; not hidden in3.",
+      "optimizer_calls": 0,
+      "no_uniform_Armijo_callback_qualification": true
+    },
+    "resources_before_anyproducer": "Use observed complete1595 peak1442.078MiB (~1.408GiB) and actualH/CI scope only as sizingevidence. RDMsignedtable/fullgradient31 costnotmeasured; exactdeterminant/overlap/RDM counts and newmetricmemory/work estimates must pass freshcaps. CPU1/threads1,AS<=3.95GiB, finitewallboundto be finalized withroot before execution. Not an authorization or runtime guarantee.",
+    "acceptance_vs_experiment": "Derivative/geometry gates qualify current native implementation only; stationaryresidual1e-7/indicator1e-8 remain distinct and unmet, experiment1% separate.",
+    "if_gradient_strong_on_f": "controlled31orbital relaxation with complete signed CIstate response is the nextnative scientificstep; not prooffdominatesgap",
+    "if_gradient_small_or_structurally_blocked": "do not conclude31stationary globally from f subset; preserve unresolvedoldcoords/newmetricseam, then identify genuinelymissingconfigurationclass separately",
+    "later_class_discriminator": "Onlyafterchosenfinite baseline is stationary andmatched, independently compare complete4d singlehole1576 or a declaredsecondcoreholeclass; no additive increments or claimdoubles fixgap."
+  },
+  "attribution": "Finite radialbasis construction matters at thisfixedpoint, most clearlyD centroids. This doesnotquantify correlatedEulerrelaxation, missing4d/multicorehole classes, full f/g completeness orcurrentBreit/QED.",
+  "oldfailed_nuclear_comparator_overall_execution_remains_failed": true,
+  "independent_nuclear389_finite_array_qualification_remains_separate": true,
+  "experiment_stationarity_highestlevel_certified": false,
+  "new_NumPy_NPZ_Atomx_HCIg_API_calls": 0
+}

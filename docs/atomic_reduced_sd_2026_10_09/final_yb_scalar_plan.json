@@ -1,0 +1,107 @@
+{
+  "scalar_amplitudes": 13165103,
+  "singles": 1123,
+  "doubles": 13163980,
+  "real_amplitude_vector_bytes": 105320824,
+  "dense_anchor_matrix_working_bytes": 6932798954515968,
+  "magnetic_symmetry_coordinates": 264109674,
+  "unrestricted_coordinates": 4083833330,
+  "scope": "Exact scalar coordinates for closed-shell T1/T2; excludes integral/recoupling caches, valence sectors, triples and iterative intermediates",
+  "planning_seconds": 0.0008145759347826242,
+  "process_peak_RSS_bytes": 151339008,
+  "occupied_radial": 19,
+  "virtual_radial": 414,
+  "source_band": "docs/atomic_streaming_tail_2026_10_09/full_yb_band.json",
+  "source_band_sha256": "fd39e25f3691a721a1d22b0102b1ff053393b98cbe04ceac1deb83c840ee14fd",
+  "load": [
+    9.07763671875,
+    9.1611328125,
+    9.2041015625
+  ],
+  "channels": [
+    {
+      "J2": 0,
+      "parity": -1,
+      "occupied_pairs": 30,
+      "virtual_pairs": 10502
+    },
+    {
+      "J2": 0,
+      "parity": 1,
+      "occupied_pairs": 43,
+      "virtual_pairs": 12450
+    },
+    {
+      "J2": 2,
+      "parity": -1,
+      "occupied_pairs": 70,
+      "virtual_pairs": 28025
+    },
+    {
+      "J2": 2,
+      "parity": 1,
+      "occupied_pairs": 59,
+      "virtual_pairs": 29500
+    },
+    {
+      "J2": 4,
+      "parity": -1,
+      "occupied_pairs": 65,
+      "virtual_pairs": 35046
+    },
+    {
+      "J2": 4,
+      "parity": 1,
+      "occupied_pairs": 71,
+      "virtual_pairs": 36876
+    },
+    {
+      "J2": 6,
+      "parity": -1,
+      "occupied_pairs": 42,
+      "virtual_pairs": 31565
+    },
+    {
+      "J2": 6,
+      "parity": 1,
+      "occupied_pairs": 39,
+      "virtual_pairs": 33099
+    },
+    {
+      "J2": 8,
+      "parity": -1,
+      "occupied_pairs": 21,
+      "virtual_pairs": 21063
+    },
+    {
+      "J2": 8,
+      "parity": 1,
+      "occupied_pairs": 22,
+      "virtual_pairs": 22834
+    },
+    {
+      "J2": 10,
+      "parity": -1,
+      "occupied_pairs": 6,
+      "virtual_pairs": 10561
+    },
+    {
+      "J2": 10,
+      "parity": 1,
+      "occupied_pairs": 6,
+      "virtual_pairs": 12154
+    },
+    {
+      "J2": 12,
+      "parity": -1,
+      "occupied_pairs": 2,
+      "virtual_pairs": 3540
+    },
+    {
+      "J2": 12,
+      "parity": 1,
+      "occupied_pairs": 2,
+      "virtual_pairs": 5251
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "previous_snapshots_verified": 12,
+  "root_diff_saved": true,
+  "current_bound_inputs_verified": 46,
+  "old_physics_budget_inputs_unchanged": 8,
+  "FAC_seals_unchanged": 2,
+  "CoreSD_non_docstring_AST_identical": true,
+  "fscc_pytest": "20 pass/0 skip; tested source unchanged",
+  "hourly_pytest": "35 pass/0 skip; tested source unchanged",
+  "ruff": "pass",
+  "consumer_output_hash_checks": 230,
+  "occupied_p_evidence_hashes_verified": 20,
+  "occupied_p_current_source_hashes_verified": 741,
+  "method_rank_current_source_hashes_verified": 651,
+  "method_rank_saved_array_energy_and_retained_replay": {
+    "lccsd": {
+      "core_signed_FCI_difference_Ha": -0.013187159741676169,
+      "retained_core_residual_Ha": 8.881784197001252e-16
+    },
+    "ccsd": {
+      "core_signed_FCI_difference_Ha": 2.2787471545271387e-05,
+      "retained_core_residual_Ha": 4.9636049393939063e-14,
+      "complete_8_root_total_error_Ha": 0.0035086908970889397,
+      "attachment_minus_own_core_error_Ha": 0.003531478368634211
+    },
+    "ccsdt": {
+      "core_signed_FCI_difference_Ha": 3.170001489749552e-06,
+      "retained_core_residual_Ha": 5.62007072010904e-14,
+      "complete_8_root_total_error_Ha": 9.093014769590013e-06,
+      "attachment_minus_own_core_error_Ha": 5.923013279840461e-06
+    }
+  },
+  "method_selection_local_sources_bound": 15,
+  "v2_snapshot_preserved": true,
+  "v3_message_id": "om_x100b6386fad7d4a4c4a72f154d62772",
+  "v3_receipt_triggered_selection_status": "implementation_frontier",
+  "new_production_yb_roots": 0,
+  "highest_level_reached": false,
+  "local_documents_checked": 17,
+  "local_link_targets_checked": 470,
+  "missing_local_links": [],
+  "link_scope": "Working tree target existence only; no staging, clean-checkout or publication claim",
+  "additional_orbital_or_amplitude_solves_in_final_verification": 0
+}

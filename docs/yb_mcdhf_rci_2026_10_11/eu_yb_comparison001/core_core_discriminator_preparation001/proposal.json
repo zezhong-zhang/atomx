@@ -1,0 +1,221 @@
+{
+  "status": "source_JSON_only_preparation_not_execution_authorized",
+  "hypothesis": "Omitted explicit 5p double-core-hole correlation can shift upper-minus-lower energies at fixed orbitals; enlarging radial cutoff alone cannot introduce the absent configurations.",
+  "fixed_scope": "Native same-source scalar DC, all original 91 configurations and 31 orbitals retained unchanged; append complete nine 5p-double NR rows over fixed {6s,5d,6p} particle pool. Literal13 is the proposed same-point input; root must bind its closed baseline and original f043 source before execution.",
+  "candidate_NR_configs": [
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6s2 5d1"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6s2 6p1"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6s1 5d2"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6s1 5d1 6p1"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6s1 6p2"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 5d3"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 5d2 6p1"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 5d1 6p2"
+    },
+    {
+      "family": "5p_double",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4 4f14 6p3"
+    }
+  ],
+  "counts": {
+    "baseline_configs": 91,
+    "candidate_configs": 100,
+    "baseline_parent_CSFs": 3789,
+    "candidate_parent_CSFs": 5741,
+    "baseline_selected_CSFs": 1595,
+    "candidate_selected_CSFs": 2574,
+    "baseline_magnetic_dimension": 27000,
+    "candidate_magnetic_dimension": 39240,
+    "blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "baseline": {
+          "csf": 219,
+          "raw": 1640,
+          "all_M": 1872,
+          "patterns": 156
+        },
+        "candidate": {
+          "csf": 362,
+          "raw": 2623,
+          "all_M": 2862,
+          "patterns": 197
+        },
+        "raw_pair_checks_upper": 6880129,
+        "dense_CSF_H_or_C_bytes": 1048352,
+        "dense_raw_H_bytes_upper": 55041032,
+        "dense_projection_bytes_upper": 7596208
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "baseline": {
+          "csf": 223,
+          "raw": 1705,
+          "all_M": 1917,
+          "patterns": 150
+        },
+        "candidate": {
+          "csf": 365,
+          "raw": 2659,
+          "all_M": 2879,
+          "patterns": 198
+        },
+        "raw_pair_checks_upper": 7070281,
+        "dense_CSF_H_or_C_bytes": 1065800,
+        "dense_raw_H_bytes_upper": 56562248,
+        "dense_projection_bytes_upper": 7764280
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "baseline": {
+          "csf": 367,
+          "raw": 1619,
+          "all_M": 1653,
+          "patterns": 188
+        },
+        "candidate": {
+          "csf": 599,
+          "raw": 2466,
+          "all_M": 2500,
+          "patterns": 232
+        },
+        "raw_pair_checks_upper": 6081156,
+        "dense_CSF_H_or_C_bytes": 2870408,
+        "dense_raw_H_bytes_upper": 48649248,
+        "dense_projection_bytes_upper": 11817072
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "baseline": {
+          "csf": 370,
+          "raw": 1660,
+          "all_M": 1694,
+          "patterns": 176
+        },
+        "candidate": {
+          "csf": 596,
+          "raw": 2478,
+          "all_M": 2514,
+          "patterns": 227
+        },
+        "raw_pair_checks_upper": 6140484,
+        "dense_CSF_H_or_C_bytes": 2841728,
+        "dense_raw_H_bytes_upper": 49123872,
+        "dense_projection_bytes_upper": 11815104
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "baseline": {
+          "csf": 416,
+          "raw": 1324,
+          "all_M": 1324,
+          "patterns": 178
+        },
+        "candidate": {
+          "csf": 652,
+          "raw": 1918,
+          "all_M": 1918,
+          "patterns": 228
+        },
+        "raw_pair_checks_upper": 3678724,
+        "dense_CSF_H_or_C_bytes": 3400832,
+        "dense_raw_H_bytes_upper": 29429792,
+        "dense_projection_bytes_upper": 10004288
+      }
+    ]
+  },
+  "kinematic_method": "Integer Pauli subset generating functions over each relativistic occupancy split; exact multiplicity D(M=J)-D(M=J+1), raw builder count sums D(J) only for patterns with nonzero multiplicity. All base per-sector multiplicities and aggregate D(J) match models JSON, and 9-row increment matches historical 1952 parent / 979 selected. This is not a measured public signed CSF support, sparse nnz, peak RSS or timing.",
+  "execution_admission": {
+    "original_raw_cap": 2000,
+    "required_raw_max": 2659,
+    "original_cap_pass": false,
+    "execution_allowed": false,
+    "reason": "Four of five expanded sectors exceed the original raw determinant cap. Separate source-based resource admission must explicitly cover whole space; do not prune rows/amplitudes or relabel larger cap as a physics tolerance.",
+    "dense_unblocked_H_or_C_bytes": 53003808,
+    "raw_pair_checks_upper": 29850774,
+    "planned_calls": {
+      "complete_CI": 2,
+      "H": 2,
+      "new_gradient": 0,
+      "optimizer": 0,
+      "virtual_orbital_generator": 0,
+      "Dirac_spectrum": 0
+    },
+    "unknowns": [
+      "sparse connected-pair/term nnz",
+      "cache residency and peak RSS",
+      "same-source baseline H equality",
+      "expanded overlap matching",
+      "actual transition shifts",
+      "expanded orbital stationarity"
+    ]
+  },
+  "historical_reference": {
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "point": "accepted0160 old24/531 baseline, unrelated to current31 literal13",
+    "stationarity_passed": false,
+    "transition_shifts_cm1": [
+      {
+        "label": "5d_3/2",
+        "shift": 461.2461356954022
+      },
+      {
+        "label": "5d_5/2",
+        "shift": 596.7126081252829
+      },
+      {
+        "label": "6p_1/2",
+        "shift": 194.4856989933681
+      },
+      {
+        "label": "6p_3/2",
+        "shift": 148.67169716909012
+      }
+    ],
+    "transferable_correction": false,
+    "reading": "Historical shifts ~149\u2013597 cm^-1 demonstrate a measurable correlation channel, but old RMS worsened 2022.83\u21922225.97 cm^-1; positive sign/size and fit improvement must be remeasured in current complete model."
+  },
+  "acceptance": "Preserve all configurations/coupling paths/signed CSFs in the five target J/parity blocks; exact embedded old-space H under same source/operator/orbits; inherited CI residual and Gram gates; complete signed overlap tracking to same five UIDs. Report each absolute upper/lower delta, four transition shifts and splitting/centroid. Either sign is a result; no experimental improvement required to count the conditional measurement as completed.",
+  "stop": "Reject before H allocation if public raw counts, whole resource admission, source/input identity or complete signed support disagree. Any nested-H/Gram/residual/tracker/resource failure stops and retains failure. No tolerance, model, h or seed scan.",
+  "no_complete_correlation_claim": "Only the named 5p two-hole/three-particle arm; missing 4f12, mixed core holes, other particle pools and deeper holes remain. Current deeper shells contribute direct/exchange mean field and retained radial relaxation; this is not explicit double-hole dynamical correlation.",
+  "source_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/models.json": "cd850f8b18974e219589de22c5f123848bdda659d9e9d888740ae967d51d561c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/correlation_scope_audit001.json": "d8a0e939bf684b5345f745212d4f226318a130512f8f052ce759ae31e3cc9a7e",
+    "src/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+  },
+  "new_H_CI_gradient_optimizer_API_cards": 0,
+  "NPZ_reads_or_rehashes": 0
+}

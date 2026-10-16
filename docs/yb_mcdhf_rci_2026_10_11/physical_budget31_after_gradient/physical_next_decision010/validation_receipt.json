@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "time_UTC": "2026-10-14T06:50:29.140918+00:00",
+  "source_files_checked": 358,
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "changed_source_files_vs_before": [
+    "src/atomx/methods/csf/variational.py",
+    "src/atomx/physics/csf/radial_density.py"
+  ],
+  "source_archive_sha256": "8a0af1ca2519ed50cbd5bfba14b3ac400c2d928f559fb32cfd66e46a019b7a8b",
+  "archive_members_content_checked": 358,
+  "after_and_before_snapshots_checked": 4,
+  "execution_inputs_checked": 42,
+  "inherited_input_checks": 16,
+  "tests_receipt_checked": 113,
+  "test_bound_files_checked": 10,
+  "scientific_live_checks_readback": 357,
+  "saved_array_checks_readback": 102,
+  "signed_weights_files_content_checked": 20,
+  "cases": {
+    "matched": {
+      "checks": 102,
+      "result_sha256": "9907ad4471a1dc6aedfb1e60e1c08bd748624b26d21f22ca1094c739e002633e",
+      "gradient_sha256": "d64885aa58cc30b7c62041cc8800affb5b74bda5d3d37b9d300a57d3c8a42c6d"
+    },
+    "J1_even": {
+      "checks": 51,
+      "result_sha256": "b86bd4250280fea80fd142d48ab80f7e6571d75cc00a7b8c02b4e9881372c299",
+      "gradient_sha256": "ca90886fadc09d31e10eb0bc96d4f4e4db49f6db91666e47f1b4e25a9c8ef957"
+    },
+    "J3_even": {
+      "checks": 51,
+      "result_sha256": "056a6c92dcffd52b9e3c64afaec0624e80cfe0abca773cb0babcde1afa12eb61",
+      "gradient_sha256": "ef7ce69d7e9b1f4a2530f3096700da1f6ebbba7f336e5b5749104305a103b5e9"
+    },
+    "J5_even": {
+      "checks": 51,
+      "result_sha256": "52ec3df95530070a17d21cefdad428110aaecedc1c26e37054387a32e9acc148",
+      "gradient_sha256": "6a91f11ca72b4b3af46cbf4c7f4348c6105972eb94646e98a4770c4fcde230f5"
+    },
+    "J1_odd": {
+      "checks": 51,
+      "result_sha256": "feb92cc3be41945c303a55c94671e88c6249537781058f11ad526f7e176c78d1",
+      "gradient_sha256": "b6a4ceae276312c4eebbac40c5faeaedec176ee25255e4963d1b9cac88cb6309"
+    },
+    "J3_odd": {
+      "checks": 51,
+      "result_sha256": "3f17ff135e4d49f9555393d9e68057122f7e9a98cb39563be0779a3948b9d962",
+      "gradient_sha256": "1041f4e109eb1bb63bb91f915931c9959e826b551c7f12b6949b3a69c46e25ec"
+    }
+  },
+  "doc_hashes_checked": 9,
+  "working_tree_candidate_links": "PASS; not a clean-checkout publication gate",
+  "ruff": "All checks passed!",
+  "git_diff_check": "PASS",
+  "ordinary_FD005_superseded": false,
+  "stationarity_qualified": false,
+  "experimental_accuracy_qualified": false,
+  "new_science_calls": 0,
+  "scope": "Closure hashes and saved-record readback only; no new physical derivative, Hamiltonian, eigensystem or optimizer execution."
+}

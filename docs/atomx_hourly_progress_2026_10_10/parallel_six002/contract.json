@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-10-11T03:13:19.143189+00:00",
+  "user_authorization": "并行推进6个方向",
+  "directions": [
+    "FSCC larger core/sector validation",
+    "Complete metric and correlated properties",
+    "Native reduced SD transverse diagram consumption",
+    "CPU/GPU signed contraction and resource/performance validation",
+    "Actual bounded full-Yb norm and source-bound tail execution",
+    "NIST state matching/coverage/uncertainty and actual theory gaps"
+  ],
+  "fixed": [
+    "Same complete physical inputs, signed amplitudes and original scientific gates",
+    "Separate owner modules/evidence; shared integration has one writer",
+    "No physical pruning, no experimental claims from finite/control/resource results",
+    "Source/input/controller identities and durable per-lane claims"
+  ],
+  "new_caps": {
+    "maximum_concurrent_jobs": 6,
+    "maximum_threads": 6,
+    "maximum_reserved_bytes": 25769803776,
+    "service_memory_bytes": 27917287424,
+    "host_headroom_bytes": 8589934592,
+    "maximum_load_per_cpu": 1.0
+  },
+  "old_caps": {
+    "maximum_concurrent_jobs": 3,
+    "maximum_threads": 3,
+    "maximum_reserved_bytes": 12884901888,
+    "service_memory_bytes": 15032385536,
+    "host_headroom_bytes": 8589934592,
+    "maximum_load_per_cpu": 1.0
+  },
+  "current_machine": {
+    "meminfo": [
+      "MemTotal:       127103680 kB",
+      "MemAvailable:   118290944 kB"
+    ],
+    "affinity_cpus": 32,
+    "load": [
+      9.1669921875,
+      9.15087890625,
+      9.2666015625
+    ]
+  },
+  "starting_sources": {
+    "docs/atomx_hourly_progress_2026_10_10/parallel_registry.json": "dc5b63af01c992df2514e3d673745d688d608ec7d229df7ab48c74dd2b5d6b41",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py": "5311ff8ad4e037c803992cfe6b15a60405d147897d320793f4ccf713234947b7",
+    "/home/zzhang/.config/systemd/user/atomx-atomic-iteration-aisi-codex.service": "e614739fdc2618a3f2d86d1f8055541d60a9da5914078a42fe846d806d7532a1"
+  },
+  "stopping_condition": "Six reviewed bounded probes per successful receipt after source freeze and whole-batch admission; implement independent lane increments, do not repeat old source/action or promote method completeness.",
+  "highest_level_reached": false
+}

@@ -1,0 +1,40 @@
+{
+  "core_energy_Ha": -13.61350329414627,
+  "core_reconstruction_max": 2.168404344971009e-19,
+  "model_projector_condition": 1.000005553072842,
+  "normalization_max": 2.220446049250313e-16,
+  "bloch_equation_max_Ha": 8.502642815555137e-15,
+  "fci_root_max_Ha": 1.2434497875801753e-14,
+  "fov_max_Ha": 0.00012719804298440274,
+  "oracle_gate_pass": true,
+  "scope": "Complete finite determinant operator diagnosis; no production amplitude repair or experimental accuracy claim",
+  "highest_level_reached": false,
+  "backend_heff_max_Ha": 8.749521107631608e-10,
+  "backend_diagonal_defects_Ha": [
+    8.749521107631608e-10,
+    8.749521107631608e-10,
+    -8.770761894538737e-15,
+    -6.994405055138486e-15,
+    -6.106226635438361e-15,
+    -4.3298697960381105e-15,
+    -6.106226635438361e-15,
+    -9.658940314238862e-15
+  ],
+  "backend_strict_1e10_gate_pass": false,
+  "job": {
+    "id": "finite_ns80_static",
+    "kind": "finite_transverse_bloch",
+    "ns": 80,
+    "mode": "static"
+  },
+  "core_scf": {
+    "converged": true,
+    "iterations": 9,
+    "stopping_residual": 2.9977775459383496e-09
+  },
+  "backend_raw_bound_Ha": 2.5955203235191112e-15,
+  "numerical_oracle_pass": true,
+  "original_backend_gate_pass": true,
+  "source_and_inputs_unchanged": true,
+  "arrays_sha256": "45ba83d2bcfa530fdfef335c71168fadc703738bd255ac06e3b6d766e49b6e20"
+}

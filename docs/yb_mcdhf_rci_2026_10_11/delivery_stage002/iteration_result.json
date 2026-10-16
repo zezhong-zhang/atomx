@@ -1,0 +1,20 @@
+{
+  "message_id": "om_x100b63807e496ca0dfa2a1789aa5dd8",
+  "status": "implementation_frontier",
+  "reason": "Balanced fixed-orbital families restore missing lower-state coupling, but final P and D gaps respond differently and all fail the original gate. Establish mixed-CI orbital stationarity and estimate missing higher-rank channels before attributing the remaining gap or scanning radial cutoffs.",
+  "receipt_backed_selection_executed": true,
+  "new_expanded_MCDHF_production_execution": false,
+  "automatic_scientific_jobs_executed": [],
+  "manual_successor_probe": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/",
+  "manual_probe_status_at_snapshot": "agent preparing bounded prospective diagnostic; not a completed or stationary calculation",
+  "artifacts": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage002/iteration_request_final.json",
+      "sha256": "c1e019c0ff44fd44eff62d3db68edc66d24c8ae23167efcf52c2fe89ce2133fc"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage002/iteration_status_final.json",
+      "sha256": "c1e019c0ff44fd44eff62d3db68edc66d24c8ae23167efcf52c2fe89ce2133fc"
+    }
+  ]
+}

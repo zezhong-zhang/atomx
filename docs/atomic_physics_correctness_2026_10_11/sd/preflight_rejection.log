@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/probe.py", line 163, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/probe.py", line 71, in main
+    assert all(digest(ROOT / p) == h for p, h in contract["source_sha256"].items())
+AssertionError

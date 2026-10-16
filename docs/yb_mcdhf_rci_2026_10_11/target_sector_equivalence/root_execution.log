@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence/run.py", line 491, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence/run.py", line 487, in main
+    execute(args.execute)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence/run.py", line 356, in execute
+    raise ValueError("Frozen physical target assignment changed")
+ValueError: Frozen physical target assignment changed

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/run.py", line 528, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/run.py", line 515, in main
+    probe(contract, execution)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/run.py", line 477, in probe
+    check("direction1_NEW_Rayleigh_derivative", abs(rayleigh - analytical), ledger["gate"])
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/run.py", line 172, in check
+    raise ValueError("Scientific gate failed: " + name)
+ValueError: Scientific gate failed: direction1_NEW_Rayleigh_derivative

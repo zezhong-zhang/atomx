@@ -1,0 +1,566 @@
+{
+  "status": "SOURCE_only_scalar_request_observation_successor_NO_execution_authorization",
+  "hypothesis": "At one literal recovered31 point, measure native complete staticBreit upper-minus-lower scale and independent full zero-frequency static limit; no dynamic auxiliary-frequency model in this phase.",
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source",
+  "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+  "source_identity": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source_identity.json",
+    "sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a"
+  },
+  "input_roles": {
+    "literal31_recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "literal31_DC_H_E_C": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "original31_fullmetric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+    },
+    "completion.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+    },
+    "actual/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+    },
+    "actual/recovered_owner.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "actual/recovered_tracking.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+    },
+    "actual/new_objective_identity.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "NIST_nominal_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_same_point_evidence.json",
+      "sha256": "1081af357943708a5ede027746cd90785d45402756dde63b8661821bdd713d40"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source_identity.json",
+      "sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a"
+    },
+    "primary_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/root_execution.json",
+      "sha256": "df5f37b1c322d632f70b70cd89623cc29daa4af2f52fda444330efb36845830c"
+    },
+    "primary_execution_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/execution_binding.json",
+      "sha256": "499e0a7381b6782e12065916fcbc19eb09291e2aa2d496b80a098c872b2fa2d9"
+    },
+    "integration_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/root_execution.json",
+      "sha256": "e59c6d68f90fefb19a6c190638da05c59bd72f2672175d4608bea6a49ffd2980"
+    },
+    "matched_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/root_execution.json",
+      "sha256": "dfa8b354a4830217c70910cc084c963c9c3588a2b3c832056d508468f6ac66e1"
+    },
+    "matched_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/result.json",
+      "sha256": "771d5bd3edbedce0db97a7892af46a0e5b726831798f8a196097e9449af1f972"
+    },
+    "matched_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/completion.json",
+      "sha256": "fe98ffb231a4fb863e2e1c59be5aa889617bf4aa32a370d14b7b8475195294eb"
+    },
+    "mixed_failed_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json",
+      "sha256": "1ac9729a6a256e4b1d976a8609c65c08a609ba46ad75177aca462dc6dda84d1b"
+    },
+    "mixed_saved_diagnostic": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed_failure_diagnosis001/diagnostic_completion.json",
+      "sha256": "5a64dfbc0ad2b4705c7da7b681b3652c6c59484677db1238e7f1a1ee6830816c"
+    },
+    "prepared_predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
+      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
+    },
+    "prepared_predecessor_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
+      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
+    }
+  },
+  "fixed": {
+    "physical_point": "literal public recovered3689 point from actual31 gradient execution; canonical31 is distinct and excluded",
+    "inputs": {
+      "literal31_recovered_point": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+        "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+      },
+      "literal31_DC_H_E_C": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+        "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+      },
+      "original31_fullmetric": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+        "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+      },
+      "geometry_workspace": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+        "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+      },
+      "tracking_ci": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+        "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+      },
+      "tracking_binding": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+        "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+      },
+      "reference_models": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+        "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+      },
+      "models": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+        "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+      },
+      "canonical_basis": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+        "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a"
+      },
+      "screened_geometry": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+        "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+      },
+      "contract.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+        "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+      },
+      "completion.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+        "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+      },
+      "actual/result.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+        "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+      },
+      "actual/recovered_owner.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+        "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+      },
+      "actual/recovered_tracking.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+        "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+      },
+      "actual/new_objective_identity.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+        "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+      }
+    },
+    "array_bindings_policy": "Copied from immutable runtime/closure JSON, no NPZ read or rehash in this preparation. Future execution requires exact full input/file/source validation.",
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "Fermi A175",
+    "ns": 123,
+    "keys31": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -4
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "complete_target_CSFs": 1595,
+    "enumerated_parent_CSFs": 3789,
+    "other_parent_not_computed": 2194,
+    "NR_configs": 91,
+    "five_complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "target_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "EOL_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "tracker": "Original frozen531 physical reference, signed whole-model tracking, no rebase",
+    "original_seven_no_pair_projectors": "Unchanged electronic branch; no energy>0 filter",
+    "new3689_metric": "Bound original31 actual metadata; not old3451 resume or improvement",
+    "stationarity": "31 unoptimized; original3689 metric thresholds both FAIL; fixed RCI only; no comparison withold3451 metric.",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "all31_radials": "Literal saved recovered3689 P/Q only; no projection/retraction/normalization repair. P@x is recomputed solely as an exact identity control."
+  },
+  "gates": {
+    "full_all1595_eigen_residual_Ha": 1e-08,
+    "full_all1595_CI_Gram": 1e-10,
+    "full_H_symmetry_max_Ha": 0.0,
+    "cross_Jpi_H_exact_zero": true,
+    "same_kappa_radial_Gram_and_no_pair_leakage": 1e-10,
+    "max_raw_block_determinants": 2000,
+    "max_determinant_pairs_original_tracker": 30000,
+    "UID_weights": "exact original fivephysicalUIDs, .2 each; reject changed assignment/ambiguity. If a target is degenerate, preserve complete signed degenerate span or stop; do not pick an arbitrary column.",
+    "all31_PQ": "bytewise unchanged in everymodel, fullpoint source and workspace unchanged",
+    "NIST": "existing exactIDs/energies; uncertaintyNone preserved, original1% fail not modified"
+  },
+  "root_admission_prerequisite": "Primary63, affectedintegration26, and matched same-numerical-epoch owner-only baseline replay are closed. Original mixed suite full-H/source002 parity and h=1e-4 FD remain failed; current MCDHF optimizer is not qualified. Root must separately seal this exact fixed-RCI experiment; none of these controls prequalifies full native31 transverse H.",
+  "operators": {
+    "DC": {
+      "include_breit": false,
+      "breit_orbital_energies": null,
+      "retain_hamiltonian": true
+    },
+    "static": {
+      "include_breit": true,
+      "breit_orbital_energies": null,
+      "retain_hamiltonian": true
+    },
+    "zero": {
+      "include_breit": true,
+      "breit_orbital_energies": "exact all31 keys -> +0.0 binary64 Ha",
+      "retain_hamiltonian": true
+    }
+  },
+  "numerical_convention": {
+    "fresh_DC_H_and_schema1_owner": "exact to saved literal recovered f043 baseline, else stop; no reproject/normalization repair",
+    "old_f043_spectrum": "validate old complete E/C against same H with original residual/Gram; current dense-centering convention may change E/C bytes. Record all-root E offsets and signed complete cluster-span diagnostics, not force old bytewise vectors.",
+    "three_models": "one common current DC baseline, same radials/caches/nucleus/tracker. Every retained owner actual H is built once; no extra ordinary comparatorH.",
+    "signed_old_clusters": "predeclared adjacent same-sector old gaps <=1e-8Ha are complete comparison spans; report signed overlap and principal/projected Gram defect, with no new vector-reproducibility gate. Full H equality plus both full eigen residual/Gram and original UID tracking supply numerical qualification.",
+    "target_matching": "Original frozen531 UID groups/equalweights. If target becomes degenerate or assignment changes vs fresh DC, stop; no postselection."
+  },
+  "resources": {
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "CPU": 27,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 1200,
+    "outer_seconds": 1215,
+    "maximum_system_load1": 32,
+    "minimum_host_available_GiB": 4,
+    "maximum_signed_overlap_pairs": 30000,
+    "maximum_hS_getter_requests": 1000,
+    "calls": {
+      "NPZ_load": 6,
+      "nucleus_factory": 1,
+      "convol_cache": 1,
+      "CI": 3,
+      "H": 3,
+      "complete_eigh": 15,
+      "CI_internal_hS": 21,
+      "owner_build": 3,
+      "owner_matrix_read": 6,
+      "tracker_resolve": 3,
+      "tracker_overlap": 4,
+      "tracking_SVD": 15,
+      "transverse_factory": 2,
+      "transverse_uncached_evaluations": 2000000,
+      "zero_Helmholtz_kernels": 9,
+      "Dirac": 0,
+      "gradient": 0,
+      "optimizer": 0,
+      "polar": 0,
+      "Fock": 0
+    },
+    "maximum_transverse_scalar_requests": 2000000
+  },
+  "raw_hS_rule": "At most21 actual raw assemblies; exact missed-getter count must equal successful raw returns. All7 \u03ba getter coverage required separately for each model. Preserve same workspace/nucleus/fingerprint/tuple identity carry ledger and actual rawh/S arrays. ExplicitConvolCache must prevent any implicit fallback constructor; source-built and saved logicalh/S must match exactly.",
+  "gate_static_zero_whole_H_Ha": 1e-09,
+  "memory_scope": {
+    "one_full_H_or_C_bytes": 20352200,
+    "three_H_and_C_bytes": 122113200,
+    "source_bound_cache_limit": "Zero-frequency kernel geometries <=9 rank-only; inherited static dictionaries/RSS separately governed by AS. No finite all-frequency map or41M workload admitted.",
+    "three_H_and_C_MiB": 116.45622253417969,
+    "old_literal_H_and_C_bytes": 40704400,
+    "temporary_longdouble_H_bytes": 40704400,
+    "largest_sector": 416,
+    "sum_sector_cubes": 193668185,
+    "three_spectra_sum_sector_cubes": 581004555,
+    "zero_kernel_array_upper_formula": "9 ranks \u00d7 7 grid arrays \u00d7 gr.size \u00d7 8bytes; complete finite-map kernels are not created. Original transverse diagnostics additionally declares at most12\u00d7128\u00d7gr.size\u00d78 bounded cached FP64 wave/density/potential payload, excluding keys/inputs/scalarcache/temporaries. Static retardation caches are unbounded in source; RSS and AS guard govern them. No claim this estimate proves whole experiment fits or completes."
+  },
+  "stop": "First numerical/source/resource/count/UID failure saves all completed arrays/owners/counters. No retry, source change, tolerance change, hscan, model/space pruning or alternate point.",
+  "reporting": [
+    "All5 reported and normalizedRayleigh energies, all individual changes",
+    "Four upper-minus-SAME-lower static/DC and zero/static shifts",
+    "EqualEOL plus D/P centroids and splittings, all nominal NIST gaps/RMS/unchanged1%gate",
+    "No new gradient or optimization; 3689 stationarity FAIL history preserved; static result cannot bound finite-frequency physics"
+  ],
+  "preparation_calls": {
+    "NumPy_Atomx_imports": 0,
+    "NPZ_reads_or_hashes": 0,
+    "physical_calls": 0,
+    "API_registry": 0
+  },
+  "bound3689_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+  "expected_exact_completed": {
+    "NPZ_load": 6,
+    "nucleus_factory": 1,
+    "convol_cache": 1,
+    "CI": 3,
+    "H": 3,
+    "complete_eigh": 15,
+    "owner_build": 3,
+    "owner_matrix_read": 6,
+    "tracker_resolve": 3,
+    "tracker_overlap": 4,
+    "tracking_SVD": 15,
+    "transverse_factory": 2,
+    "Dirac": 0,
+    "gradient": 0,
+    "optimizer": 0,
+    "polar": 0,
+    "Fock": 0
+  },
+  "call_observation": "sys.setprofile original Python bodies only, no physical function replacement. Before each native evaluate_block body using the actual Breit evaluator object, reserve exactly len(structure.keys) scalar calls; original values_iter calls the evaluator exactly once per complete key. The whole-run2m reservation cap includes static/zero cached hits. Completed-block reservation counts require a non-None native evaluate_block result. Zero original hits+misses must equal its reservation after completion. Uncached evaluator bodies are separate in-memory work counters. No per-scalar disk IO. Profile return events may include exception unwind; non-None returns are recorded separately and failed runs cannot certify complete work from constructor None events.",
+  "additional_original_thresholds": {
+    "target_same_symmetry_degeneracy_Ha": 1e-10,
+    "old_spectral_complete_cluster_gap_Ha": 1e-08
+  },
+  "prepared_predecessor": {
+    "driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
+      "sha256": "dd9550eb874bdedf45d65eddd47a5f8dd82e68a3de3951556dc0772bc5bc4525"
+    },
+    "contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
+      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
+    },
+    "preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/preparation.json",
+      "sha256": "1e99a95bfb355077d43adb918b92b255dee99475513a07a7125289adb967333a"
+    },
+    "handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
+      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
+    },
+    "actual_executed": false,
+    "difference": "Only resource observation and exception-count semantics change. All physics, physical inputs, source archive, CPU/caps and scientific gates unchanged."
+  }
+}

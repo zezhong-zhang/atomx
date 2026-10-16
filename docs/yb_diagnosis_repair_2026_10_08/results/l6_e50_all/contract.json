@@ -1,0 +1,44 @@
+{
+  "hypothesis": "Core-valence attachment self-energy accounts for the DF excitation discrepancy",
+  "scope": "On-shell diagonal Sigma2, both 2p1h and 2h1p, all 19 occupied core orbitals; no Breit, QED, RPA, off-diagonal Sigma or experimental shifts",
+  "reference": "Exactly 68 electrons [Xe]4f14 V68 with one external valence, unchanged core density and orbitals",
+  "virtual_kappas": [
+    -1,
+    1,
+    -2,
+    2,
+    -3,
+    3,
+    -4,
+    4,
+    -5,
+    5,
+    -6,
+    6,
+    -7
+  ],
+  "roots_per_kappa": 128,
+  "upper_energy_ceiling_Ha": 50.0,
+  "bound_virtuals_included": true,
+  "radial_baseline": "v68_default",
+  "radial_scope": "Retained numerically passed DF; MBPT radial convergence evaluated separately",
+  "denominator_floor_Ha": 1e-08,
+  "near_zero_policy": "raise for nonzero numerator",
+  "accepted_api_gate": "Independent explicit spin-orbital nonzero self-energy sum for occupied and external valence: rel1e-11 abs1e-13",
+  "resource": {
+    "candidate_2p1h_terms_per_state": 26320320,
+    "candidate_2h1p_terms_per_state": 316160,
+    "fixed_threads": 1,
+    "load_average": [
+      10.3330078125,
+      10.1884765625,
+      9.79931640625
+    ],
+    "cap_seconds": 900,
+    "anticipated_RSS_MiB": 1024
+  },
+  "experimental_goal_relative": 0.05,
+  "convergence_goal_cm1": 1.0,
+  "script_sha256": "c60779296dc146fa9d34c41a11b7485608b8434e503a052ccac716db0bc80df3",
+  "common_script_sha256": "a399912f71f98b840a64a13f4d046c7c85eb4a048195f214319daaf98df7c4f7"
+}

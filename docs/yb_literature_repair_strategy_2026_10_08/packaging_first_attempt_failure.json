@@ -1,0 +1,7 @@
+{
+  "stage": "reading bundle packaging",
+  "failure": "FileNotFoundError on repo-relative topic path from topic workdir",
+  "cause": "packager was invoked from the media-send workdir",
+  "correction": "re-run packaging from repository root; the previously validated PDF is unchanged",
+  "science_affected": false
+}

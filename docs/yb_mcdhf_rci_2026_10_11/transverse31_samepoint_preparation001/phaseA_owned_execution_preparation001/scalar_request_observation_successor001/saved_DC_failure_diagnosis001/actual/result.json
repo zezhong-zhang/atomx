@@ -1,0 +1,298 @@
+{
+  "status": "offline_diagnosis_complete",
+  "checks": [
+    {
+      "name": "complete_owner_payload_equal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old_CI/exact_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new_CI/exact_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": 81557328
+    },
+    {
+      "name": "old/H_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/energies_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/mixing_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/keys_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/P_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/Q_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/H_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/mixing_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/energies_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/P_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/Q_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/H_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/C_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/E_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "old/H_symmetry",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/H_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/energies_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/mixing_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/keys_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/P_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/Q_finite",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/H_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/mixing_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/energies_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/P_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/Q_binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/H_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/C_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/E_shape",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "new/H_symmetry",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "literal_keys_bytes_equal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "literal_P_bytes_equal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "literal_Q_bytes_equal",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_whole_CI.npz",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_owner.json",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/failure.json",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_input_hash/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/root_execution.json",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_driver_hash",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "post_contract_hash",
+      "passed": true,
+      "observed": null
+    }
+  ],
+  "matrix_difference": {
+    "bytes_equal": false,
+    "changed_entries": 177457,
+    "numerically_changed_entries": 177457,
+    "diagonal_changed_entries": 699,
+    "off_diagonal_changed_entries": 176758,
+    "positive_difference_entries": 89385,
+    "negative_difference_entries": 88072,
+    "max_abs_difference_Ha": 7.275957614183426e-12,
+    "max_location": [
+      103,
+      103
+    ],
+    "old_at_max_Ha": -14067.006451252171,
+    "new_at_max_Ha": -14067.006451252164,
+    "signed_at_max_Ha": 7.275957614183426e-12,
+    "max_same_sign_ULP": 4342595940692000768,
+    "changed_opposite_sign_entries": 3492,
+    "E_bytes_equal": false,
+    "C_bytes_equal": false
+  },
+  "complete_eigensystem_controls": {
+    "old_on_old": {
+      "max_residual_Ha": 2.631101109489068e-11,
+      "gate_Ha": 1e-08,
+      "passed": true
+    },
+    "new_on_new": {
+      "max_residual_Ha": 1.0960341614908495e-11,
+      "gate_Ha": 1e-08,
+      "passed": true
+    },
+    "old_on_new": {
+      "max_residual_Ha": 2.9018657436316248e-11,
+      "gate_Ha": 1e-08,
+      "passed": true
+    },
+    "old_Gram": {
+      "max_error": 3.1086244689504383e-15,
+      "gate": 1e-10,
+      "passed": true
+    },
+    "new_Gram": {
+      "max_error": 3.552713678800501e-15,
+      "gate": 1e-10,
+      "passed": true
+    }
+  },
+  "decoded_array_bytes": 81557328,
+  "counts": {
+    "NPZ_load": 2,
+    "full_matrix_products": 5,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "optimizer": 0,
+    "eigensolve": 0,
+    "SVD": 0
+  },
+  "original_byte_gate_passed": false,
+  "original_failed_run_remains_failed": true,
+  "Breit_contribution_measured": false,
+  "controlled_timing": false,
+  "elapsed_uncontrolled_s": 0.5809131440037163,
+  "contract_sha256": "d16f799429320aaf0cc33b45de3248adb1b4eeb77d1a3a58340158746a2b721a",
+  "driver_sha256": "0be76e136d28648b6f2963fc7512d0ab5774c705d805356f1c90e03cfde416ef",
+  "archive_sha256": "e74d156e393ecd9ce71c53dcb805572479df0a81ade1a182bcd21acfe6636c1a"
+}

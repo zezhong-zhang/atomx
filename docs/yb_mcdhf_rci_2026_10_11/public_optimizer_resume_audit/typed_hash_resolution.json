@@ -1,0 +1,48 @@
+{
+  "status": "pure_serialization_controls_pass",
+  "created_utc": "2026-10-11T08:49:27.192676+00:00",
+  "reviewed_source_sha256": "49a6a56895901536203f35504f037a218f515bb67028e7800615a9e0d422fdf7",
+  "superseded_findings": [
+    "hash_framing_finding.json",
+    "hash_framing_addendum.json"
+  ],
+  "checks": [
+    {
+      "left_repr": "[1, 23]",
+      "right_repr": "[12, 3]",
+      "digests": [
+        "f5498f6fb4b19ade76b2f114aeec797e91b0c0467e989b49d14631dedebaac0c",
+        "2d5c477314c2de038102fb3d2b211d66115f9097fc0867add74576c1a5da57a2"
+      ],
+      "distinct_encoded_sha": true
+    },
+    {
+      "left_repr": "{'a': {'b': 1}}",
+      "right_repr": "{'a': {}, 'b': 1}",
+      "digests": [
+        "fbd50d315996b2e08fe87220d7251ee75db29646f8784872603b163bb727f9ff",
+        "5c9a9828d12f8c1dca0bad1cfaf13b19a2b8b48d8485591c6ea0de8b94eb872f"
+      ],
+      "distinct_encoded_sha": true
+    },
+    {
+      "left_repr": "[1]",
+      "right_repr": "[True]",
+      "digests": [
+        "8114db108d5fe64613563c447aca1bfe90d0a38409af44de2c94b44af6bd0149",
+        "02f12e7f49e2f4ccde73b8d23969bb7a9c265750bef189e11a750d7b8a061b51"
+      ],
+      "distinct_encoded_sha": true
+    },
+    {
+      "left_repr": "(1, 23)",
+      "right_repr": "[1, 23]",
+      "digests": [
+        "b2afa2ab0d5e6ab47201f74751e5e21e569f1bbadb4307d9bae9938e7d40b01c",
+        "f5498f6fb4b19ade76b2f114aeec797e91b0c0467e989b49d14631dedebaac0c"
+      ],
+      "distinct_encoded_sha": true
+    }
+  ],
+  "scope": "Hash helpers only; no physical solve, gradient or optimizer execution."
+}

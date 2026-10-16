@@ -1,0 +1,20 @@
+{
+  "cause_supported": "Lowest reported gvx eigenvalue loses absolute accuracy on large projected-H spectrum; saved normalized vector Rayleigh matches raw generator vector. No actual original/fresh projector mismatch.",
+  "evidence": {
+    "projected_H_inf_norm_Ha": 447736546.05676013,
+    "epsilon_times_H_norm_Ha": 9.941748447967139e-08,
+    "S_condition": 1.0000000000000069,
+    "reported_gvx_minus_actual_longdouble_Rayleigh_Ha": 3.808702331298264e-08,
+    "raw_minus_gvx_gvd_refined_Rayleigh_Ha": 0.0,
+    "raw_constrained_residual_Ha": 2.6386024027651183e-09,
+    "first_Newton_residual_Ha": 3.9047446642801633e-13,
+    "lowest_cluster_gap_Ha": 71.55869359527459,
+    "original_fresh_complement_archive_identical": true
+  },
+  "independent_proof_sha256": "4472690c7cc57fdc96415144d3bc20c898a95f0dcbe2e329e80a618ad55dbb17",
+  "result_sha256": "cf3251b11198654c6d766f9241502770b70a5dc4bd0e651d930a00ab63b0cf85",
+  "failed_original_gate_retained": true,
+  "recommendation": "New prospective numerical-control epoch: root selection in same complete P complement, normalized candidate vector, Rayleigh computed against original physical h/S with longdouble, constrained residual and cluster/overlap checks; refine only same root under explicit finite budget. Preserve1e-8energy gate and raw old evidence, not tolerance relaxation.",
+  "API_reuse_priority": "A shared verified generalized-eigenpair/Rayleigh helper with original operator and S identity should also serve virtual construction diagnostics. Optional explicit original positive projector may remove redundant solve but measured same span means this is reuse optimization, not present failure cause.",
+  "limitations": "Single failed kappa/minimum check diagnosed. Other4 new orbitals passed saved Gram/no-pair but minimum checks not executed. Does not certify all5virtuals, spectrum, full physics, MCDHF stationarity, convergence, experimental gap or performance."
+}

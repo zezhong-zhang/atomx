@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="zh-CN"><meta charset="utf-8"><title>Yb⁺ 文献诊断与修复路径</title><style>
+@page { size:A4; margin:16mm 16mm 17mm;
+ @bottom-center { content:'Atomx · Yb⁺ 文献诊断与修复路径    ' counter(page) ' / ' counter(pages); font:8pt 'Noto Sans CJK SC'; color:#627686; }
+}
+body { font:9.7pt 'Noto Sans CJK SC',sans-serif; line-height:1.58; color:#203342; }
+h1 { font-size:21pt; line-height:1.4; color:#174d69; margin-bottom:7mm; }
+h2 { font-size:14.5pt; color:#174d69; border-bottom:1px solid #cadbe4; padding-bottom:1.5mm; margin-top:6mm; }
+h3 { font-size:11.4pt; color:#315e77; margin-top:5mm; }
+h1,h2,h3 { break-after:avoid; }
+p { margin:2.5mm 0; orphans:3; widows:3; }
+a { color:#1f6487; text-decoration:none; overflow-wrap:anywhere; }
+table { border-collapse:collapse; width:100%; font-size:7.8pt; margin:4mm 0; line-height:1.5; }
+th,td { border:1px solid #cad9e2; padding:1.4mm; overflow-wrap:anywhere; }
+th { background:#e9f0f4; text-align:left; }
+thead { display:table-header-group; } tr { break-inside:avoid; }
+img { display:block; width:100%; height:auto; margin:4mm 0; }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f1f5f7; padding:3mm; font-size:7.5pt; line-height:1.45; }
+code { font-family:'DejaVu Sans Mono','Noto Sans CJK SC',monospace; font-size:.87em; }
+li { margin:1.6mm 0; }
+@media screen { body { max-width:1000px; margin:40px auto; padding:0 24px; } }
+
+body {line-height:1.5;} table {font-size:8pt;}
+</style><body><h1>Yb⁺：从文献找到减少谱线偏差的路径</h1>
+<p>2026-10-08｜原始文献阅读、Atomx 实现核查和表格重算。当前实算仍以<a href="../yb_correlation_tail_2026_10_08/README.md">完整相关尾部报告</a>为准；本文给出下一阶段策略，没有产生新的高阶谱线或精度通过结论。</p>
+<h2>1. 直接判断</h2>
+<p><strong>主要投入应转向完整高阶核–价相关与平衡的 4f 空穴模型，同时补查二阶 Coulomb–Breit 交叉项。</strong> 继续迭代冻结轨道的标量 Σ₂，或仅重复增加 QED，缺少足够证据支持它们能消除目前的主要偏差。</p>
+<p>这是有优先级的判断，尚非唯一归因。现有数据支持三个层次：二阶量级已由独立文献锚定；剩余高阶相关具有所需量级；单价电子全阶模型仍有已知的 6p 局限。不能据此承诺“加 CCSD 后全部达到 1%”。</p>
+<h2>2. 我们要修复的实际对象</h2>
+<p>细基 ℓ≤6、正能上限 200 Ha、全 19 个占据径向轨道的纯 Dirac–Coulomb + 标量 Dyson 结果如下。实验能级保持原有选择，并已与当前 NIST ASD 核对。</p>
+<table>
+<thead>
+<tr>
+<th>激发态</th>
+<th style="text-align: right;">当前计算 / cm⁻¹</th>
+<th style="text-align: right;">实验 / cm⁻¹</th>
+<th style="text-align: right;">计算−实验 / cm⁻¹</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5d ²D₃/₂</td>
+<td style="text-align: right;">23818.43</td>
+<td style="text-align: right;">22960.80</td>
+<td style="text-align: right;">+857.63</td>
+</tr>
+<tr>
+<td>5d ²D₅/₂</td>
+<td style="text-align: right;">25246.33</td>
+<td style="text-align: right;">24332.69</td>
+<td style="text-align: right;">+913.64</td>
+</tr>
+<tr>
+<td>6p ²P°₁/₂</td>
+<td style="text-align: right;">28500.65</td>
+<td style="text-align: right;">27061.82</td>
+<td style="text-align: right;">+1438.83</td>
+</tr>
+<tr>
+<td>6p ²P°₃/₂</td>
+<td style="text-align: right;">32028.62</td>
+<td style="text-align: right;">30392.23</td>
+<td style="text-align: right;">+1636.39</td>
+</tr>
+</tbody>
+</table>
+<p>独立电离阈值锚将误差进一步分开：基态过束缚约 600 cm⁻¹，上述四个上态分别偏浅约 257、313、839、1036 cm⁻¹。需要同时改进上下态。这里是纯 DC 模型对完整物理实验的差，不是某一遗漏算符的误差预算。</p>
+<p>已测的最后分波、细基正能和共同空间径向增量最高为 39.16、17.58、2.30 cm⁻¹；冻结轨道能量反馈最高为 110.90 cm⁻¹。它们没有通过原 1 cm⁻¹ 收敛门，也不是无限尾部上界，但继续只沿这些已测方向加密，判别主因的效率已经下降。</p>
+<h2>3. 文献给出的三个关键证据</h2>
+<h3>3.1 全阶相关能明显改善 D 态，但 P 态仍有差距</h3>
+<p><a href="https://doi.org/10.1103/PhysRevA.86.022504">Porsev、Safronova、Kozlov，PRA 86, 022504 (2012)</a> 的 Table I 同时给出二阶和<strong>线性化单、双激发全阶 SD</strong>。以下误差用其印刷计算值减去我们保留的实验值；论文实验值取整，因而末位略有差别。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th style="text-align: right;">文献二阶</th>
+<th style="text-align: right;">文献全阶 SD</th>
+<th style="text-align: right;">全阶−二阶</th>
+<th style="text-align: right;">全阶−实验</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D₃/₂</td>
+<td style="text-align: right;">24450</td>
+<td style="text-align: right;">22820</td>
+<td style="text-align: right;">−1630</td>
+<td style="text-align: right;">−140.80</td>
+</tr>
+<tr>
+<td>D₅/₂</td>
+<td style="text-align: right;">25952</td>
+<td style="text-align: right;">24261</td>
+<td style="text-align: right;">−1691</td>
+<td style="text-align: right;">−71.69</td>
+</tr>
+<tr>
+<td>P₁/₂</td>
+<td style="text-align: right;">28636</td>
+<td style="text-align: right;">27945</td>
+<td style="text-align: right;">−691</td>
+<td style="text-align: right;">+883.18</td>
+</tr>
+<tr>
+<td>P₃/₂</td>
+<td style="text-align: right;">32242</td>
+<td style="text-align: right;">31481</td>
+<td style="text-align: right;">−761</td>
+<td style="text-align: right;">+1088.77</td>
+</tr>
+</tbody>
+</table>
+<p>单位均为 cm⁻¹。D 态误差降到约 0.61% 和 0.29%，P 态仍约 3.26% 和 3.58%。该论文另一栏 MBPT(HO) 采用选定的 Coulomb 屏蔽系数 C₀=1.3、C₁=0.75；它与从振幅方程得到的 ab initio SD 是两种处理。<a href="https://mariannasafronova.com/wp-content/uploads/2022/12/PorSafKoz12c.pdf">作者全文，Table I / II A</a></p>
+<p><strong>对本项目的推断：</strong> 高阶相关值得优先实现，但这些跨模型差值只提供方向和尺度，不能成为我们的修正值，也不支持逐态调屏蔽系数后宣称第一性原理通过。</p>
+<h3>3.2 真正的轨道响应和 CCSD 名称都不保证谱位改善</h3>
+<p><a href="https://doi.org/10.1103/PhysRevA.83.052513">Dzuba、Flambaum，PRA 83, 052513 (2011)</a> 对 Yb⁺ 使用二阶非局域相关势求 Brueckner 轨道。其 Table I 未缩放束缚能转换成激发能后，D₃/₂、P₁/₂、P₃/₂ 为 23926、28749、32376 cm⁻¹，最高相对谱位误差约 <strong>6.53%</strong>。论文所述不超过约 1.3% 指各态束缚能，不能拿来称跃迁也达到该精度。Table II 的逐分波缩放另属实验校准。<a href="https://arxiv.org/pdf/1104.0086">作者全文，Section III / Tables I–II</a></p>
+<p><a href="https://doi.org/10.1039/D1CP03701C">Pototschnig 等，PCCP (2021)</a> 在分子论文中另有明确的<strong>原子 Yb⁺</strong>基准。其外推 EOM-EA-CCSD 的 D/P 四态误差约为 +990、+924、+851、+988 cm⁻¹；空穴 F₇/₂ 的 EOM-IP 和 IHFS 误差仍很大，并受轨道松弛和模型空间限制。<a href="https://arxiv.org/pdf/2107.11234">作者稿，原子 Section 3.1 / Tables 2–3</a></p>
+<p><strong>对本项目的推断：</strong> 要比较具体方程、模型空间和四条谱位；不能把普通 CCSD、线性化原子 SD、标量 Dyson、轨道 Brueckner 或完整密度 SCF 当成同一算法。已有标量 Dyson 没有更新轨道；完整轨道响应仍值得做，但不能先认定它必然是主要缺项。</p>
+<h3>3.3 Breit 的“几十 cm⁻¹”只覆盖已测一阶项</h3>
+<p><a href="https://doi.org/10.1103/PhysRevA.79.022512">Safronova、Safronova，PRA 79, 022512 (2009)</a> Table I 将 Coulomb 三阶 E₃、一阶 Breit B₁、二阶 Coulomb–Breit B₂ 和单电子 Lamb 位移分列。按各上态减 6s 基态，得到：</p>
+<table>
+<thead>
+<tr>
+<th>文献分项的跃迁增量 / cm⁻¹</th>
+<th style="text-align: right;">D₃/₂</th>
+<th style="text-align: right;">D₅/₂</th>
+<th style="text-align: right;">P₁/₂</th>
+<th style="text-align: right;">P₃/₂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coulomb E₃</td>
+<td style="text-align: right;">−2043</td>
+<td style="text-align: right;">−2317</td>
+<td style="text-align: right;">−681</td>
+<td style="text-align: right;">−850</td>
+</tr>
+<tr>
+<td>Breit B₁</td>
+<td style="text-align: right;">+28</td>
+<td style="text-align: right;">−14</td>
+<td style="text-align: right;">−37</td>
+<td style="text-align: right;">−65</td>
+</tr>
+<tr>
+<td>Coulomb–Breit B₂</td>
+<td style="text-align: right;">−287</td>
+<td style="text-align: right;">−240</td>
+<td style="text-align: right;">+139</td>
+<td style="text-align: right;">+149</td>
+</tr>
+<tr>
+<td>单电子 Lamb 位移</td>
+<td style="text-align: right;">−18</td>
+<td style="text-align: right;">−18</td>
+<td style="text-align: right;">−19</td>
+<td style="text-align: right;">−18</td>
+</tr>
+</tbody>
+</table>
+<p>该论文 B₁ 含频率依赖处理，B₂ 使用静态 Breit；轨道和截断也不同。<a href="https://mariannasafronova.com/wp-content/uploads/2022/12/YbII-2009.pdf">作者全文，Table I / Section II</a></p>
+<p><strong>对本项目的推断：</strong> 一阶算符核对通过之后，仍需检查 Breit 与相关的交叉响应。B₂ 的百 cm⁻¹ 量级会影响 D 态误差预算，并可能使 P 态向相反方向移动。QED 也应采用经过筛选验证的模型，但本文不能用上述 Lamb 数值给 Atomx 的 QED 或 QED-SCF 建立严格上界。</p>
+<h2>4. 空穴混合怎样做才有机会改善</h2>
+<p>现有二阶核–价 Σ₂ 已包含 4f 核电子到双粒子中间态的贡献，包括与 4f¹³5d6s 有关的通道。<strong>因此，不能把旧空穴 CI 的 −654/−589 cm⁻¹ 直接加到现在的自能谱线上。</strong> 相同中间过程若既留在 Σ 又放入 CI，就可能重复计数。</p>
+<p>旧试验只增加两组最低空穴组态，保持旧冻结轨道，没有同步建立完整高阶有效算符；它曾使偏低的 DF P 态进一步下降。这个负结果仍有效，不能换成当前基线后重新解释成已验证改善。</p>
+<p>2012 文献显式处理 15 个价电子时发现 P₃/₂ 与 4f¹³5d6s、J=3/2 奇宇称态的混合显著影响超精细常数；同时，裸 15 电子 CI 的能量仍有明显误差。该工作专门调整轨道构造以兼顾满壳与空穴组态，并检验包含 g 轨道的 SD 空间。<a href="https://mariannasafronova.com/wp-content/uploads/2022/12/PorSafKoz12c.pdf">同一作者全文，III / Tables V–VI</a></p>
+<p>本项目应采用互补的 P/Q 划分：</p>
+<p><code>H_eff(E) = PHP + PHQ (E − QHQ)⁻¹ QHP，P + Q = 1</code></p>
+<p>P 显式保留相关的 4f¹⁴6s/5d/6p 与 4f¹³6s²、4f¹³5d6s 的完整 J/宇称块；Q 只包含 P 之外的过程。外部有效算符、能量零点和必要的减除项随划分重建。<a href="https://arxiv.org/pdf/1605.08111">Berengut，粒子–空穴 CI+MBPT，PRA 94, 012502 (2016)，Sections II–IV</a> 提供这种形式和 Hg⁺ 实例；迁移到 Yb⁺ 的精度需另行验证。</p>
+<p>两条路线应明确选择：</p>
+<ul>
+<li><strong>54 电子 [Xe] 核 + 15 价电子：</strong> 把 4f 相关放入 CI；剩余深核有效算符以新的 54 核定义。若仍用 68 核轨道生成势，必须处理势的差异和减除图。</li>
+<li><strong>68 电子参考上的粒子–空穴方法：</strong> 用空穴显式表示近满壳组态，同时按新的 P/Q 去掉重叠过程；不能复用当前标量 Σ 全部项再叠加空穴 CI。</li>
+</ul>
+<p>还有一个符号检查：实验 P₃/₂=30392.23、邻近空穴 J=3/2 态=28757.98 cm⁻¹，相距 1634.25。若<strong>裸</strong>空穴态在<strong>裸</strong>P 态之下，二能级排斥会使 P-like 根上移；改善混合性质不代表降低目前偏高的谱位。实验值本身已含混合，只能提示近简并，不能直接用作裸分母或倒推耦合强度。根应按对称性、连续性和组态权重匹配，而非按更靠近实验选择。</p>
+<h2>5. 对应到 Atomx：真实能力与缺口</h2>
+<p>本轮读实际源码并核对其 SHA，未改变生产代码。</p>
+<table>
+<thead>
+<tr>
+<th>当前组件</th>
+<th>实际覆盖</th>
+<th>下一步用途或限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../src/atomx/methods/mbpt_transitions.py">mbpt_transitions.py</a></td>
+<td>完整声明空间的两类二阶附着自能；能量依赖对角极点与标量 Dyson</td>
+<td>可作高阶/矩阵自能的对角锚；不是全阶 SD 或轨道 Brueckner</td>
+</tr>
+<tr>
+<td><a href="../../src/atomx/methods/ci_mbpt.py">ci_mbpt.py</a></td>
+<td>对角一体轨道能移的原生 CI 注入</td>
+<td>两体屏蔽消费接口未实现；不能声称已有完整 CI+MBPT</td>
+</tr>
+<tr>
+<td><a href="../../src/atomx/methods/coupled_cluster.py">coupled_cluster.py</a></td>
+<td>明确的 scaffold；compute 抛 NotImplementedError</td>
+<td>新建真实 SD/CC 振幅求解，或使用经匹配验证的外部代码</td>
+</tr>
+<tr>
+<td><a href="../../src/atomx/methods/mbpt.py">mbpt.py</a> 的 pair_ladder_energy</td>
+<td>闭壳成对相关能的 pp-ladder 类求和</td>
+<td>不是单价电子完整附着 Σ，也不包括完整环/空穴图；不能直接修谱线</td>
+</tr>
+<tr>
+<td><a href="../../src/atomx/methods/mbpt_sigma2.py">mbpt_sigma2.py</a></td>
+<td>有泡图/梯图研究 helper；sigma1 是特定 core-polarisation 构造</td>
+<td>不能冒充完整两类附着矩阵自能；默认分母剔除与消费覆盖需先审计</td>
+</tr>
+<tr>
+<td><a href="../../src/atomx/methods/rpa.py">rpa.py</a></td>
+<td>闭壳 ph-RPA / TDHF 响应和极化率工具</td>
+<td>尚不能据此宣布当前五态跃迁已有 dressed E1、SR 和归一化顶角</td>
+</tr>
+</tbody>
+</table>
+<p>若使用外部路径，<a href="https://diracprogram-documentation.readthedocs.io/en/latest/manual/wave_function/relccsd.html">DIRAC 文档</a> 确有 EOM-EA/IP-CCSD、FSCC 和 IH 能力，但当前 PATH 未安装、尚未实算。先用 Yb²⁺ 68 电子参考的 EA 通道处理满 4f 壳态，再用中性 Yb 70 电子参考的 IP 通道诊断空穴态。两参考的共同 Yb⁺ 基态与能量零点必须闭合，不能机械拼接不同结果。只在 Fock 层加入 Gaunt 也不等于本项目的完整静态 Breit。<a href="https://diracprogram-documentation.readthedocs.io/en/latest/manual/hamiltonian.html">Hamiltonian 覆盖文档</a></p>
+<h2>6. 最小判别计算与修复顺序</h2>
+<p><strong>第一步：先建立完整非对角二阶自能，测真实轨道响应。</strong> 在共同 κ 的 6–8s、6–8p、5–7d 外部子空间形成 Σᵥᵥ′(E)，包含两类图、所有占据轨道和声明虚空间；所有五态一起求矩阵 Dyson / Brueckner。已有保存的 W 是平方权重，失去相位，不能以 √(WᵥWᵥ′) 猜非对角项。须从带符号耦合重新构造。先过对角重放、Hermitian/号规、独立小空间与残差门，再衡量谱位变化。此步负责判别，不预设它能消除千 cm⁻¹。</p>
+<p><strong>第二步：把物理主力升到原生全阶 SD，并设置独立对照。</strong> 求核及价电子单、双激发振幅；需要屏蔽、核极化、价–核梯图等完整声明的图覆盖。先在可复算小空间与独立方法对照，再扩大到完整角向与能窗。记录完整高阶与第三阶的区别；普通第三阶截断在文献中会使 D 态过修正。三激发应在 SD 后以实际增量和收敛性决定，不能直接把 CCSD(T) 闭核总能当作各附着态的三激发修正。</p>
+<p><strong>第三步：对近简并空穴模型做平衡的有效哈密顿量。</strong> 首先输出旧 46 CSF 模型全部目标空穴根、对角位置、带符号耦合和权重，确认错误来自能量位置、轨道松弛还是空间不足；随后重建不重复计数的 P/Q，逐级加入 5s/5p 响应、必要 g 通道及 SD 相关。对有重要耦合的近简并块直接解矩阵，不能用任意分母下限删除它们。状态平均或多参考轨道优化应有固定权重和共同完备对照，不能按接近实验调权重。</p>
+<p><strong>第四步：测同模型的 Breit–相关交叉项，再核对受控 QED。</strong> 在同一基底、同一态和同一近似级别计算 Coulomb 与 Breit 的交叉贡献；验证一次计数、符号与单位，区分静态和频率依赖。可以通过严格阶数展开交叉核，或引入耦合参数并验证导数，但不能把混合参数采样称为已算 B₂。精密 QED 需有效屏蔽模型及外部锚；当前高 n 解析回退只作诊断。</p>
+<p><strong>并行保留数值控制：</strong> 细基 ℓ6→8、正能 200 Ha 以上和外盒密度应继续收敛，但预算服从实际增量和新信息量。改模型的收益必须与固定模型的空间响应分开记录。未收敛项不能通过文献移植或实验平移补齐。</p>
+<p>具体的阶段输入与门保存在 <a href="next_setups.json">next_setups.json</a>。这是待实施的物理契约，不是目前可直接执行的 Atomx CLI 输入。预检计算量、内存和角向压缩后才定大型 CC/CI 的运行上限；本文没有假装完成资源预检。</p>
+<h2>7. 怎样判断差距确实减少</h2>
+<p>四个激发能、两类精细分裂和独立绝对束缚能一起检查。原来的 5% 与空间 1 cm⁻¹ 门保持原定义；下一阶段 1% 四谱位只是新的设计目标，并不改写当前失败。能量残差之外，还要核对同位素、核模型、静态/动态 Breit、QED 覆盖与能量零点。</p>
+<p>精细分裂里的基态误差会抵消，适合识别上态和自旋相关问题。未来检验 P₃/₂ 混合可增加同位素定义明确的超精细常数或 g 因子；它们不能用未经核对的旧实验直接认证。寿命和谱线强度另需相关波函数、RPA、Brueckner、结构辐射和归一化贡献，单独更新能差不足以修好矩阵元。</p>
+<p><strong>当前可交付的是可执行的修复方向，尚未交付改善后的谱线。</strong> 最有把握的投入顺序是：矩阵自能判别 → 全阶 SD 主干 → 不重复计数的平衡空穴模型；百 cm⁻¹ 的 Breit 交叉项必须进入后续精度预算。</p>
+<h2>8. 证据、重放和文档处置</h2>
+<p>已核对 6 组原始来源记录，主要阅读 5 篇原始论文及 DIRAC 官方文档；没有采用二手摘要中的“精度百分比”替代原表。计算对照由 <a href="analyze_literature.py">analyze_literature.py</a> 重放，数值见 <a href="comparison.csv">comparison.csv</a>、<a href="results.json">results.json</a>，原表数值及出处见 <a href="primary_table_data.json">primary_table_data.json</a>、<a href="references.json">references.json</a>。</p>
+<pre><code class="language-sh">.venv/bin/python docs/yb_literature_repair_strategy_2026_10_08/analyze_literature.py
+</code></pre>
+<p>旧三阶段 127、52、93 个封存产物哈希全部保持；当前 332 个生产 Python 文件与已测试、已实算版本精确相同。文献算术及源身份核查通过，未运行新的原子相关求解，也未重复不受影响的 137 项科学测试。初次校验脚本误用早期清单的相对路径/schema，已保留<a href="arithmetic_first_attempt_failure.json">失败记录</a>并修正；所有哈希判据保持。</p>
+<p>专题状态、能力边界和后续门在 <a href="contract.json">contract.json</a>、<a href="source_identity.json">source_identity.json</a>、<a href="implementation_audit.json">implementation_audit.json</a> 中记录。当前测量入口仍指向尾部报告；本文单独拥有文献策略入口。当前导航与已有洞察合并更新，旧科研证据不改写。下载的作者全文仅作本地阅读缓存，交付包不包含论文全文。</p></body></html>

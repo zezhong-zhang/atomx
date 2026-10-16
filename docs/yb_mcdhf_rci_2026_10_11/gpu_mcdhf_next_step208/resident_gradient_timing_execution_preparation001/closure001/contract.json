@@ -1,0 +1,62 @@
+{
+  "status": "SOURCE_ONLY_CLOSED_JSON_SCALAR_AUDIT_PREPARATION",
+  "hypothesis": "Closed live counters, host/affinity gates and matched five-triplet statistics are internally consistent; a failed host/resource/ratio gate remains false, not a reason for retry.",
+  "fixed": {
+    "timing_root_execution_binding_sha256": "ed8ef3f9818408f162ae4644a1b9f38a8e5271490a17b1d8b117afb4190dd926",
+    "f043_source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "private_reference": "NumBa_CPU1 complete raw signed gradient + original3689 projection/metric",
+    "full_public_default_E2E_or_optimization_claim": false
+  },
+  "prepared_inputs": {
+    "timing_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/run.py",
+      "sha256": "bfa141675599ce45e3a5ce3aafb9b6488e77c56d3dedfad5e4bbd38eac233480"
+    },
+    "timing_helper": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/native31_helpers.py",
+      "sha256": "1d6cb5795bc2124c9ff5f2107c41f609764c1c7953b11a58cb2f4c058e035df3"
+    },
+    "timing_launcher": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/launch.py",
+      "sha256": "26b2f00ae817d9ffb16d337dfae560ad1e2d81aa4e9aad9a7f915db836103f85"
+    },
+    "timing_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/contract.json",
+      "sha256": "5e6dcfa18d43a2238ce822145decad6087cd8fc4e53494cafaced109b09df90d"
+    },
+    "timing_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/preparation.json",
+      "sha256": "b568d92656bf456b38223f1216daef08f2407a36b01f7c4eddc5a74ef853403c"
+    }
+  },
+  "actual_roles_deferred": {
+    "closed_receipt": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/controller/execution_receipt.json",
+    "result": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/actual/result.json"
+  },
+  "admission": "No actual output may be read, including receipt, until root supplies this script/contract binding plus exact actual foreground_closed receipt/result path and SHA after the live process closes. Receipt is verified/read first; result is never read if receipt is open/stale. No output polling.",
+  "scope": "Standard-library source/JSON and finite recorded scalar arithmetic only; no independent array replay and no new physical/performance measurements.",
+  "audited_metadata": [
+    "exact actual closed receipt and result identity",
+    "source/contract/driver/rootseal provenance",
+    "live primitive started/completed counters and cache getter-vs-producer ledgers",
+    "all21 recorded trial/scalar primitive and upload/download counters",
+    "five fixed alternating within-triplet statistics from exact recorded finite times",
+    "all host CPU idle/load/GPU competitor flags with failedguards preserved",
+    "thread masks/affinity and finally restoration ledger",
+    "science status preserved; no failed live gate promotion"
+  ],
+  "resources": {
+    "CPU": 27,
+    "wall_limit_seconds": 30,
+    "RSS_bytes": 536870912,
+    "numerical_libraries_or_NPZ_reads_hashes": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "eigen": 0,
+    "GPU_query_compute": 0,
+    "repeat_benchmark": 0
+  },
+  "qualification": "Metadata consistency is distinct from reported live numerical controls. A scoped private complete-gradient speed certificate requires closed0/resource_stop=null/RSS<=3.95GiB, all actual science/host/affinity controls and median>=1.05. Each failing ratio or host gate remains recorded. No confidence/fullsolver/production/publicdefault/GPUHCI certificate.",
+  "stop": "Any identity/metadata inconsistency records firstfailure and stops. No numerical retry, gate change or old result overwrite. Source preparation itself performs0 actual reads."
+}

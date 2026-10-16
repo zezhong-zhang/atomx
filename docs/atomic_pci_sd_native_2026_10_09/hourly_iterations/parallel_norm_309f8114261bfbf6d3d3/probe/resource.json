@@ -1,0 +1,93 @@
+{
+  "allocated_payload_bound_bytes": 578905232,
+  "runtime_reserve_bytes": 1073741824,
+  "norm_state_scratch": {
+    "(6, -1)": {
+      "required_bytes": 13891840,
+      "view_metadata_bytes": 4421632,
+      "single_metadata_bytes": 302336,
+      "group_metadata_bytes": 112640,
+      "angular_cache_array_cap_bytes": 4194304,
+      "angular_cache_metadata_bound_bytes": 262144,
+      "angular_quartet_transient_bound_bytes": 658432,
+      "radial_quartet_transient_bound_bytes": 1843200,
+      "cache_entries": 256,
+      "maximum_rank_count": 8,
+      "maximum_radial_group_count": 60,
+      "maximum_magnetic_multiplet_count": 8,
+      "cached_Gram_array_bound_bytes": 393216,
+      "scope": "allocated norm payload and conservative Python view/cache metadata; excludes interpreter/Numba/shared Wigner-cache runtime RSS"
+    },
+    "(6, 1)": {
+      "required_bytes": 13892864,
+      "view_metadata_bytes": 4422656,
+      "single_metadata_bytes": 302336,
+      "group_metadata_bytes": 112640,
+      "angular_cache_array_cap_bytes": 4194304,
+      "angular_cache_metadata_bound_bytes": 262144,
+      "angular_quartet_transient_bound_bytes": 658432,
+      "radial_quartet_transient_bound_bytes": 1843200,
+      "cache_entries": 256,
+      "maximum_rank_count": 8,
+      "maximum_radial_group_count": 60,
+      "maximum_magnetic_multiplet_count": 8,
+      "cached_Gram_array_bound_bytes": 393216,
+      "scope": "allocated norm payload and conservative Python view/cache metadata; excludes interpreter/Numba/shared Wigner-cache runtime RSS"
+    },
+    "(6, -2)": {
+      "required_bytes": 14093568,
+      "view_metadata_bytes": 4623360,
+      "single_metadata_bytes": 302336,
+      "group_metadata_bytes": 112640,
+      "angular_cache_array_cap_bytes": 4194304,
+      "angular_cache_metadata_bound_bytes": 262144,
+      "angular_quartet_transient_bound_bytes": 658432,
+      "radial_quartet_transient_bound_bytes": 1843200,
+      "cache_entries": 256,
+      "maximum_rank_count": 8,
+      "maximum_radial_group_count": 60,
+      "maximum_magnetic_multiplet_count": 8,
+      "cached_Gram_array_bound_bytes": 393216,
+      "scope": "allocated norm payload and conservative Python view/cache metadata; excludes interpreter/Numba/shared Wigner-cache runtime RSS"
+    },
+    "(5, 2)": {
+      "required_bytes": 14090496,
+      "view_metadata_bytes": 4620288,
+      "single_metadata_bytes": 302336,
+      "group_metadata_bytes": 112640,
+      "angular_cache_array_cap_bytes": 4194304,
+      "angular_cache_metadata_bound_bytes": 262144,
+      "angular_quartet_transient_bound_bytes": 658432,
+      "radial_quartet_transient_bound_bytes": 1843200,
+      "cache_entries": 256,
+      "maximum_rank_count": 8,
+      "maximum_radial_group_count": 60,
+      "maximum_magnetic_multiplet_count": 8,
+      "cached_Gram_array_bound_bytes": 393216,
+      "scope": "allocated norm payload and conservative Python view/cache metadata; excludes interpreter/Numba/shared Wigner-cache runtime RSS"
+    },
+    "(5, -3)": {
+      "required_bytes": 14148096,
+      "view_metadata_bytes": 4677632,
+      "single_metadata_bytes": 302592,
+      "group_metadata_bytes": 112640,
+      "angular_cache_array_cap_bytes": 4194304,
+      "angular_cache_metadata_bound_bytes": 262144,
+      "angular_quartet_transient_bound_bytes": 658432,
+      "radial_quartet_transient_bound_bytes": 1843200,
+      "cache_entries": 256,
+      "maximum_rank_count": 8,
+      "maximum_radial_group_count": 60,
+      "maximum_magnetic_multiplet_count": 8,
+      "cached_Gram_array_bound_bytes": 393216,
+      "scope": "allocated norm payload and conservative Python view/cache metadata; excludes interpreter/Numba/shared Wigner-cache runtime RSS"
+    }
+  },
+  "machine_load": [
+    14.80322265625,
+    23.193359375,
+    18.5283203125
+  ],
+  "disk_archive_reservation_bytes": 670564668,
+  "scope": "Only full saved core+one full valence, NPZ loading copy reserve, norm64MiB and separate runtime; no native constructor/backend/root/GPU allocation"
+}

@@ -1,0 +1,47 @@
+EA_ACTION 20 0.02585795900085941
+EA_ACTION 40 0.02585200799512677
+EA_ACTION 60 0.02566746000229614
+EA_ACTION 80 0.025501598000118975
+EA_ACTION 100 0.025789770006667823
+EA_ACTION 120 0.02590310399682494
+EA_ACTION 140 0.025507418999040965
+SMALL_QUALIFICATION_PASS
+SOLVE_FULL4F_CCSDT 6854 189834
+CORE_RESIDUAL_EVALUATION 10 {'seconds': 5.269130684995616, 'maximum_Ha': 1.5521302395561932e-05}
+CORE_RESIDUAL_EVALUATION 20 {'seconds': 5.113773466000566, 'maximum_Ha': 1.5516731515194866e-05}
+CORE_RESIDUAL_EVALUATION 30 {'seconds': 5.102952492998156, 'maximum_Ha': 6.433333249316405e-09}
+CORE_RESIDUAL_EVALUATION 40 {'seconds': 5.111615021000034, 'maximum_Ha': 7.55646398076425e-09}
+CORE_RESIDUAL_EVALUATION 50 {'seconds': 5.103211550995184, 'maximum_Ha': 6.087824142553489e-09}
+CORE_CONVERGED {'energy_relative_Ha': -0.006696914622722261, 'energy_absolute_Ha': -14067.083870400038, 'correlation_Ha': -0.006696914622722261, 'residual_Ha': 1.0001765041178778e-17, 'solver_evaluations': 57, 'measured_calls': 57, 'seconds': 293.18392283999856, 'rank_norms': {'1': 8.672517304989598e-06, '2': 0.05786766300544935, '3': 0.0023923983125831313}, 'new4f_amplitude_norm': 0.05318291780971212, 'change_from_frozen4f_core_Ha': -0.004998305898009647, 'full_H_residual': 'not computed; no full18-electron Fock-sector representation'}
+EA_ACTION 20 1.0372599309994257
+EA_ACTION 40 1.0442480240017176
+EA_ACTION 60 1.0330148249995545
+EA_ACTION 80 1.0273940269980812
+EA_ACTION 100 1.0297471990052145
+EA_ACTION 120 1.0352800410037162
+EA_ACTION 140 1.042237406996719
+EA_ACTION 160 1.0314099210008862
+EA_ACTION 180 1.0331646869963151
+EA_ACTION 200 1.0284224639981403
+EA_ACTION 220 1.0352486330011743
+EA_ACTION 240 1.0435904859987204
+EA_ACTION 260 1.0360431489971234
+EA_ACTION 280 1.035239545002696
+EA_ACTION 300 1.0350371140011703
+END FAILED 621.0402763430029
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py", line 535, in <module>
+    prepare() if args.prepare else main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py", line 402, in main
+    roots, vectors = eigs(
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 1354, in eigs
+    params.iterate()
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 752, in iterate
+    self.workd[yslice] = self.OP(self.workd[xslice])
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 258, in matvec
+    y = self._matvec(x)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 617, in _matvec
+    return self.__matvec_impl(x)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py", line 59, in action
+    raise RuntimeError("predeclared matrix-free EA action limit")
+RuntimeError: predeclared matrix-free EA action limit

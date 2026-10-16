@@ -1,0 +1,43 @@
+{
+  "execution_authorized_by_root": true,
+  "independent_saved_array_verification_authorized": true,
+  "driver_sha256": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2",
+  "verifier_sha256": "c372cf2c83b4138f8b0f818c4217ef5797ff4859dd9097e273d51ad8d181c9e4",
+  "preparation_contract_sha256": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+  "source_identity_sha256": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+  "scientific_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json": "7bbc99f9b73c6ceb3a9a1262497bf1ec853e08e5c05d1d11528f4347b2d81958",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/preflight.json": "080662396627d8900b6d65df230a389a8506e2155a090feeb527584cf817f789",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/arrays.npz": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95",
+    "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json": "140af5746c837f40b607b9d2447ca57ce24d372dac527af19b160134006250c4"
+  },
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "max_new_full_H_builds": 1,
+  "max_new_CI_spectrum_solves": 1,
+  "max_new_gradients": 0,
+  "max_optimizer_calls": 0,
+  "wall_cap_s": 180,
+  "address_space_cap_GiB": 4,
+  "threads": 1,
+  "affinity_selection": "original_available_affinity[-3]",
+  "root_reviewed_utc": "2026-10-11T09:41:18.470664+00:00",
+  "root_review_scope": "Exact nonstationary accepted160 complete531 static Breit RCI with same original signed tracker and verified same-point DC archive; compare lower/upper, centroids and splittings; no gradient or production/highest certificate",
+  "saved_array_verification_caps": {
+    "wall_s": 30,
+    "address_space_GiB": 1,
+    "threads": 1,
+    "max_new_H_CI_gradient_optimizer": 0
+  }
+}

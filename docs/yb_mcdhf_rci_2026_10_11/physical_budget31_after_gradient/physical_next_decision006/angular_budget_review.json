@@ -1,0 +1,20 @@
+{
+  "status": "PASS_root_integer_metadata_and_scope_review",
+  "budget_sha256": "388168094957b7fe158f57b5127ff32969bc8d77c135c218e79b4554f8aa9562",
+  "blocks": 10,
+  "checks": [
+    "ordered=2*triangular-raw_dimension",
+    "replacement_counts_sum_to_ordered",
+    "sparse_projection_bound_inside_dense_rectangle",
+    "connection_payload_floor=100*pair_count-257cached_integers*28bytes",
+    "all_recorded_source_hashes"
+  ],
+  "maximum_connection_return_payload_floor_bytes": 4372010304,
+  "prior_failed_root_assumption": "angular_budget_review_failure001.json: ignored cached integer allowance7196bytes, corrected to actual helper formula; no scientific contract or actual data changed",
+  "scope_correction": {
+    "field": "source_audit.density_lines_26_31",
+    "meaning": "Frozen f043/pre-increment density requests dense projection. Current dirty source now requests sparse=True and passed199/199 matched actual-Yb checks. The sentence is not current implementation guidance."
+  },
+  "no_science_calls": true,
+  "full_4f12_admitted": false
+}

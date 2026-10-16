@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "unchanged362production_files",
+      "passed": true
+    },
+    {
+      "name": "unchanged61sealed_predecessor_artifacts",
+      "passed": true
+    },
+    {
+      "name": "unchanged_bound_source_and_original_inputs",
+      "passed": true
+    },
+    {
+      "name": "test_source_unchanged",
+      "passed": true
+    },
+    {
+      "name": "probe001:PASS_status_and_all_controls",
+      "passed": true
+    },
+    {
+      "name": "probe001:same_experiment_contract",
+      "passed": true
+    },
+    {
+      "name": "actual001:PASS_status_and_all_controls",
+      "passed": true
+    },
+    {
+      "name": "actual001:same_experiment_contract",
+      "passed": true
+    },
+    {
+      "name": "serialized_solve_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "name": "fresh_saved_replay_PASS",
+      "passed": true
+    },
+    {
+      "name": "same_replayed_result",
+      "passed": true
+    },
+    {
+      "name": "unchanged_review_consumer",
+      "passed": true
+    },
+    {
+      "name": "same_review_experiment_contract",
+      "passed": true
+    },
+    {
+      "name": "comparison_uses_actual_saved_inputs",
+      "passed": true
+    },
+    {
+      "name": "retained_tail_snapshot",
+      "passed": true
+    },
+    {
+      "name": "12current_tensor_tests_no_failures_or_skips",
+      "passed": true
+    },
+    {
+      "name": "align_core.py:syntax_and_no_trailing_whitespace",
+      "passed": true
+    },
+    {
+      "name": "compare_alignment.py:syntax_and_no_trailing_whitespace",
+      "passed": true
+    },
+    {
+      "name": "verify_increment.py:syntax_and_no_trailing_whitespace",
+      "passed": true
+    },
+    {
+      "name": "review_saved.py:syntax_and_no_trailing_whitespace",
+      "passed": true
+    },
+    {
+      "name": "docs/ARCHITECTURE_CAPABILITIES.md:retained_guide_unchanged",
+      "passed": true
+    },
+    {
+      "name": "docs/VERIFICATION.md:retained_guide_unchanged",
+      "passed": true
+    },
+    {
+      "name": "docs/AGENT_INSIGHTS.md:retained_guide_unchanged",
+      "passed": true
+    },
+    {
+      "name": "all_working_tree_local_documentation_targets_exist",
+      "passed": true
+    },
+    {
+      "name": "task_sessions_reaped",
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "scope": "Actual source/input/result bindings, saved-equation replay,12 tests, local links. No independent large FCI or full-paper/experimental certificate."
+}

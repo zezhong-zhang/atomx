@@ -1,0 +1,107 @@
+{
+  "backend": "EXP-T Atomx interface",
+  "executable_sha256": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+  "backend_source_manifest_sha256": "5516faf5a5f62ce18d148982bcb806dd8d74c038ace1373d8bc1feb477650ee9",
+  "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+  "backend_patch_sha256": "998ea26f9d5e209b32680ac1bbefcdf61fc498db5535685c0a64155fd3097fac",
+  "atomx_solver_sha256": "3d7b0540f0f816cdaef77b7e3f3a2e5e49bf21df2d0b8f952890d388e475aec8",
+  "model": "CCSDT",
+  "sector": "0h1p",
+  "active_indices": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "model_matrix_order": "ascending global active indices, original EXP-T one-particle/hole determinant basis",
+  "effective_matrices_convention": "raw EXP-T formatted row-major bra-first blocks",
+  "model_space_matrix_convention": "source-bound 0h1p physical ket matrix = raw adjoint",
+  "attachment_heff_source_sha256": {
+    "src/rcc/heff/heff.c": "90709f8d34f188bad3bafb0b811379ef622fcc383db87326c1ecdae4c9d261a7",
+    "src/rcc/heff/formatted_heff_file.c": "c345eb795e8734d98b03ca27ece234c4ba50e3885fa733ba7cbc019e650a041a",
+    "src/rcc/heff/slater_rules.c": "281081b89884a562f9dc9ad44f7771b5800b3d52b78f2a3983900be3451a6127",
+    "src/rcc/linalg/eigensolver.c": "324781a8bd752229c19d72fd069984f6b7fc5b9ac7102ce44b987d398d26856c",
+    "src/rcc/heff/model_vectors.c": "8c6cd4f20a1ec8e65418e858086eb1b46ffd15716e08c8a97014c944aa180198"
+  },
+  "tensor_symmetry": "C1",
+  "occupied_virtual_fock_max_Ha": 0.07176178946223533,
+  "noncanonical_attachment_equation": "ATOMX_FOV_T2_001",
+  "residual_scope": "backend raw Jacobi update bound; independent retained/Bloch and omitted-rank wave residuals are separate validations",
+  "resources": {
+    "occupied": 3,
+    "virtual": 4,
+    "core_independent_amplitudes": 34,
+    "raw_tensor_coordinates": 4396,
+    "estimated_working_bytes": 2265792,
+    "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+  },
+  "tolerance": 1e-13,
+  "residual_bound_tolerance_Ha": 1e-11,
+  "memory_bytes": 536870912,
+  "tile_size": 4,
+  "threads": 1,
+  "integral_manifest_sha256": "5287d5a25acab40684798228b4549209f5a736264773d2f887602138aa44049e",
+  "input_sha256": "2f587790773856654aec031fd0c9b07c06080f8b2772bfb4f213343054d001fb",
+  "integrals": {
+    "abi": "ATXCC001",
+    "labels": [
+      [
+        1,
+        -1,
+        1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        3,
+        -1,
+        1
+      ],
+      [
+        4,
+        -1,
+        1
+      ],
+      [
+        5,
+        -1,
+        1
+      ],
+      [
+        6,
+        -1,
+        1
+      ],
+      [
+        7,
+        -1,
+        1
+      ]
+    ],
+    "noccupied": 3,
+    "reference_energy_Ha": -7.149498738039073,
+    "frozen_energy_Ha": -2.3,
+    "identity": {
+      "scope": "finite two-body anchor",
+      "phase_case": "fixed orbital basis rephasing; same complete toy operator"
+    },
+    "export": {
+      "logical_bytes": 5152,
+      "max_integral_file_bytes": 2147483648,
+      "max_chunk_bytes": 4194304,
+      "producer": {
+        "representation": "packed",
+        "resident_matrix_bytes": 1568,
+        "resident_eri_bytes": 4256,
+        "dense_eri_bytes": 4256
+      }
+    },
+    "files": {
+      "ATOMX_ONE": "3f0357ab2a90348937c2b6f95373d450b0494041abd84ea82c800c929861e8d6",
+      "ATOMX_TWO": "04c2c951605befcf4e03e44e91a7cbbb7cb9e55648369b7548f5b3698e0ebffb"
+    }
+  }
+}

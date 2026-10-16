@@ -1,0 +1,37 @@
+{
+  "started": {
+    "basis_setup": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "completed": {
+    "Gauss_setup_eigvalsh": 3,
+    "basis_setup": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "test_reports": [
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[4-False-1-1-ranks0]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[6-False-4-5-ranks1]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[6-True-4-5-ranks2]",
+      "outcome": "passed"
+    }
+  ],
+  "elapsed_uncontrolled_s": 7.207111465977505
+}

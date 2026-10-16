@@ -1,0 +1,43 @@
+{
+  "all_source_metadata_preparation_checks_passed": true,
+  "controls": [
+    {
+      "name": "No Atomx, SciPy, numerical-solver import or producer calls",
+      "passed": true
+    },
+    {
+      "name": "NumPy import follows exact source/input/root seal and closure guards",
+      "passed": true
+    },
+    {
+      "name": "Only deferred two lazy arrays and original coordinate/gradient members; no H or CI array load",
+      "passed": true
+    },
+    {
+      "name": "Frozen actual literal last global208, not gap selected",
+      "passed": true
+    },
+    {
+      "name": "Original source/metric/geometry and unchanged gates bind actual manifest",
+      "passed": true
+    },
+    {
+      "name": "Finite cross terms are complete, no replacement of saved physics",
+      "passed": true
+    }
+  ],
+  "checks": 6,
+  "array_reads": 0,
+  "scientific_calls": 0,
+  "numerical_imports": 0,
+  "scope": "source/AST and frozen closed JSON only; runtime algebra not executed",
+  "driver_sha256": "494ba935a0a2f9058bffc08545b2eacf1bf7f3540b077c8e4ace57de2ee4ee7b",
+  "contract_sha256": "17dd0cf48ccee73e7b7960e1f7be1e2b520a1ecc83f2b4e9ca5d960ddbe951c9",
+  "Ruff": "passed",
+  "input_source_metadata_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_saved_gpg_decomposition_preparation/run.py": "494ba935a0a2f9058bffc08545b2eacf1bf7f3540b077c8e4ace57de2ee4ee7b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_saved_gpg_decomposition_preparation/contract.json": "17dd0cf48ccee73e7b7960e1f7be1e2b520a1ecc83f2b4e9ca5d960ddbe951c9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/result.json": "9487855b439ebf4fdc5530535348fc4e8c4ede1652aff4a9faf7d3d3b0ad8358",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c"
+  }
+}

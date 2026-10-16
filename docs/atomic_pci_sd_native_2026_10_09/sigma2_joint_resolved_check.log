@@ -1,0 +1,52 @@
+{
+  "contract": "sigma2_joint_derivative_contract.json",
+  "full_signed_coordinates": 65536,
+  "comparisons": [
+    {
+      "step_Ha": 0.001,
+      "max_signed_error": 2.7463367815788384e-11,
+      "max_error_over_tolerance": 0.023687943390437016,
+      "passed": true
+    },
+    {
+      "step_Ha": 0.0003,
+      "max_signed_error": 2.4718481927109293e-12,
+      "max_error_over_tolerance": 0.002132040048818378,
+      "passed": true
+    },
+    {
+      "step_Ha": 0.0001,
+      "max_signed_error": 2.767001851169265e-13,
+      "max_error_over_tolerance": 0.00023866185549920477,
+      "passed": true
+    }
+  ],
+  "identities": {
+    "sigma2_control004_minus_1e3": {
+      "sigma2_raw.npz": "60289c205b0ce92f11ddc0217af35ab79947bbc95437f7247bf1827af51312b4",
+      "sigma2_magnetic.npz": "b34fe52643b31fb4bab297906e92787ec45fceeec96cdea24206bcbacf394c1a"
+    },
+    "sigma2_control004_plus_1e3": {
+      "sigma2_raw.npz": "aa5d907adba5b3eae777382ce05cb3c3c8a2356ad26e69dd2f652a69ebbffeb5",
+      "sigma2_magnetic.npz": "b05fb604fe7d50d01bb874b2454b76b0b8522f75afe4028961218165b0650e54"
+    },
+    "sigma2_control004_minus_3e4": {
+      "sigma2_raw.npz": "75909f0551fe8a4f69cd38fb277bd0a119a47c6c935981e584637a77d7183f99",
+      "sigma2_magnetic.npz": "e142682608294db3510915b25253444a4b3c4245a89be35446f77d80025feb8e"
+    },
+    "sigma2_control004_plus_3e4": {
+      "sigma2_raw.npz": "b9570afa4b60879b6fe91778ca3371dfd8ac07e9c5ad3510e7e998e1cf872556",
+      "sigma2_magnetic.npz": "09e1333c093c5959a980e2f94df6bb828e8f43453473a6460d750e81fd82a858"
+    },
+    "sigma2_control004_minus_1e4": {
+      "sigma2_raw.npz": "7030d410ff539eb86c9391e0c5ee8a9a026c1405942afda23a3955d5a6f244cb",
+      "sigma2_magnetic.npz": "dba5a042b1e7fbd60bb8730af697a79ab329197dbd24d2fb04b8c7333dd58148"
+    },
+    "sigma2_control004_plus_1e4": {
+      "sigma2_raw.npz": "76427b007d7e5ca2c96a0e883764dac2a57fa7d344cbf20c01bef275a770c049",
+      "sigma2_magnetic.npz": "0796a20038e95e31b9daff0524326229ae3dc0b6790c629c3ad0507260b78eb0"
+    }
+  },
+  "fixed_input_identity": "bitwise core, integral, label and compiled-backend equality",
+  "scope": "finite canonical control, total joint energy response; not a QED or production precision claim"
+}

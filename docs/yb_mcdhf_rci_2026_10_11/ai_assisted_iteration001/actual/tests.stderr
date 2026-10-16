@@ -1,0 +1,22 @@
+test_IO_budget_checked_before_read (test_dataset_builder.DatasetInvariantTests) ... ok
+test_NIST_never_changes_predictors_contributions_or_eligibility (test_dataset_builder.DatasetInvariantTests) ... ok
+test_admission_cannot_be_overridden_by_empty_reason_list (test_dataset_builder.DatasetInvariantTests) ... ok
+test_changed_UID_rejects_even_if_label_column_agrees (test_dataset_builder.DatasetInvariantTests) ... ok
+test_changed_selected_physical_root_rejects (test_dataset_builder.DatasetInvariantTests) ... ok
+test_closed_JSON_hash_mutation_and_archive_refusal (test_dataset_builder.DatasetInvariantTests) ... ok
+test_correlated_channels_count_once_and_trajectory_never_trains (test_dataset_builder.DatasetInvariantTests) ... ok
+test_failed_gate_retains_signed_result_but_excludes_training (test_dataset_builder.DatasetInvariantTests) ... ok
+test_inconsistent_energy_reference_rejects (test_dataset_builder.DatasetInvariantTests) ... ok
+test_missing_native_count_is_null_and_ineligible (test_dataset_builder.DatasetInvariantTests) ... ok
+test_missing_or_duplicate_manifold_rejects (test_dataset_builder.DatasetInvariantTests) ... ok
+test_missing_owner_and_nuclear_identity_ineligible (test_dataset_builder.DatasetInvariantTests) ... ok
+test_permutation_does_not_change_states_or_data (test_dataset_builder.DatasetInvariantTests) ... ok
+test_receipt_and_proof_identity_are_actual_admission_controls (test_dataset_builder.DatasetInvariantTests) ... ok
+test_signed_upper_lower_centroid_and_splitting (test_dataset_builder.DatasetInvariantTests) ... ok
+test_source_change_requires_explicit_operator_experiment (test_dataset_builder.DatasetInvariantTests) ... ok
+test_unpaired_orbital_point_ineligible (test_dataset_builder.DatasetInvariantTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.002s
+
+OK

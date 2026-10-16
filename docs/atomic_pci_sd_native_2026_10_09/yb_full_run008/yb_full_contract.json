@@ -1,0 +1,29 @@
+{
+  "reference": "original native V68, Fermi nucleus, ns123",
+  "occupied": "all 68 core electrons, no frozen subshell",
+  "virtual_lmax": 3,
+  "virtual_energy_max_Ha": 5,
+  "memory_bytes": 34359738368,
+  "residual_tolerance_Ha": 1e-10,
+  "gmres_restart": 30,
+  "maxiter": 100,
+  "load": [
+    28.04443359375,
+    28.2578125,
+    28.09619140625
+  ],
+  "term21_threads": 8,
+  "term21_mode": "streamed",
+  "core_singles_blas": true,
+  "diagram_progress": true,
+  "radial_representation": "polynomial",
+  "reference_first_action": "/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/yb_full_run007/yb_full_first_action.npz",
+  "reference_wait_seconds": 7200,
+  "signed_action_gate_Ha": 1e-11,
+  "blas_threads": 1,
+  "radial_pair_cache_size": 16384,
+  "blas_library": "/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblas.so.0",
+  "hypothesis": "exact polynomial density coordinates and batched original reduced pCI diagrams preserve the complete native signed Yb action without magnetic quartic storage",
+  "stop": "reject complete overbudget request or failed equation residual; no space reduction or fitted shifts",
+  "performance_scope": "stage times and peak process RSS; no speedup or experimental accuracy claim"
+}

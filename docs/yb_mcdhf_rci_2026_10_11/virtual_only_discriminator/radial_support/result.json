@@ -1,0 +1,431 @@
+{
+  "all_radial_norm_checks_passed": true,
+  "contract_sha256": "7c8424e2788e6fc12a62acaa514f84dcccceeb244c503489e275bc7388c0716d",
+  "driver_sha256": "6c1dba6cfc5b32741c156ce2ec8c35c433796602fa859d47792d8b452a0610d4",
+  "bound_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/canonical29_orbitals.npz": "523e43c0eb7c085d27c2b8f8ec15294e09cb925cb2e3f4abd95d176d9c88a9da",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/balanced_virtual_CI.npz": "cb1dc218a3133c57deb64a2a26e5019c573c0f1c79016a89a414e15278e7a122",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/balanced_virtual_H.npz": "bbcf55468bb3201ada11e4e148779e56aae9f624cdcd633c82a7d0dae6d77372",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/basis_rows.json": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+  },
+  "new_H_CI_Dirac_virtual_gradient_optimizer_eigensolves": 0,
+  "original_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "radial_completeness_certified": false,
+  "radial_comparisons": [
+    {
+      "virtual_key": [
+        6,
+        -3
+      ],
+      "corresponding_valence_key": [
+        5,
+        -3
+      ],
+      "virtual": {
+        "key": [
+          6,
+          -3
+        ],
+        "norm": 0.9999999999999998,
+        "mean_r_a0": 0.2899001776549521,
+        "median_quadrature_r_a0": 0.2504622893169834,
+        "rms_r_a0": 0.41722502437251896,
+        "bare_nuclear_Rayleigh_Ha": -143.19782280124514,
+        "cumulative_mass": {
+          "0.25": 0.4967338984989834,
+          "0.5": 0.8373418027205699,
+          "1.0": 0.991724750414732,
+          "2.0": 0.9961179553107997,
+          "5.0": 0.9995742604493688,
+          "10.0": 0.9999982219804413
+        }
+      },
+      "valence": {
+        "key": [
+          5,
+          -3
+        ],
+        "norm": 0.9999999999999994,
+        "mean_r_a0": 3.008081164042767,
+        "median_quadrature_r_a0": 2.7919212418940043,
+        "rms_r_a0": 3.3106347346671376,
+        "bare_nuclear_Rayleigh_Ha": -28.47390316084683,
+        "cumulative_mass": {
+          "0.25": 0.0017387180221108533,
+          "0.5": 0.00904275970943063,
+          "1.0": 0.019651490763367713,
+          "2.0": 0.24519873526053884,
+          "5.0": 0.9071663789096734,
+          "10.0": 0.999580479179911
+        }
+      },
+      "mean_radius_virtual_over_valence": 0.09637378842043454,
+      "virtual_mass_below_valence_median": 0.9975935304324077,
+      "density_Bhattacharyya_overlap": 0.1597681728412535
+    },
+    {
+      "virtual_key": [
+        6,
+        2
+      ],
+      "corresponding_valence_key": [
+        5,
+        2
+      ],
+      "virtual": {
+        "key": [
+          6,
+          2
+        ],
+        "norm": 0.9999999999999996,
+        "mean_r_a0": 0.2871194088055241,
+        "median_quadrature_r_a0": 0.24867510391791564,
+        "rms_r_a0": 0.4160142104171356,
+        "bare_nuclear_Rayleigh_Ha": -144.15204115081488,
+        "cumulative_mass": {
+          "0.25": 0.5058521573258471,
+          "0.5": 0.8355061919136387,
+          "1.0": 0.992290618283223,
+          "2.0": 0.9961537557784501,
+          "5.0": 0.9995396337055125,
+          "10.0": 0.9999977858406286
+        }
+      },
+      "valence": {
+        "key": [
+          5,
+          2
+        ],
+        "norm": 1.0000000000000007,
+        "mean_r_a0": 3.0512953488060677,
+        "median_quadrature_r_a0": 2.7919212418940043,
+        "rms_r_a0": 3.3670634616062425,
+        "bare_nuclear_Rayleigh_Ha": -28.279646214394493,
+        "cumulative_mass": {
+          "0.25": 0.0016647537945789052,
+          "0.5": 0.008870794013133296,
+          "1.0": 0.02012093855408903,
+          "2.0": 0.24329942956985537,
+          "5.0": 0.8981788908461311,
+          "10.0": 0.9994706626768911
+        }
+      },
+      "mean_radius_virtual_over_valence": 0.09409754742944508,
+      "virtual_mass_below_valence_median": 0.9975767676402937,
+      "density_Bhattacharyya_overlap": 0.1582021273134162
+    },
+    {
+      "virtual_key": [
+        7,
+        -2
+      ],
+      "corresponding_valence_key": [
+        6,
+        -2
+      ],
+      "virtual": {
+        "key": [
+          7,
+          -2
+        ],
+        "norm": 0.9999999999999999,
+        "mean_r_a0": 0.32140139800101264,
+        "median_quadrature_r_a0": 0.27054167088799785,
+        "rms_r_a0": 0.46932581802125245,
+        "bare_nuclear_Rayleigh_Ha": -135.438205069878,
+        "cumulative_mass": {
+          "0.25": 0.4438492315435838,
+          "0.5": 0.7960884073865578,
+          "1.0": 0.9768263576948167,
+          "2.0": 0.9955713384474946,
+          "5.0": 0.9992086676513952,
+          "10.0": 0.9999910775335051
+        }
+      },
+      "valence": {
+        "key": [
+          6,
+          -2
+        ],
+        "norm": 1.0,
+        "mean_r_a0": 4.689551763943918,
+        "median_quadrature_r_a0": 4.523373789523532,
+        "rms_r_a0": 4.947987388510735,
+        "bare_nuclear_Rayleigh_Ha": -17.093869103227558,
+        "cumulative_mass": {
+          "0.25": 0.0004738276558422015,
+          "0.5": 0.002151560599128342,
+          "1.0": 0.00817764489261919,
+          "2.0": 0.02215393702681822,
+          "5.0": 0.6155704095272319,
+          "10.0": 0.9956269508235335
+        }
+      },
+      "mean_radius_virtual_over_valence": 0.06853563286626646,
+      "virtual_mass_below_valence_median": 0.9990153658781262,
+      "density_Bhattacharyya_overlap": 0.10135679808065746
+    },
+    {
+      "virtual_key": [
+        7,
+        -1
+      ],
+      "corresponding_valence_key": [
+        6,
+        -1
+      ],
+      "virtual": {
+        "key": [
+          7,
+          -1
+        ],
+        "norm": 1.0,
+        "mean_r_a0": 0.3477992599519812,
+        "median_quadrature_r_a0": 0.29076449832638007,
+        "rms_r_a0": 0.49151030922375,
+        "bare_nuclear_Rayleigh_Ha": -128.98155313529656,
+        "cumulative_mass": {
+          "0.25": 0.39894304521074814,
+          "0.5": 0.7587016968520375,
+          "1.0": 0.9614553738744415,
+          "2.0": 0.9967430691880192,
+          "5.0": 0.9994099576936476,
+          "10.0": 0.9999989769775478
+        }
+      },
+      "valence": {
+        "key": [
+          6,
+          -1
+        ],
+        "norm": 0.9999999999999999,
+        "mean_r_a0": 3.706082892414738,
+        "median_quadrature_r_a0": 3.570732751865722,
+        "rms_r_a0": 3.919001500913242,
+        "bare_nuclear_Rayleigh_Ha": -21.819823034344513,
+        "cumulative_mass": {
+          "0.25": 0.000871459431252849,
+          "0.5": 0.0039643202645713175,
+          "1.0": 0.019103127237557797,
+          "2.0": 0.04738055615363381,
+          "5.0": 0.8477648362696095,
+          "10.0": 0.9997144344992788
+        }
+      },
+      "mean_radius_virtual_over_valence": 0.09384551561537494,
+      "virtual_mass_below_valence_median": 0.9981451905549279,
+      "density_Bhattacharyya_overlap": 0.13993539449991402
+    },
+    {
+      "virtual_key": [
+        7,
+        1
+      ],
+      "corresponding_valence_key": [
+        6,
+        1
+      ],
+      "virtual": {
+        "key": [
+          7,
+          1
+        ],
+        "norm": 1.0,
+        "mean_r_a0": 0.3175481447220268,
+        "median_quadrature_r_a0": 0.27054167088799785,
+        "rms_r_a0": 0.46249312772828227,
+        "bare_nuclear_Rayleigh_Ha": -136.7469889547633,
+        "cumulative_mass": {
+          "0.25": 0.4517932085411729,
+          "0.5": 0.7920548354977472,
+          "1.0": 0.9727560604167046,
+          "2.0": 0.9963732524088467,
+          "5.0": 0.9992896193437941,
+          "10.0": 0.9999935864757314
+        }
+      },
+      "valence": {
+        "key": [
+          6,
+          1
+        ],
+        "norm": 1.0000000000000007,
+        "mean_r_a0": 4.516965535413627,
+        "median_quadrature_r_a0": 4.362376940459382,
+        "rms_r_a0": 4.769041363035023,
+        "bare_nuclear_Rayleigh_Ha": -17.658004251520662,
+        "cumulative_mass": {
+          "0.25": 0.000398913561751686,
+          "0.5": 0.0019059964121967475,
+          "1.0": 0.008466063934646814,
+          "2.0": 0.019694303308657273,
+          "5.0": 0.6598372199222868,
+          "10.0": 0.99681960855742
+        }
+      },
+      "mean_radius_virtual_over_valence": 0.07030121045476348,
+      "virtual_mass_below_valence_median": 0.9990292294393358,
+      "density_Bhattacharyya_overlap": 0.09966906164565091
+    }
+  ],
+  "core_comparisons": [
+    {
+      "key": [
+        5,
+        -1
+      ],
+      "norm": 0.9999999999999999,
+      "mean_r_a0": 1.225054735184712,
+      "median_quadrature_r_a0": 1.1942972627495927,
+      "rms_r_a0": 1.2992559278777054,
+      "bare_nuclear_Rayleigh_Ha": -63.124284568610435,
+      "cumulative_mass": {
+        "0.25": 0.01293453522386093,
+        "0.5": 0.0608391787239691,
+        "1.0": 0.30337405376006754,
+        "2.0": 0.9509557310592238,
+        "5.0": 0.9998760662302321,
+        "10.0": 0.9999997329617785
+      }
+    },
+    {
+      "key": [
+        5,
+        -2
+      ],
+      "norm": 1.0,
+      "mean_r_a0": 1.4759800515399628,
+      "median_quadrature_r_a0": 1.4294636758497303,
+      "rms_r_a0": 1.5761695689648116,
+      "bare_nuclear_Rayleigh_Ha": -53.32300639412715,
+      "cumulative_mass": {
+        "0.25": 0.009812325679479362,
+        "0.5": 0.045156712119982775,
+        "1.0": 0.15943168756454823,
+        "2.0": 0.8427589641737843,
+        "5.0": 0.9991815037934489,
+        "10.0": 0.9999861504432889
+      }
+    },
+    {
+      "key": [
+        5,
+        1
+      ],
+      "norm": 1.0000000000000009,
+      "mean_r_a0": 1.3673831383451232,
+      "median_quadrature_r_a0": 1.338258193050332,
+      "rms_r_a0": 1.4622057578644188,
+      "bare_nuclear_Rayleigh_Ha": -57.288914065933405,
+      "cumulative_mass": {
+        "0.25": 0.010678746821245814,
+        "0.5": 0.0523454964044155,
+        "1.0": 0.21626639360345665,
+        "2.0": 0.8937299019416635,
+        "5.0": 0.9990806268103388,
+        "10.0": 0.9999892609712272
+      }
+    },
+    {
+      "key": [
+        4,
+        -4
+      ],
+      "norm": 1.0000000000000004,
+      "mean_r_a0": 0.762046472020461,
+      "median_quadrature_r_a0": 0.660502126191401,
+      "rms_r_a0": 0.881585698673259,
+      "bare_nuclear_Rayleigh_Ha": -95.65869927306177,
+      "cumulative_mass": {
+        "0.25": 0.03132529611708407,
+        "0.5": 0.30775421585966634,
+        "1.0": 0.7914716824606994,
+        "2.0": 0.9781052532945835,
+        "5.0": 0.9999493826991096,
+        "10.0": 0.9999999967718207
+      }
+    },
+    {
+      "key": [
+        4,
+        3
+      ],
+      "norm": 0.9999999999999998,
+      "mean_r_a0": 0.743474384656163,
+      "median_quadrature_r_a0": 0.638490987648478,
+      "rms_r_a0": 0.8565698744430691,
+      "bare_nuclear_Rayleigh_Ha": -97.10719311934685,
+      "cumulative_mass": {
+        "0.25": 0.03349266068210045,
+        "0.5": 0.3197646044789871,
+        "1.0": 0.8044964296149341,
+        "2.0": 0.9815283274797416,
+        "5.0": 0.9999691233197154,
+        "10.0": 0.9999999985417835
+      }
+    }
+  ],
+  "retained_CI_diagnostics": [
+    {
+      "label": "6s_1/2",
+      "new_CSFs_in_sector": 112,
+      "new_diagonal_excitation_Ha_min": 50.008269897694845,
+      "new_diagonal_excitation_Ha_median": 55.10268369658388,
+      "new_diagonal_excitation_Ha_max": 114.45994509176307,
+      "old_root_to_new_CSF_coupling_norm_Ha": 0.04646540748419667,
+      "actual_target_new_CSF_probability": 3.709019938878064e-07,
+      "diagonal_EN_estimate_Ha": -2.6715491699051847e-05,
+      "exact_same_family_energy_delta_Ha": -2.652910006872844e-05
+    },
+    {
+      "label": "5d_3/2",
+      "new_CSFs_in_sector": 177,
+      "new_diagonal_excitation_Ha_min": 49.93054285981634,
+      "new_diagonal_excitation_Ha_median": 54.85080779967757,
+      "new_diagonal_excitation_Ha_max": 113.49140301316947,
+      "old_root_to_new_CSF_coupling_norm_Ha": 0.06525659160087384,
+      "actual_target_new_CSF_probability": 6.135551765143776e-07,
+      "diagonal_EN_estimate_Ha": -4.860355208232919e-05,
+      "exact_same_family_energy_delta_Ha": -4.8316696847905405e-05
+    },
+    {
+      "label": "5d_5/2",
+      "new_CSFs_in_sector": 184,
+      "new_diagonal_excitation_Ha_min": 49.936073457891325,
+      "new_diagonal_excitation_Ha_median": 54.13330990986924,
+      "new_diagonal_excitation_Ha_max": 113.55740349275402,
+      "old_root_to_new_CSF_coupling_norm_Ha": 0.0653137025048747,
+      "actual_target_new_CSF_probability": 6.134770318088222e-07,
+      "diagonal_EN_estimate_Ha": -4.872061903815029e-05,
+      "exact_same_family_energy_delta_Ha": -4.8380650696344674e-05
+    },
+    {
+      "label": "6p_1/2",
+      "new_CSFs_in_sector": 119,
+      "new_diagonal_excitation_Ha_min": 49.790740815624304,
+      "new_diagonal_excitation_Ha_median": 54.186911539969515,
+      "new_diagonal_excitation_Ha_max": 113.53419787580606,
+      "old_root_to_new_CSF_coupling_norm_Ha": 0.03439346182010153,
+      "actual_target_new_CSF_probability": 2.2413705805434936e-07,
+      "diagonal_EN_estimate_Ha": -1.531715676777135e-05,
+      "exact_same_family_energy_delta_Ha": -1.5208450349746272e-05
+    },
+    {
+      "label": "6p_3/2",
+      "new_CSFs_in_sector": 193,
+      "new_diagonal_excitation_Ha_min": 49.82215751084186,
+      "new_diagonal_excitation_Ha_median": 53.44298071013691,
+      "new_diagonal_excitation_Ha_max": 113.36311838939764,
+      "old_root_to_new_CSF_coupling_norm_Ha": 0.034525267476360866,
+      "actual_target_new_CSF_probability": 2.1882257690745122e-07,
+      "diagonal_EN_estimate_Ha": -1.5217859328771065e-05,
+      "exact_same_family_energy_delta_Ha": -1.5088000509422272e-05
+    }
+  ],
+  "limits": "Radial support and bare-nuclear Rayleigh are saved oneelectron diagnostics, not screened orbital energies. Density overlap is not spinor overlap. New-CSF diagonal denominators/diagonal EN are basis-dependent estimates, not Q-spectrum bounds. No screened virtuals constructed, no no-pair boundary change measured."
+}

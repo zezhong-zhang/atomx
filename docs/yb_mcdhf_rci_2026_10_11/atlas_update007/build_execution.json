@@ -1,0 +1,34 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T16:53:22.115554+00:00",
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "memory_bytes": 2147483648,
+    "max_wall_seconds": 180
+  },
+  "execution_contract_sha256": "2fbfa55a051945196562b15872f3468e2c2e6a7791d921c3f3e8c1abab3eed24",
+  "launcher_sha256": "c792755c59063eb8f131ff57f594de6b760b7e935f974ed18ec588a08bc3f8e5",
+  "commands": [
+    {
+      "script": "prepare.py",
+      "sha256": "09583e6131d5e4f8f3120b6dd7d9211e00fbad43fc935eafec8a77856a172f21",
+      "exit_code": 0,
+      "stdout_sha256": "cee4f3636004aee96d8045210255b2f5545341cfe13e3079f250324a71393984",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "script": "verify_data.py",
+      "sha256": "2d973ae0c8f757c0d3a02dba34939b4a861bbba96ee1aca44472490eb599f20d",
+      "exit_code": 0,
+      "stdout_sha256": "0e1538a44e0b3f03548eb4b6ab97c60f4e5c5b334fbcbbc34c9f86220177a875",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scientific_calls": 0,
+  "array_numerical_replays": 0,
+  "publication_calls": 0,
+  "exit_code": 0,
+  "finished_utc": "2026-10-11T16:53:28.302519+00:00",
+  "elapsed_uncontrolled_seconds": 6.186955156037584
+}

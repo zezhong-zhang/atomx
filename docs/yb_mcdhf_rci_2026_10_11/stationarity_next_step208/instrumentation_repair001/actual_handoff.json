@@ -1,0 +1,72 @@
+{
+  "status": "actual_bounded_control_completed_original_stationarity_false_source_JSON_closure_only",
+  "files_sha256": {
+    "completion.json": "9db271cb885d4f479708334d13b781f57b7fb980c6d70f8ab05237e120139990",
+    "CLOSURE.md": "3c2d78dc12bc66f471098e77467a3230156dac7368520fff34d4ed9e07be2316",
+    "closure_documentation_impact.json": "d6f48f0bd0e1c5cddead6fc1f7003fd6948be6d2f70b7e6854e86246ac21b6b2",
+    "conditioning_next_step_proposal.md": "9ad6973079e21c578ddc173fa4e474fd1f3fb1f3c03381fdc0ef266a5ff7e695",
+    "run.py": "cbcc5cf31cd148d90883899b4ded3e2a9641172a60e1a02381bbfaf628712a8b",
+    "contract.json": "a4002bfaba7012efdad1bca269e4bf8fd4810bee25a619439a6edf6bf78acfce",
+    "preparation_verification.json": "5f06de3ba78521c759728aacdb676cc8c8236bb9680053b8adc8e5a51a81597c",
+    "execution_contract.json": "63860c9ca2d0843dc3f98c0d7fe553f5a851de1cc0501170188d4a29be16c513",
+    "root_execution.json": "8397bdd6c762f0cfb21c996e44cf4ceed745ad0f648e20b050616649f4779521",
+    "actual/result.json": "6abd6a683a26287ade07d34d4d9feaa2bcfdcacc6298d797c8ac570c636cc2cc"
+  },
+  "live_controls": 7053,
+  "closure_metadata_controls": 61,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "actual_counts": {
+    "H": 5,
+    "CI": 5,
+    "gradient": 2,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_hS": 28,
+    "scipy_eigh": 50,
+    "polar": 28,
+    "polar_eigh": 0,
+    "tracking_resolve": 13,
+    "tracking_SVD": 65,
+    "tracking_overlap": 14,
+    "bilinear_RDM": 25,
+    "retained_H_getter_requests": 21,
+    "Dirac": 0,
+    "optimizer": 0,
+    "eigvalsh": 0
+  },
+  "same_one_tangent_direction_at_two_scales": true,
+  "points": 5,
+  "signed_endpoints": 4,
+  "original_stationarity_passed": false,
+  "elapsed_uncontrolled_root_s": 67.00202152505517,
+  "closure_NumPy_Atomx_imports": 0,
+  "closure_NPZ_bytes_or_arrays_read": 0,
+  "closure_scientific_calls": 0,
+  "next_step": "14-load saved-coordinate/secant replay proposal only; no executor or execution/source/default change",
+  "old_failure_unchanged": true,
+  "historical_preparation_docs": {
+    "README.md": {
+      "old_path": "README.md",
+      "frozen_copy": "pre_execution_docs/README.md",
+      "sha256": "4ca539d851673702857d442a60b583071826b8a1b4cbc2a3a96bf887809046bd",
+      "reason": "Original sealed document restored byte-exact and retained at original path; supplemental exact copy only. Actual result account added in CLOSURE.md."
+    },
+    "documentation_impact.json": {
+      "old_path": "documentation_impact.json",
+      "frozen_copy": "pre_execution_docs/documentation_impact.json",
+      "sha256": "1d0ea48e899f3fdce477bb7df7f40123a76c53eba6efe7e9118dac1bd2d3163f",
+      "reason": "Original sealed document restored byte-exact and retained at original path; supplemental exact copy only. Actual result account added in CLOSURE.md."
+    }
+  },
+  "sealed_preparation_files_unchanged": {
+    "run.py": "cbcc5cf31cd148d90883899b4ded3e2a9641172a60e1a02381bbfaf628712a8b",
+    "contract.json": "a4002bfaba7012efdad1bca269e4bf8fd4810bee25a619439a6edf6bf78acfce",
+    "prepare.py": "c902caa56248b64bca4d73ccc067d2186c36ab1189cdf383debc79b3e72a9690",
+    "preparation_verification.json": "5f06de3ba78521c759728aacdb676cc8c8236bb9680053b8adc8e5a51a81597c",
+    "check_instrumentation.py": "516b810a3d4461ab6ca874ff815ae5bce0156418a70fca85987a7e14099f6da0",
+    "instrumentation_mock_verification.json": "7052098b1ebe9f4b2d5d447c717d95bab90c9e2188aa672b41d9855e9810b9ce",
+    "changes.diff": "139ce0726332311aa51481c4f409f8665c36811ca2733fce1868f6b967e40210",
+    "README.md": "4ca539d851673702857d442a60b583071826b8a1b4cbc2a3a96bf887809046bd",
+    "documentation_impact.json": "1d0ea48e899f3fdce477bb7df7f40123a76c53eba6efe7e9118dac1bd2d3163f"
+  }
+}

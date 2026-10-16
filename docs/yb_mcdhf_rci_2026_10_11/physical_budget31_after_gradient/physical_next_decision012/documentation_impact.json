@@ -1,0 +1,34 @@
+{
+  "status": "COMPLETE",
+  "code_to_documentation": "docs/DEVELOPMENT.md generic methods/numerics/physics and tests routing",
+  "changed_sources": [
+    "src/atomx/numerics/variational_response.py",
+    "src/atomx/physics/csf/radial_increment.py"
+  ],
+  "updated": {
+    "docs/AGENT_REFERENCE.md": "32df3a48092f0c208749a23e941fd123af206d105a72677b3be4eb498e26812e",
+    "docs/ARCHITECTURE_DESIGN.md": "520cc626cf05d7983cfd672dfc31c49b36fe767e5f7b229bafd32767a4da460b",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "20b23709fa8d6a4421de9c0a4188690defab065f7fd00c6d127b1eac14793f72",
+    "docs/TESTING.md": "2a35bac029f1a4c25a59aa44e484c1649e73add3f3fe86861449216bfde4fa20",
+    "docs/VERIFICATION.md": "9a057f57f0486a6ae89a942d2bf5c7b20342410f13b5b1a88bb6f52571f87e35",
+    "docs/MIGRATION.md": "b09be07ec60ae509419b3e460e7b8a822e1e43fb64c91df089123f3869ec9950",
+    "docs/AGENT_INSIGHTS.md": "2c1a543f1dec6602d4727bce6b20abb3df82978881bbbf31858212de3e168930",
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "8576a6651a19a98f7236a1199408f5a151500cc344a54cee0a113b75f9e011fe",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md": "4857e4f8278f8a56408ea4cc29e2c06eb58c25db198a0bf28e590e68c5c2c179",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/README.md": "5de53fddc39886e4156ff288d350f5e7056818d2964a9fa0069c0b5fecc5a727",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/RESULTS.md": "59f8ab4803828d4104c1ed7f07055c6704773ef9fe45a73cae6b404baa4c0f11",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/LITERATURE.md": "46b408868e21c97bbd53382f475d29ba093da59edf361dee93e8543c35d5e364"
+  },
+  "retained": {
+    "AGENTS.md": "Existing independent anchors, same metric, source identity, finite response, failed gate and bounded execution rules apply. No root principle change.",
+    "docs/ATOMIC_STATE_DESIGN.md": "No unified state API, default state selector or owner semantics changed; new array ingredients require physical caller binding.",
+    "docs/DEVELOPMENT.md": "Existing generic code-to-guide routing covers the increment.",
+    "PROJECT_INDEX.md": "No commit/staging requested; commit-time staged index hook not invoked."
+  },
+  "knowledge_distillation": "Merge measured analytic response evidence into adopted preserve-metric insight. Response-only third-order contribution does not certify fixed-vector H3 or total FD. No new root rule.",
+  "link_check": {
+    "documents": 12,
+    "errors": [],
+    "scope": "Working-tree candidate tracked plus nonignored untracked files; not a clean-checkout publication check."
+  }
+}

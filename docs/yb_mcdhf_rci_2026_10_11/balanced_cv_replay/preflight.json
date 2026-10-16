@@ -1,0 +1,366 @@
+{
+  "contract_sha256": "6667b9940e7d70d883fa3fbec6e36af1db2e4462af6e92cc307ba6e3c74843b8",
+  "all_input_hashes_verified": {
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/run.py": "ec494497970b1507811f451640618810a10c3a2819be52cc4817c46a95f70102",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/contract.json": "154fac6699fdbc0e53e2b8681dfda104be80fe58744ece6074a5d047d2f78757",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/result.json": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/preflight.json": "6a75f02588726c9eac566e462a394d3565e7d37c7fa79a0e514500e38e5eb785",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/verification.json": "05031fa7e91d554d93f641d2bcab563b6b4b45319282847931c724c05cc4f005",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/contract.json": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/ci_arrays.npz": "8832bdddd490acf14b40b39386e5bf200d7126a49a355ac3a4e64ab7cc796a6e",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/mcdhf_diagnostics.json": "9f7e45e34ea7d6b879365c18535a202333c4b300648fa4d6c6ef445e73626bf4",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/preflight.json": "b41e498133c5084bb3eb7208ae2702fb14da4accfa9c019e619748083dab3730"
+  },
+  "source_files_verified": 353,
+  "source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f",
+  "stages": {
+    "stage_4f": {
+      "CSFs": 294,
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 14,
+          "raw_M_equals_J": 121
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 13,
+          "raw_M_equals_J": 114
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 26,
+          "raw_M_equals_J": 136
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 24,
+          "raw_M_equals_J": 122
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 33,
+          "raw_M_equals_J": 112
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 31,
+          "raw_M_equals_J": 103
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 33,
+          "raw_M_equals_J": 81
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 30,
+          "raw_M_equals_J": 72
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 25,
+          "raw_M_equals_J": 48
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 23,
+          "raw_M_equals_J": 42
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 15,
+          "raw_M_equals_J": 23
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 13,
+          "raw_M_equals_J": 19
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 6,
+          "raw_M_equals_J": 8
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 5,
+          "raw_M_equals_J": 6
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 2,
+          "raw_M_equals_J": 2
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 1,
+          "raw_M_equals_J": 1
+        }
+      ],
+      "dense_whole_CI_matrix_bytes": 691488,
+      "families": [
+        "bare",
+        "4f"
+      ]
+    },
+    "stage_4f5p": {
+      "CSFs": 468,
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 32,
+          "raw_M_equals_J": 206
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 30,
+          "raw_M_equals_J": 193
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 53,
+          "raw_M_equals_J": 209
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 49,
+          "raw_M_equals_J": 188
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 56,
+          "raw_M_equals_J": 158
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 53,
+          "raw_M_equals_J": 144
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 48,
+          "raw_M_equals_J": 104
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 43,
+          "raw_M_equals_J": 91
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 31,
+          "raw_M_equals_J": 56
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 28,
+          "raw_M_equals_J": 48
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 17,
+          "raw_M_equals_J": 25
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 14,
+          "raw_M_equals_J": 20
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 6,
+          "raw_M_equals_J": 8
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 5,
+          "raw_M_equals_J": 6
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 2,
+          "raw_M_equals_J": 2
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 1,
+          "raw_M_equals_J": 1
+        }
+      ],
+      "dense_whole_CI_matrix_bytes": 1752192,
+      "families": [
+        "bare",
+        "4f",
+        "5p"
+      ]
+    },
+    "stage_4f5p5s": {
+      "CSFs": 531,
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 39,
+          "raw_M_equals_J": 232
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 38,
+          "raw_M_equals_J": 222
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 63,
+          "raw_M_equals_J": 232
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 59,
+          "raw_M_equals_J": 213
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 64,
+          "raw_M_equals_J": 171
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 62,
+          "raw_M_equals_J": 159
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 52,
+          "raw_M_equals_J": 109
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 47,
+          "raw_M_equals_J": 97
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 32,
+          "raw_M_equals_J": 57
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 30,
+          "raw_M_equals_J": 50
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 17,
+          "raw_M_equals_J": 25
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 14,
+          "raw_M_equals_J": 20
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 6,
+          "raw_M_equals_J": 8
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 5,
+          "raw_M_equals_J": 6
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 2,
+          "raw_M_equals_J": 2
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 1,
+          "raw_M_equals_J": 1
+        }
+      ],
+      "dense_whole_CI_matrix_bytes": 2255688,
+      "families": [
+        "bare",
+        "4f",
+        "5p",
+        "5s"
+      ]
+    }
+  },
+  "same24_radial_orbitals": true,
+  "electron_count": 69,
+  "nucleus": {
+    "model": "fermi",
+    "radius_mass_number": 175,
+    "requested_mass_number": null,
+    "rms_radius_fm": 5.246119777900239,
+    "reference_rms_radius_fm": 5.246119777900239,
+    "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+    "radius_clamped": false,
+    "diffuseness_bohr": 9.890591372451268e-06,
+    "half_density_radius_bohr": 0.00011885936071054029
+  },
+  "threads": 1,
+  "cap_GiB": 4,
+  "wall_seconds": 900,
+  "resident_estimate_GiB": 2.5,
+  "load_average": [
+    9.79052734375,
+    10.142578125,
+    9.9501953125
+  ],
+  "physical_model_shrunk": false
+}

@@ -1,0 +1,17 @@
+{
+  "status": "pure_original_metric_sha_and_inverse_action_controls_pass",
+  "created_utc": "2026-10-11T08:49:55.106357+00:00",
+  "reviewed_source_sha256": "49a6a56895901536203f35504f037a218f515bb67028e7800615a9e0d422fdf7",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7"
+  },
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "manual_original_digest": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "new_helper_digest": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "digest_match": true,
+  "independent_saved_inverse_tangent_action_max_abs_error": 0.0,
+  "replayed_original_metric_residual": 2.670347390185656e-06,
+  "saved_pg_residual": 2.670347390185656e-06,
+  "scope": "Actual archived004 P/inverse/x/g arrays only. No CI solve, functional evaluate, gradient recomputation, or optimization. Does not certify successful005 original final coordinate recovery or enlarged mixed-model stationarity."
+}

@@ -1,0 +1,330 @@
+{
+  "original_rotation002_passed": false,
+  "physical_producer_calls": 0,
+  "eigen_SVD_calls": 0,
+  "two_body_cells_or_potentials": 0,
+  "new_public_RDM_contracts": 0,
+  "optimizer_authorized": false,
+  "no_new_direction_or_step": true,
+  "table_comparison": {
+    "full_terms": 12403,
+    "retained_terms": 10738,
+    "h_keys": 51,
+    "missing_h_keys": [],
+    "changed_h_coefficients": 35,
+    "changed_r_coefficients": 8764,
+    "missing_r_keys": 1665,
+    "not_a_pure_cutoff_difference": true
+  },
+  "saved_h_representation_seams": [
+    {
+      "kappa": 1,
+      "raw_minus_logical_max": 137.03599917759033,
+      "raw_asymmetry_max": 137.03599917759033,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": 2,
+      "raw_minus_logical_max": 137.03599917759027,
+      "raw_asymmetry_max": 137.03599917759027,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": 3,
+      "raw_minus_logical_max": 137.03599917759038,
+      "raw_asymmetry_max": 137.03599917759038,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": -2,
+      "raw_minus_logical_max": 137.03599917759004,
+      "raw_asymmetry_max": 137.03599917759004,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": -4,
+      "raw_minus_logical_max": 137.03599917759016,
+      "raw_asymmetry_max": 137.03599917759016,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": -3,
+      "raw_minus_logical_max": 137.03599917758993,
+      "raw_asymmetry_max": 137.03599917758993,
+      "max_abs_raw_entry": 12134.013497175916
+    },
+    {
+      "kappa": -1,
+      "raw_minus_logical_max": 137.0359991775902,
+      "raw_asymmetry_max": 137.0359991775902,
+      "max_abs_raw_entry": 12134.013497175916
+    }
+  ],
+  "direction_modes": {
+    "ideal_P_times_seed": {
+      "logical_h_full_slope": 1.0893124428957803,
+      "logical_h_retained_slope": 1.0893124428957797,
+      "global_h_coefficient_difference_slope": 5.860384394624036e-16,
+      "largest_h_difference_contributions": [
+        {
+          "key": [
+            "h",
+            3,
+            -3,
+            3
+          ],
+          "contribution": 8.621198361302288e-16
+        },
+        {
+          "key": [
+            "h",
+            3,
+            2,
+            3
+          ],
+          "contribution": -8.453012984205271e-16
+        },
+        {
+          "key": [
+            "h",
+            5,
+            -1,
+            5
+          ],
+          "contribution": 5.815317053794606e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            2,
+            4
+          ],
+          "contribution": -4.686381080580722e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            -3,
+            4
+          ],
+          "contribution": 4.2004427257598366e-16
+        }
+      ],
+      "raw_h_retained_slope": 1.0893124428957788,
+      "raw_h_ket_normalized_retained_slope": 1.0893124428957637,
+      "raw_h_ket_normalized_full_slope": 1.0893124428957641,
+      "raw_minus_logical_h_slope": -9.689834757835471e-16,
+      "ket_norm_derivative_change": -1.513912654895741e-14,
+      "full_saved_raw_radial_gradient_action": 0.001494376612198415,
+      "conditional_saved_full_gradient_plus_onebody_seam": 0.001494376612182307,
+      "conditional_two_body_coefficients_and_curvature_unmeasured": true
+    },
+    "explicit_polar_odd": {
+      "logical_h_full_slope": 1.089312445737974,
+      "logical_h_retained_slope": 1.0893124457379733,
+      "global_h_coefficient_difference_slope": 5.860384443042079e-16,
+      "largest_h_difference_contributions": [
+        {
+          "key": [
+            "h",
+            3,
+            -3,
+            3
+          ],
+          "contribution": 8.621198548807301e-16
+        },
+        {
+          "key": [
+            "h",
+            3,
+            2,
+            3
+          ],
+          "contribution": -8.453013015676154e-16
+        },
+        {
+          "key": [
+            "h",
+            5,
+            -1,
+            5
+          ],
+          "contribution": 5.815317026613203e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            2,
+            4
+          ],
+          "contribution": -4.686381039011097e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            -3,
+            4
+          ],
+          "contribution": 4.2004426920915475e-16
+        }
+      ],
+      "raw_h_retained_slope": 1.0893124457379724,
+      "raw_h_ket_normalized_retained_slope": 1.0893123999569607,
+      "raw_h_ket_normalized_full_slope": 1.0893123999569614,
+      "raw_minus_logical_h_slope": -9.689834614589328e-16,
+      "ket_norm_derivative_change": -4.578101151429142e-08,
+      "full_saved_raw_radial_gradient_action": 0.001494343818183005,
+      "conditional_saved_full_gradient_plus_onebody_seam": 0.001494298037170522,
+      "conditional_two_body_coefficients_and_curvature_unmeasured": true
+    },
+    "rounded_physical_odd": {
+      "logical_h_full_slope": 1.0893125701905846,
+      "logical_h_retained_slope": 1.0893125701905841,
+      "global_h_coefficient_difference_slope": 5.860384556409718e-16,
+      "largest_h_difference_contributions": [
+        {
+          "key": [
+            "h",
+            3,
+            -3,
+            3
+          ],
+          "contribution": 8.621198154153116e-16
+        },
+        {
+          "key": [
+            "h",
+            3,
+            2,
+            3
+          ],
+          "contribution": -8.453013372818212e-16
+        },
+        {
+          "key": [
+            "h",
+            5,
+            -1,
+            5
+          ],
+          "contribution": 5.815316955155161e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            2,
+            4
+          ],
+          "contribution": -4.686381190658713e-16
+        },
+        {
+          "key": [
+            "h",
+            4,
+            -3,
+            4
+          ],
+          "contribution": 4.200442739753118e-16
+        }
+      ],
+      "raw_h_retained_slope": 1.089312570190583,
+      "raw_h_ket_normalized_retained_slope": 1.0893123069285646,
+      "raw_h_ket_normalized_full_slope": 1.089312306928565,
+      "raw_minus_logical_h_slope": -9.68982979073843e-16,
+      "ket_norm_derivative_change": -2.632620185524154e-07,
+      "full_saved_raw_radial_gradient_action": 0.0014944307370519225,
+      "conditional_saved_full_gradient_plus_onebody_seam": 0.001494167475032401,
+      "conditional_two_body_coefficients_and_curvature_unmeasured": true
+    }
+  },
+  "saved_coordinate_gradient_actions": {
+    "raw_seed": 0.0014943766121995378,
+    "tangent_seed": 0.0014943766122014388,
+    "raw_polar_odd": 0.0014943438181873195,
+    "tangent_polar_odd": 0.0014943766119494396
+  },
+  "already_measured_failed_ledger": {
+    "new_scientific_target": "EOL_Rayleigh",
+    "analytic_saved_g": 0.0014943766122014388,
+    "ordinary_reported_total_central": 0.0014924808056093752,
+    "diagnostic_reported_central": 0.0014939549090145243,
+    "Rayleigh_central": 0.001494167474901981,
+    "direct_retained_quotient_central": 0.001492693371496832,
+    "reported_minus_Rayleigh_central": -2.125658874567709e-07,
+    "Rayleigh_minus_direct_quotient_central": 1.4741034051490333e-06,
+    "ordinary_one_ULP_derivative_scale": 1.8189894035458565e-06,
+    "gate": 1.494376612201439e-08,
+    "h": 1e-06,
+    "PCG64_seed": 20261012,
+    "reported_derivative_is_acceptance_gate": false,
+    "finite_response_norm_residuals_retained": true,
+    "uniform_roundoff_error_bound_certified": false,
+    "optimizer_authorized": false
+  },
+  "already_measured_central_pieces": {
+    "explicit_radial": 0.0014942980369557922,
+    "reconstruction_radial": -1.3056213885886901e-07,
+    "rayleigh_response": 8.50476730769422e-14,
+    "reported_response": -2.125658024089975e-07
+  },
+  "causal_scale_comparison": {
+    "measured_Rayleigh_error": -2.0913729945775707e-07,
+    "conditional_linearized_roundoff_shift": -2.0913714990594516e-07,
+    "measured_Rayleigh_minus_conditional_linearization": -1.304199803708883e-13,
+    "not_a_full_finite_difference_or_missing_physics_bound": true
+  },
+  "saved_only_diagnosis_completed": true,
+  "exact_products": 2284625,
+  "contract_sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+  "driver_sha256": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d",
+  "authorization_sha256": "d98a79c9c05886490a4b821977eeff76f2d4fe2fe352b4e420a8a7fea254344b",
+  "elapsed_s": 6.0686048900242895,
+  "peak_RSS_KiB": 149584,
+  "CPU": 31,
+  "accounting_CPUs": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "known_unresolved": [
+    "two-body global density-table difference has no directional bound here",
+    "trial-density response and complete finite-cell one/two-body increment terms are not reconstructed",
+    "linearization does not bound finite polar curvature or public gradient arithmetic error"
+  ],
+  "no_uniform_error_bound": true,
+  "original_failed_gate_unchanged": true
+}

@@ -1,0 +1,24 @@
+{
+  "status": "prospective_before_browser_QA",
+  "driver_sha256": "713e773d4cdbd55e26da048519d65097dbb636d6eaa3ed3f84bb0bcc5b1ca8c9",
+  "contract_sha256": "4dca55bb0900ba0130026f6c567b1898ca7a1f11f8fc7914e4bc3be812d3bf2f",
+  "data_proof_sha256": "4270a95c2a7a4ed4dbd149a3fcadeade49597f2c841022866a450d6c20fa8b5d",
+  "page_sha256": "4dc3ac714cd9c0e5796cb448a07df8c36d7ee505a6fa9ccbd5316182c946d47b",
+  "browser": "Existing cached Chromium1243 exact explicit executable",
+  "viewports": [
+    [
+      1440,
+      1080
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "outer_timeout_s": 90,
+  "browser_memory_cap_applied": false,
+  "scientific_calls": 0,
+  "publication_performed": false,
+  "predecessor_contract_sha256": "351acf8d71e731d5482e4f276a502035eca618380fe3abafe067429436a203e2",
+  "change": "QA-only reload when returning by hash-only goto for screenshot; actual user periodic controls/cached revisit already passed61checks. No application change."
+}

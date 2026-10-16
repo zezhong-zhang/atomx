@@ -1,0 +1,27 @@
+{
+  "full_signed_gate_passed": true,
+  "load_guard_passed": false,
+  "pairs": [
+    {
+      "pair": 0,
+      "cpu": 33.68560561805498,
+      "cuda": 3.300310379010625,
+      "cpu_over_cuda": 10.20679928539125
+    },
+    {
+      "pair": 1,
+      "cuda": 3.2781457969686016,
+      "cpu": 33.37570362200495,
+      "cpu_over_cuda": 10.181274930745438
+    },
+    {
+      "pair": 2,
+      "cpu": 31.959745230036788,
+      "cuda": 3.2934372229501605,
+      "cpu_over_cuda": 9.7040699629332
+    }
+  ],
+  "observed_median_cpu_over_cuda": 10.181274930745438,
+  "controlled_speedup": null,
+  "scope": "warm complete eight-worker/inner-one CPU term2 versus complete CUDA FP64 term2, including native C/Python copies; no intermediate GPU host transfers; excludes preparation, compilation and full SD solve"
+}

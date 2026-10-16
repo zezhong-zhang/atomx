@@ -1,0 +1,5 @@
+{
+  "error": "MemoryError at historical CSV ingestion under enforced 4 GiB RLIMIT_AS",
+  "repair": "Stream one ion at a time; indexed on-disk historical ledger; explicit BLAS thread cap",
+  "snapshot": "snapshot002.sqlite"
+}

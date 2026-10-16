@@ -1,0 +1,78 @@
+{
+  "scope": "New finite-space unchanged-H core/Bloch/FS-CCSDT diagnoses; radial refinements and declared operator factors. Not a production Yb accuracy campaign.",
+  "jobs": [
+    {
+      "id": "finite_ns42_dynamic",
+      "kind": "finite_transverse_bloch",
+      "ns": 42,
+      "mode": "dynamic"
+    },
+    {
+      "id": "finite_ns42_static",
+      "kind": "finite_transverse_bloch",
+      "ns": 42,
+      "mode": "static"
+    },
+    {
+      "id": "finite_ns42_DC",
+      "kind": "finite_transverse_bloch",
+      "ns": 42,
+      "mode": "DC"
+    },
+    {
+      "id": "finite_ns60_dynamic",
+      "kind": "finite_transverse_bloch",
+      "ns": 60,
+      "mode": "dynamic"
+    },
+    {
+      "id": "finite_ns60_static",
+      "kind": "finite_transverse_bloch",
+      "ns": 60,
+      "mode": "static"
+    },
+    {
+      "id": "finite_ns60_DC",
+      "kind": "finite_transverse_bloch",
+      "ns": 60,
+      "mode": "DC"
+    },
+    {
+      "id": "finite_ns80_dynamic",
+      "kind": "finite_transverse_bloch",
+      "ns": 80,
+      "mode": "dynamic"
+    },
+    {
+      "id": "finite_ns80_static",
+      "kind": "finite_transverse_bloch",
+      "ns": 80,
+      "mode": "static"
+    },
+    {
+      "id": "finite_ns80_DC",
+      "kind": "finite_transverse_bloch",
+      "ns": 80,
+      "mode": "DC"
+    },
+    {
+      "id": "finite_ns100_dynamic",
+      "kind": "finite_transverse_bloch",
+      "ns": 100,
+      "mode": "dynamic"
+    },
+    {
+      "id": "finite_ns100_static",
+      "kind": "finite_transverse_bloch",
+      "ns": 100,
+      "mode": "static"
+    },
+    {
+      "id": "finite_ns100_DC",
+      "kind": "finite_transverse_bloch",
+      "ns": 100,
+      "mode": "DC"
+    }
+  ],
+  "exhaustion_policy": "Visible waiting_for_queue_expansion; no repeated completed jobs"
+}

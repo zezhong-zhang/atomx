@@ -1,0 +1,134 @@
+{
+  "all_source_JSON_preparation_checks_passed": true,
+  "checks": {
+    "driver_AST_parse": true,
+    "stdlib_top_level_only": true,
+    "frozen_all356_source_SHA": true,
+    "bound_SOURCE_JSON_inputs_SHA": true,
+    "public_API_AST_descriptors": true,
+    "canonical941_saved_gates_passed": true,
+    "canonical_foreground_closed_exit0": true,
+    "SOURCE_JSON_completion101_passed": true,
+    "model31_1595_3789": true,
+    "complete_target_block_sum1595": true,
+    "coordinate_dimensions_literal": true,
+    "canonical_recovered_two_owner_phase_names": true,
+    "by_key_old29_preservation_and_2f_only": true,
+    "no_repair_or_aux_field_executor": true,
+    "root_authorization_before_runtime_arrays": true,
+    "source_only_default_array_deferral": true,
+    "reported_energy_unchanged_and_no_callback": true,
+    "full_weighted_normalized_unfiltered_and_order": true,
+    "raw_h_transpose_ketnorm_corrected_separately": true,
+    "whole_signed_linearity_gates_literal": true,
+    "same_original_radial_and_CI_gates": true,
+    "point_recovery_predeclared_max": true,
+    "tangent_absolute_scaled_and_completeGrams_saved": true,
+    "all31_external_rotation_outputs": true,
+    "producer_caps_2H2CI3g7Dirac38SPD31eigh": true,
+    "hS_requests_cap_not_exact_getter_equality": true,
+    "hS_producers21_ceiling": true,
+    "real_counters_first_overbudget_preserved": true,
+    "small_progress_no_cumulative_checks_write": true,
+    "literal_venv_resource_caps": true,
+    "source500_parent_not_runtime_epoch": true,
+    "Ruff_passed": true
+  },
+  "checks_count": 32,
+  "driver_sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34",
+  "contract_sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_API_descriptors": [
+    {
+      "path": "methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+      "required_symbols": [
+        "CSFOrbitalFunctional"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "required_symbols": [
+        "CIRadialDensity"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "numerics/bspline/orbital_optimization.py",
+      "sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+      "required_symbols": [
+        "OrbitalOptimizationState",
+        "_residual_metric_sha256",
+        "optimize_orbitals"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "methods/ci.py",
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+      "required_symbols": [
+        "ci_solve",
+        "CIResult"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "physics/csf/tracking.py",
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+      "required_symbols": [
+        "CIBasisTracking"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "config/csf.py",
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+      "required_symbols": [
+        "enumerate_jj_csfs",
+        "get_shared_orbital_basis"
+      ],
+      "all_declared": true
+    },
+    {
+      "path": "potentials/nuclear.py",
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0",
+      "required_symbols": [
+        "make_nuclear_potential"
+      ],
+      "all_declared": true
+    }
+  ],
+  "NumPy_Atomx_imports": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "physical_calls": 0,
+  "deferred_NPZ_roles": {
+    "literal208_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "canonical31_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_whole_CI.npz",
+      "sha256": "15f0702b5f255b67fc0425db611d34993a6bb30e21dc59da648d2e493875d90a"
+    }
+  },
+  "Ruff": {
+    "command": "/data/code/atomx/.venv/bin/ruff check docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/run.py",
+    "exit_code": 0,
+    "output": "All checks passed!"
+  },
+  "limits": "Source/JSON checks, not31gradient orowner numerical qualification. No executor was imported/executed."
+}

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/diagnose_polar_endpoint.py", line 192, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/diagnose_polar_endpoint.py", line 182, in main
+    raise ValueError(checks)
+ValueError: {'original_analytic_gradient_replay_max_error': 0.0, 'original_metric_residual': 2.670347390185656e-06, 'retained_metric_residual': 7.32242120582807, 'metric_residual_relative_error': 0.9999996353190679, 'all_trial_orthogonality_passed': True}

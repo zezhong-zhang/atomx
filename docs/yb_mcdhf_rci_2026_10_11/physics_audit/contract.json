@@ -1,0 +1,35 @@
+{
+  "purpose": "Read-only audit of native MCDHF/RCI and independent full-Fock no-pair input semantic anchor",
+  "hypothesis": "The public solver supplies h_nuclear+HF complete matrices; the optimizer adds h_nuclear again when constructing the screened no-pair projector. The excess must equal h_nuclear elementwise, whereas spectral differences need not vanish.",
+  "fixed_conditions": {
+    "atom_Z": 10,
+    "configurations": [
+      "1s2",
+      "1s1 2p1",
+      "2s2"
+    ],
+    "basis_ns": 40,
+    "basis_ks": 9,
+    "engine": "bspline",
+    "corrections": "none",
+    "state_average": "equal CI levels",
+    "initializer_sweeps": 3,
+    "physical_optimization": "No orbital optimizer steps; interception after genuine public initializer construction"
+  },
+  "distinguishing_outcomes": {
+    "confirmed": "actual matrix supplied to Dirac alternative branch equals h_nuclear+weighted complete preconditioner matrices rather than weighted complete matrices",
+    "rejected": "optimizer uses a declared interaction-only input or actual supplied matrix is complete average"
+  },
+  "acceptance": {
+    "max_abs_excess_minus_hnuc_Ha": 1e-10,
+    "matrix_input_capture": "All public solver keys plus required nuclear metrics persisted",
+    "conclusions": "No Yb experimental improvement or projector-error gap magnitude inferred"
+  },
+  "stop": "one bounded initializer capture and three-kappa/matrix replay; no truncation scan",
+  "resource_cap": {
+    "threads": 1,
+    "memory_soft_GiB": 2,
+    "duration_seconds": 90
+  },
+  "scientific_source_modified": false
+}

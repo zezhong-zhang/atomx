@@ -1,0 +1,85 @@
+..F.                                                                     [100%]
+=================================== FAILURES ===================================
+______ test_native_two_electron_dirac_coulomb_against_complete_csf_anchor ______
+
+    def test_native_two_electron_dirac_coulomb_against_complete_csf_anchor():
+        from atomx.config.csf import enumerate_jj_orbital_space, get_shared_orbital_basis
+        from atomx.methods.dirac_fock import DFSolver, Subshell
+        from atomx.methods.mbpt import build_virtual_basis
+        from atomx.physics.csf.matrix import build_ci_matrix
+        from atomx.physics.csf.sparse_ci import assemble_sparse_hamiltonian, enumerate_determinants, patterns_from_csfs
+    
+        core = DFSolver(Z=4, subshells=[Subshell(1, -1, 2)], ns=30, ks=7).solve()
+        od = {(1, -1): core.orbitals_by_subshell()[1, -1][:2]}
+        for k in (-1, 1, -2):
+            _, virtual = build_virtual_basis(core, k, e_max=50, potential_mode='VN', orthogonal_to_occupied=True)
+            od[2, k] = virtual[0][:2]
+        csfs = enumerate_jj_orbital_space(od, 2, magnetic_state_cap=256)
+        dets, spinors = enumerate_determinants(patterns_from_csfs(csfs), od, m2_total=None)
+        h = assemble_sparse_hamiltonian(dets, spinors, od, core._bsp_data, 4, 30).toarray()
+        ref = sum(1 << i for i, (n, k, m) in enumerate(spinors) if (n, k) == (1, -1))
+>       cc = compute(h, dets, ref, spinor_count=len(spinors), reference_identity='Be2+:native-complete-N2')
+
+tests/test_finite_ccsd.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+hamiltonian_Ha = array([[-13.61394333,   0.        ,   0.        , ...,   0.        ,
+          0.        ,  -0.01417198],
+       [  0....    [ -0.01417198,   0.        ,   0.        , ...,   0.        ,
+          0.        ,  -2.75159552]], shape=(45, 45))
+determinants = [3, 5, 6, 9, 10, 12, ...], reference_mask = 3
+
+    def compute(hamiltonian_Ha, determinants, reference_mask, *, spinor_count,
+                reference_identity, method='CCSD', residual_tolerance_Ha=1e-10,
+                determinant_cap=256, amplitude_cap=128, generator_memory_MiB=128,
+                max_evaluations=2000, continuation=(.25, .5, .75, 1.)):
+        """Solve finite nonlinear CCSD on a complete fixed-N magnetic Fock space.
+    
+        ``determinants`` are occupation masks in canonical ascending spinor
+        order, aligned with the real symmetric Hamiltonian. Occupied/virtual
+        spinors are defined by the explicit reference mask. No coordinate is
+        removed by amplitude magnitude or a denominator floor. Matrix/state/
+        mask hashes and normalized wavefunction are returned. The projected
+        SD residual gates convergence; the full eigenstate residual is reported
+        separately because connected triples/higher ranks are omitted.
+    
+        The branch follows the declared off-diagonal-coupling continuation from
+        the reference. CC energies are not variational and a root is not matched
+        to experiment or automatically asserted to be the exact ground state.
+        Raises on resource, resonance, nonlinear convergence or residual failure.
+        Generic triples/FSCC requests explicitly remain unsupported.
+        """
+        if method != 'CCSD':
+            raise NotImplementedError('finite engine supports CCSD; triples and Fock-space CC remain unsupported')
+        for name, value in (('spinor_count', spinor_count), ('determinant_cap', determinant_cap),
+                            ('amplitude_cap', amplitude_cap), ('max_evaluations', max_evaluations)):
+            if isinstance(value, bool) or not isinstance(value, (int, np.integer)) or value < 1:
+                raise ValueError(f'positive integer {name} required')
+        if (isinstance(reference_mask, bool) or not isinstance(reference_mask, (int, np.integer))
+                or not 0 < reference_mask < 1 << int(spinor_count)):
+            raise ValueError('valid occupied reference mask required')
+        if not isinstance(reference_identity, str) or not reference_identity.strip():
+            raise ValueError('physical reference identity required')
+        for name, value in (('residual tolerance', residual_tolerance_Ha), ('generator memory', generator_memory_MiB)):
+            if np.ndim(value) != 0 or not np.isrealobj(value) or not np.isfinite(value) or value <= 0:
+                raise ValueError(f'positive finite {name} required')
+        electrons = int(reference_mask).bit_count()
+        count = comb(int(spinor_count), electrons)
+        if count > determinant_cap:
+            raise ValueError(f'complete fixed-N basis needs {count} determinants; cap={determinant_cap}')
+        masks = tuple(determinants)
+        if (len(masks) != count or len(set(masks)) != count
+                or any(isinstance(m, bool) or not isinstance(m, (int, np.integer))
+                       or not 0 < m < 1 << int(spinor_count) or int(m).bit_count() != electrons for m in masks)
+                or reference_mask not in masks):
+            raise ValueError('complete distinct fixed-N determinant basis required')
+        h = np.asarray(hamiltonian_Ha)
+        if (h.shape != (count, count) or not np.isrealobj(h) or not np.all(np.isfinite(h))
+                or not np.array_equal(h, h.T)):
+>           raise ValueError('finite real symmetric Hamiltonian in determinant order required')
+E           ValueError: finite real symmetric Hamiltonian in determinant order required
+
+src/atomx/methods/coupled_cluster.py:98: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_finite_ccsd.py::test_native_two_electron_dirac_coulomb_against_complete_csf_anchor
+1 failed, 3 passed in 0.45s

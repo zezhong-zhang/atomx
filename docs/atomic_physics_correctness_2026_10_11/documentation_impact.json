@@ -1,0 +1,59 @@
+{
+  "logical_changes": [
+    {
+      "change": "Public noncanonical FSCC rejects unvalidated nonzero-Fov equations",
+      "updated": [
+        "docs/ATOMIC_FSCC.md",
+        "docs/MIGRATION.md",
+        "docs/ARCHITECTURE_CAPABILITIES.md",
+        "docs/CORRELATED_METHOD_TESTING.md",
+        "docs/TESTING.md"
+      ],
+      "scope": "Trusted builder provenance, independently verified finite sector only; no arbitrary-source authentication"
+    },
+    {
+      "change": "CoreSD docstrings declare physical simultaneous-exchange domain",
+      "updated": [
+        "docs/ATOMIC_LINEARIZED_SD.md",
+        "docs/AGENT_INSIGHTS.md"
+      ],
+      "scope": "No numeric AST change"
+    },
+    {
+      "change": "Physical correctness takes precedence in planner headline even when source-bound probes are queued",
+      "updated": [
+        "docs/atomx_hourly_progress_2026_10_10/README.md",
+        "docs/atomx_hourly_progress_2026_10_10/progress.json",
+        "docs/THEORY_NIST_COMPARISON.md",
+        "docs/AGENT_REFERENCE.md",
+        "docs/AGENT_INSIGHTS.md"
+      ],
+      "scope": "Reporting annotation only; jobs, gates and resource caps unchanged"
+    },
+    {
+      "change": "Explicit current norm producer for NIST replay",
+      "updated": [
+        "docs/atomx_hourly_progress_2026_10_10/README.md",
+        "docs/atomic_physics_correctness_2026_10_11/hourly_dependency/README.md"
+      ],
+      "retained_with_reason": "Historical producer/default/source rejection and experimental failures preserved; only dependency path selection changes"
+    },
+    {
+      "change": "Actual occupied-p Born and fixed-H genuine method-rank evidence, plus structure-specific Ne/Eu method selection",
+      "updated": [
+        "docs/atomic_physics_correctness_2026_10_11/README.md",
+        "docs/atomic_physics_correctness_2026_10_11/results.json",
+        "docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md",
+        "docs/ATOMIC_LINEARIZED_SD.md",
+        "docs/ATOMIC_FSCC.md",
+        "docs/THEORY_NIST_COMPARISON.md",
+        "docs/AGENT_REFERENCE.md",
+        "docs/AGENT_INSIGHTS.md"
+      ],
+      "scope": "Finite physical controls and read-only actual consumer audit; no new production Yb/Eu roots, physical-completeness or universal-best-method claim",
+      "retained_with_reason": "Historical Eu3+ frozen-Xe/calibrated records and Ne band results remain original; complete declared spaces are not reclassified as complete correlation"
+    }
+  ],
+  "owner_report": "docs/atomic_physics_correctness_2026_10_11/README.md",
+  "publication": "Working tree only, no staging or clean-checkout release certification"
+}

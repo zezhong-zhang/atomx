@@ -1,0 +1,233 @@
+{
+  "label": "CCSD_R2",
+  "method": "finite-EOM-EA[core=CCSD,R=2p1h]",
+  "core_energy_relative_Ha": -0.0014643980334067938,
+  "core_correlation_Ha": -0.001464398030092667,
+  "core_amplitude_residual_Ha": 8.429671891074797e-18,
+  "core_full_residual_Ha": 0.0009544422319203667,
+  "core_FCI_energy_error_Ha": 6.644865298537778e-07,
+  "core_T3_norm": 0.0,
+  "levels": {
+    "S": {
+      "roots": [
+        0,
+        1
+      ],
+      "mean_energy_Ha": -0.41369233019102564,
+      "spread_Ha": 3.4416913763379853e-15,
+      "minimum_bare_model_weight": 0.9994908775027147,
+      "J_squared_defect": 4.495894614839898e-15
+    },
+    "D3": {
+      "roots": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "mean_energy_Ha": -0.30257696479434204,
+      "spread_Ha": 3.164135620181696e-15,
+      "minimum_bare_model_weight": 0.9996460165854685,
+      "J_squared_defect": 2.282578465330425e-15
+    }
+  },
+  "similarity": {
+    "maximum_directed_Hbar_difference_Ha": 1.7763568394002505e-15,
+    "attached_T3_action_norm": 0.0,
+    "non_Hermitian_asymmetry_Ha": 0.00017803393033967874
+  },
+  "D3_line_cm1": 24387.003859217857,
+  "maximum_projected_residual_Ha": 3.219646771412954e-15,
+  "maximum_full_H_residual_Ha": 0.06344126374746768,
+  "provenance": {
+    "common_operator_sha256": "915303a854a2fb5e622fc8a101f9de2c5b37d72413049022e221a5972f149b43",
+    "labels": [
+      [
+        5,
+        -1,
+        -1
+      ],
+      [
+        5,
+        -1,
+        1
+      ],
+      [
+        5,
+        1,
+        -1
+      ],
+      [
+        5,
+        1,
+        1
+      ],
+      [
+        6,
+        -1,
+        -1
+      ],
+      [
+        6,
+        -1,
+        1
+      ],
+      [
+        5,
+        2,
+        -3
+      ],
+      [
+        5,
+        2,
+        -1
+      ],
+      [
+        5,
+        2,
+        1
+      ],
+      [
+        5,
+        2,
+        3
+      ]
+    ],
+    "integral_producer_identity": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('346945dfe42400d7a9f9144b1d953602283092b5ee969b23adfb63ead4af5940', 'c452e52d81be054a1f8a8b6da0aaf8a0ddf2b609778d3b7c087c310d081ebd0a', '7f50c203db84db539664d80790b284d23dbd62c649032aea4cdcdf36ee0b498c', '1a2a3d0735fa1be0a9f6a3535aeac916aee2be072f77266e88354e3292dff91b'), core=(((1, -1), '829780317413226eeacce88a458e8229d3de9d9cbe3b6a9be6e93bb33475057c'), ((2, -2), '38c4bee5bfe85d88ceb8dbb8280f14b4ba7454ea8ddef4a8174bde67ebe13bef'), ((2, -1), '8202d901cafd985bdea2cd8b78b1a8dd9909e45db6cdd77d8a022d00b861172f'), ((2, 1), '3dec63fd49cb53d0d90f6c20def7bbb489ef414753e0407f50b3e1de137614d6'), ((3, -3), 'b7b212783eff994ac617c37f99b267f63dcd95be45af8899cd9f44182cd5039d'), ((3, -2), '921b603e3decdf4ecdcfafe86ff3830663ab28cba64c2966a19557c23a1c18ba'), ((3, -1), '5a03376a3688527def2d2f4f3bd5b98e59b7dde6b0aa1a995a014d2036cddd3c'), ((3, 1), '87900a8fdf83ffa944e7deb71c00136b2502f5501390285afe4619c659037c4a'), ((3, 2), '508d3c1188638d99ed31d901c863f8074a22b79b617192ef5e7e0b0cb1404206'), ((4, -4), '895f5f820e13c6a554e489145f9808af520955d53a1264895291007f37bebe74'), ((4, -3), 'fdd9641f055319d23fc3ae0c1209a07e8a789fd874f3172f8c40e227f1891065'), ((4, -2), 'b31ec904c503f3e6697e8b406566094f691b005729d0d1ccdbaa1b6d26004326'), ((4, -1), 'a122f2e402af256567697884be6e974da902eb952c5f0df61f79e5b92d93d48e'), ((4, 1), 'f34cdea6b25a86fe6a18febeb73a486a149e6fd93aaf7ee1ee3f1103eeb573c4'), ((4, 2), '3de2833632651f058157b24ef43e2bc33c93c5b0607719093e5df25a16ad1615'), ((4, 3), 'ff8f95d379a7a86e55bd5b7e9d2974ab02f10e8bfe231b31c08b980438405fe6'), ((5, -2), '0a1bfcde742e6f7f413d918998fbc916ef5a970526f8049ee57bab0b8140b27d'), ((5, -1), '346945dfe42400d7a9f9144b1d953602283092b5ee969b23adfb63ead4af5940'), ((5, 1), 'c452e52d81be054a1f8a8b6da0aaf8a0ddf2b609778d3b7c087c310d081ebd0a')), geometry='da9733f9a337a9632f35336505e04e896b4f7c3010223e1c2ea820a686adafa1', Z=70, ns=180, nuclear='a4e845c741c21598573543d8534c28f269bf79acc17dc47eb93b0d2e50f754ea')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0",
+        "csf_hamiltonian.py": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "virtual_keys": [
+        [
+          6,
+          -1
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "frozen_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          -4
+        ]
+      ],
+      "metric_error": 2.6645352591003757e-15,
+      "hermitian_projection_max_Ha": 4.440892098500626e-15,
+      "integral_bytes": 21680,
+      "radial_pair_cache_size": 1024,
+      "pilot": "explicit64frozen+4correlated+6virtualmagnetic; actualYb",
+      "energy_origin_Ha": -14067.077173485426,
+      "original_frozen_energy_Ha": -14053.459819820167,
+      "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a"
+    },
+    "correlated_core_electrons": 4,
+    "attached_electrons": 5,
+    "core_connected_rank": 2,
+    "attachment_particle_rank": 2,
+    "attachment_hole_rank": 1,
+    "core_determinants": 210,
+    "attached_determinants": 252,
+    "projected_determinants": 66,
+    "core_amplitudes": 114,
+    "generator_and_working_memory_upper_bytes": 112186944,
+    "generator_bytes": 98134848,
+    "dense_generator_bytes_if_materialized": 98134848,
+    "action_representation": "dense",
+    "cluster_term_application_cap": 2000000,
+    "cluster_term_application_scope": "per scalar state action/exponential, not whole core/attachment solve",
+    "memory_scope": "NumPy generators/workspace payload; input integrals and Python/SciPy overhead extra",
+    "logical_term_action_upper": 982212,
+    "logical_term_action_scope": "construction of both H matrices only; excludes CC/Jacobian/similarity/eig",
+    "logical_nonzero_term_action_count": 118272,
+    "core_hamiltonian_sha256": "82528a2be0ed469d8aa5e712f4d3b09992ab1e45285be1ecf4aebdcf94e74070",
+    "attached_hamiltonian_sha256": "1573852c6d59d49108c55fbfc8b44092fe28de01096e3b5528801ccab273633f",
+    "reference_mask": 15,
+    "frozen_energy_Ha": 13.617353665258634,
+    "operator": "same owned one-body plus antisymmetric two-body and frozen constant",
+    "imaginary_energy_tolerance_Ha": 1e-10,
+    "largest_discarded_imaginary_energy_Ha": 0.0,
+    "energy_reference": "attachment omega relative to the same correlated N-electron core",
+    "limitations": "finite EOM-EA anchor; no 69e atomic FSCCSDT, root spectroscopy or dressed observables"
+  }
+}

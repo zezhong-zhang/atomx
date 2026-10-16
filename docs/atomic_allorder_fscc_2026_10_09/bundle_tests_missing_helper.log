@@ -1,0 +1,15 @@
+
+==================================== ERRORS ====================================
+__________________ ERROR collecting tests/test_mbpt_matrix.py __________________
+ImportError while importing test module '/tmp/atomx_fscc_bundle_r4d1779l/atomx/tests/test_mbpt_matrix.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_mbpt_matrix.py:7: in <module>
+    from test_review_regressions import _coulomb
+E   ModuleNotFoundError: No module named 'test_review_regressions'
+=========================== short test summary info ============================
+ERROR tests/test_mbpt_matrix.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.37s

@@ -1,0 +1,26 @@
+{
+  "status": "CLOSED_source_scoped_qualification",
+  "files": {
+    "README.md": "bd06f856902734d8f317067ff52a8ce9cb83cf65383939b80bc72ed474d38d9a",
+    "increment_receipt.json": "9b80a00da6adcd3788e4b9ed0d6dc083b9e18c833207498e31b24f1d095ac818",
+    "documentation_impact.json": "5cee69d66e080e8af91530b2363fec0735ffe863860dc9675e751e8ff72f1402",
+    "angular_budget_review.json": "66d4c5ed7c71e1c0df5b0a5eb175c95686073f7ae47a086765748b93c7ab299b",
+    "angular_budget_review_failure001.json": "722f8ea86270833a7378307854a67e16d68cf2da317e511a695beca4f91f082a",
+    "density_sparse001/source_after.py": "adc5bd8f4d7782019b488b122a0cc94a053975e804fdbb7660693dc2bd5a8680"
+  },
+  "validation": {
+    "ruff": "PASS5files",
+    "relevant_diff_check": "PASS",
+    "root_metadata_and_report_links": "PASS23links",
+    "regression_tests_passed": 84,
+    "scientific_controls_passed": 472,
+    "result_only_review_passed": 158
+  },
+  "limits": {
+    "full_4f12_energy": false,
+    "experimental_accuracy": false,
+    "stationarity": false,
+    "controlled_speedup": false,
+    "prior_scientific_failures_preserved": true
+  }
+}

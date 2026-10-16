@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-14T04:55:51.076755+00:00",
+  "status": "passed",
+  "scope": "Native singleton spectator compression preserving the exact row-streamed determinant graph and all prior typed-CSR signed operator checks.",
+  "source_and_test_sha256": {
+    "src/atomx/angular/csf_hamiltonian.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+    "tests/test_ci_connection_streaming.py": "eb74119f3641aac94ec1de0e244213b638069a2ce72f36d4031d643815833039",
+    "tests/test_csf_sparse_projection.py": "852404d4da15603ded43513cde84b47101df7323a7cbdd585e5fd90862d73318"
+  },
+  "executed_validation": {
+    "command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-stream-tests-20261014 taskset -c 26 .venv/bin/python -c 'import resource, runpy; resource.setrlimit(resource.RLIMIT_AS, (2*1024**3,)*2); runpy.run_module(\"pytest\", run_name=\"__main__\")' -q tests/test_ci_connection_streaming.py tests/test_csf_sparse_projection.py",
+    "working_directory": "/data/code/atomx",
+    "exit_code": 0,
+    "result": "80 passed in 0.65s",
+    "new_test_cases_total": 54,
+    "existing_sparse_projection_cases": 26,
+    "additional_008_cases": 10,
+    "cpu_affinity": [
+      26
+    ],
+    "blas_and_numba_threads": 1,
+    "address_space_limit_bytes": 2147483648,
+    "lint_command": ".venv/bin/python -m ruff check tests/test_ci_connection_streaming.py",
+    "lint_result": "All checks passed!"
+  },
+  "additional_coverage": [
+    "Four equal-three-electron masks with pair distance six have only diagonal connections, including an isolated high-bit determinant.",
+    "Three mutually connected three-electron masks plus a completely isolated mask preserve exact mixed connectivity and lexicographic order.",
+    "Duplicate masks preserve separate input coordinates for mixed (7,7,56), duplicate vacuum (0,0), and all-frozen (7,7,7) inputs.",
+    "Every added input is checked in both ordered and upper-triangular modes against independent exhaustive bit-distance enumeration; no bucket implementation details are asserted."
+  ],
+  "retained_coverage": "All 44 existing 007 test cases plus 26 sparse projection cases reran unchanged in their scientific contracts; the 007 receipt remains archived and unmodified.",
+  "earlier_failures": "No failed 008 test run. Initial 007 harness issues remain recorded in physical_next_decision007/test_receipt.json.",
+  "limits": [
+    "Finite regression verifies exact graph/storage/operator representation, not a measured production speedup or a large-model fit.",
+    "Duplicate determinant coverage is private helper compatibility; valid physical determinant bases remain unique.",
+    "No angular production source was edited by this test agent; unrelated working-tree changes were preserved."
+  ],
+  "knowledge_disposition": "No new general insight; existing exact-sparsity and signed-Hamiltonian contracts exercised."
+}

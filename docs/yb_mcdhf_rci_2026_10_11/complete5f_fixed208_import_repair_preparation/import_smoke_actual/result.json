@@ -1,0 +1,81 @@
+{
+  "all_imports_passed": true,
+  "imports": [
+    {
+      "module": "atomx.angular",
+      "name": "mscheme",
+      "passed": true
+    },
+    {
+      "module": "atomx.angular.csf_hamiltonian",
+      "name": "csf_magnetic_vector",
+      "passed": true
+    },
+    {
+      "module": "atomx.angular.csf_hamiltonian",
+      "name": "csf_signature",
+      "passed": true
+    },
+    {
+      "module": "atomx.config.csf",
+      "name": "enumerate_jj_csfs",
+      "passed": true
+    },
+    {
+      "module": "atomx.config.csf",
+      "name": "get_shared_orbital_basis",
+      "passed": true
+    },
+    {
+      "module": "atomx.constants",
+      "name": "HARTREE_CM1",
+      "passed": true
+    },
+    {
+      "module": "atomx.methods",
+      "name": "ci",
+      "passed": true
+    },
+    {
+      "module": "atomx.numerics.bspline",
+      "name": "dirac_assembly",
+      "passed": true
+    },
+    {
+      "module": "atomx.numerics.bspline.convol",
+      "name": "ConvolCache",
+      "passed": true
+    },
+    {
+      "module": "atomx.physics.csf",
+      "name": "matrix",
+      "passed": true
+    },
+    {
+      "module": "atomx.physics.csf",
+      "name": "tracking",
+      "passed": true
+    },
+    {
+      "module": "atomx.physics.csf.levels",
+      "name": "ci_level_blocks",
+      "passed": true
+    },
+    {
+      "module": "atomx.physics.csf.state_average",
+      "name": "CIStateAverage",
+      "passed": true
+    },
+    {
+      "module": "atomx.potentials.nuclear",
+      "name": "make_nuclear_potential",
+      "passed": true
+    }
+  ],
+  "scientific_calls": 0,
+  "NPZ_array_reads": 0,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "binding_sha256": "5a389f3b6f89502223d064bb2cb3b4838fb0a883507ca86b432198ef10e320f3",
+  "scope": "Import names/actualfiles only; no CSF/nuclear/cache/solver/array constructor consumer calls or physics assurance",
+  "elapsed_uncontrolled_s": 0.19092536298558116
+}

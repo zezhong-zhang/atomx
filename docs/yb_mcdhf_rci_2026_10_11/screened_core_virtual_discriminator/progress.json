@@ -1,0 +1,126 @@
+{
+  "stage": "virtual_control_arrays_saved_before_gates/(6, -3)",
+  "calls": {
+    "attempted_complete_CI": 0,
+    "completed_complete_CI": 0,
+    "implicit_H_attempts": 0,
+    "completed_implicit_H": 0,
+    "explicit_H_attempts": 0,
+    "completed_explicit_H": 0,
+    "virtual_generator_attempts": 0,
+    "completed_virtual_generator": 0,
+    "native_nuclear_Dirac_attempts": 0,
+    "completed_native_nuclear_Dirac": 0,
+    "native_complement_lowest_root_attempts": 0,
+    "completed_native_complement_lowest_root": 0,
+    "original_P_gap_spectral_attempts": 0,
+    "completed_original_P_gap_spectral": 0,
+    "initial_one_body_matrix_attempts": 7,
+    "completed_initial_one_body_matrices": 7,
+    "virtual_control_hS_consumed": 1,
+    "complement_SVD_attempts": 1,
+    "completed_complement_SVD": 1,
+    "full_gvd_attempts": 1,
+    "completed_full_gvd": 1,
+    "gradients": 0,
+    "optimizer_calls": 0,
+    "auxiliary_JK_builder_attempts": 10,
+    "completed_auxiliary_JK_builders": 10,
+    "auxiliary_angular_attempts": 2,
+    "completed_auxiliary_angular_precomputations": 2,
+    "internal_CI_onebody_attempts": 0,
+    "completed_internal_CI_onebody_matrices": 0,
+    "closed_core_scalar_attempts": 1,
+    "completed_closed_core_scalar": 1,
+    "scalar_radial_callback_attempts": 3584,
+    "scalar_Slater_attempts": 3584,
+    "completed_scalar_Slater": 3584
+  },
+  "completed_evidence": [
+    {
+      "name": "native_hS_original_geometry",
+      "path": "native_hS_original_geometry.npz",
+      "sha256": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+      "reused_virtual_kappa_count": 5
+    },
+    {
+      "name": "auxiliary_field_inputs",
+      "path": "auxiliary_field_inputs.npz",
+      "sha256": "02895885185d4903bc45b4ed3ca8785663a4862160f91826df2196e9a1dbb4f3"
+    },
+    {
+      "name": "auxiliary_angular_coefficients",
+      "path": "auxiliary_angular_coefficients.npz",
+      "sha256": "7c05d2bf75ff4b95f0b7d37807923da85d2524b4ac01e5b07480baf27964efa5"
+    },
+    {
+      "name": "auxiliary_Fock/(6, -3)",
+      "path": "virtual_0_auxiliary_Fock.npz",
+      "sha256": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317"
+    },
+    {
+      "name": "auxiliary_Fock/(6, 2)",
+      "path": "virtual_1_auxiliary_Fock.npz",
+      "sha256": "ad907e07b4baf841085e2fa687e92e28ebd44d58005411bd9e5a306e33b11284"
+    },
+    {
+      "name": "auxiliary_Fock/(7, -2)",
+      "path": "virtual_2_auxiliary_Fock.npz",
+      "sha256": "48a1c4f9608d80407135fda4b1c354bc03206522b65a63ef562400801910f0c8"
+    },
+    {
+      "name": "auxiliary_Fock/(7, -1)",
+      "path": "virtual_3_auxiliary_Fock.npz",
+      "sha256": "aa21c3fe41bde734a8332b9906c78703609be140d132eede908dcce18fe048ea"
+    },
+    {
+      "name": "auxiliary_Fock/(7, 1)",
+      "path": "virtual_4_auxiliary_Fock.npz",
+      "sha256": "ba8a4409f2b4c28bddb7fcfebd59095c7d2b7fbd20fff6e2d3579e1cdf6baf9e"
+    },
+    {
+      "name": "auxiliary_scalar/-3",
+      "path": "auxiliary_scalar_quadrants_-3.npz",
+      "sha256": "0ddd5d0b4bff26e8776ebbe0c794e0f5e352fd594cf37be9c940e3d9cc3f40d0"
+    },
+    {
+      "name": "auxiliary_scalar/-2",
+      "path": "auxiliary_scalar_quadrants_-2.npz",
+      "sha256": "55436524c4af9c81226ff5a6e8ccec018293a89b6a4f0e0a8a02b6b38c46b69a"
+    },
+    {
+      "name": "auxiliary_scalar/-1",
+      "path": "auxiliary_scalar_quadrants_-1.npz",
+      "sha256": "132f8e67b71667d640d013d548e80387e5e4ae9e62242b9296d8c4c7e7deb940"
+    },
+    {
+      "name": "auxiliary_scalar/1",
+      "path": "auxiliary_scalar_quadrants_1.npz",
+      "sha256": "133af9e96dfe68670b68666c35efd33c26044f635d1fde7f1c4f3354ec2810ef"
+    },
+    {
+      "name": "auxiliary_scalar/2",
+      "path": "auxiliary_scalar_quadrants_2.npz",
+      "sha256": "1412e92a56a270cc04a8fc32084176969a646f7cf3f14b84e21147b5d795f0c4"
+    },
+    {
+      "name": "virtual_complement/(6, -3)",
+      "path": "virtual_0_native_complement.npz",
+      "sha256": "f471cded1760a295392edba4ed589ac2612d84e3f951125a918dc80c36cd378e"
+    },
+    {
+      "name": "virtual_full_gvd/(6, -3)",
+      "path": "virtual_0_full_gvd_vectors.npz",
+      "sha256": "819ce573cfb0a0999029672a57415568414ce001b6f85baf95d456552c9edf5d"
+    },
+    {
+      "name": "virtual_control/(6, -3)",
+      "path": "virtual_0_original_P_control.npz",
+      "sha256": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070"
+    }
+  ],
+  "elapsed_uncontrolled_s": 8.485392021015286,
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "checkpoint_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "stationarity_or_experimental_claim": false
+}

@@ -1,0 +1,61 @@
+{
+  "status": "PASS_READ_ONLY_CLOSED_RESULT_REVIEW",
+  "checks": {
+    "root_seal_exact": true,
+    "driver_hash_matches_contract": true,
+    "all_bound_sources_current": true,
+    "all_bound_inputs_current": true,
+    "actual_success_closed": true,
+    "raw_native_integer_CSF_census_exact": true,
+    "pattern_hash_equals_contract_and_prior": true,
+    "determinant_order_equals_contract_and_prior": true,
+    "ordered_graph_count_exact": true,
+    "all_replacement_counts_exact": true,
+    "replacement_counts_sum_to_graph": true,
+    "all_rows_diagonals_present": true,
+    "last_coordinate_exact": true,
+    "whole_ordered_graph_SHA256_matches_prior": true,
+    "explicit_prior_hash_gate_passed": true,
+    "retained_buckets_non_singleton": true,
+    "inferred_singletons_from_original_U": true,
+    "reconstructed_U_exact": true,
+    "reconstructed_K_exact": true,
+    "reconstructed_V_exact": true,
+    "retained_map_smaller": true,
+    "elapsed_inside_alarm": true,
+    "RSS_below_enforced_AS_cap": true,
+    "resource_contract_same_as_prior": true,
+    "host_admission_pass": true,
+    "imported_origins_hashes_bound": true,
+    "claim_scope_excludes_H_CI_energy": true
+  },
+  "all_pass": true,
+  "files": {
+    "run.py": "5b114b823dc33e2273e9777c727f634fef39267b75e5d74eae4512bd3b723e82",
+    "contract.json": "f984661a3eff5f306f0f4dd728d12c920cb4de3b5c5cf7392b7a39f202ef4cc9",
+    "root_execution_seal.json": "0e1110d2e5d2ceda826809a08882452063f2c0ee8cf7da7bcb4626c6b2f204d0",
+    "actual/result.json": "728c4970653e99373f444c4d075303c79e181e33f921c13fab168156e7acfe6b",
+    "README.md": "1e4d527af81c27a3ab9c690d7aaa189a029e958658bfccd1967694c0ae996476"
+  },
+  "imported_source_count": 14,
+  "prior007_result_sha256": "6a531c280de0b7e6041b6c39f9bef0e8f8d88be14619ed29f5002784753f39bf",
+  "owned_payload_comparison": {
+    "prior007_bytes": 2834499496,
+    "current008_bytes": 436174880,
+    "saved_bytes": 2398324616,
+    "saved_fraction": 0.8461192599908651,
+    "scope": "Same whole ordered graph SHA256. Map/keys/lists only, before007 full map versus after008 retained map; construction transient excluded from this payload comparison, included in process highwater."
+  },
+  "observed_RSS_KiB": {
+    "prior007": 3201428,
+    "current008": 2010012,
+    "AS_cap_bytes_both": 4294967296
+  },
+  "limits": [
+    "No native science rerun by reviewer.",
+    "Implicit singleton count is prior007originalU minus observed retainedU; no independent production singleton counter is claimed.",
+    "The exact prior pair digest and ordered determinant digest match, alongside count, distance and strict-order checks enforced by sealed driver.",
+    "Retained payload does not include old+new dictionary overlap; whole-process RSS highwater includes construction and rebuild. RSS below2GiB does not establish2GiBASfit.",
+    "Separate single-run graph diagnostic times do not certify controlled speedup, parallel efficiency, full-H/CI memory or experimental accuracy."
+  ]
+}

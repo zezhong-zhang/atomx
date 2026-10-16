@@ -1,0 +1,35 @@
+{
+  "status": "SOURCE_ONLY_FROZEN_PENDING_SUPPLIED_ACTUAL_CLOSED_SHA",
+  "files": {
+    "close.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/closure001/close.py",
+      "sha256": "4bdd480b20524481ffe74c3da56be3c2af42d26e3dc09dac8e2a7ba0c5e8db8a"
+    },
+    "contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/closure001/contract.json",
+      "sha256": "2514a946db2b12b21175a43903bbad99d85b8c70b08d3a13863e9c9245a13d41"
+    },
+    "preparation.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/closure001/preparation.json",
+      "sha256": "3de85f300f65b4b9c5473d52f693fc04aef3b41a902ec65f67800bffa741db4d"
+    }
+  },
+  "exact_binding_required": {
+    "closed_JSON_scalar_audit_authorized_by_root": true,
+    "actual_foreground_closed_declared_by_root": true,
+    "script_sha256": "4bdd480b20524481ffe74c3da56be3c2af42d26e3dc09dac8e2a7ba0c5e8db8a",
+    "contract_sha256": "2514a946db2b12b21175a43903bbad99d85b8c70b08d3a13863e9c9245a13d41",
+    "closed_actual_roles": {
+      "closed_receipt": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/controller/execution_receipt.json",
+        "sha256": "ROOT_SUPPLIES_ONLY_AFTER_FOREGROUND_CLOSED"
+      },
+      "result": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/actual/result.json",
+        "sha256": "ROOT_SUPPLIES_ONLY_AFTER_FOREGROUND_CLOSED"
+      }
+    }
+  },
+  "command": "taskset -c 27 timeout --signal=TERM --kill-after=5s 35s /data/code/atomx/.venv/bin/python -I docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/resident_gradient_timing_execution_preparation001/closure001/close.py --execute /ABSOLUTE/ROOT/CLOSURE_BINDING.json",
+  "correctness_domain": "JSON/scalar metadata consistency; no independent scientific array replay/newtiming. Actualfailed ratio/host/resource/science gates remain failed; compare only privatecomplete gradient vsprivateCPU1."
+}

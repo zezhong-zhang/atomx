@@ -1,0 +1,23 @@
+{
+  "scope": "new owned source-isolated native baseline control only",
+  "source_archives": "2x365 fullcurrent matched source files; preowner replaces exactly2 modules; no shared source or f043/source002 changes",
+  "new_files": [
+    "executor_contract.json",
+    "worker.py",
+    "run.py",
+    "EXECUTOR.md",
+    "executor_handoff.json",
+    "executor_EARS.md"
+  ],
+  "unchanged_proposal": [
+    "contract.json",
+    "source_recipe.json",
+    "handoff.json"
+  ],
+  "NumPy_imports_in_preparation": 0,
+  "NPZ_reads_in_preparation": 0,
+  "calls_in_preparation": 0,
+  "physical_monkeypatches": 0,
+  "counter_method": "Python frame profile, unchanged functions",
+  "limits": "Native calls remain pending root seal. Strict H/g equality, two original scientific failures and phaseA HOLD unchanged."
+}

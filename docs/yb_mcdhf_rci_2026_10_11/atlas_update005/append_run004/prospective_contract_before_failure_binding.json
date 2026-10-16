@@ -1,0 +1,204 @@
+{
+  "status": "prospective_before_local_site_edits",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "preimage_site_HEAD": "4b1797f5ec78d9c00a862d281adb9a227a25243b",
+  "original_page_sha256": "ad8262af7aebe9dafd3e139ee442caa4fbd82ede0cd6185c0f680f3f06fa5b72",
+  "prechange_manifest_sha256": "f2de61f4d198573383e29536f672cbc298569c906607bd9aea83cb1d7accb433",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/completion.json": "31a9e12e5dcc2048b5b593219e329f62385b72dd4b9c1cdea386b4f99fc35897",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/result.json": "8f4021571f4b5e5e90c083d4dbeb1befd48d2c480b3f6502743aae6f17a3fa7c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/root_execution.json": "3e35d7833971982213e7dfa234d522648db12b3a6ae69590328763f564889d1e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/contract.json": "b45c441817625fd09756a4e04a7427bac775a2f3e57ac8878e629d0e9637a6f4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/execution_contract.json": "08ee7f09c66b4f4e150e36dd2a0eb96bf3c713dc6e2d4b5ab8c8540bcfef0675",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/RESULTS.md": "427acfecfbe9d770947ed6dfaa3546358951ed5822232de0f7c3bbfd5056555f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0000.json": "a990bde99aebb9e2519d6c113253406e4c6d2113184649cfd9460b49fcbec8fd",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0001.json": "52d880138966be8f2ddf51ea2d84cb475e3b5dfee9f882420fd1dd2921520429",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0002.json": "e1de787e8a1d9377132f7ee4b05045b313525ded6306656735aad88b113002fe",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0003.json": "7971d6eec7af255914e5d527329bd2f55b063fbebcde726d33b14b0772529aa4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0004.json": "3ceaf30b5d9b3ee4fe40af88f5859e9a35543ffedffb6467bbec9de76896230f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0005.json": "e2b239ebf22408dd4fe91e10654bd7aa6c7f559e90f4ec5cf69bc42d685fd05d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0006.json": "ba64b93bc0cec5678d7a3412daa751d636b87a8b93fe32b9a72d868730a49ef4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0007.json": "51dcb868a80d80ba0a815c164ad3cb9e8b5634fb942960067d51fc7ad8015c2d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0008.json": "7beb30c4c2186e763788c91fd9895e9f74bcc3801bb0cc0cb449e487cde2f786",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0009.json": "f0476d47669d0b4accd366136dfa15cc6671ce43df851248c9c4ae250e7d2bb4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0010.json": "7f3bc97ade720668370a186eac792bbf65e625465d589fad506a0e85efd5b53f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0011.json": "2b247896fc8b63a47d51b671d6948e4aab4123f06ed7d026e7d58f17a71e2bab",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0012.json": "d5201572b001e5b5089366337e87c2acbc23c5789a4e766c82a188ea310ee541",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0013.json": "94d96f44fa3eee99089b1207c6cb6358d88b1ff92b751fedcb548e112c14819c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0014.json": "3ad0b84126e82d6cab3441ab9c55ead88e78eeeb9297c12369721caf2b0c3e78",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0015.json": "ac36f29ac528e7a123d777202026b87a2aea75d1b5ef3db98646891e7044c391",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0016.json": "293514d2856faea2fd80636b8e52cc45841010d5b8401174bf56dcbda46d2e61",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0017.json": "87c3935159752fbd29a7c96796f4618ec978005fe56f4a02df858bd5062e59dc",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0018.json": "a888e4f30f7470a8e41a9624fc9143ac0da7efb43dbf5e1fe22ae7480fc5bc4e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0019.json": "8147d0d02d890b4f05be10608e0fd635cfa79e81a9d16d267aa750887208a3b8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0020.json": "8aed92560ecc0cedc495ce9397d2a314a8c844c6ae2312c2e23c7a9d1f9044b7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0021.json": "88495ca33532b45df3294b7939c5af664aa5451d85d4a5466423fd2347227261",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0022.json": "1c89c2b59e1a381f0655af7412ec594144865f604feccc6535811a87895af906",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0023.json": "c363a930400e7e333cbc7d7dc05ef2da22456df8c0494c4eb5c5804f821d3e78",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0024.json": "4b2a07479afad0e0e97bdfbeadfa5841228d8e5ea14cd79986af53da44e3a3c8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0025.json": "1cb1eabc5e9852aebdae26ec87450794fe0afa3c42bb274a00396414cdecf2f6",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0026.json": "9f37497783901f57facf69c6821f2e0bf5e441ce78370a8aa5ea1298cff3ed86",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0027.json": "96775626f6b21806dbf53d7ec0c71f13ac746dd25fe7afe26ea750948942f7eb",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0028.json": "1a97723c137c9f72bf92e2dbfc533b58c08b9369d34653f1746686c63d294759",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0029.json": "08816ea11cb87320baaf1d0eb1f032ef022b571971bc453fed30a7e4689d290f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0030.json": "2806c5a074590f6a4f01fdaa6c224cc6d76186ae1cb862efb22c25607d75e07a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0031.json": "73707182123626f7d527abf59bd9a44bdef655ffbac39058625b8f39b41b7cd6",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0032.json": "4a156cd8c1910fde08b56ed0c78e5338dad3d0f035ac3a455d96069d1d2b4b10",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0033.json": "72e5c21bcfeb17a25c45ef163c9f0e25db1dedff95dfca7910302fa5bd1b8d5f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0034.json": "21a0ea3e0efa59a02c429dde3ef47875703fc8ec83e6fd26528b906b202d480c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0035.json": "3d584c8cfc13b287ffe5d44cac2440622de76eeef90bbf47ef8a596f14d012fd",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0036.json": "9c35745fa1c1d2e8fb57148881da69634275aead9a8652cd66d532df08548dae",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0037.json": "db313e8870431a619df9dac64b1c304169430e866ff36208cdbc603efe058a1f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0038.json": "c33366493018ee86f4a8d428c7752b3feaaa941397dc27cf251f9a04521803bd",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0039.json": "cd331223647ca4c2426614c32ca3fd9b4dfa24968c83842d01ae9a8042eabef0",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0040.json": "57491c3ff02480403cd1486c0bd025368d734d321e62b39b60840e22a0710775",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0041.json": "f0036fb85659c059fa593c1cf2621e38f9b08b35f6967f4d6a68c85ef844ee95",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0042.json": "18d35ced433a10d03eef4ac0ceac1aff80bcf0ad4f8c35cbaf4f6f8e564cfd90",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0043.json": "57981aa19195604ca0fca369c78fe6942ff553df25207cd2d47942f8a643bdb7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0044.json": "a0995df2ac00433ade8334f1058956ecf813c191b00436c1a1cb0c59595039c3",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0045.json": "beebb3de70ac8c57b0084b59fbf9246c372d16311be6d4b753625d85bcbb6511",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0046.json": "82c701413f79ba53ae01619c15728f83fed11d37f64c08ab9dfb975f13ea6f50",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0047.json": "c26db5323b73e383225936af758c091d73730a06c68ed5adb0055d8b5dca0c74",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0048.json": "83dd1fa5b9a35f9c94742370fdf4f76773233c0573ec767163d4ebcbe5d4161d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0049.json": "7333f0ee13536c1459e3be4d2da32cb50d953872312393b8cfa96f5169f071b9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0050.json": "986093f8bf5e65214c20bc892010758fa67d9947298765ff8a01f0af4d851df5",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0051.json": "625e77f07f80d18b47b2319b59d07ab2d1b24d76916e04ad9f2691cc7ae5a78b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0052.json": "ad629a5423d4eaf861b31c2ca0d648666d2cacfde67240780ef87d364504fd2b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0053.json": "5fccc6ebd163949d2a27a00fa6d44574f38971b007394463a05afdbdeb1f2c7c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0054.json": "70a8abd985400eb3270150a8b9509e148af6017efb909063fa8827f8cc9f3333",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0055.json": "c00f2598b1e951c3401ce62033b589d9aef6997eb96c8caa689fbdf5559d57c8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0056.json": "3d98e9981d960b1afe54af1c4f3c7266a92d65620c8cc37220826e5c0d8ac2a7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0057.json": "732cfd38cf38b514f8185f17468a2ae723a5b85dc80ae0bc2af38ba8517c760d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0058.json": "52dc47b9b1c1ae8bd5730878e64e317515b6dcea66b07bef97803e4b2dedaf23",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0059.json": "b1d97b8685dd2ff11ef894993b3018851b2bdd070768a62bf85caed83efa016f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0060.json": "ef27ca58bba363d56d1ae973832fbdd1d3a23176e172c95b0c754d3747616d7c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0061.json": "73409e4b0bf7e3e6ecba82acc5d0d9d7d2f6387d121f78fc2155386d983f166d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0062.json": "959a88fe0c00881b327f2d3aa200e7c9e1af2e5260e2e1dc68a31253a27bc5a1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0063.json": "cfc31b8383254557f70ab5940ac45d0a3a0c4731f99ced201426c1eca99f0632",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.json": "e59884335d38863b6adbed52abe0bb0a5fe4e0da3eab635a259fc45e4a33bdcd",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+  },
+  "completion_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/completion.json",
+  "new_overlay": "dist/updates/yb-correlated29-run003-endpoint16.json",
+  "new_evidence_dir": "dist/evidence/yb-correlated29-run004-endpoint80",
+  "model_id": "correlated29_run004_endpoint80_DC",
+  "terminal_iteration": 64,
+  "trajectory_points": 65,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+  "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+  "fixed": {
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "complete_target_CSFs": 1046,
+    "full_parent_CSFs": 2163,
+    "full_parent_not_computed": true,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "five_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "reference_UIDs": {
+      "6s_1/2": [
+        1,
+        1,
+        0
+      ],
+      "5d_3/2": [
+        3,
+        1,
+        0
+      ],
+      "5d_5/2": [
+        5,
+        1,
+        0
+      ],
+      "6p_1/2": [
+        1,
+        -1,
+        0
+      ],
+      "6p_3/2": [
+        3,
+        -1,
+        0
+      ]
+    },
+    "operator": "same original nuclear no-pair Dirac-Coulomb",
+    "nucleus": "Z70 Fermi A175",
+    "electrons": 69,
+    "all29_allowed_to_relax": true,
+    "tracker_rebased": false,
+    "projector_changed": false,
+    "Breit_QED_recoil_or_empirical_added": false
+  },
+  "original_gates": {
+    "orbital_residual": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "experimental_relative_goal": 0.01
+  },
+  "expected": {
+    "old_models": 17,
+    "old_rows": 68,
+    "original_v5_models": 16,
+    "original_v5_rows": 64,
+    "total_models": 18,
+    "total_rows": 72,
+    "nist_gzip_payloads": 6019,
+    "new_models": 1
+  },
+  "policy": [
+    "Exact append-only successor of closedrun003 local prepare; same overlay, originalrun003model/17trajectoryobjects unchanged",
+    "Only add closedrun004 terminal local64/global80 and all65points; no bestgap selection",
+    "Initialpoint equalsrun003terminal point, not a newacceptedupdate; actual64newsteps",
+    "Alloriginal16modelobjects/64rows/6019gzip/hosting exact",
+    "Same f043/29/1046/3451Pmetric/UIDweights/DC and originalgates; no physics/speedupclaims",
+    "Metadata closure001 shadowing failure preserved separately; scientific4201allpass not stationary",
+    "No push/deploy/card/HCIg/solver/NPZnumericalreplay"
+  ],
+  "resources": {
+    "data_prep_CPU": 1,
+    "memory_GiB": 2,
+    "data_prep_cap_s": 180,
+    "browser_cap_s": 90,
+    "existing_Playwright_Chromium": true,
+    "local_loopback_only": true
+  },
+  "scientific_calls": 0,
+  "publication_performed": false,
+  "global_initial_step": 16,
+  "global_terminal_step": 80,
+  "old_overlay_sha256": "5dbce86488046470b691292491434b7a5c03dbd29ddaa0572b3c0562dafb769f",
+  "parent_prepared_sha256": "59450fe8b7391aa43b1f2d4f7f04ea79dd4923d7bd85891b14fd6adc9ae67dc2"
+}

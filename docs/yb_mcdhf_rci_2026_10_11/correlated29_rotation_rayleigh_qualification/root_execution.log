@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py", line 528, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py", line 515, in main
+    probe(contract, execution)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py", line 411, in probe
+    check("fresh_baseline_real_owner_identity", base[1].hamiltonian_snapshot.identity_payload() != load("saved_point_owner"))
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py", line 172, in check
+    raise ValueError("Scientific gate failed: " + name)
+ValueError: Scientific gate failed: fresh_baseline_real_owner_identity

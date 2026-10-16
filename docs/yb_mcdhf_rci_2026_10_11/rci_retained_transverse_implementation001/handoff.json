@@ -1,0 +1,29 @@
+{
+  "status": "ready_for_root_source_review_and_numeric_schedule",
+  "files": {
+    "contract.json": "12d7a0ad2d0444c473237a449371ac8355ac5d5c40464262313df66d865d43b4",
+    "implementation.json": "0ee2763669680ce5a780b2206a996152832052fddfee2ec04227fb7b7d965982",
+    "scope.patch": "88a3cae7964719f8dfd4e61b7865f2c59e90560379103cafb6aa7ef18abbc5cd",
+    "README.md": "e40937eea40740467e3ccf46032ed0ecd92e42a1c466df81befec6a18e5fee3d",
+    "EARS.md": "31b1b11f4412138d9d20e2049e8dc1367eab728d511d2067ccf1198abe9519a8",
+    "documentation_impact.json": "7cd6e1b07bd708e749d58592d58fe4be910e471f38f3784cf25d61bdbb36933c",
+    "metadata_attempt001_failure.json": "0c6137992d7fa812b194c3e40fe49791eee9f4ac8de3f1e8a668b36a523287e1"
+  },
+  "source_after": {
+    "src/atomx/methods/ci.py": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "e4a19ab263cf487b41656bca05317e0f72ae7652bd336289d6dd0cf069166395",
+    "tests/test_ci_hamiltonian_snapshot.py": "ce17a8a8ec72740eff7a02e2e9ffc41099c186968573a14148d807396b11cd25",
+    "docs/TRANSVERSE_INTERACTION.md": "7f83f1fd30e41326104a70e745e958761f9f3dadfc4aa98eaeaf68553c48e901"
+  },
+  "actual_numeric_tests": 0,
+  "root_execution_required": true,
+  "first_command": ".venv/bin/python -m pytest -q tests/test_ci_hamiltonian_snapshot.py",
+  "limits": {
+    "CPU": 1,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "wall_s": 300
+  },
+  "source_epoch": "shared owner successor; immutable f043 unchanged; full current source map root binds separately",
+  "patch_ownership": "only two source files and one existing test file; all other source consumers untouched"
+}

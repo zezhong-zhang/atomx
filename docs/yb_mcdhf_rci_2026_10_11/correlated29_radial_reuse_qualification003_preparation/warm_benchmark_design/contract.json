@@ -1,0 +1,380 @@
+{
+  "complete_work_per_chain": {
+    "CI_source_pairs": 593,
+    "actual_counts_required_before_certification": true,
+    "candidate_semiseparable_CI_and_gradient_applications": 4744,
+    "getter_counts_are_not_cache_miss_counts": true,
+    "gradient_source_pairs": 593,
+    "ordinary_dense_CI_applications": 2372,
+    "ordinary_gradient_semiseparable_applications": 2372
+  },
+  "controlled_admission": {
+    "CPU": 30,
+    "CPU30_idle_busy_fraction_max": 0.05,
+    "CPU30_idle_sampling_before_each_pair_seconds": 1.0,
+    "CPU30_pair_system_iowait_steal_fraction_max": 0.05,
+    "affinity_exact": [
+      30
+    ],
+    "all_threads": 1,
+    "both_processes_CPU_frequency_and_load_reported": true,
+    "correctness_continues_if_only_host_load_gate_fails": true,
+    "host_load1_max_fraction_of_online_cpus": 0.5,
+    "no_external_tool_or_profile_during_pairs": true,
+    "root_reserves_window_no_other_Atomx_H_CI_gradient": true,
+    "source_and_NUMBA_cache_isolated": true
+  },
+  "fixed": {
+    "RDM_cutoff": 1e-15,
+    "Z": 70,
+    "complete_selected_CSFS": 1046,
+    "coordinates": 3451,
+    "electron_count": 69,
+    "equal_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "full_parent_CSFS": 2163,
+    "max_determinants": 2000,
+    "no_new_projector_or_retraction": true,
+    "ns": 123,
+    "nucleus": "Fermi A175",
+    "operator": "native Dirac-Coulomb only",
+    "radial_keys": 29,
+    "reference_CSFS": 531,
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "same_point": "Exactly original002 corrected29 recovered physical point/3451 metric/1046 complete CSFs. Only private numerical CI diagonalization epoch changes; no new orbitals, density cutoff, weights or operator.",
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ]
+  },
+  "fixed_source": {
+    "candidate_map_sha256": "8a4324e1758587125e1cd94bb34881356ef628961b3e1e8c0da8f4276e539d4d",
+    "identical_centered_CI_helper": true,
+    "ordinary_map_sha256": "756938d54b66a5caf5507707cb352e787cb8e1338bbb2b8c54a9a6e586e0d349",
+    "shared_post_apply_source_must_match_candidate_or_receive_new_contract": true
+  },
+  "hypothesis": "Warm immutable geometry factors accelerate repeated fresh public H/CI trial production in the same complete model; complete gradient already has the same semiseparable route on both sources.",
+  "inherited_correctness_gates": {
+    "Gram": 1e-10,
+    "all1046_original_H_column2norm_residual": 1e-08,
+    "all_roots": 1e-08,
+    "all_signed_cluster_projectors": 1e-08,
+    "cluster_gap": 1e-07,
+    "complete_coordinates_P_Q_weights_metric_UID_support_owner": "unchanged qualification003 gates",
+    "original_stationarity_and_experiment_failures": "retained, not performance admission upgrades",
+    "preconditioned_gradient": 1e-10,
+    "qualification003_complete_comparison_required": true,
+    "radial_gradient": 1e-09,
+    "raw_gradient": 1e-09,
+    "whole_H": 1e-09
+  },
+  "inputs_contract_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/contract.json",
+  "inputs_sha256": {
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate.patch",
+      "sha256": "390b0c404a22fdd28f46f208b81513fb33c7f37a4fff060d54ca1a0743477d5e"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json",
+      "sha256": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8"
+    },
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "common_shift_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/result.json",
+      "sha256": "9e961e94f134fd859c89feb867cca3aad843fa4b3d5e027db9febce809c706c8"
+    },
+    "common_shift_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/root_execution.json",
+      "sha256": "52a10893049acd80e37b58191da3d82dd59ba2a04f6ed958ce2a02c971e06aa8"
+    },
+    "common_shift_shifted_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/shifted_arrays.npz",
+      "sha256": "948f4c213ca077df6ca358b3b83b710a0d14b919b9858a38ec00185ccf8b3384"
+    },
+    "conditional_direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis002/actual/result.json",
+      "sha256": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3"
+    },
+    "conditional_direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "corrected_baseline_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/completion.json",
+      "sha256": "a97b231a24d1704a77bf0a872be29b792838f9a09b4100f52860eea0ae9a6445"
+    },
+    "corrected_baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "corrected_baseline_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/result.json",
+      "sha256": "55f364277566c4d20e9460a7f95e31328b7604160916c7fa8ca12d01385caed0"
+    },
+    "corrected_baseline_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/root_execution.json",
+      "sha256": "840ae02164e287a599924c23cb24f81aa802dce36e55cdf8b158ed7d3d1d67f2"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "inner_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+      "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+    },
+    "ordinary_centering_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary.patch",
+      "sha256": "aefce434382c5a87376acf39a5e91d724255d6a55b32673e5a43bac6cc437f79"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json",
+      "sha256": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "original_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "original_signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "predecessor_closed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/completion.json",
+      "sha256": "55b0136be88c013939d1e2f9d8cef28ea57947b0ed9ec49082f3dcc1d76bf9b8"
+    },
+    "predecessor_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py",
+      "sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7"
+    },
+    "prior002_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+    },
+    "prior002_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/all_gradients_metric.npz",
+      "sha256": "1d08466f5dcb369f70ff20066c11d867090ce38d16f3e84d8f1e4fd927eb2d3a"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/fresh_baseline.npz",
+      "sha256": "a6ba90f1e16e73d11eed6716f9a8317b16f3b35bc9d15874cb9769184ca4c72d"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "sha256": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "shared_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/actual/result.json",
+      "sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce"
+    },
+    "shared_fix_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "source_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    }
+  },
+  "no_numerical_execution_or_shared_edit": true,
+  "pending": [
+    "root shared source apply and affected public test receipt",
+    "exact executable driver with immutable source/input/call/resource and host counters",
+    "root exact once execution seal"
+  ],
+  "performance_gate": {
+    "all_science_source_host_resource_gates_required": true,
+    "failure_means": "observations only, no certified scoped improvement",
+    "median_ordinary_over_candidate_primary_seconds_min": 1.05,
+    "min_completed_predeclared_warm_pairs": 5,
+    "no_whole_optimizer_parallel_GPU_claim": true,
+    "report_all_ratios_and_paired_distribution": true
+  },
+  "preparation": {
+    "H_CI_gradient_spectral_optimizer_GPU_calls": 0,
+    "array_loads": 0,
+    "imports": "stdlib only"
+  },
+  "prospective_call_caps": {
+    "CI": 14,
+    "CI_internal_hS": 14,
+    "Dirac_eigensolve": 0,
+    "GPU": 0,
+    "Gauss_setup_eigvalsh": 0,
+    "H": 14,
+    "centered_dense_helper": 70,
+    "extra_oracle_H_or_eig_replay": 0,
+    "gradient": 14,
+    "initial_hS": 14,
+    "optimizer": 0,
+    "scipy_eigh": 70,
+    "tracking_SVD": 140,
+    "tracking_overlap": 30,
+    "tracking_resolution": 28
+  },
+  "reference_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/comparison.json": "a4bda374b3246398e480ac1d21ac50a17c7e1e4c7824989908d71deb74b79f76",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/result.json": "04592757c7ef05a22b181453d31d708c6d41d3fe6d433b372447c42369c73836",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/completion.json": "b5b0cc9a5ab4a7b009058a197e9bde82043dfa068b5c064eba4a46458c2e98b0",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/contract.json": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/root_execution.json": "27fbab86c8be671bb0b390b96cf621e68444f70c5073e45fa61039e6d9649946",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/contract.json": "7a33a212b39e196f3ce06971df494426341bafb3a09baa298d20ac1177865ba4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/handoff.json": "86ca3a57794fbc64de90cc5dcdfbdc1f0f90de468020f778685153862d193f4a"
+  },
+  "resource_proposal": {
+    "CPU": 30,
+    "assumption": "two retained functional/model workers fit combined RSS cap; admission and runtime monitors must check, never drop full model",
+    "combined_live_worker_RSS_cap_GiB": 3.95,
+    "kill_after_seconds": 5,
+    "outer_seconds": 315,
+    "per_worker_RLIMIT_AS_GiB": 3.95,
+    "rough_source_based_seconds": 250,
+    "sequential_fallback_if_RSS_fail": "none without new prospective root-reviewed design",
+    "shared_inner_seconds": 300,
+    "threads": 1
+  },
+  "status": "source_only_design_no_executable_no_authorization",
+  "stopping": {
+    "host_only_failure": "complete predetermined correctness workload if within caps, classify timing observational",
+    "no_retry_or_extra_warmup_or_pair_replacement": true,
+    "resource_or_timeout": "retain completed chains and no performance certificate",
+    "science_gate_failure": "retain exact chain/counters/source failure then stop remaining chains"
+  },
+  "timing": {
+    "cProfile": false,
+    "no_asymmetric_ordinary_saved_H_eigensolve": true,
+    "primary": "public energy trial including H/complete CI/physical tracking/owner plus same-trial full gradient including tracking; summed stage clocks",
+    "secondary": "primary plus symmetrical complete saved-H/CI/g/identity validation and compressed archive/fsync/readback",
+    "separate_disclosed": [
+      "imports",
+      "source_input_binding",
+      "model_angular_functional_tracker_setup",
+      "cold_chain",
+      "explicit_warmup",
+      "checked_archive"
+    ],
+    "timer_side_effects": "no fsync/logging inside primary timers; same forward-only call counting both workers"
+  },
+  "workload": {
+    "cold_chains": 2,
+    "energy_trial_ci_result": "None",
+    "explicit_warmup_chains": 2,
+    "immutable_geometry_banks_and_compiled_kernels": "warm intentional",
+    "measured_pair_order": [
+      "O-C",
+      "C-O",
+      "O-C",
+      "C-O",
+      "O-C"
+    ],
+    "measured_warm_pairs": 5,
+    "new_CI_matrix_per_chain": true,
+    "new_evaluator_local_density_pair_integral_cache_per_H": true,
+    "per_worker_functional_tracker_setups": 1,
+    "persistent_workers": 2,
+    "running_workers_at_any_time": 1,
+    "same_trial_retained_H_only_for_gradient": true,
+    "total_chains": 14
+  }
+}

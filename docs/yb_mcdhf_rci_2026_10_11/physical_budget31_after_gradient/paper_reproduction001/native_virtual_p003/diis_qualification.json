@@ -1,0 +1,218 @@
+{
+  "status": "PASS_INDEPENDENT_FINITE_AND_OLD_YB_DIIS",
+  "controls": [
+    {
+      "name": "finite_complete_SDT",
+      "measured": 7.726462598009821e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "finite_independent_FCI_energy",
+      "measured": 9.349854224183218e-12,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "previous_Yb_all1324_amplitudes",
+      "measured": 9.982734257285575e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "previous_Yb_all1324_equations",
+      "measured": 2.6651630159588147e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "previous_Yb_energy",
+      "measured": 7.283063041541027e-14,
+      "cap": 1e-10,
+      "passed": true
+    }
+  ],
+  "finite_history": [
+    {
+      "evaluation": 1,
+      "maximum_Ha": 0.08414632283354909
+    },
+    {
+      "evaluation": 2,
+      "maximum_Ha": 0.00825048898058393,
+      "history_size": 2,
+      "Gram_condition": 280.43503869459124,
+      "coefficients": [
+        0.010334610276816385,
+        0.9896653897231835
+      ]
+    },
+    {
+      "evaluation": 3,
+      "maximum_Ha": 0.0006828149432246081,
+      "history_size": 3,
+      "Gram_condition": 44250.969153613594,
+      "coefficients": [
+        -0.008654649188680594,
+        -0.08759861720599088,
+        1.0962532663946716
+      ]
+    },
+    {
+      "evaluation": 4,
+      "maximum_Ha": 6.011496303654177e-05,
+      "history_size": 4,
+      "Gram_condition": 3648597.78721176,
+      "coefficients": [
+        -0.00020562626566629797,
+        -0.00428185972167897,
+        0.009099064853872253,
+        0.9953884211334729
+      ]
+    },
+    {
+      "evaluation": 5,
+      "maximum_Ha": 6.884936956329429e-06,
+      "history_size": 5,
+      "Gram_condition": 1115499530.309898,
+      "coefficients": [
+        5.846097475903386e-05,
+        0.0008743419282919001,
+        -0.009426631257305479,
+        0.06042290576288251,
+        0.948070922591372
+      ]
+    },
+    {
+      "evaluation": 6,
+      "maximum_Ha": 3.8032873660660395e-07,
+      "history_size": 6,
+      "Gram_condition": 150933702683.72656,
+      "coefficients": [
+        -2.1153934483665447e-06,
+        8.156232560999393e-06,
+        -2.628595066218229e-05,
+        -0.006311256609659205,
+        -0.005573865673831218,
+        1.01190536739504
+      ]
+    },
+    {
+      "evaluation": 7,
+      "maximum_Ha": 3.120683472255614e-08,
+      "history_size": 6,
+      "Gram_condition": 154423448542.3701,
+      "coefficients": [
+        -1.0118980198547766e-06,
+        2.6238551774369757e-05,
+        -0.00031031114518537643,
+        -0.0007960045005585416,
+        0.02773865859704554,
+        0.9733424303949438
+      ]
+    },
+    {
+      "evaluation": 8,
+      "maximum_Ha": 2.3411140707338396e-09,
+      "history_size": 6,
+      "Gram_condition": 1423021672394.8433,
+      "coefficients": [
+        -2.6281154797834085e-07,
+        -2.9691326690930376e-06,
+        -0.0001063816005735148,
+        -0.004482228644288601,
+        0.0168478608798123,
+        0.9877439813092669
+      ]
+    },
+    {
+      "evaluation": 9,
+      "maximum_Ha": 7.726462598009821e-11
+    }
+  ],
+  "actual_history": [
+    {
+      "evaluation": 1,
+      "maximum_Ha": 0.04390493401820063
+    },
+    {
+      "evaluation": 2,
+      "maximum_Ha": 0.00527539424911375,
+      "history_size": 2,
+      "Gram_condition": 444.34450332481424,
+      "coefficients": [
+        -0.11014184344281044,
+        1.1101418434428103
+      ]
+    },
+    {
+      "evaluation": 3,
+      "maximum_Ha": 0.0002684680359510207,
+      "history_size": 3,
+      "Gram_condition": 276084.42838734825,
+      "coefficients": [
+        0.007866760975464258,
+        -0.11674323245990029,
+        1.1088764714844361
+      ]
+    },
+    {
+      "evaluation": 4,
+      "maximum_Ha": 6.7767683112000285e-06,
+      "history_size": 4,
+      "Gram_condition": 155578799.07632208,
+      "coefficients": [
+        -0.00032870910776658727,
+        0.005528544224008809,
+        -0.07013243795604436,
+        1.064932602839802
+      ]
+    },
+    {
+      "evaluation": 5,
+      "maximum_Ha": 3.435952819966898e-07,
+      "history_size": 5,
+      "Gram_condition": 60239274065.27357,
+      "coefficients": [
+        2.654900308952906e-05,
+        -0.0004547269437939047,
+        0.0063720126356921905,
+        -0.1200328997361361,
+        1.1140890650411484
+      ]
+    },
+    {
+      "evaluation": 6,
+      "maximum_Ha": 2.0626593780615052e-08,
+      "history_size": 6,
+      "Gram_condition": 81578333778432.83,
+      "coefficients": [
+        -2.9919203703337256e-06,
+        5.1772397862159374e-05,
+        -0.0007481982854846582,
+        0.014454098829571403,
+        -0.15836694567230028,
+        1.1446122646507217
+      ]
+    },
+    {
+      "evaluation": 7,
+      "maximum_Ha": 5.018295799427258e-10,
+      "history_size": 6,
+      "Gram_condition": 168986737519994.62,
+      "coefficients": [
+        -2.488187611876068e-08,
+        1.5552479953492474e-06,
+        -5.337196390364874e-05,
+        0.0012561352029858393,
+        -0.02205339625247476,
+        1.0208491026472732
+      ]
+    },
+    {
+      "evaluation": 8,
+      "maximum_Ha": 2.6651630159588147e-11
+    }
+  ],
+  "scope": "Numerical solver qualification at unchanged equations, no large-p spectral or speedup certificate"
+}

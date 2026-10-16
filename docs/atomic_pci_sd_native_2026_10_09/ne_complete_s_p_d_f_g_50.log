@@ -1,0 +1,38 @@
+{
+  "reference_energy_Ha": -128.690773051903,
+  "correlation_energy_Ha": -0.33224087286065423,
+  "total_energy_Ha": -129.02301392476366,
+  "residual_max_Ha": 8.437752848548101e-13,
+  "residual_l2_Ha": 2.967621742161734e-12,
+  "solve_matvecs": 26,
+  "solve_wall_seconds": 55.32875791809056,
+  "prepare_seconds": 0.5611593950306997,
+  "scf_seconds": 0.8812934398883954,
+  "full_wall_seconds": 65.7132348739542,
+  "action_seconds": [
+    2.236149508971721,
+    2.228049249970354,
+    2.2190603660419583
+  ],
+  "peak_rss_bytes": 378257408,
+  "experiment_gate": "not evaluated",
+  "space_convergence_gate": "not evaluated"
+}
+ lin =           9
+CHANNEL    17  j1=  1  j2=  5  km= -5  kn= -5  k=  2    0.000003
+CHANNEL    51  j1=  2  j2=  5  km= -5  kn= -5  k=  2    0.149836
+CHANNEL    96  j1=  3  j2=  5  km= -5  kn= -5  k=  2    0.052838
+CHANNEL   227  j1=  4  j2=  5  km= -5  kn= -5  k=  4    0.023447
+         227
+         227         195
+CHANNEL    32  j1=  1  j2=  1  km= -5  kn= -5  k=  6    0.000000
+CHANNEL    64  j1=  2  j2=  1  km= -5  kn= -5  k=  6    0.000000
+CHANNEL    96  j1=  2  j2=  2  km= -5  kn= -5  k=  6    0.000141
+CHANNEL   126  j1=  3  j2=  1  km= -5  kn= -5  k=  6    0.000002
+CHANNEL   156  j1=  3  j2=  2  km= -5  kn= -5  k=  6    0.000339
+CHANNEL   188  j1=  3  j2=  3  km= -5  kn= -5  k=  6    0.000077
+CHANNEL   240  j1=  4  j2=  1  km= -5  kn= -5  k=  6    0.000001
+CHANNEL   292  j1=  4  j2=  2  km= -5  kn= -5  k=  6    0.000525
+CHANNEL   346  j1=  4  j2=  3  km= -5  kn= -5  k=  6    0.000052
+CHANNEL   442  j1=  4  j2=  4  km= -5  kn= -5  k=  7    0.000034
+ Number of channels =          442

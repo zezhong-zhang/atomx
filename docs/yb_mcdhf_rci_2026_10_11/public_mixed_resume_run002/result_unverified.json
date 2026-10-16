@@ -1,0 +1,861 @@
+{
+  "status": "public_optimizer_returned",
+  "diagnostics": {
+    "converged": false,
+    "iterations": 160,
+    "termination_reason": "maximum_iterations",
+    "line_search_fallbacks": 0,
+    "stable_energy_comparisons": 0,
+    "occupation_floor": 0.05,
+    "gradient_norm": 0.0009568874330068026,
+    "orbital_residual": 4.717047646600387e-05,
+    "orbital_tolerance": 1e-07,
+    "residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "residual_metric_scope": "restored original projector/inverse metric; no occupation or spectral rebuild",
+    "estimated_energy_error": 6.8897239137767995e-09,
+    "energy_tolerance": 1e-08,
+    "energy_history": [
+      -14067.397122183987,
+      -14067.397386870634,
+      -14067.397679514688,
+      -14067.39788664246,
+      -14067.398191230483,
+      -14067.39834898837,
+      -14067.398464517915,
+      -14067.39848827543,
+      -14067.398500918029,
+      -14067.398534424801,
+      -14067.398554759518,
+      -14067.398621333454,
+      -14067.398627724648,
+      -14067.398630934482,
+      -14067.398631592881,
+      -14067.398632220416,
+      -14067.398632270288,
+      -14067.398632758184,
+      -14067.39863279535,
+      -14067.398632903583,
+      -14067.398633009165,
+      -14067.398633051675,
+      -14067.398633110684,
+      -14067.39863313206,
+      -14067.398633176646,
+      -14067.398633202863,
+      -14067.398633239913,
+      -14067.398633317258,
+      -14067.39863344847,
+      -14067.398633543387,
+      -14067.398633905195,
+      -14067.398634273612,
+      -14067.398635313462,
+      -14067.398635917967,
+      -14067.398637528097,
+      -14067.398639091763,
+      -14067.398642336491,
+      -14067.39864496847,
+      -14067.39864589525,
+      -14067.39864834451,
+      -14067.398649044295,
+      -14067.39864960913,
+      -14067.398649711486,
+      -14067.398649723933,
+      -14067.398649841984,
+      -14067.398650120707,
+      -14067.398650291834,
+      -14067.39865034965,
+      -14067.39865039976,
+      -14067.398650428306,
+      -14067.398650437051,
+      -14067.398650442221,
+      -14067.398650449823,
+      -14067.39865045129,
+      -14067.398650452626,
+      -14067.398650453339,
+      -14067.398650453833,
+      -14067.398650454883,
+      -14067.398650455065,
+      -14067.398650455738,
+      -14067.39865045692,
+      -14067.398650457904,
+      -14067.398650459038,
+      -14067.398650462177,
+      -14067.3986504659,
+      -14067.398650476443,
+      -14067.398650486874,
+      -14067.398650490093,
+      -14067.3986505201,
+      -14067.398650543772,
+      -14067.398650561956,
+      -14067.398650614101,
+      -14067.398650647501,
+      -14067.398650697303,
+      -14067.398650723228,
+      -14067.398650746673,
+      -14067.398650767587,
+      -14067.398650782534,
+      -14067.398650799183,
+      -14067.398650804469,
+      -14067.398650806597,
+      -14067.39865080933,
+      -14067.39865081863,
+      -14067.398650823088,
+      -14067.398650826402,
+      -14067.398650833024,
+      -14067.398650839237,
+      -14067.398650844769,
+      -14067.39865085017,
+      -14067.398650861696,
+      -14067.398650871775,
+      -14067.39865089874,
+      -14067.39865092414,
+      -14067.398650982386,
+      -14067.39865099182,
+      -14067.398651091533,
+      -14067.398651126307,
+      -14067.398651132109,
+      -14067.398651206935,
+      -14067.398651234951,
+      -14067.398651264604,
+      -14067.398651277668,
+      -14067.398651301102,
+      -14067.398651311967,
+      -14067.398651319605,
+      -14067.39865133891,
+      -14067.3986513462,
+      -14067.39865136061,
+      -14067.398651373405,
+      -14067.398651413061,
+      -14067.398651424915,
+      -14067.39865145772,
+      -14067.398651485215,
+      -14067.398651500916,
+      -14067.398651512674,
+      -14067.3986515199,
+      -14067.398651520987,
+      -14067.398651522244,
+      -14067.398651523568,
+      -14067.398651526037,
+      -14067.39865152648,
+      -14067.398651528314,
+      -14067.39865152966,
+      -14067.39865153047,
+      -14067.398651531046,
+      -14067.398651531375,
+      -14067.398651531523,
+      -14067.398651532152,
+      -14067.398651532523,
+      -14067.398651533027,
+      -14067.398651533618,
+      -14067.398651534062,
+      -14067.398651534715,
+      -14067.398651534968,
+      -14067.398651538073,
+      -14067.398651538851,
+      -14067.39865154021,
+      -14067.398651541771,
+      -14067.398651542411,
+      -14067.398651542915,
+      -14067.398651543233,
+      -14067.398651543648,
+      -14067.398651544161,
+      -14067.398651544503,
+      -14067.398651544845,
+      -14067.398651545282,
+      -14067.39865154562,
+      -14067.398651547323,
+      -14067.398651548334,
+      -14067.398651549578,
+      -14067.398651551819,
+      -14067.39865155259,
+      -14067.398651555508,
+      -14067.398651556694,
+      -14067.398651560943,
+      -14067.39865156415,
+      -14067.398651564436,
+      -14067.398651567539,
+      -14067.39865156867,
+      -14067.398651574804,
+      -14067.398651577136
+    ],
+    "functional": "correlated Dirac-Coulomb CI",
+    "target": "frozen-reference physical CI subspace average in shared orthonormal orbitals",
+    "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+    "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+    "no_pair_projector_leakage": {},
+    "excited_shell_constraints": "lower reference roots below each symmetry's first active shell are excluded",
+    "preconditioner": "screened Fock spectral gaps",
+    "update_preconditioner": "spectral",
+    "history_size": 10,
+    "shooting_iterations": 0,
+    "shooting_fallback_reason": null,
+    "shooting_operator": null,
+    "breit_qed": "subsequent RCI / perturbative corrections",
+    "resumed": true,
+    "objective_identity": "ae850ddc1fa246c062ef3c130173eb1c07de0106c363c4ce87120ca1d45fa199",
+    "objective_changed": true,
+    "initial_history_size": 0,
+    "restored_original_metric": true,
+    "geometry_sha256": "0bfaa7e7b6d0fd39da60c871beb095ecbdfe1904600a870ebb4b9617acb2f2f5",
+    "no_pair_projector_leakage_scope": "alternative yardstick not recomputed on resume"
+  },
+  "actual_full_public_optimizer_call": true,
+  "checkpoints": [
+    {
+      "path": "checkpoints/accepted_0000.json",
+      "sha256": "113ba9f05865f360a1c607e347473492bb60735ab10facc29d0debbf41f10145"
+    },
+    {
+      "path": "checkpoints/accepted_0001.json",
+      "sha256": "50219e64de07bf3636883dd97c0641d5e6cdc6d340eebb250607cc16f582c32e"
+    },
+    {
+      "path": "checkpoints/accepted_0002.json",
+      "sha256": "7b8cecaa9a89504e1366570a83fb9adafa8a5562df6dcf3f19b43d65f4424821"
+    },
+    {
+      "path": "checkpoints/accepted_0003.json",
+      "sha256": "7b07ad56c4e54d99360914e5e57dc7d5c775686ced55937a93cfe16aeb06be2b"
+    },
+    {
+      "path": "checkpoints/accepted_0004.json",
+      "sha256": "ce070acdf031a3b383554485848eaad916986ab82a9853d1bdaca8ec6242c997"
+    },
+    {
+      "path": "checkpoints/accepted_0005.json",
+      "sha256": "586f57e6085ae20598f35a4c7844856dbaa06ed52c64ad9f0940e469b63bd2a1"
+    },
+    {
+      "path": "checkpoints/accepted_0006.json",
+      "sha256": "2b127d2925e18ac2f43cc3317e4dfa3746c78da4aa7e094dbcdd4ab5d615acb5"
+    },
+    {
+      "path": "checkpoints/accepted_0007.json",
+      "sha256": "3f9f4382652fc152ae39124e4fa8013dfe3c98d2b647453832aa78a72ae2fde2"
+    },
+    {
+      "path": "checkpoints/accepted_0008.json",
+      "sha256": "39c712733a376dbe0106d914711b39fffc43b3473a2da87d342d0b1973b9a9cb"
+    },
+    {
+      "path": "checkpoints/accepted_0009.json",
+      "sha256": "bfdab7b16c47d3b022dccf3f590750191fd30ad1b2e53266b22d507ef1ce285d"
+    },
+    {
+      "path": "checkpoints/accepted_0010.json",
+      "sha256": "12fc1cc3a1028f06316b7008bc7626cc91d6c34cff333c8bc82649974efb7e02"
+    },
+    {
+      "path": "checkpoints/accepted_0011.json",
+      "sha256": "214d2a9ebd80fa802ac4002dab7038c3d08300b1b099ae752597f8febecd6304"
+    },
+    {
+      "path": "checkpoints/accepted_0012.json",
+      "sha256": "b19d8c1a07c3d2053c8b12ab2adaa83377ac9073c55f430e79ab664fe1b4b6db"
+    },
+    {
+      "path": "checkpoints/accepted_0013.json",
+      "sha256": "df825054e8ef8d281b0a5e6f72d188e6321ae940b5abf81a382d36242cfde6ff"
+    },
+    {
+      "path": "checkpoints/accepted_0014.json",
+      "sha256": "cf3955c4e272a6efcdcf4cb5122fb87c6e1eb13bbc75444bae3aba2e2efd045f"
+    },
+    {
+      "path": "checkpoints/accepted_0015.json",
+      "sha256": "23be4023daaa0af20c2371bdbe66e019bc9914817f6281b98e15b9cb83c1ac06"
+    },
+    {
+      "path": "checkpoints/accepted_0016.json",
+      "sha256": "07cef8608b43fcfbc33cccaf4b50bb24bc1270e0bc3b9000b951313b9a3b8a5a"
+    },
+    {
+      "path": "checkpoints/accepted_0017.json",
+      "sha256": "0804976c0b5b2b03f4e736ae337f36be5c78bd94d18e75159cc7ea4d9fae72b2"
+    },
+    {
+      "path": "checkpoints/accepted_0018.json",
+      "sha256": "d88ccfbf9917ae1802ee2a959fb578bd9a73bbc1a8aa1b5f42e61fc031c2c5df"
+    },
+    {
+      "path": "checkpoints/accepted_0019.json",
+      "sha256": "b2d44fd96aa04406a42fa481c6a587d9c7a084b96aede108c3dfb0fe2913df16"
+    },
+    {
+      "path": "checkpoints/accepted_0020.json",
+      "sha256": "b7bb709732d95766daab4eff1ff374adb90062f79a072f7aa942812d9f6b9ed1"
+    },
+    {
+      "path": "checkpoints/accepted_0021.json",
+      "sha256": "6387cf89221856def20677ce0e450674469222cada6550168a10b0d0f30ab70b"
+    },
+    {
+      "path": "checkpoints/accepted_0022.json",
+      "sha256": "de618c24deafe17f2f211c1090411fbf7346309cfede5386feb7a0858a21e357"
+    },
+    {
+      "path": "checkpoints/accepted_0023.json",
+      "sha256": "2a6ce5dcee7734d5033bc9c55a09d8a35e8d0e27fdcb2177babb767b8468800e"
+    },
+    {
+      "path": "checkpoints/accepted_0024.json",
+      "sha256": "0b16850bc90155fb751ada5e3c872db025acfaca7b555e732e8d96c0debc026d"
+    },
+    {
+      "path": "checkpoints/accepted_0025.json",
+      "sha256": "1bbb3959a1cae6049f2f9f47b36948f1c5cde5ad5ad9f89347026fdf6e07b8c3"
+    },
+    {
+      "path": "checkpoints/accepted_0026.json",
+      "sha256": "b7062de4d28d81e3eb0c57601837241b2e42279cfdfd3864e031117bf7250980"
+    },
+    {
+      "path": "checkpoints/accepted_0027.json",
+      "sha256": "0ec3fd0091e7fbb660827e4a548dbd6137e0a7207787dc6ca4dc750d82996a12"
+    },
+    {
+      "path": "checkpoints/accepted_0028.json",
+      "sha256": "b76688b39633ef8094e7afee1b4aa22ce4877f8a822c1e83c4e9e86eb2867b11"
+    },
+    {
+      "path": "checkpoints/accepted_0029.json",
+      "sha256": "2fe3d0443a25663503640911d68a27cd3f9afba56fd9b5375da0a32859d32407"
+    },
+    {
+      "path": "checkpoints/accepted_0030.json",
+      "sha256": "051058614b64cf5daa01d45e1a82dafe8637b1151094db363fe8c74e44e2ca25"
+    },
+    {
+      "path": "checkpoints/accepted_0031.json",
+      "sha256": "c9684cbadaf3f7dab0e49541dc205484bef4b3c310e33094a63b4e1f1ec6f7cc"
+    },
+    {
+      "path": "checkpoints/accepted_0032.json",
+      "sha256": "6b5e4dc74af71197e8eb55d44c5d6916de6f69645299baa7c1e7559c50ea7eac"
+    },
+    {
+      "path": "checkpoints/accepted_0033.json",
+      "sha256": "b7d53c2da79ffc870e2c68b7464dfdaa4a8d50f03578b0c6b0ac200a066838ed"
+    },
+    {
+      "path": "checkpoints/accepted_0034.json",
+      "sha256": "51c80d4165fe36bb2c2ebe15e93ea4bf0cd5dcf9eb369ac3b4c4a49966b74ecb"
+    },
+    {
+      "path": "checkpoints/accepted_0035.json",
+      "sha256": "9c9e3ab7da23331ea1de8cc204bf382df8040c2e00236296fc6e4d6af686a73d"
+    },
+    {
+      "path": "checkpoints/accepted_0036.json",
+      "sha256": "b0f3934dad3084ac60e49cc5374367c45ded0d26a61133cc2f2b64362509ddc4"
+    },
+    {
+      "path": "checkpoints/accepted_0037.json",
+      "sha256": "937bc5f20214f079a700bb7ddc24706ddb67b206272d2da90d0c5e8215ad66df"
+    },
+    {
+      "path": "checkpoints/accepted_0038.json",
+      "sha256": "93b223075919b402b535ef570531f9879c56fad57a6855b08c084814d8c2d2fb"
+    },
+    {
+      "path": "checkpoints/accepted_0039.json",
+      "sha256": "90c5251f082f10b7cb65aebdef1c027ae253f5c284bd241c0ea0822129f26ea3"
+    },
+    {
+      "path": "checkpoints/accepted_0040.json",
+      "sha256": "b73e21091becf3b0087cf344827c105338e075e86ae106817d442401b9fa0349"
+    },
+    {
+      "path": "checkpoints/accepted_0041.json",
+      "sha256": "f04df3bf47c3353d893fd2acd8290fae3a43d32c51ef442320ac8ec15f1f0d1c"
+    },
+    {
+      "path": "checkpoints/accepted_0042.json",
+      "sha256": "2bcb54a128c59c01154e18b8e5788adaa39467558ba87121344b9cf6ab451571"
+    },
+    {
+      "path": "checkpoints/accepted_0043.json",
+      "sha256": "bf53b2a7e0ad5b0fa1b9e2f78d735bee0fa75f7c9f4ebf8c9c63f1e2ac67dde1"
+    },
+    {
+      "path": "checkpoints/accepted_0044.json",
+      "sha256": "20f881a0c0c0f8b1f39de7cdb5347acc0680b6931628ce038bb001bccf777ee8"
+    },
+    {
+      "path": "checkpoints/accepted_0045.json",
+      "sha256": "83710e80b0abe67dc6c06791d0028975c255d716c5774aab35af663f6034b06d"
+    },
+    {
+      "path": "checkpoints/accepted_0046.json",
+      "sha256": "77b732d668039229afcccfcc5198843f45302b3f9d1c7205d20613783da51a7b"
+    },
+    {
+      "path": "checkpoints/accepted_0047.json",
+      "sha256": "be8c320348e38dc4237774b83781ebc867709c34d6ae0558373717b13e0871e7"
+    },
+    {
+      "path": "checkpoints/accepted_0048.json",
+      "sha256": "36478bfc229bcca74b7f5a7331ce97bd6d027e37cab09f8c3886ebd719f5c1e3"
+    },
+    {
+      "path": "checkpoints/accepted_0049.json",
+      "sha256": "b572fee1530970ed364edf9bc02c5204d5d81ea007971fa5b3013b1b27be8057"
+    },
+    {
+      "path": "checkpoints/accepted_0050.json",
+      "sha256": "fa3d9f77c78902ee317452ee3c1feaedba8014ab11515f10f7eaee41f8dbb7e8"
+    },
+    {
+      "path": "checkpoints/accepted_0051.json",
+      "sha256": "dbc8b773121976d456e27359e826bac7704d57f1ce1825c0a7528d0aff1b9fa5"
+    },
+    {
+      "path": "checkpoints/accepted_0052.json",
+      "sha256": "c3183b3e6cb7f142aba67af0cfad32ac4a4d3df90cb7fc0fd1a05ed5bb6232a6"
+    },
+    {
+      "path": "checkpoints/accepted_0053.json",
+      "sha256": "b0578b4edf4f257f1a2ef230305cff212c267b773080e73a71370e6fa1e02f0a"
+    },
+    {
+      "path": "checkpoints/accepted_0054.json",
+      "sha256": "9a0e2767c616c54095b6e65aa9243f2604d223aeb1d026b22847355764620b46"
+    },
+    {
+      "path": "checkpoints/accepted_0055.json",
+      "sha256": "f969b871de7cd2c48dd5a51d6ecd7d5c093a2b4517818cbd97505f41a906f749"
+    },
+    {
+      "path": "checkpoints/accepted_0056.json",
+      "sha256": "515281188f2ed99b2bfb410dbb2444b1ad09cbb279014ab5fb84b7a3b3273194"
+    },
+    {
+      "path": "checkpoints/accepted_0057.json",
+      "sha256": "7e58ab2e3da2f3c8a59e5081119e1c2466ae08726d08036611cca89074af924c"
+    },
+    {
+      "path": "checkpoints/accepted_0058.json",
+      "sha256": "c30db0012c0628c306cca9035c69277da8ca586a5c47e9545ef1ed9f5791b6b5"
+    },
+    {
+      "path": "checkpoints/accepted_0059.json",
+      "sha256": "0d113efb47628091429a053e3694601635498ac15042c97e9b6887b9148c7dde"
+    },
+    {
+      "path": "checkpoints/accepted_0060.json",
+      "sha256": "ade95f6060b6cd1bbdbdc89e33eff788aa895695f25a9a0af30a76a1d3256a0f"
+    },
+    {
+      "path": "checkpoints/accepted_0061.json",
+      "sha256": "e29ec2dc8c57da739672b0012d4f963f59656848cfd9cf7308f949c9c8ef1f72"
+    },
+    {
+      "path": "checkpoints/accepted_0062.json",
+      "sha256": "4761f453cb3cf520f3b8c4d61dedd57674cd16b409a52f5717009134ce7e1103"
+    },
+    {
+      "path": "checkpoints/accepted_0063.json",
+      "sha256": "ac8dbef772708b53b9d4eff175e0a235e223ac55a49d42a97b8643c62a9fdc3e"
+    },
+    {
+      "path": "checkpoints/accepted_0064.json",
+      "sha256": "bb8461ed82aa3000505716aa2030ec382c8b725c3c3375e88a96440e5e5d1169"
+    },
+    {
+      "path": "checkpoints/accepted_0065.json",
+      "sha256": "ed3371f5620ef4a4163f8a928c03a6f98aea926360283070a3c96e23f384a608"
+    },
+    {
+      "path": "checkpoints/accepted_0066.json",
+      "sha256": "e5d1f0ba7b300387148d63e354d71f57ed4dd7c8306b2ae7c66dab126eefd4db"
+    },
+    {
+      "path": "checkpoints/accepted_0067.json",
+      "sha256": "f20b2b7db2ae8efee8efd666a8ae13d5f16f64c278e847edb4446d0d5f126372"
+    },
+    {
+      "path": "checkpoints/accepted_0068.json",
+      "sha256": "5765b94f6b5cd5062d1a11b1b3f0c13127a863bb2f17a10cb5aac0221bbaca5f"
+    },
+    {
+      "path": "checkpoints/accepted_0069.json",
+      "sha256": "c783b189ce41c9e16e302f83bdc91a4bd209de837de7cabd8a1ca884dc188262"
+    },
+    {
+      "path": "checkpoints/accepted_0070.json",
+      "sha256": "4635da8684f1aa85c5aa4166d5d8b8789084c7e30e2470d082c626969fcc815f"
+    },
+    {
+      "path": "checkpoints/accepted_0071.json",
+      "sha256": "8d78f98a93451fb65d6d1f7de3bf887e1cf93acc809b6d10151358f1326eaa36"
+    },
+    {
+      "path": "checkpoints/accepted_0072.json",
+      "sha256": "745c9ca71081b191770a4cd55b2b13709c673bcf7e2d22a7ca600e6240eb7b55"
+    },
+    {
+      "path": "checkpoints/accepted_0073.json",
+      "sha256": "0f0a87e7e07125c807db720f8cc25768361192ce09ae3cf6611c514914098c0b"
+    },
+    {
+      "path": "checkpoints/accepted_0074.json",
+      "sha256": "cdabe7356597998391e0c4caa2aca23300a589c978efefa1f5585c8ecfbb4781"
+    },
+    {
+      "path": "checkpoints/accepted_0075.json",
+      "sha256": "8d96564c98e16cc94983e0c7b2483b33cf510a478c47e774513f47f7561ccd6b"
+    },
+    {
+      "path": "checkpoints/accepted_0076.json",
+      "sha256": "54a8b8e0fbf029018f321b1f59b15e2433d2907ba01d9f30ca1ff23614059c64"
+    },
+    {
+      "path": "checkpoints/accepted_0077.json",
+      "sha256": "a0345d14a8b83f393c4007ab179a891ccd8043b9c9918f40547d329429fc7d36"
+    },
+    {
+      "path": "checkpoints/accepted_0078.json",
+      "sha256": "6a55b3c28e3cf0882a9775ea2c4f531197daa6a8a58412393da74123e76bcb53"
+    },
+    {
+      "path": "checkpoints/accepted_0079.json",
+      "sha256": "65ffb31959a8adb22798f24dfb6e3fa800e61f27ce4add67cecb6108092e25fe"
+    },
+    {
+      "path": "checkpoints/accepted_0080.json",
+      "sha256": "2b429586e04deee5221bef77c6f1709cc3fc4e7850ff719f574d51b4435c026e"
+    },
+    {
+      "path": "checkpoints/accepted_0081.json",
+      "sha256": "021ed0377a673563984cf7649dc6f97147497c5ec56acca6675a50790ac18d61"
+    },
+    {
+      "path": "checkpoints/accepted_0082.json",
+      "sha256": "829b339eb9583a50aed060a7b487ebeeed791161ed3f514dae0874d5eaa0e95a"
+    },
+    {
+      "path": "checkpoints/accepted_0083.json",
+      "sha256": "ce02e76a6ff86c977798d9b88d7b1517def8e9903f130ab6013ae937f56938ed"
+    },
+    {
+      "path": "checkpoints/accepted_0084.json",
+      "sha256": "67a9ed492ef046ef2d9b02f35388748058c338fe266c67d6e25a1fe7a7a3a114"
+    },
+    {
+      "path": "checkpoints/accepted_0085.json",
+      "sha256": "d0670734d1f614b3b057a2374463ede24cc45aae478a0a4c6fda157f99687c5e"
+    },
+    {
+      "path": "checkpoints/accepted_0086.json",
+      "sha256": "186f63deefdfedc395ec3c49883c0fb89691f2aa15ec446b9190469e4271d26a"
+    },
+    {
+      "path": "checkpoints/accepted_0087.json",
+      "sha256": "6cd65a2fef976467d27dd9bacdb07351b9d88e9006a19d63fadfe86290ed659f"
+    },
+    {
+      "path": "checkpoints/accepted_0088.json",
+      "sha256": "c24a3a56cc5d331e14c8484e5eb042692357d1ecdce1dfbfd27775cc30c4bd58"
+    },
+    {
+      "path": "checkpoints/accepted_0089.json",
+      "sha256": "fa024a44deaed4168cc84327a948d55a74f2215b3d3ced0290fa4269fc1fb595"
+    },
+    {
+      "path": "checkpoints/accepted_0090.json",
+      "sha256": "dc2f0dddb200b8427f460dd83edd3df28341731f3572837436a23871e05e1b51"
+    },
+    {
+      "path": "checkpoints/accepted_0091.json",
+      "sha256": "2892c587924d3e8cc938289f2d7d5f4445c731877dc0bf2ee588e18c78ed6721"
+    },
+    {
+      "path": "checkpoints/accepted_0092.json",
+      "sha256": "48a691dfadecd9c5d98db13f6963b805bdcfe636c8a67f7cf5f2d06c19105528"
+    },
+    {
+      "path": "checkpoints/accepted_0093.json",
+      "sha256": "e07f7ab852049ee0f2e7e160d2c2ec60057df346d2c736d2c8460457353de45b"
+    },
+    {
+      "path": "checkpoints/accepted_0094.json",
+      "sha256": "3e51d327d5f0d696877064a4cfcc41ed5394161a6d1e71516333f27f5be068f1"
+    },
+    {
+      "path": "checkpoints/accepted_0095.json",
+      "sha256": "2deefc4bd1192f5e008a6b129385cb6dc5a209daa574af29c29eddce9baef802"
+    },
+    {
+      "path": "checkpoints/accepted_0096.json",
+      "sha256": "054abe967be3f85f60c25dc3d708df38c0c0b92afa6a98589421012829860d9e"
+    },
+    {
+      "path": "checkpoints/accepted_0097.json",
+      "sha256": "968ecb753763be0e7406dfb4db701c467fa20adbb3da3d3884b4176596704172"
+    },
+    {
+      "path": "checkpoints/accepted_0098.json",
+      "sha256": "f7d77e17f2c407263dd887cdfb024ac327fcdfdbc4d756b5ff858dee22d97fc7"
+    },
+    {
+      "path": "checkpoints/accepted_0099.json",
+      "sha256": "97bb56e45e50a3210652e8dcb89e5ba092a911ba725d671d1330b5a2f0786a41"
+    },
+    {
+      "path": "checkpoints/accepted_0100.json",
+      "sha256": "0a97e2181ba201f8cd1a3c7a7b7f3b2251bd062c6d8f65ab0778fa189ab1e7fc"
+    },
+    {
+      "path": "checkpoints/accepted_0101.json",
+      "sha256": "602570b09181c3de024b37dc4d152e3663a0bc492f9efdb8505f4bb9b4eaa126"
+    },
+    {
+      "path": "checkpoints/accepted_0102.json",
+      "sha256": "da2eea8febfd69a7baed858f66b0fdd02ab547212ee954160e151ee843e93aa3"
+    },
+    {
+      "path": "checkpoints/accepted_0103.json",
+      "sha256": "29a944118e64c79febeebc300000f90ffd5f296d0ecb05dccb12dc623ee5f760"
+    },
+    {
+      "path": "checkpoints/accepted_0104.json",
+      "sha256": "75bd82a8e8035b5b952899a37bf9fcc9b5bcac43ebc84bd03f226c289d76cec0"
+    },
+    {
+      "path": "checkpoints/accepted_0105.json",
+      "sha256": "25b007d0ef3348489bafc1e10fd70a568c9a1e403852d7d3a04c66c3bf5f323a"
+    },
+    {
+      "path": "checkpoints/accepted_0106.json",
+      "sha256": "49996a51e55275502106329603ef18eea2b638f14ceaf0a437a952d286418933"
+    },
+    {
+      "path": "checkpoints/accepted_0107.json",
+      "sha256": "fc2273bd5a93f65277a998eff299bd729001e78b2eccdb9dec59c9b6272a1964"
+    },
+    {
+      "path": "checkpoints/accepted_0108.json",
+      "sha256": "9f4a70312492e64c67d8072a7f09894d4ab756bfa0963b2967c1e0c9d4e89974"
+    },
+    {
+      "path": "checkpoints/accepted_0109.json",
+      "sha256": "ca9e42a768bef98f773eab0c5e27f4a1231b26cd766133c5173cfa2cb00cc13a"
+    },
+    {
+      "path": "checkpoints/accepted_0110.json",
+      "sha256": "e9d1dbc7cc820ebe9251e06dfe4f88f72f464c16f1a14c351272a8903f2fe5fd"
+    },
+    {
+      "path": "checkpoints/accepted_0111.json",
+      "sha256": "fbb72e42a48655f91bd1bee375e795794698e6d93dacb1a43e03b5e9f8dc7188"
+    },
+    {
+      "path": "checkpoints/accepted_0112.json",
+      "sha256": "21648e6355997a08cc86417ab66b8de6a963312daee63a527c50523d5a377d1f"
+    },
+    {
+      "path": "checkpoints/accepted_0113.json",
+      "sha256": "408eaec3a9b7b9c0acd88e755851df46c416987d691277ae60663052558ae87b"
+    },
+    {
+      "path": "checkpoints/accepted_0114.json",
+      "sha256": "3d46a66fa4f81351a2d622aebff42b4b58fcaadb8045c5354f4babc79a48ecf1"
+    },
+    {
+      "path": "checkpoints/accepted_0115.json",
+      "sha256": "bc428bb24fd23f6146bacac94a2a9bef1b6ca6035200e442783c1cf43d9e7a2a"
+    },
+    {
+      "path": "checkpoints/accepted_0116.json",
+      "sha256": "934992a8b9a2241416d6325e4a8001d5217b223444412c9d41fce97afeafa6b6"
+    },
+    {
+      "path": "checkpoints/accepted_0117.json",
+      "sha256": "d15f8b8f122dbddd7fbb6b11103a2b568f1666db062b7aa62a132e8f3ad9fbe4"
+    },
+    {
+      "path": "checkpoints/accepted_0118.json",
+      "sha256": "808a74f08b55920c7bd9a596e14441ce10c66b6b523629d51df1d987e17a65bd"
+    },
+    {
+      "path": "checkpoints/accepted_0119.json",
+      "sha256": "79eb14f65c83d0367dfd90680c9f979f9b382dfe64bc7ad460a76e9330053261"
+    },
+    {
+      "path": "checkpoints/accepted_0120.json",
+      "sha256": "dc0ee5d993e8b747993a258f0004513e68b17b306a0967e4fecb37121204f6ce"
+    },
+    {
+      "path": "checkpoints/accepted_0121.json",
+      "sha256": "ee86898f83d7c92be97ff800a41c79ff67968de528d3397314d5790519d0f166"
+    },
+    {
+      "path": "checkpoints/accepted_0122.json",
+      "sha256": "79938d91a102c5b238318d5f27f44dfb0956a0c37108e08815c393bf2639a3cc"
+    },
+    {
+      "path": "checkpoints/accepted_0123.json",
+      "sha256": "08807ebbef3a7187e64c46d377d32bea8542c6e91ade0b5bcaf309b7d61b04fc"
+    },
+    {
+      "path": "checkpoints/accepted_0124.json",
+      "sha256": "87f2b68fb9a538079e9a43a3938f08adf15c438188022632fbebdbe7b52c5431"
+    },
+    {
+      "path": "checkpoints/accepted_0125.json",
+      "sha256": "efaa86be0c34c71a58947590744515d40f4253377ad5a717d3d139615d8f4723"
+    },
+    {
+      "path": "checkpoints/accepted_0126.json",
+      "sha256": "ae7f42785279047c54ba812e4f8bf87783881f50ef69914a2b87d929a9ad5f89"
+    },
+    {
+      "path": "checkpoints/accepted_0127.json",
+      "sha256": "40379d68801b15108ef8b3a72fb03ae855d83373eb7e7ab0f106f5ffed3e1130"
+    },
+    {
+      "path": "checkpoints/accepted_0128.json",
+      "sha256": "0fadcb178c9f632ee3f59674d0ec78523f5eb331226180ac6d45e395c6927265"
+    },
+    {
+      "path": "checkpoints/accepted_0129.json",
+      "sha256": "9ce9383354fe2d813d30186aac74b63b96ed68e4b5c109edc93da36dca05c88a"
+    },
+    {
+      "path": "checkpoints/accepted_0130.json",
+      "sha256": "af0aaaf8ef7c698dd3e156c04afabca58ad445fafef846b4171983b759d398ea"
+    },
+    {
+      "path": "checkpoints/accepted_0131.json",
+      "sha256": "835ba0f643647cb48c82f707aebed604e590d5af80075d05a5223a74fcf20079"
+    },
+    {
+      "path": "checkpoints/accepted_0132.json",
+      "sha256": "3345b217e52ae2fa789f98b53eef73cc37ee36490bd01a505685558a6852dfaf"
+    },
+    {
+      "path": "checkpoints/accepted_0133.json",
+      "sha256": "d39ca2ecb27ef06b9ec7ca60720c78bb0bbb8edd14dab154d2bd6ac176a0cc36"
+    },
+    {
+      "path": "checkpoints/accepted_0134.json",
+      "sha256": "6e6bcb7fb1bd538c5a0d7b69453fcb7e08634604318f384bca80f5f525c0a676"
+    },
+    {
+      "path": "checkpoints/accepted_0135.json",
+      "sha256": "4520579f70c289036d4acd60c8855522a4aea0ada56f8ba22f4f78b93c281a3b"
+    },
+    {
+      "path": "checkpoints/accepted_0136.json",
+      "sha256": "eb1d0ea8589391adc0cd66e7421009d356358070ac86ff15f26595d1d79c776b"
+    },
+    {
+      "path": "checkpoints/accepted_0137.json",
+      "sha256": "fb5e727ae7053532c207918453db871491bca6b8c9c4ace88a0e1c33c66e068d"
+    },
+    {
+      "path": "checkpoints/accepted_0138.json",
+      "sha256": "5e77be93c071040ced30c853ca67dbf73e5a5b6488f0e178d9dd7bfcef42630d"
+    },
+    {
+      "path": "checkpoints/accepted_0139.json",
+      "sha256": "6680f1e2b9e2b8f2cf888360ba4046a3deefc3382cad9fdda6dbeaabc09aaac0"
+    },
+    {
+      "path": "checkpoints/accepted_0140.json",
+      "sha256": "b686e0bc4175bbea4002e6dd6e164842f684d40b7f48f249b29e930d9eb15bd7"
+    },
+    {
+      "path": "checkpoints/accepted_0141.json",
+      "sha256": "0b4162a238f4d313b7df703eb4e6a70a62afb9da389109ff5dc904ed14496c1b"
+    },
+    {
+      "path": "checkpoints/accepted_0142.json",
+      "sha256": "ef4ab566e4d744742d9ea42dc2373a4e7b32a3ec8a2edfae2c92dbf1a6f4a356"
+    },
+    {
+      "path": "checkpoints/accepted_0143.json",
+      "sha256": "b6d201ed38f03fc0a6424160c921fee5bade224a0dc4a4b786cf08b1d126ec27"
+    },
+    {
+      "path": "checkpoints/accepted_0144.json",
+      "sha256": "6c945cc2a2a6747d6f62d6db601ec3143796ad1383a8cb31bf396b86e0de8fc1"
+    },
+    {
+      "path": "checkpoints/accepted_0145.json",
+      "sha256": "91422c0712ca8594e0c667bcefe4d4de7c28099f21d7dfba9158df33d866459a"
+    },
+    {
+      "path": "checkpoints/accepted_0146.json",
+      "sha256": "48c46adeaafbf9afcece28f8d011a290d2081112c4dac3239d9fdd73621a26d3"
+    },
+    {
+      "path": "checkpoints/accepted_0147.json",
+      "sha256": "7de2ce0c4ec1d2facbaf7d42526b632829974bab8d5c8cb65fe935d480679c0b"
+    },
+    {
+      "path": "checkpoints/accepted_0148.json",
+      "sha256": "38f9e26b22b004a5d9a0ad0e45a339c2f93c9553d3e066aba16ad623837636f9"
+    },
+    {
+      "path": "checkpoints/accepted_0149.json",
+      "sha256": "6619b2d704c513fa159dc179dc492807353fc1e51a1e926330aef5d1b4d1ee76"
+    },
+    {
+      "path": "checkpoints/accepted_0150.json",
+      "sha256": "75a1f3898afb72f9c895ea8c8214a1a6ad5893bc11d834938447441ccf00957e"
+    },
+    {
+      "path": "checkpoints/accepted_0151.json",
+      "sha256": "afe054c535e0ac5934b333427a44cac02cda05e085bb94f1322b0b225d84f631"
+    },
+    {
+      "path": "checkpoints/accepted_0152.json",
+      "sha256": "ec3a232f16ead0016db53211117676f53656eaa99295dc3cd2940bb496b5cfc5"
+    },
+    {
+      "path": "checkpoints/accepted_0153.json",
+      "sha256": "48e0de6e7352b324f2223bc6588b88f0150e44209a2b846162b74b10a699d195"
+    },
+    {
+      "path": "checkpoints/accepted_0154.json",
+      "sha256": "d073d30c29b4debd3aa4b27bc73e7c614ec1f05eea1661587f97893a86f8aae7"
+    },
+    {
+      "path": "checkpoints/accepted_0155.json",
+      "sha256": "ea767d62e2ac23fc4be50aeca69ac5231f7268871fb12e939f4a1d3e90c984a6"
+    },
+    {
+      "path": "checkpoints/accepted_0156.json",
+      "sha256": "0f4ffdf569a89282efd9d4776a37adb9e225329b779c9cb07d583b13c52b7d5e"
+    },
+    {
+      "path": "checkpoints/accepted_0157.json",
+      "sha256": "4f7fbc81e84704f1376a83fe150eba78126e040a8e7863ff5cc2ed23e45abdac"
+    },
+    {
+      "path": "checkpoints/accepted_0158.json",
+      "sha256": "40e9d4da45d4f2918eeda7f43743bc2d1803416db73aff48983ac068ad7ce004"
+    },
+    {
+      "path": "checkpoints/accepted_0159.json",
+      "sha256": "38b071b2fad2f04928cd03ebafe371fefac0beb214254156642279e49394db21"
+    },
+    {
+      "path": "checkpoints/accepted_0160.json",
+      "sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c"
+    }
+  ],
+  "gradient_calls": 161,
+  "energy_trial_calls": 202,
+  "gradient_calls_scope": "optimizer functional only; separate baseline calls reported below",
+  "baseline_gradient_calls": 2,
+  "optimizer_full_gradient_calls": 161,
+  "total_run_full_gradient_calls": 163,
+  "optimizer_reports_converged": false,
+  "expanded_MCDHF_stationarity_certified": false,
+  "independent_saved_endpoint_verification_pending": true,
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "static_Breit_spectrum_changed": false
+}

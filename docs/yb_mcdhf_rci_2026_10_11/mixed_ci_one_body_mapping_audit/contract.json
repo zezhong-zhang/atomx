@@ -1,0 +1,64 @@
+{
+  "status": "prospective root-sealed zero-builder saved-array audit",
+  "hypothesis": "Guard002 compares distinct raw-vs-lower-completed representations; strict L(savedraw) is the source-defined mapping. Full-space equivalence is not presumed.",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "mapping": "L(h)=np.tril(h)+np.tril(h,-1).T; unchanged diagonal/lower triangle, no averaging",
+  "saved_inputs_only": true,
+  "scope": {
+    "raw_h_S": 3,
+    "original_P": 3,
+    "actual_endpoint_groups": 13,
+    "tangent_directions": 2,
+    "all_ordered_signed_pairs": true
+  },
+  "gates": {
+    "P_matrix_Ha": 1e-08,
+    "actual_wave_pair_Ha": 1e-13,
+    "tangent_pair_Ha": 1e-08
+  },
+  "gate_sources": {
+    "P_matrix_Ha": "original native fullmatrix/eigenpair representation1e−8; not arbitraryfull-space equality",
+    "actual_wave_pair_Ha": "original finite radial-item comparison1e−13",
+    "tangent_pair_Ha": "original derivative absolute1e−8; more conservative than weight-dependent relative term"
+  },
+  "noncancelling_bounds": "N=2 sqrt(column_abs_sum_max*row_abs_sum_max), also absolute sum over kappa; no signed cancellation.",
+  "proposed003": "If passed, new independent fixture retains strict array_equal functional.one_body == L(savedraw); captures same existing6nativehS outputs and raw array_equal; one genuineHbitwise+physicalhash;0CIg. Do not modify002.",
+  "resources": {
+    "CPU1": true,
+    "threads": 1,
+    "address_space_GiB": 1,
+    "wall_seconds": 30
+  },
+  "prohibited": {
+    "Atomx_imports": 0,
+    "hS_builds": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "radial_finite_increment": 0,
+    "eigensolves": 0,
+    "SVD": 0,
+    "optimizer": 0
+  },
+  "stopping": "Any savedinput/representation/actualwave/tangent gate failure stops before003 physical work; no threshold change or retry.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/run.py": "781d312fe4ac221b96410c52bd71b0d147f0745619de196a7c9ec6351d1d3e97",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/README.md": "6e882f272f723cdab988780e4a27dbc9d8635a030a7918ea4da516023feda861",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json": "6a1a04fd1b74494a470244586b03ef20dda5ab9c54ca4a9ff141cedfedf68b13",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/numerics/bspline/dirac_assembly.py": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/contract.json": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/execution_contract.json": "72cfcf49ce520a7d67beebf9c46b3a4acdf94c998840103aa438be1b27e56d44",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/root_execution.json": "f4688de5842129d41766c9dac3eb4ea1d3e9b7a5a8ac57425c59f47b703ab6d3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/root_execution.log": "a950d609b67feae722ec3a08c5c2e16483017e997a4954e841136cbafb6eaa6f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/actual/result.json": "8586b09564ac38fa04cead1bcb37b823c4126720a2908dbd47eeaada145d1008",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/actual/calls.json": "7025229a52de5b5a249f3845d401ef365fc60007bf009daa2cb2673ddb20df6b"
+  }
+}

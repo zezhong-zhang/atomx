@@ -1,0 +1,425 @@
+{
+  "status": "prepared_native31_representation_only_successor_NOT_executed",
+  "hypothesis": "The complete coupled 4f\u21945f tangent action at the qualified recovered31 point is a real correlated orbital-relaxation derivative rather than an auxiliary-Fock Euler condition. A single normalized direction and two fixed step sizes discriminate actual complete-CI response, reported-root resolution, and constraint-normal contributions without changing the physical model.",
+  "fixed": {
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "nucleus": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+    "electrons": 69,
+    "radial_orbitals": 31,
+    "radial_dimension": 123,
+    "coordinate_dimension": 3689,
+    "target_CSFS": 1595,
+    "full_parent_CSFS_enumerated": 3789,
+    "NR_configurations": 91,
+    "complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "native full Dirac-Coulomb only",
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "new_state_sha256": "2e4b926427f29adacf10529e371ec5a2bd591b63a5bc4fbd40f3dedc7a1d33d7",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "original3451_metric_is_provenance_only": true,
+    "h": [
+      1e-05,
+      5e-06
+    ],
+    "no_seed_or_step_scan": true,
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ]
+  },
+  "direction": {
+    "source_arrays": [
+      "full_normalized_old4f_newf_antisymmetric_-4",
+      "full_normalized_old4f_newf_antisymmetric_3"
+    ],
+    "definition": "Embed both complete119x2 same-kappa signed antisymmetric blocks in their exact new_layout slices, set all other coordinates to zero, concatenate one3689 vector, divide once by its whole Frobenius norm. Do not normalize each kappa separately.",
+    "independent_samepoint_reconstruction": "Reconstruct -Y Omega for each whole same-kappa group from saved full_normalized_raw_coordinate at the same authoritative x, preserving only the predetermined 4f/new5f antisymmetric cross pair. Verify full-vector equality to both saved blocks before normalization; zero/nonfinite or mismatch rejects, no substitute direction.",
+    "base": "literal authoritative recovered31 originalP@archivedY; new source-bound own fullH/C bitwise anchor, not canonical31 or old29 reprojected point",
+    "trial": "For each predeclared signed h, candidate group = exact frozen shared _polar_retraction(Y + sign*h*eta). Use all seven complete groups as the optimizer does. Map actual stored trial with original P and separately retain P@(candidate-Y) plus rounded physical reconstruction.",
+    "dtype": "Actual x/candidate/radials remain native float64. Preserve saved gradient arithmetic dtype; record directional normalization rounding and all gradient actions. No implicit scalar cast in exact Lambda/Gram bookkeeping.",
+    "constraints": "Archive full signed same-kappa baseline/trial Grams, absolute and scaled tangency, actual positive-space leakage, explicit and reconstruction DeltaGram including all quadratic/offdiagonal terms.",
+    "minimum_norm_for_admission": 1e-14,
+    "no_NIST_or_gap_selection": true
+  },
+  "reported_production_objective": {
+    "entry": "CSFOrbitalFunctional.evaluate(...gradient=False,ci_result=complete retained real owner), unchanged reported float(weights @ state_energies)",
+    "ordinary_FD": "(reported_EO(+h)-reported_EO(-h))/(2h) for both h; selected five reported upper/lower energies and same-point transitions always archived",
+    "primary_analytic": "qualified samepoint public retained raw coordinate gradient dot the newly reconstructed normalized3689 direction",
+    "additional_analytic": "full_normalized raw coordinate gradient dot exactly same direction; independent ambient quotient-corrected action separately retained",
+    "gate": {
+      "absolute": 1e-08,
+      "relative": 1e-05,
+      "formula": "abs(FD-analytic) <= max(1e-8,1e-5*abs(analytic))",
+      "for_each_predeclared_h": true,
+      "old29_and_failed31_reported_gates_unchanged": true
+    },
+    "resolution": "Record actual binary64 ULP at all five points, EO averaging offset and both \u00b1 reported-root minus retained-Rayleigh offsets. Ordinary FD below resolution is unresolved, not a new physical failure mechanism or a reason to relax the gate.",
+    "energy_callback": null,
+    "optimizer_calls": 0
+  },
+  "independent_centered_diagnostic": {
+    "entry": "Unchanged public mixed_ci_energy_difference(reference,trial,reference_ci,trial_ci,increments=explicit mapped increments), once per trial with two fresh complete retained owners; never fixed-density constrained API",
+    "complete_change": "explicit_radial + reconstruction_radial + finite rayleigh_response. Preserve reported_response, phase, actual CI norms, endpoint residuals and reported/Rayleigh/averaging offsets. Do not freeze a mixed RDM or omit CI response.",
+    "baseline_multiplier": "For each complete same-kappa physical C, Lambda=(C.T@gA+gA.T@C)/4, where gA is qualified full-normalized raw-h/ket-norm ambient correction at this same31 point. Include all signed offdiagonal entries; retain input dtype and exact represented integer ratios.",
+    "exact_Gram": "DeltaG=C.T@S@delta + delta.T@S@C + delta.T@S@delta using actual physical endpoint differences; also exactly split explicit P@deltaY and rounded reconstruction with full cross/quadratic terms. Check DeltaG equals trialGram-baseGram.",
+    "centered": "complete mixed Rayleigh change minus exact sum(Lambda_ij*DeltaG_ij), separately for each trial then the fixed central derivative. Retain the uncensored mixed changes and ordinary reported differences.",
+    "analytic": "samepoint gA action minus exact fixed-Lambda ideal Gram derivative; additionally report error against the unchanged public retained action at the identical direction.",
+    "diagnostic_gate": {
+      "absolute": 1e-08,
+      "relative": 1e-05,
+      "formula": "abs(centered_FD-analytic) <= max(1e-8,1e-5*abs(analytic))",
+      "both_h_and_both_declared_analytic_comparisons": true
+    },
+    "scope": "finite samepoint Q-Lagrange derivative diagnosis only; no uniform sign/remainder/Armijo bound, no reported objective substitution, no old FAIL upgrade, no automatic31optimization authorization",
+    "direct_stored_H_quotients": "Forensic operator-assembly/roundoff diagnostic only; never substitute for complete radial-polynomial/reconstruction/CI-response anchor"
+  },
+  "native_call_chain": [
+    "Construct complete existing model/public frozen tracker and one native CSFOrbitalFunctional under f043; retained dense native real DC Hamiltonian owners only.",
+    "Public OrbitalOptimizationState.from_arrays validates original sevenP / full layout / S / copied-f inverse blocks; direct originalP@x point, no polar initialization or metric refit.",
+    "Fresh baseline ci_solve full1595: H/roots/signedC/owner/UID compare bytewise with recovered31 own arrays and JSON; compare baseline EOL before any trial.",
+    "Four predefined polar trial coordinates, each one full1595 retained ci_solve; no fixed density or root-order assumption. Each public reported energy call and an explicit tracker metadata call occur once per point.",
+    "Four shared public mixed finite changes, including both complete endpoint ownership checks and two further tracker resolves each; full signed target weights and complete radial h/r kernels retained.",
+    "Exact saved-coordinate/physical Gram and fixed-Lambda arithmetic only, no new gradient/Dirac space/optimizer beyond seven state-validation solves."
+  ],
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "maximum_system_load1": 32,
+    "minimum_host_available_GiB": 4,
+    "timing_claim_valid": false,
+    "caps_are_stops_not_completion_promise": true,
+    "calls": {
+      "H": 5,
+      "CI": 5,
+      "public_reported_energy_evaluate": 5,
+      "gradient_from_weights": 0,
+      "initial_hS": 7,
+      "CI_internal_hS": 35,
+      "mixed_radial_hS": 28,
+      "hS_total": 70,
+      "validation_Dirac": 7,
+      "complete_SciPy_eigh": 46,
+      "geometry_SPD_eigvalsh": 38,
+      "polar_retraction": 28,
+      "polar_numpy_eigh_fallback": 28,
+      "tracker_resolve": 18,
+      "tracking_SVD": 90,
+      "tracker_overlap": 19,
+      "mixed_ci_finite_increment": 4,
+      "unfiltered_target_RDM": 20,
+      "optimizer": 0,
+      "GPU": 0,
+      "gradient_pair_potential": 0,
+      "retained_RDM": 0,
+      "finite_component_cache_miss": 400000,
+      "finite_potential_cache_miss": 1200000,
+      "finite_density_cache_miss": 2400000
+    },
+    "hS_cache": "Observer forwards original getter/carry untouched. Per-CI complete7kappa coverage and actual hits/misses/producers, total ceilings rather than fragile exact getter count. First CI may produce7 native h/S, four subsequent same-geometry CI calls carry them. Four mixed radial operators each independently build7 h/S.",
+    "signed_term_work_cap": {
+      "complete_angular_term_capacity_per_trial": 100000,
+      "all_four_radial_components": 400000,
+      "potential_requests": 1200000,
+      "density_requests": 2400000,
+      "meaning": "Resource admission on the complete public angular table before finite-kernel traversal; reject entire experiment if exceeded, never prune terms/CSFs. Every retained term requests at most three potentials and six density accesses; cache hits/actual producers separately recorded."
+    },
+    "exact_Gram_Lambda_products": 16000000,
+    "five_fullH_and_C_dense_bytes": 203522000,
+    "memory_estimate": "Prior full31 twoCI/threeg peak1588.254MiB. Five retained H/C arrays add at most122113200 bytes over the two-array census; streamed call-scoped radial caches and finite exact-arithmetic capacity must fit the3.95GiB cap. Peak is unmeasured, stops preserve partial evidence.",
+    "time_estimate": "Source-based5CI +4 streamed finite kernels +exact4trial centering; prior2CI/3g run47.115s gives a feasibility reference only.300s is not a completion or timing claim.",
+    "no_unaccounted_retry": "Native Dirac finite-eigh at most3 attempts per validation kappa counted in21 of46 SciPy cap. Consumer never retries, rescales h or changes model.",
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "maximum_signed_overlap_pairs": 30000,
+    "maximum_hS_getter_requests": 400,
+    "finite_kernel_counter_semantics": "Class forwarding wrappers are captured inside unchanged instance-owned lru_cache; counters are actual cache-miss producers. Public per-key logical requests are bounded by the complete angular capacity, not called cache-miss counts. Initial and per-trial component/potential/density source invocation paths are preserved."
+  },
+  "gates": {
+    "baseline_H_roots_signedC_owner_UID_bitwise_to_own31_recovered": true,
+    "baseline_coordinate_P_inverse_metric_identity": true,
+    "all_complete_CI_residual_Ha": 1e-08,
+    "all_complete_CI_Gram": 1e-10,
+    "cross_symmetry_zero_Ha": 1e-14,
+    "full_same_kappa_radial_Gram": 1e-10,
+    "S_squared_originalP_leak": 1e-12,
+    "whole_direction_source_reconstruction": 1e-10,
+    "scaled_tangent_identity": 1e-10,
+    "no_pair_P_byte_identity": true,
+    "sameoriginal_target_UID_rank1_weights": true,
+    "ordinary_reported_and_centered_derivative_domains_separate": true,
+    "FD_absolute": 1e-08,
+    "FD_relative": 1e-05
+  },
+  "outputs": [
+    "All five complete H/roots/signedC/owners; exact coordinates/all31radials/projectors/inverses/layout; fullCI blocks/Gram/residual/span/tracker and phase identities.",
+    "Original5 labels/UIDs/weights, reported lower and upper energies, four transitions, centroids/splittings at each actual point, no cross-point patch.",
+    "Four full mixed finite ledgers and exact fixed-Lambda/DeltaGram explicit/reconstruction/quadratic/offdiagonal ledgers.",
+    "Both predetermined central derivatives and all errors/unchanged thresholds/ULP and reported-Rayleigh offsets; first failed derivative identity and unavailable stages retained.",
+    "Attempted/completed native producer and observer counters; host caps/timing scope/source/archive/input SHA; full current failure saved once, small progress counters."
+  ],
+  "stop": "First physical/identity/resource gate failure, retain completed evidence and no retry. If all four points are valid, compute both ordinary and centered diagnostic ledgers before derivative-summary failure; never suppress the failed ordinary gate or silently upgrade it. No automatic optimization or further h/direction scan.",
+  "preparation_NumPy_Atomx_imports": 0,
+  "preparation_NPZ_reads_or_rehashes": 0,
+  "preparation_physical_calls": 0,
+  "root_exact_once_execution_seal_required_before_any_runtime": true,
+  "executor_implemented": true,
+  "execution_authorized": false,
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "input_roles": {
+    "gradient_qualification_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/closure_handoff.json",
+      "sha256": "d1f42b03e2bcaf8f7127ad2407fff35fa2c9a478152724823d03a5ef68d1e148",
+      "deferred_numerical": false
+    },
+    "original31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "recovered_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2",
+      "deferred_numerical": false
+    },
+    "recovered_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f",
+      "deferred_numerical": false
+    },
+    "full_signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/signed_tables.json",
+      "sha256": "c2bea5c3fd8626b3c0a89b675abd01e399e581cb590652d9368c76e31897a175",
+      "deferred_numerical": false
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "qualified_full31_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "recovered_coordinates_and_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "recovered_full_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "frozen_proposal_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/contract.json",
+      "sha256": "a4172ec08312332fc71b142ce02a52c81c2162495e275e48dc95f6034ed52025",
+      "deferred_numerical": false
+    },
+    "frozen_proposal_source_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/source_review.json",
+      "sha256": "982aa9e67b4105dd7b94b7730bca018d984623de235cc4a7474654ab392221f1",
+      "deferred_numerical": false
+    },
+    "hour27_delivery": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour27/delivery_authorization_proof.json",
+      "sha256": "421a5604bb55a91ce5cfd12c39984f3f7b59deb6db08727e08439b7825851dfb",
+      "deferred_numerical": false
+    },
+    "original_FD_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/run.py",
+      "sha256": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+      "deferred_numerical": false
+    },
+    "original_FD_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/contract.json",
+      "sha256": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+      "deferred_numerical": false
+    },
+    "original_FD_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "2a4459f5c95d5d069a30309df260d5521f787ac55872a8f835a2756a87b9c42f",
+      "deferred_numerical": false
+    },
+    "original_FD_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/actual/failure.json",
+      "sha256": "2a868fdaf9998b07527f31d90c7c2faa8dec85d9402b8e268466b748ed982d8b",
+      "deferred_numerical": false
+    },
+    "original_FD_metadata_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/completion.json",
+      "sha256": "c929c96e768bd731e1b76a961f1d9df5869a2335499d54f6d7f4e357ab034902",
+      "deferred_numerical": false
+    }
+  },
+  "exact_algebra_semantics": "Represent each original finite float64/longdouble scalar by its as_integer_ratio without cast; exact Fraction matrices use all represented nonsymmetric S terms, no symmetrization. Only exact zero entries are omitted from matrix action; dot products include all entries. Full actual trial Gram, explicit increment Gram, rounded reconstruction and all quadratic/offdiagonal identities are tested exactly. Display JSON and NPZ float matrices do not implement the gate.",
+  "counter_call_proof": {
+    "CI_and_H": "one baseline + four trials, exactly5 each, no hidden CI energy evaluate; owner lookup0H",
+    "hS": "one public functional initial7; CI cache native production<=35 with expected first7misses+carry; four public radial increments28; combined cap70 before forwarding",
+    "tracker": "five reported evaluate resolve +five explicit metadata resolve +four mixed x2=18;5SVD per resolve=90; one tracker constructor overlap +18resolve=19",
+    "spectral": "public state validation7Dirac each<=3 scipy finite-eigh+5CI x5sector eigh=46;7activeS+31inverse SPD eigvalsh=38;fourtrial x7polar=28 with atmost28numpy-eigh fallbacks",
+    "RDM": "four public mixed finite diagnostics x5unfilteredtargetbilinear=20; no retained RDM contraction or gradient",
+    "physical_evaluate": "exactly5 evaluate gradient=False provided real owner, production reported energy; no optimizer, no gradient, no GPU",
+    "point_sequence": "baseline gates first, then h0minus,h0plus,h1minus,h1plus; all valid finite ledgers before separate derivative summary failure; identity/resourcefail stops immediately"
+  },
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/execution_binding.json",
+  "representation_only_successor": {
+    "parent_driver_sha256": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+    "parent_contract_sha256": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+    "parent_failure_gate": "whole_corrected_radial_shape",
+    "repairs": [
+      "expected complete radial gradient shape(31,246), public contiguous P+Q",
+      "ambient ratio input is corrected[i] directly; no concatenation of scalar elements"
+    ],
+    "physical_source_gates_caps_dtype_ratio_semantics_unchanged": true,
+    "old_failed_run_preserved": true,
+    "old_FD_prerequisite_established": false
+  }
+}

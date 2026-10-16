@@ -1,0 +1,22 @@
+{
+  "saved_diagnosis_completed": true,
+  "original_rotation002_passed": false,
+  "optimizer_authorized": false,
+  "decision": "Prepare only same-saved-point full-Gram Lagrange-centering discriminator; no new physical producers or step scan.",
+  "one_body_global_coefficient_slope": 5.860384394624036e-16,
+  "scope": "Global table difference includes cutoff and accumulation rounding; measured one-body direction only.",
+  "conditional_comparison": {
+    "measured_Rayleigh_error": -2.0913729945775707e-07,
+    "conditional_linearized_roundoff_shift": -2.0913714990594516e-07,
+    "measured_Rayleigh_minus_conditional_linearization": -1.304199803708883e-13,
+    "not_a_full_finite_difference_or_missing_physics_bound": true
+  },
+  "unresolved": [
+    "two-body global density-table difference has no directional bound here",
+    "trial-density response and complete finite-cell one/two-body increment terms are not reconstructed",
+    "linearization does not bound finite polar curvature or public gradient arithmetic error"
+  ],
+  "existing_insight": "docs/AGENT_INSIGHTS.md#preserve-metric",
+  "physical_producer_calls": 0,
+  "no_uniform_error_bound": true
+}

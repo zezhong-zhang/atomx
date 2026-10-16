@@ -1,0 +1,32 @@
+{
+  "status": "SOURCE_MATH_ONLY_ready_pending_runtime",
+  "driver_sha256": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+  "contract_sha256": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+  "workflow_AST": {
+    "point_constraints": "e948a6c660edff813f754948df89bb32ffcf7203a2ce64892bba2771e743b791",
+    "matching": "475fe803b4f41f3c9edda6506c2d584118899f51e99e4755623a94cd8e4982e5",
+    "fresh": "60aaa30262123499196daefb77b6c94458ab28a611f640df751362af598f8726",
+    "f": "a61f552f6b19bd58e87302d8069f22ec859b71f83ec7684790c62a4c4c6317b1",
+    "mul": "f4796b54a8634e717e5e17b2b1379ac57adc967c3d052159fc96dd075f3538ad",
+    "dot": "418ef7b52aa93f57782d2fba7535ef8720d2346eda99d4f299b7734a177d3fde",
+    "vector": "ec15d7fbdd0095ba8f37901056f4e8510440cb78cb9503aa26358fc60321ca14",
+    "sparse": "4a4bbdbb22e24127ae17dbb0eef0ba4272c1745f49c6fdf185b826d699942d0b",
+    "action": "1aa9d616a1820b2afe23a77e297b90474c2e5c47c5897c300fb1f191d105c574",
+    "difference": "1712ab7c9ebac154808c9b3b3b9457d1f3f77a5fb462d5105d7ad9826ecbb5c5",
+    "add": "e6773f27ccc9d17849c65ba5506f3b5dc73a419c16cc3802435bd6701270156c",
+    "rational": "90c67ace79eea4ea0b9a815f833d16d9f647bc1134eb0672d4d74ef86a57a6a6",
+    "matrix_display": "3c2bb9e91ee313f6111c9f7a2846ae3fa12722c51db3b3989a4dab5a605a7674"
+  },
+  "measured_numerical_validation": false,
+  "missing_primitive_or_history_state": false,
+  "gradient_purposes": [
+    "Fresh public retained with real samepoint owner",
+    "Signed normalized full-minus-retained linearity control",
+    "Independent direct normalized full gradient"
+  ],
+  "finite_CI_response": "Unchanged public mixed finite API retains full norm/phase/residual and radial reconstruction; baseline HF partial is not substituted for finite response.",
+  "centered_scope": "Samepoint fixed Lambda Q-Lagrange diagnostic only; ordinary reported energy unchanged, no global/Armijo error bound.",
+  "tangent_transport_scope": "Original T13(direction12) defines this new centered retraction direction, not the derivative of old alpha1 retraction path or Wolfe curvature.",
+  "epoch_scope": "All356 private f043 files; current changed-owner/phaseA failures are preserved and unrelated source is not adopted.",
+  "actual_stageB_qualification": null
+}

@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-10-10T17:10:54.015637+00:00",
+  "actual_delivered_cycles": [
+    {
+      "job_id": "finite_ns42_DC",
+      "cycle": "nist-atlas-published-2026-10-11",
+      "message_id": "om_x100b63935fbf48a0c3ed81475d59eca",
+      "status": "completed",
+      "started_at": "2026-10-10T17:08:39.674704+00:00",
+      "finished_at": "2026-10-10T17:08:40.939947+00:00",
+      "result_sha256": "c94201b8962e1f855e3fb035278b725e1864c737df341fb009d70643df340da5"
+    },
+    {
+      "job_id": "finite_ns42_dynamic",
+      "cycle": "nist-atomic-iteration-2026-10-11",
+      "message_id": "om_x100b6392a1efeca4c3387195540140b",
+      "status": "completed",
+      "started_at": "2026-10-10T16:59:30.666548+00:00",
+      "finished_at": "2026-10-10T16:59:32.082116+00:00",
+      "result_sha256": "6e3ba335578a5b689960241c75b428345589ec67d6d041ebd8bc24bb95d25996"
+    },
+    {
+      "job_id": "finite_ns42_static",
+      "cycle": "2026-10-10T17",
+      "message_id": "om_x100b6392bfd650a4c346fae28784204",
+      "status": "completed",
+      "started_at": "2026-10-10T17:00:02.227597+00:00",
+      "finished_at": "2026-10-10T17:00:03.593134+00:00",
+      "result_sha256": "347f0f2bf30e3344fdf173374ea562324b2600baa7a25f85d20324aed55b448e"
+    }
+  ],
+  "numerics": [
+    {
+      "job": {
+        "id": "finite_ns42_DC",
+        "kind": "finite_transverse_bloch",
+        "ns": 42,
+        "mode": "DC"
+      },
+      "bloch_equation_max_Ha": 8.351803147456759e-15,
+      "backend_heff_max_Ha": 9.2148511043888e-15,
+      "backend_strict_1e10_gate_pass": true,
+      "source_and_inputs_unchanged": true
+    },
+    {
+      "job": {
+        "id": "finite_ns42_dynamic",
+        "kind": "finite_transverse_bloch",
+        "ns": 42,
+        "mode": "dynamic"
+      },
+      "bloch_equation_max_Ha": 6.3118609454728454e-15,
+      "backend_heff_max_Ha": 8.749847513200848e-10,
+      "backend_strict_1e10_gate_pass": false,
+      "source_and_inputs_unchanged": true
+    },
+    {
+      "job": {
+        "id": "finite_ns42_static",
+        "kind": "finite_transverse_bloch",
+        "ns": 42,
+        "mode": "static"
+      },
+      "bloch_equation_max_Ha": 5.914385086998097e-15,
+      "backend_heff_max_Ha": 8.749624358372898e-10,
+      "backend_strict_1e10_gate_pass": false,
+      "source_and_inputs_unchanged": true
+    }
+  ],
+  "pending_jobs": 9,
+  "highest_level_reached": false,
+  "private_site_unauthenticated_http_status": 403,
+  "website_snapshot_only": true
+}

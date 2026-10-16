@@ -1,0 +1,15 @@
+{
+  "core_raw_Ha": 4.4377214466797627e-13,
+  "core_energy_difference_Ha": 0.0,
+  "physical_differences": [],
+  "compiled_core_files_bitwise": {
+    "_pci_valence_term2_streamed.o": true,
+    "core_singles_blas.o": true,
+    "term21_streamed.o": true,
+    "valence_diagrams.o": true,
+    "core_single_to_doubles_blas.o": true,
+    "core_diagrams.o": true,
+    "native_bridge.o": true
+  },
+  "scope": "same original complete core fields/equations/input identity; changed wrapper/additiveCUDA is separately checked on allcolumns, no stack-sampling/timing assertion"
+}

@@ -1,0 +1,185 @@
+{
+  "original_test": {
+    "original_repo_path": "tests/test_mixed_ci_finite_increment.py",
+    "content_sha256": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "archive_repo_path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/test_source_archive/045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8/test_mixed_ci_finite_increment.py",
+    "byte_count": 24118,
+    "role": "Immutable original finite qualification test source, not the future mutable shared-test epoch",
+    "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "original_qualification_contract_sha256": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "original_candidate_identity_sha256": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "original_failed_result_sha256": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3",
+    "replay_note": "Exact bytes retain original REPO=__file__.parents[1] assumption: materialize at tests/test_mixed_ci_finite_increment.py inside isolated epoch root for executable replay; do not directly execute archived path."
+  },
+  "referencing_files": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/preparation.json",
+      "sha256": "87d5f80702793bdf8116bb5cf9e8838acf638f39eccb421c134a149a0def03cb",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/contract.json",
+      "sha256": "727971280dfb52ffe93d6eedabfee9a1ec1d249658a60d104d7e18ab8953a294",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/root_source_edit_authorization.json",
+      "sha256": "7de4846c3e082d2d1dc72567c25156596cd88c5cb267f70f4809eac74ced7b4f",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/root_source_edit_authorization002.json",
+      "sha256": "3b412b6bd3ac6c43ae3743cb6f537da526a63d019461494da6e62345430857f3",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/contract.json",
+      "sha256": "5165b10adc3c994fa3059c7595cf0824fbd0faa1f57d0bf46d6daa046588c060",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/preparation_verification.json",
+      "sha256": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/completion.json",
+      "sha256": "a11a9060213cb7de0681989421d8172ddce5888dcb2689a3a0bf5b2297a853ae",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/contract.json",
+      "sha256": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_source_review/final_inputs.json",
+      "sha256": "2267b863f37fbf62390906a47f95592e04cc3708669490b366007f9a4a50bff6",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_source_review/verification.json",
+      "sha256": "2c2e25221bcf9dc8c2fd2f3b2bb4e05ed417ebd0377400090dbb9497162f4c53",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 2
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prospective_source_edit.json",
+      "sha256": "3513705e2de89cd8ab50e1fc385798ede63f98f82527c6cb637ba8a2108ae454",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/preparation_verification.json",
+      "sha256": "ebd71f1365c980c5d7514cb3539297a797dde874e8be52f59304a30add02a477",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 2
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/run.py",
+      "sha256": "f065d8be47439bd2affafdc863926198d235b19f5efafd019a6cb86a54b4fe52",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json",
+      "sha256": "aac39a895035151da17bfdb1570d6358ea4ef0891850fb5d3b60caff88abbdfb",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json",
+      "sha256": "1ef6cab59eac700bc8cfe7f3fd1ca441a18a452972fe4e0d5bc61aad1d3c94cc",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/README.md",
+      "sha256": "5def5f494aa29a891c087e3da7a09b322f3b32b83d27e081ce169a50aa6496f9",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json",
+      "sha256": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/verify_preparation.py",
+      "sha256": "472b0aaf29cf64cc0fe106f2b7969a1e4abf238d34783081e3a03175c1f342fc",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/preparation_verification.json",
+      "sha256": "6c206078d1de303e7380a0f82a2fcbf4c8fb2a4c8b46b21924d52a9275e9f1a2",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/contract.json",
+      "sha256": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/verification.json",
+      "sha256": "746638a81fdbdd93b2fb276390c9198938a1b78317891f40ad74471279aba682",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 2
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/contract.json",
+      "sha256": "ba29c2e19e104019eef6d21600675cd2f8c0be5b74a84b6c2797a4a4b5338cdc",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/saved_array_audit/verify_saved.py",
+      "sha256": "346d17b17c1e257630dbcb30fe678216b1666811aabf251653683ab3acf49de9",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/saved_array_audit/verification.json",
+      "sha256": "6b11864fa42a63b69275eac7666e807a2aae3a8a9ae5fe0849985d375c00f1a6",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 4
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/saved_array_audit/contract.json",
+      "sha256": "852e9382f579f4ab1ad358e5e8fbf4818c55f73e00105fc640fddfe2b8aaad45",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/successor_consumer_source_review002/guard002/verify_source.py",
+      "sha256": "47fb2a9b80575cdb5c42a7ff1f7d79917467a61e9a7990d36876056751ca5f9d",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/successor_consumer_source_review002/guard002/contract.json",
+      "sha256": "72ece2537548f61adba1499e5a13232dd8b1dcc83300aaaf1ca278ab2317c376",
+      "old_content_hash_explicit": true,
+      "old_path_occurrences": 1
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/actual/result.json",
+      "sha256": "cf431b4cfe5591db700f37bd8e0becaa04d856c568bb0cd90fec6fd08fa25b8f",
+      "old_content_hash_explicit": false,
+      "old_path_occurrences": 1
+    }
+  ],
+  "classification": "Historical contracts and proofs unchanged; archive-backed replay resolution required after new test epoch."
+}

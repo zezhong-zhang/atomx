@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_expt_compact_index001.py", line 349, in <module>
+    main(args.run_name)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_expt_compact_index001.py", line 290, in main
+    matrix = _model_matrix(blocks, "0h1p", tuple(range(2, 10)), numbers)
+  File "/data/code/atomx/src/atomx/methods/fscc.py", line 135, in _model_matrix
+    numbers = [_axial_irrep(*symmetry[i]) for i in active]
+  File "/data/code/atomx/src/atomx/methods/fscc.py", line 135, in <listcomp>
+    numbers = [_axial_irrep(*symmetry[i]) for i in active]
+TypeError: atomx.methods.fscc._axial_irrep() argument after * must be an iterable, not numpy.int64

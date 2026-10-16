@@ -1,0 +1,423 @@
+{
+  "status": "chain_passed",
+  "label": "cold",
+  "variant": "ordinary",
+  "directory": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/ordinary/cold",
+  "timings": {
+    "energy_trial_seconds": 5.115708224941045,
+    "accepted_gradient_seconds": 1.8565926300361753,
+    "primary_seconds": 6.97230085497722,
+    "trial_validation_seconds": 0.11984869395382702,
+    "sameworker_full_repeat_validation_seconds": 3.5995617508888245e-07,
+    "validation_metadata_seconds": 0.5672290760558099,
+    "checked_compressed_archive_seconds": 0.19132333411835134
+  },
+  "started": {
+    "npz_load": 6,
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI": 1,
+    "H": 1,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "CI_source_pair": 593,
+    "bank_get": 2372,
+    "direct_full_bank": 2372,
+    "band_scalar": 49054,
+    "centered_dense_helper": 5,
+    "scipy_eigh": 5,
+    "tracking_resolution": 2,
+    "tracking_SVD": 10,
+    "gradient": 1,
+    "gradient_source_pair": 593,
+    "factor_get": 2372,
+    "direct_semiseparable": 2372,
+    "gradient_band_expand": 2372
+  },
+  "completed": {
+    "npz_load": 6,
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "bank_get": 2372,
+    "direct_full_bank": 2372,
+    "CI_source_pair": 593,
+    "band_scalar": 49054,
+    "H": 1,
+    "scipy_eigh": 5,
+    "centered_dense_helper": 5,
+    "CI": 1,
+    "tracking_SVD": 10,
+    "tracking_resolution": 2,
+    "factor_get": 2372,
+    "direct_semiseparable": 2372,
+    "gradient_band_expand": 2372,
+    "gradient_source_pair": 593,
+    "gradient": 1
+  },
+  "checks": [
+    {
+      "name": "fresh_CI",
+      "passed": true
+    },
+    {
+      "name": "fresh_H_owner",
+      "passed": true
+    },
+    {
+      "name": "complete_five_centered_public_blocks",
+      "passed": true
+    },
+    {
+      "name": "actual_provenance_centered_origins",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "whole_H_exact_symmetric",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "full_CI_column_norm_residual",
+      "passed": true,
+      "error": 9.560248123388394e-12,
+      "limit": 1e-08
+    },
+    {
+      "name": "full_CI_Gram",
+      "passed": true,
+      "error": 3.774758283725532e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "read_only_owned_H",
+      "passed": true
+    },
+    {
+      "name": "stale_owner_rejected",
+      "passed": true
+    },
+    {
+      "name": "same_trial_CI_object",
+      "passed": true
+    },
+    {
+      "name": "same_reported_objective",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_complete_radial_gradient",
+      "passed": true,
+      "error": 6.45705711121991e-13,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_raw_g",
+      "passed": true,
+      "error": 7.79953879259665e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_tangent_g",
+      "passed": true,
+      "error": 7.80042697101635e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_metric_pg",
+      "passed": true,
+      "error": 7.206627872582971e-13,
+      "limit": 1e-10
+    },
+    {
+      "name": "original_equal5weights",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "exact_five_UID_support",
+      "passed": true
+    },
+    {
+      "name": "same_raw_h_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_full_H",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "historical_unshifted_full_roots_source_evolution",
+      "passed": true,
+      "error": 1.6370904631912708e-11,
+      "limit": 1e-08
+    },
+    {
+      "name": "saved_H_bytes",
+      "passed": true
+    },
+    {
+      "name": "archive_exact_H",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_energies",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_mixing",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_radial_gradient",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_raw_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_pg",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_weights",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_x",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_keys",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_P",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_Q",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "chain_calls_H",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_CI",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_centered_dense_helper",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_tracking_resolution",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_tracking_SVD",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_CI_source_pair",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient_source_pair",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient_band_expand",
+      "passed": true
+    },
+    {
+      "name": "per_chain_geometry_hS_after_cold",
+      "passed": true
+    }
+  ]
+}

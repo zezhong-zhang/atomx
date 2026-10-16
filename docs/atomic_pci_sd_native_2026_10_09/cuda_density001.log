@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_cuda_density.py", line 302, in <module>
+    main(args.run_name)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_cuda_density.py", line 166, in main
+    device_output = control.apply(device_input, rank)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/cuda_density_control.py", line 166, in apply
+    self.kernels[0](
+  File "cupy/_core/raw.pyx", line 101, in cupy._core.raw.RawKernel.__call__
+  File "cupy/_core/raw.pyx", line 108, in cupy._core.raw.RawKernel.kernel.__get__
+  File "cupy/_core/raw.pyx", line 125, in cupy._core.raw.RawKernel._kernel
+  File "cupy/_util.pyx", line 67, in cupy._util.memoize.decorator.ret
+  File "cupy/_core/raw.pyx", line 549, in cupy._core.raw._get_raw_module
+  File "cupy/_core/core.pyx", line 2621, in cupy._core.core.compile_with_cache
+  File "cupy/_core/core.pyx", line 2637, in cupy._core.core.compile_with_cache
+  File "cupy/_core/core.pyx", line 2599, in cupy._core.core.assemble_cupy_compiler_options
+RuntimeError: Failed to find CUDA headers. Please install CUDA toolkit headers (e.g., pip install cupy-cuda12x[ctk]) or specify CUDA_PATH environment variable.

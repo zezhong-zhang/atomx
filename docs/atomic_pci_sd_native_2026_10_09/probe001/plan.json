@@ -1,0 +1,59 @@
+{
+  "dimensions": {
+    "NHF": 2688,
+    "NX": 3,
+    "NS": 1,
+    "KX1": 3,
+    "NXX": 2,
+    "NK": 3,
+    "NN": 1,
+    "KK": 3,
+    "NCH": 8,
+    "NXK": 5,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4704
+  },
+  "workspace_bytes": 2075968,
+  "feature_identity": {
+    "representation": "native cell Coulomb auxiliary nodes",
+    "geometry_sha256": "136eef576de95fbfc09d13ae55c6611ddee811e5576ab5c2aa661be78adaf291",
+    "coefficient_sizes": [
+      30,
+      30
+    ],
+    "component_orders": [
+      7,
+      7
+    ],
+    "auxiliary_nodes": 2688,
+    "same_cell_edges": 4704,
+    "quadrature_nodes": [
+      24,
+      7
+    ],
+    "payload_estimate_bytes": 650496,
+    "rank_cache_capacity": 8,
+    "contraction": "weighted bilinear c-product; no new quadrature or screening"
+  },
+  "occupied": [
+    [
+      1,
+      -1
+    ]
+  ],
+  "virtual": [
+    [
+      2,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      -2
+    ]
+  ]
+}

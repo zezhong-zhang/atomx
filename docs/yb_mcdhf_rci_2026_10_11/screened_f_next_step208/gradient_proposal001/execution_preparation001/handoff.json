@@ -1,0 +1,42 @@
+{
+  "status": "private_native31_executor_frozen_preparation_NO_execution",
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/run.py": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/preparation.json": "df8054d0132db05f9586183acd6144c43b2f21c42812008379c374da04e8833c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/README.md": "eb2b039a01f0cb6c8e8faa646e68b7b2257fd38d0bd4d9b106f1268f297d7bcb",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/documentation_impact.json": "600eb4e7153732a1fa5818148fa75baa2f6a5b65bb7da63b97b754c1758722d6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/trace.md": "a1e8d230af1eecc6f0a78164de43e8fe5e85f286bf252c12c8235c4d142e8915"
+  },
+  "driver_sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34",
+  "contract_sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+  "preparation_sha256": "df8054d0132db05f9586183acd6144c43b2f21c42812008379c374da04e8833c",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "root_exact_execution_required": true,
+  "runtime_interpreter_literal": "/data/code/atomx/.venv/bin/python",
+  "calls": {
+    "H": 2,
+    "CI": 2,
+    "initial_hS": 7,
+    "CI_internal_hS": 14,
+    "gradient_from_weights": 3,
+    "gradient_pair_potential": 10416,
+    "retained_RDM": 1,
+    "unfiltered_target_RDM": 5,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "complete_eigh": 31,
+    "tracker_resolve": 2,
+    "tracking_SVD": 10,
+    "tracker_overlap": 3,
+    "optimizer": 0
+  },
+  "point_epochs": [
+    "savedcanonical31 freshown1595owner",
+    "publicP@Y recovered3689 freshown1595owner"
+  ],
+  "prepared_NumPy_Atomx_imports": 0,
+  "prepared_NPZ_reads_or_rehashes": 0,
+  "prepared_physical_calls": 0,
+  "root_launch_only_after_exact_review_and_seal": true
+}

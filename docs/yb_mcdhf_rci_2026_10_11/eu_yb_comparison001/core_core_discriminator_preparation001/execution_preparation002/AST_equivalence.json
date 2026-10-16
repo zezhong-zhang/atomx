@@ -1,0 +1,27 @@
+{
+  "status": "SOURCE_only_semantic_equivalence_passed",
+  "checks": [
+    {
+      "file": "run.py",
+      "original_sha256": "7159c1079dbaaf75f7244bcfbc3df404bd065feb6a0507a7ee651c4d37704bbd",
+      "successor_sha256": "7cce05dfe0e1347337f62639638ae1d2dc8ca808ce1b2f2525bf97e3f738ff41",
+      "whole_AST_equivalent_except_import_order": true,
+      "AST_dump_sha256": "f8654ec04a2bfd92d1ceb11a3fc772e0d5eaf7c7c987c00c9fa1f1660d6f64e0"
+    },
+    {
+      "file": "prepare.py",
+      "original_sha256": "36878968f5a85b1a3ef72e5b15b4c609d5e659176bd31f5051d1d546d728a325",
+      "successor_sha256": "ee5a719896eff093f9226beaae955ab3e51b21090a93d6fb7c493f3e1fdcb0e8",
+      "whole_AST_equivalent_except_import_order": true,
+      "AST_dump_sha256": "f4a379542cf63f87f47ad6a801f276c4c83696fd78d42513da463a3cda502ac5"
+    }
+  ],
+  "physical_code_and_gates_unchanged": true,
+  "contract_changed_only_in_successor_prepared_models_path": true,
+  "model_file_bytes_equal": true,
+  "final_selector_check": "check('baseline_exact_StageB_UID_weights', plain(weights) != oldtrack['weights'] or plain([r['selected_level'] for r in rows]) != [r['selected_level'] for r in expected])",
+  "selector_plain_normalization_present": true,
+  "original001_actual_directory_absent": true,
+  "source_numpy_Atomx_imports": 0,
+  "numerical_archive_access": 0
+}

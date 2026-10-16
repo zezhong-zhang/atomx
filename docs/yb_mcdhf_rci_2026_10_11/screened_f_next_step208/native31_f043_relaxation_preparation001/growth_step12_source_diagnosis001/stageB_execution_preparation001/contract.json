@@ -1,0 +1,864 @@
+{
+  "status": "SOURCE_ONLY_concrete_literal13_stageB_executor_ready_for_root_review",
+  "hypothesis": "At literal accepted13, test the fresh correlated derivative along the original transported and normalized step12 direction. StageA reproduced numerical history but did not certify this derivative. Two fixed h discriminate ordinary reported energy resolution and independently centered finite correlated response; no physical or optimizer defect is presumed.",
+  "fixed": {
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "nucleus": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+    "electrons": 69,
+    "radial_orbitals": 31,
+    "radial_dimension": 123,
+    "coordinate_dimension": 3689,
+    "target_CSFS": 1595,
+    "full_parent_CSFS_enumerated": 3789,
+    "NR_configurations": 91,
+    "complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "native full Dirac-Coulomb only",
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "original3451_metric_is_provenance_only": true,
+    "h": [
+      1e-05,
+      5e-06
+    ],
+    "no_seed_or_step_scan": true,
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "literal_accepted_point": 13,
+    "new_state_sha256_is_runtime_own_literal13_not_old_point0": true
+  },
+  "direction": {
+    "definition": "Exact StageA normalized tangent13(direction12), all3689 coordinates.",
+    "base": "Literal accepted13 original P@x. No coordinate recovery or new retraction at baseline.",
+    "trial": "Original f043 polar retraction of Y13 +/- h*eta in all7 complete same-kappa groups.",
+    "minimum_norm_for_admission": 1e-14,
+    "old_alpha1_path_derivative_or_Wolfe_test": false,
+    "no_direction_or_NIST_selection": true,
+    "native_dtype": "float64 eta/x/radials; ambient corrected longdouble preserved in exact Fraction algebra"
+  },
+  "reported_production_objective": {
+    "entry": "CSFOrbitalFunctional.evaluate(...gradient=False,ci_result=complete retained real owner), unchanged reported float(weights @ state_energies)",
+    "ordinary_FD": "(reported_EO(+h)-reported_EO(-h))/(2h) for both h; selected five reported upper/lower energies and same-point transitions always archived",
+    "primary_analytic": "Fresh samepoint ordinary retained public radial gradient mapped through original P and dotted with exact StageA normalized transported direction at13.",
+    "additional_analytic": "Fresh independently normalized/unfiltered full coordinate action and corrected ambient quotient action, at the same literal13 point and same direction.",
+    "gate": {
+      "absolute": 1e-08,
+      "relative": 1e-05,
+      "formula": "abs(FD-analytic) <= max(1e-8,1e-5*abs(analytic))",
+      "for_each_predeclared_h": true,
+      "old29_and_failed31_reported_gates_unchanged": true
+    },
+    "resolution": "Record actual binary64 ULP at all five points, EO averaging offset and both \u00b1 reported-root minus retained-Rayleigh offsets. Ordinary FD below resolution is unresolved, not a new physical failure mechanism or a reason to relax the gate.",
+    "energy_callback": null,
+    "optimizer_calls": 0
+  },
+  "independent_centered_diagnostic": {
+    "entry": "Unchanged public mixed_ci_energy_difference(reference,trial,reference_ci,trial_ci,increments=explicit mapped increments), once per trial with two fresh complete retained owners; never fixed-density constrained API",
+    "complete_change": "explicit_radial + reconstruction_radial + finite rayleigh_response. Preserve reported_response, phase, actual CI norms, endpoint residuals and reported/Rayleigh/averaging offsets. Do not freeze a mixed RDM or omit CI response.",
+    "baseline_multiplier": "For each complete same-kappa physical C, Lambda=(C.T@gA+gA.T@C)/4, where gA is qualified full-normalized raw-h/ket-norm ambient correction at this same31 point. Include all signed offdiagonal entries; retain input dtype and exact represented integer ratios.",
+    "exact_Gram": "DeltaG=C.T@S@delta + delta.T@S@C + delta.T@S@delta using actual physical endpoint differences; also exactly split explicit P@deltaY and rounded reconstruction with full cross/quadratic terms. Check DeltaG equals trialGram-baseGram.",
+    "centered": "complete mixed Rayleigh change minus exact sum(Lambda_ij*DeltaG_ij), separately for each trial then the fixed central derivative. Retain the uncensored mixed changes and ordinary reported differences.",
+    "analytic": "samepoint gA action minus exact fixed-Lambda ideal Gram derivative; additionally report error against the unchanged public retained action at the identical direction.",
+    "diagnostic_gate": {
+      "absolute": 1e-08,
+      "relative": 1e-05,
+      "formula": "abs(centered_FD-analytic) <= max(1e-8,1e-5*abs(analytic))",
+      "both_h_and_both_declared_analytic_comparisons": true
+    },
+    "scope": "finite samepoint Q-Lagrange derivative diagnosis only; no uniform sign/remainder/Armijo bound, no reported objective substitution, no old FAIL upgrade, no automatic31optimization authorization",
+    "direct_stored_H_quotients": "Forensic operator-assembly/roundoff diagnostic only; never substitute for complete radial-polynomial/reconstruction/CI-response anchor"
+  },
+  "native_call_chain": [
+    "Public complete1595 model, original531 physical tracker, native f043 functional; all5 equal UID targets, original seven nuclearP and fixed inverse metric.",
+    "from_arrays validates original31-group3689 geometry with7 public Dirac span checks; no P rebuild, coordinate reproject or baseline retraction.",
+    "One fresh full1595 retained baseline CI: entireH/roots/signedC/owner/UID/report compared strictly to literal accepted13.",
+    "At this same real owner, one ordinary public retained gradient and two extra public gradient_from_weights calls for exact-zero-only full-minus-retained and independent direct full-normalized density. Five signed contract_bilinear tables, exact CI norm/.2 aggregation, raw h/ket-norm ambient correction, g1e-9/pg1e-10 gates.",
+    "Four fixed polar points around literal13 in exact transported normalized direction: fresh fullCI/reported energy/physical tracker for each. No direction/h selection or optimization.",
+    "Four unchanged public mixed finite diagnostics retain complete radial polynomial, rounded reconstruction, finite CI norm/phase/residual response. Complete signed fixedLambda quadratic actual Gram and offdiagonal centering remains independently labeled.",
+    "Both ordinary and four centered domain gates are evaluated after all4 finite ledgers; no callback, prior failure upgrade or automatic continuation."
+  ],
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "maximum_system_load1": 32,
+    "minimum_host_available_GiB": 4,
+    "timing_claim_valid": false,
+    "caps_are_stops_not_completion_promise": true,
+    "calls": {
+      "H": 5,
+      "CI": 5,
+      "public_reported_energy_evaluate": 6,
+      "gradient_from_weights": 3,
+      "initial_hS": 7,
+      "CI_internal_hS": 35,
+      "mixed_radial_hS": 28,
+      "hS_total": 70,
+      "validation_Dirac": 7,
+      "complete_SciPy_eigh": 46,
+      "geometry_SPD_eigvalsh": 38,
+      "polar_retraction": 28,
+      "polar_numpy_eigh_fallback": 28,
+      "tracker_resolve": 19,
+      "tracking_SVD": 95,
+      "tracker_overlap": 20,
+      "mixed_ci_finite_increment": 4,
+      "unfiltered_target_RDM": 25,
+      "optimizer": 0,
+      "GPU": 0,
+      "gradient_pair_potential": 2118,
+      "retained_RDM": 1,
+      "finite_component_cache_miss": 78356,
+      "finite_potential_cache_miss": 235068,
+      "finite_density_cache_miss": 470136,
+      "gradient_components": 8472
+    },
+    "hS_cache": "Observer forwards original getter/carry untouched. Per-CI complete7kappa coverage and actual hits/misses/producers, total ceilings rather than fragile exact getter count. First CI may produce7 native h/S, four subsequent same-geometry CI calls carry them. Four mixed radial operators each independently build7 h/S.",
+    "signed_term_work_cap": {
+      "complete_angular_term_capacity_per_trial": 19589,
+      "all_four_radial_components": 78356,
+      "potential_requests": 235068,
+      "density_requests": 470136,
+      "meaning": "Complete structural table capacity, reject whole experiment if exceeded; no small-term/CSF pruning. Four trials, three potential/six density accesses per radial key maximum."
+    },
+    "exact_Gram_Lambda_products": 16000000,
+    "five_fullH_and_C_dense_bytes": 203522000,
+    "memory_estimate": "Prior same-model FD peak1581.664MiB plus baseline3g and literal13 saved arrays; only baseline+current trial H/C retained, source potentials streamed,5 wholeH/C outputs total203522000 uncompressed bytes. Input selected decode <=192MiB, exact bookkeeping/cache caps bound work;3.95GiB hard AS stop. No measured new peak or timing claim.",
+    "time_estimate": "Previous same-model two-h FD104.221s plus fresh3g baseline.300s is prospective whole-run stop, not a completion guarantee.",
+    "no_unaccounted_retry": "Native Dirac finite-eigh at most3 attempts per validation kappa counted in21 of46 SciPy cap. Consumer never retries, rescales h or changes model.",
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "maximum_signed_overlap_pairs": 30000,
+    "maximum_hS_getter_requests": 400,
+    "finite_kernel_counter_semantics": "Class forwarding wrappers are captured inside unchanged instance-owned lru_cache; counters are actual cache-miss producers. Public per-key logical requests are bounded by the complete angular capacity, not called cache-miss counts. Initial and per-trial component/potential/density source invocation paths are preserved.",
+    "maximum_total_input_decoded_bytes": 201326592,
+    "input_archive_loads_max": 5,
+    "baseline_gradient_sources": {
+      "retained": 706,
+      "full_minus_retained": 706,
+      "full_normalized": 706
+    },
+    "baseline_gradient_terms": {
+      "retained": 17233,
+      "full_minus_retained": 18074,
+      "full_normalized": 19589
+    },
+    "primitive_census": "Three706-source gradients =2118 streamed pair potentials x4 PP/QQ/PQ/QP components =8472; five target tables67655 entries. Four finite kernels x19589 complete angular keys <=78356 components, <=235068 potential producers and <=470136 density producers. All5 full1595 denseCI, no projected-only eigenpair subset."
+  },
+  "gates": {
+    "baseline_H_roots_signedC_owner_UID_bitwise_to_own31_recovered": "Exact to literal accepted13, not old canonical31 or recovered point0",
+    "baseline_coordinate_P_inverse_metric_identity": true,
+    "all_complete_CI_residual_Ha": 1e-08,
+    "all_complete_CI_Gram": 1e-10,
+    "cross_symmetry_zero_Ha": 1e-14,
+    "full_same_kappa_radial_Gram": 1e-10,
+    "S_squared_originalP_leak": 1e-12,
+    "whole_direction_source_reconstruction": 1e-10,
+    "scaled_tangent_identity": 1e-10,
+    "no_pair_P_byte_identity": true,
+    "sameoriginal_target_UID_rank1_weights": true,
+    "ordinary_reported_and_centered_derivative_domains_separate": true,
+    "FD_absolute": 1e-08,
+    "FD_relative": 1e-05
+  },
+  "outputs": [
+    "All five complete H/roots/signedC/owners; exact coordinates/all31radials/projectors/inverses/layout; fullCI blocks/Gram/residual/span/tracker and phase identities.",
+    "Original5 labels/UIDs/weights, reported lower and upper energies, four transitions, centroids/splittings at each actual point, no cross-point patch.",
+    "Four full mixed finite ledgers and exact fixed-Lambda/DeltaGram explicit/reconstruction/quadratic/offdiagonal ledgers.",
+    "Both predetermined central derivatives and all errors/unchanged thresholds/ULP and reported-Rayleigh offsets; first failed derivative identity and unavailable stages retained.",
+    "Attempted/completed native producer and observer counters; host caps/timing scope/source/archive/input SHA; full current failure saved once, small progress counters."
+  ],
+  "stop": "First identity/resource/CI/g gate failure preserved; complete all4 declared finite points before ordinary/centered domain ledger gates. Failed ordinary remains failed. No revised h/direction/weights/model, no optimizer or automatic continuation.",
+  "preparation_NumPy_Atomx_imports": 0,
+  "preparation_NPZ_reads_or_rehashes": 0,
+  "preparation_physical_calls": 0,
+  "root_exact_once_execution_seal_required_before_any_runtime": true,
+  "executor_implemented": true,
+  "execution_authorized": false,
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "input_roles": {
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "native_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+      "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+      "deferred_numerical": false
+    },
+    "native_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+      "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+      "deferred_numerical": false
+    },
+    "native_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json",
+      "sha256": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68",
+      "deferred_numerical": false
+    },
+    "literal13_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+      "deferred_numerical": false
+    },
+    "literal13_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013_signed_tables.json",
+      "sha256": "2698c2dde3c8b0fe9e9b3585726491e8b45f4c7af75faef981daad201514634a",
+      "deferred_numerical": false
+    },
+    "literal13_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+      "sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+      "deferred_numerical": true
+    },
+    "stageA_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/actual/result.json",
+      "sha256": "3f42ad189b0d883285bb439d94c504e07c9911b13de62fe657736416f267f66a",
+      "deferred_numerical": false
+    },
+    "stageA_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/root_execution.json",
+      "sha256": "2b9052acbb2cd897f116a8880756d349ed566d225cbf9b551ede1d40bb655c66",
+      "deferred_numerical": false
+    },
+    "stageA_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/contract.json",
+      "sha256": "4a40f8ad3037a1ff5663ff43723b93cde4af5d5c9871e4d9cde538a655ff9de6",
+      "deferred_numerical": false
+    },
+    "stageA_direction": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/actual/reconstructed_direction.npz",
+      "sha256": "e9ffbad9624660b8bb44dabda6636409d2182a66cf62ac51ed162024cea3aaca",
+      "deferred_numerical": true
+    },
+    "original_stageB_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/contract.json",
+      "sha256": "e222059435dbd4e800fa23d1fbff0f0ef9f5a8cdebb4889c520d573b01f833e4",
+      "deferred_numerical": false
+    },
+    "frozen_FD_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/run.py",
+      "sha256": "0023cde2bc9316938304b51ba554f3e9240a2770285be71304cc66a2e5f7f77c",
+      "deferred_numerical": false
+    },
+    "frozen_FD_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/contract.json",
+      "sha256": "d1f71a97ecc8ed7ead742cee454247fa95f437e26dfe3ed6c1095b4a0886eb87",
+      "deferred_numerical": false
+    },
+    "frozen_native_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/run.py",
+      "sha256": "be1b987d86208fa66736609a1cca09ec15a332957e27e111e5b1c6dec87e1ae0",
+      "deferred_numerical": false
+    }
+  },
+  "exact_algebra_semantics": "Represent each original finite float64/longdouble scalar by its as_integer_ratio without cast; exact Fraction matrices use all represented nonsymmetric S terms, no symmetrization. Only exact zero entries are omitted from matrix action; dot products include all entries. Full actual trial Gram, explicit increment Gram, rounded reconstruction and all quadratic/offdiagonal identities are tested exactly. Display JSON and NPZ float matrices do not implement the gate.",
+  "counter_call_proof": {
+    "CI_and_H": "one baseline + four trials, exactly5 each, no hidden CI energy evaluate; owner lookup0H",
+    "hS": "one public functional initial7; CI cache native production<=35 with expected first7misses+carry; four public radial increments28; combined cap70 before forwarding",
+    "tracker": "Five gradient=False reported resolves +five explicit metadata resolves +one fresh baseline gradient resolve +four mixed x2 =19;5 SVD per resolve=95; constructor1+19 overlaps=20.",
+    "spectral": "public state validation7Dirac each<=3 scipy finite-eigh+5CI x5sector eigh=46;7activeS+31inverse SPD eigvalsh=38;fourtrial x7polar=28 with atmost28numpy-eigh fallbacks",
+    "RDM": "Five baseline unfiltered normalized target tables +four mixed x5 =25. One retained public contract. Three gradient_from_weights including the public retained evaluation;706 source groups each,2118 potentials/8472 gradient components.",
+    "physical_evaluate": "Five evaluate gradient=False plusone baseline gradient=True, allprovided samepoint real owner, exactly6 reported functional calls; no optimizer/GPU.",
+    "point_sequence": "baseline gates first, then h0minus,h0plus,h1minus,h1plus; all valid finite ledgers before separate derivative summary failure; identity/resourcefail stops immediately",
+    "primitive_finite": "Four complete19589-key radial traversals <=78356 components() cache misses; each at most3 potential and6 density accesses,235068/470136 caps. Complete potential construction has4 physical spinor component contractions per miss, <=940272 band component upper. No screening or mutable-owner recovery."
+  },
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/execution_binding.json",
+  "workflow_lineage": {
+    "frozen_FD_driver_sha256": "0023cde2bc9316938304b51ba554f3e9240a2770285be71304cc66a2e5f7f77c",
+    "frozen_native3g_driver_sha256": "be1b987d86208fa66736609a1cca09ec15a332957e27e111e5b1c6dec87e1ae0",
+    "reused": "Ordinary fullCI/owner/tracker/retraction, public mixed finite API and complete exact Lambda/Gram workflow; native normalized signed-table/direct/delta/publicg and raw-h ambient correction.",
+    "changes": "Newliteral13 baseline and exact actual transported direction, fresh3g controls and corresponding budgets; no physics kernel/default/source change. Only standalone consumer exception class names are adapted.",
+    "no_prior_FD_gate_transfer": true,
+    "old_failed_attempts_preserved": true
+  },
+  "gradient_control": {
+    "public_retained": 1,
+    "independent_full_minus_retained": 1,
+    "independent_direct_normalized_full": 1,
+    "targets_unfiltered": 5,
+    "actual_table_scope": "Exact norm and .2 weight per target, exact nonzero signed support, original-order full keys then retained-only delta keys.",
+    "original_raw_h_quotient_ambient_correction": true,
+    "no_energy_or_gradient_callback": true,
+    "saved_rawg_gate": 1e-09,
+    "saved_pg_gate": 1e-10,
+    "full_signed_linearity_gate": 1e-09,
+    "projected_linearity_gate": 1e-10,
+    "baseline_only_no_uniform_global_bound": true,
+    "HF_partial_not_finite_CI_response": true
+  },
+  "array_access": {
+    "literal13_arrays": {
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "full_normalized_raw_coordinate": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "full_normalized_tangent": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "full_normalized_pg": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "raw_h_corrected_raw_coordinate": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f16"
+        },
+        "raw_h_corrected_tangent": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f16"
+        },
+        "raw_h_corrected_pg": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f16"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "<i8"
+        },
+        "H": {
+          "shape": [
+            1595,
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "energies": {
+          "shape": [
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "mixing": {
+          "shape": [
+            1595,
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "P": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "Q": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_diagonal": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "projector_0": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_0": {
+          "shape": [
+            2,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_1": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_1": {
+          "shape": [
+            4,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_2": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_2": {
+          "shape": [
+            6,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_3": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_3": {
+          "shape": [
+            7,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_4": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_4": {
+          "shape": [
+            6,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_5": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_5": {
+          "shape": [
+            4,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_6": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_blocks_6": {
+          "shape": [
+            2,
+            119,
+            119
+          ],
+          "dtype": "<f8"
+        }
+      },
+      "fields_max": 32,
+      "compressed_bytes_max": 67108864
+    },
+    "stageA_direction": {
+      "fields": {
+        "literal_x13": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "direction12": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "transported_direction13": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "normalized_transported_direction13": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        }
+      },
+      "fields_max": 4,
+      "compressed_bytes_max": 1048576
+    },
+    "geometry_workspace": {
+      "fields": {
+        "orbital_keys": {
+          "shape": [
+            24,
+            2
+          ],
+          "dtype": "<i8"
+        },
+        "P": {
+          "shape": [
+            24,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "Q": {
+          "shape": [
+            24,
+            123
+          ],
+          "dtype": "<f8"
+        }
+      },
+      "basis_prefix": true,
+      "fields_max": 64,
+      "compressed_bytes_max": 67108864
+    },
+    "tracking_ci": {
+      "fields": {
+        "energies_Ha": {
+          "shape": [
+            531
+          ],
+          "dtype": "<f8"
+        },
+        "mixing": {
+          "shape": [
+            531,
+            531
+          ],
+          "dtype": "<f8"
+        }
+      },
+      "fields_max": 2,
+      "compressed_bytes_max": 8388608
+    },
+    "screened_geometry": {
+      "fields": {
+        "h_-4": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_-3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_-2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_-1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "h_3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-4": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        }
+      },
+      "fields_max": 14,
+      "compressed_bytes_max": 16777216
+    }
+  },
+  "preparation": {
+    "numerical_imports": 0,
+    "NPZ_reads_or_hashes": 0,
+    "science_calls": 0,
+    "source_generator": "build_source.py copies frozen FD workflow and native3g consumer text; no physical kernel copied/reimplemented or shared source edited."
+  },
+  "measurement_scope": "Single new local retraction direction at literal13; StageA original transport is not the exact derivative of the previous alpha1 polar path and cannot certify Wolfe curvature.",
+  "primitive_census": {
+    "whole_dense_H_C_bytes_per_pair": 40704400,
+    "five_H_C_archives_uncompressed_bytes": 203522000,
+    "full_signed_target_table_entries": 67655,
+    "baseline_signed_terms": [
+      17233,
+      18074,
+      19589
+    ],
+    "gradient_source_pairs_each": 706,
+    "gradient_source_pairs_total": 2118,
+    "gradient_components_total": 8472,
+    "full_angular_table_capacity": 19589,
+    "finite_component_upper": 78356,
+    "finite_potential_upper": 235068,
+    "finite_density_upper": 470136,
+    "finite_potential_component_band_upper": 940272,
+    "complete_CI_matrix_entries_total": 12720125,
+    "complete_CI_sector_cubic_work_sum": 968340925,
+    "complete_CI_sector_eigh_upper": 25,
+    "Dirac_retry_eigh_upper": 21,
+    "complete_SciPy_eigh_upper": 46,
+    "retractions": 28,
+    "tracker_resolve": 19,
+    "tracking_SVD": 95,
+    "tracker_overlap": 20,
+    "initial_SPD_eigvalsh": 38,
+    "exact_signed_Gram_Lambda_product_cap": 16000000
+  }
+}

@@ -1,0 +1,206 @@
+...............................F......F.......                           [100%]
+=================================== FAILURES ===================================
+_________ test_live_tensor_fsccsdt_against_complete_three_electron_ci __________
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-274/test_live_tensor_fsccsdt_again0')
+
+    def test_live_tensor_fsccsdt_against_complete_three_electron_ci(native, tmp_path):
+        executable = os.environ.get('ATOMX_EXPT_EXECUTABLE')
+        if not executable:
+            pytest.skip('set ATOMX_EXPT_EXECUTABLE to run external electronic amplitude gate')
+        from atomx.physics.csf.sparse_ci import assemble_sparse_hamiltonian
+        core, od = native
+        a = integrals(native)
+        masks = [sum(1 << i for i in c) for c in itertools.combinations(range(10), 3)]
+        h = assemble_sparse_hamiltonian(masks, a.labels, od, core._bsp_data, 4, 30).toarray()
+        expected = np.linalg.eigvalsh(.5*(h+h.T))[:8]
+        energies = []
+        for tile in (4, 32):
+>           result = compute(a, executable=executable, directory=tmp_path/f'tile{tile}',
+                model='CCSDT', sector='0h1p', active_indices=range(2, 10), tile_size=tile,
+                tolerance=1e-12, residual_bound_tolerance_Ha=1e-9)
+
+tests/test_spinor_integrals_fscc.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+integrals = SpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), (2, -2, ...e-15, 'hermitian_projection_max_Ha': 4.0245584642661925e-16, 'integral_bytes': 21680, 'radial_pair_cache_size': 1024}))
+
+    def compute(integrals, *, executable, directory, model='CCSD', sector='0h0p',
+                active_indices=(), tolerance=1e-10, residual_bound_tolerance_Ha=1e-8,
+                maxiter=200, memory_bytes=8*1024**3, tile_size=32, threads=2,
+                timeout_seconds=600, environment=None):
+        """Solve all retained amplitude equations, with explicit resource limits.
+    
+        ``active_indices`` supplies exact global model spinor indices. Complementary
+        virtuals remain in the amplitudes. No intruder shifts or selections are
+        added. Closed and requested valence sectors must both converge before a
+        result is returned. On failure, the complete run log remains in directory.
+        """
+        active = tuple(sorted(active_indices))
+        n, o = len(integrals.labels), integrals.noccupied
+        allowed = range(o, n) if sector == '0h1p' else range(o)
+        if sector == '0h0p' and active or sector != '0h0p' and not active:
+            raise ValueError('valence sector requires explicit model-space indices')
+        if len(set(active)) != len(active) or any(i not in allowed for i in active):
+            raise ValueError('model spinors must belong to the requested particle/hole space')
+        if any(not isinstance(i, (int, np.integer)) or isinstance(i, bool) for i in active):
+            raise ValueError('model spinor indices must be integers')
+        model_groups = {}
+        for i in allowed:
+            model_groups.setdefault(tuple(integrals.labels[i][:2]), set()).add(i)
+        chosen = set(active)
+        if any(chosen & group and not group.issubset(chosen) for group in model_groups.values()):
+            raise ValueError('atomic model space must retain complete magnetic multiplets')
+        estimate = resource_estimate(integrals, model=model, sector=sector, active_count=len(active))
+        if estimate['estimated_working_bytes'] > memory_bytes:
+            raise MemoryError(f'full requested tensors exceed memory cap: {estimate}')
+        if not (0 < tolerance < 1e-3 and residual_bound_tolerance_Ha > 0
+                and maxiter > 0 and 0 < tile_size <= 2048 and threads > 0 and timeout_seconds > 0):
+            raise ValueError('invalid solver controls')
+        executable = Path(executable).resolve(strict=True)
+        if b'ATOMX_INTEGRALS_V1' not in executable.read_bytes():
+            raise ValueError('executable does not implement the Atomx integral ABI')
+        backend = json.loads((executable.parent/'atomx_backend.json').read_text())
+        if backend['abi'] != 'ATXCC001' or backend['executable_sha256'] != _sha(executable):
+            raise ValueError('backend executable/source manifest mismatch')
+        directory = Path(directory).resolve()
+        manifest = export_integrals(integrals, directory)
+        flags = ' '.join(str(int(i in active)) for i in range(n))
+        inp = '\n'.join(['title "Atomx signed native integrals"', 'interface pyscf',
+            'integrals ATOMX_ONE ATOMX_TWO', f'model {model.lower()}', f'sector {sector}',
+            f'active {flags}', f'maxiter {maxiter}', f'conv {tolerance:.16e}', 'diis 8',
+            *(['diis triples'] if model == 'CCSDT' else []),
+            f'memory {memory_bytes//1024**2} mb', f'tilesize {tile_size}',
+            f'nthreads {threads}', 'disk_usage 0', ''])
+        (directory/'cc.inp').write_text(inp)
+        provenance = dict(backend='EXP-T Atomx interface', executable_sha256=_sha(executable),
+            backend_source_manifest_sha256=_sha(executable.parent/'atomx_backend.json'),
+            upstream_revision=backend['upstream_revision'], backend_patch_sha256=backend['patch_sha256'],
+            atomx_solver_sha256=_sha(__file__), model=model, sector=sector, active_indices=active,
+            model_matrix_order='ascending global active indices, C1 one-particle/hole determinant basis',
+            resources=estimate, tolerance=tolerance, residual_bound_tolerance_Ha=residual_bound_tolerance_Ha,
+            memory_bytes=memory_bytes, tile_size=tile_size, threads=threads,
+            integral_manifest_sha256=_sha(directory/'integrals.json'), input_sha256=_sha(directory/'cc.inp'),
+            integrals=manifest)
+        (directory/'request.json').write_text(json.dumps(provenance, indent=2)+'\n')
+        with (directory/'cc.log').open('w') as log:
+            result = subprocess.run([str(executable), '--no-clean', 'cc.inp'], cwd=directory, env=environment,
+                                    stdout=log, stderr=subprocess.STDOUT, timeout=timeout_seconds)
+        log = (directory/'cc.log').read_text()
+        statuses = {s: (int(ok), int(it), *(float(v) for v in (a, b, c)))
+            for s, ok, it, a, b, c in re.findall(
+                r'ATOMX_CC_STATUS (\dh\dp) (\d+) (\d+) (\S+) (\S+) (\S+)', log)}
+        needed = {'0h0p', sector}
+        if result.returncode or not needed.issubset(statuses) or any(statuses[s][0] != 1 for s in needed):
+>           raise RuntimeError(f'EXP-T amplitude solve failed; inspect {directory}/cc.log')
+E           RuntimeError: EXP-T amplitude solve failed; inspect /tmp/pytest-of-zzhang/pytest-274/test_live_tensor_fsccsdt_again0/tile4/cc.log
+
+src/atomx/methods/fscc.py:280: RuntimeError
+___________________ test_streamed_fsccsdt_electronic_replay ____________________
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-274/test_streamed_fsccsdt_electron0')
+
+    def test_streamed_fsccsdt_electronic_replay(native, tmp_path):
+        executable = os.environ.get('ATOMX_EXPT_EXECUTABLE')
+        if not executable:
+            pytest.skip('set ATOMX_EXPT_EXECUTABLE for the actual streamed electronic gate')
+        a = integrals(native)
+        b = integrals(native, representation='on_demand')
+>       results = [compute(x, executable=executable, directory=tmp_path/name,
+            model='CCSDT', sector='0h1p', active_indices=range(2, 10), tile_size=4,
+            tolerance=1e-12, residual_bound_tolerance_Ha=1e-9)
+            for name, x in [('packed', a), ('stream', b)]]
+
+tests/test_streaming_spinor_integrals.py:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_streaming_spinor_integrals.py:111: in <listcomp>
+    results = [compute(x, executable=executable, directory=tmp_path/name,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+integrals = SpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), (2, -2, ...e-15, 'hermitian_projection_max_Ha': 4.0245584642661925e-16, 'integral_bytes': 21680, 'radial_pair_cache_size': 1024}))
+
+    def compute(integrals, *, executable, directory, model='CCSD', sector='0h0p',
+                active_indices=(), tolerance=1e-10, residual_bound_tolerance_Ha=1e-8,
+                maxiter=200, memory_bytes=8*1024**3, tile_size=32, threads=2,
+                timeout_seconds=600, environment=None):
+        """Solve all retained amplitude equations, with explicit resource limits.
+    
+        ``active_indices`` supplies exact global model spinor indices. Complementary
+        virtuals remain in the amplitudes. No intruder shifts or selections are
+        added. Closed and requested valence sectors must both converge before a
+        result is returned. On failure, the complete run log remains in directory.
+        """
+        active = tuple(sorted(active_indices))
+        n, o = len(integrals.labels), integrals.noccupied
+        allowed = range(o, n) if sector == '0h1p' else range(o)
+        if sector == '0h0p' and active or sector != '0h0p' and not active:
+            raise ValueError('valence sector requires explicit model-space indices')
+        if len(set(active)) != len(active) or any(i not in allowed for i in active):
+            raise ValueError('model spinors must belong to the requested particle/hole space')
+        if any(not isinstance(i, (int, np.integer)) or isinstance(i, bool) for i in active):
+            raise ValueError('model spinor indices must be integers')
+        model_groups = {}
+        for i in allowed:
+            model_groups.setdefault(tuple(integrals.labels[i][:2]), set()).add(i)
+        chosen = set(active)
+        if any(chosen & group and not group.issubset(chosen) for group in model_groups.values()):
+            raise ValueError('atomic model space must retain complete magnetic multiplets')
+        estimate = resource_estimate(integrals, model=model, sector=sector, active_count=len(active))
+        if estimate['estimated_working_bytes'] > memory_bytes:
+            raise MemoryError(f'full requested tensors exceed memory cap: {estimate}')
+        if not (0 < tolerance < 1e-3 and residual_bound_tolerance_Ha > 0
+                and maxiter > 0 and 0 < tile_size <= 2048 and threads > 0 and timeout_seconds > 0):
+            raise ValueError('invalid solver controls')
+        executable = Path(executable).resolve(strict=True)
+        if b'ATOMX_INTEGRALS_V1' not in executable.read_bytes():
+            raise ValueError('executable does not implement the Atomx integral ABI')
+        backend = json.loads((executable.parent/'atomx_backend.json').read_text())
+        if backend['abi'] != 'ATXCC001' or backend['executable_sha256'] != _sha(executable):
+            raise ValueError('backend executable/source manifest mismatch')
+        directory = Path(directory).resolve()
+        manifest = export_integrals(integrals, directory)
+        flags = ' '.join(str(int(i in active)) for i in range(n))
+        inp = '\n'.join(['title "Atomx signed native integrals"', 'interface pyscf',
+            'integrals ATOMX_ONE ATOMX_TWO', f'model {model.lower()}', f'sector {sector}',
+            f'active {flags}', f'maxiter {maxiter}', f'conv {tolerance:.16e}', 'diis 8',
+            *(['diis triples'] if model == 'CCSDT' else []),
+            f'memory {memory_bytes//1024**2} mb', f'tilesize {tile_size}',
+            f'nthreads {threads}', 'disk_usage 0', ''])
+        (directory/'cc.inp').write_text(inp)
+        provenance = dict(backend='EXP-T Atomx interface', executable_sha256=_sha(executable),
+            backend_source_manifest_sha256=_sha(executable.parent/'atomx_backend.json'),
+            upstream_revision=backend['upstream_revision'], backend_patch_sha256=backend['patch_sha256'],
+            atomx_solver_sha256=_sha(__file__), model=model, sector=sector, active_indices=active,
+            model_matrix_order='ascending global active indices, C1 one-particle/hole determinant basis',
+            resources=estimate, tolerance=tolerance, residual_bound_tolerance_Ha=residual_bound_tolerance_Ha,
+            memory_bytes=memory_bytes, tile_size=tile_size, threads=threads,
+            integral_manifest_sha256=_sha(directory/'integrals.json'), input_sha256=_sha(directory/'cc.inp'),
+            integrals=manifest)
+        (directory/'request.json').write_text(json.dumps(provenance, indent=2)+'\n')
+        with (directory/'cc.log').open('w') as log:
+            result = subprocess.run([str(executable), '--no-clean', 'cc.inp'], cwd=directory, env=environment,
+                                    stdout=log, stderr=subprocess.STDOUT, timeout=timeout_seconds)
+        log = (directory/'cc.log').read_text()
+        statuses = {s: (int(ok), int(it), *(float(v) for v in (a, b, c)))
+            for s, ok, it, a, b, c in re.findall(
+                r'ATOMX_CC_STATUS (\dh\dp) (\d+) (\d+) (\S+) (\S+) (\S+)', log)}
+        needed = {'0h0p', sector}
+        if result.returncode or not needed.issubset(statuses) or any(statuses[s][0] != 1 for s in needed):
+>           raise RuntimeError(f'EXP-T amplitude solve failed; inspect {directory}/cc.log')
+E           RuntimeError: EXP-T amplitude solve failed; inspect /tmp/pytest-of-zzhang/pytest-274/test_streamed_fsccsdt_electron0/packed/cc.log
+
+src/atomx/methods/fscc.py:280: RuntimeError
+=========================== short test summary info ============================
+FAILED tests/test_spinor_integrals_fscc.py::test_live_tensor_fsccsdt_against_complete_three_electron_ci
+FAILED tests/test_streaming_spinor_integrals.py::test_streamed_fsccsdt_electronic_replay
+2 failed, 44 passed in 3.77s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

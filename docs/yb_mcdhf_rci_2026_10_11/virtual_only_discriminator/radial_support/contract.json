@@ -1,0 +1,29 @@
+{
+  "created_before_saved_algebra_utc": "2026-10-11T11:05:25.107511+00:00",
+  "hypothesis": "Nuclear-complement minima may have compact radial support and high manyelectron diagonal excitation energies despite being exact nuclear minima. Savedquadrature moments/densities distinguish this from experimental valence support without new operators or spectra.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/canonical29_orbitals.npz": "523e43c0eb7c085d27c2b8f8ec15294e09cb925cb2e3f4abd95d176d9c88a9da",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/balanced_virtual_CI.npz": "cb1dc218a3133c57deb64a2a26e5019c573c0f1c79016a89a414e15278e7a122",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/balanced_virtual_H.npz": "bbcf55468bb3201ada11e4e148779e56aae9f624cdcd633c82a7d0dae6d77372",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/basis_rows.json": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+  },
+  "observable_definitions": [
+    "density=P(r)^2+Q(r)^2 in shared B-spline quadrature, normalized independently",
+    "meanr/medianquadrature radius/rmsradius and fixed radius cumulative mass in a0; probability below corresponding optimized valence median",
+    "bare nuclear onebody Rayleigh energies are not screened valence energies or excitation denominators",
+    "saved newCSF diagonalH minus same selected energy and newCSF mixing mass; not a Q-sector spectral lowerbound or omitted-correlation bound"
+  ],
+  "new_H_CI_Dirac_virtual_gradient_optimizer_eigensolves": 0,
+  "resources": {
+    "CPU": 1,
+    "address_space_GiB": 4,
+    "wall_s": 60
+  },
+  "acceptance": "Same bound arrays/namespace; radial norm/Gram1e-10; all finite; source and original failingstationarity retained. No threshold/model change.",
+  "stop": "One saved algebra evaluation; no screened construction or newphysics.",
+  "limits": "A core-like density supports a construction-quality hypothesis; it does not establish screened-Fock virtual quality, radial convergence, no-pair boundary error or dominant physical gap."
+}

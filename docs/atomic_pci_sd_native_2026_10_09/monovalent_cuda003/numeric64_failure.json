@@ -1,0 +1,5 @@
+{
+  "type": "FileNotFoundError",
+  "message": "[Errno 2] No such file or directory: '/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/monovalent_cuda003/arrays.npz'",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_cuda_subspace.py\", line 117, in main\n    np.load(out / \"arrays.npz\", allow_pickle=False) as new,\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py\", line 451, in load\n    fid = stack.enter_context(open(os.fspath(file), \"rb\"))\nFileNotFoundError: [Errno 2] No such file or directory: '/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/monovalent_cuda003/arrays.npz'\n"
+}

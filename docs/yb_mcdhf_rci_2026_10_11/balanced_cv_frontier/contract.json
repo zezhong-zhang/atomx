@@ -1,0 +1,119 @@
+{
+  "record_id": "yb-balanced-core-single-valence-replacement-preflight-2026-10-11",
+  "written_before_enumeration_utc": "2026-10-11T07:43:47.380290+00:00",
+  "hypothesis": "The prior 68-CSF 4f13 6s5d/6s6p discriminator leaves 6s uncoupled while P falls by about 600 cm^-1. Complete two-particle substitutions from the same three-valence-shell pool may expose missing lower-state coupling and differentiate an unbalanced finite-space increment from a general correlation deficit.",
+  "fixed_conditions": {
+    "atom": "Yb+",
+    "Z": 70,
+    "electrons": 69,
+    "native_run": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment",
+    "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source",
+    "source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f",
+    "orbital_pool": "exactly all 24 radial (n,kappa) keys saved in native005; no radial changes or optimization",
+    "core": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14",
+    "bare_valence_refs": [
+      "6s1",
+      "5d1",
+      "6p1"
+    ],
+    "target_symmetries": [
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        3,
+        -1
+      ]
+    ],
+    "core_hole_shells": [
+      "4f",
+      "5p",
+      "5s"
+    ],
+    "particle_shell_pool": [
+      "6s",
+      "5d",
+      "6p"
+    ],
+    "substitution": "For every bare reference remove its one valence electron and one electron from one declared core shell; add every unordered two-particle occupation in the declared particle pool. Deduplicate resulting physical configurations and CSF signatures, retaining original-reference provenance. Same-reference particle retention is included.",
+    "symmetry_completeness": "Every Pauli-allowed jj subshell split and complete signed coupling tree, in every J/parity sector of every resulting NR configuration. The five target sectors only select the angular reachability probe, not the retained enumeration.",
+    "two_particle_occupation_families": [
+      "6s2",
+      "6s1 5d1",
+      "6s1 6p1",
+      "5d2",
+      "5d1 6p1",
+      "6p2"
+    ]
+  },
+  "public_operators": [
+    "parse_nr_shells",
+    "enumerate_jj_csfs",
+    "count_j_resolved_csfs",
+    "get_shared_orbital_basis",
+    "csf_signature",
+    "pattern_m_counts",
+    "CIRadialDensity.contract_bilinear",
+    "canonical_static_radial_key"
+  ],
+  "coupling_scope": "Dirac-Coulomb signed angular radial-key coefficient support, with exact static Coulomb radial-key permutation aggregation. No radial integrals, diagonalization, energy estimates, static Breit angular support or spectrum computed. Numerical cancellation-sized nonzeros are reported as ambiguous, not proven physical coupling.",
+  "acceptance": {
+    "unique_candidate_NR_configs": 18,
+    "bare_NR_configs": 3,
+    "bare_CSFS": 5,
+    "all_electron_counts": 69,
+    "same_24_orbital_keys": true,
+    "generator_count_equal_count_j_resolved": true,
+    "complete_magnetic_dimension_equal_integer_pattern_sum": true,
+    "complete_J_multiplicity_equal_N_MJ_minus_N_MJplus1": true,
+    "signature_uniqueness": true,
+    "no_angular_coefficient_amplitude_truncation": true,
+    "source_and_inputs_verified": true,
+    "angular_nonzero_robust_threshold": 1e-11
+  },
+  "resources": {
+    "threads": 1,
+    "address_space_cap_GiB": 4,
+    "wall_cap_s": 360,
+    "max_raw_determinants_per_J_parity": 2000,
+    "count_before_angular_allocation": true,
+    "no_full_69_electron_unrestricted_determinant_generation": true,
+    "dense_CSF_bytes_estimate": "8 sum(n_Jp^2) exact bytes, excluding caches/workspace; no resident-memory certification",
+    "raw_pair_work_upper": "sum(raw_M=J^2), an integer combinatorial upper count, not timing or byte bound"
+  },
+  "distinguishing_outcomes": [
+    "Nonzero 6s angular coupling in omitted complete-pair families motivates the first balanced fixed-orbital lower/upper differential RCI test.",
+    "Absent lower-state coupling across the declared pool warns that completing only these candidate families cannot by itself supply this mechanism.",
+    "Family counts or raw determinant caps can reject a planned full angular allocation before construction; preserve exact counts and do not shrink the model."
+  ],
+  "stopping_condition": "Stop after verified enumeration, bounded angular support probes, resource estimates and staged next-step recommendation. No expanded-space MCDHF, radial energy work, computed spectrum or experimental-accuracy claim.",
+  "not_claimed": [
+    "complete core-valence correlation",
+    "core-double or core-core excitations",
+    "higher virtual n/l orbitals",
+    "expanded MCDHF stationarity",
+    "spectra or NIST gaps for candidate spaces",
+    "efficiency benchmark",
+    "highest atomic accuracy"
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/contract.json": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/cv_discriminator/same005_orbitals001/result.json": "33f6cf200fa692742f36cb6a73607494aed115fb58ad09afd5d70ab5b66f0392"
+  }
+}

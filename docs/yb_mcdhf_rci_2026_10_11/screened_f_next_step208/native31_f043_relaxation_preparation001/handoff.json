@@ -1,0 +1,59 @@
+{
+  "status": "frozen_SOURCE_ONLY_native31_f043_bounded_relaxation_prepared",
+  "executor_implemented": true,
+  "execution_authorized": false,
+  "requires_separate_exact_root_binding_and_foreground_outer_launcher": true,
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/run.py": "be1b987d86208fa66736609a1cca09ec15a332957e27e111e5b1c6dec87e1ae0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/preparation.json": "440fcc67e85d9703efb37519bc1028e6d623bc60883eca3e58cadfdd3fd53ba5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/verify_preparation.py": "062d5bb7be0117470a4a9d0df27d6b23539660e3b93f189fcca050c32765b6e0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/dependency_review.json": "05a92012f2908ba4bf92d32c0e6e1a8aba18e4b7ffb2be687d5c416d9ca89df8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/README.md": "511a34828c384a5e2a481c34440e28e5b9d4bcd76e6db4ee4e6d3943764acd5b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/trace.md": "076ab92c99976b8d14e09d19e9f8d8204806f2270832ecd1b21d68351cd04caf",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/docimpact.json": "07e883e305ff55ea179af1a5058447606c8fbff80e43b677e8e4241d9944ded6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/ruff_verification.json": "c0d81eb5c8a2663a10a6c0640dc8fee51ee849b873f11795aeb7591f66aee57c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/preparation_attempt001.json": "24ba0c877ac869a3a47035f31f55423a9eab0072981bb892489ac6bd7f1a80f1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/verify_preparation_attempt001.py": "a0e1040487bcab02eaebf4228cc2ac59b3a65fb45f5b73f3961f412849cc0a04"
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+  "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+  "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+  "baseline_scope": "Own recovered31 f043 physical point; repeat whole H/roots/signedC/owner/PQ bitwise and fullg/pg original tolerances. Original438+730 closed controls retain finite domain, no current-epoch qualification transfer.",
+  "single_public_optimizer": true,
+  "max_new_accepted": 16,
+  "max_H": 65,
+  "max_CI": 65,
+  "max_production_retained_g": 17,
+  "max_extra_weighted_g": 34,
+  "max_all_weighted_g": 51,
+  "max_points": 17,
+  "beforeloop_integer_census": {
+    "points": 17,
+    "target_quotients": 85,
+    "complete_sector_dimensions": [
+      219,
+      223,
+      367,
+      370,
+      416
+    ],
+    "support_pair_upper_per_point": 271965,
+    "support_pair_upper_all_points": 4623405,
+    "examined_pair_cap": 5000000
+  },
+  "source_only_checks": 25,
+  "Ruff_passed": true,
+  "science_calls": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "current_source_adopted": false,
+  "current_regression_failures_unchanged": true,
+  "source_preparation_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/execution_binding.json",
+  "root_review_changes": [
+    "Beforeloop exact integer complete-support census.",
+    "No per-pair disk progress writes; strict attempted/completed caps unchanged."
+  ],
+  "no_runtime_or_physics_claim": true
+}

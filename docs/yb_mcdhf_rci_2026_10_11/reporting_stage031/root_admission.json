@@ -1,0 +1,34 @@
+{
+  "status": "root_source_JSON_reviewed_admitted_metadata_only",
+  "created_at": "2026-10-11T19:02:48.273347+00:00",
+  "contract_sha256": "9ff00f67560f12eaa07f7f4ed0ab895bfdc4337aca29ff6fd64bbe9f9518dc60",
+  "handoff_sha256": "520b3052a6fe34782ec5d7b8b28846d80bb2ee8b2fa051154df88be3e797b993",
+  "launcher_sha256": "10bb95aeb996c3221ece8cfc434ef7c633a5bc31328b5b062b98dc67bec1c3f5",
+  "registry_before_sha256": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b",
+  "command": [
+    "timeout",
+    "--kill-after=5s",
+    "60s",
+    "taskset",
+    "-c",
+    "30",
+    "/usr/bin/python3",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/reporting_stage031/refresh.py",
+    "--execute",
+    "--contract-sha256",
+    "9ff00f67560f12eaa07f7f4ed0ab895bfdc4337aca29ff6fd64bbe9f9518dc60"
+  ],
+  "review": [
+    "complete driver and exact contract read",
+    "all handoff and source_JSON identities verified",
+    "old scientific fields and failed gates preserved",
+    "GPU source preparation and native31 HF partial scopes distinct"
+  ],
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "maximum_seconds": 60,
+    "RLIMIT_AS_bytes": 1073741824
+  },
+  "authorization": "one metadata refresh; zero science, NPZ, API or card sends"
+}

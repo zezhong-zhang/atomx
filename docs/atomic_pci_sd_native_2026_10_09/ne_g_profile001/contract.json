@@ -1,0 +1,15 @@
+{
+  "source_run": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/ne_complete_s_p_d_f_g_50",
+  "load": [
+    11.15380859375,
+    11.12060546875,
+    10.578125
+  ],
+  "fixed": "replay all saved native orbitals and every raw source amplitude",
+  "gate_Ha": 1e-11,
+  "repetitions": 3,
+  "edge_batch": 1024,
+  "hypothesis": "original diagram stage costs identify repeated radial work; exact pair contraction improves that stage without any cutoff",
+  "stopping": "failed complete action/residual or pair-matrix agreement rejects timing claim",
+  "timing_scope": "warm same-vector whole action, diagram sub-stages, and paired full pair-matrix kernel; no end-to-end solver speedup claim"
+}

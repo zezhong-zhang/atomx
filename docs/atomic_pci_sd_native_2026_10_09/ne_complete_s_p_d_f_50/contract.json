@@ -1,0 +1,27 @@
+{
+  "directory": "docs/atomic_pci_sd_native_2026_10_09/ne_complete_s_p_d_f_50",
+  "case": "ne10",
+  "ns": 30,
+  "ks": 7,
+  "lmax": 3,
+  "emax": 50.0,
+  "memory_gib": 2,
+  "restart": 30,
+  "maxiter": 100,
+  "source": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI",
+  "compiler": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+  "runtime_directory": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu",
+  "load": [
+    9.1474609375,
+    9.302734375,
+    9.33203125
+  ],
+  "threads": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "equation_residual_gate_Ha": 1e-10,
+  "fixed": "native DC closed core; complete requested VN energy band and partial waves",
+  "stopping": "reject oversized complete model or failed raw residual; no virtual pruning",
+  "phase": "larger-space/performance control; no experimental convergence claim"
+}

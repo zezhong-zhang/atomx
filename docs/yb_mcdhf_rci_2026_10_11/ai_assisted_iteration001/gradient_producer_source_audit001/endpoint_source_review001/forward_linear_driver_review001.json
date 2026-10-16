@@ -1,0 +1,50 @@
+{
+  "artifacts_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/README.md": "c1f70f735c3af698ad401ea85ed354bb334f79c38229b7d4c43038f24f5934df",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/contract.json": "95e226fb4b3efeaac580d9f916c67c54d6392e9f0127b33fa1571f2dc78bda84",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/handoff.json": "0e64c8b2ebbdf7798f56862ea1b773c0244ccd172f4d7e957ef6a095c4996f04",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/preparation.json": "4593085afd1b0308c1445fa1da9178f4eb755676eedff9d07beeeae11c106cd2",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/run.py": "8c79baba8d063e21308b7607b99e7b3ee22c463cb2abf75c2fc25f1ee2447d77",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/verify_preparation.py": "aeb4e7a95d3fce5ba59c4e197b36f3b12239c16cbb61b3fc1c94667c319aede1"
+  },
+  "independent_SOURCE_default": {
+    "command": [
+      "/usr/bin/python3",
+      "-I",
+      "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/run.py"
+    ],
+    "exit_code": 0,
+    "stdout": "SOURCE only: 0 NPZ access, numerical imports or scientific calls."
+  },
+  "issues_fixed_before_freeze": [
+    "Saved sparse comparisons replaced by dense primary comparisons.",
+    "Original normalization placement retained.",
+    "Inherited nativefloatnormaggregate wording clarified as historical reference only."
+  ],
+  "numerical_execution_authorized_by_this_review": false,
+  "preparation_SOURCE_checks": 24,
+  "remaining_runtime_scope": "Actual array/kernel work, host admission and finite numerical results are unexecuted by reviewer; root owns separately authorized one-shot foreground experiment.",
+  "review_access": {
+    "NPZ_stat_header_hash_body": 0,
+    "native_scientific_calls": 0,
+    "numerical_imports": 0,
+    "other_agent_directory_edits": 0,
+    "root_guide_edits": 0,
+    "source_savedJSON_only": true
+  },
+  "reviewed_conditions": [
+    "All available boundJSON nativeUIDorder/physicalUIDset/.2weights/columns/normphase/ownerframe/DC/basis/keyschema predicates run in SOURCEdefault before arrays.",
+    "Same two closed complete1595 CI archives and31 P/Q waves; complete five trial columns fixed at both radial endpoints; original96+191 fullCI qualifications inherited by exact bindings.",
+    "All19589 unique orderedkeys (57h,19532r) enter every native orderedblockkey vector; only native exactzeros omitted by densitydict, allkey coefficient exports retainzeros.",
+    "WideDelta=wide(R1)-wide(R0) andWidePoly=wide(explicit)+wide(reconstruction) precede completeCSR actions; FP64vectors separately evaluated andinputrounding measured.",
+    "CompleteCSR indices,indptr,nnz andrepresented coefficients retained during longdouble conversion.",
+    "Primary dense projection andliteral nativeFP64 signedpair products precede widening; genuine sparse wideDelta control separate.",
+    "Forward normalization after each fullblock sum andtranspose normalization after fullkey sum matchclosed002; normalized keyexports separate.",
+    "Primary saved contrasts use closed002 denseforward fields; no aggregatefloatnormreplay orCIresponse claimed.",
+    "Prospective2NPZ/5angularblocks/10projectiongetters/5RDM/20tableproducts/125signedrowcontractions; CPU30/thread1/AS4GiB/90inner105outer;12mnnz/2mpairs/128nullspacecaps.",
+    "Hostload<=16 andavailablememory>=8GiB gate precedes numerical archivehashing andimports.",
+    "Explicit H/CI/hS/radial/functional/gradient/optimizer/eigh guards; scopedsourcecallpath proof, angularnullspaceSVD genuinely counted; eager modulepresence not scientificcall.",
+    "All discrepancies diagnostic; no retuned gate, certifiedbound, ordinaryFD success, gradient/optimizer admission orautomaticretry."
+  ],
+  "status": "independent_frozen_SOURCE_JSON_forward_linear_review_passed"
+}

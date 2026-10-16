@@ -1,0 +1,128 @@
+{
+  "updated_at": "2026-10-11T04:51:48.673532+00:00",
+  "yb_comparison": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+  "dynamic_breit_result": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+  "tasks": [
+    {
+      "status": "远程已发布／六方向真实科学进程已完成",
+      "title": "NIST 元素周期表与实际迭代",
+      "detail": "真实卡片回执触发六个独立OS科学进程，六条完整signed/同H探针全部完成，实际重叠0.814115秒；244份输出/数组/归档SHA核验通过，151项受影响回归无失败/跳过。实际20GiB预留，池24GiB/服务26GiB/额外8GiB主机余量；首次CPU负载拒绝记录保留，门限未放宽。每张卡重新按gap审阅准入；同source/input/action已完成则不重复，后续生产实现仍须独立验证后注册。"
+    },
+    {
+      "status": "已完成私有验证",
+      "title": "大规模 J 约化全阶线性化 SD + GPU",
+      "detail": "Yb⁺ 五根、50 次完整 CPU/GPU 数组对照通过；声明空间 l≤3、414 径向虚轨道、E≤5 Ha。尚需物理空间收敛。"
+    },
+    {
+      "status": "当前 helper 已实际消费完整旧波函数／新尾根待做",
+      "title": "完整 (1+T+S) 物理范数",
+      "detail": "新源 run002 实际重算原完整 Yb 五态全部18M，28,218,500核坐标不缩水；fresh104case/832component独立锚及原64MiB/1e-11门通过。仅证明当前metric消费原source-bound波函数，不是新core/root或新l4尾收敛。"
+    },
+    {
+      "status": "原生 doubles source/PP/HH 子图集通过／其余图项待补",
+      "title": "动态 Breit 积分与 FS-CCSDT",
+      "detail": "新增不可变J/宇称桥之上完整scalar doubles source、PP与normal-ordered HH ladders以及linked能量；全部10 doubles/495独立Fermi行在DC/static/dynamic/复相位下通过原门。其余core/Fock/singles/ring、valence、Sigma2仍未构成完整大规模横向SD。"
+    },
+    {
+      "status": "四窗口完整预检与原64MiB门通过／生产门保留",
+      "title": "核—价虚轨道尾部与收敛",
+      "detail": "lmax3/4 × Emax5/10 Ha完整径向数414/441/532/567，五态共同空间；host/device载荷含norm/staging。原l4 88.4/88.6MB失败保留；有界缓存改为14.15–18.54MB而不缩水。生产联合求根仍需source-bound executor、完整angular计数与实时GPU准入。"
+    },
+    {
+      "status": "四核12-spinor保留投影通过／T4方法误差保留",
+      "title": "FS-CCSDT 与三激发规模化",
+      "detail": "公开显式修复后端实际扩大至4core/12spinor，strong Fov=0.05470Ha；core/attachment保留投影5.62e-14/6.48e-14Ha，fullsigned HEFF投影5.01e-15。T4/Q3-Q4残差约2.1/2.3e-3，FCI方法差9.09e-6Ha独立保留；不能继承两核有限exactness。"
+    },
+    {
+      "status": "完整有限wave/metric与E1/E2/M1通过／生产寿命待做",
+      "title": "相关 E1/E2/M1 与寿命",
+      "detail": "新增FiniteCorrelatedWave，强制完整full-H和两端physical metric后消费现有CI transition owner；native E1/E2/M1共11个完整signed分量与独立CI最大差2.665e-15au。生产截断CC、核响应、rates/lifetimes与实验未认证。"
+    },
+    {
+      "status": "同预算实际Numba CPU/CUDA逐位相等／负载门拒绝加速比",
+      "title": "高性能与可复现",
+      "detail": "修复scoped CUDA loader后在原4GiB自动地址预算内运行公共density四rank及全部DC/static/dynamic PP/HH批量，CPU/CUDA bitwise一致。冷热/传输/驻留阶段分列，设备负载门未过、speedup=null；不宣称大规模端到端加速。"
+    },
+    {
+      "status": "严格报告门通过／实验精度门仍失败",
+      "title": "完整同态 NIST 对照与下一轮缺口",
+      "detail": "原YbII完整五态同H/空间/零点和本地ASD5.12的349levels/327lines审计：四激发误差0.9250%、1.1684%、4.1413%、3.3799%，其中3/4超原1%门；两精细分裂+3.1465%/−9.3620%均失败；四目标线只2个唯一observed，E2观测与四态u缺失保留未知。下一轮必须五态共同完整空间求根，优先d双重态/分裂，不能拼接新旧根。未产生新谱或精度提升。"
+    },
+    {
+      "status": "完整实测与来源复核完成；实验1%门未通过",
+      "title": "Atomx vs AMBiT / pCI / EXP-T 精度与效率",
+      "detail": "同完整输入：AMBiT Σ₁差1.429e−21Ha，Na⁺SD差8.674e−19Ha；Yb完整414虚轨道term2 stress三轮8线程S4.790/E59.87%，非已收敛波函数/全求解倍数。完整AMBiT BeII八线程S1.390/E17.37%；EXP-T小四核2线程S0.559，4/8资源拒绝。GPU负载失败保留观察，不报受控倍数。"
+    },
+    {
+      "status": "完整测量与独立复核通过／严格径向门仍未过",
+      "title": "FAC 精度、完整流程与实际并行效率",
+      "detail": "192能级/2003积分全部比较，He/C/Fe共同积分通过原门，Pb绝对门失败；共同轨道4000点四组仍未过。四离子分组独立CI（无3s/3d组间耦合）共68能级/20物理E1跃迁×2光子模式，64激发最大模型差0.124292%、40条A记录最大差3.785096%，非NIST误差。FAC单/八请求线程4.769/4.752s，S8=1.005/E12.56%；Atomx单/四请求线程8.929/8.964s，S4=0.999/E24.97%；实际8请求出现15线程超限拒绝。源/运行库/全部数组复核，私有缓存排除未完成Pb样本后全流程重测。SCF是主成本（Atomx7.058s），下一步共同轨道积分定位、SCF/初始化复用、真实线程治理；独立离子吞吐尚未测，未建立实验排名。"
+    }
+  ],
+  "spectra": [
+    {
+      "title": "原子可见/紫外与光钟 E1/E2",
+      "comparison": "Yb⁺ 相关能级位置见上表；强度、寿命尚未取得同等级相关计算。",
+      "status": "能量来自源绑定的已保存 SD；其源码快照保留，不与本次冻结轨道动态修正或旧速率混成最终谱。"
+    },
+    {
+      "title": "稀土寿命（历史冻结核模型）",
+      "comparison": "6p₁/₂：6.2296 vs 8.12±0.02 ns；5d₃/₂：28.0203 vs 54.83±0.18 ms。",
+      "status": "分别偏差 −23.28% / −48.90%；该模型未通过，不代表新 SD 的寿命。",
+      "source_artifact": "docs/rare_earth_yb_spectrum_2026_10_08/comparison.json",
+      "reader": "rare_earth_lifetimes"
+    },
+    {
+      "title": "Ne⁷⁺ K 孔 X 射线位置",
+      "comparison": "四条匹配线：联合弛豫 CI 与实验评估约差 −0.64 至 −0.87 eV。",
+      "status": "有实验位置锚；不能当作四个独立精细分裂实验或完整 XFEL 线型。",
+      "source_artifact": "docs/xfel_experimental_spectrum_2026_10_04/comparison.json",
+      "reader": "ne_xray_positions"
+    },
+    {
+      "title": "Auger / 光电离",
+      "comparison": "已有 Ne/Ar 与 FAC/XATOM 数值对照；分通道残差仍存在。",
+      "status": "属于软件间对照；直接实验宽度/截面与完整响应验证待完成。",
+      "source_artifact": "docs/comparison_xraypac_fac_rerun_2026_10_02_113532/validation.json"
+    },
+    {
+      "title": "XFEL 瞬态产额与电子谱",
+      "comparison": "已定位 Ne 隐共振、双 K 空穴和 Xe 多芯空穴实验及数据入口。",
+      "status": "真实强度数据、SASE 脉冲和仪器响应配对待完成；不声称已复现实测连续谱。"
+    },
+    {
+      "title": "QED / 相对论算符",
+      "comparison": "现有 FAC 共轨道静态/有限频率 120 个矩阵元对照；它们不是实验谱。",
+      "status": "有限核、相关态和实验物理误差预算继续验证。"
+    },
+    {
+      "title": "分子 XAS / 共振与 Auger",
+      "comparison": "CO 等基础 provider 契约已演示；尚无本项目完整实验谱误差表。",
+      "status": "暂缓：当前优先完成原子级；原计划和未验证状态保留。",
+      "source_artifact": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json"
+    },
+    {
+      "title": "晶体 XAS / 稀土发光 / 磁性",
+      "comparison": "MgO 嵌入基础接口已演示；尚无周期材料或晶体宿主实验谱认证。",
+      "status": "暂缓：当前优先完成原子级；原计划和未验证状态保留。",
+      "source_artifact": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json"
+    }
+  ],
+  "fscc_precision_result": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+  "fscc_strict_target": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+  "priority": "原子级最高水平；分子和晶体案例暂缓",
+  "atlas": {
+    "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+    "scope": "私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+  },
+  "adaptive_policy": "docs/atomx_hourly_progress_2026_10_10/iteration_policy.json",
+  "fscc_equation_fix_result": "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/final_candidate_C1/result.json",
+  "fscc_equation_fix_panel": "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/final_panel.json",
+  "norm_memory_result": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/tail002/result.json",
+  "six_direction_evidence": "docs/atomx_hourly_progress_2026_10_10/parallel_six002/README.md",
+  "six_direction_receipt": "om_x100b63841d4d74a0df35db5a498b480",
+  "six_direction_result": "docs/atomx_hourly_progress_2026_10_10/parallel_six002/final_delivery_proof.json",
+  "external_benchmark_report": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+  "external_benchmark_metrics": "docs/atomic_external_benchmark_2026_10_11/fac/metrics.json",
+  "fac_benchmark_gaps": "docs/atomic_external_benchmark_2026_10_11/fac/gaps.json"
+}

@@ -1,0 +1,63 @@
+{
+  "UTC": "2026-10-14T01:03:08.588623+00:00",
+  "source_changes": "No production source edited. Added one independently anchored scientific regression test.",
+  "new_test": "tests/test_mcdhf_state_resolved_derivative.py",
+  "validation": {
+    "existing_three_file_panel": {
+      "passed": 30,
+      "elapsed_s_uncontrolled": 1.23,
+      "files": [
+        "tests/test_mcdhf_polar_retraction.py",
+        "tests/test_mcdhf_gradient_reuse.py",
+        "tests/test_mcdhf_stable_energy_difference.py"
+      ]
+    },
+    "new_independent_test": {
+      "passed": 4,
+      "elapsed_s_uncontrolled": 1.45,
+      "Ruff": "PASS"
+    },
+    "Yb_experiment": {
+      "complete_H_CI": 10,
+      "complete_state_gradients": 10,
+      "controls": 677,
+      "PASS": 674,
+      "FAIL": 3,
+      "ordinary_FD": {
+        "state": "20/20",
+        "EOL": "4/4",
+        "line": "13/16"
+      },
+      "scientific_status": "FAILED preserved; no retry, tolerance or step change"
+    }
+  },
+  "documentation_disposition": [
+    {
+      "path": "docs/TESTING.md",
+      "action": "update",
+      "reason": "Register new independent exact-CSF five-state derivative tests and preserve the separate Yb line-FD failures."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md",
+      "action": "update",
+      "reason": "Current navigation includes the new complete five-state experiment, measured passes and three failures."
+    },
+    {
+      "path": "physical_next_decision005/README.md",
+      "action": "retain unchanged after seal",
+      "reason": "Immutable predeclared step/model/gate input; STATUS.md is current evidence entry."
+    },
+    {
+      "path": "physical_next_decision005/STATUS.md",
+      "action": "add",
+      "reason": "Current authoritative result, limits and physical priority; preserves original predeclaration and execution evidence."
+    },
+    {
+      "path": "docs/MIGRATION.md; docs/DF_SOLVER_CONTROLS.md; docs/ARCHITECTURE_DESIGN.md; docs/ARCHITECTURE_CAPABILITIES.md",
+      "action": "retain",
+      "reason": "No production interface/default/operator/architecture change; test qualification only. No global Yb derivative, stationarity or experimental capability upgrade."
+    }
+  ],
+  "old_receipts": "Earlier frozen source and guide hashes remain their recorded epochs; current guide edits do not rewrite them.",
+  "insight_disposition": "No new general insight: existing preserve-metric/state-identity rules cover directional qualification, signed fullnorm, callback fidelity and nonstationary EOL versus line response."
+}

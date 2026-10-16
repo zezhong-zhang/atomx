@@ -1,0 +1,39 @@
+{
+  "status": "PASS_OF_CLOSURE_ORIGINAL_FAILURES_RETAINED",
+  "time_UTC": "2026-10-14T14:08:06.504853+00:00",
+  "source_files": 359,
+  "source_archive_members_content_checked": 359,
+  "actual_code_change_list": [
+    "src/atomx/numerics/variational_response.py",
+    "src/atomx/physics/csf/radial_increment.py"
+  ],
+  "old_radial_increment_AST_prefix_unchanged": true,
+  "contract_input_checks": [
+    26,
+    28
+  ],
+  "actual_Yb_controls": 155,
+  "finite_response_predictions": 16,
+  "max_prediction_discrepancy_Ha": 9.143492105680756e-13,
+  "new_tests_passed": 15,
+  "new_and_existing_polar_state_tests_passed": 25,
+  "affected_tests": {
+    "PASS": 67,
+    "FAIL": 2
+  },
+  "matched_before_tests": {
+    "PASS": 42,
+    "same_FAIL": 2,
+    "bitwise_arrays": 39
+  },
+  "initial_API_failure_preserved": true,
+  "full_output_archives_hash_checked": 10,
+  "reference_source_files_hash_checked": 2,
+  "ruff": "All checks passed!",
+  "git_diff_check": "PASS",
+  "documentation_files": 12,
+  "working_tree_link_errors": [],
+  "fresh_physical_calls_during_closure": 0,
+  "original_ordinary_FD_superseded": false,
+  "optimizer_admitted": false
+}

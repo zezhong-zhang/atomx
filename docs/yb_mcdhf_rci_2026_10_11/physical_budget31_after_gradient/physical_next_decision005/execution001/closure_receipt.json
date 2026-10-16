@@ -1,0 +1,188 @@
+{
+  "status": "CLOSED_scientific_FAIL_preserved_no_retry",
+  "closed_UTC": "2026-10-14T00:57:43Z",
+  "root_session": 83426,
+  "root_exit_code": 1,
+  "driver_sha256": "bba8234d35e9f025a6f89925026348fef8990eb36037e1d0e74abf99981cda38",
+  "contract_sha256": "6b8a0dd102220e688ed12f99795d1ae763e3c1d9af14ceeaf02357bd7e1e34c1",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "root_seal_sha256": "3b112340eef135189e94f889959458cde3c9abba1e166aaad96f81910feb82b5",
+  "frozen_preparation_files": {
+    "README.md": "ccf8602e0bff5b4dcbc05080d0a6fcc2765455ba1f0e6a08e4e497af08b9972d",
+    "preparation.json": "8e4929f43519f1523ef7bf3d3768d92ae70dd93a1c3ecf6584e9ae170f7d7025",
+    "header_preflight.json": "0af5abc1766d3c10b8931a25641e4007055c476c73a3f1a4fa922eac7b050efb"
+  },
+  "actual_files": {
+    "actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "actual/A_R0.npz": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "actual/A_R0_state_gradients.json": "f202df655c0843197d48561c479abc8d05307b0eff0bc7fc7f88525281ec8856",
+    "actual/A_R0_state_gradients.npz": "c5230fb4a80383e25f25ca5c0eefad82147e8819c8a3d65908698c50f1b88331",
+    "actual/A_minus_h.json": "1d08eb30b89611a537c98970530f14d9bebd1143e1c19ad86d2f7a96b69e4680",
+    "actual/A_minus_h.npz": "a8d6f955c63bad47a3fac931d9d19c645ed14f329ef6625e1f2031e8960b73ea",
+    "actual/A_minus_half.json": "9b8075ce3c2509b157392ff63e4f762e19b5973e21d1fb7cd28ccd114d599aec",
+    "actual/A_minus_half.npz": "5cc8863b642d45838ffe9139a422f5a292c44585f9e7c439384e918032322c67",
+    "actual/A_plus_h.json": "fb10eab9d7f04d1922ac31ac524d1b69605e639bb2b71f31501d4fce0e54db91",
+    "actual/A_plus_h.npz": "2d041129ed4c2b7a42af4643ce3a70203525e32af970bb17de3a32070beba7e5",
+    "actual/A_plus_half.json": "ac373a06300d13dddf2bfad86cdb4e695dcad6ce8940eababb35ac8731affbf1",
+    "actual/A_plus_half.npz": "6d75b5dec6100ffabd94ad137a7e336a0c80ccc98d8e467f347f457171e7c66a",
+    "actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "actual/B_R0.npz": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+    "actual/B_R0_state_gradients.json": "23fcc0b2c3526af9183dd7b2d5e2103af55017c0801db765f7644fca9599a72c",
+    "actual/B_R0_state_gradients.npz": "236ef57fda2a776089346f07ba36d99f0127dff78de392ed8caefe0b992ab117",
+    "actual/B_minus_h.json": "c2df81a0083d4585456bb3c76ce5fa3535b508311452510f113f5d3eb9f8effe",
+    "actual/B_minus_h.npz": "087f308466d5f329152b854d747c8adc9073297105e4936d946f16b429d0aab8",
+    "actual/B_minus_half.json": "3b2125e5c3090a34b3fc0f837040b3971d563c09b6df52321bbb3f950f671fb3",
+    "actual/B_minus_half.npz": "ccdbdcd98d2777dabed105e23c60f8fff5d8738aa480b0389a0a8c163707cac1",
+    "actual/B_plus_h.json": "af0caf5a22dbbfc89feddbcc922951121adc560b6fbd4cf0bd5985035a72cb4e",
+    "actual/B_plus_h.npz": "0c4352843ef5dbc7a71c86463bafb34a153c50c35b26b6dc7693bb00fec5aa5f",
+    "actual/B_plus_half.json": "b4f5d3d57189f12863d2158ce58e0cc39d47cf3dbd0d91a47f1fdfb1032ad155",
+    "actual/B_plus_half.npz": "692ac042515fc9b7c92eb457e6c1234447962889168dca104e672f3b42218ffb",
+    "actual/partial.json": "8fc3edca9a08092aec501da63e8f62a71ce0df7d8a12f5aa1ab59f6553ccf420",
+    "actual/result.json": "ff8ab7892c620b6c1ed1b175c580a53d6865529528a18f473831ce956c3f1b82"
+  },
+  "checks": {
+    "total": 677,
+    "PASS": 674,
+    "FAIL": 3
+  },
+  "ordinary_FD": {
+    "total": 40,
+    "PASS": 37,
+    "FAIL": 3,
+    "absolute_state_PASS": 20,
+    "EOL_PASS": 4,
+    "line_PASS": 13,
+    "line_total": 16,
+    "failures": [
+      {
+        "arm": "A",
+        "step": 0.002,
+        "kind": "line",
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "analytic_Ha": -0.0008865002496612762,
+        "central_Ha": -0.0008864872143021785,
+        "error_Ha": 1.3035359097717707e-08,
+        "tolerance_Ha": 1e-08,
+        "PASS": false,
+        "upper_plus_minus_R0_Ha": [
+          -0.0003327721769892378,
+          0.00033576104942767415
+        ],
+        "lower_plus_minus_R0_Ha": [
+          -0.000330992515955586,
+          0.00033399476160411723
+        ]
+      },
+      {
+        "arm": "B",
+        "step": 0.002,
+        "kind": "line",
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "analytic_Ha": -0.0007594835109025755,
+        "central_Ha": -0.0007594676389999222,
+        "error_Ha": 1.5871902653299638e-08,
+        "tolerance_Ha": 1e-08,
+        "PASS": false,
+        "upper_plus_minus_R0_Ha": [
+          -0.0003277739797340473,
+          0.0003307686019979883
+        ],
+        "lower_plus_minus_R0_Ha": [
+          -0.0003262469563196646,
+          0.0003292577548563713
+        ]
+      },
+      {
+        "arm": "B",
+        "step": 0.001,
+        "kind": "line",
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "analytic_Ha": -0.0007594835109025755,
+        "central_Ha": -0.000759472641220782,
+        "error_Ha": 1.0869681793548532e-08,
+        "tolerance_Ha": 1e-08,
+        "PASS": false,
+        "upper_plus_minus_R0_Ha": [
+          -0.0001642613951844396,
+          0.000165010045748204
+        ],
+        "lower_plus_minus_R0_Ha": [
+          -0.00016349989346053917,
+          0.00016425260218966287
+        ]
+      }
+    ]
+  },
+  "aggregate_full_gradient_closure_passed": true,
+  "all_ten_points_finished": true,
+  "calls": {
+    "CI": 10,
+    "CI_eigh": 50,
+    "H": 10,
+    "H_projection": 60,
+    "angular_nullspace": 43,
+    "angular_table": 10,
+    "banded_contraction": 1308840,
+    "block_terms": 60,
+    "density": 9920,
+    "factor_getter": 28240,
+    "gradient": 10,
+    "gradient_band_add": 28240,
+    "gradient_components": 28240,
+    "gradient_density": 28240,
+    "gradient_factors": 28240,
+    "gradient_pair_potential": 7060,
+    "one_body_MV": 310,
+    "pair_convolution": 28240,
+    "pair_potential": 7060,
+    "polar_retraction": 28,
+    "radial_evaluator": 10,
+    "radial_key": 694040,
+    "raw_hS": 21,
+    "raw_h_correction_MV": 2850,
+    "target_MV": 147484,
+    "tracking_overlap": 11,
+    "tracking_projection": 110,
+    "tracking_resolve": 10,
+    "unfiltered_RDM": 10,
+    "forbidden_science": 0,
+    "NPZ_load": 7,
+    "NPZ_save": 12
+  },
+  "elapsed_uncontrolled_s": 133.72434615701786,
+  "peak_RSS_bytes": 2201653248,
+  "scientific_report_scope": "Saved JSON scalar reductions only; no numerical imports or NPZ members inspected; existing NPZ files whole-byte hashed only.",
+  "limitations": [
+    "No global stationarity/old-FD/optimizer qualification",
+    "No spectral experimental error bound",
+    "Reference-metric norms and orbital cancellation are basis/direction diagnostics",
+    "No unique attribution of physical error",
+    "No retry or step/gate/model change",
+    "Timing uncontrolled"
+  ],
+  "report_files": {
+    "RESULTS.md": "05014d883f0f55e44cf111b95c2f7f887ca72852367eb6754df1e6e7c7e54894",
+    "trace.md": "34f63a234c60fce1d6760c8107c47150b6ebbc579122f37cf8ae28e48182ca57",
+    "orbital_action_accounting.json": "aafd174fec5a7ab9db8ab742f36f3f65674f7598ce88db47ecf8282d52303530"
+  },
+  "independent_result_review": {
+    "path": "result_review.json",
+    "sha256": "d03ef2d7a9cfcdfd668f73688016dd0a41f9324803988968a2d838a70e4446e2",
+    "scope": "11 grouped checks PASS independently confirms completed scientific FAIL; saved JSON scalar analysis only, no scientific rerun"
+  }
+}

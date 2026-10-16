@@ -1,0 +1,31 @@
+{
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/contract.json": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/run.py": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/actual/result.json": "8586b09564ac38fa04cead1bcb37b823c4126720a2908dbd47eeaada145d1008",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/root_execution.json": "f4688de5842129d41766c9dac3eb4ea1d3e9b7a5a8ac57425c59f47b703ab6d3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/root_execution.log": "a950d609b67feae722ec3a08c5c2e16483017e997a4954e841136cbafb6eaa6f",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+  },
+  "all_finding_identity_controls_passed": true,
+  "controls": {
+    "functional_public_h_is_lower_triangle_symmetric": true,
+    "fixture_compared_logical_h_to_raw_geometry": true,
+    "failed_before_H_CI_gradient": true,
+    "three_public_onebody_assemblies_only": true
+  },
+  "guard_qualification_passed": false,
+  "source_readiness_accepted": false,
+  "finding": "The fixture compares functional L(raw_h)=tril(raw_h)+tril(raw_h,-1).T against archived raw build_dirac_matrices output. The inputs use different matrix-storage semantics before the owner producer.",
+  "reviewer_disposition": "The initial source review missed this fixture convention mismatch. Its draft ready conclusion is withdrawn; no numerical qualification was established.",
+  "required_successor": "Compare functional h to L(saved raw h), and separately capture/compare raw builder h and S without changing the physical operator or gates. The successor needs its own frozen contract and actual qualification.",
+  "reviewer_calls": {
+    "imports_Atomx_Numpy": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "optimizer": 0
+  },
+  "old_evidence_changed": false
+}

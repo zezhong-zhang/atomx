@@ -1,0 +1,432 @@
+{
+  "actual_x_unpack_originalpoint": {
+    "EOL_energy_Ha": -14067.391460357383,
+    "arrays_sha256": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95",
+    "g_minus_archived_recovered_g_max": 2.6310068574076167e-08,
+    "original_metric_energy_indicator_Ha": 3.447852482353608e-15,
+    "original_metric_orbital_residual": 5.143010780099849e-08,
+    "original_stationarity_passed": true,
+    "pg_minus_archived_recovered_pg_max": 9.185507287403148e-15,
+    "radial_S_Gram_defect": 8.215989155677875e-15
+  },
+  "arrays_sha256": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95",
+  "comparisons": {
+    "complete_old_current_elementwise_g_comparison_obtained": false,
+    "old_source_actual_minus_stopped_new_EO_Ha": 0.0,
+    "old_source_actual_minus_stopped_new_original_indicator_Ha": 0.0,
+    "old_source_actual_minus_stopped_new_original_residual": 0.0,
+    "old_source_point_g_difference_max_minus_stopped_rawg_difference_max": 0.0,
+    "old_source_point_pg_difference_max_minus_stopped_pg_difference_max": 0.0,
+    "original_physical_radial_gradient_minus_original005_archive_max": 0.0,
+    "reason": "Stopped process retained scalar baseline controls, not its full g array; successor must compare this source-bound full reference elementwise."
+  },
+  "contract_sha256": "ba6025c7492598e70482f082d6e7cb61b5ebdbc4be79a97fa45613e169d3384c",
+  "different_radial_point_explanation_supported": true,
+  "driver_sha256": "f0eae013324a21d94ddc21bf16c073e50b2ad4c29cb0106157ffdb2b6af5252f",
+  "enforced_address_space_GiB": 3.95,
+  "enforced_affinity": [
+    31
+  ],
+  "finding": "Archived recovered g belongs to original005 saved physical waves; it is not the gradient evaluated on directP@recoveredx. Strict matched-point gates are retained for the new full reference.",
+  "full_bare_gradient_calls": 2,
+  "loaded_atomx_modules": {
+    "atomx": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/__init__.py",
+      "sha256": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3"
+    },
+    "atomx.angular": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/__init__.py",
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61"
+    },
+    "atomx.angular.clebsch": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/clebsch.py",
+      "sha256": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd"
+    },
+    "atomx.angular.coefficients": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/coefficients.py",
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+    },
+    "atomx.angular.csf_hamiltonian": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/csf_hamiltonian.py",
+      "sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167"
+    },
+    "atomx.angular.csf_recoupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/csf_recoupling.py",
+      "sha256": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035"
+    },
+    "atomx.angular.ls_coupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/ls_coupling.py",
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1"
+    },
+    "atomx.angular.mscheme": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/mscheme.py",
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+    },
+    "atomx.angular.rcfp": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/rcfp.py",
+      "sha256": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd"
+    },
+    "atomx.angular.recoupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/recoupling.py",
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    "atomx.angular.wigner": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/wigner.py",
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7"
+    },
+    "atomx.compare": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/compare.py",
+      "sha256": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c"
+    },
+    "atomx.config": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/config/__init__.py",
+      "sha256": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3"
+    },
+    "atomx.config.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/config/csf.py",
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999"
+    },
+    "atomx.config.parsing": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/config/parsing.py",
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e"
+    },
+    "atomx.config.subshell": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/config/subshell.py",
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce"
+    },
+    "atomx.constants": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/constants.py",
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+    },
+    "atomx.corrections": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/__init__.py",
+      "sha256": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081"
+    },
+    "atomx.corrections.adapters": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/adapters.py",
+      "sha256": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d"
+    },
+    "atomx.corrections.breit": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/breit.py",
+      "sha256": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596"
+    },
+    "atomx.corrections.protocol": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/protocol.py",
+      "sha256": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce"
+    },
+    "atomx.corrections.qed": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qed.py",
+      "sha256": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd"
+    },
+    "atomx.corrections.qedmod": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/__init__.py",
+      "sha256": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951"
+    },
+    "atomx.corrections.qedmod.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/base.py",
+      "sha256": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30"
+    },
+    "atomx.corrections.qedmod.flambaum_ginges": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/flambaum_ginges.py",
+      "sha256": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280"
+    },
+    "atomx.corrections.qedmod.indelicato": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/indelicato.py",
+      "sha256": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d"
+    },
+    "atomx.corrections.qedmod.mohr": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/mohr.py",
+      "sha256": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7"
+    },
+    "atomx.corrections.qedmod.shabaev": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/shabaev.py",
+      "sha256": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b"
+    },
+    "atomx.corrections.qedmod.welton": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/qedmod/welton.py",
+      "sha256": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a"
+    },
+    "atomx.corrections.stack": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/corrections/stack.py",
+      "sha256": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526"
+    },
+    "atomx.data": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/data/__init__.py",
+      "sha256": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d"
+    },
+    "atomx.data.flambaum_ginges": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/data/flambaum_ginges.py",
+      "sha256": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839"
+    },
+    "atomx.data.hyperfine_presets": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/data/hyperfine_presets.py",
+      "sha256": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc"
+    },
+    "atomx.data.mohr_se": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/data/mohr_se.py",
+      "sha256": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c"
+    },
+    "atomx.methods": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/__init__.py",
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09"
+    },
+    "atomx.methods.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/base.py",
+      "sha256": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95"
+    },
+    "atomx.methods.breit_pauli": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/breit_pauli.py",
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208"
+    },
+    "atomx.methods.ci": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/ci.py",
+      "sha256": "0514fc2bd5110fe7a8284f0d448d3d9ee984665a1f9e028142d8c35d6c12549b"
+    },
+    "atomx.methods.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/csf/__init__.py",
+      "sha256": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0"
+    },
+    "atomx.methods.csf.solver": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/csf/solver.py",
+      "sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82"
+    },
+    "atomx.methods.csf.variational": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/csf/variational.py",
+      "sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72"
+    },
+    "atomx.methods.dirac_fock": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/dirac_fock.py",
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52"
+    },
+    "atomx.methods.hartree_fock_slater": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/hartree_fock_slater.py",
+      "sha256": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4"
+    },
+    "atomx.methods.hydrogenic": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/hydrogenic.py",
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942"
+    },
+    "atomx.methods.mbpt": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/mbpt.py",
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    },
+    "atomx.methods.mcdhf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/mcdhf/__init__.py",
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167"
+    },
+    "atomx.methods.mcdhf.solver": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/mcdhf/solver.py",
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c"
+    },
+    "atomx.methods.scf_observables": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/scf_observables.py",
+      "sha256": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739"
+    },
+    "atomx.numerics": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/__init__.py",
+      "sha256": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125"
+    },
+    "atomx.numerics.bspline": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/__init__.py",
+      "sha256": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9"
+    },
+    "atomx.numerics.bspline.basis": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/basis.py",
+      "sha256": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb"
+    },
+    "atomx.numerics.bspline.convol": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "atomx.numerics.bspline.dirac_assembly": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/dirac_assembly.py",
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28"
+    },
+    "atomx.numerics.bspline.evaluate": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/evaluate.py",
+      "sha256": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059"
+    },
+    "atomx.numerics.bspline.integrals": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/integrals.py",
+      "sha256": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c"
+    },
+    "atomx.numerics.bspline.knots": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/knots.py",
+      "sha256": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a"
+    },
+    "atomx.numerics.diis": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/diis.py",
+      "sha256": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37"
+    },
+    "atomx.numerics.quadrature": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/quadrature.py",
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021"
+    },
+    "atomx.numerics.radial_metric": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/radial_metric.py",
+      "sha256": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4"
+    },
+    "atomx.numerics.radial_workspace": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/radial_workspace.py",
+      "sha256": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21"
+    },
+    "atomx.numerics.shooting": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/__init__.py",
+      "sha256": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01"
+    },
+    "atomx.numerics.shooting.constants": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/constants.py",
+      "sha256": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643"
+    },
+    "atomx.numerics.shooting.coulomb": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/coulomb.py",
+      "sha256": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158"
+    },
+    "atomx.numerics.shooting.electron_space": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/electron_space.py",
+      "sha256": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2"
+    },
+    "atomx.numerics.shooting.operators": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/operators.py",
+      "sha256": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d"
+    },
+    "atomx.numerics.shooting.quadrature": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/quadrature.py",
+      "sha256": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a"
+    },
+    "atomx.numerics.shooting.spline": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/shooting/spline.py",
+      "sha256": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e"
+    },
+    "atomx.numerics.yk": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/yk.py",
+      "sha256": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8"
+    },
+    "atomx.physics": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/__init__.py",
+      "sha256": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c"
+    },
+    "atomx.physics.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/base.py",
+      "sha256": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be"
+    },
+    "atomx.physics.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/__init__.py",
+      "sha256": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7"
+    },
+    "atomx.physics.csf.levels": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/levels.py",
+      "sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946"
+    },
+    "atomx.physics.csf.matrix": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/matrix.py",
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    "atomx.physics.csf.radial_density": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "atomx.physics.csf.state_average": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/state_average.py",
+      "sha256": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8"
+    },
+    "atomx.physics.dirac": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/dirac.py",
+      "sha256": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c"
+    },
+    "atomx.physics.schrodinger": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/schrodinger.py",
+      "sha256": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d"
+    },
+    "atomx.potentials": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/potentials/__init__.py",
+      "sha256": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13"
+    },
+    "atomx.potentials.nuclear": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/potentials/nuclear.py",
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0"
+    },
+    "atomx.radial_state": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/radial_state.py",
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de"
+    },
+    "atomx.types": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/types.py",
+      "sha256": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+    }
+  },
+  "new_expanded_model_or_experimental_certification": false,
+  "observed_peak_RSS_MiB": 797.05859375,
+  "optimizer_calls": 0,
+  "original005_source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f",
+  "original_layout_sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "original_source_files_unchanged": 353,
+  "performance_claim": false,
+  "physical_model": {
+    "Z": 70,
+    "bare_CSFS": 5,
+    "electrons": 69,
+    "ns": 123,
+    "nucleus": "Fermi A175",
+    "operator": "bare5 no-pair DC",
+    "radial_orbitals": 24,
+    "selectors": [
+      [
+        1,
+        1,
+        0,
+        1.0
+      ],
+      [
+        3,
+        1,
+        0,
+        1.0
+      ],
+      [
+        5,
+        1,
+        0,
+        1.0
+      ],
+      [
+        1,
+        -1,
+        0,
+        1.0
+      ],
+      [
+        3,
+        -1,
+        0,
+        1.0
+      ]
+    ],
+    "state_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "physical_original005": {
+    "EOL_energy_Ha": -14067.391460357385,
+    "arrays_sha256": "d6e55f762506cd761b9d9e3eb64d503080e89e513f24227fa24b83a85da54f02",
+    "g_minus_archived_recovered_g_max": 0.0,
+    "original_metric_energy_indicator_Ha": 3.447850459196883e-15,
+    "original_metric_orbital_residual": 5.14300923282462e-08,
+    "original_stationarity_passed": true,
+    "pg_minus_archived_recovered_pg_max": 0.0,
+    "radial_S_Gram_defect": 3.121629845251604e-15
+  },
+  "physical_point_arrays_sha256": "d6e55f762506cd761b9d9e3eb64d503080e89e513f24227fa24b83a85da54f02",
+  "physical_to_actual_coefficient_max": 2.986638714119749e-13,
+  "point_identity": "direct_original_projector_times_archived_recovered_x",
+  "recovered_coordinate_archive_sha256": "fa3b24adca61cc827b924b70a89734543472268835942800ca641f2ab513c693",
+  "scientific_inputs_unchanged": true,
+  "seconds_uncontrolled": 6.207527083111927,
+  "status": "completed_two_old_source_bare_gradients",
+  "x_raw_bytes_sha256": "c6eaf4fa07aa0625cfac01b98ac46e82a70dad77bc78f95b1585c9a4217adfc4"
+}

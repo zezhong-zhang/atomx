@@ -1,0 +1,41 @@
+{
+  "status": "PASS_MATCHED_CELL",
+  "label": "A2",
+  "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+  "projection_storage": "dense",
+  "operator_sha256": "1a553270fb97b6a9e2be32c8f8ac11f8a207330bed56ee4db9359fa699d43182",
+  "rows": [
+    {
+      "sample": 0,
+      "warmup": true,
+      "core_seconds": 8.885956660000375,
+      "EA_seconds": 1.1007663989948924,
+      "core_error_Ha": 0.0,
+      "EA_error_Ha": 0.0,
+      "load_start": 0.69873046875,
+      "load_end": 0.74560546875
+    },
+    {
+      "sample": 1,
+      "warmup": false,
+      "core_seconds": 8.896005008995417,
+      "EA_seconds": 1.0893146880043787,
+      "core_error_Ha": 0.0,
+      "EA_error_Ha": 0.0,
+      "load_start": 0.74560546875,
+      "load_end": 0.78515625
+    },
+    {
+      "sample": 2,
+      "warmup": false,
+      "core_seconds": 8.834144129999913,
+      "EA_seconds": 1.0749701969980379,
+      "core_error_Ha": 0.0,
+      "EA_error_Ha": 0.0,
+      "load_start": 0.78515625,
+      "load_end": 0.81884765625
+    }
+  ],
+  "peak_RSS_MiB": 572.8671875,
+  "scope": "warm complete core-residual plus EA-action at the fixed embedded off-shell full4f point; no full-solver or spectral speedup claim"
+}

@@ -1,0 +1,737 @@
+{
+  "status": "SOURCE_JSON_PREPARATION_ONLY_NOT_NUMERICALLY_QUALIFIED",
+  "hypothesis": "The original complete native31 full-normalized signed radial gradient can consume one shared scalar scan/owned-row primitive on CPU1/CPU4/CUDA without changing any signed term, radial tail, physical model, target or native3689 metric. This is same-point raw HF-partial numerical consistency, not an FD/stationarity or GPU whole-HCI certificate.",
+  "execution_authorized": false,
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "fixed": {
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "Fermi A175",
+    "ns": 123,
+    "radial_orbitals": 31,
+    "coordinate_dimension": 3689,
+    "original_coordinate_dimension": 3451,
+    "positive_space_columns_per_kappa": 119,
+    "original_seven_projectors": "bytewise unchanged nuclear electronic branches, no energy>0 filter",
+    "parent_NR": 91,
+    "parent_CSFs_enumerated": 3789,
+    "complete_target_CSFs": 1595,
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "new_radial_keys": [
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        -4
+      ]
+    ],
+    "operator": "native scalar no-pair DC; no auxiliaryFock addition, Breit/QED or empirical shifts",
+    "tracker": "exact original531 frozen physical reference, not rebased to canonical31",
+    "reported_EO_semantics": "unchanged public evaluate returns reported eigenvalue EOL; normalized quotient/RDM controls are explicitly separate HF partial diagnostics",
+    "keys31": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -4
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "target_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "original_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "new_state_sha256": "2e4b926427f29adacf10529e371ec5a2bd591b63a5bc4fbd40f3dedc7a1d33d7",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "full_normalized_rows": 19589,
+    "full_source_jobs": 706,
+    "component_jobs": 2824,
+    "mechanical_source_upper": 3472
+  },
+  "input_roles": {
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_hS": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "tracking_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "f043_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "native31_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+    },
+    "native31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+    },
+    "native31_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/run.py",
+      "sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34"
+    },
+    "native31_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f"
+    },
+    "native31_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+    },
+    "basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/basis_identity.json",
+      "sha256": "484419319dfd73cff577cfa27b62917c043a5abfbbfc9960f8706f56d623af33"
+    },
+    "recovered_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "recovered_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+    },
+    "signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/signed_tables.json",
+      "sha256": "c2bea5c3fd8626b3c0a89b675abd01e399e581cb590652d9368c76e31897a175"
+    },
+    "adapter": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_adapter.py",
+      "sha256": "b903784cfdda3e931ae08abc11d113c8637b224e4e6aa501351762b5801df2be"
+    },
+    "adapter_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_binding_declaration.json",
+      "sha256": "1c47f810884337a6a3a031dc3ef3c6664e2dddbc721bffd083bb05dbd62987ac"
+    },
+    "adapter_union": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/actual_signed_union.json",
+      "sha256": "6051b38ebe0b4bdd709ad499025c20957b1892b0718e86b57ebac72f7d64ed7e"
+    },
+    "adapter_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/contract.json",
+      "sha256": "4cbc728cd01c662a29e4b869a13b8aa48b9bbeb8d4c4b5d8a5df69025009cd13"
+    },
+    "adapter_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/preparation_verification.json",
+      "sha256": "e0ffd6230c079bed1f474bd208041197fdbd69c38e70a56ddd62db62d6fe07d4"
+    },
+    "adapter_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/handoff.json",
+      "sha256": "07846c99fbe5ba427498088e882530d5dd459360a1eddc9c04a2298de878af44"
+    },
+    "shared_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/public_source_identity.json",
+      "sha256": "62e1d3fb713067747bf3f166286f9c3de73cb5b3c0993f99053dfc9fe037c447"
+    },
+    "historical700_metadata_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/historical_metadata_revision001/failure.json",
+      "sha256": "4904bd024b72db8edc26f8351bb6342034009144e3a6d94f55be4e25d2ecd28e"
+    },
+    "executor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/batch_executor.py",
+      "sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+    },
+    "executor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/contract.json",
+      "sha256": "3eb86a54b92c985460d3721b234a7fd94d2ed9338a5adfea7c92c3da17ad62a5"
+    },
+    "executor_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/preparation_verification.json",
+      "sha256": "79e2e8c8610f09bd59a104c6523df50e19787563a63fce21b5a388dedf9acf0c"
+    },
+    "executor_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/handoff.json",
+      "sha256": "c51fe1e4b68d4e19e478616b613e9d9a4e056c24786f0f84caa636b78fbac56e"
+    },
+    "recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "recovered_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "saved_gradient_metric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "old_FD_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/actual/failure.json",
+      "sha256": "2a868fdaf9998b07527f31d90c7c2faa8dec85d9402b8e268466b748ed982d8b"
+    },
+    "old_FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "2a4459f5c95d5d069a30309df260d5521f787ac55872a8f835a2756a87b9c42f"
+    },
+    "old_FD_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/completion.json",
+      "sha256": "c929c96e768bd731e1b76a961f1d9df5869a2335499d54f6d7f4e357ab034902"
+    },
+    "current_shared_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/shared_source_at_preparation.json",
+      "sha256": "b4a698c59302ac9c4231dcec63da7fe3417f9b183f52357c18c5536e0c0b63cd"
+    },
+    "native31_FD_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "native31_FD_domain_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+      "sha256": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3"
+    },
+    "native31_FD_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    }
+  },
+  "resources": {
+    "CPU1": 30,
+    "CPU4": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "single_thread_env": [
+      "OPENBLAS_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "BLIS_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "NUMEXPR_NUM_THREADS"
+    ],
+    "Numba_configured_max": 4,
+    "public_current_NumBa_mask": 1,
+    "private_CPU4_mask": 4,
+    "maximum_host_load": 32,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "kill_grace_seconds": 5,
+    "maximum_RSS_bytes": 4241280204,
+    "virtual_AS_bytes": 68719476736,
+    "device_payload_bytes": 536870912,
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "calls": {
+      "H": 1,
+      "CI": 1,
+      "initial_hS": 7,
+      "CI_hS_producer": 7,
+      "hS_getter": 80,
+      "validation_Dirac": 7,
+      "SPD_eigvalsh": 38,
+      "scipy_eigh": 12,
+      "tracking_SVD": 5,
+      "tracking_resolve": 1,
+      "tracking_overlap": 2,
+      "target_RDM": 5,
+      "public_full_gradient": 1,
+      "private_full_gradient": 3,
+      "private_owner_factory": 3,
+      "ordinary_source_potential": 706,
+      "ordinary_band": 2824,
+      "ordinary_density": 2824,
+      "private_density": 2976,
+      "H_density": 992,
+      "factor_getter": 2908,
+      "component_moment_getter": 56,
+      "dense_bank_getter": 100000,
+      "same_component_inner_producer": 28,
+      "mixed_component_inner_producer": 28,
+      "NPZ_load": 6,
+      "CUDA_context": 1,
+      "optimizer": 0,
+      "dense_bank_producer": 28,
+      "near_factor_producer": 28
+    },
+    "call_semantics": "All are started/completed hard upper bounds; hS/factor/dense-bank/moment requests and hit/miss ledgers separate from producers. Do not demand getter==producer. Ordinary source706/bands2824 and per-backend six scan/six row/992 densities/39064 signed incidences are exact completion controls. Dense bank requests conservative <=100000; newly produced ranks/components <=28, unknown request reuse is observed, not a performance claim.",
+    "watchdog": "External launcher samples complete process-group RSS every50ms, terminates on RSS threshold/outer deadline, five-second kill grace. Unsampled transient peak not certified. AS64GiB is CUDA virtual mapping allowance only. No model reduction on resource stop.",
+    "thread_protocol": "Immediately after import numba capture original mask; set current1 before setup/H/ordinary g. CPU1 and CUDA host1; CPU4 engine temporary4 inside its finally-protected mask and restores1. Outermost finally restores captured original mask+affinity even failure."
+  },
+  "gates": {
+    "CI_Gram": 1e-10,
+    "CI_residual_Ha": 1e-08,
+    "cross_symmetry_zero_Ha": 1e-14,
+    "radial_Gram": 1e-10,
+    "P_leak_S_squared": 1e-12,
+    "g": 1e-09,
+    "pg": 1e-10,
+    "cluster_gap_Ha": 1e-07,
+    "signed_span": 1e-08,
+    "band_scaled": 1e-12,
+    "H_and_allroots_same_f043_bitwise": true,
+    "UID_weights_norm_complete_signed_RDM_order_exact": true
+  },
+  "actual_native31_directional_prerequisite": {
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "domain_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+      "sha256": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3"
+    },
+    "root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "recorded_domains": {
+      "1e-05": {
+        "ordinary_reported": {
+          "h": 1e-05,
+          "derivative": -0.03712684701895341,
+          "analytic": -0.0371269850032454,
+          "error": 1.3798429198547124e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 1.8189894035458562e-07,
+          "difference_against_full_normalized": 1.3798428859235212e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "376266236243337087066453129214130518638682128287605840865827295058798627106660767371980254794395711206599512304896246930129267525682855952503255064719690729440179847690702929693758263573437",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 6.000510288244917e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "1005746334611005580976312263580770460126716628700539299127996190572383868702730796214902536335061395988546110466826745467393842572676337263",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": 6.00095908214766e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      },
+      "5e-06": {
+        "ordinary_reported": {
+          "h": 5e-06,
+          "derivative": -0.03712721081683412,
+          "analytic": -0.0371269850032454,
+          "error": -2.2581358872370005e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 3.6379788070917124e-07,
+          "difference_against_full_normalized": -2.2581359211681917e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "118824521195183666652078230260845810329261746318380593162241674388704219275900851757518277191560556464248316948804117824512217605803393705843036928074748541493648124434518028634360099027901",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 1.894955468357153e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "79416300931172540741146270529029075104892128982236964283291468142169840454214077551585576751795949981110584154256963962129582477524956683",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": 1.8954042622598943e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      }
+    },
+    "recorded_controls_passed": true,
+    "raw_kernel_diagnostic_only": true,
+    "assertions": {
+      "source_sha256": {
+        "document": "result",
+        "pointer": [
+          "source_map_sha256"
+        ]
+      },
+      "metric_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_metric_sha256"
+        ]
+      },
+      "geometry_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_geometry_sha256"
+        ]
+      },
+      "state_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_state_sha256"
+        ]
+      },
+      "objective_sha256": {
+        "document": "result",
+        "pointer": [
+          "objective_identity"
+        ]
+      }
+    }
+  },
+  "deferred_FD_binding": {
+    "mandatory": "Actual closed representation_repair001 result730 + derivative_domains JSON + root_receipt now concretely bound. Exact root execution seal remains mandatory before array bytes/hash/numerical import. Baseline-only prior failure remains refused.",
+    "required_points": [
+      "baseline",
+      "h0_minus",
+      "h0_plus",
+      "h1_minus",
+      "h1_plus"
+    ],
+    "h_domains": [
+      "1e-05",
+      "5e-06"
+    ],
+    "scopes": "One combined direction only; ordinary_reported and two independent_centered domains stay distinct. Even if ordinary FAIL and centered PASS, private raw-HF kernel diagnostic only may be admitted by separate root seal; no optimizer/production GPU adoption. No old29 certificate or fabricated independent numerical verifier.",
+    "schema": "result/domain_ledger/root_receipt exact native31 path+SHA; assertions map exact source/metric/geometry/state/objective to result JSON pointer; recorded_domains exactly actual derivative_domains; recorded_controls_passed actual boolean; raw_kernel_diagnostic_only true.",
+    "actual_status": "Both h ordinary_reported and both independent_centered definitions passed in 730 live controls. This is one combined direction, not full31-space certificate or GPU qualification."
+  },
+  "runtime": {
+    "isolated_runtime": "docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime",
+    "packages": {
+      "numpy": "2.2.6",
+      "numba": "0.65.0",
+      "scipy": "1.15.3",
+      "llvmlite": "0.47.0",
+      "numba-cuda": "0.30.4",
+      "cuda-toolkit": "13.2.2"
+    },
+    "NumPy_literal_file": "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/__init__.py",
+    "Numba_literal_file": "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/__init__.py",
+    "no_install_or_dependency_change": true,
+    "GPU_state": "No query/context/JIT/device execution in preparation; actual context+memory/target gate only after root seal. No CPU fallback."
+  },
+  "same_point_qualification": {
+    "source": "Fresh process imports frozen f043356 source bytes; input and loaded-module SHAs checked before/after. Shared adopted356 source is separate unchanged preparation guard.",
+    "CI": "One native complete1595 public ci_solve with owned exact input/H snapshot; allroots/Gram/column2norm residual/cross-sector/signed complete degenerate-span gates. No second solve for private backends.",
+    "RDM": "Five unchanged physical UIDs/0.2 weights tracked against original531. Exact signed contract_bilinear outputs and binary64 norms aggregate once to full-normalized table; all19589 rows/order/coefficient and706source insertion-order SHA checked. No filtered contract.",
+    "observer": "Public ordinary _pair_potential and four-component band wrappers only forward public arguments/results in original source/PP-PQ-QP-QQ order. Capture all2824 full bands as oracle; no numerical implementation replaced.",
+    "gradient": "Ordinary public gradient_from_weights exactly once; three private gradients reuse fresh same-point CI owner/full table. All31 continuous246 rawradial/complete3689raw-coordinate/tangent/nativepg controls vs ordinary and saved native438. No quotient/constraint/objective reinterpretation.",
+    "GPU_domain": "Only resident scan/row bands on CUDA; public H/CI/angular/tracker/SVD/Dirac/onebody/actions/constraints/metric/archives remain CPU. FP64 IEEE dadd_rn/dmul_rn, original scalar order, no fastmath/FMA/atomic/tree reduction."
+  },
+  "reuse": {
+    "CPU4": "CPU4 may reuse CPU1 compiled identical factory dispatchers only after same NumBa module/target/plan/source/factor SHA guards. Independent owned geometry/density/scratch. Driver captures public current mask1, temporarily sets current4 for privateg inside finally and restores1; engine own perchunk mask also preserves caller4. Outermost finally restores original processmask.",
+    "trial": "Single complete admitted snapshot only; source/support/key/table changes are rejected, never clipped. Factors shared only by exact public cache arguments; hS/getter hits recorded.",
+    "resident_payload_bounds": {
+      "device_byte_upper": 61409056,
+      "host_byte_upper_each": 196894048,
+      "D2H_bytes_per_backend": 25009344,
+      "basis_order_bound_only": 9,
+      "chunk_sources": 128,
+      "source_chunks_per_backend": 6,
+      "scan_and_row_launches_each": 6
+    },
+    "memory": "Bounds are array payload, not measured RSS/context/JIT peak. Ordinary bands~25MB + full H/C and saved H/C matrices~122MB + up to three owners; 3.95GiB hard-watch remains mandatory."
+  },
+  "timing": "Correctness qualification only. Record context, constructor/factorH2D, first-call CPU/CUDA JIT, transfer bytes, synchronized D2H/launch counts, elapsed uncontrolled stage costs; band observers and archive checks included visibly. No warm/cold paired or parallel speedup certificate.",
+  "unsupported": [
+    "incomplete radial/CSF/state/table/degenerate spans",
+    "complex/float32/nonfinite input or unsupported rank/order/ns/tails",
+    "Breit/QED/recoil/charge/effective operators",
+    "arbitrary/unowned H or owner treated as eigenpair certificate",
+    "source/geometry/target/table changes or numerical fallback",
+    "production optimizer or full-space finite response claim"
+  ],
+  "preparation_budget": {
+    "allowed": "stdlib source/JSON/hash/AST/syntax/descriptor metadata mocks and Ruff only",
+    "CPU": 1,
+    "memory_MiB": 1024,
+    "seconds": 30,
+    "NPZ_reads_or_rehashes": 0,
+    "NumPy_NumBa_Atomx_GPU_imports_or_calls": 0
+  },
+  "stop": "Exact root seal and actual complete31 FD ledger mandatory. Execute once only; first scientific/resource/runtime failure preserves all completed checks/counters/partial archives and refuses retry. No gate change, omitted term, cutoff reduction, shared source/dependency adoption or performance conclusion.",
+  "shared_source_disposition": {
+    "historical_adapter_map": "bef2f5d6b66d81efb0ce54ec8b2bd37c8f40a1855b07ed6ed3057912b79a50d3",
+    "actual_current_shared_map_sha256": "75530458e6b2734cb4a309bad56e0102f44120a97cdc8c03e41b1890f886a7d2",
+    "qualification_runtime_map": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "not_source_replay_or_adoption": true,
+    "owner_shared_edits": 0
+  }
+}

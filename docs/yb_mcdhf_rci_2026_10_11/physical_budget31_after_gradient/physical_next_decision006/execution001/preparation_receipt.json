@@ -1,0 +1,17 @@
+{
+  "status": "SOURCE_prepared_no_science",
+  "files": {
+    "run.py": "4e10a7ddb34e3f2a6366b57c3725420138ff35dd2059e921958138bd0438d220",
+    "contract.json": "b78049cad488491af636bbd018a417629c844de217e8bb8c2801bb076cf486a2",
+    "README.md": "5b5650ff975025757d319e51c41edc6d18d13fbd6cbd0d2aef58c4a8a470d053"
+  },
+  "validation": {
+    "Ruff": "PASS",
+    "stdlib_SOURCE": "PASS",
+    "source_modules": 356,
+    "nullspace_census": 43,
+    "NPZ_loads": 0,
+    "science_calls": 0
+  },
+  "no_shared_source_changes": true
+}

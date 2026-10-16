@@ -1,0 +1,490 @@
+
+		**********************************************************************************
+		**                                                                              **
+		**                                   E X P - T                                  **
+		**        Relativistic Fock-Space Multireference Coupled Cluster Program        **
+		**                                                                              **
+		**                         version 1.8.5 (10 June 2025)                         **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** EXP-T is free software: you can redistribute it and/or modify                **
+		** it under the terms of the GNU Lesser General Public License as published by  **
+		** the Free Software Foundation, either version 3 of the License, or            **
+		** (at your option) any later version.                                          **
+		**                                                                              **
+		** EXP-T is distributed in the hope that it will be useful,                     **
+		** but WITHOUT ANY WARRANTY; without even the implied warranty of               **
+		** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                **
+		** GNU Lesser General Public License for more details.                          **
+		**                                                                              **
+		** You should have received a copy of the GNU Lesser General Public License     **
+		** along with EXP-T.  If not, see <http://www.gnu.org/licenses/>.               **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** For more information about the EXP-T program system see                      **
+		** http://www.qchem.pnpi.spb.ru/expt                                            **
+		**                                                                              **
+		** This is an experimental code. The authors accept no responsibility           **
+		** for the performance of the code or for the correctness of the results.       **
+		**                                                                              **
+		** If results obtained with this code are published, an                         **
+		** appropriate citation would be:                                               **
+		**                                                                              **
+		** [1] A. Oleynichenko, A. Zaitsevskii, E. Eliav.                               **
+		**     EXP-T, An Extensible Code for Fock Space Relativistic Coupled Cluster    **
+		**     Calculations. See http://www.qchem.pnpi.spb.ru/expt.                     **
+		** [2] A. V. Oleynichenko, A. Zaitsevskii, E. Eliav.                            **
+		**     Towards high performance relativistic electronic structure modelling:    **
+		**     the EXP-T program package. Commun. Comput. Inf. Sci. 1331, 375 (2020).   **
+		**     doi: 10.1007/978-3-030-64616-5_33                                        **
+		**                                                                              **
+		**********************************************************************************
+
+Authors:
+  Alexander Oleynichenko [alexvoleynichenko@gmail.com]
+  Andrei Zaitsevskii
+  Artem Rumyantsev
+  Ephraim Eliav
+Compiler: GNU C Compiler 15.2.0
+BLAS/LAPACK implementation: OpenBLAS
+Build date: Oct  9 2026 10:37:46
+Run date: Fri Oct  9 12:32:52 2026
+Hostname: fermi
+CUDA disabled
+Tensor trains (TT) disabled
+Reading input file: cc.inp
+
+
+				****************
+				** Input file **
+				****************
+
+ -----
+ title "Atomx signed native integrals"
+ interface pyscf
+ integrals ATOMX_ONE ATOMX_TWO
+ model ccsd
+ sector 0h0p
+ active 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ maxiter 200
+ conv 1.0000000000000000e-13
+ diis 8
+ memory 32768 mb
+ tilesize 32
+ nthreads 2
+ disk_usage 0
+ -----
+
+
+
+				*************
+				** Options **
+				*************
+
+ title            title string - comment                    Atomx signed native integrals
+ scratch_dir      scratch directory for tmp files           scratch
+ --no-clean       retain scratch directory on exit          yes
+ print            print level                               medium
+ flush_amplitude  write formatted files with cluser ampl-s  no
+ arith            recommended arithmetic                    real
+ memory           max allowed RAM usage                     32768.0 Mb
+ compress         compression of integrals on disk          disabled
+ compress_triples compression of triples tensors in RAM     disabled
+ disk_usage       disk usage level                          0 (all data in RAM)
+ tilesize         max dimension of formal blocks (tiles)    32
+ nthreads         number of OpenMP parallel threads         2
+ openmp_algorithm  parallelization algorithm for mult        external
+ cuda             calculations on GPU (CUDA)                disabled
+ maxiter          maximum number of CC iterations           200
+ conv_thresh      convergence threshold (by amplitudes)     1e-13
+ div_thresh       divergence threshold (by amplitudes)      1000
+ reuse            reuse amplitudes and/or integrals         nothing
+
+ skip             skip computations in sectors:             
+ flush            flush amplitudes                          no
+ interface        source of transformed molecular integrals  PySCF
+ integrals        one-electron Hamiltonian integrals file   ATOMX_ONE
+                  two-electron (Coulomb) integrals file     ATOMX_TWO
+                  one-electron property integrals file      MDPROP
+ x2cmmf           X2Cmmf Hamiltonian                        no
+ new_sorting      new implementation of integral sorting    no
+ gaunt            two-electron (Gaunt) integrals file       not used
+ sector           target Fock space sector                  0h0p
+ model            coupled cluster model (level of theory)   CCSD
+ goldstone        use Goldstone formalism                   no
+ shift_type       formula for denominator shifts            shifts are disabled
+ nroots           number of roots to be processed           all
+ roots_cutoff     energy cutoff for roots to be processed   all
+ degen_thresh     degeneracy threshold (a.u.)               1.00000e-08
+ occ_irreps       occupation numbers of spinors             default (from integral interface)
+ occ              occupation numbers of spinors             default
+ diis             DIIS technique for convergence            enabled
+ diis <n>         DIIS subspace dimension                   8
+ diis triples     DIIS for triples amplitudes               disabled
+ diis             DIIS technique for convergence            disabled
+ oneprop          interface to OneProp (by L.V.Skripnikov)  disabled
+ twoprop          interface to TwoProp (by D.E.Maison)      disabled
+ oneprop          interface to the MDPROP file              disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h1p     construct density matrix in 0h1p          disabled
+ density 0h2p     construct density matrix in 0h2p          disabled
+ density 0h3p     construct density matrix in 0h3p          disabled
+ density 1h0p     construct density matrix in 1h0p          disabled
+ density 1h1p     construct density matrix in 1h1p          disabled
+ density 1h2p     construct density matrix in 1h2p          disabled
+ density 1h3p     construct density matrix in 1h3p          disabled
+ density 2h0p     construct density matrix in 2h0p          disabled
+ density 2h1p     construct density matrix in 2h1p          disabled
+ density 2h2p     construct density matrix in 2h2p          disabled
+ density 2h3p     construct density matrix in 2h3p          disabled
+ density 3h0p     construct density matrix in 3h0p          disabled
+ density 3h1p     construct density matrix in 3h1p          disabled
+ density 3h2p     construct density matrix in 3h2p          disabled
+ density 3h3p     construct density matrix in 3h3p          disabled
+ lambda 0h1p      solve lambda equations in the 0h1p sector  disabled
+ overlap          calculate overlap int-s for target wfns   disabled
+ nohermit         hermitization of effective Hamiltonians   disabled
+ dltdm            model-space estimates of tran dipoles     disabled
+ natorb           model-space natural orbitals              disabled
+ prop             model-space estimates of properties       disabled
+ select           selection of cluster amplitudes           disabled
+ restrict_t3      restriction of triples                    disabled
+ use_oe           use orbital energies from DIRAC           disabled
+ ih_imms          simple intermediate Hamiltonian           disabled
+
+
+ Creating scratch directory 'scratch' ...
+ Current working directory:
+ /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd
+ Full path to one-electron integrals:
+ /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/ATOMX_ONE
+ Full path to Coulomb integrals:
+ /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/ATOMX_TWO
+ Full path to properties integrals:
+ /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/MDPROP
+ Changing working directory to scratch ...
+ Current working directory:
+ /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch
+
+ ATOMX_INTEGRALS_V1 signed-antisymmetric complex Fock+ERI
+ file with molecular integrals: /data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/ATOMX_ONE
+begin reading two electron part
+ number of spinors = 154
+ number of occupied spinors = 10
+ nuclear repulsion energy = 0.0000000000000000
+ scf energy = -128.6919686424997167
+ end interface to pyscf
+
+ retained requested tile size 32
+ switching openmp parallalization algorithm to 'internal'
+ Blocks of molecular spinors:
+ --------------------------------------------------------------------------------
+   #  size  irrep  spinor indices
+ --------------------------------------------------------------------------------
+ [ 0]   32      A  1-32
+ [ 1]   32      A  33-64
+ [ 2]   32      A  65-96
+ [ 3]   32      A  97-128
+ [ 4]   26      A  129-154
+ --------------------------------------------------------------------------------
+
+
+		Symmetry & irreducible representations
+		--------------------------------------
+
+ Point group: C1
+ Group type: quaternion
+ Arithmetic: complex
+ Is abelian: yes
+ Number of irreps: 2
+ Totally symmetric irrep: a
+ Representation names:
+   0 A    1 a 
+multiplication table (for abelian only):
+
+ ||A|a|
+=++=+=+
+A||a|A|
+-++-+-+
+a||A|a|
+-++-+-+
+
+
+				Spinors info
+				------------
+
+     no    rep         occ    active        one-el energy
+    -------------------------------------------------------
+       1   0 "A     "   1       -         -32.817472075954
+       2   0 "A     "   1       -         -32.817472075954
+       3   0 "A     "   1       -          -1.935846658304
+       4   0 "A     "   1       -          -1.935846658304
+       5   0 "A     "   1       -          -0.852830558818
+       6   0 "A     "   1       -          -0.852830558818
+       7   0 "A     "   1       -          -0.848267604060
+       8   0 "A     "   1       -          -0.848267604060
+       9   0 "A     "   1       -          -0.848267604060
+      10   0 "A     "   1       -          -0.848267604060
+      11   0 "A     "   0       -           0.002979060551
+      12   0 "A     "   0       -           0.002979060551
+      13   0 "A     "   0       -           0.011883624692
+      14   0 "A     "   0       -           0.011883624692
+      15   0 "A     "   0       -           0.026581769319
+      16   0 "A     "   0       -           0.026581769319
+      17   0 "A     "   0       -           0.045724318778
+      18   0 "A     "   0       -           0.045724318778
+      19   0 "A     "   0       -           0.068019772555
+      20   0 "A     "   0       -           0.068019772555
+      21   0 "A     "   0       -           0.106828872106
+      22   0 "A     "   0       -           0.106828872106
+      23   0 "A     "   0       -           0.204603696558
+      24   0 "A     "   0       -           0.204603696558
+      25   0 "A     "   0       -           0.464349698322
+      26   0 "A     "   0       -           0.464349698322
+      27   0 "A     "   0       -           0.005721527492
+      28   0 "A     "   0       -           0.005721527492
+      29   0 "A     "   0       -           0.016873751808
+      30   0 "A     "   0       -           0.016873751808
+      31   0 "A     "   0       -           0.033311261997
+      32   0 "A     "   0       -           0.033311261997
+      33   0 "A     "   0       -           0.052999928570
+      34   0 "A     "   0       -           0.052999928570
+      35   0 "A     "   0       -           0.077497430539
+      36   0 "A     "   0       -           0.077497430539
+      37   0 "A     "   0       -           0.127330962043
+      38   0 "A     "   0       -           0.127330962043
+      39   0 "A     "   0       -           0.253164485745
+      40   0 "A     "   0       -           0.253164485745
+      41   0 "A     "   0       -           0.578277113157
+      42   0 "A     "   0       -           0.578277113157
+      43   0 "A     "   0       -           0.005837625929
+      44   0 "A     "   0       -           0.005837625929
+      45   0 "A     "   0       -           0.005837625929
+      46   0 "A     "   0       -           0.005837625929
+      47   0 "A     "   0       -           0.017219367252
+      48   0 "A     "   0       -           0.017219367252
+      49   0 "A     "   0       -           0.017219367252
+      50   0 "A     "   0       -           0.017219367252
+      51   0 "A     "   0       -           0.033966721088
+      52   0 "A     "   0       -           0.033966721088
+      53   0 "A     "   0       -           0.033966721088
+      54   0 "A     "   0       -           0.033966721088
+      55   0 "A     "   0       -           0.054137230430
+      56   0 "A     "   0       -           0.054137230430
+      57   0 "A     "   0       -           0.054137230430
+      58   0 "A     "   0       -           0.054137230430
+      59   0 "A     "   0       -           0.079821915170
+      60   0 "A     "   0       -           0.079821915170
+      61   0 "A     "   0       -           0.079821915170
+      62   0 "A     "   0       -           0.079821915170
+      63   0 "A     "   0       -           0.131490197014
+      64   0 "A     "   0       -           0.131490197014
+      65   0 "A     "   0       -           0.131490197014
+      66   0 "A     "   0       -           0.131490197014
+      67   0 "A     "   0       -           0.259922863248
+      68   0 "A     "   0       -           0.259922863248
+      69   0 "A     "   0       -           0.259922863248
+      70   0 "A     "   0       -           0.259922863248
+      71   0 "A     "   0       -           0.585081747583
+      72   0 "A     "   0       -           0.585081747583
+      73   0 "A     "   0       -           0.585081747583
+      74   0 "A     "   0       -           0.585081747583
+      75   0 "A     "   0       -           0.009548678981
+      76   0 "A     "   0       -           0.009548678981
+      77   0 "A     "   0       -           0.009548678981
+      78   0 "A     "   0       -           0.009548678981
+      79   0 "A     "   0       -           0.023656554374
+      80   0 "A     "   0       -           0.023656554374
+      81   0 "A     "   0       -           0.023656554374
+      82   0 "A     "   0       -           0.023656554374
+      83   0 "A     "   0       -           0.042431702795
+      84   0 "A     "   0       -           0.042431702795
+      85   0 "A     "   0       -           0.042431702795
+      86   0 "A     "   0       -           0.042431702795
+      87   0 "A     "   0       -           0.063710110113
+      88   0 "A     "   0       -           0.063710110113
+      89   0 "A     "   0       -           0.063710110113
+      90   0 "A     "   0       -           0.063710110113
+      91   0 "A     "   0       -           0.095712076683
+      92   0 "A     "   0       -           0.095712076683
+      93   0 "A     "   0       -           0.095712076683
+      94   0 "A     "   0       -           0.095712076683
+      95   0 "A     "   0       -           0.169374693893
+      96   0 "A     "   0       -           0.169374693893
+      97   0 "A     "   0       -           0.169374693893
+      98   0 "A     "   0       -           0.169374693893
+      99   0 "A     "   0       -           0.349000633189
+     100   0 "A     "   0       -           0.349000633189
+     101   0 "A     "   0       -           0.349000633189
+     102   0 "A     "   0       -           0.349000633189
+     103   0 "A     "   0       -           0.772989699437
+     104   0 "A     "   0       -           0.772989699437
+     105   0 "A     "   0       -           0.772989699437
+     106   0 "A     "   0       -           0.772989699437
+     107   0 "A     "   0       -           0.009660102080
+     108   0 "A     "   0       -           0.009660102080
+     109   0 "A     "   0       -           0.009660102080
+     110   0 "A     "   0       -           0.009660102080
+     111   0 "A     "   0       -           0.009660102080
+     112   0 "A     "   0       -           0.009660102080
+     113   0 "A     "   0       -           0.023938342015
+     114   0 "A     "   0       -           0.023938342015
+     115   0 "A     "   0       -           0.023938342015
+     116   0 "A     "   0       -           0.023938342015
+     117   0 "A     "   0       -           0.023938342015
+     118   0 "A     "   0       -           0.023938342015
+     119   0 "A     "   0       -           0.042956710062
+     120   0 "A     "   0       -           0.042956710062
+     121   0 "A     "   0       -           0.042956710062
+     122   0 "A     "   0       -           0.042956710062
+     123   0 "A     "   0       -           0.042956710062
+     124   0 "A     "   0       -           0.042956710062
+     125   0 "A     "   0       -           0.065049332068
+     126   0 "A     "   0       -           0.065049332068
+     127   0 "A     "   0       -           0.065049332068
+     128   0 "A     "   0       -           0.065049332068
+     129   0 "A     "   0       -           0.065049332068
+     130   0 "A     "   0       -           0.065049332068
+     131   0 "A     "   0       -           0.097956013005
+     132   0 "A     "   0       -           0.097956013005
+     133   0 "A     "   0       -           0.097956013005
+     134   0 "A     "   0       -           0.097956013005
+     135   0 "A     "   0       -           0.097956013005
+     136   0 "A     "   0       -           0.097956013005
+     137   0 "A     "   0       -           0.170144571493
+     138   0 "A     "   0       -           0.170144571493
+     139   0 "A     "   0       -           0.170144571493
+     140   0 "A     "   0       -           0.170144571493
+     141   0 "A     "   0       -           0.170144571493
+     142   0 "A     "   0       -           0.170144571493
+     143   0 "A     "   0       -           0.339032864446
+     144   0 "A     "   0       -           0.339032864446
+     145   0 "A     "   0       -           0.339032864446
+     146   0 "A     "   0       -           0.339032864446
+     147   0 "A     "   0       -           0.339032864446
+     148   0 "A     "   0       -           0.339032864446
+     149   0 "A     "   0       -           0.718641314683
+     150   0 "A     "   0       -           0.718641314683
+     151   0 "A     "   0       -           0.718641314683
+     152   0 "A     "   0       -           0.718641314683
+     153   0 "A     "   0       -           0.718641314683
+     154   0 "A     "   0       -           0.718641314683
+    -------------------------------------------------------
+
+    irreps                 A
+    occupied inactive     10
+    occupied active        0
+    virtual active         0
+    virtual inactive     144
+
+
+
+				*****************
+				** Sector 0h0p **
+				*****************
+
+
+
+ Integral sorting for the 0h0p sector
+ started at Fri Oct  9 12:32:52 2026
+ number of spinors                              154
+ number of spinor blocks                        5
+ tile size                                      32
+ max spinor block size                          32
+ size of the buffer for two-elec integrals      1072.786 MB
+ time for 2-e integrals sorting, sec: 2.16
+ time for PySCF interface (reading integrals), sec: 0.28
+ total time for sorting operations, sec: 2.44
+ finished at at Fri Oct  9 12:32:54 2026
+
+ Initial guess
+ -------------
+ Contributions to the MP2 energy:
+   one-particle    -0.0000000000   0.0000000000
+   two-particle    -0.0098570768   0.0000000000
+ MP2 correlation energy =      -0.009857076791
+       Total MP2 energy =    -128.701825719291
+
+ solution of amplitude equations (sector 0h0p)		 Fri Oct  9 12:32:55 2026
+ ---------------------------------------------------------------------------------------
+ it.       diffmax(T1)       diffmax(T2)     max(T1)     max(T2)    t,sec       mem,Gb
+ ---------------------------------------------------------------------------------------
+   1    0.005757202501    0.000748225687    0.005757    0.008984      6.7    3.10/4.04
+   2    0.000548995827    0.000492346372    0.006140    0.009477      6.0    3.14/4.04
+   3    0.000407512172    0.000054936999    0.006430    0.009464      6.0    3.17/4.06
+   4    0.000013803705    0.000008821773    0.006538    0.009492      6.7    3.21/4.09
+   5    0.000006991204    0.000001366409    0.006535    0.009492      6.6    3.25/4.13
+   6    0.000000657865    0.000000333548    0.006533    0.009491      6.7    3.29/4.17
+   7    0.000000087533    0.000000038916    0.006533    0.009491      6.6    3.32/4.21
+   8    0.000000031808    0.000000009612    0.006533    0.009491      6.3    3.36/4.24
+   9    0.000000005785    0.000000002635    0.006533    0.009491      6.6    3.36/4.28
+  10    0.000000000908    0.000000000609    0.006533    0.009491      5.8    3.36/4.28
+  11    0.000000000183    0.000000000114    0.006533    0.009491      5.3    3.36/4.28
+  12    0.000000000080    0.000000000017    0.006533    0.009491      5.3    3.36/4.28
+  13    0.000000000024    0.000000000006    0.006533    0.009491      5.3    3.36/4.28
+  14    0.000000000006    0.000000000002    0.006533    0.009491      5.3    3.36/4.28
+  15    0.000000000002    0.000000000001    0.006533    0.009491      5.3    3.36/4.28
+  16    0.000000000001    0.000000000000    0.006533    0.009491      5.3    3.36/4.28
+  17    0.000000000000    0.000000000000    0.006533    0.009491
+ATOMX_CC_STATUS 0h0p 1 17 7.0035990895611633e-14 2.2038137102980276e-14 0.0000000000000000e+00
+      5.2    3.36/4.28
+ ---------------------------------------------------------------------------------------
+ converged in 17 iterations
+
+ average time per iteration = 5.937 sec
+
+
+          SCF reference energy =    -128.691968642500
+       CCSD correlation energy =      -0.009882447397
+             Total CCSD energy =    -128.701851089896
+
+
+ (absolute values)
+ Max T{0h0p}_1 amplitude (t{00}_ia) [ 6 -> 42 ] = 0.00653286
+   [   6] eps=     -0.85283056 rep=A inactive occ
+   [  42] eps=      0.57827711 rep=A inactive virt
+ Max T{0h0p}_2 amplitude (t{00}_ijab) [ 7 10 -> 71 74 ] = 0.00949142
+   [   7] eps=     -0.84826760 rep=A inactive occ
+   [  10] eps=     -0.84826760 rep=A inactive occ
+   [  71] eps=      0.58508175 rep=A inactive virt
+   [  74] eps=      0.58508175 rep=A inactive virt
+
+ Norm |T{0h0p}_1| = 0.02358427
+ Norm |T{0h0p}_2| = 0.11944635
+
+ T1 diagnostic = 0.00745800
+ More on T1 diagnostic: [T.J.Lee,P.R.Taylor,IJQC 23,199(1989)]
+
+
+ time for (sec):
+ -------------------------------------------------------
+  Total time of execution                       103.858
+  Diagram contraction (mult) for <PP||PP>        43.477
+  Interface to pyscf                              0.276
+  Diagram template constr (tmplt)                 0.456
+  Sorting of integrals                            2.165
+  Tensor transposition (reorder)                 15.670
+  Energy denominators (diveps)                    0.047
+  0h0p -- Singles equations (T1)                  6.336
+  Diagram contraction (mult)                     76.955
+  mult M <- M x M                                73.708
+  mult M <- D x M                                 0.000
+  Diagram addition (update)                       0.478
+  0h0p -- Doubles equations (T2)                 93.942
+  Permutation operators                           4.555
+  DIIS extrapolation                              0.464
+ -------------------------------------------------------
+
+
+ memory in usage  = 3276780000 bytes = 3125.0 Mb = 3.05 Gb
+ max memory usage = 4596508092 bytes = 4383.6 Mb = 4.28 Gb
+ Disk I/O:
+   files created: 17   files removed: 0
+   read        1120361732 bytes = 1.043 Gb
+   write       3203379932 bytes = 2.983 Gb
+
+ EXP-T terminated normally at Fri Oct  9 12:34:35 2026
+ Total run time: 0 days 0 hours 1 minutes 43 seconds 857 milliseconds

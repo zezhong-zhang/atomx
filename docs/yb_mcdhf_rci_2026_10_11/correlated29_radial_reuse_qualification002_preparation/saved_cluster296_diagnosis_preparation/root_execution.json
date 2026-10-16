@@ -1,0 +1,19 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T15:39:50.726212+00:00",
+  "finished_utc": "2026-10-11T15:39:50.976051+00:00",
+  "exit_code": 0,
+  "elapsed_uncontrolled_seconds": 0.24985358398407698,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "35s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/run.py",
+    "--execution",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/execution_contract.json"
+  ],
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "new_H_CI_gradient_calls": 0
+}

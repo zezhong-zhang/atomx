@@ -1,0 +1,23 @@
+{
+  "hypothesis": "Keep primary canonical fixed-reference Coulomb diagrams; complete scalar other-M S1 acts only on bare closed-core Fock singles, not excluded attached Coulomb contractions; native rank0 valence-first -[jv]*S*F matches independent core-sector matrix source",
+  "gates": {
+    "signed_Ha": 1e-11,
+    "raw_Ha": 1e-10,
+    "root_Ha": 1e-11,
+    "amplitudes": 1e-10
+  },
+  "fixed": "Same complete four original/streamed/virtual-rotated/occupied-rotated twelve-spinor panel and compiler; no gate changes",
+  "stop": "Any failed map/root blocks promotion",
+  "panel": "four original/streamed/virtual-rotated/occupied-rotated native twelve-spinor fixtures; four valence columns and all ten M per fixture",
+  "angular_gate": 1e-09,
+  "normalized_state_gate": 1e-11,
+  "numerical_solve_tolerance_Ha": 1e-14,
+  "retained_failure": "006 passed the original raw/amplitude gates but normalized-state comparison failed at 1.3624e-11; keep the stronger 1e-11 state gate and tighten actual solve rather than comparison tolerance",
+  "resources": "256MiB complete per-fixture bound; 40 retained Krylov vectors; exact scalar equations, no magnetic tensor in production",
+  "load": [
+    11.03857421875,
+    10.64501953125,
+    10.24609375
+  ],
+  "scope": "finite signed diagram/root/state/J certification; no full Yb, production normalized state/property, GPU or experimental precision claim"
+}

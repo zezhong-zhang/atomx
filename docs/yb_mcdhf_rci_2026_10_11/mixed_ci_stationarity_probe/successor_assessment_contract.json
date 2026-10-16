@@ -1,0 +1,53 @@
+{
+  "status": "prospective_algebra_only",
+  "hypothesis": "For the same canonical signed CSF coordinate order, an exact finite-norm mixed-CI energy-difference identity separates the trial-density radial Hamiltonian increment from the quadratic CI-response and both finite reported-eigenvalue residual corrections. Dropping CI response or freezing the old density is not exact.",
+  "scope": "Read only existing saved 531-CSF complete matrices/eigenvectors; no new CI solve, no orbital gradient, no kernel implementation, no line-search acceptance or stationarity certification.",
+  "fixed": {
+    "electrons": 69,
+    "radial_spinors": 24,
+    "CSFs": 531,
+    "equal_target_weight": 0.2,
+    "orbital_residual_gate": 1e-07,
+    "energy_gate_Ha": 1e-08,
+    "same_original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "same_frozen_source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f"
+  },
+  "inputs_sha256": {
+    "FD_normalized_original_metric_descent_0.0001_minus.npz": "4e7d59d5506701dd63b76765153920c6441541782dfdcc34e0e6965de6d3da80",
+    "FD_normalized_original_metric_descent_0.0001_plus.npz": "3324218682f503560aeddec50c4eefbcda8ee3423b01717e16c486870c562ecc",
+    "FD_normalized_original_metric_descent_5e-05_minus.npz": "214b595d8552755525f9b83da3f8008c729a7d03174ed28f5b2d65c22e72235e",
+    "FD_normalized_original_metric_descent_5e-05_plus.npz": "ebd05620af2ba41272aeb85012819671bdb20f6e3f33efe3ab4356c2a5549bda",
+    "FD_normalized_valence_focused_tangent_0.0001_minus.npz": "7fe645bf8f21a88dba2bc73e56c45bb8c6f6f83c9de173b760b349037859e036",
+    "FD_normalized_valence_focused_tangent_0.0001_plus.npz": "7cfda831da535252e776bc294cad1e80f7c1422e7fbb2a066f39d0373a9fafe6",
+    "FD_normalized_valence_focused_tangent_5e-05_minus.npz": "2beb7312a9d183f65ee5c8f9105610bdf36f3faae0f99268067db3d279f98311",
+    "FD_normalized_valence_focused_tangent_5e-05_plus.npz": "b540096a81a89476a359cdab9eb0ca1b07b23fe2e1fe27d739a6ec54fe63965b",
+    "baseline_arrays.npz": "b52dbb9e8452b3081028c43061f4c9a8e031544c1935b26d20c315915f252750",
+    "independent_verification.json": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5",
+    "line_trial_0.npz": "7a12a32a127a1280d5034a1e0adad8146f1087e3ef097bc00197396608a08521",
+    "result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e"
+  },
+  "external_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+  },
+  "acceptance": {
+    "reported_eigenvalue_identity_error_Ha": 5e-12,
+    "Rayleigh_quotient_identity_error_Ha": 5e-12,
+    "full_same_symmetry_leakage_probability": 1e-20,
+    "physical_binding_minimum_squared_overlap": 0.5,
+    "all_saved_inputs_SHA_unchanged": true
+  },
+  "stopping": "One saved-matrix algebra replay only; any failed identity retained and diagnosed before proposals are declared exact; do not alter earlier evidence.",
+  "resource_caps": {
+    "CPU_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_timeout_s": 60,
+    "no_new_CI_solve": true,
+    "no_new_orbital_gradient": true
+  },
+  "limitations": [
+    "Subtracting stored rounded matrices is not a cancellation-free radial increment implementation.",
+    "The saved finite steps do not establish a tiny-step error bound or full 531-CSF stationarity.",
+    "Public exact mixed-RDM polynomial and original-metric resume remain proposals."
+  ]
+}

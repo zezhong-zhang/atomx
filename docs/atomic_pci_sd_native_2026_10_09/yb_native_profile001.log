@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/profile_yb_native_fock.py", line 43, in <module>
+    result = build_spinor_integrals(waves, ws, 70, ws['ns'], occupied_keys=occ,
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 349, in build_spinor_integrals
+    heff[p, q], fock[p, q] = scalar_one_body(a[:2], b[:2])
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 341, in scalar_one_body
+    h(a, b)+sum(g(a, i, b, i) for i in core))
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 341, in <genexpr>
+    h(a, b)+sum(g(a, i, b, i) for i in core))
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 324, in g
+    x = direct(a, b, c, d)-direct(a, b, d, c)
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 315, in direct
+    return sum(v * radial(('r', rank, a[:2], c[:2], b[:2], d[:2]))
+  File "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py", line 315, in <genexpr>
+    return sum(v * radial(('r', rank, a[:2], c[:2], b[:2], d[:2]))
+  File "/data/code/atomx/src/atomx/physics/csf/matrix.py", line 780, in evaluate
+    for v, d, order in zip(pair_potential(k, *source),
+  File "/data/code/atomx/src/atomx/physics/csf/matrix.py", line 746, in pair_potential
+    value += _convol_case1_t(bank, source[right], extent, orders[left], orders[right])
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/serialize.py", line 30, in _numba_unpickle
+    def _numba_unpickle(address, bytedata, hashed):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/profile_yb_native_fock.py", line 38, in timeout
+    raise TimeoutError('predeclared 90-second stage sampling complete; no numerical result claimed')
+TimeoutError: predeclared 90-second stage sampling complete; no numerical result claimed

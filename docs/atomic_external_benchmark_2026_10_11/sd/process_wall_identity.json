@@ -1,0 +1,23 @@
+{
+  "scope": "Accepted actual wall bounds are retained independently of native action clocks. Scientific process watchdog starts at main(); outer610s grace covers shutdown. No accepted process may exceed parent600s actual wall limit.",
+  "runs": {
+    "0": {
+      "preflight_created_at_utc": "2026-10-11T04:00:22.713559+00:00",
+      "result_written_at_utc": "2026-10-11T04:06:24.997814+00:00",
+      "from_preflight_to_result_seconds": 362.2842547893524,
+      "observed_under600s_with_large_margin": true
+    },
+    "1": {
+      "preflight_created_at_utc": "2026-10-11T04:06:25.364857+00:00",
+      "result_written_at_utc": "2026-10-11T04:11:41.338554+00:00",
+      "from_preflight_to_result_seconds": 315.9736964702606,
+      "observed_under600s_with_large_margin": true
+    },
+    "2": {
+      "preflight_created_at_utc": "2026-10-11T04:11:41.726316+00:00",
+      "result_written_at_utc": "2026-10-11T04:16:47.135726+00:00",
+      "from_preflight_to_result_seconds": 305.40940976142883,
+      "observed_under600s_with_large_margin": true
+    }
+  }
+}

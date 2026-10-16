@@ -1,0 +1,56 @@
+{
+  "status": "authorized_source_patch_tests_prepared_not_executed",
+  "authorization": "root explicit shared RCI owner extension; numeric scheduling remains root owned",
+  "scope": [
+    "src/atomx/methods/ci.py",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py",
+    "tests/test_ci_hamiltonian_snapshot.py",
+    "docs/TRANSVERSE_INTERACTION.md"
+  ],
+  "source_preimage": {
+    "src/atomx/methods/ci.py": "aab2489390d86db1332b06cf1975576f112975b2e1e0bf72b43a28b163cb6358",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "tests/test_ci_hamiltonian_snapshot.py": "6a2d09a5b831bc77dc01cf2606e762cfae0b16474beb98ba6042326eb5de77ec",
+    "docs/TRANSVERSE_INTERACTION.md": "50ed687681bc2576c37b0891d5f945cc3f89b316f9028729c58f3dafd49ecbcd"
+  },
+  "immutable_archive": "rank_aware_cell_discriminator_preparation/candidate_source f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe unchanged",
+  "fixed": [
+    "ordinary default CI route and all physical matrix/kernel formulas",
+    "complete dense real B-spline full-spectrum scope only",
+    "DC schema1 header and DC MCDHF operator rejection",
+    "original CI algorithm and performance improvements"
+  ],
+  "extension": [
+    "static Breit OR finite-frequency transverse replacing static",
+    "complete exact provided-orbital real finite binary64 energy map",
+    "immutable sorted keys and float.hex / binary64 little-endian identity",
+    "prebuild/postbuild/access validation of mode/map and radial inputs"
+  ],
+  "rejections": [
+    "non-Python-bool include_breit",
+    "missing/extra/non-real/non-finite frequency entries",
+    "mode/map mutation",
+    "grid/subset/Davidson/scalar shifts/effective onebody",
+    "finite plus separate static double counting"
+  ],
+  "test_status": "not executed; static compile/Ruff allowed, physical tests root schedules",
+  "prospective_test_plan": {
+    "primary": [
+      "tests/test_ci_hamiltonian_snapshot.py"
+    ],
+    "integration": [
+      "tests/test_mixed_ci_finite_increment.py",
+      "tests/test_finite_frequency_breit.py",
+      "tests/test_transverse_spinor_integrals.py",
+      "tests/test_ci_radial_snapshot.py"
+    ],
+    "resources": {
+      "CPU": 1,
+      "BLAS_threads": 1,
+      "AS_GiB": 3.95,
+      "primary_wall_s": 300,
+      "integration_wall_s": 900
+    },
+    "stop": "any failure retained; no physics gate relaxation"
+  }
+}

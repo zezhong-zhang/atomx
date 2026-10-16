@@ -1,0 +1,22 @@
+{
+  "full_magnetic_states": 16,
+  "full_pair_elements": 14400,
+  "simultaneous_particle_swap_defect_Ha": 2.0816681711721685e-17,
+  "sigma1_adjoint_defect_Ha": 0.016739586879839237,
+  "sigma2_pair_adjoint_defect_Ha": 0.036869928900972286,
+  "combined_pair_adjoint_defect_Ha": 0.03933415481071723,
+  "bare_pair_adjoint_defect_Ha": 5.551115123125783e-17,
+  "source_sha256": {
+    "sigma2_solved004/inputs.npz": "a518ca0715e2be8001bc486d2f445a25abeaec7439ebb0656f0df6678d251345",
+    "sigma2_solved004/case00/complete_vectors.npz": "683f17b3c1ee3a764b09845aeb44195bca8aebc1228dbd1b67ef78030762bff0",
+    "sigma2_solved004/case00/column_3_-1.npz": "8ac50e703b89986284c3f2c0eb9a99d799eb2e159d1f058fa04298bdaed658f2",
+    "sigma2_solved004/case00/column_4_-1.npz": "24e1a7686343fa1fce4ab8eebbcaeee65c0165b324a06535ca2738213db49957",
+    "sigma2_solved004/case00/column_2_1.npz": "99b8b7325fec4f75563405935920c342c6ce1fb7ffdc53845e80c5af771fcbaa",
+    "sigma2_solved004/case00/column_3_1.npz": "ef5a4c5d0c731092b818a8c3a909686d51da0b31a820785a34ffd166d5f72961",
+    "sigma2_solved004/case00/column_2_-2.npz": "9214e4536c62ecc31204b85cdb3067ba0e48466fe697254b0a73820060354d56",
+    "sigma2_solved004/case00/column_3_-2.npz": "6844fc82df48191c343aa35d4b3143c4137c4be1ed895a177028d4fca38a8b95"
+  },
+  "script_sha256": "ff4208ed4f4435df8c1265d9c2995fa46a3a1d830381a9858029b25b8936cc5d",
+  "particle_covariance_status": "pass",
+  "hermitian_consumer_status": "unverified; measured directed adjoint defect prohibits implicit Hermitian consumption"
+}

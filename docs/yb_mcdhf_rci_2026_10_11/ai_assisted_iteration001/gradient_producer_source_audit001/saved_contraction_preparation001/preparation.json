@@ -1,0 +1,120 @@
+{
+  "status": "SOURCE_ZIP_directory_only_prepared_NOT_executed",
+  "all_SOURCE_checks_passed": true,
+  "checks": [
+    {
+      "name": "AST_parse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import zipfile",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_import_anywhere",
+      "passed": true
+    },
+    {
+      "name": "two_arrays_original_manifests",
+      "passed": true
+    },
+    {
+      "name": "six_complete_ZIP_fields",
+      "passed": true
+    },
+    {
+      "name": "ZIP_uncompressed_bound",
+      "passed": true
+    },
+    {
+      "name": "CPU28_threads1_original_caps",
+      "passed": true
+    },
+    {
+      "name": "original_residual_Gram_unchanged",
+      "passed": true
+    },
+    {
+      "name": "complete1595_five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "bounded_complete_arithmetic",
+      "passed": true
+    },
+    {
+      "name": "zero_new_physical_calls",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_exit0",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_no_numerical_import",
+      "passed": true
+    },
+    {
+      "name": "help_exit0",
+      "passed": true
+    },
+    {
+      "name": "Ruff",
+      "passed": true
+    },
+    {
+      "name": "local_links",
+      "passed": true
+    },
+    {
+      "name": "no_actual_or_binding",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "a0449492bf286a9444b0d38019669e81929a3ca5a6b5576632fac5fff21bea16",
+  "contract_sha256": "47441b29c2197a3b48cf6268d50e55769f394ea5a5b5554e929f6786403616a6",
+  "verifier_sha256": "bc18a2035d14da5a2e5d99440e8aec9fb7ee48f12f2446b10dcc1c29023a70bc",
+  "README_sha256": "75879bf33eb8b0925a7fe665e3264eec7079e82994e168db567bb9c21eca0357",
+  "NPZ_body_header_reads_hashes": 0,
+  "ZIP_directory_census_only": true,
+  "scientific_imports_calls": 0,
+  "original_two_failures_preserved": true,
+  "zero_hypothesis_certified": false,
+  "Ruff": "All checks passed!"
+}

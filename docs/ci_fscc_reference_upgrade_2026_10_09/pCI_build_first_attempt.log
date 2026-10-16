@@ -1,0 +1,43 @@
+Installed 1 package in 33ms
+-- The Fortran compiler identification is GNU 15.2.0
+x86_64-linux-gnu-gfortran-15: fatal error: cannot execute ‘cc1’: posix_spawnp: No such file or directory
+compilation terminated.
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - failed
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran - broken
+CMake Error at /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestFortranCompiler.cmake:59 (message):
+  The Fortran compiler
+
+    "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: '/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/CMakeFiles/CMakeScratch/TryCompile-jG2Et4'
+    
+    Run Build Command(s): /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f464d/fast
+    /usr/bin/gmake  -f CMakeFiles/cmTC_f464d.dir/build.make CMakeFiles/cmTC_f464d.dir/build
+    gmake[1]: Entering directory '/data/code/atomx-references/2026-10-09-ci-fscc/pCI-build/CMakeFiles/CMakeScratch/TryCompile-jG2Et4'
+    Building Fortran object CMakeFiles/cmTC_f464d.dir/testFortranCompiler.f.o
+    /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran    -c /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/CMakeFiles/CMakeScratch/TryCompile-jG2Et4/testFortranCompiler.f -o CMakeFiles/cmTC_f464d.dir/testFortranCompiler.f.o
+    Linking Fortran executable cmTC_f464d
+    /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f464d.dir/link.txt --verbose=1
+    x86_64-linux-gnu-gfortran-15: fatal error: ‘-fuse-linker-plugin’, but liblto_plugin.so not found
+    compilation terminated.
+    /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran CMakeFiles/cmTC_f464d.dir/testFortranCompiler.f.o -o cmTC_f464d
+    gmake[1]: *** [CMakeFiles/cmTC_f464d.dir/build.make:102: cmTC_f464d] Error 1
+    gmake[1]: Leaving directory '/data/code/atomx-references/2026-10-09-ci-fscc/pCI-build/CMakeFiles/CMakeScratch/TryCompile-jG2Et4'
+    gmake: *** [Makefile:134: cmTC_f464d/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+-- Configuring incomplete, errors occurred!

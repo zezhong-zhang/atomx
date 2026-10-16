@@ -1,0 +1,18 @@
+{
+  "affinity": [
+    1
+  ],
+  "AS_bytes": 4241280204,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  },
+  "source_files": 365,
+  "interpreter": "/data/code/atomx/.venv/bin/python",
+  "controlled_timing": false,
+  "scientific_scope": "affected native radial ownership, signed gradient reuse, finite-frequency provenance and independent manyelectron CI projection; excluded optional workflows not claimed"
+}

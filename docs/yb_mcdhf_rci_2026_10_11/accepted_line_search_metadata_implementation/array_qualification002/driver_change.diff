@@ -1,0 +1,60 @@
+--- closed_array001/run_array_qualification.py
++++ prospective_array002/run.py
+@@ -5,12 +5,14 @@
+ import json
+ import os
+ import resource
++import sys
+ import time
+ from decimal import Decimal, localcontext
+ from fractions import Fraction
+ from pathlib import Path
+ 
+-BASE = Path(__file__).parent
++OUT = Path(__file__).parent
++BASE = OUT.parent
+ REPO = BASE.parents[2]
+ 
+ 
+@@ -20,7 +22,7 @@
+ 
+ def main():
+     started = time.monotonic()
+-    contract_path = BASE / "array_qualification_contract.json"
++    contract_path = OUT / "contract.json"
+     contract = json.loads(contract_path.read_text())
+     for name, digest in contract["inputs_sha256"].items():
+         if sha(REPO / name) != digest:
+@@ -28,6 +30,7 @@
+     resource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))
+     os.sched_setaffinity(0, {31})
+     import numpy as np
++    sys.path.insert(0, str(BASE))
+     from exact_reported_guard import (
+         ExactGuardBudget,
+         exact_reported_point,
+@@ -104,7 +107,7 @@
+     probe = REPO / "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation"
+     progress = json.loads((probe / "actual/progress.json").read_text())
+     record = next(v for v in progress["records"] if v["name"] == "recovered_coordinate_point")
+-    rows = record["targets"]
++    rows = [row for row in record["targets"] if "label" in row]
+     with np.load(probe / "actual/recovered_coordinate_point.npz", allow_pickle=False) as archive:
+         H, mixing, energies = [archive[key].copy() for key in ("H", "mixing", "energies")]
+     cols = [int(v["column"]) for v in rows]
+@@ -131,7 +134,7 @@
+               "saved_point_certificate": saved.ledger(), "analytic_qualified": good,
+               "analytic_unresolved_rejected": bad, "elapsed_uncontrolled_seconds": time.monotonic() - started,
+               "no_Yb_gradient_or_optimizer_qualification": True}
+-    (BASE / "array_qualification_result.json").write_text(json.dumps(result, indent=2) + "\n")
++    (OUT / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+     print(json.dumps({k: result[k] for k in ("all_passed", "checks_count", "arithmetic_counters", "elapsed_uncontrolled_seconds")}, indent=2))
+     return 0
+ 
+@@ -140,5 +143,5 @@
+     try:
+         raise SystemExit(main())
+     except Exception as exc:
+-        (BASE / "array_qualification_failure.json").write_text(json.dumps({"type": type(exc).__name__, "message": str(exc)}, indent=2) + "\n")
++        (OUT / "failure.json").write_text(json.dumps({"type": type(exc).__name__, "message": str(exc)}, indent=2) + "\n")
+         raise

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/run_matched_sigma.py", line 159, in <module>
+    if __name__=='__main__': main()
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/run_matched_sigma.py", line 136, in main
+    subprocess.run([str(HERE/'ambit_sigma_probe'),str(HERE/'orbitals.txt'),str(HERE/'integrals.txt'),str(HERE/'requests.txt')],env=env,stdout=out,stderr=err,check=True,timeout=300)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/ambit_sigma_probe', '/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/orbitals.txt', '/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/integrals.txt', '/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/requests.txt']' died with <Signals.SIGABRT: 6>.

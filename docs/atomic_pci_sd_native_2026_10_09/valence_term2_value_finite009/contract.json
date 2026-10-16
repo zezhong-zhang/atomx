@@ -1,0 +1,27 @@
+{
+  "hypothesis": "Exact term2 can reuse complete virtual-pair potentials across core channels and project before angular recoupling, including full analytic denominator and supplied numerator response",
+  "fixed": "Original full signed term2, native weighted/tagged Coulomb kernel and physical orbitals; same angular/radial pool, no screening or altered denominator",
+  "system": "Na+ Ne-like all10core/ns38 point nucleus; all declared 3s4s3p4p3d virtuals with every magnetic partner",
+  "gate_Ha": 1e-11,
+  "seed": 314521,
+  "cap_bytes": 2147483648,
+  "load": [
+    16.22314453125,
+    12.791015625,
+    11.2783203125
+  ],
+  "stop": "one complete signed random input per declared column; candidate response evaluated only when requested; retain any failure; no physical result/precision claim",
+  "performance_scope": "single diagnostic maps under observed load; no paired speedup claim",
+  "options": {
+    "term21_threads": 2,
+    "term21_mode": "streamed",
+    "core_singles_blas": true,
+    "core_single_to_doubles_blas": true
+  },
+  "driver_sha256": "545ab96f3269d01b95be595d03cac0516632bd972e57c27da7be066b624941dc",
+  "kernel_sha256": "3c20c0557bb58e39c17d3a6b6db944eddbfd9902e025a3cc19f26ef649d1971c",
+  "valence_term2_workers": 8,
+  "value_only": true,
+  "response_scope": "not evaluated by value-only candidate; full companion remains separate",
+  "replay_case": null
+}

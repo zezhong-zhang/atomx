@@ -1,0 +1,22 @@
+{
+  "mode": "SOURCE_AST_JSON_only_no_arrays",
+  "producer_sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+  "producer_evidence": "gradient_from_weights sets gradient[key]=np.zeros(2*self.ns), updates [:self.ns]/[self.ns:] then returns that dict; ns123 -> contiguous length246 per key.",
+  "writer_sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34",
+  "writer_evidence": "corrected[k]=full_g[k].astype(np.longdouble); corrected_array=np.array([corrected[k] for k in functional.keys]); persisted raw_h_quotient_corrected_radial=corrected_array, shape31x246.",
+  "all_archive_representation_census": {
+    "P_Q": "31x123 from own recovered point; concatenated per orbital exactly once",
+    "keys": "31x2 integer key list, no gradient split",
+    "x_inverse_diagonal": "3689; source writer concatenate seven119xN groups",
+    "raw_tangent_preconditioned_coordinate": "3689 via coordinate() zero-vector and group flatten",
+    "projectors": "seven246x119 original-P arrays, source from public layout",
+    "inverse_blocks": "31 individual119x119 SPD, stacked groupwise",
+    "whole_CI": "1595x1595 H and C,1595 roots",
+    "two_saved_antisymmetric_groups": "119x2 each from group raw coordinate y.T@g; unrelated to radial gradient representation",
+    "corrected_radial": "31x246 contiguousP+Q; only these two consumer lines needed repair"
+  },
+  "no_NPZ_read_or_rehash": true,
+  "dtype_and_as_integer_ratio_preserved": true,
+  "number_of_scientific_source_changes": 0,
+  "consumer_changed_lines": 2
+}

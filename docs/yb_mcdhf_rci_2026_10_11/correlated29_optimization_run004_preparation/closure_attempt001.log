@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/complete_saved.py", line 207, in <module>
+    main()
+    ~~~~^^
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/complete_saved.py", line 149, in main
+    'multiplets': m['multiplets'], 'exact_acceptance_qualified': None if a is None else a['qualified']})
+                                                                                        ~^^^^^^^^^^^^^
+TypeError: 'float' object is not subscriptable

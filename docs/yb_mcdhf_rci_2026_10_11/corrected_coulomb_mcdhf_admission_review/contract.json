@@ -1,0 +1,78 @@
+{
+  "created_utc": "2026-10-11T14:25:09.285574+00:00",
+  "scope": "Source-only interface and scientific-admission review; no new scientific execution contract or authorization.",
+  "authorized_action": "Read frozen public API/source and current private two-nsub candidate; provide minimal native corrected-source route without editing shared source or another owner\u2019s consumer.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/completion.json": "821387775ff9c48047d961ca130d2996ad97e4b66745f0de3a65b725dfa86434",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/result.json": "4d448b6deaca133ac7e7075d56a921605d55cd28a69ff4c09c0ff3aa11ea228c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run002_preparation/handoff.json": "3f2ed3f3461473090d36df59a460108c71ceec8b0f7e0e323dc596bc7ee30af2",
+    "docs/yb_mcdhf_rci_2026_10_11/coulomb_inner_quadrature_review/MATH.md": "158b674297a84a2a371374697f7b27da56705cde16aafc3d3bdf55b1be6cc668"
+  },
+  "current_private_candidate_read": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate.patch",
+    "sha256_at_read": "69cbd52f4326700a1c03fefccd783491b5e8220733f70127f6d4c47ce76a49b3",
+    "status": "Draft candidate read only; not a final producer/execution approval"
+  },
+  "resource_scope": {
+    "physical_H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "eigen_or_SVD": 0,
+    "optimizer": 0,
+    "numeric_imports": 0
+  },
+  "fixed_future_domain": {
+    "CSFs": 1046,
+    "radials": 29,
+    "coordinates": 3451,
+    "nuclear_P": 7,
+    "electrons": 69,
+    "Z": 70,
+    "nucleus": "FermiA175",
+    "reference_UIDs": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "tracker": "original balanced531 DC/native005, never rebase",
+    "production_objective": "ordinary reported EOL",
+    "energy_callback": null
+  },
+  "stop": "No runtime code or source change, no unknown corrected-source qualification assumed. Root first measures realYb quadrature correction then chooses a separately sealed native baseline/optimizer successor."
+}

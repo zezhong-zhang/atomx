@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "command": ".venv/bin/ruff check docs/atomic_native_roadmap_2026_10_11/sd_linked001/probe.py docs/atomic_native_roadmap_2026_10_11/sd_linked001/verify.py",
+  "findings": {
+    "I001_import_order": 6,
+    "E402_intentionally_late_import_after_resource_gate": 3
+  },
+  "scope": "Import-style checks only; original actual scientific source and predeclared contract remain unchanged. All physics gates and independent saved-array replay pass."
+}

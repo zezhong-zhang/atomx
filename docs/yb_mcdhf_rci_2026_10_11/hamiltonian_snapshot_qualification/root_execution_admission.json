@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-10-11T10:29:32.819677+00:00",
+  "foreground_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/run.py",
+    "qualify",
+    "--execution-contract",
+    "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/execution_contract.json"
+  ],
+  "driver_sha256": "69cdad3bad51d74a38cd635b5a3536c3e5446126809e4e3a8dd060c7bbebe5af",
+  "execution_contract_sha256": "17f156cb17dc7bc1184853b01ff107a84e7699f373e1239f8ea7fbc05434a327",
+  "launcher_sha256": "19f049b8c8fff0444f8a06a021a71adb05cb2abbd48ba09d0b8d27af3e8da25e",
+  "outer_wall_cap_s": 315
+}

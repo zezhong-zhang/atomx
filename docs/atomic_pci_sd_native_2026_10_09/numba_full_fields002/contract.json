@@ -1,0 +1,18 @@
+{
+  "hypothesis": "Numba shared scalar density kernels with zero-copy CuPy views and explicit same-stream ordering preserve full five-column term2/analytic-response/mode outputs",
+  "fixed": "archived68core/414virtual/ns123/Fermi/l<=3/5Ha fields and all native rows, unchanged packed numerator/response and per-column energy",
+  "gate_Ha": 1e-11,
+  "host_cap_bytes": 34359738368,
+  "host_payload_bound_bytes": 620187648,
+  "device_cap_bytes": 2147483648,
+  "role": "transitive complete frozen-field arithmetic; original CUDA002 full CPU/GPU map anchor, not fresh COMMON/map/solve/controlled-timing/public adoption",
+  "load": [
+    10.85693359375,
+    10.7939453125,
+    10.75830078125
+  ],
+  "load_guard": 27,
+  "interop": "same current caller stream; device pointers equal before every launch; no density host transfer; exact original geometry/weights/preflight",
+  "rounding": "same CPU/CUDA scalar source from numba_density001; CUDA dadd_rn/dmul_rn and PTX no-fma/no-atom certificate",
+  "stop": "first complete signed/finite/identity/cap failure, no screening/gate alteration; retain arrays"
+}

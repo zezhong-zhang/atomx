@@ -1,0 +1,7 @@
+{
+  "scope": "exact finite native CI wave operator and physical metric; no SD metric inference",
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_ci_effective_qspace.py -q",
+  "result": "9 passed, no skips in 2.02 s",
+  "source_capture": "actual unchanged test-consumed bytes archived after completion",
+  "gates": "same full residuals, signed property/phase, norms, resource and complete degeneracy tests"
+}

@@ -1,0 +1,39 @@
+{
+  "status": "independent_nested_serialization_findings_no_physical_evaluation",
+  "source_sha256": "f92a9032afe380fb90185597b229bf2dcef3db5a3387a85484f8a75fa05d309d",
+  "helper_frozen_in": "hash_framing_finding.json",
+  "checks": [
+    {
+      "left": [
+        1,
+        23
+      ],
+      "right": [
+        12,
+        3
+      ],
+      "same_sha": true,
+      "digests": [
+        "483aa84d5c97c8221b6b9a0827bd4c48f311aae8ecab12cb9bc9c7066e8f335d",
+        "483aa84d5c97c8221b6b9a0827bd4c48f311aae8ecab12cb9bc9c7066e8f335d"
+      ]
+    },
+    {
+      "left": {
+        "a": {
+          "b": 1
+        }
+      },
+      "right": {
+        "a": {},
+        "b": 1
+      },
+      "same_sha": true,
+      "digests": [
+        "06245f13677ffd7fa31753850bd9f439ce11305765fb05d6dea772947e5ccdc3",
+        "06245f13677ffd7fa31753850bd9f439ce11305765fb05d6dea772947e5ccdc3"
+      ]
+    }
+  ],
+  "required_resolution": "Type/length framing for all nodes including mappings and mapping keys, while preserving legacy residual SHA."
+}

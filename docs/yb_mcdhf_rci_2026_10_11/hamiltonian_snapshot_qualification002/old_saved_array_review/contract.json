@@ -1,0 +1,32 @@
+{
+  "authorization_scope": "Root message explicitly authorizes independent old saved H/g review, CPU1/1GiB/30s/0science, not qualification certificate or rerun.",
+  "basis_identity": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+  "chosen_CPU": 29,
+  "created_before_execution_utc": "2026-10-11T10:38:28.059232+00:00",
+  "data_directory": "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification",
+  "gates": "Original matchedpoint1e-9g/1e-10pg, full531 CIGram1e-10/residual1e-8, same-H bitwise; retain stationarityFAIL, no model or physics changes.",
+  "hypothesis": "Complete saved first-run H/CI/radial-gradient/metric arrays remain a valid independent algebra diagnostic despite failed final RDM metadata archival; cannot substitute for missing qualification ledger.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/arrays.npz": "d0b3af27ce4b51f08bd17fc6c2165cd4019e880a3b9ee3a43b7903da42b271df",
+    "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/contract.json": "35e83f94fbb9221260e491af76c8f079fa405fb83e7bbcc78e4eb6569be679ec",
+    "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/failure.json": "672104d4738392807fb929dbdf93bd6a3abf725fb4dd89ecc9899764e39fea94",
+    "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/owner_header.json": "51bc6e540b18ebdffbd29990a553d717ebe8a01c031d7c124454b456196d5239",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/checkpoints/accepted_0160.npz": "6ab28bb519ef0a1f8f410e364d5c76f42a42a567f192f21da11a89a75bd85e03"
+  },
+  "mode": "failed_parent_arrays_only",
+  "new_H_CI_gradient_optimizer_calls": 0,
+  "original_layout": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+  "original_point_arrays": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/checkpoints/accepted_0160.npz",
+  "output_path": "docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification002/old_saved_array_review/verification.json",
+  "resources": {
+    "CPU": 1,
+    "address_space_GiB": 1,
+    "threads": 1,
+    "wall_s": 30
+  },
+  "saved_array_review_authorized": true,
+  "stopping": "Exactly one saved-only review, no Atomx imports/science calls, any issue preserved.",
+  "verifier_sha256": "cca2fa95ebf425c858fa715f688c06df2d5fd7a3819a6bc720715ce45efec136"
+}

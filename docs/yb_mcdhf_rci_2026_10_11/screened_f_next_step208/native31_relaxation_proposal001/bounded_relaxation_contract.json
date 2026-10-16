@@ -1,0 +1,213 @@
+{
+  "status": "SOURCE_ONLY_bounded_relaxation_proposal_HOLD",
+  "fixed": {
+    "nucleus": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+    "electrons": 69,
+    "radial_orbitals": 31,
+    "radial_dimension": 123,
+    "coordinate_dimension": 3689,
+    "target_CSFS": 1595,
+    "full_parent_CSFS_enumerated": 3789,
+    "NR_configurations": 91,
+    "complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "native full Dirac-Coulomb only",
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "physical_point": "literal saved recovered31 originalP@Y; no canonical reprojection, nuclear seed or chosen gap point",
+    "no_pair_original_sevenP_byte_identity": true,
+    "original_inverse_layout_and_coordinates_unchanged": true,
+    "objective": "ordinary public reported five-target equal .2 EOL; quotient only diagnostic",
+    "NIST": "report only, never select roots/steps/weights/branches"
+  },
+  "mandatory_current31_qualification": {
+    "source_map_sha256": null,
+    "result_sha256": null,
+    "closed_receipt_sha256": null,
+    "all_own_epoch_gates": true,
+    "no_inheritance_of_f043_one_direction_certificate": true
+  },
+  "method": {
+    "public_optimize_orbitals_once": true,
+    "max_new_accepted_steps": 16,
+    "history_size": 10,
+    "history_initially_empty": "public resume currently clears history; no silent restoration or history40/NIST selection",
+    "all31_columns_active": true,
+    "original_P_layout_inverse_metric_x_resume": true,
+    "baseline": "exact own current qualificationH/C/g/owner/UID, no forced legacyC lastbits",
+    "objective": "ordinary reported equal-fiveEOL throughout baseline/trials/accepted",
+    "energy_difference": null,
+    "per_accepted_fullsigned": "Production retained gradient untouched. Each of17maximum baseline/accepted points additionally contracts complete five normalized unfiltered target tables, computes delta and direct full two gradients, saves raw-h quotient ambient correction and originalmetric comparisons. No path-wide error bound inferred from baseline."
+  },
+  "gates": {
+    "CI_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "cross_sector_H_Ha": 1e-14,
+    "radial_same_kappa_Gram": 1e-10,
+    "P_leak_S_squared": 1e-12,
+    "whole_raw_radial_g": 1e-09,
+    "whole_coordinate_pg": 1e-10,
+    "whole_gradient_linearity": 1e-09,
+    "projected_gradient_linearity": 1e-10,
+    "scaled_tangent_identity": 1e-10,
+    "save_unscaled_tangent_defect_and_input_norm": true,
+    "orbital_stationarity": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "indicator_not_energy_or_spectral_bound": true
+  },
+  "resources": {
+    "interpreter": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 600,
+    "outer_seconds": 615,
+    "optimizer_soft_seconds": 570,
+    "max_new_accepted": 16,
+    "max_checkpoints": 17,
+    "max_energy_trials": 64,
+    "max_H": 65,
+    "max_CI": 65,
+    "max_public_retained_g": 17,
+    "max_extra_weighted_g": 34,
+    "max_total_gradient_from_weights": 51,
+    "max_retained_RDM": 17,
+    "max_unfiltered_target_tables": 85,
+    "max_initial_hS": 7,
+    "max_CI_hS": 455,
+    "max_hS": 462,
+    "max_validation_Dirac": 7,
+    "max_SciPy_eigh": 346,
+    "max_geometry_SPD_eigvalsh": 38,
+    "max_polar_retraction": 448,
+    "max_polar_numpy_eigh": 448,
+    "max_tracker_resolve": 164,
+    "max_tracking_SVD": 820,
+    "max_tracker_overlap": 165,
+    "max_gradient_pair_sources": 177072,
+    "max_exact_quotients": 85,
+    "max_exact_examined_pairs": 5000000,
+    "max_optimizer": 1,
+    "max_GPU": 0,
+    "estimate": "Same angular structure and streamed source caches; at most parent/candidate completeH/C resident~81.41MB plus existing workspace/RDM. Actual full3g checkpoint wall/RSS under current source unknown.600s may stop before16accepts. All bounds must be enforced before forwarding calls."
+  },
+  "exact_guard": {
+    "private_helper": "exact_reported_guard1595.py",
+    "private_sha256": "686f983370f14fd406a76ee58fffe79396fbb4dffcaedc4f3241ea34d4397067",
+    "original_helper_sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+    "changes": "dimension<=1595 and explicit5m cumulative examined-pair budget only; original exact arithmetic/inequality unchanged",
+    "support_admission": "selected whole signed columns must have exact zero components outside their physical completeJ/parity blocks; reject nonzero leakage, never remove a coefficient",
+    "per_sector_pair_bounds": [
+      24090,
+      24976,
+      67528,
+      68635,
+      86736
+    ],
+    "per_point_upper": 271965,
+    "all17points_upper": 4623405,
+    "one_target_max_pair_list": 86736,
+    "scope": "finite storedH exact normalized expectation versus actual ordinary Armijo RHS; no radial/global/CI-response bound, no energy callback"
+  },
+  "counter_call_chain": {
+    "H_CI": "one baseline +<=64energytrial, no checkpointH; reuse real trial owner for accepted gradient",
+    "g": "17retained public +17delta +17directfull =51weighted g;85unfiltered tables",
+    "tracking": "<=65reported calls +<=17accepted-gradient calls +<=17metadata resolves +<=65post-CI UID resolves =164;5SVD/resolve and constructoroneoverlap",
+    "hS": "initial7 +<=65completeCI x7 =462cap; samegeometrycachecarry/hits/producers observed, no fragilegetterexactness",
+    "spectral": "7Dirac validation up to3each +<=65CI x5completeblockeigh =346;SPD7activeS+31inverses=38",
+    "retraction": "<=64trials x7groups=448 hardcap; source may attempt more on geometryfail, then this cap stops with evidence, never reset"
+  },
+  "checkpoint_outputs": [
+    "fullx/P/layout/inverses/31radials/H/all1595roots/signedC/owner/fiveUID/weights/source and rawretained/fullnorm/delta/pg vectors",
+    "fullCIresGram/constraint/no-pair/originalmetric/originalstationarity for retained and fullnormalized",
+    "actual accepted_line_search original parent/trial/step/slope/RHS/backtrack/stable_callbackFalse; exactfiniteHdecision and cumulativebudget",
+    "lower by6s_1/2 UID(1,1,0); all5energychanges,4lines bylabel, D/P centroids/splittings at eachactualpoint, complete trajectory; NIST reportingonly"
+  ],
+  "stop": "First candidate identity/physical/fullsigned/acceptance/resource failure saved as unqualified before abort; retain previous qualified checkpoint. Driver guard exceptions must escape public ValueError line-search retries. No new update, cap resets, model reduction, scan or automatic continuation. Native optimizer built-in backtrack/fallback recorded within hardcaps.",
+  "completion": "Declare convergence only if allpoint gates and both originalretained/fullnormalized stationarity1e-7 and indicator1e-8 close. Sixteenacceptedpoints or decreasingEOL is not convergence or experimental qualification.",
+  "executor_implemented": false,
+  "execution_authorized": false
+}

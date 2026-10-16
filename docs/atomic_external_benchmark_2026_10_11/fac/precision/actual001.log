@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/replay.py", line 300, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/replay.py", line 251, in main
+    before = source_snapshot()
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/replay.py", line 82, in source_snapshot
+    return {str(p.resolve()): digest(p) for p in sorted(paths) if p.is_file()}
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/replay.py", line 82, in <dictcomp>
+    return {str(p.resolve()): digest(p) for p in sorted(paths) if p.is_file()}
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/replay.py", line 42, in digest
+    return hashlib.file_digest(Path(path).open('rb'), 'sha256').hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'

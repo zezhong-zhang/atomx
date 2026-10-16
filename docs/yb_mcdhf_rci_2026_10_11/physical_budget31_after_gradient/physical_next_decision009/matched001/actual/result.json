@@ -1,0 +1,4945 @@
+{
+  "status": "PASS_current_cached_streamed_full_basis_Davidson_fixed_R0",
+  "checks": [
+    {
+      "name": "cold_highest_weight_cache",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "same_A_B_keys_PQ",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "early_original_nucleus_radial_geometry",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original_metric",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((4, -4), (5, -4))",
+      "observed": 9.325873406851315e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((4, -4), (5, -4))",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((4, -4), (5, -4))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((4, -4), (5, -4))",
+      "observed": 2.8455293622252058e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((3, -3), (4, -3), (5, -3), (6, -3))",
+      "observed": 6.035236233434861e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((3, -3), (4, -3), (5, -3), (6, -3))",
+      "observed": 1.2212453270876722e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((3, -3), (4, -3), (5, -3), (6, -3))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((3, -3), (4, -3), (5, -3), (6, -3))",
+      "observed": 2.545296361055957e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((2, -2), (3, -2), (4, -2), (5, -2), (6, -2), (7, -2))",
+      "observed": 5.440092820663267e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((2, -2), (3, -2), (4, -2), (5, -2), (6, -2), (7, -2))",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((2, -2), (3, -2), (4, -2), (5, -2), (6, -2), (7, -2))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((2, -2), (3, -2), (4, -2), (5, -2), (6, -2), (7, -2))",
+      "observed": 4.7684143542027376e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((1, -1), (2, -1), (3, -1), (4, -1), (5, -1), (6, -1), (7, -1))",
+      "observed": 4.9398885842513814e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((1, -1), (2, -1), (3, -1), (4, -1), (5, -1), (6, -1), (7, -1))",
+      "observed": 3.6637359812630166e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((1, -1), (2, -1), (3, -1), (4, -1), (5, -1), (6, -1), (7, -1))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((1, -1), (2, -1), (3, -1), (4, -1), (5, -1), (6, -1), (7, -1))",
+      "observed": 6.447566771613417e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1))",
+      "observed": 8.104628079763643e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1))",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1))",
+      "observed": 4.8368219859724e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((3, 2), (4, 2), (5, 2), (6, 2))",
+      "observed": 6.439293542825908e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((3, 2), (4, 2), (5, 2), (6, 2))",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((3, 2), (4, 2), (5, 2), (6, 2))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((3, 2), (4, 2), (5, 2), (6, 2))",
+      "observed": 4.29281574914028e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_P_Gram/((4, 3), (5, 3))",
+      "observed": 5.401461758238462e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_radial_Gram/((4, 3), (5, 3))",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "R0_coordinate_wave/((4, 3), (5, 3))",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "R0_no_pair/((4, 3), (5, 3))",
+      "observed": 4.249077220580286e-30,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "A/parent_full_CSFs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/all_signed_CSFs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/all69electrons",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/all31keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/parent_full_CSFs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/all_signed_CSFs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/all69electrons",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/all31keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/dense_H_symmetric",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/3",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/4",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/5",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/6",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "raw_original_S/7",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/1",
+      "observed": 2425747,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 2425747,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 30552592,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/2",
+      "observed": 2238021,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 4663768,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 58740744,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/3",
+      "observed": 2377069,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 7040837,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 88700868,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/3",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/4",
+      "observed": 2249299,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 9290136,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 117059960,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/4",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/5",
+      "observed": 1829976,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 11120112,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 140060736,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/5",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/operator_shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all5blocks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/complete_sector_rows/(1, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/full_reference_Gram/(1, 1)",
+      "observed": 3.552713678800501e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/sparse_diagonal/(1, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_signed_action/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_eigen_residual/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/bilinear_symmetry/(1, 1)",
+      "observed": 1.2256862191861728e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/cross_symmetry/(1, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual_L2/(1, 1)",
+      "observed": 7.651749300003529e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual/(1, 1)",
+      "observed": 2.39662512058203e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_energy/(1, 1)",
+      "observed": 2.7284841053187847e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_Gram/(1, 1)",
+      "observed": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((1, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((1, 1), 0)",
+      "observed": 1.0995697061200183e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((1, 1), 0)",
+      "observed": 1.0131016294975814e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((1, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((1, 1), 1)",
+      "observed": 3.6701672742611713e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((1, 1), 1)",
+      "observed": 4.12971395968853e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/complete_sector_rows/(1, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/full_reference_Gram/(1, -1)",
+      "observed": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/sparse_diagonal/(1, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_signed_action/(1, -1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_eigen_residual/(1, -1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/bilinear_symmetry/(1, -1)",
+      "observed": 7.016609515630989e-14,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/cross_symmetry/(1, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual_L2/(1, -1)",
+      "observed": 5.983381215283735e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual/(1, -1)",
+      "observed": 1.8874724005968346e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_energy/(1, -1)",
+      "observed": 2.3646862246096134e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_Gram/(1, -1)",
+      "observed": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((1, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((1, -1), 0)",
+      "observed": 3.122110252620769e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((1, -1), 0)",
+      "observed": 2.829989333152927e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((1, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((1, -1), 1)",
+      "observed": 4.777084283702493e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((1, -1), 1)",
+      "observed": 3.555760078738368e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/complete_sector_rows/(3, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/full_reference_Gram/(3, 1)",
+      "observed": 4.440892098500626e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/sparse_diagonal/(3, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_signed_action/(3, 1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_eigen_residual/(3, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/bilinear_symmetry/(3, 1)",
+      "observed": 8.881784197001252e-14,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/cross_symmetry/(3, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual_L2/(3, 1)",
+      "observed": 6.297872309372883e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual/(3, 1)",
+      "observed": 1.8212631403002888e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_energy/(3, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_Gram/(3, 1)",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((3, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((3, 1), 0)",
+      "observed": 1.6974560472504674e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((3, 1), 0)",
+      "observed": 1.5509248919853835e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((3, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((3, 1), 1)",
+      "observed": 1.4388858160518936e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((3, 1), 1)",
+      "observed": 1.3373920582093746e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/complete_sector_rows/(3, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/full_reference_Gram/(3, -1)",
+      "observed": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/sparse_diagonal/(3, -1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_signed_action/(3, -1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_eigen_residual/(3, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/bilinear_symmetry/(3, -1)",
+      "observed": 1.2256862191861728e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/cross_symmetry/(3, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual_L2/(3, -1)",
+      "observed": 9.266462610145328e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual/(3, -1)",
+      "observed": 2.6125235308427364e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_energy/(3, -1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_Gram/(3, -1)",
+      "observed": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((3, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((3, -1), 0)",
+      "observed": 3.535494813577955e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((3, -1), 0)",
+      "observed": 3.1947739592697033e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((3, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((3, -1), 1)",
+      "observed": 4.780092432987715e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((3, -1), 1)",
+      "observed": 5.239661149403219e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/complete_sector_rows/(5, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/full_reference_Gram/(5, 1)",
+      "observed": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/sparse_diagonal/(5, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_signed_action/(5, 1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/all_column_eigen_residual/(5, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/bilinear_symmetry/(5, 1)",
+      "observed": 1.4921397450962104e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/cross_symmetry/(5, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual_L2/(5, 1)",
+      "observed": 8.218455336480877e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_residual/(5, 1)",
+      "observed": 1.8537882340297074e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_energy/(5, 1)",
+      "observed": 2.1827872842550278e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/Davidson_Gram/(5, 1)",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((5, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((5, 1), 0)",
+      "observed": 6.852661999044024e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((5, 1), 0)",
+      "observed": 6.258724945642016e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/isolated_reference_root/((5, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/signed_wave/((5, 1), 1)",
+      "observed": 2.3706980128990196e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/projector/((5, 1), 1)",
+      "observed": 1.9234626252861986e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/cached/five_owned_UIDs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/dense_H_symmetric",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/6",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/1",
+      "observed": 360906,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/7",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/2",
+      "observed": 332974,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/8",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/3",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/3",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/3",
+      "observed": 358823,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/9",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/4",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/4",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/4",
+      "observed": 341875,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/10",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/5",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/5",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/5",
+      "observed": 260265,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/operator_shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all5blocks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/complete_sector_rows/(1, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/full_reference_Gram/(1, 1)",
+      "observed": 3.552713678800501e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/sparse_diagonal/(1, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_diagonal/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_signed_action/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_eigen_residual/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_all_C/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_full_H/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/bilinear_symmetry/(1, 1)",
+      "observed": 2.7755575615628914e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cross_symmetry/(1, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual_L2/(1, 1)",
+      "observed": 7.946557181336294e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual/(1, 1)",
+      "observed": 2.3646506974728254e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_energy/(1, 1)",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_Gram/(1, 1)",
+      "observed": 3.3306690738754696e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((1, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((1, 1), 0)",
+      "observed": 8.627881395439907e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((1, 1), 0)",
+      "observed": 7.938239302007766e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((1, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((1, 1), 1)",
+      "observed": 3.540331333651281e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((1, 1), 1)",
+      "observed": 3.9374450366835845e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/complete_sector_rows/(1, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/full_reference_Gram/(1, -1)",
+      "observed": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/sparse_diagonal/(1, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_diagonal/(1, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_signed_action/(1, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_eigen_residual/(1, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_all_C/(1, -1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_full_H/(1, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/bilinear_symmetry/(1, -1)",
+      "observed": 1.7674750552032492e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cross_symmetry/(1, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual_L2/(1, -1)",
+      "observed": 5.974338409273792e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual/(1, -1)",
+      "observed": 1.8706103332988278e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_energy/(1, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_Gram/(1, -1)",
+      "observed": 1.2212453270876722e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((1, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((1, -1), 0)",
+      "observed": 3.2083590558590336e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((1, -1), 0)",
+      "observed": 2.9081589827256726e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((1, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((1, -1), 1)",
+      "observed": 5.344389930606042e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((1, -1), 1)",
+      "observed": 3.927229097477891e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/complete_sector_rows/(3, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/full_reference_Gram/(3, 1)",
+      "observed": 4.440892098500626e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/sparse_diagonal/(3, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_diagonal/(3, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_signed_action/(3, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_eigen_residual/(3, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_all_C/(3, 1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_full_H/(3, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/bilinear_symmetry/(3, 1)",
+      "observed": 1.438849039914203e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cross_symmetry/(3, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual_L2/(3, 1)",
+      "observed": 6.230857251499283e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual/(3, 1)",
+      "observed": 1.523972059658263e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_energy/(3, 1)",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_Gram/(3, 1)",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((3, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((3, 1), 0)",
+      "observed": 1.6189613365191757e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((3, 1), 0)",
+      "observed": 1.4793411504468446e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((3, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((3, 1), 1)",
+      "observed": 1.5036880074426051e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((3, 1), 1)",
+      "observed": 1.400922489125378e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/complete_sector_rows/(3, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/full_reference_Gram/(3, -1)",
+      "observed": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/sparse_diagonal/(3, -1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_diagonal/(3, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_signed_action/(3, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_eigen_residual/(3, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_all_C/(3, -1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_full_H/(3, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/bilinear_symmetry/(3, -1)",
+      "observed": 2.007283228522283e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cross_symmetry/(3, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual_L2/(3, -1)",
+      "observed": 9.055258271328174e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual/(3, -1)",
+      "observed": 2.5920599000528455e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_energy/(3, -1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_Gram/(3, -1)",
+      "observed": 1.2212453270876722e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((3, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((3, -1), 0)",
+      "observed": 3.4779162536024977e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((3, -1), 0)",
+      "observed": 3.144074653405049e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((3, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((3, -1), 1)",
+      "observed": 4.74600170274897e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((3, -1), 1)",
+      "observed": 5.18025011775336e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/complete_sector_rows/(5, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/full_reference_Gram/(5, 1)",
+      "observed": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/sparse_diagonal/(5, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_diagonal/(5, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_signed_action/(5, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/all_column_eigen_residual/(5, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_all_C/(5, 1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cached_streamed_full_H/(5, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/bilinear_symmetry/(5, 1)",
+      "observed": 2.4868995751603507e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/cross_symmetry/(5, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual_L2/(5, 1)",
+      "observed": 8.227714706958647e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_residual/(5, 1)",
+      "observed": 1.8773960164253367e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_energy/(5, 1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/Davidson_Gram/(5, 1)",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((5, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((5, 1), 0)",
+      "observed": 6.859001321557132e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((5, 1), 0)",
+      "observed": 6.264548101184847e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/isolated_reference_root/((5, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/signed_wave/((5, 1), 1)",
+      "observed": 2.3030442553029218e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/projector/((5, 1), 1)",
+      "observed": 1.868516855130231e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A/streamed/five_owned_UIDs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/dense_H_symmetric",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/6",
+      "observed": 3369584,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 14489696,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 182391336,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/11",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/7",
+      "observed": 3241770,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 17731466,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 223094164,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/12",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/8",
+      "observed": 3180849,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 20912315,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 263079976,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/13",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/9",
+      "observed": 3111938,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 24024253,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 302190532,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/14",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_nnz/10",
+      "observed": 2394416,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_total_nnz",
+      "observed": 26418669,
+      "limit": 40000000,
+      "PASS": true
+    },
+    {
+      "name": "angular_table_CSR_payload",
+      "observed": 332210280,
+      "limit": 600000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/15",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/operator_shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all5blocks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/complete_sector_rows/(1, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/full_reference_Gram/(1, 1)",
+      "observed": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/sparse_diagonal/(1, 1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_signed_action/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_eigen_residual/(1, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/bilinear_symmetry/(1, 1)",
+      "observed": 2.7355895326763857e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/cross_symmetry/(1, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual_L2/(1, 1)",
+      "observed": 5.725691183956926e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual/(1, 1)",
+      "observed": 2.482920535840094e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_energy/(1, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_Gram/(1, 1)",
+      "observed": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((1, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((1, 1), 0)",
+      "observed": 8.703089464379143e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((1, 1), 0)",
+      "observed": 8.015252697668451e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((1, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((1, 1), 1)",
+      "observed": 1.662671111901659e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((1, 1), 1)",
+      "observed": 1.4989042784741002e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/complete_sector_rows/(1, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/full_reference_Gram/(1, -1)",
+      "observed": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/sparse_diagonal/(1, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_signed_action/(1, -1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_eigen_residual/(1, -1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/bilinear_symmetry/(1, -1)",
+      "observed": 7.105427357601002e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/cross_symmetry/(1, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual_L2/(1, -1)",
+      "observed": 7.024533502429502e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual/(1, -1)",
+      "observed": 2.545057498082315e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_energy/(1, -1)",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_Gram/(1, -1)",
+      "observed": 7.771561172376096e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((1, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((1, -1), 0)",
+      "observed": 1.4010821669518947e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((1, -1), 0)",
+      "observed": 1.249780418044466e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((1, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((1, -1), 1)",
+      "observed": 1.1542397038155627e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((1, -1), 1)",
+      "observed": 8.636321657817803e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/complete_sector_rows/(3, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/full_reference_Gram/(3, 1)",
+      "observed": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/sparse_diagonal/(3, 1)",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_signed_action/(3, 1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_eigen_residual/(3, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/bilinear_symmetry/(3, 1)",
+      "observed": 1.6076029396572267e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/cross_symmetry/(3, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual_L2/(3, 1)",
+      "observed": 6.252660483845485e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual/(3, 1)",
+      "observed": 1.8255263967148494e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_energy/(3, 1)",
+      "observed": 3.092281986027956e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_Gram/(3, 1)",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((3, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((3, 1), 0)",
+      "observed": 3.517183354458109e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((3, 1), 0)",
+      "observed": 3.214533062477487e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((3, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((3, 1), 1)",
+      "observed": 2.0932452125810297e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((3, 1), 1)",
+      "observed": 2.0072015854966097e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/complete_sector_rows/(3, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/full_reference_Gram/(3, -1)",
+      "observed": 3.3670982668709826e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/sparse_diagonal/(3, -1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_signed_action/(3, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_eigen_residual/(3, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/bilinear_symmetry/(3, -1)",
+      "observed": 1.9029222642075183e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/cross_symmetry/(3, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual_L2/(3, -1)",
+      "observed": 8.94437973217738e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual/(3, -1)",
+      "observed": 2.6705038180807605e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_energy/(3, -1)",
+      "observed": 2.1827872842550278e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_Gram/(3, -1)",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((3, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((3, -1), 0)",
+      "observed": 1.7423948048267413e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((3, -1), 0)",
+      "observed": 1.580984371196692e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((3, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((3, -1), 1)",
+      "observed": 1.3909803864287085e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((3, -1), 1)",
+      "observed": 1.2671282911824733e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/complete_sector_rows/(5, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/full_reference_Gram/(5, 1)",
+      "observed": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/sparse_diagonal/(5, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_signed_action/(5, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/all_column_eigen_residual/(5, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/bilinear_symmetry/(5, 1)",
+      "observed": 8.704148513061227e-14,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/cross_symmetry/(5, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual_L2/(5, 1)",
+      "observed": 8.242607402411298e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_residual/(5, 1)",
+      "observed": 2.0383517096433934e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_energy/(5, 1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/Davidson_Gram/(5, 1)",
+      "observed": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((5, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((5, 1), 0)",
+      "observed": 3.874730486550654e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((5, 1), 0)",
+      "observed": 3.537895746762859e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/isolated_reference_root/((5, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/signed_wave/((5, 1), 1)",
+      "observed": 1.8437213561428578e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/projector/((5, 1), 1)",
+      "observed": 1.5059027358432786e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/cached/five_owned_UIDs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/dense_H_symmetric",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/16",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/6",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/6",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/6",
+      "observed": 473897,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/17",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/7",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/7",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/7",
+      "observed": 450396,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/18",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/8",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/8",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/8",
+      "observed": 453905,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/19",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/9",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/9",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/9",
+      "observed": 441824,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "sparse_projection/20",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR/10",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_finite/10",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "numeric_CSR_nnz/10",
+      "observed": 321688,
+      "limit": 4000000,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/operator_shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all5blocks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/complete_sector_rows/(1, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/full_reference_Gram/(1, 1)",
+      "observed": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/sparse_diagonal/(1, 1)",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_diagonal/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_signed_action/(1, 1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_eigen_residual/(1, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_all_C/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_full_H/(1, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/bilinear_symmetry/(1, 1)",
+      "observed": 2.6290081223123707e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cross_symmetry/(1, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual_L2/(1, 1)",
+      "observed": 5.735436400857905e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual/(1, 1)",
+      "observed": 2.5556801119819283e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_energy/(1, 1)",
+      "observed": 1.8189894035458565e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_Gram/(1, 1)",
+      "observed": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((1, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((1, 1), 0)",
+      "observed": 8.675827070647735e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((1, 1), 0)",
+      "observed": 7.981630981146459e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((1, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((1, 1), 1)",
+      "observed": 1.6263115715231535e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((1, 1), 1)",
+      "observed": 1.488946632655086e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/complete_sector_rows/(1, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/full_reference_Gram/(1, -1)",
+      "observed": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/sparse_diagonal/(1, -1)",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_diagonal/(1, -1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_signed_action/(1, -1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_eigen_residual/(1, -1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_all_C/(1, -1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_full_H/(1, -1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/bilinear_symmetry/(1, -1)",
+      "observed": 7.460698725481052e-14,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cross_symmetry/(1, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual_L2/(1, -1)",
+      "observed": 6.918402813927751e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual/(1, -1)",
+      "observed": 2.4842350399012503e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_energy/(1, -1)",
+      "observed": 0.0,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_Gram/(1, -1)",
+      "observed": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((1, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((1, -1), 0)",
+      "observed": 1.462133053520276e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((1, -1), 0)",
+      "observed": 1.304868990636976e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((1, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((1, -1), 1)",
+      "observed": 1.1620275852664008e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((1, -1), 1)",
+      "observed": 8.763164638381227e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/complete_sector_rows/(3, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/full_reference_Gram/(3, 1)",
+      "observed": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/sparse_diagonal/(3, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_diagonal/(3, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_signed_action/(3, 1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_eigen_residual/(3, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_all_C/(3, 1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_full_H/(3, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/bilinear_symmetry/(3, 1)",
+      "observed": 1.412203687323199e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cross_symmetry/(3, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual_L2/(3, 1)",
+      "observed": 6.383172624545623e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual/(3, 1)",
+      "observed": 2.0871482320217183e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_energy/(3, 1)",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_Gram/(3, 1)",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((3, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((3, 1), 0)",
+      "observed": 3.533651904072399e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((3, 1), 0)",
+      "observed": 3.229287627234956e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((3, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((3, 1), 1)",
+      "observed": 2.026959475265322e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((3, 1), 1)",
+      "observed": 1.9440734994047304e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/complete_sector_rows/(3, -1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/full_reference_Gram/(3, -1)",
+      "observed": 3.3670982668709826e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/sparse_diagonal/(3, -1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_diagonal/(3, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_signed_action/(3, -1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_eigen_residual/(3, -1)",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_all_C/(3, -1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_full_H/(3, -1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/bilinear_symmetry/(3, -1)",
+      "observed": 9.459100169806334e-14,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cross_symmetry/(3, -1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual_L2/(3, -1)",
+      "observed": 9.02533017081457e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual/(3, -1)",
+      "observed": 2.6273028197465464e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_energy/(3, -1)",
+      "observed": 2.7284841053187847e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_Gram/(3, -1)",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((3, -1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((3, -1), 0)",
+      "observed": 1.5957868707006106e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((3, -1), 0)",
+      "observed": 1.4504987141950032e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((3, -1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((3, -1), 1)",
+      "observed": 1.4888496407960972e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((3, -1), 1)",
+      "observed": 1.201163210562406e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/complete_sector_rows/(5, 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/full_reference_Gram/(5, 1)",
+      "observed": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/sparse_diagonal/(5, 1)",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_diagonal/(5, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_signed_action/(5, 1)",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/all_column_eigen_residual/(5, 1)",
+      "observed": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_all_C/(5, 1)",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cached_streamed_full_H/(5, 1)",
+      "observed": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/bilinear_symmetry/(5, 1)",
+      "observed": 1.0125233984581428e-13,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/cross_symmetry/(5, 1)",
+      "observed": 0.0,
+      "limit": 0.0,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual_L2/(5, 1)",
+      "observed": 8.306787999998912e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_residual/(5, 1)",
+      "observed": 1.9889867530764604e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_energy/(5, 1)",
+      "observed": 2.3646862246096134e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/Davidson_Gram/(5, 1)",
+      "observed": 7.771561172376096e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((5, 1), 0)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((5, 1), 0)",
+      "observed": 3.8538855592039345e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((5, 1), 0)",
+      "observed": 3.518867254873048e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/isolated_reference_root/((5, 1), 1)",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/signed_wave/((5, 1), 1)",
+      "observed": 1.7912454436386227e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/projector/((5, 1), 1)",
+      "observed": 1.4664273684239504e-09,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B/streamed/five_owned_UIDs",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_whole_census_queries",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "angular_whole_nullspace_count",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/Davidson",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/H_projection",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/angular_table",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/NPZ_load",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/NPZ_save",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/streamed_numeric",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete_call_count/pair_kernel",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    }
+  ],
+  "work": {
+    "nucleus": {
+      "profile": {
+        "model": "fermi",
+        "radius_mass_number": 175,
+        "requested_mass_number": 175,
+        "rms_radius_fm": 5.246119777900239,
+        "reference_rms_radius_fm": 5.246119777900239,
+        "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+        "radius_clamped": false,
+        "diffuseness_bohr": 9.890591372451268e-06,
+        "half_density_radius_bohr": 0.00011885936071054029
+      },
+      "binding": {
+        "external": [
+          "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+          "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+          "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+          "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+          "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+          "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+          "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+          "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+          "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+          "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+          "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+          "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+          "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+          "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+          "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+          "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+          "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+          "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+          "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+          "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+          "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+          "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+          "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+          "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+          "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+          "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+          "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+          "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+          "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+          "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+          "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+        ],
+        "core": [],
+        "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+        "Z": 70,
+        "ns": 123,
+        "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+      }
+    },
+    "tables": [
+      {
+        "raw": 1705,
+        "keys": 12481,
+        "nnz": 2425747,
+        "bytes": 30552592,
+        "pair_bytes": 5774496
+      },
+      {
+        "raw": 1640,
+        "keys": 12549,
+        "nnz": 2238021,
+        "bytes": 28188152,
+        "pair_bytes": 5327584
+      },
+      {
+        "raw": 1660,
+        "keys": 14059,
+        "nnz": 2377069,
+        "bytes": 29960124,
+        "pair_bytes": 5741168
+      },
+      {
+        "raw": 1619,
+        "keys": 14441,
+        "nnz": 2249299,
+        "bytes": 28359092,
+        "pair_bytes": 5470000
+      },
+      {
+        "raw": 1324,
+        "keys": 14307,
+        "nnz": 1829976,
+        "bytes": 23000776,
+        "pair_bytes": 4164240
+      },
+      {
+        "raw": 2659,
+        "keys": 13127,
+        "nnz": 3369584,
+        "bytes": 42330600,
+        "pair_bytes": 7582352
+      },
+      {
+        "raw": 2623,
+        "keys": 13184,
+        "nnz": 3241770,
+        "bytes": 40702828,
+        "pair_bytes": 7206336
+      },
+      {
+        "raw": 2478,
+        "keys": 14693,
+        "nnz": 3180849,
+        "bytes": 39985812,
+        "pair_bytes": 7262480
+      },
+      {
+        "raw": 2466,
+        "keys": 15018,
+        "nnz": 3111938,
+        "bytes": 39110556,
+        "pair_bytes": 7069184
+      },
+      {
+        "raw": 1918,
+        "keys": 14949,
+        "nnz": 2394416,
+        "bytes": 30019748,
+        "pair_bytes": 5147008
+      }
+    ],
+    "projections": [
+      {
+        "shape": [
+          1705,
+          223
+        ],
+        "nnz": 2630,
+        "bytes": 38384
+      },
+      {
+        "shape": [
+          1640,
+          219
+        ],
+        "nnz": 2392,
+        "bytes": 35268
+      },
+      {
+        "shape": [
+          1660,
+          370
+        ],
+        "nnz": 3762,
+        "bytes": 51788
+      },
+      {
+        "shape": [
+          1619,
+          367
+        ],
+        "nnz": 3421,
+        "bytes": 47532
+      },
+      {
+        "shape": [
+          1324,
+          416
+        ],
+        "nnz": 3466,
+        "bytes": 46892
+      },
+      {
+        "shape": [
+          1705,
+          223
+        ],
+        "nnz": 2630,
+        "bytes": 38384
+      },
+      {
+        "shape": [
+          1640,
+          219
+        ],
+        "nnz": 2392,
+        "bytes": 35268
+      },
+      {
+        "shape": [
+          1660,
+          370
+        ],
+        "nnz": 3762,
+        "bytes": 51788
+      },
+      {
+        "shape": [
+          1619,
+          367
+        ],
+        "nnz": 3421,
+        "bytes": 47532
+      },
+      {
+        "shape": [
+          1324,
+          416
+        ],
+        "nnz": 3466,
+        "bytes": 46892
+      },
+      {
+        "shape": [
+          2659,
+          365
+        ],
+        "nnz": 5904,
+        "bytes": 81488
+      },
+      {
+        "shape": [
+          2623,
+          362
+        ],
+        "nnz": 6475,
+        "bytes": 88196
+      },
+      {
+        "shape": [
+          2478,
+          596
+        ],
+        "nnz": 8006,
+        "bytes": 105988
+      },
+      {
+        "shape": [
+          2466,
+          599
+        ],
+        "nnz": 8545,
+        "bytes": 112408
+      },
+      {
+        "shape": [
+          1918,
+          652
+        ],
+        "nnz": 6629,
+        "bytes": 87224
+      },
+      {
+        "shape": [
+          2659,
+          365
+        ],
+        "nnz": 5904,
+        "bytes": 81488
+      },
+      {
+        "shape": [
+          2623,
+          362
+        ],
+        "nnz": 6475,
+        "bytes": 88196
+      },
+      {
+        "shape": [
+          2478,
+          596
+        ],
+        "nnz": 8006,
+        "bytes": 105988
+      },
+      {
+        "shape": [
+          2466,
+          599
+        ],
+        "nnz": 8545,
+        "bytes": 112408
+      },
+      {
+        "shape": [
+          1918,
+          652
+        ],
+        "nnz": 6629,
+        "bytes": 87224
+      }
+    ],
+    "streamed_numeric": [
+      {
+        "shape": [
+          1705,
+          1705
+        ],
+        "nnz": 360906,
+        "bytes": 4337696
+      },
+      {
+        "shape": [
+          1640,
+          1640
+        ],
+        "nnz": 332974,
+        "bytes": 4002252
+      },
+      {
+        "shape": [
+          1660,
+          1660
+        ],
+        "nnz": 358823,
+        "bytes": 4312520
+      },
+      {
+        "shape": [
+          1619,
+          1619
+        ],
+        "nnz": 341875,
+        "bytes": 4108980
+      },
+      {
+        "shape": [
+          1324,
+          1324
+        ],
+        "nnz": 260265,
+        "bytes": 3128480
+      },
+      {
+        "shape": [
+          2659,
+          2659
+        ],
+        "nnz": 473897,
+        "bytes": 5697404
+      },
+      {
+        "shape": [
+          2623,
+          2623
+        ],
+        "nnz": 450396,
+        "bytes": 5415248
+      },
+      {
+        "shape": [
+          2478,
+          2478
+        ],
+        "nnz": 453905,
+        "bytes": 5456776
+      },
+      {
+        "shape": [
+          2466,
+          2466
+        ],
+        "nnz": 441824,
+        "bytes": 5311756
+      },
+      {
+        "shape": [
+          1918,
+          1918
+        ],
+        "nnz": 321688,
+        "bytes": 3867932
+      }
+    ]
+  },
+  "points": {
+    "A_cached": {
+      "operator_build_seconds": 28.177996271000666,
+      "mode": "cached",
+      "blocks": [
+        {
+          "sector": [
+            1,
+            1
+          ],
+          "CSFs": 223,
+          "full_columns": 223,
+          "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+          "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+          "Davidson_seconds": 0.015659369000786683,
+          "iterations": 35,
+          "energies_Ha": [
+            -14067.526231462864,
+            -14067.225561503556
+          ],
+          "energy_difference_Ha": [
+            -1.2732925824820995e-11,
+            -2.7284841053187847e-11
+          ],
+          "direct_residual_L2_Ha": [
+            4.088793092615472e-10,
+            7.651749300003529e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.39662512058203e-10
+        },
+        {
+          "sector": [
+            1,
+            -1
+          ],
+          "CSFs": 219,
+          "full_columns": 219,
+          "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "Davidson_seconds": 0.015243714999087388,
+          "iterations": 22,
+          "energies_Ha": [
+            -14067.407917382157,
+            -14067.33899542148
+          ],
+          "energy_difference_Ha": [
+            2.3646862246096134e-11,
+            1.4551915228366852e-11
+          ],
+          "direct_residual_L2_Ha": [
+            5.006685098698191e-10,
+            5.983381215283735e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8874724005968346e-10
+        },
+        {
+          "sector": [
+            3,
+            1
+          ],
+          "CSFs": 370,
+          "full_columns": 370,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "Davidson_seconds": 0.021700207000321825,
+          "iterations": 38,
+          "energies_Ha": [
+            -14067.417040668968,
+            -14067.257458505186
+          ],
+          "energy_difference_Ha": [
+            -7.275957614183426e-12,
+            0.0
+          ],
+          "direct_residual_L2_Ha": [
+            1.3911699788154905e-10,
+            6.297872309372883e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8212631403002888e-10
+        },
+        {
+          "sector": [
+            3,
+            -1
+          ],
+          "CSFs": 367,
+          "full_columns": 367,
+          "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+          "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+          "Davidson_seconds": 0.01922832099990046,
+          "iterations": 25,
+          "energies_Ha": [
+            -14067.392090303943,
+            -14067.360549332681
+          ],
+          "energy_difference_Ha": [
+            -9.094947017729282e-12,
+            5.4569682106375694e-12
+          ],
+          "direct_residual_L2_Ha": [
+            2.543087386644697e-10,
+            9.266462610145328e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.6125235308427364e-10
+        },
+        {
+          "sector": [
+            5,
+            1
+          ],
+          "CSFs": 416,
+          "full_columns": 416,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "Davidson_seconds": 0.016722911999750067,
+          "iterations": 34,
+          "energies_Ha": [
+            -14067.413297705289,
+            -14067.27211223206
+          ],
+          "energy_difference_Ha": [
+            -2.1827872842550278e-11,
+            0.0
+          ],
+          "direct_residual_L2_Ha": [
+            8.218455336480877e-10,
+            7.364408493162223e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8537882340297074e-10
+        }
+      ],
+      "UIDs": [
+        {
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "label": "6s_1/2",
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.526231462864,
+          "dense_energy_Ha": -14067.52623146285,
+          "signed_overlap": 1.0000000000000013
+        },
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "label": "5d_3/2",
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.417040668968,
+          "dense_energy_Ha": -14067.41704066896,
+          "signed_overlap": 1.0000000000000009
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "label": "5d_5/2",
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.413297705289,
+          "dense_energy_Ha": -14067.413297705267,
+          "signed_overlap": 1.0000000000000009
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "label": "6p_1/2",
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.407917382157,
+          "dense_energy_Ha": -14067.407917382181,
+          "signed_overlap": 1.0000000000000004
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "label": "6p_3/2",
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.392090303943,
+          "dense_energy_Ha": -14067.392090303934,
+          "signed_overlap": 1.0000000000000004
+        }
+      ],
+      "input_binding": {
+        "external": [
+          "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+          "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+          "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+          "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+          "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+          "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+          "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+          "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+          "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+          "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+          "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+          "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+          "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+          "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+          "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+          "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+          "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+          "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+          "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+          "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+          "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+          "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+          "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+          "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+          "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+          "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+          "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+          "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+          "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+          "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+          "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+        ],
+        "core": [],
+        "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+        "Z": 70,
+        "ns": 123,
+        "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+      },
+      "oracle_SHA256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+      "ownership_scope": "new local native LinearOperator bound here; no CIHamiltonianSnapshot fabricated"
+    },
+    "A_streamed": {
+      "operator_build_seconds": 23.31184299599954,
+      "mode": "streamed",
+      "blocks": [
+        {
+          "sector": [
+            1,
+            1
+          ],
+          "CSFs": 223,
+          "full_columns": 223,
+          "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+          "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 5.4569682106375694e-12,
+          "Davidson_seconds": 0.01568393500019738,
+          "iterations": 35,
+          "energies_Ha": [
+            -14067.52623146284,
+            -14067.225561503534
+          ],
+          "energy_difference_Ha": [
+            1.0913936421275139e-11,
+            -5.4569682106375694e-12
+          ],
+          "direct_residual_L2_Ha": [
+            4.3890534513957384e-10,
+            7.946557181336294e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.3646506974728254e-10
+        },
+        {
+          "sector": [
+            1,
+            -1
+          ],
+          "CSFs": 219,
+          "full_columns": 219,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.4551915228366852e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.015236952000122983,
+          "iterations": 22,
+          "energies_Ha": [
+            -14067.407917382176,
+            -14067.33899542148
+          ],
+          "energy_difference_Ha": [
+            5.4569682106375694e-12,
+            1.4551915228366852e-11
+          ],
+          "direct_residual_L2_Ha": [
+            4.934841106740228e-10,
+            5.974338409273792e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8706103332988278e-10
+        },
+        {
+          "sector": [
+            3,
+            1
+          ],
+          "CSFs": 370,
+          "full_columns": 370,
+          "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.021643611000399687,
+          "iterations": 38,
+          "energies_Ha": [
+            -14067.417040668955,
+            -14067.257458505197
+          ],
+          "energy_difference_Ha": [
+            5.4569682106375694e-12,
+            -1.0913936421275139e-11
+          ],
+          "direct_residual_L2_Ha": [
+            1.4200339769224304e-10,
+            6.230857251499283e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.523972059658263e-10
+        },
+        {
+          "sector": [
+            3,
+            -1
+          ],
+          "CSFs": 367,
+          "full_columns": 367,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.018781901000693324,
+          "iterations": 25,
+          "energies_Ha": [
+            -14067.392090303943,
+            -14067.36054933269
+          ],
+          "energy_difference_Ha": [
+            -9.094947017729282e-12,
+            -3.637978807091713e-12
+          ],
+          "direct_residual_L2_Ha": [
+            2.5526819547419986e-10,
+            9.055258271328174e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.5920599000528455e-10
+        },
+        {
+          "sector": [
+            5,
+            1
+          ],
+          "CSFs": 416,
+          "full_columns": 416,
+          "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.016559082998355734,
+          "iterations": 34,
+          "energies_Ha": [
+            -14067.41329770526,
+            -14067.272112232069
+          ],
+          "energy_difference_Ha": [
+            7.275957614183426e-12,
+            -9.094947017729282e-12
+          ],
+          "direct_residual_L2_Ha": [
+            8.227714706958647e-10,
+            7.372659652000707e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8773960164253367e-10
+        }
+      ],
+      "UIDs": [
+        {
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "label": "6s_1/2",
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.52623146284,
+          "dense_energy_Ha": -14067.52623146285,
+          "signed_overlap": 1.000000000000001
+        },
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "label": "5d_3/2",
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.417040668955,
+          "dense_energy_Ha": -14067.41704066896,
+          "signed_overlap": 1.0000000000000004
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "label": "5d_5/2",
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.41329770526,
+          "dense_energy_Ha": -14067.413297705267,
+          "signed_overlap": 0.999999999999999
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "label": "6p_1/2",
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.407917382176,
+          "dense_energy_Ha": -14067.407917382181,
+          "signed_overlap": 1.0
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "label": "6p_3/2",
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.392090303943,
+          "dense_energy_Ha": -14067.392090303934,
+          "signed_overlap": 1.0000000000000002
+        }
+      ],
+      "input_binding": {
+        "external": [
+          "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+          "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+          "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+          "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+          "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+          "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+          "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+          "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+          "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+          "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+          "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+          "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+          "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+          "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+          "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+          "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+          "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+          "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+          "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+          "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+          "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+          "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+          "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+          "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+          "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+          "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+          "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+          "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+          "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+          "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+          "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+        ],
+        "core": [],
+        "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+        "Z": 70,
+        "ns": 123,
+        "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+      },
+      "oracle_SHA256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+      "ownership_scope": "new local native LinearOperator bound here; no CIHamiltonianSnapshot fabricated"
+    },
+    "B_cached": {
+      "operator_build_seconds": 36.21115604099941,
+      "mode": "cached",
+      "blocks": [
+        {
+          "sector": [
+            1,
+            1
+          ],
+          "CSFs": 365,
+          "full_columns": 365,
+          "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "Davidson_seconds": 0.0200950840007863,
+          "iterations": 35,
+          "energies_Ha": [
+            -14067.543029892713,
+            -14067.225577552572
+          ],
+          "energy_difference_Ha": [
+            3.637978807091713e-12,
+            -1.8189894035458565e-11
+          ],
+          "direct_residual_L2_Ha": [
+            3.8473005805223097e-10,
+            5.725691183956926e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.482920535840094e-10
+        },
+        {
+          "sector": [
+            1,
+            -1
+          ],
+          "CSFs": 362,
+          "full_columns": 362,
+          "whole_reference_action_max_abs_Ha": 1.8189894035458565e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "Davidson_seconds": 0.02037721499982581,
+          "iterations": 22,
+          "energies_Ha": [
+            -14067.424036274222,
+            -14067.339187745029
+          ],
+          "energy_difference_Ha": [
+            -1.8189894035458565e-12,
+            1.0913936421275139e-11
+          ],
+          "direct_residual_L2_Ha": [
+            2.605418008997624e-10,
+            7.024533502429502e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.545057498082315e-10
+        },
+        {
+          "sector": [
+            3,
+            1
+          ],
+          "CSFs": 596,
+          "full_columns": 596,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "Davidson_seconds": 0.026222747001156677,
+          "iterations": 38,
+          "energies_Ha": [
+            -14067.431706438168,
+            -14067.257469512791
+          ],
+          "energy_difference_Ha": [
+            -3.092281986027956e-11,
+            -2.1827872842550278e-11
+          ],
+          "direct_residual_L2_Ha": [
+            6.167849233805041e-10,
+            6.252660483845485e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.8255263967148494e-10
+        },
+        {
+          "sector": [
+            3,
+            -1
+          ],
+          "CSFs": 599,
+          "full_columns": 599,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.4551915228366852e-11,
+          "Davidson_seconds": 0.02356036099990888,
+          "iterations": 26,
+          "energies_Ha": [
+            -14067.40815597013,
+            -14067.360597005083
+          ],
+          "energy_difference_Ha": [
+            -2.1827872842550278e-11,
+            1.0913936421275139e-11
+          ],
+          "direct_residual_L2_Ha": [
+            1.469236950725723e-10,
+            8.94437973217738e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.6705038180807605e-10
+        },
+        {
+          "sector": [
+            5,
+            1
+          ],
+          "CSFs": 652,
+          "full_columns": 652,
+          "whole_reference_action_max_abs_Ha": 1.8189894035458565e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "Davidson_seconds": 0.020304988998759654,
+          "iterations": 34,
+          "energies_Ha": [
+            -14067.427026513476,
+            -14067.272122103594
+          ],
+          "energy_difference_Ha": [
+            9.094947017729282e-12,
+            3.637978807091713e-12
+          ],
+          "direct_residual_L2_Ha": [
+            4.426707267880152e-10,
+            8.242607402411298e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.0383517096433934e-10
+        }
+      ],
+      "UIDs": [
+        {
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "label": "6s_1/2",
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.543029892713,
+          "dense_energy_Ha": -14067.543029892717,
+          "signed_overlap": 1.000000000000001
+        },
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "label": "5d_3/2",
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.431706438168,
+          "dense_energy_Ha": -14067.431706438138,
+          "signed_overlap": 0.9999999999999999
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "label": "5d_5/2",
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.427026513476,
+          "dense_energy_Ha": -14067.427026513486,
+          "signed_overlap": 1.0000000000000004
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "label": "6p_1/2",
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.424036274222,
+          "dense_energy_Ha": -14067.42403627422,
+          "signed_overlap": 1.0000000000000002
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "label": "6p_3/2",
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.40815597013,
+          "dense_energy_Ha": -14067.408155970108,
+          "signed_overlap": 0.9999999999999997
+        }
+      ],
+      "input_binding": {
+        "external": [
+          "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+          "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+          "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+          "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+          "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+          "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+          "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+          "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+          "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+          "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+          "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+          "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+          "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+          "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+          "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+          "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+          "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+          "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+          "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+          "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+          "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+          "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+          "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+          "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+          "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+          "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+          "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+          "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+          "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+          "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+          "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+        ],
+        "core": [],
+        "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+        "Z": 70,
+        "ns": 123,
+        "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+      },
+      "oracle_SHA256": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+      "ownership_scope": "new local native LinearOperator bound here; no CIHamiltonianSnapshot fabricated"
+    },
+    "B_streamed": {
+      "operator_build_seconds": 32.480917398999736,
+      "mode": "streamed",
+      "blocks": [
+        {
+          "sector": [
+            1,
+            1
+          ],
+          "CSFs": 365,
+          "full_columns": 365,
+          "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 5.4569682106375694e-12,
+          "Davidson_seconds": 0.019842628000333207,
+          "iterations": 35,
+          "energies_Ha": [
+            -14067.543029892717,
+            -14067.225577552555
+          ],
+          "energy_difference_Ha": [
+            0.0,
+            -1.8189894035458565e-12
+          ],
+          "direct_residual_L2_Ha": [
+            3.8260273176803235e-10,
+            5.735436400857905e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.5556801119819283e-10
+        },
+        {
+          "sector": [
+            1,
+            -1
+          ],
+          "CSFs": 362,
+          "full_columns": 362,
+          "whole_reference_action_max_abs_Ha": 1.8189894035458565e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "cached_streamed_full_H_max_abs_Ha": 7.275957614183426e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.020326408999608248,
+          "iterations": 22,
+          "energies_Ha": [
+            -14067.42403627422,
+            -14067.33918774504
+          ],
+          "energy_difference_Ha": [
+            0.0,
+            0.0
+          ],
+          "direct_residual_L2_Ha": [
+            2.6397537687666185e-10,
+            6.918402813927751e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.4842350399012503e-10
+        },
+        {
+          "sector": [
+            3,
+            1
+          ],
+          "CSFs": 596,
+          "full_columns": 596,
+          "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+          "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.02607093099868507,
+          "iterations": 38,
+          "energies_Ha": [
+            -14067.431706438148,
+            -14067.257469512775
+          ],
+          "energy_difference_Ha": [
+            -1.0913936421275139e-11,
+            -5.4569682106375694e-12
+          ],
+          "direct_residual_L2_Ha": [
+            6.210233931734561e-10,
+            6.383172624545623e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.0871482320217183e-10
+        },
+        {
+          "sector": [
+            3,
+            -1
+          ],
+          "CSFs": 599,
+          "full_columns": 599,
+          "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+          "full_reference_residual_max_abs_Ha": 1.4551915228366852e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.023418795000907267,
+          "iterations": 26,
+          "energies_Ha": [
+            -14067.408155970117,
+            -14067.360597005121
+          ],
+          "energy_difference_Ha": [
+            -9.094947017729282e-12,
+            -2.7284841053187847e-11
+          ],
+          "direct_residual_L2_Ha": [
+            1.3987449894261662e-10,
+            9.02533017081457e-10
+          ],
+          "direct_residual_max_abs_Ha": 2.6273028197465464e-10
+        },
+        {
+          "sector": [
+            5,
+            1
+          ],
+          "CSFs": 652,
+          "full_columns": 652,
+          "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+          "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+          "cached_streamed_full_H_max_abs_Ha": 5.4569682106375694e-12,
+          "cached_streamed_all_C_action_max_abs_Ha": 3.637978807091713e-12,
+          "Davidson_seconds": 0.02007880299970566,
+          "iterations": 34,
+          "energies_Ha": [
+            -14067.427026513462,
+            -14067.272122103586
+          ],
+          "energy_difference_Ha": [
+            2.3646862246096134e-11,
+            1.0913936421275139e-11
+          ],
+          "direct_residual_L2_Ha": [
+            4.414373024600583e-10,
+            8.306787999998912e-10
+          ],
+          "direct_residual_max_abs_Ha": 1.9889867530764604e-10
+        }
+      ],
+      "UIDs": [
+        {
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "label": "6s_1/2",
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.543029892717,
+          "dense_energy_Ha": -14067.543029892717,
+          "signed_overlap": 0.9999999999999999
+        },
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "label": "5d_3/2",
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.431706438148,
+          "dense_energy_Ha": -14067.431706438138,
+          "signed_overlap": 1.0000000000000004
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "label": "5d_5/2",
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.427026513462,
+          "dense_energy_Ha": -14067.427026513486,
+          "signed_overlap": 1.0000000000000004
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "label": "6p_1/2",
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.42403627422,
+          "dense_energy_Ha": -14067.42403627422,
+          "signed_overlap": 1.0000000000000002
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "label": "6p_3/2",
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.408155970117,
+          "dense_energy_Ha": -14067.408155970108,
+          "signed_overlap": 1.0000000000000004
+        }
+      ],
+      "input_binding": {
+        "external": [
+          "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+          "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+          "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+          "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+          "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+          "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+          "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+          "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+          "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+          "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+          "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+          "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+          "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+          "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+          "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+          "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+          "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+          "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+          "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+          "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+          "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+          "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+          "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+          "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+          "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+          "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+          "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+          "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+          "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+          "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+          "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+        ],
+        "core": [],
+        "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+        "Z": 70,
+        "ns": 123,
+        "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+      },
+      "oracle_SHA256": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+      "ownership_scope": "new local native LinearOperator bound here; no CIHamiltonianSnapshot fabricated"
+    }
+  },
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "old_failures_preserved": true,
+  "experimental_accuracy_qualified": false,
+  "larger_4f12_calculated": false,
+  "public_iterative_owner_or_tracker_qualified": false,
+  "controlled_timing": false,
+  "compared_modes": [
+    "cached",
+    "streamed"
+  ],
+  "source_scope": "current dirty source, both modes; frozen 004 oracle is independent historical control",
+  "host_load": [
+    0.333984375,
+    0.39697265625,
+    0.49560546875
+  ],
+  "available_bytes": 122352828416,
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3"
+  },
+  "counts": {
+    "NPZ_load": 5,
+    "angular_nullspace": 43,
+    "raw_hS": 7,
+    "radial_evaluator": 4,
+    "pair_kernel": 20,
+    "pair_term": 7954244,
+    "term_emissions": 52837338,
+    "angular_table": 10,
+    "block_terms": 10,
+    "H_projection": 20,
+    "radial_key": 277616,
+    "density": 3968,
+    "pair_potential": 2824,
+    "banded_contraction": 523536,
+    "H": 4,
+    "operator_action": 1332,
+    "Davidson": 20,
+    "NPZ_save": 4,
+    "streamed_numeric": 10
+  },
+  "attempted": {
+    "angular_nullspace": 43,
+    "H": 4,
+    "raw_hS": 7,
+    "radial_evaluator": 4,
+    "block_terms": 10,
+    "angular_table": 10,
+    "pair_kernel": 20,
+    "pair_term": 7954244,
+    "term_emissions": 52837338,
+    "H_projection": 20,
+    "radial_key": 277616,
+    "density": 3968,
+    "pair_potential": 2824,
+    "banded_contraction": 523536,
+    "operator_action": 1332,
+    "Davidson": 20,
+    "streamed_numeric": 10
+  },
+  "actual_imported_sources": {
+    "atomx": {
+      "path": "src/atomx/__init__.py",
+      "sha256": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3"
+    },
+    "atomx.angular": {
+      "path": "src/atomx/angular/__init__.py",
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61"
+    },
+    "atomx.angular.clebsch": {
+      "path": "src/atomx/angular/clebsch.py",
+      "sha256": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd"
+    },
+    "atomx.angular.coefficients": {
+      "path": "src/atomx/angular/coefficients.py",
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+    },
+    "atomx.angular.csf_hamiltonian": {
+      "path": "src/atomx/angular/csf_hamiltonian.py",
+      "sha256": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55"
+    },
+    "atomx.angular.csf_recoupling": {
+      "path": "src/atomx/angular/csf_recoupling.py",
+      "sha256": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035"
+    },
+    "atomx.angular.ls_coupling": {
+      "path": "src/atomx/angular/ls_coupling.py",
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1"
+    },
+    "atomx.angular.mscheme": {
+      "path": "src/atomx/angular/mscheme.py",
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+    },
+    "atomx.angular.rcfp": {
+      "path": "src/atomx/angular/rcfp.py",
+      "sha256": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd"
+    },
+    "atomx.angular.recoupling": {
+      "path": "src/atomx/angular/recoupling.py",
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    "atomx.angular.wigner": {
+      "path": "src/atomx/angular/wigner.py",
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7"
+    },
+    "atomx.compare": {
+      "path": "src/atomx/compare.py",
+      "sha256": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c"
+    },
+    "atomx.config": {
+      "path": "src/atomx/config/__init__.py",
+      "sha256": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3"
+    },
+    "atomx.config.csf": {
+      "path": "src/atomx/config/csf.py",
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999"
+    },
+    "atomx.config.parsing": {
+      "path": "src/atomx/config/parsing.py",
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e"
+    },
+    "atomx.config.subshell": {
+      "path": "src/atomx/config/subshell.py",
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce"
+    },
+    "atomx.constants": {
+      "path": "src/atomx/constants.py",
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+    },
+    "atomx.corrections": {
+      "path": "src/atomx/corrections/__init__.py",
+      "sha256": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081"
+    },
+    "atomx.corrections.adapters": {
+      "path": "src/atomx/corrections/adapters.py",
+      "sha256": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d"
+    },
+    "atomx.corrections.breit": {
+      "path": "src/atomx/corrections/breit.py",
+      "sha256": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596"
+    },
+    "atomx.corrections.protocol": {
+      "path": "src/atomx/corrections/protocol.py",
+      "sha256": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce"
+    },
+    "atomx.corrections.qed": {
+      "path": "src/atomx/corrections/qed.py",
+      "sha256": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd"
+    },
+    "atomx.corrections.qedmod": {
+      "path": "src/atomx/corrections/qedmod/__init__.py",
+      "sha256": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951"
+    },
+    "atomx.corrections.qedmod.base": {
+      "path": "src/atomx/corrections/qedmod/base.py",
+      "sha256": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30"
+    },
+    "atomx.corrections.qedmod.flambaum_ginges": {
+      "path": "src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "sha256": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280"
+    },
+    "atomx.corrections.qedmod.indelicato": {
+      "path": "src/atomx/corrections/qedmod/indelicato.py",
+      "sha256": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d"
+    },
+    "atomx.corrections.qedmod.mohr": {
+      "path": "src/atomx/corrections/qedmod/mohr.py",
+      "sha256": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7"
+    },
+    "atomx.corrections.qedmod.shabaev": {
+      "path": "src/atomx/corrections/qedmod/shabaev.py",
+      "sha256": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b"
+    },
+    "atomx.corrections.qedmod.welton": {
+      "path": "src/atomx/corrections/qedmod/welton.py",
+      "sha256": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a"
+    },
+    "atomx.corrections.stack": {
+      "path": "src/atomx/corrections/stack.py",
+      "sha256": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526"
+    },
+    "atomx.data": {
+      "path": "src/atomx/data/__init__.py",
+      "sha256": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d"
+    },
+    "atomx.data.flambaum_ginges": {
+      "path": "src/atomx/data/flambaum_ginges.py",
+      "sha256": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839"
+    },
+    "atomx.data.hyperfine_presets": {
+      "path": "src/atomx/data/hyperfine_presets.py",
+      "sha256": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc"
+    },
+    "atomx.data.mohr_se": {
+      "path": "src/atomx/data/mohr_se.py",
+      "sha256": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c"
+    },
+    "atomx.methods": {
+      "path": "src/atomx/methods/__init__.py",
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09"
+    },
+    "atomx.methods.base": {
+      "path": "src/atomx/methods/base.py",
+      "sha256": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95"
+    },
+    "atomx.methods.breit_pauli": {
+      "path": "src/atomx/methods/breit_pauli.py",
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208"
+    },
+    "atomx.methods.ci": {
+      "path": "src/atomx/methods/ci.py",
+      "sha256": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e"
+    },
+    "atomx.methods.csf": {
+      "path": "src/atomx/methods/csf/__init__.py",
+      "sha256": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0"
+    },
+    "atomx.methods.csf.solver": {
+      "path": "src/atomx/methods/csf/solver.py",
+      "sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82"
+    },
+    "atomx.methods.dirac_fock": {
+      "path": "src/atomx/methods/dirac_fock.py",
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52"
+    },
+    "atomx.methods.hartree_fock_slater": {
+      "path": "src/atomx/methods/hartree_fock_slater.py",
+      "sha256": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4"
+    },
+    "atomx.methods.hydrogenic": {
+      "path": "src/atomx/methods/hydrogenic.py",
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942"
+    },
+    "atomx.methods.mbpt": {
+      "path": "src/atomx/methods/mbpt.py",
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    },
+    "atomx.methods.mcdhf": {
+      "path": "src/atomx/methods/mcdhf/__init__.py",
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167"
+    },
+    "atomx.methods.mcdhf.solver": {
+      "path": "src/atomx/methods/mcdhf/solver.py",
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c"
+    },
+    "atomx.methods.scf_observables": {
+      "path": "src/atomx/methods/scf_observables.py",
+      "sha256": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739"
+    },
+    "atomx.numerics": {
+      "path": "src/atomx/numerics/__init__.py",
+      "sha256": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125"
+    },
+    "atomx.numerics.bspline": {
+      "path": "src/atomx/numerics/bspline/__init__.py",
+      "sha256": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9"
+    },
+    "atomx.numerics.bspline.basis": {
+      "path": "src/atomx/numerics/bspline/basis.py",
+      "sha256": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb"
+    },
+    "atomx.numerics.bspline.convol": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "sha256": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b"
+    },
+    "atomx.numerics.bspline.dirac_assembly": {
+      "path": "src/atomx/numerics/bspline/dirac_assembly.py",
+      "sha256": "926f68ea7cec251c322a9eeb8af41cb79643d20b6266af09843267a989963661"
+    },
+    "atomx.numerics.bspline.evaluate": {
+      "path": "src/atomx/numerics/bspline/evaluate.py",
+      "sha256": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059"
+    },
+    "atomx.numerics.bspline.integrals": {
+      "path": "src/atomx/numerics/bspline/integrals.py",
+      "sha256": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c"
+    },
+    "atomx.numerics.bspline.knots": {
+      "path": "src/atomx/numerics/bspline/knots.py",
+      "sha256": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a"
+    },
+    "atomx.numerics.bspline.orbital_optimization": {
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1"
+    },
+    "atomx.numerics.diis": {
+      "path": "src/atomx/numerics/diis.py",
+      "sha256": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37"
+    },
+    "atomx.numerics.quadrature": {
+      "path": "src/atomx/numerics/quadrature.py",
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021"
+    },
+    "atomx.numerics.radial_metric": {
+      "path": "src/atomx/numerics/radial_metric.py",
+      "sha256": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4"
+    },
+    "atomx.numerics.radial_workspace": {
+      "path": "src/atomx/numerics/radial_workspace.py",
+      "sha256": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21"
+    },
+    "atomx.numerics.shooting": {
+      "path": "src/atomx/numerics/shooting/__init__.py",
+      "sha256": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01"
+    },
+    "atomx.numerics.shooting.constants": {
+      "path": "src/atomx/numerics/shooting/constants.py",
+      "sha256": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643"
+    },
+    "atomx.numerics.shooting.coulomb": {
+      "path": "src/atomx/numerics/shooting/coulomb.py",
+      "sha256": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158"
+    },
+    "atomx.numerics.shooting.electron_space": {
+      "path": "src/atomx/numerics/shooting/electron_space.py",
+      "sha256": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2"
+    },
+    "atomx.numerics.shooting.operators": {
+      "path": "src/atomx/numerics/shooting/operators.py",
+      "sha256": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d"
+    },
+    "atomx.numerics.shooting.quadrature": {
+      "path": "src/atomx/numerics/shooting/quadrature.py",
+      "sha256": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a"
+    },
+    "atomx.numerics.shooting.spline": {
+      "path": "src/atomx/numerics/shooting/spline.py",
+      "sha256": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e"
+    },
+    "atomx.numerics.yk": {
+      "path": "src/atomx/numerics/yk.py",
+      "sha256": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8"
+    },
+    "atomx.physics": {
+      "path": "src/atomx/physics/__init__.py",
+      "sha256": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c"
+    },
+    "atomx.physics.base": {
+      "path": "src/atomx/physics/base.py",
+      "sha256": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be"
+    },
+    "atomx.physics.csf": {
+      "path": "src/atomx/physics/csf/__init__.py",
+      "sha256": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7"
+    },
+    "atomx.physics.csf.effective_one_body": {
+      "path": "src/atomx/physics/csf/effective_one_body.py",
+      "sha256": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013"
+    },
+    "atomx.physics.csf.levels": {
+      "path": "src/atomx/physics/csf/levels.py",
+      "sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946"
+    },
+    "atomx.physics.csf.matrix": {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "sha256": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0"
+    },
+    "atomx.physics.csf.radial_snapshot": {
+      "path": "src/atomx/physics/csf/radial_snapshot.py",
+      "sha256": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+    },
+    "atomx.physics.dirac": {
+      "path": "src/atomx/physics/dirac.py",
+      "sha256": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c"
+    },
+    "atomx.physics.schrodinger": {
+      "path": "src/atomx/physics/schrodinger.py",
+      "sha256": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d"
+    },
+    "atomx.potentials": {
+      "path": "src/atomx/potentials/__init__.py",
+      "sha256": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13"
+    },
+    "atomx.potentials.nuclear": {
+      "path": "src/atomx/potentials/nuclear.py",
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0"
+    },
+    "atomx.radial_state": {
+      "path": "src/atomx/radial_state.py",
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de"
+    },
+    "atomx.types": {
+      "path": "src/atomx/types.py",
+      "sha256": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+    }
+  },
+  "elapsed_seconds": 123.66534538899941,
+  "peak_RSS_MiB": 1141.984375
+}

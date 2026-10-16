@@ -1,0 +1,14 @@
+{
+  "command": [
+    ".venv/bin/ruff",
+    "check",
+    "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/probe.py",
+    "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/verify.py"
+  ],
+  "original_lint_status": "failed_preserved",
+  "returncode": 0,
+  "scope": "Successor files only; original scientific source and lint findings unchanged.",
+  "status": "passed",
+  "stderr": "",
+  "stdout": "All checks passed!\n"
+}

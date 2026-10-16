@@ -1,0 +1,28 @@
+{
+  "phase": "all radial keys complete; complete signed contractions",
+  "counts": {
+    "NPZ_load": 11,
+    "angular_nullspace": 38,
+    "angular_block_terms": 5,
+    "angular_projection": 10,
+    "signed_target_density": 10,
+    "density_kernel": 36166,
+    "banded_contraction": 390640,
+    "pair_potential": 5468,
+    "bank_getter": 21872,
+    "bank_transpose_miss": 28,
+    "polynomial_cache_miss": 19589,
+    "ordinary_radial_evaluation": 39178,
+    "polynomial_key_request": 19589,
+    "right_associated_onebody_endpoint": 114,
+    "saved_raw_operator_requests": 69,
+    "stored_H_MV": 0,
+    "dense_projected_target": 0,
+    "sparse_projected_target": 0,
+    "angular_forward_table": 0,
+    "H": 0,
+    "native_hS_assembly": 0,
+    "CI_eigh": 0
+  },
+  "elapsed_uncontrolled_s": 39.103207483000006
+}

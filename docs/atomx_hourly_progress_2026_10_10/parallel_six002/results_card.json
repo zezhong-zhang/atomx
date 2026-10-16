@@ -1,0 +1,61 @@
+{
+  "schema": "2.0",
+  "config": {
+    "update_multi": true
+  },
+  "header": {
+    "title": {
+      "tag": "plain_text",
+      "content": "Atomx · 任务与谱学实验对照"
+    },
+    "template": "blue"
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**当前判断**\n尚未达到最高水准。数值、物理空间收敛和实验精度分别判断。当前优先原子级。每次成功发卡触发按 gap 选择任务；可执行任务有资源上限，实现缺口或资源不足则明确列出。计算结果在后续卡片同步，未通过的精度门保留。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**按 gap 自主选择迭代**\n有限 0h1p 重复 Fov×T2 排列修复已通过；下一步在更大核／价空间及其他扇区验证候选，同时补齐生产约化／分块收缩。\n依据：原后端失败记录保留；有限候选已闭合严格门，当前缺口是生产范围扩展与独立验证。\n同模型 ns=[42, 60, 80, 100]；算符差最大 8.750e-10 Ha；门 1.0e-10 Ha。\n准则：完整精度门优先；复用不可变输入；模块分工与 H 身份一致；执行前核对资源。\n当前方向需要新增实现或修复失败原因；明确保留实现前沿，不重复扫描充当进展。\n\n**独立方向并行推进**\n• FS-CCSDT 四核电子非 canonical 扩展：completed\n4-core CCSDT: retained core 5.62e-14 Ha; attachment 6.48e-14 Ha; complete FCI difference separately 9.09e-06 Ha.\n下一步：扩大同H完整虚轨道与其他扇区控制；独立保留T4/S4方法误差，再推进J约化/分块生产收缩。\n• 完整波算符 E1/E2/M1 归一化性质：completed\nSame-H complete native E1/E2/M1: 11 signed 8 x 8 matrices, defect 2.66e-15 au; actual e^T Omega full-H residual 5.26e-13 Ha. Fixed finite orbitals/long wavelength only.\n下一步：补齐生产截断CC的显式近似/响应合同与完整两端度量；随后计算同H E1/E2/M1、rates/lifetimes和独立实验对照。\n• 完整 signed SD source/PP/HH 原生子图集：completed\n原生 signed J/parity SD 已实际消费完整 doubles source＋PP＋normal-ordered HH 图集；DC/static/dynamic/复相位在全部 10 doubles、495 个四电子行列式独立 Fermi action 下通过 1e-11 Ha 门。保留 noncanonical Fock/reference，native_scalable_sd_transverse_complete=false；剩余 core/Fock/singles/ring、valence、Sigma2 图项未完成。\n下一步：沿现有J/parity表示补齐singles/Fock/mixed-rank/ring及其余core、valence和Sigma2，逐图全signed锚后再联合求解。\n• 共享 Numba CPU/CUDA 全 signed FP64 收缩与实际准入：completed\n共享 Numba CPU/CUDA ordered FP64 完整 signed DC/static/dynamic PP/HH 和 2688×25 全 native density、rank0..3逐元素及 bitwise 对照通过；真实 PTX 无 FMA/atomic，显存 payload 通过 32 MiB cap。只报告有界 kernel 分层计时；负载门失败则 speedup=null，完整 SD/GPU规模化仍未完成。\n下一步：选择实际主耗时和更大完整批次，减少数据搬运；待独占负载门通过后做成对冷热、驻留/传输和端到端计时。\n• Current bounded full five-state Yb norm consumption：completed\n当前有界helper已实际消费完整28,218,500核rho与五态全部18M，范数/符号/泡利/干涉和同空间门通过；未重新求根或产生新的尾部收敛谱，实验精度门仍未提升。\n下一步：当前原完整五态/all18M范数已实算；下一步明确生产executor与完整angular计数，在全五态共同lmax/Emax尾窗联合求根。\n• Source-bound full YbII NIST spectral audit and whole-state iteration queue：completed\nYbII原完整五态同H/空间/零点审计通过；4能级、2精细分裂仍保留原失败，真实观测线仅2/4，缺失不确定度和E2观测线不计零误差；已输出必须全五态联合计算的gap队列，未产生新谱或精度提升。\n下一步：按原五态共同H/space/nucleus/zero同时更新；优先核查d双态及精细分裂缺口，保留2/4观测覆盖与未知不确定度。\n成功发卡后重新核验，准入 0 项；最多 6 项同时运行、各 1 CPU 线程，总服务内存上限 26 GiB。审计和资源预检完成不代表 SD／CCSDT 精度缺口已闭合。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**待办与进度**\n1. 远程已发布／六方向真实科学进程已完成 · NIST 元素周期表与实际迭代\n真实卡片回执触发六个独立OS科学进程，六条完整signed/同H探针全部完成，实际重叠0.814115秒；244份输出/数组/归档SHA核验通过，151项受影响回归无失败/跳过。实际20GiB预留，池24GiB/服务26GiB/额外8GiB主机余量；首次CPU负载拒绝记录保留，门限未放宽。每张卡重新按gap审阅准入；同source/input/action已完成则不重复，后续生产实现仍须独立验证后注册。\n2. 已完成私有验证 · 大规模 J 约化全阶线性化 SD + GPU\nYb⁺ 五根、50 次完整 CPU/GPU 数组对照通过；声明空间 l≤3、414 径向虚轨道、E≤5 Ha。尚需物理空间收敛。\n3. 当前 helper 已实际消费完整旧波函数／新尾根待做 · 完整 (1+T+S) 物理范数\n新源 run002 实际重算原完整 Yb 五态全部18M，28,218,500核坐标不缩水；fresh104case/832component独立锚及原64MiB/1e-11门通过。仅证明当前metric消费原source-bound波函数，不是新core/root或新l4尾收敛。\n4. 原生 doubles source/PP/HH 子图集通过／其余图项待补 · 动态 Breit 积分与 FS-CCSDT\n新增不可变J/宇称桥之上完整scalar doubles source、PP与normal-ordered HH ladders以及linked能量；全部10 doubles/495独立Fermi行在DC/static/dynamic/复相位下通过原门。其余core/Fock/singles/ring、valence、Sigma2仍未构成完整大规模横向SD。\n5. 四窗口完整预检与原64MiB门通过／生产门保留 · 核—价虚轨道尾部与收敛\nlmax3/4 × Emax5/10 Ha完整径向数414/441/532/567，五态共同空间；host/device载荷含norm/staging。原l4 88.4/88.6MB失败保留；有界缓存改为14.15–18.54MB而不缩水。生产联合求根仍需source-bound executor、完整angular计数与实时GPU准入。\n6. 四核12-spinor保留投影通过／T4方法误差保留 · FS-CCSDT 与三激发规模化\n公开显式修复后端实际扩大至4core/12spinor，strong Fov=0.05470Ha；core/attachment保留投影5.62e-14/6.48e-14Ha，fullsigned HEFF投影5.01e-15。T4/Q3-Q4残差约2.1/2.3e-3，FCI方法差9.09e-6Ha独立保留；不能继承两核有限exactness。\n7. 完整有限wave/metric与E1/E2/M1通过／生产寿命待做 · 相关 E1/E2/M1 与寿命\n新增FiniteCorrelatedWave，强制完整full-H和两端physical metric后消费现有CI transition owner；native E1/E2/M1共11个完整signed分量与独立CI最大差2.665e-15au。生产截断CC、核响应、rates/lifetimes与实验未认证。\n8. 同预算实际Numba CPU/CUDA逐位相等／负载门拒绝加速比 · 高性能与可复现\n修复scoped CUDA loader后在原4GiB自动地址预算内运行公共density四rank及全部DC/static/dynamic PP/HH批量，CPU/CUDA bitwise一致。冷热/传输/驻留阶段分列，设备负载门未过、speedup=null；不宣称大规模端到端加速。\n9. 严格报告门通过／实验精度门仍失败 · 完整同态 NIST 对照与下一轮缺口\n原YbII完整五态同H/空间/零点和本地ASD5.12的349levels/327lines审计：四激发误差0.9250%、1.1684%、4.1413%、3.3799%，其中3/4超原1%门；两精细分裂+3.1465%/−9.3620%均失败；四目标线只2个唯一observed，E2观测与四态u缺失保留未知。下一轮必须五态共同完整空间求根，优先d双重态/分裂，不能拼接新旧根。未产生新谱或精度提升。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**Yb⁺ 相关能级与实验 · 共同 6s 零点**\n• 6p (2J=1)：计算 27312.14 / 实验 27061.82 cm⁻¹；差 +250.32；+0.925% · 通过\n• 6p (2J=3)：计算 30747.34 / 实验 30392.23 cm⁻¹；差 +355.11；+1.168% · 未通过\n• 5d (2J=3)：计算 23911.67 / 实验 22960.80 cm⁻¹；差 +950.87；+4.141% · 未通过\n• 5d (2J=5)：计算 25155.12 / 实验 24332.69 cm⁻¹；差 +822.43；+3.380% · 未通过\n• 6p 精细分裂：+3.146% · 未通过\n• 5d 精细分裂：-9.362% · 未通过\n本页数值来源每次重新读取并记录 SHA256；相对误差门限 1%。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**各类谱与实验对照**\n• **原子可见/紫外与光钟 E1/E2**：Yb⁺ 相关能级位置见上表；强度、寿命尚未取得同等级相关计算。\n能量来自源绑定的已保存 SD；其源码快照保留，不与本次冻结轨道动态修正或旧速率混成最终谱。\n• **稀土寿命（历史冻结核模型）**：6p_1/2：6.2296 vs 8.12±0.02 ns (-23.28%)；5d_3/2：28.0203 vs 54.83±0.18 ms (-48.90%)\n分别偏差 −23.28% / −48.90%；该模型未通过，不代表新 SD 的寿命。\n• **Ne⁷⁺ K 孔 X 射线位置**：4 条匹配线：联合弛豫 CI 与实验评估差 -0.871 至 -0.642 eV。\n有实验位置锚；不能当作四个独立精细分裂实验或完整 XFEL 线型。\n• **Auger / 光电离**：已有 Ne/Ar 与 FAC/XATOM 数值对照；分通道残差仍存在。\n属于软件间对照；直接实验宽度/截面与完整响应验证待完成。\n• **XFEL 瞬态产额与电子谱**：已定位 Ne 隐共振、双 K 空穴和 Xe 多芯空穴实验及数据入口。\n真实强度数据、SASE 脉冲和仪器响应配对待完成；不声称已复现实测连续谱。\n• **QED / 相对论算符**：现有 FAC 共轨道静态/有限频率 120 个矩阵元对照；它们不是实验谱。\n有限核、相关态和实验物理误差预算继续验证。\n• **分子 XAS / 共振与 Auger**：CO 等基础 provider 契约已演示；尚无本项目完整实验谱误差表。\n暂缓：当前优先完成原子级；原计划和未验证状态保留。\n• **晶体 XAS / 稀土发光 / 磁性**：MgO 嵌入基础接口已演示；尚无周期材料或晶体宿主实验谱认证。\n暂缓：当前优先完成原子级；原计划和未验证状态保留。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**NIST 元素周期表**\n[远程打开原子谱学图谱](https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site)\n私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**动态 Breit 实算更新**\nYb⁺ 五态同轨道配对通过数值门；动态相对静态的激发能增量：\n• 5d_3/2：-0.6232 cm⁻¹\n• 6p_1/2：-0.3770 cm⁻¹\n• 5d_5/2：-1.5620 cm⁻¹\n• 6p_3/2：-3.8873 cm⁻¹\n这是冻结核 CI 因素实验；未叠加到现有 DC-SD 能级，也未认证寿命或完整 QED。\n\n**原后端 FS-CCSDT 严格失败记录**\n收紧阈值后方程残差界 2.035e-15 Ha；完整 CI 八根最大差仍为 8.729e-10 Ha。原 1e−9 门通过；更严 1e−10 门未通过。这是原后端的保留失败；当前隔离候选修复另列完整门，旧结果不改写。\n当前专门面板：6 通过／1 个严格已知目标失败／0 跳过。已知失败保留为 strict xfail。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**非 canonical 方程修复 · 有限严格门已闭合**\nopen Fov*T2 项重复反对称化已在隔离候选修复，保留原 Hamiltonian。完整 HEFF 差 4.219e-15 Ha；完整实际幅度 Bloch 残差 1.776e-15 Ha；八根完整 CI 差 1.599e-14 Ha。\n9 项候选控制保留各自 H；原 1e−10 Ha 门未放宽。大规模重原子、完整原生横向 SD 和实验精度继续分别验证；默认旧后端保留。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**完整空间范数预算更新**\n完整五态四档计数通过；有界角向缓存将norm暂存上限降至14.15–18.54MB，低于原64MiB。实际有限/多核符号控制通过；完整Yb norm、尾部根求解与GPU生产准入仍待验证，尚无新实验谱精度改善。"
+      },
+      {
+        "tag": "markdown",
+        "content": "**口径与来源**\nYb 位置锚：[NIST Yb II 历史能级表](https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm)。此表未提供能级不确定度；真空 Ritz 波长不是独立实测波长。不同模型的强度/寿命不拼接。\n进度登记更新：2026-10-11T03:43:51.494968+00:00\n本次读取：2026-10-11T11:43:51+08:00\n证据：yb_full_monovalent006 / 6f8a3fd71a22"
+      },
+      {
+        "tag": "markdown",
+        "content": "**上轮实际迭代**\n队列 · completed\n• parallel_fscc_scope_0af5a0ee8a260d9ed134：completed\n4-core CCSDT: retained core 5.62e-14 Ha; attachment 6.48e-14 Ha; complete FCI difference separately 9.09e-06 Ha.\n• parallel_properties_28ad9832abb62a38a9d3：completed\nSame-H complete native E1/E2/M1: 11 signed 8 x 8 matrices, defect 2.66e-15 au; actual e^T Omega full-H residual 5.26e-13 Ha. Fixed finite orbitals/long wavelength only.\n• parallel_sd_diagrams_cb6f0284b148d183fe8e：completed\n原生 signed J/parity SD 已实际消费完整 doubles source＋PP＋normal-ordered HH 图集；DC/static/dynamic/复相位在全部 10 doubles、495 个四电子行列式独立 Fermi action 下通过 1e-11 Ha 门。保留 noncanonical Fock/reference，native_scalable_sd_transverse_complete=false；剩余 core/Fock/singles/ring、valence、Sigma2 图项未完成。\n• parallel_gpu_79f973b7e03e7ab5d1c9：completed\n共享 Numba CPU/CUDA ordered FP64 完整 signed DC/static/dynamic PP/HH 和 2688×25 全 native density、rank0..3逐元素及 bitwise 对照通过；真实 PTX 无 FMA/atomic，显存 payload 通过 32 MiB cap。只报告有界 kernel 分层计时；负载门失败则 speedup=null，完整 SD/GPU规模化仍未完成。\n• parallel_norm_309f8114261bfbf6d3d3：completed\n当前有界helper已实际消费完整28,218,500核rho与五态全部18M，范数/符号/泡利/干涉和同空间门通过；未重新求根或产生新的尾部收敛谱，实验精度门仍未提升。\n• parallel_nist_b9d63532c7e444e11ab8：completed\nYbII原完整五态同H/空间/零点审计通过；4能级、2精细分裂仍保留原失败，真实观测线仅2/4，缺失不确定度和E2观测线不计零误差；已输出必须全五态联合计算的gap队列，未产生新谱或精度提升。"
+      }
+    ]
+  }
+}

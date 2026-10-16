@@ -1,0 +1,14 @@
+{
+  "example": "all68correlatedcore with common6s/5d3/2/5d5/2 full multiplets; still only12virtualspinors, not paper40GTO or convergence",
+  "spinors": 80,
+  "core_determinants": 60246643120300,
+  "attached_determinants": 10477677064400,
+  "amplitudes_by_rank": {
+    "1": 816,
+    "2": 150348,
+    "3": 11025520
+  },
+  "native_finite_mask_limit": 64,
+  "status": "SCALAR_ONLY_UNADMITTED; no H allocated or atomic run",
+  "conclusion": "Complete determinant representation cannot scale; production requires linked tensor/J-reduced contractions, distinct from the successful small-space pilot."
+}

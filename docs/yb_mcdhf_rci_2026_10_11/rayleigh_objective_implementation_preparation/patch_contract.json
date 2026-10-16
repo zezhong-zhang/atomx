@@ -1,0 +1,69 @@
+{
+  "created_utc_before_source_edit": "2026-10-11T13:07:08.631900+00:00",
+  "authorization": "Root explicitly authorized minimal numerical accepted_line_search metadata only, after exact pre-edit bytes/hash and prospective patch contract; no physical execution.",
+  "allowed_source_files": [
+    "src/atomx/numerics/bspline/orbital_optimization.py"
+  ],
+  "previous_source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "previous_optimizer_sha256": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+  "pre_edit_optimizer_archive": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/before/orbital_optimization.py",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/decomposition.json": "2c527b35b364af0b31bde4c2947f04db07e82c9f5286c02c2edd4d3c3683915c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_preparation/RAYLEIGH_OBJECTIVE_REVIEW.md": "aab05b955157335d4b65403a9461659842776517e466730dddeccd3be0243896"
+  },
+  "changes": [
+    "Initialize accepted_line_search=None before the accepted-point loop.",
+    "Initialize stable_callback_used=False for each successfully evaluated trial; set True only when existing finite callback replaces change.",
+    "Only inside the unchanged successful Armijo branch, store actual numerical parent/trial energy, step, g-dot-direction, change, Armijo RHS, attempt/backtrack and stable_callback_used.",
+    "Pass a fresh shallow dictionary copy under checkpoint diagnostics accepted_line_search; point zero gets None.",
+    "Document numerical metadata meanings; no new arguments, direction, target, energy/gradient, threshold, cache or acceptance policy."
+  ],
+  "checkpoint_schema": {
+    "accepted_line_search": {
+      "point_zero": null,
+      "accepted_nonzero": {
+        "parent_energy_ha": "float",
+        "trial_energy_ha": "float",
+        "step": "float",
+        "directional_derivative": "float",
+        "energy_change_ha": "float",
+        "armijo_rhs_ha": "float",
+        "attempt": "int, zero-based main/fallback",
+        "backtrack": "int, zero-based within actual attempt; includes prior failed evaluations",
+        "stable_callback_used": "bool, True only if finite callback supplied a replacement"
+      }
+    }
+  },
+  "validation_now": {
+    "syntax_AST": true,
+    "Ruff": true,
+    "exact_expected_insertion_only": true,
+    "all_other_source_bytes_unchanged": true,
+    "complete_new_archive_identity": true,
+    "numerical_logic_source_review_only": true,
+    "scientific_test_execution": false
+  },
+  "physical_calls_allowed_now": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "optimizer": 0,
+    "hS": 0,
+    "Dirac": 0,
+    "SVD": 0,
+    "polar": 0
+  },
+  "future_actual_validation": "Root must separately authorize source-bound native samepoint H/g replay and <=16 accepted steps; actual accepted-lineage arithmetic and copy consumers qualify diagnostics without duplicate physical runs.",
+  "not_claimed": [
+    "public Rayleigh objective implemented",
+    "reported probe derivative failure repaired",
+    "uniform finite-error certificate",
+    "MCDHF convergence",
+    "experimental gap qualification",
+    "new whole-optimizer speedup"
+  ]
+}

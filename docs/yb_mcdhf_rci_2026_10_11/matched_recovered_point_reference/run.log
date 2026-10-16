@@ -1,0 +1,34 @@
+{
+  "point_explanation_supported": true,
+  "physical": {
+    "EOL_energy_Ha": -14067.391460357385,
+    "original_metric_orbital_residual": 5.14300923282462e-08,
+    "original_metric_energy_indicator_Ha": 3.447850459196883e-15,
+    "original_stationarity_passed": true,
+    "radial_S_Gram_defect": 3.121629845251604e-15,
+    "g_minus_archived_recovered_g_max": 0.0,
+    "pg_minus_archived_recovered_pg_max": 0.0,
+    "arrays_sha256": "d6e55f762506cd761b9d9e3eb64d503080e89e513f24227fa24b83a85da54f02"
+  },
+  "actual": {
+    "EOL_energy_Ha": -14067.391460357383,
+    "original_metric_orbital_residual": 5.143010780099849e-08,
+    "original_metric_energy_indicator_Ha": 3.447852482353608e-15,
+    "original_stationarity_passed": true,
+    "radial_S_Gram_defect": 8.215989155677875e-15,
+    "g_minus_archived_recovered_g_max": 2.6310068574076167e-08,
+    "pg_minus_archived_recovered_pg_max": 9.185507287403148e-15,
+    "arrays_sha256": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95"
+  },
+  "comparisons": {
+    "original_physical_radial_gradient_minus_original005_archive_max": 0.0,
+    "old_source_actual_minus_stopped_new_EO_Ha": 0.0,
+    "old_source_actual_minus_stopped_new_original_residual": 0.0,
+    "old_source_actual_minus_stopped_new_original_indicator_Ha": 0.0,
+    "old_source_point_g_difference_max_minus_stopped_rawg_difference_max": 0.0,
+    "old_source_point_pg_difference_max_minus_stopped_pg_difference_max": 0.0,
+    "complete_old_current_elementwise_g_comparison_obtained": false,
+    "reason": "Stopped process retained scalar baseline controls, not its full g array; successor must compare this source-bound full reference elementwise."
+  },
+  "gradient_calls": 2
+}

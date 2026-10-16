@@ -1,0 +1,37 @@
+{
+  "hypothesis": "Exact term2 can reuse complete virtual-pair potentials across core channels and project before angular recoupling, including full analytic denominator and supplied numerator response",
+  "fixed": "Original full signed term2, native weighted/tagged Coulomb kernel and physical orbitals; same angular/radial pool, no screening or altered denominator",
+  "system": "complete original Yb68core414virtual/ns123/Fermi/l<=3/5Ha",
+  "gate_Ha": 1e-11,
+  "seed": 314521,
+  "cap_bytes": 34359738368,
+  "load": [
+    18.45556640625,
+    22.61669921875,
+    27.72412109375
+  ],
+  "stop": "one complete signed random input per declared column; candidate response evaluated only when requested; retain any failure; no physical result/precision claim",
+  "performance_scope": "single diagnostic maps under observed load; no paired speedup claim",
+  "options": {
+    "term21_threads": 8,
+    "term21_mode": "streamed",
+    "core_singles_blas": true,
+    "core_single_to_doubles_blas": true
+  },
+  "driver_sha256": "605e1518938dfe4656557e3366dce034011e7ba2d90582a0755f561a9051ac15",
+  "kernel_sha256": "8ff293389887f11f4f1cd8445ff4c975c21b233f16f7243036eb3bdc4b3334c5",
+  "valence_term2_workers": 8,
+  "value_only": false,
+  "unified_response_policy": true,
+  "compare_value_policy": true,
+  "cuda_density": true,
+  "cuda_fortran_output": false,
+  "cuda_contractions": true,
+  "host_angular_plan_cap_bytes": 134217728,
+  "device_cap_bytes": 2147483648,
+  "paired_cpu": true,
+  "paired_load_guard": 27,
+  "paired_timing_scope": "warm complete eight-worker/inner-one CPU term2 versus complete CUDA FP64 term2, including native C/Python copies; no intermediate GPU host transfers; excludes preparation, compilation and full SD solve",
+  "response_scope": "complete supplied numerator and explicit denominator response",
+  "replay_case": "valence_term2_full003"
+}

@@ -1,0 +1,2029 @@
+{
+  "phase": "direction1_NEW_Rayleigh_derivative",
+  "started": {
+    "H": 3,
+    "CI": 3,
+    "gradient": 0,
+    "validation_Dirac": 7,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_hS": 14,
+    "tracking_resolution": 10,
+    "tracking_SVD": 50,
+    "tracking_overlap": 11,
+    "geometry_eigvalsh": 36,
+    "scipy_eigh": 22,
+    "polar_retraction": 14,
+    "polar_numpy_eigh": 0
+  },
+  "completed": {
+    "H": 3,
+    "CI": 3,
+    "gradient": 0,
+    "validation_Dirac": 7,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_hS": 14,
+    "tracking_resolution": 10,
+    "tracking_SVD": 50,
+    "tracking_overlap": 11,
+    "geometry_eigvalsh": 36,
+    "scipy_eigh": 22,
+    "polar_retraction": 14,
+    "polar_numpy_eigh": 0
+  },
+  "controls": [
+    {
+      "name": "full_old531",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "full_parent2163",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "selected_complete1046",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same69electrons",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_1_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_1_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_3_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_3_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_5_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same1046signed_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_-2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_-2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_-2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_-4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_-4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_-4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_-3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_-3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_-3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_h_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_logical_h_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_S_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_exact_new_keys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved3451coordinates",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same3451_original_metric",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_original_geometry",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_x_bytes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_inverse_diagonal_bytes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_P_bytes_6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "state_inverse_blocks_bytes_6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "old7_P_bytes_6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(2, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(2, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(2, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(3, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(3, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(3, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(4, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(5, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(5, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(5, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(5, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(6, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(6, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(6, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(6, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(6, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(7, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(7, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact_saved_recovered_waves_(7, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_initial_hS_6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_initial_hS_6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_7",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_7",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_8",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_8",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_9",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_9",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_10",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_10",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_11",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_11",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_12",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_12",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_CI_internal_hS_13",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_CI_internal_hS_13",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_whole_H_exact_symmetry",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_1",
+      "error": 3.532429156128871e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_1",
+      "error": 3.525235626345363e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_2",
+      "error": 2.8449465006019636e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_2",
+      "error": 3.0248913082721073e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_3",
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_-2",
+      "error": 9.230946657983871e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_-2",
+      "error": 3.269141010098268e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_-4",
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_-3",
+      "error": 2.6973307108245835e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_radial_Gram_-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_P_leakage_-1",
+      "error": 4.763178040861193e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_all_CI_residual",
+      "error": 2.696712860280544e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_all_CI_Gram",
+      "error": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_equal5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_complete_unique_original_physical_UIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_selected_physical_sector_6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_selected_physical_sector_5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_selected_physical_sector_5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_selected_physical_sector_6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_recovered_coordinate_point_selected_physical_sector_6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_baseline_bitwise_H",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_baseline_bitwise_energies",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_baseline_bitwise_mixing",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "fresh_baseline_real_owner_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_shared_tangent",
+      "error": 4.117799851099946e-16,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_whole_H_exact_symmetry",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_1",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_1",
+      "error": 3.746349703581052e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_2",
+      "error": 2.9165394145000913e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_3",
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_-2",
+      "error": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_-2",
+      "error": 4.05988688476355e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_-4",
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_-3",
+      "error": 3.5591091870827504e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_radial_Gram_-1",
+      "error": 1.9984014443252818e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_P_leakage_-1",
+      "error": 4.3280576303956174e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_all_CI_residual",
+      "error": 2.7854131155192825e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_all_CI_Gram",
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_equal5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_complete_unique_original_physical_UIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_selected_physical_sector_6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_selected_physical_sector_5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_selected_physical_sector_5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_selected_physical_sector_6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_selected_physical_sector_6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_14",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_14",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_15",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_15",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_16",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_16",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_17",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_17",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_18",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_18",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_19",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_19",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_20",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_20",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_plus_diagnostic_not_optimizer_certificate",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_whole_H_exact_symmetry",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_1",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_1",
+      "error": 3.8792727063038734e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_2",
+      "error": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_2",
+      "error": 3.380850232888889e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_3",
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_-2",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_-2",
+      "error": 4.423887771268376e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_-4",
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_-3",
+      "error": 2.6528543111920743e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_radial_Gram_-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_P_leakage_-1",
+      "error": 4.459379364264978e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_all_CI_residual",
+      "error": 2.948199582259849e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_all_CI_Gram",
+      "error": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_equal5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_complete_unique_original_physical_UIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_selected_physical_sector_6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_selected_physical_sector_5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_selected_physical_sector_5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_selected_physical_sector_6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_selected_physical_sector_6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_21",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_21",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_22",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_22",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_23",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_23",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_24",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_24",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_25",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_25",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_26",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_26",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_raw_h_identity_mixed_hS_27",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "captured_S_identity_mixed_hS_27",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_minus_diagnostic_not_optimizer_certificate",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "direction1_NEW_Rayleigh_derivative",
+      "error": 2.0913729945775707e-07,
+      "limit": 1.494376612201439e-08,
+      "passed": false
+    }
+  ],
+  "records": [
+    {
+      "name": "fresh_recovered_coordinate_point",
+      "reported_EO_Ha": -14067.400117287234,
+      "normalized_Rayleigh_EO_Ha": "-14067.400117287231996",
+      "observable": "EOL_Rayleigh",
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "reported_energy_Ha": -14067.49651796765,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9962918001050698
+            ],
+            "projected_probability": [
+              0.9962918001050698
+            ]
+          },
+          "CI_norm": "0.9999999999999995456",
+          "quotient_minus_reported_Ha": -2.5194871538517485e-12,
+          "normalized_Rayleigh_Ha": "-14067.496517967651717",
+          "normalized_reported_residual_Ha": 4.0798974229411565e-12,
+          "reported_transition_cm1": 0.0,
+          "normalized_Rayleigh_transition_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "reported_energy_Ha": -14067.38012165879,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9980938866520286
+            ],
+            "projected_probability": [
+              0.9980938866520286
+            ]
+          },
+          "CI_norm": "0.99999999999999822424",
+          "quotient_minus_reported_Ha": 6.723210312856071e-12,
+          "normalized_Rayleigh_Ha": "-14067.380121658784089",
+          "normalized_reported_residual_Ha": 7.1981186520690845e-12,
+          "reported_transition_cm1": 25546.036978724176,
+          "normalized_Rayleigh_transition_cm1": 25546.03698075284
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "reported_energy_Ha": -14067.376658179734,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.996950355777178
+            ],
+            "projected_probability": [
+              0.996950355777178
+            ]
+          },
+          "CI_norm": "0.99999999999999918186",
+          "quotient_minus_reported_Ha": -7.415804497256107e-13,
+          "normalized_Rayleigh_Ha": "-14067.376658179734309",
+          "normalized_reported_residual_Ha": 1.9828914053347865e-12,
+          "reported_transition_cm1": 26306.182768047074,
+          "normalized_Rayleigh_transition_cm1": 26306.18276843733
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "reported_energy_Ha": -14067.381616326375,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9928915285027479
+            ],
+            "projected_probability": [
+              0.9928915285027479
+            ]
+          },
+          "CI_norm": "1.0000000000000002213",
+          "quotient_minus_reported_Ha": 4.692075956505626e-12,
+          "normalized_Rayleigh_Ha": "-14067.381616326369877",
+          "normalized_reported_residual_Ha": 5.404020633212484e-12,
+          "reported_transition_cm1": 25217.995361768808,
+          "normalized_Rayleigh_transition_cm1": 25217.99536335166
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "reported_energy_Ha": -14067.365672303622,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9920998396978454
+            ],
+            "projected_probability": [
+              0.9920998396978454
+            ]
+          },
+          "CI_norm": "1.0000000000000001606",
+          "quotient_minus_reported_Ha": 1.9923065347216207e-12,
+          "normalized_Rayleigh_Ha": "-14067.365672303619985",
+          "normalized_reported_residual_Ha": 4.39009191063234e-12,
+          "reported_transition_cm1": 28717.30387783947,
+          "normalized_Rayleigh_transition_cm1": 28717.303878829727
+        },
+        {
+          "multiplet": "5d",
+          "reported_centroid_cm1": 26002.124452397762,
+          "reported_splitting_cm1": 760.1457893228985,
+          "normalized_Rayleigh_centroid_cm1": 26002.124453363653,
+          "normalized_Rayleigh_splitting_cm1": 760.1457876844898
+        },
+        {
+          "multiplet": "6p",
+          "reported_centroid_cm1": 27550.86770554977,
+          "reported_splitting_cm1": 3499.308516070662,
+          "normalized_Rayleigh_centroid_cm1": 27550.867707003577,
+          "normalized_Rayleigh_splitting_cm1": 3499.3085154780665
+        }
+      ]
+    },
+    {
+      "name": "direction1_plus",
+      "reported_EO_Ha": -14067.400117285633,
+      "normalized_Rayleigh_EO_Ha": "-14067.4001172856316",
+      "observable": "EOL_Rayleigh",
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "reported_energy_Ha": -14067.49651796603,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.996291800157103
+            ],
+            "projected_probability": [
+              0.996291800157103
+            ]
+          },
+          "CI_norm": "1.0000000000000000883",
+          "quotient_minus_reported_Ha": -1.4495617492528624e-12,
+          "normalized_Rayleigh_Ha": "-14067.496517966031746",
+          "normalized_reported_residual_Ha": 3.1408127141155667e-12,
+          "reported_transition_cm1": 0.0,
+          "normalized_Rayleigh_transition_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "reported_energy_Ha": -14067.380121657428,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.998093886785373
+            ],
+            "projected_probability": [
+              0.998093886785373
+            ]
+          },
+          "CI_norm": "1.0000000000000001124",
+          "quotient_minus_reported_Ha": -3.7342923903982426e-12,
+          "normalized_Rayleigh_Ha": "-14067.380121657432124",
+          "normalized_reported_residual_Ha": 4.147347236959783e-12,
+          "reported_transition_cm1": 25546.036922433872,
+          "normalized_Rayleigh_transition_cm1": 25546.036921932504
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "reported_energy_Ha": -14067.376658178006,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9969503558242049
+            ],
+            "projected_probability": [
+              0.9969503558242049
+            ]
+          },
+          "CI_norm": "0.9999999999999995101",
+          "quotient_minus_reported_Ha": -1.4412368975170054e-13,
+          "normalized_Rayleigh_Ha": "-14067.3766581780056715",
+          "normalized_reported_residual_Ha": 2.116936069801766e-12,
+          "reported_transition_cm1": 26306.182792000396,
+          "normalized_Rayleigh_transition_cm1": 26306.18279228695
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "reported_energy_Ha": -14067.381616324685,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9928915303061498
+            ],
+            "projected_probability": [
+              0.9928915303061498
+            ]
+          },
+          "CI_norm": "0.9999999999999988718",
+          "quotient_minus_reported_Ha": 7.689041873662079e-12,
+          "normalized_Rayleigh_Ha": "-14067.381616324677039",
+          "normalized_reported_residual_Ha": 8.156377150358859e-12,
+          "reported_transition_cm1": 25217.995377338466,
+          "normalized_Rayleigh_transition_cm1": 25217.99537934413
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "reported_energy_Ha": -14067.365672302012,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9920998408777573
+            ],
+            "projected_probability": [
+              0.9920998408777573
+            ]
+          },
+          "CI_norm": "1.0000000000000002448",
+          "quotient_minus_reported_Ha": 7.52558440660082e-13,
+          "normalized_Rayleigh_Ha": "-14067.365672302011419",
+          "normalized_reported_residual_Ha": 2.8009719254977558e-12,
+          "reported_transition_cm1": 28717.30387584336,
+          "normalized_Rayleigh_transition_cm1": 28717.303876326598
+        },
+        {
+          "multiplet": "5d",
+          "reported_centroid_cm1": 26002.124444014098,
+          "reported_splitting_cm1": 760.1458695665264,
+          "normalized_Rayleigh_centroid_cm1": 26002.124444145094,
+          "normalized_Rayleigh_splitting_cm1": 760.145870354444
+        },
+        {
+          "multiplet": "6p",
+          "reported_centroid_cm1": 27550.867709541988,
+          "reported_splitting_cm1": 3499.3084985048927,
+          "normalized_Rayleigh_centroid_cm1": 27550.867710665774,
+          "normalized_Rayleigh_splitting_cm1": 3499.3084969824686
+        }
+      ]
+    },
+    {
+      "name": "direction1_minus",
+      "reported_EO_Ha": -14067.400117288618,
+      "normalized_Rayleigh_EO_Ha": "-14067.400117288616985",
+      "observable": "EOL_Rayleigh",
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "reported_energy_Ha": -14067.496517969043,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9962918000508234
+            ],
+            "projected_probability": [
+              0.9962918000508234
+            ]
+          },
+          "CI_norm": "1.0000000000000010455",
+          "quotient_minus_reported_Ha": -6.645313662610552e-13,
+          "normalized_Rayleigh_Ha": "-14067.496517969043207",
+          "normalized_reported_residual_Ha": 3.0229893088323113e-12,
+          "reported_transition_cm1": 0.0,
+          "normalized_Rayleigh_transition_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "reported_energy_Ha": -14067.380121659917,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9980938865164164
+            ],
+            "projected_probability": [
+              0.9980938865164164
+            ]
+          },
+          "CI_norm": "1.0000000000000004345",
+          "quotient_minus_reported_Ha": -1.5301943170985103e-12,
+          "normalized_Rayleigh_Ha": "-14067.380121659918298",
+          "normalized_reported_residual_Ha": 2.8569266865116017e-12,
+          "reported_transition_cm1": 25546.037037409817,
+          "normalized_Rayleigh_transition_cm1": 25546.037037219758
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "reported_energy_Ha": -14067.376658181263,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9969503557279773
+            ],
+            "projected_probability": [
+              0.9969503557279773
+            ]
+          },
+          "CI_norm": "1.000000000000002211",
+          "quotient_minus_reported_Ha": 1.966025271632911e-12,
+          "normalized_Rayleigh_Ha": "-14067.376658181261371",
+          "normalized_reported_residual_Ha": 2.7719821014878977e-12,
+          "reported_transition_cm1": 26306.182738105425,
+          "normalized_Rayleigh_transition_cm1": 26306.182738682815
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "reported_energy_Ha": -14067.381616327848,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9928915266971208
+            ],
+            "projected_probability": [
+              0.9928915266971208
+            ]
+          },
+          "CI_norm": "0.9999999999999992414",
+          "quotient_minus_reported_Ha": 1.4628227751692249e-12,
+          "normalized_Rayleigh_Ha": "-14067.381616327846488",
+          "normalized_reported_residual_Ha": 3.491901925389258e-12,
+          "reported_transition_cm1": 25217.99534420304,
+          "normalized_Rayleigh_transition_cm1": 25217.995344669904
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "reported_energy_Ha": -14067.365672305015,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9920998385164349
+            ],
+            "projected_probability": [
+              0.9920998385164349
+            ]
+          },
+          "CI_norm": "1.0000000000000000013",
+          "quotient_minus_reported_Ha": -2.461587530899212e-13,
+          "normalized_Rayleigh_Ha": "-14067.365672305015569",
+          "normalized_reported_residual_Ha": 1.6844046232913555e-12,
+          "reported_transition_cm1": 28717.30387783947,
+          "normalized_Rayleigh_transition_cm1": 28717.303877931285
+        },
+        {
+          "multiplet": "5d",
+          "reported_centroid_cm1": 26002.12445798687,
+          "reported_splitting_cm1": 760.1457006956082,
+          "normalized_Rayleigh_centroid_cm1": 26002.124458097394,
+          "normalized_Rayleigh_splitting_cm1": 760.1457014630579
+        },
+        {
+          "multiplet": "6p",
+          "reported_centroid_cm1": 27550.86769996066,
+          "reported_splitting_cm1": 3499.308533636431,
+          "normalized_Rayleigh_centroid_cm1": 27550.867700177427,
+          "normalized_Rayleigh_splitting_cm1": 3499.3085332613805
+        }
+      ]
+    }
+  ],
+  "elapsed_uncontrolled_s": 32.61428816290572
+}

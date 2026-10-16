@@ -1,0 +1,107 @@
+{
+  "contract_sha256": "9cf6d497c7b838d818b68960087a192ca33ffedcc7af9667aa355bf9b1f3ecb2",
+  "script_sha256": "b008defc95c76263d298169e324b30f00ec3200950467f331f185efde7a4928c",
+  "source_sha256": "e5262bd480033f6816ae03061f036bd48d42a8c0cf8274d60a0a628f11cdf133",
+  "source_unchanged_during_run": true,
+  "input_seed": 147,
+  "precision_decimal_digits": 75,
+  "long_double_mantissa_bits_on_host": 63,
+  "rows": [
+    {
+      "control": "dense_unit_baseline",
+      "input_gram_infinity_norm": 5.966881392696453e-16,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 0.0,
+      "max_abs_gram_error": 4.440892098500626e-16,
+      "legacy_max_abs_same_map_error": 2.7755575615628914e-16,
+      "actual_minus_legacy_max_abs": 2.7755575615628914e-16,
+      "passed": true
+    },
+    {
+      "control": "tangent_1e-03",
+      "input_gram_infinity_norm": 2.9366919206809863e-07,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 0.0,
+      "max_abs_gram_error": 5.551115123125783e-16,
+      "legacy_max_abs_same_map_error": 7.216449660063518e-16,
+      "actual_minus_legacy_max_abs": 7.216449660063518e-16,
+      "passed": true
+    },
+    {
+      "control": "tangent_1e-08",
+      "input_gram_infinity_norm": 7.89545802302635e-16,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 1.734723475976807e-18,
+      "max_abs_gram_error": 3.3306690738754696e-16,
+      "legacy_max_abs_same_map_error": 2.220446049250313e-16,
+      "actual_minus_legacy_max_abs": 2.220446049250313e-16,
+      "passed": true
+    },
+    {
+      "control": "tangent_1e-13",
+      "input_gram_infinity_norm": 6.500532748487232e-16,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 3.469446951953614e-18,
+      "max_abs_gram_error": 3.3306690738754696e-16,
+      "legacy_max_abs_same_map_error": 3.0531133177191805e-16,
+      "actual_minus_legacy_max_abs": 3.0531133177191805e-16,
+      "passed": true
+    },
+    {
+      "control": "tangent_1e-16",
+      "input_gram_infinity_norm": 6.446763378923991e-16,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 0.0,
+      "max_abs_gram_error": 4.440892098500626e-16,
+      "legacy_max_abs_same_map_error": 2.7755575615628914e-16,
+      "actual_minus_legacy_max_abs": 2.7755575615628914e-16,
+      "passed": true
+    },
+    {
+      "control": "threshold_0.00999999",
+      "input_gram_infinity_norm": 0.009999989999999792,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 0.0,
+      "max_abs_gram_error": 4.440892098500626e-16,
+      "legacy_max_abs_same_map_error": 2.220446049250313e-16,
+      "actual_minus_legacy_max_abs": 2.220446049250313e-16,
+      "passed": true
+    },
+    {
+      "control": "threshold_0.01000001",
+      "input_gram_infinity_norm": 0.010000010000000269,
+      "expected_branch": "spectral fallback",
+      "max_abs_same_map_error": 2.220446049250313e-16,
+      "max_abs_gram_error": 5.551115123125783e-16,
+      "legacy_max_abs_same_map_error": 2.220446049250313e-16,
+      "actual_minus_legacy_max_abs": 0.0,
+      "passed": true
+    },
+    {
+      "control": "right_orthogonal_rotation",
+      "input_gram_infinity_norm": 3.199145562470299e-07,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 2.7755575615628914e-17,
+      "max_abs_gram_error": 2.220446049250313e-16,
+      "legacy_max_abs_same_map_error": 3.0531133177191805e-16,
+      "actual_minus_legacy_max_abs": 3.0531133177191805e-16,
+      "passed": true,
+      "equivariance_error": 8.326672684688674e-17
+    },
+    {
+      "control": "column_phase_flip",
+      "input_gram_infinity_norm": 2.9366919206809863e-07,
+      "expected_branch": "near-unit series",
+      "max_abs_same_map_error": 0.0,
+      "max_abs_gram_error": 5.551115123125783e-16,
+      "legacy_max_abs_same_map_error": 7.216449660063518e-16,
+      "actual_minus_legacy_max_abs": 7.216449660063518e-16,
+      "passed": true,
+      "phase_error": 0.0
+    }
+  ],
+  "rank_deficient_rejected": true,
+  "original_seed_spectral_polar_block_retained": true,
+  "passed": true,
+  "limitations": "No new native Yb roots or physical improvement certified; preconditioner/metric fingerprints must still match in production continuation."
+}

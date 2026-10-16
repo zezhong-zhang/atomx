@@ -1,0 +1,70 @@
+{
+  "src/atomx/methods/coupled_cluster.py": {
+    "sha256": "d09067186f75326af7e8fc97158115a2c3879af1492f85d53ef5368f85a61824",
+    "symbols": {
+      "CoupledClusterResult": 44,
+      "compute": 54
+    }
+  },
+  "src/atomx/methods/mbpt.py": {
+    "sha256": "810aa26621798821da56e8965524dbf27f5fe735cebdf1d371c7c1e494352e3e",
+    "symbols": {
+      "MBPT2Result": 97,
+      "_allowed_k_range": 139,
+      "_build_closed_shell_fock": 158,
+      "build_virtual_basis": 303,
+      "mbpt2_energy": 411,
+      "_label_recorder": 591,
+      "_mbpt2_pair_contribution": 602,
+      "_pair_v_J": 804,
+      "pair_ladder_energy": 885
+    }
+  },
+  "src/atomx/methods/mbpt_sigma2.py": {
+    "sha256": "fe671a8a4808b42ed9b9a57ee28ac854744390050293f5d0e32cd62f70dcd8d1",
+    "symbols": {
+      "build_sigma2_holeline": 48,
+      "Sigma2Bubble": 65,
+      "build_sigma2_bubble": 132,
+      "build_sigma2_mscheme": 210,
+      "_build_sigma2_holeline_quarantined": 355,
+      "build_sigma1_mscheme": 500,
+      "build_sigma2_ladder": 586
+    }
+  },
+  "src/atomx/methods/ci_mbpt.py": {
+    "sha256": "25c33fc4ef2599980c09d0a53e442f925edb633c07b33cb2364b6b7082bb0f67",
+    "symbols": {
+      "ci_mbpt_solve": 66
+    }
+  },
+  "src/atomx/methods/mbpt_transitions.py": {
+    "sha256": "cef8fbc7ddf76c8743d1333b9a8b8bd72b9696e25231b808a6c8461f0550b263",
+    "symbols": {
+      "DysonRoot": 34,
+      "DiagonalSelfEnergy": 46,
+      "mbpt2_orbital_energy_shift": 129,
+      "build_mbpt2_self_energy": 305,
+      "mbpt2_transition_energy": 348
+    }
+  },
+  "src/atomx/methods/rpa.py": {
+    "sha256": "386313334fcb43d239ae68dfe211d9724ba3b3fe1a984003e54ed44cc1f18051",
+    "symbols": {
+      "RPAResult": 48,
+      "_parity": 60,
+      "ph_pairs_for": 64,
+      "solve_symmetric_rpa": 84,
+      "_ph_tensor": 139,
+      "_ph_angular": 149,
+      "_check_ph_metric": 174,
+      "solve_rpa": 185,
+      "dense_continuum_virtuals": 231,
+      "reduced_dipole": 259,
+      "trk_sum": 266,
+      "dipole_polarizability": 279,
+      "_ph_components": 305,
+      "solve_rpa_ci_direct": 323
+    }
+  }
+}

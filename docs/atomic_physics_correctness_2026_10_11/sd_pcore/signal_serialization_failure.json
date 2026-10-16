@@ -1,0 +1,9 @@
+{
+  "status": "derived-array replay bookkeeping failure only",
+  "type": "TypeError",
+  "message": "Object of type bool is not JSON serializable",
+  "cause": "numpy.bool_ from comparison against numpy float roundoff estimate",
+  "source_sha256": "412f2c2b622f11d038ae0a1807788ea90ca18b638df422b36131d168b6d293b6",
+  "production_or_original_scientific_result_mutated": false,
+  "fix": "Convert roundoff estimate to Python float before JSON branch comparison; no scientific formula or gate change"
+}

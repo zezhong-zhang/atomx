@@ -1,0 +1,499 @@
+{
+  "execution_authorized_by_root": true,
+  "driver_sha256": "bfa141675599ce45e3a5ce3aafb9b6488e77c56d3dedfad5e4bbd38eac233480",
+  "launcher_sha256": "26b2f00ae817d9ffb16d337dfae560ad1e2d81aa4e9aad9a7f915db836103f85",
+  "preparation_contract_sha256": "5e6dcfa18d43a2238ce822145decad6087cd8fc4e53494cafaced109b09df90d",
+  "preparation_sha256": "b568d92656bf456b38223f1216daef08f2407a36b01f7c4eddc5a74ef853403c",
+  "scientific_inputs_sha256": {
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_hS": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "tracking_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "f043_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "native31_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+    },
+    "native31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+    },
+    "native31_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/run.py",
+      "sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34"
+    },
+    "native31_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f"
+    },
+    "native31_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+    },
+    "basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/basis_identity.json",
+      "sha256": "484419319dfd73cff577cfa27b62917c043a5abfbbfc9960f8706f56d623af33"
+    },
+    "recovered_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "recovered_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+    },
+    "signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/signed_tables.json",
+      "sha256": "c2bea5c3fd8626b3c0a89b675abd01e399e581cb590652d9368c76e31897a175"
+    },
+    "adapter": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_adapter.py",
+      "sha256": "b903784cfdda3e931ae08abc11d113c8637b224e4e6aa501351762b5801df2be"
+    },
+    "adapter_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_binding_declaration.json",
+      "sha256": "1c47f810884337a6a3a031dc3ef3c6664e2dddbc721bffd083bb05dbd62987ac"
+    },
+    "adapter_union": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/actual_signed_union.json",
+      "sha256": "6051b38ebe0b4bdd709ad499025c20957b1892b0718e86b57ebac72f7d64ed7e"
+    },
+    "adapter_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/contract.json",
+      "sha256": "4cbc728cd01c662a29e4b869a13b8aa48b9bbeb8d4c4b5d8a5df69025009cd13"
+    },
+    "adapter_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/preparation_verification.json",
+      "sha256": "e0ffd6230c079bed1f474bd208041197fdbd69c38e70a56ddd62db62d6fe07d4"
+    },
+    "adapter_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/handoff.json",
+      "sha256": "07846c99fbe5ba427498088e882530d5dd459360a1eddc9c04a2298de878af44"
+    },
+    "shared_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/public_source_identity.json",
+      "sha256": "62e1d3fb713067747bf3f166286f9c3de73cb5b3c0993f99053dfc9fe037c447"
+    },
+    "historical700_metadata_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/historical_metadata_revision001/failure.json",
+      "sha256": "4904bd024b72db8edc26f8351bb6342034009144e3a6d94f55be4e25d2ecd28e"
+    },
+    "executor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/batch_executor.py",
+      "sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+    },
+    "executor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/contract.json",
+      "sha256": "3eb86a54b92c985460d3721b234a7fd94d2ed9338a5adfea7c92c3da17ad62a5"
+    },
+    "executor_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/preparation_verification.json",
+      "sha256": "79e2e8c8610f09bd59a104c6523df50e19787563a63fce21b5a388dedf9acf0c"
+    },
+    "executor_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/handoff.json",
+      "sha256": "c51fe1e4b68d4e19e478616b613e9d9a4e056c24786f0f84caa636b78fbac56e"
+    },
+    "recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "recovered_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "saved_gradient_metric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "old_FD_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/actual/failure.json",
+      "sha256": "2a868fdaf9998b07527f31d90c7c2faa8dec85d9402b8e268466b748ed982d8b"
+    },
+    "old_FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "2a4459f5c95d5d069a30309df260d5521f787ac55872a8f835a2756a87b9c42f"
+    },
+    "old_FD_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/completion.json",
+      "sha256": "c929c96e768bd731e1b76a961f1d9df5869a2335499d54f6d7f4e357ab034902"
+    },
+    "current_shared_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/shared_source_at_preparation.json",
+      "sha256": "e52ccb6e01f4825e4e788657ae96593a1f3a548f09b01d7d1c85b4da53a9812c"
+    },
+    "native31_FD_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "native31_FD_domain_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+      "sha256": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3"
+    },
+    "native31_FD_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "native31_FD_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/completion.json",
+      "sha256": "cb8786578e848cd5ad2bba8c5f1d1a31691c6cc478b2bd674359f5c582e49b9e"
+    },
+    "prior_qualification_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py",
+      "sha256": "b701429af657575a006d8ca9ad05cc885162a5e973ae829b4842f04e6ffd91e7"
+    },
+    "prior_qualification_launcher": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/launch.py",
+      "sha256": "91c942102a5526c5d1f580b3a7f5887ca79eba7c72491cd12d965a3799266f7c"
+    },
+    "prior_qualification_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/contract.json",
+      "sha256": "054e30a87e05809767ad0e35ce7efd292df0f0d519dc971432e5115ce854f083"
+    },
+    "prior_qualification_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/actual/result.json",
+      "sha256": "001a2d0e49e62d4288c65538853d6bb2bd6911567212a14c9c489d56f3b6f7ee"
+    },
+    "prior_qualification_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/controller/execution_receipt.json",
+      "sha256": "687af214a5f36bdeb19bc3350f0bbe51b84923735b67b36202fc45ef8bbb7cd5"
+    },
+    "prior_qualification_seal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/execution_binding.json",
+      "sha256": "565caad685fe5502fd5890c6deedcf1d8cffa08ad8ee00cdebf78e7e6175959d"
+    },
+    "prior_qualification_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/closure001/completion.json",
+      "sha256": "3e6e6a086a21cbe045d72e0d89f500ab31971dc66889bbc01dc891aa64078ccd"
+    },
+    "closed_GPU_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+      "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+    },
+    "closed_GPU_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+      "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+    },
+    "closed_GPU_metadata": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+      "sha256": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758"
+    },
+    "qualified_consumer_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/run.py",
+      "sha256": "8b25ccdddba36e58d662052bd07b8b991b3995b43570a368862d269c6553cc06"
+    },
+    "qualified_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/contract.json",
+      "sha256": "5689311c8cb435f1eff358ceaa9cbd06c128fa7a7a164bc8e2ecb932c16ee8c1"
+    },
+    "frozen_private_native_adapter": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_adapter.py",
+      "sha256": "b903784cfdda3e931ae08abc11d113c8637b224e4e6aa501351762b5801df2be"
+    },
+    "frozen_batch_executor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/batch_executor.py",
+      "sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+    },
+    "native31_FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "report033_metadata_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/closure001/completion.json",
+      "sha256": "bbb10c0aa88f25699b53b95d9c12f9d1c16dc9d5561c28e9058890274b91dd05"
+    },
+    "prior_load_guard_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/contract.json",
+      "sha256": "1c7541074eeb3e824c8348decc1534819c2b2e7b9fedc186e701839e2842a97d"
+    }
+  },
+  "resources": {
+    "CPU1": 30,
+    "CPU4": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "single_thread_env": [
+      "OPENBLAS_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "BLIS_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "NUMEXPR_NUM_THREADS"
+    ],
+    "Numba_configured_max": 4,
+    "public_current_NumBa_mask": 1,
+    "private_CPU4_mask": 4,
+    "maximum_host_load": 32,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "kill_grace_seconds": 5,
+    "maximum_RSS_bytes": 4241280204,
+    "virtual_AS_bytes": 68719476736,
+    "device_payload_bytes": 536870912,
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "calls": {
+      "H": 1,
+      "CI": 1,
+      "initial_hS": 7,
+      "CI_hS_producer": 7,
+      "hS_getter": 500,
+      "validation_Dirac": 7,
+      "SPD_eigvalsh": 38,
+      "scipy_eigh": 12,
+      "tracking_SVD": 5,
+      "tracking_resolve": 1,
+      "tracking_overlap": 2,
+      "target_RDM": 5,
+      "public_full_gradient": 1,
+      "private_full_gradient": 21,
+      "private_owner_factory": 3,
+      "ordinary_source_potential": 706,
+      "ordinary_band": 2824,
+      "ordinary_density": 2824,
+      "private_density": 20832,
+      "H_density": 992,
+      "factor_getter": 2908,
+      "component_moment_getter": 56,
+      "dense_bank_getter": 100000,
+      "same_component_inner_producer": 28,
+      "mixed_component_inner_producer": 28,
+      "NPZ_load": 29,
+      "CUDA_context": 1,
+      "optimizer": 0,
+      "dense_bank_producer": 28,
+      "near_factor_producer": 28
+    },
+    "call_semantics": "Hard started/completed producer upper caps. Getters/hits/misses separately counted, never asserted getter equals newproducer. Same onepoint producer paths as closed qualifiedsource: expected initialhS7/CIhS7/getter38; hard getter500 preserves upper-bound disposition. Private21g reuse3 resident factor owners but never densities/bands/outputs. All private primitive counter deltas checked against complete706source chain.",
+    "watchdog": "External launcher samples complete process-group RSS every50ms, terminates on RSS threshold/outer deadline, five-second kill grace. Unsampled transient peak not certified. AS64GiB is CUDA virtual mapping allowance only. No model reduction on resource stop.",
+    "thread_protocol": "Immediately after import numba capture original mask; set current1 before setup/H/ordinary g. CPU1 and CUDA host1; CPU4 engine temporary4 inside its finally-protected mask and restores1. Outermost finally restores captured original mask+affinity even failure.",
+    "controller_CPU": 0,
+    "maximum_load1_per_onlineCPU": 0.5,
+    "host_guards": {
+      "idle_seconds": 1,
+      "maximum_idle_busy_fraction_each_used_CPU": 0.05,
+      "maximum_system_iowait_irq_softirq_steal_fraction_each_CPU": 0.05,
+      "maximum_load1_per_onlineCPU": 0.5,
+      "CUDA": "No competing active compute/process scope and pre/postdevice idle admission; actual query only after root seal.",
+      "root_window": "ReserveCPU28..31 andGPU; no other numerical, browser or timer-launched probes overlapping. Existing source benchmark idleFAIL remains."
+    },
+    "window_receipts_deferred": [
+      "native31_f04316step",
+      "phaseA_fixedRCI"
+    ],
+    "source_only_wall_estimate_seconds": 180,
+    "thread_affinity_protocol": "Capture each existing task mask, pin every /proc/self/task tid to the stage cpuset before timing, observe actual masks; register newly seen tid original mask for finally restoration. New thread inherited-mask changes are recorded, not silently attributed to measured parallel workers. CPU4 current NumBa mask4 admits four logical workers; no observed worker utilization/whole optimizer parallel certificate inferred."
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "actual_native31_directional_prerequisite": {
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "domain_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+      "sha256": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3"
+    },
+    "root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "recorded_domains": {
+      "1e-05": {
+        "ordinary_reported": {
+          "h": 1e-05,
+          "derivative": -0.03712684701895341,
+          "analytic": -0.0371269850032454,
+          "error": 1.3798429198547124e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 1.8189894035458562e-07,
+          "difference_against_full_normalized": 1.3798428859235212e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "376266236243337087066453129214130518638682128287605840865827295058798627106660767371980254794395711206599512304896246930129267525682855952503255064719690729440179847690702929693758263573437",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 6.000510288244917e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "1005746334611005580976312263580770460126716628700539299127996190572383868702730796214902536335061395988546110466826745467393842572676337263",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": 6.00095908214766e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      },
+      "5e-06": {
+        "ordinary_reported": {
+          "h": 5e-06,
+          "derivative": -0.03712721081683412,
+          "analytic": -0.0371269850032454,
+          "error": -2.2581358872370005e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 3.6379788070917124e-07,
+          "difference_against_full_normalized": -2.2581359211681917e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "118824521195183666652078230260845810329261746318380593162241674388704219275900851757518277191560556464248316948804117824512217605803393705843036928074748541493648124434518028634360099027901",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 1.894955468357153e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "79416300931172540741146270529029075104892128982236964283291468142169840454214077551585576751795949981110584154256963962129582477524956683",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": 1.8954042622598943e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      }
+    },
+    "recorded_controls_passed": true,
+    "raw_kernel_diagnostic_only": true,
+    "assertions": {
+      "source_sha256": {
+        "document": "result",
+        "pointer": [
+          "source_map_sha256"
+        ]
+      },
+      "metric_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_metric_sha256"
+        ]
+      },
+      "geometry_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_geometry_sha256"
+        ]
+      },
+      "state_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_state_sha256"
+        ]
+      },
+      "objective_sha256": {
+        "document": "result",
+        "pointer": [
+          "objective_identity"
+        ]
+      }
+    }
+  },
+  "controlled_window_prerequisites": {
+    "receipts": {
+      "native31_f04316step": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+        "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532"
+      },
+      "phaseA_fixedRCI": {
+        "not_scheduled": true,
+        "reason": "Independent phaseA scalar-observer successor remains unexecuted; root schedules it only after this performance guardian foreground closes."
+      }
+    },
+    "no_other_numerical_gpu_browser_or_hourly_jobs": true
+  },
+  "review_scope": "Root full read final run/helpers/launch and same qualified frozen adapter/executor; 1H1CI1publicg21privateg, independent H/E/C bytes, per-tid masks, warm-only statistics; no current source adoption."
+}

@@ -1,0 +1,3099 @@
+{
+  "files": {
+    "atomx/src/atomx/__init__.py": {
+      "bytes": 6286,
+      "sha256": "0a465f9b05d2e8d93c6e0a115f52fc6e369eff46aee67a397d8055ecc3c187f1"
+    },
+    "atomx/src/atomx/angular/__init__.py": {
+      "bytes": 1175,
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61"
+    },
+    "atomx/src/atomx/angular/clebsch.py": {
+      "bytes": 1002,
+      "sha256": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd"
+    },
+    "atomx/src/atomx/angular/coefficients.py": {
+      "bytes": 11121,
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+    },
+    "atomx/src/atomx/angular/csf.py": {
+      "bytes": 11065,
+      "sha256": "815ef80ae6d211be7d0a8103f298044f9acc0ca25a1390699046a5886fc4afb2"
+    },
+    "atomx/src/atomx/angular/csf_hamiltonian.py": {
+      "bytes": 68209,
+      "sha256": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be"
+    },
+    "atomx/src/atomx/angular/csf_recoupling.py": {
+      "bytes": 40840,
+      "sha256": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035"
+    },
+    "atomx/src/atomx/angular/ls_coupling.py": {
+      "bytes": 5569,
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1"
+    },
+    "atomx/src/atomx/angular/mscheme.py": {
+      "bytes": 21058,
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+    },
+    "atomx/src/atomx/angular/rcfp.py": {
+      "bytes": 5225,
+      "sha256": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd"
+    },
+    "atomx/src/atomx/angular/recoupling.py": {
+      "bytes": 5363,
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    "atomx/src/atomx/angular/spinor_harmonics.py": {
+      "bytes": 5575,
+      "sha256": "9d35900460870c3c298eecf0dd00a76f4b437cfca783b0bd9b866bb5cfe0c0af"
+    },
+    "atomx/src/atomx/angular/wigner.py": {
+      "bytes": 9396,
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7"
+    },
+    "atomx/src/atomx/atom.py": {
+      "bytes": 97455,
+      "sha256": "1bdd988e00ddb86d099b2cc118ee7ff0171f65e57af3b233eb958eb4955fd1da"
+    },
+    "atomx/src/atomx/atom_inputs.py": {
+      "bytes": 27197,
+      "sha256": "efbc114328891f1ab14a4781744efdd424908856dd4f9fbc38d1a2a52d86a9fa"
+    },
+    "atomx/src/atomx/calculation_spec.py": {
+      "bytes": 6300,
+      "sha256": "c5672b13ac257a5f93033ed20f3a5a321d84bbebb7f2c0d871445886f7ae5536"
+    },
+    "atomx/src/atomx/compare.py": {
+      "bytes": 10763,
+      "sha256": "755b2f2dfa60b94fd140062aeb09148804b1dd31a317dc0ff0b8ac4754de3899"
+    },
+    "atomx/src/atomx/config/__init__.py": {
+      "bytes": 4823,
+      "sha256": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3"
+    },
+    "atomx/src/atomx/config/csf.py": {
+      "bytes": 19832,
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999"
+    },
+    "atomx/src/atomx/config/jj_coupling.py": {
+      "bytes": 7905,
+      "sha256": "56a300b28f527d04b153e4fb2b36e14fddd73fb5c7b9c8cf63d5214aadf527cb"
+    },
+    "atomx/src/atomx/config/parsing.py": {
+      "bytes": 3545,
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e"
+    },
+    "atomx/src/atomx/config/subshell.py": {
+      "bytes": 1877,
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce"
+    },
+    "atomx/src/atomx/constants.py": {
+      "bytes": 9293,
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+    },
+    "atomx/src/atomx/corrections/__init__.py": {
+      "bytes": 1401,
+      "sha256": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081"
+    },
+    "atomx/src/atomx/corrections/adapters.py": {
+      "bytes": 28766,
+      "sha256": "3f8b9d06c0ec1a4f28d4e4b0596f6959fc91331ea5a6a71866da048db5fec512"
+    },
+    "atomx/src/atomx/corrections/breit.py": {
+      "bytes": 14927,
+      "sha256": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596"
+    },
+    "atomx/src/atomx/corrections/dbsr_breit.py": {
+      "bytes": 8656,
+      "sha256": "91a0f70da3fec49a5baa1a270908b8fab193d0bf6061ff52b12fa603d6a63c09"
+    },
+    "atomx/src/atomx/corrections/orbital_shifts.py": {
+      "bytes": 3445,
+      "sha256": "937729b40da56e5cabc34094d5032222b1f5de39b2643f7d2722b99842ebf656"
+    },
+    "atomx/src/atomx/corrections/protocol.py": {
+      "bytes": 4410,
+      "sha256": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce"
+    },
+    "atomx/src/atomx/corrections/qed.py": {
+      "bytes": 15829,
+      "sha256": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd"
+    },
+    "atomx/src/atomx/corrections/qedmod/__init__.py": {
+      "bytes": 2792,
+      "sha256": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951"
+    },
+    "atomx/src/atomx/corrections/qedmod/base.py": {
+      "bytes": 3313,
+      "sha256": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30"
+    },
+    "atomx/src/atomx/corrections/qedmod/flambaum_ginges.py": {
+      "bytes": 10497,
+      "sha256": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280"
+    },
+    "atomx/src/atomx/corrections/qedmod/indelicato.py": {
+      "bytes": 3306,
+      "sha256": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d"
+    },
+    "atomx/src/atomx/corrections/qedmod/mohr.py": {
+      "bytes": 7136,
+      "sha256": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7"
+    },
+    "atomx/src/atomx/corrections/qedmod/shabaev.py": {
+      "bytes": 15785,
+      "sha256": "bd4cba9683ea9eb271b3101f7a4d340efebbbc8fc76e3cc2c22485b1a92a7d9b"
+    },
+    "atomx/src/atomx/corrections/qedmod/welton.py": {
+      "bytes": 4918,
+      "sha256": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a"
+    },
+    "atomx/src/atomx/corrections/radiative_mass.py": {
+      "bytes": 1966,
+      "sha256": "7242e91baf8a2f215c45b75b7d68975e502d480da5f492e1158cfa401ec49248"
+    },
+    "atomx/src/atomx/corrections/recoil.py": {
+      "bytes": 4500,
+      "sha256": "62761ae5ded8913f3d7c33590021687f67a6cd6efe0c595e58860fafe2c6dda7"
+    },
+    "atomx/src/atomx/corrections/specific_recoil.py": {
+      "bytes": 7574,
+      "sha256": "31d5b7e6df6d4c690196cbbb8cb88a6697cf453b94c65501db80ea8c3c2916c1"
+    },
+    "atomx/src/atomx/corrections/stack.py": {
+      "bytes": 17722,
+      "sha256": "ac5e49a7bfc4b391e9dc1b4ca067e5cbfbbcdaf200cb4a755cd5259604d67347"
+    },
+    "atomx/src/atomx/data/__init__.py": {
+      "bytes": 2309,
+      "sha256": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d"
+    },
+    "atomx/src/atomx/data/flambaum_ginges.py": {
+      "bytes": 1855,
+      "sha256": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839"
+    },
+    "atomx/src/atomx/data/hyperfine_presets.py": {
+      "bytes": 2827,
+      "sha256": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc"
+    },
+    "atomx/src/atomx/data/mohr_se.py": {
+      "bytes": 15299,
+      "sha256": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c"
+    },
+    "atomx/src/atomx/data/nist_bethe_log.py": {
+      "bytes": 362237,
+      "sha256": "4b467181d1da31cd34e3660fdf4b5c5d82a11878d2894695eaa69c8fa1da35f2"
+    },
+    "atomx/src/atomx/data/nuclear_structure.py": {
+      "bytes": 1633,
+      "sha256": "8237f9490b279e2a93335d3b7ac2ee369364ff62e459989e83975f346ea0ff8f"
+    },
+    "atomx/src/atomx/fitting/__init__.py": {
+      "bytes": 1781,
+      "sha256": "6b6865489ff8aaf04ca221a964a2769bab524402ab1cb3b0e9597182aae7ccff"
+    },
+    "atomx/src/atomx/fitting/slater.py": {
+      "bytes": 5906,
+      "sha256": "15856585f0a6b7fc567a7d1819d1ee403a724eeab76932120fb9d0ebdc72719a"
+    },
+    "atomx/src/atomx/io/__init__.py": {
+      "bytes": 634,
+      "sha256": "ba89a6e25733fa87b6be7d5bd33ff60c5e87b2d40be137f0dbdfb8caceff7acb"
+    },
+    "atomx/src/atomx/io/fac_writer.py": {
+      "bytes": 31800,
+      "sha256": "ea4730f02f8da72983ee4aba3df46dc68a259af32034804260bf3c123209e2fa"
+    },
+    "atomx/src/atomx/io/results.py": {
+      "bytes": 18691,
+      "sha256": "31d2e497b93c68b2bce760d2d102857ea869cf57c0ace2b60141b58b23abb1e4"
+    },
+    "atomx/src/atomx/ladder.py": {
+      "bytes": 12381,
+      "sha256": "f19316642acb5a914447599e3a94a5fcf957409ad1fa0de57df7e89d81945c6f"
+    },
+    "atomx/src/atomx/lineshapes/__init__.py": {
+      "bytes": 1653,
+      "sha256": "32c4b3165501247d0666e9c8d732d72e3a1bcd7aa491c1a0cea7104ff85e44cf"
+    },
+    "atomx/src/atomx/lineshapes/profiles.py": {
+      "bytes": 4634,
+      "sha256": "921a9f058dab84b82075c23156f7fd0527d1f42b0eabc7f055997db151b409f2"
+    },
+    "atomx/src/atomx/lineshapes/stark.py": {
+      "bytes": 3352,
+      "sha256": "8eda7d41d8ef40eef4856a27936930893ffc37560211aac5161cc3816b85ae9d"
+    },
+    "atomx/src/atomx/log.py": {
+      "bytes": 5911,
+      "sha256": "ec8fff58ed333cfea09eed5feab438fe98b52c404cc9046f098b2cb32b6c40fc"
+    },
+    "atomx/src/atomx/methods/__init__.py": {
+      "bytes": 1046,
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09"
+    },
+    "atomx/src/atomx/methods/_result_adapters.py": {
+      "bytes": 1551,
+      "sha256": "16376db419b9b9b4aba100b04f78e650ade01900e3d2b8dd28f8a6655b5fa5a8"
+    },
+    "atomx/src/atomx/methods/base.py": {
+      "bytes": 734,
+      "sha256": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95"
+    },
+    "atomx/src/atomx/methods/breit_pauli.py": {
+      "bytes": 9248,
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208"
+    },
+    "atomx/src/atomx/methods/ci.py": {
+      "bytes": 17525,
+      "sha256": "b1002d979173dc3a457577dd3db73d7695983d232a924bf73b5089bb08f8ee86"
+    },
+    "atomx/src/atomx/methods/ci_effective.py": {
+      "bytes": 13253,
+      "sha256": "aebdaa7336a4864d8e39d3e37982b6ed2d91933ea0b4dcc2bc080493d3f9122e"
+    },
+    "atomx/src/atomx/methods/ci_mbpt.py": {
+      "bytes": 6397,
+      "sha256": "aa878ba1341f2250875d5a95cf3b5bfb9a195b5b1464ee1d38578c8a719d9ebf"
+    },
+    "atomx/src/atomx/methods/ci_sd.py": {
+      "bytes": 7798,
+      "sha256": "a49bac8ee475901315cc96e54e5580ea9db28d788e9ca11c028ba0e86b99c0d5"
+    },
+    "atomx/src/atomx/methods/concurrent_solve.py": {
+      "bytes": 4323,
+      "sha256": "365775ffd82f30ae2bc0919279f4bf8c964c193da2f7a83af9d3e7507ecc912a"
+    },
+    "atomx/src/atomx/methods/coupled_cluster.py": {
+      "bytes": 10293,
+      "sha256": "9116734e3f523521e00cf94fb700fa88402acffccef8a21e543b90cdb7f32ee8"
+    },
+    "atomx/src/atomx/methods/csf/__init__.py": {
+      "bytes": 301,
+      "sha256": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0"
+    },
+    "atomx/src/atomx/methods/csf/charge_variational.py": {
+      "bytes": 8937,
+      "sha256": "fca4674fd96ac036cee020e467105a7327c98467915fbfb4b1118c6984102586"
+    },
+    "atomx/src/atomx/methods/csf/complex_ci.py": {
+      "bytes": 8659,
+      "sha256": "d3e33468419ca8a263d0bb2a52db89feaf44ab1417c629df863323b111d81e55"
+    },
+    "atomx/src/atomx/methods/csf/crystal_field.py": {
+      "bytes": 11296,
+      "sha256": "9c47bb6c742f32b074121c7388c1b9168c479023f2681baf9d567bfdc02669d3"
+    },
+    "atomx/src/atomx/methods/csf/direct_bspline.py": {
+      "bytes": 8673,
+      "sha256": "742b754a00416de1566f236ecfe62ff92fd405418a53026e55e6d3f1a3a851ee"
+    },
+    "atomx/src/atomx/methods/csf/direct_shooting.py": {
+      "bytes": 4269,
+      "sha256": "1024819f886af552ebd75c1833440765e8ee2cf86f2252d13c74ac289eb2d06c"
+    },
+    "atomx/src/atomx/methods/csf/grid_functional.py": {
+      "bytes": 10318,
+      "sha256": "b1a227fae381df8fc58dcd6d534d9c5b748dc0536b20c60970199eaa05c68cb1"
+    },
+    "atomx/src/atomx/methods/csf/grid_solver.py": {
+      "bytes": 3976,
+      "sha256": "d8a7966eb9f3bf2b74d52981f0da4422dd8ce3b2637f7ac1adadc538fd2a4a6f"
+    },
+    "atomx/src/atomx/methods/csf/lanthanide_workspace.py": {
+      "bytes": 1378,
+      "sha256": "d4d5567e823fcfaf43ee419d3c3d70eafbecae70438a369f6bff24aaf21c0ba6"
+    },
+    "atomx/src/atomx/methods/csf/slater_scaling.py": {
+      "bytes": 9607,
+      "sha256": "4d165148ffa8a059fd748bcbe93f23e3ad6564a23283ce2129238c886fb33d52"
+    },
+    "atomx/src/atomx/methods/csf/solver.py": {
+      "bytes": 94968,
+      "sha256": "0eb4f82868b846b5798b117a01e72317ee37ada9c090d8df24ac15366eb2db3b"
+    },
+    "atomx/src/atomx/methods/csf/variational.py": {
+      "bytes": 11348,
+      "sha256": "652be6483d93f439f7200421fcde19d3af8342c86cbfe97543a5a26b295d9103"
+    },
+    "atomx/src/atomx/methods/csf/virtual_stability.py": {
+      "bytes": 5531,
+      "sha256": "b00b1cc1c037a0b941ef6420da7059d8acf9621a34f7a1b79d42e3f7287f43b2"
+    },
+    "atomx/src/atomx/methods/dirac_fock.py": {
+      "bytes": 132460,
+      "sha256": "5d3481d9ec7017a8311e89ee872bdcdc729d6c2a9e766e78c4320381ca5b4129"
+    },
+    "atomx/src/atomx/methods/edm.py": {
+      "bytes": 3232,
+      "sha256": "2d0ebcf3e82af6b442a8989a3e477d785d7e8fef801b154b2879d03f93fae3a9"
+    },
+    "atomx/src/atomx/methods/fscc.py": {
+      "bytes": 17617,
+      "sha256": "4bf1a15612cf522c189beb0a8f5c198d14c13b43fe965d214816cd6f18f976c1"
+    },
+    "atomx/src/atomx/methods/hamiltonian_df.py": {
+      "bytes": 4326,
+      "sha256": "c45a0d707d16f48e1dea796fa06ad2c29be5f6e7d0104e17eb5b95683f827478"
+    },
+    "atomx/src/atomx/methods/hartree_fock_slater.py": {
+      "bytes": 2027,
+      "sha256": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4"
+    },
+    "atomx/src/atomx/methods/hydrogenic.py": {
+      "bytes": 4677,
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942"
+    },
+    "atomx/src/atomx/methods/hydrogenic_cross_sections.py": {
+      "bytes": 8637,
+      "sha256": "4920dbc1171c7def0c99f013a77e40734e79df4fdd41d36883e8e1e359938ec9"
+    },
+    "atomx/src/atomx/methods/hydrogenic_reference.py": {
+      "bytes": 4453,
+      "sha256": "e401c4a29f00c31b9cdadb451559e0772f548df049a2c7c0e0dea19c389a251f"
+    },
+    "atomx/src/atomx/methods/mbpt.py": {
+      "bytes": 45582,
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    },
+    "atomx/src/atomx/methods/mbpt_matrix.py": {
+      "bytes": 14393,
+      "sha256": "2686b60d67c85ac1d040d80b2471bcdeb7cfad8a3e1585c14f5937b1355e7aba"
+    },
+    "atomx/src/atomx/methods/mbpt_sigma2.py": {
+      "bytes": 30648,
+      "sha256": "fe671a8a4808b42ed9b9a57ee28ac854744390050293f5d0e32cd62f70dcd8d1"
+    },
+    "atomx/src/atomx/methods/mbpt_transitions.py": {
+      "bytes": 20086,
+      "sha256": "c3d3143dc158860eb77491b3741fbca5d4f08d24b44ef813124098b1b54146d8"
+    },
+    "atomx/src/atomx/methods/mcdhf/__init__.py": {
+      "bytes": 7765,
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167"
+    },
+    "atomx/src/atomx/methods/mcdhf/excitations.py": {
+      "bytes": 8082,
+      "sha256": "264679be4318273fa533ffd70d41af6ed3df0183437db5f60f97ba2612b00386"
+    },
+    "atomx/src/atomx/methods/mcdhf/solver.py": {
+      "bytes": 434,
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c"
+    },
+    "atomx/src/atomx/methods/pnc.py": {
+      "bytes": 4246,
+      "sha256": "57da5e9eee632de339d4b8fc2fb20e2b5411467ba30a9e3f64d7a0e3fc545f39"
+    },
+    "atomx/src/atomx/methods/rpa.py": {
+      "bytes": 15602,
+      "sha256": "386313334fcb43d239ae68dfe211d9724ba3b3fe1a984003e54ed44cc1f18051"
+    },
+    "atomx/src/atomx/methods/scf_observables.py": {
+      "bytes": 22111,
+      "sha256": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739"
+    },
+    "atomx/src/atomx/numerics/__init__.py": {
+      "bytes": 773,
+      "sha256": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125"
+    },
+    "atomx/src/atomx/numerics/bspline/__init__.py": {
+      "bytes": 818,
+      "sha256": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9"
+    },
+    "atomx/src/atomx/numerics/bspline/basis.py": {
+      "bytes": 12970,
+      "sha256": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb"
+    },
+    "atomx/src/atomx/numerics/bspline/complex_dirac.py": {
+      "bytes": 11468,
+      "sha256": "cf70325cec5a52a01a803b1cb33ed43d3fc9166ae14a7e690504ad0150235369"
+    },
+    "atomx/src/atomx/numerics/bspline/continuum.py": {
+      "bytes": 10647,
+      "sha256": "a0449cd6c275b46adcdd80733448c7d60fbd74ec98017341b94fcf2404704903"
+    },
+    "atomx/src/atomx/numerics/bspline/convol.py": {
+      "bytes": 86747,
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "atomx/src/atomx/numerics/bspline/dirac_assembly.py": {
+      "bytes": 22049,
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28"
+    },
+    "atomx/src/atomx/numerics/bspline/evaluate.py": {
+      "bytes": 5066,
+      "sha256": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059"
+    },
+    "atomx/src/atomx/numerics/bspline/inhomogeneous.py": {
+      "bytes": 3892,
+      "sha256": "c4f1a9a35c306c5b4acf30b928c641b7c3a91f4f40bdf06eb400fb18933fdbc8"
+    },
+    "atomx/src/atomx/numerics/bspline/integrals.py": {
+      "bytes": 4185,
+      "sha256": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c"
+    },
+    "atomx/src/atomx/numerics/bspline/knots.py": {
+      "bytes": 7849,
+      "sha256": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a"
+    },
+    "atomx/src/atomx/numerics/bspline/local_potential.py": {
+      "bytes": 20645,
+      "sha256": "74eba6341ad8b3d6959b90338c8413dfedab4aba18e054389df76119a2dc6730"
+    },
+    "atomx/src/atomx/numerics/bspline/orbital_geometry.py": {
+      "bytes": 1762,
+      "sha256": "b1c6af5206b2099b51797928535b1d9aabf7623d30c1886b7421d80dfed24233"
+    },
+    "atomx/src/atomx/numerics/bspline/orbital_optimization.py": {
+      "bytes": 22836,
+      "sha256": "28611e8b557977652a273f13021cc07a08086f6fbd6f82ef4105d5b17886d319"
+    },
+    "atomx/src/atomx/numerics/bspline/orbital_subspace.py": {
+      "bytes": 5178,
+      "sha256": "d272864d46278e4c94990f3523b46b9f5e3350dee95c82a0ab431222f6b999ed"
+    },
+    "atomx/src/atomx/numerics/bspline/shooting_seed.py": {
+      "bytes": 4144,
+      "sha256": "4550b34eb780b692e0abf0746b388dde3eca9c407a7704557a67adde3d911a97"
+    },
+    "atomx/src/atomx/numerics/bspline/slater.py": {
+      "bytes": 6719,
+      "sha256": "cc2ab74c7f7fd79b4a8f88a3c1c478c5ae1e4c780517b7f94f7471283a0d1f73"
+    },
+    "atomx/src/atomx/numerics/bspline/slater_yk.py": {
+      "bytes": 7165,
+      "sha256": "76df7faf9d40ed919be382c1b140ecd784bc86762d8e7cd4c77fbcbd49914841"
+    },
+    "atomx/src/atomx/numerics/complex_eigensolver.py": {
+      "bytes": 9276,
+      "sha256": "345f11cc00c79b9db3fb8e9dc793ef23933ac6a4a915a8d8caf3251cee785d07"
+    },
+    "atomx/src/atomx/numerics/density_tail.py": {
+      "bytes": 3496,
+      "sha256": "c6b82e69a5630d89aa2589346cf6b43d40b376b6611a9413a80eddd2a090e4bd"
+    },
+    "atomx/src/atomx/numerics/diis.py": {
+      "bytes": 2682,
+      "sha256": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37"
+    },
+    "atomx/src/atomx/numerics/extrapolation.py": {
+      "bytes": 1064,
+      "sha256": "26416a50962f79224227d771c0c9d6416c571671a5a57552cdb1cc6cee1227fb"
+    },
+    "atomx/src/atomx/numerics/helmholtz.py": {
+      "bytes": 5155,
+      "sha256": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d"
+    },
+    "atomx/src/atomx/numerics/hermitian_clusters.py": {
+      "bytes": 8563,
+      "sha256": "03302082a993ec2767495247f27e8bdf38aa877e07c94290c2d941c289e4e732"
+    },
+    "atomx/src/atomx/numerics/local_dfs/__init__.py": {
+      "bytes": 576,
+      "sha256": "f622cf911e11240e7b816d5567b65c38e3b360525a1ddbb31a9eee90109c6b9d"
+    },
+    "atomx/src/atomx/numerics/local_dfs/asymptotic.py": {
+      "bytes": 7775,
+      "sha256": "4210f8897d961c797b0d5cc0333a859be183c52261ee67121bcb6b0a1016bed0"
+    },
+    "atomx/src/atomx/numerics/local_dfs/hxs_tables.py": {
+      "bytes": 3977,
+      "sha256": "8341bf101d6695b28fae8921013b9c00fe02caac13510fe7b454036be2aca703"
+    },
+    "atomx/src/atomx/numerics/orbital_rotations.py": {
+      "bytes": 3262,
+      "sha256": "9af97daa09de200def2f6267943523889cd6bfdba9faf337606793de9e4333ad"
+    },
+    "atomx/src/atomx/numerics/quadrature.py": {
+      "bytes": 17233,
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021"
+    },
+    "atomx/src/atomx/numerics/radial_integration.py": {
+      "bytes": 1848,
+      "sha256": "a8892b0befdf710dd0e75ca6abf88bfbf19a3e33c432641bbd695cca32851a20"
+    },
+    "atomx/src/atomx/numerics/radial_metric.py": {
+      "bytes": 2664,
+      "sha256": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4"
+    },
+    "atomx/src/atomx/numerics/radial_workspace.py": {
+      "bytes": 4231,
+      "sha256": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21"
+    },
+    "atomx/src/atomx/numerics/shooting/__init__.py": {
+      "bytes": 1616,
+      "sha256": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01"
+    },
+    "atomx/src/atomx/numerics/shooting/adaptive.py": {
+      "bytes": 7590,
+      "sha256": "c74f9affee9769a1848958627cc03b178aad6513493ad30efd2c25aaed2734f8"
+    },
+    "atomx/src/atomx/numerics/shooting/box_continuum.py": {
+      "bytes": 11024,
+      "sha256": "c0c4ad7aa8aa0682818a1554d3662ae0b5ede0b53f7f4c59c57c585894387f2f"
+    },
+    "atomx/src/atomx/numerics/shooting/constants.py": {
+      "bytes": 1021,
+      "sha256": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643"
+    },
+    "atomx/src/atomx/numerics/shooting/coulomb.py": {
+      "bytes": 9263,
+      "sha256": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_bound.py": {
+      "bytes": 9071,
+      "sha256": "ee5d4c61f62f9cd57652db4bd3492a289a38252edce9ab7f20b328d230b69139"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_continuum.py": {
+      "bytes": 14369,
+      "sha256": "63e4596a04a8e8504b6cd327272d49c0396029cc4f250e5c21140ba174a3d520"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_coulomb.py": {
+      "bytes": 5357,
+      "sha256": "3d019f60f96533a03a481978ebb52ec7e1fe36ec29c53399604e77574e8c04fc"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_green.py": {
+      "bytes": 10529,
+      "sha256": "ae6cccfed933f099cc8af2b3f306a28a5d385bcce6755ccab1f3697d9ddb364b"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_integrator.py": {
+      "bytes": 10431,
+      "sha256": "075f7cd5ca198ef13246e874c9dc0d9b76f418509fd86a70585e5b00d18ab037"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_orbital.py": {
+      "bytes": 12162,
+      "sha256": "00d5a052221f0712406fb6834d0676eff8f849c531db982933afb91f07c328a0"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_power_series.py": {
+      "bytes": 11521,
+      "sha256": "adad12edb5608f9b6937060a6f77e0dfc4b82cd6b566d322253d6a214d43d354"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_response.py": {
+      "bytes": 6011,
+      "sha256": "710c3277b1ede7d542788c4801aff610d366147dc004e63ff00217dcfac8eb96"
+    },
+    "atomx/src/atomx/numerics/shooting/dirac_sampling.py": {
+      "bytes": 6376,
+      "sha256": "03bdd74bbcc9bff0775d64e43713f155efbf79408182e7a182aebba7fbb6f373"
+    },
+    "atomx/src/atomx/numerics/shooting/electron_space.py": {
+      "bytes": 10699,
+      "sha256": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2"
+    },
+    "atomx/src/atomx/numerics/shooting/energy.py": {
+      "bytes": 6717,
+      "sha256": "b4ae425e3bf05e3a55142be933d191a1372e428f98be425004ae8f81720d0338"
+    },
+    "atomx/src/atomx/numerics/shooting/exponential_quadrature.py": {
+      "bytes": 4220,
+      "sha256": "1da38d4134f98eaaab2b178392e1fcdec193377ed796aa0e6cfa77e9fe8273b7"
+    },
+    "atomx/src/atomx/numerics/shooting/grid.py": {
+      "bytes": 5521,
+      "sha256": "bcad8272938ca99b49340d2a31e019a33df55e1f3941ecb2abe4af6cfe4d6d49"
+    },
+    "atomx/src/atomx/numerics/shooting/hartree_fock.py": {
+      "bytes": 21486,
+      "sha256": "5a8fcd69ba00995ca225cfb2c5bd180dcb92794eaf9de509b19e235c082221b4"
+    },
+    "atomx/src/atomx/numerics/shooting/local.py": {
+      "bytes": 13670,
+      "sha256": "ea7dfbec24d7c2b6ae95b981c68866ea05af87615e388277399ce8ea00053ff1"
+    },
+    "atomx/src/atomx/numerics/shooting/local_scf.py": {
+      "bytes": 6748,
+      "sha256": "984a80b9a864f89bb68c24cac48e52d961b6d92ec4bc6cefb9e35bf5bf6e0228"
+    },
+    "atomx/src/atomx/numerics/shooting/nonlocal_eigen.py": {
+      "bytes": 8089,
+      "sha256": "766db1923b42bd9ddbf291d9028285a1fa340168cf37cde5978205ea5c4bfd3f"
+    },
+    "atomx/src/atomx/numerics/shooting/operators.py": {
+      "bytes": 3000,
+      "sha256": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d"
+    },
+    "atomx/src/atomx/numerics/shooting/orbital_optimization.py": {
+      "bytes": 12807,
+      "sha256": "03da872e82a56ebc19ee70f6e3b5ec9208550fb9d608c351698ad124dd4659ea"
+    },
+    "atomx/src/atomx/numerics/shooting/preconditioner.py": {
+      "bytes": 6917,
+      "sha256": "e2d82b6ed353e8e934b216a80fd364a79d6237486bcac057a6c014cfd2b4c51b"
+    },
+    "atomx/src/atomx/numerics/shooting/problem.py": {
+      "bytes": 3062,
+      "sha256": "b38361f6ef278f5a3a3eb5ff8dcb72c89d04c618d103f425589f2a4040f8ba92"
+    },
+    "atomx/src/atomx/numerics/shooting/quadrature.py": {
+      "bytes": 3053,
+      "sha256": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a"
+    },
+    "atomx/src/atomx/numerics/shooting/scf.py": {
+      "bytes": 10654,
+      "sha256": "0243a6e2a192136e66887fc2d5c164352aecffee9d1a7ec532ec583cc22b6fa6"
+    },
+    "atomx/src/atomx/numerics/shooting/schrodinger_bound.py": {
+      "bytes": 7829,
+      "sha256": "ad67ee48782bf74d8eae7772cf7ef4c8a20e02635df83dc199ebe19c33d18993"
+    },
+    "atomx/src/atomx/numerics/shooting/schrodinger_integrator.py": {
+      "bytes": 6209,
+      "sha256": "25f49ad5b5c36a404bba70fe7f7db837c4fe041d3111f5f7df700e9c66cccae5"
+    },
+    "atomx/src/atomx/numerics/shooting/schrodinger_power_series.py": {
+      "bytes": 5193,
+      "sha256": "e00117b1de5c4ef7523a0c4e70561d022a50db6d3721624f47634320330afd21"
+    },
+    "atomx/src/atomx/numerics/shooting/spline.py": {
+      "bytes": 7807,
+      "sha256": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e"
+    },
+    "atomx/src/atomx/numerics/special.py": {
+      "bytes": 961,
+      "sha256": "4dc3401d174f23d96de9e004868c068e2361ca199140f364d8246dd7832fd99a"
+    },
+    "atomx/src/atomx/numerics/yk.py": {
+      "bytes": 7329,
+      "sha256": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8"
+    },
+    "atomx/src/atomx/physics/__init__.py": {
+      "bytes": 1437,
+      "sha256": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c"
+    },
+    "atomx/src/atomx/physics/base.py": {
+      "bytes": 2224,
+      "sha256": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be"
+    },
+    "atomx/src/atomx/physics/breit_pauli.py": {
+      "bytes": 2771,
+      "sha256": "9f9666522767584ff71cc488adb6e5e417b6723675b912b9664ef57ec9959f5e"
+    },
+    "atomx/src/atomx/physics/csf/__init__.py": {
+      "bytes": 73,
+      "sha256": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7"
+    },
+    "atomx/src/atomx/physics/csf/breit_ci.py": {
+      "bytes": 24215,
+      "sha256": "8fcec9c67c7c5f9e1ee61174fcbc523e3b0f8fd7b7f3962cf0e1534ac1faa08a"
+    },
+    "atomx/src/atomx/physics/csf/complex_radial.py": {
+      "bytes": 12623,
+      "sha256": "0f90a57bfbfc23db1681d0cdc9396cfad6199c9f8e36aaba22d9c0cfa3cdc55c"
+    },
+    "atomx/src/atomx/physics/csf/effective_one_body.py": {
+      "bytes": 6910,
+      "sha256": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013"
+    },
+    "atomx/src/atomx/physics/csf/frozen_core.py": {
+      "bytes": 2239,
+      "sha256": "dfb4b28a07e69360d735f293a4d0aa586d54c153c69b5b9684a6d4b409dd1f74"
+    },
+    "atomx/src/atomx/physics/csf/levels.py": {
+      "bytes": 7111,
+      "sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946"
+    },
+    "atomx/src/atomx/physics/csf/matrix.py": {
+      "bytes": 45582,
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    "atomx/src/atomx/physics/csf/one_body.py": {
+      "bytes": 1551,
+      "sha256": "77efa760226bfce57d21effb9185501b87e2cf9e0c022008eea1ba7dc882fd25"
+    },
+    "atomx/src/atomx/physics/csf/overlap.py": {
+      "bytes": 11155,
+      "sha256": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b"
+    },
+    "atomx/src/atomx/physics/csf/overlap_response.py": {
+      "bytes": 4896,
+      "sha256": "4887b03e77c7b093fe510c6d7d8b2a6d8fa2f0123af7d616241cac8034b54302"
+    },
+    "atomx/src/atomx/physics/csf/radial_density.py": {
+      "bytes": 3756,
+      "sha256": "4761534a0660ae92034420cf7064bb538cf5cbd7716bb8cb23203684de9bde27"
+    },
+    "atomx/src/atomx/physics/csf/radial_fock.py": {
+      "bytes": 6652,
+      "sha256": "f42afeff8880ac0b4c332f5dc4edd5a22ccdf0cf1737bf0d7dd137d586da09b6"
+    },
+    "atomx/src/atomx/physics/csf/radial_snapshot.py": {
+      "bytes": 6037,
+      "sha256": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "atomx/src/atomx/physics/csf/radial_symmetry.py": {
+      "bytes": 1466,
+      "sha256": "ec22bdb76a48b3be09d653d371b99fbc1a79ab921c7c7199747a06d095b25fa2"
+    },
+    "atomx/src/atomx/physics/csf/retardation.py": {
+      "bytes": 7252,
+      "sha256": "b0c1fc137c7d9c1667deda89f99d8b4146cd88c8b591e1c98c9dd83702f00928"
+    },
+    "atomx/src/atomx/physics/csf/sparse_ci.py": {
+      "bytes": 44898,
+      "sha256": "f098f2ec0cb792501b7afe12bb0c8ee0d632c0f300f224f3576dd2d08b2f7abb"
+    },
+    "atomx/src/atomx/physics/csf/spinor_integrals.py": {
+      "bytes": 19603,
+      "sha256": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e"
+    },
+    "atomx/src/atomx/physics/csf/state_average.py": {
+      "bytes": 6697,
+      "sha256": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8"
+    },
+    "atomx/src/atomx/physics/csf/tracking.py": {
+      "bytes": 7207,
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12"
+    },
+    "atomx/src/atomx/physics/csf/transverse.py": {
+      "bytes": 4906,
+      "sha256": "a91faaabe71718e249f9df8fa8c0800f5d8f2139949005d9d8b391ddb0bcda77"
+    },
+    "atomx/src/atomx/physics/dirac.py": {
+      "bytes": 7094,
+      "sha256": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c"
+    },
+    "atomx/src/atomx/physics/hartree_fock.py": {
+      "bytes": 13743,
+      "sha256": "b2de2fcb942b46a02fe13a650c29807c7aeab8c676679656fba571a02fbcc079"
+    },
+    "atomx/src/atomx/physics/local_exchange.py": {
+      "bytes": 5934,
+      "sha256": "20afbb4a8287393317a4c0a20e8774daaa34831d8ea7a802bc81b42c77f64aa5"
+    },
+    "atomx/src/atomx/physics/schrodinger.py": {
+      "bytes": 1305,
+      "sha256": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d"
+    },
+    "atomx/src/atomx/physics/slater.py": {
+      "bytes": 11094,
+      "sha256": "570bc61973c32ae36dd6b6e1d01f55fd464d2304012210823ec0d467b14bd635"
+    },
+    "atomx/src/atomx/plasma/__init__.py": {
+      "bytes": 203,
+      "sha256": "e91ac52742e935938d8e7b9cc00b8373e2e446f651b32360dcaf0a24980c4b52"
+    },
+    "atomx/src/atomx/plasma/average_atom.py": {
+      "bytes": 8535,
+      "sha256": "c44f928ace9b1a77227b40b2b3eec70faa9b779cc4cf72111b70f99f3fd80409"
+    },
+    "atomx/src/atomx/plasma/cascade.py": {
+      "bytes": 6702,
+      "sha256": "a5b571d697ce25a66c3f91d8789f93552ea14969d037c8b2b851857efc6bc208"
+    },
+    "atomx/src/atomx/plasma/crm.py": {
+      "bytes": 39144,
+      "sha256": "a250baaeb095e68adfdce9b2452c9323ea92857e8c8a1f63108de5c5a57d1974"
+    },
+    "atomx/src/atomx/plasma/rates.py": {
+      "bytes": 3519,
+      "sha256": "fd98fccc78df742fee28152d14a60390529d3affddd011e27de2c9d77496cddd"
+    },
+    "atomx/src/atomx/plasma/screening.py": {
+      "bytes": 14815,
+      "sha256": "b3fe905b664c200ab010389b78d6a9c01667c112eb3b8f679e5494b618e56ffc"
+    },
+    "atomx/src/atomx/potentials/__init__.py": {
+      "bytes": 470,
+      "sha256": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13"
+    },
+    "atomx/src/atomx/potentials/frozen_field.py": {
+      "bytes": 3989,
+      "sha256": "d934e9f016887e78281a801bbd0d0f3f0ec35b0fe16e24749fc3ac574ba88287"
+    },
+    "atomx/src/atomx/potentials/nuclear.py": {
+      "bytes": 9340,
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0"
+    },
+    "atomx/src/atomx/potentials/parametric.py": {
+      "bytes": 4866,
+      "sha256": "49a7d2f668313a5d070f729a9102611624ed8deeea495d43bc3494ea39beb34e"
+    },
+    "atomx/src/atomx/potentials/radial_nucleus.py": {
+      "bytes": 2118,
+      "sha256": "72f41ed9d84931d6c53e1917d3904a884422135d10a12646ff18eff3e4997388"
+    },
+    "atomx/src/atomx/potentials/slater_seed.py": {
+      "bytes": 2706,
+      "sha256": "ebc25eaf2f507c0419ca844518bf5a144bb7b7fa04cfe10a1dc7e77c14c679e5"
+    },
+    "atomx/src/atomx/potentials/static_field.py": {
+      "bytes": 15326,
+      "sha256": "72ba331ff7959545a76be29dadcfcbf2e31ec70f1e0775abecd538df16faa2c3"
+    },
+    "atomx/src/atomx/potentials/thomas_fermi.py": {
+      "bytes": 5183,
+      "sha256": "2eb371cea5c2f87e1b50f2f603122e25d963738198a56dc0519e0415b0742918"
+    },
+    "atomx/src/atomx/properties/__init__.py": {
+      "bytes": 1274,
+      "sha256": "25fee6252d8bea657d7ef0a373696f370c866fb6039399574bc2ba9226363607"
+    },
+    "atomx/src/atomx/properties/_sos_basis.py": {
+      "bytes": 2704,
+      "sha256": "37d004cac37690f542b0beee6fb220ebcf5a23c417316c637274f37da34b3925"
+    },
+    "atomx/src/atomx/properties/edm/__init__.py": {
+      "bytes": 2212,
+      "sha256": "0f63407af939e15613216db451d30a7e3828e6bcba9f663c994de7fb9d5f81e3"
+    },
+    "atomx/src/atomx/properties/edm/scaling.py": {
+      "bytes": 6068,
+      "sha256": "68c684cbe14852da4f119430445e7b0206bce950453a480d8ac41a30118de4a1"
+    },
+    "atomx/src/atomx/properties/edm/sternheimer.py": {
+      "bytes": 17365,
+      "sha256": "98b5923e341c1814ac93e1cbd79a0ad07466af8a3e6b47bf3cf291fe0f3dd319"
+    },
+    "atomx/src/atomx/properties/g_factor/__init__.py": {
+      "bytes": 8533,
+      "sha256": "da74dc1f9123cf75d8aaeca64ffb8b1d538d6ea3bbf34a118b831e710fbb2ae7"
+    },
+    "atomx/src/atomx/properties/hyperfine/__init__.py": {
+      "bytes": 1824,
+      "sha256": "4d9466386dfd2c62d9f7658df906fa589a4f97e7a1615e1433763fc7eb86924b"
+    },
+    "atomx/src/atomx/properties/hyperfine/dipole.py": {
+      "bytes": 8862,
+      "sha256": "14eba9b6ca83e918a23b26b4ecee15423de722e074f0daef20f86e9d286dff01"
+    },
+    "atomx/src/atomx/properties/hyperfine/nuclear_moments.py": {
+      "bytes": 7554,
+      "sha256": "55e0955579ad611361031ad8adf3a15753a61ca1f11ca7693332e6a5f31baa5c"
+    },
+    "atomx/src/atomx/properties/hyperfine/quadrupole.py": {
+      "bytes": 5473,
+      "sha256": "3785445f187970eccb673712f424ce5d506ad125c45f084011a2c2e8703a3277"
+    },
+    "atomx/src/atomx/properties/isotope_shift/__init__.py": {
+      "bytes": 1903,
+      "sha256": "415964ba36119e1fbd730be344d0ca784454ed5d70beb44bb430e1784f8b72f8"
+    },
+    "atomx/src/atomx/properties/isotope_shift/field_shift.py": {
+      "bytes": 4453,
+      "sha256": "67fa33e43a0c89cb908067fcb47a6ed90cc0e3120eaa8b89c411ea6075da27a0"
+    },
+    "atomx/src/atomx/properties/isotope_shift/isotope_shift.py": {
+      "bytes": 3275,
+      "sha256": "58070006c8bdad3d56edcf91a19612f28c0a815e9ee9d59e5147a73de6946bfe"
+    },
+    "atomx/src/atomx/properties/isotope_shift/mass_shift.py": {
+      "bytes": 7347,
+      "sha256": "b010551f76b649c1a2777feecd096f7107e3d3d076ea67fa739f25002df66562"
+    },
+    "atomx/src/atomx/properties/isotope_shift/sms_abinitio.py": {
+      "bytes": 3581,
+      "sha256": "5474536a3156620b397fa2464e1ad2d5db409a648304d7232a96b8ddaa26d24a"
+    },
+    "atomx/src/atomx/properties/pnc/__init__.py": {
+      "bytes": 6111,
+      "sha256": "190ebcbdde4e3f28527cd809a04be1178da5c0777dd9d59ab2d754e1b1e7d277"
+    },
+    "atomx/src/atomx/properties/polarizability/__init__.py": {
+      "bytes": 12361,
+      "sha256": "07efbc0e99cee4f9a7305d145b98847c933e0af4c56a1279dd8f1d18025adbb4"
+    },
+    "atomx/src/atomx/properties/stark.py": {
+      "bytes": 5752,
+      "sha256": "e32e3c84ccfa620ee9ea2bc865a6dc333b07411b4da3e78e94126612b8cc42ad"
+    },
+    "atomx/src/atomx/properties/transitions/__init__.py": {
+      "bytes": 159,
+      "sha256": "f61c779daabdcb56a8c72ae5a7812b96851454afba0c60ee2c0f2c4ef57b6d65"
+    },
+    "atomx/src/atomx/properties/transitions/angular.py": {
+      "bytes": 7261,
+      "sha256": "8c63cfad3d69316a58fddd4d6ef04a0078121a453df17e33ea7f3623871de802"
+    },
+    "atomx/src/atomx/properties/transitions/calculator.py": {
+      "bytes": 30439,
+      "sha256": "31284fb260e95ade61808d072f7868c0086fa8350ad2b210b696d389a1797790"
+    },
+    "atomx/src/atomx/properties/transitions/ci_lines.py": {
+      "bytes": 25811,
+      "sha256": "c6e7d3e15444f951af3374f923342fa1bd2354f200aca0df2c465c852d8e1701"
+    },
+    "atomx/src/atomx/properties/transitions/fluorescence.py": {
+      "bytes": 3959,
+      "sha256": "973d86924943ec5ab5da7f72aa8303c31d7cbe8016789fcefebfa89d97fafb52"
+    },
+    "atomx/src/atomx/properties/transitions/multipole.py": {
+      "bytes": 7646,
+      "sha256": "261c16fd6f607c1dbfe6047a5950a32f45e8b7ab9aff5b98a41c0eefd4059609"
+    },
+    "atomx/src/atomx/properties/transitions/rates.py": {
+      "bytes": 6483,
+      "sha256": "12e312a4ac3d76b17a0f3a86c5ac42a93d442eda646b0fc9eee97208b50df97e"
+    },
+    "atomx/src/atomx/properties/transitions/two_photon.py": {
+      "bytes": 14014,
+      "sha256": "5d54cd4cea8dd6707f338e445f6cf646a2a98f999c1d1f4a79e0f52327b971c4"
+    },
+    "atomx/src/atomx/properties/zeeman/__init__.py": {
+      "bytes": 1815,
+      "sha256": "72da62af0a44384836a650c5cb37a7d5013af3e819719a4b6d754b985393ac94"
+    },
+    "atomx/src/atomx/properties/zeeman/lande.py": {
+      "bytes": 7602,
+      "sha256": "f1cab7c0fc6b4ded0156ffb1d7a6792795086b5405066f08f135c187ff0ae72d"
+    },
+    "atomx/src/atomx/properties/zeeman/shift.py": {
+      "bytes": 3073,
+      "sha256": "ac1c89f6308e31591eacc806d66d5df737b1487b311f268e993ec8ed62a89083"
+    },
+    "atomx/src/atomx/providers/__init__.py": {
+      "bytes": 1830,
+      "sha256": "e4642d6c590170098b4eb798f9b86d3af1bdf0f889f3c8d85ba09d146cc22ec6"
+    },
+    "atomx/src/atomx/providers/contract.py": {
+      "bytes": 37867,
+      "sha256": "faeef57853b4603aa756b6b5eab621bb0c424529ae4656a18bbc330aca326f2f"
+    },
+    "atomx/src/atomx/providers/native_adapter.py": {
+      "bytes": 5567,
+      "sha256": "e966f5c2e610f54d4bf098edda54ac85e921a066b924d0e8e5451ee167f4ae78"
+    },
+    "atomx/src/atomx/providers/pyscf_adapter.py": {
+      "bytes": 18910,
+      "sha256": "95365bd5839b54183d2b3c3ed09d2e233a6db6b4b7cc4e34745a359c8d21f179"
+    },
+    "atomx/src/atomx/providers/pyscf_embedding.py": {
+      "bytes": 33447,
+      "sha256": "afdfb8afc76cdf5d75eedf9feab4d765c592b9471ea1eb04ecc7e6bc3a2d00a3"
+    },
+    "atomx/src/atomx/radial_state.py": {
+      "bytes": 4751,
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de"
+    },
+    "atomx/src/atomx/reference_data/__init__.py": {
+      "bytes": 78,
+      "sha256": "9e9f4a75155d3940c8f035c5f56e824c42383bbadb3b1f25b17b47e64b557dcd"
+    },
+    "atomx/src/atomx/reference_data/annotations.py": {
+      "bytes": 2437,
+      "sha256": "2c900fc7e49bb3fcbd4bb5cc5dea0f8dc48bec06d3657235857add204a7863b9"
+    },
+    "atomx/src/atomx/reference_data/bibliography.py": {
+      "bytes": 3508,
+      "sha256": "9405a2966b65ee492776cd620571c8a331a1847ee5da3b58242a5b3086ecc1a9"
+    },
+    "atomx/src/atomx/reference_data/cowan.py": {
+      "bytes": 7031,
+      "sha256": "3e467807ddabe6c261c7077a6d9532564e38a34ff9019875a9ca8b2efadd95fe"
+    },
+    "atomx/src/atomx/reference_data/matching.py": {
+      "bytes": 6464,
+      "sha256": "5ff30138bc4fed0b1b6ef0f94a41c71953099669166e59fe45fa8f39f7fd11ae"
+    },
+    "atomx/src/atomx/reference_data/nist.py": {
+      "bytes": 21773,
+      "sha256": "5197635c01eea7245b0b19684d3e42d6de25c66d9285b116a42f12aadbd3bbba"
+    },
+    "atomx/src/atomx/reference_data/spectrum_notes.py": {
+      "bytes": 2141,
+      "sha256": "4f347c382912b053ef94b74556625b7eca0336b202824fa8b8dc1ae8140ac7ae"
+    },
+    "atomx/src/atomx/reference_data/structure_outputs.py": {
+      "bytes": 7395,
+      "sha256": "01978b9a3d10fe8b8a46a2d3ca187ec8de7abcc9da5926dc3a41acb94bc8d76c"
+    },
+    "atomx/src/atomx/results.py": {
+      "bytes": 26209,
+      "sha256": "41664c21643848eeef11e5225b5d0ce33a67fefba22628091df6716e4c9e2dd7"
+    },
+    "atomx/src/atomx/sampling.py": {
+      "bytes": 6696,
+      "sha256": "f72e5d3bf10d59baa6c82603d72ca4932a73ec97cb653b3b84c5c3720e9e3301"
+    },
+    "atomx/src/atomx/scattering/__init__.py": {
+      "bytes": 1189,
+      "sha256": "5f59aaa3923fc721d99fdd72a6567a5b3af255988f6df6447599dd01fbaffbea"
+    },
+    "atomx/src/atomx/scattering/_jit_kernels.py": {
+      "bytes": 10502,
+      "sha256": "43775e0e4143a10c497fa15e32351abc411a0567eb3cbad9b9754299efdb4d10"
+    },
+    "atomx/src/atomx/scattering/anomalous.py": {
+      "bytes": 9076,
+      "sha256": "31e5fad201c5308a50f27dafc00fd61956c82c129ee90e4237336a67ff3291da"
+    },
+    "atomx/src/atomx/scattering/autoionization/__init__.py": {
+      "bytes": 41996,
+      "sha256": "fb1743c800d920803f10c8b49b37f1197b5426381d9031460c41806caad821bc"
+    },
+    "atomx/src/atomx/scattering/autoionization/auger.py": {
+      "bytes": 6632,
+      "sha256": "10535488bea6c71926487b121049d0f6432973d43acc22bf2a3eef57cd3b4c39"
+    },
+    "atomx/src/atomx/scattering/autoionization/jj_level.py": {
+      "bytes": 10898,
+      "sha256": "1ffb451bc6c6ac81e3bd7db6cbebc5f868062654a970fe3fe24691d18f1385ba"
+    },
+    "atomx/src/atomx/scattering/autoionization/molecular.py": {
+      "bytes": 49661,
+      "sha256": "ba7c0993e4dda80afd52f8a4b4a2c7fd98e9652e9daa5f047aafc496353d1c9a"
+    },
+    "atomx/src/atomx/scattering/autoionization/mscheme_ci.py": {
+      "bytes": 58409,
+      "sha256": "2c0ec37cc241d7721dc399e4b8761e4833d9e9b49f6ed72bd637c78b0bcd0e50"
+    },
+    "atomx/src/atomx/scattering/charge_exchange/__init__.py": {
+      "bytes": 6336,
+      "sha256": "527f0a9ee6eb370100050110e1f881581ba812400e3352435991c9a9ad0eec32"
+    },
+    "atomx/src/atomx/scattering/ci_continuum.py": {
+      "bytes": 29042,
+      "sha256": "fc8edc89298ce2323c6b44de6269c52752f32546a9a3682c56442971a339faf2"
+    },
+    "atomx/src/atomx/scattering/dielectronic_recombination/__init__.py": {
+      "bytes": 652,
+      "sha256": "a0489df86c1340603ff5ab0a26b929dc2eac795dd3e61a09d4bf5319fcc9cd3c"
+    },
+    "atomx/src/atomx/scattering/dielectronic_recombination/enumerate.py": {
+      "bytes": 17139,
+      "sha256": "99890f693dfacff295d7aa906b6c81cda215cb53c385c57484c9f7ecbd65f013"
+    },
+    "atomx/src/atomx/scattering/dielectronic_recombination/fac_reference.py": {
+      "bytes": 7542,
+      "sha256": "5787f89cc34cce6440021e6d357dfdaa0d267673d7d67e7676e27e1c58f3e799"
+    },
+    "atomx/src/atomx/scattering/dielectronic_recombination/solver.py": {
+      "bytes": 22781,
+      "sha256": "625ac453c4ae66d3821444acda1e1d7c5b38547fb90da6ffd4418bfad343cd2b"
+    },
+    "atomx/src/atomx/scattering/dielectronic_recombination/widths.py": {
+      "bytes": 5631,
+      "sha256": "0225b15e008dd7d7fc3599e415a292ab36fddf5cab3f3f9ffe7ced5a6b2d672e"
+    },
+    "atomx/src/atomx/scattering/distorted_wave/__init__.py": {
+      "bytes": 295,
+      "sha256": "c33436c5c5b3b57fd2a3ecd3947c34c6d8b69a9c15df8cb2acfde7b158366cdd"
+    },
+    "atomx/src/atomx/scattering/distorted_wave/born.py": {
+      "bytes": 11763,
+      "sha256": "b7e876048732cb9513d17bf39813fe094ff39968ef656bd9a594b0b17e23eef6"
+    },
+    "atomx/src/atomx/scattering/distorted_wave/solver.py": {
+      "bytes": 34128,
+      "sha256": "5953547ba272adfd80c3c5ab8bcdf745f4780f3c622304368ea27808fb1c0f7e"
+    },
+    "atomx/src/atomx/scattering/electron_ionization/__init__.py": {
+      "bytes": 50411,
+      "sha256": "fffc2843b36875a2b68a1492e8f35611050ce68cc4672317444da954b38b4bb9"
+    },
+    "atomx/src/atomx/scattering/electron_ionization/beb.py": {
+      "bytes": 3295,
+      "sha256": "b063a154844383213c6e0edcc6ef137be52849d92103207c74f2a5915eb6dd61"
+    },
+    "atomx/src/atomx/scattering/electron_ionization/coulomb_born.py": {
+      "bytes": 6345,
+      "sha256": "f07ca66f228f29fb450d1f37ec8c887647a3d590ea2d78c8505f27a582f81f5e"
+    },
+    "atomx/src/atomx/scattering/electron_ionization/dw.py": {
+      "bytes": 5408,
+      "sha256": "53a859d5180700f2b95237b091c195ea3584303cda1a15deeaaec9405cc16fd5"
+    },
+    "atomx/src/atomx/scattering/models.py": {
+      "bytes": 8133,
+      "sha256": "5d4de2bf7bc7ccac480f873efa7b80cd76d16a6b24a5cb184a34f396838d0238"
+    },
+    "atomx/src/atomx/scattering/msub.py": {
+      "bytes": 5382,
+      "sha256": "e920d505764419cb9febf3d238a69f54db2f0235c653ef6fae484d9498576e82"
+    },
+    "atomx/src/atomx/scattering/multielectron_ci.py": {
+      "bytes": 8039,
+      "sha256": "8f2156a5c9f3885842f05d5320df629fc10534e1983362991df279b74d97b5cc"
+    },
+    "atomx/src/atomx/scattering/photoionization/__init__.py": {
+      "bytes": 1540,
+      "sha256": "071b85c20286ce444777a07db8d75244a911acbb8f27326c26a2f4fec6a8de4b"
+    },
+    "atomx/src/atomx/scattering/photoionization/direct.py": {
+      "bytes": 3464,
+      "sha256": "8ecc3a8d51d2ea4839c67eb6eed1dee63880640cc61ba9127467989bf591c231"
+    },
+    "atomx/src/atomx/scattering/photoionization/fano.py": {
+      "bytes": 5411,
+      "sha256": "0ddbee48c2e6d4fdb2065cda29d607aa403eec68abc16609e488800b73e990ff"
+    },
+    "atomx/src/atomx/scattering/photoionization/subshell.py": {
+      "bytes": 5248,
+      "sha256": "fa46ae984d4c92c5123ea7b6317325eaf13f6756f7532f2f2ad6ff599d15675f"
+    },
+    "atomx/src/atomx/scattering/polarisation/__init__.py": {
+      "bytes": 5088,
+      "sha256": "19ec2e738ce886810ecd7a3dd6bc86c8204242c269c02eb5ecf69afa5e671856"
+    },
+    "atomx/src/atomx/scattering/r_matrix/__init__.py": {
+      "bytes": 1611,
+      "sha256": "3603380c47b95633cd440c02022588ddafcc26fc89567aee1fb7276e71cec053"
+    },
+    "atomx/src/atomx/scattering/r_matrix/angular_cc.py": {
+      "bytes": 6325,
+      "sha256": "46c206d2d2e4cde9c27e494c451d9b81d219ce58de98e83a2d1f1ec6caed5dcc"
+    },
+    "atomx/src/atomx/scattering/r_matrix/cc_inner.py": {
+      "bytes": 17461,
+      "sha256": "86ee6eaaa3afb886a15dadbbfd4bbd1c2fe52ce3b86932b966633b8e21aac84e"
+    },
+    "atomx/src/atomx/scattering/r_matrix/cc_outer.py": {
+      "bytes": 24153,
+      "sha256": "a8692106724332000b431982b7b05b6eb4bd6ba4db8629f67036e023cd5181f6"
+    },
+    "atomx/src/atomx/scattering/r_matrix/cc_potentials.py": {
+      "bytes": 4219,
+      "sha256": "f6998a7a1aa84991d92aece97cb5995e14339fa6d76b5f30d3a8c1a61698fe90"
+    },
+    "atomx/src/atomx/scattering/r_matrix/channel_table.py": {
+      "bytes": 4108,
+      "sha256": "fee2de1be2c899fa09563cd0ec3df9170775b32717d0c302054b9df60098c47a"
+    },
+    "atomx/src/atomx/scattering/r_matrix/coulomb_fn.py": {
+      "bytes": 8974,
+      "sha256": "82a81017e855fbe7ed82c6fcad3d9a65136a876d80193a887439e8dd8618a4bd"
+    },
+    "atomx/src/atomx/scattering/r_matrix/coupled_channels.py": {
+      "bytes": 17400,
+      "sha256": "59f45a451dcb49ab9a6c5b62616b4baef225a93189797d6da39e4d07ccfc6f79"
+    },
+    "atomx/src/atomx/scattering/r_matrix/internal_region.py": {
+      "bytes": 5443,
+      "sha256": "02cee4751812084c35ef54f1b906af75a7522b59f5cd1be3fc5fdf93f838e750"
+    },
+    "atomx/src/atomx/scattering/r_matrix/l2_pseudostates.py": {
+      "bytes": 2852,
+      "sha256": "c12b0e8d0098dcc79505de58edec4b59ad47d3b261686a7e6bc53e187706c3da"
+    },
+    "atomx/src/atomx/scattering/r_matrix/resonance.py": {
+      "bytes": 3901,
+      "sha256": "cf8ee645e8ee7d2e2225c8afc09484bb6a2f5c393f2624a8dbe323d2b6370a15"
+    },
+    "atomx/src/atomx/scattering/r_matrix/solver.py": {
+      "bytes": 4979,
+      "sha256": "dcbcd0c8e57034439ad3f7f2c2244079a67c15744759274bb63e45a60cf86b2d"
+    },
+    "atomx/src/atomx/scattering/r_matrix/surface.py": {
+      "bytes": 2866,
+      "sha256": "7c72d0a8afdf9603d76899c04d4d9abadd256ad48ee313ff7b3a77d663338329"
+    },
+    "atomx/src/atomx/scattering/r_matrix/target_states.py": {
+      "bytes": 5921,
+      "sha256": "48806be642c8ada9a9d3b723ee64605a54342f8a9620496f80768b4fd0273f47"
+    },
+    "atomx/src/atomx/scattering/radiative_recombination/__init__.py": {
+      "bytes": 31089,
+      "sha256": "df0a4fa4d85bc23b766b67533ba0c71149fd6c22f4cbf49063562a07834e6c5d"
+    },
+    "atomx/src/atomx/scattering/two_electron/__init__.py": {
+      "bytes": 218,
+      "sha256": "26ae9bf82789723ac3004dba5e499be7b3a30831d870616df6e43baf960298c9"
+    },
+    "atomx/src/atomx/scattering/two_electron/angular.py": {
+      "bytes": 15312,
+      "sha256": "b855abb2d4c10b3ef79749b350b046f2fa7076fc632228c900b4060a8a0b9430"
+    },
+    "atomx/src/atomx/scattering/two_electron/coulomb.py": {
+      "bytes": 4266,
+      "sha256": "edd8b701f08bc9318b384229d9d9251807c9a6544739eb06560566d26aef84e5"
+    },
+    "atomx/src/atomx/scattering/two_electron/states.py": {
+      "bytes": 4630,
+      "sha256": "74edff8293f15a02289acb05800c21d5750e8d6bec9cabcba9cccc5cd10d4c5a"
+    },
+    "atomx/src/atomx/scattering/xray.py": {
+      "bytes": 9854,
+      "sha256": "246040174cc88db82cd606acb86e09cc4a88a9f5640e73907e44f9d4c4e34312"
+    },
+    "atomx/src/atomx/spectrum/__init__.py": {
+      "bytes": 1188,
+      "sha256": "7783c8859139bab4202b12d04c5be84d630bdbcfaca39551eb8f71485ae1c980"
+    },
+    "atomx/src/atomx/spectrum/continuum.py": {
+      "bytes": 4272,
+      "sha256": "5e1e4148a5d82207015f53bc7ae56bb9ab1cdb72f9c1523ecc23bc9e09505095"
+    },
+    "atomx/src/atomx/spectrum/crm_synth.py": {
+      "bytes": 17949,
+      "sha256": "c2d1aed0aa0b602ad17194d94958bbb25d048e81a04e4f90a7076acbfb8ec7ce"
+    },
+    "atomx/src/atomx/spectrum/spectrum.py": {
+      "bytes": 12922,
+      "sha256": "e4ba4ab5b37113b20b2f0156797efd5236277f4f3e8a57ec5d31347809223513"
+    },
+    "atomx/src/atomx/spectrum/uta.py": {
+      "bytes": 1356,
+      "sha256": "0d31d150df7cc3fe1fdd0f431dc77717e8a4f9582ed3235373c285007c14338e"
+    },
+    "atomx/src/atomx/state_protocols.py": {
+      "bytes": 3410,
+      "sha256": "d045c6e77cc9b5efd2a9ec9beda2cbca6e2125680680553756405bcc26fa54e2"
+    },
+    "atomx/src/atomx/types.py": {
+      "bytes": 6601,
+      "sha256": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+    },
+    "atomx/src/atomx/units.py": {
+      "bytes": 8742,
+      "sha256": "2f6256fd5115d74ecb33174e65c6337cdee635c51c9086bc246768c157298424"
+    },
+    "atomx/src/atomx/uta/__init__.py": {
+      "bytes": 1643,
+      "sha256": "4e8b7bc45cb1add7b3df8ba0ff5074c1ead2711ee570e6696948d4da5ed1bd61"
+    },
+    "atomx/src/atomx/uta/moments.py": {
+      "bytes": 7562,
+      "sha256": "92aacbb8864dcb9dbee226ba7b3846cd15248a7d6e300ea09db4fd36923766c1"
+    },
+    "atomx/src/atomx/viz/__init__.py": {
+      "bytes": 1502,
+      "sha256": "a6813c867c9efe335f4955dd928a1f5fdb44a3a64362986f94fe4913d3a73abd"
+    },
+    "atomx/src/atomx/viz/manim.py": {
+      "bytes": 17060,
+      "sha256": "4b8a1b832bfa923929dcdfbbb6a142ab51981ca30546131f915b4d2217c8bace"
+    },
+    "atomx/src/atomx/viz/mpl.py": {
+      "bytes": 14458,
+      "sha256": "0ad4c06ac21e61708a177c12df4e82e4fd09ebbac04787e98692a2bd6e94f3cd"
+    },
+    "atomx/src/atomx/viz/plotly.py": {
+      "bytes": 6975,
+      "sha256": "cfc23ca692015b442c4c9b4455c95fd3746a2bd507ef1b5cd1f4a94a662e2783"
+    },
+    "atomx/src/atomx/viz/plotly3d.py": {
+      "bytes": 13101,
+      "sha256": "7c91071c94fb05bd35560a2068bcf9fd3b9e4697b37d36d23e5172995f9af19c"
+    },
+    "atomx/src/atomx/viz/scattering.py": {
+      "bytes": 12941,
+      "sha256": "70c5c0435ee490447d768373452cf5d411502444f91e62a99eef0391de1d29f3"
+    },
+    "atomx/src/atomx/workflows/__init__.py": {
+      "bytes": 79,
+      "sha256": "a0ea2e48f8ba0b4ab24018c31aae7a92f05a6b7d29a4024ddc307a282344007e"
+    },
+    "atomx/src/atomx/workflows/nist_comparison.py": {
+      "bytes": 19954,
+      "sha256": "2f1c60f2014e691a22420fc08e0ddd87d7c3eae4b47b753b90f424722aa4b9dc"
+    },
+    "atomx/src/atomx/xfel/__init__.py": {
+      "bytes": 2466,
+      "sha256": "309014e6f4f2491a9798b6496bb92d11dc289fd25b0e4a15baf88be4fb810c7c"
+    },
+    "atomx/src/atomx/xfel/atomic_rates.py": {
+      "bytes": 12094,
+      "sha256": "c8bbcd797e6d0cd962daabc7504b84d620090960ecef82b81efd8a0ad405292f"
+    },
+    "atomx/src/atomx/xfel/cascade.py": {
+      "bytes": 39386,
+      "sha256": "76c3f6472b2be020293850589ac37806a4f26ecb5140e23b63cb5226ef60fa3d"
+    },
+    "atomx/src/atomx/xfel/coherent.py": {
+      "bytes": 37334,
+      "sha256": "1555ff859ead1e18f588c5ffafef27d2a64ed28f6916f92fa0f0d897e07884a2"
+    },
+    "atomx/src/atomx/xfel/coherent_subspace.py": {
+      "bytes": 1797,
+      "sha256": "7d936d67da53965d7d75a8fde65086b7af7d1d0bf3f1444add567c6c2199198f"
+    },
+    "atomx/src/atomx/xfel/cross_sections.py": {
+      "bytes": 1972,
+      "sha256": "6191bb68aa2389bc5767117b968196a51ef50cce7226de0489009363853603c9"
+    },
+    "atomx/src/atomx/xfel/double_ionization.py": {
+      "bytes": 3593,
+      "sha256": "fb445b673441a955e47e7bb65f470053fe8c0673937f311ed59c537e0621ef30"
+    },
+    "atomx/src/atomx/xfel/imaging.py": {
+      "bytes": 7938,
+      "sha256": "c7861511737dc4069eef11b7e282ec91160192e80e490e653a296227e6c0edb9"
+    },
+    "atomx/src/atomx/xfel/kinetics.py": {
+      "bytes": 16601,
+      "sha256": "ba0e6ac3abd7ed456dbb30af1c20d3cc529c6ef679c67e420c42b690c126688a"
+    },
+    "atomx/src/atomx/xfel/mcdhf_coherent.py": {
+      "bytes": 14708,
+      "sha256": "acaaa26e2233b8835a778bb6d0807fbe5fb8cef23f93f051c51e9181b2177fed"
+    },
+    "atomx/src/atomx/xfel/model.py": {
+      "bytes": 18777,
+      "sha256": "a712651a7e39ae38991efb4b847af63639cf4cda62f9a32c0e1e9001b4743a68"
+    },
+    "atomx/src/atomx/xfel/multielectron_coherent.py": {
+      "bytes": 17224,
+      "sha256": "0ee70b2b437c0964a0ef2bc926ac0a5c792b510dab5ebd388a23364461d32ded"
+    },
+    "atomx/src/atomx/xfel/native_channels.py": {
+      "bytes": 8792,
+      "sha256": "23e06bbe16a3fde5e4197769e034110bb6e6618d96310d9ef3a1cdab6678a93e"
+    },
+    "atomx/src/atomx/xfel/observables.py": {
+      "bytes": 6172,
+      "sha256": "166f14bf2b6610f8df3785c2c4bb9142731e5240747526b003af91e91c9f2674"
+    },
+    "atomx/src/atomx/xfel/radiative_reservoir.py": {
+      "bytes": 4675,
+      "sha256": "47e318d07e76dba48bf131832abcd5c5a7b2c49d632c466dab7c39c914d9d831"
+    },
+    "atomx/src/atomx/xfel/reservoir_errors.py": {
+      "bytes": 2119,
+      "sha256": "ae2dfff651d284ee71c09139b5058b65f322235a2921742c34e3ace53ed95173"
+    },
+    "atomx/src/atomx/xfel/resonance.py": {
+      "bytes": 10257,
+      "sha256": "5b90df9c9cf94d241fe9c5f0a5aea49851fde16fbeb41c5160aae75706458dc7"
+    },
+    "atomx/src/atomx/xfel/table_mc.py": {
+      "bytes": 13340,
+      "sha256": "09e723d3487379dae5904e1667f37ec4416883c0e25d7f1b6beae0f9b4e184d2"
+    },
+    "atomx/src/atomx/xfel/two_electron_coherent.py": {
+      "bytes": 13544,
+      "sha256": "ed6e44ea11438510359efb1f29f9fb85ab9cb09726e5537aff5fc6dfebc60159"
+    },
+    "atomx/README.md": {
+      "bytes": 24092,
+      "sha256": "2066d4cf11d1e33d4739063fc0ddb3b073723c9e5dda3f6e945ee441c0ad7dd9"
+    },
+    "atomx/LICENSE": {
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    "atomx/AGENTS.md": {
+      "bytes": 9604,
+      "sha256": "614187973b27c5aa79f3f13ad187dfd36746b20f0dfc8d46a05303968d9e5cb6"
+    },
+    "atomx/pyproject.toml": {
+      "bytes": 5442,
+      "sha256": "8a36b1d168a76a5ef7acf6218125f7aaf9b34d885b7c5ce1d9506ecd428192e1"
+    },
+    "atomx/tools/build_expt_backend.py": {
+      "bytes": 8656,
+      "sha256": "19b43220a52b9a2456c787adb37ec8939d39c65c1960a0472bc225621399ff29"
+    },
+    "atomx/docs/AGENT_INSIGHTS.md": {
+      "bytes": 22601,
+      "sha256": "6306e438827aadb738c2e49a2de8f08adebc788ab644b0360fc0b9a6ee7acf2d"
+    },
+    "atomx/docs/AGENT_KNOWLEDGE_WORKFLOW.md": {
+      "bytes": 22434,
+      "sha256": "e6780470c4e08564f26c36a09b30eed81c9d9932f608b9c9d8ea3b4220785da7"
+    },
+    "atomx/docs/AGENT_REFERENCE.md": {
+      "bytes": 18162,
+      "sha256": "0a638a9a78d717685f3efdaa147cab456eea44a81bbc7e14366a6263fb0effb0"
+    },
+    "atomx/docs/ARCHITECTURE_CAPABILITIES.md": {
+      "bytes": 11631,
+      "sha256": "48404153be90cf29e233cf9df75e99d4aa7a14b930afaf7d7837eea4c67e0379"
+    },
+    "atomx/docs/ARCHITECTURE_DESIGN.md": {
+      "bytes": 10367,
+      "sha256": "24aaf4b1127d36fb348d639a239b757a08c1179cf519e27716f9bf04bd1df88b"
+    },
+    "atomx/docs/ATOMIC_FSCC.md": {
+      "bytes": 9108,
+      "sha256": "912ca61d8c95d9b53f56e1ff23d8c9d8e0ba65400d1394f5c584682fbc026f45"
+    },
+    "atomx/docs/ATOMIC_STATE_DESIGN.md": {
+      "bytes": 19875,
+      "sha256": "8488ce1229764c38383600178880788c90ea79bfb208f1ed981b9e2d9d29a261"
+    },
+    "atomx/docs/BENCHMARKS_EXTERNAL.md": {
+      "bytes": 7095,
+      "sha256": "b4f1bccf603d3ec9e44ba23764ebea33a29240612496be67bc62a468c3df381d"
+    },
+    "atomx/docs/CI_MBPT_SIGMA2_SPEC.md": {
+      "bytes": 20543,
+      "sha256": "8e2ceff3c8749ce52802bd4d5c4340ab8f4f9ea7dd9a8a77d219653abd895aed"
+    },
+    "atomx/docs/CRYSTAL_FIELD_SPEC.md": {
+      "bytes": 7164,
+      "sha256": "a59022de8029f22759600c481dcd45492522d5e2485a5f49250a9d122320c386"
+    },
+    "atomx/docs/DENSITY_GS_PERFORMANCE.md": {
+      "bytes": 3275,
+      "sha256": "3f48361fbc2d02da2e26dfa7ebb12ef2e88307ce0a70e694902ae1a6dd9144ac"
+    },
+    "atomx/docs/DF_SOLVER_CONTROLS.md": {
+      "bytes": 36679,
+      "sha256": "55c315099627e0d95f2a5feb0aeb61240d81032ed61f8629d441e2fe3e0963e1"
+    },
+    "atomx/docs/HPC_NUMERICS_RESEARCH_2026-09-27.md": {
+      "bytes": 24820,
+      "sha256": "f4001187683a13f1e09719d9c3e294b3f137f2292dce0672e8aaf2fe3587a878"
+    },
+    "atomx/docs/MIGRATION.md": {
+      "bytes": 46017,
+      "sha256": "f61b7e7be9e350c0282d638e8482fedb8fb4b002ad7178bf482b5802d3aacb8d"
+    },
+    "atomx/docs/NIST_SPECTRUM_ATLAS.md": {
+      "bytes": 1926,
+      "sha256": "29e386271add90873ef4f19f521827b724b4fe519abc6c1bf5c61f0790bf75ac"
+    },
+    "atomx/docs/PERFORMANCE_PLAN.md": {
+      "bytes": 5540,
+      "sha256": "91de8e13f6ddc5139bf2a535662b3b08f0b637cc9702dc041c0c04364725afc3"
+    },
+    "atomx/docs/POSITIONING_AND_ROADMAP.md": {
+      "bytes": 8802,
+      "sha256": "a7a3f244a1fc81fcb163a13bffde9170a96f72fc3e950777ecf70a3040f83207"
+    },
+    "atomx/docs/README.md": {
+      "bytes": 9251,
+      "sha256": "d8997af5aeeea385b9211f34a16cb1c745f53eb1ed5902b922eccaaf2d00f60d"
+    },
+    "atomx/docs/RECOIL_OPERATORS.md": {
+      "bytes": 5166,
+      "sha256": "087e1fcb2fc85248e910cf482fa5c4ab11af2b1971a33b9327bb9894605c94d7"
+    },
+    "atomx/docs/RMATRIX_INNER_REGION_SPEC.md": {
+      "bytes": 9570,
+      "sha256": "e51446a84a25580de5178f43a95662f12019dc34a5306cac5e7582fcf21d8eab"
+    },
+    "atomx/docs/SD_EXPANSION_SURVEY.md": {
+      "bytes": 47743,
+      "sha256": "f14a86c6d435c1e8884d0640269568e7ac841f41eda57eb1020957efe67a7c95"
+    },
+    "atomx/docs/SLATER_SCALING_SPEC.md": {
+      "bytes": 6918,
+      "sha256": "6ad07b69789c9295540a3c87ee9bcd41935056c3a0c1d3ae090a34044439f27b"
+    },
+    "atomx/docs/TESTING.md": {
+      "bytes": 11144,
+      "sha256": "85c5ae412429cc24153079778911d2fd73cdd7008fe919aa2f1fd84226adda16"
+    },
+    "atomx/docs/THEORY_NIST_COMPARISON.md": {
+      "bytes": 3661,
+      "sha256": "d0664b0caad187f48a5f262e06431da96211bf3a7c5cd72f62f2de6eea0d8baf"
+    },
+    "atomx/docs/TRANSITION_OPERATORS.md": {
+      "bytes": 10263,
+      "sha256": "e36f0c810a326c85a7020ab785e07fa0f61e0727846d5687ad4104c88c6286ae"
+    },
+    "atomx/docs/TRANSVERSE_INTERACTION.md": {
+      "bytes": 13099,
+      "sha256": "64d8a42580ade06a29fa883058d104bbff59d3233525fc34f891cce3d6a90a98"
+    },
+    "atomx/docs/VERIFICATION.md": {
+      "bytes": 92389,
+      "sha256": "f9e1d483734516f3762a0b0bea21666b1e9925a04dffd2607873480befddfa9e"
+    },
+    "atomx/docs/XFEL_GAP_ANALYSIS.md": {
+      "bytes": 93657,
+      "sha256": "df7115ae318f55014be5c633ea52e23a0ca1cdf667448b0777a8584dc2a4d2a0"
+    },
+    "atomx/docs/scattering_fac_verification_2026-07.md": {
+      "bytes": 18344,
+      "sha256": "dceedef2e2399a825590325724b926e4f4d66c62f94ac011c7bc63b6e455a639"
+    },
+    "atomx/tests/test_spinor_integrals_fscc.py": {
+      "bytes": 10079,
+      "sha256": "198acf7557c92ec0a21dc45034bc44279b21b8c2a52987c68d85f24c391fb294"
+    },
+    "atomx/tests/test_finite_ccsd.py": {
+      "bytes": 6726,
+      "sha256": "fc810af1a49e3c5a473e8600c704abf80ce1902af685c91381afd0a135211063"
+    },
+    "atomx/tests/test_ci_sd_space.py": {
+      "bytes": 3659,
+      "sha256": "d0c0cef81551340199908260abb23a11cbc924064506ed6613b033edacce9ef3"
+    },
+    "atomx/tests/test_ci_effective_qspace.py": {
+      "bytes": 10538,
+      "sha256": "949f08883919806f7eeb643ab1d1ab2654f6d4dc08e43d627ecd4cbb780c3f79"
+    },
+    "atomx/tests/test_ci_effective_one_body.py": {
+      "bytes": 8805,
+      "sha256": "ca384917cc130152a6af2ba5509ceac616d5327875a42e86b997b3c18facb6ca"
+    },
+    "atomx/tests/test_mbpt_matrix.py": {
+      "bytes": 8482,
+      "sha256": "7b125b4d7ad3fe3f21eaaab965a662b0c30c9be3dfb76257ea28245fd66ca940"
+    },
+    "atomx/tests/test_architecture_boundaries.py": {
+      "bytes": 4908,
+      "sha256": "0731b497c40c3909e2e9688e8bf696e895cdfa408969a0574474510e110382e0"
+    },
+    "atomx/tests/test_architecture_scientific_fidelity.py": {
+      "bytes": 3618,
+      "sha256": "9367a08e3d23fed579e43b8a572a8fd523c17ef75df79d38cbc3deec4808b147"
+    },
+    "atomx/tests/test_streaming_spinor_integrals.py": {
+      "bytes": 5871,
+      "sha256": "97c9a2e8cfb0993bbdec47c39c5ab44d6041e79de572820880f3782580c38ad9"
+    },
+    "atomx/tests/test_ci_radial_snapshot.py": {
+      "bytes": 8630,
+      "sha256": "ed19cdd203086e949d28724fbb5417b692c872ee5e211aafecb959cf20b6ffb8"
+    },
+    "atomx/tests/test_review_regressions.py": {
+      "bytes": 7729,
+      "sha256": "ce8df4d7c1f9c98a3167726abe2758e06f5fc2a6364ba25a7779f335f582040a"
+    },
+    "atomx/tests/test_mbpt_sigma2.py": {
+      "bytes": 8806,
+      "sha256": "662aad2f8b38d228a6afd47a435468be856582eb8946b1b03df90c4d464da842"
+    },
+    "atomx/docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/result.pkl": {
+      "bytes": 357112,
+      "sha256": "66dd85448f86946a351d0cb1fe38d66e57721ce791279e6a501bee950d14f386"
+    },
+    "atomx/docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/status.json": {
+      "bytes": 131,
+      "sha256": "9b8af5ac3499adbdd093781850a96fbbd1ce40a685f4ac16e9830d9f59450d55"
+    },
+    "atomx/docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/core.json": {
+      "bytes": 5942,
+      "sha256": "90140056548501ff5d5bd8a6b73692f9c9633219c60bf52bd3c30e109cd0948c"
+    },
+    "atomx/docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/structure.json": {
+      "bytes": 5425,
+      "sha256": "be79a353d48b89bbcf295cc14d602d55adf3a3f6a3f60c848ca03b9926fe963d"
+    },
+    "atomx/docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/orbitals_workspace.npz": {
+      "bytes": 181514,
+      "sha256": "2005bfd77f3d275108e0f49068cab5dd7280c7631a3d35425e3c8e89b9dfa857"
+    },
+    "atomx/docs/yb_diagnosis_repair_2026_10_08/common.py": {
+      "bytes": 2525,
+      "sha256": "a399912f71f98b840a64a13f4d046c7c85eb4a048195f214319daaf98df7c4f7"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/README.md": {
+      "bytes": 9981,
+      "sha256": "b45c56b11f0caa727f556810ca2bd0d395154b83ef27b8dd3caf0c3145c0fb14"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/results.json": {
+      "bytes": 24276,
+      "sha256": "aa2d4cc2c20cd98478493678a04c839994395c7fcd8769bc994566ca0cfe0c25"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band_summary.json": {
+      "bytes": 7484,
+      "sha256": "15b62a58bf3bc845dd3c3bcfc83b4c60e53241e137ea6307c2d994eb574b9db6"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/backend_source_archive_identity.json": {
+      "bytes": 1135602,
+      "sha256": "6106c514e5a032b93d9dc0257b2454ee9e89fe5872803bdaa7351ed5ed7dba9a"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/EXP-T_atomx_interface.patch": {
+      "bytes": 12217,
+      "sha256": "96a7c0dda82d2b551e45595a5af463963e514f3b9e63b960bf64c79843a11bf7"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/ATOMX_ONE": {
+      "bytes": 1748,
+      "sha256": "8952d51042374285b6d587639aebb6e41019d330c42de0a65a0747b0752dd55c"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/ATOMX_TWO": {
+      "bytes": 18480,
+      "sha256": "0879b5c7759eb344f605302c5cc66e8d583c45ab4fc8782ffd46a0d9b84050ad"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/cc.inp": {
+      "bytes": 245,
+      "sha256": "7a1e8dc1b59b02d8fdb8ddec2780761590b2bbab7c5720d4cf121ab2c9677ae8"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/cc.log": {
+      "bytes": 22794,
+      "sha256": "5626ea64f77b6240c4525dd8d5da2c9b018c12020a2fc5dbaa4d069a295bc470"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/integrals.json": {
+      "bytes": 2131,
+      "sha256": "47fa43ccb64a667ee971efeca8e8e3f32328637c138a1e6a244e28324a321803"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/request.json": {
+      "bytes": 3659,
+      "sha256": "3ab8d67bfb62338bd2f4e8e1427541ba300ce127b378ea0529f8d597288f0ad3"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/result.json": {
+      "bytes": 4774,
+      "sha256": "ee0e4976fa5a5b162adc0b08f69b01a7978e3c5559d0450522f1183c06c407f1"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/HEFF": {
+      "bytes": 3551,
+      "sha256": "efdac8c675a62b028592a20f2a85a821d147339b36a72b86ab33340dbbeabbd7"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/MVCOEF01": {
+      "bytes": 2302,
+      "sha256": "34b2de4282de2daa7ca4237aad015385941c4c4df3c1527313083771d4b91d4e"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/ATOMX_ONE": {
+      "bytes": 54548,
+      "sha256": "4ba69148244ddd3df6f1c97c8250799c11f0fdbf10f1829fd52bce76aba20dfe"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/ATOMX_TWO": {
+      "bytes": 22366192,
+      "sha256": "e72259ddf2556fdbd7e894edec336f7e0df6f9db5705d44feed6ee09ebf72563"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/cc.inp": {
+      "bytes": 329,
+      "sha256": "50b159c6fd929e411ed5bcb17d875852004d73d621e1727205e968d8c0c5d21b"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/cc.log": {
+      "bytes": 26168,
+      "sha256": "2aa8874ed01d7276f929ca19260b1b8973260bcadecd5adfd3143d86c5b6e14d"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/integrals.json": {
+      "bytes": 6796,
+      "sha256": "85764cde71eef9d1ca57ccc2290c3495540a3ba7f23aaba8188999eedda07f32"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/request.json": {
+      "bytes": 8709,
+      "sha256": "f1016a41e86eef7c7f9ff01db9b201e44416b99d97197cb2aad6b74f7b3a8433"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/result.json": {
+      "bytes": 10743,
+      "sha256": "5ee77da9c1c5645be29663e81ce64cb9188d8004227d2cbd08b1556a89da232b"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/HEFF": {
+      "bytes": 17201,
+      "sha256": "7d11a0eb021b3392b886afca09abde5796aac4d11a49822a7f3eceea5f121bbb"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/MVCOEF01": {
+      "bytes": 10882,
+      "sha256": "f54b445d95d04721d99ed630c0a2a356eff805cc6af1f8b22af9f617825857cd"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "e2129c3606b5c23e330c9835889880646fa0489ec542574b113f6717415be816"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/cc.inp": {
+      "bytes": 521,
+      "sha256": "bcecceda5cb2359fbfdc4ebcf54c3ba384d302cb27bd30edcd942438b2c9efa4"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/cc.log": {
+      "bytes": 25878,
+      "sha256": "cc34bc3a17a02eacf6490fd50c6d1cf94c8d5cb9e78cc3553f563e73f1bc6dc9"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/integrals.json": {
+      "bytes": 13726,
+      "sha256": "e71341b30374ad8aa26854a004d5b6db08a4e5032937e75f608563dfd46e1921"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/request.json": {
+      "bytes": 16683,
+      "sha256": "ebb5c80e09a5739ef6cc37ac99b8777e2ca9bd34a45a338ddd7ee52b5f9e23a2"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/result.json": {
+      "bytes": 19295,
+      "sha256": "e11620def2642edfb779560df653ba7454e6fc10f955436042d81c1b23f6c297"
+    },
+    "atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/HEFF": {
+      "bytes": 135,
+      "sha256": "0c0222fd0f4afc9c713dd40d94a97620f9af4a95a0a943aa69f5fbfbb0ab3921"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/Atomx_\u6309\u9700\u79ef\u5206\u4e0e\u865a\u8f68\u9053\u6269\u5c55\u62a5\u544a.html": {
+      "bytes": 10081,
+      "sha256": "134d12d87b50d3e083c91ef6517c61161e2d6be8d7b36dd6b9731a46d0ce9031"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/Atomx_\u6309\u9700\u79ef\u5206\u4e0e\u865a\u8f68\u9053\u6269\u5c55\u62a5\u544a.pdf": {
+      "bytes": 469831,
+      "sha256": "9193693184f65645a5bc3fba9c1d8011f8c64823169e63eb4f56c652d946e9f4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/README.md": {
+      "bytes": 7452,
+      "sha256": "e94e80ef3aaa8de267c939f8075bfb3e342a3e5e1fc1c103dc1c14b7e1eb2f29"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/affected_tests.log": {
+      "bytes": 180,
+      "sha256": "76ea287d15e69f6529b1b7de8eb0550903f33803444c20f0d2da6451a60e27f7"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/before_source_sha256.json": {
+      "bytes": 37276,
+      "sha256": "c2d8eb4f981493d50e689185d3b527fe2ffc5f1f33f9029b09f5388087cd03b4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/benchmark_exports.py": {
+      "bytes": 1455,
+      "sha256": "fccd09a08a3251d3e09a47da2146baff7a19a0f826a7cd0d9b81aa4fabbec37d"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/build_delivery.py": {
+      "bytes": 8096,
+      "sha256": "cdbbd39eacc46f0423fb61820ec44bca8eda3164a1f0c813f68397178e738335"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/contract.json": {
+      "bytes": 2166,
+      "sha256": "638e17c3e0fcdb1766c4b91c5247317a6afc4f63a46bdcffb2a1ddfc7637843a"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/current_source_sha256.json": {
+      "bytes": 37276,
+      "sha256": "d78e639091e3de80c5d6e1d47cce7e57560be5e38cb679d897f849b4ffb6490c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/documentation_impact_review.json": {
+      "bytes": 3443,
+      "sha256": "9b06736e1ef58d049ccbb88f152f12019d753555b376b21c30c00471ef2523f8"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/evidence_review.log": {
+      "bytes": 86,
+      "sha256": "bc1947c0024f29a1582be1e3b8229af1a863bb181726239d758898c4d32e9bc5"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/export_benchmark.json": {
+      "bytes": 5146,
+      "sha256": "62d98c26b2f0c523409fcc27aa1612a6f5add58966d0b46d09fd4ddeaca7e97e"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/export_benchmark.log": {
+      "bytes": 371,
+      "sha256": "6b055b373df1a5f4cbc9ac5920074bc11080b6af11744d208aa56696599c4dd4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/final_implementation_capture/fscc.py": {
+      "bytes": 17617,
+      "sha256": "4bf1a15612cf522c189beb0a8f5c198d14c13b43fe965d214816cd6f18f976c1"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/final_implementation_capture/matrix.py": {
+      "bytes": 45582,
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/final_implementation_capture/radial_snapshot.py": {
+      "bytes": 6037,
+      "sha256": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/final_implementation_capture/spinor_integrals.py": {
+      "bytes": 19603,
+      "sha256": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/final_source_sha256.json": {
+      "bytes": 37276,
+      "sha256": "dd91fc1d79bf91a25e0e6cbf59b7fb338c1a1838a5cb3f716322080cf51df293"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_band_initial_stop.json": {
+      "bytes": 371,
+      "sha256": "6e0757f7417ab101bd71b0a9bce8b49fc4b50e9b4e6b3615d0b3e31da8248a11"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_band_partial_profile.log": {
+      "bytes": 211,
+      "sha256": "40b0b88d2e9d2b7eccfb584967d36c1d9acf27ed1838747134faf32fce39cde8"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_band_partial_profile.pstats": {
+      "bytes": 909220,
+      "sha256": "251fc16351b5d57cc9a95f06d91c2579f92a7217e6a028e6249cee2ceea8d498"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_band_partial_profile.txt": {
+      "bytes": 2267,
+      "sha256": "d32cca80c91e72149571709c99076d30cb7ce78556d17a87a4b3377d1d157590"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_band_stack_sample.log": {
+      "bytes": 173,
+      "sha256": "b1d845e2fee0b45a702cc2b6b5c1f4965c5aee06ab26225295dde2448758d384"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_yb_band.json": {
+      "bytes": 67485,
+      "sha256": "fd39e25f3691a721a1d22b0102b1ff053393b98cbe04ceac1deb83c840ee14fd"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_yb_band.log": {
+      "bytes": 92,
+      "sha256": "b44d85ba5483a1e4c619fa307bf22af525b9633e26641a868c9326512abdfaee"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/full_yb_band_final.log": {
+      "bytes": 2144,
+      "sha256": "3489ac57bb458443ae8e30bbf9e242968c428280d90f3d7822758ec4b529bb65"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/implementation_capture/fscc.py": {
+      "bytes": 17541,
+      "sha256": "9d37973fe4a75f76aad5c10e35d6df926457392b99f8ff71c55e162a053a674c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/implementation_capture/matrix.py": {
+      "bytes": 45183,
+      "sha256": "fb159c5e0fef7451803d00664c4b544a2a75519fdcb00ab44975c81a9f45325d"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/implementation_capture/radial_snapshot.py": {
+      "bytes": 5656,
+      "sha256": "e65280a104c3079b4ac901cee8913a6a09ebca25192cd69c1a78833fa353b3ed"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/implementation_capture/spinor_integrals.py": {
+      "bytes": 17830,
+      "sha256": "13606e63da1df7e8e797e5323fffea0106bd7111aa6ebe86e4095bc9c6775ea6"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/native_memory_tail.png": {
+      "bytes": 86153,
+      "sha256": "49c192d17ef67b73bf0c8dff6a03d7d2d0d804e496362ce89b90d3212396894c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/native_memory_tail.svg": {
+      "bytes": 57535,
+      "sha256": "219de885bc87bf73e7185934a0cbfaf09e5a0b61c96739bfa4f08fb0b3f3a417"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/native_tests_first.log": {
+      "bytes": 99,
+      "sha256": "896e7256f189a7f7312ea5191f1134125e12bb958f876432a2d55d15814d4171"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/native_tests_scalar.log": {
+      "bytes": 99,
+      "sha256": "037f491eb81e628973e946dd6e2b3c1d983b0faaf97f05223301068142f2359f"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_0_packed/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "e2129c3606b5c23e330c9835889880646fa0489ec542574b113f6717415be816"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_0_packed/integrals.json": {
+      "bytes": 14476,
+      "sha256": "7221b4fca62fb09105a7c0a434284eb5f3403845caa9423397c9e160375ff718"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_0_packed.log": {
+      "bytes": 668,
+      "sha256": "1513db61177070610a2d3dedf98aa6217b4f7d4e6c72622f49c2f58eee2830b2"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_0_packed_summary.json": {
+      "bytes": 750,
+      "sha256": "ee6a9d040380c0fad2a883a38b21da1857d13cab7f2d27a41d7bddf92b7d0b84"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_1_on_demand/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "ede0a40772dd286f07d05354eb4f82376dccba08657874bc7e55fee1edb7586b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_1_on_demand/integrals.json": {
+      "bytes": 15287,
+      "sha256": "8910315d0eb4c44f5c4f7b8a788518f00337c5b5df6413c57be3bf279658d20b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_1_on_demand.log": {
+      "bytes": 1213,
+      "sha256": "8d87eb6c61769d6fe5bf8b2f924a6a1fa89239742034946afb1147be4a731952"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_1_on_demand_summary.json": {
+      "bytes": 1351,
+      "sha256": "8cdac8e751e21d8b3e3843d53a1745d1d7153bf70e05efe885e4f4764c991f27"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_2_on_demand/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "ede0a40772dd286f07d05354eb4f82376dccba08657874bc7e55fee1edb7586b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_2_on_demand/integrals.json": {
+      "bytes": 15287,
+      "sha256": "8910315d0eb4c44f5c4f7b8a788518f00337c5b5df6413c57be3bf279658d20b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_2_on_demand.log": {
+      "bytes": 1202,
+      "sha256": "05033b7ed3d0ae2911c13abc93754986edf3182d967632323601ce9a715f3daf"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_2_on_demand_summary.json": {
+      "bytes": 1340,
+      "sha256": "a0ee4e59a288bc633508e4cad34fe2e25b459a15ade68dd365ed3c117abd1583"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_3_packed/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "e2129c3606b5c23e330c9835889880646fa0489ec542574b113f6717415be816"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_3_packed/integrals.json": {
+      "bytes": 14476,
+      "sha256": "7221b4fca62fb09105a7c0a434284eb5f3403845caa9423397c9e160375ff718"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_3_packed.log": {
+      "bytes": 667,
+      "sha256": "e51735efae04cd9413d386442e2a9c422d59d66b7f7eb701afe4e3a73920fca7"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_3_packed_summary.json": {
+      "bytes": 749,
+      "sha256": "3d0d764e4e51d9faea21c7b015dab0ab04519ec72319041222c8c08d01a33073"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/ATOMX_ONE": {
+      "bytes": 381332,
+      "sha256": "ede0a40772dd286f07d05354eb4f82376dccba08657874bc7e55fee1edb7586b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/cc.inp": {
+      "bytes": 521,
+      "sha256": "10f63c937ccf993a461f2b3b7a8ac7e628a0a1e0af23d4934a0c95333577356b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/cc.log": {
+      "bytes": 25767,
+      "sha256": "e9a9b47afd9680f184150b98ff9d70697d37625324c235ac60ba55daaac94f89"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/integrals.json": {
+      "bytes": 15287,
+      "sha256": "8910315d0eb4c44f5c4f7b8a788518f00337c5b5df6413c57be3bf279658d20b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/request.json": {
+      "bytes": 18678,
+      "sha256": "6d0aa5aca57ea91d455550c2cfcfd0b28a3fc7d2ce02b6fb7ab23f9627093968"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/result.json": {
+      "bytes": 21369,
+      "sha256": "37c468d7e3ae25c539b1bd109e103a960e7952b27686c594138a6878ab70ac13"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/HEFF": {
+      "bytes": 135,
+      "sha256": "0c0222fd0f4afc9c713dd40d94a97620f9af4a95a0a943aa69f5fbfbb0ab3921"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd.log": {
+      "bytes": 1348,
+      "sha256": "7bfc29e34b1ace6dd32813aa67006e1b8ddf26386b6739b094d3c6a7c99d5959"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd_summary.json": {
+      "bytes": 1506,
+      "sha256": "3e8e35b14fff63c0e4f4c9300728749d8fae2047103f052ee446afb182aee4c9"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/old_archive_integrity.json": {
+      "bytes": 2438,
+      "sha256": "a3ba4ad8e516c0e655bbd525c8c617bb22c6001b8117e3ceaaa91314439ec1b5"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/probe_full_band.py": {
+      "bytes": 2578,
+      "sha256": "86bd22c7be53c5fd0c7316ba91cfc541e3a38d92581ecd872c686910770d7571"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/probe_full_band_initial.py": {
+      "bytes": 2549,
+      "sha256": "21770efd9499ac7ef9da2f0e9f39b2d760cf1fafa8e62da62845bb036202c7b8"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/probe_ne.py": {
+      "bytes": 3378,
+      "sha256": "8a7380c5f7aa882b8f3f2c10398a83bba41322f03ea9da7728310c45ddcc48c3"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/probe_yb.py": {
+      "bytes": 6325,
+      "sha256": "ad0fc6c0b14002c1188a83bf142f6c9d43a0d3d36a44817cb680cd0eff47dd67"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/profile_native_band.py": {
+      "bytes": 830,
+      "sha256": "b18fe10014aabde3a8e8739ab7ed6af0c782e85b6520c7c5889431cf2aaf5c18"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/render_report.py": {
+      "bytes": 12338,
+      "sha256": "8ec603f9dd327e2e550e6208ec02f49df74dbb5b7257dd05b50580a9572712ab"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/report_text.txt": {
+      "bytes": 7685,
+      "sha256": "04390b5be87d8fd396af47ee84b8058987edf25d73583e02b3a2a71a6a147a47"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/report_validation.json": {
+      "bytes": 867,
+      "sha256": "a8d55ff0034b917461daae68f070aefabccc8c1b29746f3e5f8a332a13fbdd67"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/results.json": {
+      "bytes": 89377,
+      "sha256": "b7ac897548095772ac3ea10b639d57b2a7277f66dd67c3e11750c8394fecbaec"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/source_identity_chain.json": {
+      "bytes": 1440,
+      "sha256": "d12850e822e40b2033c35c7f61fd85477420db1145b2a42254790e25a56e83d0"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/validate_delivery.py": {
+      "bytes": 5081,
+      "sha256": "e07d59742a91929b98fac1447faf970786ce296bf0a410dd1f1c6bce813fd628"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/verify_evidence.py": {
+      "bytes": 6858,
+      "sha256": "33b4494bc3262c1812b56cd400a40f62a0a75356331bd8dde9f3948e751712a0"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/ATOMX_ONE": {
+      "bytes": 54548,
+      "sha256": "bb02b7f5c8de68c34ecc550f17d5d377bb0e6004170e0354eb0c3199fec3c08a"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/ATOMX_TWO": {
+      "bytes": 22366192,
+      "sha256": "e72259ddf2556fdbd7e894edec336f7e0df6f9db5705d44feed6ee09ebf72563"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/cc.inp": {
+      "bytes": 329,
+      "sha256": "50b159c6fd929e411ed5bcb17d875852004d73d621e1727205e968d8c0c5d21b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/cc.log": {
+      "bytes": 26204,
+      "sha256": "abaa4b85db583d6d001b9f6e8d51f8e35396c1cdaff6e5dbc684c804b3664c94"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/integrals.json": {
+      "bytes": 8348,
+      "sha256": "9a929527548123a1b8b21d4d18d586d64f727acda603ed5faf389456ab242835"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/request.json": {
+      "bytes": 10714,
+      "sha256": "f8e72c093d94339fb8e35246a032264eeec21c5bcd79cb6c67fc24b47db9262e"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/result.json": {
+      "bytes": 12822,
+      "sha256": "9ca24b56c4ab14707e1d66c9336185ad948d6f549c2cea6794611482163dca8a"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/HEFF": {
+      "bytes": 17201,
+      "sha256": "82cff0eaa0c15b4f5f9746eca4cd54f83bef10e2a1dd077ba8cd77287127d23f"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/MVCOEF01": {
+      "bytes": 10882,
+      "sha256": "6a0947267c7dbeacdbebafae23ef60777b3d4d0180c34250b7dadebec3e13412"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final.log": {
+      "bytes": 2929,
+      "sha256": "9c417fbe0d994b370221b30c92a45df891005a6f8e63164de02a556911af786c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final_preflight.json": {
+      "bytes": 1099,
+      "sha256": "d0f8293dba3c9404416f11a22e99deade22ca6dd82538328303b9b65fc32b301"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final_summary.json": {
+      "bytes": 2382,
+      "sha256": "ef9839c419f41d563c58bc46104e66aacf48dc77452f13eafcb73a0641302cdd"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/ATOMX_ONE": {
+      "bytes": 54548,
+      "sha256": "9308b756a8c2d3726181c39f0eac11f5ffd1693523eaec5e05b5047be54da0fd"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/ATOMX_TWO": {
+      "bytes": 22366192,
+      "sha256": "e72259ddf2556fdbd7e894edec336f7e0df6f9db5705d44feed6ee09ebf72563"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/cc.inp": {
+      "bytes": 329,
+      "sha256": "50b159c6fd929e411ed5bcb17d875852004d73d621e1727205e968d8c0c5d21b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/cc.log": {
+      "bytes": 26210,
+      "sha256": "b0c8499ce3e6d423951d7220d47b1581e6c9e98577918b15fa6075525f75e036"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/integrals.json": {
+      "bytes": 7378,
+      "sha256": "9459aa1b9b336909b9c642cf535a9ab82fad5863f4b1128f25e9d75c4ac2edec"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/request.json": {
+      "bytes": 9690,
+      "sha256": "5e392fdbf6211ad77dab7656ce3687e0992c75faf3ea5045f393f21773ff2047"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/result.json": {
+      "bytes": 11746,
+      "sha256": "9ad369dd78e89c3f5b057a6ab3a469f178465068589c59e72b80ee745374b61b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/HEFF": {
+      "bytes": 17201,
+      "sha256": "79398f9d70b860fbe43145c6f1054732aa5973ea3c79f6494965d259aa56cf48"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/MVCOEF01": {
+      "bytes": 10882,
+      "sha256": "7f5fde331913fcfcc29452e6e82f0c6a72607b1672cfbac61e76823d846df7e4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream.log": {
+      "bytes": 2918,
+      "sha256": "89a51a06a54e29a2aee17973e5958ba1d9bbd6dd6591e384497cb8483b1c6f2f"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream_preflight.json": {
+      "bytes": 1101,
+      "sha256": "d3929e67d5e4b51f16a911ee01e7d85ad5aca9daa057a6a15215a44bb6f9d4d1"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream_summary.json": {
+      "bytes": 2369,
+      "sha256": "7a89b86d1ab626a3f81e01ffdee83d3d685cac3cc6ecae38dd6925a6615484d0"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export/ATOMX_ONE": {
+      "bytes": 93356,
+      "sha256": "580556fdc3d18ec84b25911ef98c697fa62368ccfb3e8fc38d927f701050bac2"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export/integrals.json": {
+      "bytes": 9605,
+      "sha256": "bda32acb1f8d54cabffbaa7264ab5dfe3b8f3d7d65e9917f3e287c49f49e1d19"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export.log": {
+      "bytes": 2403,
+      "sha256": "3688642b524852138c003d15094d7770689076445266383b5f707b6be493f0d0"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export_preflight.json": {
+      "bytes": 1284,
+      "sha256": "e6c60b80b2f7f74e3d0d9bd1d6abc187a568750a1689beb04147cf3c67aa5c64"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export_summary.json": {
+      "bytes": 1619,
+      "sha256": "9eee259b8ba4b6dffb5a4033ea283c6b570da32204fb38583e5d9df2ab5fea45"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/ATOMX_ONE": {
+      "bytes": 93356,
+      "sha256": "2cddece618b4f5db8f1945ff0a9017992c36ae32e7c5db9761c590036d821b08"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/cc.inp": {
+      "bytes": 365,
+      "sha256": "d1e6e50372a6d4363f58bb2e025b6f42365b4e54dca9a8277bc18e5906fc78b2"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/cc.log": {
+      "bytes": 27072,
+      "sha256": "e47fbeac0ec251988574168af986178978e8e85909ff970fbf7bd5012e82036c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/integrals.json": {
+      "bytes": 9305,
+      "sha256": "156bb1875eb583f60009c48b8c515c6e5e24aeaaef4b02da7ec24385f737a252"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/request.json": {
+      "bytes": 11878,
+      "sha256": "8f0f2c07e00242c964353986053ac5b9864ef62a889a2a6b9e7ed5eac930a6ac"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/result.json": {
+      "bytes": 14188,
+      "sha256": "6ffc7dcd3944c08a2db9b3472ce1c6359181a66c6df8b6b4a8ff8b1b8cd6e373"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/HEFF": {
+      "bytes": 17201,
+      "sha256": "11380d72486ced44e1e01f3b20e78c779f8971050c5f335407aa59d994ac10a3"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/MVCOEF01": {
+      "bytes": 10882,
+      "sha256": "e9ac659db648c2c03fdf4d6fe5170b6e90f0c6c0080af14c4e1d5923afda7705"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream.log": {
+      "bytes": 3210,
+      "sha256": "af18da2fff60320a1fc8b7fd7c0b321b36024fa276ea1a369fc4e8c3725d3b33"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream_preflight.json": {
+      "bytes": 1285,
+      "sha256": "0761bbab1e2a0666ac2b93c2ba14d019127314378217f5c3e05f414f6929eb7c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream_summary.json": {
+      "bytes": 2525,
+      "sha256": "b6abbc8d08fed1602309fef35fb0c18f69bff49ce2f5ee3bb46252474b7ec380"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/ATOMX_ONE": {
+      "bytes": 142532,
+      "sha256": "a76f34a45c67bfaed47a970496e36d42e9f0e34d3da365f83f4ec52b0e1a4f1a"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/cc.inp": {
+      "bytes": 401,
+      "sha256": "35699d33ddc712b86f4f5b5886905d7d34dcd5608dfc6c56e4f6d66314f28936"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/cc.log": {
+      "bytes": 28286,
+      "sha256": "98a24d688fc1d60a40bd963188cc22b22759547e64384e737af336b475a28934"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/integrals.json": {
+      "bytes": 10868,
+      "sha256": "4f815eb3e3d4bb916a2ac22d0d4da33fe71b0fd0650a9d4ac945c8a82440719c"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/request.json": {
+      "bytes": 13675,
+      "sha256": "1d2a36d3542a731d5dffb385170f05ff9f50c8dab520df62d0f8a2716d2362b5"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/result.json": {
+      "bytes": 16225,
+      "sha256": "14e6b3e4638250a7e838533d525faf77cd4c313c1e7aac326fbbd75867e2b84b"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/HEFF": {
+      "bytes": 17201,
+      "sha256": "2aefc785dab570f1167c8e534ba6749673e04c4a8cfd92e22c8ff62ebed2b1a1"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/MVCOEF01": {
+      "bytes": 10882,
+      "sha256": "086a21467270b24053a8948b8cb5ca873d847ae2efcf1a66690424d72d97e4c3"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream.log": {
+      "bytes": 3534,
+      "sha256": "d29e20a84410a492c0c5c1155778a8a3c7d663f18066bf4c73945ff59f48e1b4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream_preflight.json": {
+      "bytes": 1467,
+      "sha256": "e1dc233ca6382cabe4a27b6ff5820c208114fa97231759eb03c976748ccd8de4"
+    },
+    "atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream_summary.json": {
+      "bytes": 2717,
+      "sha256": "a7d82e4c62ddaeb051dfba6cdeea5ded07c1df4ac33e649d0347a9623b3d7beb"
+    },
+    "external/EXP-T-atomx-source.tar.xz": {
+      "bytes": 5142960,
+      "sha256": "d034fa7cac701c31334e8d02b85873773b2c40291e396dbeb02f9674bd9c81a6"
+    },
+    "external/backend-linux-x86_64/expt.x": {
+      "bytes": 2585520,
+      "sha256": "9f06ef3a31a29856b99194d8fb0f305c68831c800cff3867e1c3585658290c2a"
+    },
+    "external/backend-linux-x86_64/atomx_backend.json": {
+      "bytes": 32242,
+      "sha256": "37f63cfce43a44c86192514b5739eeb89cca1130d89024785e26d1777a515277"
+    }
+  },
+  "native_source_modules": 338,
+  "large_or_scratch_files_kept_locally": {
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hh.dg": {
+      "bytes": 508,
+      "sha256": "812be65bc017561cf97bfbf1f580fafe3bd65b1fcc02fd4b88eae0db74121397",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hhhh.dg": {
+      "bytes": 1332,
+      "sha256": "6e397bd9e0715b2e1526e9cb115953d9bd72b902181b4b88bd25bfd910e92d48",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hhhp.dg": {
+      "bytes": 2668,
+      "sha256": "f0ce41d8e6cc6c13fb60c3dd119095b29cd017493e32d69d3f4260cc4e6d318b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hhph.dg": {
+      "bytes": 2668,
+      "sha256": "7b7026030b70faa25270d68104e0cf1be298116b1f15f35ada1e786d6f9f2de4",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hhpp.dg": {
+      "bytes": 6180,
+      "sha256": "02711a04de0b60742d6896cfd3f29a98bae3e0e9d81f2214cfa0e57037e5b074",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hp.dg": {
+      "bytes": 1220,
+      "sha256": "0b768085cb997c7dcf135928417947e53b6966f95f41d22a44541fd6267612b9",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hphh.dg": {
+      "bytes": 2668,
+      "sha256": "10f49b2f305f524be2c2332942297fe599141672671160cc04055411d4589051",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hphp.dg": {
+      "bytes": 7460,
+      "sha256": "89e161adb53806ecc3b36c9044c623872035a5bb5733b955543cf95de3365e26",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/hvhh.dg": {
+      "bytes": 2668,
+      "sha256": "42077a2439c51f9a973acac38e36c79637f7619611b97e24d1e74b0cd0b83660",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/ph.dg": {
+      "bytes": 1220,
+      "sha256": "ab5b50dbb9133ccfee1661ea70bd958e8d22df73cc609ce6680734164fa963de",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/phhh.dg": {
+      "bytes": 2668,
+      "sha256": "f56058398c395a9a4cc9e7e6ebb6b93bd58500ee1c4595bdc55bc674ed6165b2",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/phhp.dg": {
+      "bytes": 7460,
+      "sha256": "449ea131b9704d5a6b23adbb57638c8dc1b8df3f244b12becd4a7aedee6ac054",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/phpp.dg": {
+      "bytes": 19836,
+      "sha256": "3e5b28e836d5c0261efca2086fe89c46d6a0e88cd0d61b9934b2604108126224",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/pp.dg": {
+      "bytes": 3564,
+      "sha256": "7077ec76ee5ca0ed0c11948a91ca1c769935786874bcd9dbb95bce7bdad709fc",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/pphh.dg": {
+      "bytes": 6180,
+      "sha256": "67fab02538ad8ddac23e7ac99850b84e11eae38b3f7337080975e40d1e606110",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/pphp.dg": {
+      "bytes": 19836,
+      "sha256": "72459978c440a08c91c612dcc82bb04fb0fdff56f7b022fd324db78b18093b12",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/ppph.dg": {
+      "bytes": 19836,
+      "sha256": "ffc17faeffb0089fb88243fe222b7a2100673de06baedca1da87c57ca634ab1a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/ppppr.dg": {
+      "bytes": 55316,
+      "sha256": "d264a9aabe95842a82e7fb34f9d11faa5147be5a92f3fd8a61122e171772bc4b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/pvpp.dg": {
+      "bytes": 69396,
+      "sha256": "8c6028c120bbc388aa7fcb5ec13664fea97acf782d64845951ea426b4999ef40",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/s1c.dg": {
+      "bytes": 3564,
+      "sha256": "84c42bbc9953ce20f6638e44be487102be5b950120e2d0fecf79b170a0cab3ac",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/s2c.dg": {
+      "bytes": 24956,
+      "sha256": "083ba736719de386b5bb472f8188294e18478c35ebb067218a26a99cf8cf2db1",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/s3c.dg": {
+      "bytes": 137996,
+      "sha256": "57c0b6ebc5d5975f23fe588cd5a53128524d843415378d664463c7fbd0c280ea",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/t1c.dg": {
+      "bytes": 1220,
+      "sha256": "3e61a750c79372c0e6ccfde57a4b7dca5f7e900b3f09b7e6b3aae825b5c7adfb",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/t2c.dg": {
+      "bytes": 6180,
+      "sha256": "28ce10aed3b0abb84c69fecff82bacfc7d5a5fce49bad17862e3b4fc265abd44",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/t3c.dg": {
+      "bytes": 41060,
+      "sha256": "3b0e3251977dbbe6e06f938e85ea84c933f9e91afacecbf5f24da44b63c6e1cb",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/veff01.dg": {
+      "bytes": 3564,
+      "sha256": "aca573e93fd6291e57bf2b0a2f161f84a51fa880b47819860c8576f0939ae9cc",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/vhph.dg": {
+      "bytes": 7460,
+      "sha256": "1e3e0ce23a65a220d7c03964abdba3eb03b2b19fb1c33b2fd20231603fd52828",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/vphh.dg": {
+      "bytes": 7460,
+      "sha256": "9abedc98b277845a2dd572c08f88f460d996e136d8ae062b64b8f4b9c4bc38ad",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/be_ccsdt_tile4_final/scratch/vppp.dg": {
+      "bytes": 69396,
+      "sha256": "77d954902af414081347cb9d988c9dff6fe8d5e87ec4c522e8599a637c346899",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hh.dg": {
+      "bytes": 9300,
+      "sha256": "51bbafdde3993e09860d5f93eabf62d85f16c5dc4ed12d91e30ea3696dbd1d52",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hhhh.dg": {
+      "bytes": 2417684,
+      "sha256": "e9bf843b15f960a26981c8cc7f31a7f345d9d23d9e334cf63f7d11c15bfde6ef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hhhp.dg": {
+      "bytes": 4929204,
+      "sha256": "90b151fba64d2c8f650b18f3e26ec2ef553dde967822b27878532704edba953a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hhpp.dg": {
+      "bytes": 5455956,
+      "sha256": "b3fc0978b92e93cc43eb8e7e2d8324884f77df010e18f45f7d2c7748edc07eb8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hp.dg": {
+      "bytes": 14908,
+      "sha256": "1868c2436cecf5d8b594b10c67e5b379553d83fa4a675238eda8caa91418668d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hphh.dg": {
+      "bytes": 4929204,
+      "sha256": "d3b2ce063a2ca14fbbb88d614b9b9375a387ae903c63f1b554fd31e4e6caa407",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/hphp.dg": {
+      "bytes": 10053972,
+      "sha256": "5cea92ce3b74cfb3ebda80afc64396124cd0f03a18665cffbdabfd3c9b819b25",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/ph.dg": {
+      "bytes": 14908,
+      "sha256": "740f93b495b0180d5855d9ab9fc4bc932eee02d58e7b490aefda754c115da4d9",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/phhh.dg": {
+      "bytes": 4929204,
+      "sha256": "56af07eddb63b383d35cf6613ac098d08f96371600fd24a5b54d537e7d14c535",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/phhp.dg": {
+      "bytes": 10053972,
+      "sha256": "a9718d4c4f09600be14dc2397229eeffb40b955058d526cbf9b731a54e79676e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/phpp.dg": {
+      "bytes": 11126412,
+      "sha256": "d128b8ba55f8a6cdac6bfde5e54b8840f35f3559d307ef0b572e598cf9d03169",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/pp.dg": {
+      "bytes": 24004,
+      "sha256": "75deacd8c1b9f19994efeef9841df346017596798e122cbf1fba04f08e301d36",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/pphh.dg": {
+      "bytes": 5455956,
+      "sha256": "1c10b6a8840df4f5dc109a5d71718f2b4e112e9d91b159b1ce0643da7a0c5d9a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/pphp.dg": {
+      "bytes": 11126412,
+      "sha256": "cdd3633901542f327c8b84ef101053aa55ea209ae57a74ab2f008db1f595a8d7",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/ppppr.dg": {
+      "bytes": 12315852,
+      "sha256": "1646c8300b14a6b47d435b14bb4d0e85e69c717ee33ee7b9129878f693a10556",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/pvpp.dg": {
+      "bytes": 9118260,
+      "sha256": "1acae36475e84dfa08b7ef8b8620c2aac172afc4cc8861d8590cef9cd5d86783",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/s1c.dg": {
+      "bytes": 13420,
+      "sha256": "c39ecdbbbefafecfa64f8c761409bc8820b4a542139cfb6e301e8e726117d7a5",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/s2c.dg": {
+      "bytes": 8235900,
+      "sha256": "864260680c9b9c7d19c2b004ecc42992d28dd0b26eeeded23d9629be2bb5ebba",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/t1c.dg": {
+      "bytes": 14908,
+      "sha256": "bb03b3e5fdef94615768cff87ecaa2aa346818ef7f0e5f65fa78dbe70e4e796f",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/t2c.dg": {
+      "bytes": 5455956,
+      "sha256": "7f181508c9fde4768353ff3474209cf4a859548e5d8ec7efa6cad3811d597596",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o22_r2/scratch/veff01.dg": {
+      "bytes": 8020,
+      "sha256": "4d848e13805279e53a11cf4ac4af467507870e1b5aac10829107cbc804662e1c",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hh.dg": {
+      "bytes": 2836,
+      "sha256": "5720f1c16bdebb3756fbc9959e64a49b2e92f92b1fa4d7b44bae72cd8b12e6a4",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hhhh.dg": {
+      "bytes": 240556,
+      "sha256": "de671f43b60d41a3a9e83879932371e707636589863d96b85ad0f6cc731e1ffe",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hhhp.dg": {
+      "bytes": 2388404,
+      "sha256": "0190609fb00a0e4a5654f03eb1dd51000c95d2baa2266c1ac60b7a2751deba89",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hhpp.dg": {
+      "bytes": 18460468,
+      "sha256": "60b06aea2031bffc1b410f5df07e56c6c63de22ea56ca5abfbbc038eb472bb90",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hp.dg": {
+      "bytes": 27332,
+      "sha256": "4407ba150d2bbfcd7f114183108d9cc04432bee1dd3f8c95223697f0da401d64",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hphh.dg": {
+      "bytes": 2388404,
+      "sha256": "d9d8bb3adc340b672bf578c01a9f71780ac15b1b95b34eb39f79d80e859e2be3",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/hphp.dg": {
+      "bytes": 33302068,
+      "sha256": "d0fb54ea5220400649680045738b722d78dcda0be58099486baf032b2315ebb7",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/ph.dg": {
+      "bytes": 27332,
+      "sha256": "90dd6aa4ba149051698d2f7fa637170ea6f626bbb9fd0a944d13dbb68f26b00a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/phhh.dg": {
+      "bytes": 2388404,
+      "sha256": "aa103450fc8f8e36b5dc03e1e538c9e521036c014fddba583cb4c9ac1c81f371",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/phhp.dg": {
+      "bytes": 33302068,
+      "sha256": "aa200e05522bdf2b879148bc96c3368106462990ac687dc9e0ce52a29e6317a6",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/phpp.dg": {
+      "bytes": 264579348,
+      "sha256": "9787fdbef209a8f30f2c5271a1e5c0ff0d53f003e8ba441ae02b95d4436ab323",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/pp.dg": {
+      "bytes": 368212,
+      "sha256": "009b30ced767c548bbdf651997d678ba1161d6fbc6bc0b8b525f576f056eba7a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/pphh.dg": {
+      "bytes": 18460468,
+      "sha256": "2f2ae258a33c97633bb5096860083ba95192717e6adfd7964ec0ef93a9d3fae9",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/pphp.dg": {
+      "bytes": 264579348,
+      "sha256": "787a34b4b51ca69f1fff8b731401fb0648ebb140686389ef920706d2ae1c99ec",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/ppppr.dg": {
+      "bytes": 2106169748,
+      "sha256": "4326830a2f7af5f77ed2dc8386f71273769d67d8eefacf877edf41e83ab19f1d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/t1c.dg": {
+      "bytes": 27332,
+      "sha256": "a6002188753e403ad463168f6f3d872c743c7131624a7594460887b8c7bf95a5",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/ne_full_band/scratch/t2c.dg": {
+      "bytes": 18460468,
+      "sha256": "c5c97ce4d799294b6b599fbbdd6c63e0d69849fefa169dd39d039d8403c3a46d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_0_packed/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_1_on_demand/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_2_on_demand/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_export_3_packed/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/ATOMX_TWO": {
+      "bytes": 1119980400,
+      "sha256": "5749915e50889c1a14688abb3d2145ae005d6d0a8df67ad3edc4d2e579b1b59d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hh.dg": {
+      "bytes": 2236,
+      "sha256": "70f525f3f70a79ab4c5788ad6b7cf794b60fc81a2138a258ebfdd84b068836da",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hhhh.dg": {
+      "bytes": 165556,
+      "sha256": "6d7655c92aa487b1ca7613209b75342f7f7e9df97277f71ffeafbac502df460e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hhhp.dg": {
+      "bytes": 2311564,
+      "sha256": "4792c035386db0dbecc85169977631fb082c9a0165cd102b874d550e3d3f8d9d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hhpp.dg": {
+      "bytes": 19993508,
+      "sha256": "56bee862d9ffa8fdcd97b8115b142bd5bc49bd0589ca94ba5bf1e21dd063cc9d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hp.dg": {
+      "bytes": 25332,
+      "sha256": "f7412a0ec2d90bf76f06bf32c7d7845bc71110b62b9907849ddad91ecf743764",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hphh.dg": {
+      "bytes": 2311564,
+      "sha256": "f972669bd577b597e3d0f4d92cb44ce018250f6f56f25aafb7dc61f702755877",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/hphp.dg": {
+      "bytes": 33196708,
+      "sha256": "d6717efb2de87494c36a351c12aa383c004ed25cb7ceace4b7a28668a8770301",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/ph.dg": {
+      "bytes": 25332,
+      "sha256": "47057792cc8611db733141349c6eabfcc443bf5294a145fae1d36b2d36fb5d4a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/phhh.dg": {
+      "bytes": 2311564,
+      "sha256": "b524951377433c8badb6147f978cc44f758e15ed314e27815ca572605b7dbbf1",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/phhp.dg": {
+      "bytes": 33196708,
+      "sha256": "4335bbb5bb6e762354c9b8817576cebb7fe9eb782671b79f1c3ed6caf7b3a9dc",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/phpp.dg": {
+      "bytes": 287715708,
+      "sha256": "83aaa09bf046d4aecbcabad796086c9808dd647afa3d8fe5ff0b80108fc58d1a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/pp.dg": {
+      "bytes": 343852,
+      "sha256": "0427e435f232ad2a50288de9b7b699102cdc8c8b475b75f63fa8d8ee23cef398",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/pphh.dg": {
+      "bytes": 19993508,
+      "sha256": "c4c77724ab107271625aab4bc37e2dd55e8f24e815651932b58772ecd1df7148",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/pphp.dg": {
+      "bytes": 287715708,
+      "sha256": "174c4ecbf3ca5a65b951e2465a62c76852ce0bd3f2d5a52be410e000e591c493",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/ppppr.dg": {
+      "bytes": 2494052244,
+      "sha256": "3a7d5659530220adcdf5ce67e1dd62055f40a95ccbac409392a4aafbbafa5789",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/t1c.dg": {
+      "bytes": 25332,
+      "sha256": "f74573c53bdbaa129785a1e8b3136213f34c78009ad65ff8148a1d4fd712199a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/ne_streamed_sd/scratch/t2c.dg": {
+      "bytes": 19993508,
+      "sha256": "238f3caf133a8f738ad45a064e1d68b65f3adefc13498b8728d0c1de14187ab9",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hh.dg": {
+      "bytes": 9300,
+      "sha256": "540b954ffe10c420b04835cfa66210c7b96148e05c3f9e2503b376fb64338b53",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hhhh.dg": {
+      "bytes": 2417684,
+      "sha256": "e9bf843b15f960a26981c8cc7f31a7f345d9d23d9e334cf63f7d11c15bfde6ef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hhhp.dg": {
+      "bytes": 4929204,
+      "sha256": "90b151fba64d2c8f650b18f3e26ec2ef553dde967822b27878532704edba953a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hhpp.dg": {
+      "bytes": 5455956,
+      "sha256": "b3fc0978b92e93cc43eb8e7e2d8324884f77df010e18f45f7d2c7748edc07eb8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hp.dg": {
+      "bytes": 14908,
+      "sha256": "ba30e003522122a53cab51906badb9e6e9c24f3125c6d349d42070468fde22d9",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hphh.dg": {
+      "bytes": 4929204,
+      "sha256": "d3b2ce063a2ca14fbbb88d614b9b9375a387ae903c63f1b554fd31e4e6caa407",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/hphp.dg": {
+      "bytes": 10053972,
+      "sha256": "5cea92ce3b74cfb3ebda80afc64396124cd0f03a18665cffbdabfd3c9b819b25",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/ph.dg": {
+      "bytes": 14908,
+      "sha256": "0f04ac4237c73689b8e04560f2df2d206c1b7bceae6e10f7b0c82c70fe6f0eca",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/phhh.dg": {
+      "bytes": 4929204,
+      "sha256": "233c20469972cde01e8e2e23f4bace95ee76c94e0017339db1051ff0c3b7a645",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/phhp.dg": {
+      "bytes": 10053972,
+      "sha256": "a9718d4c4f09600be14dc2397229eeffb40b955058d526cbf9b731a54e79676e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/phpp.dg": {
+      "bytes": 11126412,
+      "sha256": "dc931781c75f4b4e8ea973440a93647a94e2361df69d5f66227733da62abd5b8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/pp.dg": {
+      "bytes": 24004,
+      "sha256": "70efe232b5c4ff301419b13af6cd16cd8f8bf756f4fcebca2b38ffc88f589557",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/pphh.dg": {
+      "bytes": 5455956,
+      "sha256": "1c10b6a8840df4f5dc109a5d71718f2b4e112e9d91b159b1ce0643da7a0c5d9a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/pphp.dg": {
+      "bytes": 11126412,
+      "sha256": "c11574ab92c04654417e3b59ba08c88efa9c273248ffe09654b2b4b30f84a8ac",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/ppppr.dg": {
+      "bytes": 12315852,
+      "sha256": "1646c8300b14a6b47d435b14bb4d0e85e69c717ee33ee7b9129878f693a10556",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/pvpp.dg": {
+      "bytes": 9118260,
+      "sha256": "3d1243c90aa00add74827a081b2aee35fe4455f4f7c29bab731151ace99e45ef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/s1c.dg": {
+      "bytes": 13420,
+      "sha256": "d8cf52eb6a8371b5ebc6091435372729327d3973cfbe830b35b6c2fb99635f5c",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/s2c.dg": {
+      "bytes": 8235900,
+      "sha256": "8f4c58030a8b3521e27d8c9fcc146be5c1f19710d8f6a9e3e0ef4668db934495",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/t1c.dg": {
+      "bytes": 14908,
+      "sha256": "babbf816fbefbd8913b2d8f815c89bbb9cea8ac93fbd62d589b2c8969a5c8867",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/t2c.dg": {
+      "bytes": 5455956,
+      "sha256": "677ac78c3b5574303c53837bff71a4b8cca98a8cd7e46f8513a58664b739d58d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_final/scratch/veff01.dg": {
+      "bytes": 8020,
+      "sha256": "a12df6f4ff421e035497e757977dcee954a1cd99b7c44c51a67e09a7c58acd7a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hh.dg": {
+      "bytes": 9300,
+      "sha256": "540b954ffe10c420b04835cfa66210c7b96148e05c3f9e2503b376fb64338b53",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hhhh.dg": {
+      "bytes": 2417684,
+      "sha256": "e9bf843b15f960a26981c8cc7f31a7f345d9d23d9e334cf63f7d11c15bfde6ef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hhhp.dg": {
+      "bytes": 4929204,
+      "sha256": "90b151fba64d2c8f650b18f3e26ec2ef553dde967822b27878532704edba953a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hhpp.dg": {
+      "bytes": 5455956,
+      "sha256": "b3fc0978b92e93cc43eb8e7e2d8324884f77df010e18f45f7d2c7748edc07eb8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hp.dg": {
+      "bytes": 14908,
+      "sha256": "1b9f2540c68969348ce7b127684ba08d1a0db0210b3fb3a0b46ad49845aced8b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hphh.dg": {
+      "bytes": 4929204,
+      "sha256": "d3b2ce063a2ca14fbbb88d614b9b9375a387ae903c63f1b554fd31e4e6caa407",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/hphp.dg": {
+      "bytes": 10053972,
+      "sha256": "5cea92ce3b74cfb3ebda80afc64396124cd0f03a18665cffbdabfd3c9b819b25",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/ph.dg": {
+      "bytes": 14908,
+      "sha256": "b6ed11ec088f450dd45bdc4e0e962118caeb45309e88a6c31b3ca41edc31a94a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/phhh.dg": {
+      "bytes": 4929204,
+      "sha256": "d4a1f39558926028cb679e9574f2002cbbc0eab7fc6545b2750091545f3e6cb5",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/phhp.dg": {
+      "bytes": 10053972,
+      "sha256": "a9718d4c4f09600be14dc2397229eeffb40b955058d526cbf9b731a54e79676e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/phpp.dg": {
+      "bytes": 11126412,
+      "sha256": "5799ec8d3627de6eeee75ae92bc61a2cde39b542a3f931c46c0ada1f534c42a2",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/pp.dg": {
+      "bytes": 24004,
+      "sha256": "9c3ffa09f5f6a6909f79954f118fe4d18582e07d34d495f1c508bcf9ea6b0c1b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/pphh.dg": {
+      "bytes": 5455956,
+      "sha256": "1c10b6a8840df4f5dc109a5d71718f2b4e112e9d91b159b1ce0643da7a0c5d9a",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/pphp.dg": {
+      "bytes": 11126412,
+      "sha256": "7c2ca53d05ddf95460881c13f370e28159fea8074daec413c7fe4a1a7b67b241",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/ppppr.dg": {
+      "bytes": 12315852,
+      "sha256": "1646c8300b14a6b47d435b14bb4d0e85e69c717ee33ee7b9129878f693a10556",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/pvpp.dg": {
+      "bytes": 9118260,
+      "sha256": "ad77d56e58e64ef91082a58b2f33ff49218b113253c5b86c6f95d0791c29c9ad",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/s1c.dg": {
+      "bytes": 13420,
+      "sha256": "cf63efc64a65be32d9b8257abd151ac7598ee42edd9762602b8b2b048a89346f",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/s2c.dg": {
+      "bytes": 8235900,
+      "sha256": "9d7a284f56882cf124370b288a69f5cc8f1428630a2b2298e14b3101bfa6353e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/t1c.dg": {
+      "bytes": 14908,
+      "sha256": "efb81a39ab67558fc5ffda37ef8e8f68e7629b9828c17ed4f39b71a26335211c",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/t2c.dg": {
+      "bytes": 5455956,
+      "sha256": "a4540f9a696df8e72cade7cd6a57951c9515413b8a783443a934523137e1dbbb",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v36_stream/scratch/veff01.dg": {
+      "bytes": 8020,
+      "sha256": "5776b4077f17cfedf0f2f920f966cebe26ea9050a4130dd3860d84ac16c957dc",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_final_export/ATOMX_TWO": {
+      "bytes": 66127600,
+      "sha256": "f5aef7acdc894f8df6f4d048a3d0d66eaa4d8d8ef79669d3c58b8883e0fb569e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/ATOMX_TWO": {
+      "bytes": 66127600,
+      "sha256": "f5aef7acdc894f8df6f4d048a3d0d66eaa4d8d8ef79669d3c58b8883e0fb569e",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hh.dg": {
+      "bytes": 9372,
+      "sha256": "e5847024c463b03a2ba4b727473a51b749a673097345d303ec6a80e93afa6987",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hhhh.dg": {
+      "bytes": 2420636,
+      "sha256": "6cc200e92cd4619d978cba934dd27a82869962109e1bb19c5e72ee9ad278faa2",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hhhp.dg": {
+      "bytes": 7394140,
+      "sha256": "bd13b773f958cd006d1e5e55e8eba95cde58ed795f1f2731ca59a789a3201072",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hhpp.dg": {
+      "bytes": 11431452,
+      "sha256": "624e09748db51b6edbced1fe9aba81f059ffd8df95c1819ba4492870520a14e5",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hp.dg": {
+      "bytes": 22028,
+      "sha256": "2fe8bb0163cd15d75701d78e60e232f3d4f43922ac2969db662ba67a7e57f198",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hphh.dg": {
+      "bytes": 7394140,
+      "sha256": "4361c312777be80e3b1ed2602a6855318ece64f56a16086ccbce9e899df716e0",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/hphp.dg": {
+      "bytes": 22615068,
+      "sha256": "4b212c6393047e441a7a15ce6b96cf0c8cbc4ac5c36f90e8f92b77858e277735",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/ph.dg": {
+      "bytes": 22028,
+      "sha256": "31ab1cbda4c43da15920b337dc04d4ece913d9e1717c05b36f4a673b2de89aef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/phhh.dg": {
+      "bytes": 7394140,
+      "sha256": "6ce99e91e5231e63011153038cbb992aa0e36d1a7bc6c64484af3ddba73a34bf",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/phhp.dg": {
+      "bytes": 22615068,
+      "sha256": "cf0feb8f8692398f3f523ec5de8379c33b3192b8d0c2224b2b201061a42646f1",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/phpp.dg": {
+      "bytes": 34961948,
+      "sha256": "8f5c25c18ad18eb1309b3818b7f593ad73c463e04622ae5449476dd6cf0a6ec8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/pp.dg": {
+      "bytes": 52540,
+      "sha256": "43441213be653480fae19b096b8673e27352e83f787da42ff29215bc90d980ba",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/pphh.dg": {
+      "bytes": 11431452,
+      "sha256": "94daff5a5e7d6a22ff78a89ff686639d03d0256b87a8c4ac1eb2240a5b28beef",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/pphp.dg": {
+      "bytes": 34961948,
+      "sha256": "b5fa2f94a31dac766988d889c42fb88857a513202eeed86fd2aeac8099685c96",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/ppppr.dg": {
+      "bytes": 54058268,
+      "sha256": "80ee46ad58b4de2ae687c4d38675fb573eb35504fdcc78d732508f14396c55c2",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/pvpp.dg": {
+      "bytes": 28641948,
+      "sha256": "d0ccd2f4775a35ead8ea8f48e175ac8a743ca448c890818ae9d11d43b6d42016",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/s1c.dg": {
+      "bytes": 19684,
+      "sha256": "37305a7e736f570787257a2e1df708f9b591beb94b6743fb9d4f317beb388b2f",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/s2c.dg": {
+      "bytes": 18521628,
+      "sha256": "dabc4beb7cb0f5761c82310fc0ec716dcfc4bb31e4f663ae027025df9fa23ed8",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/t1c.dg": {
+      "bytes": 22028,
+      "sha256": "408d670a1c3be648f49dca09b0a5e528c7fd2c9029bfb4c598e5d9c4453565f4",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/t2c.dg": {
+      "bytes": 11431452,
+      "sha256": "cfa6c05618f8c507b40e9ae0e609cf7d6d1d2f072a6fd43b3a20d41d81bfedff",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v54_stream/scratch/veff01.dg": {
+      "bytes": 8092,
+      "sha256": "5a58d38d1a9719d8a6a2e12ad5ec5df4186d7315283105193345df1f4cf59334",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/ATOMX_TWO": {
+      "bytes": 155024800,
+      "sha256": "91e7a1bdcde1f1274bf6de9741f77b7ba9f59a2acf03945063acff428ebc761b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hh.dg": {
+      "bytes": 9460,
+      "sha256": "f6413bec8d658a7b4d9b4f57508badd9298fb4c7f623022d09a3d56e8e933d44",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hhhh.dg": {
+      "bytes": 2426004,
+      "sha256": "a622dd7e407bb04d551a3cd1acde62ceec2c8688a260ae0bdf1fb05d70bb7e55",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hhhp.dg": {
+      "bytes": 9861492,
+      "sha256": "6872fbb7c2e330ef3e6ea5e94b6ca4026f03bf7e0345cc7008a05f82fe8230ed",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hhpp.dg": {
+      "bytes": 19449428,
+      "sha256": "dcb8f666c7dcaa730b9d63d757e6ff952e8ee5514643a6b9602888db035f7b54",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hp.dg": {
+      "bytes": 29164,
+      "sha256": "80730501b4c1670bd6099d0cc94dd786f14681c3407ffe2e0574c343c7c0267d",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hphh.dg": {
+      "bytes": 9861492,
+      "sha256": "d703347ef4271bb76fa85d42367c301a779ff196b73b972ca44b7fbae3edb780",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/hphp.dg": {
+      "bytes": 40200532,
+      "sha256": "b5423ffc65afac690426bd87c7f08411d6143e36041cba9dcd5fccf1cf03320b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/ph.dg": {
+      "bytes": 29164,
+      "sha256": "190651ac1476da208ca100e773965f0606d951ac350e8b36e359e84190401e2b",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/phhh.dg": {
+      "bytes": 9861492,
+      "sha256": "17bc0629e0ed0f9b0f73e801f1a2c55e74a3c167fffe5d7a9bd42ddd5c0e2502",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/phhp.dg": {
+      "bytes": 40200532,
+      "sha256": "069816d1f3867791009ebf3a224c4fd826f8826435ff3b3ff68b878407cd37ee",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/phpp.dg": {
+      "bytes": 79301372,
+      "sha256": "f81991d8d9d353f2057c7f2fa2141ef2877f6d6946728a251ba9a4167688a8ba",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/pp.dg": {
+      "bytes": 92228,
+      "sha256": "d5a4150a359ab4d28aeb57995288c55bfc9e7b1ca4bcdfa1bde56fbb5870861c",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/pphh.dg": {
+      "bytes": 19449428,
+      "sha256": "0cae6f1ffff9ff4ba4ee5d58c22e4675d88aadc32e64f32989bb9068d2fe680f",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/pphp.dg": {
+      "bytes": 79301372,
+      "sha256": "18067ef5375e5fe38325d0425dfdfc5c4b6cb16bf78bc2ff34661459e2d228cf",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/ppppr.dg": {
+      "bytes": 156459532,
+      "sha256": "118cc6f2d6f7ccb8725efe3875820067574de02d2a8487731d094fed3e97ae64",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/pvpp.dg": {
+      "bytes": 65009180,
+      "sha256": "a57ddfe73b53d3f78b04279fec87d4d48e894df1537dc710106e58540ae18617",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/s1c.dg": {
+      "bytes": 27452,
+      "sha256": "c8744499f494f58ebc1fa8e10ad35f9cd26fae2f98d8f9b4dd9199133a5a31e4",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/s2c.dg": {
+      "bytes": 32941380,
+      "sha256": "00e2465cf03c7e2292904dab4db6523fc1fde35ac203e7aa08d4367641b7e800",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/t1c.dg": {
+      "bytes": 29164,
+      "sha256": "863a3b7e7e7d55d9d376db4cd8429b54ac2db679940c3aaf76e3687cc3726e85",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/t2c.dg": {
+      "bytes": 19449428,
+      "sha256": "59cddd2e66a5042329dce9f2d21621c05f0af600f03e939ea80b5682f482cc96",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    },
+    "/data/code/atomx/docs/atomic_streaming_tail_2026_10_09/yb22_v72_stream/scratch/veff01.dg": {
+      "bytes": 10004,
+      "sha256": "1c1ed98638dac48e65acce7d4ae4c20d2a0161f64bf7e2d83e899c0d2b447d1c",
+      "reason": "Backend scratch/amplitude or >32-MiB integral capture retained locally"
+    }
+  },
+  "tests": [
+    "test_spinor_integrals_fscc.py",
+    "test_finite_ccsd.py",
+    "test_ci_sd_space.py",
+    "test_ci_effective_qspace.py",
+    "test_ci_effective_one_body.py",
+    "test_mbpt_matrix.py",
+    "test_architecture_boundaries.py",
+    "test_architecture_scientific_fidelity.py",
+    "test_streaming_spinor_integrals.py",
+    "test_ci_radial_snapshot.py"
+  ],
+  "test_helpers": [
+    "test_review_regressions.py",
+    "test_mbpt_sigma2.py"
+  ],
+  "scope": [
+    "Complete final 338-module Atomx source and current guides; ten selected test modules and two imported helpers",
+    "Pinned patched EXP-T executable and full build-essential LGPL/OpenBLAS source from the unchanged prior seal",
+    "Exact Yb V68 baseline, old Be/Yb electronic anchors, Ne manifests and all current small replay evidence",
+    "Integral captures >32MiB and backend .dg diagrams remain local with byte/hash identities",
+    "Linux x86_64/HASWELL executable needs GNU libgfortran.so.5; runtime/toolchain not bundled"
+  ]
+}

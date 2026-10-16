@@ -1,0 +1,12 @@
+--- captured/src/atomx/methods/mbpt_transitions.py
++++ final/src/atomx/methods/mbpt_transitions.py
+@@ -225,7 +225,8 @@
+                     pb, qb = eval_orbital_pair(Pb, Qb, data)
+                     if abs(float(np.sum(weights * (p*pb + q*qb)))) > 1e-7:
+                         raise ValueError("external valence orbital must be orthogonal to the core")
+-        a = tuple(valence_orbital)
++        P, Q, kap, reference_energy = valence_orbital
++        a = (np.asarray(P), np.asarray(Q), int(kap), float(reference_energy))
+     elif a is None:
+         same = [s for s in subshells if s.kappa == sh_a.kappa]
+         P, Q, _ = scf_result.orbitals_raw[sh_a.kappa][same.index(sh_a)]

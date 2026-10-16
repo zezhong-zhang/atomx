@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "status": "qualified_source_bound_public_attachment_ket_matrix",
+  "source_sha256": {
+    "src/atomx/methods/fscc.py": "3d7b0540f0f816cdaef77b7e3f3a2e5e49bf21df2d0b8f952890d388e475aec8",
+    "tests/test_fscc_heff_convention.py": "34ce6044f9c4cf36884922f52c9f349a467d54a9f1deb2b7737054bc431617bc",
+    "tests/test_fscc_backend_physics_capability.py": "d6e166773ab4bf2ab1a065a8dfa224b8ae24e62d1e79f3b4aba857de3e7776ff"
+  },
+  "guide_sha256": {
+    "docs/ATOMIC_FSCC.md": "db922417bdf0ed834a60bf3cd9f2bfccef1b5ec02ce1ff03d6f1dede2f57cc16",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "f89034b55234ab0bc38f541bddd2ab150378f8d216e95ecd5083ed63edc4dc8c",
+    "docs/TESTING.md": "0c78e94d6ae8a7ba25d20f4b5a9f8d2008075cdb4d0c6e50285004e21578fa54",
+    "docs/MIGRATION.md": "2c2d4386cb1d1267ea53b160f9c65256e1b672a456699575a4160119e72ebb3c"
+  },
+  "artifacts_sha256": {
+    "README.md": "fbfd46730cca6a3282212a94ac793ae79efbf58af56a74f173e19efc2cd9ecdf",
+    "replay_receipt.json": "cc2425b2db5bbb2cf872e85e6f8ccaf51e5b24b978215a35d4807b697851553d",
+    "public_replay_tests.txt": "0dff5a7b4f7b627aa5d5ba9609862b0c83a9c34efeac8569b0ff66edb0c0e2d9",
+    "artifact_copy_failure.json": "3e5d61ba0ea5dc84177fe4671b5a42fd57957c0b7b1d207ccc09f9aa8742f4da"
+  },
+  "direct_complex_comparison_sha256": "5f2899081a7c9c283c39cac4b1f3974fff22bf08f8191e7bb1c48fca1c8c2603",
+  "independent_review_sha256": "c67583d3e50277dccafe4027663d1f196b5f8cf2ed9b7757dee9013320c1b3a9",
+  "public_matrix_max_error_Ha": 6.827899680164789e-15,
+  "distinct_affected_checks": 54,
+  "panels": [
+    {
+      "passed": 53,
+      "skipped": 0,
+      "seconds": 32.74,
+      "scope": "eight-file affected live suite before new replay test/docstring clarification"
+    },
+    {
+      "passed": 12,
+      "skipped": 0,
+      "seconds": 0.44,
+      "scope": "expanded convention file, includes eleven already-counted tests and one new public replay"
+    },
+    {
+      "passed": 1,
+      "skipped": 0,
+      "seconds": 0.43,
+      "scope": "final source public replay, no new distinct test"
+    }
+  ],
+  "raw_parser_preserved": true,
+  "hole_ket_orientation_qualified": false,
+  "actual_MVCOEF_bytes_decoded": false,
+  "production_Yb_reproduced": false,
+  "experimental_gap_improved": false,
+  "documentation_disposition": "update four current guides and parent; retain old source epochs/failed evidence"
+}

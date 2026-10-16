@@ -1,0 +1,43 @@
+{
+  "representation": "on_demand",
+  "spinors": 154,
+  "virtual": 144,
+  "construction_seconds": 0.4126900569535792,
+  "export_or_solve_seconds": 20.67249749007169,
+  "end_to_end_seconds": 21.08518754702527,
+  "peak_RSS_bytes": 295915520,
+  "load_before": [
+    13.76953125,
+    11.73095703125,
+    10.4873046875
+  ],
+  "load_after": [
+    13.1640625,
+    11.73046875,
+    10.5146484375
+  ],
+  "producer": {
+    "matrix_builds": 1,
+    "radial_cache_hits": 19837699,
+    "radial_cache_misses": 2049697,
+    "radial_cache_entries": 8192,
+    "radial_cache_capacity": 8192,
+    "pair_potential_cache_hits": 2042954,
+    "pair_potential_cache_misses": 6353,
+    "pair_potential_cache_entries": 1024,
+    "pair_potential_cache_capacity": 1024,
+    "model": "immutable common B-spline Dirac-Coulomb orbital snapshot",
+    "hermitian_projection_max_Ha": 1.9225940284250953e-14,
+    "signed_cache_entries": 65536,
+    "signed_cache_capacity": 65536,
+    "pair_cache_array_bound_bytes": 4587520,
+    "representation": "on_demand",
+    "resident_matrix_bytes": 758912,
+    "resident_eri_bytes": 0,
+    "dense_eri_bytes": 1119980400
+  },
+  "eri_sha_matches_old": true,
+  "fock_error_Ha": 1.7763568394002505e-15,
+  "solved": null,
+  "timing_scope": "Core/complete-band construction and integral export; backend included only when solved is present"
+}

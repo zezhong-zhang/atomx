@@ -1,0 +1,37 @@
+{
+  "status": "source_only_update_targets_root_owned_application",
+  "targets": [
+    {
+      "path": "docs/TESTING.md",
+      "disposition": "update existing dense CI regression paragraph on application",
+      "proposed_text": "test_ci_dense_orthogonality.py replays a native clustered CI block at three energy zeros with the original closure and residual gates. Dense CI removes the nearest-integer Hartree origin of the first real block diagonal before LAPACK and restores it to energies; complete spectra use evd and partial spectra retain evr. Independent signed 2x2 tests at a large negative zero verify the full and subset eigenprojectors against an analytic angle formula, and verify residuals against the original unchanged Hamiltonian."
+    },
+    {
+      "path": "src/atomx/methods/ci.py",
+      "disposition": "new helper docstring already included in exact qualified source proposal",
+      "reason": "States scalar centering, copied original H and original-H residual requirement. Public signatures and Davidson unchanged."
+    },
+    {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "disposition": "retain existing exact-CI radial evaluator documentation",
+      "reason": "The route changes representation of the same complete signed cell kernel, without altering operator coverage, keys or cache ownership."
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "disposition": "retain",
+      "reason": "No new physical method, operator, backend or production stationarity capability."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "disposition": "root to link source adoption and affected-test receipt after actual application",
+      "reason": "Qualification003 is new-epoch equivalence only; preserve old route failures, native run005 identity and unresolved physical gates."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/RESULTS.md",
+      "disposition": "retain immutable closed private evidence",
+      "reason": "Actual result and source epoch remain unchanged. No controlled timing or shared adoption is retrospectively added."
+    }
+  ],
+  "shared_documentation_writes": 0,
+  "new_durable_insight": "When a route changes H summation order, qualify complete CI spans against the original H after a reusable common scalar centering rule, with a new source epoch; never relabel an earlier failed epoch as replayed."
+}

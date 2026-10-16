@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "tests": 113,
+  "seconds": 4.7,
+  "CPU": 25,
+  "threads": 1,
+  "timeout_seconds": 300,
+  "AS_enforced": false,
+  "command": "pytest -q tests/test_ci_density_streaming.py tests/test_mcdhf_state_resolved_derivative.py tests/test_mcdhf_gradient_reuse.py tests/test_ci_state_average.py tests/test_ci_charge_state_average.py tests/test_ci_overlap_response.py tests/test_ci_numeric_streaming.py tests/test_mcdhf_determinant_cap.py --durations=5",
+  "file_sha256": {
+    "src/atomx/physics/csf/radial_density.py": "3aa840088f2428cd0d812071845b3f0dccc194364aeb5498ce882d0af49ed671",
+    "src/atomx/methods/csf/variational.py": "33233726c8a645c011c7767499d562ce0ea4e766f4e067d19e809c0c1aa17cd9",
+    "tests/test_ci_density_streaming.py": "5b4edb83d2ea7d4f899204323a64f44ace2033cac4063434aecd46de098894fa",
+    "tests/test_ci_numeric_streaming.py": "a8398ed2b60db47d2a9d213f1b41efe832a6771ad4c01ee054a0f8311b027a4e",
+    "tests/test_mcdhf_state_resolved_derivative.py": "ec99b5f65817e83d1738bafb9ad38becd62a2a564e385ecf2124e1d1ae9e5369",
+    "tests/test_mcdhf_gradient_reuse.py": "b0c282d52060f362853991672348e1ecbe0fd000b2efdccebe1abd2644546826",
+    "tests/test_ci_state_average.py": "5c2b2ca19654a963b0979c9e781c3139e19a84e881d849cc42db015379e0e82d",
+    "tests/test_ci_charge_state_average.py": "4379f2f179c8805e9414ee8aed1d8ddfb452aa6bbf9154466c09443ac18cd4a6",
+    "tests/test_ci_overlap_response.py": "5dc9f39db7bd7063ec283426139ec9e86098aa0bde1f2aa91a59ab0b970933b9",
+    "tests/test_mcdhf_determinant_cap.py": "9e9cfcb562641591f431cb699b24137c0b4154bf9e8c68117d0707763df725c5"
+  }
+}

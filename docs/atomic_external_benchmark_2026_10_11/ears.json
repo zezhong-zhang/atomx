@@ -1,0 +1,15 @@
+{
+  "recorded_at_UTC": "2026-10-11T04:27:23.824692+00:00",
+  "expectation": "Compare complete same-H signed inputs under original precision/resource gates; distinguish numerical fidelity, method error, experiment and timing scope.",
+  "action": "Three authorized independent preparation lanes and common timing lock; paired 1/2/4/8 observations and full array/source/backend/runtime audits. Retained failed guards and polling-wait observations; private blocking child timers do not change production defaults. Actual bounded CUDA replay and archived strict same-state NIST audit. Source-bound card and standalone chart sent and server readback verified.",
+  "results": {
+    "AMBiT_max_error_Ha": 1.4293680984916318e-21,
+    "finite_SD_max_error_Ha": 8.673617379884035e-19,
+    "selected_checks_passed": 37,
+    "independent_artifacts_verified": 1829,
+    "root_Na_arrays_verified": 500,
+    "Yb_complete_rounds": 3,
+    "delivery_verified": true
+  },
+  "significance": "Measured operator fidelity passes. Large Yb term2 signed stress has useful scaling; small workloads have weak scaling or slow down. Shared diagrams and inherited FSCC engine do not establish independent production solver superiority. Original experimental 1% gate remains failed; full SD solve and physical tails remain open. GPU load guard failed and controlled speedup is null. Highest level not reached."
+}

@@ -1,0 +1,52 @@
+{
+  "hypothesis": "The strict whole-H identity failure is either a tiny numerical source epoch difference or a material matrix change.",
+  "fixed_conditions": "Already closed literal recovered31 point, full1595 H/E/C, entire identical owner payload and all31 P/Q; no source migration or physical reevaluation.",
+  "inputs": {
+    "old_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "new_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_whole_CI.npz",
+      "sha256": "22d8b69d958663ec8cb915ad225eccb2e92032914a7ec342058a2c4e1c46ee9e"
+    },
+    "old_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "new_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "failed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/failure.json",
+      "sha256": "6cac50e2b357e4d3b95550196b8628798c42589723cfdf0d045882d6e091e6a7"
+    },
+    "failed_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/root_execution.json",
+      "sha256": "b8388cf1fcda83d26b53fb99e1443083b22fcdfb67453a3d2f3374533ad7e745"
+    }
+  },
+  "distinguishing_measurements": [
+    "full signed H difference, bitwise count and same-sign ULP",
+    "all1595 residuals old_on_old, new_on_new, old_on_new, both full Gram matrices"
+  ],
+  "acceptance": "Offline prerequisites all pass. Original whole-H byte gate remains exact; residual1e-8Ha/Gram1e-10 are diagnostic only and never replace it.",
+  "stop": "One attempt, no retry or physical continuation on either outcome. Stop immediately on identity/nonfinite/shape failure or60CPU/75wall seconds.",
+  "resources": {
+    "cpu": 31,
+    "threads": 1,
+    "address_space_bytes": 2147483648,
+    "cpu_seconds": 60,
+    "wall_seconds": 75,
+    "decoded_array_bytes_max": 100000000,
+    "NPZ_load": 2,
+    "full_matrix_products": 5,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "eigensolve": 0,
+    "SVD": 0
+  },
+  "no_card_or_timer": true
+}

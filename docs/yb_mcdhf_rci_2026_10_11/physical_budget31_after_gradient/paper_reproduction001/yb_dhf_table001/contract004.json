@@ -1,0 +1,41 @@
+{
+  "hypothesis": "Original-pencil constrained Newton and preserving that exact leading vector through complete physical-metric reconstruction remove the embedding defect without changing any physical input, branch, column count or gate.",
+  "parent": "contract003.json; all physical inputs and scientific gates unchanged",
+  "method": "Exactly two bordered corrections in original H/S with all occupied constraints; one whole-branch original-metric projection/ordered QR; preserve corrected leading column verbatim. No step/rank/grid/cutoff/tolerance scan.",
+  "source": "source003.json, unchanged359 production Python files",
+  "input_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/result.json": "c618d13a96b4649d56be2c790118318606787a1cdb8b299c04fc2d63e0ce86f0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/contract003.json": "0254683ea61d5401a11e87a822ca9068465dcd2e4b74413d4c696721ef899dd0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/source003.json": "d5243dca723eee5edb2098e45601738260039e735c5f1cb1ee7fda8de37bbdf4",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/constrained_pair.py": "ee8181bed0b2191502e8c3ddd89d6c72cf5167c8f8305597c955beaa2d15af87",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/repair_saved004.py": "52fcbf0b583902e0af70b8a2d99335daf943de297c1c23b3412f504aa01d2588",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/saved_data_review.json": "0bba0a353bb5000c2563eec491cb1b5b6905ac35ac2cafa04a429060d83b79d7",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/physical_pair_diagnosis002.json": "16c1471a1bee5696f13663cb4d65331a77ad7f2900482f8c4432378066230032",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/blocks_ns180.npz": "b8da261e32ae2a4ed5666ce4d2fc3fbc4488c39fb6bb1310a7a8cb6d49794544",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/core_ns220.h5": "cc3c7ec4eb9c20d79c47f2127e037414410cc53b60762f5b2f27edc4e798ad0b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/blocks_ns220.npz": "c6e51939579bd6b690824a9926c9a7fdd92674c85bc9597942ba2324bad56cd8"
+  },
+  "limits": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "seconds": 120,
+    "memory": "complete two saved sets <128MiB NumPy inputs; <3GiB anticipated RSS",
+    "Fock_builds": 0,
+    "SCF_solves": 0,
+    "CI_calls": 4,
+    "raw_determinants": 32
+  },
+  "acceptance": {
+    "target_original_dual_Ha": 1e-08,
+    "physical_Gram": 1e-10,
+    "core_overlap": 1e-10,
+    "column_change_S_norm": 1e-08,
+    "CI_ledger_Ha": 1e-07,
+    "CI_residual_Ha": 1e-08,
+    "radial_drift_cm1": 1.0
+  },
+  "stopping": "First failed gate stops and preserves evidence; no fallback or gate relaxation",
+  "scope": "Independent DC DHF baseline and static properties only; no full paper RCCSDT,69e-MCDHF convergence or experimental precision claim"
+}

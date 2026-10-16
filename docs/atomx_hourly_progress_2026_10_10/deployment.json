@@ -1,0 +1,256 @@
+{
+  "verified_at": "2026-10-10T16:39:41.335976+00:00",
+  "timer": {
+    "ActiveState": "active",
+    "UnitFileState": "enabled",
+    "NextElapseUSecRealtime": "Sun 2026-10-11 01:00:00 HKT",
+    "LastTriggerUSec": "Sun 2026-10-11 00:00:00 HKT"
+  },
+  "service": {
+    "Result": "success",
+    "ExecMainStatus": "0"
+  },
+  "unit_sha256": {
+    "atomx-lark-hourly-aisi-codex.timer": "dc4209ff1c589246e56c5ee798fa123379f48fdc4716367acb3e498a243dc567",
+    "atomx-lark-hourly-aisi-codex.service": "7c97b1af1c0577abf7fac7b1fb44902c53981c6f714b68c7b7385858a269d7f4"
+  },
+  "user_manager_linger": "Linger=no",
+  "actual_receipts": [
+    {
+      "file": "receipt_02b9a121-8338-504c-b964-d24bf3c403b0.json",
+      "ok": true,
+      "message_id": "om_x100b6392ef50c8a4dfa9dcd8e53ad50",
+      "sha256": "4df67a14a95455c7aff6c9be32d56e046166896cc662d1e4bd0424f6c6d1891b"
+    },
+    {
+      "file": "receipt_45dc5dfc-938b-5b37-a136-a29768461ca4.json",
+      "ok": true,
+      "message_id": "om_x100b6392248d80a0df31cfebec8371d",
+      "sha256": "f288a28dedb74ae6c0678cad54cc0a065f39f7d1579b1b2bae5335238dfb2cc2"
+    },
+    {
+      "file": "receipt_9d8f557e-bbda-54c4-9f60-ac85fce3a52c.json",
+      "ok": true,
+      "message_id": "om_x100b639246d34ca4c4fd515e6ad693c",
+      "sha256": "0e82593bd68f9684fc220691edd4603925fe3530106591fb1d8ca64ffe11cb0e"
+    },
+    {
+      "file": "receipt_b3a5de8a-f6b2-5a8b-ac2d-f650b0c14b3a.json",
+      "ok": true,
+      "message_id": "om_x100b63925ec128a0c2468294c17b43d",
+      "sha256": "075bcb45032e8a188d0a87433e384893420b2ec7a47218df81a4dac1eddf9437"
+    }
+  ],
+  "latest_phase_success": {
+    "started_at": "2026-10-10T16:38:49.250498+00:00",
+    "cycle": "transverse-noncanonical-gap-2026-10-11",
+    "idempotency_key": "02b9a121-8338-504c-b964-d24bf3c403b0",
+    "evidence": [
+      {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+        "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+      },
+      {
+        "path": "docs/rare_earth_yb_spectrum_2026_10_08/comparison.json",
+        "sha256": "9c97796d67212a18e8451bcc577abe66530a062a12a03b32eb15fd6c3a4853ad"
+      },
+      {
+        "path": "docs/xfel_experimental_spectrum_2026_10_04/comparison.json",
+        "sha256": "2203d86fde2bb52734812480bb6b01b4e8a7fa7d31be7ac61c6ddc784a824a2a"
+      },
+      {
+        "path": "docs/comparison_xraypac_fac_rerun_2026_10_02_113532/validation.json",
+        "sha256": "167c9a54627d1eb74ec21a4671c582c77538973915b0ac95e3b767cbeb66795b"
+      },
+      {
+        "path": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json",
+        "sha256": "08277b60c5b5c42b626e0f04671a4095a0b4b9334f0f7fa5c45a5d975688dd2c"
+      },
+      {
+        "path": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json",
+        "sha256": "08277b60c5b5c42b626e0f04671a4095a0b4b9334f0f7fa5c45a5d975688dd2c"
+      },
+      {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+        "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+      },
+      {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+        "sha256": "aa2dcebdfee0e1987d7f39709f02256cbf7a450b582d1098feaefae0f1d01120"
+      },
+      {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+        "sha256": "21ccbfd8e2f91ae43e369a46fb2509f35086d522f4aa0ad9ff46503752a4c8f0"
+      }
+    ],
+    "registry_sha256": "b0fb4bfa434ed14a83bbca5a04b5524e19a3455e86605c201ef8000a645c6434",
+    "renderer_sha256": "592fe85df0d5688f931770173c30463496776b935e46ecb4b3739f3548b018f0",
+    "passed": true,
+    "message_id": "om_x100b6392ef50c8a4dfa9dcd8e53ad50",
+    "finished_at": "2026-10-10T16:38:50.275618+00:00"
+  },
+  "scope": "Installed independent user timer, actual manual and 00:00 HK scheduled deliveries. Requires live machine and user manager. Reports saved evidence only; no automated science execution. No tokens or account configuration copied.",
+  "receipt_triggered_iteration_2026_10_11": {
+    "verified_at": "2026-10-10T17:10:54.015637+00:00",
+    "actual_delivered_cycles": [
+      {
+        "job_id": "finite_ns42_DC",
+        "cycle": "nist-atlas-published-2026-10-11",
+        "message_id": "om_x100b63935fbf48a0c3ed81475d59eca",
+        "status": "completed",
+        "started_at": "2026-10-10T17:08:39.674704+00:00",
+        "finished_at": "2026-10-10T17:08:40.939947+00:00",
+        "result_sha256": "c94201b8962e1f855e3fb035278b725e1864c737df341fb009d70643df340da5"
+      },
+      {
+        "job_id": "finite_ns42_dynamic",
+        "cycle": "nist-atomic-iteration-2026-10-11",
+        "message_id": "om_x100b6392a1efeca4c3387195540140b",
+        "status": "completed",
+        "started_at": "2026-10-10T16:59:30.666548+00:00",
+        "finished_at": "2026-10-10T16:59:32.082116+00:00",
+        "result_sha256": "6e3ba335578a5b689960241c75b428345589ec67d6d041ebd8bc24bb95d25996"
+      },
+      {
+        "job_id": "finite_ns42_static",
+        "cycle": "2026-10-10T17",
+        "message_id": "om_x100b6392bfd650a4c346fae28784204",
+        "status": "completed",
+        "started_at": "2026-10-10T17:00:02.227597+00:00",
+        "finished_at": "2026-10-10T17:00:03.593134+00:00",
+        "result_sha256": "347f0f2bf30e3344fdf173374ea562324b2600baa7a25f85d20324aed55b448e"
+      }
+    ],
+    "numerics": [
+      {
+        "job": {
+          "id": "finite_ns42_DC",
+          "kind": "finite_transverse_bloch",
+          "ns": 42,
+          "mode": "DC"
+        },
+        "bloch_equation_max_Ha": 8.351803147456759e-15,
+        "backend_heff_max_Ha": 9.2148511043888e-15,
+        "backend_strict_1e10_gate_pass": true,
+        "source_and_inputs_unchanged": true
+      },
+      {
+        "job": {
+          "id": "finite_ns42_dynamic",
+          "kind": "finite_transverse_bloch",
+          "ns": 42,
+          "mode": "dynamic"
+        },
+        "bloch_equation_max_Ha": 6.3118609454728454e-15,
+        "backend_heff_max_Ha": 8.749847513200848e-10,
+        "backend_strict_1e10_gate_pass": false,
+        "source_and_inputs_unchanged": true
+      },
+      {
+        "job": {
+          "id": "finite_ns42_static",
+          "kind": "finite_transverse_bloch",
+          "ns": 42,
+          "mode": "static"
+        },
+        "bloch_equation_max_Ha": 5.914385086998097e-15,
+        "backend_heff_max_Ha": 8.749624358372898e-10,
+        "backend_strict_1e10_gate_pass": false,
+        "source_and_inputs_unchanged": true
+      }
+    ],
+    "pending_jobs": 9,
+    "highest_level_reached": false,
+    "private_site_unauthenticated_http_status": 403,
+    "website_snapshot_only": true
+  },
+  "iteration_service": "atomx-atomic-iteration-aisi-codex.service",
+  "iteration_path_unit": "atomx-atomic-iteration-aisi-codex.path",
+  "adaptive_increment": {
+    "date": "2026-10-11T00:24:53.088668+00:00",
+    "actual_completed_actions": [
+      {
+        "job_id": "adaptive_bloch_partition_c8e4c816342e38460b57",
+        "cycle": "adaptive-gap-policy-001",
+        "message_id": "om_x100b639914c198a0c120b4781150225",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_bloch_partition_c8e4c816342e38460b57",
+        "result_sha256": "a16d38d87c72f8dafdbc56371d303a60b20868559d1ad218124204444a78f577"
+      },
+      {
+        "job_id": "adaptive_whole_transverse_control_305bc66990493034e3d7",
+        "cycle": "adaptive-whole-transverse-threehalves-001",
+        "message_id": "om_x100b63992ed038a0c42ba9dccf009b0",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_305bc66990493034e3d7",
+        "result_sha256": "cf24e9ae98f1d7b276ee93710a4200e9a9cd463b2dff9f2d30c125f55708de4d"
+      },
+      {
+        "job_id": "adaptive_whole_transverse_control_8cdb1d19d577277ade5c",
+        "cycle": "adaptive-whole-transverse-half-001",
+        "message_id": "om_x100b639913d5c0a0c2feacc1f385780",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_8cdb1d19d577277ade5c",
+        "result_sha256": "a0238d005be263517080d3a796efcbb134f8401c38ecf5d2101c212812799679"
+      }
+    ],
+    "final_frontier_receipt": {
+      "message_id": "om_x100b63993c1baca4df39562f39c76a0",
+      "cycle": "adaptive-linear-equation-frontier-001",
+      "passed": true,
+      "iteration_preview_sha256": "1e6fab3a9ba05ba389c981da6a6aa3808df18668d95f710e04f0535153e270de"
+    },
+    "current_status": "implementation_frontier",
+    "direction": "优先审计非 canonical 核—价 Fock 耦合的线性依赖图项，推导完整 0h1p 方程并验证候选后端。",
+    "controller_source_archive": {
+      "files": {
+        "iteration_planner.py": "5e09eac91541f795c2ad311e8b96d08b94ccb2640c2358b1193e7914b39d61b8",
+        "iteration_worker.py": "5f3c316b4d66d6d8a31b1c8552592eb72b0ec4b7f30a273add1137b26dc031b3",
+        "run_gap_step.py": "6ba5603092cdee16a941015f7f99e5b45f56a0167d84776e2abf76f89c53842d",
+        "run_iteration_step.py": "538a063c9dc2429c4fedc225a1bd82d6a64b800d04c41a52eabd111884a2443b",
+        "sync_card.py": "9c350ba125b46971d74a4668fe29624830f97ec5ee9d0544a637374e77b7d684",
+        "iteration_policy.json": "eb0a96aa68cb3bcf39e8053306b4b6f37df506b603f5b1621fe18fe39a03173f",
+        "iteration_queue.json": "f1d58e37c2661a75cfc3c7884d4064a8644483c2944b29d7f23d2ed65554b937",
+        "progress.json": "03e78d5154ac903cee1729987f3916ed3346bc556b841539b98553fb32a35db8"
+      },
+      "archive": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_decisions/01b34071-8b3d-5e0b-8c45-07b012fdb6b9_sources.tar.gz",
+      "archive_sha256": "6211fa6ce0320dee52d827c2e2055e4658c5f81290175ee095a0fbf8b60d9132"
+    },
+    "tests": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "18",
+      "time": "0.766",
+      "timestamp": "2026-10-11T08:23:33.030561+08:00",
+      "hostname": "fermi"
+    },
+    "local_doc_targets": 495,
+    "missing": [],
+    "source_sha256": {
+      "docs/atomx_hourly_progress_2026_10_10/run_iteration_step.py": "538a063c9dc2429c4fedc225a1bd82d6a64b800d04c41a52eabd111884a2443b",
+      "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "9c350ba125b46971d74a4668fe29624830f97ec5ee9d0544a637374e77b7d684",
+      "docs/atomx_hourly_progress_2026_10_10/iteration_worker.py": "5f3c316b4d66d6d8a31b1c8552592eb72b0ec4b7f30a273add1137b26dc031b3",
+      "docs/atomx_hourly_progress_2026_10_10/run_gap_step.py": "6ba5603092cdee16a941015f7f99e5b45f56a0167d84776e2abf76f89c53842d",
+      "docs/atomx_hourly_progress_2026_10_10/iteration_planner.py": "5e09eac91541f795c2ad311e8b96d08b94ccb2640c2358b1193e7914b39d61b8",
+      "docs/atomx_hourly_progress_2026_10_10/iteration_policy.json": "eb0a96aa68cb3bcf39e8053306b4b6f37df506b603f5b1621fe18fe39a03173f",
+      "docs/atomx_hourly_progress_2026_10_10/progress.json": "03e78d5154ac903cee1729987f3916ed3346bc556b841539b98553fb32a35db8",
+      "tests/test_atomic_iteration_planner.py": "37f8f4789f8a1aae04586d35311cbd2246ba010a989cbaae3d3db69e18887eb7",
+      "tests/test_atomic_iteration_queue.py": "a94c8e5ea69b474f3b14c45781309f0cec2086b1491fc73ac2c37e49345c20e6"
+    },
+    "highest_level_reached": false,
+    "production_physics_changed": false,
+    "backend_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "limitations": [
+      "Registered bounded experiment execution and deterministic direction rules; no arbitrary automatic physics implementation",
+      "First three decisions retained source hashes/complete job inputs; exact controller archive starts with the final frontier receipt",
+      "No controlled performance ratio, changed-H correction or experiment pass inferred"
+    ],
+    "final_local_doc_targets": 499,
+    "final_link_review_at": "2026-10-11T00:25:58.814497+00:00",
+    "ruff_check": "6 affected Python files passed",
+    "ruff_format_check": "6 passed",
+    "diff_check": "passed"
+  }
+}

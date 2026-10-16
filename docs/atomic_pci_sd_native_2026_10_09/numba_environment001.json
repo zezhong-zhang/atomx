@@ -1,0 +1,58 @@
+{
+  "successful_versions": {
+    "packages": {
+      "numpy": "2.2.6",
+      "numba": "0.65.0",
+      "llvmlite": "0.47.0",
+      "numba-cuda": "0.30.4",
+      "cuda-bindings": "13.4.3",
+      "cuda-core": "1.2.1",
+      "cuda-toolkit": "13.2.2",
+      "nvidia-nvvm": "13.2.86",
+      "nvidia-nvjitlink": "13.2.86",
+      "nvidia-cuda-runtime": "13.2.86",
+      "nvidia-cuda-nvrtc": "13.2.86"
+    },
+    "numpy_path": "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/__init__.py",
+    "numba_path": "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/__init__.py",
+    "cuda_path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/__init__.py",
+    "cuda_source_sha256": "0328d8c60ec408bcd9f92527f99de1f2f871fe6fc7962f8b88ce2fb53df28c21",
+    "CUDA_PATH": "/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13",
+    "LD_LIBRARY_PATH": "/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib",
+    "device": "<CUDA device 0 'NVIDIA GeForce RTX 4090'>",
+    "driver_report": "name, uuid, compute_cap, driver_version, memory.total [MiB], memory.free [MiB]\nNVIDIA GeForce RTX 4090, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 8.9, 595.91.07, 49140 MiB, 46818 MiB\n"
+  },
+  "install_log": "numba_cuda_install001.log",
+  "installation_scoped_to": "numba_cuda_runtime package target, main .venv unchanged",
+  "pre_arithmetic_discovery_observations": [
+    {
+      "method": "sys.path.append only",
+      "observed": "deprecated builtin target loaded, cuda.is_available false; device visible",
+      "reason": "distribution .pth redirect not processed"
+    },
+    {
+      "method": "site.addsitedir without explicit library roots",
+      "observed": "libcudart discovery failure before kernels"
+    },
+    {
+      "method": "CUDA_PATH only",
+      "observed": "libnvvm discovery failure before kernels"
+    },
+    {
+      "method": "CUDA_PATH plus Numba lib in LD_LIBRARY_PATH",
+      "observed": "new target available; actual8rank gate passes"
+    },
+    {
+      "method": "full CuPy integration with only Numba library root",
+      "evidence": "numba_full_fields001/failure.json",
+      "observed": "cuBLAS discovery failure before arithmetic"
+    },
+    {
+      "method": "two explicit library roots",
+      "evidence": "numba_full_fields002/result.json",
+      "observed": "complete5column gate passes"
+    }
+  ],
+  "observations_source": "interactive tool diagnostics; formal full failure/run evidence linked",
+  "controlled_gpu_gain": null
+}

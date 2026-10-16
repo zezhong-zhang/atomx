@@ -1,0 +1,394 @@
+{
+  "error": "FrozenInstanceError: cannot assign to field 'resolve'",
+  "phase": "admitted",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/run.py\", line 356, in execute\n    tracker.resolve = resolve\n  File \"<string>\", line 4, in __setattr__\ndataclasses.FrozenInstanceError: cannot assign to field 'resolve'\n",
+  "attempted": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "initial_hS": 7,
+    "CI_internal_hS": 0,
+    "mixed_hS": 0,
+    "scipy_eigh": 0,
+    "polar": 0,
+    "polar_eigh": 0,
+    "tracking_resolve": 0,
+    "tracking_SVD": 0,
+    "tracking_overlap": 1,
+    "bilinear_RDM": 0,
+    "retained_H_getter_requests": 0,
+    "Dirac": 0,
+    "optimizer": 0,
+    "eigvalsh": 0
+  },
+  "completed": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "initial_hS": 7,
+    "CI_internal_hS": 0,
+    "mixed_hS": 0,
+    "scipy_eigh": 0,
+    "polar": 0,
+    "polar_eigh": 0,
+    "tracking_resolve": 0,
+    "tracking_SVD": 0,
+    "tracking_overlap": 1,
+    "bilinear_RDM": 0,
+    "retained_H_getter_requests": 0,
+    "Dirac": 0,
+    "optimizer": 0,
+    "eigvalsh": 0
+  },
+  "controls": [
+    {
+      "name": "complete69e_531_2163_1046",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "signed_ordered_CSF_identity",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "whole29_order",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_-2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_-2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_-2",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_-4",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_-4",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_-4",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_-3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_-3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_-3",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_L_rawh_-1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "logical_saved_h_-1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_S_-1",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "full_coordinate_dimension",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_original_metric_SHA",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_same_physical_geometry_SHA",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_same_literal208_state_SHA",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_all29_keys",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(1, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(2, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(2, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(2, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(3, -3)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(3, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(3, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(3, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(3, 2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, -4)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, -3)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, 2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(4, 3)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(5, -3)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(5, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(5, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(5, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(5, 2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(6, -3)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(6, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(6, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(6, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(6, 2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(7, -2)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(7, -1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal_Px_(7, 1)",
+      "error": 0.0,
+      "gate": 0.0,
+      "passed": true
+    }
+  ],
+  "later_phases_not_executed": true
+}

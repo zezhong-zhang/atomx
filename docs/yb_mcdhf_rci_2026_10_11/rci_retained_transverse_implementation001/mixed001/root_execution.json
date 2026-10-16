@@ -1,0 +1,25 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 1,
+  "binding_sha256": "54bde45340b652c005eb19e951be77cd43c864c0186a8a0cd8e8d783997c0719",
+  "command": [
+    "/usr/bin/timeout",
+    "--kill-after=5s",
+    "915s",
+    "/usr/bin/taskset",
+    "-c",
+    "1",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_launch.py",
+    "--child"
+  ],
+  "elapsed_uncontrolled_s": 68.10256903315894,
+  "source_unchanged": true,
+  "input_files_unchanged": true,
+  "controlled_timing": false,
+  "log_sha256": "e78233f3f617e3c341dd49d7bad81f1f8aa868c19355d090699b0cdaf0145f3a",
+  "resource_admission": {
+    "MemAvailable_bytes": 120442486784,
+    "load1": 10.0068359375
+  }
+}

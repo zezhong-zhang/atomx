@@ -1,0 +1,33 @@
+{
+  "guard_qualification_execution_authorized": true,
+  "contract_sha256": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+  "runner_sha256": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+  "test_sha256": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+  "preparation_verification_sha256": "6c206078d1de303e7380a0f82a2fcbf4c8fb2a4c8b46b21924d52a9275e9f1a2",
+  "created_at_utc": "2026-10-11T12:11:28.238588+00:00",
+  "root_reviewed_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/preparation_verification.json": "6c206078d1de303e7380a0f82a2fcbf4c8fb2a4c8b46b21924d52a9275e9f1a2",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/run.py": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/README.md": "25503dc8fe30add88767086baaa17ad4f404a6da82507d110c89975becf612e3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/verify_preparation.py": "a25fcf0ec35405f62dd8d1ffcd0d317188d5e54bdcf600fffd15a74f58b96c32",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/contract.json": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/root_launch.py": "492111eb83c30d25633a613dc727bc310115cc22b2126322a3071bd4e9087e98"
+  },
+  "root_reviewed_complete_run_and_tests": true,
+  "root_reviewed_public_snapshot_producer": true,
+  "source_only_preparation_checks": 761,
+  "CPU_affinity": [
+    31
+  ],
+  "load_at_seal": [
+    9.0595703125,
+    9.1171875,
+    9.150390625
+  ],
+  "actual_iteration_card_message_id": "om_x100b6383eae7d4a8c003c0c8155970e",
+  "expected_card_delivery_proof_sha256": "3829fa593ebbe279f8da47bd02250c2052f2a2122b943420653250a66d7664ed",
+  "scope": "1 genuine native baseline H, no CI/g/finite radial rerun; unchanged saved medium derivative gates and 17 negative/legacy categories",
+  "production_or_optimizer_adoption_authorized": false,
+  "outer_wall_cap_s": 135
+}

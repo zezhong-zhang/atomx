@@ -1,0 +1,27 @@
+START_SCF 180
+FOCK 180 -4
+FOCK 180 -3
+EA 180 (5, -3) -66036.90437153423 1.3850650845531012e-11
+FOCK 180 -2
+FOCK 180 -1
+EA 180 (6, -1) -90789.22753618659 2.402281265228695e-11
+FOCK 180 1
+FOCK 180 2
+EA 180 (5, 2) -66516.48627741636 4.0485332965390406e-12
+FOCK 180 3
+ARM_COMPLETE 180 [-90789.22753618659, -66516.48627741636, -66036.90437153423] [24272.741258770227, 24752.323164652364]
+START_SCF 220
+FOCK 220 -4
+FOCK 220 -3
+EA 220 (5, -3) -66036.90437181255 2.3151554657390067e-11
+FOCK 220 -2
+FOCK 220 -1
+END FAILED 101.41541568299726
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run002.py", line 366, in <module>
+    prepare() if args.prepare else run()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run002.py", line 259, in run
+    gate(f'{ns}:representation_repair_Gram:{kappa}',
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run002.py", line 129, in gate
+    raise AssertionError(name + ': ' + str(value))
+AssertionError: 220:representation_repair_Gram:-1: 1.5466428138211086e-10

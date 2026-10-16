@@ -1,0 +1,51 @@
+{
+  "available_CPUs_before_pinning": 32,
+  "original_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "load_average": [
+    9.14453125,
+    9.26904296875,
+    9.44189453125
+  ],
+  "load1_per_original_available_CPU": 0.2857666015625,
+  "host_available_GiB": 112.45381546020508,
+  "affinity_policy": "original sorted affinity[-2]; fail if fewer than3cores",
+  "admitted": true,
+  "purpose": "Resource feasibility only; no controlled timing certificate",
+  "pinned_CPU": 30,
+  "actual_pinned_affinity": [
+    30
+  ]
+}

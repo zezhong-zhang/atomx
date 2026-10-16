@@ -1,0 +1,16 @@
+{
+  "status": "controlled_performance_withdrawn",
+  "trigger": "Scientific review identified quantized .314/.664/1.065 s subprocess.run(timeout=120) exponential 50ms wait polling.",
+  "original_result_sha256": "de7e0c8eb32a7b7ba52429b2165b585dd8b63bb148b4b36d48c9773741cf6834",
+  "original_output_manifest_sha256": "1298bbed64b260391b2d76782927722abf28b7c8605a3d0fe88886e792f7f2fd",
+  "scientific_full_arrays_gates_retained": {
+    "source_unchanged": true,
+    "all_repeats_full_signed_correct": true,
+    "all_finite_CI_residual_metric_pass": true
+  },
+  "performance_speedup": null,
+  "performance_efficiency": null,
+  "wrapper_overhead": null,
+  "actual_p2_process_thread_peak": 5,
+  "replacement": "Prospectively declared blocking-wait + owned-child watchdog run003; same H, sources, binary, all eight states and original scientific/resource gates."
+}

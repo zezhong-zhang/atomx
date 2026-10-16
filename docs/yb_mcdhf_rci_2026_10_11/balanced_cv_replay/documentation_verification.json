@@ -1,0 +1,391 @@
+{
+  "all_passed": true,
+  "checks_count": 95,
+  "checks": [
+    {
+      "name": "local_link:contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:../balanced_cv_frontier/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link:../native_run/nuclear_eol005_projected_increment/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:../cv_discriminator/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link:degeneracy_audit.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:presentation.json",
+      "passed": true
+    },
+    {
+      "name": "local_link:spectral_summary.csv",
+      "passed": true
+    },
+    {
+      "name": "local_link:energy_increments.csv",
+      "passed": true
+    },
+    {
+      "name": "scientific_replay_passed",
+      "passed": true
+    },
+    {
+      "name": "scientific_gate_count_in_README",
+      "passed": true
+    },
+    {
+      "name": "execution_gate_count_in_README",
+      "passed": true
+    },
+    {
+      "name": "scientific_result_unchanged_by_presentation",
+      "passed": true
+    },
+    {
+      "name": "presentation_verified_input",
+      "passed": true
+    },
+    {
+      "name": "presentation_script",
+      "passed": true
+    },
+    {
+      "name": "presentation_csv_hashes",
+      "passed": true
+    },
+    {
+      "name": "presentation_final_state_rows",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/DC/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/DC/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/DC/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/DC/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6s_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d_5/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d_5/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p_1/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/5d/splitting",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f/6p/splitting",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6s_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d_5/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d_5/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p_1/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/5d/splitting",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p/6p/splitting",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_5/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_1/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_3/2/table_energy",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6s_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d_5/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p_1/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p_3/2/absolute_shift_Ha",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d_5/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p_1/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p_3/2/same_state_transition_increment",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/5d/splitting",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p/centroid",
+      "passed": true
+    },
+    {
+      "name": "stage_4f5p5s/6p/splitting",
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/final_gap",
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/final_relative_error",
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/final_gap",
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/final_relative_error",
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/final_gap",
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/final_relative_error",
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/final_gap",
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/final_relative_error",
+      "passed": true
+    },
+    {
+      "name": "bounded_observation_time",
+      "passed": true
+    },
+    {
+      "name": "bounded_observation_memory",
+      "passed": true
+    },
+    {
+      "name": "owner_scientific_scope",
+      "passed": true
+    }
+  ],
+  "README_sha256": "04f49ce8f4ac514b94b829b523870f7197d69857039f9121d389bd6759f3c184",
+  "verification_sha256": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+  "presentation_sha256": "0767ea25d8fdd4343894e5c8d0954f7364a56b55de51d85ebc1f21271eb2c448",
+  "script_sha256": "686ed0616744dafb70fe151da24dfd3b4462617f8e6c12633392fd80377add30",
+  "scope": "Local links, source-bound presentation hashes and rounded scientific table facts; does not rewrite scientific evidence."
+}

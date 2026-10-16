@@ -1,0 +1,22 @@
+{"case": 0, "delta_Ha": 0.0, "errors": {"coulomb_Ha": 3.995962631966887e-17, "coulomb_prime_Ha": 3.722472633957419e-16, "fock_Ha": 6.181514053311849e-26, "fock_prime_Ha": 4.655415300507488e-25, "total_Ha": 3.995962631966887e-17, "total_prime_Ha": 3.722472633957419e-16}}
+{"case": 1, "delta_Ha": -0.001, "errors": {"coulomb_Ha": 3.479272534141764e-17, "coulomb_prime_Ha": 2.3249360336236036e-16, "fock_Ha": 7.345872749418062e-26, "fock_prime_Ha": 6.364908436557629e-25, "total_Ha": 3.479272534141764e-17, "total_prime_Ha": 2.3249360336236036e-16}}
+{"case": 2, "delta_Ha": 0.001, "errors": {"coulomb_Ha": 3.686287386450715e-17, "coulomb_prime_Ha": 2.0880378589355209e-16, "fock_Ha": 6.782941607452348e-26, "fock_prime_Ha": 5.995847750659031e-25, "total_Ha": 3.686287386450715e-17, "total_prime_Ha": 2.0880378589355209e-16}}
+{"case": 3, "delta_Ha": -0.0003, "errors": {"coulomb_Ha": 3.2124571557566595e-17, "coulomb_prime_Ha": 1.7505799327494076e-16, "fock_Ha": 4.211886145156026e-26, "fock_prime_Ha": 3.222149699029536e-25, "total_Ha": 3.2124571557566595e-17, "total_prime_Ha": 1.7505799327494076e-16}}
+{"case": 4, "delta_Ha": 0.0003, "errors": {"coulomb_Ha": 2.998496633280223e-17, "coulomb_prime_Ha": 1.954138890633561e-16, "fock_Ha": 1.7074736521327756e-25, "fock_prime_Ha": 1.2901725441581022e-24, "total_Ha": 2.998496633280223e-17, "total_prime_Ha": 1.954138890633561e-16}}
+{"case": 5, "delta_Ha": -0.0001, "errors": {"coulomb_Ha": 4.08320702553408e-17, "coulomb_prime_Ha": 3.1155904679086577e-16, "fock_Ha": 1.135959703518257e-25, "fock_prime_Ha": 7.002308047976207e-25, "total_Ha": 4.08320702553408e-17, "total_prime_Ha": 3.1155904679086577e-16}}
+{"case": 6, "delta_Ha": 0.0001, "errors": {"coulomb_Ha": 3.0100162813628817e-17, "coulomb_prime_Ha": 3.327823043172695e-16, "fock_Ha": 1.226331608820376e-25, "fock_prime_Ha": 8.406859112504114e-25, "total_Ha": 3.0100162813628817e-17, "total_prime_Ha": 3.327823043172695e-16}}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_sigma2_solved001.py", line 454, in <module>
+    main(args.run_name)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_sigma2_solved001.py", line 431, in main
+    raise AssertionError("full jointly re-solved derivative gate failed")
+AssertionError: full jointly re-solved derivative gate failed
+ lin =           3
+CHANNEL     5  j1=  1  j2=  3  km= -2  kn= -2  k=  2    0.015704
+CHANNEL    15  j1=  2  j2=  3  km= -2  kn= -2  k=  2    0.296348
+          15
+          15           9
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000028
+CHANNEL    16  j1=  2  j2=  1  km= -2  kn= -2  k=  3    0.000115
+CHANNEL    24  j1=  2  j2=  2  km= -2  kn= -2  k=  3    0.088365
+ Number of channels =           24

@@ -1,0 +1,16 @@
+{
+  "hypothesis": "Eq.37 paper and original SD Eq.9/pCI use equivalent unantisymmetrized numerator gauges. Full same-gauge signed response remains <=1e-11 Ha; verify every difference coordinate is symmetric and physical antisymmetrized map remains <=1e-11 Ha.",
+  "fixed": "original valence contract, same native Hamiltonian, no physical coordinate removed, no tolerance relaxed",
+  "valence_difference": "Dnative-Dpaper = F_mn+F_nm; F_mn=sum_cr g(m,c,r,b)*Sigma(r,n,v,c)/(E+eps_c-eps_n-eps_r)",
+  "core_difference": "Dnative-Dpaper = G_mn+G_nm; G_mn=sum_cr g(m,c,r,v)*Sigma(n,r,c,b)/(eps_c+eps_b-eps_n-eps_r+E-eps_v)",
+  "identity": "Coulomb pair symmetry g(c,n,b,r)=g(n,c,r,b); creation operators cancel any symmetric m/n component exactly. All 512 coordinates retained and saved.",
+  "gates_Ha": {
+    "same_gauge_full_signed": 1e-11,
+    "paper_physical_antisym": 1e-11,
+    "each_native_diagram": 1e-11,
+    "core_raw_residual": 1e-10,
+    "valence_raw_residual": 1e-10
+  },
+  "reference": "https://arxiv.org/html/0905.2578 equations 9,36,37; source-bound original valsd-ci.f",
+  "status": "run006 same-gauge map and fixed-input derivative passed; proceed to converged core/valence and state-response derivative"
+}

@@ -1,0 +1,13 @@
+{
+  "root_authorization_utc_recorded": "2026-10-11T13:22:37.568033+00:00",
+  "root_message": "已逐项审阅 frozen contract89cf69c9、drivera179b2b3 与精确diff7a1ebdd0：只修五state label选择及新输出路径/同helper import，原helper/source/门不变。授权 ONE 前台数组后继002，CPU31/BLAS1/1GiB/30s并外层硬timeout，≤10points/20quotients/150000 examinedpairs，0H/CI/g/谱等。写root_review_seal引用本消息和这些SHA后执行一次；任何失败保留并停，不自动重试。成功仅算 stored-array arithmetic guard资格；Yb旋转物理门仍FAIL、optimizer仍HOLD。",
+  "reviewed_sha256": {
+    "contract.json": "89cf69c9b53fd54571e8b9f9492a712275d751c66005d445662d81adfbe100a9",
+    "run.py": "a179b2b390295a0fe365e68a07358fe4494d35832d4363e4d91f5ab859a12a11",
+    "driver_change.diff": "7a1ebdd060c80bcd6792ea963472e66498add8ee550deda939bae32566681e09"
+  },
+  "helper_sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+  "source_identity_sha256": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a",
+  "scientific_execution_authorized": false,
+  "array_only_single_execution_authorized": true
+}

@@ -1,0 +1,53 @@
+{
+  "hypothesis": "Current physical correlation coverage and missing operator response are more informative than repeating arithmetic/large-space benchmarks without differential energy estimates.",
+  "fixed": "Read saved complete five-state common-zero LCCSD/DC/Fermi/V68/l<=3/E<5Ha snapshot. Historical controls and primary literature retain separate model identities.",
+  "distinguishing_outcomes": [
+    "Separate weighted centroid and fine-structure defects, current upper/lower absolute attachment errors and DF-to-SD differential correction.",
+    "Use explicit measured/literature/proxy/unknown types; no source model increment becomes a correction to the current roots.",
+    "Choose a same-model g-band/energy-tail discrimination before a large generic CCSDT or small dynamic-Breit refinement."
+  ],
+  "acceptance": [
+    "All bound input hashes unchanged before/after.",
+    "Current four excitations and two splittings reproduce saved comparison within1e-8cm^-1.",
+    "Upper-minus-ground attachment error closes four saved excitation defects within1e-8cm^-1.",
+    "All historical full-five-state total shifts reproduce stored transition shifts within1e-5cm^-1 (large total energy subtraction rounding).",
+    "No fitted shift, unchanged original1percent gates, no spectrum improvement or total physical error bound claimed."
+  ],
+  "stop": "Any input identity mismatch, missing/ambiguous state or arithmetic mismatch stops publication. No new atomic root solve or resource expansion in this analysis.",
+  "inputs": {
+    "current_five_states": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "historical_cc_controls": {
+      "path": "docs/atomic_allorder_fscc_2026_10_09/results.json",
+      "sha256": "aa2d4cc2c20cd98478493678a04c839994395c7fcd8769bc994566ca0cfe0c25"
+    },
+    "frozen_dynamic_control": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+    },
+    "literature_tables": {
+      "path": "docs/yb_literature_repair_strategy_2026_10_08/results.json",
+      "sha256": "aa80bfebbe17bddee241b0877adef150455379b201e43a91f351a926ca534bdb"
+    },
+    "historical_scalar_tail": {
+      "path": "docs/yb_correlation_tail_2026_10_08/report_summary.json",
+      "sha256": "34f49d668fd3573e91d51015eeb78bf45c45e2b5b1384d9014917bdf7b67125b"
+    },
+    "current_space_contract": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/contract.json",
+      "sha256": "d625372f3d25f1c3381e703a23a7010038e1d04c6eb99e6be10156942f464c17"
+    },
+    "late_nist_audit": {
+      "path": "docs/atomic_external_benchmark_2026_10_11/experimental_precision_context.json",
+      "sha256": "8539b3c640264486748c394748e9fb8e4564427c76131bd2c5329eae7a1b585a"
+    },
+    "band_preflight": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/result.json",
+      "sha256": "f6f7882f9d14888d3e58a137994a99425d0aea722aa6f3b2525b093ae95f12df"
+    }
+  },
+  "new_atomic_root_solves": 0,
+  "highest_level_reached": false
+}

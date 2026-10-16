@@ -1,0 +1,325 @@
+{
+  "status": "source_and_stdlib_descriptor_preparation_only",
+  "all_passed": true,
+  "checks_count": 63,
+  "checks": [
+    {
+      "name": "input_current_route",
+      "passed": true
+    },
+    {
+      "name": "input_variational",
+      "passed": true
+    },
+    {
+      "name": "input_convol",
+      "passed": true
+    },
+    {
+      "name": "input_matrix",
+      "passed": true
+    },
+    {
+      "name": "input_radial_density",
+      "passed": true
+    },
+    {
+      "name": "input_radial_snapshot",
+      "passed": true
+    },
+    {
+      "name": "input_CellPairContraction",
+      "passed": true
+    },
+    {
+      "name": "input_CellCoulombFeatures",
+      "passed": true
+    },
+    {
+      "name": "input_old_CPU_CUDA_control",
+      "passed": true
+    },
+    {
+      "name": "input_old_zero_copy_adapter",
+      "passed": true
+    },
+    {
+      "name": "input_GPU_metadata_only",
+      "passed": true
+    },
+    {
+      "name": "input_shared_adoption",
+      "passed": true
+    },
+    {
+      "name": "input_warm_observations",
+      "passed": true
+    },
+    {
+      "name": "input_warm_ordinary_example",
+      "passed": true
+    },
+    {
+      "name": "input_warm_candidate_example",
+      "passed": true
+    },
+    {
+      "name": "input_literal208_derivative",
+      "passed": true
+    },
+    {
+      "name": "input_latest31_fixed_point",
+      "passed": true
+    },
+    {
+      "name": "input_latest31_contract",
+      "passed": true
+    },
+    {
+      "name": "input_parent_proposal",
+      "passed": true
+    },
+    {
+      "name": "input_parent_contract",
+      "passed": true
+    },
+    {
+      "name": "input_parent_source_review",
+      "passed": true
+    },
+    {
+      "name": "input_parent_handoff",
+      "passed": true
+    },
+    {
+      "name": "input_f043_convol",
+      "passed": true
+    },
+    {
+      "name": "input_f043_variational",
+      "passed": true
+    },
+    {
+      "name": "input_implementation",
+      "passed": true
+    },
+    {
+      "name": "input_descriptor_driver",
+      "passed": true
+    },
+    {
+      "name": "input_source_preparation_driver",
+      "passed": true
+    },
+    {
+      "name": "input_public_source_identity",
+      "passed": true
+    },
+    {
+      "name": "entire_public_source_epoch_unchanged",
+      "passed": true
+    },
+    {
+      "name": "public_source_map_hash",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical__convol_case1_semiseparable_t",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical__density_sym",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical__banded_to_full_add",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical_ConvolCache.get_coulomb_factors",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical_CSFOrbitalFunctional.gradient_from_weights",
+      "passed": true
+    },
+    {
+      "name": "current_f043_same_numerical_CSFOrbitalFunctional._pair_potential",
+      "passed": true
+    },
+    {
+      "name": "stdlib_top_import_10",
+      "passed": true
+    },
+    {
+      "name": "stdlib_top_import_11",
+      "passed": true
+    },
+    {
+      "name": "stdlib_top_import_12",
+      "passed": true
+    },
+    {
+      "name": "stdlib_top_import_13",
+      "passed": true
+    },
+    {
+      "name": "no_angular_CI_or_physics_import",
+      "passed": true
+    },
+    {
+      "name": "no_exec_AST_or_text",
+      "passed": true
+    },
+    {
+      "name": "no_FMA_atomic_fastmath",
+      "passed": true
+    },
+    {
+      "name": "jp_specific_end",
+      "passed": true
+    },
+    {
+      "name": "ascending_prefix",
+      "passed": true
+    },
+    {
+      "name": "descending_suffix",
+      "passed": true
+    },
+    {
+      "name": "unequal_left_first_near",
+      "passed": true
+    },
+    {
+      "name": "right_tail_end",
+      "passed": true
+    },
+    {
+      "name": "before_clamp",
+      "passed": true
+    },
+    {
+      "name": "after_clamp",
+      "passed": true
+    },
+    {
+      "name": "full_near_strip_ascending",
+      "passed": true
+    },
+    {
+      "name": "row_support_not_reduction_change",
+      "passed": true
+    },
+    {
+      "name": "three_ordered_row_add_sites",
+      "passed": true
+    },
+    {
+      "name": "_cpu_kernels_uses_same_scalar_factory_once",
+      "passed": true
+    },
+    {
+      "name": "_cpu_kernels_two_kernel_functions",
+      "passed": true
+    },
+    {
+      "name": "_cuda_kernels_uses_same_scalar_factory_once",
+      "passed": true
+    },
+    {
+      "name": "_cuda_kernels_two_kernel_functions",
+      "passed": true
+    },
+    {
+      "name": "cuda_explicit_IEEE_ops",
+      "passed": true
+    },
+    {
+      "name": "no_density_total_minus_prefix",
+      "passed": true
+    },
+    {
+      "name": "inactive_scan_padding_reset",
+      "passed": true
+    },
+    {
+      "name": "descriptor_mocks_all_passed",
+      "passed": true
+    },
+    {
+      "name": "no_numerical_modules_after_mocks",
+      "passed": true
+    },
+    {
+      "name": "contract_work_preflight_matches",
+      "passed": true
+    }
+  ],
+  "descriptor_checks_count": 36,
+  "source_symbols": [
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "_convol_case1_semiseparable_t",
+      "line": 1126,
+      "end_line": 1162,
+      "numerical_AST_sha256": "cc25b0632775e76f8ac9dd3ef0cf4776e2fc290955fae4edb673af9a1f8f6c39"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "_density_sym",
+      "line": 713,
+      "end_line": 753,
+      "numerical_AST_sha256": "6792401f50bca13196088a0c50d9bf353753ca0739744acaba0df9fef92af6fa"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "_banded_to_full_add",
+      "line": 815,
+      "end_line": 825,
+      "numerical_AST_sha256": "f451a48eb43aacd3a20d870c5aef8e616e9fcf9d6812ab3c53be1f933c0208ec"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "ConvolCache.get_coulomb_factors",
+      "line": 1613,
+      "end_line": 1658,
+      "numerical_AST_sha256": "6a53712e491366cb8ede0b19cf8b689cecd8043495383a952ffd40890c2ea419"
+    },
+    {
+      "path": "src/atomx/methods/csf/variational.py",
+      "symbol": "CSFOrbitalFunctional.gradient_from_weights",
+      "line": 117,
+      "end_line": 187,
+      "numerical_AST_sha256": "fd8d15e1546309dc7b5968476b456a0fed4cefbb70f336d3a179ee727674b215"
+    },
+    {
+      "path": "src/atomx/methods/csf/variational.py",
+      "symbol": "CSFOrbitalFunctional._pair_potential",
+      "line": 370,
+      "end_line": 397,
+      "numerical_AST_sha256": "900ae69e0a0c7e2f1c48a16bbfd7fe291dd2eede5aaa544cc5d44aae508d2ba3"
+    }
+  ],
+  "implementation_sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae",
+  "implementation_AST_sha256": "ee270dd3d0a026866dd0bf4588e2239638b375a04fcafb0597ed4150b739b51d",
+  "contract_sha256": "3eb86a54b92c985460d3721b234a7fd94d2ed9338a5adfea7c92c3da17ad62a5",
+  "prepare_sha256": "f8810fe835e0f6bfbfbf4a296627055bb04e26ddc094396277a3782180c865fe",
+  "descriptor_driver_sha256": "6aa42307ae135af532ad9d16f105a6b1985e0e44b4fd0972e776e5d1c0ec8214",
+  "descriptor_verification_sha256": "64e3ac1043c2ae400ec1a0903bb92307359a5a8c60f755c42841ace728741e1b",
+  "source_identity_sha256": "72153290694c48704e380feb661c3f0ad67434ea3f54928089453316e23362af",
+  "actual_calls": {
+    "NumPy_NumBa_Atomx_CUDA_imports": 0,
+    "arrays_NPZ": 0,
+    "compile_NumBa_CUDA": 0,
+    "GPU_context_kernel": 0,
+    "H_CI_g_Dirac_optimizer_benchmark": 0
+  },
+  "not_qualified": [
+    "FP64_numerical_output",
+    "CPU_prange",
+    "CUDA_compilation_runtime",
+    "native31_gradient_metric_derivative",
+    "performance"
+  ]
+}

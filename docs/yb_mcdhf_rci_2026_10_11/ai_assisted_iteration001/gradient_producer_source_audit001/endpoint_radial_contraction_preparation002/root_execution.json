@@ -1,0 +1,24 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "outer_wall_stop": false,
+  "elapsed_uncontrolled_s": 40.57433720299741,
+  "source_and_inputs_unchanged": true,
+  "frozen_guard_files": 400,
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/run.py",
+    "--execute",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/execution_binding.json"
+  ],
+  "guardian_sha256": "5bb751e87fe45fc98c43e039dcd9d446f77093cf8f83b4f935cf0b26b1f8775e",
+  "root_review_seal_sha256": "5671526b1e7f347dd15565ac80a0acb71d45638cddd7047f7a90b7f2ac308d63",
+  "execution_binding_sha256": "06fd55f76abb364f1d9533ff19b1dd9412bd935d4e6a54e143b376e74a378385",
+  "execution_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result_sha256": "c2178765aff7afb0a2a2897eeb0d26332b6f0b77cb04dcd6fd6b7be0f54673dd",
+  "failure_sha256": null,
+  "controlled_timing": false,
+  "ordinary_FD_failures_preserved": true,
+  "physical_stationarity_and_experimental_gates_upgraded": false
+}

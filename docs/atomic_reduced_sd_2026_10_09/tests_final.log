@@ -1,0 +1,33 @@
+......F................................................                  [100%]
+=================================== FAILURES ===================================
+__ test_grouped_large_pool_count_matches_independent_radial_pair_enumeration ___
+
+    def test_grouped_large_pool_count_matches_independent_radial_pair_enumeration():
+        from collections import Counter
+    
+        from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
+        occupied = [(1, -1), (2, -1), (2, 1), (2, -2)]
+        virtual = [(n, k) for n in range(3, 9) for k in (-1, 1, -2, 2, -3)]
+        def pairs(keys):
+            counter = Counter()
+            for a, b in itertools.combinations_with_replacement(keys, 2):
+                ja, jb = twoj_of_kappa(a[1]), twoj_of_kappa(b[1])
+                for j in range(abs(ja-jb), ja+jb+1, 2):
+                    if a != b or (-1)**((ja+jb-j)//2) == -1:
+                        counter[j, (-1)**(l_of_kappa(a[1])+l_of_kappa(b[1]))] += 1
+            return counter
+        op, vp = pairs(occupied), pairs(virtual)
+        result = plan_scalar_sd(occupied, virtual)
+        assert result.doubles == sum(count*vp[k] for k, count in op.items())
+>       assert dict(result.pair_channels) == {key: (count, vp[key]) for key, count in op.items() if vp[key]}
+E       assert {(0, -1): (2,...(2, 183), ...} == {(0, -1): (2,...(2, 183), ...}
+E         
+E         Omitting 6 identical items, use -vv to show
+E         Left contains 1 more item:
+E         {(6, 1): (0, 117)}
+E         Use -v to get more diff
+
+tests/test_linearized_sd.py:149: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_linearized_sd.py::test_grouped_large_pool_count_matches_independent_radial_pair_enumeration
+1 failed, 54 passed in 4.67s

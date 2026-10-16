@@ -1,0 +1,7 @@
+{
+  "stage": "artifact_verification_serialization",
+  "scientific_solver_reexecuted": false,
+  "error": "TypeError: Object of type bool is not JSON serializable",
+  "cause": "NumPy bool scalar supplied to JSON without native bool conversion",
+  "resolution": "verify.py casts replay gates to Python bool; archived physical arrays and ledger unchanged"
+}

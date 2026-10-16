@@ -1,0 +1,23 @@
+{
+  "status": "prepared frozen; no guard003 numerical execution",
+  "files_sha256": {
+    "preparation_verification.json": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e",
+    "run.py": "29cd1a15993114a12d2fd053854770b01a6270fdae498e7033ff871eb761f675",
+    "README.md": "09ec91ff0bd0a6752c824236f90cdc6f4ecff8061bc3703d53b72f943f4cd5b5",
+    "test_saved_guards.py": "e5887850ddbe2627351876ac5f1720b58082c7b19819b8c28596577f587bc682",
+    "verify_preparation.py": "4cc0fb6d69ec970af2b75a9a9f4f062739cde7f20a635cb3c627488bf44c0c01",
+    "contract.json": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab"
+  },
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 taskset -c <root-admitted CPU> /data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/run.py",
+  "requires_root_execution_contract": {
+    "guard_qualification_execution_authorized": true,
+    "contract_sha256": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+    "runner_sha256": "29cd1a15993114a12d2fd053854770b01a6270fdae498e7033ff871eb761f675",
+    "test_sha256": "e5887850ddbe2627351876ac5f1720b58082c7b19819b8c28596577f587bc682",
+    "preparation_verification_sha256": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e"
+  },
+  "counts": "1H/0CI/0g/6hS/2initialoverlaps;6rawassembliescaptured inside existingbudget",
+  "caps": "CPU1/3.95GiB/120s",
+  "previous_failures_retained": true,
+  "no_shared_science_source_or_old_test_edits": true
+}

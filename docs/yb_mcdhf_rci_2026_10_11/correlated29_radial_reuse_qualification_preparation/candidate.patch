@@ -1,0 +1,31 @@
+--- a/src/atomx/physics/csf/matrix.py
++++ b/src/atomx/physics/csf/matrix.py
+@@ -22,7 +22,9 @@
+     exact_block_matrix,
+ )
+ from atomx.numerics.bspline.convol import (
++    SEMISEPARABLE_DIRECT_NS,
+     ConvolCache,
++    _convol_case1_semiseparable_t,
+     _convol_case1_t,
+     _density_sym,
+     _sum_amb_banded,
+@@ -695,8 +697,16 @@
+     for left, label_left in enumerate(("p", "q")):
+         value = np.zeros((ns, orders[left]))
+         for right, label_right in enumerate(("p", "q")):
+-            bank, extent, _ = cache.get_rkb_t(rank, label_left + label_right + label_left + label_right)
+-            value += _convol_case1_t(bank, source[right], extent, orders[left], orders[right])
++            components = label_left + label_right + label_left + label_right
++            if ns >= SEMISEPARABLE_DIRECT_NS:
++                factors = cache.get_coulomb_factors(rank, components)
++                contracted = _convol_case1_semiseparable_t(
++                    *factors, source[right], ns, orders[left], orders[right])
++            else:
++                bank, extent, _ = cache.get_rkb_t(rank, components)
++                contracted = _convol_case1_t(
++                    bank, source[right], extent, orders[left], orders[right])
++            value += contracted
+         potentials.append(value)
+     return tuple(potentials)
+ 

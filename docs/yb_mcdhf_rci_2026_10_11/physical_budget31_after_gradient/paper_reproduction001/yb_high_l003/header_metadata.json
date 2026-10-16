@@ -1,0 +1,147 @@
+{
+  "input_sha256": "2005bfd77f3d275108e0f49068cab5dd7280c7631a3d35425e3c8e89b9dfa857",
+  "stdlib_header_only": true,
+  "array_body_reads": 0,
+  "fields": {
+    "orbital_keys": {
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "energies": {
+      "shape": [
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        5,
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": true
+    },
+    "basis_nv": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_ks": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_ksp": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_ksq": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_nsp": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_nsq": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "basis_gr": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_grw": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q_d": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p_d": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_t": {
+      "shape": [
+        132
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_tp": {
+      "shape": [
+        130
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_ns": {
+      "shape": [],
+      "dtype": "<i8",
+      "fortran_order": false
+    }
+  }
+}

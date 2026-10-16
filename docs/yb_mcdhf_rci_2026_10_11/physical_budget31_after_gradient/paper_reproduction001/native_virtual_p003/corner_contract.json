@@ -1,0 +1,35 @@
+{
+  "hypothesis": "The6p virtual increment can depend on whether4f is correlated. Complete the four-model panel with the same6p bank but frozen4f; compare differential line increments only after both roots/equations qualify.",
+  "fixed": "Same36-spinor full operator projected by exact frozen normal ordering: freeze14new4f magnetic occupieds, leaving4correlated/64frozen/18virtual/22spinors; same original68e HF origin and nativeDC radial bank. No integral, state, rank or tolerance fitting.",
+  "equations": "CompleteSDT/R3, exact coreM/parity, unshifted DIIS history6/max60; same prescribedR1>=.5/J2/highest-weight Davidson/all12 partner gates. Start core from zero; not a controlled comparison of nonlinear solve timing.",
+  "gates": {
+    "operator_restriction_Ha": 1e-10,
+    "core_Ha": 1e-10,
+    "EA_Ha": 1e-10,
+    "J2": 1e-07
+  },
+  "resources": {
+    "cpu": 26,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "workspace_MiB": 512,
+    "wall_seconds": 180,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368
+  },
+  "stopping": "First failure stops, preserves partials; no automatic retry or altered matching/tolerance/model.",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/frozen_corner.py": "b9ec938c1ea543dd68f127adca3dec15fb915834f1f642038e4ad9c2845209d5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/solve.py": "c6a7d51618d2f6961905274666aa01a216b2d68e1125353780484ae63ba1e6e1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/diis_core.py": "a624ee333103637ac708b28a5edd253bb233a11d71fdbcfb44d5ab54dfc2a27b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/prepare_virtuals.py": "769d87e77c7417344958dce80fb2c24dab802c0edc6adfb6ac8baeee91253dde",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/operator.json": "9bfde7c8d18358fa13e77a3f026eadc293d04d11861edd1d769cb9ea04e1806d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/integrals.npz": "822231dedf82c8ff29575c4065cecaff2276463b2f6773183a3c8d082a00246a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual003/result.json": "7842ee12951593f9972fd597bc718c4bc658c238a8e41fb198aaa11ec527bf70",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/operator.json": "bc536185175197a938d6e28ac35bbb862e50affaf82915dc97155cd16249cae9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/integrals.npz": "aaf14e8d8187ab4895c40b073132f8654fa0c84364efd73d513bccb5617069be",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/result.json": "3746358ad0c8fb43940f46abc559f3a0acc00bb1d560e2d8509452ad02d2e4cc"
+  }
+}

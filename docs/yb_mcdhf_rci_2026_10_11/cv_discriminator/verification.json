@@ -1,0 +1,5096 @@
+{
+  "passed": true,
+  "check_count": 866,
+  "checks": [
+    {
+      "name": "frozen_353_file_source_identity",
+      "passed": true
+    },
+    {
+      "name": "fixed_seven_input_identities",
+      "passed": true
+    },
+    {
+      "name": "prospective_contract_identity",
+      "passed": true
+    },
+    {
+      "name": "execution_source_identity",
+      "passed": true
+    },
+    {
+      "name": "archived_scientific_artifact_identities",
+      "passed": true
+    },
+    {
+      "name": "archived_numerical_gates",
+      "passed": true
+    },
+    {
+      "name": "all_68_CSFs_preserved",
+      "passed": true
+    },
+    {
+      "name": "all_69_electron_patterns",
+      "passed": true
+    },
+    {
+      "name": "complete_expected_family_counts",
+      "passed": true
+    },
+    {
+      "name": "preserved_005_bare_stationarity_pass",
+      "passed": true
+    },
+    {
+      "name": "no_expanded_MCDHF_stationarity_claim",
+      "passed": true
+    },
+    {
+      "name": "diagnostic_only_no_production_or_experiment_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/complete_saved_roots",
+      "passed": true
+    },
+    {
+      "name": "DC/independent_eigvalsh_full_spectrum_Ha",
+      "error": 2.7284841053187847e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC/complete_signed_matrix_reconstruction_Ha",
+      "error": 2.7284841053187847e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC/complete_left_closure",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC/five_bare_principal_interlacing_Ha",
+      "error": 5.4569682106375694e-12,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC/signed_bare_overlap_archive",
+      "passed": true
+    },
+    {
+      "name": "DC/bare_full_spectral_closure",
+      "error": 9.992007221626409e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(1, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(5, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(3, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(3, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(1, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(5, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(7, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(9, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(11, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(13, -1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(7, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(9, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/all_roots_block/(11, 1)",
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/0",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/0",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/0/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/0/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/0/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/1",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/1/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/1/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/1/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/2",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/2",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/2/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/2/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/2/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/3",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/3",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/3/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/3/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/3/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/4",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/4",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/4/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/4/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/4/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/5",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/5",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/5/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/5/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/5/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/6",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/6",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/6/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/6/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/6/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/7",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/7",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/7/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/7/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/7/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/8",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/8",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/8/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/8/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/8/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/9",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/9",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/9/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/9/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/9/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/10",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/10",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/10/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/10/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/10/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/11",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/11",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/11/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/11/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/11/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/12",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/12",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/12/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/12/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/12/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/13",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/13",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/13/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/13/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/13/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/14",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/14/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/14/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/14/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/15",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/15",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/15/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/15/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/15/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/16",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/16",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/16/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/16/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/16/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/17",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/17",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/17/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/17/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/17/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/18",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/18",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/18/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/18/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/18/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/19",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/19",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/19/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/19/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/19/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/20",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/20",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/20/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/20/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/20/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/21",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/21",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/21/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/21/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/21/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/22",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/22",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/22/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/22/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/22/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/23",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/23",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/23/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/23/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/23/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/24",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/24",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/24/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/24/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/24/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/25",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/25",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/25/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/25/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/25/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/26",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/26",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/26/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/26/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/26/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/27",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/27",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/27/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/27/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/27/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/28",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/28",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/28/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/28/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/28/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/29",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/29",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/29/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/29/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/29/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/30",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/30",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/30/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/30/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/30/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/31",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/31",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/31/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/31/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/31/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/32",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/32",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/32/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/32/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/32/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/33",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/33",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/33/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/33/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/33/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/34",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/34",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/34/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/34/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/34/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/35",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/35",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/35/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/35/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/35/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/36",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/36",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/36/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/36/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/36/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/37",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/37",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/37/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/37/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/37/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/38",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/38",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/38/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/38/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/38/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/39",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/39",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/39/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/39/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/39/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/40",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/40",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/40/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/40/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/40/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/41",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/41",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/41/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/41/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/41/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/42",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/42",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/42/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/42/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/42/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/43",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/43",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/43/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/43/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/43/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/44",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/44",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/44/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/44/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/44/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/45",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/45",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/45/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/45/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/45/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/46",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/46",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/46/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/46/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/46/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/47",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/47",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/47/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/47/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/47/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/48",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/48",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/48/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/48/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/48/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/49",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/49",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/49/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/49/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/49/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/50",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/50",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/50/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/50/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/50/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/51",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/51",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/51/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/51/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/51/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/52",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/52",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/52/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/52/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/52/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/53",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/53",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/53/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/53/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/53/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/54",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/54",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/54/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/54/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/54/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/55",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/55",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/55/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/55/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/55/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/56",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/56",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/56/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/56/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/56/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/57",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/57",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/57/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/57/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/57/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/58",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/58",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/58/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/58/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/58/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/59",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/59",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/59/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/59/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/59/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/60",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/60",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/60/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/60/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/60/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/61",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/61",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/61/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/61/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/61/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/62",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/62",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/62/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/62/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/62/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/63",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/63",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/63/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/63/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/63/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/64",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/64",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/64/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/64/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/64/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/65",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/65",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/65/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/65/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/65/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/66",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/66",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/66/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/66/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/66/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/energy_ledger/67",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/global_ground_reference/67",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/67/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/67/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/family_weight/67/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/predeclared_bare_overlap_choice",
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/bare_weight_ledger",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6s_1/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/predeclared_bare_overlap_choice",
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/bare_weight_ledger",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_3/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/predeclared_bare_overlap_choice",
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/bare_weight_ledger",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d_5/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/predeclared_bare_overlap_choice",
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/bare_weight_ledger",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_1/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/predeclared_bare_overlap_choice",
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/bare_weight_ledger",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p_3/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d/multiplet_centroid_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/5d/multiplet_splitting_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p/multiplet_centroid_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "DC/6p/multiplet_splitting_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/complete_saved_roots",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/independent_eigvalsh_full_spectrum_Ha",
+      "error": 2.000888343900442e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/complete_signed_matrix_reconstruction_Ha",
+      "error": 1.8189894035458565e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/complete_left_closure",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/five_bare_principal_interlacing_Ha",
+      "error": 3.637978807091713e-12,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/signed_bare_overlap_archive",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/bare_full_spectral_closure",
+      "error": 6.661338147750939e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(1, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(5, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(3, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(3, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(1, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(5, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(7, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(9, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(11, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(13, -1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(7, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(9, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/all_roots_block/(11, 1)",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/0",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/0",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/0/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/0/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/0/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/1",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/1/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/1/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/1/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/2",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/2",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/2/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/2/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/2/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/3",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/3",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/3/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/3/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/3/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/4",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/4",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/4/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/4/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/4/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/5",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/5",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/5/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/5/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/5/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/6",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/6",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/6/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/6/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/6/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/7",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/7",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/7/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/7/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/7/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/8",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/8",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/8/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/8/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/8/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/9",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/9",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/9/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/9/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/9/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/10",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/10",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/10/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/10/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/10/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/11",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/11",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/11/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/11/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/11/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/12",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/12",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/12/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/12/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/12/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/13",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/13",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/13/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/13/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/13/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/14",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/14/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/14/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/14/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/15",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/15",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/15/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/15/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/15/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/16",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/16",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/16/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/16/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/16/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/17",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/17",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/17/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/17/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/17/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/18",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/18",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/18/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/18/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/18/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/19",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/19",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/19/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/19/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/19/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/20",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/20",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/20/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/20/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/20/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/21",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/21",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/21/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/21/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/21/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/22",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/22",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/22/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/22/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/22/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/23",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/23",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/23/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/23/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/23/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/24",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/24",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/24/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/24/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/24/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/25",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/25",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/25/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/25/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/25/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/26",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/26",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/26/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/26/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/26/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/27",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/27",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/27/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/27/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/27/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/28",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/28",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/28/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/28/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/28/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/29",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/29",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/29/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/29/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/29/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/30",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/30",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/30/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/30/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/30/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/31",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/31",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/31/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/31/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/31/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/32",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/32",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/32/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/32/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/32/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/33",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/33",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/33/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/33/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/33/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/34",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/34",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/34/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/34/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/34/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/35",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/35",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/35/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/35/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/35/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/36",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/36",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/36/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/36/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/36/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/37",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/37",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/37/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/37/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/37/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/38",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/38",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/38/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/38/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/38/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/39",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/39",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/39/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/39/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/39/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/40",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/40",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/40/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/40/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/40/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/41",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/41",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/41/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/41/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/41/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/42",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/42",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/42/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/42/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/42/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/43",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/43",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/43/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/43/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/43/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/44",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/44",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/44/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/44/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/44/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/45",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/45",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/45/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/45/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/45/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/46",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/46",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/46/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/46/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/46/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/47",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/47",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/47/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/47/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/47/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/48",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/48",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/48/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/48/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/48/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/49",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/49",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/49/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/49/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/49/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/50",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/50",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/50/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/50/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/50/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/51",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/51",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/51/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/51/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/51/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/52",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/52",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/52/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/52/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/52/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/53",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/53",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/53/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/53/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/53/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/54",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/54",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/54/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/54/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/54/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/55",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/55",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/55/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/55/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/55/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/56",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/56",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/56/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/56/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/56/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/57",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/57",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/57/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/57/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/57/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/58",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/58",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/58/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/58/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/58/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/59",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/59",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/59/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/59/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/59/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/60",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/60",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/60/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/60/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/60/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/61",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/61",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/61/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/61/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/61/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/62",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/62",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/62/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/62/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/62/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/63",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/63",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/63/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/63/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/63/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/64",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/64",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/64/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/64/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/64/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/65",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/65",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/65/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/65/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/65/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/66",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/66",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/66/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/66/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/66/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/energy_ledger/67",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/global_ground_reference/67",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/67/bare_4f14",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/67/hole_4f13_6s5d",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/family_weight/67/hole_4f13_6s6p",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6s_1/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "static/6s_1/2/bare_alternative_binding_retained",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6s_1/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6s_1/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6s_1/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_3/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "static/5d_3/2/bare_alternative_binding_retained",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_3/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_3/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_3/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_5/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "static/5d_5/2/bare_alternative_binding_retained",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_5/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_5/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d_5/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_1/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "static/6p_1/2/bare_alternative_binding_retained",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_1/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_1/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_1/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_3/2/no_near_degenerate_single_root_claim",
+      "passed": true
+    },
+    {
+      "name": "static/6p_3/2/bare_alternative_binding_retained",
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_3/2/tracked_excitation_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_3/2/CV_increment_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p_3/2/NIST_gap_replay_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d/multiplet_centroid_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/5d/multiplet_splitting_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p/multiplet_centroid_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/6p/multiplet_splitting_cm1",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete_signed_DC_to_static_overlap_archive",
+      "passed": true
+    },
+    {
+      "name": "complete_assignment_is_bijection",
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/0/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/57/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/2/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/42/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/46/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/53/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/54/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/60/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/62/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/67/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/1/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/45/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/56/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/58/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/65/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/4/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/8/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/13/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/20/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/28/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/31/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/39/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/47/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/3/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/19/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/24/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/32/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/51/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/5/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/11/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/15/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/22/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/29/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/33/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/34/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/50/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/10/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/14/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/17/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/23/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/25/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/35/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/36/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/52/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/6/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/12/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/16/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/26/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/27/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/37/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/43/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/7/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/18/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/21/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/30/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/9/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/38/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/40/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/49/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/55/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/61/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/64/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/66/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/41/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/48/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/59/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/63/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all_root_assignment/44/overlap_squared",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "documentation_links",
+      "passed": true
+    }
+  ],
+  "broken_documentation_links": [],
+  "scope": "Independent complete-H eigvalsh, signed closure and matrix/ledger/identity/branch replay; not an independent atomic Hamiltonian implementation or 68-CSF MCDHF stationarity proof.",
+  "numeric_run_gate_count": 42,
+  "diagnostic_only": true,
+  "expanded_MCDHF_certified": false,
+  "files_sha256": {
+    "README.md": "4f5f1f3177716cdff0eec4e1da63609725d0c2704661b2d352a7b75313a556e9",
+    "contract.json": "d4861f08f515aa17016534bad678fc3e0447141a2a39370154bccd4e384ca587",
+    "documentation_impact.json": "cb05226f29b0379496a454cb429ece0f1d6fc04d9febdcda94dce6fda39210c7",
+    "run.py": "906993c242e266b67bc2ca74a3fac2f6f4bfd153890e3c9d2fc83d0373192ee2",
+    "same005_orbitals001/DC_all_roots.json": "682cd59013df9c9fa7f2b16536c7f9cc87c077b5ed94760b717b455832bb9a0b",
+    "same005_orbitals001/ci_arrays.npz": "9105f0df5057c42aa7c3d07d560111d7a95324c8b206c2662b45c343002ff7bc",
+    "same005_orbitals001/csf_basis.json": "07a45aadfc688c1ec88ed0ccc261256ba9999ddf2ecaa995590d00b0272c2cb6",
+    "same005_orbitals001/dc_arrays.npz": "4a4b9bc1ead41b427fcaa8c2bf2559b5c5aff0c2bffad8ae433617995e7ff172",
+    "same005_orbitals001/degeneracy_audit.json": "2007070d6b71b0b0d4591353661091acb0f221e82f76392d090a8fd4da312a70",
+    "same005_orbitals001/overlap_arrays.npz": "d3b95410bc34c29c52a8926533ada1d5160942c27765ef606ecf6e9388a5e8ed",
+    "same005_orbitals001/preflight.json": "de2c288cfec7492235068ccbf416462f4c4a7cf6391b28a9ba18a5047893d416",
+    "same005_orbitals001/result.json": "33f6cf200fa692742f36cb6a73607494aed115fb58ad09afd5d70ab5b66f0392",
+    "same005_orbitals001/run_source.py": "906993c242e266b67bc2ca74a3fac2f6f4bfd153890e3c9d2fc83d0373192ee2",
+    "same005_orbitals001/static_Breit_all_roots.json": "ddc8aaba1323f6b7fbcfe2dd407fcc6d2d290033aa22a1809db78cbef9a5abf6",
+    "same005_orbitals001/static_arrays.npz": "088c66387154becdea52332b82eaf54e45ae5167a439532fbee16f02128e7df5",
+    "same005_orbitals001/target_binding.json": "e71d812dc9a0b7a518fea2bbda5d666cccbe5703ee3b64b57207f82261728415",
+    "verify.py": "71af66b1a1c83ea3a8d4e6d17e88948deb1a46a90e8d283f9149fc3025b0a5c4"
+  }
+}

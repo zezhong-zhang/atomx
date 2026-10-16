@@ -1,0 +1,87 @@
+{
+  "preflight": {
+    "radials": 2,
+    "representation": "on_demand",
+    "active_indices": [
+      22,
+      23,
+      26,
+      27,
+      30,
+      31,
+      32,
+      33,
+      38,
+      39,
+      40,
+      41,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "virtual_definition": "lowest 2 VN complement eigenstates per s/p/d kappa, not a full band",
+    "virtual_energies_Ha": {
+      "(6, -1)": -0.41366545273185834,
+      "(7, -1)": -0.19140149133756895,
+      "(6, 1)": -0.30111293053392457,
+      "(7, 1)": -0.15310891642082902,
+      "(6, -2)": -0.2883066793824426,
+      "(7, -2)": -0.14837507210304093,
+      "(5, 2)": -0.3030715109235863,
+      "(6, 2)": -0.15590561016340057,
+      "(5, -3)": -0.3008863577005671,
+      "(6, -3)": -0.15473084857887726
+    },
+    "construction_seconds": 2.15766145195812,
+    "resources": {
+      "occupied": 22,
+      "virtual": 36,
+      "core_independent_amplitudes": 146322,
+      "raw_tensor_coordinates": 1141920,
+      "estimated_working_bytes": 668273136,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+    },
+    "owned_one_body_bytes": 107648
+  },
+  "core_energy_Ha": -14067.096160880275,
+  "attachment_energies_Ha": {
+    "6s1/2": -0.4246689418884427,
+    "6p1/2": -0.31007752080039175,
+    "6p3/2": -0.2952558374018415,
+    "5d3/2": -0.30274454877679635,
+    "5d5/2": -0.29948866382618716
+  },
+  "total_state_energies_Ha": {
+    "6s1/2": -14067.520829822164,
+    "6p1/2": -14067.406238401076,
+    "6p3/2": -14067.391416717677,
+    "5d3/2": -14067.398905429052,
+    "5d5/2": -14067.395649544102
+  },
+  "transition_cm": {
+    "6s1/2": 0.0,
+    "6p1/2": 25149.909900685197,
+    "6p3/2": 28402.89340076407,
+    "5d3/2": 26759.31123236046,
+    "5d5/2": 27473.8953816564
+  },
+  "shift_from_36virtual_cm": {
+    "6s1/2": 0.0,
+    "6p1/2": 5.966285243630409e-10,
+    "6p3/2": 6.330083124339581e-10,
+    "5d3/2": 3.7834979593753815e-10,
+    "5d5/2": -8.767528925091028e-10
+  },
+  "max_experiment_fraction": 0.16543462041220075,
+  "experimental_gate": false,
+  "space_gate": null,
+  "raw_update": 6.296916113535111e-14,
+  "equation_bound_Ha": 1.118303163810176e-12,
+  "multiplet_scalar_error_Ha": 9.713823001046032e-17,
+  "seconds": 42.44785682403017,
+  "parent_peak_RSS_bytes": 789348352,
+  "saved_model_energy_error_Ha": 0.0
+}

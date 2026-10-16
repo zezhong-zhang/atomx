@@ -1,0 +1,39 @@
+{
+  "backends": {
+    "default": {
+      "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+      "abi": "ATXCC001",
+      "executable_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+      "patch_sha256": "6505d9766204c7b107c75867c69179bacec8a51a763fcef20aa4bacf2f370574",
+      "noncanonical_attachment_equation": null,
+      "tensor_symmetries": [
+        "C1",
+        "axial"
+      ],
+      "diagram_format": "ATXDG002",
+      "block_index_layout": "complete sorted key/index pairs"
+    },
+    "corrected": {
+      "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+      "abi": "ATXCC001",
+      "executable_sha256": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+      "patch_sha256": "998ea26f9d5e209b32680ac1bbefcdf61fc498db5535685c0a64155fd3097fac",
+      "noncanonical_attachment_equation": "ATOMX_FOV_T2_001",
+      "tensor_symmetries": [
+        "C1",
+        "axial"
+      ],
+      "diagram_format": "ATXDG002",
+      "block_index_layout": "complete sorted key/index pairs"
+    }
+  },
+  "source_manifest_diff": {
+    "src/rcc/models/sector01.c": {
+      "default": "42ee99ee532a00d8a29dbef5532b75d4717f46da71375ffbeb705334b980fc04",
+      "corrected": "f73ee35aead1a0f856012db090d50892e0503691aa0551edd36ffa6b6f32204c"
+    }
+  },
+  "interpretation": "The default local executable is also an Atomx ABI/compact-index/axial patched build. It retains the original noncanonical attachment equation. Neither is an unmodified upstream executable. The corrected executable is explicitly opt-in; production default unchanged.",
+  "actual_link": "Bundled OpenBLAS static archive plus libgomp; CMake BLAS discovery is not the executable link.",
+  "OpenMP_path": "src/rcc/engine/mult.c:250 output tensor block parallel-for, nthreads requested, each block calls mulblocks(...,1); no MPI multi-node test."
+}

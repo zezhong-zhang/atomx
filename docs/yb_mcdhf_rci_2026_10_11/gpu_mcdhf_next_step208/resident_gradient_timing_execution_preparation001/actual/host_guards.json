@@ -1,0 +1,354 @@
+[
+  {
+    "phase": "before_public_setup",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1296\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": null,
+    "load1_per_onlineCPU": 0.2855377197265625,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_0_before",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "29": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.307159423828125,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_0_after",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.01,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.3076019287109375,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_1_before",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.1782178217821782,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.3076019287109375,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_1_after",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.3079986572265625,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_2_before",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.01,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.30584716796875,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_2_after",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.3063812255859375,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_3_before",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.3063812255859375,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_3_after",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.306884765625,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_4_before",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.010101010101010102,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.05,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.306884765625,
+    "onlineCPUs": 32
+  },
+  {
+    "phase": "triplet_4_after",
+    "passed": false,
+    "CPU": {
+      "28": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "29": {
+        "busy_fraction": 1.0,
+        "system_fraction": 0.0,
+        "passed": false
+      },
+      "30": {
+        "busy_fraction": 0.0,
+        "system_fraction": 0.0,
+        "passed": true
+      },
+      "31": {
+        "busy_fraction": 0.01,
+        "system_fraction": 0.0,
+        "passed": true
+      }
+    },
+    "GPU": "GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, NVIDIA GeForce RTX 4090, 0, 1758\n",
+    "GPU_processes": "241814, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 250\n345497, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 70\n2363078, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 454\n",
+    "GPU_idle_percent": 0,
+    "owner_PID": 2363078,
+    "load1_per_onlineCPU": 0.307769775390625,
+    "onlineCPUs": 32
+  }
+]

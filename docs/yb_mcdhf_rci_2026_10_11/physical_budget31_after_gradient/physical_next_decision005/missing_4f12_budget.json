@@ -1,0 +1,1855 @@
+{
+  "status": "FROZEN_COMPLETE_PURE_STDLIB_COMBINATORIAL_BUDGET_NO_H_CI_EXECUTION",
+  "source_bindings": {
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/completed_angular_tables.json": "abcef063f1ffb440ad95bbc510b2cff9009f2a0b92419eb846444982947e967e"
+  },
+  "method": "Per-nl/jj fixed-occupation magnetic-mode generating-function DP with integer coefficients. CSF(2J,p)=N(2M=2J,p)-N(2M=2J+2,p). Complete jj occupations with positive target-J multiplicity reproduce native raw-M pattern census; no CSF/determinant/table arrays allocated. Particle-hole symmetry and magnetic dimensional sum rules checked.",
+  "validation": {
+    "baseline": {
+      "all_J_parent_CSFs_match_saved": true,
+      "all_five_selected_CSFs_match_saved": true
+    },
+    "expanded": {
+      "all_J_parent_CSFs_match_saved": true,
+      "all_five_selected_CSFs_match_saved": true,
+      "raw_M_matches_all_five_saved_native_tables": true,
+      "native_table_to_UID_by_unique_raw_dimension": [
+        "2J=1 parity=1",
+        "2J=1 parity=-1",
+        "2J=3 parity=1",
+        "2J=3 parity=-1",
+        "2J=5 parity=1"
+      ]
+    }
+  },
+  "existing_and_proposed_models": {
+    "baseline": {
+      "NR_configurations": 91,
+      "full_all_J_CSFs": 3789,
+      "selected_five_block_CSFs": 1595,
+      "by_block": {
+        "2J=1 parity=1": {
+          "CSFs": 223,
+          "raw_M_determinants_native_selected_patterns": 1705,
+          "all_NR_raw_M_upper_bound": 1917,
+          "jj_patterns": 150
+        },
+        "2J=3 parity=1": {
+          "CSFs": 370,
+          "raw_M_determinants_native_selected_patterns": 1660,
+          "all_NR_raw_M_upper_bound": 1694,
+          "jj_patterns": 176
+        },
+        "2J=5 parity=1": {
+          "CSFs": 416,
+          "raw_M_determinants_native_selected_patterns": 1324,
+          "all_NR_raw_M_upper_bound": 1324,
+          "jj_patterns": 178
+        },
+        "2J=1 parity=-1": {
+          "CSFs": 219,
+          "raw_M_determinants_native_selected_patterns": 1640,
+          "all_NR_raw_M_upper_bound": 1872,
+          "jj_patterns": 156
+        },
+        "2J=3 parity=-1": {
+          "CSFs": 367,
+          "raw_M_determinants_native_selected_patterns": 1619,
+          "all_NR_raw_M_upper_bound": 1653,
+          "jj_patterns": 188
+        }
+      },
+      "all_J_parity_CSFs": {
+        "2J=1 parity=-1": 219,
+        "2J=1 parity=1": 223,
+        "2J=3 parity=-1": 367,
+        "2J=3 parity=1": 370,
+        "2J=5 parity=-1": 406,
+        "2J=5 parity=1": 416,
+        "2J=7 parity=-1": 358,
+        "2J=7 parity=1": 362,
+        "2J=9 parity=-1": 254,
+        "2J=9 parity=1": 264,
+        "2J=11 parity=-1": 154,
+        "2J=11 parity=1": 158,
+        "2J=13 parity=-1": 74,
+        "2J=13 parity=1": 80,
+        "2J=15 parity=-1": 30,
+        "2J=15 parity=1": 32,
+        "2J=17 parity=-1": 8,
+        "2J=17 parity=1": 10,
+        "2J=19 parity=-1": 2,
+        "2J=19 parity=1": 2
+      }
+    },
+    "expanded": {
+      "NR_configurations": 100,
+      "full_all_J_CSFs": 5741,
+      "selected_five_block_CSFs": 2574,
+      "by_block": {
+        "2J=1 parity=1": {
+          "CSFs": 365,
+          "raw_M_determinants_native_selected_patterns": 2659,
+          "all_NR_raw_M_upper_bound": 2879,
+          "jj_patterns": 198
+        },
+        "2J=3 parity=1": {
+          "CSFs": 596,
+          "raw_M_determinants_native_selected_patterns": 2478,
+          "all_NR_raw_M_upper_bound": 2514,
+          "jj_patterns": 227
+        },
+        "2J=5 parity=1": {
+          "CSFs": 652,
+          "raw_M_determinants_native_selected_patterns": 1918,
+          "all_NR_raw_M_upper_bound": 1918,
+          "jj_patterns": 228
+        },
+        "2J=1 parity=-1": {
+          "CSFs": 362,
+          "raw_M_determinants_native_selected_patterns": 2623,
+          "all_NR_raw_M_upper_bound": 2862,
+          "jj_patterns": 197
+        },
+        "2J=3 parity=-1": {
+          "CSFs": 599,
+          "raw_M_determinants_native_selected_patterns": 2466,
+          "all_NR_raw_M_upper_bound": 2500,
+          "jj_patterns": 232
+        }
+      },
+      "all_J_parity_CSFs": {
+        "2J=1 parity=-1": 362,
+        "2J=1 parity=1": 365,
+        "2J=3 parity=-1": 599,
+        "2J=3 parity=1": 596,
+        "2J=5 parity=-1": 644,
+        "2J=5 parity=1": 652,
+        "2J=7 parity=-1": 546,
+        "2J=7 parity=1": 542,
+        "2J=9 parity=-1": 367,
+        "2J=9 parity=1": 375,
+        "2J=11 parity=-1": 208,
+        "2J=11 parity=1": 206,
+        "2J=13 parity=-1": 92,
+        "2J=13 parity=1": 97,
+        "2J=15 parity=-1": 34,
+        "2J=15 parity=1": 34,
+        "2J=17 parity=-1": 8,
+        "2J=17 parity=1": 10,
+        "2J=19 parity=-1": 2,
+        "2J=19 parity=1": 2
+      }
+    },
+    "baseline_plus_complete_4f12": {
+      "NR_configurations": 173,
+      "by_block": {
+        "2J=1 parity=1": {
+          "CSFs": 5575,
+          "raw_M_determinants_native_selected_patterns": 91761,
+          "all_NR_raw_M_upper_bound": 91973,
+          "jj_patterns": 690
+        },
+        "2J=3 parity=1": {
+          "CSFs": 10192,
+          "raw_M_determinants_native_selected_patterns": 86364,
+          "all_NR_raw_M_upper_bound": 86398,
+          "jj_patterns": 716
+        },
+        "2J=5 parity=1": {
+          "CSFs": 13196,
+          "raw_M_determinants_native_selected_patterns": 76206,
+          "all_NR_raw_M_upper_bound": 76206,
+          "jj_patterns": 718
+        },
+        "2J=1 parity=-1": {
+          "CSFs": 5561,
+          "raw_M_determinants_native_selected_patterns": 91394,
+          "all_NR_raw_M_upper_bound": 91626,
+          "jj_patterns": 696
+        },
+        "2J=3 parity=-1": {
+          "CSFs": 10183,
+          "raw_M_determinants_native_selected_patterns": 86031,
+          "all_NR_raw_M_upper_bound": 86065,
+          "jj_patterns": 728
+        }
+      },
+      "budget": {
+        "selected_states": 44707,
+        "one_global_dense_H_FP64_bytes": 15989726792,
+        "one_global_dense_C_FP64_bytes": 15989726792,
+        "global_dense_H_plus_C_FP64_bytes": 31979453584,
+        "block_diagonal_H_plus_C_FP64_bytes": 7099361840,
+        "largest_selected_block": 13196,
+        "largest_selected_block_H_plus_C_FP64_bytes": 2786150656,
+        "max_native_raw_M_determinants": 91761,
+        "largest_dense_determinant_H_FP64_bytes_bound": 67360648968,
+        "full_all_J_states": 183599,
+        "full_all_J_global_dense_H_plus_C_FP64_bytes": 539337484816,
+        "full_all_J_block_diagonal_H_plus_C_FP64_bytes": 31281418544,
+        "excludes": "eigensolver work, angular determinant-to-CSF projections/tables, pair lists/CSR and Python overhead; no peak admission or timing claim",
+        "dense_signed_det_to_CSF_projection_FP64_bytes_by_block": {
+          "2J=1 parity=1": 4092540600,
+          "2J=3 parity=1": 7041775104,
+          "2J=5 parity=1": 8044915008,
+          "2J=1 parity=-1": 4065936272,
+          "2J=3 parity=-1": 7008429384
+        },
+        "all_five_dense_projection_FP64_bytes": 30253596368,
+        "largest_dense_projection_FP64_bytes": 8044915008,
+        "max_full_ordered_determinant_pair_bound": 8420081121,
+        "max_upper_triangle_determinant_pair_bound": 4210086441,
+        "five_target_roots_block_local_FP64_vector_output_bytes": 357656,
+        "five_target_roots_global_zero_padded_FP64_vector_output_bytes": 1788280,
+        "dense_rawH_and_projection_scope": "Hypothetical dense representation payloads derived only from exact dimensions; not an allocation trace or assertion that current sparse native determinant-H code allocates a dense rawH. Current sparse coefficient-table/connected-pair/CSR/workspace sizes remain unknown. Dense projection/H/C alternatives already make8GiB unfit; no admitted peak estimate."
+      }
+    },
+    "expanded_plus_complete_4f12": {
+      "NR_configurations": 182,
+      "by_block": {
+        "2J=1 parity=1": {
+          "CSFs": 5717,
+          "raw_M_determinants_native_selected_patterns": 92715,
+          "all_NR_raw_M_upper_bound": 92935,
+          "jj_patterns": 738
+        },
+        "2J=3 parity=1": {
+          "CSFs": 10418,
+          "raw_M_determinants_native_selected_patterns": 87182,
+          "all_NR_raw_M_upper_bound": 87218,
+          "jj_patterns": 767
+        },
+        "2J=5 parity=1": {
+          "CSFs": 13432,
+          "raw_M_determinants_native_selected_patterns": 76800,
+          "all_NR_raw_M_upper_bound": 76800,
+          "jj_patterns": 768
+        },
+        "2J=1 parity=-1": {
+          "CSFs": 5704,
+          "raw_M_determinants_native_selected_patterns": 92377,
+          "all_NR_raw_M_upper_bound": 92616,
+          "jj_patterns": 737
+        },
+        "2J=3 parity=-1": {
+          "CSFs": 10415,
+          "raw_M_determinants_native_selected_patterns": 86878,
+          "all_NR_raw_M_upper_bound": 86912,
+          "jj_patterns": 772
+        }
+      },
+      "budget": {
+        "selected_states": 45686,
+        "one_global_dense_H_FP64_bytes": 16697684768,
+        "one_global_dense_C_FP64_bytes": 16697684768,
+        "global_dense_H_plus_C_FP64_bytes": 33395369536,
+        "block_diagonal_H_plus_C_FP64_bytes": 7402324448,
+        "largest_selected_block": 13432,
+        "largest_selected_block_H_plus_C_FP64_bytes": 2886697984,
+        "max_native_raw_M_determinants": 92715,
+        "largest_dense_determinant_H_FP64_bytes_bound": 68768569800,
+        "full_all_J_states": 185551,
+        "full_all_J_global_dense_H_plus_C_FP64_bytes": 550866777616,
+        "full_all_J_block_diagonal_H_plus_C_FP64_bytes": 32002000016,
+        "excludes": "eigensolver work, angular determinant-to-CSF projections/tables, pair lists/CSR and Python overhead; no peak admission or timing claim",
+        "dense_signed_det_to_CSF_projection_FP64_bytes_by_block": {
+          "2J=1 parity=1": 4240413240,
+          "2J=3 parity=1": 7266096608,
+          "2J=5 parity=1": 8252620800,
+          "2J=1 parity=-1": 4215347264,
+          "2J=3 parity=-1": 7238674960
+        },
+        "all_five_dense_projection_FP64_bytes": 31213152872,
+        "largest_dense_projection_FP64_bytes": 8252620800,
+        "max_full_ordered_determinant_pair_bound": 8596071225,
+        "max_upper_triangle_determinant_pair_bound": 4298081970,
+        "five_target_roots_block_local_FP64_vector_output_bytes": 365488,
+        "five_target_roots_global_zero_padded_FP64_vector_output_bytes": 1827440,
+        "dense_rawH_and_projection_scope": "Hypothetical dense representation payloads derived only from exact dimensions; not an allocation trace or assertion that current sparse native determinant-H code allocates a dense rawH. Current sparse coefficient-table/connected-pair/CSR/workspace sizes remain unknown. Dense projection/H/C alternatives already make8GiB unfit; no admitted peak estimate."
+      }
+    }
+  },
+  "complete_missing_family": {
+    "NR_configurations": 82,
+    "pool": [
+      "6s",
+      "5d",
+      "6p",
+      "7s",
+      "6d",
+      "7p",
+      "5f"
+    ],
+    "magnetic_spinor_modes_in_pool": 50,
+    "all_magnetic_determinants": 1783600,
+    "jj_occupation_patterns": 1080,
+    "full_all_J_CSFs": 179810,
+    "selected_five_block_CSFs": 43112,
+    "by_block": {
+      "2J=1 parity=1": {
+        "CSFs": 5352,
+        "raw_M_determinants_native_selected_patterns": 90056,
+        "all_NR_raw_M_upper_bound": 90056,
+        "jj_patterns": 540
+      },
+      "2J=3 parity=1": {
+        "CSFs": 9822,
+        "raw_M_determinants_native_selected_patterns": 84704,
+        "all_NR_raw_M_upper_bound": 84704,
+        "jj_patterns": 540
+      },
+      "2J=5 parity=1": {
+        "CSFs": 12780,
+        "raw_M_determinants_native_selected_patterns": 74882,
+        "all_NR_raw_M_upper_bound": 74882,
+        "jj_patterns": 540
+      },
+      "2J=1 parity=-1": {
+        "CSFs": 5342,
+        "raw_M_determinants_native_selected_patterns": 89754,
+        "all_NR_raw_M_upper_bound": 89754,
+        "jj_patterns": 540
+      },
+      "2J=3 parity=-1": {
+        "CSFs": 9816,
+        "raw_M_determinants_native_selected_patterns": 84412,
+        "all_NR_raw_M_upper_bound": 84412,
+        "jj_patterns": 540
+      }
+    },
+    "all_J_parity_CSFs": {
+      "2J=1 parity=-1": 5342,
+      "2J=1 parity=1": 5352,
+      "2J=3 parity=-1": 9816,
+      "2J=3 parity=1": 9822,
+      "2J=5 parity=-1": 12750,
+      "2J=5 parity=1": 12780,
+      "2J=7 parity=-1": 13896,
+      "2J=7 parity=1": 13908,
+      "2J=9 parity=-1": 13328,
+      "2J=9 parity=1": 13374,
+      "2J=11 parity=-1": 11504,
+      "2J=11 parity=1": 11520,
+      "2J=13 parity=-1": 8948,
+      "2J=13 parity=1": 9000,
+      "2J=15 parity=-1": 6302,
+      "2J=15 parity=1": 6318,
+      "2J=17 parity=-1": 3956,
+      "2J=17 parity=1": 4002,
+      "2J=19 parity=-1": 2214,
+      "2J=19 parity=1": 2226,
+      "2J=21 parity=-1": 1068,
+      "2J=21 parity=1": 1098,
+      "2J=23 parity=-1": 444,
+      "2J=23 parity=1": 450,
+      "2J=25 parity=-1": 144,
+      "2J=25 parity=1": 158,
+      "2J=27 parity=-1": 38,
+      "2J=27 parity=1": 40,
+      "2J=29 parity=-1": 4,
+      "2J=29 parity=1": 8
+    },
+    "complete_NR_occupancy_rows": [
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 6s2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            2
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s2 6p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            2
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s2 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            2
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s2 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 5f1 6s2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            6,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 6s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6s1 6p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6s1 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6s1 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6s1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 5f1 6s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 6s1 6p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 6p1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 6p1 6d1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 6p1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6s1 6p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 6s1 7s2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 6d1 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 7s1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6s1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "d",
+            2
+          ]
+        ],
+        "family_label": "4f12 6s1 6d2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6s1 6d1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6s1 6d1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 6s1 7p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6s1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            2
+          ],
+          [
+            6,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f2 6s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            3
+          ]
+        ],
+        "family_label": "4f12 5d3",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 6p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            2
+          ],
+          [
+            5,
+            "f",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d2 5f1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 6p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6p1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6p1 6d1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6p1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 5f1 6p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 7s2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6d1 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 7s1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 5f1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "d",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 6d2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 6d1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 5f1 6d1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 7p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5d1 5f1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "d",
+            1
+          ],
+          [
+            5,
+            "f",
+            2
+          ]
+        ],
+        "family_label": "4f12 5d1 5f2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            3
+          ]
+        ],
+        "family_label": "4f12 6p3",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            2
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p2 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            2
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p2 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 5f1 6p2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 6p1 7s2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p1 6d1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p1 7s1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6p1 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            2
+          ]
+        ],
+        "family_label": "4f12 6p1 6d2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6p1 6d1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6p1 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 6p1 7p2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "p",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6p1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            2
+          ],
+          [
+            6,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f2 6p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 6d1 7s2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            7,
+            "s",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 7s2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            7,
+            "s",
+            2
+          ]
+        ],
+        "family_label": "4f12 5f1 7s2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            2
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 6d2 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6d1 7s1 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6d1 7s1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 7s1 7p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            7,
+            "s",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 7s1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            2
+          ],
+          [
+            7,
+            "s",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f2 7s1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            3
+          ]
+        ],
+        "family_label": "4f12 6d3",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 6d2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "d",
+            2
+          ]
+        ],
+        "family_label": "4f12 5f1 6d2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 6d1 7p2",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            6,
+            "d",
+            1
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f1 6d1 7p1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            2
+          ],
+          [
+            6,
+            "d",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f2 6d1",
+        "parity": 1
+      },
+      {
+        "valence_occupation": [
+          [
+            7,
+            "p",
+            3
+          ]
+        ],
+        "family_label": "4f12 7p3",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            1
+          ],
+          [
+            7,
+            "p",
+            2
+          ]
+        ],
+        "family_label": "4f12 5f1 7p2",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            2
+          ],
+          [
+            7,
+            "p",
+            1
+          ]
+        ],
+        "family_label": "4f12 5f2 7p1",
+        "parity": -1
+      },
+      {
+        "valence_occupation": [
+          [
+            5,
+            "f",
+            3
+          ]
+        ],
+        "family_label": "4f12 5f3",
+        "parity": -1
+      }
+    ]
+  },
+  "physics_scope": {
+    "class": "Same existing31-wave radial bank, closed[Xe] core with4f12 and three electrons in every Pauli-allowed occupancy of all7existingNRvalence shells. Two4f holes/core-core-plus-valence correlation;4f13+2v is already present.",
+    "coupling": "Relative to4f14+v, spectator-preserving members are double core excitations potentially coupled by the two-body DC operator in matchingJ/parity. Other members may require indirect coupling; relative to existing4f13+2v, one additional4f promotion opens core-valence coupling. This is selection-rule/class relevance only, no measured coupling strengths or energy ranking.",
+    "energies_or_error_bounds_calculated": false,
+    "not_claimed": [
+      "NIST gap reduction",
+      "SCI or perturbation remainder bound",
+      "RCCSDT equivalence",
+      "stationarity or line-FD admission",
+      "fixed orbital relaxation response"
+    ],
+    "conditional_configuration_omission_fact": "In these exact bound A91/B100 lists, every4f occupation is13or14; none is12. The complete82NR4f12+3valence family is absent although allits radial orbitals already exist in the31-wave bank. Increasing radial n/l cutoff alone cannot generate this missing excitation/occupancy class while that configuration-generation restriction is unchanged. This establishes class absence, not its energy importance."
+  },
+  "decision": "Do not execute an H/CI expansion undercurrent8GiB. Pursue a source-reviewed exact native CSF-H action with streamed angular projection/connected contractions and a residual-controlled targeted eigensolver while retaining the entire173NR/44707CSF (or182NR/45686CSF) target space. Computing onlythefive physical target roots selects outputs, not CSF/configuration amplitudes; this representation/solver path is a recommendation and is not implemented, qualified, timed or admitted by this budget. Preserve all signed/offdiagonal couplings. No energy/coupling strengths, NIST improvement, SCI bound or error-budget claim.",
+  "execution": {
+    "imports": "stdlib only; no Atomx,NumPy,SciPy,NPZ",
+    "NR_or_integer_jj_patterns_only": true,
+    "Hamiltonian_builds": 0,
+    "CI_solves": 0,
+    "energy_calculations": 0,
+    "table_allocations": 0,
+    "elapsed_seconds_uncontrolled": 0.10919143800856546,
+    "peakRSS_MiB": 437.09375
+  },
+  "final_verification": {
+    "input_JSON_sha256_unchanged": true,
+    "A_full_parent_CSFs": 3789,
+    "A_selected_CSFs": 1595,
+    "B_full_parent_CSFs": 5741,
+    "B_selected_CSFs": 2574,
+    "B_all_five_native_raw_M_censuses_matched": true,
+    "missing_family_NR": 82,
+    "sum_rule_all_magnetic_determinants": 1783600,
+    "scientific_execution_performed": false,
+    "recommended_solver_implemented_or_qualified_here": false
+  }
+}

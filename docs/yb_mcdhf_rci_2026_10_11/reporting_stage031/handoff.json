@@ -1,0 +1,16 @@
+{
+  "status": "source_only031_ready_pending_root_exactexecution",
+  "files_sha256": {
+    "refresh.py": "61faab2eadcdeeae0236e99a4b4d0e0ece9ec648650be8b2aec993e48ee06a52",
+    "contract.json": "9ff00f67560f12eaa07f7f4ed0ab895bfdc4337aca29ff6fd64bbe9f9518dc60",
+    "preparation.json": "08231eea2a9d59c041c2b221f6991e7866138a8c705e8e267370808935cc62b0",
+    "README.md": "75fe3e43ee031bdbfc06a583f1cc45a7fe6bcfb8b6a51783778306635e6a2542",
+    "documentation_impact.json": "3bc7bce5a1395dfee3c210d1c6e5a25cc4288a2880a67b9db18c773f53bf9fdb",
+    "EARS.md": "592b7b6c5c7f785fc9cbd833563b0ed4a9d68dae9cf62db664550830cdaa4cb9",
+    "registry_preparation_snapshot.json": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b"
+  },
+  "driver_command": "timeout 60s taskset -c 30 python docs/yb_mcdhf_rci_2026_10_11/reporting_stage031/refresh.py --execute --contract-sha256 9ff00f67560f12eaa07f7f4ed0ab895bfdc4337aca29ff6fd64bbe9f9518dc60",
+  "result_stage031_written": false,
+  "registry_changed": false,
+  "new_science_API_NPZ_GPU_calls": 0
+}

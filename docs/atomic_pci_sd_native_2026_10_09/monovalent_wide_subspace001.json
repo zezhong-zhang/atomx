@@ -1,0 +1,32 @@
+{
+  "status": "three numerical tests pass; independent complete42-matrix oracle",
+  "rows": [
+    {
+      "subspace": 16,
+      "actual_dimension": 15,
+      "actions": 262,
+      "restarts": 15,
+      "raw_Ha": 1.892930256985892e-13
+    },
+    {
+      "subspace": 32,
+      "actual_dimension": 29,
+      "actions": 81,
+      "restarts": 2,
+      "raw_Ha": 2.4488050476279e-13
+    },
+    {
+      "subspace": 64,
+      "actual_dimension": 40,
+      "actions": 50,
+      "restarts": 0,
+      "raw_Ha": 1.1315601233796713e-13
+    }
+  ],
+  "source_sha256": {
+    "test_monovalent_wide_subspace.py": "707f4f3a164201babe03efb05bdb741cd883027023d7989a9429b4dea49fe355",
+    "test_monovalent_davidson_control.py": "ab3e2324679fe619df9a6f02f00a64491afa470b551643aa500944d4273ccbd7",
+    "monovalent_davidson_control.py": "e1398d03416089856c26fc60228f8ddbcdd59e47d4b64a35604276fbc5d6b49a"
+  },
+  "scope": "Numerical condition/restart experiment, no atomic physical or native timing claim"
+}

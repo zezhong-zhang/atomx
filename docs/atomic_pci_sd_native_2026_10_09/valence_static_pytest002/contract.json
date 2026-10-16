@@ -1,0 +1,5 @@
+{
+  "hypothesis": "Compile serial valence and screening units without OpenMP, retaining static original scratch under shared owner lock; only explicitly heap-backed worker objects keep OpenMP",
+  "fixed": "original/optimized complete finite signed maps, responses, caps, ownership and raw gates unchanged",
+  "stop": "any mismatched signed result or skipped live check rejects; full-large-array crash requires separate proof"
+}

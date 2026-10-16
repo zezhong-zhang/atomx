@@ -1,0 +1,39 @@
+{
+  "production_change": [],
+  "local_experiment_files": [
+    "align_core.py",
+    "compare_alignment.py",
+    "review_saved.py",
+    "verify_increment.py"
+  ],
+  "current_docs_to_update": [
+    "docs/AGENT_REFERENCE.md",
+    "docs/ATOMIC_FSCC.md",
+    "docs/TESTING.md",
+    "docs/yb_mcdhf_rci_2026_10_11/README.md",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md"
+  ],
+  "current_docs_to_retain": {
+    "docs/ARCHITECTURE_CAPABILITIES.md": "Same real dense tensor API, physical limitations and defaults; new validation model gets its owning report and current method-guide link. No capability/default change.",
+    "docs/VERIFICATION.md": "Existing cases remain historical, with no changed gate. New model controls/results are registered at their owner and current TESTING guide.",
+    "docs/AGENT_INSIGHTS.md": "Existing rule on nonadditive finite correlation-space increments already covers fixed-core closure; no new cross-task insight is assumed before measurements."
+  },
+  "sealed_predecessor": "All61 native_virtual_p003 receipt artifacts unchanged; preserve as historical source/input/model evidence.",
+  "validation_plan": [
+    "1171 live off-shell/sign/identity gates already pass",
+    "12 tensor tests pass in14.58s",
+    "complete new core/12-partner equations before accepting spectrum",
+    "fresh saved-equation replay",
+    "working-tree local link, diff, source and receipt checks"
+  ],
+  "scope": "Documentation will describe actual outcome, including any failed gate; do not mark pending runs PASS.",
+  "validation_actual": {
+    "probe_controls": 1171,
+    "solve_controls": 531,
+    "saved_replay_controls": 52,
+    "current_tensor_tests": "12PASS/0SKIP in14.58s",
+    "changed_production_files": [],
+    "new_global_insight": "No new global rule. Existing conditional correlation-space rule already applies; new measurement is retained at the owner."
+  }
+}

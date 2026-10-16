@@ -1,0 +1,26 @@
+# Fixed accepted160 nuclear virtual discriminator — completed
+
+The complete balanced virtual arm passed its numerical controls and a separate **3112-check saved-array audit**. The four excitation changes are −4.782, −4.796, +2.485 and +2.511 cm⁻¹. The nominal NIST gap RMS changes from 2022.830 to 2019.201 cm⁻¹. This is a small response of this one nuclear-field virtual layer; it does not establish radial convergence or an experimentally accurate atom.
+
+Both arms use the exact accepted160 old24 wave functions, original nuclear positive-electronic projector, coordinates/inverse metric, Fermi A175 nucleus, scalar native Dirac–Coulomb operator, original balanced531/native005 signed tracker and equal five-state weights. The baseline retains all261 CSFs of the five complete target J/parity sectors of full531; the virtual arm retains all1046 of full2163, with five additional radial correlation labels. There is no amplitude/configuration pruning. Other symmetry sectors and a global ground-state certificate are outside this result.
+
+| Transition | Upper energy change (Ha) | Lower energy change (Ha) | Upper−lower change (cm⁻¹) |
+| --- | ---: | ---: | ---: |
+| 5d₃/₂−6s₁/₂ | −0.000048316697 | −0.000026529100 | −4.781825 |
+| 5d₅/₂−6s₁/₂ | −0.000048380651 | −0.000026529100 | −4.795861 |
+| 6p₁/₂−6s₁/₂ | −0.000015208450 | −0.000026529100 | +2.484595 |
+| 6p₃/₂−6s₁/₂ | −0.000015088001 | −0.000026529100 | +2.511031 |
+
+D/P degeneracy-weighted centroid changes are −4.790247/+2.502219 cm⁻¹; fine-structure splitting changes are −0.014036/+0.026436 cm⁻¹. Individual lower and upper energies, complete CI/H arrays, signed matching, nested baseline261 blocks and ordered Ritz controls are archived in [result.json](result.json). The measured complete5p-double arm has a separate hundreds-of-cm⁻¹ response and worse overall RMS; it is not an additive correction to this arm.
+
+The original failed three-point invocation is preserved. Its κ−3 reported gvx energy differed from the actual vector Rayleigh energy by3.81e−8Ha. The new invocation used the same saved raw five public-generator spinors, with only joint P/Q sign canonicalization. Five original-P frozen-complement SVDs and five full gvd vector controls passed whole actual S-Gram/relative residual, longdouble normalized Rayleigh ordering/gap, raw-to-lowest-vector overlap and the unchanged1e−8Ha minimum,1e−12S² leakage and1e−10Gram gates. All five minimum Rayleigh matches are within2.56e−14Ha. No projection or normalization repair of the consumed raw spinors was introduced. The residual gate is relative: the κ−2 lowest absolute nuclear residual1.10e−8Ha is not an absolute1e−8Ha certificate.
+
+Actual calls were exactly2 complete CI,4 many-electron H,7 native h/S,5 complement SVD and5 full gvd. Generator, Dirac, orbital gradient and optimizer calls were zero. The separate [saved-array audit](saved_array_audit/verification.json) added no physical calls or eigensolves. Root execution and binding are [archived](root_execution.json); timing was uncontrolled and carries no speedup claim.
+
+Saved quadrature analysis in [radial_support/result.json](radial_support/result.json) finds mean radii0.287–0.348a₀ for the five nuclear virtuals versus3.008–4.690a₀ for corresponding valence orbitals.99.76–99.90% of each virtual density lies below its corresponding valence median radius. This supports a compact-radial-selection hypothesis. Saved H diagonal excitation differences for new CSFs are approximately50–114Ha; diagonal EN estimates resemble the measured small correlation energies. These are basis-dependent diagnostics, not spectral bounds or proof of screened quality. The exact executed analysis source is [execution_source.py](radial_support/execution_source.py); [analyze.py](radial_support/analyze.py) differs only by import order, as recorded in [lint_successor.json](radial_support/lint_successor.json), without repeating the saved algebra.
+
+The next chosen discriminator is a closed68 screened-Fock auxiliary virtual layer **inside the same original projector**, keeping old24 and the same complete1046 CI family. It changes radial construction, not the retained physical Hamiltonian or no-pair boundary. Direct/exchange, zero-target normalization and finite matrix identity must be qualified under a new prospective contract before any new science. See [decision.json](decision.json) for exact output hashes and limits.
+
+The inherited original orbital residual4.717047646600387e−5 still fails1e−7. Neither arm is a stationary expanded MCDHF solution, and the experimental gate remains false. No static/dynamic Breit, QED, recoil, empirical shift, accepted320 substitution or003 correction transplant is included. Numerical equivalence does not prove complete physics.
+
+The untouched preparation account is [README_prepared.md](README_prepared.md), with [contract](contract.json), [models](models.json) and [driver](run.py). Prior [failed invocation](../rank_vs_virtual_discriminator/README_failure.md), [minimum-root audit](../rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json) and [rank-only audit](../rank_only_discriminator/saved_array_audit/verification.json) retain their own identities.

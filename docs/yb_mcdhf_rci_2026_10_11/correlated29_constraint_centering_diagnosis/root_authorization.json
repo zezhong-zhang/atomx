@@ -1,0 +1,20 @@
+{
+  "readonly_execution_authorized_by_root": true,
+  "authorized_at_utc": "2026-10-11T13:43:30.981664+00:00",
+  "contract_sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1",
+  "driver_sha256": "0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d",
+  "root_message": "精确准入一次 saved-only d1 full-Gram conditional diagnostic：contract868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1 / driver0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d；核完合同与独立 MATH06946442无代数阻断，CPU31 threads1 AS2GiB inner90 outer105 products≤8m，0H/CI/g/Dirac/eigen/SVD/cells/newRDM，前台唯一执行，失败保留无重试。写 root_authorization/launcher/execution seal 后执行；绑定实际 stage015 card proof ea1805a8c06f00d108b26b6480fcd37d9d3faba72c0ed10ae764473fd407b6fa（此次是该card启动迭代的连续步骤）。原reported/Q失败、stationarity与optimizer HOLD不改。结果尽快给centered两对误差/Gram/调用及资源。",
+  "actual_trigger": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage015/delivery_proof.json",
+    "sha256": "ea1805a8c06f00d108b26b6480fcd37d9d3faba72c0ed10ae764473fd407b6fa",
+    "cycle": "mcdhf-stage015",
+    "message_id": "om_x100b638c9148f0a0c3702e452b8bc6f",
+    "continuing_iteration_step": true
+  },
+  "independent_source_math_review": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_review/MATH.md",
+    "sha256": "06946442d1a170d6bab6fcd780a4f9501bf7eb1791fad66e18145a470035ef2d"
+  },
+  "one_invocation": true,
+  "scope": "Same saved d1 three-point conditional fixed-Lambda finite control; no producers/solve and no original gate upgrade/optimizer authorization."
+}

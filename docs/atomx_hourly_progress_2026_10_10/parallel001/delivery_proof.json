@@ -1,0 +1,94 @@
+{
+  "verified_at": "2026-10-11T01:20:20.405786+00:00",
+  "receipt": {
+    "cycle": null,
+    "idempotency_key": null,
+    "message_id": null,
+    "passed": null,
+    "started_at": null,
+    "finished_at": null,
+    "iteration_dispatch_ok": null,
+    "renderer_sha256": null,
+    "registry_sha256": null,
+    "iteration_preview_sha256": null
+  },
+  "private_receipt_sha256": "2bbb70f89cd24f7f9c5225e402f56ae77483d5e2bfd5a1e9d42585ba5f80c496",
+  "private_batch_request_sha256": "8fdc63f80212b5fd728ede154e0e59089a5f1cedc2d804838ca322fc830b5548",
+  "batch_status": "completed",
+  "lanes": [
+    {
+      "job_id": "parallel_fscc_equation_audit_9bb62202a08a0c780019",
+      "status": "completed",
+      "pid": 1609705,
+      "spawned_at": "2026-10-11T01:16:08.100580+00:00",
+      "finished_at": "2026-10-11T01:16:09.365276+00:00",
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_equation_audit_9bb62202a08a0c780019/result.json",
+        "sha256": "b866bb9f3207371235ffc88c89cc561d72e6e9a470c95968117f4a507cf856f5"
+      },
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "output_files_verified": 4,
+      "card_summary": "FS-CCSDT 方程审计：完整实际幅度 Bloch 残差 4.164e-07 Ha；HEFF 严格门 未闭合。有限诊断，生产大空间与最高精度认证继续验证。"
+    },
+    {
+      "job_id": "parallel_native_sd_transverse_29913fd23dd02076fb47",
+      "status": "completed",
+      "pid": 1609707,
+      "spawned_at": "2026-10-11T01:16:08.100821+00:00",
+      "finished_at": "2026-10-11T01:16:10.266662+00:00",
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_native_sd_transverse_29913fd23dd02076fb47/result.json",
+        "sha256": "4b9a36791b5ad610da81bb8f95da7e4df9215e9efd56609727ac890d67887525"
+      },
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "output_files_verified": 3,
+      "card_summary": "完整 signed J/宇称横向积分桥与有限两电子 SD 已验证；DC/static/dynamic 的完整 120×120 三电子矩阵及独立 jj-CSF 对照均通过 1e-11 Ha 门，有限 linked SD 原始残差通过 1e-12 Ha 门。native_scalable_sd_transverse_complete=false：大规模 pCI 核/价/Sigma2 横向图项仍未完成。"
+    },
+    {
+      "job_id": "parallel_yb_complete_tail_preflight_9b67e1c60373623211e8",
+      "status": "completed",
+      "pid": 1609708,
+      "spawned_at": "2026-10-11T01:16:08.100943+00:00",
+      "finished_at": "2026-10-11T01:16:15.523706+00:00",
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_yb_complete_tail_preflight_9b67e1c60373623211e8/result.json",
+        "sha256": "c7988f245ae1e3533e79265ca5a2b0f9c912b10ed1553da05beb3e515041925d"
+      },
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "output_files_verified": 381,
+      "card_summary": "完整tail计数/径向回放通过：lmax3/4 × Emax5/10Ha 四档、全部5态。发现l4完整norm Gram scratch超过原64MiB，需要分块复用；GPU staging已计入，长算executor/GPU实际准入仍deferred。尚无新收敛谱或实验精度改善证书。"
+    }
+  ],
+  "actual_three_process_overlap_seconds": 1.264333,
+  "execution_model": "Three isolated child processes; threads only orchestrate waiting. No GPU or speedup certificate.",
+  "completed_same_source_jobs_not_reselected": true,
+  "resource_preflight": {
+    "available_bytes": 87859712000,
+    "free_disk_bytes": 2645487480832,
+    "load": [
+      9.443359375,
+      9.3544921875,
+      9.3623046875
+    ],
+    "threads": 1,
+    "passed": true,
+    "timing_claim": false,
+    "cpus": 32,
+    "reserved_bytes": 12884901888,
+    "host_headroom_bytes": 8589934592,
+    "service_memory_bytes": 15032385536,
+    "total_threads": 3
+  },
+  "scope": "Finite audits and complete tail resource preflight. Scientific negative gates retained; no new experimental spectrum or production large-space certificate.",
+  "tests": {
+    "passed": 61,
+    "failed": 0,
+    "skipped": 0,
+    "junit": "affected-checks.xml",
+    "sha256": "4533b3fc78d1785f9caea07b0d4647c68641f74c4c53909b6ae5fc2c1679a69f"
+  },
+  "highest_level_reached": false
+}

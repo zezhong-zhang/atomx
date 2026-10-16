@@ -1,0 +1,25 @@
+{
+  "hypothesis": "Finite connected attachment H+[H,Tcore+Sv] minus attached core spectator equals standalone SD equations8/9/13 including singles feedback; fixed converged core, self-consistent deltaEv",
+  "fixed": "Native Be Z4 ns30 ks7 real DC, common complete 1s2 core and 2s,3s,2p1/2,2p3/2 radial pool, same nuclear potential/integral kernels, full noncanonical Fock",
+  "independent": "literal primary canonical tensor diagrams plus independent full Fock-space commutator; SciPy nonlinear root of dense-sector equation; explicit SD wave and full residual",
+  "gates": {
+    "signed_action_Ha": 1e-11,
+    "raw_residual_Ha": 1e-10,
+    "root_Ha": 1e-11,
+    "amplitude": 1e-10,
+    "physical_coefficients": 1e-11
+  },
+  "caps": {
+    "work_cap": 200000000,
+    "memory_bytes": 67108864,
+    "amplitude_cap": 256,
+    "determinant_cap": 2000
+  },
+  "stop": "Any convention/equation/root/signed-state failure blocks promotion. Never shift denominators, prune coordinates, symmetrize directed equation, fit experiment or relabel full residual as numerical error",
+  "scope": "finite standalone linked SD correctness anchor; no production J-reduced GPU, triples, Breit/QED/recoil, basis/experimental accuracy claim",
+  "load": [
+    10.12939453125,
+    10.1396484375,
+    9.86083984375
+  ]
+}

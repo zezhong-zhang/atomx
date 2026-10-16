@@ -1,0 +1,127 @@
+{
+  "records": [
+    {
+      "label": "6s_1/2",
+      "paper_printed_E2_cm1": -8288,
+      "paper_printed_E3_cm1": 1016,
+      "paper_printed_E3_excitation_difference_cm1": 0,
+      "coarse_l8_e200": {
+        "on_shell_cm1": -8246.997430589277,
+        "native_minus_paper_E2_cm1": 41.00256941072257,
+        "scope": {
+          "lmax": 8,
+          "emax_Ha": 200.0,
+          "base": "v68_default"
+        }
+      },
+      "fine_l6_e200": {
+        "on_shell_cm1": -8190.169836688798,
+        "native_minus_paper_E2_cm1": 97.83016331120234,
+        "scope": {
+          "lmax": 6,
+          "emax_Ha": 200.0,
+          "base": "v68_refined_newton"
+        }
+      }
+    },
+    {
+      "label": "5d_3/2",
+      "paper_printed_E2_cm1": -9003,
+      "paper_printed_E3_cm1": -1027,
+      "paper_printed_E3_excitation_difference_cm1": -2043,
+      "coarse_l8_e200": {
+        "on_shell_cm1": -8898.625278085532,
+        "native_minus_paper_E2_cm1": 104.37472191446795,
+        "scope": {
+          "lmax": 8,
+          "emax_Ha": 200.0,
+          "base": "v68_default"
+        }
+      },
+      "fine_l6_e200": {
+        "on_shell_cm1": -8719.929624454908,
+        "native_minus_paper_E2_cm1": 283.07037554509225,
+        "scope": {
+          "lmax": 6,
+          "emax_Ha": 200.0,
+          "base": "v68_refined_newton"
+        }
+      }
+    },
+    {
+      "label": "5d_5/2",
+      "paper_printed_E2_cm1": -8001,
+      "paper_printed_E3_cm1": -1301,
+      "paper_printed_E3_excitation_difference_cm1": -2317,
+      "coarse_l8_e200": {
+        "on_shell_cm1": -7908.656337201364,
+        "native_minus_paper_E2_cm1": 92.3436627986357,
+        "scope": {
+          "lmax": 8,
+          "emax_Ha": 200.0,
+          "base": "v68_default"
+        }
+      },
+      "fine_l6_e200": {
+        "on_shell_cm1": -7738.118259379333,
+        "native_minus_paper_E2_cm1": 262.8817406206672,
+        "scope": {
+          "lmax": 6,
+          "emax_Ha": 200.0,
+          "base": "v68_refined_newton"
+        }
+      }
+    },
+    {
+      "label": "6p_1/2",
+      "paper_printed_E2_cm1": -4344,
+      "paper_printed_E3_cm1": 335,
+      "paper_printed_E3_excitation_difference_cm1": -681,
+      "coarse_l8_e200": {
+        "on_shell_cm1": -4324.380340781981,
+        "native_minus_paper_E2_cm1": 19.61965921801857,
+        "scope": {
+          "lmax": 8,
+          "emax_Ha": 200.0,
+          "base": "v68_default"
+        }
+      },
+      "fine_l6_e200": {
+        "on_shell_cm1": -4295.973745158237,
+        "native_minus_paper_E2_cm1": 48.02625484176315,
+        "scope": {
+          "lmax": 6,
+          "emax_Ha": 200.0,
+          "base": "v68_refined_newton"
+        }
+      }
+    },
+    {
+      "label": "6p_3/2",
+      "paper_printed_E2_cm1": -3606,
+      "paper_printed_E3_cm1": 166,
+      "paper_printed_E3_excitation_difference_cm1": -850,
+      "coarse_l8_e200": {
+        "on_shell_cm1": -3588.966985663426,
+        "native_minus_paper_E2_cm1": 17.03301433657407,
+        "scope": {
+          "lmax": 8,
+          "emax_Ha": 200.0,
+          "base": "v68_default"
+        }
+      },
+      "fine_l6_e200": {
+        "on_shell_cm1": -3563.722842678818,
+        "native_minus_paper_E2_cm1": 42.27715732118213,
+        "scope": {
+          "lmax": 6,
+          "emax_Ha": 200.0,
+          "base": "v68_refined_newton"
+        }
+      }
+    }
+  ],
+  "paper_representation": "70 order-9 B splines, radius 200 a0; E2 lmax8 with higher-l extrapolation; E3 lmax6. This is not the native ns123/230, R60, finite unextrapolated virtual space.",
+  "numerical_pass_claim": false,
+  "corrections_injected": false
+}

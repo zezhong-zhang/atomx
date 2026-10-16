@@ -1,0 +1,84 @@
+{
+  "status": "frozen_SOURCE_only_execution_not_authorized",
+  "files": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
+      "sha256": "dd9550eb874bdedf45d65eddd47a5f8dd82e68a3de3951556dc0772bc5bc4525"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
+      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source_identity.json",
+      "sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/preparation.json",
+      "sha256": "1e99a95bfb355077d43adb918b92b255dee99475513a07a7125289adb967333a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/README.md",
+      "sha256": "28033d17fc1df4ce063984b831a815d265dd1fdb197bec3d68a7c32843cdf6d4"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/documentation_impact.json",
+      "sha256": "1f3aa84e075326aac5e54b6008887784aed1c220f061263c54c5eea06e6213a4"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/EARS.md",
+      "sha256": "f95f1e508fc686bd48a132227dcc2500e95ce938b7a496d496e814b0b41d6219"
+    }
+  ],
+  "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+  "complete_source_files": 365,
+  "deferred_array_inputs": {
+    "literal31_recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "literal31_DC_H_E_C": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "original31_fullmetric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    }
+  },
+  "review_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py"
+  ],
+  "authorize_command_template": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
+    "--authorize",
+    "<new_exact_root_binding.json>"
+  ],
+  "execute_command_template": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
+    "--execute",
+    "<new_exact_root_binding.json>"
+  ],
+  "budget": "CPU27/thread1/AS3.95GiB/1200inner1215outer; 3H3CI0g; 6NPZ/15completeeigh/2transversefactories/<=9zeroHelmholtz",
+  "scope": "full1595 native fixed recovered31 RCI DC/static/zero only; original mixed failures preserved; no optimizer or finite-frequency qualification",
+  "preparation_checks": 485,
+  "no_executions_by_agent": true
+}

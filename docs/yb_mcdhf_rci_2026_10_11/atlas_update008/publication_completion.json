@@ -1,0 +1,119 @@
+{
+  "status": "v9_source_JSON_publication_closed_success",
+  "all_publication_completion_metadata_checks_passed": true,
+  "metadata_checks_count": 13,
+  "metadata_checks": [
+    {
+      "name": "original20frozenfiles_preserved",
+      "passed": true
+    },
+    {
+      "name": "browserclosure_fourfiles_preserved",
+      "passed": true
+    },
+    {
+      "name": "preflight_browser54_static61_exact",
+      "passed": true
+    },
+    {
+      "name": "only16website_owned_commit_paths",
+      "passed": true
+    },
+    {
+      "name": "commit_pushed_exact_remote_HEAD_proof",
+      "passed": true
+    },
+    {
+      "name": "source_preflight_hash_chain",
+      "passed": true
+    },
+    {
+      "name": "saved6128file_manifest_backendfilecount",
+      "passed": true
+    },
+    {
+      "name": "version9_published_sameproject_exactversion",
+      "passed": true
+    },
+    {
+      "name": "same_ownerprivate_revision1audience",
+      "passed": true
+    },
+    {
+      "name": "hosting_bytes_preserved",
+      "passed": true
+    },
+    {
+      "name": "original_public_URL_preserved",
+      "passed": true
+    },
+    {
+      "name": "rawtar_backendnormalization_not_equal_domain",
+      "passed": true
+    },
+    {
+      "name": "no_credential_persistence_or_Atomx_commit",
+      "passed": true
+    }
+  ],
+  "contract_sha256": "d13200389a9db2e62abc57368475be171b7830c710df418966e7608141b888ab",
+  "inputs_sha256": {
+    "root_publication_preflight.json": "fb761ccd2df97d08828ac4d8fee098ce85020a8228dcd335efd0aa5b40403be5",
+    "root_source_commit.json": "b0bcb832b5f275c03ceecc7dfcacd6c18ca895e6bd9b27208a31d2746e4f226d",
+    "root_push_and_archive.json": "795972a1573121bacdd02d3339d12b101c9a212db1e2147e85331129369ce66e",
+    "root_owner_audience.json": "410748bfd2533577e40233cfdca9b97bb3161c6d3b1bde2d3de5c14e60fb814d",
+    "saved_site_version.json": "04a3b89c409927d5fb4712d09ed68c10d2f656e61cfcd4bf215ca421e712158e",
+    "deployment_initial.json": "2b23a73331d56ed08cdbf2139ee0e690031fc0f49070ae2b8af873fe76c27c28",
+    "handoff.json": "40fd30fe1768d0eb300bcd774a898febf894f31281edb3f569f6bb946ac3da44",
+    "browser_completion.json": "863db69c1dd4378b7b7c3745190d2b23ed70fd57427d89851d39e79b30316d57",
+    "browser_closure_handoff.json": "76b769598a66696d133fb0e1b64842e72d56ea5d01d6788f8605509d838db4d1",
+    "browser_result.json": "992a31f528028c53786668bec84a97a3535aae7d8e96e58313ea61648f0c9ed5",
+    "browser_execution.json": "9657e191f4f2a7183659ab1c166cde98c7b59ffe7dc55aa09dfa8abdcd3eb0da",
+    "data_verification.json": "62d0cf883d3f8f2da9ff6a8002af9738415c2c73aa7dd8f6611a66cd0ea69f07",
+    "site_manifest.json": "957d1aaa46b8dcc3c49b0208fe319782120a772ebdad397d21a9ec3f7bbd647f"
+  },
+  "commit_sha": "676adfc663e6be447e5097722d4e10113c3e1731",
+  "version_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f~appgver_16f1901fb2c881918d901d04d75b0e72",
+  "version_number": 9,
+  "deployment_id": "appgdep_6acbda19098c8191919d5fd582422e0e",
+  "deployment_status": "succeeded",
+  "deployment_updated_at": "2026-10-11T18:49:10.397555+00:00",
+  "URL": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+  "audience": {
+    "mode": "custom",
+    "revision": 1,
+    "users": 1,
+    "roles": [
+      "owner"
+    ],
+    "editors": 0,
+    "groups": 0,
+    "external": 0,
+    "verified_scope": "root saved prepublication audience and unchanged hosting; no new backend requery"
+  },
+  "models": 23,
+  "rows": 92,
+  "unchanged_old_trajectory_records": 277,
+  "old_models_preserved": 21,
+  "old_rows_preserved": 84,
+  "unchanged_NISTgzip": 6019,
+  "site_file_count": 6128,
+  "owned_website_change_count": 16,
+  "actual_browser_checks_PASS": 54,
+  "retained_static_checks_PASS": 61,
+  "archive_identity_domains": {
+    "raw_root_tar_SHA256": "10055bbd1a303793b73e71bc4ec9df9521176918fd45a1c7a7149a0d51b4496c",
+    "raw_root_tar_bytes": 73123840,
+    "backend_normalized_content_hash": "sha256:16276487f66bf55c59dbf51e373f5318e92b877cb66070865f267d17aa243d4a",
+    "backend_normalized_bytes": 73113600,
+    "bytewise_identity_between_domains_claimed": false,
+    "tar_reopened_or_rehashed_in_closure": false
+  },
+  "original_nuclear_expected14gate_passed": false,
+  "original29_MCDHF_stationarity_passed": false,
+  "expanded31_MCDHF_stationarity_evaluated": false,
+  "experimental_gate_passed": false,
+  "FD_is_one_direction_two_h": true,
+  "metadata_closure_new_browser_API_science_NPZ_NumPy_Atomx_calls": 0,
+  "frozen20_browserclosure_site_source_registry_mainREADME_changed": false
+}

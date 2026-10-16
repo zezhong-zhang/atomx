@@ -1,0 +1,108 @@
+{
+  "abi": "ATXCC001",
+  "labels": [
+    [
+      1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1
+    ],
+    [
+      2,
+      -1,
+      -1
+    ],
+    [
+      2,
+      -1,
+      1
+    ],
+    [
+      2,
+      1,
+      -1
+    ],
+    [
+      2,
+      1,
+      1
+    ],
+    [
+      2,
+      -2,
+      -3
+    ],
+    [
+      2,
+      -2,
+      -1
+    ],
+    [
+      2,
+      -2,
+      1
+    ],
+    [
+      2,
+      -2,
+      3
+    ]
+  ],
+  "noccupied": 2,
+  "reference_energy_Ha": -13.614001411747196,
+  "frozen_energy_Ha": 0.0,
+  "identity": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('f5974644b43b18fbc386ab7504ac97c9818e3eca79ac705e857d7b8fbffa31eb', '669e92afff5c2d78d79890b343cdcdd5b110265c8254b9c3081912c44cf22da7', '79bc312eb5845cb2dda05b6d4c3a9daea02f8983cf7fe5c6f7c9dfc1808bb3a0', 'caf6eb013c96b5253fccc5a5725bcc5f773e9d16eb9b511c72d5b5d1e5082317'), core=(((1, -1), 'f5974644b43b18fbc386ab7504ac97c9818e3eca79ac705e857d7b8fbffa31eb'),), geometry='3bec95a250e8076d9b5a337c5e0a9a3d0167337dae1e521b7406a177b9b7b894', Z=4, ns=80, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.3322676295501878e-15,
+    "hermitian_projection_max_Ha": 2.914335439641036e-16,
+    "integral_bytes": 21680,
+    "radial_pair_cache_size": 1024
+  },
+  "export": {
+    "logical_bytes": 20228,
+    "max_integral_file_bytes": 2147483648,
+    "max_chunk_bytes": 4194304,
+    "producer": {
+      "representation": "packed",
+      "resident_matrix_bytes": 3200,
+      "resident_eri_bytes": 18480,
+      "dense_eri_bytes": 18480
+    }
+  },
+  "files": {
+    "ATOMX_ONE": "743ceb06d1b8eadbd3a011f3a169e704ceefdbc2e7a1696831042ac6f923ccfd",
+    "ATOMX_TWO": "00d9bbb7f25f91adae83ccfcf49476f67c47678e1152fdf9e03e992ded4ebf5c"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETE",
+  "working_directory": "/data/code/atomx",
+  "commands": {
+    "prepare": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/align_core.py prepare",
+    "probe": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 .venv/bin/python -u docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/align_core.py probe > docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/probe.log 2>&1",
+    "solve": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 .venv/bin/python -u docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/align_core.py solve > docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/solve.log 2>&1",
+    "tests": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 taskset -c 28 .venv/bin/python -m pytest tests/test_tensor_coupled_cluster.py -q --junitxml=docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/tensor_tests.xml > docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/tensor_tests.log 2>&1",
+    "saved_review": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 .venv/bin/python -u docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/review_saved.py > docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/review.log 2>&1",
+    "compare": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/compare_alignment.py",
+    "closing_checks": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/verify_increment.py"
+  },
+  "sessions": {
+    "probe": 92849,
+    "solve": 43681,
+    "tests": 64222,
+    "saved_review": 72065
+  },
+  "completed": {
+    "probe": "PASS_COMPLETE_5P_OFFSHELL_PROBE",
+    "tests": "12PASS/0SKIP in14.58s",
+    "solve": "PASS_COMPLETE_5P_NATIVE_CCSDT_R3:531 live gates",
+    "saved_review": "PASS_COMPLETE_5P_SAVED_REPLAY:52 controls"
+  },
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "scope": "Single explicit core-closure discriminator at fixed radial/Hamiltonian/virtuals; no production code edits, no external executable invoked, no card or scheduled task.",
+  "all_task_sessions_reaped": true
+}

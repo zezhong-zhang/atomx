@@ -1,0 +1,9 @@
+{
+  "scientific_success_claim": false,
+  "error": "Scientific gate failed: fresh_baseline_real_owner_identity",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py\", line 515, in main\n    probe(contract, execution)\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py\", line 411, in probe\n    check(\"fresh_baseline_real_owner_identity\", base[1].hamiltonian_snapshot.identity_payload() != load(\"saved_point_owner\"))\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py\", line 172, in check\n    raise ValueError(\"Scientific gate failed: \" + name)\nValueError: Scientific gate failed: fresh_baseline_real_owner_identity\n",
+  "progress_path": "progress.json",
+  "driver_sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe",
+  "contract_sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba",
+  "original_failure_unchanged": true
+}

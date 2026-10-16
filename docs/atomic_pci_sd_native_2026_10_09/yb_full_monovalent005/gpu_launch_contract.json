@@ -1,0 +1,23 @@
+{
+  "hypothesis": "Complete standalone CUDA/GEMM action and feedback roots retain original CPU full-space equations",
+  "base_driver_contract": "contract.json records the unchanged physical reconstruction, core replay and numerical continuation; this wrapper declares the additional explicit execution policy",
+  "physical_space": "Original68core/414radialvirtual, all direct-rho coordinates, real DC, same Fermi/ns123/l<=3/5Ha; no pruning or fitted shift",
+  "cpu_reference": "yb_full_monovalent004",
+  "finite_proof": "monovalent_cuda002:164 independent gates, allM/four orbital variants and16paired roots",
+  "finite_proof_sha256": "3360d42d08c33008b97159927b3d6ef30786b10eea03b13f2585ae53609d95e6",
+  "execution_policy": "Explicit CUDA term2, exact CPU term31/term41/terma4 GEMM, private directed complete-image Davidson; no automatic CPU fallback",
+  "signed_map_gate_Ha": 1e-11,
+  "actual_cpu_root_raw_and_energy_gate_Ha": 1e-10,
+  "host_cap_bytes": 34359738368,
+  "device_cap_bytes": 2147483648,
+  "whole_host_bound_bytes": 12929879172,
+  "private_additional_host_bytes": 78524416,
+  "load": [
+    16.9169921875,
+    17.96142578125,
+    17.36767578125
+  ],
+  "timing_scope": "current live-load observations only; no alternating controlled end-to-end speedup",
+  "stop": "Any complete CPU map/root/source/cap gate failure rejects; no gate or space changes",
+  "scope": "Private complete numerical equations and CPU/CUDA arithmetic, no public adoption, physical state/property/precision or pole certificate"
+}

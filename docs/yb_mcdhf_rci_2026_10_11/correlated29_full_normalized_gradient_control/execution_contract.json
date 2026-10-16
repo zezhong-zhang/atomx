@@ -1,0 +1,32 @@
+{
+  "execution_authorized_by_root": true,
+  "driver_sha256": "2fbfbbfa978a8812eca8b9b5bd683cc7dba53f016fc0306a775f85bded2f1df3",
+  "contract_sha256": "cf786edf46ae694cbc1c93554f768084bb15c12fb537a662d2a48b259fb8a7aa",
+  "preparation_sha256": "ab9221af92609d9328399c5a5486e26a5c2388a4d3036a06ee37a506894e3990",
+  "handoff_sha256": "aaea82a68c11aca1c396362f0eab996af858f7ad192f48658f8d7003fadafda2",
+  "root_authorization_message_sha256": "15d47cb1071c997d88db33d26ad3b457c92e269f6f8a0766b6c2dcf855d80f8f",
+  "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "max_H": 1,
+  "max_CI": 1,
+  "max_gradient_from_weights": 2,
+  "max_optimizer": 0,
+  "max_Dirac": 0,
+  "CPU": 31,
+  "wall_seconds": 300,
+  "outer_wall_seconds": 315,
+  "address_space_GiB": 3.95,
+  "maximum_system_load1": 32,
+  "thread_values": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1"
+  },
+  "single_foreground_launch_only": true,
+  "no_retries_or_model_shrink": true,
+  "timing_controlled": false,
+  "actual_performance_claim": "none, uncontrolled correctness control",
+  "created_utc": "2026-10-11T14:03:43.370942+00:00"
+}

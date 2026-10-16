@@ -1,0 +1,40 @@
+{
+  "status": "prospective_bound_successor_rootclosed_metadata_once",
+  "metadata_execution_authorized_after_exact_root_closure": true,
+  "closure_driver_sha256": "5713d1cec49d369c03c2927ccdc586fd13e60de84bfffe0a9f2f783ac578147f",
+  "scientific_execution_binding_sha256": "4ca5928defe644a222687a4cfd9ba2aad7f541a6bb5050203177b5cd34aab679",
+  "frozen_preparation_sha256": {
+    "run.py": "0023cde2bc9316938304b51ba554f3e9240a2770285be71304cc66a2e5f7f77c",
+    "contract.json": "d1f71a97ecc8ed7ead742cee454247fa95f437e26dfe3ed6c1095b4a0886eb87",
+    "prepare.py": "544885bad86f7a02cae279c2ce607fb10e6a78c3ab50bf30c9ae0d0f4aad5840",
+    "preparation.json": "3cd6cc6ad8552bc0f83b8e59a9683ab9eb10ee09171f6b5bb1f221322238319b",
+    "representation_diff.patch": "5dfbd9b8f1997a3a06917144969a3eb574ca67a7db535b0946a56dae7d62a5ab",
+    "representation_review.json": "1765fced65d0138001f49fe7c38b9c8f4fa83d9d1a95a3b351c22322576753ef",
+    "README.md": "b965722ededc1365323dd6560e514c0f49050f049c9d8a4ac6fd35c3d131f927",
+    "docimpact.json": "359be1d400a2f1f37ad4be2bb55fd99a07f533fc2c0300d616abe42ce1c776a1",
+    "handoff.json": "5d09f64dcadd083da4acbeb49f46ae39f7bc9c16f15bbdf8bb7695e6c976918b",
+    "root_source_review.json": "7dcc7501e0fb14db1ce75af6a9becc57f41f6afe854bf6ba13f2ec744f689170"
+  },
+  "closed_input_sha256": {
+    "root_execution.json": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f",
+    "actual/result.json": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+  },
+  "actual_record": "actual/result.json",
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 35
+  },
+  "NPZ_reads_or_rehashes": 0,
+  "NumPy_Atomx_imports": 0,
+  "new_physical_calls": 0,
+  "no_API": true,
+  "scientific_domain_pass_is_not_metadata_closure_pass": true,
+  "ordinary_reported_FAIL_must_not_upgrade": true,
+  "prepare_consumed_actual_records": false,
+  "original_failed_FD_closure_preserved": "c929c96e768bd731e1b76a961f1d9df5869a2335499d54f6d7f4e357ab034902",
+  "actual_finite_response_must_come_from_this_successor": true,
+  "authorizing_root_message": "Root session25646 CLOSED exit0; bind actual result/receipt/all outputJSON using stdlib metadata only and execute closure after exact binding review."
+}

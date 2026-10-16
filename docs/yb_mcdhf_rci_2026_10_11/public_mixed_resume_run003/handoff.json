@@ -1,0 +1,59 @@
+{
+  "preparation_only": true,
+  "scientific_execution_by_preparer": false,
+  "all_preparation_controls_passed": true,
+  "checks_count": 573,
+  "source_map_required_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "frozen_files_sha256": {
+    "contract.json": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+    "run.py": "ace1a91c1d02ce0da594d040806c3af389cb7ffc61ed0006f9b5dd70d5b547ff",
+    "verify_endpoint.py": "32d3c4fab78f43a4f54b0ff9fb39e1d8ce3165675e101028ca0a98ed37db05f2",
+    "verify_endpoint_guards.py": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+    "verify_start_checkpoint_guards.py": "831e32e65987cfb623059de03421f6527c4fe89df2b85227f0092059832c1dfd",
+    "verify_preparation.py": "b566cac17f7cc9a488e08d1cd82ed4b664f022a3a93a4e7203a2131bc9968bdc",
+    "README.md": "aa5a8356b357be74d5b28cf2dfc732b8f4b2727b7483ece3258e104106f84b84",
+    "preflight.json": "d23187d7064bd373b2d0cbe2ff7e869518e431a3c5593fee8421f4d83f7f30bb",
+    "preflight.log": "7cd4cf8ced8599fee8dfa5c9a923d64dd87588b590d8afbea4743bada752ebcb",
+    "endpoint_guard_verification.json": "e58e31d3f5828f8dd1b9fedb3aa8a6418c771e2a7b1c981584865d992307bb78",
+    "starting_checkpoint_guard_verification.json": "eab51dbf5fe5d8d32d09c0c89fbbc19a57c0213c1ff7886e8b860825148031db",
+    "preparation_verification.json": "f4b2fc240ce52fb45a712d6a208d45ce786c2b444ca3681992cf9103e1910d8f"
+  },
+  "synthetic_guard_checks": {
+    "saved_endpoint": 49,
+    "start_provenance_complete_target_metadata": 64
+  },
+  "original_source_and_model_unchanged": true,
+  "original_stationarity_gates": {
+    "residual": 1e-07,
+    "indicator_Ha": 1e-08
+  },
+  "physical_scope": "Full531 DC MCDHF continuation from exact accepted160 archived x with original projector/layout/inverses and frozen original physical tracker. Fresh secant history explicitly declared. Starting residual4.717e-5 remains failed; no bare005 gate at changed point.",
+  "budget": {
+    "threads": 1,
+    "GiB": 3.95,
+    "soft_s": 830,
+    "hard_s": 890,
+    "max_iterations": 160,
+    "baseline_full_gradients": 2,
+    "optimizer_full_gradients_max": 162,
+    "all_run_full_gradients_max": 164
+  },
+  "root_seal_command": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/run.py seal-source",
+  "root_execution_contract_required": {
+    "execution_authorized_by_root": true,
+    "independent_endpoint_replay_authorized": true,
+    "preparation_contract_sha256": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+    "driver_sha256": "ace1a91c1d02ce0da594d040806c3af389cb7ffc61ed0006f9b5dd70d5b547ff",
+    "verifier_sha256": "32d3c4fab78f43a4f54b0ff9fb39e1d8ce3165675e101028ca0a98ed37db05f2",
+    "source_identity_sha256": "ROOT MUST HASH NEW SEALED source_identity.json; not known before sealing",
+    "all_other_preparation_proof_and_input_hashes": "Bind this frozen handoff/preparation proof/contract inputs in root execution contract"
+  },
+  "root_solve_command": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/run.py solve --execution-contract docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/execution_contract.json",
+  "root_independent_endpoint_command": ".venv/bin/python docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/verify_endpoint.py --execution-contract docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/execution_contract.json",
+  "mutation_boundary": "Preparer freezes listed files now. Root alone creates new source epoch/execution receipt/checkpoints/result/replay. Do not rerun preparation proof after new source/checkpoint creation; original proof has a pre-seal cutoff.",
+  "limitations": [
+    "no new physical H/CI/gradient/optimizer run here",
+    "metadata normalization corrects representation equality only; does not change any scientific source/model/weight/gate",
+    "no physical stationary/experimental/static-spectrum/performance certificate"
+  ]
+}

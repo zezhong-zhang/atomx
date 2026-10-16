@@ -1,0 +1,363 @@
+diff --git a/src/atomx/corrections/qed.py b/src/atomx/corrections/qed.py
+index a651eb0..bef62f6 100644
+--- a/src/atomx/corrections/qed.py
++++ b/src/atomx/corrections/qed.py
+@@ -300,7 +300,11 @@ def resolve_se_method(method: str, Z: int) -> str:
+ 
+ 
+ def self_energy_radial_matrix(orbitals, Z, bsp_data, *, method=DEFAULT_SE_METHOD):
+-    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models."""
++    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models.
++
++    Untabulated Mohr/Indelicato orbitals warn when a leading Zα estimate
++    replaces tabulated F(Zα). A finite matrix is not a QED accuracy bound.
++    """
+     backend = get_backend(resolve_se_method(method, Z))
+     matrix_builder = getattr(backend, "radial_matrix", None)
+     if callable(matrix_builder):
+@@ -322,7 +326,9 @@ def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
+         on the radial grid (mohr overlap ratio, welton, ...).
+     method : str
+         Backend name.  One of :func:`atomx.corrections.qedmod.available_backends`.
+-        Default ``"mohr"`` reproduces the behaviour of atomx ≤ 0.2.
++        Default ``"auto"`` chooses Mohr for Z<=36 and Indelicato otherwise;
++        these share the same tables and analytic fallback. Untabulated
++        orbitals emit a warning rather than implying precision QED.
+ 
+     Returns
+     -------
+diff --git a/src/atomx/corrections/qedmod/indelicato.py b/src/atomx/corrections/qedmod/indelicato.py
+index 012c778..7869125 100644
+--- a/src/atomx/corrections/qedmod/indelicato.py
++++ b/src/atomx/corrections/qedmod/indelicato.py
+@@ -27,9 +27,8 @@ from atomx.data.mohr_se import Z_GRID
+ 
+ # ``TABLE[(n, kappa)][Z] -> F(alpha Z)``.
+ # Rows are FAC ``faclib/coulomb.c:_qed_se0`` + ``_qed_se1`` at the
+-# tabulated Fermi nuclear radius.  Grid values are every 10 charge units;
+-# the backend uses a shape-preserving cubic spline when SciPy is present
+-# and linear interpolation otherwise.
++# tabulated Fermi nuclear radius. The interpolation is shape-preserving
++# PCHIP with SciPy as a required dependency, not a linear fallback.
+ # ``TABLE[(n, kappa)][Z] -> F(alpha Z)`` for the K/L shells, derived from
+ # the single tabulated source (:mod:`atomx.data.mohr_se`).  Kept as a
+ # public name for callers that introspect the coverage.
+diff --git a/src/atomx/corrections/qedmod/mohr.py b/src/atomx/corrections/qedmod/mohr.py
+index c382441..21cff64 100644
+--- a/src/atomx/corrections/qedmod/mohr.py
++++ b/src/atomx/corrections/qedmod/mohr.py
+@@ -27,6 +27,7 @@ for high-``l`` states.  See
+ from __future__ import annotations
+ 
+ import re
++import warnings
+ 
+ import numpy as np
+ 
+@@ -86,6 +87,9 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
+     ``Z`` is allowed to be a float so that interpolation on a screened or
+     effective charge remains continuous.  The selection mirrors FAC's
+     ``HydrogenicSelfEnergy`` (see the module docstring).
++    Untabulated orbitals emit a RuntimeWarning: their leading Zα estimate
++    has no supplied finite-Z remainder or precision error bound. The
++    warning also reaches scalar energies and diagonal operator builders.
+     """
+     key = (n, kappa)
+     if key in _SE_TABLE:
+@@ -100,6 +104,13 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
+         # This restores the leading terms, not an all-order QED result.
+         from atomx.data.nist_bethe_log import BETHE_LOG_NIST
+         value = (4.0/3.0)*np.log((ALPHA*Z)**-2) + 10.0/9.0 - (4.0/3.0)*BETHE_LOG_NIST[n][0]
++    warnings.warn(
++        f"self-energy n={n}, kappa={kappa}, Z={Z:g} is outside tabulated orbital "
++        "coverage; using a leading Z*alpha analytic estimate, not precision QED. "
++        "Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
++        RuntimeWarning,
++        stacklevel=2,
++    )
+     return value
+ 
+ 
+diff --git a/src/atomx/methods/ci_mbpt.py b/src/atomx/methods/ci_mbpt.py
+index 3bd74ea..6ffb800 100644
+--- a/src/atomx/methods/ci_mbpt.py
++++ b/src/atomx/methods/ci_mbpt.py
+@@ -28,8 +28,10 @@ Status
+   ``{(n, kappa): shift_in_hartree}`` mapping.  Compute the shifts from
+   a solved closed-shell core reference with
+   :mod:`atomx.methods.mbpt_transitions`
+-  (:func:`mbpt2_orbital_energy_shift`) for occupied valence orbitals,
+-  or extend that helper for virtual-valence sums.  Injection is exact
++  (:func:`mbpt2_orbital_energy_shift`), supplying external valence
++  spinors through ``valence_orbital=(P,Q,kappa,energy)`` without adding
++  them to the core density. ``virtual_kappas`` declares the complete
++  angular space. Injection is exact
+   at the one-body level: the shift rides the ``("h", n, κ, n)`` radial
+   key, so the determinant→CSF projection weights it by the true
+   one-body density of every CSF pair, on- and off-diagonal.
+diff --git a/src/atomx/methods/mbpt_transitions.py b/src/atomx/methods/mbpt_transitions.py
+index 13760e4..ff3f28f 100644
+--- a/src/atomx/methods/mbpt_transitions.py
++++ b/src/atomx/methods/mbpt_transitions.py
+@@ -16,6 +16,7 @@ https://pyscf.org/user/agf2.html for the second-order self-energy.
+ 
+ from __future__ import annotations
+ 
++from collections.abc import Callable, Sequence
+ from itertools import combinations_with_replacement
+ 
+ import numpy as np
+@@ -33,6 +34,9 @@ def mbpt2_orbital_energy_shift(
+     energy_window_au: float = 50.0,
+     n_virt_max: int | None = None,
+     denom_floor: float = 1e-8,
++    valence_orbital: tuple[np.ndarray, np.ndarray, int, float] | None = None,
++    virtual_kappas: Sequence[int] | None = None,
++    term_recorder: Callable[[dict], None] | None = None,
+ ) -> float:
+     """Return Sigma_aa(ea) in hartree, including same-subshell partners.
+ 
+@@ -41,20 +45,38 @@ def mbpt2_orbital_energy_shift(
+     Bound virtuals are retained. ``n_virt_max`` caps roots per kappa;
+     ``energy_window_au`` is an upper energy ceiling. A near-zero
+     denominator raises rather than silently omitting a resonant term.
++
++    ``valence_orbital=(P,Q,kappa,ea)`` supplies an external, normalized
++    orbital orthogonal to the closed core. It does not add that orbital
++    to the reference density or exclude it from the virtual sum. This
++    computes a monovalent attachment self-energy in the unchanged core
++    field. Without it, ``orbital_label`` selects a reference orbital.
++
++    ``virtual_kappas`` explicitly selects the virtual angular blocks.
++    A complete l<=2 space is (-1,1,-2,2,-3); ``kappa_max=2`` alone omits
++    d5/2. With ``term_recorder``, each evaluated diagram is reported with
++    its numerator, denominator and contribution in atomic units.
+     """
+     from atomx.methods.mbpt import _pair_v_J, build_virtual_basis
+     from atomx.numerics.bspline.convol import ConvolCache
+ 
+     subshells = scf_result.subshells
+     sh_a = next((s for s in subshells if s.label == orbital_label), None)
+-    if sh_a is None:
++    if sh_a is None and valence_orbital is None:
+         raise ValueError(f"orbital {orbital_label!r} not found")
+     if not scf_result.converged:
+         raise ValueError("SCFResult must be converged")
+     if kappa_max < 1 or (n_virt_max is not None and n_virt_max < 1):
+         raise ValueError("partial-wave and virtual-state limits must be positive")
+-    if denom_floor <= 0 or not np.isfinite(energy_window_au):
++    if not np.isfinite(denom_floor) or denom_floor <= 0 or not np.isfinite(energy_window_au):
+         raise ValueError("require positive denominator floor and finite energy ceiling")
++    kappas = (
++        tuple(k for k in range(-kappa_max, kappa_max + 1) if k)
++        if virtual_kappas is None else tuple(virtual_kappas)
++    )
++    if (not kappas or len(set(kappas)) != len(kappas)
++            or any(not isinstance(k, (int, np.integer)) or k == 0 for k in kappas)):
++        raise ValueError("virtual_kappas must contain distinct nonzero integers")
+     occupied = []
+     a = None
+     for sh in subshells:
+@@ -68,16 +90,35 @@ def mbpt2_orbital_energy_shift(
+         occupied.append(state)
+         if sh is sh_a:
+             a = state
+-    if a is None:
++    if valence_orbital is not None:
++        P, Q, kap, energy = valence_orbital
++        data = scf_result._bsp_data
++        if (not isinstance(kap, (int, np.integer)) or kap == 0
++                or np.shape(P) != (data["ns"],) or np.shape(Q) != (data["ns"],)
++                or not np.isrealobj(P) or not np.isrealobj(Q)
++                or not np.all(np.isfinite(P)) or not np.all(np.isfinite(Q))
++                or not np.isfinite(energy)):
++            raise ValueError("invalid external valence orbital")
++        from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
++
++        _, weights = workspace_arrays(data)
++        p, q = eval_orbital_pair(P, Q, data)
++        if abs(float(np.sum(weights * (p*p + q*q))) - 1.0) > 1e-7:
++            raise ValueError("external valence orbital must be normalized in the radial metric")
++        for Pb, Qb, kb, _ in occupied:
++            if kb == kap:
++                pb, qb = eval_orbital_pair(Pb, Qb, data)
++                if abs(float(np.sum(weights * (p*pb + q*qb)))) > 1e-7:
++                    raise ValueError("external valence orbital must be orthogonal to the core")
++        a = (np.asarray(P), np.asarray(Q), int(kap), float(energy))
++    elif a is None:
+         same = [s for s in subshells if s.kappa == sh_a.kappa]
+         P, Q, _ = scf_result.orbitals_raw[sh_a.kappa][same.index(sh_a)]
+         a = (P, Q, sh_a.kappa, scf_result.orbital_energies[orbital_label])
+     data = scf_result._bsp_data
+     cache = ConvolCache(data)
+     virtuals = []
+-    for kap in range(-kappa_max, kappa_max + 1):
+-        if kap == 0:
+-            continue
++    for kap in kappas:
+         _, states = build_virtual_basis(
+             scf_result,
+             kap,
+@@ -125,14 +166,27 @@ def mbpt2_orbital_energy_shift(
+         for ir, is_ in virtual_pairs:
+             r, s = virtuals[ir], virtuals[is_]
+             v2 = numerator(a, b, r, s, bilinear) / (1 + (ir == is_))
+-            shift += contribution(v2, a[3] + b[3] - r[3] - s[3])
++            denom = a[3] + b[3] - r[3] - s[3]
++            value = contribution(v2, denom)
++            shift += value
++            if term_recorder is not None:
++                term_recorder(dict(diagram="2p1h", core=((b[2], b[3]),),
++                                   virtual_indices=(ir, is_),
++                                   virtual=((r[2], r[3]), (s[2], s[3])), numerator=v2,
++                                   denominator_Ha=denom, contribution_Ha=value))
+     occupied_pairs = list(combinations_with_replacement(range(len(occupied)), 2))
+-    for r in virtuals:
++    for ir, r in enumerate(virtuals):
+         bilinear = {}
+         for ib, ic in occupied_pairs:
+             b, c = occupied[ib], occupied[ic]
+             v2 = numerator(a, r, b, c, bilinear) / (1 + (ib == ic))
+-            shift += contribution(v2, a[3] + r[3] - b[3] - c[3])
++            denom = a[3] + r[3] - b[3] - c[3]
++            value = contribution(v2, denom)
++            shift += value
++            if term_recorder is not None:
++                term_recorder(dict(diagram="2h1p", core=((b[2], b[3]), (c[2], c[3])),
++                                   virtual_indices=(ir,), virtual=((r[2], r[3]),), numerator=v2,
++                                   denominator_Ha=denom, contribution_Ha=value))
+     return float(shift)
+ 
+ 
+diff --git a/tests/test_mbpt_transitions.py b/tests/test_mbpt_transitions.py
+index 1a665bd..a72e6e4 100644
+--- a/tests/test_mbpt_transitions.py
++++ b/tests/test_mbpt_transitions.py
+@@ -21,7 +21,8 @@ def helium():
+     ).solve()
+ 
+ 
+-def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
++@pytest.mark.parametrize("external_kappa", [None, -1, -2, -3])
++def test_self_energy_matches_spin_orbital_sum(helium, external_kappa):
+     from atomx.angular.csf_hamiltonian import _m2_values, twoj
+     from atomx.methods.mbpt import build_virtual_basis
+ 
+@@ -29,7 +30,8 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+     od = {key: (P, Q) for key, (P, Q, q) in helium.orbitals_by_subshell().items()}
+     eps = {(1, -1): helium.orbital_energies["1s1/2"]}
+     blocks = {}
+-    for k in (-1, 1):
++    kappas = (-1, 1) if external_kappa in (None, -1) else (-1, 1, -2, 2, -3)
++    for k in kappas:
+         _, states = build_virtual_basis(
+             helium, k, e_max=50.0, orthogonal_to_occupied=True
+         )
+@@ -43,16 +45,28 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+         return [(*key, m) for key in keys for m in _m2_values(twoj(key[1]))]
+ 
+     core, vspin = spin(occupied), spin(virt)
++    target_key = (1, -1)
++    options = dict(kappa_max=1, n_virt_max=2)
++    label = "1s1/2"
++    if external_kappa is not None:
++        # The external target is already one of the virtuals, but is never
++        # inserted into the occupied reference or excluded from that sum.
++        target_key = (100, external_kappa)
++        P, Q, e = blocks[external_kappa][0]
++        options.update(valence_orbital=(P, Q, external_kappa, e), virtual_kappas=kappas)
++        label = "external"
++        assert label not in helium.orbital_energies
++    aspin = spin([target_key])
+     g = _coulomb(od, helium._bsp_data)
+     reference = 0.0
+-    for a in core:
++    for a in aspin:
+         for b, r, s in product(core, vspin, vspin):
+             anti = g(a, b, r, s) - g(a, b, s, r)
+             reference += (
+                 0.5
+                 * anti**2
+                 / (eps[a[:2]] + eps[b[:2]] - eps[r[:2]] - eps[s[:2]])
+-                / len(core)
++                / len(aspin)
+             )
+         for b, c, r in product(core, core, vspin):
+             anti = g(a, r, b, c) - g(a, r, c, b)
+@@ -60,7 +74,7 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+                 0.5
+                 * anti**2
+                 / (eps[a[:2]] + eps[r[:2]] - eps[b[:2]] - eps[c[:2]])
+-                / len(core)
++                / len(aspin)
+             )
+ 
+     def basis(scf, kappa, **kwargs):
+@@ -68,14 +82,31 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+         assert kwargs["orthogonal_to_occupied"]
+         return [], blocks[kappa]
+ 
++    terms = []
+     with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis) as build:
+-        actual = mbpt2_orbital_energy_shift(helium, "1s1/2", kappa_max=1, n_virt_max=2)
++        actual = mbpt2_orbital_energy_shift(
++            helium, label, term_recorder=terms.append, **options
++        )
+     assert abs(reference) > 1e-6
+     assert actual == pytest.approx(reference, rel=1e-11, abs=1e-13)
+-    assert build.call_count == 2  # One eigensystem per kappa, independent of r/s loops.
++    assert sum(t["contribution_Ha"] for t in terms) == pytest.approx(actual, abs=1e-13)
++    assert {t["diagram"] for t in terms} == {"2p1h", "2h1p"}
++    assert build.call_count == len(kappas)  # One eigensystem per kappa, independent of r/s loops.
+     assert any(e < 0 for _, _, e in blocks[-1])  # Bound virtuals contribute.
+ 
+ 
++def test_external_orbital_metric_and_occupation_contract(helium):
++    P, Q, _ = helium.orbitals_raw[-1][0]
++    e = helium.orbital_energies["1s1/2"]
++    with pytest.raises(ValueError, match="orthogonal to the core"):
++        mbpt2_orbital_energy_shift(helium, "external", valence_orbital=(P, Q, -1, e))
++    with pytest.raises(ValueError, match="normalized"):
++        mbpt2_orbital_energy_shift(helium, "external", valence_orbital=(2*P, Q, -1, e))
++    with pytest.raises(ValueError, match="distinct nonzero"):
++        mbpt2_orbital_energy_shift(helium, "1s1/2", virtual_kappas=(-1, -1))
++    assert helium.subshells[0].occupation == 2.0
++
++
+ def test_invalid_orbital_label(helium):
+     with pytest.raises(ValueError, match="not found"):
+         mbpt2_orbital_energy_shift(helium, "9z9/2")
+diff --git a/tests/test_qed_approximation_coverage.py b/tests/test_qed_approximation_coverage.py
+new file mode 100644
+index 0000000..08e9dc6
+--- /dev/null
++++ b/tests/test_qed_approximation_coverage.py
+@@ -0,0 +1,28 @@
++"""The scalar/default QED entry point must surface analytic fallback coverage."""
++import warnings
++
++import numpy as np
++import pytest
++
++from atomx.corrections.qed import compute_se_energy
++
++
++@pytest.mark.parametrize("method", ["auto", "mohr", "indelicato"])
++def test_untabulated_yb_valence_warns_through_scalar_entrypoint(method):
++    # No radial screening here: this gate checks coverage propagation,
++    # not the validity of the high-Z leading-order hydrogenic estimate.
++    with pytest.warns(RuntimeWarning, match="leading.*not precision QED"):
++        result = compute_se_energy(
++            [(np.ones(1), np.zeros(1), 1., -1, "6s1/2")],
++            70, method=method,
++        )
++    assert np.isfinite(result)
++
++
++def test_tabulated_valence_does_not_emit_fallback_warning():
++    with warnings.catch_warnings(record=True) as emitted:
++        warnings.simplefilter("always")
++        compute_se_energy(
++            [(np.ones(1), np.zeros(1), 1., 2, "5d3/2")], 70,
++        )
++    assert not emitted

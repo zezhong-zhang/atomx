@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-10-11T10:40:12.397962+00:00",
+  "foreground_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/run.py",
+    "--execute",
+    "--binding",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/execution_binding.json"
+  ],
+  "driver_sha256": "9dafc4f32b20bd6e15a041a212c618bc73843dd3a6a12388181cf6b1a10fa582",
+  "execution_contract_sha256": "6de78799114951ebedc5d470d1bb701329b4fb5ec2b14308cf4c8c8301604a6c",
+  "launcher_sha256": "19f049b8c8fff0444f8a06a021a71adb05cb2abbd48ba09d0b8d27af3e8da25e",
+  "outer_wall_cap_s": 2055
+}

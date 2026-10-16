@@ -1,0 +1,13 @@
+{
+  "hypothesis": "Saved full signed transverse integrals reconstruct the same complete 120-determinant three-electron Hamiltonian in both C1 and axial backend runs; all eight lowest roots and the complete directed effective matrix agree without relabeling.",
+  "fixed_conditions": "Use saved 004 integral/HEFF/result artifacts only; no additional solves or timings. Exact low-multiplet sorted identity as in the original test.",
+  "gates_Ha": {
+    "all_eight_FCI_roots": 1e-09,
+    "complete_C1_axial_matrix": 1e-11
+  },
+  "stop": "Fail on any original gate or changed producer/backend SHA; preserve failure.",
+  "source_sha256": {
+    "tests/test_transverse_spinor_integrals.py": "af45a787cd67e4e5b62f8aeb4aca4d69ed8c4d084c81c85412d00b9b12886b6d",
+    "src/atomx/methods/fscc.py": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e"
+  }
+}

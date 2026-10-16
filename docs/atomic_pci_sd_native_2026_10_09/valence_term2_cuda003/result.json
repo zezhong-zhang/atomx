@@ -1,0 +1,78 @@
+{
+  "status": "complete signed kernel/analytic-response control passed",
+  "rows": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.10703375825070145,
+      "raw_signed_error_Ha": 3.7269449679189215e-20,
+      "raw_response_error_Ha": 2.371692252312041e-20,
+      "finite": true,
+      "seconds_original": 0.007421149988658726,
+      "seconds_streamed": 0.4122789120301604,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "energy_Ha": -0.034490527916716654,
+      "raw_signed_error_Ha": 3.5575383784680614e-20,
+      "raw_response_error_Ha": 3.7269449679189215e-20,
+      "finite": true,
+      "seconds_original": 0.006966512999497354,
+      "seconds_streamed": 0.009324929094873369,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "energy_Ha": -0.03441642056760737,
+      "raw_signed_error_Ha": 2.202285662861181e-20,
+      "raw_response_error_Ha": 4.743384504624082e-20,
+      "finite": true,
+      "seconds_original": 0.008099638973362744,
+      "seconds_streamed": 0.00895536202006042,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    },
+    {
+      "key": [
+        3,
+        2
+      ],
+      "energy_Ha": 0.019333184735315798,
+      "raw_signed_error_Ha": 2.710505431213761e-20,
+      "raw_response_error_Ha": 2.879912020664621e-20,
+      "finite": true,
+      "seconds_original": 0.009111296036280692,
+      "seconds_streamed": 0.015158044989220798,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    },
+    {
+      "key": [
+        3,
+        -3
+      ],
+      "energy_Ha": 0.019333194194959977,
+      "raw_signed_error_Ha": 2.710505431213761e-20,
+      "raw_response_error_Ha": 3.7269449679189215e-20,
+      "finite": true,
+      "seconds_original": 0.0074400759767740965,
+      "seconds_streamed": 0.00930779695045203,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    }
+  ],
+  "peak_rss_bytes": 636297216,
+  "scope": "original kernel equivalence only; no full solve or controlled speedup claim",
+  "cuda_complete_pair_calls": 525
+}

@@ -1,0 +1,124 @@
+{
+  "status": "RUNNING",
+  "controls": [
+    {
+      "name": "previous_probe_pass",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "same_probe_operator",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all1292379_SDT_equations_Ha",
+      "measured": 5.882339529066929e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_scalar_Jplus",
+      "measured": 9.003280251805787e-15,
+      "cap": 1e-07,
+      "passed": true
+    }
+  ],
+  "contract_sha256": "d9b5f6cf4b91683c963205f097c026e4e8be614d58fb8edc08e691b492a536a7",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "environment": {
+    "load": [
+      1.642578125,
+      2.8291015625,
+      2.46630859375
+    ],
+    "available_bytes": 103628644352,
+    "cpu": 27,
+    "threads": 1
+  },
+  "solve_inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/operator.json": "08b344072226d3b218bd069bdb7b4f31c5d4c78bd36cae7bbac1c4ee075de562",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/integrals.npz": "d61ceee41bacbf655f29cc8fe6f6e76c49bc0bc558228f3a7ab3bd4e40b947b9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/fixed_inputs.npz": "58ae7bba8917e81661993a8184fd29870d99f56284ae083295afcdbdc66ac2ac",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/probe001/result.json": "7b12e25e08bb011193f6ad031b21eff745f1bf00cde32b9bfe59edd93b40e273"
+  },
+  "core": {
+    "energy_relative_Ha": -0.02575017590422135,
+    "energy_absolute_Ha": -14067.102923661325,
+    "residual_Ha": 5.882339529066929e-11,
+    "correlation_Ha": -0.02575017590422135,
+    "calls": [
+      {
+        "seconds": 41.92975760900299,
+        "maximum_Ha": 0.055795291269953536
+      },
+      {
+        "seconds": 41.809604349997244,
+        "maximum_Ha": 0.0043812760318237345
+      },
+      {
+        "seconds": 42.93702391500119,
+        "maximum_Ha": 0.0005772993717043956
+      },
+      {
+        "seconds": 73.11281660699751,
+        "maximum_Ha": 9.212660310319953e-05
+      },
+      {
+        "seconds": 72.08018237100623,
+        "maximum_Ha": 3.518184987404179e-05
+      },
+      {
+        "seconds": 72.96355491699069,
+        "maximum_Ha": 6.154295256807878e-06
+      },
+      {
+        "seconds": 65.98892697000701,
+        "maximum_Ha": 1.949869931882917e-06
+      },
+      {
+        "seconds": 68.35747865500161,
+        "maximum_Ha": 5.288852077301697e-07
+      },
+      {
+        "seconds": 68.03666884898848,
+        "maximum_Ha": 8.330757918210041e-08
+      },
+      {
+        "seconds": 116.0668110770057,
+        "maximum_Ha": 3.519252979840396e-08
+      },
+      {
+        "seconds": 110.9455201200035,
+        "maximum_Ha": 1.6594280136124858e-08
+      },
+      {
+        "seconds": 80.59409527400567,
+        "maximum_Ha": 7.154542702674408e-09
+      },
+      {
+        "seconds": 66.4483354039985,
+        "maximum_Ha": 1.973960464219886e-09
+      },
+      {
+        "seconds": 69.19563329299854,
+        "maximum_Ha": 4.49727813688874e-10
+      },
+      {
+        "seconds": 68.22075910700369,
+        "maximum_Ha": 1.5063252903136752e-10
+      },
+      {
+        "seconds": 68.18225244199857,
+        "maximum_Ha": 5.882339529066929e-11
+      }
+    ],
+    "rank_norms": {
+      "1": 0.00630326277840931,
+      "2": 0.10450082010031202,
+      "3": 0.007775500195425112
+    }
+  }
+}

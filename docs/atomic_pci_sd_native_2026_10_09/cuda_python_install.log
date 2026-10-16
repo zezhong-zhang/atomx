@@ -1,0 +1,37 @@
+Using CPython 3.10.21 interpreter at: .venv/bin/python
+Resolved 12 packages in 296ms
+Downloading nvidia-curand (57.2MiB)
+Downloading cupy-cuda13x (65.5MiB)
+Downloading nvidia-cuda-nvrtc (44.8MiB)
+Downloading nvidia-cusparse (144.0MiB)
+Downloading nvidia-cuda-runtime (2.2MiB)
+Downloading nvidia-cusolver (217.4MiB)
+Downloading nvidia-cublas (386.1MiB)
+Downloading nvidia-nvjitlink (39.5MiB)
+Downloading nvidia-cufft (208.1MiB)
+ Downloaded nvidia-cuda-runtime
+ Downloaded nvidia-nvjitlink
+ Downloaded nvidia-cuda-nvrtc
+ Downloaded nvidia-curand
+ Downloaded cupy-cuda13x
+ Downloaded nvidia-cusparse
+ Downloaded nvidia-cufft
+ Downloaded nvidia-cusolver
+ Downloaded nvidia-cublas
+Prepared 11 packages in 13m 41s
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 12 packages in 629ms
+ + cuda-pathfinder==1.8.3
+ + cuda-toolkit==13.2.2
+ + cupy-cuda13x==14.2.0
+ + numpy==2.2.6
+ + nvidia-cublas==13.4.1.3
+ + nvidia-cuda-nvrtc==13.2.86
+ + nvidia-cuda-runtime==13.2.86
+ + nvidia-cufft==12.2.0.57
+ + nvidia-curand==10.4.2.66
+ + nvidia-cusolver==12.2.0.11
+ + nvidia-cusparse==12.7.10.12
+ + nvidia-nvjitlink==13.2.86

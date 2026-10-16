@@ -1,0 +1,77 @@
+F.............                                                           [100%]
+=================================== FAILURES ===================================
+_ test_local_methods_preserve_sampling_nucleus_and_radial_payload[HartreeFockSlater] _
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7965823d8f40>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x79658244a950>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+method = <class 'atomx.methods.hartree_fock_slater.HartreeFockSlater'>
+
+    @pytest.mark.parametrize('method', [HartreeFockSlater, BreitPauli])
+    def test_local_methods_preserve_sampling_nucleus_and_radial_payload(method):
+        atom = Atom(2, config='1s2', basis=Basis(sampling=Sampling(n_grid=1200), r_max=50.))
+>       result = atom.solve(method(nuclear=NuclearModel.POINT))
+
+tests/test_architecture_scientific_fidelity.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:875: in _solve_fixed
+    return self._solve_method(method, tol, max_iter, log=log,
+src/atomx/atom.py:1250: in _solve_method
+    return method.solve(self.Z, subshells_raw,
+src/atomx/methods/hartree_fock_slater.py:50: in solve
+    result = solver.solve(max_iter=max_iter, tol=tol)
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x79657f16c3a0; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+=========================== short test summary info ============================
+FAILED tests/test_architecture_scientific_fidelity.py::test_local_methods_preserve_sampling_nucleus_and_radial_payload[HartreeFockSlater]
+1 failed, 13 passed in 2.01s

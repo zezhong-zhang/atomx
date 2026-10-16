@@ -1,0 +1,18 @@
+{
+  "status": "prospective_resource_clarification_before_any_executor_or_runtime",
+  "original_proposal_preserved": "contract.json",
+  "original_proposal_sha256": "e222059435dbd4e800fa23d1fbff0f0ef9f5a8cdebb4889c520d573b01f833e4",
+  "finding": "The original stageA estimate grouped eigen calls with physical producers as zero. Exact f043 polar retraction has an np.linalg.eigh fallback when its small Gram infinity defect is at least .01. Reproducing the step13 endpoint may need this numerical fallback; its branch has not been measured in this source-only proposal.",
+  "future_stageA_execution_contract_must_declare": {
+    "H_CI_gradient_Dirac_optimizer_calls": 0,
+    "physical_H_or_Dirac_spectral_eigen_calls": 0,
+    "maximum_small_coordinate_Gram_numpy_eigh_calls": 7,
+    "maximum_Gram_shape": [7, 7],
+    "one_predicted_retraction_all_seven_kappa_groups": true,
+    "unchanged_original_polar_formula_and_branch": true,
+    "no_eigen_or_polar_calls_in_this_preparation": true
+  },
+  "disposition": "This only corrects a proposed counter estimate. StageA remains unimplemented, unexecuted and requires its own root-reviewed executor and contract. Preserve the earlier source-only proposal; do not claim a zero-eigen numerical replay passed or replace the original polar map to avoid its declared branch.",
+  "new_scientific_or_numerical_calls": 0,
+  "NPZ_reads_or_rehashes": 0
+}

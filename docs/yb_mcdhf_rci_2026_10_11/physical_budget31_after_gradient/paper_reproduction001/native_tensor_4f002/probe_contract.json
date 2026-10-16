@@ -1,0 +1,84 @@
+{
+  "hypothesis": "Adding both complete4f subshells reveals nonzero new core-channel residuals at the embedded old solved T and measures actual complete native tensor work. Profile before changing contractions; this off-shell probe is not a new spectrum.",
+  "fixed": {
+    "Z": 70,
+    "radial": "same ns180/ks9/R500/RKB/A171 native bank",
+    "occupied": [
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        -4
+      ]
+    ],
+    "virtual": [
+      [
+        6,
+        -1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ],
+    "correlated_core_electrons": 18,
+    "frozen_electrons": 50,
+    "operator": "DC only; preserve frozen contractions and original common68e HF energy origin",
+    "core_amplitudes": "embed all1324 previous solved4core amplitudes, zero new4f amplitudes; no numerical screening",
+    "right": "deterministic seed62014, all even-parity M=1/2 R3 coordinates, normalized with nonzero6s bare component",
+    "equations": "all231core/341EA terms, fullSDT andR3",
+    "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b"
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 12884901888,
+    "seconds": 300,
+    "tensor_MiB": 4096,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368,
+    "scalar_plan": {
+      "core_amplitudes": 189834,
+      "attachment_coordinates": 34860,
+      "dense_core_coordinates": 10124568,
+      "dense_attachment_coordinates": 562476,
+      "resident_integral_bytes": 6494400,
+      "numerical_upper_bytes": 2059444608,
+      "attachment_matrix_bytes": 9721756800,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    }
+  },
+  "gates": {
+    "repartition_fock_Ha": 1e-10,
+    "repartition_effective_h_Ha": 1e-10,
+    "repartition_frozen_Ha": 1e-10,
+    "repartition_ERI_Ha": 1e-10,
+    "embedded_old_projected_residual_Ha": 1e-10,
+    "embedded_old_energy_Ha": 1e-10,
+    "new4f_residual_min_Ha": 1e-08
+  },
+  "stopping": "First failed source/input/physics/resource gate stops. No automatic retries or model/cut/tolerance reduction. Residual/action profile only; no full18e core or EA solve in this probe.",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/prepare_probe.py": "588dbe0f6d2e961cfcd987f143add5c714997fcf4e980520ded2ed6d391204b2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/CCSDT_core.npz": "ad8e076439e7a4a7d49630ec250445f641c447cba780d06d452653110c0f6f43",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/operator.json": "bc536185175197a938d6e28ac35bbb862e50affaf82915dc97155cd16249cae9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/integrals.npz": "aaf14e8d8187ab4895c40b073132f8654fa0c84364efd73d513bccb5617069be",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/blocks_ns180.npz": "bf756c539eb1dda0aa9013082dcc4c46356892429ad98e0576eac7e368090c72"
+  }
+}

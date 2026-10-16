@@ -1,0 +1,106 @@
+{
+  "all_preparation_checks_passed": true,
+  "checks": [
+    {
+      "name": "full353_and_all_inputs_metadata_valid",
+      "passed": true
+    },
+    {
+      "name": "no_heavy_or_Atomx_imports",
+      "passed": true
+    },
+    {
+      "name": "exact_two_models",
+      "passed": true
+    },
+    {
+      "name": "complete531_2483_and261_1240",
+      "passed": true
+    },
+    {
+      "name": "old24_radial_keys_only",
+      "passed": true
+    },
+    {
+      "name": "all_old_configs_retained",
+      "passed": true
+    },
+    {
+      "name": "same160_failed_stationarity",
+      "passed": true
+    },
+    {
+      "name": "exact2CI4H",
+      "passed": true
+    },
+    {
+      "name": "zero_virtual_Dirac_grad_opt",
+      "passed": true
+    },
+    {
+      "name": "2040_CPU1_4GiB",
+      "passed": true
+    },
+    {
+      "name": "original_CI_H_nested_gates",
+      "passed": true
+    },
+    {
+      "name": "no_virtual_Dirac_spectral_call",
+      "passed": true
+    },
+    {
+      "name": "one_lexical_completeCI_and_archiveH",
+      "passed": true
+    },
+    {
+      "name": "proposal_exact_pending",
+      "passed": true
+    },
+    {
+      "name": "pending_execution_refuses_before_heavy_imports",
+      "passed": true
+    }
+  ],
+  "full_source_files_verified": 353,
+  "contract_sha256": "6b57e51639ebabb7415260d3aba1a1eb4b777708d82af738194326a75ed7ff21",
+  "driver_sha256": "9dafc4f32b20bd6e15a041a212c618bc73843dd3a6a12388181cf6b1a10fa582",
+  "scientific_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py": "eeca1a408462cf01a3bb09fa9a2189546f4bc39126bdab6d8eb4f3e4437f5963",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json": "2ba3c405204958a5c9e56ac4b353b79cf08c80c710b730933027640b56e85c1f",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json": "4f61df585d1da202f2d4cefd114f5570b3cba53b1830cae52a3d56b1d6b620b8",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json": "b4270213674272d5eb28c79670bdf872a0d9d7e4721e03c33220dcf8d2b4e8a4",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json": "56363aee43e70800df3144a3690630eeda40790e56ebe48cfee8d3a7a5999b92",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json": "46d9d890a121ad6fe468ea3b1d1d8c3bdfa09e2e74a6ce38ea16ee66c1a9ac32",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py": "2db118cc9acbad942b648581390ff2a66864606408c1c144830c90ee817595ec",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json": "d9a1e75a92f6cb4e676b75758baf68e5225656ba55659d399a324f44ce13afd8",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/models.json": "cd850f8b18974e219589de22c5f123848bdda659d9e9d888740ae967d51d561c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/same_point_evidence.json": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json": "7ef7e2153d26f1df94cba68393bc1256f618c1794dc6286e20e8eebcb3289c73",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json": "fbc3ef9d273f7d5a459f041a97056856e3448fdb69dc976c18e12ab4d158da7f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json": "27bd626176ec3afdd07da41f72e811e4f38ada5f82efe632fcda1f7c7f83cce8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz": "79dfc13ff26e43f754a86d399ace9b544dd21e06b0382b076b81e459354fcf5f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json": "61b5bf820b327341a31d8dacc6573f8326a23df0716f9fa76a975db226e7e5f8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json": "fe6ca6bd94f39bed4434b9ef42e979a5d270c186dfab16bd8414f744aa629691"
+  },
+  "new_H_CI_Dirac_virtual_gradient_calls": 0,
+  "original_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "pending_root_execution": true
+}

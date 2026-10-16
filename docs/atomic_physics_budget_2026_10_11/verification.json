@@ -1,0 +1,47 @@
+{
+  "status": "pass: saved-evidence analysis, current priority annotation and actual authorized Lark delivery",
+  "arithmetic_replay_byte_identical": true,
+  "results_sha256": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32",
+  "hourly_tests": {
+    "exit_code": 0,
+    "log": "hourly_tests.log"
+  },
+  "new_atomic_root_solves": 0,
+  "card_and_planner_checks": {
+    "render_legacy_compatible": true,
+    "render_fitted_and_certification_guards": true,
+    "planner_optional_legacy_compatible": true,
+    "planner_comparison_and_all_input_guards": true,
+    "planner_no_new_job_or_gate": true,
+    "selected_jobs_preserved": true,
+    "card_physics_source_bound": true,
+    "no_callback_buttons": true
+  },
+  "documentation_links": {
+    "scope": "local path existence only; dirty owner artifacts not staged/published; anchors and external URLs not checked by this pass",
+    "documents": [
+      "docs/atomic_physics_budget_2026_10_11/README.md",
+      "docs/THEORY_NIST_COMPARISON.md",
+      "docs/AGENT_REFERENCE.md",
+      "docs/AGENT_INSIGHTS.md",
+      "docs/atomx_hourly_progress_2026_10_10/README.md"
+    ],
+    "targets_checked": 130,
+    "missing": [],
+    "passed": true
+  },
+  "ruff_exit_code": 0,
+  "scoped_git_diff_check_exit_code": 0,
+  "limitations": [
+    "diff check only sees tracked files; untracked new code linted separately",
+    "15 hourly tests are regression checks, not atomic accuracy certification",
+    "No new atomic roots, tail bound or total physical error bound"
+  ],
+  "independent_arithmetic_review": "independent_review.json",
+  "independent_planner_review_passed": true,
+  "public_render_entry_exercised": true,
+  "live_readback_passed": true,
+  "input_hashes_verified_after_delivery": 8,
+  "old_fac_metrics_and_delivery_proof_unchanged": true,
+  "actual_new_atomic_root_solves": 0
+}

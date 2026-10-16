@@ -1,0 +1,174 @@
+{
+  "round": 0,
+  "source": {
+    "files": 365,
+    "changed": [],
+    "passed": true
+  },
+  "inputs": {
+    "files": 6,
+    "changed": [],
+    "passed": true
+  },
+  "backends": [
+    {
+      "directory": "backend",
+      "files": 54,
+      "changed": [],
+      "passed": true
+    }
+  ],
+  "runtime_unchanged": {
+    "/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0": true,
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so": true,
+    "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0": true,
+    "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy.libs/libquadmath-96973f99.so.0.0.0": true,
+    "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy.libs/libgfortran-040039e1.so.5.0.0": true,
+    "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy.libs/libquadmath-96973f99-934c22de.so.0.0.0": true,
+    "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy.libs/libgfortran-040039e1-0352e75f.so.5.0.0": true
+  },
+  "outputs": [
+    {
+      "file": "map_0_8.npz",
+      "sha256": "680d2891a594e01958356745995b11eb66834000ae5e14ee3f15eabfacdef98b",
+      "arrays": [
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "6e0e40258d761c628d34f16dcd145571c2c8b67993a1a8e44dea90f424c37025"
+        },
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "42804681deb2ee2db8a4e82d24492369ddd5254b1ce06c4d38c2a2d0ac609f43"
+        }
+      ],
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15
+    },
+    {
+      "file": "map_1_1.npz",
+      "sha256": "680d2891a594e01958356745995b11eb66834000ae5e14ee3f15eabfacdef98b",
+      "arrays": [
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "6e0e40258d761c628d34f16dcd145571c2c8b67993a1a8e44dea90f424c37025"
+        },
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "42804681deb2ee2db8a4e82d24492369ddd5254b1ce06c4d38c2a2d0ac609f43"
+        }
+      ],
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15
+    },
+    {
+      "file": "map_2_2.npz",
+      "sha256": "680d2891a594e01958356745995b11eb66834000ae5e14ee3f15eabfacdef98b",
+      "arrays": [
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "6e0e40258d761c628d34f16dcd145571c2c8b67993a1a8e44dea90f424c37025"
+        },
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "42804681deb2ee2db8a4e82d24492369ddd5254b1ce06c4d38c2a2d0ac609f43"
+        }
+      ],
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15
+    },
+    {
+      "file": "map_3_4.npz",
+      "sha256": "680d2891a594e01958356745995b11eb66834000ae5e14ee3f15eabfacdef98b",
+      "arrays": [
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "6e0e40258d761c628d34f16dcd145571c2c8b67993a1a8e44dea90f424c37025"
+        },
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "42804681deb2ee2db8a4e82d24492369ddd5254b1ce06c4d38c2a2d0ac609f43"
+        }
+      ],
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15
+    },
+    {
+      "file": "map_4_8.npz",
+      "sha256": "680d2891a594e01958356745995b11eb66834000ae5e14ee3f15eabfacdef98b",
+      "arrays": [
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "6e0e40258d761c628d34f16dcd145571c2c8b67993a1a8e44dea90f424c37025"
+        },
+        {
+          "shape": [
+            64,
+            64,
+            1076
+          ],
+          "dtype": "float64",
+          "elements": 4407296,
+          "full_F_order_sha256": "42804681deb2ee2db8a4e82d24492369ddd5254b1ce06c4d38c2a2d0ac609f43"
+        }
+      ],
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15
+    }
+  ],
+  "result_sha256": "d2ce1e85823a12c7a53d3e2324352fcf01c7b802f0e83ec63fcbd295d93cded4",
+  "all_original_arrays_preserved": true
+}

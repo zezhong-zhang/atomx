@@ -1,0 +1,101 @@
+{
+  "status": "static_source_read_and_JSON_identity_only",
+  "input_source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_anchors": {
+    "methods/csf/variational.py": {
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+      "symbols": {
+        "CSFOrbitalFunctional": 27,
+        "evaluate": 89,
+        "gradient_from_weights": 117
+      }
+    },
+    "physics/csf/radial_density.py": {
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "symbols": {
+        "CIRadialDensity": 8,
+        "contract": 35,
+        "contract_bilinear": 60
+      }
+    },
+    "numerics/bspline/orbital_optimization.py": {
+      "sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+      "symbols": {
+        "OrbitalOptimizationState": 85,
+        "_seal_geometry": 184,
+        "from_arrays": 153,
+        "evaluate": 602
+      }
+    },
+    "methods/ci.py": {
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+      "symbols": {
+        "ci_solve": 77,
+        "hamiltonian_for": 70
+      }
+    },
+    "physics/csf/hamiltonian_snapshot.py": {
+      "sha256": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+      "symbols": {}
+    },
+    "physics/csf/tracking.py": {
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+      "symbols": {
+        "CIBasisTracking": 35,
+        "resolve": 92
+      }
+    },
+    "physics/csf/matrix.py": {
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "symbols": {
+        "evaluate": 637
+      }
+    }
+  },
+  "measured_statement_boundary": "No31gradient or recovered3689point has been evaluated; scalar/Fock/CI completion is distinct. Original1046 normalization control is a reference method, not a1595 result.",
+  "public_support": "Existing fullsigned bilinear angularcontract and arbitraryweighted radialgradient; immutable publicstate positive-space/layout/SPD validation; freshcompleteH retainedowner guards. No newbackend or kernel needed.",
+  "missing_scientific_evidence": [
+    "canonical31 reproduced freshowner",
+    "actualcanonical-vs-publicrecovered31 point difference",
+    "complete1595 signednormalized/unfilteredgradient and mapping",
+    "new3689 exact metric identity/action",
+    "finiteCIresponse/derivative for any lateroptimizer admission"
+  ],
+  "literal_static_controls": {
+    "source_module_AST_parses": 7,
+    "imported_NumPy_Atomx": 0,
+    "read_or_rehashed_NPZ": 0,
+    "executed_producers": 0,
+    "target_CSF_count_sum": 1595,
+    "coordinate_dimension": 3689,
+    "pairgroup_upper": 3472,
+    "H_bytes": 20352200,
+    "twoH_twoC_bytes": 81408800
+  },
+  "deferred_runtime_array_identities": {
+    "canonical31_H_C_roots_keys_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_whole_CI.npz",
+      "sha256": "15f0702b5f255b67fc0425db611d34993a6bb30e21dc59da648d2e493875d90a"
+    },
+    "literal208_original29_coordinate_metric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c"
+    },
+    "original_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_native_hS": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "original531_tracker_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "original_tracker_radials": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    }
+  }
+}

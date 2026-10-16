@@ -1,0 +1,105 @@
+{
+  "proof_created_at": "2026-10-11T14:38:22.001157+00:00",
+  "passed": true,
+  "successful_send_and_readback": true,
+  "cycle": "mcdhf-stage018-discriminator",
+  "idempotency_key": "fb3d14df-757a-592b-8a67-0ba03253ab0f",
+  "message_id": "om_x100b638da67954a4c4a755da13ea1d9",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1610",
+  "message_position": "1610",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "source_stage018_sha256": "0feb559c5176ffa2e12361cd4d44fe07db221014cb57e366bd92d5da7deb15fb",
+  "registry_sha256": "6a07b833da39b2b3ccaf92829d153b12301d9c66d74ec5046225971159b09f68",
+  "actual_card": {
+    "payload_schema": "2.0",
+    "elements": 15,
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-11 22:34:51",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-11 22:34",
+    "all_visible_content_matches": true,
+    "raw_readback_schema_available": false,
+    "readback_representation": "CLI rendered text; schema2.0 is bound by actual send payload",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "service_send": {
+    "started_at": "2026-10-11T14:34:48.678466+00:00",
+    "finished_at": "2026-10-11T14:34:51.783416+00:00",
+    "passed": true,
+    "iteration_dispatch_ok": true
+  },
+  "iteration": {
+    "request_status": "implementation_frontier",
+    "requested_at": "2026-10-11T14:34:51.784276+00:00",
+    "finished_at": "2026-10-11T14:34:53.618366+00:00",
+    "service_job": null,
+    "service_jobs": [],
+    "service_automatically_started_science": false,
+    "root_bounded_iteration": "Root separately launched the once-authorized fixed-CI rank-aware radial-operator scale discriminator following this actualstage018 card under continuous user authorization.",
+    "root_execution_contract_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/execution_contract.json",
+    "root_execution_contract_sha256": "4977df0c46de97b964a7ef3008bb9e467ad20d63789d79e467cb63745e4225c8",
+    "root_execution_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/root_execution.json",
+    "root_execution_sha256": "bfe64f5fdbe61bfe1169091ef85f87396a497fb7fdd8abab9f92b84d00302d72",
+    "root_started_utc": "2026-10-11T14:35:13.334221+00:00",
+    "root_finished_utc": "2026-10-11T14:35:30.564977+00:00",
+    "root_exit_code": 0,
+    "root_result_scope": "Process closure only; this delivery proof does not independently qualify numerical or physical results."
+  },
+  "actual_readback_calls": 1,
+  "new_scientific_calls": 0,
+  "copied_configurations_or_secrets": false,
+  "files_sha256": {
+    "card.json": "6dfc7f984bd120bf6aa59691f0cce99fc93bd1f845b22cc4531efe89e683a259",
+    "iteration_decision.json": "1d8be8dda270bc5adb4e028c297c41972bce97381fc587e8c75135cddcbd1acc",
+    "iteration_preview.json": "6488a52bab1650e767ffd41580f53e526f4335105a3459196b370c6d78296ae9",
+    "iteration_request.json": "39f139f936546d0d173924529ced195b9f301b932c81222ca171286f51d24ae9",
+    "readback.json": "3c209e11e0dae7edc95df072cf370ff6f05e59413347b67e5ae184c5158106c0",
+    "readback.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "readback_execution.json": "49f0fdf0a0407c7d582a3648102339836f9e06b758cc2be14680407001580e2b",
+    "receipt.json": "2175bdd573eab76d294a885b88bbb24126cacb17e6df6e9375abad1431f6a0f4",
+    "registry_stage018.json": "6a07b833da39b2b3ccaf92829d153b12301d9c66d74ec5046225971159b09f68",
+    "send_status.json": "9480f68486b7dcb28b5b59e3b21b04ee374588fb7268774032cc21d1d4d950f5",
+    "send_stdout.json": "dd6f89214408c340adeed23435c3b678439d3ff321c8373a1ca84a8ed8d98ce7"
+  },
+  "scope": "Actual stage018 bot/current-chat card delivery and full visible content readback. Preserve serviceimplementation_frontier/jobnull, original failures/stationarityFAIL/optimizerHOLD. Root scientific continuation is separately owned and bound; no automatic-service-science claim."
+}

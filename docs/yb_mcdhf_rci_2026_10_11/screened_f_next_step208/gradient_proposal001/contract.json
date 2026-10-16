@@ -1,0 +1,237 @@
+{
+  "status": "source_JSON_only_proposal_NOT_executor_NOT_execution_authorized",
+  "hypothesis": "The closed68-minimum f seed may have a nonzero full correlated 1595-CSF EOL orbital derivative; measure accessible f external and same-kappa4f/f rotation components before any31-orbital optimization.",
+  "fixed": {
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "Fermi A175",
+    "ns": 123,
+    "radial_orbitals": 31,
+    "coordinate_dimension": 3689,
+    "original_coordinate_dimension": 3451,
+    "positive_space_columns_per_kappa": 119,
+    "original_seven_projectors": "bytewise unchanged nuclear electronic branches, no energy>0 filter",
+    "parent_NR": 91,
+    "parent_CSFs_enumerated": 3789,
+    "complete_target_CSFs": 1595,
+    "target_sectors": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "new_radial_keys": [
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        -4
+      ]
+    ],
+    "operator": "native scalar no-pair DC; no auxiliaryFock addition, Breit/QED or empirical shifts",
+    "tracker": "exact original531 frozen physical reference, not rebased to canonical31",
+    "reported_EO_semantics": "unchanged public evaluate returns reported eigenvalue EOL; normalized quotient/RDM controls are explicitly separate HF partial diagnostics",
+    "original3451_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73"
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/root_execution.json": "241fa059f19e3807c565f9699ace4f28eff038eac744bfea72801bc89fb61ab5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/completion.json": "a180f7fea8d18ac1c7d5549863944af048557054fa134b9fa05a86c826e40c49",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/closure_handoff.json": "c828b99b588353a24f3c6aaf93856ba24e22b3fc8dd7e1c6127c938e88e889a8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_same_point_evidence.json": "1081af357943708a5ede027746cd90785d45402756dde63b8661821bdd713d40",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_real_owner.json": "d6a3ff6361311f73cbe7005aea93d074af49254628baeaa8e492411ccdf54ef6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_signed_tracking.json": "d760e8e4e95448617eab8dd63a3dc2593fa54226f0d835532d517a5930b1ddf7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/angular_resource_preflight.json": "f63e9ce9e03087963a2c69810290eeee8162073882c85c6dac7bcd4036e26be1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+  },
+  "deferred_NPZ_runtime_identities_NO_preparation_read_or_rehash": {
+    "canonical31_H_C_roots_keys_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_whole_CI.npz",
+      "sha256": "15f0702b5f255b67fc0425db611d34993a6bb30e21dc59da648d2e493875d90a"
+    },
+    "literal208_original29_coordinate_metric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c"
+    },
+    "original_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_native_hS": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "original531_tracker_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "original_tracker_radials": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    }
+  },
+  "phases": [
+    {
+      "name": "canonical31_owner_anchor",
+      "work": "Reconstruct canonical31 directly from actual complete5f_whole_CI archived P/Q and keys; fresh public ci_solve(retain_hamiltonian=True,dense,allroots,max_determinants2000); exact fullH/reportedroots/signedC/plainJSONowner/physicalUID match to its own saved expanded1595 run. Do not substitute old1046 owner. Original29 canonicalwaves unchanged."
+    },
+    {
+      "name": "authoritative_recovered3689_point",
+      "work": "Retain original29 Y columns bytewise by key and original sevenP. Recover only two newf columns by P.T S c; create one fullgroup perκ in sorted publickeys order. No polar/renormalization/projector repair. New matrix multiplication can round old4f column differently; archive and bound/disclose this separately. from_arrays validates newcompleteStiefel point/P/S/SPD/workspace/nucleus without replacingP. Fresh publicCI/H at exact publicunpack(x), even if canonical31 differs by rounding; no scalar substitute for ownpoint fullowner."
+    },
+    {
+      "name": "full_signed_gradient",
+      "work": "public functional.evaluate(exact recovered waves,gradient=True,ci_result=fresh recovered realowner) returns complete31 radial gradient with retained signedtable. Build5 public contract_bilinear(c,c) unfiltered targettables, exact binary64CI norms and .2 rational aggregation then explicit float64coefficient rounding; drop exactzerosonly. Retaineddelta keys follow fulltable originalorder then retained-only originalorder. Two extra gradient_from_weights calls for full-minus-retained and direct fullnormalized table; compare complete radial/tangent/metric vectors, then explicit known rawh/ketnorm ambient correction. Archive alltarget/table/norm/onebody conventions."
+    },
+    {
+      "name": "constrained_accessibility_measurement",
+      "work": "Pull back every radial action by original P.T; fullgroup T_Y(G)=G-Ysym(Y.TG), then original-preserved/newdeclaredSPD M and TMT. Report all31 columns and signedcross actions; decompose each newf external (I-YY.T)Gnew and whole4f/newf antisymmetric rotation. No independent2-column mask that violates sharedsameκ tangent, no after-the-factNIST/gradient pair selection. Fullgradient is fixedCI HFpartial; finiteCIresponse/residual are separately documented, not dropped."
+    }
+  ],
+  "new_metric_proposal": {
+    "old29_preservation": "oldinverseblocks,oldinversediagonal columns and oldYcolumns bytewise embedded bykey, not packed-offset substitution",
+    "new_f": "copy each original sameκ4f SPD119x119inverseblock and its diagonalcolumn to the corresponding newf as a fixed declared diagnosticmetric; no population/gap/spectral refit, no auxiliaryfield inferred inverse",
+    "identity": "new3689 residual/physicalgeometry/objectiveSHA; original3451fingerprint retained only lineage. Newresidual is not comparable as the sameyardstick to old208residual. Report Euclidean accessibleactions as well. This proposal does not establish preconditioner optimality."
+  },
+  "prospective_minimum_gates": {
+    "canonical_fullH_roots_signedC_owner_UID_bitwise": true,
+    "owner_staleness_fail_closed": true,
+    "all_CI_residual_Ha": 1e-08,
+    "all_CI_Gram_inf": 1e-10,
+    "coordinate_Gram_inf": 1e-10,
+    "physical_Gram_inf": 1e-10,
+    "originalP_SGram_inf": 1e-10,
+    "public_positive_space_relative_reconstruction": 1e-10,
+    "coordinate_recovery_difference_explicit_declared_upper_max": 1e-12,
+    "whole_signed_gradient_linearity_max": 1e-09,
+    "whole_projected_metric_linearity_max": 1e-10,
+    "original_stationarity_thresholds_record_only_newmetric": {
+      "residual": 1e-07,
+      "indicator_Ha": 1e-08
+    },
+    "notes": "No finite derivative/stationarity/optimizer qualification inherited from1046. Newrecoveredpoint owner/grads must be matched. Recovery upper bound is a proposed first rejection cap, not an observed value; no repair if it fails."
+  },
+  "prospective_resources_NOT_authorized": {
+    "CPU": 31,
+    "BLAS_threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "timing_claim_valid": false,
+    "maximum_H": 2,
+    "maximum_CI": 2,
+    "maximum_public_evaluate_gradient": 1,
+    "maximum_gradient_from_weights_total": 3,
+    "maximum_unfiltered_target_contract_bilinear": 5,
+    "maximum_validation_Dirac": 7,
+    "maximum_initial_functional_hS": 7,
+    "maximum_CI_internal_hS": 14,
+    "maximum_total_hS_producers": 21,
+    "maximum_geometry_SPD_eigvalsh": 38,
+    "maximum_CI_block_eigh": 10,
+    "maximum_positive_validation_eigh_attempts": 21,
+    "maximum_optimizer": 0,
+    "maximum_JK_or_new_seed_construction": 0,
+    "maximum_native_overlap": 3,
+    "maximum_tracker_resolve": 2,
+    "maximum_tracking_SVD": 10,
+    "maximum_signed_compatible_overlap_pairs_per_call": 30000,
+    "complete_radial_pairgroup_upper_per_weighted_gradient": 3472,
+    "three_gradient_pairgroup_upper": 10416,
+    "H_one_array_bytes": 20352200,
+    "two_complete_H_plus_two_complete_C_bytes": 81408800,
+    "actual_prior_same1595_RCI_peak_RSS_MiB": 1442.078125,
+    "memory_limit_is_not_estimated_completion_guarantee": true,
+    "estimate_scope": "Same1595 wholeCI actual run supports matrix/overlap affordability. NewRDM/gradient table is unmeasured; stream public sourcepair matrices and reject caps without model reduction."
+  },
+  "stopping": "firstowner/UID/normalization/geometry/linearity/resource gate failure preserves entire availableevidence and stops; no retry/modelshrink/weightschange. Canonical31 and recovered31 points kept distinct. No optimizer/FD/Armijo/Rayleighproduction substitution.",
+  "prepared_calls": {
+    "NumPy_Atomx_imports": 0,
+    "NPZ_reads_or_rehashes": 0,
+    "H_CI_gradient_Dirac_eig_optimizer_cells": 0
+  },
+  "next_admission_required": "Root must choose/freeze exact resource/model/point contract, inspect concrete futureexecutor and authorize exactonce. This is only a proposal; no executable science driver exists."
+}

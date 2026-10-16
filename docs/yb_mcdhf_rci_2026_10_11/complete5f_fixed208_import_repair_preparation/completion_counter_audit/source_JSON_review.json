@@ -1,0 +1,193 @@
+{
+  "status": "source_and_JSON_only_counter_causal_review_passed_original_run_failed",
+  "all_checks_passed": true,
+  "checks_count": 28,
+  "checks": [
+    {
+      "name": "exact frozen source epoch",
+      "passed": true
+    },
+    {
+      "name": "exact successor driver bytes",
+      "passed": true
+    },
+    {
+      "name": "original run failed only retained final counter",
+      "passed": true
+    },
+    {
+      "name": "exact406PASS1FAIL",
+      "passed": true
+    },
+    {
+      "name": "producer2H2CIcompleted",
+      "passed": true
+    },
+    {
+      "name": "raw hS producer attempts/completions seven",
+      "passed": true
+    },
+    {
+      "name": "seven raw captures recorded",
+      "passed": true
+    },
+    {
+      "name": "all seven raw h/S identity gates passed",
+      "passed": true
+    },
+    {
+      "name": "both models seven identical kappa sets",
+      "passed": true
+    },
+    {
+      "name": "retained owner same geometry",
+      "passed": true
+    },
+    {
+      "name": "retained owner same nuclear",
+      "passed": true
+    },
+    {
+      "name": "retained owner same Z",
+      "passed": true
+    },
+    {
+      "name": "retained owner same ns",
+      "passed": true
+    },
+    {
+      "name": "retained owner same core",
+      "passed": true
+    },
+    {
+      "name": "all old29 waveform bindings unchanged",
+      "passed": true
+    },
+    {
+      "name": "only added keys existing kappa5f",
+      "passed": true
+    },
+    {
+      "name": "sameDC full retained owners",
+      "passed": true
+    },
+    {
+      "name": "same outer data/nucleus single constructor",
+      "passed": true
+    },
+    {
+      "name": "single shared counter wrapper atactualassembler",
+      "passed": true
+    },
+    {
+      "name": "unchanged exact14 expectedgate",
+      "passed": true
+    },
+    {
+      "name": "h0cache exact geometric nuclear guards",
+      "passed": true
+    },
+    {
+      "name": "geometry bindsnucleargridvalues",
+      "passed": true
+    },
+    {
+      "name": "h0key orbital independent and guarded",
+      "passed": true
+    },
+    {
+      "name": "perbuild orbital memo resetretainedh0",
+      "passed": true
+    },
+    {
+      "name": "entrypoint appliesexactreset",
+      "passed": true
+    },
+    {
+      "name": "metric usescachedh0",
+      "passed": true
+    },
+    {
+      "name": "radial evaluator captures allsamekappa cachedh0",
+      "passed": true
+    },
+    {
+      "name": "separate retired science scopes remain false",
+      "passed": true
+    }
+  ],
+  "inputs": {
+    "driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py",
+      "sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57"
+    },
+    "contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json",
+      "sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0"
+    },
+    "failed_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json",
+      "sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9"
+    },
+    "failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json",
+      "sha256": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7"
+    },
+    "progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/progress.json",
+      "sha256": "bc8f894699409c73c14cc3af83d7f3a2010471da4d7c0c45a21449aadaccd195"
+    },
+    "baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_real_owner.json",
+      "sha256": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc"
+    },
+    "complete5f_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_real_owner.json",
+      "sha256": "98acffece917c7cab77d3457ebd8406bf08354e8a372ac0ffa2991d28431f53e"
+    },
+    "baseline_evidence": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json",
+      "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+    },
+    "complete5f_evidence": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+      "sha256": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291"
+    },
+    "matrix_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e"
+    },
+    "CI_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py",
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554"
+    },
+    "retained_H_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py",
+      "sha256": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2"
+    },
+    "nuclear_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/potentials/nuclear.py",
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0"
+    }
+  },
+  "conclusion": {
+    "cause": "Prospective exact14 expectation incorrectly assumed seven fresh h/S assemblies per CI; native f043 intentionally carries orbital-independent h0 between these same-geometry/same-nucleus builds. Both31 and29 orbital sets use the same7 kappas.",
+    "actual_new_hS_assemblies": 7,
+    "expected_hS_assemblies_in_original_unchanged_contract": 14,
+    "cached_use_does_not_omit_radial_waveform_contractions": true,
+    "source_lifecycle": "CI -> build_ci_hamiltonian_snapshot -> build_ci_matrix -> guarded entrypoint reset and metric/radial evaluator -> _dirac_blocks. Changed orbital-dependent memo discarded on each full H build; cached nuclear h/S retained.",
+    "instrumentation_limit": "No per-hit trace was instrumented. The exact same-object driver flow, guarded source path, owner geometry/nuclear identities, seven raw capture assertions and completed whole H/CI jointly establish the cause. NPZ values/each raw kappa field have not been independently decoded by this review.",
+    "independent_saved_array_review_needed": true,
+    "fresh_H_or_CI_needed": false,
+    "original_run_passed": false,
+    "counter_gate_relaxed": false,
+    "scientific_success_claim": false
+  },
+  "new_calls": {
+    "NumPy_Atomx_imports": 0,
+    "NPZ_decodes": 0,
+    "H_CI_gradient_Dirac_eigen_SVD_Fock": 0,
+    "API": 0
+  },
+  "source_epoch": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe"
+}

@@ -1,0 +1,54 @@
+{
+  "status": "root_reviewed_source_edit_only_final_preparation_revision",
+  "created_at": "2026-10-11T11:18:30.183450+00:00",
+  "contract_sha256": "5165b10adc3c994fa3059c7595cf0824fbd0faa1f57d0bf46d6daa046588c060",
+  "proposal_sha256": "918a207ff04afc2d7fb1328c4e2a5d8c4af16da63ecb27c856cd5630f6174acd",
+  "preparation_verification_sha256": "67f6fe36df93343d596d8d17c4f0481d7b79629b546b8bf5cf783c08a70d565b",
+  "source_identity_sha256": "4fa787498d0ddc8cd9448957652d8f96899df614fc07b1bca586b247d0a54250",
+  "source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "frozen_old_source": "docs/yb_mcdhf_rci_2026_10_11/checkpoint_hamiltonian_reuse_implementation/source002",
+  "source_edit_authorized": true,
+  "allowed_source_scope": [
+    "src/atomx/numerics/ci_energy_increment.py",
+    "src/atomx/physics/csf/radial_increment.py",
+    "src/atomx/physics/csf/matrix.py:extract existing pair-band loop only",
+    "src/atomx/methods/csf/variational.py:new diagnostic method only",
+    "tests/test_mixed_ci_finite_increment.py:new finite tests"
+  ],
+  "owner": "/root/mcdhf_performance",
+  "finite_qualification_execution_authorized": false,
+  "optimizer_adoption_authorized": false,
+  "physics_calls": 0,
+  "required_before_execution": [
+    "freeze actual candidate source and complete source diff",
+    "generate and seal all deterministic fixture and direction assets before evaluation",
+    "bind root-reviewed exact test driver/oracle and counters",
+    "independent old-source H/gradient default bitwise comparisons",
+    "preserve legacy fixed-density/constrained methods byte-for-byte",
+    "reject unsupported requests before physical work",
+    "retain reconstruction contribution and separate reported/Rayleigh domains"
+  ],
+  "unchanged": [
+    "all existing fixed_density and constrained guards/numerical implementations",
+    "ci_solve implementation and defaults",
+    "CIRadialDensity.contract filtering and original gradient yardstick",
+    "optimizer and original metric/projector",
+    "public solve defaults and correction consumers",
+    "all frozen scientific qualification/performance/checkpoint archives"
+  ],
+  "reviewed_interfaces": [
+    "public native CI cell pair-band operation",
+    "complete signed contract_bilinear trial density/n1",
+    "strict CIHamiltonianSnapshot endpoint owners",
+    "phase-correct finite CI response with all residual offsets"
+  ],
+  "no_claims": [
+    "experimental accuracy",
+    "stationarity",
+    "full optimizer speedup",
+    "GPU or parallel performance"
+  ],
+  "superseded_metadata_seal_sha256": "7de4846c3e082d2d1dc72567c25156596cd88c5cb267f70f4809eac74ced7b4f",
+  "reason": "Concurrent final preparation added exact pure-array fixtures and explicit legacy-control names before any source edit or physical execution; original seal preserved.",
+  "preparation_checks": 413
+}

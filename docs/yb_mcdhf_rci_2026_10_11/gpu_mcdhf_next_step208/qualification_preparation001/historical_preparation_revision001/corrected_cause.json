@@ -1,0 +1,17 @@
+{
+  "status": "SOURCE_ONLY_DIAGNOSIS_OF_PRIOR_METADATA_FAILURE",
+  "original_explanation_in_failure_json_incorrect": true,
+  "actual_cause": "Parent/team current shared source independently evolved in ci.py and hamiltonian_snapshot.py, relative to historical bef356 adapter preparation identity. Keys already both use src/. f043 qualification runtime archive is unchanged.",
+  "two_changed_files": {
+    "src/atomx/methods/ci.py": {
+      "old_sha256": "aab2489390d86db1332b06cf1975576f112975b2e1e0bf72b43a28b163cb6358",
+      "current_sha256": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e"
+    },
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": {
+      "old_sha256": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+      "current_sha256": "e4a19ab263cf487b41656bca05317e0f72ae7652bd336289d6dd0cf069166395"
+    }
+  },
+  "new_shared_epoch_is_not_f043_replay": true,
+  "source_or_numeric_changes_by_owner": 0
+}

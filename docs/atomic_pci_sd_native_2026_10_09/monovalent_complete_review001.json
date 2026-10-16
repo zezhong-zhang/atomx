@@ -1,0 +1,74 @@
+{
+  "status": "pass",
+  "source_records": [
+    {
+      "manifest": "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/source_sha256.json",
+      "count": 367,
+      "manifest_sha256": "88743971bf16ed416fc1d59ab7a72677c435d91ab694ecf9c4475d78782c0c7e"
+    },
+    {
+      "manifest": "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/gpu_source_sha256.json",
+      "count": 10,
+      "manifest_sha256": "50d6fb788b8fe39973e8eae831edf7b79c064aef2ddc6bb8bf2b10bbbe810bff"
+    },
+    {
+      "manifest": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_norm001/source_sha256.json",
+      "count": 381,
+      "manifest_sha256": "c0c48f02a714ea3de83e15a70c2f893c235a06b992a13dcc8c7002e7891476fc"
+    },
+    {
+      "manifest": "docs/atomic_pci_sd_native_2026_10_09/monovalent_norm003/source_sha256.json",
+      "count": 367,
+      "manifest_sha256": "2783fbc6510ffe0681e8605199b24550a95f1887c6baf70bb4d8d695f032ca2a"
+    },
+    {
+      "manifest": "docs/atomic_pci_sd_native_2026_10_09/monovalent_norm_multicore004/source_sha256.json",
+      "count": 6,
+      "manifest_sha256": "ff00ddb07a303c2d494da2ec0ab39b3738ed42c0736d01e403ca4b23abe50bce"
+    }
+  ],
+  "source_mismatches": [],
+  "previous150_panel_production_source_count": 363,
+  "previous150_panel_production_source_mismatches": [],
+  "payload_count": 33,
+  "payload_mismatches": [],
+  "comparison_plot_mismatches": [],
+  "backend_files_checked": 56,
+  "backend_artifact_mismatches": [],
+  "documentation_targets_checked": 679,
+  "missing_documentation_targets": [],
+  "docs_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/README.md": "af7c3727919f371de4010275c4a8cd79ad91d85562cf764f9f69e864fec3644b",
+    "docs/atomic_pci_sd_native_2026_10_09/technical_roadmap.md": "52a056b52cb4e6bebe5447dc502f0552fd94d545801be3c8dc6857b9a2862067",
+    "docs/ATOMIC_LINEARIZED_SD.md": "091194d74c284ced776b8a962ea029976d2373561bef2d5be73b26a696f1f9f1",
+    "docs/CORRELATED_METHOD_TESTING.md": "97492af00fc22757ae1a2205772c99bddc38caa1295bb3923e7ab18bea9f62be",
+    "docs/VERIFICATION.md": "c6e113ec010abb56548b3150c77ae654538ff255681d6ac0192d90686bced7dc",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "7c2f7de9988cfc792a19d91b094ec374b89b3a3b3066fecb886cc54ca44a3508",
+    "docs/AGENT_INSIGHTS.md": "acbdc6f0b0b9971744fba6f3fa2b629a0773e75977d297523c14c9454b3dcc98"
+  },
+  "tests": {
+    "private_guards": 16,
+    "independent_finite_norm_components_M": 840,
+    "private_files_Ruff_format": 17,
+    "previous_distinct_public_checks": 150,
+    "previous_public_panel": "147 pass plus3 runtime complement, current production hashes unchanged; not rerun or claimed as one all-pass execution"
+  },
+  "numerical": {
+    "five_feedback_roots_pass": true,
+    "complete_CPU_CUDA_arrays": 50,
+    "actual_full_CPU_root_rechecks": 5,
+    "raw_max_Ha": 2.3202233537245043e-11,
+    "physical_norm_full_M": 18,
+    "physical_norm_max_M_spread": 0.0,
+    "actual_core_seed_bitwise_equal": true
+  },
+  "experimental": {
+    "excitation_gate_pass": false,
+    "splitting_gate_pass": false,
+    "relative_error_gate": 0.01,
+    "no_fitted_shift": true,
+    "scope": "Nominal reference-connected branches matched by J/parity; no physical configuration weight or normalized large SD state certified"
+  },
+  "highest_level_achieved": false,
+  "scope": "Actual dirty working tree source/archive/backend/payload/local-path and declared numerical controls; no clean-checkout publication, controlled end-to-end speedup, production property, full-H, physical convergence or resonance certificate"
+}

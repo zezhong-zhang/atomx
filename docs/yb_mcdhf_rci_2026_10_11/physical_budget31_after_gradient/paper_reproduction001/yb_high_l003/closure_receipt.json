@@ -1,0 +1,74 @@
+{
+  "status": "CLOSED_FAILED_ORIGINAL_JOINT_METRIC_GATE",
+  "exit_code": 1,
+  "evidence_sha256": {
+    "execution_binding.json": "41f1abfb98aba5af88ee105a1522d5ea85487db39515776d461d283067117e32",
+    "actual/failure.json": "f800802b80696ca9793aa35c01cedc7c691927a38551776d7c7fcb7f8cce1e0b",
+    "actual/partial.json": "6a64e86f262af1eada45e5221bd00de36bb18c3bcdae4433cc898d1122b969db",
+    "actual/failed_arrays.npz": "76148f5821e0fa2cf1ab9fbada2ff898aca95382f19382ee38d05def858275c9",
+    "execution.log": "eea57639db95dd8eb0eec996fb0ebdf185f33e68ef354bdd8b8250419bb1cd4b"
+  },
+  "sealed_five_artifacts_unchanged": true,
+  "failure": {
+    "name": "full_electron_S_Gram:4",
+    "observed": 9.705407424063166e-10,
+    "limit": 1e-10,
+    "PASS": false
+  },
+  "checks_passed": 327,
+  "checks_failed": 1,
+  "counts": {
+    "input_NPZ": 1,
+    "input_NPZ_completed": 1,
+    "SCF": 0,
+    "CI": 0,
+    "optimizer": 0,
+    "Fock": 8,
+    "raw_hS": 8,
+    "raw_hS_completed": 8,
+    "compute_direct_potential_cell": 152,
+    "compute_direct_potential_cell_completed": 152,
+    "compute_exchange_matrix_cell": 230,
+    "compute_exchange_matrix_cell_completed": 230,
+    "Fock_completed": 8,
+    "metric_linear_solves": 7,
+    "metric_linear_solves_completed": 7,
+    "Dirac_spectrum": 1,
+    "Dirac_LAPACK": 1,
+    "Dirac_LAPACK_completed": 1,
+    "Dirac_spectrum_completed": 1,
+    "bordered_refinement_calls": 67,
+    "bordered_Newton_linear_solves": 134,
+    "bordered_Newton_linear_solves_completed": 134,
+    "bordered_refinement_calls_completed": 67
+  },
+  "refinement_channels": [
+    {
+      "kappa": 4,
+      "boundary_restricted_dimension": 239,
+      "original_electron_span_dimension": 119,
+      "refined_roots": 67,
+      "minimum_original_root_separation_Ha": 0.01091471675732442,
+      "minimum_original_column_absolute_overlap": 0.9999999999999978,
+      "maximum_absolute_energy_shift_Ha": 1.3515837338218262e-09,
+      "maximum_energy_shift_gap_ratio": 5.552938027176507e-10,
+      "native_objective": "projected ordinary FP64 Euclidean residual; no guarantee of full original Sdual gate"
+    }
+  ],
+  "unreached": [
+    "kappa\u22125 complete electron branch and <50Ha band",
+    "refined \u03ba4 full ordinary Sdual residual",
+    "\u03ba4 joint metric projector/Gauss band gates",
+    "final historical19radial/marker and loaded-source-after gates"
+  ],
+  "occupied_diagnostics_scope": "19 original-energy/currentRayleigh fullFock Sdual residuals, diagnostics only; no current stationary DF or legacy invalidation claim",
+  "maximum_occupied_old_energy_dual_residual_Ha": 4.760245587889422e-08,
+  "elapsed_seconds_uncontrolled": 1.6977155780186877,
+  "peak_RSS_MiB": 634.51953125,
+  "new_g_layer_qualified": false,
+  "paper_RCCSDT_reproduced": false,
+  "high_l_spectral_response_calculated": false,
+  "further_experiment_executed": false,
+  "proposal_only": "Jointly metric-orthogonal block Ritz/refinement in the same full original electron span and same rawH/S, retaining all roots and original Gram/projector/fullSdual gates. Individual overlaps alone do not qualify a complete band; no proposal dispatched.",
+  "provenance_scope": "Historical metadata marks19nuclear orbitals asDHF; original initialdriver SHA81fd41dd... still missing; frozen-bank current VN qualification only."
+}

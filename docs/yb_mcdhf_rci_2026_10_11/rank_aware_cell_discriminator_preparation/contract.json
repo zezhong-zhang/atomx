@@ -1,0 +1,397 @@
+{
+  "status": "prospective_private_numerical_fix_requires_root_exact_execution",
+  "created_utc": "2026-10-11T14:30:51.169952+00:00",
+  "root_execution_authorized": false,
+  "hypothesis": "Fixed ks inner GL quadrature underintegrates positive-rank source polynomials. Only rank-aware inner orders may change, independently calibrate signed PP/QQ/PQ/QP against analytic cell integrals, then measure the complete same-point frozen-CI operator correction for all five physical target states.",
+  "ordinary": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source",
+    "map": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794"
+  },
+  "candidate": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "map": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "only_changed": "_triang_sym n_sub=ks+(k//2 if k>=0 else0); _triang_pqpq n_sub=max(ksp,ksq)+(k//2 if k>=0 else0). Both assignments only; no matrix semiseparable route or shared source change."
+  },
+  "inputs": {
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "logical_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "original_reported_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+      "sha256": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    },
+    "signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/signed_tables.json",
+      "sha256": "490b8631dc74da22c76a6c116cfd625f286de6b2f78a1abd6e477efdc1c2c5ae"
+    },
+    "normalized_control_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/result.json",
+      "sha256": "4d448b6deaca133ac7e7075d56a921605d55cd28a69ff4c09c0ff3aa11ea228c"
+    },
+    "normalized_control_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/completion.json",
+      "sha256": "821387775ff9c48047d961ca130d2996ad97e4b66745f0de3a65b725dfa86434"
+    },
+    "normalized_control_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/fresh_baseline.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "previous_anchor_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b"
+    },
+    "previous_discriminator_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/result.json",
+      "sha256": "0a877025bd41e2e3b18c42d0e81022bc71aaf8505a6f619324b97149455215c7"
+    },
+    "previous_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/completion.json",
+      "sha256": "55b0136be88c013939d1e2f9d8cef28ea57947b0ed9ec49082f3dcc1d76bf9b8"
+    },
+    "previous_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate.patch",
+      "sha256": "69cbd52f4326700a1c03fefccd783491b5e8220733f70127f6d4c47ce76a49b3"
+    }
+  },
+  "fixed": {
+    "Z": 70,
+    "nucleus": "Fermi A175",
+    "electron_count": 69,
+    "operator": "native Dirac-Coulomb positive Coulomb multipoles only",
+    "point": "exact archived correlated29 recovered coordinate point, NOT accepted320 or new seed",
+    "ns": 123,
+    "P_order": 8,
+    "Q_order": 9,
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "complete_selected_CSFS": 1046,
+    "reference_CSFS": 531,
+    "full_parent_CSFS": 2163,
+    "target_labels": [
+      "6s_1/2",
+      "5d_3/2",
+      "5d_5/2",
+      "6p_1/2",
+      "6p_3/2"
+    ],
+    "target_UIDs": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "original_outer_workspace": "whole archived workspace bytes unchanged, including original outer gr/grw/n_gauss",
+    "one_body": "strict L(raw)=tril(raw)+tril(raw,-1).T vs saved logical h; every S exact; no h evaluation needed for zero change",
+    "full_targetwise_signed_tables": true,
+    "exact_CI_normalization": "saved complete original1046 CI mixing column exact binary64 norm, checked against archived rational target norms; each unfiltered targetwise signed coefficient divided by that norm",
+    "no_new_H_CI_or_optimized_state": true
+  },
+  "Hartree_cm1": 219474.63136314112,
+  "units_source": "CODATA2022 constants.py literal dictionary and original HARTREE_CM1 arithmetic, no package import during preparation",
+  "inner_order_mathematics": {
+    "symmetric_source_degree": "2*s-2+k for k>=0; GL n exact through2*n-1; n=ceil((2*s-1+k)/2)=s+floor(k/2)",
+    "mixed": "max(ksp,ksq)+floor(k/2) integrates each inner source polynomial for k>=0; max is conservative for both triangles",
+    "actual_max_rank": 6,
+    "actual_max_inner_order": 12,
+    "negative_rank": "new expression exactly original n_sub for k<0; rational branch unqualified, not covered by polynomial proof",
+    "k0_k1": "exact same n_sub and operation order; all h/k0/k1 changes algebraically0; reused zero, not coefficient cutoff",
+    "quadrature_generator": "unchanged _gauss_legendre_01, source-doc n<=20, Newton<=50 without separate convergence gate; this qualification claims orders<=12 only",
+    "outer_scope": "actual archived outer quadrature unchanged and may remain underintegrated; no uniform radial or negative-moment error bound"
+  },
+  "anchors": {
+    "radius": 0.7,
+    "signed_scales": [
+      1.0,
+      -2.0,
+      3.0,
+      4.0
+    ],
+    "quartet_scale": -24.0,
+    "outer_n_gauss": 16,
+    "cases": [
+      {
+        "ns": 4,
+        "ks": 4,
+        "RKB": false,
+        "P_power": 1,
+        "Q_power": 1,
+        "ranks": [
+          0,
+          1,
+          6
+        ]
+      },
+      {
+        "ns": 6,
+        "ks": 6,
+        "RKB": false,
+        "P_power": 4,
+        "Q_power": 5,
+        "ranks": [
+          6
+        ]
+      },
+      {
+        "ns": 6,
+        "ks": 6,
+        "RKB": true,
+        "P_order": 5,
+        "Q_order": 6,
+        "P_power": 4,
+        "Q_power": 5,
+        "P_unused_tail": "coefficient5 exactly0",
+        "ranks": [
+          6
+        ]
+      }
+    ],
+    "four_components": [
+      "pppp",
+      "qqqq",
+      "pqpq",
+      "qpqp"
+    ],
+    "analytic_formula": "signed_scale*R^(dL+dR+1)/(dL+dR+1)*[1/(dL+k+1)+1/(dR+k+1)], dL=2*P_or_Q_power,dR=2*P_or_Q_power",
+    "formula_scope": "unscaled r-linear integral 2*R^5/[5*(3+k)]. Mathematical convergent r-linear rank6 control is not a physically allowed s-s angular transition. P=r4/Q=r5 is representable f7-like regular component pair; no orbital Dirac-solution claim. Unequal P/Q independent mixed triangles required.",
+    "coefficients": "single-cell Bernstein expansion R^power*comb(i,power)/comb(order-1,power), explicit unused P tail zero; wave/setup arrays saved before any kernel",
+    "outer_exactness": "anchors only: densitydegrees up to8/10; outer polynomialdegree up to20, GL16 adequate. Actual outer quadrature unchanged.",
+    "analytic_rtol": 2e-13,
+    "analytic_atol": 0.0,
+    "dense_vs_factors_rtol": 2e-12,
+    "dense_vs_factors_atol": 1e-12,
+    "actual_route_sum": "exact array/scalar-independent component sums; scalar analytic same2e-13",
+    "previous_measured_rank6_failure": "immutable previous_anchor_failure and completion retained; old r-linear GL4 FAIL1/4900 not rerun/reclassified. Candidate is a new rank-aware discriminator."
+  },
+  "full_affected_scope": {
+    "unique_table_union": 12403,
+    "one_body_keys_unchanged": 51,
+    "radial_keys_total": 12352,
+    "positive_k_ge2_unique": 7398,
+    "rank_source_potentials": 333,
+    "union_density_pairs": 278,
+    "affected_target_contributions": 25568,
+    "by_rank_unique": {
+      "0": 1420,
+      "1": 3534,
+      "2": 4768,
+      "3": 1956,
+      "4": 623,
+      "5": 46,
+      "6": 5
+    },
+    "by_rank_sourcepairs": {
+      "0": 92,
+      "1": 168,
+      "2": 170,
+      "3": 102,
+      "4": 47,
+      "5": 12,
+      "6": 2
+    },
+    "five_target_affected_counts": [
+      4541,
+      5394,
+      5538,
+      4623,
+      5472
+    ],
+    "small_term_filter": false,
+    "no_rank_cutoff": "EVERY k>=2 entry from ALL5 unfiltered tables; k0/1/h exact same algorithm reused\u03b40"
+  },
+  "anchor_calls": {
+    "basis_setup": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "density_band": 12,
+    "direct_full_bank": 40,
+    "direct_semiseparable": 20,
+    "band_scalar": 50,
+    "pair_potential": 5,
+    "bank_get": 40,
+    "factor_get": 20,
+    "hS": 0,
+    "H": 0,
+    "Dirac_solve": 0,
+    "numpy_eigh": 0,
+    "scipy_eigh": 0
+  },
+  "radial_calls_per_variant": {
+    "hS": 7,
+    "public_radial_evaluate": 7398,
+    "pair_potential": 333,
+    "direct_full_bank": 1332,
+    "direct_semiseparable": 0,
+    "bank_get": 1332,
+    "factor_get": 0,
+    "band_scalar": 14796,
+    "density_band": 556,
+    "H": 0,
+    "Dirac_solve": 0,
+    "Gauss_setup_eigvalsh": 0,
+    "numpy_eigh": 0,
+    "scipy_eigh": 0
+  },
+  "max_all_calls": {
+    "Dirac_solve": 0,
+    "Gauss_setup_eigvalsh": 3,
+    "H": 0,
+    "band_scalar": 29642,
+    "bank_get": 2704,
+    "basis_setup": 3,
+    "density_band": 1124,
+    "direct_full_bank": 2704,
+    "direct_semiseparable": 20,
+    "factor_get": 20,
+    "hS": 14,
+    "numpy_eigh": 0,
+    "pair_potential": 671,
+    "public_radial_evaluate": 14796,
+    "scipy_eigh": 0
+  },
+  "call_accounting": "Forward-only counted aliases; includes14 genuine raw h/S snapshot-constructor builds despite0HCIg. Public radial operator evaluator7398 once/epoch; actualCI dense pair route preserved. Anchor bank/factors40/20 and real dense-only1332/epoch. Counts serve caps and exact completeness gates, no performance claim.",
+  "cache_source_identity": "Source-specific new process+NUMBA_CACHE_DIR per phase; no shared bank/snapshot/potential/owner between epochs. Equal physical input SHA alone does not mean equal numerical operator. Bind source map + input hashes + produced radial arrays per worker.",
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "thread_variables": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS"
+    ],
+    "memory_GiB": 3.95,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315,
+    "outer_kill_after_seconds": 5,
+    "max_H": 0,
+    "max_CI": 0,
+    "max_gradient": 0,
+    "max_optimizer": 0,
+    "Dirac_eigensolves": 0,
+    "anchor_Gauss_companion_eigvalsh": 3,
+    "max_hS": 14,
+    "GPU_calls": 0,
+    "max_basis_setups": 3,
+    "max_public_radial_evaluations": 14796,
+    "cache_estimate": "Full raw+transpose banks:5ranks*123^2*8*(8+9)^2*2=349782480bytes (333.6MiB);333 pair potentials5.6MB,278densities4.7MB. Imports/JIT/input/archives additional;3.95GiB hardcap. Serial workers avoid concurrent old/new bank allocations.",
+    "time_estimate": "No timing measurement yet;300s shared cap includes three coldimports/JIT/native radial evaluations/complete input and source hashes/archive. Failure retained, no retry/budget increase.",
+    "host_admission": "CPU31 window assigned solely by root, no overlap with native optimizer/physical work; initial affinity/memAvailable recorded; stage times uncontrolled, never speedup/parallel/GPU certification"
+  },
+  "measurement": "same savedCI5individual \u03b4E_i=\u03a3 unfiltered_signed_coeff_i/norm_i*(R_new\u2212R_old); all signed/offdiagonal terms retained. \u03b4transition_i=\u03b4E_i\u2212\u03b4E_ground with same physicalUID/common energy zero. Exact Fraction algebra over stored binary64 coefficients/values, final float reports explicitlyrounded. Equal-weight EOL summary diagnostic only; no rediagonalized line or optimized spectrum.",
+  "known_status": {
+    "original_reported_directional_failure": "retained",
+    "original_rotation_failure": "retained; later conditional-centering/fullnormalized controls do not rewrite it",
+    "original3451_stationarity": "FAIL retained",
+    "native_full_normalized_gradient_samepoint_controls": "104 actual controls passed/closedexit0; qualification prerequisite bound, not MCDHF or experimentalPASS",
+    "production_merge_or_optimizer_authorized": false,
+    "new_spectrum_or_experiment_qualification": false
+  },
+  "execution_order": [
+    "root exact seal+sole CPU31 resource admission",
+    "candidate signed analytic anchors fresh isolated worker",
+    "ordinary500ac all affected radial keys fresh isolated worker",
+    "privatef043 corrected all same affected radial keys fresh isolated worker",
+    "saved-array-only exact signed5state difference"
+  ],
+  "stop": "Any anchor/input/source/call/finite/resource failure stops immediately with logs/counters/partialfiles, later phases unexecuted. No retries or changedtol/model/weights/outer quadrature. Corrected-source physicsbaseline/optimizer remain independent successor, this is fixedCI\u03b4operator only.",
+  "forbidden": [
+    "sharedsource/tests/old evidence edits",
+    "semiseparable matrix patch",
+    "small signed amplitude filtering or partialstates",
+    "negative-rank/global radial exactness claim",
+    "H/CI/gradient/Dirac solve/optimizer/GPU",
+    "changed targetUID/weight/nucleus/workspace/metric",
+    "performance or experimental accuracy claim"
+  ],
+  "actual_preparation_scientific_calls": {
+    "NumPy_import": 0,
+    "Atomx_import": 0,
+    "basis_setup": 0,
+    "kernel": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "eigen": 0,
+    "optimizer": 0,
+    "GPU": 0
+  }
+}

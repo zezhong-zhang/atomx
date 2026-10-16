@@ -1,0 +1,34 @@
+{
+  "status": "review_ready_source_only_import_repair_pending_exact_new_root_binding",
+  "files_sha256": {
+    "run.py": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57",
+    "contract.json": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+    "models.json": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+    "prepare.py": "f1f5d97a1bdf94f2bccf98409cc6ac0f23a031e7b81024fff6f790cc00e59c83",
+    "preparation.json": "f0b9c2fffac69d8e0cf5cf292192abc2623d28203c625921af72070684290f4e",
+    "README.md": "ce1fdeacafe38344ef9de708cfab4e3e10472b4797045777be18dc717d29d8d9",
+    "import_smoke.py": "b34b8592a80f388d717fff3119b0a060be0dbe3f0cbe36833d46e57b0bf76bed",
+    "docimpact.json": "2303d0b3b346ca8f319ee67c32e723fff48dacbb4c82d0d185ab57a906b9c562"
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "changed_driver_lines": 1,
+  "driver_change": "fromatomx.numerics.bsplineimportdirac_assemblyasdirac",
+  "physics_gates_model_caps_seed_unchanged": true,
+  "prepared_static_checks": 113,
+  "static_Atomx_import_names": 14,
+  "prepared_science_array_reads_driver_execution_compilation": 0,
+  "import_smoke_executed": false,
+  "original_failure_receipt_sha256": "8bfb21f3aeae1f0f54d679a4d0f28757f00dcdf1e75508e917099818656b2f3c",
+  "original_failure_sha256": "d349fb3d6ae8177dd710eed0146f750808740b8eb95576c0aac46741fcf8be68",
+  "optional_smoke_cap": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "innerwall_seconds": 30,
+    "outerwall_seconds": 45,
+    "scientific_calls": 0,
+    "NPZ_array_reads": 0
+  },
+  "scientific_budget_unchanged": "2H2CI14internalhS/2complementSVD/2fullgvd/full118Jacobi<=24sweeps165672pairs26residuals/2000raw/1mcompatiblepaircap/CPU31threads1AS3.95GiB/2040inner2055outer; 0DiracFockgopt",
+  "scope": "Import-onlyrepair, noautomaticretry/newactualpassed result. Separate rootimportsmoke andscientificbinding required."
+}

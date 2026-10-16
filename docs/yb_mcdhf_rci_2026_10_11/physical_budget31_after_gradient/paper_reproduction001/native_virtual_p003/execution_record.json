@@ -1,0 +1,106 @@
+{
+  "timestamp_UTC": "2026-10-15T04:53:30.107475+00:00",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "production_files": 362,
+  "changed_production_files": 0,
+  "processes": [
+    {
+      "name": "complete6p_probe",
+      "session_id": 10266,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "probe001/result.json"
+    },
+    {
+      "name": "finite_and_previousYb_DIIS_qualification",
+      "exit_code": 0,
+      "reaped": true,
+      "result": "diis_qualification.json"
+    },
+    {
+      "name": "large_solve",
+      "session_id": 25960,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "actual001/result.json",
+      "elapsed_seconds": 701.3435596570052,
+      "peak_RSS_MiB": 1376.1875
+    },
+    {
+      "name": "frozen4f_companion",
+      "session_id": 9150,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "corner001/result.json",
+      "elapsed_seconds": 6.1992329329950735,
+      "peak_RSS_MiB": 309.828125
+    },
+    {
+      "name": "saved_review",
+      "session_id": 38230,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "saved_data_review.json",
+      "elapsed_seconds": 83.57336332899285
+    },
+    {
+      "name": "tensor_tests",
+      "session_id": 96407,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "tensor_tests.xml"
+    },
+    {
+      "name": "four_model_arithmetic",
+      "exit_code": 0,
+      "reaped": true,
+      "result": "four_model_comparison.json"
+    }
+  ],
+  "live_controls": {
+    "probe": 26,
+    "large": 526,
+    "corner": 288,
+    "DIIS_finite_FCI_and_previous_solution": 5
+  },
+  "saved_controls": 137,
+  "test_panel": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "external_electronic_structure_calls": 0,
+  "card_schedule_actions": 0,
+  "timing_scope": "New-model stage costs only. The frozen4f companion ran independently onCPU26 during large target search onCPU27. No paired or whole-solver speedup claimed.",
+  "replay_commands": {
+    "probe": "six thread variables=1 taskset -c27 python prepare_virtuals.py --prepare; then timeout270 python prepare_virtuals.py",
+    "qualification": "CPU27/threads1 timeout120 python qualify_diis.py under diis_qualification_contract.json",
+    "main": "CPU27/threads1 python solve.py --prepare; timeout2430 python solve.py",
+    "corner": "CPU26/threads1 python frozen_corner.py --prepare; timeout210 python frozen_corner.py",
+    "review": "CPU27/threads1 timeout270 python verify_saved.py",
+    "tests": "CPU26/threads1 pytest -q tests/test_tensor_coupled_cluster.py --junitxml=<owner>/tensor_tests.xml",
+    "arithmetic": "CPU26/threads1 python compare_models.py"
+  },
+  "process_scope": "All known task sessions reaped; no unrelated process stopped.",
+  "interpreter": ".venv/bin/python",
+  "numerical_thread_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1"
+  },
+  "saved_review_action_scope": {
+    "main_model": {
+      "complete_core_residuals": 1,
+      "EA_partner_actions": 12
+    },
+    "frozen4f_companion": {
+      "core_residuals": 1,
+      "EA_partner_actions": 12
+    },
+    "note": "The immutable saved review resource fields name the main-model actions; the executed reviewer also checks the small companion. These are not a separate timing comparison."
+  }
+}

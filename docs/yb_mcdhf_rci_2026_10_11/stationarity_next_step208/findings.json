@@ -1,0 +1,83 @@
+{
+  "status": "source_and_closed_JSON_review_only",
+  "no_NumPy_Atomx_imports": true,
+  "no_NPZ_bytes_or_arrays_read": true,
+  "no_scientific_execution": true,
+  "observations": [
+    {
+      "claim": "Literal208 original residual and indicator bothFAIL; whole saved raw/T/pg algebra already independently reconstructed, not finite directional physical derivative.",
+      "residual": 0.0009553265963620529,
+      "indicator_Ha": 1.4594365307472928e-06,
+      "evidence_roles": [
+        "literal208_manifest",
+        "saved_gpg_result",
+        "saved_gpg_completion"
+      ]
+    },
+    {
+      "claim": "Run005128 accepted EOL changes are strictly negative,0fallback, minimum1545ULP; residual rises62/128. Armijo enforces EOL decrease, not residual monotonicity. No observed line-search roundoff failure.",
+      "evidence_roles": [
+        "campaign_result",
+        "campaign_completion"
+      ]
+    },
+    {
+      "claim": "At literal20853.38% coordinatepg squared share lies in newvirtual5,58.288% in full kappa\u22122; strong signed crossgroup cancellation makes masked raw drives misleading.",
+      "evidence_roles": [
+        "saved_gpg_result"
+      ]
+    },
+    {
+      "claim": "Already closed32step history10/40 pilots from same208: history40 lowerEO/four fewerHCI, history10 smaller residual; both original residual/indicator FAIL. First divergence update12 is a measured memory effect; not a general winner or timing certificate.",
+      "evidence_roles": [
+        "history_comparison_completion",
+        "history_comparison_report"
+      ]
+    },
+    {
+      "claim": "Correctedf043 original29baseline d0/d1 fullnorm/rawh-Lambda/completeGram conditional centered Rayleigh controls pass; original reported and uncentered rotation failures preserved. These points differ from208.",
+      "evidence_roles": [
+        "corrected_baseline_result",
+        "d0_centering_control",
+        "d1_centering_control",
+        "historical_d1_failure"
+      ]
+    },
+    {
+      "claim": "Public optimization uses transported positive-curvature L-BFGS, fixed inherited screened inverse T M T, empty history on resume, unit initial step and halving; no secantdrop/non-descentreset counts exported. No fresh correlated Hessian is established.",
+      "source_symbols": [
+        "optimize_orbitals",
+        "_polar_retraction",
+        "precondition",
+        "tangent",
+        "OrbitalOptimizationState.from_arrays"
+      ]
+    }
+  ],
+  "analytical_scope": "For a stationary complete real CI eigenstate of a fixed declared weighted objective, the first-order coefficient response vanishes by Hellmann-Feynman. At degeneracy the objective must use the full equally weighted invariant span. Explicit dC absence alone is not missingphysics; fresh finite solves include response. This rank-one finite consumer refuses newly unresolved target degeneracy; other full CI degenerate spans remain intact.",
+  "inferences": [
+    {
+      "claim": "Search geometry/history/inherited inverse and orbital coupling are plausible causes of remaining convergence cost.",
+      "support": "signed fullgroup coupling and history-dependent trajectories; unchanged model/gates with decreasing EOL",
+      "limit": "no208 finite derivative/Hessian spectrum or secant-drop evidence; plausibility is not causal proof"
+    },
+    {
+      "claim": "Missing explicit dC in HF gradient does not by itself demonstrate missing physics.",
+      "support": "For a stationary complete real CI eigenstate of a fixed declared weighted objective, the first-order coefficient response vanishes by Hellmann-Feynman. At degeneracy the objective must use the full equally weighted invariant span. Explicit dC absence alone is not missingphysics; fresh finite solves include response. This rank-one finite consumer refuses newly unresolved target degeneracy; other full CI degenerate spans remain intact.",
+      "limit": "approximate eigenresidual, correct fullnorm signed density and coordinate/constraint connection must still be checked"
+    },
+    {
+      "claim": "A same208 derivative control should precede another cutoff/iteration/history sweep.",
+      "support": "existing two-direction derivative qualification is at the initial29 point; terminal literal208 controls validate accepted finiteH/geometry and savedg algebra only",
+      "limit": "one direction cannot certify all derivatives or remove spectrum gap"
+    }
+  ],
+  "decision": "Prepare one whole-original-pg two-h finite directional control at208; do not repeat already closed history pilots or groupmask decomposition.",
+  "forbidden_claims": [
+    "metric/history/stiffness proven dominant",
+    "physicalresponse missing because no explicitdC",
+    "208 derivative already passed",
+    "NIST gap determines direction",
+    "stationarity/physics/completeness/experiment/GPU speed certification"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "contract_sha256": "4f6b7a500e46a8813820099d328cc70cbf7c0197efae40dfa58fe67a71eaeef5",
+  "source_hashes": {
+    "src/atomx/methods/csf/variational.py": "875c642f9d697f218c5db12670c639083124b9e7ad2f5d1bfbe1293899ba89ef",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "f8a06ae04df4fbc0cc1812f997d42769e046ec1bca6e9ad9d0d6d15db1078aaa",
+    "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+  },
+  "source_unchanged_during_run": true,
+  "script_sha256": "e5e05c179f32d4f6366581a6c564cae35b23f80b6e47281bc7c4edadeefe9d5d",
+  "long_double_precision_bits": 63,
+  "ensemble": "equal J=0/J=1 one-CSF blocks",
+  "raw_density_omitted_nonzero_terms": [],
+  "rows": [
+    {
+      "control": "finite_quartic",
+      "full_CI_total_difference_Ha": -0.02982257196308069,
+      "stable_difference_Ha": -0.02982257196308176,
+      "long_double_full_difference_Ha": "-0.029822571963081779232",
+      "stable_minus_oracle_abs_Ha": 1.9949319973733282e-17,
+      "reverse_sum_abs_Ha": 2.0816681711721685e-17,
+      "discarded_density_difference_Ha": "0.0",
+      "metric_max_abs_error": 3.3306690738754696e-16,
+      "passed": true
+    },
+    {
+      "control": "admixture_1e-08",
+      "full_CI_total_difference_Ha": 1.3595347070349817e-10,
+      "stable_difference_Ha": 1.3595387719602871e-10,
+      "long_double_full_difference_Ha": "1.3595387662879154789e-10",
+      "stable_minus_oracle_abs_Ha": 5.672371663536781e-19,
+      "reverse_sum_abs_Ha": 2.042102137240287e-24,
+      "discarded_density_difference_Ha": "0.0",
+      "metric_max_abs_error": 1.491862189340054e-16,
+      "passed": true
+    },
+    {
+      "control": "admixture_1e-12",
+      "full_CI_total_difference_Ha": 8.881784197001252e-15,
+      "stable_difference_Ha": 1.361876621605351e-14,
+      "long_double_full_difference_Ha": "1.3614109839465982077e-14",
+      "stable_minus_oracle_abs_Ha": 4.656376587527571e-18,
+      "reverse_sum_abs_Ha": 2.208810534618833e-29,
+      "discarded_density_difference_Ha": "0.0",
+      "metric_max_abs_error": 1.3183898417423734e-16,
+      "passed": true
+    },
+    {
+      "control": "ket_normalization_control",
+      "full_CI_total_difference_Ha": -3.359368250244188e-08,
+      "stable_difference_Ha": -3.359368236257065e-08,
+      "long_double_full_difference_Ha": "-3.35936823636640014e-08",
+      "stable_minus_oracle_abs_Ha": 1.0933540987827911e-18,
+      "reverse_sum_abs_Ha": 1.5881867761018131e-22,
+      "discarded_density_difference_Ha": "0.0",
+      "metric_max_abs_error": 3.999999975690116e-08,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "limits": "Finite-cell independent arithmetic anchor; no new Yb roots and no CI mixing-response claim."
+}

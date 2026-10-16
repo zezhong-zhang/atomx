@@ -1,0 +1,441 @@
+--- before/src/atomx/methods/fscc.py
++++ current/src/atomx/methods/fscc.py
+@@ -18,6 +18,12 @@
+ from types import MappingProxyType
+ 
+ import numpy as np
++
++# Complete sector source from the independently checked pinned Fov*T2 repair.
++# A different diagram/source requires its own retained-equation validation.
++_NONCANONICAL_01_SOURCE_SHA256 = (
++    'f73ee35aead1a0f856012db090d50892e0503691aa0551edd36ffa6b6f32204c'
++)
+ 
+ 
+ def atomic_integrals(core, *, virtual_lmax, virtual_energy_max_Ha, frozen_keys=(),
+@@ -349,6 +355,8 @@
+     virtuals remain in the amplitudes. No intruder shifts or selections are
+     added. Closed and requested valence sectors must both converge before a
+     result is returned. On failure, the complete run log remains in directory.
++    Nonzero occupied--virtual Fock coupling in 0h1p requires the source-bound
++    ATOMX_FOV_T2_001 repair; original equations are rejected before export.
+     """
+     active = tuple(sorted(active_indices))
+     if tensor_symmetry not in ('C1', 'axial'):
+@@ -379,6 +387,15 @@
+     backend = json.loads((executable.parent/'atomx_backend.json').read_text())
+     if backend['abi'] != 'ATXCC001' or backend['executable_sha256'] != _sha(executable):
+         raise ValueError('backend executable/source manifest mismatch')
++    fov_max = float(np.max(abs(integrals.fock_Ha[:o, o:]), initial=0))
++    if sector == '0h1p' and fov_max != 0 and (
++            backend.get('noncanonical_attachment_equation') != 'ATOMX_FOV_T2_001' or
++            backend.get('source_sha256', {}).get('src/rcc/models/sector01.c') !=
++            _NONCANONICAL_01_SOURCE_SHA256):
++        raise ValueError(
++            'noncanonical 0h1p requires the source-bound ATOMX_FOV_T2_001 '
++            'attachment equation repair; original/unverified equations rejected'
++        )
+     if tensor_symmetry == 'axial' and (
+             'axial' not in backend.get('tensor_symmetries', ()) or
+             backend.get('axial_max_omega_x2') != 62 or
+@@ -402,6 +419,10 @@
+         atomx_solver_sha256=_sha(__file__), model=model, sector=sector, active_indices=active,
+         model_matrix_order='ascending global active indices, original EXP-T one-particle/hole determinant basis',
+         tensor_symmetry=tensor_symmetry,
++        occupied_virtual_fock_max_Ha=fov_max,
++        noncanonical_attachment_equation=backend.get('noncanonical_attachment_equation'),
++        residual_scope='backend raw Jacobi update bound; independent retained/Bloch '
++                       'and omitted-rank wave residuals are separate validations',
+         resources=estimate, tolerance=tolerance, residual_bound_tolerance_Ha=residual_bound_tolerance_Ha,
+         memory_bytes=memory_bytes, tile_size=tile_size, threads=threads,
+         integral_manifest_sha256=_sha(directory/'integrals.json'), input_sha256=_sha(directory/'cc.inp'),
+--- before/docs/ATOMIC_FSCC.md
++++ current/docs/ATOMIC_FSCC.md
+@@ -18,11 +18,18 @@
+ resource planning. Its separate `CoreSD` consumer now runs original reduced DC
+ core diagrams with exact native Coulomb quadrature and full noncanonical Fock
+ terms on complete virtual bands. Its fixed-energy CI+all-order valence and
+-screening interfaces have separate finite signed equation checks; monovalent
+-Bloch feedback and production physical CI consumption remain work. This
++screening interfaces have separate finite signed equation checks. Separate
++finite and J-reduced standalone monovalent Bloch-feedback interfaces now exist;
++large-space production physical CI consumption remains unverified. This
+ does not change the nonlinear FSCC equations or substitute a core solver for
+ an attachment calculation. Both consumers use `methods.atomic_space` for the
+ same complete native energy-band construction.
++
++The current large-space Yb comparison consumes reduced linearized SD, while
++this nonlinear EXP-T path is a separate method. Closed-shell/one-particle/
++one-hole support does not imply a general open-f-shell solver. See the
++[method-selection assessment](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)
++for actual Ne/Eu scope, source correspondences and proposed multi-reference routes.
+ 
+ ## Build and verify the external backend
+ 
+@@ -85,14 +92,22 @@
+ does not establish scalable triples contractions,
+ large-space memory convergence, production spectroscopy or a timing speedup.
+ 
+-### Optional noncanonical attachment equation repair
++### Required equation capability for noncanonical attachment
+ 
+ `--noncanonical-attachment-fix` explicitly enables `ATOMX_FOV_T2_001` in a
+ fresh backend checkout. The open Fov*T2 term in `sector01.c` already receives
+ antisymmetric T2; an extra P(34) doubles it. The option removes only that
+ permutation, preserving the full Fock/ERI operator and original precision gates.
+-The default still reconstructs the prior validated original equations; the old
+-binary and negative evidence are retained.
++The builder default still reconstructs the historical original equations;
++the old binary and negative evidence are retained. The public `compute` now
++rejects `sector="0h1p"` with any nonzero occupied–virtual Fock element unless
++the backend manifest declares `ATOMX_FOV_T2_001` and binds the independently
++validated `sector01.c` source SHA. There is no small-coupling exemption and no
++Fock zeroing or orbital substitution. Exactly zero Fov and other sectors retain
++their separate capability requirements. For a native noncanonical attachment
++calculation, add `--noncanonical-attachment-fix` to the build command above.
++These checks bind trusted build-tool provenance and the executable SHA; another
++source implementation needs its own independent validation and capability pin.
+ 
+ [Actual amplitude audit and isolated candidate](atomic_pci_sd_native_2026_10_09/parallel_fscc012/README.md)
+ identify the complete signed Q1 residual, rather than infer a diagram from
+@@ -102,7 +117,13 @@
+ reproduce the actually compiled candidate sector source byte for byte.
+ These finite gates do not establish production heavy-atom convergence,
+ general sector coverage or experimental precision; use the candidate evidence
+-and its declared controls when opting in.
++and its declared controls. The [current public-entry audit](atomic_physics_correctness_2026_10_11/README.md)
++re-runs all 120 signed rows/eight roots through the guarded wrapper and verifies
++rejection of the actual original binary before export. Request provenance now
++records the occupied–virtual Fock maximum, equation capability and residual scope.
++The backend's raw Jacobi update bound checks its implemented equations;
++independent retained/Bloch residuals, omitted-rank residuals and experimental
++accuracy are separate validations.
+ 
+ ## Native integral and space contracts
+ 
+--- before/docs/THEORY_NIST_COMPARISON.md
++++ current/docs/THEORY_NIST_COMPARISON.md
+@@ -29,20 +29,35 @@
+    diffuse excited configurations.
+ 2. Require convergence of the energy and the applicable orbital/variational
+    residuals. Inspect failed or stagnating iterations.
+-3. Estimate differential physical responses before selecting another scan:
++3. Check the declared retained equations at fixed space against an independent
++   signed operator and low-order limit. Separate implementation defects from
++   omitted correlation ranks and Hamiltonian/operator terms. Expanding virtuals
++   cannot establish that either class is absent.
++4. Estimate differential physical responses before selecting another scan:
+    upper minus lower state, complete doublet centroid and splitting. Separate
+    measured same-model increments, literature scales and unknown contributions.
+-4. Distinguish numerical grid/box refinement from restoring excluded correlation
++5. Distinguish numerical grid/box refinement from restoring excluded correlation
+    channels. Additional partial waves and virtual-energy bands can supply missing
+    physics; an old narrow-space increment does not bound the current tail.
+-5. Compare matched correlation ranks and correction stages, nuclear profiles and
++6. Compare matched correlation ranks and correction stages, nuclear profiles and
+    isotope masses. Use the smallest control distinguishing model truncation from
+    representation error; do not prioritize more digits solely by test count.
+ 
+-The [current Yb physics-scale assessment](atomic_physics_budget_2026_10_11/README.md)
+-recomputes all five saved states and their common absolute threshold. Its selected
+-next control compares the complete g band with the energy tail under the same
+-DC model; it does not launch new roots or transfer historical corrections.
++The [Yb physics-scale assessment](atomic_physics_budget_2026_10_11/README.md)
++recomputes all five saved states and their common absolute threshold. The
++[current correctness-first audit](atomic_physics_correctness_2026_10_11/README.md)
++supersedes its execution priority: validate retained equations and their low-order
++limit, then discriminate nonlinear/rank and balanced core-hole model omissions
++at matched fixed space. The g-band/energy-tail screen is deferred until these
++gates pass; historical corrections are not transferred to the current roots.
++
++The [method-selection assessment](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)
++distinguishes all-electron participation, complete declared orbital/configuration
++spaces and retained excitation ranks. The existing Eu example is frozen-[Xe]
++Eu3+ 4f6, rather than neutral Eu or full-core correlation. Its fitted Slater
++parameters remain a calibrated model; their agreement is not an independent
++ab-initio precision result. Select closed-shell CC/FSCC and open-shell
++multi-reference CI routes by the target states and verified operator coverage.
+ 
+ DHF includes mean-field exchange; it does not include general electron
+ correlation. MCDHF and CI include correlation only within their declared spaces.
+--- before/docs/AGENT_INSIGHTS.md
++++ current/docs/AGENT_INSIGHTS.md
+@@ -15,6 +15,20 @@
+ 证据中的日期、模型和源身份限定测量范围，`adopted` 不代表普遍科学认证。
+ 
+ ## 当前登记
++
++2026-10-11 [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)
++进一步细化既有 transition-feedback-priority：扩大空间后改善不证明方程／算符
++完备。先以固定空间完整signed作用与独立低阶极限定位实现错误，再按保留秩、
++遗漏秩、Hamiltonian与性质算符记录覆盖。公共非正则0h1p原后端有已测保留方程
++缺陷，入口已拒绝；修复后四核保留投影通过仍有更高连接秩残差。该证据支持此次
++用户决定先解决物理正确性与完备性；不将有限控制转为重原子精度认证。
++
++后续[固定 H 实际方法阶数控制](atomic_physics_correctness_2026_10_11/method_rank/README.md)
++和[占据 p／多 j 低阶控制](atomic_physics_correctness_2026_10_11/sd_pcore/README.md)
++分别提供非线性／秩的有限差分与真实源／Born 极限；后者仍不是全允许域／全阶
++证明。[方法定位](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)将“全量”
++限定到实际电子、轨道池、组态和激发秩：Eu³⁺ 的冻结核 4f⁶ 完整谱不升级为
++中性 Eu 或全核相关；先按目标开放壳和状态选择方法，再决定规模与后端。
+ 
+ 2026-10-11 [完整五态物理量级重估](atomic_physics_budget_2026_10_11/README.md)
+ 细化既有 transition-feedback-priority：选择下一项前先比较同模型上态减下态的
+@@ -156,6 +170,9 @@
+ 
+ ## transition-feedback-priority
+ 
++- 当前优先级：[固定空间正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)
++  先验完整保留方程／独立低阶极限，再选择重要缺失物理；数值收敛和扩截断响应
++  不能排除遗漏图项或激发秩。原后端失败与修复后遗漏秩证据同时保留。
+ - 触发 → 行动 → 原因：精密跃迁的空间自适应先比较Σ上−Σ下，保留候选Q内完整耦合；
+   单态能移可能相互抵消，纯对角分母也可能错过meV级组内响应。
+ - 补充证据：[Yb⁺ 冻结轨道 Dyson 能量反馈](yb_energy_dependent_sigma_2026_10_08/README.md)：
+@@ -293,8 +310,13 @@
+   order with signed direct-rho expansion and occupied–virtual rotation.
+   When assembling a physical SD norm, retain core spectators, valence Pauli
+   blocking and signed core-S1/valence-S2 interference. Equal radial core holes
+-  still require both magnetic-hole permutations; an unconstrained redundant
+-  direct rho array need not already have particle-exchange symmetry.
++  still require both magnetic-hole permutations. A norm representation bridge
++  may expand an unconstrained direct-rho array; that does not certify the native
++  core equation on every auxiliary coordinate. Physical native core rho obeys
++  simultaneous particle/hole exchange, including symmetric radial blocks for
++  equal holes and equal virtual angular groups. The [complete finite domain audit](atomic_physics_correctness_2026_10_11/sd/README.md)
++  distinguishes that allowed domain from antisymmetrizing or imposing a
++  minimum-norm gauge on all direct coordinates; no physical excitation is removed.
+   Use independent complete fermion expansions before radial Gram contractions;
+   numerical coordinate overlap is a separate metric. Current private norm003 and
+   multicore004 retain840 component/M gates after the preserved norm001 failure;
+--- before/docs/AGENT_REFERENCE.md
++++ current/docs/AGENT_REFERENCE.md
+@@ -8,6 +8,7 @@
+ 
+ ## 当前指南
+ 
++- [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)：固定空间完整signed方程与两类二阶极限，公共非正则FSCC入口拒绝已知错误后端；保留秩正确与遗漏秩误差分开，优先物理补全再扫截断。[当前方法定位](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)区分pCI型生产SD、EXP-T高阶对照、Ne完整声明池与Eu³⁺单组态，以及待实现的开放f壳多参考路线。
+ - [物理量级与推进优先级](atomic_physics_budget_2026_10_11/README.md)：当前完整五态的绝对束缚偏差、重心与分裂，历史／文献／条件代理量级分开；先判别重要相关通道，再选完整同模型求根，未宣称已修好谱线。
+ - [外部精度与并行效率实测](atomic_external_benchmark_2026_10_11/README.md)：同完整 signed 输入的 AMBiT、pCI-derived SD、有限 EXP-T 对照；固定工作量、真实线程数、等待器开销与未通过 GPU 负载门分别记录。
+ - [FAC 完整精度与效率续测](atomic_external_benchmark_2026_10_11/fac/README.md)：192能级／2003积分的全部对称块、严格未通过门、四离子完整CI/E1流程和实际线程观测；各自优化模型与诊断导出负担分别标注。
+--- before/docs/atomx_hourly_progress_2026_10_10/progress.json
++++ current/docs/atomx_hourly_progress_2026_10_10/progress.json
+@@ -1,12 +1,12 @@
+ {
+-  "updated_at": "2026-10-11T05:16:41.410732+00:00",
++  "updated_at": "2026-10-11T05:46:48.165027+00:00",
+   "yb_comparison": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+   "dynamic_breit_result": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+   "tasks": [
+     {
+-      "status": "量级账已复算／新判别求根尚未启动",
+-      "title": "物理不足优先：核—价相关与g/能窗筛选",
+-      "detail": "完整五态最新DC/SD：D重心+873.8cm^-1、P+320.2；共同ASD阈值下6s偏浅628.2、D上态1450.6–1579.0，旧二阶基态过束缚解释不迁移。先同模型完整二阶区分g分波与5→10Ha，再选一个全阶SD五态增量；随后同空间非线性/三激发、平衡4f孔态与C–B响应。文献/旧窄池/动态冻结CI量级不相加，不优先重复网格/容差检查；保留原门。"
++      "status": "公共入口已修复／完整有限独立控制通过／生产物理缺口保留",
++      "title": "物理正确性与覆盖优先",
++      "detail": "非正则0h1p入口拒绝任何非零Fov的旧／错误源码绑定；修复源完整120×8 Bloch差1.78e−15Ha。SD两类二阶28个M列通过；四核34投影坐标覆盖17维物理空间，完整差1.60e−14Ha，初次随机rho失败定位为交换约束而非缺图项。先占据p/多j与原五态低阶控制，再同H判别非线性／连接秩／平衡4f孔态、完整横向与性质。g/能窗后置，旧量级不相加，原实验门保持。"
+     },
+     {
+       "status": "远程已发布／六方向真实科学进程已完成",
+@@ -16,7 +16,7 @@
+     {
+       "status": "已完成私有验证",
+       "title": "大规模 J 约化全阶线性化 SD + GPU",
+-      "detail": "Yb⁺ 五根、50 次完整 CPU/GPU 数组对照通过；声明空间 l≤3、414 径向虚轨道、E≤5 Ha。尚需物理空间收敛。"
++      "detail": "Yb⁺ 五根、50次完整CPU/GPU数组对照保留；声明DC线性化SD、全部68核、l≤3/414径向虚态/E≤5Ha。当前有限物理域与低阶验证不替代大Yb独立完整H、非线性／三激发或实验精度认证。"
+     },
+     {
+       "status": "当前 helper 已实际消费完整旧波函数／新尾根待做",
+@@ -29,14 +29,14 @@
+       "detail": "新增不可变J/宇称桥之上完整scalar doubles source、PP与normal-ordered HH ladders以及linked能量；全部10 doubles/495独立Fermi行在DC/static/dynamic/复相位下通过原门。其余core/Fock/singles/ring、valence、Sigma2仍未构成完整大规模横向SD。"
+     },
+     {
+-      "status": "四窗口完整预检与原64MiB门通过／生产门保留",
++      "status": "完整预检门保留／扩截断后置于物理方程与覆盖",
+       "title": "核—价虚轨道尾部与收敛",
+       "detail": "lmax3/4 × Emax5/10 Ha完整径向数414/441/532/567，五态共同空间；host/device载荷含norm/staging。原l4 88.4/88.6MB失败保留；有界缓存改为14.15–18.54MB而不缩水。生产联合求根仍需source-bound executor、完整angular计数与实时GPU准入。"
+     },
+     {
+-      "status": "四核12-spinor保留投影通过／T4方法误差保留",
++      "status": "非正则入口源能力门已实现／有限保留投影通过／遗漏T4方法误差保留",
+       "title": "FS-CCSDT 与三激发规模化",
+-      "detail": "公开显式修复后端实际扩大至4core/12spinor，strong Fov=0.05470Ha；core/attachment保留投影5.62e-14/6.48e-14Ha，fullsigned HEFF投影5.01e-15。T4/Q3-Q4残差约2.1/2.3e-3，FCI方法差9.09e-6Ha独立保留；不能继承两核有限exactness。"
++      "detail": "公开0h1p任何非零Fov要求ATOMX_FOV_T2_001及已验证sector01源码绑定，不删Fov／不放宽门。当前入口两核120行8根通过完整Bloch/HEFF/FCI；已存四核12spinor保留投影6.48e−14Ha，完整遗漏秩残差2.28e−3Ha、FCI方法差9.09e−6Ha分别保留；不能继承两核exactness或声称生产三激发已完备。"
+     },
+     {
+       "status": "完整有限wave/metric与E1/E2/M1通过／生产寿命待做",
+@@ -115,7 +115,7 @@
+   ],
+   "fscc_precision_result": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+   "fscc_strict_target": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+-  "priority": "原子级最高水平；先按差分物理量级选择关键模型/关联通道，再选受控实现与计算；分子晶体暂缓",
++  "priority": "原子级最高水平；先独立固定空间核对物理方程和覆盖，再按差分量级补重要物理，随后空间/GPU规模收敛；分子晶体暂缓",
+   "atlas": {
+     "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+     "scope": "私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+@@ -130,7 +130,8 @@
+   "external_benchmark_report": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+   "external_benchmark_metrics": "docs/atomic_external_benchmark_2026_10_11/fac/metrics.json",
+   "fac_benchmark_gaps": "docs/atomic_external_benchmark_2026_10_11/fac/gaps.json",
+-  "physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json",
+-  "physics_priority_report": "docs/atomic_physics_budget_2026_10_11/README.md",
+-  "physics_next_setups": "docs/atomic_physics_budget_2026_10_11/next_setups.json"
++  "physics_budget_result": "docs/atomic_physics_correctness_2026_10_11/results.json",
++  "physics_priority_report": "docs/atomic_physics_correctness_2026_10_11/README.md",
++  "physics_next_setups": "docs/atomic_physics_budget_2026_10_11/next_setups.json",
++  "historical_physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json"
+ }
+--- before/docs/atomx_hourly_progress_2026_10_10/README.md
++++ current/docs/atomx_hourly_progress_2026_10_10/README.md
+@@ -14,14 +14,21 @@
+ 有限 FS-CCSDT 的更严精度门和 strict xfail 也从保存的007／009结果重新读取，
+ 避免只报旧容差的通过数而隐藏后续精度缺口。
+ 
+-2026-10-11 的[物理量级重估](../atomic_physics_budget_2026_10_11/README.md)
+-调整当前待办优先级：量级账每次由新登记的 `physics_budget_result` 重新读取并绑定
+-SHA；先判别核—价相关、g分波和能窗，再选择同模型完整五态求解。历史小池、
+-文献和冻结CI的动态Breit量级分开，不相加为当前修正。新判别设计尚未注册为
+-可运行生产executor，发送卡片不等于已启动这些新根；原有受控迭代机制保留。
+-[批次选择器](parallel_planner.py)核对量级账与当前五态比较的身份并重验全部绑定输入；
+-当没有可准入任务时，将物理判别作为当前方向，保留各独立实现前沿。
++2026-10-11 的[当前物理正确性审计](../atomic_physics_correctness_2026_10_11/README.md)
++调整待办优先级：固定空间先验完整signed方程与独立二阶极限，补齐重要缺失
++图项／激发秩／模型耦合，再做g分波和能窗筛选。[原量级账](../atomic_physics_budget_2026_10_11/README.md)
++保留为候选物理响应证据；历史小池、文献和冻结CI的动态Breit量级分开，
++不相加为当前修正。现有 `physics_budget_result` 字段兼容读取新审计汇总并绑定SHA；
++新生产判别尚未注册为executor，发送卡片不等于已启动新Yb根，受控机制保留。
++[批次选择器](parallel_planner.py)核对审计与当前五态比较的身份并重验全部绑定输入；
++在实现前沿时，将物理正确性与覆盖判别作为生产方向；有已准入的源变化有限
++复验时先完成复验，同时保留这一生产方向和各独立实现前沿。
+ 这项优先级注释不创建任务、不改变现有任务或科学门。
++
++本轮源变化已触发并完成四核 FSCC、有限性质和完整五态范数复验。NIST 原任务
++正确拒绝旧范数证明；现增加显式 `--norm-run` 依赖选择，保留历史默认和旧失败，
++注册路径指向当前实算证明。全部原审计门通过，实验精度门仍失败。
++见[当前依赖修复与完整身份链](../atomic_physics_correctness_2026_10_11/hourly_dependency/README.md)。
+ 
+ ## 已验证的实际发送
+ 
+--- before/docs/MIGRATION.md
++++ current/docs/MIGRATION.md
+@@ -64,6 +64,16 @@
+ remain distinct from physical excitation accuracy.
+ 
+ ### Separate tensor CCSD/FS-CCSDT backend
++
++Noncanonical `methods.fscc.compute(..., sector="0h1p")` now raises `ValueError`
++before export when any actual occupied–virtual Fock element is nonzero and the
++backend lacks the source-bound `ATOMX_FOV_T2_001` attachment equation repair.
++Rebuild the pinned backend with the existing `--noncanonical-attachment-fix`
++flag; do not delete Fov to bypass the check. The historical builder default,
++exactly zero-Fov attachment and other sectors retain their separate contracts.
++No result fields are renamed. Request provenance adds
++`occupied_virtual_fock_max_Ha`, `noncanonical_attachment_equation` and
++`residual_scope`. See the [same-H public-entry validation](atomic_physics_correctness_2026_10_11/README.md).
+ 
+ The native factories now accept `representation="on_demand"` and an explicit
+ `radial_pair_cache_size`. Packed remains the default. `export_integrals` streams
+--- before/docs/ARCHITECTURE_CAPABILITIES.md
++++ current/docs/ARCHITECTURE_CAPABILITIES.md
+@@ -26,7 +26,7 @@
+ | NIST comparison | Packaged configuration matching, centroid evaluation and read-only native campaign comparison | Ingestion, production queue orchestration and HTTP routing still partly live in scripts |
+ | Providers | Native adapter and provider contracts; optional PySCF adapter | No claim of implemented ABACUS/DeePTB adapters or every proposal in ADR-0001 |
+ | R-matrix | Single-channel and multichannel drivers are implemented | Supported target/channel models are those documented by the actual drivers |
+-| Integral-driven atomic CC and FSCC | `methods.fscc` exports native signed DC integrals, explicitly requested complete static or real finite-frequency transverse exchange, and full off-diagonal Fock operators to a source-bound patched EXP-T backend; nonlinear all-order CCSD and full FS-CCSDT in 0h0p/0h1p/1h0p, explicit frozen-core normal ordering, complete declared energy-band virtuals from the shared `methods.atomic_space` factory, optional on-demand native radial/angular integrals and bounded signed export, tensor resource guards, raw amplitude residual bounds and signed effective matrices; optional exact signed M/parity tensor blocks with full integral/actual-consumption gates and complete restored global model matrix | External backend required; resident packed ERI and uncompressed resource preflight remain even with native streaming or exact axial blocks; little-endian and 2048-spinor build limit. Finite transverse CI/frozen-core/stream/C1/axial FS-CCSDT gates pass; large-space transverse SD and production FS-CCSDT remain unverified. A stricter noncanonical 0h1p FCI target fails despite tighter raw residuals; its Fov association is retained as a strict expected failure. No automatic substitution of native core SD, CI+all-order multi-valence operator, QED/recoil, dressed properties, resonance certification or Atom facade dispatch. Fixed frequencies do not implement orbital relaxation or full bound-state QED. Space and experimental accuracy remain separate |
++| Integral-driven atomic CC and FSCC | `methods.fscc` exports native signed DC integrals, explicitly requested complete static or real finite-frequency transverse exchange, and full off-diagonal Fock operators to a source-bound patched EXP-T backend; nonlinear all-order CCSD and full FS-CCSDT in 0h0p/0h1p/1h0p, explicit frozen-core normal ordering, complete declared energy-band virtuals from the shared `methods.atomic_space` factory, optional on-demand native radial/angular integrals and bounded signed export, tensor resource guards, raw amplitude residual bounds and signed effective matrices; optional exact signed M/parity tensor blocks with full integral/actual-consumption gates and complete restored global model matrix | External backend required; resident packed ERI and uncompressed resource preflight remain even with native streaming or exact axial blocks; little-endian and 2048-spinor build limit. Finite transverse CI/frozen-core/stream/C1/axial FS-CCSDT gates pass; large-space transverse SD and production FS-CCSDT remain unverified. The historical original noncanonical 0h1p strict target fails despite tighter raw residuals; the diagnosed Fov×T2 repair passes independent finite retained/Bloch gates, and the public entry now requires its validated source capability for any nonzero Fov. Original failures and omitted-rank errors remain distinct. No automatic substitution of native core SD, CI+all-order multi-valence operator, QED/recoil, dressed properties, resonance certification or Atom facade dispatch. Fixed frequencies do not implement orbital relaxation or full bound-state QED. Space and experimental accuracy remain separate |
+ | Finite coupled cluster | `methods.coupled_cluster.compute` solves nonlinear CCSD projected amplitudes using exact nilpotent `exp(T1+T2)` in a complete fixed-N determinant representation; reports SD and full-state residuals separately, with immutable source/representation provenance | Bounded small-space anchor (defaults: 256 determinants, 128 amplitudes, 128 MiB generators); not scalable atomic SD, FSCC, triples, left states or dressed observables; no Atom facade dispatch |
+ | Native scalar closed-core linearized SD | `methods.linearized_sd` supplies exact independent scalar counts and a finite J=0 linked DC/DCB anchor with explicit frozen shells. `methods.core_sd` consumes exact shared cell-Coulomb features through source-bound original pCI reduced DC core diagrams, retains full noncanonical Fock blocks and all declared virtuals, and solves matrix-free raw equations with an explicit payload/Krylov cap. Signed Be/Ne commutator and amplitude anchors pass; complete Ne s/p/d/f/g energy bands have been solved. Optional exact BLAS initialization, disjoint core-pair workers and shared virtual-pair potentials retain the original full-action anchor, with explicit OpenMP BLAS runtime checks for concurrent calls. Optional complete direct/exchange singles BLAS and exact native polynomial density coordinates pass complete Ne signed actions/roots and an all-68-core, 14-virtual Yb original-action residual anchor; all-68-core/414-virtual Yb full-action and raw solved-equation gates pass at the archived source. Exact weighted term31/32 BLAS is separately optional with complete scratch/runtime guards and public full-band signed checks. An explicit full iterative seed is freshly checked by the current operator and energy | The dense DC/DCB anchor remains bounded to 512 CSFs/2000 determinants/128 MiB by default. The direct path currently supports real DC and the complete closed core; no frozen core, Breit/QED, monovalent SD/Bloch feedback, CI+all-order screening, nonlinear products, triples, dressed properties or Atom dispatch there. Full retained Yb core equations pass; production valence001 layout failed and was repaired;002 then hit an OpenMP-induced native stack fault; full-space static map repair passed; complete valence solve/performance validation remains active, without spectrum/space convergence. Radial/correlation and experimental accuracy gates remain separate; see [contract](ATOMIC_LINEARIZED_SD.md) and [continuation](atomic_pci_sd_native_2026_10_09/README.md) |
+ | Native fixed-energy valence SD | `methods.valence_sd` supplies complete angular planning, matrix-free CI+all-order valence numerators, signed correlation Sigma1 rows and full implicit column-energy response on a source-bound solved `CoreSD`. Full noncanonical scalar Fock, immutable outputs, core COMMON restoration, source/amplitude identity and full storage/Krylov guards are checked. Optional exact term2 shared potentials/batched projections and disjoint heap workers retain all virtuals and analytic responses, with complete source/scratch/inner-one OpenMP BLAS guards. The homogeneous value-only ABI shares the same diagrams/Fock and one explicit term2 response policy, retaining complete requested analytic derivatives and full scratch. Complete initial numerator guesses are freshly re-certified by the current operator, with owned payload/hash guards; saved-state consumers bind physical identity separately. Optional read-only restart callbacks carry complete numerical guesses and source/coordinate identity, with explicit uncertified status and callback scratch accounting. Same-owner unchanged immutable core results reuse their just-measured raw residual through a private transient complete-data certificate; reconstruction or changes repeat the original action. The current56-check core/valence/Sigma2 panel and independent current-source privateGPU16-magnetic-state replay pass. Twenty-six affected public checks and all six finite s/p columns/16 magnetic states pass independent root/action/response gates; complete Yb68core/414virtual term2 signed arrays and full/value/full response recovery pass the original-map gate | Real native DC, complete declared closed core and virtual pool. No standalone monovalent Bloch energy feedback, valence-singles feedback, term31, nonlinear products, triples, CI energy/metric construction, dressed observables, Breit/QED/recoil, complex poles or Atom dispatch. Warm complete term2 performance gates pass (one/eight-worker median4.84; value-only request median1.36 at fixed eight workers). Full solved-valence end-to-end performance, correlation convergence and experiment remain unverified; see [contract](ATOMIC_LINEARIZED_SD.md) |
+@@ -79,14 +79,17 @@
+   ladders and linked doubles energy; all ten directions pass independent
+   four-electron signed controls. Remaining core/singles/Fock/ring, valence and
+   Sigma2 transverse contractions remain separate; see [scope](ATOMIC_LINEARIZED_SD.md#complete-transverse-j-pair-bridge-and-finite-core-anchor).
+-- Explicit optional FSCC equation repair: the
++- Source-bound noncanonical FSCC attachment capability: the
+   [finite full signed audit](atomic_pci_sd_native_2026_10_09/parallel_fscc012/README.md)
+   closes the noncanonical ten-spinor strict target by removing duplicate Fov×T2
+   antisymmetrization. A four-core/twelve-spinor actual-backend extension passes
+   complete retained projections with strong Fov; omitted T4/S4 residuals and
+   finite-FCI method errors remain nonzero. Production spaces and other sectors
+-  remain unverified; the validated original backend and public builder default
+-  are preserved.
++  remain unverified. The historical original backend and builder default are
++  preserved; the [current public guard](atomic_physics_correctness_2026_10_11/README.md)
++  rejects original/unverified 0h1p equations for any nonzero actual Fov before
++  export. Fresh same-H 120-row/eight-root controls pass for the repaired source;
++  this does not certify general omitted-rank or spectroscopic completeness.
+ - Complete finite correlated properties: `properties.transitions.fscc_effective`
+   consumes explicit full waves and their physical metric, rejects failed full-H
+   residuals and forms signed Bloch/orthonormal operators through the existing CI
+--- before/docs/CORRELATED_METHOD_TESTING.md
++++ current/docs/CORRELATED_METHOD_TESTING.md
+@@ -442,6 +442,18 @@
+ the old backend remains a distinct failing reference. Large-space and other
+ sector validation remain required.
+ 
++The [current correctness-first audit](atomic_physics_correctness_2026_10_11/README.md)
++adds 12 public boundary checks in `test_fscc_backend_physics_capability.py`:
++missing/wrong source capability rejects nonzero real or complex Fov before
++export, including arbitrarily weak coupling; corrected capability, exact-zero
++Fov and other sectors preserve their separate paths. The actual old binary is
++also rejected on the original native input. A fresh current-wrapper run with
++the source-bound repaired binary checks all 120×8 signed Bloch entries,
++independent HEFF and all eight complete-FCI roots at the unchanged gates.
++Its backend update bound is not promoted to an omitted-rank or experimental
++error certificate. The same owner separately audits native SD signed actions
++and both classes of the second-order attachment energy against fixed-N matrices.
++
+ The [SD transverse bridge](atomic_pci_sd_native_2026_10_09/parallel_sd_transverse001/README.md)
+ adds immutable complete signed J/parity pair blocks and a finite linked two-electron
+ SD anchor. Its 22 checks pass without skips; large native pCI core/valence/Sigma2
+--- before/docs/TESTING.md
++++ current/docs/TESTING.md
+@@ -131,6 +131,7 @@
+ | Cross-sector finite effective electric lines | `test_ci_effective_transitions.py`: rectangular complex signed operators versus dense states, independent endpoint phase covariance, two-metric reverse adjoints, native Be+ complete lowest-M fermionic oracle, length/velocity and finite/long-wavelength controls, normalized full-root matrix elements/rates, second-root photon/statistical weights and pre-work identity/resource rejection. Normalized multiplicity-two 5g3 rotation retains a 2.78e-17 component; weak complex properties use zero absolute tolerance. Four shared angular magnitude cutoffs removed. Together with finite Q-space tests: 21 checks; broader 14-file affected panel: 240 passed, no skips. Finite CI only; no inferred production SD metric or experimental accuracy |
+ | Complete declared NR-SD space | `test_ci_sd_space.py`: independent occupation-distance enumeration, all jj coupling trees, reference canonicalization, N/J/parity/frozen-shell validation and preallocation resource rejection |
+ | Finite standalone monovalent SD | `test_monovalent_sd.py`: live native core/result binding; primary Eq.8/9/13 versus full signed canonical/noncanonical action; independent nonlinear feedback root; normalized physical SD wave, separate complete eigenstate residual and expectation; real/complex one-body bilinears, weak nonzero values, source/energy/root/resource rejection. Ten checks pass without skips with the pinned pCI environment. Finite anchor only; [contract and retained failures](ATOMIC_LINEARIZED_SD.md#finite-standalone-monovalent-sd) |
++| Noncanonical external attachment capability | `test_fscc_backend_physics_capability.py`: reject original/missing/wrong source capability before export for every nonzero Fov, preserve verified and separately scoped sector paths. `test_fscc_equation_audit.py` and `test_fscc_scope_projection.py` independently distinguish signed equation defects from omitted excitation ranks. The [current audit](atomic_physics_correctness_2026_10_11/README.md) also re-runs the actual public corrected backend against complete finite Bloch/HEFF/FCI controls |
+ | J-reduced standalone monovalent SD | `test_reduced_monovalent_sd.py`: 84 live original/streamed/noncanonical checks for four complete valence columns and all ten M; signed actions, fixed-core feedback, independent roots and J², unchanged fixed-energy columns, parent/energy/constructor/solve resource guards. Five-file panel147 pass/3 missing-runtime skips, complemented by3 pass with serial BLAS:150 distinct checks.40 exact-J source-bound replay states/824 arrays pass; stronger unrestricted-M normalized-state negatives are retained. [Full contract and boundaries](ATOMIC_LINEARIZED_SD.md#j-reduced-standalone-monovalent-sd) |
+ | Finite nonlinear CCSD | `test_finite_ccsd.py`: two-electron exact CI, four-electron noninteracting-pair additivity with nonzero disconnected quadruples, native Be²⁺ complete CSF anchor and strict input/convergence/resource guards; `test_scaffolds.py` checks the explicit-input CC interface |
+ | Projection between radial representations | `test_shooting_seed.py` |
+--- before/docs/ATOMIC_LINEARIZED_SD.md
++++ current/docs/ATOMIC_LINEARIZED_SD.md
+@@ -416,7 +416,38 @@
+ complete-band workload with native inputs, plan, residuals and stage times.
+ 
+ The direct representation stores original redundant particle-hole `rho_k`,
+-so its vector count differs from the independent SU(2) count. Matrix-free
++so its vector count differs from the independent SU(2) count. Physical core
++doubles obey simultaneous particle/hole exchange; same-hole, same-angular
++radial blocks must be symmetric under particle exchange. The low-level
++`action` is the raw redundant numerical map, not an independent physical
++commutator for every unconstrained coordinate vector. Caller-provided physical
++amplitudes and seeds must preserve the representation's exchange constraints;
++shape/finite checks do not certify them. The [current four-core domain audit](atomic_physics_correctness_2026_10_11/README.md)
++checks every projected coordinate, the complete physical image and allowed
++null directions against an independent fixed-N commutator. It retains the
++unconstrained-random negative rather than changing the Hamiltonian or gate.
++This finite proof does not certify every production shell topology. The new
++[occupied-p/mixed-j control](atomic_physics_correctness_2026_10_11/sd_pcore/README.md)
++keeps all14 spinors/1001 fixed-N determinants for the declared Ne DC model.
++Its real zero/source and first-Born inputs pass all310 signed SD components,
++and its independent/native MBPT2 coefficient agrees within3.723e-24Ha.
++Nonzero p3/2-p3/2 and s-p3/2 hole branches are measured above roundoff.
++The separated interaction-only action has signal1.106e-5Ha and error1.374e-18Ha.
++This is a weak-coupling model with diffuse VN virtuals, without a complete
++native mixed-j rho-domain derivation, arbitrary-input/all-direction action,
++converged all-order root or strong-correlation/Ne spectroscopy certificate.
++Shared radial/angular integrals also leave radial-operator validation distinct.
++
++The [matched-H method ladder](atomic_physics_correctness_2026_10_11/method_rank/README.md)
++solves actual public dense finite `linearized_sd.solve`, nonlinear CCSD and
++CCSDT against complete FCI at unchanged Z4 DC plus finite-frequency transverse H.
++The core method errors are -0.0131872, +2.27875e-5 and +3.17000e-6Ha while
++all retained equation gates pass. Its LCCSD core anchor is not native HPC
++CoreSD, and no matched-H LCCSD attachment was executed. That transverse-H
++model differs from the Z6 DC native-domain control; their energies/amplitudes
++must not be spliced or their conditional method responses transferred to Yb.
++Nonlinear/rank coverage and complete physical operators remain separate from
++orbital cutoff convergence. Matrix-free
+ GMRES retains every active virtual slot, with a diagonal preconditioner and
+ an explicit complete storage cap; it does not allocate a dense equation
+ matrix or magnetic quartic ERI array. Original pCI arrays are still padded

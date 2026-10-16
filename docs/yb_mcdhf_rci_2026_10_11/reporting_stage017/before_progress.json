@@ -1,0 +1,123 @@
+{
+  "updated_at": "2026-10-11T13:51:16.154847+00:00",
+  "yb_comparison": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+  "dynamic_breit_result": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+  "tasks": [
+    {
+      "title": "方向1：原生共同轨道MCDHF驻值与数值正确性",
+      "status": "原驻值/实验门仍FAIL；约束保存点控制过门，补测完整密度梯度",
+      "detail": "Atomx原生MCDHF→RCI主线不变。531累计320步原驻值FAIL，实验千cm⁻¹gap保留。29轨道/1046目标CSF的原reported与Rayleigh失败不改。完整signed Gram中心化的保存点检验：d0误差-1.09314e-10、d1误差-1.18227e-10，均在原门内，支持端点法向运动解释；零新增H/CI/梯度，不认证生产驻值。原3451度量残差0.0214991、指标1.20703e−4Ha仍FAIL。下一实測完整归一化密度梯度差，再准入有界原生轨道优化。接受步元数据已实现、有限保存H保护19项算术资格通过；新优化器仍零调用。性能线准备复用两体semiseparable核，补丁未应用，尚无29轨道加速比。"
+    },
+    {
+      "title": "方向2：平衡核价、多参考与态身份",
+      "status": "固定轨道判别保留；推进完整29轨道相关MCDHF准入",
+      "detail": "At the same real-owner baseline measure the complete normalized, unfiltered signed density gradient against the production retained gradient, keeping all29 radials/1046 CSFs/original3451 metric and target UIDs. Then review a separate bounded native ordinary-reported MCDHF successor with exact finite-H accepted-step guard. Preserve original failures; profile the same full problem before performance claims."
+    },
+    {
+      "title": "方向3：同态完整RCI、动态Breit、QED与反冲",
+      "status": "accepted160同点完整静态RCI已核验；动态/QED账保留原003点",
+      "detail": "531同点D/P重心gap +1949.860/−2008.160 cm⁻¹；分裂gap −605.464/+144.745，静态Breit不能閉合主gap。原003的动态差0.37–4.23与SE模型差361–450不能拼入新点，后者也不是误差界。"
+    },
+    {
+      "title": "方向4：同态E1/E2/M1、寿命与响应",
+      "status": "五参考驻值已过；扩展相关态性质仍待计算",
+      "detail": "原驻值与态身份通过后复用共同波函数，检查长度/速度约定、非正交/相关范数与响应；历史冻结核寿命失败不能代表新MCDHF。"
+    },
+    {
+      "title": "方向5：NIST/实验与软件独立比较",
+      "status": "远程周期表版本5已实际发布；16模型64行，NIST与历史保留",
+      "detail": "版本5另列固定160核场/屏蔽虚层两个完整RCI模型及旧531模型；未称扩展轨道已优化。原始NIST、Ne/Eu与全部历史不变。当前卡片补充29/1046导数失败，网页仍为版本5发布快照。"
+    },
+    {
+      "title": "方向6：高复用CPU/GPU与性能",
+      "status": "完整531 H复用通过1491运行/3217独立核验；五组暖态配对计时已完成",
+      "detail": "默认关闭；完整531 dense DC，五组交替配对受检归档链中位1.24259倍（1.19672–1.29885），对应约19.52%链用时降低；实际21H/14CI/14梯度。另10041项独立数组/统计核验通过；不认证整个优化器/GPU/并行效率。 两体势semiseparable路由仅完成源提案，原29实际阶段profile与收益待测。"
+    }
+  ],
+  "spectra": [
+    {
+      "title": "原子可见/紫外与光钟 E1/E2",
+      "comparison": "最新Yb⁺原生完整531 DC MCDHF累计320接受步，原残差1.94348e−6 FAIL；D3/D5/P1/P3的NIST gap +2310.854/+1736.747/−2084.309/−1916.174 cm⁻¹。同点完整H/CI/g/pg/原metric独立1011项通过。accepted160静态RCI属于另一点，另列不拼接。",
+      "status": "数值身份核验、原驻值、有限空间和实验门分开；005五参考驻值历史通过，不能继承为531驻值。强度/寿命仍未完成。"
+    },
+    {
+      "title": "稀土寿命（历史冻结核模型）",
+      "comparison": "6p₁/₂：6.2296 vs 8.12±0.02 ns；5d₃/₂：28.0203 vs 54.83±0.18 ms。",
+      "status": "分别偏差 −23.28% / −48.90%；该模型未通过，不代表新 SD 的寿命。",
+      "source_artifact": "docs/rare_earth_yb_spectrum_2026_10_08/comparison.json",
+      "reader": "rare_earth_lifetimes"
+    },
+    {
+      "title": "Ne⁷⁺原生高精度Kα卫星线（后期完整3200Ha）",
+      "comparison": "每次从后期实际计算及实验JSON重读。",
+      "status": "未拟合原生RCI；Togawa2024实验，非NIST。保留局部相关与物理极点未闭合门；早期n12仅为历史模型。",
+      "source_artifact": "docs/xfel_tail_breit_pole_2026_10_06/e3200/analysis.json",
+      "reader": "native_ne_positions"
+    },
+    {
+      "title": "Eu³⁺原生多重态/晶场成功基线",
+      "comparison": "每次从来源审计JSON重读。",
+      "status": "历史标定与本地NIST半经验参考分列；未知不确定度保留；未拟合⁷F单列，不作为独立实验认证。",
+      "source_artifact": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/evidence.json",
+      "reader": "native_eu_baseline"
+    },
+    {
+      "title": "Auger / 光电离",
+      "comparison": "已有 Ne/Ar 与 FAC/XATOM 数值对照；分通道残差仍存在。",
+      "status": "属于软件间对照；直接实验宽度/截面与完整响应验证待完成。",
+      "source_artifact": "docs/comparison_xraypac_fac_rerun_2026_10_02_113532/validation.json"
+    },
+    {
+      "title": "XFEL 瞬态产额与电子谱",
+      "comparison": "已定位 Ne 隐共振、双 K 空穴和 Xe 多芯空穴实验及数据入口。",
+      "status": "真实强度数据、SASE 脉冲和仪器响应配对待完成；不声称已复现实测连续谱。"
+    },
+    {
+      "title": "QED / 相对论算符",
+      "comparison": "现有 FAC 共轨道静态/有限频率 120 个矩阵元对照；它们不是实验谱。",
+      "status": "有限核、相关态和实验物理误差预算继续验证。"
+    },
+    {
+      "title": "分子 XAS / 共振与 Auger",
+      "comparison": "CO 等基础 provider 契约已演示；尚无本项目完整实验谱误差表。",
+      "status": "暂缓：当前优先完成原子级；原计划和未验证状态保留。",
+      "source_artifact": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json"
+    },
+    {
+      "title": "晶体 XAS / 稀土发光 / 磁性",
+      "comparison": "MgO 嵌入基础接口已演示；尚无周期材料或晶体宿主实验谱认证。",
+      "status": "暂缓：当前优先完成原子级；原计划和未验证状态保留。",
+      "source_artifact": "docs/spectroscopy_science_story_2026_10_06/foundation_results/checks.json"
+    }
+  ],
+  "fscc_precision_result": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+  "fscc_strict_target": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+  "priority": "Atomx原生MCDHF→RCI主线：真实驻值正确性→平衡核价与多参考→同态算符/性质→实验gap→共享收缩与端到端并行性能；SD/CC与外部软件作为对照",
+  "atlas": {
+    "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+    "scope": "私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+  },
+  "adaptive_policy": "docs/atomx_hourly_progress_2026_10_10/iteration_policy.json",
+  "fscc_equation_fix_result": "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/final_candidate_C1/result.json",
+  "fscc_equation_fix_panel": "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/final_panel.json",
+  "norm_memory_result": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/tail002/result.json",
+  "six_direction_evidence": "docs/atomx_hourly_progress_2026_10_10/parallel_six002/README.md",
+  "six_direction_receipt": "om_x100b63841d4d74a0df35db5a498b480",
+  "six_direction_result": "docs/atomx_hourly_progress_2026_10_10/parallel_six002/final_delivery_proof.json",
+  "external_benchmark_report": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+  "external_benchmark_metrics": "docs/atomic_external_benchmark_2026_10_11/fac/metrics.json",
+  "fac_benchmark_gaps": "docs/atomic_external_benchmark_2026_10_11/fac/gaps.json",
+  "physics_budget_result": "docs/yb_mcdhf_rci_2026_10_11/results_stage016.json",
+  "physics_priority_report": "docs/atomic_native_roadmap_2026_10_11/README.md",
+  "physics_next_setups": [
+    "Actual full531 public MCDHF total320 accepted steps, second160 continuation endpoint independently replayed1011checks; original residual1.94348482355e-6 stillfails1e-7, indicator9.22537195581e-12Ha passes1e-8. Sameobjective originalP/inverse, freshsecantdeclared,0fallback. Matchedparent160 transition changes below0.525cm^-1 do not close roughly1700–2300cm^-1 gap; missingrank versus coherentvirtual-space discriminator next.",
+    "At the same real-owner baseline measure the complete normalized, unfiltered signed density gradient against the production retained gradient, keeping all29 radials/1046 CSFs/original3451 metric and target UIDs. Then review a separate bounded native ordinary-reported MCDHF successor with exact finite-H accepted-step guard. Preserve original failures; profile the same full problem before performance claims.",
+    "Complete staticBreitRCI at exact independently verified public531 endpoint, strict all-root H/CI/identity and matched DC/static lower/upper differences. Endpoint notstationary; keep this fixed-point diagnostic distinct from stationary model or old003 dynamic/QED.",
+    "Native same-wavefunction E1/E2/M1 and response after matching/expanded-model stationarity; retain Ne/Eu successful baselines and historical lifetime failures.",
+    "NIST/reference-aware atlas and independent FAC/GRASP/AMBiT comparisons; external programs remain comparators, not Atomx production backends.",
+    "HOLD: conditional constrained controls pass; full normalized/unfiltered density gradient control pending."
+  ],
+  "historical_physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json",
+  "historical_correctness_result": "docs/atomic_physics_correctness_2026_10_11/results.json",
+  "yb_mcdhf_result": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage006/current_card_evidence.json"
+}

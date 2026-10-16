@@ -1,0 +1,38 @@
+{
+  "scope": "atlas_update007_local_browser_once",
+  "execution_authorized_by_root": true,
+  "maximum_attempts": 1,
+  "launcher_sha256": "a345a9a933600d7f74384debcea02060449156adbb9aba8c6a220ada376358bc",
+  "launcher_contract_sha256": "c4424e6033b610c2ee7fe1c2853f4129a8803ccd04ae85c438d13661693733ce",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_test.js": "878cce25756b6bf3e63cad4d8ddfe0ded57bc0585d6aeeaf25a88f2fa49e2575",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_contract.json": "88aae767c07d3e04e49e31510dd047e8598490c0fd7dd1fd94029aeddf9f427b",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/contract.json": "28fba85ec2fd718cec692b48c7aeefa18a49ef6ffdd78a5e71687c85bd5f99d2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/data_verification.json": "aac6dff43b8007b7c109150c980f9067861adf7ea6cb0cf83d4fd466f7419751",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/prepared.json": "a658e53549219af7c4c910d0d1a697954148e467426bb40f7d2310a9ee65fec2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/old_models.json": "12527791c5a9e07a51bb3569373d4d5a510864a35671b1bbad6d2558c61926de",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/build_execution.json": "d9c91ce5a5882def9934b05158d2de86279f07c08bd70e67ef9b8b17de0ee4f6",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/site_manifest.json": "db684863681aeb573012f7621345bb92bdd5ac83b68624d002898181d5244116",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/handoff.json": "b4383fbd734938fc51fca4313518ce7756929a6804ddc6ef69e5369cac093956"
+  },
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "maximum_foreground_seconds": 90,
+    "cleanup_reserve_seconds": 3,
+    "aggregate_rss_stop_bytes": 2147483648,
+    "rss_sample_interval_seconds": 0.2,
+    "maximum_observed_sample_gap_seconds": 0.25,
+    "memory_limit_kind": "observed_aggregate_process_tree_RSS_stop_not_kernel_hard_bound",
+    "memory_sampling_may_overshoot": true,
+    "RLIMIT_AS_applied": false,
+    "systemd_or_cgroup_created": false,
+    "timing_scope": "uncontrolled_browser_QA_no_performance_claim"
+  },
+  "created_utc": "2026-10-11T17:13:55.876430+00:00",
+  "controlled_warm_window_closed": true,
+  "warm_receipt_sha256": "2d0ede28921cb473150b9ffdb270dde501e85007dbf2f52e1eda08d9b88c042c",
+  "no_other_numeric_browser_work": true,
+  "root_reviewed_corrected_actual_data_schema": true,
+  "no_publication_authorized_by_this_seal": true
+}

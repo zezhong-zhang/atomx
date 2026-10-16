@@ -1,0 +1,57 @@
+{
+  "schema": "atomx-ci-numeric-stream-tests-v1",
+  "status": "PASS",
+  "date": "2026-10-14",
+  "workdir": "/data/code/atomx",
+  "source_and_test_sha256": {
+    "src/atomx/angular/csf_hamiltonian.py": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55",
+    "src/atomx/physics/csf/matrix.py": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0",
+    "tests/test_ci_numeric_streaming.py": "a8398ed2b60db47d2a9d213f1b41efe832a6771ad4c01ee054a0f8311b027a4e"
+  },
+  "command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-numeric-stream-tests-20261014 taskset -c 26 timeout --signal=TERM --kill-after=5s 300s .venv/bin/python -c 'import os, resource; resource.setrlimit(resource.RLIMIT_AS, (2*1024**3, 2*1024**3)); os.execv(\"/data/code/atomx/.venv/bin/python\", [\"/data/code/atomx/.venv/bin/python\", \"-m\", \"pytest\", \"-q\", \"tests/test_ci_numeric_streaming.py\"])'",
+  "resources": {
+    "cpu_affinity": [
+      26
+    ],
+    "OPENBLAS_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1,
+    "MKL_NUM_THREADS": 1,
+    "NUMBA_NUM_THREADS": 1,
+    "RLIMIT_AS_bytes": 2147483648,
+    "outer_timeout_seconds": 300,
+    "timeout_kill_grace_seconds": 5
+  },
+  "runs": [
+    {
+      "test_count": 28,
+      "exit_code": 0,
+      "pytest_elapsed_seconds": 5.3,
+      "stdout_summary": "28 passed in 5.30s",
+      "scope": "First candidate before adding nonreciprocal-key coverage."
+    },
+    {
+      "test_count": 30,
+      "exit_code": 0,
+      "pytest_elapsed_seconds": 0.83,
+      "stdout_summary": "30 passed in 0.83s",
+      "scope": "Final complete file; two new nonreciprocal-key tests justify rerun."
+    }
+  ],
+  "ruff": {
+    "command": ".venv/bin/python -m ruff check tests/test_ci_numeric_streaming.py",
+    "exit_code": 0,
+    "stdout": "All checks passed!"
+  },
+  "coverage": [
+    "Independent explicit Fock creation/annihilation operator sum; shared angular algebra and CSF vectors.",
+    "DC/static Breit, real/complex c-products, reciprocal and arbitrary nonreciprocal radial keys.",
+    "Signed full matrices, actions, adjoints, immutable diagonal copies, reordered columns, frozen core and repeated parentages.",
+    "No coefficient table on streamed path, one evaluation per key, fresh trial identity, early cap and invalid-input rejection.",
+    "Actual RKB ns35/Z4 public build_ci_matrix DC/Breit and dense/operator paths, cross-sector zeros and signed orbital rephasing."
+  ],
+  "limits": [
+    "Tiny finite-space assembly/storage qualification; no production Yb, new correlation-class energy or experimental-accuracy claim.",
+    "Elapsed times are test-run durations, not controlled kernel or end-to-end speedup evidence.",
+    "Separate root 232-test regression panel is not included in this receipt."
+  ]
+}

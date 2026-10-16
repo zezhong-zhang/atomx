@@ -1,0 +1,21 @@
+{"heartbeat_elapsed_s": 30.008311607001815, "attempted": {"optimizer": 0, "gradient": 0, "Dirac_spectrum": 0, "GPU": 0, "angular_null_space": 43, "tracker_signed_overlap": 2, "public_projection": 20, "tracker_resolve": 1, "tracking_SVD": 5, "CI": 1, "H": 1, "hS_getter": 38, "native_hS": 7, "coefficient_table": 3, "connected_pairs": 3, "radial_key_evaluation": 26311}, "completed": {"optimizer": 0, "gradient": 0, "Dirac_spectrum": 0, "GPU": 0, "angular_null_space": 43, "public_projection": 20, "tracker_signed_overlap": 2, "tracking_SVD": 5, "tracker_resolve": 1, "native_hS": 7, "hS_getter": 38, "connected_pairs": 3, "coefficient_table": 2, "radial_key_evaluation": 26311}, "peak_RSS_MiB": 1394.50390625}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 1302, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 1281, in main
+    execute(args.execution_binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 1057, in execute
+    new_ci = ci_module.ci_solve(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 213, in call
+    result = original(*args, **kwargs)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py", line 218, in ci_solve
+    retained = build_ci_hamiltonian_snapshot(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py", line 148, in build_ci_hamiltonian_snapshot
+    h = build_ci_matrix(csfs, orbitals, orbital_basis, workspace, Z, ns,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 216, in call
+    after(result, args, kwargs)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 1050, in H_after
+    check(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py", line 191, in check
+    raise ValueError("Unchanged gate failed: " + name)
+ValueError: Unchanged gate failed: expanded_exact_nested1595_H_bytes

@@ -1,0 +1,24 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "started_utc": "2026-10-11T17:23:08.006921+00:00",
+  "finished_utc": "2026-10-11T17:23:08.267252+00:00",
+  "elapsed_uncontrolled_s": 0.260339347878471,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "45s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke.py",
+    "--binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke_binding.json"
+  ],
+  "binding_sha256": "5a389f3b6f89502223d064bb2cb3b4838fb0a883507ca86b432198ef10e320f3",
+  "driver_sha256": "b34b8592a80f388d717fff3119b0a060be0dbe3f0cbe36833d46e57b0bf76bed",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "scientific_calls": 0,
+  "NPZ_array_reads": 0,
+  "no_retry": true,
+  "scope": "Actual imports only, no scientific assurance or launch authorization"
+}

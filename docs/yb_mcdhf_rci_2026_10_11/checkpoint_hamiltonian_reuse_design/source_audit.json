@@ -1,0 +1,42 @@
+{
+  "reference_source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "read_only_source_files_archived": 8,
+  "public_CI_builder_sites": [
+    182
+  ],
+  "functional_CI_builder_sites": [
+    85
+  ],
+  "accepted_trial_CI_forwarding_sites": [
+    779
+  ],
+  "checkpoint_redundant_H_builder_sites": [
+    562
+  ],
+  "existing_public_binding_used_by_full_finiteCI": true,
+  "complete_CIResult_current_fields": [
+    "ground_energy",
+    "mixing_coefficients",
+    "provenance",
+    "state_energies"
+  ],
+  "historical_run002_observed_counters": {
+    "energy_trial_calls": 202,
+    "optimizer_full_gradient_calls": 161,
+    "baseline_gradient_calls": 2,
+    "total_run_full_gradient_calls": 163
+  },
+  "historical_run002_complete_checkpoints": 161,
+  "hypothetical_total_normal_path_builds": 366,
+  "hypothetical_count_is_not_instrumented": true,
+  "call_count_goal": "One producer build per successful CI solve, zero extra accepted gradient/callback builds; independent fresh controls retained.",
+  "matrix_storage_float64_bytes": 2255688,
+  "one_owner_matrix_MiB": 2.1511917114257812,
+  "Atomx_imports": 0,
+  "physical_H_builds": 0,
+  "CI_solves": 0,
+  "gradients": 0,
+  "optimizer_calls": 0,
+  "physics_tests_run": 0,
+  "limitations": "AST call sites and archived JSON only. No executed owner/getter, no new physical matching or measured costs."
+}

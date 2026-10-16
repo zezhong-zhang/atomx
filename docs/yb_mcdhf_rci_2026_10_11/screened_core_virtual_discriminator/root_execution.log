@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py", line 694, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py", line 682, in main
+    execute(args.binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py", line 481, in execute
+    check("virtual_full_spectrum_constrained_residual/" + str(key), np.max(relative),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py", line 224, in check
+    raise ValueError("Scientific/numeric gate failed: " + name)
+ValueError: Scientific/numeric gate failed: virtual_full_spectrum_constrained_residual/(6, -3)

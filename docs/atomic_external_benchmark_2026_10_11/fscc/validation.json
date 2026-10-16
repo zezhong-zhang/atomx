@@ -1,0 +1,48 @@
+{
+  "status": "complete_evidence_review_pass",
+  "run_result_sha256": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e",
+  "output_manifest_sha256": "568912d8ca1ad5112ebbe707f59339e673eb91da1727a944bb3f0e2dcae5b070",
+  "verified_output_files": 960,
+  "verified_current_source_files": 814,
+  "archived_source_epochs": {
+    "run001": {
+      "verified_source_files": 802,
+      "source_archive_sha256": "42ef7221282a79b1982d9063b229d249f5b607872e93cb3170988214d5d8eb01"
+    },
+    "run002": {
+      "verified_source_files": 813,
+      "source_archive_sha256": "bb31287fd3f9d4a7c983506ddf01cd7cba63bb9a27494441e2bd96b138e96c44"
+    },
+    "run003": {
+      "verified_source_files": 814,
+      "source_archive_sha256": "021b2be32859442f5e7f8437b28d0970be41cf2c2b46a6363d34356cdb6e755b"
+    }
+  },
+  "backend_samples": 20,
+  "independently_redecoded_complete_repeat_arrays_max_error_Ha": 0.0,
+  "finite_CI_samples": 10,
+  "accuracy": {
+    "two_core": {
+      "normalization": 0.0,
+      "retained_equation_Ha": 1.7763568394002505e-15,
+      "full_Bloch_residual_Ha": 1.7763568394002505e-15,
+      "signed_heff_projection_Ha": 1.7763568394002505e-15,
+      "FCI_method_error_Ha": 1.2434497875801753e-14,
+      "complete_rows": 120,
+      "complete_columns": 8
+    },
+    "four_core": {
+      "normalization": 0.0,
+      "retained_equation_Ha": 6.483789199984713e-14,
+      "full_Bloch_residual_Ha": 0.0022838708058473354,
+      "signed_heff_projection_Ha": 5.329070518200751e-15,
+      "FCI_method_error_Ha": 9.093014787353582e-06,
+      "complete_rows": 792,
+      "complete_columns": 8
+    }
+  },
+  "old_requested_only_resource_failure_retained": true,
+  "polling_timer_review_retained": true,
+  "actual_runtime_dependency_hashes_pass": true,
+  "highest_level_reached": false
+}

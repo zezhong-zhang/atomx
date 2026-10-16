@@ -1,0 +1,40 @@
+{
+  "logical_change": "Opt-in immutable original-metric accepted-point resume; scientific operators and gates retained",
+  "source_and_tests_verified": true,
+  "review": {
+    "docs/DF_SOLVER_CONTROLS.md": {
+      "disposition": "update",
+      "reason": "Current public resume capability, explicit caller physical identity, old metric and finite physics boundaries",
+      "sha256": "68c254896ce68f1267d7298f143bdd5b929c22782fa4828f7e62fcf3f3dc2f69"
+    },
+    "docs/ARCHITECTURE_CAPABILITIES.md": {
+      "disposition": "update",
+      "reason": "Current public resume capability, explicit caller physical identity, old metric and finite physics boundaries",
+      "sha256": "3046bddde0347f58bd2dd9b74c0259db9e110b97b809d2cf6d328fbb8c9155d4"
+    },
+    "docs/AGENT_INSIGHTS.md": {
+      "disposition": "update",
+      "reason": "Current public resume capability, explicit caller physical identity, old metric and finite physics boundaries",
+      "sha256": "fdf4597bee78959f1cf660340ebd2babad47812c5bbb07876c487869b3cc9114"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": {
+      "disposition": "update",
+      "reason": "Current public resume capability, explicit caller physical identity, old metric and finite physics boundaries",
+      "sha256": "e0fe33b618d42247ee537e5c67104772eba283bc587cd3d69f351cc64e971a48"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/public_resume_integration/README.md": {
+      "disposition": "update",
+      "reason": "Current public resume capability, explicit caller physical identity, old metric and finite physics boundaries",
+      "sha256": "30943e781f5b209276c90d325c00babfc92a4670543bf9df20b4e41b7c188fd8"
+    }
+  },
+  "retained": {
+    "docs/TESTING.md": "Same pytest entry point and existing affected gates; exact new regression archived here",
+    "docs/AGENT_REFERENCE.md": "Existing native MCDHF route remains authoritative; resume is a lower-level capability, not a new method",
+    "docs/README.md": "Existing optimizer/solver owning guide mapping retained"
+  },
+  "local_links_checked": 118,
+  "broken": [],
+  "old_stage002_stage003_reports_retained": true,
+  "performance_or_experimental_claim": false
+}

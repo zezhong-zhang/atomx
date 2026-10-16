@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "archive_sha256": "758284eae0a55f35f0d38b9264bcd011505680d10c2225c49b6647636438ea80",
+  "files": 473,
+  "source_modules": 336,
+  "source_matches_final": true,
+  "affected_tests_passed": 119,
+  "test_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_ci_sd_space.py",
+    "tests/test_ci_effective_qspace.py",
+    "tests/test_finite_ccsd.py",
+    "tests/test_scaffolds.py",
+    "tests/test_breit_open_shell_reference.py",
+    "tests/test_static_breit_retardation.py",
+    "tests/test_ci_effective_one_body.py",
+    "tests/test_mbpt_matrix.py",
+    "tests/test_mbpt_transitions.py",
+    "tests/test_ci_mbpt_sigma1.py",
+    "tests/test_csf_sparse_projection.py",
+    "tests/test_architecture_boundaries.py",
+    "tests/test_numerical_design_contracts.py",
+    "tests/test_mcdhf_ci_silent_zeros.py::TestSameSubshellDoubles",
+    "tests/test_mcdhf_ci_silent_zeros.py::TestMissingOrbitalGuard"
+  ],
+  "test_returncode": 0,
+  "replay_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "docs/yb_sd_breit_completion_2026_10_09/replay_saved.py",
+    "--output",
+    "/data/code/atomx/docs/yb_sd_breit_completion_2026_10_09/bundle_replay.json"
+  ],
+  "replay_returncode": 0,
+  "imported_from_extracted_archive": true,
+  "replay_max_energy_error_Ha": 0.0,
+  "CCSD_replay_energy_error_Ha": 0.0,
+  "limits": "Uses installed native dependencies; saved physical matrices replayed, not another full Yb radial assembly"
+}

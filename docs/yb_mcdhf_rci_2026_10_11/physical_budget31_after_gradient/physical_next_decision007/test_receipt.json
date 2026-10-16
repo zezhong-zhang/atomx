@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-10-14T04:46:19.843044+00:00",
+  "status": "passed",
+  "scope": "Native row-streamed Slater-Condon connections and typed direct-CSR coefficient storage; finite structural/operator regression only.",
+  "source_and_test_sha256": {
+    "src/atomx/angular/csf_hamiltonian.py": "82a1ff35bbcdfbe54498b24958de59f349ee75b0c3017a69d89567ad8e938e61",
+    "tests/test_ci_connection_streaming.py": "708f479a79fe683128327784928977f99de8eb25ca082680f8f629073ce8de01",
+    "tests/test_csf_sparse_projection.py": "852404d4da15603ded43513cde84b47101df7323a7cbdd585e5fd90862d73318"
+  },
+  "executed_validation": {
+    "command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-stream-tests-20261014 taskset -c 26 .venv/bin/python -c 'import resource, runpy; resource.setrlimit(resource.RLIMIT_AS, (2*1024**3,)*2); runpy.run_module(\"pytest\", run_name=\"__main__\")' -q tests/test_ci_connection_streaming.py tests/test_csf_sparse_projection.py",
+    "working_directory": "/data/code/atomx",
+    "exit_code": 0,
+    "result": "70 passed in 0.62s",
+    "new_test_cases": 44,
+    "existing_sparse_projection_cases": 26,
+    "cpu_affinity": [
+      26
+    ],
+    "blas_and_numba_threads": 1,
+    "address_space_limit_bytes": 2147483648,
+    "lint_command": ".venv/bin/python -m ruff check tests/test_ci_connection_streaming.py",
+    "lint_result": "All checks passed!"
+  },
+  "coverage": [
+    "Exact lexicographic structural pair membership against independent equal-N bit-distance oracle, including empty/vacuum/all-frozen, sparse occupancy subsets, shuffled and >64-bit determinants.",
+    "Iterator early yield before all dense structural connections are materialized; 4 MiB Python allocation bound for first row of 512 single-electron determinants, not a timing claim.",
+    "Full signed DC and static Breit determinant H against unfiltered all-pair terms, with and without frozen core and canonical radial symmetry.",
+    "Independent COO expected CSR arrays for key reuse, out-of-order keys, duplicate cancellation, explicit zero retention, canonical cancellation and empty-table shape.",
+    "Complex radial c-product transpose symmetry and late complex/complex64/complex128 angular coefficient promotion preserving imaginary phase."
+  ],
+  "preserved_test_harness_failures": [
+    {
+      "event": "Initial pytest command named tests/test_ci_sparse_projection.py, which does not exist.",
+      "result": "Exit 4; no tests ran.",
+      "correction": "Located existing tests/test_csf_sparse_projection.py with rg --files and corrected path."
+    },
+    {
+      "event": "First actual test run on the earlier row-generator source used a synthetic Breit radial evaluator that unpacked every radial leg as (n,kappa). Gaunt legs are (P_or_Q,n,kappa).",
+      "result": "4 test failures, 50 passed in 1.17s; all four failures raised ValueError from the test evaluator before numeric comparison.",
+      "correction": "Test evaluator now explicitly includes P/Q components. This test-harness correction required no production source change. Final 70-test run additionally qualifies the independently developed typed-CSR source bound above."
+    },
+    {
+      "event": "Initial Ruff check reported unsorted stdlib import block in the new test file.",
+      "correction": "Ruff fixed imports in the new test file; final lint passed."
+    }
+  ],
+  "limits": [
+    "The direct unfiltered signed-H oracle shares unchanged angular pair algebra; it independently checks connection filtering and table representation, not a new derivation of Coulomb/Breit angular physics.",
+    "Finite tests do not establish a production Yb speedup, complete 4f12 energies, experimental agreement, or larger-space resource admission.",
+    "No production source was edited by this test agent; existing unrelated working-tree changes were retained."
+  ],
+  "knowledge_disposition": "No new general insight; existing exact-sparsity, signed-amplitude and matched-operator requirements exercised."
+}

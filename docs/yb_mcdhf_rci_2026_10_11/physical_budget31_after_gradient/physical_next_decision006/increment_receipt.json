@@ -1,0 +1,49 @@
+{
+  "status": "PASS_native_sparse_density_increment_with_physical_limits",
+  "source_before_sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+  "source_after_sha256": "adc5bd8f4d7782019b488b122a0cc94a053975e804fdbb7660693dc2bd5a8680",
+  "test_sha256": "384cba276b07fa644ee3513d74647c96f5400d36119239d5327cb12425bbba2c",
+  "regression": [
+    {
+      "command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-density-csr-20261014 taskset -c 26 .venv/bin/python -m pytest -q tests/test_ci_complete_trace.py tests/test_mcdhf_state_resolved_derivative.py tests/test_mcdhf_gradient_reuse.py tests/test_mcdhf_polar_retraction.py tests/test_mcdhf_stable_energy_difference.py tests/test_ci_overlap_response.py tests/test_mcdhf_determinant_cap.py",
+      "passed": 58,
+      "skipped": 0,
+      "seconds": 13.17
+    },
+    {
+      "command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-density-csr-20261014 taskset -c 26 .venv/bin/python -m pytest -q tests/test_ci_state_average.py tests/test_ci_charge_state_average.py",
+      "passed": 26,
+      "skipped": 0,
+      "seconds": 8.37
+    }
+  ],
+  "scientific_evidence": {
+    "execution001/actual/result.json": "fb911f77ca13bb6d0edca00e1d222b2f26c847f5569b6c904a7aadea25d73bd0",
+    "execution001/result_review.json": "f6f266ac6a7b06a65c54d7c9f2010650e04f4951f153037490fb430424786e27",
+    "execution001/closure_receipt.json": "d12fafc79e2c2758f2066d941f527cdc8d402e18f3d469286d82c23b72a2cd0f",
+    "density_sparse001/actual/result.json": "0de9c5faa97a302abba3ff06f33b6ed9aa4eb1663a1a72f877ec12c468e53dfa",
+    "density_sparse001/receipt.json": "950a30a9b432f49b55a99bc5e53b06ee5a599e89e0c70a45fcf741f106b89d11",
+    "angular_budget.json": "388168094957b7fe158f57b5127ff32969bc8d77c135c218e79b4554f8aa9562",
+    "angular_budget_count.py": "9a93cc09e5b80f791dfeaa7fbc7bb45966f66a4703b3eec55734dd21ce14a531",
+    "angular_budget_review.json": "66d4c5ed7c71e1c0df5b0a5eb175c95686073f7ae47a086765748b93c7ab299b"
+  },
+  "scientific_controls": {
+    "native_sparse_H_Davidson": [
+      273,
+      273
+    ],
+    "actual_Yb_density": [
+      199,
+      199
+    ],
+    "sparse_result_only_review": [
+      158,
+      158
+    ]
+  },
+  "full_4f12_energy_calculated": false,
+  "experimental_accuracy_qualified": false,
+  "stationarity_qualified": false,
+  "controlled_timing": false,
+  "prior_failures_preserved": true
+}

@@ -1,0 +1,21 @@
+{
+  "hypothesis": "Weighted native BLAS term31/32 preserve every signed core SD output",
+  "fixed": "All68core Fermi/V68/ns123, original scalar angular channels and full declared radial pool",
+  "space": "full",
+  "virtual_radial_count": 414,
+  "workers": 8,
+  "public_kernel": true,
+  "native_input_sha256": "4e320b72f6517c6f016a1cd9a1f2f9462e3aebe571f1ddd0f0dc4473beadd153",
+  "original_action_sha256": "8872e18cd0bffd060d74b45565bcc36fce4346b2f283d7728974f139fa7bbba1",
+  "signed_action_gate_Ha": 1e-11,
+  "raw_residual_gate_Ha": 1e-10,
+  "core_energy_gate_Ha": 1e-11,
+  "cap_bytes": 34359738368,
+  "load": [
+    9.93798828125,
+    12.783203125,
+    16.32861328125
+  ],
+  "stop": "Any full signed action failure rejects kernel; no selected coordinates or physics changes",
+  "scope": "exact equation optimization gate; no space convergence/experiment/timing claim"
+}

@@ -1,0 +1,534 @@
+.F..F...F..F...F.FF..                                                    [100%]
+=================================== FAILURES ===================================
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[original-key1] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb201194310>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb2042f1e70>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+>       physical = expanded(reduced, key, vector, finite)
+
+tests/test_reduced_monovalent_sd.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb2042f1e70>
+key = (2, 1)
+vector = array([ 0.00247221, -0.00926473, -0.00833946, -0.00215971,  0.01423669,
+       -0.01294136, -0.01581424, -0.03230767, -0.00262205,  0.00382769,
+       -0.00236344, -0.00307193])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb200f0bc40>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+_ test_reduced_feedback_root_matches_complete_finite_reference[original-key1] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb201194310>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb2042f1e70>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+        np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+        problem = finite._owner
+>       physical = expanded(reduced, key, actual.amplitudes, problem)
+
+tests/test_reduced_monovalent_sd.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb2042f1e70>
+key = (2, 1)
+vector = array([ 1.32995646e-04,  4.57475118e-05, -7.62511781e-03, -2.07567473e-03,
+       -1.02207448e-02, -2.74164136e-03, -2.83083176e-03, -1.03916245e-03,
+       -4.50713546e-04, -1.36660004e-04,  1.27502624e-03,  3.86607226e-04])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb219dd6ce0>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[streamed-key1] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb219d99450>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb219d98eb0>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+>       physical = expanded(reduced, key, vector, finite)
+
+tests/test_reduced_monovalent_sd.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb219d98eb0>
+key = (2, 1)
+vector = array([ 0.00247221, -0.00926473, -0.00833946, -0.00215971,  0.01423669,
+       -0.01294136, -0.01581424, -0.03230767, -0.00262205,  0.00382769,
+       -0.00236344, -0.00307193])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb219e0dc90>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+_ test_reduced_feedback_root_matches_complete_finite_reference[streamed-key1] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb219d99450>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb219d98eb0>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+        np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+        problem = finite._owner
+>       physical = expanded(reduced, key, actual.amplitudes, problem)
+
+tests/test_reduced_monovalent_sd.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb219d98eb0>
+key = (2, 1)
+vector = array([ 1.32995646e-04,  4.57475118e-05, -7.62511781e-03, -2.07567473e-03,
+       -1.02207448e-02, -2.74164136e-03, -2.83083176e-03, -1.03916245e-03,
+       -4.50713546e-04, -1.36660004e-04,  1.27502624e-03,  3.86607226e-04])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb2007260b0>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[rotated-key1] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb200feac80>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb200fe9a50>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+>       physical = expanded(reduced, key, vector, finite)
+
+tests/test_reduced_monovalent_sd.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb200fe9a50>
+key = (2, 1)
+vector = array([ 0.00247221, -0.00926473, -0.00833946, -0.00215971,  0.01423669,
+       -0.01294136, -0.01581424, -0.03230767, -0.00262205,  0.00382769,
+       -0.00236344, -0.00307193])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb200fe9c90>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+__ test_reduced_feedback_root_matches_complete_finite_reference[rotated-key0] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb200feac80>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb200fe9a50>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+        np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+        problem = finite._owner
+        physical = expanded(reduced, key, actual.amplitudes, problem)
+        np.testing.assert_allclose(physical, finite.amplitudes, rtol=0, atol=1e-10)
+        independent, _ = dense_linked(problem, physical)
+        raw = independent[1:] - actual.correlation_energy_Ha * physical
+>       assert np.max(abs(raw)) < 1e-10
+E       assert np.float64(4.3212774600076076e-10) < 1e-10
+E        +  where np.float64(4.3212774600076076e-10) = <function max at 0x7bb217346730>(array([1.49186219e-16, 1.96260109e-14, 4.32127746e-10, 3.45157773e-15,\n       3.11438345e-15, 3.35758609e-15, 1.454836...250e-18,\n       5.16176305e-18, 7.78926106e-18, 5.23121975e-18, 1.65019860e-18,\n       1.41171254e-15, 1.41865144e-15]))
+E        +    where <function max at 0x7bb217346730> = np.max
+E        +    and   array([1.49186219e-16, 1.96260109e-14, 4.32127746e-10, 3.45157773e-15,\n       3.11438345e-15, 3.35758609e-15, 1.454836...250e-18,\n       5.16176305e-18, 7.78926106e-18, 5.23121975e-18, 1.65019860e-18,\n       1.41171254e-15, 1.41865144e-15]) = abs(array([ 1.49186219e-16, -1.96260109e-14, -4.32127746e-10,  3.45157773e-15,\n       -3.11438345e-15, -3.35758609e-15, -1...8,\n       -5.16176305e-18,  7.78926106e-18,  5.23121975e-18,  1.65019860e-18,\n       -1.41171254e-15,  1.41865144e-15]))
+
+tests/test_reduced_monovalent_sd.py:219: AssertionError
+__ test_reduced_feedback_root_matches_complete_finite_reference[rotated-key1] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7bb200feac80>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb200fe9a50>)
+key = (2, 1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+        np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+        problem = finite._owner
+>       physical = expanded(reduced, key, actual.amplitudes, problem)
+
+tests/test_reduced_monovalent_sd.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+problem = <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7bb200fe9a50>
+key = (2, 1)
+vector = array([ 1.40538484e-04, -5.44162157e-06, -7.85970186e-03,  8.22151957e-04,
+       -1.05204997e-02,  1.13987184e-03, -3.01503904e-03,  5.48328794e-05,
+       -4.69630930e-04,  3.55731148e-05,  1.32854497e-03, -1.00624676e-04])
+finite = <atomx.methods.monovalent_sd.FiniteMonovalentSD object at 0x7bb200ff2b90>
+
+    def expanded(problem, key, vector, finite):
+        """Decode every direct rho coordinate, then particle antisymmetrize.
+    
+        This representation bridge does not consume a native map, its source,
+        denominators, nonlinear solution or energy estimate.
+        """
+        core = problem.core
+        labels, groups = core.integrals.labels, core.plan["groups"]
+        virtual = core.plan["virtual_keys"]
+        singles = problem.plan["single_keys"][key]
+        positions = {
+            row: (p, group.index(row)) for p, group in enumerate(groups) for row in group
+        }
+        tables, cursor = {}, len(singles)
+        for b, im, jn, rank in problem.plan["channels"][key]:
+            ms = [row for row in groups[im] if row in virtual]
+            ns = [row for row in groups[jn] if row in virtual]
+            size = len(ms) * len(ns)
+            table = np.asarray(vector[cursor : cursor + size]).reshape(
+                (len(ms), len(ns)), order="F"
+            )
+            tables[b, im, jn, rank] = {
+                (m, n): table[i, j] for i, m in enumerate(ms) for j, n in enumerate(ns)
+            }
+            cursor += size
+        assert cursor == len(vector)
+    
+        def rho(m, n, b):
+            im, _ = positions[labels[m][:2]]
+            jn, _ = positions[labels[n][:2]]
+            core_index = core.plan["occupied_keys"].index(labels[b][:2])
+            total = 0.0
+            for rank in range(core.plan["dimensions"]["KK"] + 1):
+                table = tables.get((core_index, im, jn, rank))
+                if table is not None:
+                    total += (
+                        rho_coefficient(
+                            rank,
+                            labels[m],
+                            labels[n],
+                            labels[finite.valence_index],
+                            labels[b],
+                        )
+                        * table[labels[m][:2], labels[n][:2]]
+                    )
+            return total
+    
+        result = []
+        for particles, holes, _ in finite.excitations:
+            if len(particles) == 1:
+>               result.append(vector[singles.index(labels[particles[0]][:2])])
+E               ValueError: tuple.index(x): x not in tuple
+
+tests/test_reduced_monovalent_sd.py:169: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[original-key1]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[original-key1]
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[streamed-key1]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[streamed-key1]
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[rotated-key1]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[rotated-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[rotated-key1]
+7 failed, 14 passed in 17.69s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

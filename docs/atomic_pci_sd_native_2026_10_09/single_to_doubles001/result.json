@@ -1,0 +1,403 @@
+{
+  "status": "pass",
+  "records": [
+    {
+      "name": "initial",
+      "action_error_Ha": 2.7755575615628914e-16,
+      "seconds": 0.7758006330113858
+    },
+    {
+      "name": "random",
+      "action_error_Ha": 3.552713678800501e-15,
+      "seconds": 0.8024860350415111
+    }
+  ],
+  "prepare_seconds": 6.066702286014333,
+  "peak_rss_bytes": 798801920,
+  "provenance": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c', '5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a', '7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48', '39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6', '2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322', 'e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d', '2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a', 'dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c', '337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9', '035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e', 'b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068', 'd58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c', '1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae', '98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50', 'c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce', '9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089', 'bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507', '19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee', 'fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c', '3f7bd22bf5f7d9be8131a03a2d5f6e8fad5d4fd84f0ee95968227ffbe0419df9', 'a61ea7f62588302fa989865038c0fdefc7c2cdc6b28e9e4dac513a8ced35b72f', '8234a63d4a16bb525f3481077641c4da20d11e208918c15514ce5146d620a239', '53c8a46a3a8482ee88b79a9f8ae5f8f9ec747d06b9b02b09e4e4756e319b98b6', 'f4aa01bd83a50262c312b911c9b325327cf88e05b527531e72ca80b1c4880da9', '4546fd0f7ac59313d14b6302457b3d41deef17e0311f6dee3daa7b9231437706', '81956a40eb014be1eff3e179c2e892b84268ae0fa2f8d7f5ee5648aab460687f', '3015d0be19467da1effc4308b989d82c48fc32ef967550a2e6f93c09bbc2a450', '6a92535dd50d5b1a2b4a38689052d1e44515f033ed813e0b16e934095e0b11f4', '704f514f116178cae0adfa1beccd1e88c2e9f97d6df81c234b39c33b56fcc947', 'ef5e029939519f4664971d1da2b5a2a644856d20d4e59a1a7cf33d58c38f59ae', '629cc37e5998d4e1ebc7f78c9e540810de5c83c55bd31bf37fc41192fb2b8c5c', 'bbd635c358ac5493e91410d5f6558f0845a1c21326afad421eef91c32fd0f0ec', 'c8e8e87af3221636bd84d0ba9846e952146068ca2d3fe1c3318b70d28327afc4'), core=(((1, -1), '9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c'), ((2, -2), '39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6'), ((2, -1), '5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a'), ((2, 1), '7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48'), ((3, -3), '337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9'), ((3, -2), '2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a'), ((3, -1), '2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322'), ((3, 1), 'e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d'), ((3, 2), 'dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c'), ((4, -4), 'fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c'), ((4, -3), '98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50'), ((4, -2), 'd58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c'), ((4, -1), '035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e'), ((4, 1), 'b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068'), ((4, 2), '1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae'), ((4, 3), '19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee'), ((5, -2), 'bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507'), ((5, -1), 'c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce'), ((5, 1), '9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089')), geometry='d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76', Z=70, ns=123, nuclear='f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        -4
+      ]
+    ],
+    "virtual_keys": [
+      [
+        6,
+        -1
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        5,
+        -4
+      ],
+      [
+        6,
+        -4
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.4432899320127035e-15,
+    "hermitian_projection_max_Ha": 3.019806626980426e-14,
+    "integral_bytes": 557568,
+    "radial_pair_cache_size": 16384,
+    "representation": "native on-demand radial/angular DC",
+    "construction_scalar_radial_pairs": 171,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+    "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "backend_sha256": "825a36199decc4e240f9b7570dbd78faf98abeef5f0860cbc74f517d2a1088ca",
+    "initialization": "exact native X1/X2 BLAS contractions",
+    "blas": {
+      "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+      "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+      "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+      "abi": "Fortran LP64 dgemm",
+      "runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      }
+    },
+    "blas_runtime": {
+      "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+      "parallel": 2,
+      "threads": 1
+    },
+    "term21": {
+      "mode": "exact shared virtual-pair streamed term21",
+      "threads": 4,
+      "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+      "writes": "disjoint complete core-pair channels; no reduction"
+    },
+    "core_singles": {
+      "mode": "exact component-tagged BLAS terma4",
+      "workers": 4,
+      "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+    },
+    "feature_identity": {
+      "representation": "native cell Coulomb polynomial density coordinates",
+      "geometry_sha256": "b85d9c47b68d06f7a1a17ecedb556fad1af665b8e35d297c9338aca70d4847fd",
+      "coefficient_sizes": [
+        122,
+        123
+      ],
+      "component_orders": [
+        8,
+        9
+      ],
+      "auxiliary_nodes": 3910,
+      "same_cell_edges": 68425,
+      "quadrature_nodes": [
+        115,
+        17
+      ],
+      "payload_estimate_bytes": 33354600,
+      "rank_cache_capacity": 8,
+      "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+      "native_geometry_sha256": "5ae8cdaaace91f0ac613778e2fc0aea7d3e73415775e6abcab846fcc60f52084",
+      "density_polynomial_degree": 16,
+      "interpolation_nodes_per_component_cell": 17
+    },
+    "method": "closed-core linearized SD, native DC",
+    "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+    "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+    "resources": {
+      "dimensions": {
+        "NHF": 3910,
+        "NX": 7,
+        "NS": 19,
+        "KX1": 7,
+        "NXX": 7,
+        "NK": 7,
+        "NN": 19,
+        "KK": 7,
+        "NCH": 8060,
+        "NXK": 4075,
+        "NV": 115,
+        "NG": 17,
+        "NE": 68425
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          -4
+        ]
+      ],
+      "virtual_keys": [
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          -4
+        ],
+        [
+          6,
+          -4
+        ]
+      ],
+      "raw_amplitudes": 32278,
+      "independent_scalar_amplitudes": 15172,
+      "complete_payload_bound_bytes": 424563448,
+      "krylov_vector_bytes": 258224,
+      "radial_pair_cache_size": 16384,
+      "radial_pair_cache_array_bound_bytes": 290193408,
+      "blas_initialization_scratch_bytes": 656880,
+      "term21_threads": 4,
+      "term21_mode": "streamed",
+      "term21_worker_scratch_bytes": 502712,
+      "term21_parallel_scratch_bytes": 5077808,
+      "core_singles_blas": true,
+      "core_singles_worker_scratch_bytes": 281912,
+      "core_singles_parallel_scratch_bytes": 2879328,
+      "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+    },
+    "direct_sd_source_sha256": {
+      "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+      "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+      "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+    }
+  },
+  "physical_space_converged": false,
+  "experiment_validated": false
+}

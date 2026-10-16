@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/probe.py", line 163, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/probe.py", line 78, in main
+    core, result, reduced = reduced_core.__wrapped__(
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/source/tests/test_reduced_monovalent_sd.py", line 98, in reduced_core
+    builder.build_monovalent(
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/source/tools/build_pci_monovalent_backend.py", line 25, in build_monovalent
+    manifest = build_valence(
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/source/tools/build_pci_valence_backend.py", line 74, in build_valence
+    manifest = build(source, directory, dimensions, compiler, **core_options)
+  File "/data/code/atomx/docs/atomic_physics_correctness_2026_10_11/sd/source/tools/build_pci_sd_backend.py", line 783, in build
+    completed.check_returncode()
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 457, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/bin/x86_64-linux-gnu-gfortran-15', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-shared', 'native_bridge.f90', 'core_diagrams.f', '-o', 'native_core_sd.so', '-L/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu']' returned non-zero exit status 1.

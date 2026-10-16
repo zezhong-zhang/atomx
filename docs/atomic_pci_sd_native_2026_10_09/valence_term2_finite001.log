@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 315, in <module>
+    main(args)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 192, in main
+    json.dumps(
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 431, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type mappingproxy is not JSON serializable
+CHANNEL    16  j1=  1  j2=  1  km= -3  kn= -3  k=  4    0.000000
+CHANNEL    32  j1=  2  j2=  1  km= -3  kn= -3  k=  4    0.000000
+CHANNEL    48  j1=  2  j2=  2  km= -3  kn= -3  k=  4    0.000000
+CHANNEL    62  j1=  3  j2=  1  km= -3  kn= -3  k=  4    0.000000
+CHANNEL    76  j1=  3  j2=  2  km= -3  kn= -3  k=  4    0.000000
+CHANNEL    92  j1=  3  j2=  3  km= -3  kn= -3  k=  4    0.000000
+CHANNEL   112  j1=  4  j2=  1  km= -3  kn= -3  k=  4    0.000000
+CHANNEL   132  j1=  4  j2=  2  km= -3  kn= -3  k=  4    0.000000
+CHANNEL   154  j1=  4  j2=  3  km= -3  kn= -3  k=  4    0.000000
+CHANNEL   188  j1=  4  j2=  4  km= -3  kn= -3  k=  5    0.000000
+ Number of channels =          188

@@ -1,0 +1,594 @@
+{
+  "status": "SOURCE_JSON_only_physics_recipe_NOT_admitted_NO_driver_execution",
+  "hypothesis": "Measure current31 same-point static/DC and finite/static lower-upper responses before assigning a physical gap budget; no old correction is transplanted.",
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_identity": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+    "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+  },
+  "reviewed_source_sha256": {
+    "atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "atomx/physics/csf/breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+    "atomx/physics/csf/retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+    "atomx/physics/csf/transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+    "atomx/numerics/helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+    "atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "atomx/physics/csf/frozen_core.py": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167"
+  },
+  "point": {
+    "physical_point": "literal public recovered3689 point from actual31 gradient execution; canonical31 is distinct and excluded",
+    "inputs": {
+      "literal31_recovered_point": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+        "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+      },
+      "literal31_DC_H_E_C": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+        "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+      },
+      "original31_fullmetric": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+        "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+      },
+      "geometry_workspace": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+        "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+      },
+      "tracking_ci": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+        "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+      },
+      "tracking_binding": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+        "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+      },
+      "reference_models": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+        "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+      },
+      "models": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+        "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+      },
+      "canonical_basis": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+        "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a"
+      },
+      "screened_geometry": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+        "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+      },
+      "contract.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+        "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+      },
+      "completion.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+        "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+      },
+      "actual/result.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+        "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+      },
+      "actual/recovered_owner.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+        "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+      },
+      "actual/recovered_tracking.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+        "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+      },
+      "actual/new_objective_identity.json": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+        "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+      }
+    },
+    "array_bindings_policy": "Copied from immutable runtime/closure JSON, no NPZ read or rehash in this preparation. Future execution requires exact full input/file/source validation.",
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "Fermi A175",
+    "ns": 123,
+    "keys31": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -4
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "complete_target_CSFs": 1595,
+    "enumerated_parent_CSFs": 3789,
+    "other_parent_not_computed": 2194,
+    "NR_configs": 91,
+    "five_complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "target_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "EOL_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "tracker": "Original frozen531 physical reference, signed whole-model tracking, no rebase",
+    "original_seven_no_pair_projectors": "Unchanged electronic branch; no energy>0 filter",
+    "new3689_metric": "Bound original31 actual metadata; not old3451 resume or improvement",
+    "stationarity": "31 not optimized; current3689 both original thresholds FAIL. Fixed-RCI diagnostic only."
+  },
+  "phase_A": {
+    "status": "reviewable recipe; pending exact driver/resource admission",
+    "models": {
+      "DC": {
+        "include_breit": false,
+        "retain_hamiltonian": true
+      },
+      "static_Breit": {
+        "include_breit": true,
+        "breit_orbital_energies": null,
+        "retain_hamiltonian": false
+      },
+      "zero_frequency": {
+        "include_breit": true,
+        "breit_orbital_energies": "all31 keys -> 0.0 Ha",
+        "retain_hamiltonian": false
+      }
+    },
+    "calls": {
+      "CI": 3,
+      "actual_H_builds": 3,
+      "complete_block_eigh": 15,
+      "Dirac_eigensolves": 0,
+      "orbital_gradients": 0,
+      "optimizer": 0,
+      "Fock_JK": 0,
+      "nucleus_factory": 1,
+      "raw_CI_internal_hS_max": 21
+    },
+    "hS_contract": "Count attempted/completed requests/hits/misses and all7 kappa coverage perCI. Source cache reuse can reduce raw builds; never require a false exact21 count. No numerical values are omitted when cached.",
+    "DC_anchor": "Fresh H/E/C and real DC owner must match saved recovered-point baseline bytes with plain canonical JSON owner comparison; no canonical-point substitute. Preserve all baseline numerical report/Rayleigh offsets.",
+    "zero_anchor": "All full1595 H entries zero-frequency vs static maxabs <=1e-9 Ha (unchanged historical native zero-matrix gate); no eigenvalue-only or five-diagonal shortcut. Failure closes this phase, does not admit finite-frequency physics.",
+    "actual_H_capture": "For nonDC ci_solve must use retain_hamiltonian=False. A transparent observation wrapper saves the one actual public build_ci_matrix return before ci_solve diagonalizes it, returning identical H; no second build and no fake CIHamiltonianSnapshot. DC retains genuine public owner.",
+    "gate_failure": "Stop/save all arrays, counts, source/operator/frequency records on first failed gate; no higher Gauss retry, pruning, fitting or tolerance change."
+  },
+  "phase_B": {
+    "status": "UNADMITTED: exact full-model angular key count/cache work/AS/timing and executable driver not qualified; 300s completion is not asserted",
+    "prerequisite": "PhaseA complete static/zero/full-spectrum/target identity pass, immutable shared literal31 DC/static inputs; separate root binding required.",
+    "frequency_definition": "For each of31 actual spinors v_a, epsilon_a=(v_a.T F_closed68[kappa_a] v_a)/(v_a.T S[kappa_a] v_a), held fixed for allCI/matrixelements. Auxiliary common closed68 expectation, not orbital eigenenergy, MCDHF Euler multiplier, emitted photon, fitted spectrum or exact bound-state QED.",
+    "closed68_sources": [
+      {
+        "key": [
+          1,
+          -1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          2,
+          -1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          2,
+          1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          2,
+          -2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          3,
+          -1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          3,
+          1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          3,
+          -2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          3,
+          2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          3,
+          -3
+        ],
+        "occupation": 6
+      },
+      {
+        "key": [
+          4,
+          -1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          4,
+          1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          4,
+          -2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          4,
+          2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          4,
+          -3
+        ],
+        "occupation": 6
+      },
+      {
+        "key": [
+          5,
+          -1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          5,
+          1
+        ],
+        "occupation": 2
+      },
+      {
+        "key": [
+          5,
+          -2
+        ],
+        "occupation": 4
+      },
+      {
+        "key": [
+          4,
+          3
+        ],
+        "occupation": 6
+      },
+      {
+        "key": [
+          4,
+          -4
+        ],
+        "occupation": 8
+      }
+    ],
+    "samepoint_core_rule": "Use exact current-point19 core P/Q columns and closed occupations, record their actual Gram/norms, no borrowing initialDF/oldvirtual/24orbital eigenvalues or renormalizing physicalCI orbitals.",
+    "full_field_rule": "Construct 7native complete J/K block matrices via DFSolver._build_hf_matrix_dbsr using disjoint ZEROoccupation placeholder target for eachkappa; C_ij=q_j, D_i=1, completeordered same-kappa sources and exactcache.same_grid. Add current nuclear hN once. Record raw hN convention, fullJK PP/QQ/PQ/QP and any publiclogical representation; prohibit silently choosing lower/averaged h after seeing results. Source field-normalization/hN convention must be settled in the final executable contract.",
+    "normalization_and_matrix_qualification": "7fullfields plus112ordered signed split-component matrix scalar anchors (two actual same-kappa radialcolumns x P/Q per sector). Public closed_core_one_body with zero bare map independently anchors complete JK. PP/QQ/PQ/QP, old/new offdiagonals and nonzero cross anchor required; probes unnormalized and disjointcore. Proposed existing5e-9Ha absolute/1e-7relative and measurednonzero1e-7Ha gates; no previous80/32panel upgraded to current112pass.",
+    "calls_max": {
+      "full_JK_builders": 7,
+      "auxiliary_angular_precomputation": 1,
+      "new_hN_blocks": 0,
+      "existing_samepoint_hS_consumed": 7,
+      "independent_scalar_entries": 112,
+      "scalar_radial_requests": 21280,
+      "scalar_public_cell_retry_attempts": 63840,
+      "finite_CI": 1,
+      "finite_H_build": 1,
+      "complete_block_eigh": 5,
+      "raw_CI_internal_hS_max": 7,
+      "Dirac_eigensolves": 0,
+      "gradients": 0,
+      "optimizer": 0
+    },
+    "map_provenance": "Save all31 key/epsilon/norm/fieldhash/source-PQhash/nuclear/workspace/op metadata before finiteCI; validate finite values and exactkeyset. Frequencies are model outputs, so futureexecution must seal their computed byteidentity beforeCI, not invent numericvalues now.",
+    "near_zero_scalar_controls": {
+      "status": "Prospective only, no nearzero evaluated",
+      "keys": "Gaunt L1 and retardation L0 with4f(+3)->5f(+3),4f(-4)->5f(-4) vertices; numerical kernel probes, not additional physicalCI models.",
+      "maps": "zero; small distinct newf shifts1e-8/2e-8Ha; independent common-omega1/common-omega2 controls; actual fixedmap may be recorded separately.",
+      "calls": "<=30 scalar evaluations for2keys x3orientations x5(static/zero/small/common1/common2), <=120 potential requests; count actual kernels/contractions, no CI/hscan.",
+      "gates": "zero/static <=1e-9Ha; hermiticity/electron-exchange <=1e-9Ha; double-vertex value equals .5*(single-vertex operatorvalues) <=1e-9Ha. Record componentmagnitudes/nonzero controls; a vanishing channel does not anchor omitted terms."
+    },
+    "replacement_rule": "Hfinite=HDC+T(fixed epsilon); Hstatic=HDC+Bstatic. Never HDC+Bstatic+T or add old staticshift afterfinite. Dynamic increment is Efinite-Estatic ofmatched samepointstates.",
+    "resource_requirement": "A future mechanical angular-key/cache-memory admission and separate exact runtime caps are required before science. No space/amplitude/config pruning to fit a cap; cached array payload bound excludes unbounded static dictionaries, Pythonkeys and fullworkspace/CI/RSS."
+  },
+  "shared_numerical_and_matching_gates": {
+    "full_all1595_eigen_residual_Ha": 1e-08,
+    "full_all1595_CI_Gram": 1e-10,
+    "full_H_symmetry_max_Ha": 0.0,
+    "cross_Jpi_H_exact_zero": true,
+    "same_kappa_radial_Gram_and_no_pair_leakage": 1e-10,
+    "max_raw_block_determinants": 2000,
+    "max_determinant_pairs_original_tracker": 30000,
+    "UID_weights": "exact original fivephysicalUIDs, .2 each; reject changed assignment/ambiguity. If a target is degenerate, preserve complete signed degenerate span or stop; do not pick an arbitrary column.",
+    "all31_PQ": "bytewise unchanged in everymodel, fullpoint source and workspace unchanged",
+    "NIST": "existing exactIDs/energies; uncertaintyNone preserved, original1% fail not modified"
+  },
+  "reported_observables": [
+    "All5 individual modelenergies Ha (reported roots and normalized Rayleigh/residual offsets separately).",
+    "All5 modelminusDC and finiteminusstatic individualenergychanges.",
+    "For4upperstates delta_transition=(delta_E_upper-delta_E_6s)*HartreeToCm; all lowerchangesexplicit.",
+    "D centroid=(4D3+6D5)/10 and D5-D3 splitting; P centroid=(2P1+4P3)/6 and P3-P1 splitting, modelshifts and absolutelines separately.",
+    "EOL=.2sum5energy; NIST all4signedgaps/RMS/unchanged1%gates, no winner selected by minimumgap."
+  ],
+  "mechanical_upper_estimates": {
+    "Gaunt_spatial_rank_slots_conservative": 9,
+    "source_angular_loop_max_L": 8,
+    "scalar_retardation_rank_slots_conservative": 9,
+    "distinct_vertex_frequencies_max_including_zero": 466,
+    "Gaunt_density_pairs_conservative": 1953,
+    "divergence_unordered_pairs_nonzero_max": 465,
+    "unique_radial_keys_conservative_max": 41558445,
+    "kernel_geometry_unique_keys_conservative_max": 4194,
+    "potential_keys_conservative_max": 10141092,
+    "one_full_H_or_C_bytes": 20352200,
+    "all_four_H_and_C_FP64_bytes": 162817600,
+    "one_blocked_EVD_dimension_cube_proxy": 193668185,
+    "auxiliary_JK_source_rank_quadrant_terms_conservative": 4788,
+    "auxiliary_JK_rank_quadrant_requests_conservative": 252,
+    "scalar_112_anchor_radial_request_upper": 21280,
+    "scalar_anchor_public_cell_retry_upper": 63840,
+    "finite_FP64_array_payload_cache128_bytes_formula": "12*128*N_Gauss*8 (excludes Python keys/scalars/input/temporaries/RSS)",
+    "static_retardation_density_and_potential_FP64_bytes_formula": "(465 + 9*465)*N_Gauss*8 conservative; static dictionaries are unbounded, Python/cache values are separate",
+    "work_limit": "Distinct-key bounds do not bound repeated recomputation after LRU eviction, determinant projection work, cache constructors or wall time.",
+    "auxiliary_field_subshell_rows": 26,
+    "auxiliary_full_matrix_shape": [
+      246,
+      246
+    ],
+    "seven_full_Fock_FP64_bytes": 3388896,
+    "auxiliary_occupancy_coefficients_shape": [
+      26,
+      26
+    ],
+    "active_core_sources": 19,
+    "zero_target_columns": 7
+  },
+  "historical_evidence": {
+    "paired_native24_5oneCSF": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+    },
+    "paired_native24_contract": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/contract.json",
+      "sha256": "1bb67276aaf4e22c14b070e1ae4db42838e18a325d6157d715a81025388380bd"
+    },
+    "use": "Original native kernel/prescription/zero-static precedent only; no numerical correction, upper bound or current31 certification is imported. Foreignsoftware comparison only, no substitute backend."
+  },
+  "architecture_gap": "f043 retained-H snapshot and ci_solve retention explicitly admit onlyDC. NativeRCI should ultimately own an immutable matrix/operator record includingDC/static/finite terms and completefreqmap provenance. ExistingDC-only MCDHF finite-difference consumers must continue rejecting nonDC terms. Observation wrapper is a temporary scientificreceipt, not a newpublic owner.",
+  "preparation_calls": {
+    "NumPy_Atomx_imports": 0,
+    "NPZ_reads_rehashes": 0,
+    "H_CI_gradient_Dirac_Fock_eigen_kernel": 0,
+    "API_cards_registry_updates": 0
+  },
+  "stopping": "SOURCErecipe is not authorization. Exact root-reviewed source/driver/input/resource contracts required separately forA andB. Noautomaticretry or sourcephysicschange.",
+  "resources_proposed_not_admitted": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "phaseA_max_inner_seconds": 1200,
+    "phaseA_outer_seconds": 1215,
+    "phaseB_wall_cap": "not admitted until exact angular/cache/memory preflight and driver review",
+    "max_system_load1": 32,
+    "minimum_available_host_GiB": 4,
+    "no_concurrent_controlled_benchmark": true,
+    "these_are_failure_caps_not_completion_time_or_memory_predictions": true
+  }
+}

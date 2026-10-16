@@ -1,0 +1,332 @@
+{
+  "energy_window_Ha": 1e-08,
+  "stages": [
+    {
+      "name": "stage_4f",
+      "near_degenerate_clusters": {
+        "DC": [],
+        "static_Breit": []
+      },
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "model": "DC",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.3981871945234161,
+          "bare_weight": 0.9925246067684146,
+          "previous_weight": 0.9925246067684146,
+          "operator_weight": 0.9999976550297465,
+          "unambiguous": true
+        },
+        {
+          "label": "6s_1/2",
+          "model": "static_Breit",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.39053054084251926,
+          "bare_weight": 0.9922600320743542,
+          "previous_weight": 0.9922600320743542,
+          "operator_weight": 0.9999976550297465,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "DC",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.24710874289667117,
+          "bare_weight": 0.9969917370319411,
+          "previous_weight": 0.9969917370319411,
+          "operator_weight": 0.9999982694977997,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "static_Breit",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.2393649775222002,
+          "bare_weight": 0.9968468925943896,
+          "previous_weight": 0.9968468925943896,
+          "operator_weight": 0.9999982694977997,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "DC",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.2293343235323846,
+          "bare_weight": 0.9978881249614038,
+          "previous_weight": 0.9978881249614038,
+          "operator_weight": 0.9999988879307317,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "static_Breit",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.22190515703550773,
+          "bare_weight": 0.9977911109503844,
+          "previous_weight": 0.9977911109503844,
+          "operator_weight": 0.9999988879307317,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "DC",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.16340375525396666,
+          "bare_weight": 0.9797507504465508,
+          "previous_weight": 0.9797507504465508,
+          "operator_weight": 0.9999761227417597,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "static_Breit",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.15593345969136863,
+          "bare_weight": 0.9783658224131576,
+          "previous_weight": 0.9783658224131576,
+          "operator_weight": 0.9999761227417597,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "DC",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.12741771226137644,
+          "bare_weight": 0.983166561325303,
+          "previous_weight": 0.983166561325303,
+          "operator_weight": 0.9999771149732297,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "static_Breit",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.12058894447000057,
+          "bare_weight": 0.981927601253492,
+          "previous_weight": 0.981927601253492,
+          "operator_weight": 0.9999771149732297,
+          "unambiguous": true
+        }
+      ]
+    },
+    {
+      "name": "stage_4f5p",
+      "near_degenerate_clusters": {
+        "DC": [],
+        "static_Breit": []
+      },
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "model": "DC",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.4021528007415327,
+          "bare_weight": 0.9905745769495946,
+          "previous_weight": 0.9963799117654538,
+          "operator_weight": 0.9999894059316135,
+          "unambiguous": true
+        },
+        {
+          "label": "6s_1/2",
+          "model": "static_Breit",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.39454990775629994,
+          "bare_weight": 0.9903285382013518,
+          "previous_weight": 0.9963295439021037,
+          "operator_weight": 0.9999894059316135,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "DC",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.24823596084206656,
+          "bare_weight": 0.9965615849514099,
+          "previous_weight": 0.9988633106526965,
+          "operator_weight": 0.999989023758745,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "static_Breit",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.24060376143097528,
+          "bare_weight": 0.9963663616281626,
+          "previous_weight": 0.9987601644814895,
+          "operator_weight": 0.999989023758745,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "DC",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.2302993227403931,
+          "bare_weight": 0.9974440916223838,
+          "previous_weight": 0.9990611862386771,
+          "operator_weight": 0.9999895469075183,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "static_Breit",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.22296129263486364,
+          "bare_weight": 0.9972942791900281,
+          "previous_weight": 0.9989729700815532,
+          "operator_weight": 0.9999895469075183,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "DC",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.1650463369078352,
+          "bare_weight": 0.9808238305367557,
+          "previous_weight": 0.9965810739900208,
+          "operator_weight": 0.9999752961237435,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "static_Breit",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.1575783671833051,
+          "bare_weight": 0.9797738483209343,
+          "previous_weight": 0.9966016961515978,
+          "operator_weight": 0.9999752961237435,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "DC",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.12956391005718615,
+          "bare_weight": 0.9840492195074833,
+          "previous_weight": 0.9974308241492621,
+          "operator_weight": 0.9999747593683135,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "static_Breit",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.12264953204612539,
+          "bare_weight": 0.9830964590244551,
+          "previous_weight": 0.9974658292323506,
+          "operator_weight": 0.9999747593683135,
+          "unambiguous": true
+        }
+      ]
+    },
+    {
+      "name": "stage_4f5p5s",
+      "near_degenerate_clusters": {
+        "DC": [],
+        "static_Breit": []
+      },
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "model": "DC",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.40228100862077554,
+          "bare_weight": 0.9905176458135786,
+          "previous_weight": 0.9999439525647437,
+          "operator_weight": 0.9999884454708282,
+          "unambiguous": true
+        },
+        {
+          "label": "6s_1/2",
+          "model": "static_Breit",
+          "column": 0,
+          "nearest_same_J_gap_Ha": 0.39467311796397553,
+          "bare_weight": 0.9902754183180382,
+          "previous_weight": 0.9999459387988456,
+          "operator_weight": 0.9999884454708282,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "DC",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.24848012106122042,
+          "bare_weight": 0.9964461732705487,
+          "previous_weight": 0.9998853553767725,
+          "operator_weight": 0.9999868783457692,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_3/2",
+          "model": "static_Breit",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.24088069149729563,
+          "bare_weight": 0.9962354659561282,
+          "previous_weight": 0.9998694919967737,
+          "operator_weight": 0.9999868783457692,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "DC",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.2305409151231288,
+          "bare_weight": 0.9973302793259265,
+          "previous_weight": 0.9998901469673378,
+          "operator_weight": 0.9999874064217362,
+          "unambiguous": true
+        },
+        {
+          "label": "5d_5/2",
+          "model": "static_Breit",
+          "column": 3,
+          "nearest_same_J_gap_Ha": 0.2232325755248894,
+          "bare_weight": 0.9971660615866594,
+          "previous_weight": 0.9998757652196678,
+          "operator_weight": 0.9999874064217362,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "DC",
+          "column": 2,
+          "nearest_same_J_gap_Ha": 0.1651096655641595,
+          "bare_weight": 0.9808121103601181,
+          "previous_weight": 0.9999689218066954,
+          "operator_weight": 0.9999732587176956,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_1/2",
+          "model": "static_Breit",
+          "column": 1,
+          "nearest_same_J_gap_Ha": 0.15762800017910195,
+          "bare_weight": 0.9797643427094535,
+          "previous_weight": 0.9999751901936464,
+          "operator_weight": 0.9999732587176956,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "DC",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.1296347481365956,
+          "bare_weight": 0.9840380406296781,
+          "previous_weight": 0.99996884590775,
+          "operator_weight": 0.9999726301568254,
+          "unambiguous": true
+        },
+        {
+          "label": "6p_3/2",
+          "model": "static_Breit",
+          "column": 4,
+          "nearest_same_J_gap_Ha": 0.12270359726062452,
+          "bare_weight": 0.9830869285913938,
+          "previous_weight": 0.9999761950601198,
+          "operator_weight": 0.9999726301568254,
+          "unambiguous": true
+        }
+      ]
+    }
+  ]
+}

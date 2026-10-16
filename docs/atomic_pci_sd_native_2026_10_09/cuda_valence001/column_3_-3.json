@@ -1,0 +1,50 @@
+{
+  "key": [
+    3,
+    -3
+  ],
+  "energy_Ha": 0.019333194194959977,
+  "complete_numerators": 176,
+  "variants": {
+    "cpu": {
+      "seconds": 0.0109620540169999,
+      "complete_mode_recovery": true,
+      "raw_root_Ha": 3.1919589584331054e-16,
+      "raw_response_Ha": 2.9145302572189044e-16,
+      "matvecs": 32,
+      "solve_seconds": 0.10049530293326825
+    },
+    "cuda": {
+      "seconds": 0.6552985629532486,
+      "complete_mode_recovery": true,
+      "raw_root_Ha": 3.1917895518436545e-16,
+      "raw_response_Ha": 2.9145641385367946e-16,
+      "matvecs": 32,
+      "solve_seconds": 3.830331427976489
+    }
+  },
+  "map_signed_errors_Ha": {
+    "affine": [
+      0.0,
+      1.0842021724855044e-19,
+      0.0,
+      2.371692252312041e-20
+    ],
+    "homogeneous": [
+      0.0,
+      1.6940658945086007e-20,
+      0.0,
+      2.371692252312041e-20
+    ],
+    "value": [
+      0.0,
+      1.6940658945086007e-20
+    ]
+  },
+  "solve_signed_errors_Ha": {
+    "numerators": 5.204170427930421e-18,
+    "numerator_derivative": 1.5178830414797062e-18,
+    "sigma1_Ha": 8.470329472543003e-22,
+    "sigma1_derivative": 2.541098841762901e-21
+  }
+}

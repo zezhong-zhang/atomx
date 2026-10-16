@@ -1,0 +1,618 @@
+{
+  "all_independent_saved_array_checks_passed": true,
+  "checks": [
+    {
+      "name": "failed_invocation_not_three_point_result",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "correct_measured_failure",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unaltered_minimum_gate",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "minimum_actually_failed",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/attempted_complete_CI",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/completed_complete_CI",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/implicit_H_attempts",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/completed_implicit_H",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/explicit_H_attempts",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/completed_explicit_H",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/gradients",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "zero_actual_manyelectron_calls/optimizer_calls",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_preflight_calls/completed_native_nuclear_Dirac",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_preflight_calls/completed_native_complement_lowest_root",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_preflight_calls/completed_initial_one_body_matrices",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_preflight_calls/completed_original_P_gap_spectral",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_all5_saved",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_vectors_finite",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "positive_quadrature_weights",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "quadrature_S_symmetric",
+      "error": 4.0657581468206416e-20,
+      "limit": 1e-18,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, -4)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/-4",
+      "error": 2.0161281498454198e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(3, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(5, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/-3",
+      "error": 2.0459979196973954e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(2, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(3, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(5, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(6, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/-2",
+      "error": 2.042972995636161e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(1, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(2, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(3, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(5, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(6, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/-1",
+      "error": 2.2110893845017632e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(2, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(3, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(5, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(6, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/1",
+      "error": 2.1918556379618703e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(3, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(5, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/2",
+      "error": 2.1122860405231592e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_P_bytes/6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_bytes/6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "old_point_exact/(4, 3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "independent_P_SGram/3",
+      "error": 2.164501217150061e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_diagonal_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_original_metric_SHA",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_original_P_leakage/(6, -3)",
+      "error": 1.6495825969020046e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_original_frozen_Gram/(6, -3)",
+      "error": 8.605312643017449e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_saved_phase_anchor/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_original_P_leakage/(6, 2)",
+      "error": 1.7975682301195716e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_original_frozen_Gram/(6, 2)",
+      "error": 1.1130205041699611e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_saved_phase_anchor/(6, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_original_P_leakage/(7, -2)",
+      "error": 1.9355349526417272e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_original_frozen_Gram/(7, -2)",
+      "error": 1.2061348113085085e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_saved_phase_anchor/(7, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_original_P_leakage/(7, -1)",
+      "error": 1.8826285702903146e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_original_frozen_Gram/(7, -1)",
+      "error": 1.84280608019008e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_saved_phase_anchor/(7, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_original_P_leakage/(7, 1)",
+      "error": 2.9746151971028877e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_original_frozen_Gram/(7, 1)",
+      "error": 8.130053469871427e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_saved_phase_anchor/(7, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_imported",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    }
+  ],
+  "checks_count": 83,
+  "raw_five_virtuals": [
+    {
+      "key": [
+        6,
+        -3
+      ],
+      "quadrature_norm": 0.9999999999999998,
+      "whole_SGram_error": 8.605312643017449e-16,
+      "old_frozen_overlap_max": 4.717252679144152e-16,
+      "original_P_leakage_S_norm_squared": 1.6495825969020046e-30,
+      "original_P_leakage_coefficient_max": 6.91268636405164e-14,
+      "original_P_coordinate_anchor": 1,
+      "raw_phase": 1.0,
+      "raw_coefficient_max": 2.4319351786801917,
+      "original_P_minimum_energy_independently_replayed": false
+    },
+    {
+      "key": [
+        6,
+        2
+      ],
+      "quadrature_norm": 0.9999999999999996,
+      "whole_SGram_error": 1.1130205041699611e-15,
+      "old_frozen_overlap_max": 1.1130205041699611e-15,
+      "original_P_leakage_S_norm_squared": 1.7975682301195716e-30,
+      "original_P_leakage_coefficient_max": 3.0748378493437693e-14,
+      "original_P_coordinate_anchor": 1,
+      "raw_phase": 1.0,
+      "raw_coefficient_max": 2.457032264797364,
+      "original_P_minimum_energy_independently_replayed": false
+    },
+    {
+      "key": [
+        7,
+        -2
+      ],
+      "quadrature_norm": 0.9999999999999999,
+      "whole_SGram_error": 1.2061348113085085e-15,
+      "old_frozen_overlap_max": 1.2061110911563736e-15,
+      "original_P_leakage_S_norm_squared": 1.9355349526417272e-30,
+      "original_P_leakage_coefficient_max": 6.418833207875096e-14,
+      "original_P_coordinate_anchor": 3,
+      "raw_phase": 1.0,
+      "raw_coefficient_max": 2.5212779242209806,
+      "original_P_minimum_energy_independently_replayed": false
+    },
+    {
+      "key": [
+        7,
+        -1
+      ],
+      "quadrature_norm": 1.0,
+      "whole_SGram_error": 1.84280608019008e-15,
+      "old_frozen_overlap_max": 1.842804544358e-15,
+      "original_P_leakage_S_norm_squared": 1.8826285702903146e-30,
+      "original_P_leakage_coefficient_max": 8.171188542857772e-14,
+      "original_P_coordinate_anchor": 4,
+      "raw_phase": 1.0,
+      "raw_coefficient_max": 2.563675164345735,
+      "original_P_minimum_energy_independently_replayed": false
+    },
+    {
+      "key": [
+        7,
+        1
+      ],
+      "quadrature_norm": 1.0,
+      "whole_SGram_error": 8.130053469871427e-16,
+      "old_frozen_overlap_max": 8.130053469871427e-16,
+      "original_P_leakage_S_norm_squared": 2.9746151971028877e-30,
+      "original_P_leakage_coefficient_max": 8.821358899423204e-14,
+      "original_P_coordinate_anchor": 3,
+      "raw_phase": 1.0,
+      "raw_coefficient_max": 2.512401155704321,
+      "original_P_minimum_energy_independently_replayed": false
+    }
+  ],
+  "failed_original_minimum_gate": {
+    "name": "virtual_original_P_minimum/(6, -3)",
+    "error": 3.808705173469207e-08,
+    "limit": 1e-08,
+    "passed": false
+  },
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "input_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json": "7ef7e2153d26f1df94cba68393bc1256f618c1794dc6286e20e8eebcb3289c73",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_source.py": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json": "fbc3ef9d273f7d5a459f041a97056856e3448fdb69dc976c18e12ab4d158da7f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json": "27bd626176ec3afdd07da41f72e811e4f38ada5f82efe632fcda1f7c7f83cce8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz": "79dfc13ff26e43f754a86d399ace9b544dd21e06b0382b076b81e459354fcf5f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/actual_angular_resource_preflight.json": "7eeaa4b9b2f9adccd4306215922701feb594c041a9bbedc1ed708937eb3de20b",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json": "61b5bf820b327341a31d8dacc6573f8326a23df0716f9fa76a975db226e7e5f8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+  },
+  "audit_contract_sha256": "8e4c08ca0d6746869c3b3605e7a26d0536d005e0a7b8debb52a7f5ed93c27ffb",
+  "audit_driver_sha256": "8452327188329504a819f176db40863ed3d494472ddca6e48ea9b47fbd118838",
+  "new_H_builds": 0,
+  "CI_solves": 0,
+  "gradient_calls": 0,
+  "optimizer_calls": 0,
+  "new_Dirac_solves": 0,
+  "new_virtual_constructions": 0,
+  "Atomx_imports": 0,
+  "only_new_algebra": "Independent longdouble saved local B-grid quadrature S and vector products",
+  "cause_not_yet_identified": true,
+  "minimum_H_replay_unavailable": true,
+  "original_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "scope": "Saved raw vectors lie in original P and are orthogonal, but minimum mismatch remains unresolved; no repair or projection."
+}

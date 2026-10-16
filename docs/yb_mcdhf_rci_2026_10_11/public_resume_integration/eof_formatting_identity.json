@@ -1,0 +1,12 @@
+{
+  "change": "Remove exactly one final blank line reported by git diff --check",
+  "tested_source_sha256": "8216b92338a208414804b908662ff704413d8968437d50c359b14b7997988a8b",
+  "runtime_source_sha256": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+  "exact_byte_delta": "after == before[:-1], final byte was newline",
+  "executable_AST_identical": true,
+  "meaningful_tokens_identical": true,
+  "test_result_preserved": "115 passed95.18s in verification.json under tested source epoch",
+  "test_repetition": "None: one EOF newline changes neither compiled AST nor meaningful tokens",
+  "runtime_policy": "New frozen runtime source hash and fresh complete H/CI/gradient baseline controls required",
+  "tested_source_archive": "tested_orbital_optimization.py"
+}

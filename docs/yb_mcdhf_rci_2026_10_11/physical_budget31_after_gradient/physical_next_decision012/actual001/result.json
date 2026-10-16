@@ -1,0 +1,241 @@
+{
+  "status": "FAILED_ANALYTIC_CURVATURE_PRESERVED",
+  "checks": [
+    {
+      "name": "decoded input budget 347848",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 347848",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 5617168",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 5617168",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 9006064",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 9006064",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 9067568",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 9067568",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original literal radial/nuclear binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original residual metric",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -4",
+      "observed": 2.7755575615628914e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -4",
+      "observed": 1.530080315920168e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -4",
+      "observed": 1.2197274440461925e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -3",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -3",
+      "observed": 2.992397996059992e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -3",
+      "observed": 2.6020852139652106e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -2",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -2",
+      "observed": 6.938893903907228e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -2",
+      "observed": 1.5612511283791264e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -1",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -1",
+      "observed": 1.734723475976807e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -1",
+      "observed": 3.3881317890172014e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 1",
+      "observed": 1.3877787807814457e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 1",
+      "observed": 4.163336342344337e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 1",
+      "observed": 7.589415207398531e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 2",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 2",
+      "observed": 2.42861286636753e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 2",
+      "observed": 2.6020852139652106e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 3",
+      "observed": 5.551115123125783e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 3",
+      "observed": 1.3660947373317356e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 3",
+      "observed": 1.3010426069826053e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "polar0 minus literal saved bank",
+      "observed": 3.552713678800501e-15,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "same complete basis shape A",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 49784728",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 49784728",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    }
+  ],
+  "states": {
+    "A": {}
+  },
+  "predictions": {},
+  "counts": {
+    "exact_block_matrix_calls": 1
+  },
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "ordinary_FD005_superseded": false,
+  "optimizer_admitted": false,
+  "experimental_accuracy_qualified": false,
+  "host_load": [
+    15.21435546875,
+    12.76611328125,
+    11.0107421875
+  ],
+  "polar0_minus_saved_wave_max": 3.552713678800501e-15,
+  "error": "AttributeError(\"'tuple' object has no attribute 'total_J2'\")",
+  "elapsed_seconds": 0.8209544380006264,
+  "peak_RSS_MiB": 269.42578125
+}

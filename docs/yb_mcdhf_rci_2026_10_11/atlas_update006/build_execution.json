@@ -1,0 +1,24 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T16:08:51.702813+00:00",
+  "finished_utc": "2026-10-11T16:08:53.071520+00:00",
+  "elapsed_s": 1.3687159130349755,
+  "exit_code": 0,
+  "timed_out": false,
+  "command": [
+    "/home/zzhang/miniconda3/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/atlas_update006/prepare.py",
+    "--completion",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/completion.json"
+  ],
+  "CPU": 31,
+  "memory_GiB": 2,
+  "hard_timeout_s": 180,
+  "driver_sha256": "9f908e6637fe19280bf5270b2d170bcb9606197f2b9bb9ad790605076d62e39d",
+  "contract_sha256": "ad8e78eb7258e83751bbcf47333737c62a24873a6a06c33b807988ba31bdaea5",
+  "stdout_sha256": "637ea4e30bdcaeda420d6b9342cb3d982d4aac725689f5a01d5dd1f24a765074",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "science_calls": 0,
+  "API_calls": 0,
+  "publication_performed": false
+}

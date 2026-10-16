@@ -1,0 +1,1146 @@
+{
+  "method": "MCDHF -> RCI",
+  "computed_run": "correlated29同208共同基线；history10/40各32步分叉末态另列，未选择唯一末态",
+  "producer": "Atomx native public mixed-CI MCDHF f043 immutable source",
+  "CSFs": 1046,
+  "radial_orbitals": 29,
+  "electrons": 69,
+  "stationarity": {
+    "converged": false,
+    "orbital_residual": 0.0009553265963620529,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 1.4594365307472928e-06,
+    "energy_tolerance": 1e-08,
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "termination_reason": "maximum_iterations",
+    "iterations": 208,
+    "same_metric_local_updates": 128,
+    "scope": "Unchanged original3451 metric and frozen source/P/UID/EOL; secant history cleared by original public resume interface."
+  },
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14067.521782596226,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": true,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14067.403783640504,
+      "computed_cm1": 25897.777308368597,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 2936.9773083685977,
+      "relative_error": 0.12791267326785644,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14067.399802221913,
+      "computed_cm1": 26771.59768596101,
+      "experimental_cm1": 24332.69,
+      "error_cm1": 2438.9076859610104,
+      "relative_error": 0.10023173294695369,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14067.403474418305,
+      "computed_cm1": 25965.643736629783,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -1096.1762633702165,
+      "relative_error": -0.04050637626627538,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14067.388095317778,
+      "computed_cm1": 29340.96615545536,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -1051.2638445446391,
+      "relative_error": -0.034589888420317925,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    }
+  ],
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "fitted_corrections": false,
+  "inputs": {
+    "0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage023.json",
+      "sha256": "969c11b63755d275ed5824ef30396aaf97649d1482345cabf07a74f5b63785fb"
+    },
+    "1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage023/atomx_report_utils.py",
+      "sha256": "204581619e5aeaa57d9b7ed59152fdf1f715abfe06959793d804408ea53efbb9"
+    },
+    "2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage024/atomx_report_utils.py",
+      "sha256": "204581619e5aeaa57d9b7ed59152fdf1f715abfe06959793d804408ea53efbb9"
+    },
+    "3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/completion.json",
+      "sha256": "9e8b81c6faf1842b158510ec4bc9f812bfb8f9e7798abc6c6fe1a7c71934f576"
+    },
+    "4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/completion_execution.json",
+      "sha256": "06a6b9d07b99e27bf65e8ad86b169dba0abca36c2d614a25c9b936a2362f36a0"
+    },
+    "5": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/root_pair_execution.json",
+      "sha256": "1ec5aa5a20e165a0e0954c3c318ecb3ccb2df85be909989a9516487a3e693918"
+    },
+    "6": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/root_launch_pair.py",
+      "sha256": "c35df62d5a8348725e8883ec1bb39b6603f43735b8585fa4df2537adc526ed14"
+    },
+    "7": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json",
+      "sha256": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9"
+    },
+    "8": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json",
+      "sha256": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78"
+    },
+    "9": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/actual/result.json",
+      "sha256": "ba73f5d7e4acf455923a2668c0521d8449fa304cccf1902b51dde63492b249d4"
+    },
+    "10": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/actual/result.json",
+      "sha256": "3217dae6b8559e11628a673fdb316a1613c4b7b054b794e72caa5413ef7d48b2"
+    },
+    "11": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/completion.json",
+      "sha256": "bea50700825ad740f8cce64ec0ada469b347b1dab556f3e41d257fcf444d7366"
+    },
+    "12": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/completion.json",
+      "sha256": "e78a9ce9b72c1d6a7f9944a019282e78f783ecb85bf21c0d6cc7a5dabadc40aa"
+    },
+    "13": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "sha256": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c"
+    },
+    "14": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/completion.json",
+      "sha256": "f5a1b7a7acec9c15cf607f908685ab351ba300292c809fd152dd824299555d6a"
+    },
+    "15": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/README.md",
+      "sha256": "640e8ea856fc2b622315c4c8bd4cc4454cf3048be24133ca21d1d5d203bb3168"
+    },
+    "16": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_next_step208/summary.json",
+      "sha256": "fc2857de27b74473566e57e0b58f220c3d25a50e8bfe1b01ed9e04c712ce292b"
+    },
+    "17": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_next_step208/verification.json",
+      "sha256": "1b20d04aa4d86208a481700443caac9d92155aaabcba87c39ff942923a32254f"
+    },
+    "18": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_next_step208/README.md",
+      "sha256": "88e8977fe9d1e411b02e3dd3df525d4f816b4491f72c4090dd4dfc4fd7fb68d2"
+    },
+    "19": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_next_step208/integer_space_estimates.json",
+      "sha256": "32f59d098bd8afccb0484bf36fc6e631f5959a439f41c8a28c22f48fa1aa72b1"
+    },
+    "20": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage023/delivery_proof.json",
+      "sha256": "a67f31228c1d41f7f3fc80a4f976a5590e54ff9cec2659b60fa0bb5cc0750013"
+    },
+    "21": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage006/current_card_evidence.json",
+      "sha256": "8e54912a50bb4a764509936a2714b51b5d92dc6cb81242ae42ba675397a4d252"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage025.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage025.json",
+      "sha256": "f79f3b0df911e1bc7a10424d3115cc31e6dfeac1fe8681133f5b34c3eeddcb49"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage024/current_card_evidence.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage024/current_card_evidence.json",
+      "sha256": "53c7be790b3bac9346197c5c09ed2b2d8ca9fb787d24a9d17a3a37e67855f5e8"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_proof.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_proof.json",
+      "sha256": "532ed6cd180a82ff872e3067481689d8ebe27425ae5ac35a1ab585079034932f"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_authorization_proof.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_authorization_proof.json",
+      "sha256": "1fdca9428d73bd08d76f989c8e588f80ea44c7c69bde6a6310835078a0014b80"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py",
+      "sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json",
+      "sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/preparation.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/preparation.json",
+      "sha256": "f0b9c2fffac69d8e0cf5cf292192abc2623d28203c625921af72070684290f4e"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_review.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_review.json",
+      "sha256": "e79f33d21292b5e3a955239d2d4de319c89b5d167e3c34786c1cae120a6b833a"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/execution_binding.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/execution_binding.json",
+      "sha256": "c69c30e506c5729d41e68e10db7f773d538a497db9e5da3053d62b6dd84c6ce5"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json",
+      "sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke_root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke_root_execution.json",
+      "sha256": "9e27dbb6fa31167299f50160d55880d2f05a1ca6ac90a6d7061da75ec758711d"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke_actual/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/import_smoke_actual/result.json",
+      "sha256": "8502fb5c3b1975286b5172c82ca7536276ff04cf792b9d3b799dadb5e76e2dc6"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json",
+      "sha256": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json",
+      "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+      "sha256": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/radial_support.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/radial_support.json",
+      "sha256": "bb5e52cfbe764d1895d16649e360c06ae2742b7803818ceb52b7a81f6e6fb3e9"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_construction_controls.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_construction_controls.json",
+      "sha256": "49c3d0e04241515ef32f39524c7e75328d64c2ae3f10d30b1bd9055a8ada9c97"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/angular_resource_preflight.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/angular_resource_preflight.json",
+      "sha256": "f63e9ce9e03087963a2c69810290eeee8162073882c85c6dac7bcd4036e26be1"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/result.json",
+      "sha256": "836581b108c8a31eaa7d0072ebb834d030e26affb8eb97902c2c0dd7460c4533"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/execution_receipt.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/execution_receipt.json",
+      "sha256": "2d0ede28921cb473150b9ffdb270dde501e85007dbf2f52e1eda08d9b88c042c"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/completion.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/completion.json",
+      "sha256": "be2eda2cd795fe914f570597038d5bfb2e86fd936b144799ad8af393c2c93df3"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/deployment_result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/deployment_result.json",
+      "sha256": "317c6d1fbbc76d91efd3ccc3ad0dd6c93da17afb9d8d6d3fad9b8b5e3a9d1f83"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/publication_completion.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/publication_completion.json",
+      "sha256": "cf7bff807d12ac02d46a592374f5036c8509d5e79251bc0fe70d81a2145f35a7"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_result.json",
+      "sha256": "acb4525bee595cfcd8b53d307b4e43423e4c9d1157fc31b5cad24720bccec92b"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/root_push_and_archive.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/root_push_and_archive.json",
+      "sha256": "428c92144daecb846b76efceee116842f656f89d0fefa8bef665b5cd8892a35f"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/saved_site_version.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/saved_site_version.json",
+      "sha256": "5035563be2c858a07219f0ce5af01b6da70af4756bc2fe0fa875a9ebe31d8c73"
+    },
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/sync_card.py",
+      "sha256": "02a2af97c2972766e19e84d4530ec72e85a255eb0d09e0de1c6700de6eac0b38"
+    },
+    "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py",
+      "sha256": "f7be70c5c9e4e78fb7b7c7184c225294c652c3e8d71a87081943a89f68f32b3c"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json",
+      "sha256": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json",
+      "sha256": "b7cea6a3126cb523257846b4bd50dae71da7c5c9a3222f3ae95fa39cafca45ed"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/completion.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/completion.json",
+      "sha256": "99ae990ee4ccb2fe97fec830e9020e1d9e5e5559234387bb61eac3c424fc2fb9"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/actual/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/actual/result.json",
+      "sha256": "f1424c8297087ea17b2afb2ba7d5aa6837066d4c2cfdca231cf046f253419215"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/root_execution.json",
+      "sha256": "98d3d7c4141b3c2a6a283ff06b4425290ce3ddf0d7d3ad9ee86fe7449ac43a46"
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/source_JSON_review.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/source_JSON_review.json",
+      "sha256": "188cbed5c3c7597ccd155aa6efa54abd2e89cd1b41af59d7e1cdec8894898786"
+    }
+  },
+  "paired_endpoint_rows": {
+    "history10": {
+      "actual": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/actual/result.json",
+        "sha256": "ba73f5d7e4acf455923a2668c0521d8449fa304cccf1902b51dde63492b249d4"
+      },
+      "root_receipt": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json",
+        "sha256": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9"
+      },
+      "terminal": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/actual/checkpoints/accepted_0032.json",
+        "sha256": "b090801f69c056e10255bda63a7525f8305c171ab68215ac1154ea405717e497"
+      },
+      "global_accepted_step_on_branch": 240,
+      "fork_baseline_global_step": 208,
+      "new_accepted_steps": 32,
+      "completed_calls": {
+        "H": 47,
+        "CI": 47,
+        "gradient": 33,
+        "optimizer": 1,
+        "validation_Dirac": 7
+      },
+      "controls": 2219,
+      "qualified_points": 33,
+      "stationarity": {
+        "energy_ha": -14067.423393554487,
+        "orbital_residual": 0.000355792320940183,
+        "estimated_energy_error": 3.6857904461478684e-07,
+        "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+        "objective_identity": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+        "resumed": true,
+        "objective_changed": false,
+        "initial_history_size": 0,
+        "accepted_point": true,
+        "orbital_tolerance": 1e-07,
+        "energy_tolerance": 1e-08,
+        "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+        "accepted_line_search": {
+          "parent_energy_ha": -14067.423393486439,
+          "trial_energy_ha": -14067.423393554487,
+          "step": 0.5,
+          "directional_derivative": -4.80319181600278e-07,
+          "energy_change_ha": -6.804839358665049e-08,
+          "armijo_rhs_ha": -2.40159590800139e-11,
+          "attempt": 0,
+          "backtrack": 1,
+          "stable_callback_used": false
+        }
+      },
+      "stationarity_passed": false,
+      "nominal_four_gap_RMS_cm1": 2051.371139733343,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.521758799614,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.989678562312212
+            ],
+            "projected_probability": [
+              0.989678562312212
+            ]
+          },
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": 1.896025423775427e-06,
+          "delta_lower_Ha": 1.896025423775427e-06,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.403789560076,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9924175058460248
+            ],
+            "projected_probability": [
+              0.9924175058460248
+            ]
+          },
+          "excitation_cm1": 25891.255359807965,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2930.4553598079656,
+          "delta_upper_Ha": -1.9230883481213823e-06,
+          "delta_lower_Ha": 1.896025423775427e-06,
+          "transition_shift_cm1": -0.8381985872209476
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.399821560217,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9930000257855406
+            ],
+            "projected_probability": [
+              0.9930000257855406
+            ]
+          },
+          "excitation_cm1": 26762.130666114175,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2429.4406661141766,
+          "delta_upper_Ha": -2.459310053382069e-06,
+          "delta_lower_Ha": 1.896025423775427e-06,
+          "transition_shift_cm1": -0.9558856483119518
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.403496524634,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9838947968110209
+            ],
+            "projected_probability": [
+              0.9838947968110209
+            ]
+          },
+          "excitation_cm1": 25955.569205451287,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1106.2507945487123,
+          "delta_upper_Ha": 1.683030859567225e-06,
+          "delta_lower_Ha": 1.896025423775427e-06,
+          "transition_shift_cm1": -0.04674690346194804
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.388101327893,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9818089884481703
+            ],
+            "projected_probability": [
+              0.9818089884481703
+            ]
+          },
+          "excitation_cm1": 29334.424334819803,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1057.8056651801962,
+          "delta_upper_Ha": 4.630928742699325e-07,
+          "delta_lower_Ha": 1.896025423775427e-06,
+          "transition_shift_cm1": -0.31449234307096435
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26413.780543591693,
+          "splitting_cm1": 870.8753063062104
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28208.139291696963,
+          "splitting_cm1": 3378.855129368516
+        }
+      ],
+      "elapsed_uncontrolled_seconds": 223.79801099700853,
+      "speedup_certified": false
+    },
+    "history40": {
+      "actual": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/actual/result.json",
+        "sha256": "3217dae6b8559e11628a673fdb316a1613c4b7b054b794e72caa5413ef7d48b2"
+      },
+      "root_receipt": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json",
+        "sha256": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78"
+      },
+      "terminal": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/actual/checkpoints/accepted_0032.json",
+        "sha256": "aec261f621fe91e28e735f48f77216eb4566dd085c7247fa0684b19104e48ab5"
+      },
+      "global_accepted_step_on_branch": 240,
+      "fork_baseline_global_step": 208,
+      "new_accepted_steps": 32,
+      "completed_calls": {
+        "H": 43,
+        "CI": 43,
+        "gradient": 33,
+        "optimizer": 1,
+        "validation_Dirac": 7
+      },
+      "controls": 2219,
+      "qualified_points": 33,
+      "stationarity": {
+        "energy_ha": -14067.423394399128,
+        "orbital_residual": 0.0006485365573953426,
+        "estimated_energy_error": 3.312556971205564e-07,
+        "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+        "objective_identity": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+        "resumed": true,
+        "objective_changed": false,
+        "initial_history_size": 0,
+        "accepted_point": true,
+        "orbital_tolerance": 1e-07,
+        "energy_tolerance": 1e-08,
+        "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+        "accepted_line_search": {
+          "parent_energy_ha": -14067.423394105075,
+          "trial_energy_ha": -14067.423394399128,
+          "step": 1.0,
+          "directional_derivative": -5.419561655923549e-07,
+          "energy_change_ha": -2.940523700090125e-07,
+          "armijo_rhs_ha": -5.419561655923549e-11,
+          "attempt": 0,
+          "backtrack": 0,
+          "stable_callback_used": false
+        }
+      },
+      "stationarity_passed": false,
+      "nominal_four_gap_RMS_cm1": 2051.470109667979,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.521749333902,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9896501471518441
+            ],
+            "projected_probability": [
+              0.9896501471518441
+            ]
+          },
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": 4.568304575514048e-06,
+          "delta_lower_Ha": 4.568304575514048e-06,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.403788107378,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.99245710081748
+            ],
+            "projected_probability": [
+              0.99245710081748
+            ]
+          },
+          "excitation_cm1": 25889.496706527487,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2928.6967065274875,
+          "delta_upper_Ha": 2.5267199816880748e-06,
+          "delta_lower_Ha": 4.568304575514048e-06,
+          "transition_shift_cm1": -0.4480760261266237
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.39981772283,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9929945202554753
+            ],
+            "projected_probability": [
+              0.9929945202554753
+            ]
+          },
+          "excitation_cm1": 26760.89539171578,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2428.2053917157828,
+          "delta_upper_Ha": 4.074519893038087e-06,
+          "delta_lower_Ha": 4.568304575514048e-06,
+          "transition_shift_cm1": -0.10837321115917739
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.403500644834,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9839283467913932
+            ],
+            "projected_probability": [
+              0.9839283467913932
+            ]
+          },
+          "excitation_cm1": 25952.58744246686,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1109.2325575331415,
+          "delta_upper_Ha": -4.828732926398516e-06,
+          "delta_lower_Ha": 4.568304575514048e-06,
+          "transition_shift_cm1": -2.0624113416378727
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.388116186687,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.98205991877127
+            ],
+            "projected_probability": [
+              0.98205991877127
+            ]
+          },
+          "excitation_cm1": 29329.08572306928,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1063.1442769307178,
+          "delta_upper_Ha": -7.81107519287616e-06,
+          "delta_lower_Ha": 4.568304575514048e-06,
+          "transition_shift_cm1": -2.716959811171768
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26412.335917640467,
+          "splitting_cm1": 871.3986851882946
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28203.58629620181,
+          "splitting_cm1": 3376.4982806024236
+        }
+      ],
+      "elapsed_uncontrolled_seconds": 215.32903370889835,
+      "speedup_certified": false
+    }
+  },
+  "card_summary": "上述驻值量属于共同208基线；两分支仍FAIL，单位cm⁻¹。\n|谱线|同208基线|history10末态|history40末态|NIST名义值|\n|---|---:|---:|---:|---:|\n|5d_3/2|25897.78|25891.26|25889.50|22960.80|\n|5d_5/2|26771.60|26762.13|26760.90|24332.69|\n|6p_1/2|25965.64|25955.57|25952.59|27061.82|\n|6p_3/2|29340.97|29334.42|29329.09|30392.23|\n同208两路32步：history10残差3.56e−4/指标3.69e−7Ha，history40残差6.49e−4/指标3.31e−7Ha；两驻值门仍FAIL。40较低EOL但残差较大，43vs47H/CI是工作量区别，不以gap或单指标宣称赢家。有限搜索参数改变仅使四线RMS2054.32→约2051.4cm⁻¹；下一以完整5f双jj固定208 nested-RCI筛选缺角通道量级，再单独4d/多核孔与同点修正，保留未驻值边界。\n固定208核场5f：389项独立保存数组门PASS，四线位移约−6.40/−3.18/+8.18/+9.10cm⁻¹；原计数FAIL保留，未新增MCDHF驻值。导数尝试因观测钩子失败，0H/CI/g；待修复，尚无导数结论。",
+  "historical_panel_preserved": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage006/current_card_evidence.json",
+    "sha256": "8e54912a50bb4a764509936a2714b51b5d92dc6cb81242ae42ba675397a4d252"
+  },
+  "complete5f_failed_diagnostic": {
+    "receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json",
+      "sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9"
+    },
+    "failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json",
+      "sha256": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7"
+    },
+    "baseline": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json",
+      "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+    },
+    "extension": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+      "sha256": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291"
+    },
+    "radial_support": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/radial_support.json",
+      "sha256": "bb5e52cfbe764d1895d16649e360c06ae2742b7803818ceb52b7a81f6e6fb3e9"
+    },
+    "run_status": "failed_original_final_count_gate",
+    "all_scientific_completion_gates_passed": false,
+    "independent_saved_array_qualification_completed": true,
+    "completed_calls": {
+      "H": 2,
+      "CI": 2,
+      "CI_internal_hS": 7,
+      "full_scipy_eigh": 12,
+      "complement_SVD": 2,
+      "angular_highest_weight_nullspace": 38,
+      "tracking_principal_SVD": 10,
+      "tracking_overlap": 3,
+      "tracking_resolution": 2,
+      "ConvolCache": 1,
+      "Dirac": 0,
+      "external_hS": 0,
+      "Fock": 0,
+      "Slater_scalar_anchor": 0,
+      "gradient": 0,
+      "optimizer": 0,
+      "new_RDM": 0
+    },
+    "recorded_controls_passed": 406,
+    "recorded_controls_failed": [
+      {
+        "name": "expected_completed_CI_internal_hS",
+        "error": 1.0,
+        "limit": 0.0,
+        "passed": false
+      }
+    ],
+    "baseline_RMS_cm1": 2054.3164606344617,
+    "candidate_RMS_cm1": 2048.8342930560993,
+    "diagnostic_rows": [
+      {
+        "label": "6s_1/2",
+        "reference_UID": [
+          1,
+          1,
+          0
+        ],
+        "selected_level": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "energy_Ha": -14067.522136927037,
+        "principal_overlap_squared": [
+          0.9895463001540337
+        ],
+        "excitation_cm1": 0.0,
+        "NIST_nominal_cm1": 0.0,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 0.0,
+        "nominal_relative_gap": null,
+        "absolute_delta_upper_Ha": -0.0003543308102962328,
+        "absolute_delta_lower_Ha": -0.0003543308102962328,
+        "transition_delta_upper_minus_lower_cm1": 0.0
+      },
+      {
+        "label": "5d_5/2",
+        "reference_UID": [
+          5,
+          1,
+          0
+        ],
+        "selected_level": [
+          5,
+          1,
+          0
+        ],
+        "column": 3,
+        "energy_Ha": -14067.40017106361,
+        "principal_overlap_squared": [
+          0.9928721234457155
+        ],
+        "excitation_cm1": 26768.412914582717,
+        "NIST_nominal_cm1": 24332.69,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 2435.7229145827187,
+        "nominal_relative_gap": 0.10010084847103706,
+        "absolute_delta_upper_Ha": -0.0003688416963996133,
+        "absolute_delta_lower_Ha": -0.0003543308102962328,
+        "transition_delta_upper_minus_lower_cm1": -3.1847713782919564
+      },
+      {
+        "label": "5d_3/2",
+        "reference_UID": [
+          3,
+          1,
+          0
+        ],
+        "selected_level": [
+          3,
+          1,
+          0
+        ],
+        "column": 1,
+        "energy_Ha": -14067.404167115248,
+        "principal_overlap_squared": [
+          0.9923911372520853
+        ],
+        "excitation_cm1": 25891.38095425978,
+        "NIST_nominal_cm1": 22960.8,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 2930.5809542597817,
+        "nominal_relative_gap": 0.12763409612294788,
+        "absolute_delta_upper_Ha": -0.0003834747440123465,
+        "absolute_delta_lower_Ha": -0.0003543308102962328,
+        "transition_delta_upper_minus_lower_cm1": -6.396354108815869
+      },
+      {
+        "label": "6p_3/2",
+        "reference_UID": [
+          3,
+          -1,
+          0
+        ],
+        "selected_level": [
+          3,
+          -1,
+          0
+        ],
+        "column": 4,
+        "energy_Ha": -14067.388408176996,
+        "principal_overlap_squared": [
+          0.9818524376029302
+        ],
+        "excitation_cm1": 29350.068117896182,
+        "NIST_nominal_cm1": 30392.23,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -1042.1618821038173,
+        "nominal_relative_gap": -0.03429040521553757,
+        "absolute_delta_upper_Ha": -0.00031285921795642935,
+        "absolute_delta_lower_Ha": -0.0003543308102962328,
+        "transition_delta_upper_minus_lower_cm1": 9.101962440820833
+      },
+      {
+        "label": "6p_1/2",
+        "reference_UID": [
+          1,
+          -1,
+          0
+        ],
+        "selected_level": [
+          1,
+          -1,
+          0
+        ],
+        "column": 2,
+        "energy_Ha": -14067.403791477744,
+        "principal_overlap_squared": [
+          0.9838580088396692
+        ],
+        "excitation_cm1": 25973.823857080795,
+        "NIST_nominal_cm1": 27061.82,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -1087.9961429192044,
+        "nominal_relative_gap": -0.040204100940705555,
+        "absolute_delta_upper_Ha": -0.00031705943911219947,
+        "absolute_delta_lower_Ha": -0.0003543308102962328,
+        "transition_delta_upper_minus_lower_cm1": 8.180120451014519
+      }
+    ],
+    "no_physical_completeness_attribution": true,
+    "no_stationarity_promotion": true,
+    "independent_qualification": {
+      "verification": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json",
+        "sha256": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986"
+      },
+      "receipt": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json",
+        "sha256": "b7cea6a3126cb523257846b4bd50dae71da7c5c9a3222f3ae95fa39cafca45ed"
+      },
+      "checks_PASS": 389,
+      "unique_NPZ_loads": 18,
+      "new_physical_producer_calls": 0,
+      "original_failed_execution_preserved": true,
+      "finite_saved_array_scope_only": true,
+      "expanded_MCDHF_stationarity_evaluated": false,
+      "radial_adequacy_certified": false
+    }
+  },
+  "complete5f_saved_array_qualification": {
+    "verification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json",
+      "sha256": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986"
+    },
+    "receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json",
+      "sha256": "b7cea6a3126cb523257846b4bd50dae71da7c5c9a3222f3ae95fa39cafca45ed"
+    },
+    "checks_PASS": 389,
+    "unique_NPZ_loads": 18,
+    "new_physical_producer_calls": 0,
+    "original_failed_execution_preserved": true,
+    "finite_saved_array_scope_only": true,
+    "expanded_MCDHF_stationarity_evaluated": false,
+    "radial_adequacy_certified": false
+  }
+}

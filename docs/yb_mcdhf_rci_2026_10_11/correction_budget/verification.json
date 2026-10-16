@@ -1,0 +1,746 @@
+{
+  "passed": true,
+  "scope": "Raw-array ledger replay, source/input identity, calculation-AST and documentation verification; not independent validation of model operators or experimental accuracy.",
+  "archived_scientific_numeric_gate_count": 9,
+  "replay_check_count": 125,
+  "checks": [
+    {
+      "name": "absolute/6s_1/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6s_1/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6s_1/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_3/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_3/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/5d_5/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/5d_5/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_1/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_1/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "absolute/6p_3/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "transition/6p_3/2/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/5d_fine/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/dynamic_Breit_total",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/dynamic_minus_static_Breit",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/Uehling_point_source",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/WK_local_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/SE_indelicato_overlap_model",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/SE_shabaev_local_partial",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/NMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "splitting/6p_fine/SMS_Breit_point_Coulomb",
+      "absolute_error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "root_difference/static_Breit",
+      "passed": true
+    },
+    {
+      "name": "root_difference/dynamic_Breit_total",
+      "passed": true
+    },
+    {
+      "name": "root_difference/dynamic_minus_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "all_raw_arrays_finite",
+      "passed": true
+    },
+    {
+      "name": "saved_same_state_DC_amplitudes",
+      "passed": true
+    },
+    {
+      "name": "all_353_frozen_source_hashes",
+      "passed": true
+    },
+    {
+      "name": "all_seven_input_hashes",
+      "passed": true
+    },
+    {
+      "name": "contract_hash_replay",
+      "passed": true
+    },
+    {
+      "name": "raw_arrays_hash_replay",
+      "passed": true
+    },
+    {
+      "name": "original_script_calculation_ast_unchanged_after_import_cleanup",
+      "passed": true
+    },
+    {
+      "name": "archived_numerical_gates_pass",
+      "passed": true
+    },
+    {
+      "name": "failed_original_stationarity_retained",
+      "passed": true
+    },
+    {
+      "name": "no_production_certification",
+      "passed": true
+    },
+    {
+      "name": "no_complete_corrected_spectrum_claim",
+      "passed": true
+    },
+    {
+      "name": "original_coverage_failure_retained",
+      "passed": true
+    },
+    {
+      "name": "coverage_correction_preserves_raw_values",
+      "passed": true
+    },
+    {
+      "name": "documentation_links",
+      "passed": true
+    }
+  ],
+  "broken_links": [],
+  "source_hash_failures": [],
+  "input_hash_failures": [],
+  "production_certified": false,
+  "original_stationarity_passed": false,
+  "original_coverage_description_passed": false,
+  "corrected_coverage_owner": "same_orbital001/coverage_correction.json",
+  "files_sha256": {
+    "README.md": "d7e8e281e6f5d6cf67f949b31995d6eedcfea91c8eaad9a544b84c4aafb810d7",
+    "contract.json": "cce973f6310e099508e330ace0e217395c168ef374f5eea97a73e2a539043c1d",
+    "documentation_impact.json": "d24105fcacd18591c4ecd307d8f8b0ddffb57e472523444a8f27af3551cf5a8d",
+    "run.py": "d39e68c5969d70fcbfc7650780ced6c1a17e10769238e19b8d75953e08634cb7",
+    "same_orbital001/correction_arrays.npz": "d2d9ada95c932c8eccf5f2ef3eb48558b8fc409d74eb81021975cca48171498e",
+    "same_orbital001/coverage_correction.json": "acdbbb347f339cca7705f39b93f6bb4798cf66686d3cad81a1e298504fb2d583",
+    "same_orbital001/lint_initial_failure.json": "294552857916b31736f5f1c0987e12a1536c196b6ab5abb071ba80c98974dc6f",
+    "same_orbital001/orbital_frequency_energies.json": "9830a0747089cb1f0b93b01704809c45f95c8f6929c5acd4cef77199ddcd9367",
+    "same_orbital001/preflight.json": "3ce4bc0de04e0924b34dd5d8d1d03763a876837c78bf71c79d55acd1409f602c",
+    "same_orbital001/result.json": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+    "same_orbital001/run_source.py": "9b012de26df5efccaee67b138bc9c38ac22fa441c5e17072aeb77107d65f0f8a",
+    "same_orbital001/verification_initial_failure.json": "bcc8847b250d2206f57ab3bd5c7047889e812fade367fca1bb7e0ac9fb7326c9",
+    "verify.py": "6145c48bf587d1d6aecdc1c2c13d62b1737c5bf452bbc6eddc1e088a635e7c84"
+  }
+}

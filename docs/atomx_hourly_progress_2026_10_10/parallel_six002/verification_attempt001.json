@@ -1,0 +1,6 @@
+{
+  "observation": "Initial delivery verifier incorrectly required every GPU reporting gate true, including gpu_controlled_timing. It rejected the retained expected false timing guard. No scientific job was rerun, output changed, or timing target relaxed.",
+  "corrected_verification": "Verify all execution identities and complete output SHAs; explicitly retain reporting/correctness/admission gates separately from controlled timing and experimental accuracy.",
+  "failed_path": "gpu.gates.gpu_controlled_timing",
+  "actual_value": false
+}

@@ -1,0 +1,6 @@
+{
+  "status": "preflight_failed",
+  "science_executed": false,
+  "reason": "ruff I001 import-order errors at lines 7 and 114; the contract had been prepared after this lint failure before applying the import-only fix. Both original script and contract are preserved here.",
+  "correction": "Sort imports only, rerun ruff, then declare a fresh unchanged scientific contract before computation."
+}

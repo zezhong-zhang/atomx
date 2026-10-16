@@ -1,0 +1,46 @@
+{
+  "metrics": {
+    "production": {
+      "radial_norm": 774.3957826720748,
+      "tangent_norm": 0.01920270999862756,
+      "original_metric_residual": 0.021499084147010395,
+      "original_metric_energy_indicator": 0.0001207034808866711
+    },
+    "old500ac": {
+      "radial_norm": 774.3957826720728,
+      "tangent_norm": 0.019202709995522472,
+      "original_metric_residual": 0.021499084146943005,
+      "original_metric_energy_indicator": 0.0001207034808845512
+    },
+    "delta": {
+      "radial_norm": 2.2716595986157632e-13,
+      "tangent_norm": 1.1676209697977246e-13,
+      "original_metric_residual": 5.024120819220588e-15,
+      "original_metric_energy_indicator": 9.11558616002004e-29
+    },
+    "full_logical": {
+      "radial_norm": 774.395782672075,
+      "tangent_norm": 0.019202709998723234,
+      "original_metric_residual": 0.02149908414701356,
+      "original_metric_energy_indicator": 0.00012070348088674987
+    },
+    "production_plus_delta": {
+      "radial_norm": 774.395782672075,
+      "tangent_norm": 0.019202709998677008,
+      "original_metric_residual": 0.021499084147011228,
+      "original_metric_energy_indicator": 0.00012070348088670391
+    },
+    "full_raw_quotient": {
+      "radial_norm": 1330.1050605549763,
+      "tangent_norm": 0.01920270999793773,
+      "original_metric_residual": 0.021499084146943095,
+      "original_metric_energy_indicator": 0.00012070348088579032
+    }
+  },
+  "normalization_wholevector_controls_passed": true,
+  "old500ac_gradient_is_comparison_only": true,
+  "orbital_tolerance": 1e-07,
+  "energy_indicator_tolerance_Ha": 1e-08,
+  "corrected_production_stationary": false,
+  "new_derivative_qualification_not_yet_executed": true
+}

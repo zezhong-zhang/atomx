@@ -1,0 +1,12 @@
+{
+  "compiler_path": "/usr/bin/x86_64-linux-gnu-g++-15",
+  "sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+  "version": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "original_reference_program": "docs/ci_mbpt_matched_qspace_2026_10_09/run_matched_sigma.py",
+  "first_unlocked_preparation": "prepare/",
+  "first_unlocked_preparation_timing_scope": "Observational setup only, not included in controlled comparisons. No shared timing lock held; no speedup attributed.",
+  "retained_adapter_failure": "matched_round00/atomx.stderr",
+  "failure_source": "failure_adapter001/atomx_action.py",
+  "fixed_tuple_mapping": "Saved P,Q,kappa,E -> virtual-hook P,Q,E; all 19 orbitals and 37350 integrals unchanged",
+  "subsequent_preparation_locked": "fresh_inputs001/prepare.execution.json"
+}

@@ -1,0 +1,54 @@
+{
+  "actual_calls": {
+    "completed": {
+      "CI_solve": 2,
+      "H_build": 3,
+      "gradient": 2
+    },
+    "started": {
+      "CI_solve": 2,
+      "H_build": 3,
+      "gradient": 2
+    }
+  },
+  "actual_native_samepoint_qualification_passed": true,
+  "candidate_source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "completed_at_utc": "2026-10-11T10:43:54.408294+00:00",
+  "controlled_performance_claim": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "independent_checks": 3217,
+  "independent_saved_array_review_passed": true,
+  "negative_RDM_terms": 1219,
+  "new_scientific_point": false,
+  "old_failed_qualification_preserved": true,
+  "original_energy_indicator_Ha": 9.225371955806855e-12,
+  "original_energy_tolerance_Ha": 1e-08,
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "original_orbital_residual": 1.9434848235489216e-06,
+  "original_orbital_tolerance": 1e-07,
+  "original_point_arrays_sha256": "6ab28bb519ef0a1f8f410e364d5c76f42a42a567f192f21da11a89a75bd85e03",
+  "original_stationarity_passed": false,
+  "producer_checks": 1491,
+  "production_certified": false,
+  "public_signed_RDM_terms": 2173,
+  "qualification_complete": true,
+  "science_files_sha256": {
+    "RESULTS.md": "d0b6df91f8186cb8893162013180275aecadafea804fbdd94d4a9eb0551efe34",
+    "arrays.npz": "d0b3af27ce4b51f08bd17fc6c2165cd4019e880a3b9ee3a43b7903da42b271df",
+    "contract.json": "0c40968bcb55c38fc9c486657ba67c858a67460919acdea3ad06fc3a2fb7ea1d",
+    "controls.json": "d5198855579ba5cf884a6e32b46e582677d5d94dd69dd4682b944000d97c2292",
+    "execution_contract.json": "9d2d847564e35b49ed3fcd642cc0982764f57d95acd3bb6296a26106c1dcd487",
+    "objective_epoch_identity.json": "d24f7b9ee84353b11d912c3e69b38f2c4b5f766465a931917bd8cfd0565fc863",
+    "owner_header.json": "51bc6e540b18ebdffbd29990a553d717ebe8a01c031d7c124454b456196d5239",
+    "result.json": "aa9fcee094905e8529a69b4643004600ba408f0d73e59fae8fbbadad25f22473",
+    "root_execution.json": "c1d709e55715baf8de6d612027b4314ec28b898af57d91431b96163c0edd10d3",
+    "root_execution.log": "8b44805a32820ed5125a4fc60e18e185d4871a14cbf12f6a5c029780046483c1",
+    "run.py": "d5b3b2fbf5090d7e59c6473b393cb2f36c152ec7dbd2710ffc1bc91980c1275e",
+    "signed_public_RDM.json": "62e6ee9b6c10cee54ceba57d6c27d006d1d404dcd12a0dbf948e8a4386f3697a",
+    "verification.json": "0339843a67c70371e74cb7ee4511bd807ac4868b0b08a6222c16d9b0ea684a97",
+    "verification_contract.json": "ec52ecca976a19303689d746be5996330ede7391774f9cf5d74388fb0fe643dc",
+    "verify_arrays.py": "cca2fa95ebf425c858fa715f688c06df2d5fd7a3819a6bc720715ce45efec136"
+  },
+  "scope": "Declared exact accepted320 native denseDC correctness qualification; no timing/convergence/experiment certificate."
+}

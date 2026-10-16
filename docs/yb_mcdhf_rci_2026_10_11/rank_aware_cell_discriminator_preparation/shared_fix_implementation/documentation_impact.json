@@ -1,0 +1,19 @@
+{
+  "status": "shared_positive_inner_order_fix_qualified_three_cases",
+  "updated_shared": [
+    "src/atomx/numerics/bspline/convol.py:module/_triang_sym/_triang_pqpq docs and two n_sub statements",
+    "tests/test_convol.py:mathimport and three analytic cases"
+  ],
+  "retained_shared": {
+    "src/atomx/physics/csf/matrix.py": "unchanged ordinaryroute; no performancefix",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "unchanged metric/line-search/objective",
+    "tests/test_mixed_ci_finite_increment.py": "unchanged045ee historical consumer"
+  },
+  "closed_private_source_and_results": "immutable; sharedsource/testepoch evolved with explicit before archives",
+  "negative_and_outer_scope": "unqualified unchanged algorithms, no global exactness wording",
+  "no_extra_scientific_runs": true,
+  "new_insight": "Nonnegative-rank source polynomialdegree2s\u22122+k requires s+floor(k/2) inner GL nodes. The real fixed-CI numerical effect is point-specific and near rounding; not an explanation of its spectrumgap.",
+  "no_new_performance_insight": true,
+  "lint": "sharedtwofiles+testdriverpass; executed stdliblauncher retains3formatissues",
+  "future": "CorrectedHCIg/publicnativeoptimizer need explicitsourcebound qualification; no impliedstationarity or experimentalPASS."
+}

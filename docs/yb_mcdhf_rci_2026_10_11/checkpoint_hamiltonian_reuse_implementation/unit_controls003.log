@@ -1,0 +1,14 @@
+........................................................................ [ 84%]
+.............                                                            [100%]
+============================= slowest 10 durations =============================
+0.45s setup    tests/test_mcdhf_gradient_reuse.py::test_all_signed_actions_equal_literal_gradient[120-False-False]
+0.28s setup    tests/test_ci_radial_snapshot.py::test_cross_charge_reuse_is_bitwise_exact_and_keeps_signed_values
+0.18s setup    tests/test_ci_hamiltonian_snapshot.py::test_complete_signed_matrix_spectrum_and_gradient_are_unchanged
+0.18s setup    tests/test_ci_basis_tracking.py::test_tracked_joint_energy_and_gradient_share_exact_trial_and_identity
+0.13s call     tests/test_mcdhf_gradient_reuse.py::test_independent_derivative_in_metric_positive_energy_tangent[120-True]
+0.08s call     tests/test_mcdhf_determinant_cap.py::test_public_solver_passes_budget_to_the_correlated_functional
+0.08s call     tests/test_ci_hamiltonian_snapshot.py::test_complete_signed_matrix_spectrum_and_gradient_are_unchanged
+0.07s call     tests/test_mcdhf_gradient_reuse.py::test_independent_derivative_in_metric_positive_energy_tangent[35-True]
+0.06s call     tests/test_ci_radial_snapshot.py::test_breit_and_matrix_free_builds_preserve_their_own_operator
+0.05s call     tests/test_mcdhf_gradient_reuse.py::test_independent_derivative_in_metric_positive_energy_tangent[120-False]
+85 passed in 2.49s

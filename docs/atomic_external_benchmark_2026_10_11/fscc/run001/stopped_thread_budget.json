@@ -1,0 +1,139 @@
+{
+  "status": "stopped_actual_thread_budget_excess",
+  "reason": "Requested p4/p8 created >8 observed process threads (first sweep 11/25). Preserve failed admission; no controlled scaling claim. Only own verified process group terminated.",
+  "samples_preserved": 26,
+  "observed_threads": [
+    {
+      "directory": "run001/accuracy_four_core_corrected",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/accuracy_four_core_default",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/accuracy_two_core_corrected",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/accuracy_two_core_default",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/scaling_r0_p1",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/scaling_r0_p2",
+      "requested": 2,
+      "observed": 4
+    },
+    {
+      "directory": "run001/scaling_r0_p4",
+      "requested": 4,
+      "observed": 11
+    },
+    {
+      "directory": "run001/scaling_r0_p8",
+      "requested": 8,
+      "observed": 25
+    },
+    {
+      "directory": "run001/scaling_r1_p1",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/scaling_r1_p2",
+      "requested": 2,
+      "observed": 4
+    },
+    {
+      "directory": "run001/scaling_r1_p4",
+      "requested": 4,
+      "observed": 12
+    },
+    {
+      "directory": "run001/scaling_r1_p8",
+      "requested": 8,
+      "observed": 25
+    },
+    {
+      "directory": "run001/scaling_r2_p1",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/scaling_r2_p2",
+      "requested": 2,
+      "observed": 4
+    },
+    {
+      "directory": "run001/scaling_r2_p4",
+      "requested": 4,
+      "observed": 11
+    },
+    {
+      "directory": "run001/scaling_r2_p8",
+      "requested": 8,
+      "observed": 24
+    },
+    {
+      "directory": "run001/wrapper_pair_r0_bare",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r0_wrapper",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r1_bare",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r1_wrapper",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r2_bare",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r2_wrapper",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r3_bare",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r3_wrapper",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r4_bare",
+      "requested": 1,
+      "observed": 1
+    },
+    {
+      "directory": "run001/wrapper_pair_r4_wrapper",
+      "requested": 1,
+      "observed": 1
+    }
+  ],
+  "controlled_speedup": null,
+  "highest_level_reached": false
+}

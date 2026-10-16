@@ -1,0 +1,42 @@
+{
+  "declared_before_successor_solve_and_tests": "2026-10-11T07:27:51.090160+00:00",
+  "hypothesis": "Separate roundoff constraint and unpack normal noise from real tangent energy decrease using the same constrained physical objective and explicit existing linear projector increment.",
+  "inputs": {
+    "native_run/nuclear_eol005_centered_delta_contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_centered_delta_contract.json",
+      "sha256": "3008bc2e0481a87f9f50ad3983ef356d9ba61415040d225944d647f1904dc7cb"
+    },
+    "native_run/radial_constraint_endpoint002/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/radial_constraint_endpoint002/result.json",
+      "sha256": "409ec7d265a1e56fcc14eacac88149c2e1450badb90738af4172357c91c440d1"
+    },
+    "native_run/linear_map_increment_endpoint/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/linear_map_increment_endpoint/result.json",
+      "sha256": "58acbcc15c337493f7b54814167a534d0b53d36d5035071985de9aca51ae103b"
+    }
+  },
+  "fixed": [
+    "Original full fixed-density API and oracle",
+    "Actual trial CI eigenvectors and unchanged fixed RDM",
+    "Same initial coordinate/preconditioner residual metric, original 1e-7 and 1e-8 gates",
+    "Full quadratic constraint Gram term; all kappa offdiagonal multipliers",
+    "Both actual and linear-map endpoints are orthogonal within numerical roundoff"
+  ],
+  "algorithm": [
+    "Same near-unit polar trial map",
+    "Explicit delta radial = projector@(trial_y-base_y), not subtraction of two unpacked fields",
+    "Complete quadratic/quartic finite polynomial including every source and target increment term",
+    "Actual ambient h/n quotient gradient multipliers, complete constraint defect centering",
+    "Unsupported CI response or finite constraint defect returns None to original total-energy path"
+  ],
+  "acceptance": [
+    "Independent original endpoint formula replay",
+    "Independent metric-normalized whole-objective and true polar curvature controls",
+    "A full same-initialization Yb run; original residual/energy gates are unchanged"
+  ],
+  "limits": [
+    "Centered extension agrees exactly on the constrained manifold; finite-defect residual terms are not a global physical bound",
+    "No trapezoid or gradient integration used as acceptance",
+    "No fitted correction or experiment gate relaxation"
+  ]
+}

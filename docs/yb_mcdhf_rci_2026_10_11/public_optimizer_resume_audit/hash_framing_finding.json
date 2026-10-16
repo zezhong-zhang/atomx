@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-10-11T08:46:10.458618+00:00",
+  "status": "independent_pure_hash_reproducer_no_physical_evaluation",
+  "source_sha256": "f92a9032afe380fb90185597b229bf2dcef3db5a3387a85484f8a75fa05d309d",
+  "helper_source": "def _hash_value(digest, value):\n    if isinstance(value, np.ndarray):\n        if value.dtype.hasobject or not np.isfinite(value).all():\n            raise ValueError(\"optimizer geometry requires finite numerical arrays\")\n        digest.update(repr((value.shape, value.dtype.str)).encode())\n        digest.update(value.tobytes(order=\"C\"))\n    elif isinstance(value, Mapping):\n        for key, item in sorted(value.items()):\n            digest.update(repr(key).encode())\n            _hash_value(digest, item)\n    elif isinstance(value, (tuple, list)):\n        digest.update(repr((type(value).__name__, len(value))).encode())\n        for item in value:\n            _hash_value(digest, item)\n    elif isinstance(value, (str, int, float, bool, np.number, type(None))):\n        if isinstance(value, (float, np.number)) and not np.isfinite(value):\n            raise ValueError(\"optimizer geometry requires finite scalars\")\n        digest.update(repr(value).encode())\n    else:\n        raise TypeError(f\"unsupported optimizer geometry entry {type(value).__name__}\")",
+  "distinct_inputs": [
+    [
+      1,
+      23
+    ],
+    [
+      12,
+      3
+    ]
+  ],
+  "digests": [
+    "483aa84d5c97c8221b6b9a0827bd4c48f311aae8ecab12cb9bc9c7066e8f335d",
+    "483aa84d5c97c8221b6b9a0827bd4c48f311aae8ecab12cb9bc9c7066e8f335d"
+  ],
+  "different_inputs_same_digest": true,
+  "material_scope": "Strong physical geometry serialization claims all numerical workspace entries; an unframed scalar sequence can identify different nested list values as identical. Legacy residual hash unchanged; new strong hash should frame scalar type and payload length.",
+  "not_claimed": "No CI, radial objective, stationarity or experimental comparison evaluated."
+}

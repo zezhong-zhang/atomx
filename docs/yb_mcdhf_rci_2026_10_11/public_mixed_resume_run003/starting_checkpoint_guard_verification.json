@@ -1,0 +1,272 @@
+{
+  "all_passed": true,
+  "checks_count": 64,
+  "checks": [
+    {
+      "name": "complete_constructed_nonstationary_start_is_permitted",
+      "passed": true
+    },
+    {
+      "name": "start_status_retains_failed_stationarity",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:iteration",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:accepted_complete_point",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:array_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:frozen_scientific_inputs_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:original_metric_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:geometry_sha256",
+      "passed": true
+    },
+    {
+      "name": "manifest_content_tampering_rejected:diagnostics",
+      "passed": true
+    },
+    {
+      "name": "truthy_nonboolean_complete_point_is_rejected",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:all_identity_replay_checks_passed",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:checks_count",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:checks",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:new_source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:objective_identity_file_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:accepted_checkpoint_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:accepted_arrays_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:independently_rebuilt_objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:independently_rebuilt_objective_payload",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:actual_original_metric_orbital_residual",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:actual_original_metric_energy_indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "independent_proof_tampering_rejected:original_stationarity_gates_passed",
+      "passed": true
+    },
+    {
+      "name": "failed_independent_identity_check_rejected",
+      "passed": true
+    },
+    {
+      "name": "declared_start_point_tampering_rejected:reference_iteration",
+      "passed": true
+    },
+    {
+      "name": "declared_start_point_tampering_rejected:same_objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "declared_start_point_tampering_rejected:starting_residual",
+      "passed": true
+    },
+    {
+      "name": "declared_start_point_tampering_rejected:starting_energy_indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "declared_start_point_tampering_rejected:starting_original_stationarity_passed",
+      "passed": true
+    },
+    {
+      "name": "original_geometry_metric_tampering_rejected:original_projector_and_preconditioner_metric_sha256",
+      "passed": true
+    },
+    {
+      "name": "original_geometry_metric_tampering_rejected:same_geometry_sha256",
+      "passed": true
+    },
+    {
+      "name": "actual_file_byte_change_rejected:arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_file_byte_change_rejected:source.json",
+      "passed": true
+    },
+    {
+      "name": "actual_file_byte_change_rejected:parent.json",
+      "passed": true
+    },
+    {
+      "name": "actual_file_byte_change_rejected:execution.json",
+      "passed": true
+    },
+    {
+      "name": "actual_file_byte_change_rejected:objective.json",
+      "passed": true
+    },
+    {
+      "name": "runtime_tuple_and_JSON_list_targets_are_identical",
+      "passed": true
+    },
+    {
+      "name": "target_group_order_is_not_physical_identity",
+      "passed": true
+    },
+    {
+      "name": "mixed_runtime_JSON_target_containers_are_identical",
+      "passed": true
+    },
+    {
+      "name": "measured_overlap_diagnostics_are_not_target_ID",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:reference_levels:0",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:reference_levels:1",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:reference_levels:2",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:selected_levels:0",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:selected_levels:1",
+      "passed": true
+    },
+    {
+      "name": "actual_target_UID_change_detected:selected_levels:2",
+      "passed": true
+    },
+    {
+      "name": "actual_target_weight_change_detected",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:duplicate_group",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:rank_change",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:missing_UID",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:boolean_UID",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:noninteger_UID",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:negative_root",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:invalid_parity",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:nan_weight",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:boolean_weight",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:zero_weight",
+      "passed": true
+    },
+    {
+      "name": "invalid_complete_target_metadata_rejected:empty_groups",
+      "passed": true
+    },
+    {
+      "name": "complete_target_span_order_independent_without_column_pairing",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "ace1a91c1d02ce0da594d040806c3af389cb7ffc61ed0006f9b5dd70d5b547ff",
+  "contract_sha256": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+  "script_sha256": "831e32e65987cfb623059de03421f6527c4fe89df2b85227f0092059832c1dfd",
+  "Atomx_imports": 0,
+  "numerical_arrays_loaded": 0,
+  "physical_H_builds": 0,
+  "CI_solves": 0,
+  "gradients": 0,
+  "optimizer_calls": 0,
+  "scope": "Temporary synthetic JSON/file content and provenance only; actual runtime point not evaluated."
+}

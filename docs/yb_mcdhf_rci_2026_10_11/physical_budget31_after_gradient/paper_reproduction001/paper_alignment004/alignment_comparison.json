@@ -1,0 +1,173 @@
+{
+  "scope": "Same electronic transitions, common EA arithmetic; different orbital/core/method inputs. All literature quantities are reference-only and never applied to native values.",
+  "references": {
+    "Sahoo": "https://arxiv.org/html/2504.01438v1",
+    "Hur": "https://arxiv.org/html/2201.03578v2",
+    "Kawasaki": "https://arxiv.org/html/2402.13541v2",
+    "NIST": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6_a.htm"
+  },
+  "NIST_electronic_levels_cm1": {
+    "S": 0.0,
+    "D3": 22960.8,
+    "D5": 24332.69
+  },
+  "Sahoo_Table1": {
+    "DHF": {
+      "EA_cm1": {
+        "S": -90790,
+        "D3": -66517,
+        "D5": -66038
+      },
+      "transitions_cm1": {
+        "D3": 24273,
+        "D5": 24752
+      },
+      "calculation_minus_NIST_cm1": {
+        "D3": 1312.2000000000007,
+        "D5": 419.3100000000013
+      },
+      "relative_error_percent": {
+        "D3": 5.714957666980247,
+        "D5": 1.723237340384484
+      },
+      "fine_splitting_cm1": 479,
+      "fine_splitting_error_cm1": -892.8900000000001
+    },
+    "RCCSD": {
+      "EA_cm1": {
+        "S": -97642,
+        "D3": -73525,
+        "D5": -72268
+      },
+      "transitions_cm1": {
+        "D3": 24117,
+        "D5": 25374
+      },
+      "calculation_minus_NIST_cm1": {
+        "D3": 1156.2000000000007,
+        "D5": 1041.3100000000013
+      },
+      "relative_error_percent": {
+        "D3": 5.035538831399606,
+        "D5": 4.279469306517288
+      },
+      "fine_splitting_cm1": 1257,
+      "fine_splitting_error_cm1": -114.8900000000001
+    },
+    "RCCSDT": {
+      "EA_cm1": {
+        "S": -97859,
+        "D3": -74198,
+        "D5": -72915
+      },
+      "transitions_cm1": {
+        "D3": 23661,
+        "D5": 24944
+      },
+      "calculation_minus_NIST_cm1": {
+        "D3": 700.2000000000007,
+        "D5": 611.3100000000013
+      },
+      "relative_error_percent": {
+        "D3": 3.049545312010038,
+        "D5": 2.5122992977759604
+      },
+      "fine_splitting_cm1": 1283,
+      "fine_splitting_error_cm1": -88.8900000000001
+    },
+    "Final": {
+      "EA_cm1": {
+        "S": -97982,
+        "D3": -74952,
+        "D5": -73646
+      },
+      "transitions_cm1": {
+        "D3": 23030,
+        "D5": 24336
+      },
+      "calculation_minus_NIST_cm1": {
+        "D3": 69.20000000000073,
+        "D5": 3.3100000000013097
+      },
+      "relative_error_percent": {
+        "D3": 0.3013832270652622,
+        "D5": 0.013603099369618853
+      },
+      "fine_splitting_cm1": 1306,
+      "fine_splitting_error_cm1": -65.8900000000001
+    }
+  },
+  "uncertainty": "Sahoo individual final EA uncertainties are300/350/350cm^-1; covariance unavailable. Central transition deviations are not theoretical uncertainties.",
+  "old18core": {
+    "EA_cm1": {
+      "S": -91904.77231712606,
+      "D3": -66740.69367372147,
+      "D5": -66332.44590613611
+    },
+    "transitions_cm1": {
+      "D3": 25164.078643404588,
+      "D5": 25572.326410989943
+    },
+    "calculation_minus_NIST_cm1": {
+      "D3": 2203.2786434045884,
+      "D5": 1239.6364109899441
+    },
+    "relative_error_percent": {
+      "D3": 9.595826989497702,
+      "D5": 5.094530900570156
+    },
+    "fine_splitting_cm1": 408.2477675853552,
+    "fine_splitting_error_cm1": -963.6422324146449
+  },
+  "inputs": {
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/result.json": "c1d59624104af388ecedbf9b88a62dd11fe0afb38f7d7b1b9bc9f345d0215a6e",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/actual001/result.json": "727ade6a2db9d058e4d84d49add43701ff6b0eaa825854083d720be92eca53d4"
+  },
+  "unknown_paper_inputs": [
+    "nuclear radius and charge density parameters",
+    "40GTO exponent lists and contraction details",
+    "actual frozen/correlated core partition",
+    "virtual energy and triples cuts",
+    "actual numerical residual controls",
+    "the numerical program and original Yb input deck"
+  ],
+  "strict_input_reproduction_complete": false,
+  "method_equivalence_claimed": false,
+  "new_run_status": "PASS_COMPLETE_5P_NATIVE_CCSDT_R3",
+  "new22core": {
+    "EA_cm1": {
+      "S": -92793.40435534166,
+      "D3": -66814.16955605205,
+      "D5": -66126.1523094882
+    },
+    "transitions_cm1": {
+      "D3": 25979.234799289614,
+      "D5": 26667.25204585347
+    },
+    "calculation_minus_NIST_cm1": {
+      "D3": 3018.4347992896146,
+      "D5": 2334.5620458534722
+    },
+    "relative_error_percent": {
+      "D3": 13.14603497826563,
+      "D5": 9.59434425808849
+    },
+    "fine_splitting_cm1": 688.017246563857,
+    "fine_splitting_error_cm1": -683.8727534361431
+  },
+  "conditional_core_closure_shifts_cm1": {
+    "D3": 815.1561558850262,
+    "D5": 1094.925634863528
+  },
+  "state_EA_shifts_cm1": {
+    "S": -888.6320382155973,
+    "D3": -73.47588233057468,
+    "D5": 206.29359664791264
+  },
+  "core_energy_shift_cm1": -4121.513688255565,
+  "state_total69_relative_energy_shifts_cm1": {
+    "S": -5010.1457264711735,
+    "D3": -4194.989570586145,
+    "D5": -3915.2200916076463
+  }
+}

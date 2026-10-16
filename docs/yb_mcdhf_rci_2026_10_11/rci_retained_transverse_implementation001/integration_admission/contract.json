@@ -1,0 +1,90 @@
+{
+  "status": "SOURCE_only_integration_admission_prepared_NOT_executed",
+  "after_primary": "root must first close current retained-owner primary qualification and bind complete shared source/test identities",
+  "minimal_command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_ci_radial_snapshot.py",
+    "tests/test_mcdhf_gradient_reuse.py",
+    "tests/test_finite_frequency_breit.py::test_ci_frequency_is_explicit_and_recorded",
+    "tests/test_transverse_spinor_integrals.py::test_complete_signed_many_electron_ci_and_zero_limit"
+  ],
+  "resources_proposed": {
+    "CPU": 1,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "wall_s": 300,
+    "outer_wall_s": 315
+  },
+  "primary_not_repeated": true,
+  "scope": [
+    "owned radial solve/options and cache separation",
+    "DC gradient CI reuse",
+    "finite fixed-map provenance",
+    "independent complete signed manyelectron static/finite/zero matrices"
+  ],
+  "excluded_optional_workflow": "Explicit node selection excludes EXP-T live FSCC, FAC executable and extended kernel scans; excluded work not claimed passing",
+  "test_and_source_files": {
+    "tests/test_ci_radial_snapshot.py": "ed19cdd203086e949d28724fbb5417b692c872ee5e211aafecb959cf20b6ffb8",
+    "tests/test_mcdhf_gradient_reuse.py": "b0c282d52060f362853991672348e1ecbe0fd000b2efdccebe1abd2644546826",
+    "tests/test_finite_frequency_breit.py": "f6d39d5bf51c0606c26028857350471ae0bfdd27ea521342488d74af369cefbb",
+    "tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "tests/test_spinor_integrals_fscc.py": "94974b0f9fb38def073249e7821546b0c5871008eccd31c5a86e542e367f3d2c",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/frozen_comparator.py": "e6c043a32af51f42088ab87661d0bc2b4039cdf98d621d4d7cc0337dfcc7d05c"
+  },
+  "mixed_separate": {
+    "required_environment": "ATOMX_MIXED_INCREMENT_OUTPUT=<fresh root-owned sealed output dir>",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_mixed_ci_finite_increment.py"
+    ],
+    "output_policy": "dedicated fresh output; no reuse/overwrite of original qualification assets",
+    "candidate_call_limits": {
+      "H_build": 13,
+      "CI_solve": 13,
+      "gradient": 2,
+      "one_body_assembly": 48,
+      "nuclear_Dirac_solve": 3,
+      "polar_retraction": 36,
+      "physical_overlap": 41,
+      "tracking_SVD": 80,
+      "SciPy_eigh": 64,
+      "optimizer": 0
+    },
+    "candidate_setup": "13 complete CI points, two signed gradients, fixed two directions and three +/- scales, 36 polar retractions; no optimizer",
+    "frozen_child_limits": {
+      "H_build": 5,
+      "CI_solve": 0,
+      "gradient": 1,
+      "one_body_assembly": 6,
+      "physical_overlap": 2,
+      "tracking_SVD": 2
+    },
+    "child_source": "docs/yb_mcdhf_rci_2026_10_11/checkpoint_hamiltonian_reuse_implementation/source002 via explicit PYTHONPATH; .venv interpreter/CPU/thread/AS caps inherited",
+    "oracle": "independent Decimal saved full angular/cell banks and full signed finite differences; not same implementation self-test",
+    "existing_exact_guards": "At test_frozen_default_H_and_complete_signed_gradient_parity all candidate counts except SciPy_eigh must equal the existing limits; preserve failures, do not replace expected48 hS with observed value",
+    "raw_direction_NPZ": "required immutable raw_directions.npz; metadata preparation only checks file exists and does not import/hash/read arrays",
+    "resource_proposed": {
+      "CPU": 1,
+      "threads": 1,
+      "AS_GiB": 3.95,
+      "wall_s": 900,
+      "outer_wall_s": 915
+    },
+    "stop": "root preflight binds source/output/resources, then single attempt; any source/counter/fullH/gradient/Decimal failure retained, no retry or gate change"
+  },
+  "calls_executed_by_preparation": {
+    "NumPy_Atomx": 0,
+    "NPZ": 0,
+    "H_CI_g_Dirac_eigen": 0,
+    "tests_or_collection": 0,
+    "API": 0
+  }
+}

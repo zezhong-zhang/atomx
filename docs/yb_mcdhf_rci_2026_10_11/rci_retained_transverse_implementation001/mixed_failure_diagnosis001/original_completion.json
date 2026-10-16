@@ -1,0 +1,58 @@
+{
+  "status": "original_mixed001_closed_FAILED_metadata_only",
+  "original_receipt": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json",
+    "sha256": "1ac9729a6a256e4b1d976a8609c65c08a609ba46ad75177aca462dc6dda84d1b"
+  },
+  "log": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/foreground.log",
+    "sha256": "e78233f3f617e3c341dd49d7bad81f1f8aa868c19355d090699b0cdaf0145f3a"
+  },
+  "exit_code": 1,
+  "pytest_passed": 42,
+  "pytest_failed": 2,
+  "elapsed_uncontrolled_s": 68.10256903315894,
+  "source_unchanged": true,
+  "input_files_unchanged": true,
+  "candidate_completed": {
+    "H_build": 13,
+    "CI_solve": 13,
+    "gradient": 2,
+    "one_body_assembly": 48,
+    "nuclear_Dirac_solve": 3,
+    "polar_retraction": 36,
+    "physical_overlap": 41,
+    "tracking_SVD": 80,
+    "SciPy_eigh": 55,
+    "optimizer": 0
+  },
+  "frozen_completed": {
+    "H_build": 5,
+    "CI_solve": 0,
+    "gradient": 1,
+    "one_body_assembly": 6,
+    "physical_overlap": 2,
+    "tracking_SVD": 2
+  },
+  "failures": [
+    {
+      "test": "test_frozen_default_H_and_complete_signed_gradient_parity",
+      "first_failed_line": 345,
+      "scope": "First compared H fails; later four H and full gradient equality assertions were not reached. Exact magnitudes are pending saved-only diagnostic."
+    },
+    {
+      "test": "test_signed_central_directional_derivative_in_same_constrained_space",
+      "first_failed_line": 367,
+      "direction": 0,
+      "h": 0.0001,
+      "measured": -0.00872063585143113,
+      "analytic": -0.00872046743791834,
+      "tolerance": 8.72046743791834e-08,
+      "scope": "Direction1 original test loop was not reached; all original endpoints already archived."
+    }
+  ],
+  "primary63_and_integration26_do_not_certify_failed_mixed_suite": true,
+  "NumPy_imports": 0,
+  "NPZ_reads": 0,
+  "new_science": 0
+}

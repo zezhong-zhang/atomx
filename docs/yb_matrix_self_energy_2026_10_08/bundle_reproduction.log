@@ -1,0 +1,45 @@
+START coarse_l6_e200 5d_5/2 pid 525725
+START coarse_l6_e200 6p_3/2 pid 525727
+START coarse_l6_e200 6s_1/2 pid 525723
+START coarse_l6_e200 6p_1/2 pid 525726
+START coarse_l6_e200 5d_3/2 pid 525724
+PROGRESS coarse_l6_e200 6s_1/2 {'2p1h': 2631414, '2h1p': 0} 30
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 1683024, '2h1p': 0} 30
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 1484376, '2h1p': 0} 30
+PROGRESS coarse_l6_e200 6p_1/2 {'2p1h': 2627341, '2h1p': 0} 30
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 1716953, '2h1p': 0} 30
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 3355591, '2h1p': 0} 60
+PROGRESS coarse_l6_e200 6s_1/2 {'2p1h': 5102499, '2h1p': 0} 60
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 2866366, '2h1p': 0} 60
+PROGRESS coarse_l6_e200 6p_1/2 {'2p1h': 5094642, '2h1p': 0} 60
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 3378289, '2h1p': 0} 60
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 4944667, '2h1p': 0} 90
+PROGRESS coarse_l6_e200 6s_1/2 {'2p1h': 7443640, '2h1p': 0} 90
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 3914966, '2h1p': 0} 90
+PROGRESS coarse_l6_e200 6p_1/2 {'2p1h': 7448748, '2h1p': 0} 90
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 5016778, '2h1p': 0} 90
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 6492183, '2h1p': 0} 120
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 5222142, '2h1p': 0} 120
+PROGRESS coarse_l6_e200 6p_1/2 {'2p1h': 7652307, '2h1p': 87979} 120
+PROGRESS coarse_l6_e200 6s_1/2 {'2p1h': 7652307, '2h1p': 115969} 120
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 6643759, '2h1p': 0} 120
+DONE coarse_l6_e200 6s_1/2 seconds 128.9
+DONE coarse_l6_e200 6p_1/2 seconds 139.0
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 7611289, '2h1p': 0} 150
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 6521634, '2h1p': 0} 150
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 7652307, '2h1p': 4948} 150
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 7439205, '2h1p': 0} 180
+PROGRESS coarse_l6_e200 6p_3/2 {'2p1h': 7652307, '2h1p': 96918} 180
+PROGRESS coarse_l6_e200 5d_3/2 {'2p1h': 7652307, '2h1p': 95389} 180
+DONE coarse_l6_e200 6p_3/2 seconds 198.5
+DONE coarse_l6_e200 5d_3/2 seconds 204.8
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 7652307, '2h1p': 58331} 210
+PROGRESS coarse_l6_e200 5d_5/2 {'2p1h': 7652307, '2h1p': 166129} 240
+DONE coarse_l6_e200 5d_5/2 seconds 248.3
+ALL True 249
+{
+  "recomputed_states": 5,
+  "maximum_root_error_Ha": 0.0,
+  "passed": true,
+  "scope": "Same supplied frozen reference and native source; large poles regenerated, not included in delivery"
+}

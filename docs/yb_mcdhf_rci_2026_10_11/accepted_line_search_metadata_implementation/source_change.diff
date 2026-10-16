@@ -1,0 +1,61 @@
+--- before/src/atomx/numerics/bspline/orbital_optimization.py
++++ candidate/src/atomx/numerics/bspline/orbital_optimization.py
+@@ -390,6 +390,11 @@
+     accepted points, including zero. Budget exits return the last such point
+     without declaring convergence. Large sealed geometry is shared between
+     snapshots; return_state adds a typed state only when explicitly requested.
++    Checkpoint diagnostics include ``accepted_line_search``: None at zero,
++    otherwise a copy of the preceding accepted numerical comparison. Its
++    step and directional derivative precede polar retraction; attempt and
++    backtrack are zero-based. ``stable_callback_used`` records an applied
++    replacement of the ordinary change, not merely a callback invocation.
+     """
+     from atomx.numerics.bspline.dirac_assembly import solve_dirac
+     from atomx.numerics.bspline.orbital_subspace import radial_projector_start
+@@ -660,6 +665,7 @@
+     shooting_iterations = 0
+     shooting_fallback_reason = None
+     checkpoint_residual = None
++    accepted_line_search = None
+     for iteration in range(max_iter + 1):
+         # Convergence must not depend on how small the proposed update is.
+         # Keep exactly the same residual yardstick for both numerical paths.
+@@ -676,7 +682,9 @@
+                 "objective_changed": resumed and objective_identity != resume_state.objective_identity,
+                 "initial_history_size": 0, "accepted_point": True,
+                 "orbital_tolerance": tolerance, "energy_tolerance": energy_tolerance,
+-                "geometry_sha256": geometry.payload_sha256}
++                "geometry_sha256": geometry.payload_sha256,
++                "accepted_line_search": (None if accepted_line_search is None
++                                         else accepted_line_search.copy())}
+             state = OrbitalOptimizationState(geometry, x, objective_identity)
+             checkpoint_callback(iteration, state, unpack(x), ci, point_diagnostics)
+         if max_wall_time is not None and time.monotonic() - started >= max_wall_time:
+@@ -746,6 +754,7 @@
+                     budget_exhausted = True
+                     break
+                 change = trial_energy - energy
++                stable_callback_used = False
+                 if (energy_difference is not None and np.isfinite(trial_energy)
+                         and abs(change) <= 128 * np.spacing(max(abs(energy), 1.0))):
+                     # A declared finite-polynomial or constraint-centered
+@@ -760,8 +769,19 @@
+                     if stable_change is not None:
+                         change = stable_change
+                         stable_energy_comparisons += 1
++                        stable_callback_used = True
+                 if np.isfinite(change) and change <= 1e-4 * step * derivative:
+                     accepted = True
++                    accepted_line_search = {
++                        "parent_energy_ha": float(energy),
++                        "trial_energy_ha": float(trial_energy),
++                        "step": float(step),
++                        "directional_derivative": float(derivative),
++                        "energy_change_ha": float(change),
++                        "armijo_rhs_ha": float(1e-4 * step * derivative),
++                        "attempt": int(attempt), "backtrack": int(_),
++                        "stable_callback_used": stable_callback_used,
++                    }
+                     break
+                 step *= 0.5
+             if accepted or budget_exhausted:

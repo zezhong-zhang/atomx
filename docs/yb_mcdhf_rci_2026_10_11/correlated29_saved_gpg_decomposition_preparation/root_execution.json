@@ -1,0 +1,82 @@
+{
+  "host_admission": {
+    "load_average": [
+      9.87451171875,
+      9.61962890625,
+      9.64794921875
+    ],
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "mem_available_KiB": 117791312
+  },
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T16:10:47.578040+00:00",
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "35s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_saved_gpg_decomposition_preparation/run.py",
+    "--contract",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_saved_gpg_decomposition_preparation/contract.json",
+    "--execution-contract",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_saved_gpg_decomposition_preparation/execution_contract.json"
+  ],
+  "cwd": "/data/code/atomx",
+  "launcher_sha256": "eaafe34a3d8278baed109e1ca3418346598141193432cf19a438d5221f7b023b",
+  "execution_contract_sha256": "6d879d0b8c58d91329da6f81e589a265e6290597f769e52b12f52a8b872f9f23",
+  "driver_sha256": "494ba935a0a2f9058bffc08545b2eacf1bf7f3540b077c8e4ace57de2ee4ee7b",
+  "contract_sha256": "17dd0cf48ccee73e7b7960e1f7be1e2b520a1ecc83f2b4e9ca5d960ddbe951c9",
+  "preparation_sha256": "d3578604ebdfd362413725b33cae573e19914c99cb07430fbc9ddecc1d8fbfa3",
+  "thread_variables": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1"
+  },
+  "timing_scope": "saved algebra only; no new scientific producers or speedup certificate",
+  "exit_code": 0,
+  "elapsed_uncontrolled_seconds": 0.13767774705775082,
+  "finished_utc": "2026-10-11T16:10:47.715839+00:00",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "actual_files_sha256": {
+    "actual/progress.json": "8a2a2fe3fb41094754100ae5d642ea43a9dfa9b85bbd7de1d441235ef9726faa",
+    "actual/result.json": "9beeb420010dbcb3ff6f0c7de58dae5a01499b4f0a3b6b08aea1fab84b8ec168"
+  }
+}

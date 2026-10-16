@@ -1,0 +1,40 @@
+{
+  "core_residual_Ha": 1.627518920414156e-13,
+  "direct_error_Ha": 3.1086244689504383e-15,
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.2854839020829964,
+      "raw_residual_Ha": 5.3348547367909616e-14,
+      "derivative_residual_Ha": 1.2534764892713213e-13,
+      "multiplets": [
+        {
+          "two_m": -1,
+          "signed_action_error_Ha": 5.898059818321144e-17,
+          "signed_root_error_Ha": 1.2911321317643498e-12,
+          "oracle_residual_Ha": 3.18479617678058e-13,
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 1.33376291996945e-06,
+              "passed": false
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 1.2007644675099405e-07,
+              "passed": false
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 1.3921369251823634e-08,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

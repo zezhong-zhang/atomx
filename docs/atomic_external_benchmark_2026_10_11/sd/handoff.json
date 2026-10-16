@@ -1,0 +1,276 @@
+{
+  "status": "complete",
+  "owner": "sd",
+  "production_source_changes": false,
+  "result": "docs/atomic_external_benchmark_2026_10_11/sd/result.json",
+  "verification": "docs/atomic_external_benchmark_2026_10_11/sd/verification.json",
+  "selected_artifacts": {
+    "result.json": "3873a4a788ab4d0c2bf45572277bbecbabcab89ec3c9d6aac5a4e84f62de00ae",
+    "verification.json": "7cac4ce1f9968577fd9724ab7c6b30f5836c4cd7b6252c8f49bb47db4798c979",
+    "README.md": "94f0f10fa2167428e9f9f72f9a114a7303118eb768ddf0d3c294567dddfc0578",
+    "ears.json": "eb490f17b27ed6c60351317a2cd09187c2ed4843948fa39959a66bf09362fb7a",
+    "documentation_impact.json": "f24da56f4f6d26ac14981b0dfce099fc2d8ca56a164cb2b1be98d0147f23f8b7",
+    "delivery_checks.json": "312f09c75ecd5201c78bf40982fb21baf34a27ca2e5ec01c47c9c0c5d2806e3e",
+    "thread_verification.json": "52365511cced4a0bfc84609cc2cd3e67f73ba80a6c81982565a92f16aa8b69c2",
+    "thread_samples.jsonl": "986fa1eef52ca20cdf3301bdeaafbd2e3faed7c26826d21970a99ad3ad4f51c6",
+    "input_coordinates_verification.json": "fb6640240fee1a75984fda4dd900d92e90a476f01533cf8180f1c2eeeabe138e",
+    "input_semantics/audit.json": "ccce74277995b410d68bf3c0319da63b78d4a26eb7c8e0b671764ee1fbd5c566",
+    "pci_availability.json": "cf7192c517733aca7673d7268d663c9d66e358f3a7adaa397f3d45b097f321fa",
+    "process_wall_identity.json": "3ccabb6e88fb2a4b269c44a2863e1a51955bcd1c00acc15d608ec4bb03501fd7",
+    "resource_partition.json": "4f5f62c4a3766de99115c0a3b50461cfd7fe2c5822cf8f1dcb7ecf1172679c7e",
+    "cpu_scaling.png": "de5b5a3983a0b3279770428e4fc9e7b5e31325c76f78f163cdb2ee6459c7af18",
+    "cpu_scaling.svg": "6c5d781bb412ef5f1728fbb0073e2d70a4624e81330332cecf9fe7be941e5695",
+    "finite_action001/result.corrected.json": "e58ba8fee7df5695f91d3b161a158f787f346b288b7a1f60d96dfdeece16cdff",
+    "finite_action001/measurement_scope_correction.json": "a826fc467f599f090f785d1bcb49029bafce752553c4da23352d90e230632285",
+    "finite_action001/full_output_verification.json": "b37cda513e8e808865528454c0fad087b476093f0dc76369b6faaa4bb22ce1b6",
+    "yb_round000/full_output_verification.json": "e38e3736e78812e76c42ec97e348f62eb0a09f98b47f91df2d0a3a739cfd317d",
+    "yb_round001/full_output_verification.json": "a530bca6493d27a1661ff513470275ffa33a44ea4d0a6518ed59284d0b39086d",
+    "yb_round002/full_output_verification.json": "27f4bab89345469e9772fff788a8230f1e66b7eba21e3405b636c3727a8725bc"
+  },
+  "all_owner_artifacts_sha256_manifest": "docs/atomic_external_benchmark_2026_10_11/sd/artifact_sha256.json",
+  "complete_output_arrays": 530,
+  "complete_input_arrays": 938,
+  "finite_whole_action": {
+    "status": "complete public signed maps and responses passed",
+    "maximum_signed_error_Ha": 8.673617379884035e-19,
+    "maximum_relative_error": 1.6904893255408627e-15,
+    "timing_guard_pass": true,
+    "scaling": [
+      {
+        "backend": "original",
+        "median_per_five_column_map_seconds": 0.052125425997655836,
+        "observed_speedups_vs_current_one": [
+          0.5047225122187378,
+          0.5117793551141703,
+          0.5043655933186483,
+          0.5026650295704036,
+          0.5140875564669317
+        ],
+        "speedup": 0.5047225122187378,
+        "efficiency": null,
+        "observed_vs_original_diagrams": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "versus_original_diagrams_speedup": 1.0
+      },
+      {
+        "backend": 1,
+        "median_per_five_column_map_seconds": 0.026354539103340357,
+        "observed_speedups_vs_current_one": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "speedup": 1.0,
+        "efficiency": 1.0,
+        "observed_vs_original_diagrams": [
+          1.9812866987130102,
+          1.9539670563243312,
+          1.9826887742681918,
+          1.9893963995359643,
+          1.945193941033125
+        ],
+        "versus_original_diagrams_speedup": 1.9812866987130102
+      },
+      {
+        "backend": 2,
+        "median_per_five_column_map_seconds": 0.022120470507070424,
+        "observed_speedups_vs_current_one": [
+          1.1614796407494978,
+          1.2007386080770035,
+          1.1954248829101395,
+          1.1844969026362555,
+          1.1979036869218924
+        ],
+        "speedup": 1.1954248829101395,
+        "efficiency": 0.5977124414550697,
+        "observed_vs_original_diagrams": [
+          2.3012241630429453,
+          2.3462036834391973,
+          2.3701554958268014,
+          2.356433873366069,
+          2.3301549937417065
+        ],
+        "versus_original_diagrams_speedup": 2.3462036834391973
+      },
+      {
+        "backend": 4,
+        "median_per_five_column_map_seconds": 0.020375025097746403,
+        "observed_speedups_vs_current_one": [
+          1.28008502829551,
+          1.293472718532029,
+          1.285234053267363,
+          1.2921785322203896,
+          1.2925871703561582
+        ],
+        "speedup": 1.2921785322203896,
+        "efficiency": 0.3230446330550974,
+        "observed_vs_original_diagrams": [
+          2.5362154397835615,
+          2.527403080265859,
+          2.5482191297204078,
+          2.5706553195569097,
+          2.514332732033951
+        ],
+        "versus_original_diagrams_speedup": 2.5362154397835615
+      },
+      {
+        "backend": 8,
+        "median_per_five_column_map_seconds": 0.022412016103044153,
+        "observed_speedups_vs_current_one": [
+          1.2316694318268202,
+          1.1293355279119934,
+          1.15901390037213,
+          1.1988289230113804,
+          0.9489623869495459
+        ],
+        "speedup": 1.15901390037213,
+        "efficiency": 0.14487673754651625,
+        "observed_vs_original_diagrams": [
+          2.4402902624898895,
+          2.2066844170766826,
+          2.2979638494886148,
+          2.3849459430984177,
+          1.8459158853625885
+        ],
+        "versus_original_diagrams_speedup": 2.2979638494886148
+      }
+    ],
+    "setup_seconds": {
+      "original": 4.136024605948478,
+      "1": 4.183538964018226,
+      "2": 4.242421726929024,
+      "4": 4.190065140952356,
+      "8": 4.38829362206161
+    },
+    "peak_rss_bytes": 333312000,
+    "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+    "pci_oracle_lineage": "pCI-derived pinned original scalar DC diagram suite compiled by Atomx native adapter. Shared upstream formulas/radial service; not independent standalone pCI production software or MPI scaling."
+  },
+  "yb_full_term2": {
+    "status": "three complete independent capped Yb rounds passed",
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "all_workers_bitwise_equal": true,
+    "timing_guard_pass": true,
+    "scaling": [
+      {
+        "workers": 1,
+        "seconds": [
+          81.28612752398476,
+          83.76816617301665,
+          82.11935197201092
+        ],
+        "median_seconds": 82.11935197201092,
+        "observed_speedups": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "speedup": 1.0,
+        "efficiency": 1.0
+      },
+      {
+        "workers": 2,
+        "seconds": [
+          43.83414602896664,
+          44.04922381299548,
+          43.95367749792058
+        ],
+        "median_seconds": 43.95367749792058,
+        "observed_speedups": [
+          1.854401987671186,
+          1.9016944890707297,
+          1.8683158417380645
+        ],
+        "speedup": 1.8683158417380645,
+        "efficiency": 0.9341579208690323
+      },
+      {
+        "workers": 4,
+        "seconds": [
+          23.85039126803167,
+          24.56348076602444,
+          25.265839557047002
+        ],
+        "median_seconds": 24.56348076602444,
+        "observed_speedups": [
+          3.4081674640255555,
+          3.4102726307780684,
+          3.2502126749675595
+        ],
+        "speedup": 3.4081674640255555,
+        "efficiency": 0.8520418660063889
+      },
+      {
+        "workers": 8,
+        "seconds": [
+          16.971008494030684,
+          17.086523853009567,
+          17.468902196967974
+        ],
+        "median_seconds": 17.086523853009567,
+        "observed_speedups": [
+          4.7897051935703185,
+          4.90258679258871,
+          4.700887957702581
+        ],
+        "speedup": 4.7897051935703185,
+        "efficiency": 0.5987131491962898
+      }
+    ],
+    "preparation": [
+      {
+        "round": 0,
+        "setup_seconds": 109.86742717900779,
+        "peak_rss_bytes": 3213312000,
+        "total_lock_wait_seconds": 57.776106083067134
+      },
+      {
+        "round": 1,
+        "setup_seconds": 115.88361010688823,
+        "peak_rss_bytes": 3210616832,
+        "total_lock_wait_seconds": 1.2230276570189744
+      },
+      {
+        "round": 2,
+        "setup_seconds": 108.00932927499525,
+        "peak_rss_bytes": 3223339008,
+        "total_lock_wait_seconds": 9.452900849282742e-05
+      }
+    ],
+    "full_response": true,
+    "full_core_electrons": 68,
+    "full_virtual_orbitals": 414,
+    "shape": [
+      64,
+      64,
+      1076
+    ],
+    "scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+    "fresh_original_pci_Yb_timing": false,
+    "full_action_speedup_claim": false,
+    "full_solve_speedup_claim": false,
+    "original_reference_sha256": "efb673f24ee3516fcb35cb4e986699daf5a95aa2f0b020a568e4ba31b551f9c9"
+  },
+  "limits": {
+    "independent_pci_software_production_comparison": false,
+    "experimental_precision_improvement": false,
+    "full_SD_solve_throughput_measured": false,
+    "native_original_reference_has_shared_pci_lineage": true,
+    "yb_inputs_are_full_space_signed_stress_vectors": true,
+    "first_round_one_worker_OS_thread_observation_missing": true
+  },
+  "parent_actions": [
+    "Use corrected finite result, not raw SCF zero placeholder",
+    "Append this owner EARS to root trace.md",
+    "Distinguish stage scaling from full action and production software comparisons",
+    "Retain both failed pilots and actual600-second contracts"
+  ]
+}

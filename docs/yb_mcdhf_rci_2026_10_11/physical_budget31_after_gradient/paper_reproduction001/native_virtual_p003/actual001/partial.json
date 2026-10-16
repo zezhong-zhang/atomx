@@ -1,0 +1,62 @@
+{
+  "status": "RUNNING",
+  "controls": [
+    {
+      "name": "previous:S:original_equations",
+      "measured": 2.5634886991328333e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "previous:D3:original_equations",
+      "measured": 9.570083874671509e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "previous:D5:original_equations",
+      "measured": 2.193899532529353e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "all689589_retained_SDT_equations",
+      "measured": 1.9321206535775664e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_scalar_Jplus",
+      "measured": 8.016993725879423e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "newp_core_amplitudes_nonzero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    }
+  ],
+  "contract_sha256": "cfa976510f2ea503750795df649cf3a0b69ab8d0a8b99130b53ef3678ef19908",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "core": {
+    "energy_relative_Ha": -0.0069711777910583805,
+    "energy_absolute_Ha": -14067.084144663206,
+    "correlation_Ha": -0.0069711777910583805,
+    "residual_Ha": 1.9321206535775664e-11,
+    "solver_evaluations": 14,
+    "measured_calls": 14,
+    "seconds": 312.6917211819964,
+    "scalar_coordinates": 37533,
+    "all_coordinates": 689589,
+    "rank_norms": {
+      "1": 0.001542407716913541,
+      "2": 0.05855052804894461,
+      "3": 0.003296162022457612
+    },
+    "newp_amplitude_norm": 0.008798929327314305,
+    "change_from_no_p_Ha": -0.00027426316833611963,
+    "full_H_residual": "not computed"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "created_at_utc": "2026-10-11T12:03:58.131884+00:00",
+  "status": "complete independent saved-array audit of failed live qualification",
+  "all_saved_audit_controls_passed": true,
+  "saved_audit_controls": 1341,
+  "numerical_qualification_passed": false,
+  "original_test_status": {
+    "passed": 26,
+    "failed": 1,
+    "not_executed_due_to_x": 17,
+    "skipped_unsupported_cases": [
+      "float32",
+      "float128",
+      "complex",
+      "missing",
+      "basis_reorder",
+      "parity",
+      "keys",
+      "target",
+      "rank",
+      "subclass",
+      "no_owner",
+      "subset",
+      "operator",
+      "eigen_residual",
+      "ci_float32",
+      "ci_float128"
+    ],
+    "skipped_legacy_controls": 1,
+    "second_direction_in_failed_test": "not reached in live test; saved-array calculation below only"
+  },
+  "manifest_sha256": {
+    "README.md": "e3d0876d8859d145d3d69df61594ae5c050970326a7b6b45a4606d8b9de92a9a",
+    "contract.json": "852e9382f579f4ab1ad358e5e8fbf4818c55f73e00105fc640fddfe2b8aaad45",
+    "documentation_impact.json": "e4a4967d8ada54d721092e60563f9f272843296f3bc8138d62a20ecc7857a927",
+    "execution_contract.json": "bf6b26da4a84bc1d5865bf3a4fa9603584188dad2a333445f98abdc2bb30e7d2",
+    "execution_record.json": "a6e5c34ca99209dfcdf8174a5c0493d862f0a30b0fe1d74a486ddf127553a071",
+    "replay_details.json": "7a25d5466d81f834167a7df9e5a7c6abb44ddbec207146229281b346d6f23bd0",
+    "signed_density_replay.json": "85e05a9f63a27cd91019fbb5250ef75dd247edab3ee3f425481540d57a5963bd",
+    "trace.md": "4c2ed684a2cc2bc298f4e4ca91b81a0faa4f4777cbcb7af7a893c9ab3fc107db",
+    "verification.json": "6b11864fa42a63b69275eac7666e807a2aae3a8a9ae5fe0849985d375c00f1a6",
+    "verify_saved.py": "346d17b17c1e257630dbcb30fe678216b1666811aabf251653683ab3acf49de9"
+  },
+  "README_link_checks": [
+    {
+      "label": "original result",
+      "destination": "../actual/result.json",
+      "sha256": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3"
+    },
+    {
+      "label": "root execution",
+      "destination": "../root_execution.json",
+      "sha256": "78fe427e527041828bbfd444a79081b31fad86d90e176743b2076fce9398174d"
+    },
+    {
+      "label": "failure log",
+      "destination": "../root_execution.log",
+      "sha256": "5e562f58f705ec1e3e7b8a7d36d35e27f9b44ba1567591e68791ef2897f9bc2b"
+    },
+    {
+      "label": "prospective audit contract",
+      "destination": "contract.json",
+      "sha256": "852e9382f579f4ab1ad358e5e8fbf4818c55f73e00105fc640fddfe2b8aaad45"
+    },
+    {
+      "label": "saved-array verifier",
+      "destination": "verify_saved.py",
+      "sha256": "346d17b17c1e257630dbcb30fe678216b1666811aabf251653683ab3acf49de9"
+    },
+    {
+      "label": "verification",
+      "destination": "verification.json",
+      "sha256": "6b11864fa42a63b69275eac7666e807a2aae3a8a9ae5fe0849985d375c00f1a6"
+    },
+    {
+      "label": "signed_density_replay.json",
+      "destination": "signed_density_replay.json",
+      "sha256": "85e05a9f63a27cd91019fbb5250ef75dd247edab3ee3f425481540d57a5963bd"
+    },
+    {
+      "label": "replay_details.json",
+      "destination": "replay_details.json",
+      "sha256": "7a25d5466d81f834167a7df9e5a7c6abb44ddbec207146229281b346d6f23bd0"
+    }
+  ],
+  "all_inputs_unchanged": true,
+  "no_prior_proof_edits": true,
+  "delivery_finding": "Finite increment/signed density/full spectral evidence agrees; original fixed-step constrained derivative fails, including saved-array second direction. Cause unresolved;17latercases unexecuted."
+}

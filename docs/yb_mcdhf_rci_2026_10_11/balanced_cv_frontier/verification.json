@@ -1,0 +1,1258 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/contract.json",
+      "passed": true,
+      "evidence": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461"
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json",
+      "passed": true,
+      "evidence": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b"
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json",
+      "passed": true,
+      "evidence": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0"
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true,
+      "evidence": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/cv_discriminator/same005_orbitals001/result.json",
+      "passed": true,
+      "evidence": "33f6cf200fa692742f36cb6a73607494aed115fb58ad09afd5d70ab5b66f0392"
+    },
+    {
+      "name": "source_map",
+      "passed": true,
+      "evidence": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f"
+    },
+    {
+      "name": "all_frozen_source_files",
+      "passed": true,
+      "evidence": 353
+    },
+    {
+      "name": "complete_pair_pool",
+      "passed": true,
+      "evidence": [
+        [
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            0
+          ]
+        ],
+        [
+          [
+            6,
+            0
+          ],
+          [
+            5,
+            2
+          ]
+        ],
+        [
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        [
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            2
+          ]
+        ],
+        [
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        [
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((6, 0), (6, 0))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((6, 0), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((6, 0), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((5, 2), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((5, 2), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/4f/((6, 1), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((6, 0), (6, 0))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((6, 0), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((6, 0), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((5, 2), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((5, 2), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5p/((6, 1), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((6, 0), (6, 0))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((6, 0), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((6, 0), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((5, 2), (5, 2))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((5, 2), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1"
+      ]
+    },
+    {
+      "name": "all_ref_substitutions_equal/5s/((6, 1), (6, 1))",
+      "passed": true,
+      "evidence": [
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2",
+        "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2"
+      ]
+    },
+    {
+      "name": "NR_configuration_identity",
+      "passed": true,
+      "evidence": {
+        "bare": 3,
+        "candidate": 18,
+        "total": 21
+      }
+    },
+    {
+      "name": "public_count_generator/0",
+      "passed": true,
+      "evidence": {
+        "1": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/0",
+      "passed": true,
+      "evidence": {
+        "1": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/0",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 2,
+        "integer_pattern_M_counts": 2
+      }
+    },
+    {
+      "name": "public_count_generator/1",
+      "passed": true,
+      "evidence": {
+        "3": 1,
+        "5": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/1",
+      "passed": true,
+      "evidence": {
+        "3": 1,
+        "5": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/1",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 10,
+        "integer_pattern_M_counts": 10
+      }
+    },
+    {
+      "name": "public_count_generator/2",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/2",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/2",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 6,
+        "integer_pattern_M_counts": 6
+      }
+    },
+    {
+      "name": "public_count_generator/3",
+      "passed": true,
+      "evidence": {
+        "5": 1,
+        "7": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/3",
+      "passed": true,
+      "evidence": {
+        "5": 1,
+        "7": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/3",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 14,
+        "integer_pattern_M_counts": 14
+      }
+    },
+    {
+      "name": "public_count_generator/4",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 8,
+        "7": 8,
+        "9": 7,
+        "11": 4,
+        "13": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/4",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 8,
+        "7": 8,
+        "9": 7,
+        "11": 4,
+        "13": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/4",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 280,
+        "integer_pattern_M_counts": 280
+      }
+    },
+    {
+      "name": "public_count_generator/5",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 4,
+        "5": 7,
+        "7": 7,
+        "9": 4,
+        "11": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/5",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 4,
+        "5": 7,
+        "7": 7,
+        "9": 4,
+        "11": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/5",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 168,
+        "integer_pattern_M_counts": 168
+      }
+    },
+    {
+      "name": "public_count_generator/6",
+      "passed": true,
+      "evidence": {
+        "1": 7,
+        "3": 13,
+        "5": 16,
+        "7": 16,
+        "9": 13,
+        "11": 9,
+        "13": 5,
+        "15": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/6",
+      "passed": true,
+      "evidence": {
+        "1": 7,
+        "3": 13,
+        "5": 16,
+        "7": 16,
+        "9": 13,
+        "11": 9,
+        "13": 5,
+        "15": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/6",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 630,
+        "integer_pattern_M_counts": 630
+      }
+    },
+    {
+      "name": "public_count_generator/7",
+      "passed": true,
+      "evidence": {
+        "1": 11,
+        "3": 19,
+        "5": 23,
+        "7": 23,
+        "9": 19,
+        "11": 12,
+        "13": 5,
+        "15": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/7",
+      "passed": true,
+      "evidence": {
+        "1": 11,
+        "3": 19,
+        "5": 23,
+        "7": 23,
+        "9": 19,
+        "11": 12,
+        "13": 5,
+        "15": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/7",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 840,
+        "integer_pattern_M_counts": 840
+      }
+    },
+    {
+      "name": "public_count_generator/8",
+      "passed": true,
+      "evidence": {
+        "1": 2,
+        "3": 5,
+        "5": 8,
+        "7": 8,
+        "9": 5,
+        "11": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/8",
+      "passed": true,
+      "evidence": {
+        "1": 2,
+        "3": 5,
+        "5": 8,
+        "7": 8,
+        "9": 5,
+        "11": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/8",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 210,
+        "integer_pattern_M_counts": 210
+      }
+    },
+    {
+      "name": "public_count_generator/9",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/9",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/9",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 6,
+        "integer_pattern_M_counts": 6
+      }
+    },
+    {
+      "name": "public_count_generator/10",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 7,
+        "7": 4,
+        "9": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/10",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 7,
+        "7": 4,
+        "9": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/10",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 120,
+        "integer_pattern_M_counts": 120
+      }
+    },
+    {
+      "name": "public_count_generator/11",
+      "passed": true,
+      "evidence": {
+        "1": 6,
+        "3": 7,
+        "5": 4,
+        "7": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/11",
+      "passed": true,
+      "evidence": {
+        "1": 6,
+        "3": 7,
+        "5": 4,
+        "7": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/11",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 72,
+        "integer_pattern_M_counts": 72
+      }
+    },
+    {
+      "name": "public_count_generator/12",
+      "passed": true,
+      "evidence": {
+        "1": 7,
+        "3": 11,
+        "5": 11,
+        "7": 9,
+        "9": 5,
+        "11": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/12",
+      "passed": true,
+      "evidence": {
+        "1": 7,
+        "3": 11,
+        "5": 11,
+        "7": 9,
+        "9": 5,
+        "11": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/12",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 270,
+        "integer_pattern_M_counts": 270
+      }
+    },
+    {
+      "name": "public_count_generator/13",
+      "passed": true,
+      "evidence": {
+        "1": 11,
+        "3": 18,
+        "5": 18,
+        "7": 12,
+        "9": 5,
+        "11": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/13",
+      "passed": true,
+      "evidence": {
+        "1": 11,
+        "3": 18,
+        "5": 18,
+        "7": 12,
+        "9": 5,
+        "11": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/13",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 360,
+        "integer_pattern_M_counts": 360
+      }
+    },
+    {
+      "name": "public_count_generator/14",
+      "passed": true,
+      "evidence": {
+        "1": 6,
+        "3": 8,
+        "5": 5,
+        "7": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/14",
+      "passed": true,
+      "evidence": {
+        "1": 6,
+        "3": 8,
+        "5": 5,
+        "7": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/14",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 90,
+        "integer_pattern_M_counts": 90
+      }
+    },
+    {
+      "name": "public_count_generator/15",
+      "passed": true,
+      "evidence": {
+        "1": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/15",
+      "passed": true,
+      "evidence": {
+        "1": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/15",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 2,
+        "integer_pattern_M_counts": 2
+      }
+    },
+    {
+      "name": "public_count_generator/16",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 3,
+        "5": 3,
+        "7": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/16",
+      "passed": true,
+      "evidence": {
+        "1": 1,
+        "3": 3,
+        "5": 3,
+        "7": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/16",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 40,
+        "integer_pattern_M_counts": 40
+      }
+    },
+    {
+      "name": "public_count_generator/17",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 3,
+        "5": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/17",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 3,
+        "5": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/17",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 24,
+        "integer_pattern_M_counts": 24
+      }
+    },
+    {
+      "name": "public_count_generator/18",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 4,
+        "5": 4,
+        "7": 3,
+        "9": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/18",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 4,
+        "5": 4,
+        "7": 3,
+        "9": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/18",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 90,
+        "integer_pattern_M_counts": 90
+      }
+    },
+    {
+      "name": "public_count_generator/19",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 7,
+        "7": 4,
+        "9": 1
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/19",
+      "passed": true,
+      "evidence": {
+        "1": 4,
+        "3": 7,
+        "5": 7,
+        "7": 4,
+        "9": 1
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/19",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 120,
+        "integer_pattern_M_counts": 120
+      }
+    },
+    {
+      "name": "public_count_generator/20",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 3,
+        "5": 2
+      }
+    },
+    {
+      "name": "independent_integer_MJ_difference/20",
+      "passed": true,
+      "evidence": {
+        "1": 3,
+        "3": 3,
+        "5": 2
+      }
+    },
+    {
+      "name": "complete_magnetic_dimension/20",
+      "passed": true,
+      "evidence": {
+        "CSF_degeneracies": 30,
+        "integer_pattern_M_counts": 30
+      }
+    },
+    {
+      "name": "signed_CSF_signature_uniqueness",
+      "passed": true,
+      "evidence": 531
+    },
+    {
+      "name": "all_69_electrons",
+      "passed": true,
+      "evidence": [
+        69
+      ]
+    },
+    {
+      "name": "same24_radial_keys",
+      "passed": true,
+      "evidence": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "five_bare_refs",
+      "passed": true,
+      "evidence": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "independent_binomial_magnetic_dimension/4f",
+      "passed": true,
+      "evidence": {
+        "particle_magnetic_states": 18,
+        "hole_capacity": 14,
+        "binomial_dimension": 2142
+      }
+    },
+    {
+      "name": "independent_binomial_magnetic_dimension/5p",
+      "passed": true,
+      "evidence": {
+        "particle_magnetic_states": 18,
+        "hole_capacity": 6,
+        "binomial_dimension": 918
+      }
+    },
+    {
+      "name": "independent_binomial_magnetic_dimension/5s",
+      "passed": true,
+      "evidence": {
+        "particle_magnetic_states": 18,
+        "hole_capacity": 2,
+        "binomial_dimension": 306
+      }
+    },
+    {
+      "name": "preflight_raw_cap",
+      "passed": true,
+      "evidence": 232
+    },
+    {
+      "name": "one_complete_target_block/4f/0",
+      "passed": true,
+      "evidence": 13
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/4f/0",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 1.9984014443252818e-15,
+        "raw_dimension": 114,
+        "CSFs": 13
+      }
+    },
+    {
+      "name": "one_complete_target_block/4f/1",
+      "passed": true,
+      "evidence": 31
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/4f/1",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 3.774758283725532e-15,
+        "raw_dimension": 103,
+        "CSFs": 31
+      }
+    },
+    {
+      "name": "one_complete_target_block/4f/2",
+      "passed": true,
+      "evidence": 24
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/4f/2",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 3.4416913763379853e-15,
+        "raw_dimension": 122,
+        "CSFs": 24
+      }
+    },
+    {
+      "name": "one_complete_target_block/4f/3",
+      "passed": true,
+      "evidence": 26
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/4f/3",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 3.3306690738754696e-15,
+        "raw_dimension": 136,
+        "CSFs": 26
+      }
+    },
+    {
+      "name": "one_complete_target_block/4f/4",
+      "passed": true,
+      "evidence": 14
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/4f/4",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.55351295663786e-15,
+        "raw_dimension": 121,
+        "CSFs": 14
+      }
+    },
+    {
+      "name": "one_complete_target_block/5p/0",
+      "passed": true,
+      "evidence": 18
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5p/0",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.6645352591003757e-15,
+        "raw_dimension": 80,
+        "CSFs": 18
+      }
+    },
+    {
+      "name": "one_complete_target_block/5p/1",
+      "passed": true,
+      "evidence": 23
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5p/1",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.886579864025407e-15,
+        "raw_dimension": 42,
+        "CSFs": 23
+      }
+    },
+    {
+      "name": "one_complete_target_block/5p/2",
+      "passed": true,
+      "evidence": 26
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5p/2",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.6645352591003757e-15,
+        "raw_dimension": 67,
+        "CSFs": 26
+      }
+    },
+    {
+      "name": "one_complete_target_block/5p/3",
+      "passed": true,
+      "evidence": 28
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5p/3",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.4424906541753444e-15,
+        "raw_dimension": 74,
+        "CSFs": 28
+      }
+    },
+    {
+      "name": "one_complete_target_block/5p/4",
+      "passed": true,
+      "evidence": 19
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5p/4",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.6645352591003757e-15,
+        "raw_dimension": 86,
+        "CSFs": 19
+      }
+    },
+    {
+      "name": "one_complete_target_block/5s/0",
+      "passed": true,
+      "evidence": 9
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5s/0",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.886579864025407e-15,
+        "raw_dimension": 30,
+        "CSFs": 9
+      }
+    },
+    {
+      "name": "one_complete_target_block/5s/1",
+      "passed": true,
+      "evidence": 10
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5s/1",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 1.9984014443252818e-15,
+        "raw_dimension": 16,
+        "CSFs": 10
+      }
+    },
+    {
+      "name": "one_complete_target_block/5s/2",
+      "passed": true,
+      "evidence": 11
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5s/2",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.6645352591003757e-15,
+        "raw_dimension": 26,
+        "CSFs": 11
+      }
+    },
+    {
+      "name": "one_complete_target_block/5s/3",
+      "passed": true,
+      "evidence": 11
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5s/3",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 3.1086244689504383e-15,
+        "raw_dimension": 24,
+        "CSFs": 11
+      }
+    },
+    {
+      "name": "one_complete_target_block/5s/4",
+      "passed": true,
+      "evidence": 8
+    },
+    {
+      "name": "public_signed_J_span_and_Gram/5s/4",
+      "passed": true,
+      "evidence": {
+        "Gram_error": 2.886579864025407e-15,
+        "raw_dimension": 27,
+        "CSFs": 8
+      }
+    },
+    {
+      "name": "imports_from_frozen005",
+      "passed": true,
+      "evidence": 39
+    }
+  ],
+  "result_sha256": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+  "artifacts_sha256": {
+    "enumeration.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "preflight.json": "6a75f02588726c9eac566e462a394d3565e7d37c7fa79a0e514500e38e5eb785",
+    "angular_support.json": "b3b8a401c7d6ff912d2116b5f4ecd5bcef475b03c0e54732dd07d23bebed61bd",
+    "source_identity.json": "ac2cf9bffca7c7f5da45978aa37dae7af25ee3b9af7772b1c93847c8288e3557",
+    "run.py": "d399e56122523dfe023662125faa9fc4f40a6838d916345de6ce6cf4111cceed"
+  },
+  "scope": "integer space identity and public signed angular span/support only"
+}

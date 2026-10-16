@@ -1,0 +1,1459 @@
+                                                                 Computer Physics Communications 308 (2025) 109463
+
+                                                                            Contents lists available at ScienceDirect
+
+
+                                                            Computer Physics Communications
+                                                                   journal homepage: www.elsevier.com/locate/cpc
+
+
+  Computer Programs in Physics
+
+  pCI: A parallel co­figuration interaction software package for
+  high-precision atomic structure calculations ✩
+  Charles Cheung a,∗ , Mikhail G. Kozlov b,c , Sergey G. Porsev a , Marianna S. Safronova a ,
+  Ilya I. Tupitsyn d , Andrey I. Bondarev e,f
+  a Department of Physics and Astronomy, University of Delaware, DE 19716, USA
+  b Petersburg Nuclear Physics Institute of NRC ``Kurchatov Institute'', Gatchina, Leningrad District 188300, Russia
+  c St. Petersburg Electrotechnical University ``LETI'', Prof. Popov Str. 5, St. Petersburg, 197376, Russia
+  d Department of Physics, St. Petersburg State University, Ulianovskaya 1, Petrodvorets, 198504 St. Petersburg, Russia
+  e Helmholtz Institute Jena, 07743 Jena, Germany
+  f GSI Helmholtzzentrum für Schwerionenforschung GmbH, 64291 Darmstadt, Germany
+
+
+
+
+  A R T I C L E               I N F O                            A B S T R A C T
+
+  Keywords:                                                      We introduce the pCI software package for high-precision atomic structure calculations. The standard method
+  Atomic structure                                               of calculation is based on the co­figuration interaction (CI) method to describe valence correlations, but can be
+  Co­figuration interaction                                      extended to attain better accuracy by including core correlations via many-body perturbation theory (CI+MBPT)
+  Coupled-cluster
+                                                                 or the all-order (CI+all-order) method. The software package enables calculations of atomic properties, includ­
+  Many-body perturbation theory
+                                                                 ing energy levels, 𝑔 -factors, hype­fine structure constants, multipole transition matrix elements, polarizabilities,
+  Radiative transitions
+  Quantum electrodynamics                                        and isotope shifts. It also features modern high-performance computing paradigms, including dynamic memory
+  Isotope shifts                                                 allocations and large-scale parallelization via the message-passing interface, to optimize and accelerate compu­
+  High-performance computing                                     tations. To improve accuracy of the calculations, we include a supplementary program package to calculate QED
+                                                                 corrections via a variant of QEDMOD, as well as a package to include core correlations.
+
+                                                                 Program summary
+                                                                 Program Title: pCI
+                                                                 CPC Library link to program files: https://doi.org/10.17632/2kn5npnxj7.1
+                                                                 Developer’s repository link: https://github.com/ud-pci/pCI
+                                                                 Licensing provisions: GPLv3
+                                                                 Programming language: Fortran
+                                                                 Supplementary material: Documentation available at https://pci.readthedocs.io
+                                                                 Nature of problem: Calculation of atomic and ionic properties, including energy levels, hype­fine structure con­
+                                                                 stants, multipole transition matrix elements, and polarizabilities.
+                                                                 Solution method: The software package calculates energies and associated wave functions for the desired atomic
+                                                                 states using the co­figuration interaction method. Using calculated wave functions, diﬀerent atomic properties
+                                                                 can be obtained, including 𝑔 -factors, hype­fine structure constants, multipole transition amplitudes, polarizabil­
+                                                                 ities, and others.
+                                                                 Additional comments including restrictions and unusual features: All serial programs have been compiled and tested
+                                                                 with the freely available Intel Fortran compilers ``ifx'' and ``ifort'', and all parallel programs with the OpenMPI
+                                                                 wrapper ``mpifort'' for Intel Fortran compilers.
+                                                                 One-electron orbitals outside the nucleus are d­fined on the radial grid points. Inside the nucleus, they are
+                                                                 described in a Taylor expansion over 𝑟∕𝑅, where 𝑅 is the nuclear radius.
+                                                                 This software package is not designed for calculations of high Rydberg states and continuous spectrum. The
+                                                                 parallel programs are intended to be run on large computing clusters.
+                                                                 References
+
+                                                                [1] M.G. Kozlov et al., Comput. Phys. Commun. 195 (2015) 199.
+
+
+   ✩
+      The review of this paper was arranged by Prof. W. Jong.
+    * Corresponding author.
+      E-mail address: ccheung@udel.edu (C. Cheung).
+
+  https://doi.org/10.1016/j.cpc.2024.109463
+  Received 15 October 2024; Received in revised form 25 November 2024; Accepted 2 December 2024
+
+Available online 6 December 2024
+0010-4655/© 2024 Elsevier B.V. All rights are reserved, including those for text and data mining, AI training, and similar technologies.
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                         Computer Physics Communications 308 (2025) 109463
+
+
+
+
+1. Introduction                                                               software package features hybrid MPI+OpenMP parallelism to take full
+                                                                              advantage of modern HPC architectures [49]. The pCI software package
+    Accurate atomic theory is indispensable to the design and interpre­       released here is an adaptation of the CI-MBPT code package, which im­
+tation of a wide range of experiments, with direct experimental mea­          plements CI with many-body perturbation theory (MBPT). In addition
+surement of relevant parameters being infeasible or impossible. Many          to the pure CI and CI+MBPT methods, pCI extends its capabilities with
+applications, ranging from studies of fundamental interactions to the         the CI+all-order approach. We ported the previous serial code package
+development of future technologies, require precise knowledge of var­         for use on the latest HPC architectures, enabling eﬃcient code execu­
+ious atomic properties, such as energy levels, wavelengths, transition        tion on large-scale computation facilities, in order to treat a wider range
+rates, branching ratios, lifetimes, hype­fine constants, polarizabilities,    of problems beyond the original code package’s capabilities.
+and others. The need for high-precision atomic modeling has increased              In general, the pCI software package can be applied to any atomic
+signiﬁcantly in recent years with the development of atom-based quan­         system, but the degree of accuracy attainable will depend on several
+tum technologies for a wide range of fundamental and practical appli­         factors, including the number of valence electrons, where they lie in
+cations.                                                                      the periodic table, where the states of interest lie in the spectrum, and
+    Further rapid advances in applications involving complex atoms re­        the amount of computational resources available for the calculations.
+quire accurate knowledge of basic atomic properties, most of which            Note that by valence electrons, we refer to the number of electrons in­
+remain highly uncertain and diﬃcult to measure experimentally. More­          cluded in the CI. pCI has been extensively used for calculations of the
+over, the lack of reliable data hinders the search for further applications   properties of atomic systems with up to 60 electrons included in the
+of rich and complex atomic structures. In summary, there is a demon­          CI [4,2]. The modern high-performance computing methodologies em­
+strated need for high-quality atomic data and software in several scien­      ployed here signiﬁcantly expand the class of problems that the original
+tific communities.                                                            CI-MBPT [3] and the CI+all-order package [5] were capable of solving.
+    We have developed and tested state-of-the-art relativistic atomic         Since the conception of our parallel programs, the pCI software pack­
+codes [1--5] capable of computing a wide variety of atomic proper­            age has been utilized to calculate the atomic properties of a wide range
+ties for a large number of atoms and ions [6--13], including negative         of atomic systems, including those of neutral atoms [7,9,6,8], highly
+ions [14,15] and highly charged ions [4,16--21]. The data computed            charged ions [4,19,20,17], and negative ions [14,15]. The breadth of
+by these codes are needed for a wide science community working in             applications related to these computations spanned from astrophysics
+the fields of quantum information and simulation [6,12,22], degenerate        to the development of novel atomic clocks and tests of fundamental
+quantum gases [23,24], atomic clocks [11,25,26], precision measure­           physics.
+ments [7,20,9,10], studies of fundamental symmetries [27--29], dark                The previously developed CI+MBPT and CI+all-order codes have
+matter searches [30,31], and many others. Atomic data are also highly         been demonstrated to produce accurate results for atomic systems with
+demanded by the astrophysics [16--18,32], plasma physics [33,34], and         2-3 valence electrons [36,50--52]. The pCI package extends its capabil­
+nuclear physics [35--37] communities. This work makes these codes             ities to systems with 2-6 valence electrons. For example, in divalent Sr,
+user-friendly and available to the scientific community, with specific        a calculated magic wavelength value was co­firmed to within 0.03% of
+examples demonstrating the capabilities of the code package.                  a experimental measurement [6]. In 4-valent La− , calculated resonance
+    Several ab initio atomic structure codes have been developed for          energies agreed with experimental values to within 0.3% for low-lying
+public use in the last few decades. The NIST MCHF/MCDHF database              states, and within 3% for higher-lying states [14]. In 6-valent Cr, 𝐸1
+contains not only collections of transition data, but also several atomic     matrix elements were obtained with agreement within 2.5% [9]. We
+structure packages, based on diﬀerent relativistic theories and com­          have found similar accuracy in other systems with 2-6 valence elec­
+putational methods [38]. These include ATSP2K, a multico­figuration           trons [7,8,15,32,26,53]. If the number of valence electrons is larger than
+Hartree-Fock (MCHF) + Breit Pauli atomic structure package [39], and          5-6, then either the pure CI method should be applied [4,19,17,18], or
+GRASP2K, which implements the fully relativistic multico­figuration           one can try a mod­fied variant of CI+MBPT, as suggested in Ref. [54].
+Dirac-Hartree-Fock (MCDHF) method for large-scale calculations [40].               The newly developed programs were designed to be backward com­
+Other commonly used and documented atomic structure codes based               patible with the auxiliary codes of the CI-MBPT code package [3], that
+on co­figuration interaction (CI) include CIV3, which calculates the          is, they work naturally with the programs that extend the CI method to
+CI wave functions and the electric-dipole oscillator strengths [41].          CI+MBPT, as well as the auxiliary programs that allow manipulation of
+SUPERSTRUCTURE calculates the bound-state energies and associ­                the CI space. Users who wish to utilize the auxiliary codes of the 2015
+ated radiative data in 𝐿𝑆 -coupling and intermediate coupling [42].           CI-MBPT code package can refer to Ref. [3] for instructions.
+The COWAN code utilizes a semi-empirical approach based on the CI                  The pCI programs are also compatible with programs that extend
+method, where orbitals can be rescaled using least-squares fits to experi­    the CI method with the linearized coupled-cluster (all-order) approach.
+mental data [43]. HULLAC uses CI and the parametric potential method          The all-order package is a standalone set of programs that employs the
+to calculate atomic structure and cross sections for collision and ra­        linearized coupled-cluster method with single- and double excitations
+diative processes [44]. The ATOM computer program system describes            for atomic structure calculations. It is used to construct an eﬀective
+the atomic structure and processes based on Hartree-Fock (HF) and the         Hamiltonian [5], which the CI then uses instead of the bare Hamil­
+random phase-exchange approximation [45,46]. FAC calculates vari­             tonian. The inclusion of the all-order package enables high-precision
+ous atomic radiative and collision processes based on the relativistic CI     computation for atoms and ions with a few valence electrons, gen­
+method [47]. These codes were developed decades ago; some of them             erally signiﬁcantly improving accuracy compared to the CI-MBPT ap­
+have some recent updates, including dynamic memory allocation and             proach [5,6,12,22--24,11,25,26,7,9,10]. The CI+all-order package was
+limited parallelization.                                                      tested up to six valence electrons [9]. A Fortran 77 version of this pack­
+    Modern applications require a much higher accuracy for a wider            age is included in the pCI distribution, while a modern Fortran 90 ver­
+range of atomic properties than can be calculated with older codes. The       sion will be released in a future work. The all-order part of the package
+ﬁrst steps have been taken recently with the release of the GRASP2018         also includes a new faster MBPT code which can be used as a standalone
+and AMBiT software packages. The GRASP2018 package introduces                 code to implement the CI+MPBT method, replacing the codes released
+parallelism using the Message Passing Interface (MPI) and other op­           with the 2015 CI-MBPT package. We recommend the user to use the new
+timizations to the original GRASP2K programs [48], and the AMBiT              MBPT variant. pCI can also utilize some capabilities of the QEDMOD
+
+
+                                                                          2
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                        Computer Physics Communications 308 (2025) 109463
+package of Ref. [55] to include contributions from quantum electrody­         where 𝐻𝑖𝑗 = ⟨Φ𝑖 |𝐻|Φ𝑗 ⟩. This is solved in matrix form, where standard
+namics (QED). A set of compatible QED-related programs is included in         diagonalization routines can be used to find the lowest eigenvalues and
+the pCI distribution.                                                         eigenvectors. The energy matrix of the CI method can be obtained as a
+    The names of most programs, input files, and output files are identi­     projection of the exact Hamiltonian 𝐻 onto the CI subspace
+cal with those of the 2015 CI-MBPT package. The only exception are the
+                                                                                                     ∑                     ∑
+programs that now utilize MPI parallelism, which have been prepended          𝐻 CI = 𝐸core +                ℎCI
+                                                                                                             𝑖 +                    𝑉𝑖𝑗 ,                                      (3)
+with a ``p'' to distinguish between the serial and parallel programs. The                         𝑖>𝑁core               𝑗>𝑖>𝑁core
+input and output files of the core pCI programs will be described in
+                                                                              where 𝐸core is the energy of the frozen core, 𝑁core is the number of core
+Sec. 4. The major changes to the serial programs have been modern­
+                                                                              electrons, ℎCI
+                                                                                          𝑖 accounts for the kinetic energy of the valence electrons
+ization eﬀorts from Fortran 77 (F77) to Fortran 90 (F90). pCI has been
+                                                                              and their interaction with the central field, and 𝑉𝑖𝑗 accounts for the
+utilized with up to 2048 computing cores and up to 32 TB of memory
+                                                                              valence-valence interaction.
+on the developers’ in-house computer clusters Caviness and DARWIN
+                                                                                  The CI+MBPT and CI+all-order approaches allow core excitations to
+at the University of Delaware. It has achieved near-perfect linear scal­
+                                                                              be incorporated in the CI method by forming an eﬀective Hamiltonian
+ability and eﬃciency with the number of processors [2], and will be
+                                                                              including core-valence correlation corrections. Here, we include one-
+discussed in detail in Sec. 5.
+                                                                              and two-electron correlation potentials Σ1 and Σ2 into the CI Hamilto­
+    The pCI software package is open source and is actively being devel­
+                                                                              nian:
+oped and maintained on GitHub in the dev branch, with tested updates
+pushed to the main branch. It is recommended to pull the pCI distri­
+bution from the main branch. Users are welcome to contribute to the           𝐻1CI → 𝐻1CI + Σ1 ,
+project by submitting issues or pull requests on GitHub.
+                                                                              𝐻2CI → 𝐻2CI + Σ2 ,
+    This paper is summarized as follows. First, the theory of atomic struc­
+tures and methods of computation is discussed. Next, an overview of           where 𝐻1CI and 𝐻2CI are one- and two-electron parts of the Hamiltonian,
+the pCI software package, including instructions on how to install and        respectively.
+compile the programs, is given. Detailed explanations of the core pro­            Defining |𝐽 𝑀⟩ and |𝐽 ′ 𝑀 ′ ⟩ as many-electron states obtained from
+grams, including their purpose, input files, and output files, are given      CI, with total angular momenta 𝐽 and 𝐽 ′ , and projections 𝑀 and 𝑀 ′ ,
+in the proceeding section. Then, the scalability and eﬃciency of the          a density matrix can be formed in terms of one-electron states |𝑛𝑙𝑗𝑚⟩
+parallel programs are showcased. An example of a standard pCI work­
+ﬂow is demonstrated by computing the energies and oscillator strengths        𝜌̂ = 𝜌𝑛𝑙𝑗𝑚,𝑛′ 𝑙′ 𝑗 ′ 𝑚′ |𝑛𝑙𝑗𝑚⟩⟨𝑛′ 𝑙′ 𝑗 ′ 𝑚′ |,                                                   (4)
+of highly charged Fe16+ . Following this, pCI-py, a set of helper scripts
+written in Python, is introduced to automate the pCI wor­flow. This sim­      where
+pl­fies and improves the user experience by automating tedious tasks,
+such as writing input files for each program. Finally, an example of          𝜌𝑛𝑙𝑗𝑚,𝑛′ 𝑙′ 𝑗 ′ 𝑚′ = ⟨𝐽 ′ 𝑀 ′ |𝑎†𝑛′ 𝑙′ 𝑗 ′ 𝑚′ 𝑎𝑛𝑙𝑗𝑚 |𝐽 𝑀⟩.                                       (5)
+using these pCI-py scripts is given to calculate energies, reduced 𝐸1
+                                                                              Here, unprimed indices refer to the initial state, while primed indices
+matrix elements, as well as static and dynamic polarizabilities of neu­
+                                                                              refer to the final state. The many-electron matrix element can then be
+tral Sr.
+                                                                              written as
+2. Theory
+                                                                              ⟨𝐽 ′ 𝑀 ′ |𝑇𝑞𝐿 |𝐽 𝑀⟩ = Tr 𝜌𝑛𝑙𝑗𝑚,𝑛′ 𝑙′ 𝑗 ′ 𝑚′ ⟨𝑛′ 𝑙′ 𝑗 ′ 𝑚′ |𝑇𝑞𝐿 |𝑛𝑙𝑗𝑚⟩,                           (6)
+    A standard approach to many-electron systems is to divide all elec­       where the trace sums over all quantum numbers (𝑛𝑙𝑗𝑚) and (𝑛′ 𝑙′ 𝑗 ′ 𝑚′ ),
+trons into core and valence electrons. In this way, we can separate the       and 𝑇𝑞𝐿 is the spherical component of the tensor operator of rank 𝐿.
+electron-electron correlation problem into two parts: one describing the      Invoking the Wigner-Eckart theorem, one obtains the reduced matrix
+valence-valence correlations under the frozen-core approximation, and         element
+the other describing the core-core and core-valence correlations.
+    In the initial approximation, we start from the solution of the re­       ⟨𝐽 ′ ‖𝑇 𝐿 ‖𝐽 ⟩ = Tr 𝜌𝐿             ⟨𝑛′ 𝑙′ 𝑗 ′ ‖𝑇 𝐿 ‖𝑛𝑙𝑗⟩,                                        (7)
+stricted Hartree-Fock-Dirac (HFD) equations in the centra­-field approx­                           𝑛𝑙𝑗,𝑛′ 𝑙′ 𝑗 ′
+
+imation to construct one-electron orbitals for the core and valence elec­     where
+trons. Virtual orbitals can be constructed from B-splines or other means
+                                                                                                               (                )−1
+to account for correlations. The valence-valence correlation problem is                                           𝐽′    𝐿 𝐽
+                                                                              𝜌𝐿             = (−1)𝐽 −𝑀
+                                                                                                     ′     ′
+solved using the CI method, while core-core and core-valence correla­          𝑛𝑙𝑗,𝑛′ 𝑙′ 𝑗 ′                     −𝑀 ′ 𝑞 𝑀
+tions are included using either MBPT [3] or the all-order method [5]. In                                                       ( ′                  )
+                                                                                                                 ∑               𝑗           𝐿 𝑗
+                                                                                                                    (−1)𝑗 −𝑚
+                                                                                                                         ′   ′
+either case, an eﬀective Hamiltonian is formed in the CI valence space,                                        ×                                        𝜌𝑛𝑙𝑗𝑚,𝑛′ 𝑙′ 𝑗 ′ 𝑚′ .   (8)
+then diagonalized as in the usual CI method to find energies and wave                                                           −𝑚′          𝑞 𝑚
+                                                                                                                  ′𝑚𝑚
+functions for the low-lying states.
+                                                                                  When calculating matrix elements, it is often essential to include
+    In the valence space, the CI wave function is constructed as a linear
+                                                                              core-valence correlations. Just as we introduce an eﬀective Hamiltonian
+combination of all distinct states of a spec­fied angular momentum 𝐽
+                                                                              for CI to account for core-valence correlations, we introduce eﬀective
+and parity.
+                                                                              one-electron operators (𝑇𝑞𝐿 )eff for calculations of desired observables.
+       ∑                                                                      These are determined using the random-phase approximation (RPA),
+Ψ𝐽 =         𝑐𝑖 Φ𝑖 ,                                                   (1)
+         𝑖                                                                    which describes a screening of the external field by the core electrons.
+                       {   }                                                  The RPA corrections are described in more detail in Appendix C.
+where the set Φ𝑖 are Slater determinants, enumerated by the index                 The HFD and CI methods described here are implemented as core
+𝑖, generated by exciting electrons from a set of reference co­figurations     functionality of the pCI software package. Implementations of the
+to higher orbitals. Varying the coeﬃcients 𝑐𝑖 results in an eigenvalue
+                                                                              CI+MBPT and CI+all-order approaches are available as optional exten­
+problem
+                                                                              sions of the pCI package and are described in the respective sections of
+∑                                                                             Appendix A. A detailed description of the CI+MBPT and CI+all-order
+     𝐻𝑖𝑗 𝑐𝑗 = 𝐸𝑖 𝑐𝑖 ,                                                  (2)
+ 𝑗
+                                                                              approaches are given in Refs. [3] and [5], respectively.
+
+
+                                                                          3
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                 Computer Physics Communications 308 (2025) 109463
+
+
+
+
+Fig. 1. Schematic of the pCI software package. The solid light blue boxes represent the core programs, while the dashed gray boxes represent optional modules. 1 A
+Fortran 77 version of the all-order package is included in the pCI software package, under the lib/all-order directory. An updated Fortran 90 version of the
+package will be released at a future date. 2 A Fortran 77 version of the MBPT package can be found in Ref. [3]. 3 The QED package is included in the pCI software
+package, under the lib/qed directory. 4 The RPA package is included in the pCI software package, under the lib/rpa directory. (For interpretation of the colors
+in the figure(s), the reader is referred to the web version of this article.)
+
+
+3. Overview of the package                                                            The lib directory of the pCI distribution includes compatible F77
+                                                                                   versions of a QED package [55], all-order package [1], and RPA pro­
+    In this section, we provide an overview of the core functionality of           grams [3]. There is also a Mak­file that allows simple compilation of
+the pCI software package (see Fig. 1). The first task is the basis set con­        the respective programs via standard make execution. Running make
+struction, which is handled by the hfd and bass programs. After the                install will install all F77 programs to the bin directory, where the
+basis set construction, a list of co­figurations is constructed using the          pCI programs are installed by default.
+add program to d­fine the CI space. The CI calculation is performed
+by running the pbasc and pconf programs to obtain the desired ener­                4. Description of programs
+gies and associated wave functions. Atomic properties, such as 𝑔 -factors,
+electric and magnetic multipole transition matrix elements, and hyper­                In this section, we describe the main programs of the pCI software
+ﬁne structure constants, can then be computed using the pdtm program.              package in more detail (see Table 1).
+Finally, valence polarizabilities can be obtained using the pol program.
+                                                                                   4.1. Input and output files
+3.1. Installation
+                                                                                       Before discussing the individual programs, we give brief descriptions
+    pCI has been developed and tested on Linux operating systems, us­              of all the input and output files associated with the pCI software pack­
+ing the OpenMPI library with freely available Intel Fortran compilers. It          age.
+has been designed to be run on high performance computing platforms.                   Each program requires an input file:
+Successful compilation and execution of the programs is not guaranteed
+on other operating systems, compilers or MPI implementations. Several                 • HFD.INP - list of parameters for hfd program
+programs also utilize Intel MKL’s built-in LAPACK and ScaLAPACK rou­                  • BASS.INP - list of parameters for bass program
+tines to solve eigenproblems.                                                         • ADD.INP - list of parameters for add program
+    Installation instructions are documented and maintained in the IN­                • CONF.INP - list of parameters for pbasc, pconf, pdtm, and pol
+STALL.md file in the root directory of the pCI distribution. The software               programs
+package is developed and maintained on GitHub (https://github.com/
+ud-pci/pCI), along with the software documentation. The documenta­                 and outputs the following files:
+tion is hosted by Read the Docs (https://pci.readthedocs.io). Users can
+download the latest version of the pCI software package from the GitHub               • hfd and bass
+repository or clone the latest version using git:                                       – HFD.DAT - basis set radial orbitals 𝜙𝑛𝑙𝑗 and radial derivatives of
+                                                                                          the orbitals 𝜕𝑟 𝜙𝑛𝑙𝑗
+       git clone https://github.com/ud-pci/pCI.git                                      – HFD.RES - contains the outputs of the hfd program
+                                                                                        – BASS.RES - contains the outputs of the bass program
+    After downloading the source files, the programs can be compiled                  • pbasc
+using the CMake build tool and the CMakeLists.txt files in the root                     – CONF.DAT - basis set radial orbitals 𝜙𝑛𝑙𝑗 and functions 𝜒𝑛𝑙𝑗 =
+and src directories. Additional optimized and debugging builds are de­                    ℎrDF 𝜙𝑛𝑙𝑗 , where ℎrDF is the radial part of the DF operator
+scribed in the INSTALL.md file.                                                         – CONF.GNT - angular factors 𝐺𝑞𝑘 (𝑓 𝑖) (Eq. (12))
+
+
+                                                                             4
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                               Computer Physics Communications 308 (2025) 109463
+                                 Table 1
+                                 List of the pCI software package programs and their input and output files. The columns ``Program'' and ``De­
+                                 scription'' lists the names and main capabilities of the core programs, respectively. The column ``Input (text)''
+                                 lists user-defined text input files. The column ``Input (binary)'' lists binary input files that are themselves con­
+                                 structed from a program (the SGC.CON file is a text file). The files given in parentheses are optional, and
+                                 used or created only in certain conditions. See Section 4.1 for more detail about the various input and out­
+                                 put files.
+
+                                   Program     Description                     Input (text)   Input (binary)     Output          Results
+
+                                   hfd         Solves HFD equations            HFD.INP        (HFD.DAT)          HFD.DAT         HFD.RES
+
+                                   bass        Constructs basis set            BASS.INP       HFD.DAT            HFD.DAT         BASS.RES
+
+                                   add         Constructs configuration list   ADD.INP                           CONF.INP
+
+                                   pbasc       Calculates radial integrals     CONF.INP       HFD.DAT            CONF.DAT        BASC.RES
+                                                                                                                 CONF.INT
+                                                                                                                 CONF.GNT
+
+                                   pconf       Performs CI calculation         CONF.INP       CONF.DAT           CONF.DET        CONF.RES
+                                                                               ci.in          CONF.INT           CONF.XIJ        CONF.ENG
+                                                                                              CONF.GNT           (CONFp.JJJ)     CONF.LVL
+                                                                                              (SGC.CON)          (CONFp.HIJ)     FINAL.RES
+                                                                                              (SCRC.CON)                         LEVELS.RES
+                                                                                                                                 CONFSTR.RES
+
+                                   pdtm        Calculates matrix elements      CONF.INP       CONF.DAT           DTM.INT         (DM.RES)
+                                                                               dtm.in         CONF.DET                           or
+                                                                                              CONF.XIJ                           (TM.RES)
+                                                                                              (CONF1.DET)                        (Operator.RES)a
+                                                                                              (CONF1.XIJ)
+
+                                   pol         Calculates polarizabilities     CONF.INP       DTM.INT                            POL.RES
+                                                                               pol.in         CONF.DAT                           POL_E1.RES
+                                                                                              CONF.HIJb
+                                                                                              CONF.JJJb
+                                                                                              CONF.DET
+                                                                                              CONF.XIJ
+                                                                                              CONF0.DET
+                                                                                              CONF0.XIJ
+                                  a
+                                    Separate files are generated for each spec­fied operator (see Section 4.4.1 for more detail).
+                                  b
+                                    The pconf program creates the CONFp.HIJ and CONFp.JJJ files. These are processed by the program
+                                 sort, which sorts and formats them into the right format for pol (see Section 4.4.2 for more detail).
+
+
+     – CONF.INT - one- and two-electron radial integrals                                         • pol
+     – BASC.RES - contains the outputs of the pbasc program                                        – POL.RES - contains the outputs of the pol program
+   • pconf                                                                                         – POL_E1.RES - final table of E1 polarizabilities
+     – CONF.DET - list of determinants
+     – CONFp.HIJ - list of matrix elements of the Hamiltonian (gener­                         4.2. Basis sets
+       ated only if Kw=1 in ci.in)
+     – CONFp.JJJ - list of matrix elements of the operator 𝐽 2 (gener­                           The hfd and bass programs are responsible for the construction of
+       ated only if Kw=1 in ci.in)                                                            the basis sets used in the CI calculations. The hfd program solves the
+     – CONF.XIJ - calculated eigenvectors and eigenvalues                                     HFD equations to obtain Dirac-Fock (DF) orbitals, which bass can then
+     – CONF.ENG - tables of calculated quantum numbers 𝐽𝑖 and energy
+                                                                                              use to construct the basis set.
+       eigenvalues 𝐸𝑖 calculated each time CONF.XIJ is constructed
+       during the Davidson procedure
+     – CONF.LVL - tables of top contributing co­figurations for each en­                      4.2.1. hfd
+       ergy level calculated each time CONF.XIJ is constructed during                            The hfd program solves the restricted Hartree-Fock-Dirac (HFD)
+       the Davidson procedure                                                                 equations self-consistently under the central field approximation to
+     – CONF.RES - contains the outputs of the pconf program                                   ﬁnd four-component DF orbitals and eigenvalues of the HFD Hamil­
+     – FINAL.RES - final table of quantum numbers 𝐽𝑖 and energy                               tonian. The program provides the initial approximation, storing both
+       eigenvalues 𝐸𝑖                                                                         one-electron basis radial orbitals
+     – LEVELS.RES - final table of top contributing co­figurations for                                   (           )
+                                                                                                             𝑓𝑛𝑙𝑗
+       each energy level                                                                      𝜙𝑛𝑙𝑗 = 𝑟                   ,                                                     (9)
+                                                                                                             −𝑔𝑛𝑙𝑗
+     – CONFSTR.RES - list of top contributing co­figurations along with
+       their atomic term symbol for each energy level                                         as well as the radial derivatives of the orbitals, 𝜕𝑟 𝜙𝑛𝑙𝑗 . A more detailed
+   • pdtm                                                                                     description of this program is given in Refs. [56,3].
+     – DTM.INT - radial integrals for all one-electron operators included
+       in pdtm program                                                                        4.2.2. bass
+     – DTM.RES - contains the outputs of the pdtm program                                         The bass program constructs the basis set starting from the DF or­
+     – Operator.RES - optional tables summarizing results of matrix                           bitals for the core and valence orbitals, formed by the hfd program. It
+       element calculations for the spec­fied operators                                       takes as input the file HFD.DAT, which contains the DF orbitals. Then
+
+
+                                                                                        5
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                              Computer Physics Communications 308 (2025) 109463
+                                                                                                               {
+virtual orbitals are added to account for correlations and are constructed                                       1 if 𝑛 is even,
+                                                                                 𝛿𝑝 = 𝜉(𝑙𝑖 + 𝑙𝑓 + 𝑘),   𝜉(𝑛) =                                               (13)
+from either (1) previously constructed DF orbitals or (2) B-splines.                                             0 if 𝑛 is odd.
+    In the first case, virtual orbitals are formed using a recurrent pro­
+                                                                                     The Breit interaction has the same form as the Coulomb interaction,
+cedure described in Ref. [57,3]. The lowest virtual orbitals can be con­
+structed from the DF orbitals. The large component of the radial Dirac           but without the parity selection rule.
+bispinor, 𝑓𝑛′ 𝑙′ 𝑗 ′ , is obtained from a function 𝑓𝑛𝑙𝑗 constructed previously       The pbasc program reads the files HFD.DAT and CONF.INP to de­
+                                                                                 termine which radial integrals are needed. These integrals are calculated
+by multiplying it by 𝑟𝑙 −𝑙 sin(𝑘𝑟). Here, 𝑙′ and 𝑙 are the orbital quan­
+                               ′
+                                                                                 and written to the file CONF.INT. The relativistic Gaunt coeﬃcients are
+tum numbers of the new and old orbitals (𝑙′ ≥ 𝑙 ) and the coeﬃcient 𝑘
+                                                                                 written to the file CONF.GNT, and the file CONF.DAT is also formed,
+is determined by the properties of the radial grid. The small component
+                                                                                 storing the basis radial orbitals 𝜙𝑛𝑙𝑗 , as well as functions 𝜒𝑛𝑙𝑗 = ℎCI
+                                                                                                                                                       𝑖 𝜙𝑛𝑙𝑗 .
+𝑔𝑛′ 𝑙′ 𝑗 ′ is found from the kinetic balance condition:
+                 𝝈𝐩
+𝑔 𝑛′ 𝑙 ′ 𝑗 ′ =      𝑓 ′ ′ ′,                                             (10)    4.3.3. pconf
+                 2𝑚𝑐 𝑛 𝑙 𝑗                                                           The parallel program pconf performs the co­figuration interaction
+where 𝝈 are the Pauli matrices, 𝐩 and 𝑚 are the electron momentum                method in the CI space d­fined by the list of co­figurations contained
+and mass, and 𝑐 is the speed of light. The newly constructed functions           in the CONF.INP input file created by the add program. It takes the
+are then orthonormalized to the functions of the same symmetry.                  CONF.DAT, CONF.GNT, CONF.INT, and CONF.INP files as input. Op­
+   Another option is to construct large components of the orbitals from          tionally, pconf can also take in the SGC.CON and SCRC.CON files,
+B-splines. Small components are still formed with the kinetic balance            which contain one- and two-electron eﬀective radial integrals. These
+method. A more detailed description of this program is given in Ref. [3].        ﬁles are created from supplementary programs that include additional
+                                                                                 second-order or all-order corrections. The inclusion of QED corrections
+4.3. Co­figuration interaction                                                   also utilizes these optional files. To run the program, we must first cre­
+                                                                                 ate the input file ci.in, which contains a list of key-value pairs defining
+    The CI method is realized collectively by three programs: add,               the CI computation:
+pbasc, and pconf. We begin with add, which constructs a CI space
+d­fined by a list of relativistic co­figurations generated by allowing ex­            # ci.in
+citations from a set of reference co­figurations to any orbital in the basis          Kl = (0, 1, 2, 3)
+set constructed in the previous section. The pbasc program acts as a pre­             Ksig = (0, 1, 2)
+cursor to pconf, calculating and storing the radial integrals required to             Kdsig = (0, 1)
+construct the Hamiltonian matrix in the CI space. The pconf program                   Kw = (0, 1)
+constructs the Hamiltonian matrix, then diagonalizes it to find low-lying             KLSJ = (0, 1)
+energies and eigenvectors.
+                                                                                    The value of Kl can take the following values:
+4.3.1. add
+    The add program constructs a list of co­figurations to d­fine the CI           • 0 - start a new CI calculation
+space by exciting electrons from a set of reference co­figurations to a set        • 1 - continue the CI calculation (requires Kw=1)
+of active nonrelativistic shells. It takes in the input file ADD.INP, which        • 2 - start a new CI calculation, including corrections from MBPT/all­
+spec­fies the reference co­figurations, active nonrelativistic shells, and           order/QED, etc.
+minimum and maximum occupation numbers for each shell. As output,                  • 3 - continue a CI calculation, including more co­figurations (re­
+it writes the file CONF.INP, which includes a list of user-definable pa­             quires Kw=1)
+rameters and a list of relativistic co­figurations. A sample ADD.INP file
+is displayed in Fig. 2 for constructing a list of even-parity co­figura­         Note that for Kl=1,3 to work, the file CONFp.HIJ must have been
+tions for Fe16+ . A description of each parameter is d­fined after the ``#''     successfully written with Kw=1 in the original run. CONFp.HIJ stores
+symbol. A more detailed description of this program is given in Ref. [3].        a previously constructed Hamiltonian matrix, which must be read to
+                                                                                 continue a CI calculation. However, this file can be as big as 1 TB or
+4.3.2. pbasc                                                                     more for large systems, so it should not be used unless the user has an
+    After creating the co­figuration list, we pre-calculate the one- and         exceptionally large amount of available computational resources.
+two-electron radial integrals using the parallel program pbasc. These               The value of Ksig can take the following values:
+integrals are used by the proceeding parallel program pconf to form
+the Hamiltonian matrix in the CI space. The one-electron radial inte­              • 0 - pure CI
+grals correspond to the DF potential of the core, and the two-electron             • 1 - include one-electron corrections
+radial integrals account for the Coulomb, and optionally, Breit interac­           • 2 - include one- and two-electron corrections
+tion between the valence electrons. The matrix elements of the Coulomb
+interaction for the multipolarity 𝑘 can be written as                               The value of Kdsig can take the following values:
+
+⟨𝑐𝑑|𝑉𝑞𝑘 |𝑎𝑏⟩ ≡ 𝐺𝑞𝑘 (𝑐𝑎)𝐺𝑞𝑘 (𝑏𝑑)𝑅𝑘𝑎𝑏𝑐𝑑 ,                                  (11)      • 0 - automatic approximation of the energy dependence of the op­
+                                                                                     erator Σ(𝐸)
+where 𝐺𝑞𝑘 (𝑓 𝑖) are angular factors, or relativistic Gaunt coeﬃcients,
+                                                                                   • 1 - manually specify the energy 𝐸val to treat the energy dependence
+given by
+                                                                                     of Σ(𝐸)
+                               √
+𝐺𝑞𝑘 (𝑓 𝑖) = (−1)𝑚𝑓 +1∕2 𝛿𝑝      (2𝑗𝑖 + 1)(2𝑗𝑓 + 1)                                  The value of Kw can take the following values:
+                                  (               )(            )
+                                      𝑗𝑓    𝑗𝑖 𝑘      𝑗𝑓  𝑗𝑖  𝑘
+                                ×                                 ,      (12)      • 0 - do not write the files CONFp.HIJ and CONFp.JJJ
+                                     −𝑚𝑓 𝑚𝑖 𝑞        1∕2 −1∕2 0
+                                                                                   • 1 - write the files CONFp.HIJ and CONFp.JJJ
+𝑅𝑘𝑎𝑏𝑐𝑑 are the relativistic Coulomb radial integrals, and 𝛿𝑝 accounts for
+the parity selection rule                                                           The value of KLSJ can take the following values:
+
+
+                                                                             6
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                              Computer Physics Communications 308 (2025) 109463
+                                  # ADD.INP
+                                  Ncor= 2                      # number of reference configurations
+                                  NsvNR 49                     # number of allowed orbitals
+                                  mult= 2                      # multiplicity of excitations
+                                   NE = 8                      # number of valence electrons
+
+                                  L:         2s2   2p6         # reference configuration #1
+                                  L:         2s2   2p5   3p1   # reference configuration #2
+
+                                     2s 0 2     2p 0 6     3s 0 2     3p 0 6      3d 0 6     4s 0 2
+                                     4p 0 6     4d 0 6     4f 0 6     5g 0 6      5s 0 2     5p 0 6
+                                     5d 0 6     5f 0 6     6s 0 2     6p 0 6      6d 0 6     6f 0 6
+                                     6g 0 6     7s 0 2     7p 0 6     7d 0 6      7f 0 6     7g 0 6
+                                     8s 0 2     8p 0 2     8d 0 2     8f 0 2      8g 0 2     9s 0 2
+                                     9p 0 2     9d 0 2     9f 0 2     9g 0 2 10s 0 2 10p 0 2
+                                    10d 0 2 10f 0 2 10g 0 2 11s 0 2 11p 0 2 11d 0 2
+                                    11f 0 2 11g 0 2 12s 0 2 12p 0 2 12d 0 2 12f 0 2
+                                    12g 0 2 13s 0 2 13p 0 2 13d 0 2 13f 0 2 13g 0 2
+                                    14s 0 2 14p 0 2 14d 0 2 14f 0 2 14g 0 2 15s 0 2
+                                    15p 0 2 15d 0 2 15f 0 2 15g 0 2 16s 0 2 16p 0 2
+                                    16d 0 2 16f 0 2 16g 0 2 17s 0 2 17p 0 2 17d 0 2
+                                    17f 0 2 17g 0 2 18~s 0 2 18p 0 2 18d 0 2 18f 0 2
+                                    18g 0 2 19s 0 2 19p 0 2 19d 0 2 19f 0 2 19g 0 2
+                                    20s 0 2 20p 0 2 20d 0 2 20f 0 2 20g 0 2 21s 0 2
+                                    21p 0 2 21d 0 2 21f 0 2 21g 0 2 22s 0 2 22p 0 2
+                                    22d 0 2 22f 0 2 22g 0 2 23s 0 2 23p 0 2 23d 0 2
+                                    23f 0 2 23g 0 2 24s 0 2 24p 0 2 24d 0 2 24f 0 2
+                                    24g 0 2
+                                  >>>>>>>>>>>>> Head of the file CONF.INP >>>>>>>>>>>>>>>>>>>>>>>>
+                                    Fe16+_even
+                                    Z = 26.0        # atomic number
+                                   Am = 56.0        # atomic mass
+                                    J = 0           # total angular momentum
+                                   Jm = 0           # total angular momentum projection
+                                   Nso= 1           # number of core shells
+                                   Nc = 10          # number of configurations (placeholder)
+                                   Kv = 4           # key for diagonalization
+                                   Nlv= 5           # number of energy levels to compute
+                                   Ne = 8           # number of valence electrons
+                                   Kl4= 1           # key for initial approximation of eigenvectors
+                                   Nc4=999          # number of conf-s for initial approximation
+                                  Crt4= 0.0001      # convergence criterion for Davidson procedure
+                                  kout= 0           # key defining amount of output detail
+                                  Ncpt= 0           # number of conf-s to include in PT space
+                                  Cut0= 0.0001      # cutoff criterion for PT configurations
+                                  N_it= 50          # number of Davidson iterations
+                                  Kbrt= 2           # key for Breit interaction
+                                       0.1002       # list of core shells
+                                  ==================================================================
+
+
+Fig. 2. Contents of ADD.INP for even-parity co­figurations of Fe16+ . Parameters of the CONF.INP input file are d­fined in the comments to the right. Refer to
+Ref. [3] for more details on the parameters.
+
+
+   • 0 - do not calculate ⟨𝑆 2 ⟩, ⟨𝐿2 ⟩, or form approximate term symbols        the pconf program. A detailed description of the Hamiltonian matrix
+     for each energy level                                                       construction and its MPI implementation can be found in Ref. [2].
+   • 1 - calculate ⟨𝑆 2 ⟩, ⟨𝐿2 ⟩, and form approximate atomic term sym­             After the matrices are constructed, the pconf program enters the
+     bols for each energy level                                                  Davidson iterative procedure, where the Hamiltonian is diagonalized to
+                                                                                 obtain the spec­fied number of low-lying energy eigenvalues and eigen­
+    After reading the keys from ci.in, the pconf program reads the               vectors. The progress of the Davidson iterative procedure is written in
+general parameters and the list of co­figurations from the CONF.INP              the CONF.PRG file at each iteration. At selected intervals before the fi­
+                                                                                 nal iteration, the eigenvalues and eigenvectors are saved to CONF.XIJ.
+ﬁle. Next, information about the basis set is read from CONF.DAT, an­
+                                                                                 Each time CONF.XIJ is written on disk, a table of the energy levels is
+gular factors are read from CONF.GNT, radial integrals are read from
+                                                                                 appended to the file CONF.ENG, and tables of the top contributing con­
+CONF.INT, and optionally, eﬀective radial integrals are read from
+                                                                                 ﬁgurations for each level are appended to the file CONF.LVL.
+SGC.CON and SCRC.CON.                                                               Once the Davidson iterative procedure has converged, the final
+    Having read all required input files, the pconf program expands the          eigenvalues and eigenvectors are saved to CONF.XIJ, the final en­
+list of relativistic co­figurations into a list of determinants, and writes      ergy table is saved to FINAL.RES, the final list of the top contributing
+them to the file CONF.DET. With the list of determinants, it forms the           co­figurations for each level is saved to LEVELS.RES, and the con­
+Hamiltonian matrix and then the matrix of the operator 𝐽 2 . The con­            ﬁgurations along with their atomic term symbol, is written to the file
+struction of the Hamiltonian matrix is the most time-consuming part of           CONFSTR.RES.
+
+
+                                                                           7
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                         Computer Physics Communications 308 (2025) 109463
+    If polarizability calculations are required, the Hamiltonian matrix          – E1, E2, E3, M1, M2, M3, EDM, PNC, AM, MQM
+elements will have to be written to the file CONFp.HIJ by setting the
+key Kw=1 in ci.in. Note that depending on the size of the Hamiltonian,      Note that this key is optional and unnecessary for the core functionality
+this file could take up hundreds of GB to over 1 TB. By default, Kw=0 is    of pdtm. A table with the results for all calculated observables is written
+set to not write the Hamiltonian to disk. As a reference, polarizability    to the files DM.RES or TM.RES, regardless.
+calculations have typically been done with Hamiltonian sizes of up to 4          This program begins by reading the file CONF.INP for the system
+million determinants.                                                       parameters and the list of co­figurations. Then, the basis radial orbitals
+                                                                            are read from the file CONF.DAT, and radial integrals for all operators
+4.4. Matrix elements                                                        are calculated and written to the file DTM.INT. If this file already exists,
+                                                                            pdtm uses it and does not recalculate the radial integrals. If Mode =
+4.4.1. pdtm                                                                 Init, the file DTM.INT will be reconstructed regardless of whether or
+   The pdtm program calculates the matrix elements of one-electron op­      not the file already exists.
+erators between many-electron states, under the density (or transition)          For diagonal matrix elements, the list of determinants and eigen­
+matrix formalism. This formalism allows us to express the matrix ele­       vectors corresponding to the state of interest is read from the files
+ments between many-electron states via one-electron matrix elements.        CONF.DET and CONF.XIJ, respectively. For the non-diagonal matrix el­
+The pdtm program forms these reduced density (or transition) matrices       ements, the initial state is read from the file CONF.DET and CONF.XIJ,
+and calculates the reduced matrix elements. The following quantities        and the final state is read from the files CONF1.DET and CONF1.XIJ.
+can be calculated from this program:                                        The results of the diagonal and non-diagonal matrix elements are written
+                                                                            to the files DM.RES and TM.RES, respectively. Note that from Eq. (8),
+   • electron 𝑔 -factors                                                    for 𝑀 ′ = 𝑀 = 0, the respective 3𝑗 -symbol, and thus the reduced transi­
+   • magnetic dipole and electric quadrupole hype­fine structure con­       tion matrix, turns to zero if (𝐽 ′ + 𝐿 + 𝐽 ) is odd. To avoid such prob­
+     stants 𝐴 and 𝐵                                                         lems, one should use Jm ≠ 0 for at least one of the states |𝐽 𝑀⟩ or
+   • electric 𝐸𝑘 and magnetic 𝑀𝑘 multipole transition amplitudes,           |𝐽 ′ 𝑀 ′ ⟩.
+     where 𝑘 = 1, 2, 3 corresponds to the dipole, quadrupole, and oc­
+     tupole transitions                                                     4.4.2. pol
+   • nuclear spin independent parity nonconserving (PNC) amplitude              The pol program calculates the dc and ac polarizabilities of the spec­
+   • amplitude of the electron interaction with the P-odd nuclear           ified atomic states. The expression for electric-dipole ac polarizability at
+     anapole moment (AM)                                                    the frequency 𝜔 of the state |𝐽 𝑀⟩ can be written (in a.u.) as a sum over
+   • P, T-odd interaction of the electron electric dipole moment            unperturbed intermediate states 𝑛,
+   • amplitude of the electron interaction with the P, T-odd nuclear mag­
+     netic quadrupole moment                                                             ∑ (𝐸𝑛 − 𝐸)|⟨𝐽 𝑀|𝐷𝑧 |𝑛⟩|2
+                                                                            𝛼(𝜔) = 2                                ,                                  (14)
+                                                                                           𝑛    (𝐸𝑛 − 𝐸)2 − 𝜔2
+   The pdtm program takes in the input file dtm.in, which d­fines the
+parameters of the matrix element computation:                               where 𝐃 is an electric dipole moment operator and 𝐸 and 𝐸𝑛 are the
+                                                                            energies of the initial and intermediate states, respectively.
+       Mode = (DM, TM, Init)                                                   To find 𝛼 , we can rewrite Eq. (14) as
+       Levels = level_range (level_range_1)                                          ∑
+       Operators = (E1, M2, ...) (optional)                                 𝛼(𝜔) =    ⟨𝐽 𝑀|𝐷𝑧 |𝑛⟩ ⟨𝑛|𝐷𝑧 |𝐽 𝑀⟩
+                                                                                       𝑛
+                                                                                     [                         ]
+The value of Mode can take the following values:                                              1          1
+                                                                                 ×                 +             .                                     (15)
+                                                                                         𝐸𝑛 − 𝐸 + 𝜔 𝐸𝑛 − 𝐸 − 𝜔
+   • DM - form density matrix and calculate diagonal matrix elements           Then we use the Sternheimer [58] or Dalgarno-Lewis [59] method
+   • TM - form transition matrix and calculate non-diagonal matrix ele­     and solve the inhomogeneous equations
+     ments
+   • Init - create the file DTM.INT, which contains radial integrals for    (𝐻 − 𝐸 ± 𝜔) |𝛿𝜙± ⟩ = 𝐷𝑧 |𝐽 𝑀⟩,                                             (16)
+     all operators
+                                                                            to find |𝛿𝜙± ⟩,
+  The value of Levels takes in a range of levels depending on whether                   1
+                                                                            |𝛿𝜙± ⟩ =          𝐷 |𝐽 𝑀⟩
+Mode was spec­fied as DM or TM:                                                      𝐻 −𝐸 ±𝜔 𝑧
+                                                                                     ∑      1
+   • DM                                                                            =             |𝑛⟩⟨𝑛|𝐷𝑧 |𝐽 𝑀⟩                                        (17)
+                                                                                     𝑛
+                                                                                       𝐻  − 𝐸±𝜔
+     – initial_level final_level
+                                                                                                                                               ∑
+   • TM                                                                     where 𝐻 is the Hamiltonian and we used the closure relation 𝑛 |𝑛⟩⟨𝑛| =
+     – initial_level final_level initial_level_1 final_                     1. After that, the polarizability can be found as the sum of two matrix
+       level_1                                                              elements
+
+This can be left empty for the case of Mode = Init, where only              𝛼(𝜔) = ⟨𝐽 𝑀|𝐷𝑧 |𝛿𝜙+ ⟩ + ⟨𝐽 𝑀|𝐷𝑧 |𝛿𝜙− ⟩.                                    (18)
+the DTM.INT file needs to be written. The initial_level and fi­
+                                                                               If electrons in an atomic system are divided into valence and core
+nal_level correspond to the levels written to CONF.XIJ, while those
+                                                                            electrons, the polarizability can be divided accordingly as
+with ``_1'' correspond to levels in CONF1.XIJ.
+    The value of Operators takes in a list of operators to create addi­
+                                                                            𝛼 ≡ 𝛼𝑣 + 𝛼𝑐 ,
+tional files summarizing the results in a table:
+                                                                            where 𝛼𝑣 and 𝛼𝑐 are the valence and core contributions.
+   • DM                                                                        The pol program calculates only the valence polarizability 𝛼𝑣 . The
+     – GF, A_hf, B_hf                                                       core polarizability needs to be computed separately with a diﬀerent pro­
+   • TM                                                                     gram.
+
+
+                                                                        8
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                              Computer Physics Communications 308 (2025) 109463
+                               Table 2
+                               Results of a scalability test done using a 30-electron CI calculation using an 8𝑠𝑝𝑑𝑓 𝑔 basis set for the energies of
+                               Ir17+ [4]. The number of nodes, cores and the amount of memory per core (in GiB) is displayed in the column
+                               “Computational Resources''. The execution time for the construction of the Hamiltonian matrix (Construct),
+                               the Davidson iterative procedure (Davidson), and the total execution time (Total) are listed in the column
+                               “Time''. The speedup achieved for each parallel run is displayed in the column ``Speedup'', and is calculated
+                               from the base 1-node, 64-core run. Note that this calculation took about 2 weeks of execution time using the
+                               serial code [3,4].
+
+                                 Computational Resources                  Time                                    Speedup
+
+                                 nodes       cores   mem_per_core (GiB)   Construct       Davidson    Total       Construct      Davidson     Total
+
+                                 1           64      9.1                  4 h 32 m        28 m 56 s   5h3m        -              -            -
+                                 2           128     5.5                  2 h 15 m        16 m 27 s   2 h 32 m    2.02           1.76         1.98
+                                 4           256     3.7                  1h7m            9 m 57 s    1 h 18 m    4.05           2.91         3.84
+                                 8           512     2.8                  33 m 27 s       6 m 18 s    41 m 31 s   8.13           4.59         7.30
+                                 16          1024    2.4                  16 m 41 s       4 m 33 s    23 m 3 s    16.29          6.36         13.14
+                                 32          2048    2.1                  8 m 21 s        4m2s        14 m 57 s   32.55          7.17         20.26
+
+
+
+    Disregarding the vector polarizability, we can present the expression                     5. Scalability and eﬃciency of parallel codes
+for 𝛼(𝜔) as the sum of the scalar and tensor parts,
+
+                   3𝑀 2 − 𝐽 (𝐽 + 1)                                                                Large-scale CI calculations are typically run on large computing
+𝛼(𝜔) = 𝛼0 + 𝛼2                      .                                            (19)         clusters with large amounts of processors and memory. The parallel
+                     𝐽 (2𝐽 − 1)
+                                                                                              programs contained in the pCI software package utilize MPI to mas­
+The pol program gives both the scalar and tensor polarizabilities if the                      sively parallelize their most time-consuming algorithms. MPI allows for
+latter is not zero.                                                                           scalable parallelism over many distributed computing nodes in modern
+    This program requires several input files from previously run pconf                       parallel computing architectures. Details of the new algorithms used in
+and pdtm programs, including CONF.DET and CONF.XIJ of the par­                                the pCI package over the previous CI-MBPT package can be found in
+ity of the level of interest (renamed to CONF0.DET and CONF0.XIJ),                            Ref. [2]. In summary, the parallel codes utilize dynamic memory allo­
+CONF.INP, CONF.XIJ, CONF.HIJ, and CONF.JJJ of the opposite par­                               cations to optimize the memory footprint and dynamic load-balancing
+ity, and the file DTM.INT from pdtm.                                                          to optimize heavy workload calculations.
+    Note that the pconf program outputs CONFp.HIJ and CONFp.JJJ
+                                                                                                   To demonstrate the scalability and eﬃciency of the parallel codes,
+ﬁles, but not the CONF.HIJ and CONF.JJJ files. The only diﬀerence
+                                                                                              we conducted a scalability test using up to 32 nodes and 2048 computing
+between these files is that the former are not sorted and require the
+                                                                                              cores on the University of Delaware DARWIN computing cluster. As a
+additional sort program to process them in the latter.
+                                                                                              test case, we used a prior 30-electron CI calculation for low-lying Ir17+
+    The pol program requires a list of key-value parameters in a file
+                                                                                              energy levels. Details of this calculation can be found in Ref. [4]. We
+pol.in:
+                                                                                              used a short 8𝑠𝑝𝑑𝑓 𝑔 basis set and included 24 895 relativistic co­figura­
+                                                                                              tions (17 431 323 determinants) in the CI space. The Hamiltonian matrix
+       Mode = (0, 1)
+                                                                                              contained about 27.76×109 nonzero matrix elements, which were stored
+       Method = (0, 1, 2)
+                                                                                              in approximately 413.6 GiB of memory.
+       Level = (energy level index)
+                                                                                                   The results of the scalability test are shown in Table 2. They are
+       Ranges = (list of ranges of wavelengths)
+                                                                                              obtained from timing the main code sections in the program pconf:
+       IP1 = (dimension of initial matrix)
+                                                                                              the construction of the Hamiltonian and its diagonalization. We find
+    The value of Mode can take the following values:                                          a perfect linear speedup with the number of nodes and cores for the
+                                                                                              construction of the Hamiltonian matrix. However, the matrix diago­
+   • 0 - start a new calculation                                                              nalization does not perform as well because the Davidson procedure
+   • 1 - continue the calculation                                                             is iterative and has much more serial overhead. When many more cores
+                                                                                              take part in the calculation, the communication overhead also becomes
+    The value of Method can take the following values:                                        considerable and contributes to the lackluster speedup. However, de­
+                                                                                              spite the poor parallelism of the Davidson diagonalization procedure,
+   • 0 - invert the matrix and iterate if diverged                                            the total speedup drops to around 90% when running with 8 nodes and
+   • 1 - only invert the matrix                                                               to around 80% with 16 nodes. We find similar scalability in the other
+   • 2 - mod­fied iteration procedure where computation restarts af­                          parallel programs pbasc and pdtm.
+     ter every 2 iterations while retaining vectors (used in cases where                           Large-scale runs are typically done with less than 16 nodes due to
+     Method=0 diverges)                                                                       prohibitive memory requirements caused by the size of the CI space.
+                                                                                              Note that scalability and eﬃciency depend highly on the number of
+    The value of Level is the ordinal number of the vector in the                             Davidson iterations required to obtain the convergence of the en­
+CONF0.XIJ file corresponding to the energy level for which the user                           ergy levels. The construction of the Hamiltonian matrix does not af­
+wants to calculate the polarizability. The Ranges field takes in a list of                    fect the scalability as much, due to the implemented dynamic load­
+wavelength ranges with step size in the format (initial_wavelength                            balancing scheme [2]. We find that calculations where matrix construc­
+final_wavelength step_size), separated by commas. For exam­                                   tion dominates are more scalable than those where diagonalization dom­
+ple, the range ``0 0 0'' corresponds to calculations of dc polarizabilities,                  inates. Further work on the implemented matrix diagonalization scheme
+while ``500 505 0.5'' tells pol to calculate ac polarizabilities from                         has to be done to achieve a perfect linear speedup for higher node
+𝜆 = 500 nm to 𝜆 = 505 nm in steps of 0.5 nm. The value of IP1 sets the                        counts for diagonalization-dominated calculations. Matrix-construction­
+dimension of the initial approximation of the matrix (by default, this is                     dominated calculations are expected to perform well for a much higher
+set to IP1=15000).                                                                            number of cores but need to be tested on larger computational resource
+    An example of running the program pol is given in Sec. 8.                                 centers.
+
+
+                                                                                      9
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                          Computer Physics Communications 308 (2025) 109463
+                                             Table 3
+                                             Odd-parity energies of Fe16+ calculated with a small 12𝑠𝑝𝑑𝑓 𝑔 basis set for the first
+                                             5 levels with 𝐽 = 1. Energies are calculated from the even-parity 2𝑠2 2𝑝6 ground
+                                             state. The results are compared with experiment from Ref. [17] and Ref. [60]. All
+                                             energies are given in cm−1 .
+
+                                              Configuration        12𝑠𝑝𝑑𝑓 𝑔    Expt. [17]     Diff. [17]   Expt. [60]   Diff. [60]
+
+                                              2𝑠2 2𝑝5 3𝑠   3𝑃      5860927     5864239        0.05%        5864502      0.05%
+                                                              1
+                                              2𝑠2 2𝑝5 3𝑠   1
+                                                             𝑃1    5956909     5960977        0.06%        5960742      0.06%
+                                              2𝑠2 2𝑝5 3𝑑   3𝑃      6468748     -              -            6471640      0.03%
+                                                              1
+                                              2𝑠2 2𝑝5 3𝑑   3
+                                                             𝐷1    6550091     6552585        0.03%        6552503      0.03%
+                                              2𝑠2 2𝑝5 3𝑑   1𝑃      6658398     6661091        0.03%        6660770      0.03%
+                                                              1
+
+
+
+
+6. Calculation of Fe𝟏𝟔+ energies and 3C/3D ratio                                            available, one can allow J=0, Jm=0, Nlv=16, and Kv=4, to calculate
+                                                                                            the lowest 16 energy levels with any allowed value of 𝐽 . The next step
+   In this section, we showcase a sample wor­flow of the pCI software                       is to run the sequence of programs pbasc and pconf in the respective
+package, calculating the energies and 3C/3D oscillator strength ratios in                   even- and odd-parity directories. These are both parallel programs, so
+Fe16+ [16,17]. This method described here has also been used for cal­                       they have to be executed using the commands
+culations for other highly charged ions, such as Ni18+ [18]. Additional
+examples are available on the documentation website. By the end of this                           mpirun -n <nprocs> <executable>
+example, we will have our results organized in the following sample file
+directory:                                                                                  where <nprocs> spec­fies the number of MPI processes to use, and
+                                                                                            <executable> is the program, pbasc or pconf, to run. The pconf
+       Fe16+                                                                                program outputs the basis set of determinants to the CONF.DET file and
+           /basis           - contains basis set files                                      the wave functions to the CONF.XIJ file, which will be copied to the
+           /dtm             - contains matrix element files                                 /dtm directory to be used for matrix element calculations using the
+           /even            - contains even-parity CI files                                 pdtm program.
+           /odd             - contains odd-parity CI files                                      The final energies are tabulated in the files CONF.RES and FI­
+                                                                                            NAL.RES. We present the results of the pconf program for the first 5
+                                                                                            odd-parity levels with 𝐽 = 1 in Table 3. Our results are compared with
+6.1. Construction of basis set
+                                                                                            experimental values from Ref. [17] and Ref. [60]. Note that the sample
+                                                                                            calculation is done with a very small basis set of 12𝑠𝑝𝑑𝑓 𝑔 . Higher accu­
+    We begin the construction of the basis set for Fe16+ by first construct­
+                                                                                            racy at the level of 0.001% as in Ref. [17] can be attained by reaching
+ing the core and valence orbitals from solutions of the HFD equations
+                                                                                            basis set convergence by re-running the computations with larger basis
+using the hfd program, and then running the bass program to form
+                                                                                            sets until energy diﬀerences are small. Other corrections include increas­
+virtual orbitals to account for correlations. Following Ref [16], we con­
+                                                                                            ing the number of reference co­figurations, adding triple excitations, as
+struct a 24𝑠𝑝𝑑𝑓 𝑔 basis set, where the designation 24𝑠𝑝𝑑𝑓 𝑔 means that
+                                                                                            well as including QED contributions [17].
+all orbitals up to 𝑛 = 24 are included for the 𝑠𝑝𝑑𝑓 𝑔 partial waves. Here,
+the 1𝑠, 2𝑠, 3𝑠, 3𝑝, 4𝑠, 4𝑝, 4𝑑 , 4𝑓 , and 5𝑔 orbitals are constructed as DF
+                                                                                            6.3. Calculation of 3C/3D ratio
+orbitals, while all others in the basis set are constructed in the usual way
+using bass following Refs. [57,3]. A detailed description of the basis set
+                                                                                                In this section, we are interested in computing the oscillator strength
+construction can be found in the Fe16+ example page on the documenta­
+                                                                                            ratio of two of the brightest lines in Fe16+ , subject of a long-standing
+tion website: https://pci.readthedocs.io/en/latest/examples/hci.html.
+                                                                                            astrophysics puzzle that has recently been resolved [16]. In particu­
+This program outputs the final basis set to the HFD.DAT file, which will
+                                                                                            lar, we want to calculate the ratios of the oscillator strengths of the
+be used for all the following programs. At this point, the HFD.DAT file
+                                                                                            3C [2𝑝6 1 𝑆0 − 2𝑝5 3𝑑 1 𝑃1 ] and 3D [2𝑝6 1 𝑆0 − 2𝑝5 3𝑑 3 𝐷1 ] lines.
+should be copied or symlinked to the dtm, even, and odd directories.
+                                                                                                Before calculating the matrix elements, we have to copy or symlink
+                                                                                            the even-parity CONF.INP, CONF.DAT, CONF.DET, and CONF.XIJ files
+6.2. Calculation of energy levels                                                           as-is from the /even directory to the /dtm directory. From the /odd
+                                                                                            directory, we copy the CONF.DET and CONF.XIJ files to the /dtm di­
+    Before we can run the CI calculations, we must first construct an                       rectory, renaming them to CONF1.DET and CONF1.XIJ, respectively.
+even-parity and an odd-parity list of co­figurations that d­fine the CI                         The pdtm program takes in the input file dtm.in, where we can
+space for the pconf program. This is done using the add program with                        specify the parameters of the matrix element calculations.
+the ADD.INP input file for each parity, in their respective /even and
+/odd directories. Fig. 2 displays a sample even-parity ADD.INP file.                              # dtm.in
+    Here, we keep the 1𝑠 shell closed and allow all single and double                             Mode = TM
+excitations from the 8 valence electrons from the 2 reference co­figu­                            Levels = 1 1, 4 5
+rations 2𝑠2 2𝑝6 and 2𝑠2 2𝑝5 3𝑝, to the 109 orbitals listed, up to 24𝑠𝑝𝑑𝑓 𝑔 .                      Operators = E1
+From here on, we omit 1𝑠2 from co­figuration designations for brevity.
+An equivalent odd-parity ADD.INP file would have the same content,                          Here the first line Mode = TM indicates calculations of transition matrix
+with the reference co­figurations 2𝑠2 2𝑝5 3𝑠, 2𝑠2 2𝑝5 3𝑑 and 2𝑠2𝑝6 3𝑝, and                  elements. The second line tells the program to include the first en­
+the value of Ncor set to 3. Also note that the 3C and 3D lines are both                     ergy level (1 1) from CONF.XIJ, and the fourth and fifth energy levels
+𝐽 = 1 → 0 transitions, speciﬁcally transitions from the 4th and 5th low­                    (4 5) from CONF1.XIJ. The third line creates an additional output file
+est odd-parity 𝐽 = 1 states to the ground 𝐽 = 0 state. To minimize the                      E1.RES with a summary of the resulting 𝐸1 matrix elements.
+use of computational resources, we can specify J=1, Jm=1, Nlv=5, and                            The pdtm tabulates the 𝐸1 reduced matrix elements to the file
+Kv=3 to only compute the 5 lowest energy levels with 𝐽 = 1. These                           E1.RES. Here, we obtain the reduced matrix elements 𝐷(3D) = 0.17881
+changes can either be made in the CONF.INP file, or at the bottom of                        and 𝐷(3C) = 0.33539. We can then compute the 3C/3D oscillator
+the ADD.INP file. Alternatively, if enough computational resources are                      strength ratio
+
+
+                                                                                   10
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                          Computer Physics Communications 308 (2025) 109463
+                (           )2
+                    𝐷(3C)          Δ𝐸(3C)                                           system:
+𝑅(3C∕3D) =                       ×
+                    𝐷(3D)          Δ𝐸(3D)                                               bin_directory: ""
+where Δ𝐸 are the transition energies of the respective lines, to be 3.576.              generate_directories: True
+Despite using a small 12𝑠𝑝𝑑𝑓 𝑔 basis set, we find that our value agrees                 run_codes: True
+with recent experimental value of 3.51(2)stat (7)sys [16]. A more accurate              on_hpc: True
+ratio can be obtained from advanced techniques described at the end of                  pci_version: default
+the previous section.
+                                                                               The fields
+7. pCI-py scripts
+                                                                                 • system.bin_directory spec­fies a path to a directory of pCI
+    In addition to the source codes distributed in the pCI package, we             executable programs. If left blank, it is assumed the directories to
+also include additional Python helper scripts to automate the entire               the executable programs are in the user’s environment PATH.
+computational wor­flow of pCI. These were written to improve the re­             • system.generate_directories spec­fies whether or not to
+producibility of the results for the computations performed, as well as to         generate directories for calculations.
+make the overall pCI package more user-friendly. The included pCI-py             • system.run_codes spec­fies whether or not the pCI programs
+scripts also serve as a template for more complex calculations, allowing           should be run during the Python script execution. If set to False,
+users to customize them to fit their desired type of calculations. The in­         the scripts will only generate the input files for the respective pro­
+cluded scripts require Python v3.x, and depend on a single user-defined            grams.
+YAML co­figuration file config.yml.                                              • system.on_hpc spec­fies whether the user is running on an HPC
+    Users can set the parameters defining their system of interest in con­         environment. Setting this to True will create scripts that are sub­
+fig.yml, and run the various scripts to automate the respective pCI                mitted to the job scheduler (this is only compatible with the SLURM
+wor­flows. As an example, we will use a config.yml file used for au­               workload manager).
+tomated computations of neutral Sr. The results of these calculations            • system.pci_version spec­fies which version of pCI to use from
+are used to provide data for the University of Delaware Portal for High­           the HPC environment (this is relevant only for job scripts on HPC).
+Precision Atomic Data and Computation. Refer to the pCI Read the Docs
+for the latest documentation and changes for these scripts.                        The HPC parameters are in the hpc block and is read by all scripts
+    The main scripts include:                                                  if system.on_hpc is set True:
+
+ 1. basis.py - runs hfd and bass, and optionally, the CI+MBPT or               hpc:
+    CI+all-order programs.                                                         partition: large-mem
+ 2. ci.py - runs add, pbasc and pconf.                                             nodes: 1
+ 3. dtm.py - runs pdtm, and optionally, the programs to include the                tasks_per_node: 64
+    random phase approximation (RPA) correction to the matrix ele­                 submit_job: False
+    ments.
+ 4. pol.py - runs sort and pol                                                 The fields
+
+   There are also supplementary scripts that go beyond the scope of the          • hpc.partition spec­fies the name of the partition.
+pCI software package, including:                                                 • nodes spec­fies the number of nodes.
+                                                                                 • tasks_per_node spec­fies the number of tasks per node.
+ 1. upscale.py - upscales the CI computation from a spec­fied 𝑛𝑙 ba­             • submit_job spec­fies whether to submit the batch job or not.
+    sis to a larger 𝑛′ 𝑙′ basis. Details of the logic of this script can be
+    found in Appendix B.                                                       The job scripts generated by the included Python scripts are based on the
+ 2. isotope_shifts.py - automates isotope shift (IS) calculations              SLURM workload manager. Users can customize the gen_job_script.
+    from an already completed non-IS calculation.                              py script to suit their system.
+ 3. gen_portal_csv.py - compares results of CI computations to                    The atom parameters are in the atom block and is read by all scripts:
+    data from the NIST database, writing csv-formatted files.
+ 4. calc_lifetimes.py - generates csv-formatted data files of life­            atom:
+    times and transition rates from output of gen_portal_csv.py                    name: Sr
+                                                                                   isotope:
+7.1. config.yml                                                                    include_breit: True
+                                                                                   code_method: [ci+all-order, ci+second-order]
+   The config.yml file is a YAML-formatted co­figuration file that
+d­fines important parameters of the atomic system of interest. This con­       The fields
+ﬁguration file is divided into several blocks:
+                                                                                 • atom.name spec­fies the name of the atomic system of interest.
+   • system parameters                                                           • atom.isotope spec­fies the isotope number. If the isotope is spec­
+   • HPC parameters                                                                ified, the script will use the radius from the nuclear charge radii
+   • atom and method parameters                                                    table of Ref. [61]. If the spec­fied isotope number is not found in
+   • parameters used by basis programs (only read by basis.py)                     Ref. [61], or if this field is left blank, the radius of the isotope with
+   • parameters used by ci programs (only read by ci.py)                           mass closest to the standard atomic weight is used. This feature re­
+   • parameters used by matrix element programs (only read by dtm.py)              quires the atom.name field to contain a valid atomic symbol.
+   • parameters used by polarizability programs (only read by pol.py)            • atom.include_breit spec­fies whether or not to include the
+   • optional parameters defining types of calculations                            Breit interaction in calculations. This should be True or False.
+                                                                                 • atom.code_method spec­fies the calculation method to utilize.
+   The system parameters are in the system block and is read by all                Available options are ci, ci+all-order, and ci+second­
+Python scripts:                                                                    order for pure CI, CI+all-order, and CI+MBPT, respectively. Users
+
+
+                                                                          11
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                         Computer Physics Communications 308 (2025) 109463
+     can input [ci+all-order, ci+second-order] to run both                                       K_is: 1
+     CI+all-order and CI+MBPT calculations concurrently.                                         C_is: 0.01
+
+7.2. basis.py                                                                 where the fields
+
+   The basis.py script automates the basis set construction for the             • optional.qed block allows users to specify the inclusion of QED
+CI computations, which is described in detail in Sec. 4.2. By running             corrections (this requires the QED package included in the lib di­
+the script, the basis set programs are run, resulting in HFD.DAT, which           rectory).
+can be used by the next script for the CI calculations. In addition to the      • optional.isotope_shifts block allows users to specify iso­
+system block, it also reads the basis block:                                      tope shift calculations by switching the include value to True
+                                                                                  and specifying keys K_is and C_is. These keys are described in
+       basis:                                                                     more detail in Appendix E.
+           cavity_radius: 70
+           diagonalized: True                                                     The basis.py script also writes the standard output of the executa­
+           orbitals:                                                          bles to their respective *.out files, e.g. hfd standard output is written
+               core: 1s 2s 2p 3s 3p 3d 4s 4p                                  to the file hfd.out.
+               valence: 5s 5p 4d 6s 6p 5d 7s 7p 6d
+               nmax: 35                                                       7.3. ci.py
+               lmax: 5
+           b_splines:                                                            The ci.py script automates the CI method, which is described in
+               nmax: 40                                                       detail in Sec. 4.3. It reads the add.py block for information about the
+               lmax: 6                                                        co­figuration list:
+               k: 7
+           val_aov:                                                                add:
+               s: 5                                                                    ref_configs:
+               p: 5                                                                        odd: [5s1 5p1]
+               d: 5                                                                        even: [5s2]
+               f: 3                                                                    basis_set: 17spdfg
+           val_energies:                                                               orbitals:
+               kval: 1                                                                     core: 1s 2s 2p 3s 3p 3d 4s 4p
+               energies:                                                                   active: [
+                    s: -0.28000                                                                4-7p: 0 4,
+                    p: [-0.22000, -0.22000]                                                    4-7d: 0 4,
+                    d: [-0.31000, -0.31000]                                                    4-7f: 0 4,
+                    f: [-0.13000, -0.13000]                                                    5-7g: 0 4,
+                                                                                               ]
+where the fields                                                                       excitations:
+                                                                                           single: True
+   • basis.cavity_radius spec­fies the size of the spherical cavity                        double: True
+     in a.u.                                                                               triple: False
+   • basis.diagonalized spec­fies whether to diagonalize the basis
+     set or not.                                                              where the fields
+   • basis.orbitals spec­fies the core and valence orbitals to be in­
+     cluded in the basis. It also requires a maximum principal quantum          • add.ref_configs requires a list of reference co­figurations to
+     number nmax and maximum partial wave lmax for basis set orbital              excite electrons from to construct the list of co­figurations defin­
+     generation.                                                                  ing the CI space. The list will not be constructed if left blank for a
+   • basis.b_splines spec­fies the maximum principal quantum                      spec­fied parity.
+     number nmax (number of splines), maximum partial wave lmax,                • add.basis_set requires spec­fication of the basis set designated
+     and order of the splines k.                                                  by nspdfg, where n spec­fies the principal quantum number of the
+   • basis.val_aov spec­fies the number of valence orbitals to in­                highest orbital allowed, and spdfg spec­fies the inclusion of the
+     clude for each partial wave in the all-order computations.                   𝑠, 𝑝, 𝑑 , 𝑓 , and 𝑔 orbitals. Higher partial waves can be included by
+   • basis.val_energies spec­fies the energies of the valence or­                 appending to the end of the list h, i, k, etc.
+     bitals. kval=1 is the default choice, where energies are set to the        • add.orbitals allows full customization of the allowed orbital oc­
+     DHF energy of the lowest valence 𝑛 for the particular partial wave.          cupancies. In the example, 4-7p: 0 4 d­fines the (4 − 7)𝑝 shells
+     In this case, the field energies can be safely ignored. kval=2               to be open up to 4 occupancies.
+     allows spec­fied energies of the valence orbitals, but is only used        • add.excitations d­fines the types of excitations allowed by set­
+     when the all-order valence energies are severely divergent.                  ting the su­-fields to be True or False.
+
+    basis.py also reads the optional block:                                       Then it reads the conf block for parameters defining the CI execu­
+                                                                              tion itself:
+       optional:
+           qed:                                                                    conf:
+               include: False                                                          odd:
+                                                                                           J: 1.0
+              isotope_shifts:                                                              JM: 1.0
+                  include: False                                                           J_selection: False
+
+
+                                                                         12
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                        Computer Physics Communications 308 (2025) 109463
+                  num_energy_levels: 12                                        • dtm.DM d­fines job parameters for density matrix (DM) calcula­
+                  num_dvdsn_iterations: 50                                       tions, while dtm.TM d­fines job parameters for transition matrix
+              even:                                                              (TM) calculations.
+                  J: 0.0                                                       • dtm.*.matrix_elements d­fines operators to include RPA if
+                  JM: 0.0                                                        include_rpa = True. This value can be a single matrix element
+                  J_selection: False                                             or an array of matrix elements. In addition, a separate file *.RES
+                  num_energy_levels: 24                                          will be generated by pdtm for each operator listed here. For DM,
+                  num_dvdsn_iterations: 50                                       the operators include: GF, A_hf and B_hf. For TM, the operators
+              include_lsj: True                                                  include: E1_L, E1_V, E1, E2, E3, M1, M2, M3, EDM, PNC, AM, MQM.
+              write_hij: True                                                    To include multiple operators, list the operators in brackets, e.g.
+                                                                                 “[E1, M2]''.
+where for each parity, the fields                                              • dtm.*.level_range d­fines the level ranges to calculate matrix
+                                                                                 elements. The indices of each energy level can be found in the
+   • conf.parity.J d­fines the total angular momentum of the en­                 ﬁle FINAL.RES or CONF.RES generated by the pconf program.
+     ergy levels.                                                                DM calculations require one of the two parities (odd or even)
+   • conf.parity.JM d­fines the projection of the total angular mo­              to be filled with a level range. TM calculations require all fields
+     mentum.                                                                     TM.from.* and TM.to.* to be filled with the respective parities,
+   • conf.parity.J_selection d­fines whether to calculate energy                 as well as the initial and final level ranges of the transitions.
+     levels of a spec­fied 𝐽 d­fined by J and JM or not.
+   • conf.parity.num_energy_levels d­fines the number of en­                 7.5. pol.py
+     ergy levels to be calculated for the respective parity run.
+   • conf.parity.num_dvdsn_iterations d­fines the total num­                    The pol.py script automates polarizability calculations, which are
+     ber of Davidson iterations to allow for the respective parity run.      described in detail in Sec. 4.4.2. This script reads the pol block:
+
+and in general, the fields                                                        pol:
+                                                                                      parity: even
+                                                                                      level: 1
+   • conf.include_lsj d­fines whether the user wants the expecta­
+                                                                                      method: 1
+     tion values of the operators 𝐿2 and 𝑆 2 to be calculated.
+                                                                                      field_type: static, dynamic
+   • conf.write_hij d­fines whether the user wants the Hamiltonian
+                                                                                      wavelength_range: 1000 1000
+     matrix to be written to the file CONFp.HIJ.
+                                                                                      step_size: 0
+If system.generate_directories or system.run_codes is set to
+                                                                             where the fields
+True, the ci.py script will generate directories for the CI calculations
+based on the parity and 𝐽 value spec­fied. In the sample provided above,
+                                                                               • pol.parity spec­fies the parity of the state to calculate polariz­
+the directories odd1 and even0 will be generated for odd-parity calcu­           abilities for.
+lations for 𝐽 = 1 levels and even-parity calculations with 𝐽 = 0 levels,       • pol.level spec­fies the index of the state to calculate polarizabil­
+respectively.                                                                    ities for.
+                                                                               • pol.method spec­fies the method to calculate polarizabilities. This
+7.4. dtm.py                                                                      ﬁeld corresponds to the integer parameter Method described in
+                                                                                 Sec. 4.4.2.
+   The dtm.py script automates the matrix element calculations, which          • pol.field_type spec­fies calculations of static or dynamic po­
+are described in detail in Sec. 4.4.1. Speciﬁcally, this script prepares         larizabilities. Calculations of both can be done by setting this field
+directories for calculations with pdtm by moving the relevant input files        to [static, dynamic].
+from previous calculations to them. This script reads the dtm block:           • pol.wavelength_range spec­fies the range of wavelengths to
+                                                                                 calculate dynamic polarizabilities for.
+       dtm:                                                                    • pol.step_size spec­fies the step size of the range of wave­
+           include_rpa: True                                                     lengths.
+           DM:
+               matrix_elements:                                              7.6. Running the pCI-py scripts
+               level_range:
+                   odd:                                                          After co­figuring the config.yml file, running the CI computations
+                   even:                                                     becomes as simple as running 2 Python scripts: basis.py and ci.py.
+           TM:                                                               If matrix elements are required, then the additional dtm.py script can
+               matrix_elements: E1                                           be run. If polarizabilities are required, then the pol.py script can be
+               from:                                                         run as well.
+                   parity: odd                                                   Two sample config.yml files are included in the pCI software
+                   level_range: 1 3                                          package. The config_Fe16+.yml automates the pure-CI method for
+               to:                                                           the highly charged ion Fe16+ , while the config_Sr.yml automates
+                   parity: even                                              the CI+all-order and CI+second-order calculations to produce a large
+                   level_range: 1 1                                          volume of atomic data used by the University of Delaware Portal for
+                                                                             High-Precision Atomic Data and Computation.
+where the fields
+                                                                             8. Atomic properties of neutral Sr
+   • dtm.include_rpa d­fines whether the user would like to include
+     RPA corrections. Note that this option requires compilation of the          In this section, we demonstrate the usage of the pCI-py scripts de­
+     rpa and rpa-dtm programs.                                               scribed in the previous section to calculate energies, reduced 𝐸1 matrix
+
+
+                                                                        13
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                  Computer Physics Communications 308 (2025) 109463
+       Table 4                                                                             Table 5
+       Comparison of the reduced electric-dipole matrix elements (in                       Valence polarizabilities of Sr states 𝛼0 (5𝑠2 1 𝑆0 ), 𝛼0 (5𝑠5𝑝 3 𝑃0𝑜 ),
+       a.u.) obtained from pCI with previous theory [62] and experimen­                    and their diﬀerence, calculated with the pCI programs using
+       tal [63] values. The values displayed under ``pCI'' are obtained from               the CI+all-order approach. The columns ``pCI'' and ``Theory''
+       the CI+all-order approach, with uncertainty calculated as the dif­                  display dc polarizabilities, while the final column ``ac'' displays
+       ference between CI+all-order and CI+MBPT values.                                    calculated ac polarizabilities at 1000 nm. dc results are in a.u.,
+                                                                                           and compared with previous theory values of Ref. [62].
+         Transition           pCI            Theory [62]        Expt. [63]
+         3 𝑃 𝑜 -- 1 𝑆         0.155(4)       0.158              0.151(2)                     State               pCI              Theory [62]           ac
+            1        0
+         1 𝑃 𝑜 -- 1 𝑆         5.275(19)      5.272              5.248(2)
+            1        0                                                                       5𝑠2 1 𝑆0            192.78           192.51                242.97
+                                                                                             5𝑠5𝑝 3 𝑃0𝑜          455.06           452.55                186.34
+                                                                                             3 𝑜
+                                                                                              𝑃0 − 1 𝑆0          262.28           260.30
+elements, and static and dynamic polarizabilities of neutral Sr for the
+1 𝑆 state. Here, we will use the file config_Sr.yml sample co­figu­
+   0
+ration file included in the pCI distribution, which is displayed in parts           Project administration, Methodology, Investigation, Formal analysis,
+in Sec. 7.                                                                          Data curation, Conceptualization. Mikhail G. Kozlov: Writing -- review
+    We treat Sr as a divalent ion, constructing the basis set in the 𝑉 𝑁−2          & editing, Software, Methodology, Conceptualization. Sergey G. Por­
+approximation, where 𝑁 is the number of electrons. The basis.py                     sev: Writing -- review & editing, Software, Methodology, Conceptualiza­
+script will construct a basis set in both CI+all-order and CI+MBPT ap­              tion. Marianna S. Safronova: Writing -- review & editing, Validation,
+proximations, in their respective directories. Both are constructed as              Supervision, Software, Resources, Methodology, Funding acquisition,
+diagonalized basis sets in a spherical cavity radius of 70 a.u. The ini­            Conceptualization. Ilya I. Tupitsyn: Writing -- review & editing, Soft­
+tial HFD self-consistency procedure is carried out for the core 1𝑠, 2𝑠, 2𝑝,         ware, Methodology, Conceptualization. Andrey I. Bondarev: Writing
+3𝑠, 3𝑝, 3𝑑 , 4𝑠, and 4𝑝 orbitals, and then the valence 5𝑠, 5𝑝, 4𝑑 , 6𝑠, 6𝑝,         – review & editing, Validation, Software, Methodology, Conceptualiza­
+5𝑑 , 7𝑠, 7𝑝, and 6𝑑 orbitals are constructed in the frozen-core potential.          tion.
+The remaining virtual orbitals are formed using 40 B-spline orbitals of
+order 7, including partial waves up to 𝑙 = 5. The coupled-cluster equa­             Declaration of competing interest
+tions are then solved to all-order and to second-order in the respective
+directories. This basis set is stored in the file HFD.DAT, while correc­                The authors declare the following financial interests/personal rela­
+tions from all-order and MBPT are stored in the form of eﬀective radial             tionships which may be considered as potential competing interests:
+integrals in the files SGC.CON and SCRC.CON.                                        Marianna S. Safronova reports financial support was provided by Na­
+    Next, the ci.py script generates lists of co­figurations by exciting            tional Science Foundation. Mikhail G. Kozlov reports financial support
+electrons from the odd-parity 5𝑠5𝑝 and even-parity 5𝑠2 co­figurations to            was provided by Russian Science Foundation. If there are other authors,
+all orbitals up to 17𝑠𝑝𝑑𝑓 𝑔 , then run the CI computations. The energies            they declare that they have no known competing financial interests or
+and wave functions of the lowest 12 states with 𝐽 = 1 are calculated for            personal relationships that could have appeared to i­fluence the work
+the odd-parity CI run, and the lowest 24 with 𝐽 = 0 for the even-parity             reported in this paper.
+CI run.
+    The dtm.py script is then run to calculate 𝐸1 reduced matrix ele­               Acknowledgements
+ments, including RPA corrections. In config_Sr.yml we specify tran­
+sitions from the first 3 odd states to the first even state. We present the             We thank Jeﬀrey Frey from the University of Delaware IT-RCI group
+results of these computations for 3 𝑃1𝑜 − 1 𝑆0 and 1 𝑃1𝑜 − 1 𝑆0 in Table 4,         for helpful discussions and contributions to optimizing parts of the pCI
+and compare them with previous theory [62] and experimental [63]                    software package. We thank Julian Berengut for testing the core pCI
+values.                                                                             programs on an external computing cluster. We thank Walter Johnson
+    Finally, the pol.py script is run to calculate dc and ac valence                for the development of the nspl, bspl, tdhf and bdhf programs, as
+polarizabilities for the 1 𝑆0 state. We present these results in Table 5,           well joint development of the all-order package. The developments and
+along with that of 3 𝑃0𝑜 and the diﬀerence 𝛼(3 𝑃0𝑜 ) − 𝛼(1 𝑆0 ). These re­          calculations in this work were done through the use of IT resources at
+sults are compared with previous theory results from Ref. [62], which               the University of Delaware, speciﬁcally the high-performance Caviness
+uses the CI+all-order+RPA approach with a diﬀerent basis set. Note                  and DARWIN computer clusters. This work was supported by the US
+that only the valence polarizabilities are compared, with core-core and             NSF Grants No. OAC-2209639 and PHY-2309254. MK thanks Russian
+core-valence contributions neglected. The final column displays ac po­              Science Foundation, grant # 23-22-00079. AIB contributed to this work
+larizabilities for each state at 1000 nm. To calculate polarizabilities             prior to February 2022.
+for the 3 𝑃0𝑜 state, one has to set pol.parity to odd, then swap the
+values of conf.odd.J and conf.odd.JM with conf.even.J and                           Appendix A. CI+X extensions
+conf.even.JM. The ci.py script is re-run to calculate wave functions
+in the respective projections, and then pol.py is re-run to obtain po­                 The capabilities of the pCI software package can be extended to use
+larizabilities.                                                                     the CI+all-order and CI+MBPT methods. The all-order and MBPT meth­
+    As an extra test, one can calculate valence polarizabilities for the 3 𝑃1𝑜      ods include corrections to the bare Hamiltonian due to core shells, which
+state by setting conf.odd.J and conf.odd.JM to 1, conf.even.J                       can then be accounted for in the CI. The pCI software package includes
+and conf.even.JM to 0, and re-running pol.py. Doing so, we ob­                      an older Fortran 77 version of the all-order package [5], while a more
+tain scalar polarizability 𝛼0 (3 𝑃1 ) = 194.84 a.u., vector polarizability          modern Fortran 90 version is set to be released at a later time. The Read
+𝛼2 (3 𝑃1 ) = 23.45 a.u., and total ac polarizability 𝛼(3 𝑃1 ) = 218.29 a.u. at      the Docs page will be updated following the release of the modern all­
+𝜆 = 1000 nm. Higher precision of the polarizabilities can be attained               order package. A pCI-compatible MBPT package can be installed from
+by including core polarizabilities, which are calculated with a diﬀerent            Ref. [3], but users are recommended to use the included second-cis
+program not included in this work.                                                  program of the all-order package for CI+MBPT instead.
+
+CRediT authorship contribution statement                                            A.1. CI+all-order
+
+   Charles Cheung: Writing -- review & editing, Writing -- origi­                       The all-order label refers to the inclusion of a large number of terms
+nal draft, Visualization, Validation, Supervision, Software, Resources,             (second-, third-, fourth-order, etc.) in order-by-order many-body pertur­
+
+
+                                                                               14
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                               Computer Physics Communications 308 (2025) 109463
+                               Table 6
+                               List of the all-order programs and their input and output files. The columns ``Program'' and ``Description'' lists
+                               the names of the programs and their main capability, respectively. The column ``Input (text)'' lists user-defined
+                               text input files. The column ``Input (binary)'' lists binary input files that are themselves constructed from a
+                               program (the SGC.CON file is a text file). All programs write their results to standard output. The pCI-py scripts
+                               write outputs of the all-order programs to out.*.
+
+                                 Program           Description                                       Input (text)       Input (binary)     Output
+                                             a                                                                      b
+                                 tdhf/bdhf         Solves HFD equations                              bas_wj.in                             fort.1
+                                             a
+                                 nspl/bspl         Produces B-spline basis                                              fort.1             hfspl.1
+                                                                                                                                           hfspl.2
+
+                                 bas_wj            Converts B-spline basis to pCI basis format                          hfspl.1            WJ.DAT
+                                                                                                                        hfspl.2
+
+                                 bas_x             Converts pCI basis to all-order format                               HFD.DAT            hfspl.1
+                                                                                                                                           hfspl.2
+
+                                 allcore-ci        Calculates core-core excitations                  inf.aovb           hfspl.1            pair.3
+                                                                                                                        hfspl.2
+
+                                 valsd-ci          Calculates core-valence excitations               inf.aovb           hfspl.1            val2
+                                                                                                                        hfspl.2            sigma
+                                                                                                                        pair.3
+
+                                 sdvw-ci           Calculates valence-valence excitations            inf.aovb           hfspl.1            pair.vw
+                                                                                                                        hfspl.2            sigma1
+                                                                                                                        val2
+                                                                                                                        pair.3
+
+                                 second-ci         Calculates second-order MBPT corrections          inf.vwb            hfspl.1            SGC.CON
+                                                                                                                        hfspl.2            SCRC.CON
+                                                                                                                        sigma1
+                                                                                                                        pair.vw
+                                                                                                                        HFD.DAT
+                                a
+                                    Program starting with ``b'' includes Breit corrections.
+                                b
+                                    Program reads these files as standard input. These are the input files generated by the basis.py script.
+
+
+bation theory expansion using the iterative solutions until suﬃcient nu­                         to reproduce core and lower valence stats with high enough accuracy
+merical convergence is achieved. The included all-order package imple­                           for heavier atoms. Therefore, the core and a few valence electron wave
+ments a variant of the linearized coupled-cluster single double (LCCSD)                          functions are taken from Dirac-Hartree-Fock (DHF), and a combined ba­
+method. This version of CC has been developed speciﬁcally for atoms                              sis with splines is built. More splines will mean a larger basis for the
+fully utilizing atomic symmetries and is capable of being eﬃciently run                          CI as well, so we would like to avoid this. As the CI and all-order code
+with very large basis sets (over 1000 orbitals), reaching negligible nu­                         packages were originally developed separately, they use basis sets in dif­
+merical uncertainty associated with the choice of basis set. Formulas can                        ferent formats. The CI programs use HFD.DAT and all-order programs
+be found in Ref. [5].                                                                            use hfspl.1 and hfspl.2 files. The program bas_wj converts the all­
+    The all-order package consists of four codes: allcore-ci, valsd­                             order formatted hfspl.1 and hfspl.2 to the CI formatted HFD.DAT
+ci, sdvw-ci, and second-ci. The allcore-ci, valsd-ci, and                                        format, while the program bas_x converts them the other way around.
+sdvw-ci programs calculate core-core, core-valence, and valence­                                 Note that the bas_wj program produces the HFD.DAT formatted file
+valence excitations, respectively. The second-ci program calculates                              called WJ.DAT.
+corrections in second-order MBPT, but for a much larger part of the                                  The construction of the basis set for CI+all-order or CI+MBPT calcu­
+Hamiltonian than the all-order codes, since high accuracy is not re­                             lations follows the general recipe:
+quired for corrections associated with higher orbitals.
+    If the all-order calculation was carried out, it will overwrite the                           1. Produce B-splines
+second-order results with the all-order results where available. Such                                (a) tdhf < bas_wj.in - solves HFD equations in all-order for­
+overlay of the MBPT and the all-order parts drastically improves the                                     mat
+eﬃciency of the method. Note that second-ci can also be run as a stan­                               (b) bspl40 < spl.in - produces B-spline basis
+dalone program, replacing the MBPT programs of the 2015 CI-MBPT.                                  2. hfd - solves DHF equations in CI format
+These codes store the resulting data in SGC.CON and SCRC.CON. The                                 3. bas_wj - converts B-spline basis to CI basis format (WJ.DAT)
+SGC.CON file is typically small, whereas SCRC.CON can take up to a                                4. bass - builds combined basis from HFD.DAT and WJ.DAT
+few GB in size.                                                                                   5. bas_x - convert combined basis from CI format to all-order format
+    Table 6 displays a list of the all-order programs and their input and                         6. Run all-order or MBPT codes
+output files. The runtimes of the all-order programs are dependent on
+the atom size, from a few minutes to nearly a day for the included F77                              The Python scripts described in Sec. 7 follow the above recipe to
+version.                                                                                         construct the basis set and run the all-order and MBPT programs. A more
+                                                                                                 detailed description of this recipe and the corresponding programs can
+A.2. Basis sets for CI+all-order                                                                 be found on the pCI Read the Docs.
+
+    For the CI+all-order and CI+MBPT methods, basis sets are con­                                A.3. CI+MBPT
+structed using a combination of HFD orbitals and B-splines to accommo­
+date a large number of orbitals. However, one needs too many B-splines                              See Ref. [3] for details on the CI-MBPT package.
+
+
+                                                                                         15
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                           Computer Physics Communications 308 (2025) 109463
+Appendix B. Upscaling the basis set                                               • 3 - SE local potential from Ref. [65]
+                                                                                  • 4 - QEDPOT from Ref. [66]
+    The typical endpoint of the pCI wor­flow is to converge the en­               • 5 - Semi-empirical potential from Ref. [67]
+ergies obtained from the pconf program for the basis set. This may
+involve many computations with increasing principal quantum number                 The input parameters for qed_rot are
+𝑛 or higher partial waves 𝑙 . However, users may find that their next CI
+computation will become intractable on their computing system. In this            • Kdg - (1 - general diagonalization, 2 - first-order diagonalization)
+case, users can employ a technique we call upscaling the basis set. This          • Ksg - (1 - do not include QED, 2 - include QED)
+involves reducing the size of the CI space of a previous calculation by se­       • Kbrt - (0 - no Breit, 1 - Gaunt, 2 - Full Breit)
+lecting only the most important co­figurations and removing all others
+from the list. We d­fine the importance of a co­figuration Ψ𝑖 by their              The optional.qed block of the basis.py script allows users to
+                ∑𝑁
+                 𝑖
+weight 𝑤𝑖 = 𝑗=1    |𝑐𝑖,𝑗 |2 , where 𝑁𝑖 is the number of determinants in con­    specify inclusion of QED corrections when constructing the basis set.
+ﬁguration 𝑖. A logarithmic cutoff 𝑥 is chosen by balancing the number           It generates and runs a bash script batch.qed, which runs the pro­
+of co­figurations obtained by removing those below the cutoff with the          grams qedpot_conf and qed_rot and creates the corresponding input
+subsequent energy diﬀerence between the direct run and the cut run.             ﬁles.
+𝑥 is typically chosen so that the resulting energy diﬀerence is minimal
+for any resulting energy level. This energy diﬀerence is then subtracted        Appendix E. Isotope shifts
+from the results of subsequent CI calculations involving higher 𝑛 or 𝑙 .
+                                                                                    To run isotope shift calculations, the entire pCI wor­flow is essen­
+    This requires the con_cut and merge_ci codes of the CI-MBPT
+                                                                                tially repeated several times, varying the key C_is, which d­fines the
+code package. See Ref. [3] for information on how to install them.
+                                                                                isotope shift perturbation. The type of isotope shift calculation is de­
+                                                                                ﬁned by the key K_is. For specific mass shift calculations, there is an
+Appendix C. RPA corrections
+                                                                                additional key Klow, which determines the method for calculating the
+                                                                                matrix elements of the Hamiltonian. These keys are set in the input
+    The optional RPA programs calculate RPA corrections to the matrix
+                                                                                ﬁles HFD.INP, BASS.INP and CONF.INP. These keys are described
+elements. First, the rpa program solves RPA equations, calculates radial
+                                                                                here:
+integrals of the eﬀective operators and writes them to files RPA_n.INT,
+where the n=1-13 numerates one-electron operators in the same order
+                                                                                  • K_is d­fines the type of isotope shift calculation
+as they are listed in the block RPA of the file MBPT.INP. This program
+                                                                                    – 0 - no isotope shift
+reads three blocks of the file MBPT.INP, namely MBPT, Eval, and RPA.
+                                                                                    – 1 - field shift
+    After rpa is complete, the rpa_dtm program rewrites the radial
+                                                                                    – 2 - specific mass shift
+integrals from the RPA_n.INT files to the DTM.INT file, which can sub­
+                                                                                    – 3 - normal mass shift
+sequently be used by the pdtm program to calculate matrix elements. In
+                                                                                    – 4 - total mass shift (sum of K_is=2 and K_is=3)
+this way, we take into account the RPA corrections and find matrix ele­
+                                                                                  • C_is d­fines the isotope shift perturbation
+ments of the eﬀective operators. Note that before running rpa_dtm, the
+                                                                                  • Klow d­fines the method for calculating the matrix elements of the
+ﬁle DTM.INT has to be constructed by the pdtm program. This is sim­
+                                                                                    mass-shift Hamiltonian
+ply done by running pdtm using the Mode=Init option. More details
+                                                                                    – 0 - nonrelativistic form of the Hamiltonian, the lower component
+of the programs rpa and rpa_dtm can be found in Ref. [3].
+                                                                                      of the Dirac bispinor is not taken into account
+    Once the RPA corrections have been inserted into DTM.INT, pdtm
+                                                                                    – 1 - nonrelativistic form of the Hamiltonian, the lower component
+has to be run again. This time, the program calculates matrix elements
+                                                                                      of the Dirac bispinor is taken into account
+between spec­fied energy levels with RPA corrections.
+                                                                                    – 2 - relativistic form of the Hamiltonian, the lower component of
+                                                                                      the Dirac bispinor is taken into account
+Appendix D. QED corrections
+                                                                                    Note that for suﬃcient accuracy of the isotope shift calculations,
+    The optional QED programs include QED corrections in the CI cal­
+                                                                                it is important to compile the programs pbasc and pconf with ar­
+culations in the form of eﬀective radial integrals via the file SGC.CON,
+                                                                                rays of two-electron radial integrals set to the real(double preci­
+similar to how MBPT and all-order corrections are included. Inclusion
+                                                                                sion) datatype, rather than the default real(single precision).
+of QED corrections requires three extra programs, sgc0, qed_rot and
+                                                                                This can be done by changing the value of the type2_real parame­
+qedpot_conf, which can be compiled in the lib directory.
+                                                                                ter in the params.f90 file from sp to dp. A correct compilation of this
+    The sgc0 program is first run to generate an empty SGC.CON file.
+                                                                                can be co­firmed by looking at the title of the output files BASC.RES
+The qedpot_conf program uses the empty SGC.CON file as a template,
+                                                                                and CONF.RES, which should mention ``double precision for 2e
+and writes QED corrections to the file SGCqed.CON as one-electron ef­
+                                                                                integrals''.
+fective radial integrals, if they are nonzero.
+                                                                                    Repeating the entire pCI wor­flow manually can be very time­
+    The qed_rot program rotates the orbitals by diagonalizing the HFD
+                                                                                consuming and error-prone. Instead, users can use the pCI-py scripts
+Hamiltonian using the one-electron QED matrix elements calculated by
+                                                                                to automate isotope shift calculations. This is done simply by setting
+qedpot_conf. This process iterates until the change in the core orbitals
+                                                                                the optional.isotope_shifts block in the config.yml file.
+converges.
+    By default, qedpot_conf reads the basis functions from the file                  optional:
+CONF.DAT and uses the QEDMOD potential [64] for calculating the                          isotope_shifts:
+matrix elements. Other options can be spec­fied in the input file qed­                       include: True
+pot.inp, where the file for basis functions (e.g., HFD.DAT) and the key                      K_is: 1
+kvar, which determines the variant of the QED potential used, should                         C_is: 0.01
+be provided. The possible values of this key are described here:
+                                                                                By setting optional.isotope_shifts.include to True, the script
+   • 1 - QEDMOD from Ref. [64] (default value)                                  will automatically generate directories for isotope shift calculations in
+   • 2 - Self-energy (SE) local potential from Ref. [65] + non-local cor­       the stage basis.py. For the sample above, the basis.py script will
+     rection from Ref. [64]                                                     generate the following file directory:
+
+
+                                                                           16
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                                 Computer Physics Communications 308 (2025) 109463
+       config.yml                                                                               [12] A. Heinz, A.J. Park, N. Šantić, J. Trautmann, S.G. Porsev, M.S. Safronova, I. Bloch,
+       basis.py                                                                                      S. Blatt, State-dependent optical lattices for the strontium optical qubit, Phys. Rev.
+                                                                                                     Lett. 124 (20) (2020) 203201, https://doi.org/10.1103/PhysRevLett.124.203201.
+       ...
+                                                                                                [13] A.I. Bondarev, M. Tamanis, R. Ferber, G. Başar, S. Kröger, M.G. Kozlov, S. Fritzsche,
+       /IS                                                                                           Comparison of theory and experiment for radiative characteristics in neutral
+           /minus0.01                                                                                thulium, Phys. Rev. A 109 (2024) 012815, https://doi.org/10.1103/PhysRevA.109.
+           /minus0.005                                                                               012815, https://link.aps.org/doi/10.1103/PhysRevA.109.012815.
+           /0                                                                                   [14] M.S. Safronova, C. Cheung, M.G. Kozlov, S.E. Spielman, N.D. Gibson, C.W. Walter,
+                                                                                                     Predicting quasibound states of negative ions: La− as a test case, Phys. Rev. A 103
+           /plus0.005                                                                                (2021) 022819, https://doi.org/10.1103/PhysRevA.103.022819.
+           /plus0.01                                                                            [15] C.W. Walter, S.E. Spielman, R. Ponce, N.D. Gibson, J.N. Yukich, C. Cheung, M.S.
+                                                                                                     Safronova, Observation of an electric quadrupole transition in a negative ion: ex­
+    Repeating with K_is=2 will generate the SMS directory in the root                                periment and theory, Phys. Rev. Lett. 126 (2021) 083001, https://doi.org/10.1103/
+                                                                                                     PhysRevLett.126.083001.
+directory, etc.
+                                                                                                [16] S. Kühn, C. Cheung, N.S. Oreshkina, R. Steinbrügge, M. Togawa, S. Bernitt, L.
+    Typically, one starts with a normal CI computation without isotope                               Berger, J. Buck, M. Hoesch, J. Seltmann, F. Trinter, C.H. Keitel, M.G. Kozlov,
+shifts to check the accuracy of energy levels or other properties before                             S.G. Porsev, M.F. Gu, F.S. Porter, T. Pfeifer, M.A. Leutenegger, Z. Harman, M.S.
+starting isotope shift calculations. In this case, users can use the iso­                            Safronova, J.R.C. López-Urrutia, C. Shah, New measurement resolves key astrophys­
+                                                                                                     ical Fe XVII oscillator strength problem, Phys. Rev. Lett. 129 (2022) 245001, https://
+tope_shifts.py script to change the K_is, C_is and Klow values
+                                                                                                     doi.org/10.1103/PhysRevLett.129.245001.
+from some previously completed 0 directory. This script simply takes                            [17] C. Shah, M. Togawa, M. Botz, J. Danisch, J.J. Goes, S. Bernitt, M. Maxton, K. Köbnick,
+the input files and changes the values of the relevant keys and reruns                               J. Buck, J. Seltmann, M. Hoesch, M.F. Gu, F.S. Porter, T. Pfeifer, M.A. Leutenegger,
+the programs. The isotope_shifts.py program asks the user to in­                                     C. Cheung, M.S. Safronova, J.R.C. López-Urrutia, High-precision transition energy
+put the K_is and C_is values at runtime, then asks if they would like                                measurements of neon-like Fe XVII ions, Astrophys. J. 969 (1) (2024) 52, https://
+                                                                                                     doi.org/10.3847/1538-4357/ad454b.
+to generate the basis set (basis), run the CI calculation (ci) or analyze
+                                                                                                [18] C. Shah, S. Kühn, S. Bernitt, R. Steinbrügge, M. Togawa, L. Berger, J. Buck, M.
+the resulting data (analysis). The analysis option retrieves the en­                                 Hoesch, J. Seltmann, M.G. Kozlov, S.G. Porsev, M.F. Gu, F.S. Porter, T. Pfeifer,
+ergy levels from each isotope shift directory, then creates a csv file with                          M.A. Leutenegger, C. Cheung, M.S. Safronova, J.R. Crespo López-Urrutia, Natural­
+each energy level and its calculated isotope shift value. The script cal­                            linewidth measurements of the 3𝐶 and 3𝐷 soft-x-ray transitions in Ni xix, Phys. Rev.
+                                                                                                     A 109 (2024) 063108, https://doi.org/10.1103/PhysRevA.109.063108.
+culates field shifts in units GHz/fm2 , and mass shifts in units GHz⋅amu.
+                                                                                                [19] S.G. Porsev, U.I. Safronova, M.S. Safronova, P.O. Schmidt, A.I. Bondarev, M.G. Ko­
+                                                                                                     zlov, I.I. Tupitsyn, C. Cheung, Optical clocks based on the Cf 15+ and Cf 17+ ions,
+Data availability                                                                                    Phys. Rev. A 102 (2020) 012802, https://doi.org/10.1103/PhysRevA.102.012802.
+                                                                                                [20] S.G. Porsev, C. Cheung, M.S. Safronova, Low-lying energy levels of 229 Th35+ and
+                                                                                                     the electronic bridge process, Quantum Sci. Technol. 6 (3) (2021) 034014, https://
+   I have shared the link to my code in the manuscript as well as in the                             doi.org/10.1088/2058-9565/ac08f1.
+Attach File step.                                                                               [21] M.G. Kozlov, M.S. Safronova, J.R. Crespo López-Urrutia, P.O. Schmidt, Highly
+                                                                                                     charged ions: optical clocks and applications in fundamental physics, Rev. Mod.
+                                                                                                     Phys. 90 (4) (2018) 045005, https://doi.org/10.1103/RevModPhys.90.045005.
+References
+                                                                                                [22] X. Zhang, M. Bishof, S.L. Bromley, C.V. Kraus, M.S. Safronova, P. Zoller, A.M. Rey,
+                                                                                                     J. Ye, Spectroscopic observation of SU(N)-symmetric interactions in Sr orbital mag­
+ [1] M. Safronova, W. Johnson, All-Order Methods for Relativistic Atomic Structure Cal­              netism, Science 345 (2014) 1467, https://doi.org/10.1126/science.1254978.
+     culations, Advances in Atomic, Molecular, and Optical Physics, vol. 55, Academic           [23] S.G. Porsev, M.S. Safronova, A. Derevianko, C.W. Clark, Long-range interaction co­
+     Press, 2008, pp. 191--233.                                                                      eﬃcients for ytterbium dimers, Phys. Rev. A 89 (2014) 012711, https://doi.org/10.
+ [2] C. Cheung, M. Safronova, S. Porsev, Scalable codes for precision calculations of                1103/PhysRevA.89.012711.
+     properties of complex atomic systems, Symmetry 13 (4) (2021), https://doi.org/             [24] M.S. Safronova, S.G. Porsev, C.W. Clark, Ytterbium in quantum gases and atomic
+     10.3390/sym13040621.                                                                            clocks: van der Waals interactions and blackbody shifts, Phys. Rev. Lett. 109 (2012)
+ [3] M. Kozlov, S. Porsev, M. Safronova, I. Tupitsyn, CI-MBPT: a package of programs                 230802, https://doi.org/10.1103/PhysRevLett.109.230802.
+     for relativistic atomic calculations based on a method combining co­figuration in­         [25] A. Aeppli, K. Kim, W. Warfield, M.S. Safronova, J. Ye, Clock with 8 × 10−19 sys­
+     teraction and many-body perturbation theory, Comput. Phys. Commun. 195 (2015)                   tematic uncertainty, Phys. Rev. Lett. 133 (2024) 023401, https://doi.org/10.1103/
+     199--213, https://doi.org/10.1016/j.cpc.2015.05.007.                                            PhysRevLett.133.023401.
+ [4] C. Cheung, M.S. Safronova, S.G. Porsev, M.G. Kozlov, I.I. Tupitsyn, A.I. Bondarev,         [26] S. Eustice, D. Filin, J. Schrott, S. Porsev, C. Cheung, D. Novoa, D.M. Stamper-Kurn,
+     Accurate prediction of clock transitions in a highly charged ion with complex elec­             M.S. Safronova, Optical telecommunications-band clock based on neutral titanium
+     tronic structure, Phys. Rev. Lett. 124 (2020) 163001, https://doi.org/10.1103/                  atoms, Phys. Rev. A 107 (2023) L051102, https://doi.org/10.1103/PhysRevA.107.
+     PhysRevLett.124.163001.                                                                         L051102.
+ [5] M.S. Safronova, M.G. Kozlov, W.R. Johnson, D. Jiang, Development of a                      [27] C. Sanner, N. Huntemann, R. Lange, C. Tamm, E. Peik, M.S. Safronova, S.G. Porsev,
+     configuration-interaction plus all-order method for atomic calculations, Phys. Rev.             Optical clock comparison for Lorentz symmetry testing, Nature 567 (7747) (2019)
+     A 80 (2009) 012516, https://doi.org/10.1103/PhysRevA.80.012516.                                 204--208, https://doi.org/10.1038/s41586-019-0972-2, arXiv:1809.10742.
+ [6] G. Kestler, K. Ton, D. Filin, C. Cheung, P. Schneeweiss, T. Hoinkes, J. Volz, M.           [28] G. Cerchiari, A. Kellerbauer, M.S. Safronova, U.I. Safronova, P. Yzombard, Ultracold
+     Safronova, A. Rauschenbeutel, J. Barreiro, State-insensitive trapping of alkaline­              anions for high-precision antihydrogen experiments, Phys. Rev. Lett. 120 (2018)
+     earth atoms in a nanofiber-based optical dipole trap, PRX Quantum 4 (2023) 040308,              133205, https://doi.org/10.1103/PhysRevLett.120.133205.
+     https://doi.org/10.1103/PRXQuantum.4.040308.                                               [29] T. Pruttivarasin, M. Ramm, S.G. Porsev, I.I. Tupitsyn, M.S. Safronova, M.A. Ho­
+ [7] K. Zhang, D. Studer, F. Weber, V.M. Gadelshin, N. Kneip, S. Raeder, D. Budker, K.               hensee, H. Häffner, Michelson-Morley analogue for electrons using trapped ions
+     Wendt, T. Kieck, S.G. Porsev, C. Cheung, M.S. Safronova, M.G. Kozlov, Detection of              to test Lorentz symmetry, Nature 517 (7536) (2015) 592--595, https://doi.org/10.
+     the lowest-lying odd-parity atomic levels in actinium, Phys. Rev. Lett. 125 (2020)              1038/nature14091, arXiv:1412.2194.
+     073001, https://doi.org/10.1103/PhysRevLett.125.073001.                                    [30] A. Banerjee, D. Budker, M. Filzinger, N. Huntemann, G. Paz, G. Perez, S. Porsev,
+ [8] S.G. Porsev, C. Cheung, M.S. Safronova, Calculation of energies and hyperfine­                  M. Safronova, Oscillating nuclear charge radii as sensors for ultralight dark matter,
+     structure constants of 233 U+ and 233 U, Phys. Rev. A 106 (2022) 042810, https://               arXiv:2301.10784, 2023.
+     doi.org/10.1103/PhysRevA.106.042810.                                                       [31] G. Barontini, L. Blackburn, V. Boyer, F. Butuc-Mayer, X. Calmet, J.R. Crespo López­
+ [9] E.B. Norrgard, D.S. Barker, S.P. Eckel, S.G. Porsev, C. Cheung, M.G. Kozlov, I.I. Tupit­        Urrutia, E.A. Curtis, B. Darquié, J. Dunningham, N.J. Fitch, E.M. Forgan, K. Georgiou,
+     syn, M.S. Safronova, Laser spectroscopy of the 𝑦 7 𝑃𝐽𝑜 states of Cr I, Phys. Rev. A 105         P. Gill, R.M. Godun, J. Goldwin, V. Guarrera, A.C. Harwood, I.R. Hill, R.J. Hendricks,
+     (2022) 032812, https://doi.org/10.1103/PhysRevA.105.032812.                                     M. Jeong, M.Y.H. Johnson, M. Keller, L.P. Kozhiparambil Sajith, F. Kuipers, H.S. Mar­
+[10] S.G. Porsev, M.G. Kozlov, M.S. Safronova, I.I. Tupitsyn, Development of the                     golis, C. Mayo, P. Newman, A.O. Parsons, L. Prokhorov, B.I. Robertson, J. Rodewald,
+     configuration-interaction + all-order method and application to the parity­                     M.S. Safronova, B.E. Sauer, M. Schioppo, N. Sherrill, Y.V. Stadnik, K. Szymaniec,
+     nonconserving amplitude and other properties of Pb, Phys. Rev. A 93 (1) (2016)                  M.R. Tarbutt, R.C. Thompson, A. Toﬀul, J. Tunesi, A. Vecchio, Y. Wang, S. Worm,
+     012501, https://doi.org/10.1103/PhysRevA.93.012501.                                             Measuring the stability of fundamental constants with a network of clocks, EPJ Quan­
+[11] T.L. Nicholson, S.L. Campbell, R.B. Hutson, G.E. Marti, B.J. Bloom, R.L. McNally,               tum Technol. 9 (1) (2022) 12, https://doi.org/10.1140/epjqt/s40507-022-00130-5.
+     W. Zhang, M.D. Barrett, M.S. Safronova, G.F. Strouse, W.L. Tew, J. Ye, Systematic          [32] A.I. Bondarev, J.H. Gillanders, C. Cheung, M.S. Safronova, S. Fritzsche, Calculations
+     evaluation of an atomic clock at 2 × 10−18 total uncertainty, Nat. Commun. 6 (2015)             of multipole transitions in Sn II for kilonova analysis, Eur. Phys. J. D 77 (7) (2023)
+     6896, https://doi.org/10.1038/ncomms7896.                                                       126, https://doi.org/10.1140/epjd/s10053-023-00695-5.
+
+
+
+                                                                                           17
+C. Cheung, M.G. Kozlov, S.G. Porsev et al.
+                                                                                                                                Computer Physics Communications 308 (2025) 109463
+[33] S. Murata, T. Nakajima, M.S. Safronova, U.I. Safronova, N. Nakamura, Visible transi­     [50] S.G. Porsev, U.I. Safronova, M.S. Safronova, Clock-related properties of lu+ , Phys.
+     tions in Ag-like and Cd-like lanthanide ions, Phys. Rev. A 96 (2017) 062506, https://         Rev. A 98 (2018) 022509, https://doi.org/10.1103/PhysRevA.98.022509.
+     doi.org/10.1103/PhysRevA.96.062506.                                                      [51] N.B. Vilas, B.-Y. Wang, P.M. Rupasinghe, D.L. Maser, M.S. Safronova, U.I. Safronova,
+[34] T. Nakajima, K. Okada, M. Wada, V.A. Dzuba, M.S. Safronova, U.I. Safronova, N.                P.K. Majumder, High-precision measurements and theoretical calculations of indium
+     Ohmae, H. Katori, N. Nakamura, Visible spectra of highly charged holmium ions                 excited-state polarizabilities, Phys. Rev. A 97 (2018) 022507, https://doi.org/10.
+     observed with a compact electron beam ion trap, Nucl. Instrum. Methods Phys. Res.,            1103/PhysRevA.97.022507.
+     Sect. B, Beam Interact. Mater. Atoms 408 (2017) 118--121, https://doi.org/10.1016/       [52] M.S. Safronova, U.I. Safronova, S.G. Porsev, M.G. Kozlov, Y. Ralchenko, Relativistic
+     j.nimb.2017.03.135.                                                                           all-order many-body calculation of energies, wavelengths, and 𝑚1 and 𝑒2 transition
+[35] S.G. Porsev, M.S. Safronova, M.G. Kozlov, Precision calculation of hype­fine con­             rates for the 3𝑑 𝑛 co­figurations in tungsten ions, Phys. Rev. A 97 (2018) 012502,
+     stants for extracting nuclear moments of 229 Th, Phys. Rev. Lett. 127 (2021) 253001,          https://doi.org/10.1103/PhysRevA.97.012502.
+     https://doi.org/10.1103/PhysRevLett.127.253001.                                          [53] D.R. Leibrandt, S.G. Porsev, C. Cheung, M.S. Safronova, Prospects of a thousand-ion
+[36] M.S. Safronova, S.G. Porsev, M.G. Kozlov, J. Thielking, M.V. Okhapkin, P. Głowacki,           Sn2+ Coulomb-crystal clock with sub-10−19 inaccuracy, Nat. Commun. 15 (2024)
+     D.M. Meier, E. Peik, Nuclear charge radii of 229 Th from isotope and isomer shifts,           5663, https://doi.org/10.1038/s41467-024-49241-w.
+     Phys. Rev. Lett. 121 (2018) 213001, https://doi.org/10.1103/PhysRevLett.121.             [54] M.G. Kozlov, I.I. Tupitsyn, A.I. Bondarev, D.V. Mironova, Combination of pertur­
+     213001.                                                                                       bation theory with the configuration-interaction method, Phys. Rev. A 105 (2022)
+[37] S. Raeder, D. Ackermann, H. Backe, R. Beerwerth, J.C. Berengut, M. Block, A.                  052805, https://doi.org/10.1103/PhysRevA.105.052805, arXiv:2202.02026.
+     Borschevsky, B. Cheal, P. Chhetri, C.E. Düllmann, V.A. Dzuba, E. Eliav, J. Even, R.      [55] V. Shabaev, I. Tupitsyn, V. Yerokhin, QEDMOD: Fortran program for calculating
+     Ferrer, V.V. Flambaum, S. Fritzsche, F. Giacoppo, S. Götz, F.P. Heßberger, M. Huyse,          the model Lamb-shift operator, Comput. Phys. Commun. 223 (2018) 69, https://
+     U. Kaldor, O. Kaleja, J. Khuyagbaatar, P. Kunz, M. Laatiaoui, F. Lautenschläger, W.           doi.org/10.1016/j.cpc.2017.10.007.
+     Lauth, A.K. Mistry, E. Minaya Ramirez, W. Nazarewicz, S.G. Porsev, M.S. Safronova,       [56] V.F. Bratsev, G.B. Deyneka, I.I. Tupitsyn, Application of Hartree-Fock method to
+     U.I. Safronova, B. Schuetrumpf, P. Van Duppen, T. Walther, C. Wraith, A. Yakushev,            calculation of relativistic atomic wave functions, Bull. Acad. Sci. USSR, Phys. Ser.
+     Probing sizes and shapes of nobelium isotopes by laser spectroscopy, Phys. Rev. Lett.         41 (1977) 173.
+     120 (2018) 232503, https://doi.org/10.1103/PhysRevLett.120.232503.                       [57] M.G. Kozlov, S.G. Porsev, V.V. Flambaum, Manifestation of the nuclear anapole mo­
+[38] C.F. Fischer, G. Tachiev, MCHF/MCDHF Collection, version 2, available online at               ment in the M1 transitions in bismuth, J. Phys. B 29 (4) (1996) 689--697.
+     http://physics.nist.gov/mchf, National Institute of Standards and Technology, 2010.      [58] R.M. Sternheimer, On nuclear quadrupole moments, Phys. Rev. 80 (1950) 102.
+[39] C. Froese Fischer, G. Tachiev, G. Gaigalas, M.R. Godefroid, An MCHF atomic­              [59] A. Dalgarno, J.T. Lewis, The exact calculation of long-range forces between atoms
+     structure package for large-scale calculations, Comput. Phys. Commun. 176 (8)                 by perturbation theory, Proc. R. Soc. A 233 (1955) 70.
+     (2007) 559--579, https://doi.org/10.1016/j.cpc.2007.01.006.                              [60] A. Kramida, Preliminary critical analysis of fe xvii spectral data, personal communi­
+[40] P. Jönsson, X. He, C. Froese Fischer, I. Grant, The grasp2k relativistic atomic struc­
+                                                                                                   cation, 2019.
+     ture package, Comput. Phys. Commun. 177 (7) (2007) 597--622, https://doi.org/10.
+                                                                                              [61] I. Angeli, K. Marinova, Table of experimental nuclear ground state charge radii: an
+     1016/j.cpc.2007.06.002.
+                                                                                                   update, At. Data Nucl. Data Tables 99 (1) (2013) 69--95, https://doi.org/10.1016/j.
+[41] A. Hibbert, CIV3 - a general program to calculate co­figuration interaction wave
+                                                                                                   adt.2011.12.006.
+     functions and electric-dipole oscillator strengths, Comput. Phys. Commun. 9 (3)
+                                                                                              [62] M.S. Safronova, S.G. Porsev, U.I. Safronova, M.G. Kozlov, C.W. Clark, Blackbody­
+     (1975) 141--172, https://doi.org/10.1016/0010-4655(75)90103-4.
+                                                                                                   radiation shift in the sr optical atomic clock, Phys. Rev. A 87 (2013) 012509, https://
+[42] W. Eissner, Superstructure - an atomic structure code, J. Phys. IV France 01 (C1)
+                                                                                                   doi.org/10.1103/PhysRevA.87.012509.
+     (1991) C1, https://doi.org/10.1051/jp4:1991101.
+                                                                                              [63] R. Drozdowski, M. Ignaciuk, J. Kwela, et al., Radiative lifetimes of the lowest 3P1
+[43] R.D. Cowan, The Theory of Atomic Structure and Spectra, University of California
+                                                                                                   metastable states of Ca and Sr, Z. Phys., D At. Mol. Clust. 41 (1997) 125--131, https://
+     Press, 1981.
+[44] A. Bar-Shalom, M. Klapisch, J. Oreg, Hullac, an integrated computer package for               doi.org/10.1007/s004600050300.
+     atomic processes in plasmas, in: Radiative Properties of Hot Dense Matter, J. Quant.     [64] V.M. Shabaev, I.I. Tupitsyn, V.A. Yerokhin, Model operator approach to the lamb
+     Spectrosc. Radiat. Transf. 71 (2) (2001) 169--188, https://doi.org/10.1016/S0022-             shift calculations in relativistic many-electron atoms, Phys. Rev. A 88 (2013)
+     4073(01)00066-8.                                                                              012513, https://doi.org/10.1103/PhysRevA.88.012513.
+[45] M.Y. Amusia, L.V. Chernysheva, Computation of atomic processes: a handbook for           [65] V.V. Flambaum, J.S.M. Ginges, Radiative potential and calculations of qed radiative
+     the ATOM programs, Comput. Phys. 12 (2) (1998) 148, https://doi.org/10.1063/1.                corrections to energy levels and electromagnetic amplitudes in many-electron atoms,
+     168638.                                                                                       Phys. Rev. A 72 (2005) 052115, https://doi.org/10.1103/PhysRevA.72.052115.
+[46] L.V. Chernysheva, V.K. Ivanov, Atom program system and computational experi­             [66] I.I. Tupitsyn, E.V. Berseneva, A single-particle nonlocal potential for taking into
+     ment, Atoms 10 (2) (2022), https://doi.org/10.3390/atoms10020052.                             account quantum-electrodynamic corrections in calculations of the electronic struc­
+[47] M.F. Gu, The flexible atomic code, Can. J. Phys. 86 (5) (2008) 675--689, https://             ture of atoms, Opt. Spectrosc. 114 (5) (2013) 682--687, https://doi.org/10.1134/
+     doi.org/10.1139/p07-197.                                                                      S0030400X13050214.
+[48] C. Froese Fischer, G. Gaigalas, P. Jönsson, J. Bieroń, GRASP2018-a Fortran 95 ver­      [67] W. Johnson, G. Soff, The lamb shift in hydrogen-like atoms, 1 ⩽ Z ⩽ 110, At. Data
+     sion of the general relativistic atomic structure package, Comput. Phys. Commun.              Nucl. Data Tables 33 (3) (1985) 405--446, https://doi.org/10.1016/0092-640X(85)
+     237 (2019) 184--187, https://doi.org/10.1016/j.cpc.2018.10.032.                               90010-5.
+[49] E.V. Kahl, J.C. Berengut, AMBiT: a programme for high-precision relativistic atomic
+     structure calculations, Comput. Phys. Commun. 238 (2019) 232, https://doi.org/10.
+     1016/j.cpc.2018.12.014.
+
+
+
+
+                                                                                         18
+

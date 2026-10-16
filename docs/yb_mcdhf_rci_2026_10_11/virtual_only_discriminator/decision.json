@@ -1,0 +1,214 @@
+{
+  "status": "completed_fixed_point_nuclear_virtual_response_independently_verified",
+  "bound_outputs_sha256": {
+    "result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3",
+    "radial_support/result.json": "bc639869deab4b250a7b4475601235c9bccf5d3f7326bebf83378a50cefa9eaf",
+    "radial_support/contract.json": "7c8424e2788e6fc12a62acaa514f84dcccceeb244c503489e275bc7388c0716d",
+    "radial_support/execution_source.py": "6c1dba6cfc5b32741c156ce2ec8c35c433796602fa859d47792d8b452a0610d4",
+    "radial_support/analyze.py": "4e57a0647a801aa87197ea2013b2f92a3ef12a916d662ce0b64b487e055f7b10",
+    "radial_support/lint_successor.json": "8392779c0e216a9e6f535926b54b5cf0342a40807b9f352aa858fd55959421a4",
+    "root_execution.json": "4af68c620f41f5d42020641f746a379440c6216fb0116f24ca6240ae296cec4c",
+    "execution_binding.json": "e971eb68f3e09b92bd25c27f39d4e1605c29173fcdb5ae5017b3282b56fdccec"
+  },
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "checkpoint_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "checkpoint_arrays_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "exact_scientific_calls": {
+    "attempted_complete_CI": 2,
+    "completed_complete_CI": 2,
+    "implicit_H_attempts": 2,
+    "completed_implicit_H": 2,
+    "explicit_H_attempts": 2,
+    "completed_explicit_H": 2,
+    "virtual_generator_attempts": 0,
+    "completed_virtual_generator": 0,
+    "native_nuclear_Dirac_attempts": 0,
+    "completed_native_nuclear_Dirac": 0,
+    "native_complement_lowest_root_attempts": 0,
+    "completed_native_complement_lowest_root": 0,
+    "original_P_gap_spectral_attempts": 0,
+    "completed_original_P_gap_spectral": 0,
+    "initial_one_body_matrix_attempts": 7,
+    "completed_initial_one_body_matrices": 7,
+    "virtual_control_hS_consumed": 5,
+    "complement_SVD_attempts": 5,
+    "completed_complement_SVD": 5,
+    "full_gvd_attempts": 5,
+    "completed_full_gvd": 5,
+    "gradients": 0,
+    "optimizer_calls": 0
+  },
+  "runtime_numeric_gates_passed": 1517,
+  "independent_saved_array_checks_passed": 3112,
+  "independent_saved_audit_new_scientific_calls": 0,
+  "same_point_baseline_RMS_gap_cm1": 2022.8296956150211,
+  "balanced_nuclear_virtual_RMS_gap_cm1": 2019.2008068982939,
+  "target_differences": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "local_root": 0,
+      "column": 0,
+      "energy_Ha": -14067.494174437663,
+      "original_reference_principal_squared": [
+        0.9986759206554124
+      ],
+      "excitation_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 0.0,
+      "nominal_relative_gap": null,
+      "absolute_delta_upper_Ha": -2.652910006872844e-05,
+      "absolute_delta_lower_Ha": -2.652910006872844e-05,
+      "transition_delta_upper_minus_lower_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "local_root": 0,
+      "column": 2,
+      "energy_Ha": -14067.379050552396,
+      "original_reference_principal_squared": [
+        0.9984708210010514
+      ],
+      "excitation_cm1": 25266.772280103978,
+      "NIST_nominal_cm1": 22960.8,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2305.972280103979,
+      "nominal_relative_gap": 0.10043083342496685,
+      "absolute_delta_upper_Ha": -4.8316696847905405e-05,
+      "absolute_delta_lower_Ha": -2.652910006872844e-05,
+      "transition_delta_upper_minus_lower_cm1": -4.781824771398625
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "local_root": 0,
+      "column": 3,
+      "energy_Ha": -14067.375416658026,
+      "original_reference_principal_squared": [
+        0.9949381453208473
+      ],
+      "excitation_cm1": 26064.319907387347,
+      "NIST_nominal_cm1": 24332.69,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 1731.6299073873488,
+      "nominal_relative_gap": 0.0711647543854522,
+      "absolute_delta_upper_Ha": -4.8380650696344674e-05,
+      "absolute_delta_lower_Ha": -2.652910006872844e-05,
+      "transition_delta_upper_minus_lower_cm1": -4.795861018709088
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "local_root": 0,
+      "column": 1,
+      "energy_Ha": -14067.380355610563,
+      "original_reference_principal_squared": [
+        0.9938468251756096
+      ],
+      "excitation_cm1": 24980.345119902482,
+      "NIST_nominal_cm1": 27061.82,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -2081.4748800975176,
+      "nominal_relative_gap": -0.07691555409420052,
+      "absolute_delta_upper_Ha": -1.5208450349746272e-05,
+      "absolute_delta_lower_Ha": -2.652910006872844e-05,
+      "transition_delta_upper_minus_lower_cm1": 2.4845954238648584
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "local_root": 0,
+      "column": 4,
+      "energy_Ha": -14067.36441414993,
+      "original_reference_principal_squared": [
+        0.9909991158106645
+      ],
+      "excitation_cm1": 28479.091315776703,
+      "NIST_nominal_cm1": 30392.23,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1913.1386842232969,
+      "nominal_relative_gap": -0.06294828264406056,
+      "absolute_delta_upper_Ha": -1.5088000509422272e-05,
+      "absolute_delta_lower_Ha": -2.652910006872844e-05,
+      "transition_delta_upper_minus_lower_cm1": 2.5110311081677175
+    }
+  ],
+  "multiplets": [
+    {
+      "label": "5d",
+      "degeneracy_weights": [
+        4,
+        6
+      ],
+      "centroid_cm1": 25745.300856474,
+      "splitting_cm1": 797.5476272833694,
+      "nominal_centroid_gap_cm1": 1961.3668564740037,
+      "nominal_splitting_gap_cm1": -574.34237271663,
+      "delta_centroid_cm1": -4.790246519783977,
+      "delta_splitting_cm1": -0.014036247310286853
+    },
+    {
+      "label": "6p",
+      "degeneracy_weights": [
+        2,
+        4
+      ],
+      "centroid_cm1": 27312.842583818627,
+      "splitting_cm1": 3498.7461958742206,
+      "nominal_centroid_gap_cm1": -1969.2507495147074,
+      "nominal_splitting_gap_cm1": 168.33619587422072,
+      "delta_centroid_cm1": 2.50221921339471,
+      "delta_splitting_cm1": 0.026435684303578455
+    }
+  ],
+  "radial_support": {
+    "all_norm_checks_passed": true,
+    "virtual_mean_radius_a0": [
+      0.2899001776549521,
+      0.2871194088055241,
+      0.32140139800101264,
+      0.3477992599519812,
+      0.3175481447220268
+    ],
+    "valence_mean_radius_a0": [
+      3.008081164042767,
+      3.0512953488060677,
+      4.689551763943918,
+      3.706082892414738,
+      4.516965535413627
+    ],
+    "virtual_mass_below_corresponding_valence_median": [
+      0.9975935304324077,
+      0.9975767676402937,
+      0.9990153658781262,
+      0.9981451905549279,
+      0.9990292294393358
+    ],
+    "new_scientific_calls": 0,
+    "execution_source_archive": "radial_support/execution_source.py",
+    "lint_only_successor": "radial_support/lint_successor.json"
+  },
+  "decision": "First test closed68 screened-Fock auxiliary virtual construction inside the SAME original nuclear positive subspace and frozen-old complement, preserving old24 and the same complete1046 CI family. No no-pair boundary change. Prepare and independently qualify zero-population target normalization/direct+exchange before executing.",
+  "reason": "Nuclear virtual mean radii0.287-0.348a0 versus corresponding valence3.008-4.690a0, and finite retained new-CSF diagonal excitations approximately50-114Ha, support a compact-radial-selection hypothesis. Nuclear one-layer response only about2.5-4.8cm1 cannot establish radial convergence; rank-only response is hundreds ofcm1 but worsens total RMS.",
+  "inference_limits": [
+    "Nuclear eigenvalues or compact radii alone do not prove screened virtual quality or no-pair error.",
+    "Retained H diagonal denominators and diagonal EN estimates are basis-dependent diagnostics, not Q-space spectral or truncation bounds.",
+    "Original stationarity residual4.717047646600387e-5 fails1e-7; no expanded stationary MCDHF result.",
+    "Fixed-point CI response, successful numerical controls and energy lowering are not experimental accuracy.",
+    "No rank/static/003QED additivity or correction transplant.",
+    "No radial or core-correlation completeness, all-spectrum/globalground or controlled timing claim."
+  ],
+  "stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "radial_completeness_certified": false,
+  "new_screened_experiment_executed": false
+}

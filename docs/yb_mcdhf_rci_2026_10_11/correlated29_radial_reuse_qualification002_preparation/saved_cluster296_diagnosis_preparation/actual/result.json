@@ -1,0 +1,304 @@
+{
+  "status": "stored_array_diagnosis_completed",
+  "route_qualification_passed": false,
+  "original_failure_preserved": true,
+  "scope": "stored binary64 H/E/C algebra only; no new radial operator/eigenpairs/physics oracle",
+  "new_physical_calls": 0,
+  "matrix_difference": {
+    "max_abs_Ha": 7.275957614183426e-12,
+    "Frobenius_Ha": 6.427338575688382e-11,
+    "max_diagonal_abs_Ha": 7.275957614183426e-12,
+    "max_offdiagonal_abs_Ha": 1.1368683772161603e-12,
+    "largest_entry_indices": [
+      672,
+      672
+    ],
+    "largest_entry_signed_Ha": 7.275957614183426e-12,
+    "ordinary_max_symmetry_error_Ha": 0.0,
+    "candidate_max_symmetry_error_Ha": 0.0
+  },
+  "root_rows": [
+    {
+      "column": 0,
+      "ordinary_energy_Ha": -14067.496517967646,
+      "candidate_energy_Ha": -14067.496517967653,
+      "energy_difference_Ha": -7.275957614183426e-12,
+      "ordinary_norm": 0.9999999999999989,
+      "candidate_norm": 0.9999999999999997,
+      "ordinary_own_residual_2norm_Ha": 6.2273535582857565e-12,
+      "candidate_own_residual_2norm_Ha": 4.8818205304952276e-12,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 5.2503622883648714e-12,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 3.731118765123625e-12,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 3.6874913679702816e-12,
+      "projector_max_abs": 2.2308839964487793e-12
+    },
+    {
+      "column": 1,
+      "ordinary_energy_Ha": -14067.381616326365,
+      "candidate_energy_Ha": -14067.381616326376,
+      "energy_difference_Ha": -1.0913936421275139e-11,
+      "ordinary_norm": 1.0000000000000004,
+      "candidate_norm": 0.9999999999999997,
+      "ordinary_own_residual_2norm_Ha": 9.462552845782603e-12,
+      "candidate_own_residual_2norm_Ha": 7.32316050883157e-12,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 7.742280523311322e-12,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 6.0235868476017e-12,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 1.0230132135333014e-11,
+      "projector_max_abs": 6.147660505662067e-12
+    },
+    {
+      "column": 2,
+      "ordinary_energy_Ha": -14067.380121658784,
+      "candidate_energy_Ha": -14067.380121658785,
+      "energy_difference_Ha": -1.8189894035458565e-12,
+      "ordinary_norm": 0.9999999999999998,
+      "candidate_norm": 0.9999999999999992,
+      "ordinary_own_residual_2norm_Ha": 2.3270061117296804e-12,
+      "candidate_own_residual_2norm_Ha": 4.311389060998553e-12,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 3.0858760127046653e-12,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 2.89136099805262e-12,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 2.6344311063540234e-12,
+      "projector_max_abs": 1.133300918387814e-12
+    },
+    {
+      "column": 3,
+      "ordinary_energy_Ha": -14067.376658179728,
+      "candidate_energy_Ha": -14067.376658179728,
+      "energy_difference_Ha": 0.0,
+      "ordinary_norm": 1.0000000000000004,
+      "candidate_norm": 1.0000000000000004,
+      "ordinary_own_residual_2norm_Ha": 4.069994741128589e-12,
+      "candidate_own_residual_2norm_Ha": 4.073594937992693e-12,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 2.4550647261863755e-12,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 5.384218999212477e-12,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 6.031272237433053e-12,
+      "projector_max_abs": 4.481393812354011e-12
+    },
+    {
+      "column": 4,
+      "ordinary_energy_Ha": -14067.365672303622,
+      "candidate_energy_Ha": -14067.36567230362,
+      "energy_difference_Ha": 1.8189894035458565e-12,
+      "ordinary_norm": 1.0,
+      "candidate_norm": 1.0000000000000007,
+      "ordinary_own_residual_2norm_Ha": 1.1289979387839926e-11,
+      "candidate_own_residual_2norm_Ha": 9.395318366081446e-12,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 1.3017802354365924e-11,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 7.643266090063004e-12,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 7.597606008498453e-12,
+      "projector_max_abs": 4.977768197633736e-12
+    },
+    {
+      "column": 293,
+      "ordinary_energy_Ha": -14066.743980330395,
+      "candidate_energy_Ha": -14066.743980330395,
+      "energy_difference_Ha": 0.0,
+      "ordinary_norm": 0.9999999999999998,
+      "candidate_norm": 1.0,
+      "ordinary_own_residual_2norm_Ha": 1.3099606480517043e-11,
+      "candidate_own_residual_2norm_Ha": 1.2569596969864826e-11,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 1.3204326562421518e-11,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 1.2912043129679687e-11,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 8.507877909639709e-10,
+      "projector_max_abs": 3.5996605696198003e-10
+    },
+    {
+      "column": 296,
+      "ordinary_energy_Ha": -14066.733418961387,
+      "candidate_energy_Ha": -14066.73341896139,
+      "energy_difference_Ha": -3.637978807091713e-12,
+      "ordinary_norm": 0.9999999999999999,
+      "candidate_norm": 0.9999999999999998,
+      "ordinary_own_residual_2norm_Ha": 1.494390573935864e-11,
+      "candidate_own_residual_2norm_Ha": 1.3987411869963706e-11,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 1.279591156384095e-11,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 1.4533132203986853e-11,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 1.9882341781018847e-08,
+      "projector_max_abs": 1.0443566289541906e-08
+    },
+    {
+      "column": 298,
+      "ordinary_energy_Ha": -14066.733249578438,
+      "candidate_energy_Ha": -14066.733249578449,
+      "energy_difference_Ha": -1.0913936421275139e-11,
+      "ordinary_norm": 1.0,
+      "candidate_norm": 1.0000000000000002,
+      "ordinary_own_residual_2norm_Ha": 1.2762675913676869e-11,
+      "candidate_own_residual_2norm_Ha": 2.180653560363969e-11,
+      "ordinary_vector_in_candidate_residual_2norm_Ha": 1.2674435825760217e-11,
+      "candidate_vector_in_ordinary_residual_2norm_Ha": 2.2063524787370275e-11,
+      "chosen_whole_column_phase": 1,
+      "phase_aligned_vector_2norm": 1.9883758244223567e-08,
+      "projector_max_abs": 1.0474231648682775e-08
+    }
+  ],
+  "failed_root": {
+    "sector": [
+      3,
+      1
+    ],
+    "sector_root_count": 236,
+    "local_root": 64,
+    "column": 296,
+    "stored_first_failure": {
+      "name": "signed_cluster_[296]",
+      "error": 1.0443566289541906e-08,
+      "limit": 1e-08,
+      "passed": false
+    },
+    "saved_projector_error_replay": 1.0443566289541906e-08,
+    "replay_minus_stored_error": 0.0,
+    "still_exceeds_original_limit": true,
+    "ordinary_nearest_same_sector_gap_Ha": 0.00016938294902502093,
+    "candidate_nearest_same_sector_gap_Ha": 0.00016938294174906332
+  },
+  "neighbor_rows": [
+    {
+      "column": 293,
+      "ordinary_signed_gap_Ha": -0.0105613690084283,
+      "candidate_signed_gap_Ha": -0.010561369004790322,
+      "ordinary_basis_signed_dH_coupling_Ha": 1.207635564042135e-13,
+      "candidate_basis_signed_dH_coupling_Ha": 1.207635512975063e-13,
+      "ordinary_coupling_over_signed_gap": -1.1434460466994425e-11,
+      "candidate_coupling_over_signed_gap": -1.1434459987406137e-11,
+      "cross_endpoint_stored_vector_overlap": 1.5378660844778125e-10,
+      "scope": "Neighbor-only first-order heuristic; no uniform eigenvector perturbation bound"
+    },
+    {
+      "column": 298,
+      "ordinary_signed_gap_Ha": 0.00016938294902502093,
+      "candidate_signed_gap_Ha": 0.00016938294174906332,
+      "ordinary_basis_signed_dH_coupling_Ha": -7.517694184903635e-13,
+      "candidate_basis_signed_dH_coupling_Ha": -7.517694601240546e-13,
+      "ordinary_coupling_over_signed_gap": -4.438282736353312e-09,
+      "candidate_coupling_over_signed_gap": -4.438283172798962e-09,
+      "cross_endpoint_stored_vector_overlap": 1.98637023734842e-08,
+      "scope": "Neighbor-only first-order heuristic; no uniform eigenvector perturbation bound"
+    }
+  ],
+  "five_target_cluster_observations": [
+    {
+      "label": "6s_1/2",
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "column": 0,
+      "cluster_columns": [
+        0
+      ],
+      "projector_max_abs": 2.2308839964487793e-12,
+      "projector_Frobenius": 5.214896301761708e-12,
+      "original_limit": 1e-08,
+      "under_original_limit_as_target_only_observation": true,
+      "nearest_outer_gap_ordinary_Ha": 0.2347723800176027
+    },
+    {
+      "label": "5d_3/2",
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "column": 2,
+      "cluster_columns": [
+        2
+      ],
+      "projector_max_abs": 1.133300918387814e-12,
+      "projector_Frobenius": 3.7256429701243995e-12,
+      "original_limit": 1e-08,
+      "under_original_limit_as_target_only_observation": true,
+      "nearest_outer_gap_ordinary_Ha": 0.15445576666752459
+    },
+    {
+      "label": "5d_5/2",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "column": 3,
+      "cluster_columns": [
+        3
+      ],
+      "projector_max_abs": 4.481393812354011e-12,
+      "projector_Frobenius": 8.529510664437402e-12,
+      "original_limit": 1e-08,
+      "under_original_limit_as_target_only_observation": true,
+      "nearest_outer_gap_ordinary_Ha": 0.15219465274640243
+    },
+    {
+      "label": "6p_1/2",
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "column": 1,
+      "cluster_columns": [
+        1
+      ],
+      "projector_max_abs": 6.147660505662067e-12,
+      "projector_Frobenius": 1.4467585171980937e-11,
+      "original_limit": 1e-08,
+      "under_original_limit_as_target_only_observation": true,
+      "nearest_outer_gap_ordinary_Ha": 0.12768397686704702
+    },
+    {
+      "label": "6p_3/2",
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "column": 4,
+      "cluster_columns": [
+        4
+      ],
+      "projector_max_abs": 4.977768197633736e-12,
+      "projector_Frobenius": 1.0744639722281434e-11,
+      "original_limit": 1e-08,
+      "under_original_limit_as_target_only_observation": true,
+      "nearest_outer_gap_ordinary_Ha": 0.0928664226194087
+    }
+  ],
+  "original_metric_and_indicator_failures": [
+    {
+      "label": "ordinary",
+      "residual": 0.021499084147010395,
+      "indicator_Ha": 0.0001207034808866711,
+      "stationarity_passed": false,
+      "indicator_passed": false
+    },
+    {
+      "label": "candidate",
+      "residual": 0.021499084146931014,
+      "indicator_Ha": 0.00012070348088486982,
+      "stationarity_passed": false,
+      "indicator_passed": false
+    }
+  ],
+  "counts": {
+    "NPZ_loads": 2,
+    "unique_root_columns": 8,
+    "target_clusters": 5,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "eigen": 0,
+    "SVD": 0,
+    "QR": 0,
+    "Dirac": 0,
+    "optimizer": 0,
+    "GPU": 0
+  },
+  "limits": "No spectral norm, eigenvectors, global perturbation bound, performance certificate or corrected physical spectrum was produced."
+}

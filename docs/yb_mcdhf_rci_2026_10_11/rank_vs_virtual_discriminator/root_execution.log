@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py", line 585, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py", line 573, in main
+    execute(args.binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py", line 387, in execute
+    check("virtual_original_P_minimum/" + str(key), abs(energy - roots[0]),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py", line 211, in check
+    raise ValueError("Scientific/numeric gate failed: " + name)
+ValueError: Scientific/numeric gate failed: virtual_original_P_minimum/(6, -3)

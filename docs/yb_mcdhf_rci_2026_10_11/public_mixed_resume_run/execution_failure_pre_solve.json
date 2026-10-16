@@ -1,0 +1,7 @@
+{
+  "status": "admission_or_baseline_failed",
+  "error": "New-source matched baseline failed; no optimization started",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/run.py\", line 520, in main\n    execute(args.execution_contract)\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/run.py\", line 370, in execute\n    raise ValueError('New-source matched baseline failed; no optimization started')\nValueError: New-source matched baseline failed; no optimization started\n",
+  "optimizer_endpoint_certified": false,
+  "latest_complete_checkpoint": null
+}

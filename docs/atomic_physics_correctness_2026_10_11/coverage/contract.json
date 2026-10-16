@@ -1,0 +1,94 @@
+{
+  "hypothesis": "A converged finite orbital band can still have equation defects or omitted physical diagrams.",
+  "fixed": "Saved full signed inputs, declared methods, states, Hamiltonians and original gates; no new root or timing run.",
+  "distinguishing_outcomes": [
+    "Independent retained-equation failure is an implementation defect.",
+    "Passed retained equations with nonzero omitted-rank residual is a model truncation.",
+    "Missing operator at the current consumer cannot be repaired by enlarging its Coulomb virtual band."
+  ],
+  "acceptance": "Each coverage claim names its actual consumer and source-bound saved evidence, and respects model boundaries.",
+  "stop": "Finish source tracing and arithmetic replay; do not perform larger-space scientific scans.",
+  "inputs": {
+    "production_core": {
+      "path": "src/atomx/methods/core_sd.py",
+      "sha256": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3"
+    },
+    "production_valence": {
+      "path": "src/atomx/methods/reduced_monovalent_sd.py",
+      "sha256": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2"
+    },
+    "native_diagrams": {
+      "path": "src/atomx/methods/_pci_monovalent.f90",
+      "sha256": "5601f3953af3a2021eea8d0b050de105999f77189ca8fba32afb2bbf77727ea3"
+    },
+    "finite_monovalent": {
+      "path": "src/atomx/methods/monovalent_sd.py",
+      "sha256": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751"
+    },
+    "finite_linearized": {
+      "path": "src/atomx/methods/linearized_sd.py",
+      "sha256": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548"
+    },
+    "transverse_bridge": {
+      "path": "src/atomx/methods/sd_transverse.py",
+      "sha256": "1a0523c24dfa8bd27668b393744f2531cb379fd4b76bae03af36f3ed8f92ae40"
+    },
+    "pair_subset": {
+      "path": "src/atomx/methods/sd_pair_diagrams.py",
+      "sha256": "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2"
+    },
+    "fscc_consumer": {
+      "path": "src/atomx/methods/fscc.py",
+      "sha256": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e"
+    },
+    "fscc_builder": {
+      "path": "tools/build_expt_backend.py",
+      "sha256": "54f1ea65b7dbcf495187bd1e6beaaed502b567f2b171c97475dbfbe2c28c425b"
+    },
+    "fscc_patch": {
+      "path": "tools/expt_noncanonical_patch.py",
+      "sha256": "938cccc14c7f28999090f1405e0d004dce6f25c4b658d961b13e41df47260785"
+    },
+    "fscc_properties": {
+      "path": "src/atomx/properties/transitions/fscc_effective.py",
+      "sha256": "82a4b6e4c7949ea15b28940f7bab4cf915fc2bd091cd806bc54fa116c858df21"
+    },
+    "yb_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/probe_yb_full_monovalent.py",
+      "sha256": "3e24d9091379dbab45833e8bb44c2bffeef037f134eab588bbd1e3d2153391b3"
+    },
+    "yb_cuda_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/probe_yb_monovalent_cuda.py",
+      "sha256": "370b22af0f0e3fdc4e06d57268845acd9400fa85da4112bfe1ad64ba916a4107"
+    },
+    "yb_comparison_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/compare_yb_monovalent_experiment.py",
+      "sha256": "4c862d47143915722818b651bec2c5a26649f5972a8f784f3b2a96485fed236f"
+    },
+    "yb_comparison": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "yb_roots": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/result.json",
+      "sha256": "3d68e8c4d34c7bd251a18dc1449d13f2dcd6fa6dda68404757a5a74c6ff92d4d"
+    },
+    "finite_primary_sd": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd008/comparison.json",
+      "sha256": "e05f8a18044633a121f772bf8bf446db75f3b2d445c98c8cabf71e6adae23216"
+    },
+    "finite_reduced_sd": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/reduced_monovalent008/result.json",
+      "sha256": "014518bb9ae3266b7056f813a0e9c3a7758735186bcaecaab2d97b9977a578a8"
+    },
+    "yb_norm": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/result.json",
+      "sha256": "8e5e4264be3898a921aa91e0405864147040ae9cf5c08375d8850b8a2e325257"
+    },
+    "finite_fscc": {
+      "path": "docs/atomic_external_benchmark_2026_10_11/fscc/run003/result.json",
+      "sha256": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e"
+    }
+  },
+  "scientific_solves_launched": 0
+}

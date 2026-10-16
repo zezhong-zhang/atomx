@@ -1,0 +1,295 @@
+{
+  "source": "printed primary tables and immutable retained Atomx results",
+  "new_atomic_many_body_runs": 0,
+  "corrections_injected": false,
+  "experimental_fit": false,
+  "cross_method_is_same_hamiltonian": false,
+  "rows": [
+    {
+      "method": "atomx_fine_l6_e200_scalar_dyson",
+      "source": "retained native evidence",
+      "label": "5d_3/2",
+      "excitation_cm1": 23818.428440378942,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 857.6284403789432,
+      "relative_error_percent": 3.7351853610455352
+    },
+    {
+      "method": "atomx_fine_l6_e200_scalar_dyson",
+      "source": "retained native evidence",
+      "label": "5d_5/2",
+      "excitation_cm1": 25246.325867416304,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": 913.6358674163057,
+      "relative_error_percent": 3.754767218159216
+    },
+    {
+      "method": "atomx_fine_l6_e200_scalar_dyson",
+      "source": "retained native evidence",
+      "label": "6p_1/2",
+      "excitation_cm1": 28500.652474615486,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 1438.8324746154867,
+      "relative_error_percent": 5.3168355809605075
+    },
+    {
+      "method": "atomx_fine_l6_e200_scalar_dyson",
+      "source": "retained native evidence",
+      "label": "6p_3/2",
+      "excitation_cm1": 32028.618075997798,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 1636.3880759977983,
+      "relative_error_percent": 5.384231680261035
+    },
+    {
+      "method": "porsev2012_mbpt",
+      "source": "porsev2012",
+      "label": "5d_3/2",
+      "excitation_cm1": 24450,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 1489.2000000000007,
+      "relative_error_percent": 6.485836730427514
+    },
+    {
+      "method": "porsev2012_mbpt",
+      "source": "porsev2012",
+      "label": "5d_5/2",
+      "excitation_cm1": 25952,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": 1619.3100000000013,
+      "relative_error_percent": 6.6548745740812105
+    },
+    {
+      "method": "porsev2012_mbpt",
+      "source": "porsev2012",
+      "label": "6p_1/2",
+      "excitation_cm1": 28636,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 1574.1800000000003,
+      "relative_error_percent": 5.816977572092344
+    },
+    {
+      "method": "porsev2012_mbpt",
+      "source": "porsev2012",
+      "label": "6p_3/2",
+      "excitation_cm1": 32242,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 1849.7700000000004,
+      "relative_error_percent": 6.086325353552538
+    },
+    {
+      "method": "porsev2012_linearized_sd",
+      "source": "porsev2012",
+      "label": "5d_3/2",
+      "excitation_cm1": 22820,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": -140.79999999999927,
+      "relative_error_percent": -0.6132190516009863
+    },
+    {
+      "method": "porsev2012_linearized_sd",
+      "source": "porsev2012",
+      "label": "5d_5/2",
+      "excitation_cm1": 24261,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": -71.68999999999869,
+      "relative_error_percent": -0.29462422773642655
+    },
+    {
+      "method": "porsev2012_linearized_sd",
+      "source": "porsev2012",
+      "label": "6p_1/2",
+      "excitation_cm1": 27945,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 883.1800000000003,
+      "relative_error_percent": 3.2635646826414493
+    },
+    {
+      "method": "porsev2012_linearized_sd",
+      "source": "porsev2012",
+      "label": "6p_3/2",
+      "excitation_cm1": 31481,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 1088.7700000000004,
+      "relative_error_percent": 3.5823958952666537
+    },
+    {
+      "method": "pototschnig2021_eom_ea_extrap",
+      "source": "pototschnig2021",
+      "label": "5d_3/2",
+      "excitation_cm1": 23951,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 990.2000000000007,
+      "relative_error_percent": 4.312567506358667
+    },
+    {
+      "method": "pototschnig2021_eom_ea_extrap",
+      "source": "pototschnig2021",
+      "label": "5d_5/2",
+      "excitation_cm1": 25257,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": 924.3100000000013,
+      "relative_error_percent": 3.7986346762318566
+    },
+    {
+      "method": "pototschnig2021_eom_ea_extrap",
+      "source": "pototschnig2021",
+      "label": "6p_1/2",
+      "excitation_cm1": 27913,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 851.1800000000003,
+      "relative_error_percent": 3.1453169077320013
+    },
+    {
+      "method": "pototschnig2021_eom_ea_extrap",
+      "source": "pototschnig2021",
+      "label": "6p_3/2",
+      "excitation_cm1": 31380,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 987.7700000000004,
+      "relative_error_percent": 3.250074114337778
+    },
+    {
+      "method": "pototschnig2021_ihfs_extrap",
+      "source": "pototschnig2021",
+      "label": "5d_3/2",
+      "excitation_cm1": 23938,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 977.2000000000007,
+      "relative_error_percent": 4.25594927006028
+    },
+    {
+      "method": "pototschnig2021_ihfs_extrap",
+      "source": "pototschnig2021",
+      "label": "5d_5/2",
+      "excitation_cm1": 25246,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": 913.3100000000013,
+      "relative_error_percent": 3.753428001589637
+    },
+    {
+      "method": "pototschnig2021_ihfs_extrap",
+      "source": "pototschnig2021",
+      "label": "6p_1/2",
+      "excitation_cm1": 27907,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 845.1800000000003,
+      "relative_error_percent": 3.1231454499364797
+    },
+    {
+      "method": "pototschnig2021_ihfs_extrap",
+      "source": "pototschnig2021",
+      "label": "6p_3/2",
+      "excitation_cm1": 31371,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 978.7700000000004,
+      "relative_error_percent": 3.220461282373819
+    },
+    {
+      "method": "dzuba2011_unscaled_brueckner",
+      "source": "dzuba2011",
+      "label": "5d_3/2",
+      "excitation_cm1": 23926,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 965.2000000000007,
+      "relative_error_percent": 4.203686282707923
+    },
+    {
+      "method": "dzuba2011_unscaled_brueckner",
+      "source": "dzuba2011",
+      "label": "6p_1/2",
+      "excitation_cm1": 28749,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 1687.1800000000003,
+      "relative_error_percent": 6.234540027241333
+    },
+    {
+      "method": "dzuba2011_unscaled_brueckner",
+      "source": "dzuba2011",
+      "label": "6p_3/2",
+      "excitation_cm1": 32376,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 1983.7700000000004,
+      "relative_error_percent": 6.527227518349265
+    }
+  ],
+  "porsev2012_SD_minus_MBPT_excitation_cm1": {
+    "5d_3/2": -1630,
+    "5d_5/2": -1691,
+    "6p_1/2": -691,
+    "6p_3/2": -761
+  },
+  "safronova2009_printed_attachment_components_cm1": {
+    "6s_1/2": {
+      "E3": 1016,
+      "B1": 128,
+      "B2": -259,
+      "ELS": 18
+    },
+    "5d_3/2": {
+      "E3": -1027,
+      "B1": 156,
+      "B2": -546,
+      "ELS": 0
+    },
+    "5d_5/2": {
+      "E3": -1301,
+      "B1": 114,
+      "B2": -499,
+      "ELS": 0
+    },
+    "6p_1/2": {
+      "E3": 335,
+      "B1": 91,
+      "B2": -120,
+      "ELS": -1
+    },
+    "6p_3/2": {
+      "E3": 166,
+      "B1": 63,
+      "B2": -110,
+      "ELS": 0
+    }
+  },
+  "safronova2009_relative_components_cm1": {
+    "5d_3/2": {
+      "E3": -2043,
+      "B1": 28,
+      "B2": -287,
+      "ELS": -18
+    },
+    "5d_5/2": {
+      "E3": -2317,
+      "B1": -14,
+      "B2": -240,
+      "ELS": -18
+    },
+    "6p_1/2": {
+      "E3": -681,
+      "B1": -37,
+      "B2": 139,
+      "ELS": -19
+    },
+    "6p_3/2": {
+      "E3": -850,
+      "B1": -65,
+      "B2": 149,
+      "ELS": -18
+    }
+  },
+  "max_abs_relative_percent_by_method": {
+    "atomx_fine_l6_e200_scalar_dyson": 5.384231680261035,
+    "dzuba2011_unscaled_brueckner": 6.527227518349265,
+    "porsev2012_linearized_sd": 3.5823958952666537,
+    "porsev2012_mbpt": 6.6548745740812105,
+    "pototschnig2021_eom_ea_extrap": 4.312567506358667,
+    "pototschnig2021_ihfs_extrap": 4.25594927006028
+  },
+  "hole_sign_check": {
+    "measured_NIST_P3_cm1": 30392.23,
+    "measured_NIST_4f13_5d6s_J3_2_cm1": 28757.98,
+    "observed_gap_cm1": 1634.25,
+    "conditional_2level_sign": "A bare hole state below a bare P state raises the P-like root through level repulsion. Experimental mixed levels only identify proximity and cannot supply a bare denominator or coupling."
+  },
+  "limits": "No inferred correction is a controlled error budget; no published result is imported into Atomx. First-order Breit does not bound B2; scalar Dyson does not include full orbital or SD amplitudes."
+}

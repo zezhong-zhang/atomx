@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py", line 595, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py", line 551, in main
+    worker(args.worker, execution)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py", line 206, in worker
+    close(f"analytic_{rank}_{component}", va, expected, 0., 2e-13)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py", line 123, in close
+    gate(name, np.all(np.isfinite(delta)) and np.all(delta <= bounds),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py", line 118, in gate
+    raise ValueError("Qualification gate failed: " + name)
+ValueError: Qualification gate failed: analytic_6_pppp

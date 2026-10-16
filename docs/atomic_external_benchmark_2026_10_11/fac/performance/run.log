@@ -1,0 +1,29 @@
+{"phase": "warmup", "backend": "FAC", "workers": 1, "seconds": 4.7631683129999995, "resource_ok": true, "threads": [1, 1, 1, 1]}
+{"phase": "warmup", "backend": "FAC", "workers": 2, "seconds": 4.7151495400000005, "resource_ok": true, "threads": [2, 2, 2, 2]}
+{"phase": "warmup", "backend": "FAC", "workers": 4, "seconds": 4.75743765, "resource_ok": true, "threads": [4, 4, 4, 4]}
+{"phase": "warmup", "backend": "FAC", "workers": 8, "seconds": 4.789609969, "resource_ok": true, "threads": [8, 8, 8, 8]}
+{"phase": "warmup", "backend": "Atomx", "workers": 1, "seconds": 9.034829077, "resource_ok": true, "threads": [1, 1, 1, 1]}
+{"phase": "warmup", "backend": "Atomx", "workers": 2, "seconds": 9.077357799000001, "resource_ok": true, "threads": [3, 3, 3, 3]}
+{"phase": "warmup", "backend": "Atomx", "workers": 4, "seconds": 9.078233778, "resource_ok": true, "threads": [7, 7, 7, 7]}
+{"phase": "warmup", "backend": "Atomx", "workers": 8, "seconds": 0.843515265, "resource_ok": false, "threads": [15, 15, 15, 15]}
+{"phase": "measured", "round": 0, "backend": "FAC", "workers": 1, "seconds": 4.769211565, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 0, "backend": "FAC", "workers": 2, "seconds": 4.718080787, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 0, "backend": "FAC", "workers": 4, "seconds": 4.751034459, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 0, "backend": "FAC", "workers": 8, "seconds": 4.782181324, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 0, "backend": "Atomx", "workers": 1, "seconds": 8.777608605, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 0, "backend": "Atomx", "workers": 2, "seconds": 7.865309622, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 0, "backend": "Atomx", "workers": 4, "seconds": 7.8803966160000005, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 1, "backend": "Atomx", "workers": 4, "seconds": 7.801951195999999, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 1, "backend": "Atomx", "workers": 2, "seconds": 7.822856485, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 1, "backend": "Atomx", "workers": 1, "seconds": 7.851794377, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 1, "backend": "FAC", "workers": 8, "seconds": 4.733055477, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 1, "backend": "FAC", "workers": 4, "seconds": 4.708451595, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 1, "backend": "FAC", "workers": 2, "seconds": 4.714025202, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 1, "backend": "FAC", "workers": 1, "seconds": 4.757294739, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 2, "backend": "FAC", "workers": 1, "seconds": 4.777916826, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 2, "backend": "FAC", "workers": 2, "seconds": 4.728112658999999, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 2, "backend": "FAC", "workers": 4, "seconds": 4.730715194, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 2, "backend": "FAC", "workers": 8, "seconds": 4.751842271, "load_ok": true, "resource_ok": true}
+{"phase": "measured", "round": 2, "backend": "Atomx", "workers": 1, "seconds": 7.797732924, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 2, "backend": "Atomx", "workers": 2, "seconds": 7.884896669, "load_ok": true, "resource_ok": false}
+{"phase": "measured", "round": 2, "backend": "Atomx", "workers": 4, "seconds": 7.861597115, "load_ok": true, "resource_ok": false}

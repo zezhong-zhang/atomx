@@ -1,0 +1,153 @@
+{
+  "phase": "warm/4/NumBa_CPU4",
+  "calls": {
+    "H": {
+      "started": 1,
+      "completed": 1
+    },
+    "CI": {
+      "started": 1,
+      "completed": 1
+    },
+    "initial_hS": {
+      "started": 7,
+      "completed": 7
+    },
+    "CI_hS_producer": {
+      "started": 7,
+      "completed": 7
+    },
+    "hS_getter": {
+      "started": 38,
+      "completed": 38
+    },
+    "validation_Dirac": {
+      "started": 7,
+      "completed": 7
+    },
+    "SPD_eigvalsh": {
+      "started": 38,
+      "completed": 38
+    },
+    "scipy_eigh": {
+      "started": 12,
+      "completed": 12
+    },
+    "tracking_SVD": {
+      "started": 5,
+      "completed": 5
+    },
+    "tracking_resolve": {
+      "started": 1,
+      "completed": 1
+    },
+    "tracking_overlap": {
+      "started": 2,
+      "completed": 2
+    },
+    "target_RDM": {
+      "started": 5,
+      "completed": 5
+    },
+    "public_full_gradient": {
+      "started": 1,
+      "completed": 1
+    },
+    "private_full_gradient": {
+      "started": 21,
+      "completed": 21
+    },
+    "private_owner_factory": {
+      "started": 3,
+      "completed": 3
+    },
+    "ordinary_source_potential": {
+      "started": 706,
+      "completed": 706
+    },
+    "ordinary_band": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "ordinary_density": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "private_density": {
+      "started": 20832,
+      "completed": 20832
+    },
+    "H_density": {
+      "started": 992,
+      "completed": 992
+    },
+    "factor_getter": {
+      "started": 2908,
+      "completed": 2908
+    },
+    "component_moment_getter": {
+      "started": 56,
+      "completed": 56
+    },
+    "dense_bank_getter": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "same_component_inner_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "mixed_component_inner_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "NPZ_load": {
+      "started": 29,
+      "completed": 29
+    },
+    "CUDA_context": {
+      "started": 1,
+      "completed": 1
+    },
+    "optimizer": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "near_factor_producer": {
+      "started": 28,
+      "completed": 28
+    }
+  },
+  "request_ledgers": {
+    "hS": {
+      "requests": 38,
+      "completed": 38,
+      "hits": 31,
+      "misses": 7
+    },
+    "factors": {
+      "requests": 2908,
+      "completed": 2908,
+      "hits": 2880,
+      "misses": 28
+    },
+    "dense_banks": {
+      "requests": 2824,
+      "completed": 2824,
+      "hits": 2796,
+      "misses": 28
+    },
+    "component_moments": {
+      "requests": 56,
+      "completed": 56,
+      "hits": 42,
+      "misses": 14
+    }
+  },
+  "controls": 69081,
+  "elapsed_uncontrolled_s": 93.17705731512979
+}

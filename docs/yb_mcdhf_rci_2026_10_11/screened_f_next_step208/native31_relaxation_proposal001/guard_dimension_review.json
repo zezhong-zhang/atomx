@@ -1,0 +1,57 @@
+{
+  "status": "source_only_private_guard_dimension_and_budget_successor",
+  "original_sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+  "private_sha256": "686f983370f14fd406a76ee58fffe79396fbb4dffcaedc4f3241ea34d4397067",
+  "source_changes": [
+    [
+      "\"\"\"One declared <=17-point, <=85-root, <=3m examined-pair run.\"\"\"",
+      "\"\"\"Private declared <=17-point, <=85-root, <=5m examined-pair run.\"\"\""
+    ],
+    [
+      "self.examined_pairs + pairs > 3_000_000",
+      "self.examined_pairs + pairs > 5_000_000"
+    ],
+    [
+      "h.shape[0] > 1046",
+      "h.shape[0] > 1595"
+    ]
+  ],
+  "reverse_exact_bytes_to_original": true,
+  "unchanged_function_and_class_AST": [
+    "ExactGuardBudgetExceeded",
+    "_fraction_record",
+    "_dyadic",
+    "_upper_float",
+    "ExactReportedPoint",
+    "reported_acceptance_decision"
+  ],
+  "changed_AST_only": [
+    "ExactGuardBudget",
+    "exact_reported_point"
+  ],
+  "acceptance_inequality_AST_unchanged": true,
+  "all_source_parses": true,
+  "sector_support_counts": [
+    219,
+    223,
+    367,
+    370,
+    416
+  ],
+  "sector_pair_bounds": [
+    24090,
+    24976,
+    67528,
+    68635,
+    86736
+  ],
+  "per_point": 271965,
+  "max17points": 4623405,
+  "prospective_limit": 5000000,
+  "budget_never_reset": true,
+  "original_helper_preserved": true,
+  "NumPy_imports": 0,
+  "array_reads": 0,
+  "numeric_helper_invocations": 0,
+  "qualification_pending_root_review": true
+}

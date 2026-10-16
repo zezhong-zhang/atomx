@@ -1,0 +1,64 @@
+{
+  "change": "FAC complete common-integral and independent-model accuracy plus actual fixed-work CPU scaling, preserving delivered campaign001 as immutable historical evidence.",
+  "current_authoritative_owner": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+  "dispositions": [
+    {
+      "path": "docs/atomic_external_benchmark_2026_10_11/README.md",
+      "action": "update",
+      "reason": "User explicitly requests FAC addition; retain prior measured scopes and reference immutable delivered snapshot."
+    },
+    {
+      "path": "docs/atomic_external_benchmark_2026_10_11/plot_scaling.py",
+      "action": "update",
+      "reason": "Reuse identical admitted paired CSV plotting for the FAC-extended owner with optional --owner; default original plot behavior remains."
+    },
+    {
+      "path": "docs/BENCHMARKS_EXTERNAL.md",
+      "action": "update",
+      "reason": "Current campaign now includes FAC; historical previousmodel comparisons remain historical."
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "action": "update",
+      "reason": "Register fresh full case and repeat gates with distinct model/numerical/experimental limits."
+    },
+    {
+      "path": "docs/CORRELATED_METHOD_TESTING.md",
+      "action": "update",
+      "reason": "FAC CI agreement cannot certify production SD/FSCC correlations."
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md",
+      "action": "update",
+      "reason": "Current external benchmark navigation includes FAC and links live replayowner."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "action": "review_merge_existing_if_needed",
+      "reason": "OpenMP actual thread initialization and PFAC independent process safety belong in established performance/convention rules, not newrootrules."
+    },
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/sync_card.py",
+      "action": "update_after_evidence_freeze",
+      "reason": "Source-bound FAC evidence and actual CPU rows shown in hourlycards; no executionpolicy change."
+    },
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/progress.json",
+      "action": "update_after_evidence_freeze",
+      "reason": "Point current metrics to FAC-extension and declare gaps/resourcefailures honestly."
+    }
+  ],
+  "historical_campaign_files": "Unchanged raw measurements, aggregate.py, original performance.csv/metrics.json and deliveryproof remain; previously delivered README/renderer/plot/progress snapshotted with SHA chain.",
+  "science_implementation_changed": false,
+  "fixtures_changed": false,
+  "completed": true,
+  "created_owner_artifacts": [
+    "README.md",
+    "aggregate.py",
+    "metrics.json",
+    "performance.csv",
+    "parallel_efficiency.png/svg/pdf",
+    "gaps.json",
+    "delivery_proof.json"
+  ]
+}

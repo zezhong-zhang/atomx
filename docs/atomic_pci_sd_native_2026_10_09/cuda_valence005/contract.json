@@ -1,0 +1,25 @@
+{
+  "hypothesis": "Whole CUDA term2 is additive in the complete same native affine/homogeneous SD map, retains all supplied analytic responses and fixed-core physical source, and produces fresh complete solved equations",
+  "fixed": "Original Yb68core414virtual/ns123/Fermi/l<=3/5Ha, every native channel and scalar Fock",
+  "gate_Ha": 1e-11,
+  "raw_gate_Ha": 1e-10,
+  "seed": 904121,
+  "host_cap_bytes": 34359738368,
+  "device_cap_bytes": 2147483648,
+  "term2_cpu_workers": 8,
+  "blas_inner_threads": 1,
+  "load": [
+    20.9033203125,
+    17.5712890625,
+    15.69970703125
+  ],
+  "solve_policy": "finite five-column fresh CPU/GPU solves; full case complete maps only, independent production solve follows",
+  "stop": "Reject changed physical identity, incomplete affine/homogeneous/prime/mode or solution gate, nonfinite output or cap overrun; no gate/space alteration",
+  "scope": "Private complete-map and finite solve arithmetic control; no controlled timing, public backend adoption, physical metric or spectrum claim",
+  "homogeneous_stage_profile_only": false,
+  "private_term41_blas": true,
+  "private_terma4_blas": true,
+  "private_projection_policy": "reachable",
+  "complete_profile_reference": null,
+  "complete_map_reference": "cuda_valence002"
+}

@@ -1,0 +1,377 @@
+{
+  "status": "FAILED",
+  "controls": [
+    {
+      "name": "oldM-5:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-5:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM-3:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-3:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM-1:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-1:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM1:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM1:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM3:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM3:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM5:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM5:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small_independent_signed_J2",
+      "measured": 7.105427357601002e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "small_matrixfree_six_roots",
+      "measured": 1.4432899320127035e-14,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small_matrixfree_all_root_equations",
+      "measured": 8.881784197001252e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "initial_core_scalar_J",
+      "measured": 4.1461620854630987e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "all_retained_SDT_equations",
+      "measured": 1.0001765041178778e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_scalar_J",
+      "measured": 7.926608761163952e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "new4f_connected_amplitudes_nonzero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "complete_Mhalf_even_R3_size",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "contract_sha256": "ddaa3ad06b7902cf8a615e0936953df34d2e7356bea46abcf5bc13634c3776a8",
+  "core": {
+    "energy_relative_Ha": -0.006696914622722261,
+    "energy_absolute_Ha": -14067.083870400038,
+    "correlation_Ha": -0.006696914622722261,
+    "residual_Ha": 1.0001765041178778e-17,
+    "solver_evaluations": 57,
+    "measured_calls": 57,
+    "seconds": 293.18392283999856,
+    "rank_norms": {
+      "1": 8.672517304989598e-06,
+      "2": 0.05786766300544935,
+      "3": 0.0023923983125831313
+    },
+    "new4f_amplitude_norm": 0.05318291780971212,
+    "change_from_frozen4f_core_Ha": -0.004998305898009647,
+    "full_H_residual": "not computed; no full18-electron Fock-sector representation"
+  },
+  "exception": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py\", line 402, in main\n    roots, vectors = eigs(\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py\", line 1354, in eigs\n    params.iterate()\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py\", line 752, in iterate\n    self.workd[yslice] = self.OP(self.workd[xslice])\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py\", line 258, in matvec\n    y = self._matvec(x)\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py\", line 617, in _matvec\n    return self.__matvec_impl(x)\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py\", line 59, in action\n    raise RuntimeError(\"predeclared matrix-free EA action limit\")\nRuntimeError: predeclared matrix-free EA action limit\n",
+  "core_residual_calls": [
+    {
+      "seconds": 5.316254252000363,
+      "maximum_Ha": 0.019525843656788673
+    },
+    {
+      "seconds": 5.260183400998358,
+      "maximum_Ha": 0.019525843656788673
+    },
+    {
+      "seconds": 5.233394839000539,
+      "maximum_Ha": 0.019525848427475376
+    },
+    {
+      "seconds": 5.247225441002229,
+      "maximum_Ha": 0.019525838472045632
+    },
+    {
+      "seconds": 5.3503964170013205,
+      "maximum_Ha": 0.019525846620043585
+    },
+    {
+      "seconds": 5.39368441899569,
+      "maximum_Ha": 0.019525842632949136
+    },
+    {
+      "seconds": 5.309686070002499,
+      "maximum_Ha": 0.019525843551700936
+    },
+    {
+      "seconds": 5.164764763001585,
+      "maximum_Ha": 1.5516443668411117e-05
+    },
+    {
+      "seconds": 5.1493821639960515,
+      "maximum_Ha": 1.551096628620509e-05
+    },
+    {
+      "seconds": 5.269130684995616,
+      "maximum_Ha": 1.5521302395561932e-05
+    },
+    {
+      "seconds": 5.157546962997003,
+      "maximum_Ha": 1.5512254829405753e-05
+    },
+    {
+      "seconds": 5.12864022100257,
+      "maximum_Ha": 1.5517409970505166e-05
+    },
+    {
+      "seconds": 5.131710194000334,
+      "maximum_Ha": 1.5516544453290807e-05
+    },
+    {
+      "seconds": 5.139482685000985,
+      "maximum_Ha": 1.55151833332312e-05
+    },
+    {
+      "seconds": 5.1233277740029735,
+      "maximum_Ha": 1.5518489152699577e-05
+    },
+    {
+      "seconds": 5.13308763900568,
+      "maximum_Ha": 1.551391198440166e-05
+    },
+    {
+      "seconds": 5.194312578998506,
+      "maximum_Ha": 1.551814640910985e-05
+    },
+    {
+      "seconds": 5.183599649993994,
+      "maximum_Ha": 1.5516017106037356e-05
+    },
+    {
+      "seconds": 5.142257250998227,
+      "maximum_Ha": 1.5516074920613067e-05
+    },
+    {
+      "seconds": 5.113773466000566,
+      "maximum_Ha": 1.5516731515194866e-05
+    },
+    {
+      "seconds": 5.103292914995109,
+      "maximum_Ha": 1.5515258826320697e-05
+    },
+    {
+      "seconds": 5.182931169998483,
+      "maximum_Ha": 1.636741400236081e-11
+    },
+    {
+      "seconds": 5.130970561003778,
+      "maximum_Ha": 5.4686613666703144e-09
+    },
+    {
+      "seconds": 5.101369400996191,
+      "maximum_Ha": 5.4426293889697406e-09
+    },
+    {
+      "seconds": 5.100631200999487,
+      "maximum_Ha": 9.528097099557962e-09
+    },
+    {
+      "seconds": 5.073785670996585,
+      "maximum_Ha": 6.062022255924844e-09
+    },
+    {
+      "seconds": 5.095235987995693,
+      "maximum_Ha": 7.657465097110678e-09
+    },
+    {
+      "seconds": 5.111214687000029,
+      "maximum_Ha": 6.041262061299343e-09
+    },
+    {
+      "seconds": 5.108918220998021,
+      "maximum_Ha": 5.56185864135691e-09
+    },
+    {
+      "seconds": 5.102952492998156,
+      "maximum_Ha": 6.433333249316405e-09
+    },
+    {
+      "seconds": 5.088988948999031,
+      "maximum_Ha": 7.458901523330276e-09
+    },
+    {
+      "seconds": 5.0883246260054875,
+      "maximum_Ha": 3.891819338712128e-09
+    },
+    {
+      "seconds": 5.110596702004841,
+      "maximum_Ha": 6.434765362367067e-09
+    },
+    {
+      "seconds": 5.112020995999046,
+      "maximum_Ha": 7.4468735876149356e-09
+    },
+    {
+      "seconds": 5.053037598001538,
+      "maximum_Ha": 6.9975371137167636e-09
+    },
+    {
+      "seconds": 5.09046490000037,
+      "maximum_Ha": 7.255325645343699e-09
+    },
+    {
+      "seconds": 5.10740677400463,
+      "maximum_Ha": 4.40981026180947e-09
+    },
+    {
+      "seconds": 5.112209129001712,
+      "maximum_Ha": 6.726998445561163e-09
+    },
+    {
+      "seconds": 5.067189284993219,
+      "maximum_Ha": 7.708896685898966e-09
+    },
+    {
+      "seconds": 5.111615021000034,
+      "maximum_Ha": 7.55646398076425e-09
+    },
+    {
+      "seconds": 5.110557639003673,
+      "maximum_Ha": 5.331545068035541e-09
+    },
+    {
+      "seconds": 5.107009955994727,
+      "maximum_Ha": 7.018525075865261e-09
+    },
+    {
+      "seconds": 5.095737312003621,
+      "maximum_Ha": 6.530574825813935e-09
+    },
+    {
+      "seconds": 5.11756250399776,
+      "maximum_Ha": 5.634364437433077e-09
+    },
+    {
+      "seconds": 5.13848412399966,
+      "maximum_Ha": 4.369329549857962e-09
+    },
+    {
+      "seconds": 5.161279624000599,
+      "maximum_Ha": 4.859683966143483e-09
+    },
+    {
+      "seconds": 5.117587310996896,
+      "maximum_Ha": 7.227316159956606e-09
+    },
+    {
+      "seconds": 5.130696344000171,
+      "maximum_Ha": 6.883639835782007e-09
+    },
+    {
+      "seconds": 5.064490140997805,
+      "maximum_Ha": 5.150284772622284e-09
+    },
+    {
+      "seconds": 5.103211550995184,
+      "maximum_Ha": 6.087824142553489e-09
+    },
+    {
+      "seconds": 5.110079919002601,
+      "maximum_Ha": 8.35257354974883e-09
+    },
+    {
+      "seconds": 5.124008837003203,
+      "maximum_Ha": 5.940459619090723e-09
+    },
+    {
+      "seconds": 5.1132771219999995,
+      "maximum_Ha": 9.19902702988906e-09
+    },
+    {
+      "seconds": 5.12143972699414,
+      "maximum_Ha": 9.862355528151913e-09
+    },
+    {
+      "seconds": 5.109005926002283,
+      "maximum_Ha": 1.0001765041178778e-17
+    },
+    {
+      "seconds": 5.091801566995855,
+      "maximum_Ha": 1.0001765041178778e-17
+    },
+    {
+      "seconds": 5.088211830996443,
+      "maximum_Ha": 1.0001765041178778e-17
+    }
+  ],
+  "elapsed_seconds": 621.0402763430029,
+  "peak_RSS_MiB": 532.26953125
+}

@@ -1,0 +1,503 @@
+{
+  "status": "pass: paired numerical/operator gates; experiment evaluated separately",
+  "DC_replay_max_Ha": 0.0,
+  "zero_frequency_matrix_max_Ha": 0.0,
+  "modes": {
+    "DC": {
+      "total_energies_Ha": [
+        -14067.471743013844,
+        -14067.361149072058,
+        -14067.35919049164,
+        -14067.358963918903,
+        -14067.346384240574
+      ],
+      "max_CI_residual_Ha": 0.0,
+      "reference_overlaps_squared": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_provenance": {
+        "n_csf": 5,
+        "n_orbitals": 24,
+        "solver": "dense-blocked",
+        "n_blocks": 5,
+        "block_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "matrix_free": false
+      },
+      "wall_seconds_uncontrolled": 1.3068133160704747
+    },
+    "static": {
+      "total_energies_Ha": [
+        -14053.323252340775,
+        -14053.212532702675,
+        -14053.210869449218,
+        -14053.210538132773,
+        -14053.198192198357
+      ],
+      "max_CI_residual_Ha": 0.0,
+      "reference_overlaps_squared": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_provenance": {
+        "n_csf": 5,
+        "n_orbitals": 24,
+        "solver": "dense-blocked",
+        "n_blocks": 5,
+        "block_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "matrix_free": false,
+        "breit": "static-breit-gaunt-retardation-in-blocks",
+        "breit_note": "Breit: complete Gaunt plus frequency-independent retardation in the (2J, parity) CI blocks, evaluated on Dirac-Coulomb optimized orbitals. Frequency-dependent transverse exchange is not included."
+      },
+      "wall_seconds_uncontrolled": 1.3719722640234977
+    },
+    "zero_frequency": {
+      "total_energies_Ha": [
+        -14053.323252340775,
+        -14053.212532702675,
+        -14053.210869449218,
+        -14053.210538132773,
+        -14053.198192198357
+      ],
+      "max_CI_residual_Ha": 0.0,
+      "reference_overlaps_squared": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_provenance": {
+        "n_csf": 5,
+        "n_orbitals": 24,
+        "solver": "dense-blocked",
+        "n_blocks": 5,
+        "block_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "matrix_free": false,
+        "breit": "finite-frequency-transverse-in-blocks",
+        "breit_frequency_prescription": "symmetric-two-vertex-orbital-differences",
+        "breit_orbital_energies_Ha": [
+          {
+            "n": 1,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 2,
+            "kappa": -2,
+            "energy": 0.0
+          },
+          {
+            "n": 2,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 2,
+            "kappa": 1,
+            "energy": 0.0
+          },
+          {
+            "n": 3,
+            "kappa": -3,
+            "energy": 0.0
+          },
+          {
+            "n": 3,
+            "kappa": -2,
+            "energy": 0.0
+          },
+          {
+            "n": 3,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 3,
+            "kappa": 1,
+            "energy": 0.0
+          },
+          {
+            "n": 3,
+            "kappa": 2,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": -4,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": -3,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": -2,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": 1,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": 2,
+            "energy": 0.0
+          },
+          {
+            "n": 4,
+            "kappa": 3,
+            "energy": 0.0
+          },
+          {
+            "n": 5,
+            "kappa": -3,
+            "energy": 0.0
+          },
+          {
+            "n": 5,
+            "kappa": -2,
+            "energy": 0.0
+          },
+          {
+            "n": 5,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 5,
+            "kappa": 1,
+            "energy": 0.0
+          },
+          {
+            "n": 5,
+            "kappa": 2,
+            "energy": 0.0
+          },
+          {
+            "n": 6,
+            "kappa": -2,
+            "energy": 0.0
+          },
+          {
+            "n": 6,
+            "kappa": -1,
+            "energy": 0.0
+          },
+          {
+            "n": 6,
+            "kappa": 1,
+            "energy": 0.0
+          }
+        ],
+        "breit_note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms."
+      },
+      "wall_seconds_uncontrolled": 0.2125340400962159
+    },
+    "dynamic": {
+      "total_energies_Ha": [
+        -14053.573812505107,
+        -14053.463095706618,
+        -14053.46143133109,
+        -14053.461105413908,
+        -14053.448770074478
+      ],
+      "max_CI_residual_Ha": 0.0,
+      "reference_overlaps_squared": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_provenance": {
+        "n_csf": 5,
+        "n_orbitals": 24,
+        "solver": "dense-blocked",
+        "n_blocks": 5,
+        "block_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "matrix_free": false,
+        "breit": "finite-frequency-transverse-in-blocks",
+        "breit_frequency_prescription": "symmetric-two-vertex-orbital-differences",
+        "breit_orbital_energies_Ha": [
+          {
+            "n": 1,
+            "kappa": -1,
+            "energy": -2268.1737901239203
+          },
+          {
+            "n": 2,
+            "kappa": -2,
+            "energy": -332.01348737449723
+          },
+          {
+            "n": 2,
+            "kappa": -1,
+            "energy": -389.4171982869558
+          },
+          {
+            "n": 2,
+            "kappa": 1,
+            "energy": -370.58139131634545
+          },
+          {
+            "n": 3,
+            "kappa": -3,
+            "energy": -57.91507824462709
+          },
+          {
+            "n": 3,
+            "kappa": -2,
+            "energy": -73.61814483019657
+          },
+          {
+            "n": 3,
+            "kappa": -1,
+            "energy": -90.23270263294482
+          },
+          {
+            "n": 3,
+            "kappa": 1,
+            "energy": -81.94634724076255
+          },
+          {
+            "n": 3,
+            "kappa": 2,
+            "energy": -59.716346218121366
+          },
+          {
+            "n": 4,
+            "kappa": -4,
+            "energy": -1.0061377401107652
+          },
+          {
+            "n": 4,
+            "kappa": -3,
+            "energy": -7.947458124318293
+          },
+          {
+            "n": 4,
+            "kappa": -2,
+            "energy": -13.898520660294087
+          },
+          {
+            "n": 4,
+            "kappa": -1,
+            "energy": -19.195557339049508
+          },
+          {
+            "n": 4,
+            "kappa": 1,
+            "energy": -15.799649687214044
+          },
+          {
+            "n": 4,
+            "kappa": 2,
+            "energy": -8.303087709862375
+          },
+          {
+            "n": 4,
+            "kappa": 3,
+            "energy": -1.0645802475008703
+          },
+          {
+            "n": 5,
+            "kappa": -3,
+            "energy": -0.3008863577005671
+          },
+          {
+            "n": 5,
+            "kappa": -2,
+            "energy": -1.7039457100069333
+          },
+          {
+            "n": 5,
+            "kappa": -1,
+            "energy": -2.959922877714745
+          },
+          {
+            "n": 5,
+            "kappa": 1,
+            "energy": -1.9417383860403685
+          },
+          {
+            "n": 5,
+            "kappa": 2,
+            "energy": -0.3030715109235863
+          },
+          {
+            "n": 6,
+            "kappa": -2,
+            "energy": -0.2883066793824426
+          },
+          {
+            "n": 6,
+            "kappa": -1,
+            "energy": -0.41366545273185834
+          },
+          {
+            "n": 6,
+            "kappa": 1,
+            "energy": -0.30111293053392457
+          }
+        ],
+        "breit_note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms."
+      },
+      "wall_seconds_uncontrolled": 0.4762219140538946
+    }
+  },
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "key": [
+        6,
+        -1
+      ],
+      "two_J": 1,
+      "parity": 1,
+      "excitation_cm1": {
+        "DC": 0.0,
+        "static": 0.0,
+        "zero_frequency": 0.0,
+        "dynamic": 0.0
+      },
+      "static_minus_DC_cm1": 0.0,
+      "dynamic_minus_static_cm1": 0.0,
+      "dynamic_minus_DC_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "dynamic_minus_experiment_cm1": 0.0,
+      "dynamic_relative_error": null
+    },
+    {
+      "label": "5d_3/2",
+      "key": [
+        5,
+        2
+      ],
+      "two_J": 3,
+      "parity": 1,
+      "excitation_cm1": {
+        "DC": 24272.564604620955,
+        "static": 24300.151756637806,
+        "zero_frequency": 24300.151756637806,
+        "dynamic": 24299.528533923207
+      },
+      "static_minus_DC_cm1": 27.587152016851178,
+      "dynamic_minus_static_cm1": -0.623222714599251,
+      "dynamic_minus_DC_cm1": 26.963929302251927,
+      "experimental_cm1": 22960.8,
+      "dynamic_minus_experiment_cm1": 1338.7285339232076,
+      "dynamic_relative_error": 0.0583049603638901
+    },
+    {
+      "label": "6p_1/2",
+      "key": [
+        6,
+        1
+      ],
+      "two_J": 1,
+      "parity": -1,
+      "excitation_cm1": {
+        "DC": 24702.42331995131,
+        "static": 24665.19369599429,
+        "zero_frequency": 24665.19369599429,
+        "dynamic": 24664.816739376485
+      },
+      "static_minus_DC_cm1": -37.22962395702052,
+      "dynamic_minus_static_cm1": -0.3769566178052628,
+      "dynamic_minus_DC_cm1": -37.606580574825784,
+      "experimental_cm1": 27061.82,
+      "dynamic_minus_experiment_cm1": -2397.0032606235145,
+      "dynamic_relative_error": -0.08857509438106947
+    },
+    {
+      "label": "5d_5/2",
+      "key": [
+        5,
+        -3
+      ],
+      "two_J": 5,
+      "parity": 1,
+      "excitation_cm1": {
+        "DC": 24752.150287707955,
+        "static": 24737.909250674937,
+        "zero_frequency": 24737.909250674937,
+        "dynamic": 24736.34729289038
+      },
+      "static_minus_DC_cm1": -14.241037033018074,
+      "dynamic_minus_static_cm1": -1.5619577845573076,
+      "dynamic_minus_DC_cm1": -15.802994817575382,
+      "experimental_cm1": 24332.69,
+      "dynamic_minus_experiment_cm1": 403.65729289038063,
+      "dynamic_relative_error": 0.01658909446059531
+    },
+    {
+      "label": "6p_3/2",
+      "key": [
+        6,
+        -2
+      ],
+      "two_J": 3,
+      "parity": -1,
+      "excitation_cm1": {
+        "DC": 27513.070551548833,
+        "static": 27447.52865542973,
+        "zero_frequency": 27447.52865542973,
+        "dynamic": 27443.641367059034
+      },
+      "static_minus_DC_cm1": -65.5418961191026,
+      "dynamic_minus_static_cm1": -3.887288370697206,
+      "dynamic_minus_DC_cm1": -69.42918448979981,
+      "experimental_cm1": 30392.23,
+      "dynamic_minus_experiment_cm1": -2948.588632940966,
+      "dynamic_relative_error": -0.09701784413124559
+    }
+  ],
+  "original_experimental_goal_pass": false,
+  "source_unchanged": true,
+  "input_unchanged": true,
+  "wall_seconds_uncontrolled": 3.5944863409968093,
+  "peak_RSS_bytes": 789331968,
+  "contract_sha256": "1bb67276aaf4e22c14b070e1ae4db42838e18a325d6157d715a81025388380bd",
+  "scope": "Frozen-orbital CI expectation/rediagonalization, not frequency-relaxed DF, not native reduced SD, not screened/multi-photon QED, not dressed rates",
+  "highest_level_reached": false,
+  "card_summary": "Yb⁺ 五态同轨道配对通过数值门；动态相对静态的激发能增量：\n• 5d_3/2：-0.6232 cm⁻¹\n• 6p_1/2：-0.3770 cm⁻¹\n• 5d_5/2：-1.5620 cm⁻¹\n• 6p_3/2：-3.8873 cm⁻¹\n这是冻结核 CI 因素实验；未叠加到现有 DC-SD 能级，也未认证寿命或完整 QED。"
+}

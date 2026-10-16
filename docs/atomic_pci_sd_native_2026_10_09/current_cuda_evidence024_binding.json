@@ -1,0 +1,21 @@
+{
+  "historical_017_binding_sha256": "db65feb9bff9ffb67c2ee827d3590f1f5915aa3a18c57da7ff3e1b2faa67fc04",
+  "historical_023_binding_sha256": "592de63e34a78e3c6e325815321b8d53c3f97aa144cfed6c075ac1332f06afb2",
+  "helper_sources_017_unchanged": {
+    "cuda_krylov_control.py": "5523409924e2fef37c9e7193daa2af78e0de5461b95d1acc9097b0e5a537d83e",
+    "private_recycling_control.py": "d6f0feb68063762b6b8dcf2e2c28b6e7c3a4bcc63d9c21b1f36bf607e792cd60",
+    "private_seed_handoff.py": "7a32e0f2fd588f161dee652e8941cb1d62ca2dc4132c0efd21cd35cde20308c6"
+  },
+  "actual_private_source": {
+    "cuda_batched_projection_control.py": "216af20622219a8b2b5c2947221b2e1ef3dfd27a01f51a0918c8ee8bfe3bcd7d",
+    "cuda_fused_angular_control.py": "c66dd8f35d4d1ba47d46e97e9c837c741752e902b6572afecab5c4721449f08e",
+    "probe_public_valence002.py": "bcc0e93e45e7ed67973b41114615ed28ad13564260f51f0f73d6396fa55c1fe8",
+    "valence_term41_blas_control.py": "750605d37644994f75c4bda1666c17054d58431e7a72f44f7d72a66791cc9f15",
+    "valence_terma4_blas_control.py": "02929b603a0121be3a0222a0c435723ff367db79056321145d97c16880a17c47",
+    "probe_cuda_valence.py": "b8b172f6c18d09c0730b84d998da23696a78acc6a4dc26184100d786693d1a75",
+    "probe_batched_projection001.py": "d6b116688feb034d258c8e332a7932f2120b7ffd09cd569a7eb0ee8cfea111e9",
+    "probe_fused_full_fields001.py": "76bd0b5808d159a0fb415527d0b29486aff78b8d05e87c61ff47b98a4654c249"
+  },
+  "validated_024_result_sha256": "b41de4ed4b3c5d16e327be9a7373e82b60cf4b9b6a99d464893ea31937b62335",
+  "scope": "actual024 finite driver/helper epoch; originalfull005 proof driver and helpers are separate unchanged active source; earlier017/020/023 immutable source epochs retained; public021 unchanged"
+}

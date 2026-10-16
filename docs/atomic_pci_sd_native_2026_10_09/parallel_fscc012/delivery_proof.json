@@ -1,0 +1,121 @@
+{
+  "version": "parallel-fscc012",
+  "frozen_sources_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "e564bdd5c2bc7886302c0dc15cdbaed61ba1ab2943436b6b195eea01a79773f3",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/build_candidate.py": "3b2d1e17e22ceb42f82d49d284e9ca5961d00a9fc976a4b0102c5ebf9ff456bf",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/validate_candidate.py": "d98f993c222767a414646ed8d04a186f83b27138028720b197beb4a034bc9951",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/prepare_complex.py": "d9d14215147caedd3cbc4cdef2514cb0d5bbc1ca1a542539b920e062585deced",
+    "tests/test_fscc_equation_audit.py": "30df5c0b6b64680f06b86328867ff7deef240d4ea2b562a1ab0bcba537ade118"
+  },
+  "outputs": {
+    "final_audit004": {
+      "result_sha256": "f86d67ae8920c165e6529699aa9f74a20b7a2164eec74835306fee16e7b64266",
+      "arrays_sha256": "de9759b9384b3464103d88723ec343e05730ecab47e0fb36a0da068f790ea176",
+      "archive_sha256": "e8af7b8bd17b524f1b5de15547e7184e86ec6ea338ab077e79274c2e88b1bcef",
+      "status": "unclosed_equation_audit",
+      "strict_heff_pass": false,
+      "highest_level_reached": false
+    },
+    "final_candidate_C1": {
+      "result_sha256": "7eed82e06b0f47eb8d33597005867019324957b1ed8f949eb8c4a54dfd48212d",
+      "arrays_sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd",
+      "archive_sha256": "92d0a2f5899e08026ee390e540b2410efdd0722934a9612dead4f39db48ad646",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_candidate_axial": {
+      "result_sha256": "546bd4a822d3c0bcd478ce6694abd194d9ad3777c5b4b1701b59446ade980dd6",
+      "arrays_sha256": "dd667b492e47f44335cd9a9d8609f61a79bae3e62a689f1c1d2f511dcf0823a6",
+      "archive_sha256": "952a226c924cef68a2fe642db7723e8f2a867af292032f0163e7a988a1921979",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_fov0": {
+      "result_sha256": "7e96eb84689705c97255f4a98728d991e2f1f8ee02cda9d74bbdff4dce64f643",
+      "arrays_sha256": "79bcd817c16e3e6b63c9b8604b57fba2762a382e25b4875b9804dc8e574b867e",
+      "archive_sha256": "1245206574c5f8352e2b50bf9edf787366b0db01a22c85f6dacd94b68ed7fc87",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_fov2": {
+      "result_sha256": "1426867729f8ba38cc7af45d36d2e00455809d0de29895e85a6d7f6bf3030ae9",
+      "arrays_sha256": "2a6c86c0bcc5c22aead97d0fd01c828a8f016d73cbac06d772b638bbc3e3ecdc",
+      "archive_sha256": "4fe21fb030d27e657fd1712631e140edca6f158fecfc46c2eb62ecde7af9dadc",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_DC": {
+      "result_sha256": "72bbc1a457ff472e50c4f62a1d23bab9106c353bb41d123a7714d719f45557ff",
+      "arrays_sha256": "ea21234ba5a31684013c0d6f046b02ad6354445c6cc39d6b540a2d7303200d22",
+      "archive_sha256": "14b6e9020805a7e206a31a442641860e4391015ca84ea2f9d816c38b8d9eedfa",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_static": {
+      "result_sha256": "af2d0c3a15534b5f3d4242521266ab3ce6daf7b4bfe64d8b966ebcc956d716d3",
+      "arrays_sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd",
+      "archive_sha256": "ded875db9e47529cdd9617878d9a76115197ce8ebbca7d4b46c694f1f512445f",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_complex": {
+      "result_sha256": "aad56f77a9afd766927279342c6dc958aade1a1a38268e6f41df89b2e998dee0",
+      "arrays_sha256": "0d535a0377c985dcb56603036c370c2cee65b43bb7c8d82b6acfcb6fa105a539",
+      "archive_sha256": "442ec4fc2838fd8717bb236101f5dacde889d3d487cf58977f6f49bf638b0572",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_complex_axial": {
+      "result_sha256": "11dec468e7c41848bc68558a28139ddca638adcc9087b3b688aa655cf48ea96e",
+      "arrays_sha256": "22733f3e0aa82aba189f761f5bfc4482dfac28bf96ce77145f22f1598cbabaa7",
+      "archive_sha256": "2d8fed5894f7bd0a49c9c39b211d3eb87c0e199794541c73b7674a167d78e171",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_static002": {
+      "result_sha256": "7dcd67714541080532d8ccf0fa68271a2e170d60e06bfc9d2f754bdae81db697",
+      "arrays_sha256": "4f2f53fd6fbe3014c7748908a1890a010a0ce378478c9257e74489cdc8af9b46",
+      "archive_sha256": "f9dd8fb07197823a08f152c5fae9bcce31d3cc7298c17ef863af9ae578460d82",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    },
+    "final_ns100_dynamic": {
+      "result_sha256": "1a3178d0ddc926b50ea427d889fdff4344b94c363fe03ece868ad898886470fb",
+      "arrays_sha256": "93e701564688472efd840469a35d1cb32b1c6b518c46b052d5ccabc69d04d446",
+      "archive_sha256": "f66edc7a355d2e5c7568bd572ec78cb91631329a92a47dbffe9ffd04f1531245",
+      "status": "finite_candidate_pass",
+      "strict_heff_pass": true,
+      "highest_level_reached": false
+    }
+  },
+  "candidate_backend_sha256": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+  "candidate_patch_sha256": "a2ea7e7a678145fa33d3d2294f857dcb6e99b2c762004374ad00bdfec2635faf",
+  "candidate_build_result_sha256": "85f5d3c3a209fbb6a42d39b3216f0fdd16be36182f3d74d9143e4d49407fc69d",
+  "validated_original_backend_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "4",
+    "time": "0.534",
+    "timestamp": "2026-10-11T09:12:57.725073+08:00",
+    "hostname": "fermi"
+  },
+  "junit_sha256": "4670304f5761b2d96092f07f809831f63df13a828ca639dd3dd961ba87ad0e18",
+  "scientific_boundaries": {
+    "strict_backend_Ha": 1e-10,
+    "bloch_oracle_Ha": 1e-11,
+    "highest_level_reached": false,
+    "production_backend_replaced": false
+  }
+}

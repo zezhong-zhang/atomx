@@ -1,0 +1,175 @@
+{
+  "status": "pass_for_frozen_public_numerical_resume_interface_only",
+  "created_utc": "2026-10-11T08:56:38.762539+00:00",
+  "owner": "/root/mcdhf_physics_audit",
+  "prospective_contract_sha256": "7fd4131654571784380df1fc1cf63ffffd92df138e30b36fac5b43b5d94becac",
+  "reviewed_source_sha256": {
+    "src/atomx/numerics/bspline/orbital_optimization.py": "8216b92338a208414804b908662ff704413d8968437d50c359b14b7997988a8b",
+    "tests/test_orbital_optimizer_resume.py": "e3a4cdb43f90d430d12d8a8f52229b14d725e18e192e57acb71a2107e7b83114"
+  },
+  "reviewed_public_API": [
+    "OrbitalOptimizationState.from_arrays",
+    "OrbitalOptimizationState.validate",
+    "optimize_orbitals resume_state/objective_identity/allow_objective_change",
+    "checkpoint_callback/max_wall_time/return_state"
+  ],
+  "checks": [
+    {
+      "name": "complete same-kappa Stiefel layout and exact slice coverage",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "immutable float64 P/x/inverse/operator/S bytes; no silent repair",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "physical geometry, active S positive definiteness, exactly zero inactive padding",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "P selected positive span validation does not replace original map",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "coordinate and actual C^T S C guards; combined defect rejected",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "new objective explicit allowance and full new evaluate before residual; no stale CI/gradient/history",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "resume skips Fock/spectrum/seed polar/population reconstruction and rejects matrices/factory/shooting",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "legacy metric fingerprint and archived original inverse+tangent action",
+      "status": "pass_independently_executed_array_only_control"
+    },
+    {
+      "name": "typed length-framed strong hash resolves both independently found collisions",
+      "status": "pass_independently_executed_pure_helper_control"
+    },
+    {
+      "name": "same tangent gradient, polar map, preconditioning, Armijo and convergence definitions",
+      "status": "pass_source_executable_AST_and_test_review"
+    },
+    {
+      "name": "accepted-point checkpoint, original progress callback, optional orbitals exact map, timeout trial discard",
+      "status": "pass_source_and_focused_test_review"
+    },
+    {
+      "name": "fresh default behavior preserved",
+      "status": "pass_source_review_owner_focused_bitwise_test"
+    },
+    {
+      "name": "source/model archive integrity",
+      "status": "pass_independently_executed_hash_control"
+    }
+  ],
+  "independent_executed_controls": {
+    "pure_hash_distinguishing_pairs": [
+      {
+        "left": "[1, 23]",
+        "right": "[12, 3]",
+        "different_sha": true
+      },
+      {
+        "left": "{'a': {'b': 1}}",
+        "right": "{'a': {}, 'b': 1}",
+        "different_sha": true
+      },
+      {
+        "left": "[1]",
+        "right": "[True]",
+        "different_sha": true
+      },
+      {
+        "left": "(1, 23)",
+        "right": "[1, 23]",
+        "different_sha": true
+      }
+    ],
+    "actual_archived_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "actual_archived_inverse_tangent_max_abs_error": 0.0,
+    "replayed_archived004_residual": 2.670347390185656e-06,
+    "unchanged_executable_AST_functions": {
+      "_polar_retraction": true,
+      "build_blocks": true,
+      "scale_blocks": true,
+      "retract": true,
+      "tangent": true,
+      "unpack": true,
+      "evaluate": true,
+      "spectral_precondition": true
+    },
+    "docstring_only_AST_difference_record": "ast_docstring_delta.json",
+    "source_before_manifest_count": 353,
+    "source_before_manifest_changed_files": [
+      "src/atomx/numerics/bspline/orbital_optimization.py"
+    ],
+    "unchanged_immutable_contract_inputs": [
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/orbital_optimization.py",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/contract.json",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json",
+        "sha_matches": true
+      },
+      {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md",
+        "sha_matches": true
+      }
+    ]
+  },
+  "owner_test_evidence": {
+    "reported_by": "/root/yb_mcdhf_native; independently read source, did not rerun",
+    "focused_test_file": "tests/test_orbital_optimizer_resume.py",
+    "passed": 40,
+    "wall_seconds": 0.5,
+    "ruff_passed": true,
+    "numerical_scope": "Independent-particle Rayleigh energy/analytic gradient in real B-spline/S/no-pair geometry, diag+blocks and same-kappa pairs. These tests do not independently establish a real 531-CSF mixed-CI physics derivative or convergence."
+  },
+  "root_integration_evidence": {
+    "reported_by": "/root; audit did not rerun",
+    "passed": 115,
+    "wall_seconds": 95.18,
+    "scope": "Root affected8 original files plus new40 focused cases; final source/test SHA unchanged according to root."
+  },
+  "resolved_findings": [
+    "Unframed scalar sequence collision",
+    "Unframed nested mapping collision",
+    "Inactive null-metric component leakage",
+    "Separate P/Y Gram limits insufficient for actual C Gram",
+    "Malformed padded S shape must reject deliberately before indexing"
+  ],
+  "remaining_material_findings": [],
+  "limits": [
+    "Nonadversarial numerical state API; private dataclass constructors are not an untrusted pickle authentication protocol.",
+    "Caller objective_identity is a declaration. Consumer scientific contract must bind complete CSF order/J/targets/EOL weights/operators/tracking/source.",
+    "Legacy residual SHA preserves P/inverse representation only. New geometry/state SHA additionally binds physical geometry/point; scientific tolerances remain explicit consumer arguments.",
+    "Original Yb successor gates must remain residual 1e-7 and estimated-energy 1e-8 Ha. Resume does not inherit five-CSF stationarity for the 531-CSF objective.",
+    "Successful005 final engine x was not archived. The stored recovered point may be authoritative but differs from005 physical wave by 2.986638714119749e-13; never label it bitwise recovery of missing original x.",
+    "No full MCDHFSolver resume integration certified by this numerical API audit.",
+    "No new CI solve, radial objective, gradient evaluation, optimizer execution or experimental spectrum produced by this audit. Future mixed stable energy delta remains separate; no fixed-density guard broadened.",
+    "Bounded genuine531 optimization remains a subsequent validation stage."
+  ],
+  "documentation_impact_disposition": "Prospective contract, invariants, original findings and source-bound resolved controls remain in this owned audit directory. Native owner handles public interface documentation. Existing state/basis/metric identity principles apply; no new physical insight claimed."
+}

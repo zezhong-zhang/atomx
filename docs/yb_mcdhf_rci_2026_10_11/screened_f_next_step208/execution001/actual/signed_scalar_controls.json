@@ -1,0 +1,598 @@
+{
+  "rows": [
+    {
+      "kappa": 3,
+      "quadrant": "PP",
+      "error_Ha": 8.526512829121202e-14,
+      "magnitude_Ha": 177.09587704930723,
+      "relative_error": 4.814630905691407e-16
+    },
+    {
+      "kappa": 3,
+      "quadrant": "QQ",
+      "error_Ha": 6.661338147750939e-16,
+      "magnitude_Ha": 1.1134061975802252,
+      "relative_error": 5.982846298348329e-16
+    },
+    {
+      "kappa": 3,
+      "quadrant": "PQ",
+      "error_Ha": 3.469446951953614e-18,
+      "magnitude_Ha": 0.002915998353684369,
+      "relative_error": 1.1897972944909114e-15
+    },
+    {
+      "kappa": 3,
+      "quadrant": "QP",
+      "error_Ha": 3.0357660829594124e-18,
+      "magnitude_Ha": 0.00291599835368437,
+      "relative_error": 1.0410726326795472e-15
+    },
+    {
+      "kappa": -4,
+      "quadrant": "PP",
+      "error_Ha": 8.526512829121202e-14,
+      "magnitude_Ha": 176.40628058389595,
+      "relative_error": 4.83345196151683e-16
+    },
+    {
+      "kappa": -4,
+      "quadrant": "QQ",
+      "error_Ha": 6.661338147750939e-16,
+      "magnitude_Ha": 0.8757879746103484,
+      "relative_error": 7.606108260066795e-16
+    },
+    {
+      "kappa": -4,
+      "quadrant": "PQ",
+      "error_Ha": 5.204170427930421e-18,
+      "magnitude_Ha": 0.009283047124237694,
+      "relative_error": 5.606101486162366e-16
+    },
+    {
+      "kappa": -4,
+      "quadrant": "QP",
+      "error_Ha": 3.469446951953614e-18,
+      "magnitude_Ha": 0.009283047124237696,
+      "relative_error": 3.73740099077491e-16
+    }
+  ],
+  "signed_bilinears": [
+    {
+      "kappa": 3,
+      "bra": [
+        100,
+        3
+      ],
+      "ket": [
+        100,
+        3
+      ],
+      "scalar_Ha": 96.25419693611656,
+      "native_Ha": 96.25419693611661,
+      "signed_difference_Ha": 5.684341886080802e-14
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        100,
+        3
+      ],
+      "ket": [
+        101,
+        3
+      ],
+      "scalar_Ha": -0.0013184859788527997,
+      "native_Ha": -0.001318485978852799,
+      "signed_difference_Ha": 6.505213034913027e-19
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        100,
+        3
+      ],
+      "ket": [
+        102,
+        3
+      ],
+      "scalar_Ha": 28.409872533572848,
+      "native_Ha": 28.40987253357288,
+      "signed_difference_Ha": 3.197442310920451e-14
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        100,
+        3
+      ],
+      "ket": [
+        103,
+        3
+      ],
+      "scalar_Ha": -0.0023002211720385356,
+      "native_Ha": -0.0023002211720385348,
+      "signed_difference_Ha": 8.673617379884035e-19
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        101,
+        3
+      ],
+      "ket": [
+        100,
+        3
+      ],
+      "scalar_Ha": -0.0013184859788528008,
+      "native_Ha": -0.0013184859788527995,
+      "signed_difference_Ha": 1.3010426069826053e-18
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        101,
+        3
+      ],
+      "ket": [
+        101,
+        3
+      ],
+      "scalar_Ha": 0.11951210494851791,
+      "native_Ha": 0.11951210494851794,
+      "signed_difference_Ha": 2.7755575615628914e-17
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        101,
+        3
+      ],
+      "ket": [
+        102,
+        3
+      ],
+      "scalar_Ha": -0.00021083768688702812,
+      "native_Ha": -0.0002108376868870288,
+      "signed_difference_Ha": -6.776263578034403e-19
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        101,
+        3
+      ],
+      "ket": [
+        103,
+        3
+      ],
+      "scalar_Ha": 0.21369613821095146,
+      "native_Ha": 0.21369613821095138,
+      "signed_difference_Ha": -8.326672684688674e-17
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        102,
+        3
+      ],
+      "ket": [
+        100,
+        3
+      ],
+      "scalar_Ha": 28.409872533572845,
+      "native_Ha": 28.409872533572887,
+      "signed_difference_Ha": 4.263256414560601e-14
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        102,
+        3
+      ],
+      "ket": [
+        101,
+        3
+      ],
+      "scalar_Ha": -0.00021083768688702828,
+      "native_Ha": -0.000210837686887029,
+      "signed_difference_Ha": -7.047314121155779e-19
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        102,
+        3
+      ],
+      "ket": [
+        102,
+        3
+      ],
+      "scalar_Ha": 177.09587704930723,
+      "native_Ha": 177.09587704930732,
+      "signed_difference_Ha": 8.526512829121202e-14
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        102,
+        3
+      ],
+      "ket": [
+        103,
+        3
+      ],
+      "scalar_Ha": -0.002915998353684369,
+      "native_Ha": -0.0029159983536843725,
+      "signed_difference_Ha": -3.469446951953614e-18
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        103,
+        3
+      ],
+      "ket": [
+        100,
+        3
+      ],
+      "scalar_Ha": -0.0023002211720385348,
+      "native_Ha": -0.0023002211720385343,
+      "signed_difference_Ha": 4.336808689942018e-19
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        103,
+        3
+      ],
+      "ket": [
+        101,
+        3
+      ],
+      "scalar_Ha": 0.21369613821095146,
+      "native_Ha": 0.2136961382109514,
+      "signed_difference_Ha": -5.551115123125783e-17
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        103,
+        3
+      ],
+      "ket": [
+        102,
+        3
+      ],
+      "scalar_Ha": -0.00291599835368437,
+      "native_Ha": -0.002915998353684373,
+      "signed_difference_Ha": -3.0357660829594124e-18
+    },
+    {
+      "kappa": 3,
+      "bra": [
+        103,
+        3
+      ],
+      "ket": [
+        103,
+        3
+      ],
+      "scalar_Ha": 1.1134061975802252,
+      "native_Ha": 1.1134061975802259,
+      "signed_difference_Ha": 6.661338147750939e-16
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        104,
+        -4
+      ],
+      "ket": [
+        104,
+        -4
+      ],
+      "scalar_Ha": 94.897821874049,
+      "native_Ha": 94.89782187404901,
+      "signed_difference_Ha": 1.4210854715202004e-14
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        104,
+        -4
+      ],
+      "ket": [
+        105,
+        -4
+      ],
+      "scalar_Ha": -0.001794490553680962,
+      "native_Ha": -0.0017944905536809628,
+      "signed_difference_Ha": -8.673617379884035e-19
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        104,
+        -4
+      ],
+      "ket": [
+        106,
+        -4
+      ],
+      "scalar_Ha": -28.227619604730123,
+      "native_Ha": -28.22761960473013,
+      "signed_difference_Ha": -7.105427357601002e-15
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        104,
+        -4
+      ],
+      "ket": [
+        107,
+        -4
+      ],
+      "scalar_Ha": 0.0035548966398735336,
+      "native_Ha": 0.0035548966398735327,
+      "signed_difference_Ha": -8.673617379884035e-19
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        105,
+        -4
+      ],
+      "ket": [
+        104,
+        -4
+      ],
+      "scalar_Ha": -0.0017944905536809626,
+      "native_Ha": -0.0017944905536809628,
+      "signed_difference_Ha": -2.168404344971009e-19
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        105,
+        -4
+      ],
+      "ket": [
+        105,
+        -4
+      ],
+      "scalar_Ha": 0.08311503823769356,
+      "native_Ha": 0.08311503823769367,
+      "signed_difference_Ha": 1.1102230246251565e-16
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        105,
+        -4
+      ],
+      "ket": [
+        106,
+        -4
+      ],
+      "scalar_Ha": 0.0015894920051294727,
+      "native_Ha": 0.0015894920051294733,
+      "signed_difference_Ha": 6.505213034913027e-19
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        105,
+        -4
+      ],
+      "ket": [
+        107,
+        -4
+      ],
+      "scalar_Ha": -0.15907824579994287,
+      "native_Ha": -0.15907824579994312,
+      "signed_difference_Ha": -2.498001805406602e-16
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        106,
+        -4
+      ],
+      "ket": [
+        104,
+        -4
+      ],
+      "scalar_Ha": -28.227619604730123,
+      "native_Ha": -28.22761960473013,
+      "signed_difference_Ha": -7.105427357601002e-15
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        106,
+        -4
+      ],
+      "ket": [
+        105,
+        -4
+      ],
+      "scalar_Ha": 0.0015894920051294729,
+      "native_Ha": 0.0015894920051294733,
+      "signed_difference_Ha": 4.336808689942018e-19
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        106,
+        -4
+      ],
+      "ket": [
+        106,
+        -4
+      ],
+      "scalar_Ha": 176.40628058389595,
+      "native_Ha": 176.40628058389603,
+      "signed_difference_Ha": 8.526512829121202e-14
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        106,
+        -4
+      ],
+      "ket": [
+        107,
+        -4
+      ],
+      "scalar_Ha": -0.009283047124237694,
+      "native_Ha": -0.009283047124237699,
+      "signed_difference_Ha": -5.204170427930421e-18
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        107,
+        -4
+      ],
+      "ket": [
+        104,
+        -4
+      ],
+      "scalar_Ha": 0.0035548966398735323,
+      "native_Ha": 0.0035548966398735336,
+      "signed_difference_Ha": 1.3010426069826053e-18
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        107,
+        -4
+      ],
+      "ket": [
+        105,
+        -4
+      ],
+      "scalar_Ha": -0.15907824579994287,
+      "native_Ha": -0.1590782457999431,
+      "signed_difference_Ha": -2.220446049250313e-16
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        107,
+        -4
+      ],
+      "ket": [
+        106,
+        -4
+      ],
+      "scalar_Ha": -0.009283047124237696,
+      "native_Ha": -0.009283047124237699,
+      "signed_difference_Ha": -3.469446951953614e-18
+    },
+    {
+      "kappa": -4,
+      "bra": [
+        107,
+        -4
+      ],
+      "ket": [
+        107,
+        -4
+      ],
+      "scalar_Ha": 0.8757879746103484,
+      "native_Ha": 0.8757879746103491,
+      "signed_difference_Ha": 6.661338147750939e-16
+    }
+  ],
+  "probes": [
+    {
+      "key": [
+        100,
+        3
+      ],
+      "origin": "literal208_original4f",
+      "component": "P",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        101,
+        3
+      ],
+      "origin": "literal208_original4f",
+      "component": "Q",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        102,
+        3
+      ],
+      "origin": "saved_qualified_nuclear5f",
+      "component": "P",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        103,
+        3
+      ],
+      "origin": "saved_qualified_nuclear5f",
+      "component": "Q",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        104,
+        -4
+      ],
+      "origin": "literal208_original4f",
+      "component": "P",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        105,
+        -4
+      ],
+      "origin": "literal208_original4f",
+      "component": "Q",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        106,
+        -4
+      ],
+      "origin": "saved_qualified_nuclear5f",
+      "component": "P",
+      "physical_orbital": false,
+      "renormalized": false
+    },
+    {
+      "key": [
+        107,
+        -4
+      ],
+      "origin": "saved_qualified_nuclear5f",
+      "component": "Q",
+      "physical_orbital": false,
+      "renormalized": false
+    }
+  ],
+  "ordered_bilinears": 32,
+  "unique_Slater_keys": 1680,
+  "zero_bare_one_body": true,
+  "internal_retry_actual_count_not_observed": true,
+  "existing_internal_Slater_retry_upper_bound": 5040,
+  "anchor_scope": "Original4f plus saved nuclear5f component probes; operator qualification before Fock spectra/CI. Old nuclear late counter FAIL remains."
+}

@@ -1,0 +1,23 @@
+{
+  "status": "browser metadata closed in new files only",
+  "update": [
+    "BROWSER_CLOSURE.md",
+    "browser_completion.json",
+    "browser_closure_documentation_impact.json",
+    "browser_closure_EARS.md"
+  ],
+  "retain": [
+    "all20frozen handoff files including prospective README/RESULTS",
+    "all site files",
+    "original scientific/local metadata failures"
+  ],
+  "actual_checks": {
+    "browser_PASS": 54,
+    "retained_static_PASS": 61,
+    "closure_metadata_PASS": 18
+  },
+  "new_browser_API_science_arrays": 0,
+  "global_trace_registry_mainREADME_modified": false,
+  "publication_status": "root_owned_pending_separate_receipts",
+  "no_new_general_insight": "Existing preserve-provenance and failed-gate rules cover this display-only closure."
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "safronova2009",
+    "title": "Third-order relativistic many-body calculations of energies, transition rates, hyperfine constants, and blackbody radiation shift in 171Yb+",
+    "doi": "10.1103/PhysRevA.79.022512",
+    "url": "https://mariannasafronova.com/wp-content/uploads/2022/12/YbII-2009.pdf",
+    "read": "Table I and energy/matrix-element method sections",
+    "scope": "Direct Yb II benchmark; separate E2, E3, B1, B2 and Lamb shift. Printed NIST absolute zero is historical."
+  },
+  {
+    "id": "porsev2012",
+    "title": "Correlation effects in Yb+ and implications for parity violation",
+    "doi": "10.1103/PhysRevA.86.022504",
+    "url": "https://mariannasafronova.com/wp-content/uploads/2022/12/PorSafKoz12c.pdf",
+    "read": "Table I, II, V, VI; Sections II A and III A/B; orbital construction and convergence",
+    "scope": "Direct Yb II second-order/linearized SD all-order/15-electron CI contrast. MBPT(HO) uses chosen Coulomb screening coefficients; it is separate from ab initio SD."
+  },
+  {
+    "id": "dzuba2011",
+    "title": "Calculation of nuclear-spin-dependent parity nonconservation in s-d transitions of Ba+, Yb+, and Ra+ ions",
+    "doi": "10.1103/PhysRevA.83.052513",
+    "url": "https://arxiv.org/pdf/1104.0086",
+    "read": "Section III and Tables I/II",
+    "scope": "Yb+ uses second-order correlation potential and Brueckner orbitals; Table I unscaled binding energies are separated from Table II empirical rescaling."
+  },
+  {
+    "id": "pototschnig2021",
+    "title": "Electronic spectra of ytterbium fluoride from relativistic electronic structure calculations",
+    "doi": "10.1039/D1CP03701C",
+    "url": "https://arxiv.org/pdf/2107.11234",
+    "publisher_url": "https://pubs.rsc.org/en/content/articlehtml/2021/cp/d1cp03701c",
+    "read": "Atomic Yb+ Section 3.1 and Tables 2/3 of arXiv v1; Section 2 methods",
+    "scope": "Use its explicit atomic Yb+ benchmark, not molecular YbF energies. EOM/IP and EA reference sectors and IH main/intermediate spaces affect accuracy."
+  },
+  {
+    "id": "berengut2016",
+    "title": "Particle-hole configuration interaction and many-body perturbation theory: application to Hg+",
+    "doi": "10.1103/PhysRevA.94.012502",
+    "url": "https://arxiv.org/pdf/1605.08111",
+    "read": "Sections II-IV, Eq. 10 and Q-space redefinition",
+    "scope": "Formalism and Hg+ benchmark; proposed transfer to Yb+ is an inference, not a demonstrated Yb+ accuracy result."
+  },
+  {
+    "id": "dirac_manual",
+    "title": "DIRAC 26.alpha RELCCSD and Hamiltonian documentation",
+    "url": "https://diracprogram-documentation.readthedocs.io/en/latest/manual/wave_function/relccsd.html",
+    "hamiltonian_url": "https://diracprogram-documentation.readthedocs.io/en/latest/manual/hamiltonian.html",
+    "read": "Fock-space sectors, EOM options, intermediate Hamiltonian, Gaunt implementation scope",
+    "scope": "External method availability only. DIRAC is not installed in the current PATH and no external run has been performed; Gaunt at Fock level is not the full native static Breit operator."
+  }
+]

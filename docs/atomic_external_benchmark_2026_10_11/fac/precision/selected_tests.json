@@ -1,0 +1,46 @@
+{
+  "after": {
+    "/data/code/atomx/tests/data/fac_ci_operator.json": "b66a694e07b785ee2d5585aaa12665bfa8ce832ad082341daa329ff6e6fd9f75",
+    "/data/code/atomx/tests/data/fac_ci_spinors.npz": "4a5cfed619225e339fd9df67edb7ad142ccb7256ad22a28a9861aad09fd36be8",
+    "/data/code/atomx/tests/test_ci_analytic_slater_condon.py": "18e4b05fe17a1a16375515824d9b3d7cbb53b5b0c5c691e0019d55b070df4146",
+    "/data/code/atomx/tests/test_ci_grid_kernel.py": "3d9ceb646805e9e92fc4c0bfa14c6b014ad09e1cda69abb9db1df749ebad0521",
+    "/data/code/atomx/tests/test_fac_ci_operator.py": "c7176919651b8f152ecf1086a149171b6a487d0f3d11921fa63d2f529482834c"
+  },
+  "before": {
+    "/data/code/atomx/tests/data/fac_ci_operator.json": "b66a694e07b785ee2d5585aaa12665bfa8ce832ad082341daa329ff6e6fd9f75",
+    "/data/code/atomx/tests/data/fac_ci_spinors.npz": "4a5cfed619225e339fd9df67edb7ad142ccb7256ad22a28a9861aad09fd36be8",
+    "/data/code/atomx/tests/test_ci_analytic_slater_condon.py": "18e4b05fe17a1a16375515824d9b3d7cbb53b5b0c5c691e0019d55b070df4146",
+    "/data/code/atomx/tests/test_ci_grid_kernel.py": "3d9ceb646805e9e92fc4c0bfa14c6b014ad09e1cda69abb9db1df749ebad0521",
+    "/data/code/atomx/tests/test_fac_ci_operator.py": "c7176919651b8f152ecf1086a149171b6a487d0f3d11921fa63d2f529482834c"
+  },
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_fac_ci_operator.py",
+    "tests/test_ci_analytic_slater_condon.py",
+    "tests/test_ci_grid_kernel.py"
+  ],
+  "elapsed_seconds": 35.4614526280202,
+  "environment": {
+    "NUMBA_CACHE_DIR": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/generated_caches/selected002",
+    "NUMBA_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OMP_THREAD_LIMIT": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "generated_cache_disposition": "Fresh private cache after retained firstattempt serializationfailure; shared caches were not deleted.",
+  "log": "selected_tests.log",
+  "performance_measurement": false,
+  "source_and_historical_fixtures_unchanged": true,
+  "summary": {
+    "errors": 0,
+    "failed": 0,
+    "passed": 30,
+    "seconds": 34.94,
+    "skipped": 0
+  },
+  "thresholds": "Existing archived fixture tolerances unchanged; fresh campaign parent gates reported separately"
+}

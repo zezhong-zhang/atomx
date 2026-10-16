@@ -1,0 +1,71 @@
+{
+  "status": "closed_native_arithmetic_increment_and_SOURCE_physics_readiness",
+  "UTC": "2026-10-13T02:40:01.126476+00:00",
+  "current_documents_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "c4c2258412a5f4c455fd40883a7dbf11bf55770140a20da43bd60441b0fb7a9d",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/README.md": "9305cfdf086d8feeae032ac2d254a6df3bc1604d29f051a5078f0807c839cf98",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md": "205eb027933b29f6e3c18a87d06a39e81eb661379207a6c7f39028dd75910191",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/README.md": "dbbfd032b170a727e2363d4cba0a82e15df3dec5941a92229b3462d4c5547698",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/documentation_impact.md": "5e29e579fed42fa71d229b6d4a8560fbc013025b1bbea208a2384bce07760bb7",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/RESULTS.md": "d4308a867bf23e7ccc117c1f67afa97874139e0e67ce9dd5c879f419a8d4e0f8",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/RESULTS.md": "64b9025f3772ff5695c47327f98e5b72954922b4bbdbca7ed7eb511dd9561ec1",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/RESULTS.md": "06a858e931df4eb0ff1991e9f6ae74a670a14444c186c0a8c748d8092b5d3881",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/README.md": "c571d75359030bda1643463d5f19a67b23d77ba3f052dac287cae2c1fd0ef599",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_readiness001/README.md": "1b5263a654ae84c1c1a5780d16de349921713a602f92e9bd83710b23b1d6bfa6"
+  },
+  "local_links_checked": 293,
+  "missing_local_links": [],
+  "completed_experiments": {
+    "endpoint_radial_contraction_preparation001": {
+      "exit_code": 1,
+      "guards": 396,
+      "all_unchanged": true,
+      "receipt_sha256": "f2c629497fe77a6bb6f2b701d04bc6a07af1a29ddbb423848ac7900995d16a4b",
+      "SOURCE_checks": 26
+    },
+    "endpoint_radial_contraction_preparation002": {
+      "exit_code": 0,
+      "guards": 400,
+      "all_unchanged": true,
+      "receipt_sha256": "57ba133937e5aa4bf20deaf188e572b15967b349b2f0a53221cbb07b16033b52",
+      "SOURCE_checks": 29
+    },
+    "forward_linear_increment_preparation001": {
+      "exit_code": 0,
+      "guards": 399,
+      "all_unchanged": true,
+      "receipt_sha256": "2ab94d2c48cf0fdb3f42c02b202c4a809cd3865221a551b9ab36c4139ed65667",
+      "SOURCE_checks": 24
+    }
+  },
+  "frozen_source_python_files_checked": 356,
+  "frozen_dataset_artifacts_checked": 10,
+  "physical_decision_input_hashes_checked": 28,
+  "expanded_gradient_readiness_input_hashes_checked": 22,
+  "expanded_gradient_source_line_bindings_checked": 22,
+  "expanded_gradient_readiness_sha256": "8ee6b3deea6af4beca1dfb5c42365fff779291dde0ed37c599b82ddd13466021",
+  "independent_forward_result_review_sha256": "7a20bb87481a00e4536d266903d62eb920da48a4293f7e73d6cb6a8c2ad53b46",
+  "independent_saved_JSON_controls_passed": 60,
+  "forward_result_sha256": "5b631503147217f3728dddb6e17dc8692abe66f2b50079339f968143c56d80af",
+  "root_evidence_validation_sha256": "09a3ef177386735e9db45629b68c0e80db438ee34a6ec0c41c739dccd7759563",
+  "saved_JSON_summary_sha256": "640a6b99de56f06f69d056a4a3b5b0222f5087623ff85bd348c6753bca098029",
+  "current_learned_atomic_predictions": 0,
+  "AI_acceleration_measured": false,
+  "controlled_performance_measured": false,
+  "shared_source_adoption": false,
+  "new_shared_solver_source_changes": false,
+  "expanded_gradient_driver_implemented": false,
+  "expanded_gradient_executed": false,
+  "physical_four_point_executed": false,
+  "ordinary_FD_repaired": false,
+  "stationarity_qualified": false,
+  "cards_timer_state": "prior cancellation retained; no sends, restart or timer edits this increment",
+  "original_failures_retained": [
+    "endpoint001 native-order preparation",
+    "StageB two ordinary FD",
+    "expanded core exact nested-byte",
+    "saved spectrum final module boundary",
+    "production terminal16 stationarity"
+  ],
+  "supersedes_current_navigation_review": "completion_review002.json; frozen historical record unchanged"
+}

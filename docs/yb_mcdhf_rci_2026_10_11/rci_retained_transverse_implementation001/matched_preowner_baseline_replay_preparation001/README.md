@@ -1,0 +1,3 @@
+This is an unexecuted source-isolation proposal following [the saved diagnostic](../mixed_failure_diagnosis001/RESULTS.md). It uses the exact current radial kernels in both source workers, replacing only the pre-owner CI/snapshot modules. Two complete baseline H and signed gradients would be compared under the unchanged exact gate; borrowed saved C/E are validated, not recomputed. No new FD endpoints are proposed.
+
+The original historical equality and h1e−4 failures remain failures. This proposal has no producer driver or numerical admission yet; the count/schema guards and immutable trees require root review before any native calls.

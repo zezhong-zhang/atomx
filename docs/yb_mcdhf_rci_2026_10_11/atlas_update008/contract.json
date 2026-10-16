@@ -1,0 +1,138 @@
+{
+  "status": "prospective_before_local_site_edits",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "local_only": true,
+  "publication_authorized": false,
+  "root_owned_browser_and_publication": true,
+  "overlay_path": "dist/updates/yb-correlated29-run003-endpoint16.json",
+  "page_path": "dist/index.html",
+  "evidence_prefix": "dist/evidence/yb-fixed208-complete5f",
+  "prechange_manifest_sha256": "3191ecf87235f64db4e69a3f05ab403016189bf77ffaf9f92ce951fc3cc3eb16",
+  "old_overlay_sha256": "882c70442ea4c096085116ea42795f3193b6d01c635828b842424c165a02f541",
+  "old_page_sha256": "934e4b4d5401da2420c21d9926b2e30ef9283a27f57551e6b3c0bf1bd2e63c21",
+  "old_models_sha256": "489be1e6f9c15eb70e8ed589c8f0455e41416f879194a1a0584564f4a4778e12",
+  "shared_utilities_path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/prepare.py",
+  "shared_utilities_sha256": "09583e6131d5e4f8f3120b6dd7d9211e00fbad43fc935eafec8a77856a172f21",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_route_after_fd208/handoff.json": "ac41c900e7e231b356fbc398360b712908341a0519dafa2f7bf347e2fab2c96a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_route_after_fd208/screened_f_closed_successor/current_model_coverage.json": "5d71b7a8987e475c9ad40c4aaf1cd39d45eaa2cff4f7962a38816c49f20a8d1a",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/publication_manifest.json": "5c3492f94ce5ab5c23ff36414b1d263d724b36de996bc3c80e6f7b00708569ef",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/prepare.py": "09583e6131d5e4f8f3120b6dd7d9211e00fbad43fc935eafec8a77856a172f21",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/completion.json": "ad155b2b9d5ecb2d3b942939664e2712a2ed0e63b053c424ed49e55b0ea55332",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/completion.json": "99ae990ee4ccb2fe97fec830e9020e1d9e5e5559234387bb61eac3c424fc2fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json": "b7cea6a3126cb523257846b4bd50dae71da7c5c9a3222f3ae95fa39cafca45ed",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/radial_support.json": "efe2986315159738c9158b3d5c5be407c190dafe308853f59ef0fb11bf00dad1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/completion.json": "a180f7fea8d18ac1c7d5549863944af048557054fa134b9fa05a86c826e40c49",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/closure_handoff.json": "c828b99b588353a24f3c6aaf93856ba24e22b3fc8dd7e1c6127c938e88e889a8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/root_execution.json": "241fa059f19e3807c565f9699ace4f28eff038eac744bfea72801bc89fb61ab5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3",
+    "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/actual/result.json": "6abd6a683a26287ade07d34d4d9feaa2bcfdcacc6298d797c8ac570c636cc2cc",
+    "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/root_execution.json": "8397bdd6c762f0cfb21c996e44cf4ceed745ad0f648e20b050616649f4779521",
+    "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/contract.json": "a4002bfaba7012efdad1bca269e4bf8fd4810bee25a619439a6edf6bf78acfce"
+  },
+  "model_ids": [
+    "fixed208_nuclear_complete5f_DC",
+    "fixed208_screened_closed68_complete5f_DC"
+  ],
+  "expected": {
+    "old_models": 21,
+    "old_rows": 84,
+    "new_models": 2,
+    "new_rows": 8,
+    "total_models": 23,
+    "total_rows": 92,
+    "unchanged_gzip": 6019,
+    "unchanged_trajectory_records": 277,
+    "unchanged_distinct_saved_point_identities": 262,
+    "unchanged_common_lineage_points": 209,
+    "new_trajectory_records": 0,
+    "new_FD_qualification_models": 0
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "fixed": {
+    "literal_seed_global_step": 208,
+    "old_radial_keys": 29,
+    "new_radial_keys": 31,
+    "target_CSFs": 1595,
+    "parent_CSFs_enumerated": 3789,
+    "other_parent_CSFs_not_computed": 2194,
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "metric_provenance_only": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "expanded_metric_or_MCDHF_optimization_constructed": false,
+    "original3451_stationarity_passed": false,
+    "new_stationarity_measured": false,
+    "operator": "native same no-pair Dirac-Coulomb; no Breit/QED/recoil/fitting",
+    "UIDs": {
+      "6s_1/2": [
+        1,
+        1,
+        0
+      ],
+      "5d_3/2": [
+        3,
+        1,
+        0
+      ],
+      "5d_5/2": [
+        5,
+        1,
+        0
+      ],
+      "6p_1/2": [
+        1,
+        -1,
+        0
+      ],
+      "6p_3/2": [
+        3,
+        -1,
+        0
+      ]
+    }
+  },
+  "renderer_edits": [
+    "Retain all old renderer functions and ordering. Filter correlatedSummary models by existing correlated MCDHF model_kind so fixedRCI objects do not demand nonexistent optimization trajectories.",
+    "Add one fixed208 summary with two predeclared radial constructions and a separate one-direction/two-h FD7053 diagnostic; reuse fixed_orbital_rci row/multiplet/upper-lower renderer.",
+    "No new default model, no NIST winner; new models is_current false, all old flags unchanged."
+  ],
+  "policies": [
+    "Preserve old21 model records84rows, five run objects277records, all old assets, all6019 gzip bytes, NIST unique IDs and unknown/null uncertainties.",
+    "Nuclear original exit1/14expected7actual counter gate and serialization failure remain failures. Independent389savedarrayfinite qualification is separately labeled, not original success.",
+    "Screened941 live controls and metadata completion are distinct from independent array replay and expandedMCDHF stationarity.",
+    "New31 fixedRCI has no orbital residual/energy indicator measurement; original29residual and indicator remain provenance under seed prefix, not assigned expanded values.",
+    "OneFDdirection/twoh is conditional variational derivative coverage, not two directions, a uniform callback/Hessian/error bound or stationarity certificate.",
+    "No new scientific producers, physical array reads, NumPy/Atomx imports, browser, SitesAPI, commits/push/deploy, registry/mainREADME/audience edits."
+  ],
+  "resources": {
+    "local_build_max_seconds": 120,
+    "threads": 1,
+    "max_address_space_GiB": 2,
+    "scientific_calls": 0,
+    "NPZ_reads": 0,
+    "browser_authorized": false
+  },
+  "audience": "Preserve current owner-private hosting bytes; root verifies audience before publication.",
+  "authoring_sources_sha256": {
+    "prepare.py": "ce51a4d122aca1e558f94e5edc8f6b43ecb4dc7d2ce13268b10fb8e05e2cf132",
+    "fixed208_summary.js": "f10f9431a703aa23f52ae6f668d0c56ac0e06b2b9da39480036b340c278b508c"
+  },
+  "local_authoring_failed_predecessor": {
+    "receipt": "authoring_attempt001/build_execution.json",
+    "receipt_sha256": "426073d62750ff03131791323f9c23fce6ef99a9a966a727111879d2a59c09f4",
+    "driver_sha256": "143f79e9e36f02ecb56d9ea50e31edd727f5ff9af2ca36e97c6d383ea5ec210e",
+    "contract_sha256": "a433de37681e138bc945dd8a655138a796836625d4c911deb90121c7e25e2b01",
+    "cause": "Explicit archived screened receipt elapsed_uncontrolled_s differs from legacy nuclear elapsed_uncontrolled_seconds; local JSON authoring stopped before overlay/page writes. Immutable identical copied assets reused. No physics/API."
+  }
+}

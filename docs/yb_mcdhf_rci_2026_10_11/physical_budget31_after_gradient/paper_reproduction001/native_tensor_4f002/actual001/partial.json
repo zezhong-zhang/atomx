@@ -1,0 +1,138 @@
+{
+  "status": "RUNNING",
+  "controls": [
+    {
+      "name": "oldM-5:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-5:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM-3:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-3:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM-1:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM-1:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM1:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM1:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM3:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM3:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "oldM5:complete_coordinate_indices",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "oldM5:all_directed_canonical_entries",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small_independent_signed_J2",
+      "measured": 7.105427357601002e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "small_matrixfree_six_roots",
+      "measured": 1.4432899320127035e-14,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small_matrixfree_all_root_equations",
+      "measured": 8.881784197001252e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "initial_core_scalar_J",
+      "measured": 4.1461620854630987e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "all_retained_SDT_equations",
+      "measured": 1.0001765041178778e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_scalar_J",
+      "measured": 7.926608761163952e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "new4f_connected_amplitudes_nonzero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "contract_sha256": "ddaa3ad06b7902cf8a615e0936953df34d2e7356bea46abcf5bc13634c3776a8",
+  "core": {
+    "energy_relative_Ha": -0.006696914622722261,
+    "energy_absolute_Ha": -14067.083870400038,
+    "correlation_Ha": -0.006696914622722261,
+    "residual_Ha": 1.0001765041178778e-17,
+    "solver_evaluations": 57,
+    "measured_calls": 57,
+    "seconds": 293.18392283999856,
+    "rank_norms": {
+      "1": 8.672517304989598e-06,
+      "2": 0.05786766300544935,
+      "3": 0.0023923983125831313
+    },
+    "new4f_amplitude_norm": 0.05318291780971212,
+    "change_from_frozen4f_core_Ha": -0.004998305898009647,
+    "full_H_residual": "not computed; no full18-electron Fock-sector representation"
+  }
+}

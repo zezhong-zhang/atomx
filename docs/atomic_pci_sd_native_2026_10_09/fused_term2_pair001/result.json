@@ -1,0 +1,152 @@
+{
+  "status": "complete signed outputs passed; controlled timing rejected by declared guards",
+  "controlled_stage_speedup": null,
+  "measurements": [
+    {
+      "variant": "original",
+      "response": true,
+      "phase": "warmup",
+      "pair": null,
+      "seconds": 3.7916772620519623,
+      "signed_errors_Ha": [
+        2.574980159653073e-19,
+        2.846030702774449e-19
+      ],
+      "before": {
+        "load": [
+          10.33642578125,
+          11.12939453125,
+          13.12451171875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "after": {
+        "load": [
+          10.4697265625,
+          11.14404296875,
+          13.1181640625
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "timing_guard_passed": false
+    },
+    {
+      "variant": "fused",
+      "response": true,
+      "phase": "warmup",
+      "pair": null,
+      "seconds": 3.2857807249529287,
+      "signed_errors_Ha": [
+        2.507217523872729e-19,
+        2.981555974335137e-19
+      ],
+      "before": {
+        "load": [
+          10.4697265625,
+          11.14404296875,
+          13.1181640625
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "after": {
+        "load": [
+          10.83251953125,
+          11.20849609375,
+          13.12841796875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "timing_guard_passed": false
+    },
+    {
+      "variant": "original",
+      "response": false,
+      "phase": "warmup",
+      "pair": null,
+      "seconds": 2.06734512001276,
+      "signed_errors_Ha": [
+        2.574980159653073e-19
+      ],
+      "before": {
+        "load": [
+          10.83251953125,
+          11.20849609375,
+          13.12841796875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "after": {
+        "load": [
+          10.83251953125,
+          11.20849609375,
+          13.12841796875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "timing_guard_passed": false
+    },
+    {
+      "variant": "fused",
+      "response": false,
+      "phase": "warmup",
+      "pair": null,
+      "seconds": 2.005820484017022,
+      "signed_errors_Ha": [
+        2.507217523872729e-19
+      ],
+      "before": {
+        "load": [
+          10.83251953125,
+          11.20849609375,
+          13.12841796875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "after": {
+        "load": [
+          10.84619140625,
+          11.20458984375,
+          13.11669921875
+        ],
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "this_pid": 2586407
+      },
+      "timing_guard_passed": false
+    }
+  ],
+  "scope": "frozen complete stage; no new COMMON/full-map/solve/physical-spectrum/end-to-end/public adoption claim",
+  "max_signed_error_Ha": 2.981555974335137e-19,
+  "public_adopted": false,
+  "highest_level_achieved": false
+}

@@ -1,0 +1,288 @@
+{
+  "fields": [
+    {
+      "name": "x",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "raw_coordinate_gradient",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "tangent_gradient",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "preconditioned_gradient",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "full_normalized_raw_coordinate",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "full_normalized_tangent",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "full_normalized_pg",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "raw_h_corrected_raw_coordinate",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024
+    },
+    {
+      "name": "raw_h_corrected_tangent",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024
+    },
+    {
+      "name": "raw_h_corrected_pg",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024
+    },
+    {
+      "name": "keys",
+      "shape": [
+        31,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 496
+    },
+    {
+      "name": "H",
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200
+    },
+    {
+      "name": "energies",
+      "shape": [
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 12760
+    },
+    {
+      "name": "mixing",
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200
+    },
+    {
+      "name": "P",
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504
+    },
+    {
+      "name": "Q",
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504
+    },
+    {
+      "name": "retained_radial",
+      "shape": [
+        31,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 61008
+    },
+    {
+      "name": "inverse_diagonal",
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512
+    },
+    {
+      "name": "projector_0",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_0",
+      "shape": [
+        2,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 226576
+    },
+    {
+      "name": "projector_1",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_1",
+      "shape": [
+        4,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 453152
+    },
+    {
+      "name": "projector_2",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_2",
+      "shape": [
+        6,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 679728
+    },
+    {
+      "name": "projector_3",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_3",
+      "shape": [
+        7,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 793016
+    },
+    {
+      "name": "projector_4",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_4",
+      "shape": [
+        6,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 679728
+    },
+    {
+      "name": "projector_5",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_5",
+      "shape": [
+        4,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 453152
+    },
+    {
+      "name": "projector_6",
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192
+    },
+    {
+      "name": "inverse_blocks_6",
+      "shape": [
+        2,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 226576
+    }
+  ],
+  "cumulative_decoded_bytes": 46404112
+}

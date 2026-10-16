@@ -1,0 +1,107 @@
+{
+  "status": "pass",
+  "columns": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "arrays": {
+        "source": 0.0,
+        "vector": 0.0,
+        "vector_double_only": 0.0,
+        "rhs_linear": 3.7269449679189215e-19,
+        "rhs_affine": 3.9898639947466563e-17,
+        "rhs_double_only": 3.7269449679189215e-19,
+        "rhs_fixed_double": 3.7269449679189215e-19,
+        "rhs_fixed_single": 3.3881317890172014e-21,
+        "diagonal_Ha": 0.0,
+        "energy_maps_Ha": 3.1763735522036263e-21
+      },
+      "original_sha256": "d0a7e9adbfb6c445273f9ad771ffcd8c9eaae0ee7d7371175025c469cfcb79cb",
+      "cuda_sha256": "4ceaff7a14e30f0485321fdaddf7afc13367d7bd7d2f4a6e255c252187889634"
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "arrays": {
+        "source": 0.0,
+        "vector": 0.0,
+        "vector_double_only": 0.0,
+        "rhs_linear": 4.0657581468206416e-19,
+        "rhs_affine": 2.7755575615628914e-17,
+        "rhs_double_only": 4.0657581468206416e-19,
+        "rhs_fixed_double": 4.0657581468206416e-19,
+        "rhs_fixed_single": 3.3881317890172014e-21,
+        "diagonal_Ha": 0.0,
+        "energy_maps_Ha": 2.964615315390051e-21
+      },
+      "original_sha256": "5fc24f89d8c99d28ee2e8a0c3950ccf6decbd462283617d6156083bd77d782e1",
+      "cuda_sha256": "0ffaa0af5483d81e07c93e70562de2a4f0bcdafab924fefcbfaa7220143a0420"
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "arrays": {
+        "source": 0.0,
+        "vector": 0.0,
+        "vector_double_only": 0.0,
+        "rhs_linear": 3.6591823321385775e-19,
+        "rhs_affine": 3.2959746043559335e-17,
+        "rhs_double_only": 3.6591823321385775e-19,
+        "rhs_fixed_double": 3.6591823321385775e-19,
+        "rhs_fixed_single": 2.329340604949326e-21,
+        "diagonal_Ha": 0.0,
+        "energy_maps_Ha": 0.0
+      },
+      "original_sha256": "46d1c72557bcf561d13e04d8bb024e8818b2977bdba1cb6bcdb4fd6ac86a5134",
+      "cuda_sha256": "107e1735d0315ba10dbafca2ecc41cfb6fc2be8db83644fc4f03f11ea8b0f76b"
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "arrays": {
+        "source": 0.0,
+        "vector": 0.0,
+        "vector_double_only": 0.0,
+        "rhs_linear": 4.2012834183813297e-19,
+        "rhs_affine": 4.85722573273506e-17,
+        "rhs_double_only": 4.2012834183813297e-19,
+        "rhs_fixed_double": 4.2012834183813297e-19,
+        "rhs_fixed_single": 2.964615315390051e-21,
+        "diagonal_Ha": 0.0,
+        "energy_maps_Ha": 8.470329472543003e-22
+      },
+      "original_sha256": "efd9c9825f0ba4c3764e3fdaea9ad088c1c04baf755eef0f212e3088344fa53e",
+      "cuda_sha256": "f22958bc966414ef463e104da74aeef8c9d68f6dd41015700666e571d0a4994d"
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "arrays": {
+        "source": 0.0,
+        "vector": 0.0,
+        "vector_double_only": 0.0,
+        "rhs_linear": 5.963111948670274e-19,
+        "rhs_affine": 5.204170427930421e-17,
+        "rhs_double_only": 5.963111948670274e-19,
+        "rhs_fixed_double": 5.963111948670274e-19,
+        "rhs_fixed_single": 1.9587636905255695e-21,
+        "diagonal_Ha": 0.0,
+        "energy_maps_Ha": 6.352747104407253e-22
+      },
+      "original_sha256": "cbf192226c75e21c983dc5589b0ef212859cdf632871a32cf1b4bf465216f983",
+      "cuda_sha256": "e78a5526704e12c07ba64dc3caf9a18102f334d10dfef42d6b4872cf49e6d71e"
+    }
+  ],
+  "source_match": true,
+  "scope": "Complete original CPU versus CUDA/GEMM signed maps; no independent full-H physical oracle"
+}

@@ -1,0 +1,5805 @@
+{
+  "status": "closed_conditional_saved2574_full_gradient",
+  "checks": [
+    {
+      "name": "resource/CPU_available",
+      "passed": true
+    },
+    {
+      "name": "resource/host_load",
+      "passed": true
+    },
+    {
+      "name": "resource/host_available",
+      "passed": true
+    },
+    {
+      "name": "JSON/native_scalar_export",
+      "passed": true
+    },
+    {
+      "name": "UID/native_tuple_JSON_representation",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.types",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.compare",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.wigner",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.clebsch",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.mscheme",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.rcfp",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.csf_recoupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.ls_coupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.recoupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.coefficients",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.subshell",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.parsing",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.breit_pauli",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.hyperfine_presets",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.scf_observables",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.basis",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.integrals",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.knots",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.evaluate",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.diis",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.yk",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.radial_metric",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.radial_state",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.dirac_fock",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.hartree_fock_slater",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.hydrogenic",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mbpt",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.mohr_se",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.dirac",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.schrodinger",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.mohr",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.indelicato",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.shabaev",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.welton",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.protocol",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.adapters",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.quadrature",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.radial_workspace",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.breit",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qed",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.stack",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.ci",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.constants",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.quadrature",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.spline",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.coulomb",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.operators",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.matrix",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf.solver",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mcdhf.solver",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.electron_space",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mcdhf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf.variational",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.orbital_optimization",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.radial_density",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.levels",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.overlap",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.state_average",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.tracking",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.potentials",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.potentials.nuclear",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/magic",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/version",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/header_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/dtype",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/shape",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/layout",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/H/finite",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/energies/finite",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/mixing/finite",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/keys/finite",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/P/finite",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/actual_header",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays/Q/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/magic",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/version",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/header_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/dtype",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/shape",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/layout",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/stored_size",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/energies/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/mixing/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/keys/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/P/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/Q/finite",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/actual_header",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays/old_to_expanded/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/H/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/energies/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/mixing/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/keys/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/P/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/Q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_minus_retained_radial/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/magic",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/version",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/header_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/dtype",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/shape",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/layout",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/stored_size",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/x/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_diagonal/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_0/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_0/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_1/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_1/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_2/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_2/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_3/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_3/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_4/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_4/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_5/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_5/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/projector_6/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/inverse_blocks_6/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/retained_radial/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_radial/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_coordinate_gradient/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/tangent_gradient/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/preconditioned_gradient/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_raw_coordinate/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_tangent/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/full_normalized_pg/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_quotient_corrected_radial/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_raw_coordinate/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_tangent/finite",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/actual_header",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays/raw_h_corrected_pg/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "workspace/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/energies_dc_Ha/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/mixing_dc/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/shape_choices",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/header_name",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/magic",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/version",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/header_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/dtype",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/shape",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/layout",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/stored_size",
+      "passed": true
+    },
+    {
+      "name": "workspace/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/orbital_keys/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/P/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/Q/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nv/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ks/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksp/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ksq/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsp/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_nsq/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_ns/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_gr/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_grw/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_p_d/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_bsp_q_d/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_t/finite",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/actual_header",
+      "passed": true
+    },
+    {
+      "name": "workspace/basis_tp/finite",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/magic",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/version",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/header_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/dtype",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/shape",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/layout",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/matrix_Ha/stored_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/magic",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/version",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/header_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/dtype",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/shape",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/layout",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/stored_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/header_name",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/magic",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/version",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/header_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/dtype",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/shape",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/layout",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/stored_size",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/actual_header",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/energies_Ha/finite",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/actual_header",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays/mixing/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/compressed_cap",
+      "passed": true
+    },
+    {
+      "name": "saved_S/whole_fields",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/kappas/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/original_x/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_diagonal/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_P/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_Q/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/old24_keys/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_-1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/h_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_0/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_0/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_1/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_2/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_3/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_4/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_5/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_5/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/projector_6/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/header_name",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/magic",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/version",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/header_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/dtype",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/shape",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/layout",
+      "passed": true
+    },
+    {
+      "name": "saved_S/inverse_blocks_6/stored_size",
+      "passed": true
+    },
+    {
+      "name": "saved_S/decoded_bound_before_load",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-4/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-3/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-2/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_-1/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_1/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_2/finite",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/actual_header",
+      "passed": true
+    },
+    {
+      "name": "saved_S/s_3/finite",
+      "passed": true
+    },
+    {
+      "name": "complete_basis_scalars",
+      "passed": true
+    },
+    {
+      "name": "complete_basis_shapes",
+      "passed": true
+    },
+    {
+      "name": "basis_active_extent",
+      "passed": true
+    },
+    {
+      "name": "all31keys",
+      "passed": true
+    },
+    {
+      "name": "same_literal13_expanded_keys",
+      "passed": true
+    },
+    {
+      "name": "same_literal13_expanded_P",
+      "passed": true
+    },
+    {
+      "name": "same_literal13_expanded_Q",
+      "passed": true
+    },
+    {
+      "name": "baseline/full_parent_signatures",
+      "passed": true
+    },
+    {
+      "name": "baseline/selected_signatures",
+      "passed": true
+    },
+    {
+      "name": "baseline/shared_keys",
+      "passed": true
+    },
+    {
+      "name": "baseline/electron_charge",
+      "passed": true
+    },
+    {
+      "name": "expanded/full_parent_signatures",
+      "passed": true
+    },
+    {
+      "name": "expanded/selected_signatures",
+      "passed": true
+    },
+    {
+      "name": "expanded/shared_keys",
+      "passed": true
+    },
+    {
+      "name": "expanded/electron_charge",
+      "passed": true
+    },
+    {
+      "name": "expanded2574",
+      "passed": true
+    },
+    {
+      "name": "literal_old_embedding",
+      "passed": true
+    },
+    {
+      "name": "saved_legacy_owner_absent",
+      "passed": true
+    },
+    {
+      "name": "no_owner_created",
+      "passed": true
+    },
+    {
+      "name": "original531_reference",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/1",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/1",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/2",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/2",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/3",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/3",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/-2",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/-2",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/-4",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/-4",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/-3",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/-3",
+      "passed": true
+    },
+    {
+      "name": "raw_hS_unique/-1",
+      "passed": true
+    },
+    {
+      "name": "S_original_bytes/-1",
+      "passed": true
+    },
+    {
+      "name": "functional_full_keys",
+      "passed": true
+    },
+    {
+      "name": "original_metric_fingerprint",
+      "passed": true
+    },
+    {
+      "name": "original_complete_geometry_fingerprint",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/-4",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/-4",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/-4",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/-4",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/-4",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/-3",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/-3",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/-3",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/-3",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/-3",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/-2",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/-2",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/-2",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/-2",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/-2",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/-1",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/-1",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/-1",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/-1",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/-1",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/1",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/1",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/1",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/1",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/1",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/2",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/2",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/2",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/2",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/2",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_group/3",
+      "passed": true
+    },
+    {
+      "name": "original_wave_reconstruction/3",
+      "passed": true
+    },
+    {
+      "name": "projector_Gram/3",
+      "passed": true
+    },
+    {
+      "name": "wave_Gram/3",
+      "passed": true
+    },
+    {
+      "name": "no_pair_S_squared/3",
+      "passed": true
+    },
+    {
+      "name": "complete_angular_row/1",
+      "passed": true
+    },
+    {
+      "name": "dense_projection_shape/1",
+      "passed": true
+    },
+    {
+      "name": "complete_angular_row/2",
+      "passed": true
+    },
+    {
+      "name": "dense_projection_shape/2",
+      "passed": true
+    },
+    {
+      "name": "complete_angular_row/3",
+      "passed": true
+    },
+    {
+      "name": "dense_projection_shape/3",
+      "passed": true
+    },
+    {
+      "name": "complete_angular_row/4",
+      "passed": true
+    },
+    {
+      "name": "dense_projection_shape/4",
+      "passed": true
+    },
+    {
+      "name": "complete_angular_row/5",
+      "passed": true
+    },
+    {
+      "name": "dense_projection_shape/5",
+      "passed": true
+    },
+    {
+      "name": "gradient/structural_key_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/term_reference_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/pair_source_capacity",
+      "passed": true
+    },
+    {
+      "name": "saved_CI_returned_without_owner",
+      "passed": true
+    },
+    {
+      "name": "native_tracker_order",
+      "passed": true
+    },
+    {
+      "name": "complete_five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "UID_rank1/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_weight/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_sector/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "actualnorm/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_rank1/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_weight/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_sector/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "actualnorm/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_rank1/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_weight/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_sector/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "actualnorm/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_rank1/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_weight/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_sector/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "actualnorm/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_rank1/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "UID_weight/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_sector/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "actualnorm/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "gradient/structural_key_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/term_reference_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/pair_source_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/structural_key_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/term_reference_capacity",
+      "passed": true
+    },
+    {
+      "name": "gradient/pair_source_capacity",
+      "passed": true
+    },
+    {
+      "name": "complete31_gradients",
+      "passed": true
+    },
+    {
+      "name": "original_radial_linearity",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1189",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1190",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1191",
+      "passed": true
+    },
+    {
+      "name": "original_projected_linearity/1",
+      "passed": true
+    },
+    {
+      "name": "original_projected_linearity/2",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1194",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1195",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/raw_coordinate_gradient",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/tangent_gradient",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/preconditioned_gradient",
+      "passed": true
+    },
+    {
+      "name": "baseline_metric/0/residual",
+      "passed": true
+    },
+    {
+      "name": "baseline_metric/0/indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/full_normalized_raw_coordinate",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/full_normalized_tangent",
+      "passed": true
+    },
+    {
+      "name": "baseline_complete_vector/full_normalized_pg",
+      "passed": true
+    },
+    {
+      "name": "baseline_metric/1/residual",
+      "passed": true
+    },
+    {
+      "name": "baseline_metric/1/indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 1, -1, 1)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 2, -2, 2)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 2, -1, 2)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 2, 1, 2)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 3, -3, 3)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 3, -2, 3)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 3, -1, 3)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 3, 1, 3)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 3, 2, 3)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, -3, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, -2, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, -1, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, 1, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, 2, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, -4, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, 3, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -4, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -3, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -2, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -3, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 2, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 2, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -3, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -3, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -1, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -4, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, 2, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, 2, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -1, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 3, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -2, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -2, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, 1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, 1, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -2, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -2, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, 1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, 1, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 3, 4)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -2, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, 1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -2, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -2, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, -1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 6, -1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 7, 1, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, -4, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 4, 3, 5)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -2, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -1, 7)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, -1, 6)",
+      "passed": true
+    },
+    {
+      "name": "radial_actualnorm/('h', 5, 1, 7)",
+      "passed": true
+    },
+    {
+      "name": "scaled_tangent/1263",
+      "passed": true
+    },
+    {
+      "name": "exact_three_full_gradients",
+      "passed": true
+    },
+    {
+      "name": "exact_six_archives",
+      "passed": true
+    },
+    {
+      "name": "exact_seven_raw_hS",
+      "passed": true
+    },
+    {
+      "name": "exact_five_full_angular_structures",
+      "passed": true
+    },
+    {
+      "name": "exact_one_native_five_bilinear_density",
+      "passed": true
+    },
+    {
+      "name": "zero_forbidden_producer_returns",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.types",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.compare",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.wigner",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.clebsch",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.mscheme",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.rcfp",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.csf_recoupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.ls_coupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.recoupling",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.coefficients",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.subshell",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.parsing",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.config.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.breit_pauli",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.hyperfine_presets",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.scf_observables",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.basis",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.integrals",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.knots",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.evaluate",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.diis",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.yk",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.radial_metric",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.radial_state",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.dirac_fock",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.hartree_fock_slater",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.hydrogenic",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mbpt",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.data.mohr_se",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.base",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.dirac",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.schrodinger",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.mohr",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.indelicato",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.shabaev",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod.welton",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qedmod",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.protocol",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.adapters",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.quadrature",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.radial_workspace",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.breit",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.qed",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections.stack",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.corrections",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.ci",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.constants",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.quadrature",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.spline",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.coulomb",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.operators",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.matrix",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf.solver",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mcdhf.solver",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.shooting.electron_space",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.mcdhf",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.methods.csf.variational",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.numerics.bspline.orbital_optimization",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.radial_density",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.levels",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.overlap",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.state_average",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.physics.csf.tracking",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.potentials",
+      "passed": true
+    },
+    {
+      "name": "module_origin/atomx.potentials.nuclear",
+      "passed": true
+    },
+    {
+      "name": "all_bound_inputs_unchanged",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "NPZ_load": 6,
+    "tracker_overlap": 2,
+    "raw_hS": 7,
+    "angular_block_terms": 5,
+    "angular_projection": 5,
+    "tracker_resolve": 1,
+    "retained_RDM": 1,
+    "moment_getter": 56,
+    "moment_miss": 14,
+    "factor_getter": 8396,
+    "factor_miss": 28,
+    "gradient_components": 8396,
+    "gradient_band_add": 8396,
+    "pair_potential": 2099,
+    "gradient": 3,
+    "one_body_MV": 93,
+    "target_MV": 42366,
+    "unfiltered_RDM": 5,
+    "raw_h_correction_MV": 285,
+    "NPZ_save": 1
+  },
+  "attempted": {
+    "NPZ_load": 6,
+    "tracker_overlap": 2,
+    "raw_hS": 7,
+    "angular_block_terms": 5,
+    "angular_projection": 5,
+    "tracker_resolve": 1,
+    "retained_RDM": 1,
+    "one_body_MV": 93,
+    "target_MV": 42366,
+    "gradient": 3,
+    "pair_potential": 2099,
+    "factor_miss": 28,
+    "factor_getter": 8396,
+    "moment_miss": 14,
+    "moment_getter": 56,
+    "gradient_components": 8396,
+    "gradient_band_add": 8396,
+    "unfiltered_RDM": 5,
+    "raw_h_correction_MV": 285,
+    "NPZ_save": 1
+  },
+  "work": {
+    "gradients": [
+      {
+        "signed_keys": 17474,
+        "negative_coefficients": 8840,
+        "pair_sources": 706,
+        "term_references": 34834,
+        "target_P_Q_MVs": 12004,
+        "one_body_MVs": 31
+      },
+      {
+        "signed_keys": 19828,
+        "negative_coefficients": 9982,
+        "pair_sources": 706,
+        "term_references": 39542,
+        "target_P_Q_MVs": 15458,
+        "one_body_MVs": 31
+      },
+      {
+        "signed_keys": 17687,
+        "negative_coefficients": 8710,
+        "pair_sources": 687,
+        "term_references": 35268,
+        "target_P_Q_MVs": 14904,
+        "one_body_MVs": 31
+      }
+    ],
+    "geometry_cache_bytes_peak": 34181448
+  },
+  "decoded_bytes": 105682480,
+  "targets": [
+    {
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "column": 0,
+      "weight": 0.2,
+      "actualnorm": [
+        "713623846352980132070360978909966221559373939",
+        "713623846352979940529142984724747568191373312"
+      ],
+      "actualnorm_float": 1.0000000000000002,
+      "tracking": {
+        "reference_levels": [
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.973888765574757
+        ],
+        "projected_probability": [
+          0.973888765574757
+        ]
+      },
+      "unfiltered_terms": 13039
+    },
+    {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "column": 1,
+      "weight": 0.2,
+      "actualnorm": [
+        "1427247692705960492283400797724959722311638333",
+        "1427247692705959881058285969449495136382746624"
+      ],
+      "actualnorm_float": 1.0000000000000004,
+      "tracking": {
+        "reference_levels": [
+          [
+            3,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            3,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9690819082468677
+        ],
+        "projected_probability": [
+          0.9690819082468677
+        ]
+      },
+      "unfiltered_terms": 14693
+    },
+    {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "column": 2,
+      "weight": 0.2,
+      "actualnorm": [
+        "5708990770823838348433574464571554735831335033",
+        "5708990770823839524233143877797980545530986496"
+      ],
+      "actualnorm_float": 0.9999999999999998,
+      "tracking": {
+        "reference_levels": [
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.968952879572559
+        ],
+        "projected_probability": [
+          0.968952879572559
+        ]
+      },
+      "unfiltered_terms": 14949
+    },
+    {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "column": 3,
+      "weight": 0.2,
+      "actualnorm": [
+        "713623846352980127453304035430787586325308059",
+        "713623846352979940529142984724747568191373312"
+      ],
+      "actualnorm_float": 1.0000000000000002,
+      "tracking": {
+        "reference_levels": [
+          [
+            1,
+            -1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            1,
+            -1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9672677320223554
+        ],
+        "projected_probability": [
+          0.9672677320223554
+        ]
+      },
+      "unfiltered_terms": 13138
+    },
+    {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "column": 4,
+      "weight": 0.2,
+      "actualnorm": [
+        "1427247692705960103692236063658701639062476093",
+        "1427247692705959881058285969449495136382746624"
+      ],
+      "actualnorm_float": 1.0000000000000002,
+      "tracking": {
+        "reference_levels": [
+          [
+            3,
+            -1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            3,
+            -1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9627474569599056
+        ],
+        "projected_probability": [
+          0.9627474569599056
+        ]
+      },
+      "unfiltered_terms": 15008
+    }
+  ],
+  "native_reported_EOL_Ha": -14067.446791017735,
+  "metrics": {
+    "native": {
+      "raw_norm": 9762.274111042301,
+      "tangent_norm": 2.1629630362808583,
+      "residual": 0.22131616474217652,
+      "indicator_Ha": 0.08460335580811007,
+      "absolute_tangent_defect": 2.0391645065676153e-11,
+      "no_spectrum_error_bound": true
+    },
+    "full": {
+      "raw_norm": 9762.274111042298,
+      "tangent_norm": 2.162963036280745,
+      "residual": 0.22131616474213398,
+      "indicator_Ha": 0.08460335580809865,
+      "absolute_tangent_defect": 2.0391868564378688e-11,
+      "no_spectrum_error_bound": true
+    },
+    "delta": {
+      "raw_norm": 1.7625105551671843e-12,
+      "tangent_norm": 1.7693676077941308e-13,
+      "residual": 1.1872735757600027e-14,
+      "indicator_Ha": 2.299900406378029e-28,
+      "absolute_tangent_defect": 2.1138818335008895e-27,
+      "no_spectrum_error_bound": true
+    },
+    "raw_h_corrected": {
+      "raw_norm": 5472.579133855749,
+      "tangent_norm": 2.162963036280156,
+      "residual": 0.2213161647420989,
+      "indicator_Ha": 0.08460335580806594,
+      "absolute_tangent_defect": 5.621766950152781e-12,
+      "no_spectrum_error_bound": true
+    }
+  },
+  "comparison": {
+    "same_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "gB_minus_gA_norm": 0.08299817753141378,
+    "pgB_minus_pgA_norm": 0.16041244246113928,
+    "g_cosine": 0.9994121299948738,
+    "pg_cosine": 0.6889806652977402,
+    "gB_dot_minus_pgA": -0.1655969785811421,
+    "gA_dot_minus_pgA": -0.1681090493665408,
+    "gB_dot_minus_pgB": -0.1692067116161973,
+    "baseline_full_metrics": {
+      "raw_norm": 9762.328569579662,
+      "tangent_norm": 2.198970464212474,
+      "residual": 0.15397840068601018,
+      "indicator_Ha": 0.0840545246832704,
+      "absolute_tangent_defect": 2.1917623448074782e-11,
+      "no_spectrum_error_bound": true
+    },
+    "expanded_full_metrics": {
+      "raw_norm": 9762.274111042298,
+      "tangent_norm": 2.162963036280745,
+      "residual": 0.22131616474213398,
+      "indicator_Ha": 0.08460335580809865,
+      "absolute_tangent_defect": 2.0391868564378688e-11,
+      "no_spectrum_error_bound": true
+    },
+    "scope": "aggregate EOL only; no individual line derivatives or finite response"
+  },
+  "gradient_archive_sha256": "de72fdfb4206fa32c5a26a3a4f8648807181c9a66f91ad31471cbb2c259ef288",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "run_sha256": "dfe0c9c1ff4d2c65ecea898c3664c4fcda7e1796ff78813603c60f52a2218568",
+  "contract_sha256": "0bd6ec3736e1c0c8b648dfad6feddcf72533334c2e3334c6bb9d811759551f23",
+  "binding_sha256": "16740baddfced92535a7c066ed4188f32b6f0528e2c30e0618c0677148d4e1dd",
+  "input_sha256": {
+    "readiness": "8ee6b3deea6af4beca1dfb5c42365fff779291dde0ed37c599b82ddd13466021",
+    "decision": "7586b20a13390597722cdde8a1c91929d3b1c63736725fdd54a28ceadffa3c13",
+    "source_identity": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "models": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d",
+    "basis_maps": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742",
+    "angular_tables": "abcef063f1ffb440ad95bbc510b2cff9009f2a0b92419eb846444982947e967e",
+    "nested_embedding": "fad4d8c55239ee95437a742c5d304c1fb28aad8e512b255da093baa2c88e0b7e",
+    "saved_failure": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+    "saved_receipt": "8b8cece49c4cc6af05d8af0c8ba35ee13a2915ef03a3bf2f34e83fdd2532435d",
+    "saved_provenance": "2efb83dbf7cfd24d393eede3e7696f1aa72d3c4ce311c67c4154dc7ed75a6490",
+    "saved_tracking": "bcce3f114494cdac562af3129f4627cb21d2df849eef55e1c9b8cdea789abcd2",
+    "core_failure": "62ec06b7c03af18b6b8ce5cd9b9d1739ea8148472e759dea5f33e4c3975c3f64",
+    "core_receipt": "43c9dc87a18e2cb69f782e936782b0b963454aa61f1aff1b794af22ecb83ffe9",
+    "checkpoint": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "stage_result": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+    "stage_contract": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+    "forward_result": "5b631503147217f3728dddb6e17dc8692abe66f2b50079339f968143c56d80af",
+    "forward_receipt": "2ab94d2c48cf0fdb3f42c02b202c4a809cd3865221a551b9ab36c4139ed65667",
+    "layout": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+    "reference_models": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "tracking_binding": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "native_source_driver": "be1b987d86208fa66736609a1cca09ec15a332957e27e111e5b1c6dec87e1ae0",
+    "basis_source": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb",
+    "workspace": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "reference_arrays": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "saved_S": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+    "baseline_arrays": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "expanded_arrays": "6c178654fa0a4dd4cf94868226d86e0f8445884c69d123e29931d9000e335093",
+    "checkpoint_arrays": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+    "workspace_producer": "180ebcb0bdf5e00f49ab88f77f9be5bd5af217fca4012b8eac5138e4458713ea",
+    "reference_producer": "ec494497970b1507811f451640618810a10c3a2819be52cc4817c46a95f70102",
+    "S_producer": "42fc5171d6b73470284cb2efedac9361015b5f4824f40723339313a6d5fc1296",
+    "S_original_layout": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "predecessor_receipt": "c3295d08a6131376ee7872ae8418cf6ce2bac2be572790819990b04e6441c472",
+    "predecessor_log": "0d9311c4026f418991770d329787f7f1e972b71f3616619235395ef3eb8c5402",
+    "predecessor_driver": "cec98a0de2c265d4492ea4350df6f90df07ef182aa4f366075d6324a3c7626ce"
+  },
+  "original_failures_preserved": true,
+  "no_owner_constructed": true,
+  "source_or_optimizer_qualified": false,
+  "ordinary_FD_passed": false,
+  "stationarity_passed": false,
+  "training_eligible": false,
+  "controlled_timing": false,
+  "elapsed_uncontrolled_s": 50.363779880004586,
+  "peak_RSS_MiB": 977.2734375
+}

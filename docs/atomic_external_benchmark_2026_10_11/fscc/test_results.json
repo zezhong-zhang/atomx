@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "scientific_regression": {
+    "command": ".venv/bin/python -m pytest -q tests/test_fscc_equation_audit.py tests/test_fscc_scope_projection.py tests/test_spinor_integrals_fscc.py -k 'not live'",
+    "actual_pytest_selection": "-k \"not live\"",
+    "passed": 16,
+    "deselected_live_external_tests": 2,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "tests.log",
+    "log_sha256": "0e9494f7af80ef51c25c73118f63c37ae30eff1a221191772a43d065da086038",
+    "scope": "Fermion signed permutations, true quadruple scope, complete diagram decoding, integral ABI/native core/metric/phase replay; fresh benchmark supplies external gates."
+  },
+  "private_launcher_watchdog": {
+    "command": ".venv/bin/python -m pytest -q docs/atomic_external_benchmark_2026_10_11/fscc/test_launcher.py",
+    "passed": 2,
+    "exit_code": 0,
+    "log": "launcher_tests.log",
+    "log_sha256": "d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "source_sha256": "e0ef2924b6676c2c7c47be6135beea3514b131d0dff65b3e22cb3c513ffd7ace",
+    "launcher_source_sha256": "8c8c28dbfa3e4bd5421c4b876b804b69df335673bf44eabf7dbccf593410d4fb"
+  },
+  "resource_policy": "Both CPU regression panels serialized with parent timing.lock; root BLAS/OpenMP/Numba pinned to 1; launcher test has owned-child timeout 0.25s.",
+  "lint": {
+    "command": ".venv/bin/python -m ruff check benchmark.py thread_preflight.py validate.py test_launcher.py summarize.py seal.py (all private owner paths)",
+    "status": "pass"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "status": "FROZEN_PRIVATE_SOURCE_JSON_ADAPTER_PREPARATION_NOT_NUMERICALLY_QUALIFIED",
+  "source": {
+    "public_current356_map_sha256": "bef2f5d6b66d81efb0ce54ec8b2bd37c8f40a1855b07ed6ed3057912b79a50d3",
+    "native_reference_f043_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "frozen_batch_executor_sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+  },
+  "owned_files_sha256": {
+    "README.md": "76f9658e60953e45ae4ca918cb4884227a01b7b1fb102f72fd13e7df30fe3652",
+    "documentation_impact.json": "9e70010766a44ccc5d4b7387741627f306e4ae7a36563d08abd3e98074959c4b",
+    "trace.md": "efe4e4b839e1aef24f394ab8f3b982c0742f8b6f31046754c076a9a3d9340e15",
+    "native_adapter.py": "b903784cfdda3e931ae08abc11d113c8637b224e4e6aa501351762b5801df2be",
+    "prepare.py": "e3cf1b416f3894469bfa92f0962a8feccefb2de96869d3ebf06fb71f64eceaa9",
+    "contract.json": "4cbc728cd01c662a29e4b869a13b8aa48b9bbeb8d4c4b5d8a5df69025009cd13",
+    "public_source_identity.json": "62e1d3fb713067747bf3f166286f9c3de73cb5b3c0993f99053dfc9fe037c447",
+    "native_binding_declaration.json": "1c47f810884337a6a3a031dc3ef3c6664e2dddbc721bffd083bb05dbd62987ac",
+    "actual_signed_union.json": "6051b38ebe0b4bdd709ad499025c20957b1892b0718e86b57ebac72f7d64ed7e",
+    "real_union_mechanical_preflight.json": "afd21bc53bfce79cbb51a9a152418008fdf6458e6a0cbb681bfeaaf4f8567b3d",
+    "preparation_verification.json": "e0ffd6230c079bed1f474bd208041197fdbd69c38e70a56ddd62db62d6fe07d4",
+    "historical_metadata_revision001/contract.json": "99535c165e88dbd5134aa0dfd6d7d151457ebd32d3723bd5f5e99a729f827db8",
+    "historical_metadata_revision001/prepare.py": "c38e3d6919705f0a1d0841f2ab08f17b1756f5af0f4138485f6d9d6bdf2c9ed3",
+    "historical_metadata_revision001/failure.json": "4904bd024b72db8edc26f8351bb6342034009144e3a6d94f55be4e25d2ecd28e",
+    "documentation_verification.json": "3d838e9ff37bac91c5a29b06f1b943dc571986c10a251b24a1e6168ca9529301"
+  },
+  "preparation_controls": 56,
+  "documentation_and_input_controls": 39,
+  "Ruff": "passed",
+  "scope": "full_normalized raw radial gradient only; original CPU quotient/constraints/metric outside adapter",
+  "actual_reference_unions": {
+    "retained": 706,
+    "full_minus_retained": 688,
+    "full_normalized": 706,
+    "total_public_pair_requests": 2100
+  },
+  "actual_full_union": {
+    "rows": 19589,
+    "negative_rows": 9824,
+    "pairs": 496,
+    "sources": 706,
+    "components": 2824,
+    "signed_incidences": 39064
+  },
+  "resource_bounds": {
+    "status": "pure_integer_upper_bounds_using_real_JSON_source_union",
+    "real_union": {
+      "factor_bytes": 38930976,
+      "unique_density_bytes": 8785152,
+      "chunk_prefix_suffix_bytes": 9142272,
+      "chunk_band_bytes": 4534272,
+      "chunk_index_bytes": 16384,
+      "CPU_dense_postprocess_bytes": 30984192,
+      "owned_device_bytes_upper": 61409056,
+      "owned_host_bytes_upper": 196894048,
+      "all_band_D2H_bytes_upper": 25009344,
+      "source_jobs": 706,
+      "component_jobs": 2824,
+      "chunks": 6,
+      "scan_kernel_calls_per_trial": 6,
+      "row_kernel_calls_per_trial": 6,
+      "scan_owned_rows": 25416,
+      "result_owned_rows": 3126168,
+      "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+    },
+    "assumed_bound_orders": [
+      9,
+      9
+    ],
+    "assumed_bound_ns": 123,
+    "actual_workspace_arrays_inspected": false,
+    "component_orders_and_extents": "deferred; factory validates actual data; these are bounds only",
+    "mechanical_full31_source_upper": 3472,
+    "no_NPZ_read_or_array_allocation": true
+  },
+  "actual_calls": {
+    "NumPy_NumBa_Atomx_CUDA_imports": 0,
+    "arrays_NPZ": 0,
+    "H_CI_g_Dirac_optimizer_compile_GPU_benchmark": 0
+  },
+  "numeric_qualification_authorized": false,
+  "numerical_launch_command": null,
+  "pending": "actual same-source native31 constrained finite-CI-response proof plus separately root-sealed complete CPU1/CPUparallel/CUDA engine qualification; declared NPZ bytes unread",
+  "historical_mean700_metadata_failure_retained": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/historical_metadata_revision001/failure.json",
+    "sha256": "4904bd024b72db8edc26f8351bb6342034009144e3a6d94f55be4e25d2ecd28e",
+    "scope": "metadata mean-vs-per-table attribution only; no scientific assertion/execution/model/gate was changed"
+  },
+  "original_stationarity_and_scientific_performance_failures_unchanged": true
+}

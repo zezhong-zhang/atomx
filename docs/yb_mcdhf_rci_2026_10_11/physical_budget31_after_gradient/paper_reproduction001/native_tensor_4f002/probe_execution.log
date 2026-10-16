@@ -1,0 +1,92 @@
+{
+  "status": "PASS_FULL4F_OFFSHELL_PROBE",
+  "controls": [
+    {
+      "name": "50frozen_electrons_15complete_radials",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "30spinors18occupied",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "same_origin",
+      "measured": 1.0913936421275139e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_repartitioned_Fock",
+      "measured": 1.4210854715202004e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_old_effective_h",
+      "measured": 7.105427357601002e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_old_frozen_constant",
+      "measured": 1.014655026665423e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_all_old_ERI",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "1324_old_coordinates_embedded",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "T_norm_unchanged",
+      "measured": 3.469446951953614e-18,
+      "cap": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "embedded_old_retained_equations",
+      "measured": 3.316519557898176e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "embedded_old_energy",
+      "measured": 1.0658141036401503e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nonzero_new4f_channel_residual",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+  "core_residual_seconds_profiled": 8.964809172997775,
+  "EA_action_seconds_profiled": 1.173796711002069,
+  "new4f_residual_by_rank": {
+    "1": 0.0,
+    "2": 0.019525843656788673,
+    "3": 0.0004800995076928304
+  },
+  "core_energy_Ha": -0.0016986087247232717,
+  "retained_old_coordinates": 1324,
+  "new_channel_coordinates": 188510,
+  "active_EA_Mhalf_even": 3011,
+  "core_T3_norm": 0.00036688283604067795,
+  "operator_sha256": "9f87af78f072430d76276719341ff21d7ba85899f8f8bc036534e70c00fed7b5",
+  "peak_RSS_MiB": 806.21875
+}

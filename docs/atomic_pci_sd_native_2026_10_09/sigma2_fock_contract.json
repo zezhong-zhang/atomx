@@ -1,0 +1,22 @@
+{
+  "hypothesis": "The irreducible scalar core-virtual Fock contribution is missing from the canonical original Sigma2 screening and must match full signed magnetic and actual fermion operators before noncanonical CI+all-order use.",
+  "fixed": "C2+ full four-electron 1s2 2s2 core, Z6/ns40/ks7, six complete s/p radial virtuals and all16 magnetic states; explicit predefined scalar +.031/-.023 offdiagonal Fock; bare onebody remainsH1",
+  "input": "all independent valence numerator/response coordinates sampled at fixed seed2357921; not a solved state or spectrum",
+  "energies": "each eps_v+.075; common shift both column energies; denominators slope2",
+  "checks": "all65536 signed values and analytic response; all14400 physical pair determinant matrix elements against P[F,Sv+Sw]P; reverse P S F P explicitly checked exactzero",
+  "gate_Ha": 1e-11,
+  "cap_bytes": 536870912,
+  "workers": 1,
+  "load": [
+    29.7666015625,
+    27.20458984375,
+    23.90869140625
+  ],
+  "stop": "any compilation, coordinate, nonfinite, normalization, signed or fermion failure retains evidence and rejects promotion",
+  "scope": "finite primitive equation anchor; does not establish complete solved noncanonical Sigma2 or production precision",
+  "irreducible_refinement": {
+    "fixed": "same signed inputs, native/magnetic formula, gates, full physical pair coordinates",
+    "missing_oracle_convention": "P[F,Sv+Sw]P includes embedded one-body Sigma1",
+    "new": "evaluate one-valence projections independently with actual fermion operators at identical pair-dependent denominators, embed with complete fermionic signs and subtract before Sigma2 comparison; retain full embedded operator"
+  }
+}

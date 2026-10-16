@@ -1,0 +1,23 @@
+{
+  "status": "pass: local source/AST/actual-backend/doc-target review",
+  "verified_at": "2026-10-10T16:38:23.737017+00:00",
+  "original004_source_files": 356,
+  "source_changes_since004": [
+    "src/atomx/physics/csf/spinor_integrals.py",
+    "tests/test_transverse_spinor_integrals.py"
+  ],
+  "docstring_executable_AST_proof": "transverse_docstring_identity006.json",
+  "existing_test_AST_unchanged": true,
+  "only_new_test": "Measured strict1e-10Ha noncanonical0h1p target, independently exercised009",
+  "current009_source_hashes_match": true,
+  "actual_backend_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "actual_manifest_sha256": "3c2c951c0700894a9fbe2922f21fa363ef99df7a8ba1e7888cfdb8d282927717",
+  "documents": 10,
+  "local_link_targets": 439,
+  "missing_local_targets": [],
+  "targets_not_yet_in_git_index": 410,
+  "publication_scope": "Dirty shared worktree only. Existing and new untracked topic artifacts are not a clean-checkout release certificate; no staging/committing done.",
+  "quality": "Ruff check11files/formatcheck6newfiles and gitdiffcheck pass",
+  "scientific_status": "Original finite81and nativeDC110pass. Stricter6pass/1strictxfail/noactualskip. No highest-level or production transverseSD/FSCC certificate.",
+  "phase_card_message": "om_x100b6392ef50c8a4dfa9dcd8e53ad50"
+}

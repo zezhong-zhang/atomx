@@ -1,0 +1,138 @@
+AMBiT  Copyright (C) 2018  Julian Berengut
+This program comes with ABSOLUTELY NO WARRANTY; for details see LICENSE.
+
+AMBiT version:    
+      git branch: master fe1115a
+      compiled:   Fri Oct  9 00:47:08 HKT 2026
+----------------------------------------------------------
+input:
+----------------------------------------------------------
+argc = 25
+BeII.input
+ID=BeII_native_reference
+Z=4
+-s12
+[Lattice]
+Lattice/NumPoints=600
+Lattice/StartPoint=1.e-6
+Lattice/EndPoint=40.
+[HF]
+HF/N=2
+HF/Configuration=1s2
+[Basis]
+Basis/--bspline-basis
+Basis/ValenceBasis=6spdf
+Basis/FrozenCore=1s2
+[CI]
+CI/LeadingConfigurations=2s1, 2p1, 3s1, 3p1
+CI/ElectronExcitations=0
+CI/HoleExcitations=0
+CI/NumSolutions=3
+CI/EvenParityTwoJ=1
+CI/OddParityTwoJ=1, 3
+[MBPT]
+MBPT/Basis=8spdf
+BeII.input
+
+----------------------------------------------------------
+Nuclear RMS radius = 3.65856
+
+BSplineBasis: constructing Kappa = -1
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = -2
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = 1
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = -3
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = 2
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = -4
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+
+BSplineBasis: constructing Kappa = 3
+    Warning: too few points in each spline segment. Increase Lattice/NumPoints (details in log).
+Core orbitals: 
+    1s  E = -5.66814895312  size: (397) 8.907
+Excited orbitals: 
+    2s  E = -0.666182617826  size: (599) 40
+    3s  E = -0.266522984461  size: (599) 40
+    4s  E = -0.142880403735  size: (599) 40
+    5s  E = -0.0889289537884  size: (599) 40
+    6s  E = -0.059869731188  size: (599) 40
+    7s  E = -0.0348595450568  size: (599) 40
+    8s  E = -0.00224953697258  size: (599) 40
+    2p  E = -0.519446636564  size: (599) 40
+    3p  E = -0.228426305068  size: (599) 40
+    4p  E = -0.127665344933  size: (599) 40
+    5p  E = -0.0813597693346  size: (599) 40
+    6p  E = -0.0549938117289  size: (599) 40
+    7p  E = -0.0295942120802  size: (599) 40
+    8p  E = 0.00369624223071  size: (599) 40
+   2p+  E = -0.519406256178  size: (599) 40
+   3p+  E = -0.228414181566  size: (599) 40
+   4p+  E = -0.127660283748  size: (599) 40
+   5p+  E = -0.0813574582202  size: (599) 40
+   6p+  E = -0.0549930917225  size: (599) 40
+   7p+  E = -0.0295974313732  size: (599) 40
+   8p+  E = 0.00372227259545  size: (599) 40
+    3d  E = -0.222296892009  size: (599) 40
+    4d  E = -0.125042913721  size: (599) 40
+    5d  E = -0.0800142377972  size: (599) 40
+    6d  E = -0.0544161008293  size: (599) 40
+    7d  E = -0.0302402201257  size: (599) 40
+    8d  E = 0.00150696276384  size: (599) 40
+   3d+  E = -0.222294262409  size: (599) 40
+   4d+  E = -0.125041824153  size: (599) 40
+   5d+  E = -0.0800137032697  size: (599) 40
+   6d+  E = -0.0544158031001  size: (599) 40
+   7d+  E = -0.0302395589576  size: (599) 40
+   8d+  E = 0.00152740515837  size: (599) 40
+    4f  E = -0.125001128196  size: (599) 40
+    5f  E = -0.0799965330474  size: (599) 40
+    6f  E = -0.0548453833861  size: (599) 40
+    7f  E = -0.0326767206431  size: (599) 40
+    8f  E = -0.00361693248322  size: (599) 40
+   4f+  E = -0.125000580512  size: (599) 40
+   5f+  E = -0.0799962705278  size: (599) 40
+   6f+  E = -0.0548452256795  size: (599) 40
+   7f+  E = -0.0326764803382  size: (599) 40
+   8f+  E = -0.00362471130131  size: (599) 40
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 0.5, P = even (N = 2):
+0: -0.66637268    -146251.898145 /cm
+                 2s1  100.0000%
+    g-factor = 2
+
+1: -0.26654464    -58499.7862633 /cm
+                 3s1  100.0000%
+    g-factor = 2
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 0.5, P = odd (N = 2):
+0: -0.51981055    -114085.22963 /cm
+                 2p1  100.0000%
+    g-factor = 0.66667
+
+1: -0.22848633    -50146.9524257 /cm
+                 3p1  100.0000%
+    g-factor = 0.66667
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 1.5, P = odd (N = 2):
+0: -0.51976978    -114076.281654 /cm
+                 2p1  100.0000%
+    g-factor = 1.3333
+
+1: -0.22847413    -50144.2746144 /cm
+                 3p1  100.0000%
+    g-factor = 1.3333
+
+
+Finished

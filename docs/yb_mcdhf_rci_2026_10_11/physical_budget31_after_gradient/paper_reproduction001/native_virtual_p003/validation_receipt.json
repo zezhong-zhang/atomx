@@ -1,0 +1,66 @@
+{
+  "status": "PASS_CURRENT_COMPLETE_6P_INCREMENT",
+  "timestamp_UTC": "2026-10-15T04:54:37.734503+00:00",
+  "source": {
+    "map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+    "files": 362,
+    "changed_production_files": 0,
+    "current_and_archive_bytes_verified": true
+  },
+  "live_controls": {
+    "probe": 26,
+    "numerical_qualification": 5,
+    "main": 526,
+    "frozen4f_companion": 288
+  },
+  "saved_controls": 137,
+  "tests": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Current native tensor regression panel; no sum with overlapping historical panels",
+    "junit_sha256": "8a1bdc2d75c52335d9d0cf12f17bf810e3aff5c7f30a0be8eb5846ad95455efa"
+  },
+  "main_result_sha256": "c1d59624104af388ecedbf9b88a62dd11fe0afb38f7d7b1b9bc9f345d0215a6e",
+  "corner_result_sha256": "1d00572ad1f6429ed33883a0b8d08f983fbab45651c192741ffb87302da9fd91",
+  "saved_review_sha256": "04f6a6540ed06a439cce003d4f0259b86c2ca4074533bd0426ae8132246ca10e",
+  "four_model_arithmetic_sha256": "3a02208f328321d0550b3c69ad51059377ae34bf4a6522b5632dba2442e86dd3",
+  "all_predeclared_inputs_verified": true,
+  "lint": {
+    "exit_code": 0,
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "diff_check": {
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "documentation_links": {
+    "status": "PASS_PRESENT_WORKING_TREE_LINKS",
+    "documents": 10,
+    "errors": [],
+    "scope": "Present working-tree local paths, including untracked/ignored scientific evidence; no externalURL/heading/clean-checkout publication check."
+  },
+  "physics": {
+    "lines_cm1": {
+      "D3": 25164.078643404588,
+      "D5": 25572.326410989943
+    },
+    "p_line_shifts_cm1": {
+      "D3": 581.3877551400146,
+      "D5": 716.4116343999121
+    },
+    "model_nonadditivity_cm1": {
+      "D3": 441.1209267682789,
+      "D5": 489.19798131859716
+    },
+    "experimental_gap_improved": false
+  },
+  "performance_scope": "Measured model-stage costs only; no paired/whole-solver speedup. LocalDIIS14completecorecalls at unchanged original equations. Existing canonical-output kernel/source reused.",
+  "limits": [
+    "Finite18core/18virtual DC EA-CCSDT/R3,50frozen",
+    "No full18e/19e Fock oracle, physical exp(T) state norm or full-H omitted-rank residual",
+    "No balanced angular/radial/core convergence or complete paper input/experimental certificate",
+    "Allowed missingf angular channels are not measured energy corrections;32virtual resource census only, no allocation",
+    "Production method API/defaults and MCDHF failed gates unchanged"
+  ]
+}

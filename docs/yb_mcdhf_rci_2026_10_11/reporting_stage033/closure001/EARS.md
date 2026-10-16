@@ -1,0 +1,1 @@
+When stage033 root integration closes, the closure shall bind the exact saved receipt and scientific metadata without loading arrays. Where old failures or source scopes differ, the report shall preserve both; it shall not convert metadata integration into a scientific or delivery certificate.

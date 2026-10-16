@@ -1,0 +1,367 @@
+{
+  "status": "PASS_SAVED_NATIVE_CCSDT_REVIEW",
+  "controls": [
+    {
+      "name": "actual_source_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_contract_input_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all44_live_controls",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "operator_exactly_real",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "complete210_core_masks",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "complete252_attached_masks",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "core:FCI_residual",
+      "measured": 1.678299758080564e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core:FCI_Gram",
+      "measured": 3.315336020272332e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "attached:FCI_residual",
+      "measured": 1.9341412506436856e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "attached:FCI_Gram",
+      "measured": 4.870794123229366e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:projected_right_equations",
+      "measured": 3.3306690738754696e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:all_physical_norms",
+      "measured": 4.440892098500626e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:core_J0",
+      "measured": 6.129648365532384e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:full_residual_archive",
+      "measured": 3.122502256758253e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:complete_projection_count",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:complete_J_multiplet:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:J2:S",
+      "measured": 4.495894614839898e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:complete_J_multiplet:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:J2:D3",
+      "measured": 2.282578465330425e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:projected_right_equations",
+      "measured": 1.8207657603852567e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:all_physical_norms",
+      "measured": 5.551115123125783e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:core_J0",
+      "measured": 6.129648365532384e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:full_residual_archive",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:complete_projection_count",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:complete_J_multiplet:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:J2:S",
+      "measured": 8.23588405836929e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:complete_J_multiplet:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:J2:D3",
+      "measured": 7.202450261305616e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:projected_right_equations",
+      "measured": 3.552713678800501e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:all_physical_norms",
+      "measured": 5.551115123125783e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:core_J0",
+      "measured": 6.115906782771828e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:full_residual_archive",
+      "measured": 3.122502256758253e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:complete_projection_count",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:complete_J_multiplet:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:J2:S",
+      "measured": 1.3442855243175792e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:complete_J_multiplet:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:J2:D3",
+      "measured": 9.833418429065589e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:projected_right_equations",
+      "measured": 1.687538997430238e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:all_physical_norms",
+      "measured": 5.551115123125783e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:core_J0",
+      "measured": 6.115906782771828e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:full_residual_archive",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:complete_projection_count",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:complete_J_multiplet:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:J2:S",
+      "measured": 7.187025726470988e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:complete_J_multiplet:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:J2:D3",
+      "measured": 6.347425727776916e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "signed_complete_physical_projector:S",
+      "measured": 4.664626333120343e-55,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "signed_complete_physical_projector:D3",
+      "measured": 1.0845436532817482e-16,
+      "cap": 1e-09,
+      "passed": true
+    }
+  ],
+  "target_errors": [
+    {
+      "label": "CCSD_R2",
+      "target": "S",
+      "total69_relative_Ha": -0.41515672822443245,
+      "total69_absolute_Ha": -14067.49233021365,
+      "total69_minus_FCI_Ha": 5.496548007144497e-05,
+      "EA_minus_FCI_Ha": 5.430099354158946e-05,
+      "maximum_target_full_residual_Ha": 0.0016370185544998068
+    },
+    {
+      "label": "CCSD_R2",
+      "target": "D3",
+      "total69_relative_Ha": -0.30404136282774885,
+      "total69_absolute_Ha": -14067.381214848254,
+      "total69_minus_FCI_Ha": 5.298237072631773e-05,
+      "EA_minus_FCI_Ha": 5.2317884196462217e-05,
+      "maximum_target_full_residual_Ha": 0.0028487499791186224
+    },
+    {
+      "label": "CCSD_R3",
+      "target": "S",
+      "total69_relative_Ha": -0.4152113574991605,
+      "total69_absolute_Ha": -14067.492384842924,
+      "total69_minus_FCI_Ha": 3.362053433986212e-07,
+      "EA_minus_FCI_Ha": -3.282811864568913e-07,
+      "maximum_target_full_residual_Ha": 0.0010005291315371325
+    },
+    {
+      "label": "CCSD_R3",
+      "target": "D3",
+      "total69_relative_Ha": -0.3040941390047245,
+      "total69_absolute_Ha": -14067.38126762443,
+      "total69_minus_FCI_Ha": 2.0619375068475776e-07,
+      "EA_minus_FCI_Ha": -4.5829277917075473e-07,
+      "maximum_target_full_residual_Ha": 0.0010209066245195173
+    },
+    {
+      "label": "CCSDT_R2",
+      "target": "S",
+      "total69_relative_Ha": -0.41515738491013005,
+      "total69_absolute_Ha": -14067.492330870336,
+      "total69_minus_FCI_Ha": 5.430879437384739e-05,
+      "EA_minus_FCI_Ha": 5.4310104935395564e-05,
+      "maximum_target_full_residual_Ha": 0.0016259002030737206
+    },
+    {
+      "label": "CCSDT_R2",
+      "target": "D3",
+      "total69_relative_Ha": -0.3040415939488373,
+      "total69_absolute_Ha": -14067.381215079375,
+      "total69_minus_FCI_Ha": 5.275124963788347e-05,
+      "EA_minus_FCI_Ha": 5.275256019943164e-05,
+      "maximum_target_full_residual_Ha": 0.002845132329004096
+    },
+    {
+      "label": "CCSDT_R3",
+      "target": "S",
+      "total69_relative_Ha": -0.41521166616949595,
+      "total69_absolute_Ha": -14067.492385151596,
+      "total69_minus_FCI_Ha": 2.753500794039354e-08,
+      "EA_minus_FCI_Ha": 2.884556948856698e-08,
+      "maximum_target_full_residual_Ha": 7.667716313087304e-05
+    },
+    {
+      "label": "CCSDT_R3",
+      "target": "D3",
+      "total69_relative_Ha": -0.3040943227409346,
+      "total69_absolute_Ha": -14067.381267808167,
+      "total69_minus_FCI_Ha": 2.245754054941429e-08,
+      "EA_minus_FCI_Ha": 2.376810209758773e-08,
+      "maximum_target_full_residual_Ha": 0.00012173626708751457
+    }
+  ]
+}

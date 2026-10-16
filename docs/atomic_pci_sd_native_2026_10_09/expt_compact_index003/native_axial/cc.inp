@@ -1,0 +1,15 @@
+title "Atomx exact axial proof"
+interface pyscf
+integrals ATOMX_ONE ATOMX_TWO
+model ccsdt
+sector 0h1p
+active 0 0 1 1 1 1 1 1 1 1
+maxiter 200
+conv 1e-12
+diis 8
+diis triples
+memory 1024 mb
+tilesize 4
+nthreads 2
+disk_usage 0
+reuse 0h0p 0h1p

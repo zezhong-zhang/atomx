@@ -1,0 +1,190 @@
+{
+  "status": "all complete additive map/mode and declared solve gates passed",
+  "columns": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "energy_Ha": -0.3386654527300543,
+      "complete_numerators": 2016402,
+      "variants": {
+        "cpu": {
+          "seconds": 147.55567393801175,
+          "complete_mode_recovery": true
+        },
+        "cuda": {
+          "seconds": 49.60146722395439,
+          "complete_mode_recovery": true
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          6.938893903907228e-18,
+          0.0,
+          8.673617379884035e-19
+        ],
+        "homogeneous": [
+          0.0,
+          6.776263578034403e-20,
+          0.0,
+          1.0842021724855044e-19
+        ],
+        "value": [
+          0.0,
+          6.776263578034403e-20
+        ]
+      }
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "energy_Ha": -0.22611293052522113,
+      "complete_numerators": 2023012,
+      "variants": {
+        "cpu": {
+          "seconds": 160.06891371600796,
+          "complete_mode_recovery": true
+        },
+        "cuda": {
+          "seconds": 48.85576499905437,
+          "complete_mode_recovery": true
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          3.469446951953614e-18,
+          0.0,
+          8.673617379884035e-19
+        ],
+        "homogeneous": [
+          0.0,
+          5.421010862427522e-20,
+          0.0,
+          2.439454888092385e-19
+        ],
+        "value": [
+          0.0,
+          5.421010862427522e-20
+        ]
+      }
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "energy_Ha": -0.2133066794582305,
+      "complete_numerators": 3395718,
+      "variants": {
+        "cpu": {
+          "seconds": 237.55093534605112,
+          "complete_mode_recovery": true
+        },
+        "cuda": {
+          "seconds": 81.4022520800354,
+          "complete_mode_recovery": true
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          1.3877787807814457e-17,
+          0.0,
+          1.734723475976807e-18
+        ],
+        "homogeneous": [
+          0.0,
+          1.1519648082658485e-19,
+          0.0,
+          2.981555974335137e-19
+        ],
+        "value": [
+          0.0,
+          1.1519648082658485e-19
+        ]
+      }
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "energy_Ha": -0.22807151094046957,
+      "complete_numerators": 3375298,
+      "variants": {
+        "cpu": {
+          "seconds": 244.0931122689508,
+          "complete_mode_recovery": true
+        },
+        "cuda": {
+          "seconds": 98.49591617193073,
+          "complete_mode_recovery": true
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          3.469446951953614e-18,
+          0.0,
+          8.673617379884035e-19
+        ],
+        "homogeneous": [
+          0.0,
+          9.486769009248164e-20,
+          0.0,
+          1.0842021724855044e-19
+        ],
+        "value": [
+          0.0,
+          9.486769009248164e-20
+        ]
+      }
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "energy_Ha": -0.22588635780633765,
+      "complete_numerators": 3768714,
+      "variants": {
+        "cpu": {
+          "seconds": 280.1139074449893,
+          "complete_mode_recovery": true
+        },
+        "cuda": {
+          "seconds": 94.62870537198614,
+          "complete_mode_recovery": true
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          1.3877787807814457e-17,
+          0.0,
+          1.0842021724855044e-18
+        ],
+        "homogeneous": [
+          0.0,
+          9.486769009248164e-20,
+          0.0,
+          1.0842021724855044e-19
+        ],
+        "value": [
+          0.0,
+          9.486769009248164e-20
+        ]
+      }
+    }
+  ],
+  "peak_rss_bytes": 5058252800,
+  "controlled_timing": false,
+  "public_cuda_adopted": false,
+  "physical_metric_certified": false,
+  "experiment_validated": false
+}

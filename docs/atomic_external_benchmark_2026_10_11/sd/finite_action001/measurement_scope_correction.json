@@ -1,0 +1,16 @@
+{
+  "time": "2026-10-11T04:02:16.113392+00:00",
+  "original_result_sha256": "19dc224ec372d31d1f409f025929c0dea999cb60ddd7de6288f8baeadb762e53",
+  "corrections": {
+    "scf_and_virtual_seconds": {
+      "old": 0,
+      "new": null,
+      "reason": "This field was a placeholder rather than an independent clock and is withdrawn. SCF/virtual preparation is not separately measured."
+    },
+    "complete_prepare_wall_seconds": {
+      "new_name": "workflow_seconds_including_setup_wait_and_timing",
+      "reason": "Its clock spans the entire finite experiment, including flock waits and measured maps, and must not be labelled cold preparation."
+    }
+  },
+  "scientific_or_observation_values_changed": false
+}

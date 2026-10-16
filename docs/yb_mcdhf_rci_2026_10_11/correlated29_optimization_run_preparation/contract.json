@@ -1,0 +1,354 @@
+{
+  "created_before_science_utc": "2026-10-11T13:13:22.252534+00:00",
+  "status": "source_prepared_optimizer_HOLD_original_rotation_gate_failed",
+  "root_authorized": false,
+  "hypothesis": "The screened auxiliary29 point has a large original-metric correlated orbital residual. At most16 native public reported-EOL steps can measure early physical relaxation while every finite stored-H acceptance is independently resolved and all original scientific gates remain fixed.",
+  "source": {
+    "candidate356_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+    "candidate_archive": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source",
+    "parent356_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "sole_successor_source_change": "accepted_line_search numerical checkpoint metadata; no objective or acceptance expression changes"
+  },
+  "input_roles": {
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "tracking_orbitals": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "iteration_trigger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage013/delivery_proof.json",
+      "sha256": "29145e3cdf50ea2cc400639e59f3c17f00beb4bee4c79bfb27bd5411d0c11664"
+    },
+    "stage013_summary": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage013.json",
+      "sha256": "de48b8f060e0f1e8ea3f2fad778ded57d219483b26924a42be8d68a4a188a954"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "saved_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "saved_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "nominal_NIST_rows": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "sha256": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+      "sha256": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a"
+    },
+    "rotation_baseline_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/fresh_recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    }
+  },
+  "pending_prerequisites": {
+    "exact_guard_helper": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/exact_reported_guard.py",
+      "sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed"
+    },
+    "exact_guard_qualification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/array_qualification002/result.json",
+      "sha256": "62aded8efd0475fb112f963604ac33ec35b9780fb3a6ee759de54b2098965d23"
+    },
+    "metadata_source_proof": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_verification_revision001.json",
+      "sha256": "b461d1c4289dbbe4531ba84dc8b90e3f3daa2cda368de3099938026e17362431",
+      "required_success_key": "all_passed"
+    },
+    "rotation_qualified_result": null,
+    "rotation_independent_saved_proof": null
+  },
+  "fixed": {
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "native005 Fermi A175",
+    "ns": 123,
+    "keys29": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "target_CSFs": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "full_NR_parent_CSFs": 2163,
+    "full_model_not_computed": true,
+    "original_tracker": "balanced531 original DC eigenpairs/native005 original radial reference; never rebase",
+    "five_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "all29_allowed_to_relax": true,
+    "operator": "same original nuclear no-pair Dirac-Coulomb; no Breit QED recoil empirical or effective additions",
+    "physical_label_binding": "Every point maps singleton tracker reference_levels by original (twoJ,parity,local_root) UID; insertion order is forbidden for target labels, centroids or splittings. Assert complete unique5 and selected J/parity match."
+  },
+  "metric": {
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+    "point": "exact saved3451 coordinates; direct originalP times x; no polar seed repair",
+    "new_space_epoch_already_declared": true,
+    "inverse_blocks": "unchanged saved29 blocks; old24 embedded and5 same-kappa copied blocks; not reconstructed Fock"
+  },
+  "objective": {
+    "kind": "ordinary_reported_EO_Ha",
+    "weights": "original five physical UID .2 each",
+    "energy_callback": null,
+    "Rayleigh_production_objective": false,
+    "full_gradient": "original public signed density HF gradient, whole3451 originalmetric",
+    "history": "cleared at public resume, history_size10 thereafter",
+    "identity_payload": "full ordered signed CSFs, targets/ref UIDs,weights,operator,nucleus,radialbasis,source lineage,frozen tracker input SHAs"
+  },
+  "gates": {
+    "raw_coordinate_gradient_samepoint_abs": 1e-09,
+    "preconditioned_gradient_samepoint_abs": 1e-10,
+    "CI_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "P_leakage": 1e-12,
+    "matrix_Hermiticity_Ha": 1e-08,
+    "orbital_residual": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "baseline_H_E_C_bitwise": true,
+    "same_metric_P_inverse_bytes": true,
+    "accepted_exact_guard": "recordedchange + |Dprev| + |Dnew| + |exact(Enew-Eprev)-recordedchange| + |exact(1e-4)*exact(step)*exact(slope)-recordedrhs| <= recordedrhs, all exact Fraction; D=\u03a3w*cTHc/n - actual reportedEOLfloat"
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 600,
+    "outer_wall_seconds": 615,
+    "optimizer_softwall_seconds": 570,
+    "max_new_accepted_steps": 16,
+    "max_checkpoints": 17,
+    "max_optimizer_calls": 1,
+    "max_H": 65,
+    "max_CI": 65,
+    "max_full_gradient": 17,
+    "max_validation_Dirac": 7,
+    "max_initial_hS": 7,
+    "max_CI_internal_hS": 455,
+    "max_total_hS": 462,
+    "max_geometry_eigvalsh": 36,
+    "max_scipy_eigh": 346,
+    "max_tracking_resolution": 81,
+    "max_tracking_SVD": 405,
+    "max_tracking_overlap": 82,
+    "max_polar_retraction": 448,
+    "max_polar_numpy_eigh": 448,
+    "max_exact_target_quotients": 85,
+    "max_exact_nonzero_summands": 3000000,
+    "timing_claim": "uncontrolled correctness run; caps do not promise16 steps",
+    "estimated_peak_resident_GiB": 1.5,
+    "estimated_saved_archive_GiB": 2.0,
+    "max_exact_examined_pairs": 3000000,
+    "full_target_support_examined_pair_upper": 1957193,
+    "max_unfiltered_target_density_contractions": 85
+  },
+  "stop": "First unsafe checkpoint archived unqualified, previous qualified checkpoint preserved, raise RuntimeError before further optimizer updates. Resource cap preserves previous checkpoint. No retry, alternate direction, seed change,model shrink, new space or gate change.",
+  "limits": [
+    "Early accepted finite stored-H steps do not establish radial uniform error, CI response differentiability, full stationarity, missing physics completeness, experimental agreement or performance speedup.",
+    "Original reported tiny-step derivative FAIL remains immutable; rotation Rayleigh qualification does not turn default objective into q or qualify an energy callback.",
+    "All29 may relax; original old24 seed preservation is not a fixed core.",
+    "Nominal NIST uncertainties are unavailable; comparison is not uncertainty-normalized certification."
+  ],
+  "execution_ready": false,
+  "hold_evidence": {
+    "original_probe_saved_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "rotation002_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "rotation002_actual_controls": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/progress.json",
+      "sha256": "63ca4c0bc66ceed5db158490c853ed9fe58546746ef51e74743b93e4e560e043"
+    }
+  },
+  "failure_is_not_scope_change": "Original rotation002 derivative gate failed at its original1e-8 absolute/1e-5 relative gate. This consumer cannot execute without a separately qualified prospective successor; no automatic gate inheritance."
+}

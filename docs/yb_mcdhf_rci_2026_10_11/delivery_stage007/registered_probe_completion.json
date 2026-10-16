@@ -1,0 +1,49 @@
+{
+  "successful_card_triggered_bounded_registered_probe_count": 4,
+  "jobs": [
+    {
+      "job_id": "parallel_fscc_scope_d081bb880d789e330476",
+      "lane": "fscc_scope",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "result_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_d081bb880d789e330476/result.json",
+      "result_sha256": "4873ddc131fb11a7c1b7bb8a8009a9ac2da51da2ed7c6d3e414f37ad7f4687a8",
+      "card_summary": "4-core CCSDT: retained core 5.62e-14 Ha; attachment 6.48e-14 Ha; complete FCI difference separately 9.09e-06 Ha.",
+      "scope": "previously admitted finite compatibility probe; does not qualify full531 MCDHF or Yb spectrum"
+    },
+    {
+      "job_id": "parallel_properties_a877f94d09b27dcb1cb3",
+      "lane": "properties",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "result_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_a877f94d09b27dcb1cb3/result.json",
+      "result_sha256": "92432a34df485110189f6fe48db44a44f947016d04ade45bd8414a21757b6dbd",
+      "card_summary": "Same-H complete native E1/E2/M1: 11 signed 8 x 8 matrices, defect 2.66e-15 au; actual e^T Omega full-H residual 5.26e-13 Ha. Fixed finite orbitals/long wavelength only.",
+      "scope": "previously admitted finite compatibility probe; does not qualify full531 MCDHF or Yb spectrum"
+    },
+    {
+      "job_id": "parallel_sd_diagrams_41c31659ba53f9a0b539",
+      "lane": "sd_diagrams",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "result_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_41c31659ba53f9a0b539/result.json",
+      "result_sha256": "97398859bb473a24e755d728fd79e47499c34e60fb556cb7fe35c7e6504a8c56",
+      "card_summary": "原生 signed J/parity SD 已实际消费完整 doubles source＋PP＋normal-ordered HH 图集；DC/static/dynamic/复相位在全部 10 doubles、495 个四电子行列式独立 Fermi action 下通过 1e-11 Ha 门。保留 noncanonical Fock/reference，native_scalable_sd_transverse_complete=false；剩余 core/Fock/singles/ring、valence、Sigma2 图项未完成。",
+      "scope": "previously admitted finite compatibility probe; does not qualify full531 MCDHF or Yb spectrum"
+    },
+    {
+      "job_id": "parallel_gpu_c71936b0ba1177acc16f",
+      "lane": "gpu",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "result_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_c71936b0ba1177acc16f/result.json",
+      "result_sha256": "f9a25591c723d0ded2619712cd8050e776648b1832b0dae63cb9d680d83f70ec",
+      "card_summary": "共享 Numba CPU/CUDA ordered FP64 完整 signed DC/static/dynamic PP/HH 和 2688×25 全 native density、rank0..3逐元素及 bitwise 对照通过；真实 PTX 无 FMA/atomic，显存 payload 通过 32 MiB cap。只报告有界 kernel 分层计时；负载门失败则 speedup=null，完整 SD/GPU规模化仍未完成。",
+      "scope": "previously admitted finite compatibility probe; does not qualify full531 MCDHF or Yb spectrum"
+    }
+  ],
+  "Yb_MCDHF_science_in_these_registered_jobs": false,
+  "full531_candidate_qualification_in_these_registered_jobs": false,
+  "separate_root_next_science": "rank-vs-virtual discriminator and H retention qualification",
+  "request_sha256": "0e4514e8f447ee6683eb06e51572e8c92279dcf61ce416b56baaeb0469fb8428"
+}

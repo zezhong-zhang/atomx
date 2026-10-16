@@ -1,0 +1,64 @@
+{
+  "status": "PASS_CURRENT_INCREMENT_CHECKS",
+  "timestamp_UTC": "2026-10-14T17:13:02.017319+00:00",
+  "source": {
+    "before": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+    "after": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+    "files_each": 362,
+    "changed_production": [
+      "src/atomx/methods/tensor_coupled_cluster.py",
+      "src/atomx/numerics/tensor_recipes.py"
+    ],
+    "all_current_source_and_archives_verified": true
+  },
+  "live": {
+    "status": "PASS_FULL4F_TARGETED_DAVIDSON",
+    "controls": 514,
+    "result_sha256": "7842ee12951593f9972fd597bc718c4bc658c238a8e41fb198aaa11ec527bf70"
+  },
+  "saved": {
+    "status": "PASS_SAVED_FULL4F_PROJECTED_REVIEW",
+    "controls": 96,
+    "result_sha256": "9b12dfc6c519e36117d326804b4114ffd21b699995307dc6aca23eb2b2cc2d8e"
+  },
+  "tests": {
+    "passed": 59,
+    "skipped": 2,
+    "failed": 0,
+    "scope": "Affected native tensor/finiteCC/EA/integral/architecture panels;2 optional external executable cases only",
+    "junit_sha256": "d73d9b986642d8404e836352470956b3b33df7fcc4f8faadb618568c057328f4"
+  },
+  "performance": {
+    "status": "PASS_MATCHED_ABBA",
+    "all_output_differences_Ha": 0,
+    "core_residual_speedup": 1.739379995717074,
+    "scope": "fixed off-shell complete full4f core residual/EA action; not whole solver/spectrum speedup",
+    "summary_sha256": "844b0a7eeec3bc1151d6809ea921fcbe1964cd109102634458b633374c24af42"
+  },
+  "lint": {
+    "exit_code": 0,
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "diff_check": {
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "links": {
+    "status": "PASS_PRESENT_WORKING_TREE_LINKS",
+    "documents": 12,
+    "errors": [],
+    "scope": "Present working-tree links, including untracked/ignored local evidence; not a tracked clean-checkout or external URL/heading check."
+  },
+  "preserved_failures": [
+    "initial_tests.xml: strict tiny-complex exact cancellation",
+    "actual001: 300-action six-SR-root budget",
+    "actual002: unprojected small-model correction J2 gate"
+  ],
+  "limits": [
+    "No full18e/19e Fock-sector independent oracle",
+    "Canonical projected-R normalization, not exp(T) physical-state norm",
+    "No large-model full-H omitted-rank or radial/virtual/experimental convergence",
+    "No production Davidson API or whole-solver paired-speedup claim",
+    "No MCDHF failed-gate revision or full-paper reproduction"
+  ]
+}

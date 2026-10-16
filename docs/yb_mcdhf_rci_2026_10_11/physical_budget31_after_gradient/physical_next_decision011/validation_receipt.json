@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "time_UTC": "2026-10-14T13:19:38.946060+00:00",
+  "exact_driver_input_bindings": 28,
+  "centered_driver_input_bindings": 32,
+  "current_source_files_checked": 358,
+  "historical_source_files_checked": 356,
+  "independent_small_Fraction_anchors": 97,
+  "saved_exact_controls": 515,
+  "saved_native_centered_controls": 384,
+  "new_full_spectrum_archives_checked": 10,
+  "new_exact_point_JSONs_checked": 8,
+  "centered_ordinary_FD": {
+    "PASS": 38,
+    "total": 40,
+    "remaining_failed": 2
+  },
+  "original005_failures_preserved": 3,
+  "production_source_changed": false,
+  "test_panel": {
+    "status": "PASS",
+    "tests": 10,
+    "seconds": 0.34,
+    "CPU": 27,
+    "threads": 1,
+    "AS_enforced": false,
+    "timeout_seconds": 120,
+    "command": "python -m pytest -q tests/test_ci_dense_orthogonality.py",
+    "file_sha256": {
+      "tests/test_ci_dense_orthogonality.py": "9cc78ff6b816f3f5660692cb8416920acb7b37c077be38931a054d71bc847ea3",
+      "src/atomx/methods/ci.py": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e"
+    },
+    "scope": "Existing native complete/subset centered solver: signed analytic projectors, large energy origin, Gram, residual and unchanged input. No production source changed."
+  },
+  "ruff": "All checks passed!",
+  "git_diff_check": "PASS",
+  "documentation_files": 6,
+  "new_numerical_calls_during_closure": 0,
+  "scope": "Source/input/output hash and saved-record readback; no new physics or solver execution."
+}

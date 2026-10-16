@@ -1,0 +1,101 @@
+{
+  "stages": [
+    {
+      "unpack": 2.1651e-05,
+      "outin": 7.333e-06,
+      "terma1": 1.4077e-05,
+      "terma2": 1.3616e-05,
+      "terma3": 3.5086e-05,
+      "terma4": 0.028517502,
+      "term1": 0.0005253,
+      "term21": 1.90684606,
+      "term31": 0.041129064,
+      "term32": 0.041291229,
+      "term41": 0.001308857,
+      "term42": 0.001322142,
+      "term5_1": 2.1351e-05,
+      "term5_2": 2.3494e-05,
+      "noncanonical_fock": 0.000288173,
+      "pack_result": 2.8644e-05,
+      "wall_seconds": 2.021568117896095,
+      "action_max_difference_Ha": 0.0
+    },
+    {
+      "unpack": 2.5999e-05,
+      "outin": 7.765e-06,
+      "terma1": 1.4427e-05,
+      "terma2": 1.3856e-05,
+      "terma3": 3.2511e-05,
+      "terma4": 0.028557799,
+      "term1": 0.000521142,
+      "term21": 1.906160818,
+      "term31": 0.041192804,
+      "term32": 0.041189498,
+      "term41": 0.001288739,
+      "term42": 0.001325488,
+      "term5_1": 2.1771e-05,
+      "term5_2": 2.0669e-05,
+      "noncanonical_fock": 0.000292501,
+      "pack_result": 2.3845e-05,
+      "wall_seconds": 2.020844624028541,
+      "action_max_difference_Ha": 0.0
+    },
+    {
+      "unpack": 2.5728e-05,
+      "outin": 7.254e-06,
+      "terma1": 1.3936e-05,
+      "terma2": 1.3856e-05,
+      "terma3": 3.2301e-05,
+      "terma4": 0.028539043,
+      "term1": 0.000525791,
+      "term21": 1.928365632,
+      "term31": 0.041231256,
+      "term32": 0.041285248,
+      "term41": 0.001293609,
+      "term42": 0.00132092,
+      "term5_1": 2.1851e-05,
+      "term5_2": 2.0448e-05,
+      "noncanonical_fock": 0.000287542,
+      "pack_result": 1.8716e-05,
+      "wall_seconds": 2.0431829700246453,
+      "action_max_difference_Ha": 0.0
+    }
+  ],
+  "pair": [
+    {
+      "old_seconds": 0.0001449330011382699,
+      "pair_seconds": 0.0006269019795581698
+    },
+    {
+      "pair_seconds": 0.000546430004760623,
+      "old_seconds": 0.0001004489604383707
+    },
+    {
+      "old_seconds": 9.995803702622652e-05,
+      "pair_seconds": 0.0005424119299277663
+    }
+  ],
+  "errors_Ha": [
+    1.6940658945086007e-19,
+    1.6940658945086007e-19,
+    1.6940658945086007e-19
+  ]
+}
+ lin =           9
+CHANNEL    17  j1=  1  j2=  5  km= -5  kn= -5  k=  2    0.000003
+CHANNEL    51  j1=  2  j2=  5  km= -5  kn= -5  k=  2    0.149836
+CHANNEL    96  j1=  3  j2=  5  km= -5  kn= -5  k=  2    0.052838
+CHANNEL   227  j1=  4  j2=  5  km= -5  kn= -5  k=  4    0.023447
+         227
+         227         195
+CHANNEL    32  j1=  1  j2=  1  km= -5  kn= -5  k=  6    0.000000
+CHANNEL    64  j1=  2  j2=  1  km= -5  kn= -5  k=  6    0.000000
+CHANNEL    96  j1=  2  j2=  2  km= -5  kn= -5  k=  6    0.000141
+CHANNEL   126  j1=  3  j2=  1  km= -5  kn= -5  k=  6    0.000002
+CHANNEL   156  j1=  3  j2=  2  km= -5  kn= -5  k=  6    0.000339
+CHANNEL   188  j1=  3  j2=  3  km= -5  kn= -5  k=  6    0.000077
+CHANNEL   240  j1=  4  j2=  1  km= -5  kn= -5  k=  6    0.000001
+CHANNEL   292  j1=  4  j2=  2  km= -5  kn= -5  k=  6    0.000525
+CHANNEL   346  j1=  4  j2=  3  km= -5  kn= -5  k=  6    0.000052
+CHANNEL   442  j1=  4  j2=  4  km= -5  kn= -5  k=  7    0.000034
+ Number of channels =          442

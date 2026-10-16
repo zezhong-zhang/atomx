@@ -1,0 +1,38 @@
+{
+  "source_root": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "source_identity_sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "critical_source_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/frozen_core.py": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/convol.py": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12"
+  },
+  "scope": "SOURCE/JSON only. Existing frozen f043 source files read/hashed; no import, numerical array decode or producer.",
+  "public_routes": {
+    "operator": "DFSolver documented mean_field_coeffs/mean_field_normalization seam; existing audited native _precompute_angular_coefficients(None)+_build_hf_matrix_dbsr(skip_pq_exchange=False), no DFS constructor/SCF",
+    "scalar": "closed_core_one_body(probe_keys, closed68, radial_callback, bare_one_body=zeros) with public compute_slater_rk_cell; no CIRadialSnapshot during oracle because eagerhS would add producers",
+    "spectra": "scipy.linalg.eigh full118 gvd then unchanged screened_core_virtual_discriminator002/refine_spectrum.py complete longdouble Jacobi",
+    "CI": "public ci_solve retain_hamiltonian=True, complete1046/1595 selected five blocks; original531 CIBasisTracking reference notrebased"
+  },
+  "normalization": "For zero occupied target5f rows Cij=qcore_j, Di=1. Control(Cij,Di)->(3Cij,3Di); target/new/old valence source columns zero. Same-shell self index never equals target.",
+  "block_assembly": "Faux = saved logical nuclear h + [[PP,PQ],[QP,QQ]] exactly once. Preserve default skip_pq_exchange=False; keep all four scalar probes quadrants. Source h is L(raw)=tril(raw)+tril(raw,-1).T, not unrestricted raw matrix.",
+  "source_path_at_ns123": {
+    "direct": "existing default semiseparable at96",
+    "exchange": "existing dense below320",
+    "mixed_exchange": "existing dense below320",
+    "later_candidate_matrix_route": "excluded"
+  },
+  "helper_adaptation_required": [
+    "old screened_operator.py hardcodes24keys and5targets; new21keys/2f cannot call it unchanged",
+    "Retain same native kernel/API calls and quadrants; parameterize count/target/probe descriptors in owned consumer, do not copy Coulomb/angular kernels.",
+    "Use two old4f and two newly qualified screenedf component envelopes as8synthetic P/Q probes (4per\u03ba), giving32 ordered same\u03ba scalar entries; oracle afterspectralqualification and beforeCI."
+  ],
+  "FAC_reference_boundary": "test_fac_angular_conventions.py has existing lowj FAC constants, not full f-rank qualification. test_closed_shell_fock.py independently checks signed magnetic ERIs including\u03ba+3/\u22124, while previous screened actual scalar checks anchor full quadrants. These old source-specific anchors do not replace live208 f-field oracle.",
+  "internal_hS_accounting": "matrix.py _memo_begin carries h0 blocks only for identical workspace contents and identical native nuclear potential object; _dirac_blocks cache key(h0,ns,kappa,Z). Prior freshtwoCI actual7 observed. Newcaller must declare unchanged shared workspace/potential and capture actualinternalhS with<=14ceiling, source-expected7; root final driver chooses exact prospective expected guard. Old expected14 failure staysFAIL.",
+  "owned_adapter_sha256": "f36f9f53d1b21a85d748964ae1a58b83fcc46b1bc5e8fed07eb87330508b8a78"
+}

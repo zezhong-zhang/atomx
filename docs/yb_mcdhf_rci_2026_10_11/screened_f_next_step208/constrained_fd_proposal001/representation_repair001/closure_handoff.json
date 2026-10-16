@@ -1,0 +1,136 @@
+{
+  "status": "native31_combined4f5f_finite_qualification_closed",
+  "all_completion_metadata_checks_passed": true,
+  "metadata_checks_count": 81,
+  "actual_live_controls_count": 730,
+  "all_actual_live_controls_passed": true,
+  "ordinary_both_h_passed": true,
+  "independent_centered_both_h_both_references_passed": true,
+  "root_exit_code": 0,
+  "same_f043_point_metric_UIDs": true,
+  "single_direction_measurement_only": true,
+  "no_full31_gradient_or_stationarity_certificate": true,
+  "old_failures_preserved": true,
+  "current_shared_epoch_qualification_pending": true,
+  "independent_numerical_array_replay_performed": false,
+  "new_physical_calls_in_closure": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/completion.json": "cb8786578e848cd5ad2bba8c5f1d1a31691c6cc478b2bd674359f5c582e49b9e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/RESULTS.md": "ff8f0dce0dd3b6dd1444800f03bf4a6b4d0794972c88be0df5486853d14bcc0a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/CLOSURE.md": "867ffd54df178ff9225dc7aab103adf91829739674a68336e61e53a66c8164b9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/closure_docimpact.json": "2bf5e04e54dc386af3075534d85c170bcc93d7b943eaddf8076d48ed880a7277",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/closure001/contract.json": "6ab6693e499ea329a774cfb062918d05e33f6e696c250eff6565887d08e66b8f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/closure001/complete_metadata.py": "5713d1cec49d369c03c2927ccdc586fd13e60de84bfffe0a9f2f783ac578147f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/closure001/execution_binding.json": "91dc69260767e45681b93ce98cd4bc7b992b6c0d6de6afa5a1792477a36d9913"
+  },
+  "actual_calls": {
+    "H": 5,
+    "CI": 5,
+    "public_reported_energy_evaluate": 5,
+    "gradient_from_weights": 0,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_radial_hS": 28,
+    "hS_total": 42,
+    "validation_Dirac": 7,
+    "complete_SciPy_eigh": 32,
+    "geometry_SPD_eigvalsh": 38,
+    "polar_retraction": 28,
+    "polar_numpy_eigh_fallback": 0,
+    "tracker_resolve": 18,
+    "tracking_SVD": 90,
+    "tracker_overlap": 19,
+    "mixed_ci_finite_increment": 4,
+    "unfiltered_target_RDM": 20,
+    "optimizer": 0,
+    "GPU": 0,
+    "gradient_pair_potential": 0,
+    "retained_RDM": 0,
+    "finite_component_cache_miss": 78355,
+    "finite_potential_cache_miss": 16701,
+    "finite_density_cache_miss": 22908
+  },
+  "actual_hS_observer": {
+    "attempted": 190,
+    "completed": 190,
+    "hits": 183,
+    "misses": 7,
+    "by_CI": {
+      "baseline": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 31,
+        "misses": 7
+      },
+      "h0_minus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h0_plus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h1_minus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h1_plus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      }
+    },
+    "carry_events": [
+      {
+        "CI": "baseline",
+        "same_workspace": false,
+        "same_nucleus": false,
+        "previous": 0,
+        "carried": 0,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h0_minus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h0_plus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h1_minus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h1_plus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      }
+    ]
+  }
+}

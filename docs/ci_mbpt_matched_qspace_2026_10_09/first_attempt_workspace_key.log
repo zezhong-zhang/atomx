@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/run_matched_sigma.py", line 157, in <module>
+    if __name__=='__main__': main()
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/run_matched_sigma.py", line 74, in main
+    arrays['r_nodes']=data['r_nodes']
+KeyError: 'r_nodes'

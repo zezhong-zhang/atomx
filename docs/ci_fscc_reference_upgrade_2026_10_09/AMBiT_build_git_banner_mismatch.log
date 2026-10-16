@@ -1,0 +1,175 @@
+-- The Fortran compiler identification is GNU 15.2.0
+x86_64-linux-gnu-gfortran-15: fatal error: cannot execute ‘cc1’: posix_spawnp: No such file or directory
+compilation terminated.
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran - skipped
+-- Found GSL: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/include (found version "2.8")
+CMake Warning (dev) at src/CMakeLists.txt:15 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found Boost: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/cmake/Boost-1.90.0/BoostConfig.cmake (found version "1.90.0")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Looking for Fortran sgemm
+-- Looking for Fortran sgemm - found
+-- Found BLAS: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- Looking for Fortran cheev
+-- Looking for Fortran cheev - found
+-- Found LAPACK: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so;/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP_Fortran: -fopenmp (found version "4.5")
+-- Found OpenMP: TRUE (found version "4.5")
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP_Fortran: -fopenmp (found version "4.5")
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build
+[  0%] Built target generate_gitinfo
+[  1%] Building CXX object src/Universal/CMakeFiles/universal.dir/Eigensolver.cpp.o
+[  2%] Building CXX object src/Universal/CMakeFiles/universal.dir/ExpLattice.cpp.o
+[  3%] Building CXX object src/Universal/CMakeFiles/universal.dir/FornbergDifferentiator.cpp.o
+[  4%] Building CXX object src/Universal/CMakeFiles/universal.dir/Include.cpp.o
+[  6%] Building CXX object src/Universal/CMakeFiles/universal.dir/Interpolator.cpp.o
+[  7%] Building CXX object src/Universal/CMakeFiles/universal.dir/Lattice.cpp.o
+[  8%] Building CXX object src/Universal/CMakeFiles/universal.dir/MathConstant.cpp.o
+[  9%] Building CXX object src/Universal/CMakeFiles/universal.dir/PhysicalConstant.cpp.o
+[ 10%] Building CXX object src/Universal/CMakeFiles/universal.dir/ScalapackMatrix.cpp.o
+[ 12%] Building CXX object src/Universal/CMakeFiles/universal.dir/SpinorFunction.cpp.o
+[ 13%] Building Fortran object src/Universal/CMakeFiles/universal.dir/Davidson.f.o
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:254:72:
+
+  254 |  40              ISELEC(I)=ILOW+I-1
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 40 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:269:72:
+
+  269 |  50           ISELEC(I)=N-ISELEC(I)+1
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 50 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:390:72:
+
+  390 |  20              IF (AB(J).LT.0) GOTO 30
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 20 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:394:72:
+
+  394 |      :              (DIAG(J).LT.DIAG(IMIN))) IMIN=J
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 40 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:503:72:
+
+  503 |   5        ICV(I)=0
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 5 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:583:72:
+
+  583 |  40        OLDVAL(I)=ABS(OLDVAL(I)-EIGVAL(I))
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 40 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:719:72:
+
+  719 |  10        IF (ABS(OLDVAL(IVAL)-EIGVAL(IVAL)).GE.CRITE) NNCE=NNCE+1
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 10 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:736:72:
+
+  736 |  20              TMAX=MAX( TMAX, ABS(SVEC(ICUR-L)) )
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 20 at (1)
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/Universal/Davidson.f:830:72:
+
+  830 |    10      IND=IND+I
+      |                                                                        1
+Warning: Obsolescent feature: DO termination statement which is not END DO or CONTINUE with label 10 at (1)
+[ 14%] Linking CXX static library libuniversal.a
+[ 14%] Built target universal
+[ 15%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/ConfigurationParser.cpp.o
+[ 17%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/Core.cpp.o
+[ 18%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/CoulombOperator.cpp.o
+[ 19%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/ExchangeDecorator.cpp.o
+[ 20%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/GreensMethodODE.cpp.o
+[ 21%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/HartreeFocker.cpp.o
+[ 23%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/HartreeY.cpp.o
+[ 24%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/HFOperator.cpp.o
+[ 25%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/LocalPotentialDecorator.cpp.o
+[ 26%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/NucleusDecorator.cpp.o
+[ 28%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/Integrator.cpp.o
+[ 29%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/Orbital.cpp.o
+[ 30%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/OrbitalInfo.cpp.o
+[ 31%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/OrbitalMap.cpp.o
+[ 32%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/ODESolver.cpp.o
+[ 34%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/SpinorODE.cpp.o
+[ 35%] Building CXX object src/HartreeFock/CMakeFiles/hartreefock.dir/ThomasFermiDecorator.cpp.o
+[ 36%] Linking CXX static library libhartreefock.a
+[ 36%] Built target hartreefock
+[ 37%] Building CXX object src/Basis/CMakeFiles/basis.dir/BasisGenerator.cpp.o
+[ 39%] Building CXX object src/Basis/CMakeFiles/basis.dir/BSplineBasis.cpp.o
+[ 40%] Building CXX object src/Basis/CMakeFiles/basis.dir/TimesRBasis.cpp.o
+[ 41%] Building CXX object src/Basis/CMakeFiles/basis.dir/HartreeFockBasis.cpp.o
+[ 42%] Building CXX object src/Basis/CMakeFiles/basis.dir/OrbitalManager.cpp.o
+[ 43%] Linking CXX static library libbasis.a
+[ 43%] Built target basis
+[ 45%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/BruecknerDecorator.cpp.o
+[ 46%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/BruecknerSigmaCalculator.cpp.o
+[ 47%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/CoreMBPTCalculator.cpp.o
+[ 48%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/MBPTCalculator.cpp.o
+[ 50%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/OneElectronMBPT.cpp.o
+[ 51%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/Sigma3Calculator.cpp.o
+[ 52%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/SigmaPotential.cpp.o
+[ 53%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/TwoElectronCoulombOperator.cpp.o
+[ 54%] Building CXX object src/MBPT/CMakeFiles/mbpt.dir/ValenceMBPTCalculator.cpp.o
+[ 56%] Linking CXX static library libmbpt.a
+[ 56%] Built target mbpt
+[ 57%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/AngularData.cpp.o
+[ 58%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/ConfigGenerator.cpp.o
+[ 59%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/ElectronInfo.cpp.o
+[ 60%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/HamiltonianMatrix.cpp.o
+[ 62%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/Level.cpp.o
+[ 63%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/LevelMap.cpp.o
+[ 64%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/NonRelConfiguration.cpp.o
+[ 65%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/Projection.cpp.o
+[ 67%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/RelativisticConfiguration.cpp.o
+[ 68%] Building CXX object src/Configuration/CMakeFiles/configuration.dir/RelativisticConfigList.cpp.o
+[ 69%] Linking CXX static library libconfiguration.a
+[ 69%] Built target configuration
+[ 70%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/BreitHFDecorator.cpp.o
+[ 71%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/BreitZero.cpp.o
+[ 73%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/EJOperator.cpp.o
+[ 74%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/FieldShift.cpp.o
+[ 75%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/Hyperfine.cpp.o
+[ 76%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/KineticEnergy.cpp.o
+[ 78%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/LorentzInvarianceT2.cpp.o
+[ 79%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/NormalMassShiftDecorator.cpp.o
+[ 80%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/NuclearPolarisability.cpp.o
+[ 81%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/RadiativePotential.cpp.o
+[ 82%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/RPAOperator.cpp.o
+[ 84%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/RPAOrbital.cpp.o
+[ 85%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/RPASolver.cpp.o
+[ 86%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/SpecificMassShiftDecorator.cpp.o
+[ 87%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/Transitions.cpp.o
+[ 89%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/TwoBodySMSOperator.cpp.o
+[ 90%] Building CXX object src/ExternalField/CMakeFiles/externalfield.dir/YukawaPotential.cpp.o
+[ 91%] Linking CXX static library libexternalfield.a
+[ 91%] Built target externalfield
+[ 92%] Building CXX object src/Atom/CMakeFiles/atom.dir/Atom_Open.cpp.o
+[ 93%] Building CXX object src/Atom/CMakeFiles/atom.dir/Atom.cpp.o
+[ 95%] Building CXX object src/Atom/CMakeFiles/atom.dir/Atom_Autoionization.cpp.o
+[ 96%] Building CXX object src/Atom/CMakeFiles/atom.dir/OutStreams.cpp.o
+[ 97%] Linking CXX static library libatom.a
+[ 97%] Built target atom
+[ 98%] Building CXX object src/CMakeFiles/ambit.dir/ambit.cpp.o
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp: In function ‘void signal_handler(int)’:
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp:616:14: warning: ignoring return value of ‘ssize_t write(int, const void*, size_t)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  616 |         write(STDERR_FILENO, errmsg, strlen(errmsg));
+      |         ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp:630:14: warning: ignoring return value of ‘ssize_t write(int, const void*, size_t)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  630 |         write(STDERR_FILENO, errmsg, strlen(errmsg));
+      |         ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[100%] Linking CXX executable ambit
+[100%] Built target ambit

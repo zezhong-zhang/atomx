@@ -1,0 +1,422 @@
+{
+  "nspinors": 10,
+  "noccupied": 2,
+  "core_determinants": 45,
+  "attachment_determinants": 120,
+  "model_dimension": 8,
+  "complete_signed_columns": 8,
+  "decoder_metadata": {
+    "t1c": {
+      "name": "t1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 2,
+      "sha256": "7561da8a07b96017908aae179e3f5bb901e18037b93e25640b098dd706accc08"
+    },
+    "t2c": {
+      "name": "t2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 9,
+      "coordinates": 256,
+      "nonzero": 38,
+      "sha256": "f09a12cba29b97801b07287f5af5b4a60d70bd2d415d5a6b2d07198bedf6ebda"
+    },
+    "t3c": {
+      "name": "t3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 27,
+      "coordinates": 4096,
+      "nonzero": 368,
+      "sha256": "f3608dafb49b3939496e9a38074049b8322e710514d7180f1272b693c530c32d"
+    },
+    "s1c": {
+      "name": "s1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 9,
+      "coordinates": 64,
+      "nonzero": 0,
+      "sha256": "10cc19f3f56f947f8dfb6288f985a521027316c307ff3f12d658804fc2c3c384"
+    },
+    "s2c": {
+      "name": "s2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 27,
+      "coordinates": 1024,
+      "nonzero": 114,
+      "sha256": "0c588811ebe88a3b934fa28261e0485dec095eb0bb2aae88c39b544811ac1e51"
+    },
+    "s3c": {
+      "name": "s3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 81,
+      "coordinates": 16384,
+      "nonzero": 1773,
+      "sha256": "90ce6250a842e12484339a1fcbfdbdc63855d6495f057cc924c5f1fd9543355e"
+    }
+  },
+  "core_energy_Ha": -13.613445203524867,
+  "core_projected_rank123_max_Ha": 2.948776516834933e-17,
+  "core_unretained_rank4_max_Ha": 0.0,
+  "attachment_projected_rank012_max_Ha": 1.7763568394002505e-15,
+  "attachment_unretained_rank34_max_Ha": 0.0,
+  "full_attachment_bloch_max_Ha": 1.7763568394002505e-15,
+  "heff_signed_projection_max_Ha": 2.1094237467877974e-15,
+  "intermediate_normalization_max": 0.0,
+  "physical_metric_min_eigenvalue": 1.0000547363552041,
+  "core_fci_method_error_Ha": 1.7763568394002505e-15,
+  "attachment_fci_method_error_max_Ha": 1.2434497875801753e-14,
+  "attachment_retained_rows": 120,
+  "core_retained_rows": 44,
+  "fock_occupied_virtual_max_Ha": 0.000127231825498883,
+  "truncation_contract": "Core T1/T2/T3 and attachment S1/S2/S3; connected T4/S4 are absent. Full FCI difference is reported as method error and never relaxed into the projected equation gate.",
+  "gates": {
+    "core_projected": true,
+    "attachment_projected": true,
+    "heff_projection": true,
+    "intermediate_normalization": true,
+    "positive_metric": true
+  },
+  "sample": {
+    "core_energy_Ha": -13.613445203524863,
+    "statuses": {
+      "0h0p": [
+        1,
+        10,
+        5.421010862427522e-20,
+        1.3010426069826053e-18,
+        8.011000323322121e-21
+      ],
+      "0h1p": [
+        1,
+        9,
+        0.0,
+        5.984795992119984e-17,
+        1.962405932198763e-17
+      ]
+    },
+    "raw_equation_bound_Ha": 2.035097834774908e-15,
+    "backend_reported_stage_seconds": {
+      "one-particle    -0.0000000065": 0.0,
+      "two-particle    -0.0001796524": 0.0,
+      "10    0.000000000000    0.000000000000    0.000000000000    0.000197    0.003273": 0.0,
+      "9    0.000000000000    0.000000000000    0.000000000000    0.000000    0.005381": 0.000265,
+      "Total time of execution": 0.231,
+      "Diagram contraction (mult) for <PP||PP>": 0.004,
+      "Interface to pyscf": 0.0,
+      "Diagram template constr (tmplt)": 0.002,
+      "Sorting of integrals": 0.002,
+      "Tensor transposition (reorder)": 0.058,
+      "Energy denominators (diveps)": 0.0,
+      "0h0p -- Singles equations (T1)": 0.002,
+      "Diagram contraction (mult)": 0.08,
+      "mult M <- M x M": 0.062,
+      "mult M <- D x M": 0.0,
+      "Diagram addition (update)": 0.01,
+      "0h0p -- Triples contibution to singles": 0.0,
+      "0h0p -- Doubles equations (T2)": 0.013,
+      "Permutation operators": 0.05,
+      "0h0p -- Triples contribution to doubles": 0.002,
+      "0h0p -- Triples equations (T3)": 0.036,
+      "DIIS extrapolation": 0.007,
+      "Constant part of 0h1p amplitudes": 0.002,
+      "Extraction of a closed part": 0.0,
+      "Prediction of intruder states": 0.0,
+      "0h1p -- Triples contribution to singles": 0.001,
+      "0h1p -- Triples contribution to doubles": 0.006,
+      "0h1p -- Triples equations (T3)": 0.133
+    },
+    "reported_max_owned_memory_bytes": 15229940,
+    "core_and_all_eight_attachment_energies_Ha": [
+      -13.613445203524863,
+      -14.27960795118483,
+      -14.27960795118483,
+      -14.133055119573541,
+      -14.133055119573541,
+      -14.13302332981264,
+      -14.13302332981264,
+      -14.13302332981264,
+      -14.13302332981264
+    ],
+    "scope": "wrapper",
+    "workers": 1,
+    "wall_seconds": 0.3700232729315758,
+    "load_before": {
+      "load": [
+        10.3408203125,
+        10.0126953125,
+        12.44775390625
+      ],
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "available_bytes": 119428067328,
+      "free_disk_bytes": 10569742413824
+    },
+    "load_after": {
+      "load": [
+        10.3408203125,
+        10.0126953125,
+        12.44775390625
+      ],
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "available_bytes": 119509073920,
+      "free_disk_bytes": 10569741168640
+    },
+    "timing_environment_gate": {
+      "load_before_plus_workers": true,
+      "load_after_plus_workers": true,
+      "load_change_at_most_four": true,
+      "memory_headroom": true,
+      "disk_headroom": true
+    },
+    "controlled_timing": true,
+    "executable_sha256": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+    "actual_runtime": {
+      "actual_backend_pids": [
+        1951003
+      ],
+      "observed_backend_max_threads": 1,
+      "sampled_backend_peak_RSS_bytes": 137793536,
+      "samples": 30,
+      "mapped_runtime_library_sha256": {
+        "/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0": "67faab0feef3cc4b20d98daffda4de59f6816ab565b044da096487f4075fccdf",
+        "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14",
+        "/usr/lib/x86_64-linux-gnu/libc.so.6": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+        "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1": "9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee",
+        "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0": "645478cbe100d1465b9d45f7047bca3965358f4d399937e544f55ac7a924d5a3",
+        "/usr/lib/x86_64-linux-gnu/libm.so.6": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8"
+      },
+      "scope": "10 ms /proc observer; peak RSS/threads are sampled lower bounds, not exact resource counters"
+    },
+    "directory": "run001/accuracy_two_core_corrected",
+    "inputs": {
+      "ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788",
+      "integrals.json": "0d66fe03969140d22a16cebb297673a759e051cf725df25af3d6689a475a3edf",
+      "cc.inp": "1a38ba6d84722b23227ba0768bb62e512796134100e43ba711aaceddec13eeb1"
+    }
+  },
+  "full_H_FCI_error_is_required_zero": true,
+  "exact_two_core_gate": true
+}

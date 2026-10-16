@@ -1,0 +1,85 @@
+{
+  "dimensions": {
+    "NHF": 2688,
+    "NX": 4,
+    "NS": 4,
+    "KX1": 3,
+    "NXX": 4,
+    "NK": 3,
+    "NN": 4,
+    "KK": 3,
+    "NCH": 76,
+    "NXK": 40,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4704
+  },
+  "workspace_bytes": 3631616,
+  "feature_identity": {
+    "representation": "native cell Coulomb auxiliary nodes",
+    "geometry_sha256": "dd382b576ef211db8f28a8c93d1e4506d00bf0959993276580f6da4725f5065c",
+    "coefficient_sizes": [
+      30,
+      30
+    ],
+    "component_orders": [
+      7,
+      7
+    ],
+    "auxiliary_nodes": 2688,
+    "same_cell_edges": 4704,
+    "quadrature_nodes": [
+      24,
+      7
+    ],
+    "payload_estimate_bytes": 650496,
+    "rank_cache_capacity": 8,
+    "contraction": "weighted bilinear c-product; no new quadrature or screening"
+  },
+  "occupied": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      -2
+    ]
+  ],
+  "virtual": [
+    [
+      3,
+      -1
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      3,
+      -2
+    ],
+    [
+      4,
+      -2
+    ]
+  ],
+  "case": "ne10",
+  "rotation": "complete occupied/virtual same-kappa QR, seed314159"
+}

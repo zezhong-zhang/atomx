@@ -1,0 +1,69 @@
+{
+  "hypothesis": "Complete4f14 core correlation changes both same-space attachment states. The optimized native solver must satisfy all189834 retained SDT equations and preserve angular target identities; matrix-free eigenvectors must pass original projected equations, without fitting.",
+  "fixed": {
+    "correlated_core_electrons": 18,
+    "frozen_electrons": 50,
+    "virtual_magnetic_spinors": 12,
+    "total_spinors": 30,
+    "nucleus": "same empiricalA171",
+    "radial": "same ns180/ks9/R500/RKB",
+    "Hamiltonian": "same repartitioned DC operator and common68e HF origin; noBreit/QED/recoil",
+    "amplitudes": 189834,
+    "exact_scalar_coordinates": 6854,
+    "new_core_method": "CCSDT",
+    "initial": "exact1324-coordinate embedded old solved core, no new4f amplitudes",
+    "continuation": [
+      1.0
+    ],
+    "preconditioner": "Fock diagonal inverse; no clipping, shift or altered Hamiltonian",
+    "projection_storage": "canonical; all signed permutations/equations",
+    "EA": "completeR3, matrix-free even Mhalf sector, six SR roots, ncv36,tol1e-12,maxiter150, deterministicv0; all target partners constructed by signedJ ladders and each equation reapplied",
+    "scope": "EA-CCSDT/R3 finite radial/virtual model; no full-H state/residual or paper/experimental certificate"
+  },
+  "gates": {
+    "core_residual_Ha": 1e-10,
+    "source_and_operator": "exact",
+    "small_directed_replay_Ha": 1e-09,
+    "small_J2": 1e-12,
+    "core_Jplus": 1e-07,
+    "target_J2": 1e-07,
+    "EA_projected_residual_Ha": 1e-10,
+    "imaginary_target_Ha": 1e-10,
+    "target_bare_R1_weight_min": 0.5
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 12884901888,
+    "wall_seconds": 1500,
+    "tensor_memory_MiB": 4096,
+    "core_residual_calls_max": 160,
+    "large_Arnoldi_EA_calls_max": 300,
+    "direct_partner_equation_actions": 12,
+    "core_max_iterations": 40,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368
+  },
+  "stopping": "First failed source/operator/equation/identity/resource gate stops, preserving core/roots already produced. No automatic retry, altered k/ncv/cut/rank/tolerance or experimental root selection.",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py": "0edbf1b212e63004704caac80032e6ae22fb84ffb39249f58a2252ed6ad34146",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/operator.json": "9d35b5a431f513a594ed781bd779fe6283e21bcb72221b190785dd0b8444f73d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/integrals.npz": "9019e614d5fff4bcfff73e337ee930dc4ee2130df15e257badb9f3f9e4b4cb75",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/fixed_inputs.npz": "654af33d52e03762b0def0b291a703da40df3ecde135dc46edfa8a66eaf11c3b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/probe_result.json": "e1bfa5f03a2b51f0ea5bc5da6a57732f5c727a1a3ce96e726a589540e8adf215",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/after_source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/performance_summary.json": "844b0a7eeec3bc1151d6809ea921fcbe1964cd109102634458b633374c24af42",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/operator.json": "bc536185175197a938d6e28ac35bbb862e50affaf82915dc97155cd16249cae9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/integrals.npz": "aaf14e8d8187ab4895c40b073132f8654fa0c84364efd73d513bccb5617069be",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/CCSDT_core.npz": "ad8e076439e7a4a7d49630ec250445f641c447cba780d06d452653110c0f6f43",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M-5_CCSDT_R3.npz": "3282f83a479ad5217b9481fe7b05f061cd4451c418b1bb62ca17b9e3976218a7",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M-3_CCSDT_R3.npz": "f24b62b4360068f5ac5558a5add757107a0a58cd8436a9ce479245ef4ce85fb8",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M-1_CCSDT_R3.npz": "f5d9a3256b8828a5b7ec32536955417034965e149641df6ee4e57315e62bb8d0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M1_CCSDT_R3.npz": "fd32812bcb731d4772322efe0edcdfb461b8207a6762b64980a0ced138dd4d6a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M3_CCSDT_R3.npz": "8778e501c470d69ef8023738f2f2e0a3e6a92a582ef5b50c6ae31a089ef53111",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M5_CCSDT_R3.npz": "ab7ed55161a9e495ec669958ca681afdadaf461ab5e730bd86ddb8b03be32b61",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M1_FCI.npz": "93ebabbe651d6e21eeb56c86b42ac5c1b4310b5e2d4177c22fa25bc26c92e802"
+  }
+}

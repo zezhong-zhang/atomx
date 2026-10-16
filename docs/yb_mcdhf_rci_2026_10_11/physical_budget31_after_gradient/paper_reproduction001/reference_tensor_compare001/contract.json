@@ -1,0 +1,111 @@
+{
+  "backend_manifest": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source-build/atomx_backend.json",
+  "backend_source": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source",
+  "decoder": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py",
+  "diagnostics_not_pass_certificates": [
+    "complete omitted N4 row residual",
+    "physical full-H residual",
+    "selected roots versus full N4 FCI",
+    "unpaired method wall time"
+  ],
+  "documentation_impact": "Own isolated README/RESULTS only. Root owns shared guides/EARS. No shared scientific source edits.",
+  "energy_reference": "Both total core energies include the same frozen constant. Attachment omega is relative to the same correlated N3 core; no shifted or externally substituted core energy.",
+  "executable": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source-build/expt.x",
+  "external_method": "EXP-T full tensor CCSDT 0h0p/0h1p, corrected noncanonical ATOMX_FOV_T2_001 source; all four active model columns and all tensor coordinates; no Fov deletion/shift, restart, symmetry substitution or experimental fitting.",
+  "gates": {
+    "conditional_finite_model_H_eff_wave_projectors": 1e-10,
+    "input_decode": 1e-12,
+    "model_normalization": 1e-12,
+    "native_EOM_projected_Ha": 1e-10,
+    "native_core_FCI_Ha": 1e-10,
+    "native_core_FCI_projector": 1e-10,
+    "nonzero_T3_Nplus1_min": 1e-06,
+    "raw_backend_Jacobi_bound_Ha": 1e-11,
+    "raw_backend_update": 1e-13,
+    "reference_ground_overlap_min": 0.5,
+    "stored_Heff_wave_Ha": 1e-10,
+    "tensor_core_FCI_Ha": 1e-10,
+    "tensor_core_cluster_Ha": 1e-10,
+    "tensor_core_projected_Ha": 1e-10,
+    "tensor_retained_Bloch_Ha": 1e-10
+  },
+  "hypothesis": "Independent full tensor CCSDT core and retained 0h1p equations can distinguish actual tensor/source errors from finite EOM/FSCC rank and state-convention differences at nonzero connected T3 active in N+1.",
+  "method_difference": "EOM diagonalizes a 34-row non-Hermitian projected similarity operator; valence-universal FSCC solves an intermediate-normalized four-column wave operator with folded terms. Compare their actual retained equations, H_eff, model waves and roots conditionally; neither full-H nor FCI equality is presumed in the omitted N4 rank.",
+  "model": {
+    "active_model_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "attached_determinants": 35,
+    "chosen_native_model_roots": "lowest four ordered projected-EOM roots, complete fixed model, projector condition <=1e6 and separating gap >=1e-6",
+    "core_amplitudes_by_rank": {
+      "1": 12,
+      "2": 18,
+      "3": 4
+    },
+    "core_determinants": 35,
+    "core_reference_mask": 7,
+    "frozen_energy_Ha": -2.3,
+    "labels": "existing test (p+1,-1,+1), incomplete multiplets, C1-only synthetic identifiers",
+    "occupied": 3,
+    "omitted_R4_rows": 1,
+    "retained_R_rows": 34,
+    "seed": 194025,
+    "source": "exact AST segments integrals and independent_hamiltonian from bound tests/test_eom_attachment.py",
+    "spinors": 7,
+    "virtual": 4
+  },
+  "native_method": "Finite CCSDT with connected T1/T2/T3 and disconnected exponential; explicit dense action_representation; EOM-EA R<=3p2h in full N4 sector. 35-core FCI is exact rank3 oracle; omitted 4p3h remains a full-H diagnostic.",
+  "operator": "One owned real Hermitian h plus complete signed antisymmetric two-body tensor and frozen constant; F=h+core contraction. Fov retained exactly.",
+  "plan_history": [
+    "Initially inspected corrected historical candidate001; it has repaired C but lacks the source-bound public capability declaration and is ineligible for nonzero Fov under current wrapper.",
+    "Eligible corrected public binary cf230c3c and all307 source files are verified. Isolated libgfortran runtime is explicitly bound.",
+    "Root approved N4/eight-spinor Ne6+ seam then clarified chronological priority: first unchanged N3/seven-spinor toy, N4 separate only afterward if this passes and budget admits. No Ne4 run has been launched.",
+    "Current native package snapshot includes optional state_action from concurrent root work; this first comparison explicitly uses dense."
+  ],
+  "resources": {
+    "AS_bytes": 8589934592,
+    "CPU": 28,
+    "amplitude_cap": 128,
+    "backend_memory_bytes": 536870912,
+    "backend_timeout_seconds": 60,
+    "decoded_arrays_peak_upper": 67108864,
+    "determinant_cap": 256,
+    "full_tensor_T3_S3_bytes": 3764768,
+    "inner_seconds": 110,
+    "input_NPZ": 0,
+    "logical_term_action_cap": 2000000,
+    "native_generator_memory_MiB": 128,
+    "outer_seconds": 120,
+    "threads": 1,
+    "whole_peak_RSS_estimate": 1073741824
+  },
+  "runtime_library_directory": "/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu",
+  "scope": "Exact existing seven-spinor/N3 real synthetic two-body test model. SpinorIntegrals is the native owned integral boundary, but these Gaussian h/ERI are not native atomic radial integrals, complete magnetic multiplets or an atomic closed shell. External tensor software is comparator only; no Sahoo EA/Yb reproduction or method equivalence assumed.",
+  "sources": {
+    "/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0": "67faab0feef3cc4b20d98daffda4de59f6816ab565b044da096487f4075fccdf",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "e564bdd5c2bc7886302c0dc15cdbaed61ba1ab2943436b6b195eea01a79773f3",
+    "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source-build/atomx_backend.json": "5516faf5a5f62ce18d148982bcb806dd8d74c038ace1373d8bc1feb477650ee9",
+    "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source-build/expt.x": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/reference_tensor_compare001/model_helpers.py": "395c99268a09b4fca1ea60ef1b54045b5e3c716c1a8ae2f141367c60ee473112",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/reference_tensor_compare001/source_snapshot_identity.json": "9078c8a03e5937418850c3e8f3ef15265f225430578977418920f374afacd0e1",
+    "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14",
+    "/usr/lib/x86_64-linux-gnu/libc.so.6": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+    "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1": "9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee",
+    "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0": "645478cbe100d1465b9d45f7047bca3965358f4d399937e544f55ac7a924d5a3",
+    "/usr/lib/x86_64-linux-gnu/libm.so.6": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8"
+  },
+  "status": "SOURCE_predeclared_first_independent_tensor_comparison",
+  "stop": "First genuine core/reference/operator/tensor/retained/normalization/source/resource gate failure closes and preserves evidence. No retry, changed core/rank/active/threshold, backend patch or Fov masking.",
+  "tensor_work": {
+    "core_independent_amplitudes": 34,
+    "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced",
+    "estimated_working_bytes": 2265232,
+    "occupied": 3,
+    "raw_tensor_coordinates": 4396,
+    "virtual": 4
+  },
+  "units": "Hartree"
+}

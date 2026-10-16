@@ -1,0 +1,25 @@
+{
+  "status": "closed_prototype_mechanics_tests",
+  "command": [
+    "taskset",
+    "-c",
+    "28",
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/test_experiment_selector.py"
+  ],
+  "exit_code": 0,
+  "elapsed_uncontrolled_s": 0.204934980996768,
+  "source_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/experiment_selector.py": "adca419880ef6d2f3f627a594253695947bab0889931f589a20b85964830112f",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/test_experiment_selector.py": "c1138c9b9238cbe4074d759ce322e3625e2bdb71ddc616e20cdc57ecd6e6df40"
+  },
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/selector_test_source",
+  "source_unchanged": true,
+  "output_sha256": "ea1ce9a68348a0a0d3ffe88c0e035ba24ac8666e7b9a7cb809029e57c0b240fa",
+  "fixtures": "synthetic only; no atomic prediction, speed or uncertainty certification",
+  "atomic_H_CI_gradient_NPZ": 0,
+  "AI_acceleration_measured": false
+}

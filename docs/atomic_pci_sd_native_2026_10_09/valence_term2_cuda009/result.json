@@ -1,0 +1,22 @@
+{
+  "status": "complete signed kernel/analytic-response control passed",
+  "rows": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "energy_Ha": -0.3386654527300543,
+      "raw_signed_error_Ha": 2.574980159653073e-19,
+      "raw_response_error_Ha": 2.846030702774449e-19,
+      "finite": true,
+      "seconds_original": null,
+      "seconds_streamed": 4.542827371042222,
+      "value_policy_error_Ha": 0.0,
+      "policy_restore_error_Ha": 0.0
+    }
+  ],
+  "peak_rss_bytes": 3753340928,
+  "scope": "original kernel equivalence only; no full solve or controlled speedup claim",
+  "cuda_complete_pair_calls": 7
+}

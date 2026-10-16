@@ -1,0 +1,165 @@
+--- docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py
++++ docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py
+@@ -95,6 +95,8 @@
+     checks, points, archives = [], {}, []
+     counters = dict.fromkeys(caps['calls'], 0)
+     returned = dict(counters)
++    non_none_returns = dict(counters)
++    scalar_requests = dict(reserved=0, returned_complete_blocks=0, by_model={}, refusal=None)
+     hS = dict(requests=0, hits=0, misses=0, by_model={}, carry_events=[])
+     model, raw = [None], {}
+     started = time.monotonic()
+@@ -102,7 +104,7 @@
+     def progress(phase):
+         write(out / 'progress.json', dict(phase=phase, entered=counters, returned=returned,
+               checks=len(checks), last_check=checks[-1] if checks else None,
+-              model=model[0], completed_models=list(points), hS=hS,
++              model=model[0], completed_models=list(points), hS=hS, scalar_requests=scalar_requests,
+               elapsed_uncontrolled_s=time.monotonic()-started))
+ 
+     try:
+@@ -134,7 +136,7 @@
+         import numpy as np
+         from scipy import linalg
+ 
+-        from atomx.angular.csf_hamiltonian import csf_signature
++        from atomx.angular.csf_hamiltonian import csf_signature, evaluate_block
+         from atomx.config.csf import enumerate_jj_csfs, get_shared_orbital_basis
+         from atomx.constants import HARTREE_CM1
+         from atomx.methods import ci as ci_module
+@@ -193,13 +195,21 @@
+         codes = {inspect.unwrap(f).__code__: key for key, f in funcs.items()}
+         for f in (linalg.eigh, np.linalg.eigh._implementation):
+             codes[inspect.unwrap(f).__code__] = 'complete_eigh'
+-        active, getters, resets, transverse = {}, {}, {}, {}
++        active, getters, resets, transverse, request_blocks = {}, {}, {}, {}, {}
+         coverage = {name: set() for name in contract['operators']}
+ 
+         def profile(frame, event, value):
+             token, code = id(frame), frame.f_code
+             key = codes.get(code)
+             if event == 'call':
++                if code is evaluate_block.__code__ and frame.f_locals['evaluate_integral'] is transverse.get(model[0]):
++                    needed = len(frame.f_locals['structure'].keys)
++                    if scalar_requests['reserved'] + needed > caps['maximum_transverse_scalar_requests']:
++                        scalar_requests['refusal'] = dict(model=model[0], next_complete_block_requests=needed, remaining=caps['maximum_transverse_scalar_requests']-scalar_requests['reserved'])
++                        raise RuntimeError('Complete all-request transverse budget before block body')
++                    scalar_requests['reserved'] += needed
++                    scalar_requests['by_model'][model[0]] = scalar_requests['by_model'].get(model[0], 0) + needed
++                    request_blocks[token] = needed
+                 if frame.f_globals.get('__name__') == 'atomx.methods.dirac_fock' and code.co_name in ('solve', '_build_hf_matrix_dbsr', '_build_hf_matrix'):
+                     key = 'Fock'
+                 if key is not None:
+@@ -223,8 +233,15 @@
+                                      matrix._MEMO_CONTEXT is frame.f_locals['bsp_data'],
+                                      matrix._SLATER_MEMO.get('_nuclear_potential') is frame.f_locals['nuclear_potential'])
+             elif event == 'return':
++                if token in request_blocks:
++                    needed = request_blocks.pop(token)
++                    if value is not None:
++                        scalar_requests['returned_complete_blocks'] += needed
+                 if token in active:
+-                    returned[active.pop(token)] += 1
++                    observed_key = active.pop(token)
++                    returned[observed_key] += 1
++                    if value is not None:
++                        non_none_returns[observed_key] += 1
+                     if key == 'transverse_factory' and value is not None:
+                         codes[inspect.unwrap(value).__code__] = 'transverse_uncached_evaluations'
+                         transverse[model[0]] = value
+@@ -251,6 +268,7 @@
+             with np.load(roles[role], allow_pickle=False) as a:
+                 result = {k: a[k].copy() for k in a.files}
+             returned['NPZ_load'] += 1
++            non_none_returns['NPZ_load'] += 1
+             check('finite_saved_' + role, not all(np.isfinite(v).all() and not np.iscomplexobj(v) for v in result.values()))
+             return result
+ 
+@@ -414,6 +432,7 @@
+                 diagnostics = transverse[name].diagnostics()
+                 scalar_calls[name] = diagnostics['caches']['values']['hits']+diagnostics['caches']['values']['misses']
+                 check('zero_actual_scalar_request_cap', scalar_calls[name], caps['maximum_transverse_scalar_requests'])
++                check('zero_all_cache_hits_misses_equal_reserved_requests', scalar_calls[name] != scalar_requests['by_model'][name])
+                 write(out / 'zero_transverse_cache_diagnostics.json', diagnostics)
+                 check('static_zero_full_H_max_Ha', np.max(abs(H-all_spectra['static'][0])), 1e-9)
+                 np.fill_diagonal(z := H-all_spectra['static'][0], 0.)
+@@ -443,10 +462,12 @@
+             check('expected_completed_'+key, returned[key] != expected_count)
+         check('raw_hS_successful_returns_equal_misses', returned['CI_internal_hS'] != hS['misses'])
+         check('all_hS_getters_successful', hS['requests'] != hS['hits']+hS['misses'])
++        check('all_reserved_scalar_blocks_completed', scalar_requests['reserved'] != scalar_requests['returned_complete_blocks'])
+         for key, count in counters.items():
+             check('entered_returned_'+key, count != returned[key])
+         write(out / 'result.json', dict(status='closed_native31_fixed_RCI_phaseA', all_declared_controls_passed=True,
+-            checks=checks, entered=counters, returned=returned, hS=hS, points=points, archives=archives,
++            checks=checks, entered=counters, returned_events=returned, non_none_returns=non_none_returns, hS=hS,
++            scalar_requests=scalar_requests, points=points, archives=archives,
+             source_map_sha256=contract['source_map_sha256'], contract_sha256=sha(HERE/'contract.json'), driver_sha256=sha(__file__),
+             execution_binding_sha256=sha(binding_path), literal_recovered31=True, same_point_transverse_budget_measured=True,
+             native_MCDHF_optimization_executed=False, original3689_stationarity_passed=False,
+@@ -459,7 +480,9 @@
+         if raw:
+             save('failure_completed_raw_hS.npz', **{f'{component}_{k}': array for k, pair in raw.items() for component, array in zip(('raw_h', 'S'), pair, strict=True)})
+         write(out / 'failure.json', dict(type=type(error).__name__, message=str(error), checks=checks, entered=counters, returned=returned,
+-              hS=hS, completed_models=list(points), archives=archives, elapsed_uncontrolled_s=time.monotonic()-started,
++              hS=hS, scalar_requests=scalar_requests, non_none_returns=non_none_returns,
++              return_event_semantics='Profile return events may include exception unwind; None constructor returns are not separate success certificates. Reserved scalar requests are future work, not executed counts if a block fails.',
++              completed_models=list(points), archives=archives, elapsed_uncontrolled_s=time.monotonic()-started,
+               all_declared_controls_passed=False, current_optimizer_qualified=False, no_retry=True))
+         raise
+ 
+--- docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json
++++ docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/contract.json
+@@ -1,5 +1,5 @@
+ {
+-  "status": "SOURCE_only_complete_phaseA_owned_driver_preparation_NO_execution_authorization",
++  "status": "SOURCE_only_scalar_request_observation_successor_NO_execution_authorization",
+   "hypothesis": "At one literal recovered31 point, measure native complete staticBreit upper-minus-lower scale and independent full zero-frequency static limit; no dynamic auxiliary-frequency model in this phase.",
+   "source_archive": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source",
+   "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+@@ -115,6 +115,14 @@
+     "mixed_saved_diagnostic": {
+       "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed_failure_diagnosis001/diagnostic_completion.json",
+       "sha256": "5a64dfbc0ad2b4705c7da7b681b3652c6c59484677db1238e7f1a1ee6830816c"
++    },
++    "prepared_predecessor_contract": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
++      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
++    },
++    "prepared_predecessor_handoff": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
++      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
+     }
+   },
+   "fixed": {
+@@ -530,9 +538,29 @@
+     "polar": 0,
+     "Fock": 0
+   },
+-  "call_observation": "sys.setprofile original Python bodies only; no physical function replacement. Primitive limits are checked before each observed function body. Scalar counters stay in memory, never per-scalar disk IO. Static outer evaluate calls are observed; zero cached evaluator body calls are misses, while complete zero request hits+misses are checked after the model via the original diagnostics(). Constructors returning None count observed returns; failed runs cannot claim complete qualification.",
++  "call_observation": "sys.setprofile original Python bodies only, no physical function replacement. Before each native evaluate_block body using the actual Breit evaluator object, reserve exactly len(structure.keys) scalar calls; original values_iter calls the evaluator exactly once per complete key. The whole-run2m reservation cap includes static/zero cached hits. Completed-block reservation counts require a non-None native evaluate_block result. Zero original hits+misses must equal its reservation after completion. Uncached evaluator bodies are separate in-memory work counters. No per-scalar disk IO. Profile return events may include exception unwind; non-None returns are recorded separately and failed runs cannot certify complete work from constructor None events.",
+   "additional_original_thresholds": {
+     "target_same_symmetry_degeneracy_Ha": 1e-10,
+     "old_spectral_complete_cluster_gap_Ha": 1e-08
++  },
++  "prepared_predecessor": {
++    "driver": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
++      "sha256": "dd9550eb874bdedf45d65eddd47a5f8dd82e68a3de3951556dc0772bc5bc4525"
++    },
++    "contract": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
++      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
++    },
++    "preparation": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/preparation.json",
++      "sha256": "1e99a95bfb355077d43adb918b92b255dee99475513a07a7125289adb967333a"
++    },
++    "handoff": {
++      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
++      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
++    },
++    "actual_executed": false,
++    "difference": "Only resource observation and exception-count semantics change. All physics, physical inputs, source archive, CPU/caps and scientific gates unchanged."
+   }
+ }

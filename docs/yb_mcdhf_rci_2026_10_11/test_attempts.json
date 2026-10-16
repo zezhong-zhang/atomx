@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-10-11T07:16:27.896099+00:00",
+  "attempts": [
+    {
+      "panel": "Comprehensive scientific tests before stable polar",
+      "actual_result": "149 passed, 1 failed in 17.12s",
+      "failure": "tests/test_mcdhf.py::test_pb_bspline_matches_shooting_bare_hf",
+      "exception": "ReferenceError: underlying object has vanished",
+      "origin": "Numba caching _dump / cloudpickle weak reference while serializing callback compiler key, not a physics assertion",
+      "record_limit": "Original terminal output retained in session; this is a faithful structured failure record, not a reconstructed full log."
+    },
+    {
+      "panel": "Single previously failed test in fresh generated cache directory",
+      "command": "NUMBA_CACHE_DIR=/tmp/atomx-mcdhf-test-cache-20261011 .venv/bin/python -m pytest -q tests/test_mcdhf.py::test_pb_bspline_matches_shooting_bare_hf",
+      "actual_result": "1 passed in 88.86s",
+      "physical_changes": "None for this retry; original model and test gates unchanged."
+    },
+    {
+      "panel": "New constrained numerical extension regression fixture",
+      "actual_result": "45 passed, 1 failed in 3.31s",
+      "failure": "test_constraint_centering_removes_only_roundoff_normal_extension",
+      "cause": "Fixture falsely demanded zero physical tangent remainder after float componentwise scalar multiplication. Rounded multiplication changes the normalized state slightly.",
+      "correction": "Test requires dominant normal extension removal while retaining the rounded tangent change; actual production stationarity/energy and independent physical oracle gates are unchanged."
+    }
+  ],
+  "final_panel": "scientific_successor_tests.log",
+  "no_skips_or_gate_relaxation": true,
+  "final_result": "160 passed in 93.02s",
+  "card_panel_result": "45 passed in 1.53s",
+  "new_extension_panel_result": "47 passed in 3.28s",
+  "card_heading_successor_result": "45 passed in 1.53s",
+  "card_heading_successor_log": "card_heading_successor_tests.log"
+}

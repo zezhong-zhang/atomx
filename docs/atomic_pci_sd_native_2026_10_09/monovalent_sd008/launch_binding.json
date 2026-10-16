@@ -1,0 +1,9 @@
+{
+  "launcher": "docs/atomic_pci_sd_native_2026_10_09/replay_finite_monovalent.py",
+  "launcher_sha256": "fa0a4ca3b3a83d47d232f4f1e84b110e40005e7c67c6ecc2fda9a1b748f92732",
+  "driver": "probe_monovalent_sd.py",
+  "actual_OUT": "monovalent_sd008",
+  "override": "main.__globals__[OUT] = OWNER / monovalent_sd008",
+  "scientific_source": "source_sha256.json",
+  "scope": "same ten-state/eight-E1 prior panel at corrected current source"
+}

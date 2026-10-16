@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "literal_counts",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "literal_frozen_origin",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "noncanonical_Fov_preserved",
+      "observed": true
+    },
+    {
+      "PASS": false,
+      "limit": null,
+      "name": "tensor_prospective_work",
+      "observed": false
+    }
+  ],
+  "counts": {},
+  "host": {
+    "affinity": [
+      28
+    ],
+    "available_bytes": 96545697792,
+    "load": [
+      0.2158203125,
+      0.24169921875,
+      0.36865234375
+    ]
+  },
+  "phases_seconds": {},
+  "scope": "Exact existing seven-spinor/N3 real synthetic two-body test model. SpinorIntegrals is the native owned integral boundary, but these Gaussian h/ERI are not native atomic radial integrals, complete magnetic multiplets or an atomic closed shell. External tensor software is comparator only; no Sahoo EA/Yb reproduction or method equivalence assumed.",
+  "status": "RUNNING"
+}

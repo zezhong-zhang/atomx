@@ -1,0 +1,250 @@
+{
+  "error": "page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.iteration-summary') to be visible\u001b[22m\n\n    at /data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/atlas_update003/browser_test.js:69:52",
+  "checks": [
+    {
+      "name": "HTTP200",
+      "passed": true
+    },
+    {
+      "name": "118periodic_elements",
+      "passed": true
+    },
+    {
+      "name": "14models_56lines",
+      "passed": true
+    },
+    {
+      "name": "summary/stationarityFAIL",
+      "passed": true
+    },
+    {
+      "name": "summary/full531",
+      "passed": true
+    },
+    {
+      "name": "summary/five_complete_targetsectors",
+      "passed": true
+    },
+    {
+      "name": "summary/distinctpoints",
+      "passed": true
+    },
+    {
+      "name": "summary/negative_rank",
+      "passed": true
+    },
+    {
+      "name": "summary/RMSbaseline",
+      "passed": true
+    },
+    {
+      "name": "summary/RMSrank",
+      "passed": true
+    },
+    {
+      "name": "summary/no_splice",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/correct_status",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/four_failed_nominal_goals",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/physical_overlap_not_bare",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/explicit_four_label_order",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/actual_energy_and_NIST_rows",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/upper_lower_difference_visible",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/centroid_split_visible",
+      "passed": true
+    },
+    {
+      "name": "public531_endpoint320_DC/SHA_visible",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/correct_status",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/four_failed_nominal_goals",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/physical_overlap_not_bare",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/explicit_four_label_order",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/actual_energy_and_NIST_rows",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/upper_lower_difference_visible",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/centroid_split_visible",
+      "passed": true
+    },
+    {
+      "name": "fixed160_5p_double_DC/SHA_visible",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/public531_endpoint160_DC",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/public531_endpoint160_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/native005_DC",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/native005_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f_DC",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f5p_DC",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f5p_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f5p5s_DC",
+      "passed": true
+    },
+    {
+      "name": "prior_exact_values/stage_4f5p5s_static_Breit",
+      "passed": true
+    },
+    {
+      "name": "historical2models_retained",
+      "passed": true
+    },
+    {
+      "name": "old_static160_scope_heading",
+      "passed": true
+    },
+    {
+      "name": "old_failed_probe_retained",
+      "passed": true
+    },
+    {
+      "name": "new_overlay_download_exactSHA",
+      "passed": true
+    },
+    {
+      "name": "both_new_and_old_source_chains",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/DC-endpoint-verification.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/accepted320-checkpoint.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/source-identity.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/objective-identity.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/trajectory-completion.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/trajectory-verification.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/native-contract.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/native-execution-contract.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/rank-fixed160-result.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/rank-fixed160-verification.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/rank-fixed160-contract.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/rank-fixed160-execution-binding.json",
+      "passed": true
+    },
+    {
+      "name": "downloaded_exact_source/evidence/yb-public531-endpoint320/rank-fixed160-tracking.json",
+      "passed": true
+    },
+    {
+      "name": "349Yb_reference_levels",
+      "passed": true
+    },
+    {
+      "name": "Yb_pagination",
+      "passed": true
+    },
+    {
+      "name": "Ne_observed_filter",
+      "passed": true
+    },
+    {
+      "name": "cached_revisit_no_duplicates",
+      "passed": true
+    },
+    {
+      "name": "periodic_search",
+      "passed": true
+    },
+    {
+      "name": "missing_reference_explicit",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

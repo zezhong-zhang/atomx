@@ -1,0 +1,5 @@
+The original private qualification closed with exit1 after 1H/1CI and fourteen h/S producers. Its first owner identity comparison failed: 196 controls passed and one failed. No gradient or GPU context ran. All later H/CI/eigenpair/UID/RDM/gradient/backend gates remain unexecuted, so this run is not a CPU/CUDA numerical qualification.
+
+The source-level cause is tuple fields in `identity_payload()` compared directly with JSON list fields. The existing native31 finite-difference consumer uses `plain()` before the same exact comparison. A separately authorized representation successor will keep every field and original gate and archive the actual owner before comparing; it will not rerun or relabel this failure.
+
+The foreground took36.049s without a controlled timing window; sampled peakRSS was1330122752bytes, no resource stop. Cache ledgers show38 h/S requests=31hits+7misses and2824 dense-bank requests=2796hits+28misses. These are counts, not performance or physical-precision claims. This closure reads only closed JSON/source, with0 new arrays/numerical/GPU calls.

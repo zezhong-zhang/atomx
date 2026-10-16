@@ -1,0 +1,4319 @@
+{
+  "created_at": "2026-10-11T04:06:41.031076+00:00",
+  "source_identity_same_as_v002": true,
+  "timer": {
+    "source_sha256": "24964c2395a971aea00128ca7dcab0eb596ebe43ee5a1b09f19466fde01f5f5c",
+    "binary_sha256": "d331a7f238e07864f60a5ce1b7dcaa5fc9f81b8eefa41504cec44ff9f2b44dec",
+    "script_sha256": "cb83a885ae1168dd8022fe3c9d73db254d3a79dba236ec0107d35c38baa64ca0",
+    "build": {
+      "command": [
+        "/usr/bin/c++",
+        "-O2",
+        "-std=c++17",
+        "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer.cpp",
+        "-o",
+        "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer"
+      ],
+      "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit",
+      "workers": 1,
+      "before": {
+        "load": [
+          11.20947265625,
+          11.4326171875,
+          12.49072265625
+        ],
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "available_bytes": 118089900032,
+        "disk_bytes": 10569339179008,
+        "utc": "2026-10-11T04:02:17.052552+00:00"
+      },
+      "admission": {
+        "cpu_load": true,
+        "memory": true,
+        "disk": true
+      },
+      "started_utc": "2026-10-11T04:02:17.052558+00:00",
+      "address_cap_bytes": 8589934592,
+      "returncode": 0,
+      "cli_wall_seconds": 0.2146952130133286,
+      "finished_utc": "2026-10-11T04:02:17.267264+00:00",
+      "after": {
+        "load": [
+          11.20947265625,
+          11.4326171875,
+          12.49072265625
+        ],
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "available_bytes": 118098743296,
+        "disk_bytes": 10569339154432,
+        "utc": "2026-10-11T04:02:17.267494+00:00"
+      },
+      "guard": {
+        "cpu_load": true,
+        "memory": true,
+        "disk": true,
+        "load_change": true
+      },
+      "controlled_timing": true,
+      "peak_rss_bytes": 93954048
+    }
+  },
+  "input_sha256": "1bcb7c8c3a93daa863a28c29a4867ce18dd0ec0d5e834e262411633050342331",
+  "reference_golden_complete_output_sha256": {
+    "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+    "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+    "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+    "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+  },
+  "scopes": "Full native AMBiT child wall from fork/exec to wait4, including CLI I/O and startup; fresh scientific workspace each invocation; OS/shared-library caches warm. No Python wait polling; no cross-software physics ranking.",
+  "results": {
+    "2": {
+      "pairs": [
+        {
+          "round": 0,
+          "order": [
+            1,
+            2
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round00_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round00_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118098743296,
+                "disk_bytes": 10569339142144,
+                "utc": "2026-10-11T04:02:17.268075+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:17.268083+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0659850460942835,
+              "finished_utc": "2026-10-11T04:02:18.334076+00:00",
+              "after": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118171549696,
+                "disk_bytes": 10569333211136,
+                "utc": "2026-10-11T04:02:18.334227+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28704768
+            },
+            "2": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round00_threads2/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round00_threads2",
+              "workers": 2,
+              "before": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118171549696,
+                "disk_bytes": 10569333194752,
+                "utc": "2026-10-11T04:02:18.339185+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:18.339195+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8656149769667536,
+              "finished_utc": "2026-10-11T04:02:19.204822+00:00",
+              "after": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118181601280,
+                "disk_bytes": 10569327263744,
+                "utc": "2026-10-11T04:02:19.205071+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 30257152
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.018314141,
+              "user_seconds": 0.965243,
+              "system_seconds": 0.051225,
+              "max_rss_bytes": 28704768,
+              "pid": 4109949
+            },
+            "2": {
+              "seconds": 0.819552364,
+              "user_seconds": 1.222287,
+              "system_seconds": 0.046934,
+              "max_rss_bytes": 30257152,
+              "pid": 4109970
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "2": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.018314141,
+          "parallel_seconds": 0.819552364
+        },
+        {
+          "round": 1,
+          "order": [
+            2,
+            1
+          ],
+          "executions": {
+            "2": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round01_threads2/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round01_threads2",
+              "workers": 2,
+              "before": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118180052992,
+                "disk_bytes": 10569327243264,
+                "utc": "2026-10-11T04:02:19.209168+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:19.209180+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8657424070406705,
+              "finished_utc": "2026-10-11T04:02:20.074934+00:00",
+              "after": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118276841472,
+                "disk_bytes": 10569321312256,
+                "utc": "2026-10-11T04:02:20.075126+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 30044160
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round01_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round01_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  11.20947265625,
+                  11.4326171875,
+                  12.49072265625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118276841472,
+                "disk_bytes": 10569321295872,
+                "utc": "2026-10-11T04:02:20.078803+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:20.078811+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.065750864916481,
+              "finished_utc": "2026-10-11T04:02:21.144574+00:00",
+              "after": {
+                "load": [
+                  11.1123046875,
+                  11.40869140625,
+                  12.47705078125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 117928730624,
+                "disk_bytes": 10569315364864,
+                "utc": "2026-10-11T04:02:21.144799+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28536832
+            }
+          },
+          "child_timings": {
+            "2": {
+              "seconds": 0.824434738,
+              "user_seconds": 1.223825,
+              "system_seconds": 0.050197,
+              "max_rss_bytes": 30044160,
+              "pid": 4109995
+            },
+            "1": {
+              "seconds": 1.016696712,
+              "user_seconds": 0.9611599999999999,
+              "system_seconds": 0.052953,
+              "max_rss_bytes": 28536832,
+              "pid": 4110000
+            }
+          },
+          "complete_output_sha256": {
+            "2": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.016696712,
+          "parallel_seconds": 0.824434738
+        },
+        {
+          "round": 2,
+          "order": [
+            1,
+            2
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round02_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round02_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.41748046875,
+                  11.68310546875,
+                  12.55029296875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118112239616,
+                "disk_bytes": 10569315348480,
+                "utc": "2026-10-11T04:02:38.131780+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:38.131817+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0670783868990839,
+              "finished_utc": "2026-10-11T04:02:39.198911+00:00",
+              "after": {
+                "load": [
+                  12.41748046875,
+                  11.68310546875,
+                  12.55029296875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118056677376,
+                "disk_bytes": 10569278246912,
+                "utc": "2026-10-11T04:02:39.199154+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28123136
+            },
+            "2": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round02_threads2/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round02_threads2",
+              "workers": 2,
+              "before": {
+                "load": [
+                  12.41748046875,
+                  11.68310546875,
+                  12.55029296875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118056677376,
+                "disk_bytes": 10569278230528,
+                "utc": "2026-10-11T04:02:39.202931+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:02:39.202941+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8658428669441491,
+              "finished_utc": "2026-10-11T04:02:40.068793+00:00",
+              "after": {
+                "load": [
+                  12.41748046875,
+                  11.68310546875,
+                  12.55029296875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118040178688,
+                "disk_bytes": 10569272299520,
+                "utc": "2026-10-11T04:02:40.068986+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28315648
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.025957259,
+              "user_seconds": 0.967831,
+              "system_seconds": 0.056105999999999996,
+              "max_rss_bytes": 28123136,
+              "pid": 4110491
+            },
+            "2": {
+              "seconds": 0.825803178,
+              "user_seconds": 1.212315,
+              "system_seconds": 0.058918,
+              "max_rss_bytes": 28315648,
+              "pid": 4110598
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "2": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.025957259,
+          "parallel_seconds": 0.825803178
+        },
+        {
+          "round": 3,
+          "order": [
+            2,
+            1
+          ],
+          "executions": {
+            "2": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round03_threads2/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round03_threads2",
+              "workers": 2,
+              "before": {
+                "load": [
+                  10.77392578125,
+                  11.33349609375,
+                  12.3486328125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118027636736,
+                "disk_bytes": 10569252134912,
+                "utc": "2026-10-11T04:04:01.359606+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:04:01.359635+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8664680150104687,
+              "finished_utc": "2026-10-11T04:04:02.226118+00:00",
+              "after": {
+                "load": [
+                  10.77392578125,
+                  11.33349609375,
+                  12.3486328125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 117927227392,
+                "disk_bytes": 10569215037440,
+                "utc": "2026-10-11T04:04:02.226328+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 30863360
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round03_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round03_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  10.77392578125,
+                  11.33349609375,
+                  12.3486328125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 117927636992,
+                "disk_bytes": 10569215021056,
+                "utc": "2026-10-11T04:04:02.230449+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:04:02.230459+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0662149490090087,
+              "finished_utc": "2026-10-11T04:04:03.296685+00:00",
+              "after": {
+                "load": [
+                  10.77392578125,
+                  11.33349609375,
+                  12.3486328125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118001315840,
+                "disk_bytes": 10569209081856,
+                "utc": "2026-10-11T04:04:03.296882+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28942336
+            }
+          },
+          "child_timings": {
+            "2": {
+              "seconds": 0.824277542,
+              "user_seconds": 1.229391,
+              "system_seconds": 0.047937,
+              "max_rss_bytes": 30863360,
+              "pid": 4113063
+            },
+            "1": {
+              "seconds": 1.021357789,
+              "user_seconds": 0.9610869999999999,
+              "system_seconds": 0.055005,
+              "max_rss_bytes": 28942336,
+              "pid": 4113091
+            }
+          },
+          "complete_output_sha256": {
+            "2": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.021357789,
+          "parallel_seconds": 0.824277542
+        },
+        {
+          "round": 4,
+          "order": [
+            1,
+            2
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round04_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round04_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  10.99951171875,
+                  11.19580078125,
+                  12.1943359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118067978240,
+                "disk_bytes": 10569117659136,
+                "utc": "2026-10-11T04:05:39.601744+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:05:39.601773+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0670069119660184,
+              "finished_utc": "2026-10-11T04:05:40.668793+00:00",
+              "after": {
+                "load": [
+                  10.99951171875,
+                  11.19580078125,
+                  12.1943359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118078251008,
+                "disk_bytes": 10569080561664,
+                "utc": "2026-10-11T04:05:40.669020+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28581888
+            },
+            "2": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round04_threads2/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair2_round04_threads2",
+              "workers": 2,
+              "before": {
+                "load": [
+                  10.99951171875,
+                  11.19580078125,
+                  12.1943359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118078251008,
+                "disk_bytes": 10569080545280,
+                "utc": "2026-10-11T04:05:40.672972+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:05:40.672981+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8660989890340716,
+              "finished_utc": "2026-10-11T04:05:41.539090+00:00",
+              "after": {
+                "load": [
+                  11.0,
+                  11.1923828125,
+                  12.1875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118039429120,
+                "disk_bytes": 10569074614272,
+                "utc": "2026-10-11T04:05:41.539269+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 30765056
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.016779298,
+              "user_seconds": 0.966961,
+              "system_seconds": 0.047998,
+              "max_rss_bytes": 28581888,
+              "pid": 218430
+            },
+            "2": {
+              "seconds": 0.827622336,
+              "user_seconds": 1.221328,
+              "system_seconds": 0.061065999999999995,
+              "max_rss_bytes": 30765056,
+              "pid": 218452
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "2": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.016779298,
+          "parallel_seconds": 0.827622336
+        }
+      ],
+      "statistics": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.018314141,
+        "right_median_seconds": 0.824434738,
+        "observational_ratios": [
+          1.242524804674958,
+          1.2332046008473747,
+          1.242375043269693,
+          1.239094524547898,
+          1.2285546846333544
+        ],
+        "speedup": 1.239094524547898,
+        "parallel_efficiency": 0.619547262273949
+      }
+    },
+    "4": {
+      "pairs": [
+        {
+          "round": 0,
+          "order": [
+            1,
+            4
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round00_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round00_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  11.48828125,
+                  11.2939453125,
+                  12.19921875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118132334592,
+                "disk_bytes": 10569074589696,
+                "utc": "2026-10-11T04:06:05.394471+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:05.394509+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0675520499935374,
+              "finished_utc": "2026-10-11T04:06:06.462073+00:00",
+              "after": {
+                "load": [
+                  11.44873046875,
+                  11.2890625,
+                  12.1923828125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118139441152,
+                "disk_bytes": 10569037492224,
+                "utc": "2026-10-11T04:06:06.462229+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28151808
+            },
+            "4": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round00_threads4/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round00_threads4",
+              "workers": 4,
+              "before": {
+                "load": [
+                  11.44873046875,
+                  11.2890625,
+                  12.1923828125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118139453440,
+                "disk_bytes": 10569037475840,
+                "utc": "2026-10-11T04:06:06.465892+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:06.465902+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7658508609747514,
+              "finished_utc": "2026-10-11T04:06:07.231763+00:00",
+              "after": {
+                "load": [
+                  11.44873046875,
+                  11.2890625,
+                  12.1923828125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118114054144,
+                "disk_bytes": 10569031544832,
+                "utc": "2026-10-11T04:06:07.231974+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 31666176
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.028347344,
+              "user_seconds": 0.976236,
+              "system_seconds": 0.050062999999999996,
+              "max_rss_bytes": 28151808,
+              "pid": 219281
+            },
+            "4": {
+              "seconds": 0.727724638,
+              "user_seconds": 1.74403,
+              "system_seconds": 0.06193,
+              "max_rss_bytes": 31666176,
+              "pid": 219290
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "4": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.028347344,
+          "parallel_seconds": 0.727724638
+        },
+        {
+          "round": 1,
+          "order": [
+            4,
+            1
+          ],
+          "executions": {
+            "4": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round01_threads4/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round01_threads4",
+              "workers": 4,
+              "before": {
+                "load": [
+                  12.611328125,
+                  11.5537109375,
+                  12.2646484375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118126297088,
+                "disk_bytes": 10569031303168,
+                "utc": "2026-10-11T04:06:24.207078+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:24.207110+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7666053430875763,
+              "finished_utc": "2026-10-11T04:06:24.973728+00:00",
+              "after": {
+                "load": [
+                  12.611328125,
+                  11.5537109375,
+                  12.2646484375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118116950016,
+                "disk_bytes": 10568994205696,
+                "utc": "2026-10-11T04:06:24.973897+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 30814208
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round01_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round01_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.611328125,
+                  11.5537109375,
+                  12.2646484375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 118117466112,
+                "disk_bytes": 10568994189312,
+                "utc": "2026-10-11T04:06:24.977803+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:24.977815+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0659350720234215,
+              "finished_utc": "2026-10-11T04:06:26.043762+00:00",
+              "after": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120972439552,
+                "disk_bytes": 10568885547008,
+                "utc": "2026-10-11T04:06:26.043969+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28315648
+            }
+          },
+          "child_timings": {
+            "4": {
+              "seconds": 0.751392575,
+              "user_seconds": 1.808514,
+              "system_seconds": 0.054953999999999996,
+              "max_rss_bytes": 30814208,
+              "pid": 219780
+            },
+            "1": {
+              "seconds": 1.020464264,
+              "user_seconds": 0.9645389999999999,
+              "system_seconds": 0.054085999999999995,
+              "max_rss_bytes": 28315648,
+              "pid": 219786
+            }
+          },
+          "complete_output_sha256": {
+            "4": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.020464264,
+          "parallel_seconds": 0.751392575
+        },
+        {
+          "round": 2,
+          "order": [
+            1,
+            4
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round02_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round02_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120972439552,
+                "disk_bytes": 10568885530624,
+                "utc": "2026-10-11T04:06:26.047712+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:26.047722+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0660826599923894,
+              "finished_utc": "2026-10-11T04:06:27.113815+00:00",
+              "after": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120504709120,
+                "disk_bytes": 10568879538176,
+                "utc": "2026-10-11T04:06:27.114007+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28569600
+            },
+            "4": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round02_threads4/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round02_threads4",
+              "workers": 4,
+              "before": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120504709120,
+                "disk_bytes": 10568879521792,
+                "utc": "2026-10-11T04:06:27.118255+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:27.118274+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7662298750365153,
+              "finished_utc": "2026-10-11T04:06:27.884517+00:00",
+              "after": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120424099840,
+                "disk_bytes": 10568873590784,
+                "utc": "2026-10-11T04:06:27.884707+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 31461376
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.040887665,
+              "user_seconds": 0.991041,
+              "system_seconds": 0.048001999999999996,
+              "max_rss_bytes": 28569600,
+              "pid": 219824
+            },
+            "4": {
+              "seconds": 0.749826663,
+              "user_seconds": 1.7983289999999998,
+              "system_seconds": 0.063011,
+              "max_rss_bytes": 31461376,
+              "pid": 219848
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "4": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.040887665,
+          "parallel_seconds": 0.749826663
+        },
+        {
+          "round": 3,
+          "order": [
+            4,
+            1
+          ],
+          "executions": {
+            "4": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round03_threads4/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round03_threads4",
+              "workers": 4,
+              "before": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120424099840,
+                "disk_bytes": 10568873574400,
+                "utc": "2026-10-11T04:06:27.889033+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:27.889050+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8664951960090548,
+              "finished_utc": "2026-10-11T04:06:28.755557+00:00",
+              "after": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120416804864,
+                "disk_bytes": 10568867643392,
+                "utc": "2026-10-11T04:06:28.755777+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 31715328
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round03_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round03_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120417165312,
+                "disk_bytes": 10568867627008,
+                "utc": "2026-10-11T04:06:28.760065+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:28.760082+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0669295060215518,
+              "finished_utc": "2026-10-11T04:06:29.827027+00:00",
+              "after": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120418873344,
+                "disk_bytes": 10568861696000,
+                "utc": "2026-10-11T04:06:29.827282+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28684288
+            }
+          },
+          "child_timings": {
+            "4": {
+              "seconds": 0.827399617,
+              "user_seconds": 1.9318089999999999,
+              "system_seconds": 0.059054999999999996,
+              "max_rss_bytes": 31715328,
+              "pid": 219879
+            },
+            "1": {
+              "seconds": 1.020765161,
+              "user_seconds": 0.962923,
+              "system_seconds": 0.055994999999999996,
+              "max_rss_bytes": 28684288,
+              "pid": 219981
+            }
+          },
+          "complete_output_sha256": {
+            "4": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.020765161,
+          "parallel_seconds": 0.827399617
+        },
+        {
+          "round": 4,
+          "order": [
+            1,
+            4
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round04_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round04_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.56201171875,
+                  11.5615234375,
+                  12.26318359375
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120420941824,
+                "disk_bytes": 10568861679616,
+                "utc": "2026-10-11T04:06:29.831749+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:29.831765+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.066831320989877,
+              "finished_utc": "2026-10-11T04:06:30.898608+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120392732672,
+                "disk_bytes": 10568855748608,
+                "utc": "2026-10-11T04:06:30.898782+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28590080
+            },
+            "4": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round04_threads4/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair4_round04_threads4",
+              "workers": 4,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120391184384,
+                "disk_bytes": 10568855732224,
+                "utc": "2026-10-11T04:06:30.902770+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:30.902783+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7663326989859343,
+              "finished_utc": "2026-10-11T04:06:31.669128+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120365506560,
+                "disk_bytes": 10568849801216,
+                "utc": "2026-10-11T04:06:31.669357+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 32079872
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.047014905,
+              "user_seconds": 0.982181,
+              "system_seconds": 0.062947,
+              "max_rss_bytes": 28590080,
+              "pid": 219985
+            },
+            "4": {
+              "seconds": 0.759340598,
+              "user_seconds": 1.813549,
+              "system_seconds": 0.052957,
+              "max_rss_bytes": 32079872,
+              "pid": 220010
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "4": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.047014905,
+          "parallel_seconds": 0.759340598
+        }
+      ],
+      "statistics": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.028347344,
+        "right_median_seconds": 0.751392575,
+        "observational_ratios": [
+          1.4130995301000102,
+          1.3580973487793646,
+          1.3881710485400545,
+          1.2337027236018165,
+          1.3788475260741953
+        ],
+        "speedup": 1.3788475260741953,
+        "parallel_efficiency": 0.3447118815185488
+      }
+    },
+    "8": {
+      "pairs": [
+        {
+          "round": 0,
+          "order": [
+            1,
+            8
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round00_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round00_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120364179456,
+                "disk_bytes": 10568849784832,
+                "utc": "2026-10-11T04:06:31.673653+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:31.673669+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.066673965076916,
+              "finished_utc": "2026-10-11T04:06:32.740355+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120347471872,
+                "disk_bytes": 10568842797056,
+                "utc": "2026-10-11T04:06:32.740558+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28364800
+            },
+            "8": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round00_threads8/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round00_threads8",
+              "workers": 8,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120345923584,
+                "disk_bytes": 10568842780672,
+                "utc": "2026-10-11T04:06:32.744814+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:32.744829+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7662087649805471,
+              "finished_utc": "2026-10-11T04:06:33.511051+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120329728000,
+                "disk_bytes": 10568836849664,
+                "utc": "2026-10-11T04:06:33.511275+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 32854016
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.056282556,
+              "user_seconds": 1.000491,
+              "system_seconds": 0.053972,
+              "max_rss_bytes": 28364800,
+              "pid": 220037
+            },
+            "8": {
+              "seconds": 0.754115489,
+              "user_seconds": 3.150812,
+              "system_seconds": 0.051126,
+              "max_rss_bytes": 32854016,
+              "pid": 220061
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "8": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.056282556,
+          "parallel_seconds": 0.754115489
+        },
+        {
+          "round": 1,
+          "order": [
+            8,
+            1
+          ],
+          "executions": {
+            "8": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round01_threads8/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round01_threads8",
+              "workers": 8,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120329728000,
+                "disk_bytes": 10568836833280,
+                "utc": "2026-10-11T04:06:33.515551+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:33.515566+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8661659460049123,
+              "finished_utc": "2026-10-11T04:06:34.381743+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120323264512,
+                "disk_bytes": 10568830898176,
+                "utc": "2026-10-11T04:06:34.381946+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 29061120
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round01_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round01_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120323264512,
+                "disk_bytes": 10568830881792,
+                "utc": "2026-10-11T04:06:34.386175+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:34.386191+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0664948859484866,
+              "finished_utc": "2026-10-11T04:06:35.452699+00:00",
+              "after": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120263262208,
+                "disk_bytes": 10568824950784,
+                "utc": "2026-10-11T04:06:35.452919+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28364800
+            }
+          },
+          "child_timings": {
+            "8": {
+              "seconds": 0.83968711,
+              "user_seconds": 3.867422,
+              "system_seconds": 0.052978,
+              "max_rss_bytes": 29061120,
+              "pid": 220072
+            },
+            "1": {
+              "seconds": 1.05617359,
+              "user_seconds": 1.001169,
+              "system_seconds": 0.053114999999999996,
+              "max_rss_bytes": 28364800,
+              "pid": 220178
+            }
+          },
+          "complete_output_sha256": {
+            "8": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.05617359,
+          "parallel_seconds": 0.83968711
+        },
+        {
+          "round": 2,
+          "order": [
+            1,
+            8
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round02_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round02_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.4365234375,
+                  11.5517578125,
+                  12.25634765625
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120263262208,
+                "disk_bytes": 10568824934400,
+                "utc": "2026-10-11T04:06:35.457232+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:35.457249+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0664992550155148,
+              "finished_utc": "2026-10-11T04:06:36.523763+00:00",
+              "after": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120250363904,
+                "disk_bytes": 10568819003392,
+                "utc": "2026-10-11T04:06:36.524037+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28258304
+            },
+            "8": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round02_threads8/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round02_threads8",
+              "workers": 8,
+              "before": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120250363904,
+                "disk_bytes": 10568818987008,
+                "utc": "2026-10-11T04:06:36.528240+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:36.528257+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7662320289527997,
+              "finished_utc": "2026-10-11T04:06:37.294502+00:00",
+              "after": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120217100288,
+                "disk_bytes": 10568813056000,
+                "utc": "2026-10-11T04:06:37.294690+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 32923648
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.059104735,
+              "user_seconds": 0.992201,
+              "system_seconds": 0.065013,
+              "max_rss_bytes": 28258304,
+              "pid": 220203
+            },
+            "8": {
+              "seconds": 0.762072999,
+              "user_seconds": 3.285979,
+              "system_seconds": 0.053030999999999995,
+              "max_rss_bytes": 32923648,
+              "pid": 220208
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "8": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.059104735,
+          "parallel_seconds": 0.762072999
+        },
+        {
+          "round": 3,
+          "order": [
+            8,
+            1
+          ],
+          "executions": {
+            "8": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round03_threads8/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round03_threads8",
+              "workers": 8,
+              "before": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120215552000,
+                "disk_bytes": 10568813039616,
+                "utc": "2026-10-11T04:06:37.298883+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:37.298899+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.8162748359609395,
+              "finished_utc": "2026-10-11T04:06:38.115189+00:00",
+              "after": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120206651392,
+                "disk_bytes": 10568807108608,
+                "utc": "2026-10-11T04:06:38.115392+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 31834112
+            },
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round03_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round03_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120206651392,
+                "disk_bytes": 10568807092224,
+                "utc": "2026-10-11T04:06:38.120534+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:38.120550+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.0660949120065197,
+              "finished_utc": "2026-10-11T04:06:39.186655+00:00",
+              "after": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120175833088,
+                "disk_bytes": 10568801161216,
+                "utc": "2026-10-11T04:06:39.186830+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28397568
+            }
+          },
+          "child_timings": {
+            "8": {
+              "seconds": 0.770556863,
+              "user_seconds": 3.28243,
+              "system_seconds": 0.053217,
+              "max_rss_bytes": 31834112,
+              "pid": 220236
+            },
+            "1": {
+              "seconds": 1.043912306,
+              "user_seconds": 0.9955149999999999,
+              "system_seconds": 0.045023,
+              "max_rss_bytes": 28397568,
+              "pid": 220265
+            }
+          },
+          "complete_output_sha256": {
+            "8": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.043912306,
+          "parallel_seconds": 0.770556863
+        },
+        {
+          "round": 4,
+          "order": [
+            1,
+            8
+          ],
+          "executions": {
+            "1": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round04_threads1/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round04_threads1",
+              "workers": 1,
+              "before": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120175833088,
+                "disk_bytes": 10568801144832,
+                "utc": "2026-10-11T04:06:39.190792+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:39.190804+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 1.066364971920848,
+              "finished_utc": "2026-10-11T04:06:40.257183+00:00",
+              "after": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120118112256,
+                "disk_bytes": 10568795213824,
+                "utc": "2026-10-11T04:06:40.257432+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 28577792
+            },
+            "8": {
+              "command": [
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/child_timer",
+                "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round04_threads8/child_time.json",
+                "/data/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+                "BeII.input"
+              ],
+              "cwd": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/be_v003_pair8_round04_threads8",
+              "workers": 8,
+              "before": {
+                "load": [
+                  12.3212890625,
+                  11.54248046875,
+                  12.24951171875
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120116563968,
+                "disk_bytes": 10568795197440,
+                "utc": "2026-10-11T04:06:40.261637+00:00"
+              },
+              "admission": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true
+              },
+              "started_utc": "2026-10-11T04:06:40.261646+00:00",
+              "address_cap_bytes": 8589934592,
+              "returncode": 0,
+              "cli_wall_seconds": 0.7655401449883357,
+              "finished_utc": "2026-10-11T04:06:41.027196+00:00",
+              "after": {
+                "load": [
+                  12.8564453125,
+                  11.66650390625,
+                  12.2861328125
+                ],
+                "affinity": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "available_bytes": 120088059904,
+                "disk_bytes": 10568789258240,
+                "utc": "2026-10-11T04:06:41.027355+00:00"
+              },
+              "guard": {
+                "cpu_load": true,
+                "memory": true,
+                "disk": true,
+                "load_change": true
+              },
+              "controlled_timing": true,
+              "peak_rss_bytes": 31010816
+            }
+          },
+          "child_timings": {
+            "1": {
+              "seconds": 1.043539303,
+              "user_seconds": 0.994691,
+              "system_seconds": 0.046083,
+              "max_rss_bytes": 28577792,
+              "pid": 220268
+            },
+            "8": {
+              "seconds": 0.750414131,
+              "user_seconds": 3.1067299999999998,
+              "system_seconds": 0.044038,
+              "max_rss_bytes": 31010816,
+              "pid": 220400
+            }
+          },
+          "complete_output_sha256": {
+            "1": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            },
+            "8": {
+              "BeII_native_reference_0.basis": "38d25b074d2d92b3ba4b6513273014d95af747bac724f384aaf17cb7e2a8625a",
+              "BeII_native_reference_0.levels": "110c1b7cda5589f944cc15a84a4b0d2d9a6c4fadd3e4fc0b14beb9cc9ad3438a",
+              "BeII_native_reference_0.one.int": "90e0d24223531bd46192b9439d287d299bbed3d4e699d9875a1243e0111ab4a5",
+              "BeII_native_reference_0.two.int": "99dcad87b4ea4a88519b59f406853e8236504ae6df1039e0fa3d5c30f698e894"
+            }
+          },
+          "scientific_gate": true,
+          "controlled_timing": true,
+          "serial_seconds": 1.043539303,
+          "parallel_seconds": 0.750414131
+        }
+      ],
+      "statistics": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.05617359,
+        "right_median_seconds": 0.762072999,
+        "observational_ratios": [
+          1.4006907050811153,
+          1.257818034148458,
+          1.3897680883455628,
+          1.354750513720361,
+          1.390617873372643
+        ],
+        "speedup": 1.3897680883455628,
+        "parallel_efficiency": 0.17372101104319534
+      }
+    }
+  }
+}

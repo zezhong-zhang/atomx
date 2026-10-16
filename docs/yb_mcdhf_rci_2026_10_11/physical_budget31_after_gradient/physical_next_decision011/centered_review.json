@@ -1,0 +1,14 @@
+{
+  "status": "ADMITTED_ONCE_EXISTING_NATIVE_HELPER_REPLAY",
+  "driver_sha256": "0d30cfed6b85f44e3ab37883b10301f433b604e706811a1a0136b601895e801d",
+  "contract_sha256": "fdb6886df59eb94ecf207438e4b262bf6c1257b9a08950a2b9bc41e33209136c",
+  "review": [
+    "Existing centered helper and full evd driver exactly match current ci_solve; no production edits.",
+    "All ten original full H and all50 complete eigenblocks retained. Each block input immutable, every eigenpair residual and complete Gram tested; target matching uses original local root and signed projector, no NIST.",
+    "Fifty exact signed Rayleigh controls reuse previously independently anchored dyadic helper; ten whole block-array outputs preserve all new full spectra/vectors.",
+    "Literal callback weights@sorted_full_energies and unchanged original two-step ordinary-FD outcomes retained; failed outcomes remain failures, no optimizer admission.",
+    "Pre-execution Ruff detected unused sys import: interpreter guard added before any solve. Unexecuted earlier metadata contract retained as centered_contract_precheck.json; no scientific retry."
+  ],
+  "tests": "Existing centered solver panel10/10 PASS, bound receipt",
+  "limits": "CPU27/thread1, AS4GiB/180s inner/210s outer; 10 NPZ loads,50 complete evd calls,50 exact quadratics; arrays output128MiB cap."
+}

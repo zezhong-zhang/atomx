@@ -1,0 +1,437 @@
+{
+  "all_passed": true,
+  "atomx_imported": false,
+  "checks": [
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_0/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_byte_same_epoch_1/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_bytes/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_archive_AST/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "adapter_six_method_definitions_present",
+      "passed": true
+    },
+    {
+      "detail": [
+        "bsp_data",
+        "mean_field_coeffs",
+        "mean_field_normalization",
+        "subshells"
+      ],
+      "name": "adapter_exact_external_self_attributes",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "adapter_cache_fallback_explicit",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "angular_schedule_unused",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "builder_full_quadrant_default",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "builder_no_onebody_or_dirac_call",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "builder_threshold_division_declared",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "builder_missing_orbital_zero_fill_declared",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "test_anchor_definitions/tests/test_closed_shell_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "test_anchor_definitions/tests/test_dbsr_common_spinors.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "test_anchor_definitions/tests/test_review_structure_numerics.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "test_anchor_definitions/tests/test_configuration_spectroscopy.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "test_anchor_definitions/tests/test_angular.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "no_direct_test_seam_keyword_matches",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "old24_core19_disjoint_new5",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "closed_core_capacities_sum68",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "five_distinct_new_kappa",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "synthetic_probe_pair_count80",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "all_reviewed_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/methods/dirac_fock.py#L735",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/methods/dirac_fock.py#L757",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/methods/dirac_fock.py#L1320",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/methods/dirac_fock.py#L1365",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/angular/coefficients.py#L157",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/methods/dirac_fock.py#L1128",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/numerics/bspline/convol.py#L639",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/numerics/bspline/convol.py#L1715",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/physics/csf/frozen_core.py#L10",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../src/atomx/numerics/bspline/convol.py#L1748",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../tests/test_closed_shell_fock.py#L16",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../tests/test_dbsr_common_spinors.py#L47",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../tests/test_review_structure_numerics.py#L255",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../tests/test_configuration_spectroscopy.py#L30",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "readme_link/../../../tests/test_angular.py#L199",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "no_atomx_imported",
+      "passed": true
+    }
+  ],
+  "checks_passed": 71,
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/source_identity.json": "fca94f25eb77205083697614b509714a7b0dea4358150ed94b246ecdf56a339b",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/contract.json": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512",
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/config/subshell.py": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+    "src/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "src/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "src/atomx/physics/csf/frozen_core.py": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "tests/test_angular.py": "14770f852e50579b391f5b8b690c9aca17db3af74f4a54c19964c7355587e32d",
+    "tests/test_closed_shell_fock.py": "b30f9cb3fcc825b4f6f1419752e658c4f519c2e3f298aad3f5487fa070104506",
+    "tests/test_configuration_spectroscopy.py": "b2bb17833a315648ff3974aa801e851fd82da5c108fe37ce2c40e2cad8061ce6",
+    "tests/test_dbsr_common_spinors.py": "a7d7f96903382ca0dd1d13eb2a529827ff195b1670918d4c7633833180cfde1f",
+    "tests/test_review_structure_numerics.py": "89888386913029341cc9f5cb28df5e52e5dd5c7c5893b6b8a13b9e646de15413"
+  },
+  "owned_inputs_sha256": {
+    "README.md": "390e8fa87a8c011b96f2b154284b61670c8eced0976e963deccc20dc3070917c",
+    "contract.json": "9ab9abea29ee5af87b333775999f7a77f292228a56f1bc7f025221b67c282610",
+    "docimpact.json": "6f98b36cdef04e1cb17e506fdab5cc9623356dd886664d5a62068326846fab50",
+    "review.json": "5c2a7bbb43b975d3facc9d20e3f9055bd65eeb17905d8dd16b34420dbe522724",
+    "verify_readonly.py": "ce06cfffe67edd86f4bec3e62a057a40d720028f63d8192bce78cb5ab8c9354f"
+  },
+  "resources": {
+    "address_space_cap_bytes": 1073741824,
+    "chosen_cpu": 0,
+    "host_affinity_before": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "max_rss_KiB": 30164,
+    "outer_timeout_seconds": 30,
+    "wall_elapsed_seconds": 0.1278846450150013
+  },
+  "tests_executed": 0,
+  "zero_physical_calls": true
+}

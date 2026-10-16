@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "shared_change_only": "tests/test_mcdhf_state_resolved_derivative.py",
+  "test_sha256": "ec99b5f65817e83d1738bafb9ad38becd62a2a564e385ecf2124e1d1ae9e5369",
+  "bindings_sha256": {
+    "anchor.py": "758bd5b82bcba2674165ca3ac2d0c54df5844e359b7ec17654b514fa704caff8",
+    "result.json": "2ae3e7a6adc8befb6a11d00764718670630968b284cdf612c0ceee4417867fb4",
+    "test.log": "c81bff2974f472c9399ffb2e9c34f69a5310493551c3d7127cd051deab9713b9",
+    "EARS.md": "c997133962d1ba17b574b2396a22a66b5805ce99ed5a74f0282e3d9ae092451d"
+  },
+  "tests_passed": 4,
+  "Ruff_PASS": true,
+  "current_vs_frozen_f043_AST_same": {
+    "src/atomx/methods/csf/variational.py:gradient_from_weights": true,
+    "src/atomx/methods/csf/variational.py:energy_for_weights": true,
+    "src/atomx/physics/csf/radial_density.py:contract": true,
+    "src/atomx/physics/csf/radial_density.py:contract_bilinear": true
+  },
+  "frozen_source_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+  },
+  "maximum_per_UID_component_error_Ha": 2.9235722029718357e-14,
+  "source_edits": 0,
+  "Yb_runs": 0,
+  "new_scans": 0,
+  "scope": "One small real native exact-CSF derivative point and signed-coefficient-norm controls, not Yb FD/stationarity/optimizer admission; shared physical kernels reused. Parent owns testing guide/doc-impact integration."
+}

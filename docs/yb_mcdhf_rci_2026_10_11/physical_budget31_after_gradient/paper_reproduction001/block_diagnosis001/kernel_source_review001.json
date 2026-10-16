@@ -1,0 +1,50 @@
+{
+  "status": "SOURCE_ONLY_independent_review_no_blocking_issue_for_declared_g_channels",
+  "created_utc": "2026-10-14T00:17:12.854555+00:00",
+  "bindings": {
+    "src/atomx/numerics/bspline/dirac_assembly.py": "926f68ea7cec251c322a9eeb8af41cb79643d20b6266af09843267a989963661",
+    "tests/test_generalized_eigenblock.py": "5e4fde581ccca8181ce6bf1cc86e8cc3a4bc0ccdb0237bfdce7497a01fc1267c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/block_diagnosis001/receipt.json": "1959ac51c25c3411036450d45ff373071369523f776540797717ef4b03a374f3",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/block_diagnosis001/result.json": "5d72e9e30d4b31fe7812b9287e92c8147edd96cc0c9d7b8585828a48114d00d3"
+  },
+  "review_scope": "Read complete new refine_generalized_eigenblock, narrow _refine_eigenpair default-preserving change, and tests/test_generalized_eigenblock.py; no imports/numerical arithmetic/test rerun/new experiment in this review.",
+  "source_lines": {
+    "_refine_eigenpair": {
+      "first": 328,
+      "last": 364
+    },
+    "refine_generalized_eigenblock": {
+      "first": 367,
+      "last": 468
+    }
+  },
+  "math_findings": [
+    "Bordered equation [H-eS,-Sx;-(Sx)^T,0] delta=[-r,0] has consistent signs; correction occurs in supplied full coordinate pencil, including original numerical-span orthogonal residual directions.",
+    "S-dual objective uses ||L^-1 r|| for S=LL^T; old default continues scipy.linalg.norm when optional objective is absent.",
+    "Ordered Cholesky QR uses G=U^T U and Vnew=V U^-1; all columns are retained and the leading subspace is preserved during joint normalization. This avoids contaminating the corrected leading span with unselected columns.",
+    "Leading-only shifted Rayleigh-Ritz uses extended contractions of supplied H/S and excludes only high unselected eigenvalues from this reduced repair, while retaining their original output columns and applying final full-column Gram/root controls.",
+    "Final residual is full-pencil ordinary H V-S V E, whitened with the unchanged metric; no projected residual is substituted for caller acceptance."
+  ],
+  "resource_findings": {
+    "complete_preflight": "Dimension/column/payload caps precede factorization and native-sized work buffers; Python/BLAS/SciPy overhead explicitly excluded from working-payload estimate and covered by outer caller RSS/AS controls.",
+    "per_call_upper_bounds_for_k_leading_roots": {
+      "symmetric_bordered_solves": "2*k",
+      "explicit_solve_triangular": "3*k+2",
+      "explicit_cholesky": 2,
+      "leading_eigh": 1,
+      "explicit_qr": 0
+    },
+    "count_scope": "Upper bounds, not observed counters; explicit Cholesky count excludes factorization internal to generalized eigh."
+  },
+  "source_limitations_and_caller_requirements": [
+    "Caller must still enforce full original band membership, physical branch identity, projector idempotence, sampled/Gauss norms, and original1e-8Ha full S-dual admission. This review and returned residuals do not upgrade qualification.",
+    "Function has no occupied-constraint parameter. A future constrained consumer must pass its already constrained pencil/coordinates; passing an unconstrained full pencil would permit corrections outside its intended occupied-orthogonal space. Declared unoccupied g channels have no such extra constraint.",
+    "Strictly sorted isolated real roots and available extended contractions are required; no complex/degenerate-subspace interface is qualified here.",
+    "The source keeps all output columns, but only leading roots are corrected and Ritz repaired. Unselected high-root energies remain original, so full-branch residual values must remain diagnostic unless separately accepted.",
+    "Tests were read only; the parent reports15 passing new/old tests. This independent review does not claim to have rerun them or evaluated the actual Yb kernel."
+  ],
+  "shared_edits": 0,
+  "numerical_runs_in_review": 0,
+  "tests_run_in_review": 0,
+  "verdict": "No blocking algebra/resource issue identified for the explicitly bound full239 unoccupied g pencil. Proceed only through parent authorized once-only actual run and unchanged gates; numerical success remains unmeasured here."
+}

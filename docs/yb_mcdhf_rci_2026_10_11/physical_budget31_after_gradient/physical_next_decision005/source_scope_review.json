@@ -1,0 +1,20 @@
+{
+  "status": "SOURCE_scope_correction_existing_sparse_operator_reuse_required",
+  "UTC": "2026-10-14T01:07:22.926472+00:00",
+  "census_sha256": "e0e29f1b151cd8b75e2d9924e2bb2adc616e355a92c52bf7a40b8dedf6be9be3",
+  "source_bindings": {
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+  },
+  "observed_source": {
+    "angular/csf_hamiltonian.py:exact_block_matrix": "Always constructs sparse csf_block_matrix and evaluate_block(sparse=True). With as_operator=True retains CSR H and projection and applies projection.T @ H @ projection as LinearOperator; dense mode only converts projected CSF H to array.",
+    "physics/csf/matrix.py:build_ci_matrix": "as_operator=True assembles block LinearOperators without a global dense CSF H.",
+    "methods/ci.py:ci_solve": "solver=davidson uses existing as_operator path and selected-root eigensolver. retain_hamiltonian requires dense unshifted DC with n_states=None and rejects the iterative scope.",
+    "physics/csf/radial_density.py:CIRadialDensity.__init__": "Requests csf_block_matrix without sparse=True, so the current gradient-density projection is dense by default. Existing sparse projection must be reused/qualified before scaling full MCDHF density/gradient construction."
+  },
+  "correction": "67\u201369GB dense determinant H and dense projection numbers are counterfactual representations, not existing sparse-path allocations or memory lower bounds. Existing exact sparse H action and Davidson are implemented. Full4f12 use, angular-table work/nnz peak, tracked-state selected-root behavior and operator-owned snapshots are not qualified here. Reuse existing implementations before adding a new engine.",
+  "next_minimum": "Measure existing native sparse/Davidson at the same A1595/B2574 full CSF spaces versus retained dense H/C controls, then bind operator results and census larger angular work before full4f12. No model reduction or borrowed corrections.",
+  "science_or_NPZ_calls": 0
+}

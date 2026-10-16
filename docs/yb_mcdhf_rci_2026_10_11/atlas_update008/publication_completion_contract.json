@@ -1,0 +1,39 @@
+{
+  "status": "prospective_before_saved_JSON_publication_closure",
+  "hypothesis": "Existing exact source commit/push/archive/version/deployment/audience records close v9 publication without reopeningtar or performing new API/science; domains remain distinct.",
+  "inputs_sha256": {
+    "root_publication_preflight.json": "fb761ccd2df97d08828ac4d8fee098ce85020a8228dcd335efd0aa5b40403be5",
+    "root_source_commit.json": "b0bcb832b5f275c03ceecc7dfcacd6c18ca895e6bd9b27208a31d2746e4f226d",
+    "root_push_and_archive.json": "795972a1573121bacdd02d3339d12b101c9a212db1e2147e85331129369ce66e",
+    "root_owner_audience.json": "410748bfd2533577e40233cfdca9b97bb3161c6d3b1bde2d3de5c14e60fb814d",
+    "saved_site_version.json": "04a3b89c409927d5fb4712d09ed68c10d2f656e61cfcd4bf215ca421e712158e",
+    "deployment_initial.json": "2b23a73331d56ed08cdbf2139ee0e690031fc0f49070ae2b8af873fe76c27c28",
+    "handoff.json": "40fd30fe1768d0eb300bcd774a898febf894f31281edb3f569f6bb946ac3da44",
+    "browser_completion.json": "863db69c1dd4378b7b7c3745190d2b23ed70fd57427d89851d39e79b30316d57",
+    "browser_closure_handoff.json": "76b769598a66696d133fb0e1b64842e72d56ea5d01d6788f8605509d838db4d1",
+    "browser_result.json": "992a31f528028c53786668bec84a97a3535aae7d8e96e58313ea61648f0c9ed5",
+    "browser_execution.json": "9657e191f4f2a7183659ab1c166cde98c7b59ffe7dc55aa09dfa8abdcd3eb0da",
+    "data_verification.json": "62d0cf883d3f8f2da9ff6a8002af9738415c2c73aa7dd8f6611a66cd0ea69f07",
+    "site_manifest.json": "957d1aaa46b8dcc3c49b0208fe319782120a772ebdad397d21a9ec3f7bbd647f"
+  },
+  "fixed": {
+    "commit_sha": "676adfc663e6be447e5097722d4e10113c3e1731",
+    "version_number": 9,
+    "models": 23,
+    "rows": 92,
+    "old_trajectory_records": 277,
+    "site_file_count": 6128,
+    "owned_changed_added_paths": 16,
+    "owner_private_revision": 1,
+    "browser_checks_PASS": 54,
+    "static_checks_PASS": 61,
+    "original_physics_gates_unchanged": true
+  },
+  "forbidden": [
+    "tar opening or rehash",
+    "API/browser/source science/NPZ/NumPy/Atomx",
+    "modifying20frozenhandofforbrowserclosurefiles",
+    "site/audience/registry/mainREADME changes"
+  ],
+  "validation": "SOURCE/JSON/hash/link only; all root receipts are evidence, no remote requery"
+}

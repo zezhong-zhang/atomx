@@ -1,0 +1,29 @@
+{
+  "status": "ADMITTED_ONCE_EXPLICIT_CSF_SIGNATURE_ADAPTER_SUCCESSOR",
+  "contract_sha256": "2be8d1356e522f6263638d3a914882dfe835c95ff43c99742b5633dce4a370fa",
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "previous_attempt": "actual001 failed0.821s at first block-builder entry because raw tuple lacks total_J2; no complete block matrix, radial-key evaluation, eigenpair or response output. Radial/one-body setup had already run. Original failure and contract retained.",
+  "only_changes": [
+    "Construct explicit native CSFSignature with every original subshell,J,coupling value; check exact roundtrip in original order.",
+    "Separate driver/source/contract/output002 names; bind original failure and original contract as inputs."
+  ],
+  "signature_preflight": 4169,
+  "scientific_model_gates_steps_caps_source_unchanged": true,
+  "root_review": "This corrects data-to-current-API compatibility, without adapting any numerical result or suppressing a failed physics gate. Full physical source remains359 files, immutable between attempts. No optimizer admission.",
+  "source_review_inherited": "source_review.json",
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "seconds": 600,
+    "load_max": 24,
+    "available_min_bytes": 17179869184,
+    "radial_keys": 70971,
+    "raw_determinants": 2659,
+    "exact_block_matrix_calls": 30,
+    "complete_eigh_calls": 10,
+    "response_calls": 10,
+    "decoded_input_bytes": 268435456,
+    "array_output_bytes": 134217728
+  }
+}

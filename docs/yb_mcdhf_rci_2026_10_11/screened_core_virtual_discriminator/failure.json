@@ -1,0 +1,1386 @@
+{
+  "error_type": "ValueError",
+  "message": "Scientific/numeric gate failed: virtual_full_spectrum_constrained_residual/(6, -3)",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py\", line 481, in execute\n    check(\"virtual_full_spectrum_constrained_residual/\" + str(key), np.max(relative),\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py\", line 224, in check\n    raise ValueError(\"Scientific/numeric gate failed: \" + name)\nValueError: Scientific/numeric gate failed: virtual_full_spectrum_constrained_residual/(6, -3)\n",
+  "checks": [
+    {
+      "name": "longdouble_exceeds_float64_precision",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/full_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/target_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/signature_uniqueness",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/electrons69",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/full_block_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_target_blocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/full_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/target_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/signature_uniqueness",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/electrons69",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/full_block_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/complete_target_blocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline_full_signed_order",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_old24keys",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "same_workspace_ns123",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/radialkeys_complete",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/rawcap",
+      "error": 231.0,
+      "limit": 2000,
+      "passed": true
+    },
+    {
+      "name": "baseline/paircap",
+      "error": 1525.0,
+      "limit": 1000000,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(1, -1)",
+      "error": 227.0,
+      "limit": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(1, 1)",
+      "error": 218.0,
+      "limit": 222,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(3, -1)",
+      "error": 231.0,
+      "limit": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(3, 1)",
+      "error": 213.0,
+      "limit": 213,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(5, 1)",
+      "error": 158.0,
+      "limit": 159,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/radialkeys_complete",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/rawcap",
+      "error": 980.0,
+      "limit": 2000,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/paircap",
+      "error": 6047.0,
+      "limit": 1000000,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(1, -1)",
+      "error": 980.0,
+      "limit": 990,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(1, 1)",
+      "error": 883.0,
+      "limit": 891,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(3, -1)",
+      "error": 964.0,
+      "limit": 966,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(3, 1)",
+      "error": 855.0,
+      "limit": 855,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(5, 1)",
+      "error": 635.0,
+      "limit": 637,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -4)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(1, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_diagonal",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_original_metric_SHA",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "native_HS_all7kappa",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-4",
+      "error": 9.325873406851315e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-4",
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-3",
+      "error": 6.035236233434861e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-3",
+      "error": 2.6381841411958005e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-2",
+      "error": 5.440092820663267e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-2",
+      "error": 3.255165753351451e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-1",
+      "error": 4.9398885842513814e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-1",
+      "error": 4.763178040861193e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/1",
+      "error": 8.104628079763643e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/1",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/1",
+      "error": 3.525235626345363e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/2",
+      "error": 6.439293542825908e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/2",
+      "error": 3.0248913082721073e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/3",
+      "error": 5.401461758238462e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/3",
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "saved_raw_exact5keys",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "saved_raw_PQ_shape",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_closed68_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_closed_subshell_capacities",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_all_core_waves_present",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_zero_targets_disjoint_core",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_coefficients_shape_finite",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_divisors_positive_finite",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_cache_exact_grid",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(1, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(2, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(2, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(2, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(3, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(3, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(3, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(3, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(3, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, -4)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(4, 3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(5, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(5, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(5, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(6, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(7, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(7, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_source_shape/(7, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_complete_same_kappa_source_order",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_finite/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PP/(6, -3)",
+      "error": 7.105427357601002e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QQ/(6, -3)",
+      "error": 8.881784197001252e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PQ/(6, -3)",
+      "error": 5.204170427930421e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QP/(6, -3)",
+      "error": 5.204170427930421e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_PQ_QP_transpose/(6, -3)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_Hermitian/(6, -3)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_full_Fock_Hermitian/(6, -3)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_finite/(6, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PP/(6, 2)",
+      "error": 7.105427357601002e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QQ/(6, 2)",
+      "error": 7.993605777301127e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PQ/(6, 2)",
+      "error": 2.168404344971009e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QP/(6, 2)",
+      "error": 2.168404344971009e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_PQ_QP_transpose/(6, 2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_Hermitian/(6, 2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_full_Fock_Hermitian/(6, 2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_finite/(7, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PP/(7, -2)",
+      "error": 6.217248937900877e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QQ/(7, -2)",
+      "error": 8.881784197001252e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PQ/(7, -2)",
+      "error": 6.071532165918825e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QP/(7, -2)",
+      "error": 6.071532165918825e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_PQ_QP_transpose/(7, -2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_Hermitian/(7, -2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_full_Fock_Hermitian/(7, -2)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_finite/(7, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PP/(7, -1)",
+      "error": 7.105427357601002e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QQ/(7, -1)",
+      "error": 8.881784197001252e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PQ/(7, -1)",
+      "error": 9.540979117872439e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QP/(7, -1)",
+      "error": 9.540979117872439e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_PQ_QP_transpose/(7, -1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_Hermitian/(7, -1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_full_Fock_Hermitian/(7, -1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_finite/(7, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PP/(7, 1)",
+      "error": 7.105427357601002e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QQ/(7, 1)",
+      "error": 7.993605777301127e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/PQ/(7, 1)",
+      "error": 6.5052130349130266e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_row_scaling/QP/(7, 1)",
+      "error": 6.5052130349130266e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_PQ_QP_transpose/(7, 1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_JK_Hermitian/(7, 1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_full_Fock_Hermitian/(7, 1)",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_probe_count_and_disjoint",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_exact80_entries",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PP/-3",
+      "error": 2.2737367544323206e-13,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QQ/-3",
+      "error": 6.661338147750939e-16,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PQ/-3",
+      "error": 1.0408340855860843e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/PQ/-3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/PQ/-3",
+      "error": 4.0421178404546957e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QP/-3",
+      "error": 1.5178830414797062e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/QP/-3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/QP/-3",
+      "error": 5.894755183996433e-17,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PP/-2",
+      "error": 1.9895196601282805e-13,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QQ/-2",
+      "error": 2.220446049250313e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PQ/-2",
+      "error": 2.7755575615628914e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/PQ/-2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/PQ/-2",
+      "error": 5.554707474370429e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QP/-2",
+      "error": 2.0816681711721685e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/QP/-2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/QP/-2",
+      "error": 4.166030605777822e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PP/-1",
+      "error": 5.684341886080802e-14,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QQ/-1",
+      "error": 8.881784197001252e-16,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PQ/-1",
+      "error": 2.7755575615628914e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/PQ/-1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/PQ/-1",
+      "error": 2.516354194995249e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QP/-1",
+      "error": 5.551115123125783e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/QP/-1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/QP/-1",
+      "error": 5.032708389990495e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PP/1",
+      "error": 1.9895196601282805e-13,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QQ/1",
+      "error": 2.220446049250313e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PQ/1",
+      "error": 2.42861286636753e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/PQ/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/PQ/1",
+      "error": 1.322419152888928e-15,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QP/1",
+      "error": 1.0408340855860843e-17,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/QP/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/QP/1",
+      "error": 5.667510655238259e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PP/2",
+      "error": 5.684341886080802e-14,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QQ/2",
+      "error": 2.6645352591003757e-15,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/PQ/2",
+      "error": 1.3010426069826053e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/PQ/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/PQ/2",
+      "error": 1.8039126121933442e-16,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar/QP/2",
+      "error": 8.673617379884035e-18,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_measured_cross_anchor/QP/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "auxiliary_scalar_cross_relative/QP/2",
+      "error": 1.2026084081288946e-15,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "virtual_complement_has_two_roots/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_full_vector_norms_positive/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_phase_anchor/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_complement_SGram/(6, -3)",
+      "error": 6.0217382548526765e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_full_spectrum_SGram/(6, -3)",
+      "error": 1.934875412815491e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_full_spectrum_constrained_residual/(6, -3)",
+      "error": 3.11308602575136e-08,
+      "limit": 1e-08,
+      "passed": false
+    }
+  ],
+  "calls": {
+    "attempted_complete_CI": 0,
+    "completed_complete_CI": 0,
+    "implicit_H_attempts": 0,
+    "completed_implicit_H": 0,
+    "explicit_H_attempts": 0,
+    "completed_explicit_H": 0,
+    "virtual_generator_attempts": 0,
+    "completed_virtual_generator": 0,
+    "native_nuclear_Dirac_attempts": 0,
+    "completed_native_nuclear_Dirac": 0,
+    "native_complement_lowest_root_attempts": 0,
+    "completed_native_complement_lowest_root": 0,
+    "original_P_gap_spectral_attempts": 0,
+    "completed_original_P_gap_spectral": 0,
+    "initial_one_body_matrix_attempts": 7,
+    "completed_initial_one_body_matrices": 7,
+    "virtual_control_hS_consumed": 1,
+    "complement_SVD_attempts": 1,
+    "completed_complement_SVD": 1,
+    "full_gvd_attempts": 1,
+    "completed_full_gvd": 1,
+    "gradients": 0,
+    "optimizer_calls": 0,
+    "auxiliary_JK_builder_attempts": 10,
+    "completed_auxiliary_JK_builders": 10,
+    "auxiliary_angular_attempts": 2,
+    "completed_auxiliary_angular_precomputations": 2,
+    "internal_CI_onebody_attempts": 0,
+    "completed_internal_CI_onebody_matrices": 0,
+    "closed_core_scalar_attempts": 1,
+    "completed_closed_core_scalar": 1,
+    "scalar_radial_callback_attempts": 3584,
+    "scalar_Slater_attempts": 3584,
+    "completed_scalar_Slater": 3584
+  },
+  "completed_evidence": [
+    {
+      "name": "native_hS_original_geometry",
+      "path": "native_hS_original_geometry.npz",
+      "sha256": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+      "reused_virtual_kappa_count": 5
+    },
+    {
+      "name": "auxiliary_field_inputs",
+      "path": "auxiliary_field_inputs.npz",
+      "sha256": "02895885185d4903bc45b4ed3ca8785663a4862160f91826df2196e9a1dbb4f3"
+    },
+    {
+      "name": "auxiliary_angular_coefficients",
+      "path": "auxiliary_angular_coefficients.npz",
+      "sha256": "7c05d2bf75ff4b95f0b7d37807923da85d2524b4ac01e5b07480baf27964efa5"
+    },
+    {
+      "name": "auxiliary_Fock/(6, -3)",
+      "path": "virtual_0_auxiliary_Fock.npz",
+      "sha256": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317"
+    },
+    {
+      "name": "auxiliary_Fock/(6, 2)",
+      "path": "virtual_1_auxiliary_Fock.npz",
+      "sha256": "ad907e07b4baf841085e2fa687e92e28ebd44d58005411bd9e5a306e33b11284"
+    },
+    {
+      "name": "auxiliary_Fock/(7, -2)",
+      "path": "virtual_2_auxiliary_Fock.npz",
+      "sha256": "48a1c4f9608d80407135fda4b1c354bc03206522b65a63ef562400801910f0c8"
+    },
+    {
+      "name": "auxiliary_Fock/(7, -1)",
+      "path": "virtual_3_auxiliary_Fock.npz",
+      "sha256": "aa21c3fe41bde734a8332b9906c78703609be140d132eede908dcce18fe048ea"
+    },
+    {
+      "name": "auxiliary_Fock/(7, 1)",
+      "path": "virtual_4_auxiliary_Fock.npz",
+      "sha256": "ba8a4409f2b4c28bddb7fcfebd59095c7d2b7fbd20fff6e2d3579e1cdf6baf9e"
+    },
+    {
+      "name": "auxiliary_scalar/-3",
+      "path": "auxiliary_scalar_quadrants_-3.npz",
+      "sha256": "0ddd5d0b4bff26e8776ebbe0c794e0f5e352fd594cf37be9c940e3d9cc3f40d0"
+    },
+    {
+      "name": "auxiliary_scalar/-2",
+      "path": "auxiliary_scalar_quadrants_-2.npz",
+      "sha256": "55436524c4af9c81226ff5a6e8ccec018293a89b6a4f0e0a8a02b6b38c46b69a"
+    },
+    {
+      "name": "auxiliary_scalar/-1",
+      "path": "auxiliary_scalar_quadrants_-1.npz",
+      "sha256": "132f8e67b71667d640d013d548e80387e5e4ae9e62242b9296d8c4c7e7deb940"
+    },
+    {
+      "name": "auxiliary_scalar/1",
+      "path": "auxiliary_scalar_quadrants_1.npz",
+      "sha256": "133af9e96dfe68670b68666c35efd33c26044f635d1fde7f1c4f3354ec2810ef"
+    },
+    {
+      "name": "auxiliary_scalar/2",
+      "path": "auxiliary_scalar_quadrants_2.npz",
+      "sha256": "1412e92a56a270cc04a8fc32084176969a646f7cf3f14b84e21147b5d795f0c4"
+    },
+    {
+      "name": "virtual_complement/(6, -3)",
+      "path": "virtual_0_native_complement.npz",
+      "sha256": "f471cded1760a295392edba4ed589ac2612d84e3f951125a918dc80c36cd378e"
+    },
+    {
+      "name": "virtual_full_gvd/(6, -3)",
+      "path": "virtual_0_full_gvd_vectors.npz",
+      "sha256": "819ce573cfb0a0999029672a57415568414ce001b6f85baf95d456552c9edf5d"
+    },
+    {
+      "name": "virtual_control/(6, -3)",
+      "path": "virtual_0_original_P_control.npz",
+      "sha256": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070"
+    }
+  ],
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "contract_sha256": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+  "driver_sha256": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996",
+  "execution_binding_sha256": "02c279f3a76b14f6df0dd5084576ec51894727ee199b7fb39677d6e0e88320b1",
+  "scientific_success_claim": false,
+  "elapsed_uncontrolled_s": 8.493922061985359
+}

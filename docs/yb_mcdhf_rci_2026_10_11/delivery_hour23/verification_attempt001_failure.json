@@ -1,0 +1,7 @@
+{
+  "scope": "stored-only delivery audit, no API or science rerun",
+  "failure": "Compared controller result.json against nested probe SHA; controller and probe are separate layers.",
+  "actual_readback_calls_total": 1,
+  "scientific_failure": false,
+  "resolution": "Subsequent stored-only verifier checks controller result against whole result_sha256 and probe/result.json against probe_result_sha256 separately."
+}

@@ -1,0 +1,27 @@
+{
+  "status": "closed_prototype_mechanics_tests",
+  "command": [
+    "taskset",
+    "-c",
+    "28",
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/test_experiment_selector.py"
+  ],
+  "exit_code": 0,
+  "elapsed_uncontrolled_s": 0.19013923199963756,
+  "source_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/experiment_selector.py": "5753209a97074cc60231d290d9a33409f47041949660247118f11e58970dac25",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/test_experiment_selector.py": "c1138c9b9238cbe4074d759ce322e3625e2bdb71ddc616e20cdc57ecd6e6df40"
+  },
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/selector_final_source002",
+  "source_unchanged": true,
+  "output_sha256": "89e1b0af37b0d94ce229fc7d791696421fed9f216ea64fa59a7364500c439d87",
+  "ruff_exit_code": 0,
+  "fixtures": "synthetic only; no atomic prediction, speed or uncertainty certification",
+  "atomic_H_CI_gradient_NPZ": 0,
+  "AI_acceleration_measured": false,
+  "current_cap": "explicit 64MiB metadata JSON cap; prior receipts unchanged"
+}

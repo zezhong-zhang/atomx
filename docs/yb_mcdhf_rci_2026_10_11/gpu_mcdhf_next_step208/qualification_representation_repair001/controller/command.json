@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/run.py",
+    "--execute",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/execution_binding.json"
+  ],
+  "cwd": "/data/code/atomx",
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "4",
+    "CUDA_PATH": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13",
+    "LD_LIBRARY_PATH": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib"
+  },
+  "virtual_AS_bytes": 68719476736,
+  "RSS_hard_watch_bytes": 4241280204,
+  "sample_seconds": 0.05,
+  "timing_controlled": false
+}

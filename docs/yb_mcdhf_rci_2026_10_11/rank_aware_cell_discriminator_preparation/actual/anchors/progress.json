@@ -1,0 +1,776 @@
+{
+  "phase": "closed_passed",
+  "started": {
+    "basis_setup": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "density_band": 12,
+    "bank_get": 40,
+    "factor_get": 20,
+    "direct_full_bank": 40,
+    "direct_semiseparable": 20,
+    "band_scalar": 50,
+    "pair_potential": 5
+  },
+  "completed": {
+    "Gauss_setup_eigvalsh": 3,
+    "basis_setup": 3,
+    "density_band": 12,
+    "bank_get": 40,
+    "factor_get": 20,
+    "direct_full_bank": 40,
+    "direct_semiseparable": 20,
+    "band_scalar": 50,
+    "pair_potential": 5
+  },
+  "controls": [
+    {
+      "name": "exact_P_unused_tail_0",
+      "passed": true
+    },
+    {
+      "name": "full_vs_factor_0_0_pppp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "analytic_0_0_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factor_0_0_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "full_vs_factor_0_0_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "analytic_0_0_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factor_0_0_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "full_vs_factor_0_0_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "analytic_0_0_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factor_0_0_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "full_vs_factor_0_0_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "analytic_0_0_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factor_0_0_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "actual_route_0_0_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_0_0",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 2.151295999999999e-13
+    },
+    {
+      "name": "actual_route_0_0_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_0_1",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 2.151295999999999e-13
+    },
+    {
+      "name": "full_vs_factor_0_1_pppp",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "analytic_0_1_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factor_0_1_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "full_vs_factor_0_1_pqpq",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "analytic_0_1_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factor_0_1_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "full_vs_factor_0_1_qpqp",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "analytic_0_1_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factor_0_1_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "full_vs_factor_0_1_qqqq",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "analytic_0_1_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factor_0_1_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "actual_route_0_1_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_1_0",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 1.6134719999999994e-13
+    },
+    {
+      "name": "actual_route_0_1_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_1_1",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 1.6134719999999994e-13
+    },
+    {
+      "name": "full_vs_factor_0_6_pppp",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "analytic_0_6_pppp",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factor_0_6_pppp",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "full_vs_factor_0_6_pqpq",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "analytic_0_6_pqpq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factor_0_6_pqpq",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "full_vs_factor_0_6_qpqp",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "analytic_0_6_qpqp",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factor_0_6_qpqp",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "full_vs_factor_0_6_qqqq",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "analytic_0_6_qqqq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factor_0_6_qqqq",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "actual_route_0_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_6_0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 7.170986666666663e-14
+    },
+    {
+      "name": "actual_route_0_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_0_6_1",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 7.170986666666663e-14
+    },
+    {
+      "name": "exact_P_unused_tail_1",
+      "passed": true
+    },
+    {
+      "name": "full_vs_factor_1_6_pppp",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "analytic_1_6_pppp",
+      "passed": true,
+      "error": 3.7947076036992655e-19,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "analytic_factor_1_6_pppp",
+      "passed": true,
+      "error": 3.7947076036992655e-19,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "full_vs_factor_1_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "analytic_1_6_pqpq",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factor_1_6_pqpq",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "full_vs_factor_1_6_qpqp",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "analytic_1_6_qpqp",
+      "passed": true,
+      "error": 2.439454888092385e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factor_1_6_qpqp",
+      "passed": true,
+      "error": 2.439454888092385e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "full_vs_factor_1_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "analytic_1_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "analytic_factor_1_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "actual_route_1_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_1_6_0",
+      "passed": true,
+      "error": 7.589415207398531e-19,
+      "limit": 1.2371622034262052e-16
+    },
+    {
+      "name": "actual_route_1_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_1_6_1",
+      "passed": true,
+      "error": 2.710505431213761e-19,
+      "limit": 5.115739461522257e-17
+    },
+    {
+      "name": "exact_P_unused_tail_2",
+      "passed": true
+    },
+    {
+      "name": "full_vs_factor_2_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.007595973082353e-12
+    },
+    {
+      "name": "analytic_2_6_pppp",
+      "passed": true,
+      "error": 1.0299920638612292e-18,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "analytic_factor_2_6_pppp",
+      "passed": true,
+      "error": 1.0299920638612292e-18,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "full_vs_factor_2_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.003134338366613e-12
+    },
+    {
+      "name": "analytic_2_6_pqpq",
+      "passed": true,
+      "error": 1.6263032587282567e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factor_2_6_pqpq",
+      "passed": true,
+      "error": 1.6263032587282567e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "full_vs_factor_2_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "analytic_2_6_qpqp",
+      "passed": true,
+      "error": 1.8973538018496328e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factor_2_6_qpqp",
+      "passed": true,
+      "error": 1.8973538018496328e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "full_vs_factor_2_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "analytic_2_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "analytic_factor_2_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "actual_route_2_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_2_6_0",
+      "passed": true,
+      "error": 8.673617379884035e-19,
+      "limit": 1.2371622034262052e-16
+    },
+    {
+      "name": "actual_route_2_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "actual_route_analytic_2_6_1",
+      "passed": true,
+      "error": 2.710505431213761e-19,
+      "limit": 5.115739461522257e-17
+    },
+    {
+      "name": "exact_started_basis_setup",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_basis_setup",
+      "passed": true
+    },
+    {
+      "name": "exact_started_Gauss_setup_eigvalsh",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_Gauss_setup_eigvalsh",
+      "passed": true
+    },
+    {
+      "name": "exact_started_density_band",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_density_band",
+      "passed": true
+    },
+    {
+      "name": "exact_started_direct_full_bank",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_direct_full_bank",
+      "passed": true
+    },
+    {
+      "name": "exact_started_direct_semiseparable",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_direct_semiseparable",
+      "passed": true
+    },
+    {
+      "name": "exact_started_band_scalar",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_band_scalar",
+      "passed": true
+    },
+    {
+      "name": "exact_started_pair_potential",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_pair_potential",
+      "passed": true
+    },
+    {
+      "name": "exact_started_bank_get",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_bank_get",
+      "passed": true
+    },
+    {
+      "name": "exact_started_factor_get",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_factor_get",
+      "passed": true
+    },
+    {
+      "name": "exact_started_hS",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_hS",
+      "passed": true
+    },
+    {
+      "name": "exact_started_H",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_H",
+      "passed": true
+    },
+    {
+      "name": "exact_started_Dirac_solve",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_Dirac_solve",
+      "passed": true
+    },
+    {
+      "name": "exact_started_numpy_eigh",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_numpy_eigh",
+      "passed": true
+    },
+    {
+      "name": "exact_started_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "exact_completed_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.types",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.compare",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.basis",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.integrals",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.knots",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.dirac",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.schrodinger",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.wigner",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.clebsch",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.mscheme",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.rcfp",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.ls_coupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.coefficients",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.quadrature",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.spline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.coulomb",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.operators",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.matrix",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.radial_snapshot",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.potentials",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.potentials.nuclear",
+      "passed": true
+    }
+  ],
+  "elapsed_uncontrolled_s": 6.603519125143066
+}

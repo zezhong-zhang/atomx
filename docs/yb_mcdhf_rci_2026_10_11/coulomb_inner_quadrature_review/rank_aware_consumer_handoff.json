@@ -1,0 +1,62 @@
+{
+  "created_at": "2026-10-11T14:35:45.847079+00:00",
+  "status": "final_source_and_mathematics_review_no_blocking_finding",
+  "reviewed_owner": "rank_aware_cell_discriminator_preparation",
+  "reviewed_files_sha256": {
+    "run.py": "b2a65ea76cb86e8ab83ae446af751dc75031934be6fbb19a97ebf5b7f7efa816",
+    "contract.json": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254",
+    "preparation_verification.json": "475a77e31336686c865398885b3dfb030428e567a0a386f1598b56fadf5ad7c9",
+    "candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "handoff.json": "cf844e5b5ed7d39e1cbf2fd12cc39f997f03b74db2c4d03bc0f3b5641a80550d",
+    "candidate.patch": "69cbd52f4326700a1c03fefccd783491b5e8220733f70127f6d4c47ce76a49b3",
+    "candidate_source/atomx/numerics/bspline/convol.py": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe"
+  },
+  "ordinary_convol_sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+  "private_candidate_source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "ordinary_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "independent_text_diff_exactly_two_inner_orders": [
+    {
+      "before": [
+        "    n_sub = ks"
+      ],
+      "after": [
+        "    n_sub = ks + (k // 2 if k >= 0 else 0)"
+      ]
+    },
+    {
+      "before": [
+        "    n_sub = max(ksp, ksq)"
+      ],
+      "after": [
+        "    n_sub = max(ksp, ksq) + (k // 2 if k >= 0 else 0)"
+      ]
+    }
+  ],
+  "coverage": [
+    "PP/QQ source polynomial degree and both mixed directions; nonnegative integer rank only",
+    "Independent signed r-linear and unequal r4/r5 Bernstein analytic anchors; RKB P5/Q6 exact zero unused P tail; outer16 covers anchor degree<=20",
+    "All7398 affected rank>=2 radial keys, maximumrank6, complete5 archived signed target tables and original physical UID/column bindings",
+    "Perstate coefficient divided by exact whole CI column norm; lower-upper same-state difference; original equal0.2 weight used only for EOL summary",
+    "Separate fresh old/new source processes and NumBa cache directories; no operator/source cache transplant",
+    "14 genuine hS and14796 publicradial eval budgets explicit despite0H/CI/gradient"
+  ],
+  "limits": [
+    "Preparation and source review only: live numerical gates remain prospective",
+    "Fixed original CI expectation of changed numerical operator, no new diagonalization, orbital stationary point, or experimental pass",
+    "Outer/falling moment quadrature, negative ranks, Gauss nodes>20, uniform error bound not certified",
+    "Original failures and stationarity FAIL preserved; no production source or optimizer authorization"
+  ],
+  "resource_scope": {
+    "CPU": 31,
+    "threads": 1,
+    "memory_GiB": 3.95,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315
+  },
+  "new_numeric_or_scientific_calls": 0,
+  "owner_or_shared_source_modified": false,
+  "mathematical_reference": {
+    "path": "MATH.md",
+    "sha256": "158b674297a84a2a371374697f7b27da56705cde16aafc3d3bdf55b1be6cc668"
+  }
+}

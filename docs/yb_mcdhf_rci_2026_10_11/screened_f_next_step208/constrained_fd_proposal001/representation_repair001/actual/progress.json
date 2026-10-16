@@ -1,0 +1,158 @@
+{
+  "phase": "completed_all_domains",
+  "attempted": {
+    "H": 5,
+    "CI": 5,
+    "public_reported_energy_evaluate": 5,
+    "gradient_from_weights": 0,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_radial_hS": 28,
+    "hS_total": 42,
+    "validation_Dirac": 7,
+    "complete_SciPy_eigh": 32,
+    "geometry_SPD_eigvalsh": 38,
+    "polar_retraction": 28,
+    "polar_numpy_eigh_fallback": 0,
+    "tracker_resolve": 18,
+    "tracking_SVD": 90,
+    "tracker_overlap": 19,
+    "mixed_ci_finite_increment": 4,
+    "unfiltered_target_RDM": 20,
+    "optimizer": 0,
+    "GPU": 0,
+    "gradient_pair_potential": 0,
+    "retained_RDM": 0,
+    "finite_component_cache_miss": 78355,
+    "finite_potential_cache_miss": 16701,
+    "finite_density_cache_miss": 22908
+  },
+  "completed": {
+    "H": 5,
+    "CI": 5,
+    "public_reported_energy_evaluate": 5,
+    "gradient_from_weights": 0,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_radial_hS": 28,
+    "hS_total": 42,
+    "validation_Dirac": 7,
+    "complete_SciPy_eigh": 32,
+    "geometry_SPD_eigvalsh": 38,
+    "polar_retraction": 28,
+    "polar_numpy_eigh_fallback": 0,
+    "tracker_resolve": 18,
+    "tracking_SVD": 90,
+    "tracker_overlap": 19,
+    "mixed_ci_finite_increment": 4,
+    "unfiltered_target_RDM": 20,
+    "optimizer": 0,
+    "GPU": 0,
+    "gradient_pair_potential": 0,
+    "retained_RDM": 0,
+    "finite_component_cache_miss": 78355,
+    "finite_potential_cache_miss": 16701,
+    "finite_density_cache_miss": 22908
+  },
+  "checks_count": 730,
+  "last_check": {
+    "name": "immutable_import_atomx.numerics.ci_energy_increment",
+    "error": 0.0,
+    "limit": 0.0,
+    "passed": true
+  },
+  "archives_count": 27,
+  "last_archive": {
+    "path": "actual/h1_plus_exact_Gram_displays.npz",
+    "sha256": "93364bf9de7975c2d6aaa5afc533d5da09ea81e56abcc360288a18f5a95f8c59"
+  },
+  "completed_point_names": [
+    "baseline",
+    "h0_minus",
+    "h0_plus",
+    "h1_minus",
+    "h1_plus"
+  ],
+  "hS_requests": {
+    "attempted": 190,
+    "completed": 190,
+    "hits": 183,
+    "misses": 7,
+    "by_CI": {
+      "baseline": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 31,
+        "misses": 7
+      },
+      "h0_minus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h0_plus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h1_minus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      },
+      "h1_plus": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      }
+    },
+    "carry_events": [
+      {
+        "CI": "baseline",
+        "same_workspace": false,
+        "same_nucleus": false,
+        "previous": 0,
+        "carried": 0,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h0_minus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h0_plus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h1_minus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      },
+      {
+        "CI": "h1_plus",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      }
+    ]
+  },
+  "exact_products": 4645336,
+  "elapsed_uncontrolled_s": 104.22985029802658
+}

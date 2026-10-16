@@ -1,0 +1,107 @@
+{
+  "proof_created_at": "2026-10-11T14:10:41.609264+00:00",
+  "passed": true,
+  "successful_send_and_readback": true,
+  "cycle": "2026-10-11T14",
+  "idempotency_key": "30cd70c8-315f-5d8c-b970-62c134673601",
+  "message_id": "om_x100b638d288ee13cc4302107d4fb072",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1607",
+  "message_position": "1607",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "source_stage016_sha256": "247ba573bf265c23254760f39df16c3517012999cade1c7d4c898b2d9727eccb",
+  "registry_sha256": "ade386ad9689c1a8ef054d22ec55893f3468830986aa34a580169ac5a5a42bf1",
+  "registry_copy_provenance": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage017/before_progress.json; immutable prior registry copied after successor update",
+  "renderer_sha256": "02a2af97c2972766e19e84d4530ec72e85a255eb0d09e0de1c6700de6eac0b38",
+  "actual_card": {
+    "payload_schema": "2.0",
+    "elements": 15,
+    "title": "Atomx · 任务与谱学实验对照",
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-11 22:00:04",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-11 22:00",
+    "readback_content_characters": 10459,
+    "all_visible_content_matches": true,
+    "raw_readback_schema_available": false,
+    "readback_representation": "CLI-rendered card text; raw v2 DSL is in copied send payload only",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "service_send": {
+    "started_at": "2026-10-11T14:00:01.872478+00:00",
+    "finished_at": "2026-10-11T14:00:04.756317+00:00",
+    "passed": true,
+    "iteration_dispatch_ok": true,
+    "exit_code": 0,
+    "exit_code_evidence": "explicit root delegation of actual service closure"
+  },
+  "iteration": {
+    "request_status": "implementation_frontier",
+    "requested_at": "2026-10-11T14:00:04.756815+00:00",
+    "finished_at": "2026-10-11T14:00:06.503041+00:00",
+    "service_job": null,
+    "service_jobs": [],
+    "service_automatically_started_science": false,
+    "root_bounded_iteration": "Root explicitly continued this authorized hourly-card iteration with the single bounded native normalized-gradient control (1 H / 1 CI / 2 weighted gradients).",
+    "root_bounded_iteration_result": "Pending at delegation; root subsequently reported actual closure: 1 H / 1 CI / 2 weighted gradients, 24.946 s, 104 live checks passed. This delivery proof only binds that separate successor report, and does not independently certify its scientific results.",
+    "root_bounded_iteration_report": "docs/yb_mcdhf_rci_2026_10_11/results_stage017.json",
+    "root_bounded_iteration_report_sha256": "395b7dd64dedba5d71b16c56adc75f36394250ec7561527f8acdcf8cd40784c4",
+    "root_authorization_source": "Parent /root task message delegating this hour22 delivery closure"
+  },
+  "actual_readback_calls": 1,
+  "new_scientific_calls": 0,
+  "copied_configurations_or_secrets": false,
+  "files_sha256": {
+    "card.json": "571b4d07b5f6900292c8fcc632114f9e750404811bdeb8c03a23b94bc84fccce",
+    "receipt.json": "576adb41a1e01eae66fc8e13cdd4c0a70cc1c40b571e39f6b11e81733ed1c3c1",
+    "send_status.json": "fe178b305bb4057dfbccb874000b17e597bc1428cd42adabb5ecb7134850d1f7",
+    "iteration_request.json": "300f33105d4699e7ade8da4c6ee4605bdd853cd805de3f21c55adbcce258dfac",
+    "iteration_preview.json": "e6a729d7615ad7b6e12cb65190ee16f2d218b7ac1da8208ed8d96ceaaba96134",
+    "iteration_decision.json": "e00d50f2fe5bff714ea3d3ed51ca5caa87135db997bc274a38554990727e3aaa",
+    "readback.json": "e424871c8fc72afef3460d4c9a0ae4bb7fb52467de572b861edea9abf9893fd7",
+    "readback.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "readback_execution.json": "dac04313e2f9e6871ae69c59f1811bcd4e1488506c6fba2f62bb3078511e7eb3",
+    "registry_stage016.json": "ade386ad9689c1a8ef054d22ec55893f3468830986aa34a580169ac5a5a42bf1",
+    "verify_delivery.py": "5ab57429e76e61d9a5951eb58c1aca6e38d42821050711792c3d9d6f48f64f9b"
+  },
+  "scope": "Actual bot/current-chat delivery and full visible content readback only. Delivered stage016 is preserved; stage017 is a separately bound root continuation. Preserve implementation_frontier/no service job, original numerical and physical failures, and optimizer HOLD; this proof independently executes no science."
+}

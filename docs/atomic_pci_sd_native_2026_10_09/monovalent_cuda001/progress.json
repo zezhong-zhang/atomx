@@ -1,0 +1,242 @@
+[
+  {
+    "variant": "unchanged",
+    "independent_gates": 41,
+    "paired_roots": [
+      {
+        "key": [
+          2,
+          -1
+        ],
+        "maximum_error_Ha": 5.551115123125783e-17,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.013586982036940753,
+        "cuda_seconds": 0.10343537700828165,
+        "cuda_raw_Ha": 1.764647455937407e-15,
+        "cuda_energy_Ha": 3.5019730171281793e-17
+      },
+      {
+        "key": [
+          3,
+          -1
+        ],
+        "maximum_error_Ha": 1.1492543028346347e-16,
+        "cpu_actions": 24,
+        "cuda_actions": 23,
+        "cpu_seconds": 0.013405008940026164,
+        "cuda_seconds": 0.12676103494595736,
+        "cuda_raw_Ha": 5.412337245047638e-16,
+        "cuda_energy_Ha": 4.39440693035531e-18
+      },
+      {
+        "key": [
+          2,
+          1
+        ],
+        "maximum_error_Ha": 3.469446951953614e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.011281125014647841,
+        "cuda_seconds": 0.06027112097945064,
+        "cuda_raw_Ha": 1.915134717478395e-15,
+        "cuda_energy_Ha": 6.776263578034403e-19
+      },
+      {
+        "key": [
+          2,
+          -2
+        ],
+        "maximum_error_Ha": 8.673617379884035e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.02059562294743955,
+        "cuda_seconds": 0.11140655097551644,
+        "cuda_raw_Ha": 3.5778671692021646e-16,
+        "cuda_energy_Ha": 6.505213034913027e-19
+      }
+    ],
+    "cuda_calls": 667,
+    "epochs": 125
+  },
+  {
+    "variant": "virtual_rotated",
+    "independent_gates": 41,
+    "paired_roots": [
+      {
+        "key": [
+          2,
+          -1
+        ],
+        "maximum_error_Ha": 2.7755575615628914e-16,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.00957706302870065,
+        "cuda_seconds": 0.10042807692661881,
+        "cuda_raw_Ha": 1.97758476261356e-16,
+        "cuda_energy_Ha": 6.938893903907228e-17
+      },
+      {
+        "key": [
+          3,
+          -1
+        ],
+        "maximum_error_Ha": 5.551115123125783e-16,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.009336128016002476,
+        "cuda_seconds": 0.10014169791247696,
+        "cuda_raw_Ha": 5.260548940899668e-16,
+        "cuda_energy_Ha": 6.938893903907228e-18
+      },
+      {
+        "key": [
+          2,
+          1
+        ],
+        "maximum_error_Ha": 3.469446951953614e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.007830410031601787,
+        "cuda_seconds": 0.048602405935525894,
+        "cuda_raw_Ha": 1.7832957333041577e-15,
+        "cuda_energy_Ha": 7.047314121155779e-19
+      },
+      {
+        "key": [
+          2,
+          -2
+        ],
+        "maximum_error_Ha": 6.938893903907228e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.007872559945099056,
+        "cuda_seconds": 0.04847468493971974,
+        "cuda_raw_Ha": 3.4911309954033243e-16,
+        "cuda_energy_Ha": 8.673617379884035e-19
+      }
+    ],
+    "cuda_calls": 1005,
+    "epochs": 125
+  },
+  {
+    "variant": "occupied_rotated",
+    "independent_gates": 41,
+    "paired_roots": [
+      {
+        "key": [
+          2,
+          -1
+        ],
+        "maximum_error_Ha": 1.0408340855860843e-17,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.008764361031353474,
+        "cuda_seconds": 0.0982351730344817,
+        "cuda_raw_Ha": 1.1622647289044608e-16,
+        "cuda_energy_Ha": 7.28583859910259e-17
+      },
+      {
+        "key": [
+          3,
+          -1
+        ],
+        "maximum_error_Ha": 1.1102230246251565e-16,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.008581917034462094,
+        "cuda_seconds": 0.09818080102559179,
+        "cuda_raw_Ha": 5.204170427930421e-18,
+        "cuda_energy_Ha": 7.860465750519907e-18
+      },
+      {
+        "key": [
+          2,
+          1
+        ],
+        "maximum_error_Ha": 5.204170427930421e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.00707007700111717,
+        "cuda_seconds": 0.047502693021669984,
+        "cuda_raw_Ha": 4.3021142204224816e-16,
+        "cuda_energy_Ha": 1.8648277366750676e-17
+      },
+      {
+        "key": [
+          2,
+          -2
+        ],
+        "maximum_error_Ha": 5.204170427930421e-18,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.0070547780487686396,
+        "cuda_seconds": 0.04768246097955853,
+        "cuda_raw_Ha": 8.547849927875717e-16,
+        "cuda_energy_Ha": 3.686287386450715e-17
+      }
+    ],
+    "cuda_calls": 843,
+    "epochs": 125
+  },
+  {
+    "variant": "combined_rotated",
+    "independent_gates": 41,
+    "paired_roots": [
+      {
+        "key": [
+          2,
+          -1
+        ],
+        "maximum_error_Ha": 6.661338147750939e-16,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.012552452040836215,
+        "cuda_seconds": 0.12452942808158696,
+        "cuda_raw_Ha": 2.220446049250313e-16,
+        "cuda_energy_Ha": 7.979727989493313e-17
+      },
+      {
+        "key": [
+          3,
+          -1
+        ],
+        "maximum_error_Ha": 4.440892098500626e-16,
+        "cpu_actions": 25,
+        "cuda_actions": 25,
+        "cpu_seconds": 0.016588540049269795,
+        "cuda_seconds": 0.16519249801058322,
+        "cuda_raw_Ha": 3.434752482434078e-16,
+        "cuda_energy_Ha": 1.0408340855860843e-16
+      },
+      {
+        "key": [
+          2,
+          1
+        ],
+        "maximum_error_Ha": 1.951563910473908e-17,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.013684776029549539,
+        "cuda_seconds": 0.07024180598091334,
+        "cuda_raw_Ha": 5.065392549852277e-16,
+        "cuda_energy_Ha": 1.3444106938820255e-17
+      },
+      {
+        "key": [
+          2,
+          -2
+        ],
+        "maximum_error_Ha": 2.0816681711721685e-17,
+        "cpu_actions": 22,
+        "cuda_actions": 22,
+        "cpu_seconds": 0.010466870036907494,
+        "cuda_seconds": 0.05249504302628338,
+        "cuda_raw_Ha": 7.892991815694472e-16,
+        "cuda_energy_Ha": 3.469446951953614e-17
+      }
+    ],
+    "cuda_calls": 1057,
+    "epochs": 125
+  }
+]

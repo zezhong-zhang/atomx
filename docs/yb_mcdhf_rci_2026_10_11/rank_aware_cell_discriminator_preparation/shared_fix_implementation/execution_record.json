@@ -1,0 +1,33 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T14:53:18.685794+00:00",
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "65s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/test_driver.py"
+  ],
+  "CPU": 30,
+  "memory_GiB": 3.95,
+  "cwd": "/data/code/atomx",
+  "launcher_sha256": "5b75408e51da193749eb2d4b47bda93abde78a5fb984457663182f1299af6756",
+  "execution_contract_sha256": "2643ac76ffd8c5ca38611ba9e74fc5c0eb24e7e7563ac72787531d92fdb886b5",
+  "thread_variables": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1"
+  },
+  "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+  "timing_controlled": false,
+  "exit_code": 0,
+  "finished_utc": "2026-10-11T14:53:26.105590+00:00",
+  "elapsed_uncontrolled_seconds": 7.4197596199810505,
+  "log_sha256": "7567149d541367006322d5a0affd624e4f819f7fe362db0c68357bc9506429bc",
+  "actual_result_sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce"
+}

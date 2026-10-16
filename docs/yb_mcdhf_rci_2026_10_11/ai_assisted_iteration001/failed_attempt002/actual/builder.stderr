@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py", line 281, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py", line 275, in main
+    result = build_dataset(args.repo, manifest)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py", line 246, in build_dataset
+    loaded = {role: store.load(ref) for role, ref in spec["roles"].items()}
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py", line 246, in <dictcomp>
+    loaded = {role: store.load(ref) for role, ref in spec["roles"].items()}
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py", line 57, in load
+    raise ValueError("Prospective metadata resource cap exceeded")
+ValueError: Prospective metadata resource cap exceeded

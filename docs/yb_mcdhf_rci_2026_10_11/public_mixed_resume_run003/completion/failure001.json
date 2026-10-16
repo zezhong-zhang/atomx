@@ -1,0 +1,6 @@
+{
+  "error": "'original_projected_gradient is not a file in the archive'",
+  "failed_script_sha256": "49e5a6834cc4907eb9acd8855ceb94093eac16e4a92456edb7136cb350020e17",
+  "physical_calls_authorized": 0,
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py\", line 421, in <module>\n    main()\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py\", line 128, in main\n    parent_arrays = {name: data[name].copy() for name in (\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py\", line 128, in <dictcomp>\n    parent_arrays = {name: data[name].copy() for name in (\n  File \"/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py\", line 261, in __getitem__\n    raise KeyError(f\"{key} is not a file in the archive\")\nKeyError: 'original_projected_gradient is not a file in the archive'\n"
+}

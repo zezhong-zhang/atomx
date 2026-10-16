@@ -1,0 +1,456 @@
+{
+  "status": "prepared_requires_exact_root_execution",
+  "root_execution_authorized": false,
+  "created_utc": "2026-10-11T15:08:38.019996+00:00",
+  "hypothesis": "Independent successor after the separately qualified positive-rank inner-cell fix: route unchanged complete B-spline CI pair potentials through existing semiseparable ns>=96 kernel. Preserve all signed PP/QQ/PQ/QP components, near/far cells, targets/metric/weights and ordinary defaults; no shared edit or execution authorized.",
+  "ordinary": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source",
+    "source_map_sha256": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661"
+  },
+  "candidate": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source",
+    "source_map_sha256": "608f8f9db0ba10476775d0d833c6eb0fcd186928f119131e44900ad640546917",
+    "only_changed": "src/atomx/physics/csf/matrix.py imports + _bspline_pair_potential"
+  },
+  "inputs": {
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/fresh_baseline.npz",
+      "sha256": "a6ba90f1e16e73d11eed6716f9a8317b16f3b35bc9d15874cb9769184ca4c72d"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/all_gradients_metric.npz",
+      "sha256": "1d08466f5dcb369f70ff20066c11d867090ce38d16f3e84d8f1e4fd927eb2d3a"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "sha256": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source_identity.json",
+      "sha256": "be26c536c4365b9d4f8c11c9e1700d6883b567b6ff693e1e89ad9a1e45ec4938"
+    },
+    "source_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate.patch",
+      "sha256": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "original_signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "original_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "conditional_direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "conditional_direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis002/actual/result.json",
+      "sha256": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3"
+    },
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    },
+    "corrected_baseline_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/result.json",
+      "sha256": "55f364277566c4d20e9460a7f95e31328b7604160916c7fa8ca12d01385caed0"
+    },
+    "corrected_baseline_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/completion.json",
+      "sha256": "a97b231a24d1704a77bf0a872be29b792838f9a09b4100f52860eea0ae9a6445"
+    },
+    "corrected_baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "corrected_baseline_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/root_execution.json",
+      "sha256": "840ae02164e287a599924c23cb24f81aa802dce36e55cdf8b158ed7d3d1d67f2"
+    },
+    "inner_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+      "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+    },
+    "shared_fix_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "shared_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/actual/result.json",
+      "sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce"
+    },
+    "predecessor_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b"
+    },
+    "predecessor_closed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/completion.json",
+      "sha256": "55b0136be88c013939d1e2f9d8cef28ea57947b0ed9ec49082f3dcc1d76bf9b8"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py",
+      "sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    }
+  },
+  "fixed": {
+    "Z": 70,
+    "nucleus": "Fermi A175",
+    "electron_count": 69,
+    "operator": "native Dirac-Coulomb only",
+    "ns": 123,
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "reference_CSFS": 531,
+    "full_parent_CSFS": 2163,
+    "complete_selected_CSFS": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "equal_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "same_point": "Corrected-source fresh_baseline a6ba90 at the same actual recovered29 physical point; original3451 metric/projectors/inverses from corrected saved production1d08466; not new seed or optimizer endpoint.",
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "max_determinants": 2000,
+    "RDM_cutoff": 1e-15,
+    "no_new_projector_or_retraction": true
+  },
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 30,
+    "thread_variables": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS"
+    ],
+    "memory_GiB": 3.95,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "max_optimizer": 0,
+    "max_total_hS": 28,
+    "max_tracking_resolutions": 4,
+    "max_tracking_SVD": 20,
+    "max_tracking_overlap": 6,
+    "max_scipy_eigh": 10,
+    "new_Dirac_eigensolves": 0,
+    "new_geometry_eigvalsh": 0,
+    "new_polar_retractions": 0,
+    "max_new_physical_points": 1,
+    "GPU_calls": 0,
+    "concurrency": "CPU30 single affinity, independent of root run004 CPU31; stage timing uncontrolled and no speedup certification.",
+    "Gauss_setup_eigvalsh": 7
+  },
+  "anchor_setup": {
+    "cases": [
+      {
+        "ns": 95,
+        "ks": 9,
+        "kinetic_balance": false,
+        "n_gauss": "default9",
+        "ranks": [
+          0,
+          1,
+          6
+        ],
+        "scope": "ordinary/RKB threshold boundary, signed random seed"
+      },
+      {
+        "ns": 96,
+        "ks": 9,
+        "kinetic_balance": false,
+        "n_gauss": "default9",
+        "ranks": [
+          0,
+          1,
+          6
+        ],
+        "scope": "ordinary/RKB threshold boundary, signed random seed"
+      },
+      {
+        "ns": 95,
+        "ks": 9,
+        "kinetic_balance": true,
+        "n_gauss": "default9",
+        "ranks": [
+          0,
+          1,
+          6
+        ],
+        "scope": "ordinary/RKB threshold boundary, signed random seed"
+      },
+      {
+        "ns": 96,
+        "ks": 9,
+        "kinetic_balance": true,
+        "n_gauss": "default9",
+        "ranks": [
+          0,
+          1,
+          6
+        ],
+        "scope": "ordinary/RKB threshold boundary, signed random seed"
+      },
+      {
+        "ns": 4,
+        "ks": 4,
+        "kinetic_balance": false,
+        "n_gauss": 16,
+        "ranks": [
+          0,
+          1,
+          6
+        ],
+        "monomial_degrees": [
+          1,
+          1
+        ],
+        "knots": "0 repeated ks,0.7 repeated ks",
+        "analytic": "signed scale product -24; both triangles R^(dL+dR+1)/(dL+dR+1)*(1/(dL+k+1)+1/(dR+k+1)); each PP/QQ/PQ/QP independently; RKB P tail exactly zero"
+      },
+      {
+        "ns": 6,
+        "ks": 6,
+        "kinetic_balance": false,
+        "n_gauss": 16,
+        "ranks": [
+          6
+        ],
+        "monomial_degrees": [
+          4,
+          5
+        ],
+        "knots": "0 repeated ks,0.7 repeated ks",
+        "analytic": "signed scale product -24; both triangles R^(dL+dR+1)/(dL+dR+1)*(1/(dL+k+1)+1/(dR+k+1)); each PP/QQ/PQ/QP independently; RKB P tail exactly zero"
+      },
+      {
+        "ns": 6,
+        "ks": 6,
+        "kinetic_balance": true,
+        "n_gauss": 16,
+        "ranks": [
+          6
+        ],
+        "monomial_degrees": [
+          4,
+          5
+        ],
+        "knots": "0 repeated ks,0.7 repeated ks",
+        "analytic": "signed scale product -24; both triangles R^(dL+dR+1)/(dL+dR+1)*(1/(dL+k+1)+1/(dR+k+1)); each PP/QQ/PQ/QP independently; RKB P tail exactly zero"
+      }
+    ],
+    "ranks": [
+      0,
+      1,
+      6
+    ],
+    "components": [
+      "pppp",
+      "qqqq",
+      "pqpq",
+      "qpqp"
+    ],
+    "random_seed": "PCG64(19011+case_index),four distinct signed P/Q vectors",
+    "total_basis_setups": 7,
+    "no_H_CI_Dirac_or_gradient": true,
+    "tolerances": "Existing test_convol: near rtol2e-12 atol1e-14; potential rtol2e-12 atol1e-12; signed scalar rtol2e-12 atol1e-10. Existing analytic-cell rtol2e-13. Candidate sum of two components atol2e-12/rtol2e-12.",
+    "Gauss_eigensolves": "Seven NumPy leggauss companion eigvalsh calls; no Dirac solve; two regular monomial domains are new successor controls, not relabeling old FAIL.",
+    "analytic_outer_scope": "nGauss16 covers small monomial density degrees up to20; actual ns123 outer grid/workspace unchanged. Negative-rank/absolute outer accuracy/global error bound not qualified."
+  },
+  "anchor_calls": {
+    "basis_setup": 7,
+    "density_band": 28,
+    "direct_full_bank": 112,
+    "direct_semiseparable": 92,
+    "band_scalar": 170,
+    "CI_source_pair": 17,
+    "bank_get": 112,
+    "factor_get": 92,
+    "Gauss_setup_eigvalsh": 7
+  },
+  "chain_exact_calls": {
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "H": 1,
+    "CI": 1,
+    "gradient": 1,
+    "tracking_resolution": 2,
+    "tracking_overlap": 3,
+    "tracking_SVD": 10,
+    "scipy_eigh": 5,
+    "Dirac_eigensolve": 0,
+    "eigvalsh": 0,
+    "numpy_eigh": 0
+  },
+  "counters": "Forward-only H/CI/gradient/hS/tracking/geometry, dense/factored convolution, density, scalar, bank/factor getters, CI and gradient sourcepair and gradient band-expansion aliases. Record actual kernel calls; getters include cache hits. Do not infer cache-miss/bank-production time from getter counts; cProfile and aggregate stages separately report uncontrolled scope.",
+  "gates": {
+    "ordinary_H_and_roots": "bitwise against corrected f043 fresh_baseline a6ba90; shared62a109 differs only documentary statements from f043 numerical AST. Old500ac and old failed matrix route remain historical; candidate same-point gates unchanged.",
+    "candidate_H_entry_Ha": 1e-09,
+    "candidate_all_roots_Ha": 1e-08,
+    "signed_cluster_span": 1e-08,
+    "cluster_gap_Ha": 1e-07,
+    "CI_max_Euclidean_column_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "no_pair_leakage_squared": 1e-12,
+    "complete_raw_radial_gradient": 1e-09,
+    "original_raw_and_tangent_g": 1e-09,
+    "original_metric_pg": 1e-10,
+    "stationarity": 1e-07,
+    "indicator_Ha": 1e-08,
+    "new_candidate_comparison_gates_require_review": true
+  },
+  "matching": "Canonical complete CSF signed order; all1046roots/five sectors. Cluster projector comparisons use both endpoint energy gaps<=1e-7 and preserve signed offdiagonals, no individual phase equality inside degenerate spans. Original five physical UIDs/equalweights bound by frozen-reference tracker; filter label rows before comparison. No state rebase.",
+  "retained_owner": "Two genuine ci_solve retain_hamiltonian=True producers; complete eigenpair/Gram checks BEFORE same-CI gradient completion; strict samepoint owner and stale point refusal. Owner identity not an eigenpair certificate.",
+  "profiling": "Each fresh process has own NumPy/Numba imports, cache directory and cProfile; input/source hashing, setup, public energy/tracking/owner, full eigenpair checks, gradient/tracking, compressed NPZ fsync/readback and process elapsed recorded. Stage times are uncontrolled observations; no speedup ratio, cold/warm pairing, GPU or parallel certification.",
+  "known_status": {
+    "original_probe_reported_derivative": "FAIL retained",
+    "original_rotation_unconstrained_Rayleigh_derivative": "FAIL retained",
+    "conditional_saved_constraint_centering_d0_d1": "same_saved_point_conditional_gate_passed true; not a new public gradient or uniform bound",
+    "original3451_stationarity": "FAIL retained",
+    "normalized_full_gradient_control": "corrected29 baseline result55f364 closed PASS for full gradient/centered directions; stationarity remains FAIL; not a new optimizer or experimental certificate.",
+    "production_or_optimizer_admission": false,
+    "original_route_qualification": "Old500ac/private64ac sole run225passed1analyticFAIL; original H/CI/g phases unexecuted. This is a distinct repaired-inner-source successor, never a retry/relabel of original."
+  },
+  "stop": "Stop on first anchor/identity/numerical/call/resource failure, preserve partial logs/counters/files, no retry or gate/model shrink. Equivalence PASS never relabels original physical failures. Shared source remains unchanged; merge/optimizer needs root successor review.",
+  "forbidden": [
+    "shared source/test or old evidence edits",
+    "another physical backend",
+    "changing weights/model/threshold/metric",
+    "small signed term screening",
+    "matrix_override/forged retained owner",
+    "extra optimizer or finite-difference scan",
+    "GPU calls or GPU/parallel/speedup claims"
+  ],
+  "execution_order": [
+    "root exact seal and CPU30 admission",
+    "anchors fresh privatecandidate process",
+    "ordinary fresh shared62a109 archive process",
+    "candidate fresh private successor process",
+    "saved-array-only comparison"
+  ],
+  "actual_preparation_scientific_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "basis_setup": 0,
+    "kernel": 0,
+    "eigen": 0,
+    "optimizer": 0,
+    "NumPy_import": 0,
+    "GPU": 0
+  },
+  "lineage": {
+    "predecessor_failed_kept_immutable": true,
+    "new_physical_numerics": "two n_sub positive-rank inner fix independently qualified, then shared documentation-only epoch62a109",
+    "actual_baseline_source_map": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "no_implied_global_Coulomb_or_optimizer_or_experiment_or_GPU_certificate": true
+  }
+}

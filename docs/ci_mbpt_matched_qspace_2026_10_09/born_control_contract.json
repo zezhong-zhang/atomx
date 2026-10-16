@@ -1,0 +1,8 @@
+{
+ "hypothesis":"Separate the explicit finite one-4f-hole model's Q-Q interaction dressing from repeated energy-argument iteration, using one matched normal-ordered DF H0 and the same signed P-Q couplings. This is a restricted one-hole Born control, not complete atomic MBPT(2).",
+ "fixed":"Previously computed native five-sector bare DC matrices, their unchanged orbital pool, Fermi nucleus and CSF signatures. Q0 energies are E_core_CI plus occupation changes times actual diagonal VN Fock expectations, with no fitted shifts.",
+ "gate":"Each of the five P total energies must equal the separately built native closed-core CI zero plus its VN Fock expectation within 1e-10 Ha. No source or radial change is made. Every Q diagonal reference energy must be checked against a 1e-8-Ha denominator floor.",
+ "decomposition":"FullQ(root)-Born(E0) = [FullQ(E0)-Born(E0)] + [FullQ(root)-FullQ(E0)]. Also separately retain offdiagonal-Q control; its diagonal includes Coulomb and is not strict second order.",
+ "resources":{"workers":1,"seconds":300,"address_space_MiB":4096},
+ "limits":"The probe omits two-hole states and all other virtual radial orbitals; no full MBPT(2), SD, Breit, experimental-accuracy or ionic-threshold claim follows. Do not add this correction to the old full Sigma1."
+}

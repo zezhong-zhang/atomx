@@ -1,0 +1,50 @@
+--- a/src/atomx/methods/ci.py
++++ b/src/atomx/methods/ci.py
+@@ -72,6 +72,20 @@
+         if self.hamiltonian_snapshot is None:
+             raise ValueError('CI result has no retained bound Hamiltonian')
+         return self.hamiltonian_snapshot.matrix_for(*args, **kwargs)
++
++
++def _centered_dense_eigh(block, *, subset_by_index=None, driver=None):
++    """Solve a dense block after removing its nearest-integer diagonal origin.
++
++    The scalar changes no exact eigenvectors or energy differences. A private
++    qualification must still verify returned pairs against the original block.
++    Copy the input so a retained read-only Hamiltonian remains unchanged.
++    """
++    shifted = np.array(block, copy=True)
++    origin = float(np.rint(shifted[0, 0].real))
++    shifted[np.diag_indices(len(shifted))] -= origin
++    values, vectors = linalg.eigh(shifted, subset_by_index=subset_by_index, driver=driver)
++    return values + origin, vectors, origin
+ 
+ 
+ def ci_solve(
+@@ -238,6 +252,7 @@
+         blocks = [(np.asarray(idx), H_ci[np.ix_(idx, idx)]) for _, idx in groups]
+     values, vectors, iterations = [], [], []
+     refinement = []
++    dense_centering_shifts = []
+     for idx, block in blocks:
+         size = len(idx)
+         if size == 0:
+@@ -253,7 +268,8 @@
+             # can lose orthogonality for clustered roots; divide-and-conquer
+             # preserves it without rotating or truncating the returned states.
+             driver = "evd" if subset is None else "evr"
+-            w, v = linalg.eigh(block, subset_by_index=subset, driver=driver)
++            w, v, origin = _centered_dense_eigh(block, subset_by_index=subset, driver=driver)
++            dense_centering_shifts.append(origin)
+             if dense_cluster_gap is not None:
+                 from atomx.numerics.hermitian_clusters import (
+                     refine_real_symmetric_clusters,
+@@ -273,6 +289,8 @@
+         "n_blocks": len(blocks), "block_sizes": [len(idx) for idx, _ in blocks],
+         "matrix_free": solver == "davidson",
+     }
++    if dense_centering_shifts:
++        provenance['dense_centering_shifts_Ha'] = dense_centering_shifts
+     if iterations:
+         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
+     if one_body_operator is not None:

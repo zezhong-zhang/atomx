@@ -1,0 +1,142 @@
+{
+  "hypothesis": "Reported roots, finite CI-vector response and fixed-vector operator FD make separately measurable contributions to the three original005 failures.",
+  "fixed": "Literal005 full A1595/B2574 H, signed C, basis/owner, all five UIDs, original31-wave two-step polar endpoints and analytic actions; no fresh radial/H/CI/optimizer.",
+  "steps": [
+    0.002,
+    0.001
+  ],
+  "dimensions": {
+    "A": [
+      [
+        [
+          1,
+          -1
+        ],
+        219
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        223
+      ],
+      [
+        [
+          3,
+          -1
+        ],
+        367
+      ],
+      [
+        [
+          3,
+          1
+        ],
+        370
+      ],
+      [
+        [
+          5,
+          1
+        ],
+        416
+      ]
+    ],
+    "B": [
+      [
+        [
+          1,
+          -1
+        ],
+        362
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        365
+      ],
+      [
+        [
+          3,
+          -1
+        ],
+        599
+      ],
+      [
+        [
+          3,
+          1
+        ],
+        596
+      ],
+      [
+        [
+          5,
+          1
+        ],
+        652
+      ]
+    ]
+  },
+  "arithmetic": "Exact binary64 integer-ratio products/sums and Fraction actual-norm division; no magnitude cutoff or rounded matrix centering.",
+  "decomposition": "reported-analytic = (reported-exact_Rayleigh) + (exact_Rayleigh-fixed_C0) + (fixed_C0-analytic), separately per state and upper-minus-lower line.",
+  "distinguish": "If reported-exact_Rayleigh accounts for the failed line, target root/reporting arithmetic. Otherwise retain the remaining finite-response/operator terms; two steps alone do not uniquely separate operator curvature, endpoint reconstruction and H assembly.",
+  "acceptance": {
+    "dyadic_oracle": "exact equality, signed/off-diagonal/tiny/scaling controls",
+    "saved_owner": "literal whole-file hashes plus exact matrix/identity frame hashes",
+    "selected_residual_abs_Ha": 1e-08,
+    "norm_abs": 1e-10,
+    "outside_sector": 0,
+    "decomposition": "exact Fraction equality",
+    "ordinary_replay_abs_Ha": 1e-15,
+    "old_scientific_gate": "unchanged max(1e-8,1e-5*abs(analytic)); classifications are diagnostics, do not supersede005"
+  },
+  "stopping": "First identity/resource/oracle/closure failure stops; preserve evidence, no automatic retries or new steps. Scientific decomposition outcomes all retained.",
+  "limits": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 4294967296,
+    "seconds": 300,
+    "load_max": 24,
+    "available_min_bytes": 8589934592,
+    "NPZ_loads": 10,
+    "archive_decoded_bytes_max": 125829120,
+    "quadratic_calls": 80,
+    "triangle_entries_upper": 7799576
+  },
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/contract.json": "6b8a0dd102220e688ed12f99795d1ae763e3c1d9af14ceeaf02357bd7e1e34c1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/run.py": "bba8234d35e9f025a6f89925026348fef8990eb36037e1d0e74abf99981cda38",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/root_execution_seal.json": "3b112340eef135189e94f889959458cde3c9abba1e166aaad96f81910feb82b5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/result.json": "ff8ab7892c620b6c1ed1b175c580a53d6865529528a18f473831ce956c3f1b82",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.npz": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_plus_h.json": "fb10eab9d7f04d1922ac31ac524d1b69605e639bb2b71f31501d4fce0e54db91",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_plus_h.npz": "2d041129ed4c2b7a42af4643ce3a70203525e32af970bb17de3a32070beba7e5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_minus_h.json": "1d08eb30b89611a537c98970530f14d9bebd1143e1c19ad86d2f7a96b69e4680",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_minus_h.npz": "a8d6f955c63bad47a3fac931d9d19c645ed14f329ef6625e1f2031e8960b73ea",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_plus_half.json": "ac373a06300d13dddf2bfad86cdb4e695dcad6ce8940eababb35ac8731affbf1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_plus_half.npz": "6d75b5dec6100ffabd94ad137a7e336a0c80ccc98d8e467f347f457171e7c66a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_minus_half.json": "9b8075ce3c2509b157392ff63e4f762e19b5973e21d1fb7cd28ccd114d599aec",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_minus_half.npz": "5cc8863b642d45838ffe9139a422f5a292c44585f9e7c439384e918032322c67",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0_state_gradients.json": "f202df655c0843197d48561c479abc8d05307b0eff0bc7fc7f88525281ec8856",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.npz": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_plus_h.json": "af0caf5a22dbbfc89feddbcc922951121adc560b6fbd4cf0bd5985035a72cb4e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_plus_h.npz": "0c4352843ef5dbc7a71c86463bafb34a153c50c35b26b6dc7693bb00fec5aa5f",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_minus_h.json": "c2df81a0083d4585456bb3c76ce5fa3535b508311452510f113f5d3eb9f8effe",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_minus_h.npz": "087f308466d5f329152b854d747c8adc9073297105e4936d946f16b429d0aab8",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_plus_half.json": "b4f5d3d57189f12863d2158ce58e0cc39d47cf3dbd0d91a47f1fdfb1032ad155",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_plus_half.npz": "692ac042515fc9b7c92eb457e6c1234447962889168dca104e672f3b42218ffb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_minus_half.json": "3b2125e5c3090a34b3fc0f837040b3971d563c09b6df52321bbb3f950f671fb3",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_minus_half.npz": "ccdbdcd98d2777dabed105e23c60f8fff5d8738aa480b0389a0a8c163707cac1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0_state_gradients.json": "23fcc0b2c3526af9183dd7b2d5e2103af55017c0801db765f7644fca9599a72c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/current_source_identity.json": "d5c49ee90f4b446e7be8dc74ceb0e7a375ac1c963b644450421f4341641421e2",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+  },
+  "driver_sha256": "4ecedb1658ce121beb217e5a7134bff2ae50bfd07a1e6effcd3aca7712807e52",
+  "original005_failure_superseded": false
+}

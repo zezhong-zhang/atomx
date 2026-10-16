@@ -1,0 +1,201 @@
+{
+  "status": "prepared_finite_qualification_pending_root_execution_seal",
+  "authorization": {
+    "source_edit": true,
+    "finite_qualification_execution": false,
+    "optimizer": false,
+    "Armijo": false
+  },
+  "proposal_contract_sha256": "5165b10adc3c994fa3059c7595cf0824fbd0faa1f57d0bf46d6daa046588c060",
+  "root_source_edit_authorization002_sha256": "3b412b6bd3ac6c43ae3743cb6f537da526a63d019461494da6e62345430857f3",
+  "candidate_source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "old_source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "prepared_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/run.py": "f065d8be47439bd2affafdc863926198d235b19f5efafd019a6cb86a54b4fe52",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/frozen_comparator.py": "e6c043a32af51f42088ab87661d0bc2b4039cdf98d621d4d7cc0337dfcc7d05c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions.npz": "874079c342694329255244596caacc45c00e13151c025974803d6496bd264bd4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions_identity.json": "de8379fc9819b540ae9bcc353f7c8350210b45425ec11495f4defb4b1bccc9db",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/README.md": "5def5f494aa29a891c087e3da7a09b322f3b32b83d27e081ce169a50aa6496f9",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/verify_preparation.py": "472b0aaf29cf64cc0fe106f2b7969a1e4abf238d34783081e3a03175c1f342fc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prospective_source_edit.json": "3513705e2de89cd8ab50e1fc385798ede63f98f82527c6cb637ba8a2108ae454",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/contract.json": "5165b10adc3c994fa3059c7595cf0824fbd0faa1f57d0bf46d6daa046588c060",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/README.md": "918a207ff04afc2d7fb1328c4e2a5d8c4af16da63ecb27c856cd5630f6174acd",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_proposal/root_source_edit_authorization002.json": "3b412b6bd3ac6c43ae3743cb6f537da526a63d019461494da6e62345430857f3",
+    "docs/yb_mcdhf_rci_2026_10_11/checkpoint_hamiltonian_reuse_implementation/source_identity002.json": "5fa0e1d3ffc1c7cce00c6757fa8c6c821c5997500251cbdd635cd0e711b9c94d"
+  },
+  "resources": {
+    "CPU_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_time_seconds": 300,
+    "maximum_H_builds": 18,
+    "maximum_complete_CI_solves": 13,
+    "maximum_full_gradients": 3,
+    "maximum_optimizer_calls": 0,
+    "candidate_native_calls": {
+      "H_build": 13,
+      "CI_solve": 13,
+      "gradient": 2,
+      "one_body_assembly": 48,
+      "nuclear_Dirac_solve": 3,
+      "polar_retraction": 36,
+      "physical_overlap": 41,
+      "tracking_SVD": 80,
+      "SciPy_eigh": 64,
+      "optimizer": 0
+    },
+    "frozen_comparator_calls": {
+      "H_build": 5,
+      "CI_solve": 0,
+      "gradient": 1,
+      "one_body_assembly": 6,
+      "physical_overlap": 2,
+      "tracking_SVD": 2
+    },
+    "independent_Decimal_matrix_domains": 25,
+    "hidden_warmups": 0
+  },
+  "host_admission": {
+    "single_CPU_affinity_required": true,
+    "maximum_system_load1": 64.0,
+    "all_numerical_threads": 1
+  },
+  "physical_model": {
+    "atomic_number": 2,
+    "nuclear": "point -2/r",
+    "ns": 35,
+    "ks": 9,
+    "r_min": 0.005,
+    "r_max": 30,
+    "configs": [
+      "1s2",
+      "1s1 2s1",
+      "1s1 3s1",
+      "2s2",
+      "2s1 3s1",
+      "3s2",
+      "2p2",
+      "2p1 3p1",
+      "3p2"
+    ],
+    "complete_j_resolved_enumeration": true,
+    "selected_targets": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "weights": [
+      0.25,
+      0.75
+    ],
+    "frozen_physical_reference_tracking": true,
+    "directions": {
+      "seeds": [
+        413711,
+        413712
+      ],
+      "rng": "NumPy PCG64 standard_normal in canonical kappa/key order",
+      "coordinate": "original nuclear positive-space selector x0; z-x0*sym(x0.T*z); combined Euclidean norm; existing polar retraction",
+      "explicit_radial_increment": "P*(retracted_x-x0); preserve rounded P*x endpoints and reconstruction defect separately",
+      "test_source_and_generated_input_SHA_sealed_before_evaluation": true
+    },
+    "signed_scales": [
+      0.0001,
+      -0.0001,
+      1e-06,
+      -1e-06,
+      1e-08,
+      -1e-08
+    ],
+    "endpoint_count": 13,
+    "zero_step_uses_saved_baseline": true
+  },
+  "acceptance": {
+    "implementation": "independent stdlib Decimal80 complete signed native angular/cell/one-body float64 assets",
+    "binary_input_conversion": "Decimal.from_float exact for all native assets; no electronic structure backend",
+    "independent_scopes": [
+      "ordered one-body ket norm",
+      "all P/Q Coulomb pair components",
+      "canonical signed angular projection/permutation",
+      "final real symmetrization",
+      "full complete endpoint H",
+      "reported-root finite residual identity",
+      "quotient finite norm identity",
+      "phase/common-offset/reverse/tiny/zero controls"
+    ],
+    "full_finite_total_absolute_Ha": 1e-12,
+    "radial_absolute_Ha": 1e-13,
+    "nonzero_decrement_relative_error": 0.1,
+    "relative_gate_applies_above_Ha": 1e-13,
+    "small_offset_response_absolute_Ha": 1e-13,
+    "large_offset_response_absolute_Ha": 1e-11,
+    "no_general_certified_error_interval": true,
+    "pure_array_fixture": {
+      "H0": [
+        [
+          2,
+          0.3
+        ],
+        [
+          0.3,
+          3
+        ]
+      ],
+      "H1": [
+        [
+          2.00000004,
+          0.30000008
+        ],
+        [
+          0.30000008,
+          2.99999997
+        ]
+      ],
+      "c0": [
+        0.6,
+        0.8
+      ],
+      "c1": [
+        0.61,
+        0.795
+      ],
+      "lambda0": 2.75,
+      "lambda1": 2.74999998,
+      "common_offsets": [
+        0,
+        100000000.0
+      ],
+      "amplitude_scales": [
+        1,
+        2.3,
+        0.71
+      ],
+      "original_column_signs": [
+        -1,
+        1
+      ],
+      "interpretation": "actual stored binary64 assets, finite residual algebra, not solved atomic eigenstates"
+    }
+  },
+  "original_yb_gates_unchanged": {
+    "residual": 1e-07,
+    "indicator_Ha": 1e-08,
+    "g_replay": 1e-09,
+    "pg_replay": 1e-10,
+    "Armijo": 0.0001
+  },
+  "setup_semantics": "raw seed assets/source/NumPy pinned; original P/selectors/tangent/rounded waves archive hashed before first HCIg; all setup counted",
+  "frozen_gradient_parity": "same validated complete saved CI passed to unchanged frozen354 gradient, no frozen CI solve",
+  "unsupported_calls": "no additional H/CI/gradient/onebody; strict float64, complete DC owner, isolated tracker targets and original angular consumer",
+  "on_failure": "preserve partial counters and failed qualification; no hidden run/model/gate change",
+  "interpretation": "finite diagnostic only; no general interval, optimizer adapter, physical-gap or performance claim"
+}

@@ -1,0 +1,6 @@
+{
+  "hypothesis": "Same complete original dimension-correct Yb map returns when serial large locals are static rather than OpenMP-induced stack",
+  "fixed": "all68core414virtual original full inputs, original008signedseed, original affine numerator map, cap32GiB and original arithmetic",
+  "comparison": "old002 gdb actual entry versus fresh serial-static full map; finite10no-skip same-equation gates passed",
+  "stop": "any complete channel, signed finite, cap or actual map failure rejects; no physical-solve/precision claim"
+}

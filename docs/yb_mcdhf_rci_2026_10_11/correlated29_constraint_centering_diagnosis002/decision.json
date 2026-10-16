@@ -1,0 +1,23 @@
+{
+  "conditional_same_saved_point_gate_passed": true,
+  "original_probe_passed": false,
+  "original_rotation002_passed": false,
+  "optimizer_authorized": false,
+  "production_callback": false,
+  "decision": "Keep optimizer HOLD pending independently admitted full normalized/unfiltered baseline gradient control. No additional saved or physical execution authorized by this result.",
+  "scope": "conditional fixed-Lambda same-saved-point constrained-gradient control",
+  "centered_errors": [
+    -1.0931368938371281e-10,
+    -1.0931382273910735e-10
+  ],
+  "unchanged_gate": 1e-08,
+  "unresolved": [
+    "baseline mixed CI weights/norm response not newly replayed or fully normalized",
+    "unfiltered-minus-retained two-body gradient contribution is not bounded",
+    "finite fixed-Lambda centering remainder has no uniform sign/error bound",
+    "archived finite radial polynomial is float64 and retains its uncertified closure gap"
+  ],
+  "both_centered_increments_positive": true,
+  "no_uniform_error_bound": true,
+  "physical_producer_calls": 0
+}

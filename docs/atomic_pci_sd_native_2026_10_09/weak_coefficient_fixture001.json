@@ -1,0 +1,12 @@
+{
+  "status": "test-expectation-corrected",
+  "panel": "239 passed; one new weak-component fixture failed an exact floating equality",
+  "physical_setup": "Normalized orthogonal rotation within multiplicity-two 5g3 J=9/2 SU(2) multiplets, retaining all M members",
+  "expected_determinant_amplitude": 2.7755575615628914e-17,
+  "actual_after_coupling": 2.77555756156289e-17,
+  "diagnosis": "The additional mathematically unit Clebsch-Gordan factor is represented slightly below one in floating arithmetic. Exact equality was an incorrect test expectation, not a missing weak coefficient or normalization failure.",
+  "correction": "Retain zero absolute tolerance and relative tolerance 1e-14, so dropping the nonzero component still fails. The native complete signed gates remain 1e-11 and invariant residual gate 1e-10 Ha.",
+  "production_amplitude_cutoffs": "CSF local/magnetic and orthogonal/nonorthogonal tensor amplitude magnitude cutoffs removed; only exactly zero coefficients omitted",
+  "current_panel": "validation004-tests.log",
+  "native_evidence": "native_bloch_transitions004/comparison.json"
+}

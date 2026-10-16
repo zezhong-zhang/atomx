@@ -1,0 +1,113 @@
+{
+  "scope": "Three serial rounds, native clocks forFAC (printed5-6significantdigits) and private perf_counter forAtomx; stage borders differ and each median is independently taken. FAC post-exit NPZ normalization excluded; Atomx NPZ diagnostic export included. No silent subtraction.",
+  "rounds": [
+    {
+      "backend": "FAC",
+      "round": 0,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "init_including_loader": 0.565509,
+        "physical_settings_grid_and_ground_scf": 3.2984150000000003,
+        "virtual_integrals_CI_and_H_export": 0.17909399999999998,
+        "level_table_export": 0.00012099999999992672,
+        "photon_operators_and_line_table_export": 0.020884000000000125,
+        "remaining_full_child_lifetime": 0.7051865649999998
+      }
+    },
+    {
+      "backend": "FAC",
+      "round": 1,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "init_including_loader": 0.577382,
+        "physical_settings_grid_and_ground_scf": 3.251342,
+        "virtual_integrals_CI_and_H_export": 0.17404699999999995,
+        "level_table_export": 0.00013300000000004975,
+        "photon_operators_and_line_table_export": 0.02112399999999992,
+        "remaining_full_child_lifetime": 0.733252739
+      }
+    },
+    {
+      "backend": "FAC",
+      "round": 2,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "init_including_loader": 0.5704579999999999,
+        "physical_settings_grid_and_ground_scf": 3.2532510000000006,
+        "virtual_integrals_CI_and_H_export": 0.17491999999999996,
+        "level_table_export": 0.00012500000000015277,
+        "photon_operators_and_line_table_export": 0.02081299999999975,
+        "remaining_full_child_lifetime": 0.7583418260000001
+      }
+    },
+    {
+      "backend": "Atomx",
+      "round": 0,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "import_seconds": 1.2191978209884837,
+        "construct_seconds": 0.00015715602785348892,
+        "ground_scf_seconds": 7.170904238126241,
+        "long_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.144232144812122,
+        "long_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.030318033881485462,
+        "finite_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.01900766114704311,
+        "finite_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.04022104211617261,
+        "array_export_seconds": 0.011213046731427312,
+        "remaining_full_child_lifetime": 0.47508923116917146
+      }
+    },
+    {
+      "backend": "Atomx",
+      "round": 1,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "import_seconds": 1.1846301171462983,
+        "construct_seconds": 0.00015880900900810957,
+        "ground_scf_seconds": 7.057595779071562,
+        "long_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.1430938800331205,
+        "long_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.0296639499720186,
+        "finite_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.018870133091695607,
+        "finite_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.03956919291522354,
+        "array_export_seconds": 0.008581016096286476,
+        "remaining_full_child_lifetime": 0.4336225056647871
+      }
+    },
+    {
+      "backend": "Atomx",
+      "round": 2,
+      "workers": 1,
+      "four_ion_stage_seconds": {
+        "import_seconds": 1.1960518289124593,
+        "construct_seconds": 0.00017434812616556883,
+        "ground_scf_seconds": 6.993086921982467,
+        "long_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.140299370046705,
+        "long_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.029372069868259132,
+        "finite_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.0186686129309237,
+        "finite_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.03905604500323534,
+        "array_export_seconds": 0.008482569828629494,
+        "remaining_full_child_lifetime": 0.5037073483011554
+      }
+    }
+  ],
+  "medians": {
+    "FAC": {
+      "init_including_loader": 0.5704579999999999,
+      "physical_settings_grid_and_ground_scf": 3.2532510000000006,
+      "virtual_integrals_CI_and_H_export": 0.17491999999999996,
+      "level_table_export": 0.00012500000000015277,
+      "photon_operators_and_line_table_export": 0.020884000000000125,
+      "remaining_full_child_lifetime": 0.733252739
+    },
+    "Atomx": {
+      "import_seconds": 1.1960518289124593,
+      "construct_seconds": 0.00015880900900810957,
+      "ground_scf_seconds": 7.057595779071562,
+      "long_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.1430938800331205,
+      "long_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.0296639499720186,
+      "finite_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.018870133091695607,
+      "finite_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.03956919291522354,
+      "array_export_seconds": 0.008581016096286476,
+      "remaining_full_child_lifetime": 0.47508923116917146
+    }
+  }
+}

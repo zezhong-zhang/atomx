@@ -1,0 +1,76 @@
+{
+  "status": "pass",
+  "scope": "complete matched fixed-energy data after actual public GMRES certification; private CPU-vector006 and residentGPU008 are only guess producers; not controlled timing, physical spectrum or space convergence",
+  "column": [
+    6,
+    -2
+  ],
+  "energy_Ha": -0.2883066794582305,
+  "gate_Ha": 1e-11,
+  "raw_gate_Ha": 1e-10,
+  "physical_fields_matched": [
+    "hamiltonian",
+    "binding",
+    "physical_source_sha256",
+    "occupied_keys",
+    "virtual_keys",
+    "frozen_keys",
+    "feature_identity",
+    "equation",
+    "amplitude_representation",
+    "backend_pin",
+    "core_amplitudes_sha256",
+    "valence_source_sha256",
+    "energy_reference",
+    "response"
+  ],
+  "comparisons": [
+    {
+      "case": "yb_full_valence006",
+      "complete_signed_errors_Ha": {
+        "numerators": 4.105743522941907e-14,
+        "denominators": 0.0,
+        "sigma1": 9.107298248878237e-18,
+        "numerator_derivative": 1.3484768857097151e-12,
+        "sigma1_derivative": 1.304512053934559e-15
+      },
+      "public_matvecs": 7,
+      "raw_root_Ha": 1.0824674490095276e-15,
+      "raw_prime_Ha": 1.6653345369377348e-15,
+      "inputs": {
+        "yb_full_valence005/valence_6_-2.npz": "2c13c88856eebbe514357f26c830e7648b0d94ddede46d75e5c0896998792263",
+        "yb_full_valence005/valence_6_-2.json": "812fdc80f92485a62762df881e1a177226c986b89b65b8ec31483f9891233c09",
+        "yb_full_valence006/valence_6_-2.npz": "387134715cd0fc7a8ecd203ffeb7d495773eb52af6c4160ceb9dbb3155505108",
+        "yb_full_valence006/valence_6_-2.json": "a0411b5ea8432e9291efdd8d4014aa15e6fb8685934062481c3e76fbc0e59163"
+      },
+      "source_manifests_sha256": {
+        "yb_full_valence005": "319b68aa29b3173685a572e35266678d70ced3bb67995d2015dd37100109323a",
+        "yb_full_valence006": "b166fd78c8636a0ab9ea31853b3dabef1918b497ef847c01707f055bf177f902"
+      }
+    },
+    {
+      "case": "yb_full_valence008",
+      "complete_signed_errors_Ha": {
+        "numerators": 4.098804629038e-14,
+        "denominators": 0.0,
+        "sigma1": 1.0408340855860843e-17,
+        "numerator_derivative": 1.3298251388960125e-12,
+        "sigma1_derivative": 1.2004286453759505e-15
+      },
+      "public_matvecs": 7,
+      "raw_root_Ha": 1.0547118733938987e-15,
+      "raw_prime_Ha": 1.519617764955683e-15,
+      "inputs": {
+        "yb_full_valence005/valence_6_-2.npz": "2c13c88856eebbe514357f26c830e7648b0d94ddede46d75e5c0896998792263",
+        "yb_full_valence005/valence_6_-2.json": "812fdc80f92485a62762df881e1a177226c986b89b65b8ec31483f9891233c09",
+        "yb_full_valence008/valence_6_-2.npz": "3dc844eb99510260feed43ae9d71b1447f08e9bc3961d9731fa72e963c3a99da",
+        "yb_full_valence008/valence_6_-2.json": "8b94a7e81ed5f1605a36e5e3cc68676620f8463c720ac7426e0abbc02b87721c"
+      },
+      "source_manifests_sha256": {
+        "yb_full_valence005": "319b68aa29b3173685a572e35266678d70ced3bb67995d2015dd37100109323a",
+        "yb_full_valence008": "3806b9e49285f9b51bc8c50ca405748af24993c08b5c3122f2f7a221146a5f19"
+      }
+    }
+  ],
+  "max_complete_signed_error_Ha": 1.3484768857097151e-12
+}

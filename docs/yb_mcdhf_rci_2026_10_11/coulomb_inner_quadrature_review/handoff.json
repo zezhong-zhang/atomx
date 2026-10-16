@@ -1,0 +1,74 @@
+{
+  "created_at": "2026-10-11T14:17:16.714498+00:00",
+  "scope": "Read-only source and mathematical coverage review. No numerical kernel/array operations or science calls.",
+  "ordinary_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "private_candidate_source_map_sha256": "64acb69f79da66922ead9f5589c1df344f024748d6ee3d37968e39d947bfab87",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/candidate_source/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/progress.json": "de3003d306bed198327d828bf8a16b6efb804593030a96b6e78107c67e27b372",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7"
+  },
+  "documents_sha256": {
+    "MATH.md": "158b674297a84a2a371374697f7b27da56705cde16aafc3d3bdf55b1be6cc668",
+    "README.md": "c8172fcb8587ceac8e0f4fb4936f6e36746288bb4bde2cb9ecd1441b8fd811bd"
+  },
+  "inner_order_algebra_blocker": false,
+  "minimum_inner_nodes_nonnegative_integer_k": "s + floor(k/2); mixed max(ksp,ksq) + floor(k/2) for both directions",
+  "toy_GL4_degree8_error": "1/44100 absolute on [0,1]; 1/4900 relative",
+  "original_analytic_6_pppp_error_Ha": 3.6586666666948986e-05,
+  "original_analytic_6_pppp_limit_Ha": 3.585493333333332e-14,
+  "original_qualification_passed": false,
+  "actual29_problem_measured": false,
+  "not_certified": [
+    "complete outer/falling quadrature",
+    "negative-k inner integrals",
+    "Gauss node count above20",
+    "Yb H/CI/gradient response",
+    "stationarity or experimental gap",
+    "production optimizer"
+  ],
+  "new_numerical_calls": 0,
+  "new_scientific_calls": 0,
+  "shared_source_changed": false,
+  "prior_evidence_changed": false,
+  "local_links": [
+    {
+      "document": "MATH.md",
+      "target": "../correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "exists": true
+    },
+    {
+      "document": "MATH.md",
+      "target": "../correlated29_radial_reuse_qualification_preparation/run.py",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "MATH.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "handoff.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../correlated29_radial_reuse_qualification_preparation/contract.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../correlated29_radial_reuse_qualification_preparation/actual/anchors/progress.json",
+      "exists": true
+    }
+  ]
+}

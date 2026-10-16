@@ -1,0 +1,345 @@
+{
+  "fields": {
+    "x": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "H": {
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200,
+      "fortran_order": false
+    },
+    "energies": {
+      "shape": [
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 12760,
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200,
+      "fortran_order": true
+    },
+    "keys": {
+      "shape": [
+        31,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 496,
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504,
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504,
+      "fortran_order": false
+    },
+    "retained_radial": {
+      "shape": [
+        31,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 61008,
+      "fortran_order": false
+    },
+    "raw_coordinate_gradient": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "tangent_gradient": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "preconditioned_gradient": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "inverse_diagonal": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "projector_0": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_1": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_2": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_3": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_4": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_5": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "projector_6": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_0": {
+      "shape": [
+        2,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 226576,
+      "fortran_order": false
+    },
+    "inverse_blocks_1": {
+      "shape": [
+        4,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 453152,
+      "fortran_order": false
+    },
+    "inverse_blocks_2": {
+      "shape": [
+        6,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 679728,
+      "fortran_order": false
+    },
+    "inverse_blocks_3": {
+      "shape": [
+        7,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 793016,
+      "fortran_order": false
+    },
+    "inverse_blocks_4": {
+      "shape": [
+        6,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 679728,
+      "fortran_order": false
+    },
+    "inverse_blocks_5": {
+      "shape": [
+        4,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 453152,
+      "fortran_order": false
+    },
+    "inverse_blocks_6": {
+      "shape": [
+        2,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 226576,
+      "fortran_order": false
+    },
+    "full_minus_retained_radial": {
+      "shape": [
+        31,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 61008,
+      "fortran_order": false
+    },
+    "full_normalized_radial": {
+      "shape": [
+        31,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 61008,
+      "fortran_order": false
+    },
+    "raw_h_quotient_corrected_radial": {
+      "shape": [
+        31,
+        246
+      ],
+      "dtype": "<f16",
+      "bytes": 122016,
+      "fortran_order": false
+    },
+    "full_normalized_raw_coordinate": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "full_normalized_tangent": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "full_normalized_pg": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f8",
+      "bytes": 29512,
+      "fortran_order": false
+    },
+    "raw_h_corrected_raw_coordinate": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024,
+      "fortran_order": false
+    },
+    "raw_h_corrected_tangent": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024,
+      "fortran_order": false
+    },
+    "raw_h_corrected_pg": {
+      "shape": [
+        3689
+      ],
+      "dtype": "<f16",
+      "bytes": 59024,
+      "fortran_order": false
+    }
+  },
+  "selected_fields": [
+    "x",
+    "inverse_diagonal",
+    "projector_0",
+    "inverse_blocks_0",
+    "projector_1",
+    "inverse_blocks_1",
+    "projector_2",
+    "inverse_blocks_2",
+    "projector_3",
+    "inverse_blocks_3",
+    "projector_4",
+    "inverse_blocks_4",
+    "projector_5",
+    "inverse_blocks_5",
+    "projector_6",
+    "inverse_blocks_6",
+    "retained_radial",
+    "full_normalized_radial",
+    "raw_coordinate_gradient",
+    "tangent_gradient",
+    "preconditioned_gradient",
+    "full_normalized_raw_coordinate",
+    "full_normalized_tangent",
+    "full_normalized_pg",
+    "raw_h_quotient_corrected_radial",
+    "raw_h_corrected_raw_coordinate",
+    "raw_h_corrected_tangent",
+    "raw_h_corrected_pg"
+  ],
+  "cumulative_decoded_bytes": 99685800
+}

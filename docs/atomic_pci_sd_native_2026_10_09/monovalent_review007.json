@@ -1,0 +1,95 @@
+{
+  "time_utc": "2026-10-10T11:39:30.465081+00:00",
+  "status": "pass-local-source-and-finite-evidence",
+  "source_files": 352,
+  "current_source_matches": true,
+  "archived_source_matches": true,
+  "source_manifest_sha256": "a13f61010b80cd80d00a9e986193e6389ab4575ee7fceb368ba1541569965a80",
+  "ast_equivalence": {
+    "src/atomx/methods/monovalent_sd.py": true,
+    "src/atomx/numerics/fermion.py": true,
+    "tests/test_monovalent_sd.py": true
+  },
+  "compiled_files": 11,
+  "compiled_manifest_hashes_match": true,
+  "arrays": 195,
+  "all_arrays_bitwise_equal_005_006": true,
+  "comparison_equal": true,
+  "logs": {
+    "initial": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd005/regression.log",
+      "sha256": "af9921da40ef8cb773f9b906117d9445cabc3330544b616f3127bf8810cbe9cb"
+    },
+    "revalidation": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd006/revalidation.log",
+      "sha256": "e65bd6cacca5c601ebdb10593c9439797f30fcec730dc704caa056150ae8f3fc"
+    }
+  },
+  "runtime_failure_evidence": {
+    "axial": {
+      "log": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd005/regression-tmp/test_live_axial_full_ccsdt_sig0/C1/cc.log",
+      "sha256": "05ee420d72d64d1bb8c9892647cd3ff534e2772d06f9b88ba7c730d438be0c72",
+      "cause": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_axial_public_source001-build/expt.x: error while loading shared libraries: libgfortran.so.5: cannot open shared object file: No such file or directory"
+    },
+    "tensor": {
+      "log": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd005/regression-tmp/test_live_tensor_fsccsdt_again0/tile4/cc.log",
+      "sha256": "83befe5be3786a2ebfd9fbf8ffa03adbc77c4d2dfa3deea1a03e65f41845fe1d",
+      "cause": "/data/code/atomx-references/2026-10-09-ci-fscc/EXP-T-atomx-build/expt.x: error while loading shared libraries: libgfortran.so.5: cannot open shared object file: No such file or directory"
+    },
+    "streamed": {
+      "log": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd005/regression-tmp/test_streamed_fsccsdt_electron0/packed/cc.log",
+      "sha256": "83befe5be3786a2ebfd9fbf8ffa03adbc77c4d2dfa3deea1a03e65f41845fe1d",
+      "cause": "/data/code/atomx-references/2026-10-09-ci-fscc/EXP-T-atomx-build/expt.x: error while loading shared libraries: libgfortran.so.5: cannot open shared object file: No such file or directory"
+    }
+  },
+  "distinct_checks": 162,
+  "single_all_pass_run": false,
+  "skips": 0,
+  "documentation": {
+    "files": [
+      "docs/ATOMIC_LINEARIZED_SD.md",
+      "docs/ARCHITECTURE_CAPABILITIES.md",
+      "docs/CORRELATED_METHOD_TESTING.md",
+      "docs/TESTING.md",
+      "docs/VERIFICATION.md",
+      "docs/AGENT_INSIGHTS.md",
+      "docs/DEVELOPMENT.md",
+      "docs/atomic_pci_sd_native_2026_10_09/README.md",
+      "docs/atomic_pci_sd_native_2026_10_09/technical_roadmap.md"
+    ],
+    "local_targets": 657,
+    "missing": [],
+    "diff_check": "pass",
+    "publication_scope": "Local paths only; dirty/untracked topic/source files not certified in a clean published checkout"
+  },
+  "contract_note": "006 preserves the original commutator hypothesis and the explicit correction/failure fields. Accepted equation is core-normal-ordered standalone SD with restored linear valence-single diagram, not uncorrected attached-reference commutator.",
+  "finite_metrics": {
+    "status": "pass-finite",
+    "states": 10,
+    "lines": 8,
+    "arrays": 195,
+    "maximum_errors": {
+      "primary_equation_Ha": 2.8021770222170784e-15,
+      "independent_action_Ha": 2.498001805406602e-16,
+      "independent_root_Ha": 9.16692936836494e-17,
+      "independent_amplitudes": 1.362120340537748e-11,
+      "independent_raw_Ha": 2.7255042671272666e-15,
+      "signed_state": 4.440892098500626e-16,
+      "projected_Ha": 4.780549471323824e-16,
+      "energy_Ha": 5.551115123125783e-17,
+      "J2_state": 4.087269140987477e-11
+    },
+    "magnetic_multiplet_energy_defects_Ha": {
+      "(2, -1)": 0.0,
+      "(3, -1)": 0.0,
+      "(2, 1)": 0.0,
+      "(2, -2)": 0.0
+    },
+    "max_full_eigenstate_residual_Ha": 0.0025514458096448436,
+    "max_line_consumption_error_au": 1.7763568394002505e-15,
+    "source_after_matches": true,
+    "production_hpc_achieved": false,
+    "experimental_accuracy_certified": false
+  },
+  "scope": "Finite DC SD correctness and properties only; no production J/GPU, full-space convergence, experimental accuracy, continuum/resonance or highest-level certificate"
+}

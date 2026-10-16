@@ -1,0 +1,32 @@
+{
+  "completed_CI_calls": 2,
+  "completed_gradient_calls": 2,
+  "explicit_H_builds": 2,
+  "attempted_CI_calls": 2,
+  "attempted_gradient_calls": 2,
+  "completed_model_evidence": [
+    {
+      "label": "full531",
+      "CI_gradient_path": "full531_CI_gradient.npz",
+      "CI_gradient_sha256": "95dc8ffe1823a1ad4a50bf5db01435fa04780d269ec284d3128065d3c9e50289",
+      "target_diagnostics_path": "full531_target_diagnostics.json",
+      "target_diagnostics_sha256": "f35bb0b293f1653df4bb020eb52a11cf376b4a9fe13c43afcc1ecac842e13d54",
+      "explicit_H_saved": true,
+      "H_path": "full531_H.npz",
+      "H_sha256": "5ee6696d3cb833056799df508cf753b596c623c578cb48a126c5ca61322cb3d7"
+    },
+    {
+      "label": "five_sectors261",
+      "CI_gradient_path": "five_sectors261_CI_gradient.npz",
+      "CI_gradient_sha256": "a3a064de240e094b38f9d54b741614d51e3b7585e5fc3762e060784391249e52",
+      "target_diagnostics_path": "five_sectors261_target_diagnostics.json",
+      "target_diagnostics_sha256": "258f0ef44e47a257afcc1900eed7646170575ec9c4346cecd42d14a249bee7b0",
+      "explicit_H_saved": true,
+      "H_path": "five_sectors261_H.npz",
+      "H_sha256": "17e248502472443b24dd62417169bb9e2179f6fab5c29535740f609bb4698f40"
+    }
+  ],
+  "accepted_checkpoint_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "stationarity_or_equivalence_claim": false,
+  "completed_stage": "five_sectors261"
+}

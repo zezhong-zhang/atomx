@@ -1,0 +1,12 @@
+START_SCF 180
+FOCK 180 -4
+FOCK 180 -3
+END FAILED 70.7013259239975
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run.py", line 326, in <module>
+    prepare() if args.prepare else run()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run.py", line 222, in run
+    e, v, info = refine_generalized_eigenblock(hp, sp,
+  File "/data/code/atomx/src/atomx/numerics/bspline/dirac_assembly.py", line 420, in refine_generalized_eigenblock
+    raise ValueError('input generalized eigenblock failed Gram gate')
+ValueError: input generalized eigenblock failed Gram gate

@@ -1,0 +1,19 @@
+{
+  "cupy_version": "14.2.0",
+  "numpy_version": "2.2.6",
+  "numpy_path": "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/__init__.py",
+  "cuda_driver": 13020,
+  "cuda_runtime": 13020,
+  "device_name": "NVIDIA GeForce RTX 4090",
+  "device_capability": "89",
+  "actual_device_total_bytes": 50863341568,
+  "device_report": "index, name, uuid, memory.total [MiB], memory.free [MiB], compute_cap, utilization.gpu [%]\n0, NVIDIA GeForce RTX 4090, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 49140 MiB, 47212 MiB, 8.9, 0 %\n",
+  "packages": {
+    "cupy-cuda13x": "14.2.0",
+    "cuda-toolkit": "13.2.2",
+    "nvidia-cublas": "13.4.1.3",
+    "nvidia-cuda-nvrtc": "13.2.86",
+    "nvidia-cuda-runtime": "13.2.86",
+    "nvidia-nvjitlink": "13.2.86"
+  }
+}

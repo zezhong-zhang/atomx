@@ -1,0 +1,596 @@
+{
+  "z": 54,
+  "converged": true,
+  "modes": {
+    "long_wavelength": {
+      "2p5 3s1": {
+        "upper_levels": [
+          {
+            "config": "2p5 3s1",
+            "index": 0,
+            "two_J": 0,
+            "parity": -1,
+            "energy_au": -1683.7940136672378,
+            "label": "2p3/2^4 2p1/2 3s1/2 [J=0/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 1,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1696.0398962787121,
+            "label": "2p3/2^3 2p1/2^2 3s1/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 2,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1683.6877979565563,
+            "label": "2p3/2^4 2p1/2 3s1/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 3,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1696.244001049607,
+            "label": "2p3/2^3 2p1/2^2 3s1/2 [J=4/2,-]"
+          }
+        ],
+        "lower_levels": [
+          {
+            "config": "2p6",
+            "index": 0,
+            "two_J": 0,
+            "parity": 1,
+            "energy_au": -1851.2392430800471,
+            "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+          }
+        ],
+        "lines": [
+          {
+            "upper": {
+              "config": "2p5 3s1",
+              "index": 1,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1696.0398962787121,
+              "label": "2p3/2^3 2p1/2^2 3s1/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 155.19934680133497,
+            "S": 0.0009658262934385367,
+            "A_per_s": 25779059019790.016,
+            "gf": 0.09993040657681025,
+            "f_value": 0.09993040657681025
+          },
+          {
+            "upper": {
+              "config": "2p5 3s1",
+              "index": 2,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1683.6877979565563,
+              "label": "2p3/2^4 2p1/2 3s1/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 167.5514451234908,
+            "S": 0.0003222394425036065,
+            "A_per_s": 10822350634916.275,
+            "gf": 0.035994456178178195,
+            "f_value": 0.035994456178178195
+          }
+        ],
+        "S_sum": 0.0012880657359421433,
+        "trace": 0.0012880657359421429
+      },
+      "2p5 3d1": {
+        "upper_levels": [
+          {
+            "config": "2p5 3d1",
+            "index": 0,
+            "two_J": 0,
+            "parity": -1,
+            "energy_au": -1685.6191569314863,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=0/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 1,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1685.381014454379,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 2,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1683.4278838224395,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 3,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1672.1388502583004,
+            "label": "2p3/2^4 2p1/2 3d3/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 4,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1685.1128999675443,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 5,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1684.4625268393638,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 6,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1672.8249047007996,
+            "label": "2p3/2^4 2p1/2 3d3/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 7,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1672.0281709088158,
+            "label": "2p3/2^4 2p1/2 3d5/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 8,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1685.2308309374703,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 9,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1684.2174893379884,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 10,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1671.935292004182,
+            "label": "2p3/2^4 2p1/2 3d5/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 11,
+            "two_J": 8,
+            "parity": -1,
+            "energy_au": -1684.594046584032,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=8/2,-]"
+          }
+        ],
+        "lower_levels": [
+          {
+            "config": "2p6",
+            "index": 0,
+            "two_J": 0,
+            "parity": 1,
+            "energy_au": -1851.2392430800471,
+            "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+          }
+        ],
+        "lines": [
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 1,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1685.381014454379,
+              "label": "2p3/2^3 2p1/2^2 3d3/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 165.85822862566806,
+            "S": 4.008972764311159e-05,
+            "A_per_s": 1305998094721.1218,
+            "gf": 0.004432807475314645,
+            "f_value": 0.004432807475314645
+          },
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 2,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1683.4278838224395,
+              "label": "2p3/2^3 2p1/2^2 3d5/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 167.8113592576076,
+            "S": 0.02015125091182568,
+            "A_per_s": 679930378401278.2,
+            "gf": 2.254405870836381,
+            "f_value": 2.254405870836381
+          },
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 3,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1672.1388502583004,
+              "label": "2p3/2^4 2p1/2 3d3/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 179.1003928217467,
+            "S": 0.011397309409987679,
+            "A_per_s": 467509373542064.75,
+            "gf": 1.3608417282931888,
+            "f_value": 1.3608417282931888
+          }
+        ],
+        "S_sum": 0.03158865004945647,
+        "trace": 0.03158865004945648
+      }
+    },
+    "finite_wavelength": {
+      "2p5 3s1": {
+        "upper_levels": [
+          {
+            "config": "2p5 3s1",
+            "index": 0,
+            "two_J": 0,
+            "parity": -1,
+            "energy_au": -1683.7940136672378,
+            "label": "2p3/2^4 2p1/2 3s1/2 [J=0/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 1,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1696.0398962787121,
+            "label": "2p3/2^3 2p1/2^2 3s1/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 2,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1683.6877979565563,
+            "label": "2p3/2^4 2p1/2 3s1/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3s1",
+            "index": 3,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1696.244001049607,
+            "label": "2p3/2^3 2p1/2^2 3s1/2 [J=4/2,-]"
+          }
+        ],
+        "lower_levels": [
+          {
+            "config": "2p6",
+            "index": 0,
+            "two_J": 0,
+            "parity": 1,
+            "energy_au": -1851.2392430800471,
+            "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+          }
+        ],
+        "lines": [
+          {
+            "upper": {
+              "config": "2p5 3s1",
+              "index": 1,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1696.0398962787121,
+              "label": "2p3/2^3 2p1/2^2 3s1/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 155.19934680133497,
+            "S": 0.0009645582272702995,
+            "A_per_s": 25745212816995.504,
+            "gf": 0.09979920454946939,
+            "f_value": 0.09979920454946939
+          },
+          {
+            "upper": {
+              "config": "2p5 3s1",
+              "index": 2,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1683.6877979565563,
+              "label": "2p3/2^4 2p1/2 3s1/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 167.5514451234908,
+            "S": 0.00031706791965872204,
+            "A_per_s": 10648666019808.385,
+            "gf": 0.0354167920940785,
+            "f_value": 0.0354167920940785
+          }
+        ],
+        "S_sum": 0.0012816261469290216,
+        "trace": null
+      },
+      "2p5 3d1": {
+        "upper_levels": [
+          {
+            "config": "2p5 3d1",
+            "index": 0,
+            "two_J": 0,
+            "parity": -1,
+            "energy_au": -1685.6191569314863,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=0/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 1,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1685.381014454379,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 2,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1683.4278838224395,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 3,
+            "two_J": 2,
+            "parity": -1,
+            "energy_au": -1672.1388502583004,
+            "label": "2p3/2^4 2p1/2 3d3/2 [J=2/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 4,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1685.1128999675443,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 5,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1684.4625268393638,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 6,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1672.8249047007996,
+            "label": "2p3/2^4 2p1/2 3d3/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 7,
+            "two_J": 4,
+            "parity": -1,
+            "energy_au": -1672.0281709088158,
+            "label": "2p3/2^4 2p1/2 3d5/2 [J=4/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 8,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1685.2308309374703,
+            "label": "2p3/2^3 2p1/2^2 3d3/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 9,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1684.2174893379884,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 10,
+            "two_J": 6,
+            "parity": -1,
+            "energy_au": -1671.935292004182,
+            "label": "2p3/2^4 2p1/2 3d5/2 [J=6/2,-]"
+          },
+          {
+            "config": "2p5 3d1",
+            "index": 11,
+            "two_J": 8,
+            "parity": -1,
+            "energy_au": -1684.594046584032,
+            "label": "2p3/2^3 2p1/2^2 3d5/2 [J=8/2,-]"
+          }
+        ],
+        "lower_levels": [
+          {
+            "config": "2p6",
+            "index": 0,
+            "two_J": 0,
+            "parity": 1,
+            "energy_au": -1851.2392430800471,
+            "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+          }
+        ],
+        "lines": [
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 1,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1685.381014454379,
+              "label": "2p3/2^3 2p1/2^2 3d3/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 165.85822862566806,
+            "S": 4.611299154124211e-05,
+            "A_per_s": 1502217217110.5107,
+            "gf": 0.005098812729107221,
+            "f_value": 0.005098812729107221
+          },
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 2,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1683.4278838224395,
+              "label": "2p3/2^3 2p1/2^2 3d5/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 167.8113592576076,
+            "S": 0.0199039409141537,
+            "A_per_s": 671585805598562.1,
+            "gf": 2.2267382529248274,
+            "f_value": 2.2267382529248274
+          },
+          {
+            "upper": {
+              "config": "2p5 3d1",
+              "index": 3,
+              "two_J": 2,
+              "parity": -1,
+              "energy_au": -1672.1388502583004,
+              "label": "2p3/2^4 2p1/2 3d3/2 [J=2/2,-]"
+            },
+            "lower": {
+              "config": "2p6",
+              "index": 0,
+              "two_J": 0,
+              "parity": 1,
+              "energy_au": -1851.2392430800471,
+              "label": "2p3/2^4 2p1/2^2 [J=0/2,+]"
+            },
+            "multipole": "E1",
+            "omega_au": 179.1003928217467,
+            "S": 0.011324907043505202,
+            "A_per_s": 464539480931487.44,
+            "gf": 1.3521968667743651,
+            "f_value": 1.3521968667743651
+          }
+        ],
+        "S_sum": 0.03127496094920014,
+        "trace": null
+      }
+    }
+  },
+  "counts": {
+    "H": 20,
+    "eig": 20,
+    "amp": 10
+  },
+  "arrays": 142,
+  "stages": {
+    "import_seconds": 0.30029345804359764,
+    "construct_seconds": 4.069705028086901e-05,
+    "ground_scf_seconds": 1.7968896790407598,
+    "long_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.034298956976272166,
+    "long_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.007079515955410898,
+    "finite_wavelength_2p5 3s1_virtual_CI_E1_seconds": 0.004570967052131891,
+    "finite_wavelength_2p5 3d1_virtual_CI_E1_seconds": 0.009560843114741147,
+    "science_seconds_excluding_import_export": 1.8524406591895968,
+    "array_export_seconds": 0.002037561032921076
+  },
+  "model": "independently optimized Gu local point-nucleus DC, frozen configuration CI; 2000 ground grid points"
+}

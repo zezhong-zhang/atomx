@@ -1,0 +1,21 @@
+{
+  "status": "SOURCE_ready_no_science_await_root_seal",
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "files": {
+    "run.py": "7f789273301b93b4ab1e44a5c7460b4baa72e3895dc27f9c12e7eb3110f75137",
+    "freeze_source.py": "fa12bb1cd28d217f39a103af5c531f27ed7842dbb95263be76e19375264ff806",
+    "contract.json": "de7072e505bba4d52811574d35163fd6dec72917d4169ba9a4d5ce8cc40d83fa",
+    "current_source_identity.json": "4f0450bfaf160b1542d71850b3e346ddcaf35614d149a79fd97e69d4514c5966",
+    "README.md": "2bbe56335c41b84b0565777ded14f03d7b526634500684a0e44de46abab000ff"
+  },
+  "validation": {
+    "Ruff": "PASS",
+    "AST_parse": "PASS",
+    "stdlib_SOURCE": "PASS",
+    "current_source_files": 358,
+    "nullspace_census": 43,
+    "science_calls": 0,
+    "input_NPZ_loads": 0
+  },
+  "ownership": "matched001 only; no shared source modifications"
+}

@@ -1,0 +1,25 @@
+{
+  "hypothesis": "A larger numerical subspace preserves complete standalone equations and all CPU/CUDA/independent gates",
+  "physical_and_operator_policy": "Unchanged finite driver with exact term31/41/terma4, all four complete orbital variants and all ten M; no physical pruning or tolerance changes",
+  "base_contract_scope": "The original driver's physical/core/GPU protocol is retained; its fixed numeric16 description is superseded only by this explicit numeric64 execution contract",
+  "numerical_subspace": 64,
+  "full_vector_families": 2,
+  "max_actions": 160,
+  "coupled_stages": 8,
+  "finite_solver_target_Ha": 1e-14,
+  "independent_gates_Ha": 1e-11,
+  "host_cap_bytes": 268435456,
+  "device_cap_bytes": 2147483648,
+  "source_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_cuda_subspace.py": "99d4083f1db13ad12d3e7b85b9b0cfcb4941e95d39f26e6d3de6a23ac1a9655f",
+    "docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_cuda.py": "e5f84636ce0831aaf492e27436e207a705c7fbc314086ec1db8c512ef72ba491",
+    "docs/atomic_pci_sd_native_2026_10_09/monovalent_davidson_control.py": "e1398d03416089856c26fc60228f8ddbcdd59e47d4b64a35604276fbc5d6b49a"
+  },
+  "load": [
+    13.07666015625,
+    12.79345703125,
+    14.9404296875
+  ],
+  "stop": "Any source/budget/independent/paired/root failure rejects; no silent fallback or relaxed gate",
+  "scope": "Private finite numerical policy, no large-root performance or experimental certification"
+}

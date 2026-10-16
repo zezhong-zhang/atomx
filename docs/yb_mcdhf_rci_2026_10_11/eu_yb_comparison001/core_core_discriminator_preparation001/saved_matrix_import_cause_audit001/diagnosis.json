@@ -1,0 +1,241 @@
+{
+  "status": "SOURCE_ONLY_eager_package_import_cause_identified",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_bindings": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/__init__.py",
+      "line": 15,
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+      "finding": "eager import DiracFock",
+      "source_line": "from atomx.methods.dirac_fock import DiracFock"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/__init__.py",
+      "line": 18,
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+      "finding": "eager import MBPT",
+      "source_line": "from atomx.methods.mbpt import MBPT2Result, mbpt2_energy"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/__init__.py",
+      "line": 19,
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+      "finding": "eager import MCDHF",
+      "source_line": "from atomx.methods.mcdhf import MCDHF"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/dirac_fock.py",
+      "line": 28,
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+      "finding": "imports dirac_assembly module and function definitions",
+      "source_line": "from atomx.numerics.bspline.dirac_assembly import ("
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/mbpt.py",
+      "line": 78,
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+      "finding": "imports dirac_assembly module and function definitions",
+      "source_line": "from atomx.numerics.bspline.dirac_assembly import ("
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/mcdhf/__init__.py",
+      "line": 34,
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+      "finding": "eager import shared MCDHF solver module",
+      "source_line": "from atomx.methods.mcdhf.solver import MCDHFResult, MCDHFSolver"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/mcdhf/__init__.py",
+      "line": 36,
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+      "finding": "eager import physics.csf.matrix module",
+      "source_line": "from atomx.physics.csf.matrix import build_ci_matrix"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/mcdhf/solver.py",
+      "line": 2,
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c",
+      "finding": "eager import shared variational CSF solver",
+      "source_line": "from atomx.methods.csf.solver import VariationalCSFResult, VariationalCSFSolver"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/solver.py",
+      "line": 23,
+      "sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+      "finding": "eager import physics.csf.matrix module",
+      "source_line": "from atomx.physics.csf.matrix import build_ci_matrix"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "line": 33,
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "finding": "imports dirac_assembly build_dirac_matrices symbol",
+      "source_line": "from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py",
+      "line": 63,
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+      "finding": "retained-owner import is conditional on non-None snapshot; ordinary diagnostic result does not enter it",
+      "source_line": "        if self.hamiltonian_snapshot is not None:"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/dirac_assembly.py",
+      "line": 82,
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+      "finding": "producer definition build_dirac_matrices",
+      "source_line": "def build_dirac_matrices(ns, kappa, Z, bspline_data, nuclear_potential_func=None):"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/dirac_assembly.py",
+      "line": 366,
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+      "finding": "producer definition solve_dirac",
+      "source_line": "def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "line": 485,
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "finding": "producer definition build_ci_matrix",
+      "source_line": "def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "line": 704,
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "finding": "producer definition _radial_evaluator",
+      "source_line": "def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None,"
+    }
+  ],
+  "driver_bindings": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py",
+      "sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+      "line": 346,
+      "finding": "from atomx.methods import ci as ci_module triggers parent package initializer"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py",
+      "sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+      "line": 882,
+      "finding": "any prohibited module presence is the actual final failed gate"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py",
+      "sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+      "line": 893,
+      "finding": "runtime full Atomx module-origin loop is after failed check and was not reached"
+    }
+  ],
+  "closed_inputs": {
+    "root_receipt_sha256": "8b8cece49c4cc6af05d8af0c8ba35ee13a2915ef03a3bf2f34e83fdd2532435d",
+    "failure_sha256": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+    "preparation_manifest_sha256": "c5eaea9793c2f2e1c1e6faffe66d54b543b71668eca45d4f3fb1f46a0969d192"
+  },
+  "dependency_chain": "driver from atomx.methods import ci -> eager methods package imports DiracFock/MBPT/MCDHF -> dirac_assembly and physics.csf.matrix imported before diagnostic observer installation",
+  "module_presence_is_not_producer_invocation": true,
+  "deterministically_imported_prohibited_modules_from_bound_source": [
+    "atomx.numerics.bspline.dirac_assembly",
+    "atomx.physics.csf.matrix"
+  ],
+  "actual_runtime_membership_roster_not_archived": true,
+  "variational_or_snapshot_module_presence_not_claimed": true,
+  "top_level_SOURCE_statement_audit": [
+    {
+      "path": "atomx/methods/dirac_fock.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/methods/mbpt.py",
+      "top_level_statement_calls": [
+        {
+          "line": 84,
+          "call": "logging.getLogger(__name__)"
+        },
+        {
+          "line": 89,
+          "call": "lru_cache(maxsize=None)(wigner_6j)"
+        },
+        {
+          "line": 89,
+          "call": "lru_cache(maxsize=None)"
+        }
+      ],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/methods/mcdhf/__init__.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/methods/mcdhf/solver.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/methods/csf/solver.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/physics/csf/matrix.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    },
+    {
+      "path": "atomx/numerics/bspline/dirac_assembly.py",
+      "top_level_statement_calls": [],
+      "listed_physics_producer_invocations_found": 0
+    }
+  ],
+  "recorded_calls": {
+    "attempted": {
+      "H": 0,
+      "hS": 0,
+      "radial_key": 0,
+      "gradient": 0,
+      "Dirac_spectrum": 0,
+      "optimizer": 0,
+      "native_ci_solve": 0,
+      "angular_null_space": 43,
+      "complete_block_eigh": 5,
+      "tracker_signed_overlap": 2,
+      "public_projection": 20,
+      "tracker_resolve": 1,
+      "tracking_SVD": 5
+    },
+    "completed": {
+      "H": 0,
+      "hS": 0,
+      "radial_key": 0,
+      "gradient": 0,
+      "Dirac_spectrum": 0,
+      "optimizer": 0,
+      "native_ci_solve": 0,
+      "angular_null_space": 43,
+      "complete_block_eigh": 5,
+      "public_projection": 20,
+      "tracker_signed_overlap": 2,
+      "tracking_SVD": 5,
+      "tracker_resolve": 1
+    }
+  },
+  "producer_counter_scope": "H and native_ci_solve blockers observe those later entry points. hS/radial/g/Dirac/optimizer counters were initialized to zero, not independent wrappers. Source call-path and module-statement audit support no producer invocation; zero initialized counters alone are not a general dynamic proof.",
+  "original_guard_stays_failed": true,
+  "original_core_byte_gate_stays_failed": true,
+  "diagnostic_controls": {
+    "PASS": 56,
+    "FAIL": 1
+  },
+  "source_or_model_qualified": false,
+  "no_retry": true,
+  "no_frozen_edits": true,
+  "audit_science_imports": 0,
+  "audit_numerical_archive_reads": 0,
+  "audit_numerical_archive_hashes": 0,
+  "audit_numerical_calls": 0,
+  "receipt_status": "foreground_closed"
+}

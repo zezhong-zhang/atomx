@@ -1,0 +1,7 @@
+Expectation: preserve full1595/31 signed physics, original source/point/UID/metric/gates, and all primitive work while isolating matched private CPU1/CPU4/CUDA timing. Execute only under exact root authorization after competing jobs close.
+
+Action: prepared literal qualified point/validation helpers, frozen-adapter timing driver and foreground RSS guardian. Added independent bytes-backed H/E/C comparison snapshots and per-thread affinity controls. Source-only proof binds all public alias/cache observers, operation-order formulas and fixed schedule. A first preparation-tool output failed at a string-to-Path hash conversion; only that stdlib helper was corrected, without numerical execution or a scientific gate change.
+
+Result: source/JSON and syntax/lint preparation only. No numerical arrays read/hashed, H/CI/g/Dirac/eigen/GPU/JIT/profile/timer executed. Exact runtime prerequisite receipts remain root-filled. This is not a performance or physical certificate.
+
+Significance: first-call qualification times are incomparable. Scored comparison requires five alternating matched warm triplets, full primitive/g/band/metric equality, host nonoverlap and closed resource receipt. Per-thread permitted affinity prevents a nominal CPU4 mask from being confused with four usable cores; even then actual utilization and whole-optimizer efficiency are separate claims. CUDA-factor residency never permits reuse of gradients or omission of density/band transfers.

@@ -1,0 +1,43 @@
+{
+  "status": "predeclared_saved_matrix_diagnosis_only",
+  "hypothesis": "Independent selected-root bordered refinement can spoil joint orthogonality; a full-block metric Ritz solve can repair it, but residual components outside the original electron span may remain and cannot be removed by merely normalizing individual columns.",
+  "fixed_conditions": {
+    "inputs": ["../yb_high_l002/actual/failed_arrays.npz", "../yb_high_l003/actual/failed_arrays.npz"],
+    "channel": 4,
+    "original_active_indices": "P[1:120], Q[124:244]; ns=123,nsp=122,nsq=123,nb=1,ibzero=2",
+    "active_dimension": 239,
+    "electron_columns": 119,
+    "band": "every original electron root E<50Ha; expected67; same root ordering and identity",
+    "operator": "The lower triangle of the saved Fock_raw_4 defines the symmetric physical H, exactly as in the original drivers. S_4 is unchanged. The unused upper H storage is not a different operator to diagnose.",
+    "source_changes": false,
+    "atomic_operator_calls": 0,
+    "new_physical_directions": 0
+  },
+  "arithmetic_declared_before_execution": [
+    "Read only the two saved failed-array archives; cross-check exact equality of saved H/S/original E/V. Restrict all matrix arithmetic to the same239 boundary coordinates.",
+    "Measure original and individually refined119-column eigenpairs, both ordinary FP64 residual and longdouble-contracted residual, using the original positive-definite S-dual norm. Separate diagonal normalization and off-diagonal Gram defects.",
+    "Perform exactly two complete119-dimensional block Ritz solves inside the original119-column span: ordinary FP64 projected H/G and longdouble-projected H/G, each using a Cholesky metric frame and a complete symmetric eigensolve. The lower projected triangle defines the symmetric reduced operator, matching native conventions; no physical H/S alteration.",
+    "For each Ritz route, lift all119 roots through the original basis; compare native Ritz energies and wide Rayleigh energies, both preserving original full band membership/order. Measure ordinary and wide-contracted full residuals and every original residual gate.",
+    "Construct the complete thin metric-orthogonal basis of the original electron span. Split whitened residuals into in-span and out-of-span parts for all119 columns. This is diagnostic projection, not a relaxed residual gate.",
+    "Record metric conditioning, projected-H asymmetry from contractions, original-root overlaps, energy movements relative to nearest gap, full electron projector idempotence, and complete-band per-root residual arrays. No repeated algorithm search or new atomic calculation."
+  ],
+  "unchanged_gates": {
+    "full_S_Gram": 1e-10,
+    "whole_electron_projector_idempotence": 1e-10,
+    "complete_band_ordinary_Sdual_Ha": 1e-8,
+    "original_column_overlap_min": 0.99,
+    "energy_shift_nearest_gap_fraction_max": 0.25
+  },
+  "resource_caps": {
+    "BLAS_threads": 1,
+    "CPU_seconds": 30,
+    "outer_wall_seconds": 75,
+    "address_space_bytes": 2147483648,
+    "largest_matrix_dimension": 239,
+    "block_eigh_calls": 2,
+    "maximum_load1": 16,
+    "minimum_MemAvailable_bytes": 8589934592
+  },
+  "stopping_condition": "Exactly one launch. Preserve all failed comparisons without changing gates, roots, input operators, or the declared routes. Any schema/hash/resource/identity mismatch aborts; report an unmeasured outcome rather than inventing it.",
+  "qualification_limits": "Saved kappa4 only; kappa−5 was never reached in these failures. No current DF stationarity, high-l correlation/spectral response, experimental accuracy, source-kernel qualification, or performance speedup is established by this diagnostic."
+}

@@ -1,0 +1,456 @@
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md
++++ docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md
+@@ -1,115 +1,21 @@
+-# 按电子结构选择方法：当前实现、参考软件与推进路线
++# 方法定位：以 Atomx 原生实现为主线
+ 
+-2026-10-11。响应用户关于 Ne／Eu“全量”和 FS-CCSDT 选择的询问。
+-本页区分实际计算、方法定位与尚未实现的建议；不把软件说明作为 Atomx 精度认证。
++2026-10-11 用户明确裁定：原子物理和求解器在 Atomx 内实现；其他软件用于
++参考方程、比较物理、精度与效率，不能以外部后端接入作为完成目标。
++当前权威路线、Ne/Eu 成功基线与六方向合同见
++[Atomx 原生原子物理路线](../atomic_native_roadmap_2026_10_11/README.md)。
+ 
+-## 当前实际物理与技术方案
++本页上一版漏掉 Ne 后期完整 3200 Ha 原生 CI 和 Eu 原生标定多重态成功记录，
++仅列早期有限实例不足以判断 Atomx 水平。修订前原文与源审计保存在
++[前版快照](../atomic_native_roadmap_2026_10_11/previous_sources/manifest.json)；
++早期数值仍是其原模型的证据，不作为最佳实践的代表。
+ 
+-当前用于 Yb⁺ 五态比较的大空间链是 **Dirac–Coulomb 线性化原子全阶 SD**，
+-`CoreSD → ReducedMonovalentSD`，消费原 pCI 的 J 约化图项。
+-同一 Fermi 核／V68／ns123，全部 68 个核电子参与，虚池保留声明的
+-ℓ≤3、E<5 Ha 内全部 414 个径向键。全阶指在保留的 SD 图类内迭代所有微扰阶，
+-不包括全部连接激发秩或完整非线性簇积。实际消费与缺项见
+-[覆盖审计](coverage/README.md)和[当前 SD 合同](../ATOMIC_LINEARIZED_SD.md)。
++当前大空间 Yb CoreSD → ReducedMonovalentSD 仍实际调用 pCI-derived 图项库，
++fscc.compute 仍实际执行 EXP-T。既有比较与缺陷修复证据保留；这描述当前依赖，
++不是未来目标，也不把依赖重新标为全链原生实现。
+ 
+-技术组织是 Python 方法／身份／调度，原生 B-spline 大小分量与公共径向、角动量
+-算符，Numba 热核，pCI Fortran 图项通过 ctypes 调用，SciPy 矩阵自由求解，
+-BLAS／OpenMP 局部并行。私有候选还使用 CUDA／CuPy 驻留数组，部分标量密度核
+-用同一物理／数组合同分别编译 Numba CPU prange 与 CUDA 实现。
+-已有 CPU 密度核 1→8 线程 4.6131× 的阶段测量；GPU 独占负载门失败，未获得
+-受控 GPU 或端到端加速比。公共 SD 入口无 CUDA 参数，当前消费者未获得 MPI
+-执行认证。见[共享核证据](../atomic_pci_sd_native_2026_10_09/README.md#numba-cpu与cuda共享数值核)。
+-硬件后端不决定图项是否完整，也不改变方法精度。
+-
+-另一路 `methods.fscc.compute` 使用原生 signed 积分和来源绑定、修复过的 EXP-T
+-张量后端，实际实现非线性 CCSD／CCSDT。现有公共扇区为闭壳 `0h0p`、单粒子
+-附着 `0h1p`、单空穴 `1h0p`；它不是当前 Yb 大空间主链，也不是任意多开放壳
+-原子的已实现统一求解器。较早的小虚池 Yb CCSD／CCSDT 实算及其未过的精度门
+-仍属[原模型](../atomic_allorder_fscc_2026_10_09/README.md)，不能替代当前大池谱。
+-
+-| Atomx 路径 | 最接近的已有实现 | 关系与当前边界 |
+-|---|---|---|
+-| 大核、单价原子约化 SD | pCI 原子 all-order | 已实际消费其线性化 SD 图项；多价物理 CI+all-order 完整消费仍未认证 |
+-| 积分驱动非线性 CC／FSCC | EXP-T | 已接入并修复实际后端；生产重原子完整空间／性质仍未认证 |
+-| 轨道自洽、CSF／RCI 路径 | GRASP 类 MCDHF／RCI | 方法组织相近，不能由相近性推断与 GRASP 的完整能力或精度相等 |
+-| 建议中的开放 f 壳与核空穴主线 | AMBiT 粒子—空穴 CI + 核有效关联 | 是拟推进的方法定位，不能将下载／编译 AMBiT 当作已完成生产消费 |
+-| 大谱库／碰撞过程比较 | FAC | 继续作为独立基准；匹配局域势、组态、算符和状态后才比较精度／效率 |
+-
+-pCI 官方明确 all-order 包采用线性化单、双激发；AMBiT 论文明确以粒子—空穴
+-CI+MBPT 处理多价开放壳。方法对应有[官方 pCI 文档](https://pci.readthedocs.io/en/latest/extensions/all-order.html)、
+-[AMBiT 原论文](https://arxiv.org/abs/1805.11265)、
+-[EXP-T 项目](https://github.com/aoleynichenko/EXP-T)、
+-[GRASP 项目](https://compas.github.io/grasp/)和
+-[FAC 官方手册](https://github.com/flexible-atomic-code/fac/blob/master/doc/manual.tex)支持。
+-以上定位来自实际消费者审计与方法对照，没有给这些程序作未经测量的统一排名。
+-
+-## Ne／Eu 的“全量”究竟是什么
+-
+-| 已有例子 | 实际包含的空间 | 仍有限的物理 |
+-|---|---|---|
+-| Ne⁷⁺ K 孔谱的完整 n=1,2 CI | 三电子；10 个磁轨道的全部 C(10,3)=120 个行列式／34 CSF，联合电荷轨道松弛 | 没有 n≥3 相关池或完整 Breit/QED；实验位置仍偏低约 0.64–0.87 eV |
+-| Ne 非线性 CCSD | 全部 10 占据电子；ns40 基内 s/p/d、E<1 Ha 的 40 径向／144 虚磁轨道 | 只保留连接 T1/T2；未证明无限分波／径向收敛或完整激发谱 |
+-| Ne 原生线性化 SD | 全部 10 核电子；声明 E<50 Ha 的完整 VN 虚池，实算至 s/p/d/f/g | 线性化图类与 SD 秩截断；f→g 核相关能仍改变约 0.01188 Ha |
+-| Eu 历史谱例 | Eu³⁺ 的冻结 [Xe]、单组态 4f⁶ 完整多重态／J 扇区 | 不是中性 Eu，也不是全部 60 电子相关；没有该例外部激发与完整轨道松弛 |
+-
+-Ne⁷⁺ 证据是[完整有限 n12 模型](../xfel_ci_snapshot_2026_10_04/README.md#固定轨道空间检验)
+-与[实验配线](../xfel_experimental_spectrum_2026_10_04/README.md)。它不是中性 Ne
+-的全电子 CI；三电子小空间可以直接完整对角化，没必要用 FSCC 替代这个已有锚。
+-中性 Ne 证据分别是[非线性实算](../atomic_allorder_fscc_2026_10_09/README.md#实际原子规模与完整虚能窗)
+-和[约化 SD 能窗](../atomic_pci_sd_native_2026_10_09/README.md#完整-ne-能窗与规模测量)。
+-Eu [工作空间源码](../../src/atomx/methods/csf/lanthanide_workspace.py)明确
+-`max_excitations=0`，4f 空间的全部行列式至多 C(14,6)=3003，完整对角化仍只是
+-这个有限空间的精确结果。旧[谱位／缩放记录](../SLATER_SCALING_SPEC.md)的裸
+-⁵D₀ 偏高约 3164 cm⁻¹，经验 Fk 标定／迁移不等于第一性物理已补齐；旧证据不改写。
+-
+-全部电子参与、声明虚池完整、选定组态内全部根、完整有限 FCI、全部物理关联
+-是不同要求。CCSDT 保留连接三激发并通过指数包含非连通高阶项，但没有一般的
+-连接 T4 及更高秩。扩大虚池不会补回这些项，也不会使冻结核自动活跃。
+-
+-## 为什么保留 FS-CCSDT，以及更合适的主线
+-
+-FS-CCSDT 的价值是闭壳附近少数粒子／空穴的高阶动态关联与严格方法阶数对照。
+-本轮[同 H 实际方法阶数控制](method_rank/README.md)固定 Z=4 原轨道、点核、
+-DC 加有限频率横向交换，不扩大任何空间：LCCSD、CCSD、CCSDT 的核能量对
+-完整有限 FCI 有符号差分别为 −2894.247、+5.00127、+0.695735 cm⁻¹，各自
+-保留方程均收敛。两种真实 FSCC 的完整八根最大总能量差为 770.0686 与
+-1.99569 cm⁻¹。LCCSD 核控制使用公开密集有限入口，没有匹配 LCCSD 附着求解。
+-这些数展示遗漏非线性／秩的条件响应，不是 Yb／Eu 修正、实验误差界或普适排名。
+-
+-按目标电子结构，建议采用以下分工，尚未完成的项须单独实现、验收：
+-
+-1. **少电子 Ne⁷⁺**：已有完整有限 CI／RCI 保留作为主方法与独立锚，先核对关键
+-   关联、轨道平衡、连续态／算符，再做 n／分波收敛。**中性 Ne 闭壳基态／电离**：
+-   CCSD 到 CCSDT 的匹配空间与秩控制合适；激发谱另需
+-   EOM-EE、1h1p 或显式粒子—空穴 RCI，不能从闭核相关能推断。当前 FSCC 入口
+-   没有 1h1p 公共消费。共振还需独立连续态与极点认证。
+-2. **Yb⁺ 等近闭壳单价体系**：原子 J 约化 SD／非线性 CC 配合价三激发和高阶
+-   小空间标尺；平衡 4f-hole P 空间作为独立竞争模型，禁止把 4f 相关和独立空穴
+-   根混同。实际哪个缺项主导当前谱偏差仍待生产同模型测量。
+-3. **Eu³⁺ 开放 4f⁶ 与中性 Eu 开放 4f⁷6s²**：优先平衡多参考 MCDHF／RCI
+-   或粒子—空穴 CI，以显式活跃壳描述近简并混合，核心有效关联用 MBPT 到
+-   all-order 控制。中性 Eu 从 [Xe] 出发有九个开放壳电子，现有单附着／单空穴
+-   FSCC 入口无法直接替代；Eu³⁺ 的六开放壳电子也有同样的接口问题。
+-   电荷／基态组态以[NIST Eu 数据](https://physics.nist.gov/PhysRefData/Handbook/Tables/europiumtable1_a.htm)及实际输入分别核对。
+-4. 大价空间可研究 CI+PT／CIPT 等 P/Q 压缩；这又是近似，需测量被忽略的 Q–Q
+-   耦合、能量依赖和高阶有效算符，不能与完整 CI 等同。
+-   [CIPT 原论文](https://arxiv.org/abs/1611.00425)是方法依据，并非现有 Atomx 完成证据。
+-
+-上述选择是根据电子结构和已有方法能力作出的建议，不是已证明对 Eu 最优。
+-CI+all-order 也不是完备性捷径：核心 SD 截断、模型空间漏态、有效三体及更高体
+-项、减法图与双计数、上下态轨道平衡、性质响应都需要覆盖合同和独立检验。
+-多参考 CC 可作为后续更高阶路线，现阶段不为没有生产实现的复杂方法换标签。
+-
+-## 具体推进原则
+-
+-先在实际固定 Hamiltonian／上下态／空间下核对完整低阶系数与允许振幅域，
+-再用非线性／三激发、平衡空穴、完整 transverse 的差分响应辨别主因。
+-开放 f 壳优先构造并认证平衡 P/Q、轨道目标和核心有效算符；小空间 oracle 与
+-外部程序共同约束符号、混合与度量。完整 Breit／QED／反冲与 dressed 性质逐项
+-进入同态账，有限实数频率 Breit 不升级为完整 bound-state QED。
+-之后才决定分波、能窗及 CPU/GPU 扩展。GPU 面向实际占时的分块张量收缩、
+-批积分和矩阵自由 H·x，并以相同物理门的端到端测量决定调度。
+-
+-共享径向、角动量、积分／状态身份与结果合同；方法显式选择物理，CPU/CUDA/
+-外部后端选择实现。最高水准应由目标原子／离子、可观测量和可验证不确定度
+-定义。目前没有新的生产 Yb／Eu 高精度谱，没有普适最优方法认证。
++原生方法按目标电子结构选择：Ne 核激发保留成功的 RCI；开放 f 壳优先原生
++MCDHF/多参考 CI 与平衡核空穴；近闭壳核/价关联推进原生约化 SD 和非线性
++CCSDT/FSCC。共享径向、角代数、signed 积分、态身份与有效算符；CPU/GPU
++实现遵守相同物理合同。原方法阶数、p 核低阶和非正则方程证据仍限定其
++已记录模型，不能转移成新的 Yb/Eu 谱或普适最优方法证明。
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/AGENT_REFERENCE.md
++++ docs/AGENT_REFERENCE.md
+@@ -8,7 +8,8 @@
+ 
+ ## 当前指南
+ 
+-- [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)：固定空间完整signed方程与两类二阶极限，公共非正则FSCC入口拒绝已知错误后端；保留秩正确与遗漏秩误差分开，优先物理补全再扫截断。[当前方法定位](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)区分pCI型生产SD、EXP-T高阶对照、Ne完整声明池与Eu³⁺单组态，以及待实现的开放f壳多参考路线。
++- [Atomx原生原子物理路线](atomic_native_roadmap_2026_10_11/README.md)：恢复Ne后期约9/14meV原生谱位与Eu标定RMS8.2cm⁻¹成功实践；原生六方向并行，其他软件用于物理/精度/效率参考和独立对照，当前pCI/EXP-T依赖如实记录。
++- [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)：固定空间完整signed方程与两类二阶极限，公共非正则FSCC入口拒绝已知错误后端；保留秩正确与遗漏秩误差分开，优先物理补全再扫截断。旧方法定位的早期Ne/Eu实例不代表最佳实践，勘误见上一项。
+ - [物理量级与推进优先级](atomic_physics_budget_2026_10_11/README.md)：当前完整五态的绝对束缚偏差、重心与分裂，历史／文献／条件代理量级分开；先判别重要相关通道，再选完整同模型求根，未宣称已修好谱线。
+ - [外部精度与并行效率实测](atomic_external_benchmark_2026_10_11/README.md)：同完整 signed 输入的 AMBiT、pCI-derived SD、有限 EXP-T 对照；固定工作量、真实线程数、等待器开销与未通过 GPU 负载门分别记录。
+ - [FAC 完整精度与效率续测](atomic_external_benchmark_2026_10_11/fac/README.md)：192能级／2003积分的全部对称块、严格未通过门、四离子完整CI/E1流程和实际线程观测；各自优化模型与诊断导出负担分别标注。
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/AGENT_INSIGHTS.md
++++ docs/AGENT_INSIGHTS.md
+@@ -15,6 +15,12 @@
+ 证据中的日期、模型和源身份限定测量范围，`adopted` 不代表普遍科学认证。
+ 
+ ## 当前登记
++
++2026-10-11 用户裁定：[Atomx原生原子物理路线](atomic_native_roadmap_2026_10_11/README.md)
++是开发主线；参考软件用于方程、物理、精度和效率对照，接入后端不等于原生
++能力完成。当前依赖与未来目标分开。恢复Ne后期谱位和Eu标定多重态基线，
++禁止仅用早期裸模型概括项目水平；模型/参考类型/拟合状态与成功数字同时保存。
++这是用户决定与有界证据，不是全部原子第一性精度认证。
+ 
+ 2026-10-11 [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)
+ 进一步细化既有 transition-feedback-priority：扩大空间后改善不证明方程／算符
+@@ -26,9 +32,9 @@
+ 后续[固定 H 实际方法阶数控制](atomic_physics_correctness_2026_10_11/method_rank/README.md)
+ 和[占据 p／多 j 低阶控制](atomic_physics_correctness_2026_10_11/sd_pcore/README.md)
+ 分别提供非线性／秩的有限差分与真实源／Born 极限；后者仍不是全允许域／全阶
+-证明。[方法定位](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)将“全量”
+-限定到实际电子、轨道池、组态和激发秩：Eu³⁺ 的冻结核 4f⁶ 完整谱不升级为
+-中性 Eu 或全核相关；先按目标开放壳和状态选择方法，再决定规模与后端。
++证明。“全量”仍限定到实际电子、轨道池、组态和激发秩；早期Ne/Eu实例不替代
++后期成功基线。按目标开放壳和状态选择原生方法，再决定规模与CPU/GPU实现。
++当前定位与勘误见上方原生路线。
+ 
+ 2026-10-11 [完整五态物理量级重估](atomic_physics_budget_2026_10_11/README.md)
+ 细化既有 transition-feedback-priority：选择下一项前先比较同模型上态减下态的
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/THEORY_NIST_COMPARISON.md
++++ docs/THEORY_NIST_COMPARISON.md
+@@ -51,13 +51,15 @@
+ at matched fixed space. The g-band/energy-tail screen is deferred until these
+ gates pass; historical corrections are not transferred to the current roots.
+ 
+-The [method-selection assessment](atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md)
+-distinguishes all-electron participation, complete declared orbital/configuration
+-spaces and retained excitation ranks. The existing Eu example is frozen-[Xe]
+-Eu3+ 4f6, rather than neutral Eu or full-core correlation. Its fitted Slater
+-parameters remain a calibrated model; their agreement is not an independent
+-ab-initio precision result. Select closed-shell CC/FSCC and open-shell
+-multi-reference CI routes by the target states and verified operator coverage.
++The [native roadmap and recovered successes](atomic_native_roadmap_2026_10_11/README.md)
++supersede the earlier incomplete inventory. Native Ne7+ q/r positions differ from
++Togawa 2024 experiments by -8.896190/-13.881082 meV; these are not NIST rows.
++Native calibrated Eu3+ 4f6 has historical target RMS 8.2 cm-1 and full-M
++3003-determinant assembly. Its aquo-ion targets and the current local NIST
++bracketed semiempirical rows are distinct references; their agreement is not
++independent ab-initio experimental certification. Preserve successful numbers,
++declared spaces, fit status and open gates together. Develop physics in Atomx;
++external programs supply reference equations and independent benchmarks.
+ 
+ DHF includes mean-field exchange; it does not include general electron
+ correlation. MCDHF and CI include correlation only within their declared spaces.
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/ATOMIC_FSCC.md
++++ docs/ATOMIC_FSCC.md
+@@ -1,4 +1,9 @@
+ # Integral-driven atomic CCSD and Fock-space CCSDT
++
++Development follows the [Atomx native roadmap](atomic_native_roadmap_2026_10_11/README.md).
++The EXP-T path documented here is an existing implementation and independent
++comparator; its integration does not complete native CCSDT/FSCC. Native finite
++CCSD and successful native Ne/Eu CI routes remain distinct building blocks.
+ 
+ `atomx.methods.fscc.compute` runs full nonlinear single/double or
+ single/double/triple amplitude equations through a pinned, locally built
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/ATOMIC_LINEARIZED_SD.md
++++ docs/ATOMIC_LINEARIZED_SD.md
+@@ -1,4 +1,9 @@
+ # Native atomic linearized SD
++
++The [native roadmap](atomic_native_roadmap_2026_10_11/README.md) distinguishes
++native finite equations and partial J-block diagrams from the current large-core
++pCI-derived shared-library consumer. Native production equations must be
++implemented and independently validated; a backend integration is not that goal.
+ 
+ `atomx.methods.linearized_sd` provides an exact scalar SD resource planner
+ and a finite native closed-core linearized CC equation anchor.
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/ARCHITECTURE_CAPABILITIES.md
++++ docs/ARCHITECTURE_CAPABILITIES.md
+@@ -2,6 +2,11 @@
+ 
+ This table describes implemented interfaces and their verification scope. An
+ implemented interface does not establish experimental accuracy for every atom.
++
++The [native atomic roadmap](atomic_native_roadmap_2026_10_11/README.md) records
++recovered Ne/Eu successes and the user decision to implement solvers in Atomx.
++Existing pCI-derived/EXP-T dependencies below describe current execution;
++they are reference/comparison paths, not completed native replacements.
+ 
+ | Area | Implemented contract | Remaining limit |
+ |---|---|---|
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/atomx_hourly_progress_2026_10_10/progress.json
++++ docs/atomx_hourly_progress_2026_10_10/progress.json
+@@ -1,67 +1,37 @@
+ {
+-  "updated_at": "2026-10-11T05:46:48.165027+00:00",
++  "updated_at": "2026-10-11T06:41:38.672357+00:00",
+   "yb_comparison": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+   "dynamic_breit_result": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+   "tasks": [
+     {
+-      "status": "公共入口已修复／完整有限独立控制通过／生产物理缺口保留",
+-      "title": "物理正确性与覆盖优先",
+-      "detail": "非正则0h1p入口拒绝任何非零Fov的旧／错误源码绑定；修复源完整120×8 Bloch差1.78e−15Ha。SD两类二阶28个M列通过；四核34投影坐标覆盖17维物理空间，完整差1.60e−14Ha，初次随机rho失败定位为交换约束而非缺图项。先占据p/多j与原五态低阶控制，再同H判别非线性／连接秩／平衡4f孔态、完整横向与性质。g/能窗后置，旧量级不相加，原实验门保持。"
++      "title": "方向1：Atomx完整原生J约化全阶SD",
++      "status": "有限完整方程锚已实跑；生产图集待补齐",
++      "detail": "DC/static/dynamic完整12方向source/K/energy及原门通过；独立PH作用重现300个signed DD漏项，优先补原生PH、混合图及Fock/singles/核/价/Σ₂与生产分块缩并，pCI仅对照，现有依赖如实记录。"
+     },
+     {
+-      "status": "远程已发布／六方向真实科学进程已完成",
+-      "title": "NIST 元素周期表与实际迭代",
+-      "detail": "真实卡片回执触发六个独立OS科学进程，六条完整signed/同H探针全部完成，实际重叠0.814115秒；244份输出/数组/归档SHA核验通过，151项受影响回归无失败/跳过。实际20GiB预留，池24GiB/服务26GiB/额外8GiB主机余量；首次CPU负载拒绝记录保留，门限未放宽。每张卡重新按gap审阅准入；同source/input/action已完成则不重复，后续生产实现仍须独立验证后注册。"
++      "title": "方向2：Atomx原生非线性CCSDT / FSCC",
++      "status": "有限原生CCSD存在；原生T3/S3与生产缩并待实现",
++      "detail": "固定H保留方程和FCI锚检验真正非线性与三激发；复用signed积分/状态/数值合同，分块计算。EXP-T作为交叉验证，不以接入作为原生完成。"
+     },
+     {
+-      "status": "已完成私有验证",
+-      "title": "大规模 J 约化全阶线性化 SD + GPU",
+-      "detail": "Yb⁺ 五根、50次完整CPU/GPU数组对照保留；声明DC线性化SD、全部68核、l≤3/414径向虚态/E≤5Ha。当前有限物理域与低阶验证不替代大Yb独立完整H、非线性／三激发或实验精度认证。"
++      "title": "方向3：原生开放f壳、平衡核空穴与轨道松弛",
++      "status": "复用Eu多重态与Ne RCI成功基础",
++      "detail": "Eu原生4f⁶全M3003行列式及标定RMS8.2cm⁻¹已找到；原生MCDHF/CI、态跟踪、互补P/Q与核有效关联用于新缺项辨别，平衡4f-hole与上下态，避免重复计数。"
+     },
+     {
+-      "status": "当前 helper 已实际消费完整旧波函数／新尾根待做",
+-      "title": "完整 (1+T+S) 物理范数",
+-      "detail": "新源 run002 实际重算原完整 Yb 五态全部18M，28,218,500核坐标不缩水；fresh104case/832component独立锚及原64MiB/1e-11门通过。仅证明当前metric消费原source-bound波函数，不是新core/root或新l4尾收敛。"
++      "title": "方向4：完整静态/动态Breit、QED与反冲物理",
++      "status": "原生通用横向J块及有限三模式锚通过；生产全链未完成",
++      "detail": "完整核/价/Σ₂通道与同态算符账，修正进入后重解上下态，比较重心/分裂/强度；有限实频动态Breit不是完整束缚态QED。"
+     },
+     {
+-      "status": "原生 doubles source/PP/HH 子图集通过／其余图项待补",
+-      "title": "动态 Breit 积分与 FS-CCSDT",
+-      "detail": "新增不可变J/宇称桥之上完整scalar doubles source、PP与normal-ordered HH ladders以及linked能量；全部10 doubles/495独立Fermi行在DC/static/dynamic/复相位下通过原门。其余core/Fock/singles/ring、valence、Sigma2仍未构成完整大规模横向SD。"
++      "title": "方向5：同态性质、NIST与周期表精度账",
++      "status": "Ne/Eu成功基线来源已复核；Yb精度失败保留",
++      "detail": "相关范数/左右态/密度/E1/E2/M1/寿命继续原生实现；Ne实验非NIST，Eu标定及NIST半经验分列。远程页面仍是已发布快照，新增比较先由来源绑定卡片同步。"
+     },
+     {
+-      "status": "完整预检门保留／扩截断后置于物理方程与覆盖",
+-      "title": "核—价虚轨道尾部与收敛",
+-      "detail": "lmax3/4 × Emax5/10 Ha完整径向数414/441/532/567，五态共同空间；host/device载荷含norm/staging。原l4 88.4/88.6MB失败保留；有界缓存改为14.15–18.54MB而不缩水。生产联合求根仍需source-bound executor、完整angular计数与实时GPU准入。"
+-    },
+-    {
+-      "status": "非正则入口源能力门已实现／有限保留投影通过／遗漏T4方法误差保留",
+-      "title": "FS-CCSDT 与三激发规模化",
+-      "detail": "公开0h1p任何非零Fov要求ATOMX_FOV_T2_001及已验证sector01源码绑定，不删Fov／不放宽门。当前入口两核120行8根通过完整Bloch/HEFF/FCI；已存四核12spinor保留投影6.48e−14Ha，完整遗漏秩残差2.28e−3Ha、FCI方法差9.09e−6Ha分别保留；不能继承两核exactness或声称生产三激发已完备。"
+-    },
+-    {
+-      "status": "完整有限wave/metric与E1/E2/M1通过／生产寿命待做",
+-      "title": "相关 E1/E2/M1 与寿命",
+-      "detail": "新增FiniteCorrelatedWave，强制完整full-H和两端physical metric后消费现有CI transition owner；native E1/E2/M1共11个完整signed分量与独立CI最大差2.665e-15au。生产截断CC、核响应、rates/lifetimes与实验未认证。"
+-    },
+-    {
+-      "status": "同预算实际Numba CPU/CUDA逐位相等／负载门拒绝加速比",
+-      "title": "高性能与可复现",
+-      "detail": "修复scoped CUDA loader后在原4GiB自动地址预算内运行公共density四rank及全部DC/static/dynamic PP/HH批量，CPU/CUDA bitwise一致。冷热/传输/驻留阶段分列，设备负载门未过、speedup=null；不宣称大规模端到端加速。"
+-    },
+-    {
+-      "status": "严格报告门通过／实验精度门仍失败",
+-      "title": "完整同态 NIST 对照与下一轮缺口",
+-      "detail": "原YbII完整五态同H/空间/零点和本地ASD5.12的349levels/327lines审计：四激发误差0.9250%、1.1684%、4.1413%、3.3799%，其中3/4超原1%门；两精细分裂+3.1465%/−9.3620%均失败；四目标线只2个唯一observed，E2观测与四态u缺失保留未知。下一轮必须五态共同完整空间求根，优先d双重态/分裂，不能拼接新旧根。未产生新谱或精度提升。"
+-    },
+-    {
+-      "status": "完整实测与来源复核完成；实验1%门未通过",
+-      "title": "Atomx vs AMBiT / pCI / EXP-T 精度与效率",
+-      "detail": "同完整输入：AMBiT Σ₁差1.429e−21Ha，Na⁺SD差8.674e−19Ha；Yb完整414虚轨道term2 stress三轮8线程S4.790/E59.87%，非已收敛波函数/全求解倍数。完整AMBiT BeII八线程S1.390/E17.37%；EXP-T小四核2线程S0.559，4/8资源拒绝。GPU负载失败保留观察，不报受控倍数。"
+-    },
+-    {
+-      "status": "完整测量与独立复核通过／严格径向门仍未过",
+-      "title": "FAC 精度、完整流程与实际并行效率",
+-      "detail": "192能级/2003积分全部比较，He/C/Fe共同积分通过原门，Pb绝对门失败；共同轨道4000点四组仍未过。四离子分组独立CI（无3s/3d组间耦合）共68能级/20物理E1跃迁×2光子模式，64激发最大模型差0.124292%、40条A记录最大差3.785096%，非NIST误差。FAC单/八请求线程4.769/4.752s，S8=1.005/E12.56%；Atomx单/四请求线程8.929/8.964s，S4=0.999/E24.97%；实际8请求出现15线程超限拒绝。源/运行库/全部数组复核，私有缓存排除未完成Pb样本后全流程重测。SCF是主成本（Atomx7.058s），下一步共同轨道积分定位、SCF/初始化复用、真实线程治理；独立离子吞吐尚未测，未建立实验排名。"
++      "title": "方向6：Numba CPU/GPU与可复用高性能架构",
++      "status": "共享数值核已有私有控制；公共生产加速需验收",
++      "detail": "共同物理/数组合同、精确分块/批积分/矩阵自由作用和驻留数据优先。固定模型及原门测端到端加速、真实并行效率；FAC/AMBiT/pCI/EXP-T只作参考对照，不以worker数推断效率。"
+     }
+   ],
+   "spectra": [
+@@ -78,11 +48,18 @@
+       "reader": "rare_earth_lifetimes"
+     },
+     {
+-      "title": "Ne⁷⁺ K 孔 X 射线位置",
+-      "comparison": "四条匹配线：联合弛豫 CI 与实验评估约差 −0.64 至 −0.87 eV。",
+-      "status": "有实验位置锚；不能当作四个独立精细分裂实验或完整 XFEL 线型。",
+-      "source_artifact": "docs/xfel_experimental_spectrum_2026_10_04/comparison.json",
+-      "reader": "ne_xray_positions"
++      "title": "Ne⁷⁺原生高精度Kα卫星线（后期完整3200Ha）",
++      "comparison": "每次从后期实际计算及实验JSON重读。",
++      "status": "未拟合原生RCI；Togawa2024实验，非NIST。保留局部相关与物理极点未闭合门；早期n12仅为历史模型。",
++      "source_artifact": "docs/xfel_tail_breit_pole_2026_10_06/e3200/analysis.json",
++      "reader": "native_ne_positions"
++    },
++    {
++      "title": "Eu³⁺原生多重态/晶场成功基线",
++      "comparison": "每次从来源审计JSON重读。",
++      "status": "历史标定与本地NIST半经验参考分列；未知不确定度保留；未拟合⁷F单列，不作为独立实验认证。",
++      "source_artifact": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/evidence.json",
++      "reader": "native_eu_baseline"
+     },
+     {
+       "title": "Auger / 光电离",
+@@ -115,7 +92,7 @@
+   ],
+   "fscc_precision_result": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+   "fscc_strict_target": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+-  "priority": "原子级最高水平；先独立固定空间核对物理方程和覆盖，再按差分量级补重要物理，随后空间/GPU规模收敛；分子晶体暂缓",
++  "priority": "Atomx原生原子物理实现；成功基线→固定空间物理判别→重要缺项→生产缩并→完整共同空间及CPU/GPU效率；参考软件只作独立对照",
+   "atlas": {
+     "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+     "scope": "私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+@@ -130,8 +107,16 @@
+   "external_benchmark_report": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+   "external_benchmark_metrics": "docs/atomic_external_benchmark_2026_10_11/fac/metrics.json",
+   "fac_benchmark_gaps": "docs/atomic_external_benchmark_2026_10_11/fac/gaps.json",
+-  "physics_budget_result": "docs/atomic_physics_correctness_2026_10_11/results.json",
+-  "physics_priority_report": "docs/atomic_physics_correctness_2026_10_11/README.md",
+-  "physics_next_setups": "docs/atomic_physics_budget_2026_10_11/next_setups.json",
+-  "historical_physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json"
++  "physics_budget_result": "docs/atomic_native_roadmap_2026_10_11/results.json",
++  "physics_priority_report": "docs/atomic_native_roadmap_2026_10_11/README.md",
++  "physics_next_setups": [
++    "Implement native normal-ordered PH and mixed-rank/Fock/singles linked SD contractions on the validated shared J blocks; independent300-element PH anchor closes the DD gap. Then complete core/valence/Sigma2 and allowed amplitude domain, without claiming the finite matrix projection scalable.",
++    "Native nonlinear CCSDT/FSCC from finite same-H oracle to real block contractions; reference EXP-T only independently.",
++    "Reuse native Eu CI/MCDHF and Ne RCI/state tracking; balanced open-f and core-hole P/Q without double counting.",
++    "Complete same-wavefunction transverse/QED/recoil/property chain with differential upper-minus-lower physics scales.",
++    "Validated observed/semiempirical/calibrated NIST/reference atlas and native same-state properties.",
++    "CPU/GPU share physical/array identity; optimize contraction representation, then controlled end-to-end/parallel benchmarks."
++  ],
++  "historical_physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json",
++  "historical_correctness_result": "docs/atomic_physics_correctness_2026_10_11/results.json"
+ }
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/atomx_hourly_progress_2026_10_10/README.md
++++ docs/atomx_hourly_progress_2026_10_10/README.md
+@@ -1,4 +1,11 @@
+ # 飞书每小时任务与谱学对照
++
++2026-10-11 最新用户裁定与[原生路线](../atomic_native_roadmap_2026_10_11/README.md)
++将待办改为Atomx原生六方向；其他软件仅作方程、物理、精度和效率独立对照。
++Ne成功基线改读后期3200Ha实际JSON，检查能量/参考/残差单位一致；Eu改读
++来源绑定的历史标定/本地NIST半经验审计，输入变化拒绝显示旧结论。原早期
++n12和裸CI记录保留，不能代表最佳实践。原生linked SD三模式新控制已实跑；
++原生生产SD/CCSDT executor尚未注册，发卡仍按原有有界选择器如实显示前沿。
+ 
+ 用户于 2026-10-10 要求将待办和各种计算谱／实验谱对照列成飞书卡片，
+ 每小时同步。已安装用户级 systemd timer，使用当前 `aisi-codex` bridge 的应用身份，
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/atomx_hourly_progress_2026_10_10/sync_card.py
++++ docs/atomx_hourly_progress_2026_10_10/sync_card.py
+@@ -9,6 +9,7 @@
+ import fcntl
+ import hashlib
+ import json
++import math
+ import os
+ import subprocess
+ import uuid
+@@ -117,6 +118,40 @@
+                     f"{len(rows)} 条匹配线：联合弛豫 CI 与实验评估差 "
+                     f"{min(errors):+.3f} 至 {max(errors):+.3f} eV。"
+                 )
++            elif item.get("reader") == "native_ne_positions":
++                positions = []
++                for line in ("q", "r"):
++                    row = data["transitions"][line]
++                    calculated = row["energy_eV"]
++                    reference = data["experiment"][line + "_eV"]
++                    difference = row["minus_experiment_meV"]
++                    if not all(math.isfinite(value) for value in
++                               (calculated, reference, difference)) or not math.isclose(
++                        difference, 1000 * (calculated - reference),
++                        rel_tol=0, abs_tol=1e-6,
++                    ):
++                        raise ValueError("native Ne position/reference identity mismatch")
++                    positions.append(
++                        f"{line}：{calculated:.9f} / {reference:.4f} eV；"
++                        f"计算−实验 {difference:+.6f} meV"
++                    )
++                comparison_text = "；".join(positions)
++                comparison_text += (
++                    f"。实验来源：{data['experiment']['source']}；"
++                    f"完整相关收敛={data['full_correlation_converged']}，"
++                    f"物理极点认证={data['physical_pole_certified']}。"
++                )
++            elif item.get("reader") == "native_eu_baseline":
++                # The historical calibrated target is distinct from the
++                # current NIST semiempirical rows. Verify the audit inputs
++                # before presenting its source/classification-aware summary.
++                for binding in data["inputs"].values():
++                    path = (REPO / binding["path"]).resolve()
++                    if (not path.is_relative_to(REPO.resolve()) or
++                        hashlib.sha256(path.read_bytes()).hexdigest() != binding["sha256"]):
++                        raise ValueError("native Eu baseline input identity changed")
++                    citations.append(dict(path=binding["path"], sha256=binding["sha256"]))
++                comparison_text = data["card_summary"]
+         spectrum_lines.append(
+             f"• **{item['title']}**：{comparison_text}\n{item['status']}"
+         )
+--- docs/atomic_native_roadmap_2026_10_11/previous_sources/docs/README.md
++++ docs/README.md
+@@ -15,6 +15,7 @@
+ - [Testing](TESTING.md): test organization and commands.
+ - [NIST reference data and periodic atlas](NIST_SPECTRUM_ATLAS.md): read-only export, state matching, remote snapshot and historical coverage limits.
+ - [Theory–NIST comparison](THEORY_NIST_COMPARISON.md): state matching, uncertainty and interpretation.
++- [Native atomic roadmap](atomic_native_roadmap_2026_10_11/README.md): recovered Ne/Eu precision, six native directions, reference-only external programs and fixed-space physics controls.
+ 
+ ## Atomic solvers and operators
+ 

@@ -1,0 +1,1654 @@
+{
+  "status": "read_only_derivation_from_saved_energies_no_new_physics",
+  "contract_sha256": "9fc10913c4d354e64ba37216e1c3b23237bf596ee4f42d16ade765a2559dba08",
+  "hash_checks": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json",
+      "expected": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+      "actual": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json",
+      "expected": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+      "actual": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/contract.json",
+      "expected": "6667b9940e7d70d883fa3fbec6e36af1db2e4462af6e92cc307ba6e3c74843b8",
+      "actual": "6667b9940e7d70d883fa3fbec6e36af1db2e4462af6e92cc307ba6e3c74843b8",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/result.json",
+      "expected": "438fe049c5c82da3d7d10e839f8f3500edb7f4d8f63d503f6679cd21aa59a0c8",
+      "actual": "438fe049c5c82da3d7d10e839f8f3500edb7f4d8f63d503f6679cd21aa59a0c8",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/result.json",
+      "expected": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+      "actual": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json",
+      "expected": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+      "actual": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json",
+      "expected": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+      "actual": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/result.json",
+      "expected": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+      "actual": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/coverage_correction.json",
+      "expected": "acdbbb347f339cca7705f39b93f6bb4798cf66686d3cad81a1e298504fb2d583",
+      "actual": "acdbbb347f339cca7705f39b93f6bb4798cf66686d3cad81a1e298504fb2d583",
+      "pass": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/contract.json",
+      "expected": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+      "actual": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "expected": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+      "actual": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/methods/csf/variational.py",
+      "expected": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "actual": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/physics/csf/breit_ci.py",
+      "expected": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+      "actual": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/physics/csf/transverse.py",
+      "expected": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+      "actual": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "expected": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "actual": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/corrections/qed.py",
+      "expected": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+      "actual": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/shabaev.py",
+      "expected": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+      "actual": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+      "pass": true
+    },
+    {
+      "path": "src/atomx/corrections/stack.py",
+      "expected": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+      "actual": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+      "pass": true
+    }
+  ],
+  "all_hash_checks_pass": true,
+  "conversion_cm1_per_Ha": 219474.63136314112,
+  "conversion_provenance": "Recovered exactly from archived005 energy/transition pair; all005/531/mixed003 correction saved differences crosschecked with their stored cm-1 values; no new constants or solver imported.",
+  "NIST_nominal_excitation_cm1": {
+    "6s_1/2": 0.0,
+    "5d_3/2": 22960.8,
+    "5d_5/2": 24332.69,
+    "6p_1/2": 27061.82,
+    "6p_3/2": 30392.23
+  },
+  "NIST_nominal_multiplets": {
+    "5d": {
+      "centroid_cm1": 23783.933999999997,
+      "splitting_cm1": 1371.8899999999994
+    },
+    "6p": {
+      "centroid_cm1": 29282.093333333334,
+      "splitting_cm1": 3330.41
+    }
+  },
+  "bare005": {
+    "stationarity_passed": true,
+    "orbital_residual": 5.143009363125294e-08,
+    "gate_scope": "Five reference CSFs only, not531 mixed-CI orbital objective",
+    "seed_alternative_projector_leakage_max": 2.1837975872074367e-11,
+    "leakage_scope": "Seed-only S-norm yardstick; not final531 no-pair differential-energy bound",
+    "static_minus_DC": {
+      "absolute_energy_delta_Ha": {
+        "6s_1/2": 14.14828574636158,
+        "5d_3/2": 14.148420414623615,
+        "5d_5/2": 14.148220992039569,
+        "6p_1/2": 14.14812324446757,
+        "6p_3/2": 14.147987996197116
+      },
+      "upper_minus_same_lower_response_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": 29.556267166472914,
+        "5d_5/2": -14.211930952565124,
+        "6p_1/2": -35.665043283733205,
+        "6p_3/2": -65.34860758397431
+      },
+      "multiplet_response": {
+        "5d": {
+          "centroid_cm1": 3.295348295050091,
+          "splitting_cm1": -43.76819811903804
+        },
+        "6p": {
+          "centroid_cm1": -55.45408615056061,
+          "splitting_cm1": -29.68356430024111
+        }
+      }
+    }
+  },
+  "balanced_frozen005_orbital_stages": [
+    {
+      "name": "stage_4f",
+      "CSFs": 294,
+      "same_orbitals": "native005 24-radial common spinors, frozen; no expanded MCDHF stationarity claim",
+      "models": {
+        "DC": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14067.48701187838,
+            "5d_3/2": -14067.376357314697,
+            "5d_5/2": -14067.373727516702,
+            "6p_1/2": -14067.374146668317,
+            "6p_3/2": -14067.36019162638
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 24285.869572987947,
+            "5d_5/2": 24863.04351845928,
+            "6p_1/2": 24771.050372370413,
+            "6p_3/2": 27833.828057183953
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 1325.069572987948,
+            "5d_5/2": 530.3535184592802,
+            "6p_1/2": -2290.7696276295865,
+            "6p_3/2": -2558.4019428160464
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 24632.173940270746,
+              "splitting_cm1": 577.1739454713315
+            },
+            "6p": {
+              "centroid_cm1": 26812.902162246104,
+              "splitting_cm1": 3062.77768481354
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 848.2399402707473,
+              "splitting_cm1": -794.7160545286679
+            },
+            "6p": {
+              "centroid_cm1": -2469.1911710872264,
+              "splitting_cm1": -267.6323151864599
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0036491603113972815,
+              "5d_3/2": -0.001106110245018499,
+              "5d_5/2": -0.0008092637071968056,
+              "6p_1/2": -0.004780103325174423,
+              "6p_3/2": -0.0037885799629293615
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 558.1349758564949,
+              "5d_5/2": 623.2852603163357,
+              "6p_1/2": -248.21330104145795,
+              "6p_3/2": -30.599076624780857
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 597.2251465323994,
+                "splitting_cm1": 65.1502844598408
+              },
+              "6p": {
+                "centroid_cm1": -103.13715143033988,
+                "splitting_cm1": 217.6142244166771
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0036491603113972815,
+              "5d_3/2": -0.001106110245018499,
+              "5d_5/2": -0.0008092637071968056,
+              "6p_1/2": -0.004780103325174423,
+              "6p_3/2": -0.0037885799629293615
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 558.1349758564949,
+              "5d_5/2": 623.2852603163357,
+              "6p_1/2": -248.21330104145795,
+              "6p_3/2": -30.599076624780857
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 597.2251465323994,
+                "splitting_cm1": 65.1502844598408
+              },
+              "6p": {
+                "centroid_cm1": -103.13715143033988,
+                "splitting_cm1": 217.6142244166771
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        },
+        "static_Breit": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14053.338790951844,
+            "5d_3/2": -14053.227963294165,
+            "5d_5/2": -14053.225524911912,
+            "6p_1/2": -14053.22618369773,
+            "6p_3/2": -14053.212339464044
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 24323.859314090907,
+            "5d_5/2": 24859.02236016333,
+            "6p_1/2": 24714.43558543185,
+            "6p_3/2": 27752.89367029061
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 1363.0593140909077,
+            "5d_5/2": 526.332360163331,
+            "6p_1/2": -2347.3844145681505,
+            "6p_3/2": -2639.3363297093892
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 24644.95714173436,
+              "splitting_cm1": 535.1630460724227
+            },
+            "6p": {
+              "centroid_cm1": 26740.074308671024,
+              "splitting_cm1": 3038.458084858761
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 861.0231417343617,
+              "splitting_cm1": -836.7269539275767
+            },
+            "6p": {
+              "centroid_cm1": -2542.0190246623097,
+              "splitting_cm1": -291.9519151412387
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0037139801370358327,
+              "5d_3/2": -0.0011325043360557174,
+              "5d_5/2": -0.0008276509561255807,
+              "6p_1/2": -0.004940377206366975,
+              "6p_3/2": -0.003924413824279327
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 566.5684497929802,
+              "5d_5/2": 633.4760329729546,
+              "6p_1/2": -269.16304469628903,
+              "6p_3/2": -46.184855934152424
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 606.7129997009648,
+                "splitting_cm1": 66.90758317997438
+              },
+              "6p": {
+                "centroid_cm1": -120.51091885486464,
+                "splitting_cm1": 222.9781887621366
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0037139801370358327,
+              "5d_3/2": -0.0011325043360557174,
+              "5d_5/2": -0.0008276509561255807,
+              "6p_1/2": -0.004940377206366975,
+              "6p_3/2": -0.003924413824279327
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 566.5684497929802,
+              "5d_5/2": 633.4760329729546,
+              "6p_1/2": -269.16304469628903,
+              "6p_3/2": -46.184855934152424
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 606.7129997009648,
+                "splitting_cm1": 66.90758317997438
+              },
+              "6p": {
+                "centroid_cm1": -120.51091885486464,
+                "splitting_cm1": 222.9781887621366
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        }
+      },
+      "same_stage_static_minus_DC": {
+        "absolute_energy_delta_Ha": {
+          "6s_1/2": 14.148220926535942,
+          "5d_3/2": 14.148394020532578,
+          "5d_5/2": 14.14820260479064,
+          "6p_1/2": 14.147962970586377,
+          "6p_3/2": 14.147852162335766
+        },
+        "upper_minus_same_lower_response_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 37.98974110295833,
+          "5d_5/2": -4.021158295946225,
+          "6p_1/2": -56.61478693856429,
+          "6p_3/2": -80.93438689334589
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 12.783201463615596,
+            "splitting_cm1": -42.01089939890455
+          },
+          "6p": {
+            "centroid_cm1": -72.82785357508536,
+            "splitting_cm1": -24.319599954781594
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_4f5p",
+      "CSFs": 468,
+      "same_orbitals": "native005 24-radial common spinors, frozen; no expanded MCDHF stationarity claim",
+      "models": {
+        "DC": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14067.491828915267,
+            "5d_3/2": -14067.37765429007,
+            "5d_5/2": -14067.37479886399,
+            "6p_1/2": -14067.37768172289,
+            "6p_3/2": -14067.362871422982
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 25058.43377592316,
+            "5d_5/2": 25685.127362372583,
+            "6p_1/2": 25052.412967980723,
+            "6p_3/2": 28302.8980807273
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 2097.633775923161,
+            "5d_5/2": 1352.4373623725842,
+            "6p_1/2": -2009.4070320192768,
+            "6p_3/2": -2089.3319192726995
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 25434.449927792815,
+              "splitting_cm1": 626.6935864494226
+            },
+            "6p": {
+              "centroid_cm1": 27219.40304314511,
+              "splitting_cm1": 3250.485112746577
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 1650.5159277928149,
+              "splitting_cm1": -745.1964135505768
+            },
+            "6p": {
+              "centroid_cm1": -2062.6902901882254,
+              "splitting_cm1": -79.92488725342264
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0048170368863793556,
+              "5d_3/2": -0.0012969753734068945,
+              "5d_5/2": -0.0010713472875067964,
+              "6p_1/2": -0.0035350545731489547,
+              "6p_3/2": -0.0026797966020239983
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 772.5642029352117,
+              "5d_5/2": 822.0838439133069,
+              "6p_1/2": 281.36259561030914,
+              "6p_3/2": 469.07002354334696
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 802.2759875220688,
+                "splitting_cm1": 49.51964097809514
+              },
+              "6p": {
+                "centroid_cm1": 406.500880899001,
+                "splitting_cm1": 187.70742793303782
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.008466197197776637,
+              "5d_3/2": -0.0024030856184253935,
+              "5d_5/2": -0.001880610994703602,
+              "6p_1/2": -0.008315157898323378,
+              "6p_3/2": -0.00646837656495336
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 1330.6991787917066,
+              "5d_5/2": 1445.3691042296425,
+              "6p_1/2": 33.1492945688512,
+              "6p_3/2": 438.4709469185661
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 1399.5011340544684,
+                "splitting_cm1": 114.66992543793594
+              },
+              "6p": {
+                "centroid_cm1": 303.3637294686611,
+                "splitting_cm1": 405.3216523497149
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        },
+        "static_Breit": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14053.343634120009,
+            "5d_3/2": -14053.229370737836,
+            "5d_5/2": -14053.226687058774,
+            "6p_1/2": -14053.229640438802,
+            "6p_3/2": -14053.214932767502
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 25077.913680679692,
+            "5d_5/2": 25666.91315353148,
+            "6p_1/2": 25018.721160616387,
+            "6p_3/2": 28246.68189742261
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 2117.113680679693,
+            "5d_5/2": 1334.2231535314822,
+            "6p_1/2": -2043.0988393836124,
+            "6p_3/2": -2145.548102577388
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 25431.313364390768,
+              "splitting_cm1": 588.9994728517886
+            },
+            "6p": {
+              "centroid_cm1": 27170.69498515387,
+              "splitting_cm1": 3227.9607368062243
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 1647.3793643907666,
+              "splitting_cm1": -782.8905271482108
+            },
+            "6p": {
+              "centroid_cm1": -2111.3983481794626,
+              "splitting_cm1": -102.44926319377555
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.0048431681643705815,
+              "5d_3/2": -0.001407443671268993,
+              "5d_5/2": -0.0011621468620433006,
+              "6p_1/2": -0.0034567410712043056,
+              "6p_3/2": -0.002593303457615548
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 754.054366588786,
+              "5d_5/2": 807.8907933681496,
+              "6p_1/2": 304.2855751845397,
+              "6p_3/2": 493.7882271320026
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 786.3562226564043,
+                "splitting_cm1": 53.83642677936359
+              },
+              "6p": {
+                "centroid_cm1": 430.6206764828483,
+                "splitting_cm1": 189.50265194746288
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.008557148301406414,
+              "5d_3/2": -0.0025399480073247105,
+              "5d_5/2": -0.0019897978181688813,
+              "6p_1/2": -0.00839711827757128,
+              "6p_3/2": -0.006517717281894875
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 1320.6228163817664,
+              "5d_5/2": 1441.3668263411041,
+              "6p_1/2": 35.12253048825067,
+              "6p_3/2": 447.6033711978502
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 1393.0692223573692,
+                "splitting_cm1": 120.74400995933775
+              },
+              "6p": {
+                "centroid_cm1": 310.1097576279837,
+                "splitting_cm1": 412.48084070959953
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        }
+      },
+      "same_stage_static_minus_DC": {
+        "absolute_energy_delta_Ha": {
+          "6s_1/2": 14.14819479525795,
+          "5d_3/2": 14.148283552234716,
+          "5d_5/2": 14.148111805216104,
+          "6p_1/2": 14.148041284088322,
+          "6p_3/2": 14.147938655480175
+        },
+        "upper_minus_same_lower_response_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 19.479904756532655,
+          "5d_5/2": -18.214208841103467,
+          "6p_1/2": -33.691807364333734,
+          "6p_3/2": -56.21618330469021
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -3.136563402049018,
+            "splitting_cm1": -37.69411359763612
+          },
+          "6p": {
+            "centroid_cm1": -48.70805799123806,
+            "splitting_cm1": -22.524375940356478
+          }
+        }
+      }
+    },
+    {
+      "name": "stage_4f5p5s",
+      "CSFs": 531,
+      "same_orbitals": "native005 24-radial common spinors, frozen; no expanded MCDHF stationarity claim",
+      "models": {
+        "DC": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14067.491964235893,
+            "5d_3/2": -14067.377907247468,
+            "5d_5/2": -14067.375041909669,
+            "6p_1/2": -14067.37775406067,
+            "6p_3/2": -14067.362943466233
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 25032.615488887055,
+            "5d_5/2": 25661.484446151946,
+            "6p_1/2": 25066.236104983105,
+            "6p_3/2": 28316.785859361364
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 2071.815488887056,
+            "5d_5/2": 1328.7944461519473,
+            "6p_1/2": -1995.5838950168945,
+            "6p_3/2": -2075.444140638636
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 25409.93686324599,
+              "splitting_cm1": 628.8689572648909
+            },
+            "6p": {
+              "centroid_cm1": 27233.26927456861,
+              "splitting_cm1": 3250.5497543782585
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 1626.0028632459907,
+              "splitting_cm1": -743.0210427351085
+            },
+            "6p": {
+              "centroid_cm1": -2048.824058764722,
+              "splitting_cm1": -79.86024562174134
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.00013532062621379737,
+              "5d_3/2": -0.0002529573976062238,
+              "5d_5/2": -0.00024304567887156736,
+              "6p_1/2": -7.233777978399303e-05,
+              "6p_3/2": -7.204325083876029e-05
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": -25.8182870361029,
+              "5d_5/2": -23.642916220639034,
+              "6p_1/2": 13.823137002382635,
+              "6p_3/2": 13.887778634063366
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": -24.51306454682458,
+                "splitting_cm1": 2.175370815463868
+              },
+              "6p": {
+                "centroid_cm1": 13.866231423503123,
+                "splitting_cm1": 0.06464163168073078
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.008601517823990434,
+              "5d_3/2": -0.0026560430160316173,
+              "5d_5/2": -0.0021236566735751694,
+              "6p_1/2": -0.00838749567810737,
+              "6p_3/2": -0.00654041981579212
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 1304.8808917556037,
+              "5d_5/2": 1421.7261880090034,
+              "6p_1/2": 46.972431571233834,
+              "6p_3/2": 452.35872555262944
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 1374.9880695076433,
+                "splitting_cm1": 116.84529625339974
+              },
+              "6p": {
+                "centroid_cm1": 317.22996089216423,
+                "splitting_cm1": 405.3862939813956
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        },
+        "static_Breit": {
+          "absolute_energies_Ha": {
+            "6s_1/2": -14053.343764133217,
+            "5d_3/2": -14053.22965649585,
+            "5d_5/2": -14053.226959817186,
+            "6p_1/2": -14053.229698416486,
+            "6p_3/2": -14053.214988009948
+          },
+          "excitation_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 25043.73164662899,
+            "5d_5/2": 25635.58420242633,
+            "6p_1/2": 25034.531130641248,
+            "6p_3/2": 28263.092182802062
+          },
+          "NIST_nominal_gap_cm1": {
+            "6s_1/2": 0.0,
+            "5d_3/2": 2082.9316466289893,
+            "5d_5/2": 1302.8942024263306,
+            "6p_1/2": -2027.288869358752,
+            "6p_3/2": -2129.1378171979377
+          },
+          "multiplet_values": {
+            "5d": {
+              "centroid_cm1": 25398.843180107397,
+              "splitting_cm1": 591.8525557973408
+            },
+            "6p": {
+              "centroid_cm1": 27186.905165415123,
+              "splitting_cm1": 3228.561052160814
+            }
+          },
+          "multiplet_NIST_gap": {
+            "5d": {
+              "centroid_cm1": 1614.9091801073941,
+              "splitting_cm1": -780.0374442026587
+            },
+            "6p": {
+              "centroid_cm1": -2095.1881679182093,
+              "splitting_cm1": -101.84894783918571
+            }
+          },
+          "response_to_previous": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.00013001320803596172,
+              "5d_3/2": -0.0002857580147974659,
+              "5d_5/2": -0.00027275841239315923,
+              "6p_1/2": -5.79776842641877e-05,
+              "6p_3/2": -5.524244625121355e-05
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": -34.18203405070477,
+              "5d_5/2": -31.328951105152168,
+              "6p_1/2": 15.809970024860892,
+              "6p_3/2": 16.410285379448844
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": -32.47018428337321,
+                "splitting_cm1": 2.853082945552604
+              },
+              "6p": {
+                "centroid_cm1": 16.21018026125286,
+                "splitting_cm1": 0.600315354587952
+              }
+            }
+          },
+          "response_to_bare005": {
+            "absolute_energy_delta_Ha": {
+              "6s_1/2": -0.008687161509442376,
+              "5d_3/2": -0.0028257060221221764,
+              "5d_5/2": -0.0022625562305620406,
+              "6p_1/2": -0.008455095961835468,
+              "6p_3/2": -0.006572959728146088
+            },
+            "upper_minus_same_lower_response_cm1": {
+              "6s_1/2": 0.0,
+              "5d_3/2": 1286.4407823310614,
+              "5d_5/2": 1410.037875235952,
+              "6p_1/2": 50.93250051311156,
+              "6p_3/2": 464.01365657729906
+            },
+            "multiplet_response": {
+              "5d": {
+                "centroid_cm1": 1360.5990380739956,
+                "splitting_cm1": 123.59709290489059
+              },
+              "6p": {
+                "centroid_cm1": 326.31993788923654,
+                "splitting_cm1": 413.0811560641875
+              }
+            }
+          },
+          "original_1percent_per_line_gate_passed": false
+        }
+      },
+      "same_stage_static_minus_DC": {
+        "absolute_energy_delta_Ha": {
+          "6s_1/2": 14.148200102676128,
+          "5d_3/2": 14.148250751617525,
+          "5d_5/2": 14.148082092482582,
+          "6p_1/2": 14.148055644183842,
+          "6p_3/2": 14.147955456284762
+        },
+        "upper_minus_same_lower_response_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 11.116157741930785,
+          "5d_5/2": -25.9002437256166,
+          "6p_1/2": -31.70497434185548,
+          "6p_3/2": -53.693676559304734
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -11.093683138597646,
+            "splitting_cm1": -37.01640146754738
+          },
+          "6p": {
+            "centroid_cm1": -46.36410915348832,
+            "splitting_cm1": -21.988702217449255
+          }
+        }
+      }
+    }
+  ],
+  "one_original_metric_mixed_DC_orbital_step": {
+    "response": {
+      "absolute_energy_delta_Ha": {
+        "6s_1/2": -0.0005848589607921895,
+        "5d_3/2": 0.00021750618725491222,
+        "5d_5/2": 0.00044119755148130935,
+        "6p_1/2": -0.0007897630202933215,
+        "6p_3/2": -0.0006075149940443225
+      },
+      "upper_minus_same_lower_response_cm1": {
+        "6s_1/2": 0.0,
+        "5d_3/2": 176.0987950862698,
+        "5d_5/2": 225.19337478897643,
+        "6p_1/2": -44.971242923822075,
+        "6p_3/2": -4.97242454616297
+      },
+      "multiplet_response": {
+        "5d": {
+          "centroid_cm1": 205.55554290789377,
+          "splitting_cm1": 49.094579702706625
+        },
+        "6p": {
+          "centroid_cm1": -18.30536400538267,
+          "splitting_cm1": 39.998818377659106
+        }
+      }
+    },
+    "EOL_objective_delta_Ha": -0.0002646866469149245,
+    "original_metric_residual_before": 0.036760718407053486,
+    "original_metric_residual_after": 0.024993298926343503,
+    "stationarity_passed": false,
+    "interpretation": "Complete mixed-CI DC response on one accepted trial, far above original1e-7 residual gate; not converged MCDHF or missing-physics bound, cannot add DC shifts to static531/003 corrections."
+  },
+  "independent_same003_only_correction_evidence": {
+    "reference": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta",
+    "original_stationarity": {
+      "orbital_residual": 2.670347390185656e-06,
+      "orbital_tolerance": 1e-07,
+      "estimated_energy_error": 3.2140910014161694e-12,
+      "energy_tolerance": 1e-08,
+      "termination_reason": "line_search_failed"
+    },
+    "components": {
+      "static_Breit": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 14.148285734576348,
+          "5d_3/2": 14.14842040233998,
+          "5d_5/2": 14.14822097904107,
+          "6p_1/2": 14.148123232254875,
+          "6p_3/2": 14.147987982685663
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 29.556157779637026,
+          "5d_5/2": -14.212197233658332,
+          "6p_1/2": -35.66513710090997,
+          "6p_3/2": -65.34898644567964
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 3.2951447716598112,
+            "splitting_cm1": -43.768355013295356
+          },
+          "6p": {
+            "centroid_cm1": -55.45436999742308,
+            "splitting_cm1": -29.68384934476967
+          }
+        }
+      },
+      "dynamic_Breit_total": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 13.897788627711634,
+          "5d_3/2": 13.897920315428564,
+          "5d_5/2": 13.897716391120412,
+          "6p_1/2": 13.897624432076555,
+          "6p_3/2": 13.897471614558526
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 28.90211312830347,
+          "5d_5/2": -15.85409922948002,
+          "6p_1/2": -36.036776480515066,
+          "6p_3/2": -69.57634491560951
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 2.048385713633375,
+            "splitting_cm1": -44.75621235778349
+          },
+          "6p": {
+            "centroid_cm1": -58.39648877057803,
+            "splitting_cm1": -33.539568435094445
+          }
+        }
+      },
+      "dynamic_minus_static_Breit": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": -0.2504971068647137,
+          "5d_3/2": -0.25050008691141556,
+          "5d_5/2": -0.2505045879206591,
+          "6p_1/2": -0.2504988001783204,
+          "6p_3/2": -0.25051636812713696
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": -0.6540446513335544,
+          "5d_5/2": -1.6419019958216887,
+          "6p_1/2": -0.3716393796050949,
+          "6p_3/2": -4.227358469929857
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -1.246759058026435,
+            "splitting_cm1": -0.9878573444881343
+          },
+          "6p": {
+            "centroid_cm1": -2.9421187731549363,
+            "splitting_cm1": -3.8557190903247625
+          }
+        }
+      },
+      "Uehling_point_source": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": -2.0061990467160142,
+          "5d_3/2": -2.0061315771006805,
+          "5d_5/2": -2.0061315696507136,
+          "6p_1/2": -2.0061348065001274,
+          "6p_3/2": -2.006131837906767
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 14.807868953592237,
+          "5d_5/2": 14.80950403232374,
+          "6p_1/2": 14.099097700444387,
+          "6p_3/2": 14.750628633899282
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 14.808850000831137,
+            "splitting_cm1": 0.00163507873150337
+          },
+          "6p": {
+            "centroid_cm1": 14.533451656080985,
+            "splitting_cm1": 0.6515309334548949
+          }
+        }
+      },
+      "WK_local_model": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 0.07303714853432168,
+          "5d_3/2": 0.07303475535035323,
+          "5d_5/2": 0.07303475480666845,
+          "6p_1/2": 0.0730348912597173,
+          "6p_3/2": 0.07303477116439545
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": -0.5252431692608167,
+          "5d_5/2": -0.525362494276992,
+          "6p_1/2": -0.4954145116830866,
+          "6p_3/2": -0.5217723881723553
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -0.5253147642705219,
+            "splitting_cm1": -0.00011932501617528679
+          },
+          "6p": {
+            "centroid_cm1": -0.5129864293425991,
+            "splitting_cm1": -0.026357876489268683
+          }
+        }
+      },
+      "SE_indelicato_overlap_model": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 11.710176119463496,
+          "5d_3/2": 11.711678157312102,
+          "5d_5/2": 11.711969850007286,
+          "6p_1/2": 11.71158714639664,
+          "6p_3/2": 11.71200540690052
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 329.65920311636717,
+          "5d_5/2": 393.6783498631305,
+          "6p_1/2": 309.68461599538665,
+          "6p_3/2": 401.4821858981253
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 368.07069116442517,
+            "splitting_cm1": 64.01914674676334
+          },
+          "6p": {
+            "centroid_cm1": 370.88299593054575,
+            "splitting_cm1": 91.79756990273864
+          }
+        }
+      },
+      "SE_shabaev_local_partial": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 10.746368309585028,
+          "5d_3/2": 10.746117844442235,
+          "5d_5/2": 10.746134411081826,
+          "6p_1/2": 10.74613446301871,
+          "6p_3/2": 10.746147514592783
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": -54.970744883817346,
+          "5d_5/2": -51.334787766696024,
+          "6p_1/2": -51.32338893839309,
+          "6p_3/2": -48.45889952980611
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -52.78917061354455,
+            "splitting_cm1": 3.635957117121322
+          },
+          "6p": {
+            "centroid_cm1": -49.41372933266843,
+            "splitting_cm1": 2.8644894085869765
+          }
+        }
+      },
+      "NMS_Breit_point_Coulomb": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": 0.041836641188008485,
+          "5d_3/2": 0.04183853430357807,
+          "5d_5/2": 0.04183823651931715,
+          "6p_1/2": 0.041835258589003804,
+          "6p_3/2": 0.04183512214047971
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": 0.4154908417623792,
+          "5d_5/2": 0.35013475087200185,
+          "6p_1/2": -0.303445406875266,
+          "6p_3/2": -0.3333923964016336
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": 0.3762771872281528,
+            "splitting_cm1": -0.06535609089037736
+          },
+          "6p": {
+            "centroid_cm1": -0.32341006655951104,
+            "splitting_cm1": -0.029946989526367596
+          }
+        }
+      },
+      "SMS_Breit_point_Coulomb": {
+        "absolute_expectation_Ha": {
+          "6s_1/2": -0.013394502692475968,
+          "5d_3/2": -0.013396210803550268,
+          "5d_5/2": -0.01339604447095886,
+          "6p_1/2": -0.013393155768082431,
+          "6p_3/2": -0.013393019563344943
+        },
+        "upper_minus_same_lower_cm1": {
+          "6s_1/2": 0.0,
+          "5d_3/2": -0.3748870483593726,
+          "5d_5/2": -0.33838126417628633,
+          "6p_1/2": 0.2956157347454902,
+          "6p_3/2": 0.325509219295726
+        },
+        "multiplet_response": {
+          "5d": {
+            "centroid_cm1": -0.35298357784952084,
+            "splitting_cm1": 0.036505784183086254
+          },
+          "6p": {
+            "centroid_cm1": 0.3155447244456474,
+            "splitting_cm1": 0.029893484550235827
+          }
+        }
+      }
+    },
+    "actual_operator_coverage": {
+      "Dirac-Coulomb": "public ci_solve on fixed common spinors, replay saved energies/amplitudes",
+      "static_Breit": "public ci_solve include_breit=True, complete static Gaunt+retardation, replay saved RCI",
+      "dynamic_Breit": "public ci_solve include_breit=True plus complete 24-key orbital energy map; each orbital epsilon is diagonal EOL Lagrange multiplier/(2 objective occupation) from saved same-state gradient, or the existing public zero-occupation one-body convention; symmetric average of two vertex |epsilon_a-epsilon_c| frequencies, real one-photon model replaces static Breit",
+      "dynamic_zero_frequency_check": "same complete zero map must reproduce static Breit roots",
+      "Uehling": "public short_range_radial_matrix and scalar_one_body_expectations; point-source local VP on fixed Fermi orbitals, finite-charge convolution absent",
+      "WK": "public V_wichmann_kroll approximate local model and same full scalar CI expectation, not precision higher-loop VP",
+      "SE_default": "public self_energy_radial_matrix(method=indelicato): tabulated K/L/available SD rows plus warned leading analytic fallback, orbital-attraction overlap screening; diagonal radial model, screened many-body/nonlocal terms absent",
+      "SE_local_discriminator": "public shabaev_local full radial matrix on actual same spinors; source _reference_state_for_kappa supports -1,+1,-2,+2,-3 (s,p,d) using hydrogenic Dirac-reference calibration; |kappa|>=3 channels not in that exact supported set (including f +3,-4) are zero, and full nonlocal projector SE remains absent",
+      "SE_full_coverage": "public shabaev request records actual NotImplementedError; no missing term substituted",
+      "NMS": "public one-body point-Coulomb Breit recoil radial/CSF matrix divided by A175 mass proxy; finite-size/radiative/higher-order recoil absent",
+      "SMS": "public two-body point-Coulomb Breit recoil CSF matrix with Z=70, VINTI/SMS2/SMS3 divided by same mass; finite-size/radiative/higher-order recoil absent"
+    },
+    "self_energy_model_differential_spread_cm1": {
+      "5d_3/2": 384.6299480001845,
+      "5d_5/2": 445.01313762982653,
+      "6p_1/2": 361.0080049337797,
+      "6p_3/2": 449.9410854279314
+    },
+    "scope": "Different failed003 five-CSF orbitals; isolated ledger only. Not a531 additive correction, uncertainty bound or531 hierarchy estimate."
+  },
+  "arithmetic_checks": [
+    {
+      "name": "stage_4f/DC/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/5d_3/2/increment",
+      "error_cm1": 1.0231815394945443e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/5d_5/2/increment",
+      "error_cm1": 1.7053025658242404e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/6p_1/2/increment",
+      "error_cm1": 2.2737367544323206e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/DC/6p_3/2/increment",
+      "error_cm1": 5.897504706808832e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_3/2/increment",
+      "error_cm1": 3.069544618483633e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/5d_5/2/increment",
+      "error_cm1": 3.410605131648481e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_1/2/increment",
+      "error_cm1": 9.094947017729282e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f/static_Breit/6p_3/2/increment",
+      "error_cm1": 1.4210854715202004e-14,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_3/2/increment",
+      "error_cm1": 1.2505552149377763e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/5d_5/2/increment",
+      "error_cm1": 2.8421709430404007e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_1/2/increment",
+      "error_cm1": 5.115907697472721e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/DC/6p_3/2/increment",
+      "error_cm1": 5.684341886080802e-14,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_3/2/increment",
+      "error_cm1": 6.821210263296962e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/5d_5/2/increment",
+      "error_cm1": 1.5916157281026244e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_1/2/increment",
+      "error_cm1": 1.5347723092418164e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p/static_Breit/6p_3/2/increment",
+      "error_cm1": 1.2505552149377763e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_3/2/increment",
+      "error_cm1": 2.2737367544323206e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/5d_5/2/increment",
+      "error_cm1": 2.19912976717751e-12,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_1/2/increment",
+      "error_cm1": 3.5349501104064984e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/DC/6p_3/2/increment",
+      "error_cm1": 2.1316282072803006e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6s_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6s_1/2/increment",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_3/2/increment",
+      "error_cm1": 9.663381206337363e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_5/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/5d_5/2/increment",
+      "error_cm1": 5.222489107836736e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_1/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_1/2/increment",
+      "error_cm1": 5.151434834260726e-13,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_3/2/excitation",
+      "error_cm1": 0.0,
+      "pass": true
+    },
+    {
+      "name": "stage_4f5p5s/static_Breit/6p_3/2/increment",
+      "error_cm1": 1.3713474800169934e-12,
+      "pass": true
+    },
+    {
+      "name": "mixedstep/DC/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "mixedstep/DC/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "mixedstep/DC/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "mixedstep/DC/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "mixedstep/DC/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/static_Breit/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/static_Breit/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/static_Breit/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/static_Breit/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/static_Breit/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_Breit_total/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_Breit_total/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_Breit_total/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_Breit_total/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_Breit_total/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_minus_static_Breit/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_minus_static_Breit/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_minus_static_Breit/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_minus_static_Breit/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/dynamic_minus_static_Breit/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/Uehling_point_source/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/Uehling_point_source/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/Uehling_point_source/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/Uehling_point_source/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/Uehling_point_source/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/WK_local_model/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/WK_local_model/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/WK_local_model/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/WK_local_model/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/WK_local_model/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_indelicato_overlap_model/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_indelicato_overlap_model/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_indelicato_overlap_model/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_indelicato_overlap_model/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_indelicato_overlap_model/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_shabaev_local_partial/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_shabaev_local_partial/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_shabaev_local_partial/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_shabaev_local_partial/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SE_shabaev_local_partial/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/NMS_Breit_point_Coulomb/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/NMS_Breit_point_Coulomb/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/NMS_Breit_point_Coulomb/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/NMS_Breit_point_Coulomb/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/NMS_Breit_point_Coulomb/6p_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SMS_Breit_point_Coulomb/6s_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SMS_Breit_point_Coulomb/5d_3/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SMS_Breit_point_Coulomb/5d_5/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SMS_Breit_point_Coulomb/6p_1/2/response",
+      "pass": true
+    },
+    {
+      "name": "same003only/SMS_Breit_point_Coulomb/6p_3/2/response",
+      "pass": true
+    }
+  ],
+  "all_arithmetic_checks_pass": true,
+  "missing_quantities": [
+    "Converged531 mixed-CI EOL DC energies and same-state static-Breit RCI on that exact endpoint (current root run is independent and not consumed here).",
+    "Complete5p/4f/two-family core-double finite-space lower/upper responses.",
+    "Balanced radial virtual layer and higher-l layer lower/upper responses;31/24 orbital stationarity cannot certify virtual completeness.",
+    "Final mixed531 screened-vs-nuclear positive-boundary overlaps and matched no-pair excitation response.",
+    "Same531 frequency-dependent Breit complete-energy-map response, point/finite-size VP and matrix SE/recoil expectations with exact CI density including off-diagonal terms.",
+    "Full nonlocal/screened QED and independent external matched-Hamiltonian reference for these exact endpoints."
+  ]
+}

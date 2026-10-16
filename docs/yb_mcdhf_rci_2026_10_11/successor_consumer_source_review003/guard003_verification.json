@@ -1,0 +1,119 @@
+{
+  "source_review_all_passed": true,
+  "checks": [
+    {
+      "name": "unchanged_fixed_model",
+      "passed": true
+    },
+    {
+      "name": "unchanged_derivative_gate",
+      "passed": true
+    },
+    {
+      "name": "unchanged_report_saved_scales",
+      "passed": true
+    },
+    {
+      "name": "unchanged_eigenpair_gate",
+      "passed": true
+    },
+    {
+      "name": "unchanged_pytest_cases",
+      "passed": true
+    },
+    {
+      "name": "unchanged_guard_cases",
+      "passed": true
+    },
+    {
+      "name": "unchanged_calls",
+      "passed": true
+    },
+    {
+      "name": "unchanged_setup_work",
+      "passed": true
+    },
+    {
+      "name": "unchanged_resources",
+      "passed": true
+    },
+    {
+      "name": "unchanged_source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "test_AST_unchanged_test_saved_medium_step_original_derivative_gate",
+      "passed": true
+    },
+    {
+      "name": "test_AST_unchanged_test_unsupported_scope_rejects_without_physical_calls",
+      "passed": true
+    },
+    {
+      "name": "test_AST_unchanged_test_legacy_fixed_density_and_constrained_mixed_guards",
+      "passed": true
+    },
+    {
+      "name": "final_scope_mapped = np.tril(raw) + np.tril(raw, -1).T",
+      "passed": true
+    },
+    {
+      "name": "final_scope_native_raw.tobytes() == geometry",
+      "passed": true
+    },
+    {
+      "name": "final_scope_native_metric.tobytes() == geometry",
+      "passed": true
+    },
+    {
+      "name": "final_scope_assert len(calls.one_body_outputs) == 6",
+      "passed": true
+    },
+    {
+      "name": "final_scope_assert np.array_equal(owner.matrix_Ha, baseline",
+      "passed": true
+    },
+    {
+      "name": "final_scope_eigenpairs_attached_after_independent_validation=True",
+      "passed": true
+    },
+    {
+      "name": "mapping_admission_before_pytest",
+      "passed": true
+    },
+    {
+      "name": "root_actual_qualified",
+      "passed": true
+    },
+    {
+      "name": "reported_1H6hS0CI0g",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/contract.json": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/run.py": "29cd1a15993114a12d2fd053854770b01a6270fdae498e7033ff871eb761f675",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/test_saved_guards.py": "e5887850ddbe2627351876ac5f1720b58082c7b19819b8c28596577f587bc682",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/preparation_verification.json": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/execution_contract.json": "e4965fd16172d16e3e4bd6085777e32088bcd6cfb2dda46b4955204ace1672d7",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/root_execution.json": "4810456ad0f9f2041ed558785f1a4ae6cf7c243afe88ef56ca5b84bffd5b0ac3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/baseline_owner_validation.json": "c69c023265f4d633ad57edeea2038932141b1b648ee0031dffd3629bfb2da019",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/actual/result.json": "cf431b4cfe5591db700f37bd8e0becaa04d856c568bb0cd90fec6fd08fa25b8f"
+  },
+  "owner_actual_19passed_reported_only": true,
+  "independent_numerical_test_rerun": false,
+  "reviewer_calls": {
+    "Atomx_imports": 0,
+    "NumPy_imports": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "optimizer": 0
+  },
+  "source_verdict": "Raw-to-raw and L(raw)-to-logical comparisons now retain exact storage/operator identities; same19 controls and originalgates. Actual root qualification remains separate.",
+  "Yb_qualification_passed": false,
+  "Armijo_adapter_qualified": false,
+  "original_failures_preserved": true
+}

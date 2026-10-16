@@ -1,0 +1,17 @@
+{
+  "source_sha256": {
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fscc/thread_preflight.py": "4cf7a2ea8a6e4dc10c67c7932c594441667ba8c20703c28d3cbc62279d03f529",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fscc/benchmark.py": "d2132078c082092ef86114666c78d1dcde345dda565d5842f98f4721b0638880"
+  },
+  "hypothesis": "Runtime OpenMP total-thread and active-level limits bound actual process threads while preserving complete signed CCSDT tensors.",
+  "parent_contract_sha256": "eb26d4b98848c9cfd3292d51162902b38a1eed2174176bf846552fba5e1d77a6",
+  "fixed_input_sha256": {
+    "ATOMX_ONE": "62662de6e2252f807b0ee8891d1ce48a8c27163b4306afd5d0aa1e59c95189fe",
+    "ATOMX_TWO": "e409f83c318845ebf9d7a18de4b9efaf2a08c81271c5622025384926cf5731e9",
+    "integrals.json": "b737cdff55a2c7481d304534e5570cc19e252ff9e40cc59e7f22980a2a632ff0"
+  },
+  "old_failed_resource_admission": "../run001/stopped_thread_budget.json",
+  "policy": "1/2/4/8 requested threads, each OMP_THREAD_LIMIT=p and OMP_MAX_ACTIVE_LEVELS=1; process sampler kills owned EXP-T child if observed Threads>p.",
+  "gate": "Actual Threads<=p<=8 and every coordinate of all six signed tensors and full HEFF agrees <=1e-11 Ha.",
+  "stop": "One solve per p; stop remaining sweep immediately on cap/equation failure. No method, source or budget change."
+}

@@ -1,0 +1,44 @@
+{
+  "timestamp_UTC": "2026-10-14T15:18:27.545035+00:00",
+  "status": "PASS_BOUNDED_NATIVE_PILOT_VALIDATION",
+  "live_controls": 44,
+  "saved_array_controls": 48,
+  "existing_tests": {
+    "passed": 26,
+    "external_only_skips": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  "ruff": {
+    "files": [
+      "run.py",
+      "independent.py",
+      "verify_saved.py"
+    ],
+    "status": "PASS"
+  },
+  "git_diff_check": "PASS entire current working tree at closure",
+  "working_tree_candidate_doc_links": {
+    "checked": 7,
+    "broken": 0,
+    "clean_checkout_publication_checked": false
+  },
+  "source_integrity": {
+    "files": 359,
+    "complete_archive_verified": true,
+    "production_source_unchanged": true,
+    "inputs_verified": 6,
+    "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a"
+  },
+  "scope": {
+    "actual_Yb_DC": true,
+    "connected_core_T3_nonzero": true,
+    "independent_complete_same_model_CI": true,
+    "omitted_rank_full_H_residuals_preserved": true,
+    "full_paper_reproduction": false,
+    "experimental_gap_improvement": false,
+    "production_native_RCCSDT_scaling": false,
+    "correlated_observables": false,
+    "MCDHF_stationarity_admitted": false
+  }
+}

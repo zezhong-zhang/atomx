@@ -1,0 +1,23 @@
+[  0%] Built target genlapacke
+[  2%] Built target lapack
+[  2%] Built target driver_others
+[  9%] Built target interface
+[ 10%] Built target expt_transform_natorb.x
+[ 10%] Built target expt_read_dfcoef.x
+[ 10%] Built target expt_read_mdprop.x
+[ 17%] Built target driver_level3
+[ 23%] Built target kernel
+[ 33%] Built target driver_level2
+[ 97%] Built target openblas
+[ 97%] Built target heffman.x
+[ 97%] Built target expt2pam.x
+[ 97%] Built target expt_diatomic.x
+[ 98%] Built target openblas_utest
+[ 98%] Building C object CMakeFiles/expt.x.dir/src/rcc/readinp/readinp.c.o
+In file included from /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-atomx/src/rcc/readinp/readinp.c:40:
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-atomx/src/rcc/include/platform.h:38:9: warning: ‘COMPILER_GNU’ redefined
+   38 | #define COMPILER_GNU
+      |         ^~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
+[ 98%] Linking Fortran executable expt.x
+[100%] Built target expt.x

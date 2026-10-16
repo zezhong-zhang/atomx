@@ -1,0 +1,44 @@
+{
+  "status": "independent_prospective_mathematical_interface_review",
+  "contract": "contract.json",
+  "scope": "Public B-spline numerical optimizer resume only; no CI solve, gradient evaluation, or source edit performed by this audit.",
+  "mathematics": {
+    "coordinates": "For each complete same-kappa group, C_kappa = P_kappa Y_kappa, P_kappa^T S_kappa P_kappa = I and Y_kappa^T Y_kappa = I. The authoritative saved coordinate vector is the ordered flattening of all Y groups.",
+    "tangent_projection": "T_Y(G) = G - Y sym(Y^T G). Grouping all same-kappa columns together is necessary to enforce cross-orbital orthogonality; splitting one kappa across groups changes the constrained problem.",
+    "gradient": "The new functional supplies a newly evaluated radial CI-response gradient. Its coordinate gradient is T_Y(P^T g_radial). No stored old CI amplitudes, gradient, energies, occupations, or convergence flag may stand in for this evaluation.",
+    "original_residual": "The yardstick is ||T_Y(B_original T_Y(P^T g_radial))||_2. B_original is exactly the original positive inverse diagonal or ordered per-orbital inverse blocks, including its already-applied occupation scaling.",
+    "original_energy_indicator": "The unchanged indicator is 0.5 abs(g_coordinate^T T_Y(B_original g_coordinate)). It is a numerical stationarity diagnostic and does not bound experimental spectral error.",
+    "basis_gauge": "An orthogonal rotation of P can preserve the physical no-pair subspace but changes the coordinate representation and generally the stored inverse action. Exact original-metric restoration requires original bytes for P, coordinates and inverse data, not merely equal spans.",
+    "positive_branch": "S-orthonormality alone does not certify no-pair physics. Validate the complete selected positive span of the declared original nuclear or complete Fock operator, including the lower-root exclusions determined by the first active shell. Validation eigenvectors must not replace saved projectors.",
+    "physical_geometry": "Bind Z, ns, the full numerical B-spline workspace, actual nuclear one-body matrices, actual overlap matrices, nuclear-potential grid values, ordered orbital keys and source/operator declarations. Padded inactive DBSR components are null geometry and must not carry saved radial coefficients.",
+    "history": "Secant history is never imported, even for the same objective declaration. A changed CSF/EOL/tracking objective requires a fresh gradient, CI state, occupations and empty history while retaining B_original.",
+    "inverse_noninvertibility": "Original Fock fields cannot be reconstructed from inverse blocks: absolute spectral gaps, floors and occupation scaling lose sign, reference and operator information. A Fock projector must carry the original complete operator explicitly.",
+    "accepted_point": "Checkpoint state must describe an actual accepted coordinate point with the current re-evaluated CI and diagnostics. A wall-time stop occurs at such a point; a rejected line-search trial is not a resumable accepted certificate."
+  },
+  "mandatory_rejections": [
+    "Missing or repeated orbital keys, reordered keys, incomplete or duplicated same-kappa groups",
+    "Noninteger or nonpositive dimensions; overlapping, gapped or noncontiguous coordinate slices; wrong total coordinate length",
+    "Non-float64, nonfinite or complex projectors/coordinates/inverses; no casting away imaginary parts",
+    "Changed physical workspace, nucleus, overlap, one-body geometry, active component extents or orbital keys",
+    "Nonorthonormal saved coordinates or projectors, inactive padding leakage, wrong or incomplete selected positive subspace",
+    "Wrong inverse dimensions, missing per-column blocks, nonpositive inverse diagonal, nonsymmetric or nonpositive inverse blocks",
+    "Preconditioner matrices, refresh factory or shooting update policy combined with exact original-metric resume",
+    "Changed objective identity without an explicit allowance; optional input orbitals inconsistent with unpack(saved coordinates)"
+  ],
+  "no_silent_repairs": [
+    "No new Fock or nuclear projector construction used as the restored coordinate map",
+    "No seed polar normalization, reprojection or reconstructed original-successful coordinates",
+    "No new spectral gaps or reapplication of current occupations to saved inverse data",
+    "No clipping, symmetrizing, or repairing invalid saved projectors, overlaps or inverse blocks",
+    "No copying bare five-CSF stationarity, full-physical completeness or experimental certificate to the 531-CSF objective"
+  ],
+  "scientific_boundary": {
+    "objective_identity": "A caller-supplied nonempty string records a declaration. It does not automatically verify CSF enumeration, angular phases, EOL weights, root matching or tracker identity. The physical successor contract must bind those inputs independently.",
+    "gate_arguments": "The public fresh defaults are not the archived scientific gates. A successor using the original Yb yardstick must explicitly pass orbital tolerance 1e-7 and estimated-energy tolerance 1e-8 Ha, and report the actual values.",
+    "coordinate_recovery": "The successful005 orbital archive did not store final x. Recovering x with P^T S C has a measured max radial reconstruction difference of 2.986638714119749e-13. It may define a disclosed new authoritative initial point, but cannot be called bitwise recovery of the missing final x.",
+    "hash_scope": "The original residual SHA covers ordered list-key representations, P and inverse bytes. It does not bind S, nucleus, coordinate point, objective or tolerances. A stronger geometry/state hash is required in addition to keeping the legacy SHA unchanged.",
+    "MCDHF_solver": "A public numerical optimizer resume entry point does not establish full MCDHFSolver initialization/resume integration. Root owns whether that integration is needed.",
+    "finite_differences": "The future exact mixed-CI finite-energy-difference API remains separate. Resume must not silently extend fixed-density difference guards to mixed/tracked CI response."
+  },
+  "review_plan": "Review final owner source and focused tests against these invariants, record immutable hashes and report material source-bound findings. Do not rerun old scientific models or evaluate new CI/gradients."
+}

@@ -1,0 +1,58 @@
+{
+  "status": "source_preparation_documentation_impact_reviewed",
+  "scope": "Atlas v10 native31 source/JSON preparation",
+  "changes": [
+    {
+      "path": "docs/NIST_SPECTRUM_ATLAS.md",
+      "disposition": "update",
+      "reason": "Current published paragraph stalev5; corrected to saved closedv9, labeledv10 preparation pending."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update009/README.md",
+      "disposition": "add owning preparation entry",
+      "reason": "Contract, evidence, limits, root-only concrete commands."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update009/EARS.md",
+      "disposition": "add",
+      "reason": "Expectation/action/results/limits and no-new-insight disposition."
+    }
+  ],
+  "retained": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update008",
+      "reason": "Publishedv9 immutable source/browse/deployment evidence."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001",
+      "reason": "Closed historical scientific result and scalar closure stay unchanged."
+    },
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "reason": "No package architecture/method/backend change; native Atomx primary boundary preserved."
+    },
+    {
+      "path": "README.md",
+      "reason": "Root owns current status; outside child edit scope."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "reason": "Root owns campaign current status; outside child edit scope."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage034",
+      "reason": "Root owns current reporting."
+    },
+    {
+      "path": "tools/export_nist_atlas.py",
+      "reason": "Existing118element/export/gzip interfaces unchanged."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "reason": "No new general insight; existing identity/failure/scalar-replay rules suffice."
+    }
+  ],
+  "validation": "verify_source.py records actual source/JSON/AST/link checks. JS syntax/build/full-gzip/browser/publication pending.",
+  "site_mutated": false,
+  "scientific_source_tests_schedules_API_touched": false
+}

@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "scope": "archive extent and dtype refusal before NumPy payload loading; does not replace physical comparison",
+  "cases": [
+    {
+      "case": "real",
+      "status": "pass",
+      "extent": 2
+    },
+    {
+      "case": "complex",
+      "status": "rejected before array allocation",
+      "error": "complete real float64 archive required"
+    },
+    {
+      "case": "invalid_extent",
+      "status": "rejected before array allocation",
+      "error": "complete numerical archive byte extent differs"
+    },
+    {
+      "case": "huge inconsistent header",
+      "status": "rejected before array allocation",
+      "error": "complete numerical archive byte extent differs"
+    }
+  ],
+  "source_sha256": "d3b8ed88c37fc881a66bb4008933ec5443f357bacf119a35a14a5373b9445435"
+}

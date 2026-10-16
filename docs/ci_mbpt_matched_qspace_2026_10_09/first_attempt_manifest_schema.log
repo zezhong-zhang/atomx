@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/verify_records.py", line 95, in <module>
+    if __name__=='__main__': main()
+  File "/data/code/atomx/docs/ci_mbpt_matched_qspace_2026_10_09/verify_records.py", line 56, in main
+    if not p.is_file() or sha(p)!=meta['sha256']: bad.append(name)
+TypeError: string indices must be integers

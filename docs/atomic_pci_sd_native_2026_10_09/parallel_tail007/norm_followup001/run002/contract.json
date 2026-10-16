@@ -1,0 +1,33 @@
+{
+  "hypothesis": "Owned256-entry/4MiB Gram cache and quartet work bound preserve exact complete l4 norm while avoiding global kappa^4 residency estimate.",
+  "fixed": "Synthetic complete1s2 core plus every s/p/d/f/g kappa multiplet, two distinct radial s orbitals, random complete signed redundant rho; no Hamiltonian/root/experimental result.",
+  "norm_payload_cap_bytes": 67108864,
+  "address_cap_bytes": 4294967296,
+  "seconds_cap": 120,
+  "physical_metric": "explicit full-magnetic fermionic (1+Tcore+Sv)|Phiv> overlap",
+  "component_and_total_gate": 1e-11,
+  "complete_M_gate": 1e-11,
+  "random_seed": 719230,
+  "stop": "Any coordinate/source/component/sign/M/cap mismatch rejects; original shared helper unchanged; no longYb root or raised64MiB cap.",
+  "source_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_followup001/probe.py": "c61b6294faeb63853bfa5f9f69041950e2bf926d26786b5240b05701a66df6cb",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_followup001/candidate.py": "d5896d4542e5b2367c884ee0c49a7cdadf8edbd540c22f3ee97bfef2393f4bde",
+    "docs/atomic_pci_sd_native_2026_10_09/monovalent_norm_control.py": "06936ba9521e7867092f752da9ea6c7da923016914736741eb9ecf243e4528e4",
+    "tests/test_reduced_monovalent_sd.py": "5ebd9e49a0823e22ebaba5f9f9388efc3c46ec91c3b897e5013dbad233856e47",
+    "src/atomx/angular/sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+    "src/atomx/angular/wigner.py": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "src/atomx/methods/core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+    "src/atomx/methods/valence_sd.py": "24f934e9b4f44bf3c1c420211146df84296909a5b7ddb81a6e6a33373ffe061e",
+    "src/atomx/methods/monovalent_sd.py": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751",
+    "src/atomx/methods/reduced_monovalent_sd.py": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2"
+  },
+  "input_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/result.json": "f6f7882f9d14888d3e58a137994a99425d0aea722aa6f3b2525b093ae95f12df",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/yb_tail_l3_e10_4dde2a6907e0d360f071_band.json": "2055079136efef03bf3d0577b08ef776a8ea452e429aaaa8648a42cbcbffcba5",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/yb_tail_l3_e5_a0778ab8e6ddecad3eea_band.json": "669eea595f66fc0b65c5846ae2e6327a86537f15227ffce13d09c7be26148b9d",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/yb_tail_l4_e10_0ea91d4a8942f2b47e69_band.json": "4d6c669be879481b7f55629ecd19c1b5fcc4081be8417c2a0949d923107b8986",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/yb_tail_l4_e5_9d751f94e0f82d6d4125_band.json": "7faa1605e9e5ec629e6ff4079e3b1bd0edde4b2b97f6d3c1b7672812a42b3516"
+  }
+}

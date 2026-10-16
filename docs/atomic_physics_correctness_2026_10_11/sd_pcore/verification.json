@@ -1,0 +1,32 @@
+{
+  "pass_": true,
+  "replay_only": true,
+  "new_orbital_or_amplitude_solves": 0,
+  "frozen_source_hash_count": 741,
+  "current_source_drift": [],
+  "full_magnetic_multiplets_verified": true,
+  "complete_fixed_N_basis_verified": true,
+  "QSD_signed_components": 310,
+  "reconstructed_metrics": {
+    "first_order_signed_max_error": 1.8790936399010386e-17,
+    "source_signed_max_error_Ha": 3.642919299551295e-17,
+    "first_Born_projected_commutator_action_error_Ha": 3.6428981237276135e-17,
+    "independent_MBPT2_Ha": -6.966411700696071e-10
+  },
+  "link_count": 10,
+  "missing_links": [],
+  "production_code_mutations": 0,
+  "evidence_sha256": {
+    "contract.json": "7675f9bc09a83c1b70e338b35491f5f269f500a579eb3be3ef080ba53bd2a943",
+    "probe.py": "365fa94c5e6c79d980ef202430d7ebf5826297d849ebfabc59ca70dd6a455098",
+    "result.json": "827c9091d2a19adbb35923c706f14248aa1d6ec4e0d45f88aa3f8f3461c36a7a",
+    "arrays.npz": "b655f2fb1da242140349cc003ce13f9e1b8d1bbd057a81195286762296ea46c8",
+    "coordinates.json": "4bc545e7d8b3b70abe5821803ec0ab62ed16f8ac1f393e680d7c15ad23fb5df7",
+    "README.md": "8e8fd5a47f45fd289d253b58705991f09c832eb3e475842016384242801dd9a0",
+    "verify.py": "b406543c360656daddc62ff2940b9e8afb2dc5b3a96a78584d376ce2493e4341",
+    "native_admission.json": "a144a9439eadff182f45592ba3ff02c6126d939de3d0338edb6b30a4fc58422c",
+    "radial_status.json": "97b39c1c2366429a365f3f896d9e5bbfa87e2eee95b69c1708385f9e668e8e70",
+    "probe.log": "8c0f8a947dac7cbf00787b93f6e60cdfa2526ffce8a208ddec352795b53b4637"
+  },
+  "scope": "Integrity and saved first-Born equation replay; no new complete-domain certificate"
+}

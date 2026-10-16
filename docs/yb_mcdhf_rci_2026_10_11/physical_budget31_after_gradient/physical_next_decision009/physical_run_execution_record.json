@@ -1,0 +1,67 @@
+{
+  "status": "PASS_ALL_FIVE_SECTORS_ONCE_AND_COMPLETE_OFFLINE_REVIEW",
+  "worker": "full_f12_preparation001/worker.py",
+  "runtime_seals": "full_f12_preparation001/root_seal_J*_*.json",
+  "resources": {
+    "AS_bytes": 8589934592,
+    "host_MemAvailable_GiB_min": 32,
+    "host_load1_max": 16,
+    "inner_seconds": 1200,
+    "max_simultaneous_workers": 3,
+    "outer_seconds": 1215,
+    "sector_CPUs": [
+      28,
+      29,
+      30
+    ],
+    "threads": 1
+  },
+  "observed_dispatch": [
+    {
+      "sector": [
+        1,
+        1
+      ],
+      "cpu": 28,
+      "tool_session": 26404
+    },
+    {
+      "sector": [
+        3,
+        1
+      ],
+      "cpu": 29,
+      "tool_session": 58439
+    },
+    {
+      "sector": [
+        5,
+        1
+      ],
+      "cpu": 30,
+      "tool_session": 36824
+    },
+    {
+      "sector": [
+        1,
+        -1
+      ],
+      "cpu": 28,
+      "tool_session": 15337
+    },
+    {
+      "sector": [
+        3,
+        -1
+      ],
+      "cpu": 29,
+      "tool_session": 44694
+    }
+  ],
+  "dispatch_policy": "No more than3 active sector workers. Odd sectors reuse CPUs28/29 only after corresponding even worker termination and PASS. Each worker enforces shared STOP before work and each million pairs. Exactly one execution per sector.",
+  "launcher": "timeout -s TERM 1215s env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 PYTHONUNBUFFERED=1 taskset -c <CPU> /data/code/atomx/.venv/bin/python <absolute_worker> --execute <absolute_root_seal>",
+  "measurement_scope": "Single source-bound physical diagnostics, not controlled timing or measured parallel speedup.",
+  "all_live_checks_passed": 265,
+  "all_offline_checks_passed": 554,
+  "complete_spectral_comparison": true
+}

@@ -1,0 +1,62 @@
+{
+  "timestamp_UTC": "2026-10-14T16:17:03.454777+00:00",
+  "actual": {
+    "session_id": 19725,
+    "exit_code": 0,
+    "reaped": true,
+    "result": "actual001/result.json",
+    "elapsed_seconds": 48.60675152600015,
+    "peak_RSS_MiB": 402.35546875,
+    "scope": "prior actual-Yb directed replay; new16-spinor integral operator; three tensor core solves including replay; two expanded core models and six complete even-M target-sector independent CI/exponential comparisons; prior radial construction excluded",
+    "controlled_speedup": false
+  },
+  "tests": {
+    "initial_small_panel": {
+      "session_id": 50956,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "initial_tests.xml"
+    },
+    "first_shared_cache_panel": {
+      "session_id": 51969,
+      "exit_code": 1,
+      "reaped": true,
+      "result": "tests.xml",
+      "failure": "Numba cache serialization ReferenceError: underlying object has vanished; unsealed development panel, no scientific gate relabelled"
+    },
+    "isolated_affected_panel": {
+      "session_id": 33160,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "isolated_tests.xml"
+    },
+    "architecture_panel": {
+      "session_id": 2121,
+      "exit_code": 0,
+      "reaped": true,
+      "result": "architecture_tests.xml"
+    },
+    "panels": {
+      "isolated_tests.xml": {
+        "tests": 49,
+        "skipped": 2,
+        "failures": 0,
+        "errors": 0
+      },
+      "architecture_tests.xml": {
+        "tests": 7,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      }
+    }
+  },
+  "saved_review": {
+    "exit_code": 0,
+    "result": "saved_data_review.json",
+    "controls": 353
+  },
+  "external_electronic_structure_calls": 0,
+  "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+  "process_scope": "Known task sessions reaped; no unrelated session/process stopped."
+}

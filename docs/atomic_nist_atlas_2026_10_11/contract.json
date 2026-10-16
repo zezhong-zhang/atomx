@@ -1,0 +1,21 @@
+{
+  "hypothesis": "Expose actual local archive coverage and recompute nominal Yb SD/finite-frequency CI comparisons against unique ASD state labels, without promoting legacy DHF averages.",
+  "fixed": "Immutable SQLite backup; original CSV and saved model bytes; common evaluated Yb 6s zero; original 1% SD and 5% frozen CI targets.",
+  "caps": {
+    "memory_bytes": 4294967296,
+    "timeout_s": 300
+  },
+  "gates": [
+    "118 unique element positions",
+    "all snapshot rows retained",
+    "missing and ambiguous references unscored",
+    "ground/J/parity/configuration matching",
+    "input hashes"
+  ],
+  "stop": "One export and targeted validation; no implicit download or archive mutation.",
+  "load": [
+    9.09130859375,
+    9.0966796875,
+    9.2890625
+  ]
+}

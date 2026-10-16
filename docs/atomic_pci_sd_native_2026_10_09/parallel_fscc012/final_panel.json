@@ -1,0 +1,174 @@
+{
+  "final_audit004": {
+    "status": "unclosed_equation_audit",
+    "backend_strict_heff_max_Ha": 8.728878730934753e-10,
+    "backend_wave_bloch_residual_max_Ha": 4.1639109324767554e-07,
+    "residual_minus_open_Fov_T2_max_Ha": 1.7763568394002505e-15,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "de9759b9384b3464103d88723ec343e05730ecab47e0fb36a0da068f790ea176",
+    "archive_sha256": "e8af7b8bd17b524f1b5de15547e7184e86ec6ea338ab077e79274c2e88b1bcef"
+  },
+  "final_candidate_C1": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 4.218847493575595e-15,
+    "backend_wave_bloch_residual_max_Ha": 1.7763568394002505e-15,
+    "residual_minus_open_Fov_T2_max_Ha": 4.163910935083658e-07,
+    "candidate_energy_root_max_Ha": 1.5987211554602254e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd",
+    "archive_sha256": "92d0a2f5899e08026ee390e540b2410efdd0722934a9612dead4f39db48ad646",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+    }
+  },
+  "final_candidate_axial": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 4.218847493575595e-15,
+    "backend_wave_bloch_residual_max_Ha": 1.7763568394002505e-15,
+    "residual_minus_open_Fov_T2_max_Ha": 4.163910935083656e-07,
+    "candidate_energy_root_max_Ha": 1.5987211554602254e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "dd667b492e47f44335cd9a9d8609f61a79bae3e62a689f1c1d2f511dcf0823a6",
+    "archive_sha256": "952a226c924cef68a2fe642db7723e8f2a867af292032f0163e7a988a1921979",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+    }
+  },
+  "final_fov0": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 7.327471962526033e-15,
+    "backend_wave_bloch_residual_max_Ha": 8.119113020788049e-14,
+    "residual_minus_open_Fov_T2_max_Ha": 8.119113020788049e-14,
+    "candidate_energy_root_max_Ha": 1.7763568394002505e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "79bcd817c16e3e6b63c9b8604b57fba2762a382e25b4875b9804dc8e574b867e",
+    "archive_sha256": "1245206574c5f8352e2b50bf9edf787366b0db01a22c85f6dacd94b68ed7fc87",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "6cfdcaa4c959308ee656a4238e8a3598849da953fed353ebd2ba5238a4dd72bf",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+    }
+  },
+  "final_fov2": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 1.0547118733938987e-14,
+    "backend_wave_bloch_residual_max_Ha": 3.552713678800501e-15,
+    "residual_minus_open_Fov_T2_max_Ha": 8.33071822359083e-07,
+    "candidate_energy_root_max_Ha": 1.9539925233402755e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "2a6c86c0bcc5c22aead97d0fd01c828a8f016d73cbac06d772b638bbc3e3ecdc",
+    "archive_sha256": "4fe21fb030d27e657fd1712631e140edca6f158fecfc46c2eb62ecde7af9dadc",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "766bad9afc7eaafc3b112c116c33c18cd6dce661c907cda14439ec6e5531393a",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+    }
+  },
+  "final_DC": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 1.887379141862766e-15,
+    "backend_wave_bloch_residual_max_Ha": 3.552713678800501e-15,
+    "residual_minus_open_Fov_T2_max_Ha": 3.531401592346678e-12,
+    "candidate_energy_root_max_Ha": 4.263256414560601e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "ea21234ba5a31684013c0d6f046b02ad6354445c6cc39d6b540a2d7303200d22",
+    "archive_sha256": "14b6e9020805a7e206a31a442641860e4391015ca84ea2f9d816c38b8d9eedfa",
+    "actual_hamiltonian": "Dirac-Coulomb",
+    "input_files": {
+      "ATOMX_ONE": "8952d51042374285b6d587639aebb6e41019d330c42de0a65a0747b0752dd55c",
+      "ATOMX_TWO": "0879b5c7759eb344f605302c5cc66e8d583c45ab4fc8782ffd46a0d9b84050ad"
+    }
+  },
+  "final_static": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 4.218847493575595e-15,
+    "backend_wave_bloch_residual_max_Ha": 1.7763568394002505e-15,
+    "residual_minus_open_Fov_T2_max_Ha": 4.163910935083658e-07,
+    "candidate_energy_root_max_Ha": 1.5987211554602254e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd",
+    "archive_sha256": "ded875db9e47529cdd9617878d9a76115197ce8ebbca7d4b46c694f1f512445f",
+    "label_correction": "Artifact name was static but actual saved input is dynamic axial. Treat only as duplicate dynamic input validation; static control is final_static002.",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+      "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+    }
+  },
+  "final_complex": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 1.033800369267515e-14,
+    "backend_wave_bloch_residual_max_Ha": 4.6153501453047714e-14,
+    "residual_minus_open_Fov_T2_max_Ha": 8.07746657246098e-08,
+    "candidate_energy_root_max_Ha": 1.7763568394002505e-14,
+    "decoder_and_core_gate_pass": true,
+    "exact_oracle_gate_pass": true,
+    "arrays_sha256": "0d535a0377c985dcb56603036c370c2cee65b43bb7c8d82b6acfcb6fa105a539",
+    "archive_sha256": "442ec4fc2838fd8717bb236101f5dacde889d3d487cf58977f6f49bf638b0572",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "c15833c64a9d7fc52bc6b65461d27e21bef5c196671eb23e2120fe112611928e",
+      "ATOMX_TWO": "cc83b49ec1458b8de82d8d0d4765f26a0c14ab4bd03a3f49864a06851bd6821f"
+    }
+  },
+  "final_complex_axial": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 6.470730568164772e-15,
+    "backend_wave_bloch_residual_max_Ha": 5.59727358352956e-14,
+    "candidate_energy_root_max_Ha": 2.6645352591003757e-14,
+    "arrays_sha256": "22733f3e0aa82aba189f761f5bfc4482dfac28bf96ce77145f22f1598cbabaa7",
+    "archive_sha256": "2d8fed5894f7bd0a49c9c39b211d3eb87c0e199794541c73b7674a167d78e171",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "366da0bcd01ce244c99187d9bf1c8c8ef3d685347ebf8f8545bd62a49953b4e4",
+      "ATOMX_TWO": "49782665c49a36023a83c53d10ade71abb792066500765daf99678a0532757f2"
+    }
+  },
+  "final_static002": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 4.551914400963142e-15,
+    "backend_wave_bloch_residual_max_Ha": 3.552713678800501e-15,
+    "candidate_energy_root_max_Ha": 1.5987211554602254e-14,
+    "arrays_sha256": "4f2f53fd6fbe3014c7748908a1890a010a0ce378478c9257e74489cdc8af9b46",
+    "archive_sha256": "f9dd8fb07197823a08f152c5fae9bcce31d3cc7298c17ef863af9ae578460d82",
+    "actual_hamiltonian": "Dirac-Coulomb-Breit",
+    "input_files": {
+      "ATOMX_ONE": "f39834b1b3d43b39e2e843b7dd253a94703882904bf52d92617048caae565bb1",
+      "ATOMX_TWO": "ce2daeac037e0faeffa8d33b2e195a30e86021d82f23ea46dc4be3922f2ef628"
+    }
+  },
+  "final_ns100_dynamic": {
+    "status": "finite_candidate_pass",
+    "complete_candidate_gate_pass": true,
+    "backend_strict_heff_max_Ha": 5.662137425588298e-15,
+    "backend_wave_bloch_residual_max_Ha": 3.552713678800501e-15,
+    "candidate_energy_root_max_Ha": 1.0658141036401503e-14,
+    "arrays_sha256": "93e701564688472efd840469a35d1cb32b1c6b518c46b052d5ccabc69d04d446",
+    "archive_sha256": "f66edc7a355d2e5c7568bd572ec78cb91631329a92a47dbffe9ffd04f1531245",
+    "actual_hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "input_files": {
+      "ATOMX_ONE": "940a5bd5b2ef34b75b34fdda7cb2ce7a36585df923b6a093744f6ec9ef0ceab2",
+      "ATOMX_TWO": "34d4c7c25b22d9cd55da5400d8b9daf4836bbd1c9e3207c05b3ee06c230c7e71"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+--- immutable execution_preparation001/run.py
++++ representation_repair001/run.py
+@@ -610,8 +610,8 @@
+ 
+         base_vectors = {key: vector(np.concatenate(base_waves[key])) for key in functional.keys}
+         corrected = saved_g["raw_h_quotient_corrected_radial"]
+-        check("whole_corrected_radial_shape", corrected.shape != (31, 2, 123))
+-        ambient = {key: vector(np.concatenate(corrected[i])) for i, key in enumerate(functional.keys)}
++        check("whole_corrected_radial_shape", corrected.shape != (31, 246))
++        ambient = {key: vector(corrected[i]) for i, key in enumerate(functional.keys)}
+         groups, ideal = [], {}
+         lambdas, base_grams, base_Sc = {}, {}, {}
+         for keys, projector, shape, where in state.layout:

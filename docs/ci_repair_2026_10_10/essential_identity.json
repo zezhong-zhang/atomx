@@ -1,0 +1,53 @@
+{
+  "parent_repair_commit": "7a488454214dac3795d8b0f02b0163c8f162db78",
+  "numerical_source": "unchanged from parent repair commit; see source_identity.json for actual source hashes",
+  "selection_sha256": {
+    "pyproject.toml": "ee7729ed7389128e2033781a28888006559e1440afb4fc88d142a58ba7c0b2b3",
+    ".github/workflows/test.yml": "ecab5640339ba43a473a88f9f178c05ff231148c7d03a1763a24dd2842d6ec89",
+    "tests/test_determinism.py": "631fe53033c0d8cadb95f1e7a7097c9509b9e3e4261255a1ed53422456e5e2a7",
+    "tests/test_numerical_bounds.py": "c29fb5320cad872a076197e3aacd822e1b06cdf06886f38ea23cd772b3b32e13"
+  },
+  "essential_testpaths": [
+    "tests/test_architecture_boundaries.py",
+    "tests/test_numerical_design_contracts.py",
+    "tests/test_atom_input_surface.py",
+    "tests/test_config_validation.py",
+    "tests/test_method_request_controls.py",
+    "tests/test_constants.py",
+    "tests/test_units.py",
+    "tests/test_radial_metric.py",
+    "tests/test_gauss_legendre_rule.py",
+    "tests/test_bspline.py",
+    "tests/test_dirac_hydrogenic.py",
+    "tests/test_shooting_radial_operators.py",
+    "tests/test_slater_kernel_crosscheck.py",
+    "tests/test_slater_scaling.py",
+    "tests/test_ci_analytic_slater_condon.py",
+    "tests/test_ci_double_excitation_sign.py",
+    "tests/test_ci_complete_trace.py",
+    "tests/test_ci_dense_orthogonality.py",
+    "tests/test_davidson.py",
+    "tests/test_breit_open_shell_reference.py",
+    "tests/test_fac_ci_operator.py",
+    "tests/test_ci_radial_snapshot.py",
+    "tests/test_hermitian_clusters.py",
+    "tests/test_correction_application_contract.py",
+    "tests/test_corrections_stack.py",
+    "tests/test_qed_self_energy_table.py",
+    "tests/test_atom_surface_equivalence.py",
+    "tests/test_shooting_result_persistence.py",
+    "tests/test_nist_comparison_workflow.py",
+    "tests/test_ne_native_rate_table.py",
+    "tests/test_xfel_multielectron_ci.py",
+    "tests/test_xfel_kinetics.py",
+    "tests/test_determinism.py",
+    "tests/test_documentation_links.py",
+    "tests/test_project_index.py"
+  ],
+  "expected_collection": 458,
+  "local_checks": {
+    "core": "457 passed in 106.80 s, essential_trial.log",
+    "determinism": "1 passed in 46.38 s, essential_determinism.log"
+  },
+  "scope_decision": "User requested removal of long tests; about three minutes routine target; no full suite pass claimed"
+}

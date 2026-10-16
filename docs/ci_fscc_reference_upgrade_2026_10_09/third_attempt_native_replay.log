@@ -1,0 +1,15 @@
+coarse_l6_e200 6s_1/2 True -1.3934298159767877e-11
+coarse_l6_e200 5d_3/2 True -1.1836087665528794e-12
+coarse_l6_e200 5d_5/2 True 6.5910055191409356e-12
+coarse_l6_e200 6p_1/2 True -5.935252289646087e-12
+coarse_l6_e200 6p_3/2 True -3.752942401291648e-12
+fine_l6_e200 6s_1/2 True -6.673328556416891e-12
+fine_l6_e200 5d_3/2 True -1.0276113293627986e-11
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09/replay_native_ci.py", line 83, in <module>
+    op = model.as_ci_operator(root.energy_Ha, keys, od, workspace, 70, ns,
+  File "/data/code/atomx/src/atomx/methods/mbpt_matrix.py", line 170, in as_ci_operator
+    return CIEffectiveOneBody(
+  File "/data/code/atomx/src/atomx/physics/csf/effective_one_body.py", line 82, in __init__
+    raise ValueError("effective one-body matrix must be exactly symmetric")
+ValueError: effective one-body matrix must be exactly symmetric

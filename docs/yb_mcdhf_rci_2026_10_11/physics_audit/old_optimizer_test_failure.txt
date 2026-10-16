@@ -1,0 +1,127 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_complete_fock_input_is_averaged_without_extra_nuclear_operator[nuclear] _
+
+screened_problem = (<atomx.methods.csf.variational.CSFOrbitalFunctional object at 0x758daeb7a470>, {(1, -1): (array([ 0.00000000e+00,  1....00000000e+00,  0.00000000e+00, ...,
+        -4.00357853e+03, -1.16471127e+04, -1.88478256e+04]],
+      shape=(70, 70)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x758dabbfb0d0>
+projector = 'nuclear'
+
+    @pytest.mark.parametrize("projector", ["nuclear", "fock"])
+    def test_complete_fock_input_is_averaged_without_extra_nuclear_operator(
+        screened_problem, monkeypatch, projector,
+    ):
+        functional, waves, complete, average = screened_problem
+        seen = []
+    
+        def capture(matrix, metric, ns, kappa, **kwargs):
+            seen.append(matrix.copy())
+            return solve_dirac(matrix, metric, ns, kappa, **kwargs)
+    
+        monkeypatch.setattr("atomx.numerics.bspline.dirac_assembly.solve_dirac", capture)
+        optimize_orbitals(functional, waves, max_iter=0,
+                          preconditioner_matrices=complete, projector_source=projector)
+        assert len(seen) == 2
+        np.testing.assert_array_equal(seen[0], functional.one_body[-1])
+        # The kernel receives full operators, including the same mass/kinetic
+        # terms. Adding nuclear.one_body a second time changes the model.
+>       np.testing.assert_allclose(seen[1], average, rtol=0, atol=2e-12)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-12
+E       
+E       Mismatched elements: 1940 / 4900 (39.6%)
+E       Max absolute difference among violations: 40448.76855418
+E       Max relative difference among violations: 2.4
+E        ACTUAL: array([[-1.290418e+01, -3.037965e+00, -5.982284e-01, ...,  0.000000e+00,
+E                0.000000e+00,  0.000000e+00],
+E              [-3.037965e+00, -2.080115e+00, -1.072077e+00, ...,  0.000000e+00,...
+E        DESIRED: array([[-3.795346e+00, -8.935192e-01, -1.759495e-01, ...,  0.000000e+00,
+E                0.000000e+00,  0.000000e+00],
+E              [-8.935192e-01, -6.117985e-01, -3.153167e-01, ...,  0.000000e+00,...
+
+tests/test_mcdhf_fock_projector.py:54: AssertionError
+__ test_complete_fock_input_is_averaged_without_extra_nuclear_operator[fock] ___
+
+screened_problem = (<atomx.methods.csf.variational.CSFOrbitalFunctional object at 0x758dab84e050>, {(1, -1): (array([ 0.00000000e+00,  1....00000000e+00,  0.00000000e+00, ...,
+        -4.00357853e+03, -1.16471127e+04, -1.88478256e+04]],
+      shape=(70, 70)))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x758dab84e350>
+projector = 'fock'
+
+    @pytest.mark.parametrize("projector", ["nuclear", "fock"])
+    def test_complete_fock_input_is_averaged_without_extra_nuclear_operator(
+        screened_problem, monkeypatch, projector,
+    ):
+        functional, waves, complete, average = screened_problem
+        seen = []
+    
+        def capture(matrix, metric, ns, kappa, **kwargs):
+            seen.append(matrix.copy())
+            return solve_dirac(matrix, metric, ns, kappa, **kwargs)
+    
+        monkeypatch.setattr("atomx.numerics.bspline.dirac_assembly.solve_dirac", capture)
+        optimize_orbitals(functional, waves, max_iter=0,
+                          preconditioner_matrices=complete, projector_source=projector)
+        assert len(seen) == 2
+        np.testing.assert_array_equal(seen[0], functional.one_body[-1])
+        # The kernel receives full operators, including the same mass/kinetic
+        # terms. Adding nuclear.one_body a second time changes the model.
+>       np.testing.assert_allclose(seen[1], average, rtol=0, atol=2e-12)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-12
+E       
+E       Mismatched elements: 1940 / 4900 (39.6%)
+E       Max absolute difference among violations: 40448.76855418
+E       Max relative difference among violations: 2.4
+E        ACTUAL: array([[-1.290418e+01, -3.037965e+00, -5.982284e-01, ...,  0.000000e+00,
+E                0.000000e+00,  0.000000e+00],
+E              [-3.037965e+00, -2.080115e+00, -1.072077e+00, ...,  0.000000e+00,...
+E        DESIRED: array([[-3.795346e+00, -8.935192e-01, -1.759495e-01, ...,  0.000000e+00,
+E                0.000000e+00,  0.000000e+00],
+E              [-8.935192e-01, -6.117985e-01, -3.153167e-01, ...,  0.000000e+00,...
+
+tests/test_mcdhf_fock_projector.py:54: AssertionError
+____ test_fock_projected_spinors_and_ci_match_independent_screened_spectrum ____
+
+screened_problem = (<atomx.methods.csf.variational.CSFOrbitalFunctional object at 0x758daba6d480>, {(1, -1): (array([ 0.00000000e+00,  1....00000000e+00,  0.00000000e+00, ...,
+        -4.00357853e+03, -1.16471127e+04, -1.88478256e+04]],
+      shape=(70, 70)))
+
+    def test_fock_projected_spinors_and_ci_match_independent_screened_spectrum(
+        screened_problem,
+    ):
+        functional, waves, complete, average = screened_problem
+        ns, metric = functional.ns, functional.metric[-1]
+        spectrum = solve_dirac(average, metric, ns, -1)
+        first = radial_projector_start(-1, 1, functional.data)
+        projector = spectrum.coefficients[:, first:]
+        seed = np.column_stack([np.concatenate(waves[key]) for key in functional.keys])
+        projected = projector @ (projector.T @ metric @ seed)
+        eigenvalues, eigenvectors = np.linalg.eigh(projected.T @ metric @ projected)
+        expected = projected @ ((eigenvectors / np.sqrt(eigenvalues)) @ eigenvectors.T)
+        optimized, ci, report = optimize_orbitals(
+            functional, waves, max_iter=0, preconditioner_matrices=complete,
+            projector_source="fock",
+        )
+        actual = np.column_stack([np.concatenate(optimized[key]) for key in functional.keys])
+>       np.testing.assert_allclose(actual, expected, rtol=0, atol=2e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-10
+E       
+E       Mismatched elements: 106 / 140 (75.7%)
+E       Max absolute difference among violations: 8.92920931e-05
+E       Max relative difference among violations: 0.20045962
+E        ACTUAL: array([[ 0.000000e+00,  0.000000e+00],
+E              [ 1.010802e-02,  3.574881e-03],
+E              [ 2.399235e-02,  8.486426e-03],...
+E        DESIRED: array([[ 0.000000e+00,  0.000000e+00],
+E              [ 1.018388e-02,  3.601717e-03],
+E              [ 2.404335e-02,  8.504443e-03],...
+
+tests/test_mcdhf_fock_projector.py:74: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_mcdhf_fock_projector.py::test_complete_fock_input_is_averaged_without_extra_nuclear_operator[nuclear]
+FAILED tests/test_mcdhf_fock_projector.py::test_complete_fock_input_is_averaged_without_extra_nuclear_operator[fock]
+FAILED tests/test_mcdhf_fock_projector.py::test_fock_projected_spinors_and_ci_match_independent_screened_spectrum
+3 failed in 0.36s

@@ -1,0 +1,22 @@
+{
+  "scope": "source/saved-JSON physics route with integer-only kinematic estimates; no physical execution",
+  "files_sha256": {
+    "summary.json": "fc2857de27b74473566e57e0b58f220c3d25a50e8bfe1b01ed9e04c712ce292b",
+    "estimate_integer_spaces.py": "92edb199e66c5f61d4bc11b3f893ad81c7eb222a3209ec868c0a518ecf6dcc7e",
+    "docimpact.json": "6b50226b7799ab8e24a94635ecbbd4b3939b2c21b2ce86c1709ddda33ae4341b",
+    "README.md": "88e8977fe9d1e411b02e3dd3df525d4f816b4491f72c4090dd4dfc4fd7fb68d2",
+    "integer_space_estimates.json": "32f59d098bd8afccb0484bf36fc6e631f5959a439f41c8a28c22f48fa1aa72b1",
+    "executed_integer_driver.txt": "239cbe012dc3e71e02aac43d307b50164c8709493ee4b9cc021151d6b9eef3ca",
+    "verification.json": "1b20d04aa4d86208a481700443caac9d92155aaabcba87c39ff942923a32254f",
+    "contract.json": "d41a6c94a65ff1c8dd7bfbbbfa27335e78c75a9c07b0b75692e9143ae47b5f60"
+  },
+  "campaign_README_sha256": "59fb56f4d5aa4d06636fd1afcf3daec263d9511434be1f2770b07220a70db9a8",
+  "next_task": "independent complete5f fixed208 native RCI preparation only; 208 original stationarity failed",
+  "new_science": 0,
+  "historical_inputs_unchanged": true,
+  "integer_source_lineage": {
+    "original_executed_bytes": "executed_integer_driver.txt",
+    "source": "estimate_integer_spaces.py",
+    "source_change": "stdlib import sorting only; no rereplay"
+  }
+}

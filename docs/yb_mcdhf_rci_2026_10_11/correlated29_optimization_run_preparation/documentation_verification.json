@@ -1,0 +1,48 @@
+{
+  "all_local_links_passed": true,
+  "checks": [
+    {
+      "label": "qualification002",
+      "target": "../correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "exists": true
+    },
+    {
+      "label": "consumer",
+      "target": "run.py",
+      "exists": true
+    },
+    {
+      "label": "previous probe",
+      "target": "../correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "exists": true
+    },
+    {
+      "label": "reusable exact guard",
+      "target": "../accepted_line_search_metadata_implementation/exact_reported_guard.py",
+      "exists": true
+    },
+    {
+      "label": "19-control stored-array qualification",
+      "target": "../accepted_line_search_metadata_implementation/array_qualification002/result.json",
+      "exists": true
+    },
+    {
+      "label": "contract",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "label": "source preparation proof",
+      "target": "preparation_verification.json",
+      "exists": true
+    },
+    {
+      "label": "handoff",
+      "target": "handoff.json",
+      "exists": true
+    }
+  ],
+  "README_sha256": "e059f840dc6d3e642dadb69edfc1ea2c74eb0519eafffca7cb5aef0644ca8a12",
+  "handoff_sha256": "42e69bd99506c6bcfd7d4482e9e9e99d70dde7f943a6a8235443225307e76c45",
+  "scientific_calls": 0
+}

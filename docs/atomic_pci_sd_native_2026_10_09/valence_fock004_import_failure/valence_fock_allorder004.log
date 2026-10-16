@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_fock_allorder004.py", line 16, in <module>
+    from finite_direct_coulomb import direct_coulomb  # noqa: E402
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/finite_direct_coulomb.py", line 9, in <module>
+    from atomx.numerics.bspline.integrals import ConvolCache, compute_slater_rk_cell
+ImportError: cannot import name 'ConvolCache' from 'atomx.numerics.bspline.integrals' (/data/code/atomx/src/atomx/numerics/bspline/integrals.py)

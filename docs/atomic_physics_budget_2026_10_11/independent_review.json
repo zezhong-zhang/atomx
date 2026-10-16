@@ -1,0 +1,48 @@
+{
+  "status": "pass",
+  "reviewer": "/root/physics_priority_review",
+  "read_only": true,
+  "input_hashes_verified": 8,
+  "input_hash_changes": [],
+  "maximum_independent_arithmetic_difference_cm1": 2.9103830456733704e-11,
+  "historical_five_state_closure_max_cm1": 3.6010544235409725e-07,
+  "correct_band_counts": {
+    "l3_E5": 414,
+    "l3_E10": 441,
+    "l4_E5": 532,
+    "l4_E10": 567
+  },
+  "current_ground_direction": "underbound",
+  "historical_model_separation_retained": true,
+  "nominal_state_assignment_limit_retained": true,
+  "screening_thresholds_are_not_accuracy_gates": true,
+  "no_additive_physical_error_budget": true,
+  "correlation_attribution_is_unverified_hypothesis": true,
+  "full_solve_selection_is_conditional_on_screen": true,
+  "new_atomic_root_solves": 0,
+  "material_concerns": [],
+  "corrections_before_delivery": [
+    "Initial manually entered counts for g and energy expansion were swapped; replaced by SHA-bound original run004 task JSON reads. No scientific roots were modified.",
+    "Narrowed unique correlation attribution to differential model error and an unverified correlation hypothesis.",
+    "Made full solve selection conditional on signed response and cost.",
+    "Made nominal state assignment limitation explicit."
+  ],
+  "reviewed_sha256": {
+    "contract.json": "863ca2862d43430fbff65a367c7ff8cf5de0ef491bf8f8f63219d96dd051f69f",
+    "reference_facts.json": "bdf7b88d6faa6b8de7f12c127bb9ffc03befa9f57e3aae73bb2122dc7b250d5e",
+    "analyze.py": "7cb072bc65957d957873dce9799d1907024436d1dbef8dbba9b8dc314e962687",
+    "results.json": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32",
+    "README.md": "3a4b1f1ed25aa9354641aee7eff7d6ed8c0b51658bf5717018de1a3ddc50d863",
+    "next_setups.json": "81913f25bc83675859025e5938aaa7c66a36ff4215e2405f1f0d7af6534c3921"
+  },
+  "planner_followup": {
+    "status": "pass",
+    "read_only": true,
+    "checks": "Independent AST-isolated in-memory four status/job combinations",
+    "input_hashes_verified": 8,
+    "no_job_status_caps_requirements_or_unrelated_frontier_changes": true,
+    "physical_frontier_runnable": false,
+    "material_concerns": [],
+    "planner_sha256": "c00b82f75d80ec9012227fb03f81c0b4ce7c0d4a9c4b91570823bc5def93e0ed"
+  }
+}

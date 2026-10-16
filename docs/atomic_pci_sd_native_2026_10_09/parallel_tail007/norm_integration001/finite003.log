@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm.py", line 202, in <module>
+    main(parser.parse_args())
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm.py", line 85, in main
+    core, core_result, reduced = helper["reduced_core"].__wrapped__(
+  File "/data/code/atomx/tests/test_reduced_monovalent_sd.py", line 110, in reduced_core
+    core = CoreSD(
+  File "/data/code/atomx/src/atomx/methods/core_sd.py", line 436, in __init__
+    raise ValueError(
+ValueError: loaded BLAS model differs from the bound build runtime
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

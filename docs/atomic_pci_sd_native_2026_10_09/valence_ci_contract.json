@@ -1,0 +1,16 @@
+{
+  "hypothesis": "Pinned pCI CI+all-order fixed-energy valence equations can consume native signed Coulomb kernels only after physical core amplitudes are converted into numerator sigmas; compare second-order off-diagonal and energy derivative before all-order production.",
+  "fixed": "real DC small complete declared s/p pool, native metric, canonical validation Hamiltonian explicitly separated from native noncanonical physical Hamiltonian, no frozen core in control",
+  "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+  "reference": "valsd-ci.f excludes term31, fixes deltae=0 and inserts each evt-dependent denominator inside diagrams; do not substitute monovalent SD feedback",
+  "gates_Ha": {
+    "native_radial": 1e-11,
+    "signed_equation": 1e-11,
+    "raw_residual": 1e-10,
+    "sigma1_second_order": 1e-11
+  },
+  "derivative_gate": "full signed energy derivative against centered finite difference, step study predeclared 1e-3,3e-4,1e-4 Ha; relative tolerance1e-6 plus abs1e-9",
+  "memory_cap_bytes": 536870912,
+  "prototype_scope": "isolated reference/native convention control, not yet public Sigma1/Sigma2 or spectral result",
+  "stop": "any source/angular/denominator/residual mismatch stops promotion; singular denominators rejected, no shifts or source averaging"
+}

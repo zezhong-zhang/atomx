@@ -1,0 +1,66 @@
+{
+  "hypothesis": "Full original Yb core solution remains a solution of the public exact optimized operator; complete fixed-energy valence/screening equations can be solved without dropping internal intermediates",
+  "fixed": "Z70/V68 Fermi/ns123/l<=3 and all414 bound+positive-energy virtual radial roots below5Ha; all68core electrons, real native Dirac-Coulomb, original redundant signed rho normalization",
+  "external_columns": [
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      -3
+    ]
+  ],
+  "external_scope": "finite declared 6s/6p/5d P columns; every414virtual/core intermediate retained",
+  "energy_convention": "lowest declared virtual Fock diagonal for each kappa, no fitted shift",
+  "input_sha256": "4e320b72f6517c6f016a1cd9a1f2f9462e3aebe571f1ddd0f0dc4473beadd153",
+  "seed_file_sha256": "40e62b3daa22855174c4c874bb3dcbf2e6ace878c2abb8fe37f5b4788ab2a90d",
+  "raw_residual_gate_Ha": 1e-10,
+  "source_gate_Ha": 1e-11,
+  "core_energy_gate_Ha": 1e-11,
+  "core_workers": 8,
+  "blas_inner_threads": 1,
+  "cap_bytes": 34359738368,
+  "load": [
+    10.8994140625,
+    13.63134765625,
+    17.22021484375
+  ],
+  "stop": "Any changed physical input, complete-space mismatch, failed full source/denominator/energy/raw gate or cap overrun rejects; no tolerance/space alteration",
+  "scope": "fixed-energy directed operators and numerical residuals; no Hermitian CI substitution, radial convergence, precision or experimental claim",
+  "screening_requested": true,
+  "valence_term2_blas": true,
+  "valence_term2_threads": 8,
+  "private_cuda_term2_requested": true,
+  "private_numerical_seed_handoff": false,
+  "private_resident_cuda_krylov": false,
+  "private_fused_angular": true,
+  "private_term41_blas": true,
+  "private_terma4_blas": true,
+  "device_pool_cap_bytes": 2147483648,
+  "preflight_only_requested": false,
+  "seed_producer_policy": "saved complete certified columns or source-bound iteration guesses only",
+  "partial_parent_policy": "exact current full source binding required",
+  "column_solver": {
+    "restart": 30,
+    "maxiter": 100,
+    "inner_atol_Ha": 1e-14
+  },
+  "resume_from": "yb_full_valence005",
+  "checkpoint_policy": "complete saved numerators are initial guesses only; fixed physical/input/energy/channel/denominator identity and fresh full signed/raw gates required",
+  "iteration_checkpoint_policy": "each GMRES restart stores a complete uncertified numerical guess as an immutable generation with an atomic head; exact actual-source/physical/coordinate binding required",
+  "iteration_checkpoint_cap_bytes": 8589934592,
+  "checkpoint_parent_contract_sha256": "35bf78b7f4778ddfdb5fc0636b7fc83b88732b2eed2cd19aed625d658123db7b"
+}

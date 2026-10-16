@@ -1,0 +1,38 @@
+{
+  "timestamp_UTC": "2026-10-14T16:17:03.454777+00:00",
+  "status": "PASS_BOUNDED_NATIVE_TENSOR_YB_QUALIFICATION",
+  "production_source_files": 362,
+  "prior359_production_files_unchanged": true,
+  "archive_contents_verified": true,
+  "input_hashes_verified": true,
+  "upstream_reference_files_verified": 6,
+  "upstream_license_retained": true,
+  "live_controls": 196,
+  "saved_checks": 353,
+  "tests": {
+    "passed": 54,
+    "skipped_external": 2,
+    "failures": 0,
+    "errors": 0,
+    "original_shared_cache_failure_preserved": true
+  },
+  "ruff": "PASS all three native modules, new tests and three local drivers",
+  "git_diff_check": "PASS entire working tree at closure",
+  "documentation_links": {
+    "checked": 12,
+    "broken": [],
+    "scope": "working-tree candidate, not clean-checkout publication"
+  },
+  "scientific_scope": {
+    "full_target_multiplets": true,
+    "independent_same_model_target_sector_FCI": true,
+    "all_directed_sector_Hbar": true,
+    "physical_omitted_rank_defects_preserved": true,
+    "production_full_core_RCCSDT": false,
+    "full_paper_reproduction": false,
+    "experimental_precision": false,
+    "correlated_properties": false,
+    "MCDHF_optimizer_admission": false,
+    "controlled_speedup": false
+  }
+}

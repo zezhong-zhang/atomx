@@ -1,0 +1,15 @@
+{
+  "hypothesis": "the virtual pair density action is independent of the core pair; generate it once per complete partial/rank block, stream all complete core-pair contractions through it and use exact BLAS projections",
+  "fixed": "same complete native space, original pCI angular equations and full scalar Fock; no amplitude threshold or radial approximation",
+  "action_gate_Ha": 1e-11,
+  "residual_gate_Ha": 1e-10,
+  "stop": "reject signed complete-action or root mismatch; retain original and compact paths",
+  "resources": "one complete shared virtual-pair potential block plus explicitly bounded per-worker scratch, original arrays and full Krylov storage",
+  "timing": "paired alternating full actions with load guard; separately root/initialization",
+  "source_before": {
+    "tools/build_pci_sd_backend.py": "1c2c375d96a56915a06ece1f81dd5d9ad0e9a465c46fb00d8ac0f5c9549c37cb",
+    "src/atomx/methods/core_sd.py": "f8a205061520bdf097b107215aaa55977c3bb5f87187660341a70091449eeb17",
+    "src/atomx/methods/_pci_term21_compact.f90": "3b58e5b78562b03381711630832fcf1d163cea23ff0757126f2d33c95f8b3a2b",
+    "tools/benchmark_core_sd_term21.py": "30f1918885cb553bdb4a66a3f00cc27968e57ffc23b1df4800fd42dc35f4d3ee"
+  }
+}

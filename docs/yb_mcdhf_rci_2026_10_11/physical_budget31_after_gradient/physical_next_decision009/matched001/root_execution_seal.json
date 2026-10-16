@@ -1,0 +1,38 @@
+{
+  "execution_authorized_by_root": true,
+  "once_only": true,
+  "driver_sha256": "7f789273301b93b4ab1e44a5c7460b4baa72e3895dc27f9c12e7eb3110f75137",
+  "contract_sha256": "de7072e505bba4d52811574d35163fd6dec72917d4169ba9a4d5ce8cc40d83fa",
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "inner_seconds": 1200,
+    "outer_seconds": 1215,
+    "decoded_input_bytes": 268435456,
+    "host_load1_max": 16,
+    "host_MemAvailable_GiB_min": 10,
+    "calls": {
+      "H": 4,
+      "H_projection": 20,
+      "block_terms": 10,
+      "angular_table": 10,
+      "angular_nullspace": 43,
+      "raw_hS": 28,
+      "radial_evaluator": 4,
+      "radial_key": 337832,
+      "pair_potential": 337832,
+      "density": 3968,
+      "pair_convolution": 1351328,
+      "factor_getter": 1351328,
+      "banded_contraction": 675664,
+      "Davidson": 20,
+      "operator_action": 5000,
+      "streamed_numeric": 10,
+      "pair_kernel": 20,
+      "pair_term": 85154272,
+      "term_emissions": 200000000
+    }
+  },
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1"
+}

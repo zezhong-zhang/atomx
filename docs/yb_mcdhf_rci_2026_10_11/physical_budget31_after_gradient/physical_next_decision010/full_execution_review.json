@@ -1,0 +1,36 @@
+{
+  "status": "ADMITTED_COMPLETE_FIVE_SECTOR_DENSITY_GRADIENT",
+  "matched_result_sha256": "9907ad4471a1dc6aedfb1e60e1c08bd748624b26d21f22ca1094c739e002633e",
+  "matched_checks": 102,
+  "all_matched_PASS": true,
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "full_model_B_CSFS": 45686,
+  "full_model_A_CSFS": 44707,
+  "radial_waves": 31,
+  "work_plan": "Per-sector one full B sparse projection/connection traversal for two A/B selected vectors; exact A nesting, complete signed keys and actual normalization; no H or eigenvalue rebuild. Native 31x246 gradients compared to independent raw-h quotient/four-slot radial directional integrals.",
+  "resource_budget": "8GiB AS,1200s each, threads1,CPUs28-30,max3 simultaneous. Existing full graph highwater~1.92GiB; two determinant amplitude pairs<6MiB; two weight dictionaries up to384706 keys each; bounded input decode256MiB. No full angular table/Hdet/pair-by-state array. No controlled speedup claim.",
+  "stopping": "First failure writes shared STOP; do not dispatch remaining cases; retain failure and current source; no automatic scientific retry.",
+  "seals": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/seal_J1_even.json",
+      "sha256": "8a9808833049079e5dc0ae1f408b606275ffd6a333ab265b1bd704d9635a6fc8"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/seal_J3_even.json",
+      "sha256": "ebc2993cf1fa945fb2fffd10428b0ae47d311bd202235fec09dd205d503337a1"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/seal_J5_even.json",
+      "sha256": "406df158a304578b78df5906857c1ec5859ec7ecf970117dcf1c088515652178"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/seal_J1_odd.json",
+      "sha256": "e92fb5402f0f9dc891924181a792a91aec8bed3bc7a0745ff1d1281c80a95998"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/seal_J3_odd.json",
+      "sha256": "5f38924a8468b5bd1098a4a5c40338b6029de0f2c3c364d1306e7ab77baf6018"
+    }
+  ],
+  "limitations": "No ordinary FD retry or pass, optimizer/stationarity/full-spectrum owner/experiment admission. Source-bound009 selected-root residuals consumed as ancestry, not newly reverified."
+}

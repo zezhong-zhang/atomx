@@ -1,0 +1,45 @@
+{
+  "time": "2026-10-11T04:00:36.009731+00:00",
+  "rss_observations": [
+    {
+      "pid": 1951385,
+      "ppid": 1941382,
+      "rss_bytes": 274857984,
+      "vsz_bytes": 1516466176,
+      "command": ".venv/bin/python docs/atomic_external_benchmark_2026_10_11/sd/finite_action_probe.py"
+    },
+    {
+      "pid": 1952373,
+      "ppid": 1941382,
+      "rss_bytes": 36323328,
+      "vsz_bytes": 126447616,
+      "command": ".venv/bin/python docs/atomic_external_benchmark_2026_10_11/ambit/benchmark.py"
+    },
+    {
+      "pid": 4038113,
+      "ppid": 1941382,
+      "rss_bytes": 14753792,
+      "vsz_bytes": 36012032,
+      "command": ".venv/bin/python docs/atomic_external_benchmark_2026_10_11/sd/run_yb_rounds.py"
+    },
+    {
+      "pid": 4038116,
+      "ppid": 4038113,
+      "rss_bytes": 967249920,
+      "vsz_bytes": 5150400512,
+      "command": "/data/code/atomx/.venv/bin/python /data/code/atomx/docs/atomic_external_benchmark_2026_10_11/sd/yb_round_probe.py 0"
+    }
+  ],
+  "total_observed_resident_bytes": 1293185024,
+  "maximum_reserved_total_bytes": 25769803776,
+  "sd_resident_estimates_bytes": {
+    "one_full_yb_round": 8589934592,
+    "all_five_finite_backends": 2147483648
+  },
+  "sd_new_process_concurrency": {
+    "full_rounds_sequential": true,
+    "finite_lane": 1,
+    "maximum_active_cpu_preparation_sd_lanes": 2
+  },
+  "note": "VMS/address limits are recorded separately and never summed as RSS. Shared benchmark controller owns whole-lane reservation admission; this snapshot includes observed actual benchmark Python consumers only."
+}

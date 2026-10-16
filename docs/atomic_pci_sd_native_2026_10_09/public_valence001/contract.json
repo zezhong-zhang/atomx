@@ -1,0 +1,20 @@
+{
+  "hypothesis": "Public complete fixed-energy noncanonical SD reproduces independent long-double magnetic roots/actions/implicit responses with matched native DC integrals.",
+  "fixed": "C2+ all1s2/2s2 core, six declared s/p radial virtuals and all16magnetic states, Z6/ns40/ks7; complete native physicalFock, .37rad rotation of each two-virtual partial-wave pair; no synthetic operator or fitted energy",
+  "energy": "each actual Fock diagonal eps_v+.075, core numerators fixed for derivative",
+  "gates_Ha": {
+    "action": 1e-11,
+    "signed_root": 1e-11,
+    "signed_prime": 1e-11,
+    "sigma1_prime": 1e-11,
+    "actual_core_and_valence_residual": 1e-10
+  },
+  "resource": "512MiB complete core/valence/Krylov preflight plus bounded64MiB finite reference, one worker",
+  "load": [
+    40.22607421875,
+    39.41796875,
+    33.78564453125
+  ],
+  "stop": "failure retains full arrays/source; no gate or space reduction",
+  "scope": "public equation and physical identity proof in declared finite space; not Yb/experimental convergence"
+}

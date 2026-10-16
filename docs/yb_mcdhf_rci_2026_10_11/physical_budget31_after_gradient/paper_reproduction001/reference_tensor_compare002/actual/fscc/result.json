@@ -1,0 +1,127 @@
+{
+  "core_energy_Ha": -7.174772647253538,
+  "sector_energies_Ha": [
+    -7.778107499450767,
+    -7.644914439790847,
+    -7.375929635614138,
+    -7.119343448619371
+  ],
+  "amplitude_update_max": 9.915679388683429e-14,
+  "equation_residual_bound_Ha": 1.2254243585146183e-12,
+  "provenance": {
+    "backend": "EXP-T Atomx interface",
+    "executable_sha256": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+    "backend_source_manifest_sha256": "5516faf5a5f62ce18d148982bcb806dd8d74c038ace1373d8bc1feb477650ee9",
+    "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+    "backend_patch_sha256": "998ea26f9d5e209b32680ac1bbefcdf61fc498db5535685c0a64155fd3097fac",
+    "atomx_solver_sha256": "d578dc2f81e92c7d828dde017e90e012c64fc3ecbef0ea96b1f276d0821edee7",
+    "model": "CCSDT",
+    "sector": "0h1p",
+    "active_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "model_matrix_order": "ascending global active indices, original EXP-T one-particle/hole determinant basis",
+    "tensor_symmetry": "C1",
+    "occupied_virtual_fock_max_Ha": 0.07176178946223534,
+    "noncanonical_attachment_equation": "ATOMX_FOV_T2_001",
+    "residual_scope": "backend raw Jacobi update bound; independent retained/Bloch and omitted-rank wave residuals are separate validations",
+    "resources": {
+      "occupied": 3,
+      "virtual": 4,
+      "core_independent_amplitudes": 34,
+      "raw_tensor_coordinates": 4396,
+      "estimated_working_bytes": 2265792,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+    },
+    "tolerance": 1e-13,
+    "residual_bound_tolerance_Ha": 1e-11,
+    "memory_bytes": 536870912,
+    "tile_size": 4,
+    "threads": 1,
+    "integral_manifest_sha256": "c5f3cc056c81654a969448f825697a5545351b09d7228c1fd63614761241dccc",
+    "input_sha256": "2f587790773856654aec031fd0c9b07c06080f8b2772bfb4f213343054d001fb",
+    "integrals": {
+      "abi": "ATXCC001",
+      "labels": [
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          3,
+          -1,
+          1
+        ],
+        [
+          4,
+          -1,
+          1
+        ],
+        [
+          5,
+          -1,
+          1
+        ],
+        [
+          6,
+          -1,
+          1
+        ],
+        [
+          7,
+          -1,
+          1
+        ]
+      ],
+      "noccupied": 3,
+      "reference_energy_Ha": -7.149498738039073,
+      "frozen_energy_Ha": -2.3,
+      "identity": {
+        "scope": "finite two-body anchor"
+      },
+      "export": {
+        "logical_bytes": 5152,
+        "max_integral_file_bytes": 2147483648,
+        "max_chunk_bytes": 4194304,
+        "producer": {
+          "representation": "packed",
+          "resident_matrix_bytes": 1568,
+          "resident_eri_bytes": 4256,
+          "dense_eri_bytes": 4256
+        }
+      },
+      "files": {
+        "ATOMX_ONE": "aa8719669bccc4f599b9f1cd54fe72917c8923021e2116cd971b1a84f3053777",
+        "ATOMX_TWO": "283814b1baf98852eebf82d488335e241e7d0879b3b2df99335c345ca8dbae4c"
+      }
+    },
+    "statuses": {
+      "0h0p": [
+        1,
+        13,
+        2.1260770921571748e-14,
+        6.024694632067451e-15,
+        8.232076045139314e-16
+      ],
+      "0h1p": [
+        1,
+        23,
+        0.0,
+        9.915679388683429e-14,
+        3.697563089044564e-15
+      ]
+    },
+    "log_sha256": "e590e2ea224fd57452b76481f97edd6a9c59c05a8cfce4e494eeef131c0005a3",
+    "heff_sha256": "6289a271e243cae10be195fe854c15a8e42a658c43adf4e762901d4081e81a31",
+    "model_space_matrix_sha256": "11a3d31dfd88150c27978df25c3feeb30bdf3b2e15fc474e8856cd0223218d78"
+  }
+}

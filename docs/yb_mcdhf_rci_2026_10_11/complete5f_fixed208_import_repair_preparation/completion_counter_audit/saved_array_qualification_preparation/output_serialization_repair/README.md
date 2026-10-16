@@ -1,0 +1,5 @@
+Prospective output-serialization-only successor of the independent saved-array audit. The first audit completed18 once-only NPZ loads and389/389 numerical checks, then failed when two longdouble spectrum lists were encoded to JSON. Its originalactual/receipt and the original5f exact14-versus7 gate remain FAIL and unchanged.
+
+The driver differs in exactly two output expressions: `[float(v) for v in absres]` and `[float(v) for v in relres]`. The computational AST is identical after masking only those two encoding nodes; all inputs, f043/P/point/model/UID, formulae, thresholds,18 loads,CPU31/thread1/3.95GiB/120inner135outer caps and maximum512rows remain unchanged. Encoding occurs after all numerical gates and changes no acceptance.
+
+This is a new directory and a separately admitted prospective once attempt, not a rerun within the failed directory. No NumPy/NPZ/Atomx or science was executed by preparation. Root must bind exactnew driver/contract/preparation/inputmap plus the inheritedfailedreceipt/failure before a sole foreground saved-algebra invocation. Any new failure is preserved without retry.

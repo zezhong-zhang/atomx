@@ -1,0 +1,41 @@
+{
+  "status": "source_preparation_frozen_optimizer_HOLD_failed_rotation",
+  "created_utc": "2026-10-11T13:27:18.910255+00:00",
+  "execution_ready": false,
+  "source_only_checks_passed": 434,
+  "source_only_check_success_key": "all_source_only_checks_passed",
+  "shared_source_changes": 0,
+  "science_calls": 0,
+  "numerical_imports": 0,
+  "Ruff_passed": true,
+  "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "guard_arithmetic_prerequisite_passed": true,
+  "physical_rotation_prerequisite_passed": false,
+  "files_sha256": {
+    "run.py": "7e8dba6581529c5f928ac6ba3f48d6ffbf7cf7f9137c3971068cff6b0eb91ee2",
+    "contract.json": "58868aa3cba95014c60aa7f35618d57b9c63f13f1be06e5ea3b5024788c24b4f",
+    "verify_preparation.py": "9bfbe299ae057d2d615f93c80e85296c534ec287f3234bff113eeb6cf0f6a7bd",
+    "preparation_verification.json": "b7e7f00c0ece17e5e13826de6461603ce695b8766f610989bcb48d3fb6902d0c",
+    "README.md": "e059f840dc6d3e642dadb69edfc1ea2c74eb0519eafffca7cb5aef0644ca8a12",
+    "documentation_impact.json": "8e9c02f6ad04b487bce924b28dc61a04d303681fa3c0ed6ec8cad2906c736d9b",
+    "ruff_result.json": "afe0714a5de17e565867fde5f052896fab00bd30d857f24a85601972b296c4a6"
+  },
+  "next_step": "Independent review of this held consumer. No execution; a separately qualified prospective derivative successor and exact root execution seal remain required.",
+  "preserved_failures": [
+    "original reported external derivative failure",
+    "rotation002 unchanged derivative gate failure",
+    "exact guard selector001 failure"
+  ],
+  "accepted_checkpoint_policy": "same original reported objective; no energy callback; exact retained-H margin under actual original Armijo RHS; first unsafe candidate forensic and previous qualified checkpoint preserved",
+  "caps": {
+    "new_accepted_steps": 16,
+    "H_CI": 65,
+    "full_gradients": 17,
+    "CPU": 31,
+    "threads": 1,
+    "GiB": 3.95,
+    "inner_s": 600,
+    "outer_s": 615,
+    "optimizer_soft_s": 570
+  }
+}

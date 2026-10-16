@@ -1,0 +1,16 @@
+{
+  "status": "ADMITTED_ONCE_SAVED_ARRAY_DIAGNOSTIC",
+  "driver_sha256": "4ecedb1658ce121beb217e5a7134bff2ae50bfd07a1e6effcd3aca7712807e52",
+  "contract_sha256": "f003fa5b981ff7b788e3b4fa8f1744d1250a35a5783c3bc0243f3ba3a6cb63c2",
+  "source_review": [
+    "Exact upper-triangle quadratic uses literal symmetric binary64 H, signed coefficients and measured exact norm; integer shifts retain all tiny nonzero products.",
+    "Subtracting baseline scalar times I occurs exactly within each quadratic and cancels algebraically; no physical operator, eigenproblem or state changes.",
+    "Trial and fixed-C0 quotients use each endpoint H in the same complete signed CSF order. Separate normalization and explicit sector-zero checks make block restriction exact.",
+    "The three contributions telescope as Fractions. Reported slopes are independently checked against original005 JSON and its unchanged classifications.",
+    "No Atomx import, H builder, integral, gradient, eigensolve or optimizer; historical f043 and current358 source maps checked before/after.",
+    "Two-step operator remainder cannot uniquely separate curvature, polar reconstruction and original matrix assembly; no original gate is superseded."
+  ],
+  "independent_small_fraction_controls_before_run": 97,
+  "pre_execution_style_checks": "Initial Ruff four style/unused-variable findings fixed before preparing/sealing; final Ruff PASS. No scientific run or retry occurred.",
+  "resources": "CPU27, six thread settings1, AS4GiB, inner300s/outer330s, 10 existing NPZ loads, 80 exact quadratics, 7799576 triangle visits; stop on first identity/resource/control failure."
+}

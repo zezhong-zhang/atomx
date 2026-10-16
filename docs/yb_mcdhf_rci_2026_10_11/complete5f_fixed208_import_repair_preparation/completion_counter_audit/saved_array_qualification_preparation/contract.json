@@ -1,0 +1,252 @@
+{
+  "status": "prospective independent saved-array qualification; pending exact ROOT binding, not executed",
+  "hypothesis": "The original14-versus7 builder counter FAIL is guarded h0 cache reuse, while both retained complete H/CI archives independently satisfy all original physical gates and samepoint response arithmetic. Qualification is distinct from failed original execution.",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "literal_point": "run005 accepted0128/global208, unchanged old29 radial waves/P/x/inverse, NOT a240 fork",
+  "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "original29keys": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      -3
+    ],
+    [
+      3,
+      -2
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      4,
+      -4
+    ],
+    [
+      4,
+      -3
+    ],
+    [
+      4,
+      -2
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      5,
+      -3
+    ],
+    [
+      5,
+      -2
+    ],
+    [
+      5,
+      -1
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      6,
+      -3
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      -2
+    ],
+    [
+      7,
+      -1
+    ],
+    [
+      7,
+      1
+    ]
+  ],
+  "target_UIDs": [
+    [
+      "6s_1/2",
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      "5d_3/2",
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    [
+      "5d_5/2",
+      [
+        5,
+        1,
+        0
+      ]
+    ],
+    [
+      "6p_1/2",
+      [
+        1,
+        -1,
+        0
+      ]
+    ],
+    [
+      "6p_3/2",
+      [
+        3,
+        -1,
+        0
+      ]
+    ]
+  ],
+  "weights": [
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "operator": "Scalar native no-pair Dirac-Coulomb only; no static/dynamic Breit/QED/recoil/effective additions/fitting",
+  "inputs_sha256": "88ec1c9b2f8be31d9f379f2d9ca04a41f01a4d298644051e706b7dfd957a9262",
+  "acceptance": {
+    "actual_radial_Gram_error": 1e-10,
+    "saved_P_metric_Gram_error": 1e-10,
+    "nuclear_projector_leakage_S_norm_squared": 1e-12,
+    "radial_quadrature_norm_error": 1e-10,
+    "screened_full_spectrum_SGram_error": 1e-10,
+    "screened_full_spectrum_constrained_residual_relative": 1e-08,
+    "virtual_original_P_minimum_Ha": 1e-08,
+    "virtual_minimum_separation_Ha": 1e-10,
+    "virtual_original_P_minimum_span_overlap_squared": 0.5,
+    "CI_residual_Ha": 1e-08,
+    "CI_orthogonality": 1e-10,
+    "matrix_hermiticity_Ha": 1e-10,
+    "cross_symmetry_zero_Ha": 1e-14,
+    "nested_signed_old1046_H_error_Ha": 5e-09,
+    "nested_ordered_Ritz_eigenvalue_increase_Ha": 1e-08,
+    "baseline_H_bitwise_identity": true,
+    "baseline_reported_roots_and_mixing_bitwise_identity": true,
+    "original_orbital_residual": 1e-07,
+    "original_energy_indicator_Ha": 1e-08,
+    "nominal_relative_NIST_goal": 0.01,
+    "tracker_gates": "Public original: principal\u00b2>0.5 and<=1+1e-8; ambiguity boundary>1e-10, complete degenerate spans/equal weights. Do not loosen."
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 120,
+    "outer_wall_seconds": 135,
+    "exact_NPZ_loads": 18,
+    "maximum_numerical_check_rows": 512,
+    "new_H_CI_g_Fock_Dirac_SCF_eigen_SVD_optimizer_radial_builders": 0,
+    "new_Atomx_imports": 0,
+    "saved_array_algebra": "Full dense H@C/C.T@C on both1046/1595 spaces, all original signed rows/roots and symmetry sectors. Full118-vector physical Rayleigh/residual/Gram for both existing virtual arrays. No new eigenvectors/overlap determinants or radial potentials.",
+    "failure_policy": "Preserve partialchecks/load roles/failure; no retry, tolerance changes or array repairs."
+  },
+  "NPZ_count_roles": {
+    "literal208": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+    "geometry": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+    "hS_geometry": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+    "baseline_CI": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_whole_CI.npz",
+    "complete5f_CI": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_whole_CI.npz",
+    "raw_hS_1": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_01.npz",
+    "raw_hS_2": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_02.npz",
+    "raw_hS_3": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_03.npz",
+    "raw_hS_4": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_04.npz",
+    "raw_hS_5": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_05.npz",
+    "raw_hS_6": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_06.npz",
+    "raw_hS_7": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_07.npz",
+    "virtual_operator_0": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_original_operator.npz",
+    "qualified_virtual_0": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_qualified_complete.npz",
+    "initial_virtual_0": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_fullgvd_initial.npz",
+    "virtual_operator_1": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_original_operator.npz",
+    "qualified_virtual_1": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_qualified_complete.npz",
+    "initial_virtual_1": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_fullgvd_initial.npz"
+  },
+  "planned_numeric_checks": "All original CI/H/crosssym/nestedRitz/radial/P/metric/wave byte gates; both full118 virtual spectra/minima/phase/normalization, seven raw h/S fields and logicaltriangle identities; five original UID/selected columns/weights/degenerate equality and upper-minus-lower/centroid/split/RMS arithmetic. Exact ledger<=512 rows records actual counts.",
+  "limits": "Original exact14 completedhS gate remains false and originalexit1 never reclassified. Retained source/JSON and saved-array algebra qualify this finite nuclear-field5f candidate only. Not new expanded MCDHF stationarity, adequate radial seed, full parent spectrum/globalground, physicalcompleteness/experimental certification or uniform callback. Nuclear callable/grid-value identity and original tracker ambiguity/principal spans are consumed byte-bound public runtime/source proofs, not regenerated or independently recomputed determinant overlaps.",
+  "limitations": [
+    "Original expected14-versusactual7 gate and exit1 remain FAIL.",
+    "Literal208 original two stationarity gates and experiment FAIL remain.",
+    "Other parent sectors are only enumerated; no full-spectrum/globalground assertion.",
+    "Both full saved physical spectra are evaluated, but no new eigensolve or optimum construction.",
+    "Owner workspace/wave hashes are recomputed; the nuclear callable itself is not instantiated or resampled. Its byte-bound equality and unchanged input/runtime cache guard are consumed.",
+    "Original public tracker signed spans/ambiguity gates are consumed; no fresh determinant overlaps or SVD. Saved UID/columns, complete degenerate weight equality and principal thresholds independently checked.",
+    "No NIST fit/cross-epoch correction or selecting another seed/branch."
+  ],
+  "execution_binding_required": [
+    "execution_authorized_by_root=true",
+    "exact contract/driver/preparation/inputmap SHAs plus fullinput_roles",
+    "original failedrootreceipt SHA",
+    "source_map_sha256=f0435dd...",
+    "new_physical_producer_calls=0"
+  ],
+  "new_scientific_calls_during_preparation": 0,
+  "NPZ_decodes_during_preparation": 0
+}

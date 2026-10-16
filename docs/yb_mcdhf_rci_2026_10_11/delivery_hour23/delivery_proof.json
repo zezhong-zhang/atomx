@@ -1,0 +1,106 @@
+{
+  "proof_created_at": "2026-10-11T15:11:59.941986+00:00",
+  "passed": true,
+  "successful_send_and_readback": true,
+  "cycle": "2026-10-11T15",
+  "idempotency_key": "e9f57af9-a8c4-5092-97b7-ccba601cc6e6",
+  "message_id": "om_x100b638e098e78b0c44937fb618dd0a",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1611",
+  "message_position": "1611",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "source_stage019": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage019.json",
+    "sha256": "93be53afb342aaa89bcd487b661eabd1b92f93c1f12db407b0944caa33e24ca2"
+  },
+  "registry_sha256": "a7f6fa1129732953f539ce73382af1158e86aa4028ad5a7c43d1096d3e9182aa",
+  "registry_copy_provenance": "reporting_stage020/before_registry.json immutable pre-update registry",
+  "actual_card": {
+    "payload_schema": "2.0",
+    "elements": 15,
+    "title": "Atomx · 任务与谱学实验对照",
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-11 23:00:04",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-11 23:00",
+    "all_visible_content_matches": true,
+    "readback_content_characters": 9344,
+    "raw_readback_schema_available": false,
+    "readback_representation": "CLI-rendered card text; actual sent rawv2 DSL archived separately",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "service_send": {
+    "started_at": "2026-10-11T15:00:01.885046+00:00",
+    "finished_at": "2026-10-11T15:00:04.746036+00:00",
+    "passed": true,
+    "iteration_dispatch_ok": true
+  },
+  "service_iteration": {
+    "status": "completed",
+    "actual_service_jobs": 4,
+    "highest_level_reached": false,
+    "summary": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour23/service_jobs_summary.json",
+      "sha256": "89ec5e1dd4671dce8041acba7dadb57f6f46300bcad25e46b850b0534afde60a"
+    },
+    "service_automatically_started_finite_science": true,
+    "does_not_certify_production_MCDHF_or_GPU_speedup": true
+  },
+  "actual_readback_calls": 1,
+  "new_scientific_calls_by_delivery_audit": 0,
+  "cards_sent_by_delivery_audit": 0,
+  "copied_configurations_or_secrets": false,
+  "files_sha256": {
+    "readback.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verification_attempt001_failure.json": "68833e7b751d59b4e379b847508a45773f40f40097513972ce07e489b5410eb4",
+    "readback.json": "3d50235e5e738cc3e2efe9879ac0393baefec07b191d7ec7635fb846668cfc9c",
+    "registry_stage019.json": "a7f6fa1129732953f539ce73382af1158e86aa4028ad5a7c43d1096d3e9182aa",
+    "service_jobs_summary.json": "89ec5e1dd4671dce8041acba7dadb57f6f46300bcad25e46b850b0534afde60a",
+    "readback_execution.json": "02e4b34d3c2430a2b25a8694532cb6917eb218135a4442704479f6402e0d27db",
+    "iteration_request_summary.json": "16f511f927aa9cd59dd367c768097b99995e64e03148a1e77f1dc51c23071e0b",
+    "card.json": "c023d429c5e31a81422675d36e5033b37da910919d3f0737705fa4c62bca3d83",
+    "send_status.json": "4b2f47ac247401645bad21d3a9a4b786744d7f06ade151e03d2c5d4aceaf9e78",
+    "verify_delivery.py": "e6744b58525a8a3199b050d233cb7b982dd235d8ff14b275ed15c14c628994b4",
+    "receipt.json": "8b0ba871fdd7425b8ae186fbdbf589854bba625fdc04192ad51cacaa472502b5"
+  },
+  "scope": "Actual stage019 delivery/readback plus scalar/provenance verification of four completed service jobs. Stage020 and native optimizer are separate successor reporting; production gates and old FAIL remain."
+}

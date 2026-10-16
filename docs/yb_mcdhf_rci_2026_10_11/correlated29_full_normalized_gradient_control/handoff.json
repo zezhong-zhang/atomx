@@ -1,0 +1,32 @@
+{
+  "status": "frozen_preparation_only_root_execution_pending",
+  "manifest_sha256": {
+    "run.py": "2fbfbbfa978a8812eca8b9b5bd683cc7dba53f016fc0306a775f85bded2f1df3",
+    "contract.json": "cf786edf46ae694cbc1c93554f768084bb15c12fb537a662d2a48b259fb8a7aa",
+    "preparation_verification.json": "ab9221af92609d9328399c5a5486e26a5c2388a4d3036a06ee37a506894e3990",
+    "README.md": "270d1c925d82c27d51fd1f73579e03b47e35a7dec45f7ce7fe926fa8d5e18c3c",
+    "documentation_impact.json": "02298b797db48c39d710acdd101a6e2ddfe61e77c39d2566af309db80853da6a"
+  },
+  "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "physical_calls": 0,
+  "numeric_imports": 0,
+  "prepared_caps": {
+    "H": 1,
+    "CI": 1,
+    "gradient_from_weights": 2,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "Dirac": 0,
+    "tracker_resolve": 2,
+    "tracker_SVD": 10,
+    "tracker_overlap": 3,
+    "CI_eigh": 5,
+    "retained_RDM": 1,
+    "unfiltered_target_RDM": 5,
+    "gradient_pair_potential": 2000
+  },
+  "root_execution_not_created_by_this_agent": true,
+  "old_optimizer_contract_HOLD": true,
+  "metadata_controls": 395,
+  "pre_handoff_archive_fix": "tolist-before-item serialization only; old zero-science preparation retained; final source follows root review"
+}

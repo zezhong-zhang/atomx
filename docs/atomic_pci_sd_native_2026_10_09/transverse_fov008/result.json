@@ -1,0 +1,39 @@
+{
+  "status": "Completed declared diagnostic interventions; per-H FCI targets explicit",
+  "rows": [
+    {
+      "factor": 0.0,
+      "complete_root_defects_Ha": [
+        2.1316282072803006e-14,
+        1.7763568394002505e-15,
+        -1.7763568394002505e-15,
+        -2.3092638912203256e-14,
+        1.7763568394002505e-15,
+        -1.7763568394002505e-15,
+        -1.2434497875801753e-14,
+        -1.9539925233402755e-14
+      ],
+      "max_Ha": 2.3092638912203256e-14,
+      "stricter_diagnostic_gate_pass": true,
+      "raw_equation_bound_Ha": 2.750036552382789e-13
+    },
+    {
+      "factor": 2.0,
+      "complete_root_defects_Ha": [
+        1.7213075409472367e-09,
+        1.7212986591630397e-09,
+        2.3092638912203256e-14,
+        2.1316282072803006e-14,
+        1.4210854715202004e-14,
+        3.552713678800501e-15,
+        -1.0658141036401503e-14,
+        -1.4210854715202004e-14
+      ],
+      "max_Ha": 1.7213075409472367e-09,
+      "stricter_diagnostic_gate_pass": false,
+      "raw_equation_bound_Ha": 2.035097834774908e-15
+    }
+  ],
+  "source_and_inputs_unchanged": true,
+  "scope": "Changed-H diagnostic factors only; zero Fov is not adopted as a repair"
+}

@@ -1,0 +1,103 @@
+{
+  "created_at_utc": "2026-10-11T11:58:00.798962+00:00",
+  "task": "read-only independent saved-array audit of failed finite mixed-CI qualification",
+  "hypothesis": "Saved complete eigenpairs, signed-density and finite-increment evidence can be checked independently while the failed derivative gate and unexecuted guards remain failures/unverified.",
+  "fixed": {
+    "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "source_count": 356,
+    "dimension": 29,
+    "ns": 35,
+    "radial_keys": 7,
+    "complete_CI_points": 13,
+    "targets": [
+      [
+        0,
+        1,
+        0,
+        0.25
+      ],
+      [
+        0,
+        1,
+        1,
+        0.75
+      ]
+    ],
+    "captured_operator": "complete real native Dirac-Coulomb; all signed table coefficients retained"
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_00.npz": "335b12710fd48e736e85efcd2bde225648af633b46a0b20c6449475b89f02156",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_01.npz": "4a58cbf2739df72ed320473d34b8561ebdf099f072301eeffe0870693036b397",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_02.npz": "7893da6d4f86b2cddc56d8a6598c4ae75854d65323e3502faca4ca5af1a78eab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_03.npz": "1743dd2e73249208df1a1759b71040180be7798a58cd0d4072a189146eed18a8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_04.npz": "f6f00d3c2bc20a6793b253092851c437d0c1c981dbfe0d1e906320b820af509b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_05.npz": "99b385796110c4b5a6055e7f3210c5a95798960462964be68a74a6f6a95ef22e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_06.npz": "c704db7584b8d0e494cd4edadeb7599a2ac34f10d7440614b0df36daca0e7a68",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_07.npz": "74074926da038989731a760c0bdc5bcca60c9b7c60ae3d0662bc746e5f1a2a5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_08.npz": "1b03b90d32bc940ea3779c7631993be92c8f5de283c5a5f7155c2e217c271460",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_09.npz": "7fd72c49640a958b5228593f7e602f00e03af616b2910362855168e5384dca02",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_10.npz": "c9399f6e302f9a071e4bd77302dbdc915de327273c345be98523990dd277adea",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_11.npz": "9566b8a5f866354b6061a0928be9e533c321dee934be9dfd170b866b845f1438",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_12.npz": "8d3ce9d335316e6daae52f784ec9babd236c5dcb8ccd3703dabad6a93764c1e8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_calls.json": "08869bd076c78143139648f6a32a2ee2475a04d791f541fb6af2c20a86e4e259",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_gradients.npz": "682be3fde73241248a75fd097dd100161463e0d6f8bfcb5a84625430e34c0c47",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/execution_progress.json": "ca84bc786e4f11d769056a312de9b4afd2f65ebb9b21cc585e2bcc40168c3244",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json": "46fc04b7dfc381e873b9181184abe887be3659ecd7838abfb231f04ebd24da2f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_calls.json": "f97f8b6dac7e3cd0ec462ea4a6ae3ae035d18da267fc7ac3ad5ac94388004a72",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_comparator_validation.json": "9807a9214fa3b2542ec66f03365a962fd991a9c17980074c69dc9099935f03fb",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_comparators.npz": "5dfc5c5f4e02055e7491a57573818a1739a12c2c781cf807975e57539004f3fd",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json": "6a1a04fd1b74494a470244586b03ef20dda5ab9c54ca4a9ff141cedfedf68b13",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/oracle_assets.npz": "cd9ebcaabe07413a728eaecc820bedd56f9040b3b0823a0815d6510e28d4f055",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/oracle_signed_tables.json": "3b3dec9505690fabb4cb50a6302b8077146624ebab0e49c04c41a083c0d2519b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/root_execution.json": "78fe427e527041828bbfd444a79081b31fad86d90e176743b2076fce9398174d",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/root_execution.log": "5e562f58f705ec1e3e7b8a7d36d35e27f9b44ba1567591e68791ef2897f9bc2b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json": "aac39a895035151da17bfdb1570d6358ea4ef0891850fb5d3b60caff88abbdfb",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json": "1ef6cab59eac700bc8cfe7f3fd1ca441a18a452972fe4e0d5bc61aad1d3c94cc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/run.py": "f065d8be47439bd2affafdc863926198d235b19f5efafd019a6cb86a54b4fe52",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/frozen_comparator.py": "e6c043a32af51f42088ab87661d0bc2b4039cdf98d621d4d7cc0337dfcc7d05c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions.npz": "874079c342694329255244596caacc45c00e13151c025974803d6496bd264bd4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions_identity.json": "de8379fc9819b540ae9bcc353f7c8350210b45425ec11495f4defb4b1bccc9db",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/preparation_verification.json": "ebd71f1365c980c5d7514cb3539297a797dde874e8be52f59304a30add02a477",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8"
+  },
+  "resources": {
+    "CPU_threads": 1,
+    "actual_cpu_affinity": [
+      0
+    ],
+    "address_space_bytes": 1073741824,
+    "wall_time_seconds": 30,
+    "input_total_bytes": 7138725,
+    "atomx_imports": 0,
+    "H_builds": 0,
+    "CI_solves": 0,
+    "gradients": 0,
+    "Dirac_solves": 0,
+    "optimizer_calls": 0,
+    "full_Decimal_matrix_rebuilds": 0
+  },
+  "acceptance": {
+    "CI_full_column_residual": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "radial_Decimal_difference_Ha": 1e-13,
+    "finite_total_Decimal_difference_Ha": 1e-12,
+    "finite_relative_above_1e_minus13": 0.1,
+    "central_derivative_relative": 1e-05,
+    "central_derivative_absolute": 1e-08,
+    "bitwise_frozen_H_and_baseline_gradient": true
+  },
+  "allowed": "Stdlib metadata and NumPy operations on saved arrays; independent Decimal rank-one algebra on saved 29x29 matrices only. No production helper import; no rebuilding all radial Decimal matrices.",
+  "stopping": "One bounded saved-array audit; write failed controls and preserve original exit1. Stop on changed hash, timeout or cap. No additional physics or pytest rerun.",
+  "interpretation": "all_passed may certify audit consistency only; numerical_qualification_passed must remain false. Stored radial Decimal strings are compared and hash-bound, not independently regenerated full operator matrices; original live 13 tests are reported evidence for that arithmetic.",
+  "limitations": [
+    "No new physical invocation or numerical qualifications.",
+    "Original central derivative first-direction gate failed and -x skipped second direction within that test and all17later cases.",
+    "No optimizer/Armijo/general error bound/Yb stationarity or experimental qualification."
+  ]
+}

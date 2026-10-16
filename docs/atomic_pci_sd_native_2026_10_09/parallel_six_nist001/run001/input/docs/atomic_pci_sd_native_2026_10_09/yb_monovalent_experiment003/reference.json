@@ -1,0 +1,129 @@
+{
+  "status": "reference frozen before computed comparison",
+  "species": "Yb II",
+  "nuclear_charge": 70,
+  "electrons": 69,
+  "levels": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "twoJ": 1,
+      "parity": "even",
+      "configuration": "4f14 6s",
+      "term": "2S",
+      "energy_cm1": 0.0
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "twoJ": 1,
+      "parity": "odd",
+      "configuration": "4f14 6p",
+      "term": "2P",
+      "energy_cm1": 27061.82
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "twoJ": 3,
+      "parity": "odd",
+      "configuration": "4f14 6p",
+      "term": "2P",
+      "energy_cm1": 30392.23
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "twoJ": 3,
+      "parity": "even",
+      "configuration": "4f14 5d",
+      "term": "2D",
+      "energy_cm1": 22960.8
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "twoJ": 5,
+      "parity": "even",
+      "configuration": "4f14 5d",
+      "term": "2D",
+      "energy_cm1": 24332.69
+    }
+  ],
+  "reference_id": "M67",
+  "reference": "W. F. Meggers, J. Res. Natl. Bur. Stand. (U.S.) 71A, 396 (1967), as cited in NIST Handbook",
+  "source_type": "NIST Handbook experimental compilation; not a fresh ASD extraction or new measurement",
+  "sources": {
+    "levels_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm",
+    "reference_url": "https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable7.htm",
+    "retrieved_utc": "2026-10-10T13:06:26.338055+00:00",
+    "archive_kind": "manually transcribed inspected browser extraction; raw fetch403 retained",
+    "extraction_sha256": "b48548282734364a6cb205a47dcf24e79b02af55e06501bacda5fa895f2c1785",
+    "extraction_file": "web_extraction.txt"
+  },
+  "experimental_uncertainty": "Not supplied by this Handbook table; printed precision is not a standard uncertainty",
+  "matching_contract": {
+    "computed_run": "yb_full_monovalent006",
+    "keys": [
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ],
+    "same_hamiltonian_and_space": true,
+    "common_ground": "computed6s attachment energy",
+    "formula": "(upper_attachment_Ha - 6s_attachment_Ha) * atomx.constants.HARTREE_CM1",
+    "vacuum_wavelength_nm": "1e7 / excitation_cm1",
+    "no_fitted_shift": true,
+    "relative_error_gate": 0.01,
+    "scope": "Nominal reference-connected branches matched by J/parity; no physical configuration weight or normalized large SD state certified",
+    "unmatched_physics": [
+      "Breit",
+      "QED",
+      "recoil",
+      "nonlinear cluster products",
+      "full triples",
+      "l>3/energy>5Ha radial correlation tails",
+      "full multi-configuration core-hole mixing"
+    ],
+    "no_line_strength_claim": true,
+    "no_clock_precision_claim": true,
+    "require_gpu_execution_audits": true,
+    "require_numeric_capacity_audits": true
+  },
+  "source_transition_from_reference001": {
+    "previous_sha256": "c35025b1afde1b657fe15d593d981fa3cef52a82644cf42c74627e49089bbc56",
+    "change": "Declared computed execution is now the source-bound private CUDA/GEMM run005 with all five current originalCPU-map and actualCPU-root gates. Experimental levels, matching, zero, units and1percent gate unchanged. Run004 remains CPU map/partial-root evidence; no computed comparison has been made."
+  },
+  "source_transition": {
+    "previous_reference": "yb_monovalent_experiment002/reference.json",
+    "previous_reference_sha256": "ee13d028f9e0075d00b7a6c4a65fded82fed6c62137fadaba7c2d6ba8c48818f",
+    "reason": "Explicit numerical capacity64 execution only; experimental transcription, five nominal states, same-run6sreference, no fitted shift and original1%gates unchanged. Freeze before006roots; no comparison in002."
+  }
+}

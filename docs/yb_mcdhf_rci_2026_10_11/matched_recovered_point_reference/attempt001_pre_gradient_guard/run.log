@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/run.py", line 256, in <module>
+    run()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/run.py", line 108, in run
+    assert list(sig.coupling) == row['coupling']
+AssertionError

@@ -1,0 +1,1486 @@
+{
+  "core_residual_Ha": 3.291542927975899e-14,
+  "direct_error_Ha": 3.552713678800501e-15,
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.26600663450981527,
+      "matrix_vector_products": 69,
+      "raw_residual_Ha": 2.9802549317281546e-15,
+      "response_residual_Ha": 1.970645868709653e-15,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 24576,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -1,
+          "action_Ha": 3.8236761304953626e-17,
+          "root_Ha": 1.3473592155714177e-15,
+          "prime_Ha": 1.0466112738028322e-14,
+          "sigma1_prime_Ha": 3.788524263184309e-16,
+          "oracle_residual_Ha": 1.0164395367051604e-20,
+          "oracle_prime_residual_Ha": 5.421010862427522e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.1347909778607317,
+            "condition_2": 20.991046283460953
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 3.8236761304953626e-17,
+          "root_Ha": 1.347358792054944e-15,
+          "prime_Ha": 1.0466220311212623e-14,
+          "sigma1_prime_Ha": 3.7885581445021993e-16,
+          "oracle_residual_Ha": 1.5246593050577406e-20,
+          "oracle_prime_residual_Ha": 4.743384504624082e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.1347909778607318,
+            "condition_2": 20.99104628346093
+          }
+        }
+      ]
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "energy_Ha": -0.1250508053549056,
+      "matrix_vector_products": 119,
+      "raw_residual_Ha": 1.8006429680639258e-15,
+      "response_residual_Ha": 8.58579700391271e-16,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 24576,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -1,
+          "action_Ha": 1.786961586020756e-17,
+          "root_Ha": 1.3298659735073667e-14,
+          "prime_Ha": 1.5271406846885903e-12,
+          "sigma1_prime_Ha": 4.736377424567921e-16,
+          "oracle_residual_Ha": 1.6940658945086007e-21,
+          "oracle_prime_residual_Ha": 2.710505431213761e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.011522369921372152,
+            "condition_2": 332.2671187866283
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 1.786962909509736e-17,
+          "root_Ha": 1.329864025331588e-14,
+          "prime_Ha": 1.5271382825031519e-12,
+          "sigma1_prime_Ha": 4.736372130612e-16,
+          "oracle_residual_Ha": 1.2705494208814505e-21,
+          "oracle_prime_residual_Ha": 1.9905274260476058e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.011522369921372148,
+            "condition_2": 332.26711878662854
+          }
+        }
+      ]
+    },
+    {
+      "key": [
+        2,
+        1
+      ],
+      "energy_Ha": -0.7015659279481581,
+      "matrix_vector_products": 45,
+      "raw_residual_Ha": 4.505944228849756e-16,
+      "response_residual_Ha": 1.715207836872068e-16,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 18432,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -1,
+          "action_Ha": 1.493996712367135e-16,
+          "root_Ha": 1.5167988393072207e-16,
+          "prime_Ha": 2.5518731008519757e-16,
+          "sigma1_prime_Ha": 8.365636200262372e-17,
+          "oracle_residual_Ha": 6.776263578034403e-21,
+          "oracle_prime_residual_Ha": 6.776263578034403e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.35407974376104984,
+            "condition_2": 3.7966544948891
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 1.493996712367135e-16,
+          "root_Ha": 1.516866601943001e-16,
+          "prime_Ha": 2.551974744805646e-16,
+          "sigma1_prime_Ha": 8.365636200262372e-17,
+          "oracle_residual_Ha": 3.3881317890172014e-21,
+          "oracle_prime_residual_Ha": 6.776263578034403e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.35407974376105006,
+            "condition_2": 3.7966544948890952
+          }
+        }
+      ]
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "energy_Ha": -0.2802626123697946,
+      "matrix_vector_products": 51,
+      "raw_residual_Ha": 3.1138286393783687e-15,
+      "response_residual_Ha": 1.1316360175317453e-15,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 18432,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -1,
+          "action_Ha": 7.493192264590443e-17,
+          "root_Ha": 1.70843114977756e-15,
+          "prime_Ha": 1.2694597976981026e-14,
+          "sigma1_prime_Ha": 3.843821962112859e-15,
+          "oracle_residual_Ha": 2.0328790734103208e-20,
+          "oracle_prime_residual_Ha": 9.486769009248164e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.08852037217020893,
+            "condition_2": 17.03398790182078
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 7.493192264590443e-17,
+          "root_Ha": 1.708437926041138e-15,
+          "prime_Ha": 1.2695140078067269e-14,
+          "sigma1_prime_Ha": 3.844255642981853e-15,
+          "oracle_residual_Ha": 1.3552527156068805e-20,
+          "oracle_prime_residual_Ha": 1.2197274440461925e-19,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.08852037217020883,
+            "condition_2": 17.03398790182081
+          }
+        }
+      ]
+    },
+    {
+      "key": [
+        2,
+        -2
+      ],
+      "energy_Ha": -0.6981790598474633,
+      "matrix_vector_products": 45,
+      "raw_residual_Ha": 1.7808562784160653e-15,
+      "response_residual_Ha": 5.551115123125783e-16,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 18432,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -3,
+          "action_Ha": 5.275998821857586e-17,
+          "root_Ha": 6.345496502378756e-16,
+          "prime_Ha": 1.5118115093137874e-15,
+          "sigma1_prime_Ha": 3.24210330891056e-16,
+          "oracle_residual_Ha": 6.776263578034403e-21,
+          "oracle_prime_residual_Ha": 6.776263578034403e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 64,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.3570836978240873,
+            "condition_2": 3.767185481844134
+          }
+        },
+        {
+          "two_m": -1,
+          "action_Ha": 5.088296320746033e-17,
+          "root_Ha": 4.49679627301941e-16,
+          "prime_Ha": 1.1469910307995712e-15,
+          "sigma1_prime_Ha": 3.232481014629751e-16,
+          "oracle_residual_Ha": 6.776263578034403e-21,
+          "oracle_prime_residual_Ha": 6.776263578034403e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.35257129666380044,
+            "condition_2": 3.815399991363606
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 5.088296320746033e-17,
+          "root_Ha": 4.49676239170152e-16,
+          "prime_Ha": 1.1470316883810394e-15,
+          "sigma1_prime_Ha": 3.2325487772655315e-16,
+          "oracle_residual_Ha": 6.776263578034403e-21,
+          "oracle_prime_residual_Ha": 6.776263578034403e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.35257129666380027,
+            "condition_2": 3.8153999913636136
+          }
+        },
+        {
+          "two_m": 3,
+          "action_Ha": 5.275998821857586e-17,
+          "root_Ha": 6.345428739742975e-16,
+          "prime_Ha": 1.5117979567866313e-15,
+          "sigma1_prime_Ha": 3.24210330891056e-16,
+          "oracle_residual_Ha": 6.776263578034403e-21,
+          "oracle_prime_residual_Ha": 5.082197683525802e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 64,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.3570836978240876,
+            "condition_2": 3.7671854818441313
+          }
+        }
+      ]
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "energy_Ha": -0.28326196357015715,
+      "matrix_vector_products": 52,
+      "raw_residual_Ha": 2.983724378680108e-16,
+      "response_residual_Ha": 6.106226635438361e-16,
+      "provenance": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f', 'f962902bcd1ad790c5b6a02d4374a234645afe1256eaf97804c0f55701e7f50e', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '8d380d7e0348ebe6b577b2a26ec3ff090a9ec7594bbca1db4518f267f2339b9f')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-16,
+        "integral_bytes": 12800,
+        "radial_pair_cache_size": 16384,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 24,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+        "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+        "backend_sha256": "b8bc5c28edb299dd2158328afbe97eacf0c5c86a9c3e04d361ebd3055b0fff7b",
+        "initialization": "original pCI rhocore",
+        "blas": null,
+        "blas_runtime": null,
+        "term21": {
+          "mode": "original pCI term21",
+          "threads": 0
+        },
+        "core_singles": {
+          "mode": "original pCI terma4",
+          "workers": 0
+        },
+        "feature_identity": {
+          "representation": "native cell Coulomb polynomial density coordinates",
+          "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+          "coefficient_sizes": [
+            40,
+            40
+          ],
+          "component_orders": [
+            7,
+            7
+          ],
+          "auxiliary_nodes": 884,
+          "same_cell_edges": 11934,
+          "quadrature_nodes": [
+            34,
+            13
+          ],
+          "payload_estimate_bytes": 4478752,
+          "rank_cache_capacity": 8,
+          "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+          "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+          "density_polynomial_degree": 12,
+          "interpolation_nodes_per_component_cell": 13
+        },
+        "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+        "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+        "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+        "resources": {
+          "dimensions": {
+            "NHF": 884,
+            "NX": 4,
+            "NS": 2,
+            "KX1": 3,
+            "NXX": 4,
+            "NK": 3,
+            "NN": 2,
+            "KK": 3,
+            "NCH": 24,
+            "NXK": 15,
+            "NV": 34,
+            "NG": 13,
+            "NE": 11934
+          },
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              4,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "raw_amplitudes": 100,
+          "independent_scalar_amplitudes": 38,
+          "complete_payload_bound_bytes": 81912344,
+          "krylov_vector_bytes": 800,
+          "radial_pair_cache_size": 16384,
+          "radial_pair_cache_array_bound_bytes": 73400320,
+          "blas_initialization_scratch_bytes": 84864,
+          "term21_threads": 0,
+          "term21_mode": "original",
+          "term21_worker_scratch_bytes": 0,
+          "term21_parallel_scratch_bytes": 0,
+          "core_singles_blas": false,
+          "core_singles_worker_scratch_bytes": 0,
+          "core_singles_parallel_scratch_bytes": 0,
+          "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+        },
+        "direct_sd_source_sha256": {
+          "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+          "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+          "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+        },
+        "valence_source_sha256": {
+          "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+          "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+        },
+        "core_identity_sha256": "2c67caa387fdaab04a8f61c276f97a33aaefd176729bf033e4ab8419499de9e4",
+        "core_amplitudes_sha256": "ae69b50e5d2f0f4a70d7da9fca765391a704474f90b3a2787389fbcd07e52a4f",
+        "equation_coverage": {
+          "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+          "template_sha256": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+          "nxv": 10,
+          "nvh": 16,
+          "core_common_patches": 8,
+          "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+          "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+          "linear_action": "source separated from exact original homogeneous diagrams",
+          "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+        },
+        "solver": "matrix-free GMRES and actual homogeneous-operator refinement",
+        "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+        "response": "core numerators fixed, column energy varied, implicit numerator response",
+        "estimated_krylov_bytes": 18432,
+        "requested_residual_tolerance_Ha": 1e-11,
+        "space_converged": false,
+        "forward_accuracy_certified": false,
+        "experiment_validated": false
+      },
+      "multiplets": [
+        {
+          "two_m": -3,
+          "action_Ha": 3.4797807539101167e-17,
+          "root_Ha": 1.0647746248072798e-15,
+          "prime_Ha": 1.404438902414401e-14,
+          "sigma1_prime_Ha": 5.488095871850063e-15,
+          "oracle_residual_Ha": 3.3881317890172014e-21,
+          "oracle_prime_residual_Ha": 1.6940658945086007e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 64,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.09306138124955272,
+            "condition_2": 16.18408150373735
+          }
+        },
+        {
+          "two_m": -1,
+          "action_Ha": 2.145195642216241e-17,
+          "root_Ha": 1.0268749826153334e-15,
+          "prime_Ha": 1.2702702388220355e-14,
+          "sigma1_prime_Ha": 5.483684524260762e-15,
+          "oracle_residual_Ha": 3.3881317890172014e-21,
+          "oracle_prime_residual_Ha": 2.0328790734103208e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.09118462006795004,
+            "condition_2": 16.517182150573124
+          }
+        },
+        {
+          "two_m": 1,
+          "action_Ha": 2.145195642216241e-17,
+          "root_Ha": 1.0268885351424895e-15,
+          "prime_Ha": 1.2702715940747511e-14,
+          "sigma1_prime_Ha": 5.483677747997184e-15,
+          "oracle_residual_Ha": 2.541098841762901e-21,
+          "oracle_prime_residual_Ha": 8.470329472543003e-21,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 112,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.09118462006794999,
+            "condition_2": 16.51718215057313
+          }
+        },
+        {
+          "two_m": 3,
+          "action_Ha": 3.4797807539101167e-17,
+          "root_Ha": 1.0648000357956974e-15,
+          "prime_Ha": 1.4044551654469883e-14,
+          "sigma1_prime_Ha": 5.488116200640797e-15,
+          "oracle_residual_Ha": 3.3881317890172014e-21,
+          "oracle_prime_residual_Ha": 1.1011428314305904e-20,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 64,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.09306138124955281,
+            "condition_2": 16.18408150373735
+          }
+        }
+      ]
+    }
+  ]
+}

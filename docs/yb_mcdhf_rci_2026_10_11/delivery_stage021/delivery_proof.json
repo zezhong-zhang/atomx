@@ -1,0 +1,131 @@
+{
+  "prepared_at_utc": "2026-10-11T15:57:54.968682+00:00",
+  "delivery_readback_verified": true,
+  "final_root_iteration_closure_bound": true,
+  "status": "actual_delivery_and_separate_root_iteration_closed",
+  "cycle": "mcdhf-stage021",
+  "message_id": "om_x100b638eadb5b068c1205d85d5d5cb0",
+  "idempotency_key": "392ee019-c98b-53ac-82dd-3016109af6f3",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "message_position": "1614",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1614",
+  "source_stage021": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage021.json",
+    "sha256": "31755192cadf74415e8c921fa3288d32c90fcaab703a35f3e832d2f49a75407a",
+    "metadata_checks": 158,
+    "new_science_calls": 0
+  },
+  "registry_sha256": "813d537bb8af47bbd7d2eec29e6e2ade39455473fceffd8673919242d971a836",
+  "actual_card": {
+    "payload_schema": "2.0",
+    "elements": 15,
+    "title": "Atomx · 任务与谱学实验对照",
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-11 23:41:44",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-11 23:41",
+    "all_visible_content_matches": true,
+    "readback_content_characters": 9516,
+    "raw_readback_schema_available": false,
+    "readback_representation": "CLI-rendered full card text; sent schema2 DSL archived separately",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "service_send": {
+    "started_at": "2026-10-11T15:41:41.073647+00:00",
+    "finished_at": "2026-10-11T15:41:44.171726+00:00",
+    "passed": true,
+    "iteration_dispatch_ok": true
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "job": null,
+    "automatic_physics_job_started": false,
+    "finished_at": "2026-10-11T15:41:46.012829+00:00",
+    "highest_level_reached": false
+  },
+  "root_bounded_iteration": {
+    "kind": "separate native same29/1046/original3451metric continuation from closedglobal80",
+    "started_after_successful_card": true,
+    "immutable_start_marker": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/once_marker.json",
+      "sha256": "8b6e625423c6522dede87d4307b8967c6b28884991092e47f0e94492e0927daf",
+      "created_utc": "2026-10-11T15:41:47.215979+00:00"
+    },
+    "execution_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/execution_contract.json",
+      "sha256": "90a36d07829fdff5ee6a799b85a592033a9ed6846caa60bc50c0ece7889d6efc"
+    },
+    "max_new_steps": 128,
+    "actual_result_bound": false,
+    "closed": true,
+    "root_closed_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/root_execution.json",
+      "sha256": "5878daf7524c421b826923cee63487d46e533c2137cfb8a03bd6821399909295"
+    },
+    "exit_code": 0,
+    "started_utc": "2026-10-11T15:41:47.250643+00:00",
+    "finished_utc": "2026-10-11T15:56:05.660764+00:00",
+    "elapsed_uncontrolled_seconds": 858.4100081629585,
+    "scope": "Receipt closure only; no independent H/CI/g or physical-success claim by delivery audit"
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_calls_by_this_audit": 0,
+  "new_scientific_calls_by_this_audit": 0,
+  "cards_sent_by_this_audit": 0,
+  "configurations_or_secrets_read": false,
+  "registry_or_stage021_changed": false,
+  "files_sha256": {
+    "card.json": "cca158c9c96836390177d529dc95256d27c305a026ea4249cc1431f731ab7a08",
+    "receipt.json": "2905958686c650b1e72a1cb28842084ffc9dbdee07ce38965ff7edee648d8c61",
+    "send_status.json": "58bc56feb07df7fcafb1c8e7ac5426167dcdd6a90e09605b4b0f01060fe9856d",
+    "service_iteration_status.json": "da80bedc289d85ef73932f9cdfffa20782487736b789247d76a6c521c25b5dac",
+    "iteration_request.json": "da80bedc289d85ef73932f9cdfffa20782487736b789247d76a6c521c25b5dac",
+    "registry_stage021.json": "813d537bb8af47bbd7d2eec29e6e2ade39455473fceffd8673919242d971a836",
+    "readback.json": "c704add0c84b52f4fcbbfe20e8f586753a2b193e190ebad53979b43d1525bece",
+    "readback_execution.json": "43d201cb6d886737ddfa34bc3dff1c30b7709fd8ac25856a33560372cf2bc948",
+    "root_send_stdout.json": "58bc56feb07df7fcafb1c8e7ac5426167dcdd6a90e09605b4b0f01060fe9856d"
+  },
+  "verifier_sha256": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093",
+  "scope": "Actual stage021 send/readback is separate from service jobnull frontier and separate root-run005 continuation. Historical physical/stationarity/experiment FAIL not promoted.",
+  "passed": true
+}

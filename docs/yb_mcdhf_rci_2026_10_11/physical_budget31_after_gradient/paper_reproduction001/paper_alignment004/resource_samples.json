@@ -1,0 +1,22 @@
+{
+  "scope": "Non-invasive load samples during the single correctness solve; no controlled performance or speedup claim. Admission uses the contract start guard.",
+  "samples": [
+    {
+      "UTC": "2026-10-15T05:19:17.143441+00:00",
+      "load": [
+        9.9345703125,
+        7.4951171875,
+        4.912109375
+      ],
+      "process": "    PID     ELAPSED     TIME %CPU   RSS PSR COMMAND\n1626095       11:49 00:11:49 99.9 1372396 27 .venv/bin/python -u docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/align_core.py solve\n"
+    },
+    {
+      "UTC": "2026-10-15T05:21:14.124313+00:00",
+      "load": [
+        9.279296875,
+        8.21630859375,
+        5.50390625
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "all_passed": true,
+  "checks_count": 5,
+  "checks": [
+    {
+      "name": "closed_metadata12_pass",
+      "passed": true
+    },
+    {
+      "name": "current_outputs_bound",
+      "passed": true
+    },
+    {
+      "name": "old_pending_docs_preserved",
+      "passed": true
+    },
+    {
+      "name": "all_other_bound_receipts_unchanged",
+      "passed": true
+    },
+    {
+      "name": "all_local_document_links_exist",
+      "passed": true
+    }
+  ],
+  "scope": "Postclosure document/hash checks only, zero science/arrays/API/browser",
+  "completion_sha256": "cf7bff807d12ac02d46a592374f5036c8509d5e79251bc0fe70d81a2145f35a7",
+  "publication_manifest_sha256": "5c3492f94ce5ab5c23ff36414b1d263d724b36de996bc3c80e6f7b00708569ef",
+  "handoff_sha256": "16d0230972b4b9b2edf81553a311d9db4568d81d24668251257cb10134f6d895",
+  "documents_sha256": {
+    "README.md": "64cf031f35bc73374abf693bc32c5d5ffc6272fb8086d4b1cc8afdcf5e908591",
+    "RESULTS.md": "c07ad2782c6780c24403a0e0bc585cef263a723330e303748f313f644b561aef",
+    "docimpact.json": "bdac18928f0ae0280b84cc5808ac8fa63b8c0a208f8b78fc8ef51b1a34a79f70"
+  }
+}

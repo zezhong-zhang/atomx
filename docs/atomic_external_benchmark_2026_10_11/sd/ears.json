@@ -1,0 +1,106 @@
+{
+  "expectation_contract": {
+    "same_physics": "complete H/core/radial/signed numerator/response retained; original1e-11Ha and1e-10relative gates",
+    "timing": "shared flock, before/after load guards, alternating fixed work1/2/4/8, original600wall/8GiB address/24GiB aggregate pool"
+  },
+  "action": {
+    "finite": "five fresh source-bound original/current whole public action variants; same solved core wave certified against each whole core action;5 rounds x10 complete5-column maps",
+    "yb": "three independently capped full 414-virtual term2 rounds with all output coordinates and analytic response; sequential resident consumers",
+    "verification": "independent NPZ full coordinate replay, actual source/input/backend hashes, compiled runtime and full array F-order identities"
+  },
+  "results": {
+    "finite_precision": "maximum8.673617379884035e-19Ha;relative1.6904893255408627e-15;all5round timing guards true",
+    "finite_scaling": "S2=1.19542488,E2=0.59771244;S4=1.29217853,E4=0.32304463;S8=1.15901390,E8=0.14487674",
+    "finite_whole_arrays_reverified": 500,
+    "yb": {
+      "status": "three complete independent capped Yb rounds passed",
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15,
+      "measured_calls": 12,
+      "complete_arrays_including_warmups": 30,
+      "coordinates_per_array": 4407296,
+      "all_workers_bitwise_equal": true,
+      "timing_guard_pass": true,
+      "scaling": [
+        {
+          "workers": 1,
+          "seconds": [
+            81.28612752398476,
+            83.76816617301665,
+            82.11935197201092
+          ],
+          "median_seconds": 82.11935197201092,
+          "observed_speedups": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "speedup": 1.0,
+          "efficiency": 1.0
+        },
+        {
+          "workers": 2,
+          "seconds": [
+            43.83414602896664,
+            44.04922381299548,
+            43.95367749792058
+          ],
+          "median_seconds": 43.95367749792058,
+          "observed_speedups": [
+            1.854401987671186,
+            1.9016944890707297,
+            1.8683158417380645
+          ],
+          "speedup": 1.8683158417380645,
+          "efficiency": 0.9341579208690323
+        },
+        {
+          "workers": 4,
+          "seconds": [
+            23.85039126803167,
+            24.56348076602444,
+            25.265839557047002
+          ],
+          "median_seconds": 24.56348076602444,
+          "observed_speedups": [
+            3.4081674640255555,
+            3.4102726307780684,
+            3.2502126749675595
+          ],
+          "speedup": 3.4081674640255555,
+          "efficiency": 0.8520418660063889
+        },
+        {
+          "workers": 8,
+          "seconds": [
+            16.971008494030684,
+            17.086523853009567,
+            17.468902196967974
+          ],
+          "median_seconds": 17.086523853009567,
+          "observed_speedups": [
+            4.7897051935703185,
+            4.90258679258871,
+            4.700887957702581
+          ],
+          "speedup": 4.7897051935703185,
+          "efficiency": 0.5987131491962898
+        }
+      ],
+      "peak_rss_bytes": 3223339008
+    },
+    "retained_failed_controls": [
+      "CPU accounting defect first setup; terminated only owned pilot and no measurements accepted",
+      "second pilot original8-worker full warmup passed; proactively stopped incomplete3-round workflow before predicted wall cap excess; no incomplete serial output used"
+    ],
+    "actual_threads": "Last two complete measured rounds show1/2/4/8 active threads; first round1-worker OS observation null, actual bound innerBLAS=1 throughout; cold preparation/warmup/transition windows excluded."
+  },
+  "significance_limits": {
+    "small_work_parallel_efficiency": "8 workers slower than4 on complete finite work; default worker policy must follow measured workload, not core count alone",
+    "software_comparison": "shared pCI lineage and native radial ABI compatibility, not independently built pCI production benchmark; upstream serialall-order not dependent on MPI",
+    "production": "no public physics/default change, no completed full SD diagram system, no experimentalaccuracy gain, no SD solve/end-to-end speedup claim",
+    "input_semantics": "Complete physical Yb radial space but seeded signed stress numerator+response, zero core seed; finite valence control also supplied stress vectors. No converged Yb SD solution or spectrum precision claim.",
+    "whole_work_scaling": "Yb full414 term2+response S8=4.78970519 and E8=59.87%; stage throughput is not SD solve or full-action throughput."
+  },
+  "trace_handoff": "Parent to append this substantive EARS increment to ignored root trace.md; no writes to shared guides from this owner."
+}

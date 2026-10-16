@@ -1,0 +1,128 @@
+{
+  "counts": {
+    "NPZ_loads": 2,
+    "scipy_eigh_started": 10,
+    "scipy_eigh_completed": 10,
+    "H": 0,
+    "CI_construction": 0,
+    "gradient": 0,
+    "other_eigen": 0,
+    "SVD": 0,
+    "QR": 0,
+    "Dirac": 0,
+    "optimizer": 0,
+    "GPU": 0
+  },
+  "completed_blocks": [
+    {
+      "endpoint": "ordinary",
+      "sector": [
+        1,
+        1
+      ],
+      "complete_roots": 150,
+      "alpha_Ha": -14067.496517967646,
+      "source_column": 0,
+      "eigh_seconds_uncontrolled": 0.0015860400162637234
+    },
+    {
+      "endpoint": "ordinary",
+      "sector": [
+        5,
+        1
+      ],
+      "complete_roots": 246,
+      "alpha_Ha": -14067.376658179728,
+      "source_column": 3,
+      "eigh_seconds_uncontrolled": 0.0037502599880099297
+    },
+    {
+      "endpoint": "ordinary",
+      "sector": [
+        3,
+        1
+      ],
+      "complete_roots": 236,
+      "alpha_Ha": -14067.380121658784,
+      "source_column": 2,
+      "eigh_seconds_uncontrolled": 0.002598718972876668
+    },
+    {
+      "endpoint": "ordinary",
+      "sector": [
+        3,
+        -1
+      ],
+      "complete_roots": 256,
+      "alpha_Ha": -14067.365672303622,
+      "source_column": 4,
+      "eigh_seconds_uncontrolled": 0.0036819709930568933
+    },
+    {
+      "endpoint": "ordinary",
+      "sector": [
+        1,
+        -1
+      ],
+      "complete_roots": 158,
+      "alpha_Ha": -14067.381616326365,
+      "source_column": 1,
+      "eigh_seconds_uncontrolled": 0.0015292419120669365
+    },
+    {
+      "endpoint": "candidate",
+      "sector": [
+        1,
+        1
+      ],
+      "complete_roots": 150,
+      "alpha_Ha": -14067.496517967646,
+      "source_column": 0,
+      "eigh_seconds_uncontrolled": 0.001360484166070819
+    },
+    {
+      "endpoint": "candidate",
+      "sector": [
+        5,
+        1
+      ],
+      "complete_roots": 246,
+      "alpha_Ha": -14067.376658179728,
+      "source_column": 3,
+      "eigh_seconds_uncontrolled": 0.0027080459985882044
+    },
+    {
+      "endpoint": "candidate",
+      "sector": [
+        3,
+        1
+      ],
+      "complete_roots": 236,
+      "alpha_Ha": -14067.380121658784,
+      "source_column": 2,
+      "eigh_seconds_uncontrolled": 0.0033650738187134266
+    },
+    {
+      "endpoint": "candidate",
+      "sector": [
+        3,
+        -1
+      ],
+      "complete_roots": 256,
+      "alpha_Ha": -14067.365672303622,
+      "source_column": 4,
+      "eigh_seconds_uncontrolled": 0.00435992912389338
+    },
+    {
+      "endpoint": "candidate",
+      "sector": [
+        1,
+        -1
+      ],
+      "complete_roots": 158,
+      "alpha_Ha": -14067.381616326365,
+      "source_column": 1,
+      "eigh_seconds_uncontrolled": 0.001494147116318345
+    }
+  ]
+}

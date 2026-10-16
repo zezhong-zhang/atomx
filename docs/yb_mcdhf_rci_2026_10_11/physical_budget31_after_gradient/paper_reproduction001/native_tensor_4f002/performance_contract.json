@@ -1,0 +1,37 @@
+{
+  "hypothesis": "Gathering canonical output coordinates before signed permutations removes redundant dense output accumulation, preserving every core/EA equation and exact nested antisymmetrization.",
+  "fixed": "full18-correlated-core/12virtual actualYb DC operator, embedded previous nonzeroT3 core and complete fixed Mhalf-even R3 vector; all189834/34860 returned coordinates compared",
+  "sequence": [
+    "A1",
+    "B1",
+    "B2",
+    "A2"
+  ],
+  "A": "frozen actual362-file before source,dense projection storage",
+  "B": "current362-file after source,explicit canonical projection storage",
+  "warmup": 1,
+  "measured_repetitions": 2,
+  "gates": {
+    "full_vector_max_error_Ha": 1e-10,
+    "load1_max": 8
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 12884901888,
+    "cell_seconds": 300,
+    "operator_memory_MiB": 4096
+  },
+  "scope": "warm residual andEA-action only, not full atomic/spectral solve; compare measured RSS separately from NumPy admission estimates",
+  "inputs": {
+    "operator.json": "9d35b5a431f513a594ed781bd779fe6283e21bcb72221b190785dd0b8444f73d",
+    "integrals.npz": "9019e614d5fff4bcfff73e337ee930dc4ee2130df15e257badb9f3f9e4b4cb75",
+    "fixed_inputs.npz": "654af33d52e03762b0def0b291a703da40df3ecde135dc46edfa8a66eaf11c3b",
+    "before_values.npz": "909d8edeb44edb5d881362706448a702993ac01875a02b50c98944ef8fa5ae6c",
+    "measure.py": "4d5b97e781c932affcf2e33080bf327ade65e98acbcb85a94aff40b7413d5ed8",
+    "before_source.json": "480e718b67832b3e7a2ee0c76fa12cd26383799d2b36174de7295b83bf728edc",
+    "before_source.tar.gz": "aba049d526710f102d31b1b12c2b45c8154f1b823da4999a4b465b766800df86",
+    "after_source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "after_source.tar.gz": "c87c98226111c55c84a28fe37facf5cbd8313dd05823dce1fbf2c175c8b42061"
+  }
+}

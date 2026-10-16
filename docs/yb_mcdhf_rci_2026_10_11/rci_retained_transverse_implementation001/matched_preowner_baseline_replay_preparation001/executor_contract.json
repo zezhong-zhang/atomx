@@ -1,0 +1,107 @@
+{
+  "status": "frozen_source_only_native_workers_pending_root_execution",
+  "proposal_sha256": "6acbc1e3d9390b6e125cb09391202f579cc35895c6f88dbcf699097cced73311",
+  "source_recipe_sha256": "ccbcb17f9e018a84a4a6dd03cea56752469754e5c37ba79cd3d75d759836fbb5",
+  "source_archives": {
+    "current": "current/source",
+    "preowner": "preowner/source"
+  },
+  "literal_inputs": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/geometry_inputs.npz",
+      "sha256": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_00.npz",
+      "sha256": "d3df9ddfd621b968d166d7c777ee406d4da37db64c4f6e7adb7a3a8ecd114e6c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/candidate_gradients.npz",
+      "sha256": "edb441b7f1298700762ab0233f0abb0d965968f2e147c19f98463d3a80a21554"
+    }
+  ],
+  "configs": [
+    "1s2",
+    "1s1 2s1",
+    "1s1 3s1",
+    "2s2",
+    "2s1 3s1",
+    "3s2",
+    "2p2",
+    "2p1 3p1",
+    "3p2"
+  ],
+  "prepared_files": [
+    {
+      "path": "contract.json",
+      "sha256": "6acbc1e3d9390b6e125cb09391202f579cc35895c6f88dbcf699097cced73311"
+    },
+    {
+      "path": "source_recipe.json",
+      "sha256": "ccbcb17f9e018a84a4a6dd03cea56752469754e5c37ba79cd3d75d759836fbb5"
+    },
+    {
+      "path": "worker.py",
+      "sha256": "cf27d95fff8b06d3aeb5fd0ea83ebb1dd70e705397cd39990688c019d23b5998"
+    },
+    {
+      "path": "run.py",
+      "sha256": "afd8cc21429bc5ed2b2aae8aca0eef340521f5fc193fc307103ecaf0b3e0a27f"
+    }
+  ],
+  "per_worker_primitive_limits": {
+    "H_build": 1,
+    "gradient": 1,
+    "public_hS": 6,
+    "physical_overlap": 2,
+    "SVD": 2,
+    "CI_solve": 0,
+    "Dirac_solve": 0,
+    "polar": 0,
+    "eigh": 0,
+    "owner_build": 1,
+    "owner_matrix_read": 2,
+    "evaluate": 1
+  },
+  "resources": {
+    "CPU_count": 1,
+    "threads": 1,
+    "AS_bytes": 2147483648,
+    "global_inner_wall_s": 120,
+    "per_worker_wall_s": 90,
+    "outer_wall_s": 135,
+    "workers": 2,
+    "workers_serial": true,
+    "NPZ_input_loads": 6,
+    "controller_NPZ_loads": 0,
+    "H_builds": 2,
+    "gradient": 2,
+    "public_hS": 12,
+    "physical_overlap": 4,
+    "SVD": 4,
+    "CI_solve": 0,
+    "eigh": 0,
+    "Dirac_solve": 0,
+    "polar": 0,
+    "optimizer": 0,
+    "basis_workspace_preparation": 2,
+    "functional_constructors": 2,
+    "owner_build": 2,
+    "owner_matrix_read": 4,
+    "evaluate": 2
+  },
+  "counter_observation": "sys.setprofile exact code identities; no physical function or numerical operator replacement. Fresh-process importing sealed source is explicit; counts stop before an over-budget function body. NumPy SVD implementation identity must exist, otherwise refuse before producer.",
+  "primitive_hS_rationale": "per child:3 functional constructor raw h/S plus3 fresh ordinary retained-H one-body assemblies; gradient reuses functional h/S. No extra Dirac eigenproblem or radial_increment instance.",
+  "acceptance": {
+    "matched_H": "np.array_equal full29x29 plus record byte equality; exact gate0, no absolute relaxation",
+    "matched_gradient": "np.array_equal full7x70 signed arrays; exact gate0",
+    "current_vs_saved": "current worker wholeH and wholeg must exactly match original current saved baseline; otherwise stop source-isolation interpretation",
+    "saved_CI": "all29 roots residual<=1e-8Ha, Gram<=1e-10; no posthoc basis/phase repair",
+    "header": "Both DC schema1 and whole physical identity payload equal under canonicalJSON; no Breit/frequency terms",
+    "disposition": "A pass isolates this baseline owner increment only; it does not upgrade oldsource002 equality, large-step FD, uniform gradient correctness or full MCDHF/physics completeness."
+  },
+  "required_output": "Complete immutable H/g arrays saved before equality gates; full29-root C/E is copied from prior native CI and checked against new owned H. DC header and array raw-content SHA compare in controller JSON without loading new NPZ.",
+  "stops": "Preserve any mismatch/counter failure; no retry or sourcepatch. Original failures remain; phaseA requires root disposition beyond this preparation.",
+  "original_two_failures_preserved": true,
+  "no_scientific_execution_during_preparation": true
+}

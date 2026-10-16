@@ -1,0 +1,9 @@
+Root deployed atlas v8 privately at 2026-10-11 17:21:19.628589 UTC. The website-only commit is `381643cf53c0cf258b60a419b41896456b5bec3f`; all 17 reviewed website files were pushed. [The sanitized successful deployment](deployment_result.json) binds the saved v8 version.
+
+The atlas shows 21 models / 84 lines. The previous 19 models/76 lines, 6019 compressed NIST payloads, old trajectories, renderer and hosting bytes remain preserved. Two literal 208 forks contribute 33 records each; they share identities at local0–11. Five run objects contain 277 records/1385 state records and 262 distinct saved point identities. Their global240 terminals remain separate, with original stationarity and experiment FAIL.
+
+[Desktop/mobile browser verification](browser_result.json) passed all 57 checks. [Its sole foreground receipt](browser_execution.json) records 2.630101675 seconds, CPU30, peak observed aggregate RSS 1,455,394,816bytes and complete owned-process cleanup. The 2 GiB RSS rule was sampled stopping, not a kernel hard memory cap; timing is uncontrolled.
+
+The root's raw local tar SHA is `c776d43f51699a359f7dbb4ebfc7fea1e31248aef02bb3959207839e7af9b01a` (71,608,320bytes). Sites reports normalized content hash `6abd2be089f6e93bc29a5dcda4bbc2549a084ca79613a94518d6b11cd0a2ff22` and 6114 files. These identify different representations; equality is not claimed.
+
+[Owner-audience evidence](root_owner_audience.json) records the deployment-before query at v7 with custom revision 1, one user, no editors/groups/external visitors, followed by owner-only private v8 deployment. [The publication manifest](publication_manifest.json) binds the source, version, audience and receipt hashes. This closure reads saved JSON/stat metadata only: no new science, arrays, browser, API, publication or commit. Historical failed and preparation artifacts remain unchanged.

@@ -1,0 +1,111 @@
+{
+  "checks_count": 4963,
+  "summary": {
+    "segment_initial_residual": 4.717047646600387e-05,
+    "segment_final_residual": 1.9434848235489216e-06,
+    "residual_reduction_factor": 24.271080429569658,
+    "minimum_residual": 1.9434848235489216e-06,
+    "minimum_residual_at_segment_iteration": 160,
+    "residual_increasing_adjacent_steps": 69,
+    "accepted_points_passing_original_both_stationarity_gates": 0,
+    "initial_energy_indicator_Ha": 6.8897239137767995e-09,
+    "final_energy_indicator_Ha": 9.225371955806855e-12,
+    "maximum_original_pg_replay_error": 0.0,
+    "maximum_saved_residual_replay_error": 0.0,
+    "maximum_saved_indicator_replay_error_Ha": 0.0,
+    "maximum_direct_original_Px_wave_error": 0.0,
+    "all_saved_radial_waves_bitwise_equal_direct_Px": true,
+    "maximum_selected_saved_CI_residual_Ha": 2.5956412686658957e-11,
+    "maximum_selected_symmetry_support_leakage_norm": 0.0,
+    "float64_energy_spacing_Ha": 1.8189894035458565e-12,
+    "whole_segment_energy": {
+      "accepted_steps": 160,
+      "net_energy_change_Ha": -6.854224920971319e-07,
+      "recorded_decrease_steps": 160,
+      "recorded_equal_energy_steps": 0,
+      "recorded_increase_steps": 0,
+      "minimum_decrease_ULP": 1.0,
+      "median_decrease_ULP": 136.0,
+      "maximum_decrease_ULP": 66992.0,
+      "absolute_change_at_most128_ULP_steps": 78,
+      "absolute_change_at_most1_ULP_steps": 4
+    },
+    "last20_energy": {
+      "accepted_steps": 20,
+      "net_energy_change_Ha": -1.4642864698544145e-09,
+      "recorded_decrease_steps": 20,
+      "recorded_equal_energy_steps": 0,
+      "recorded_increase_steps": 0,
+      "minimum_decrease_ULP": 1.0,
+      "median_decrease_ULP": 13.5,
+      "maximum_decrease_ULP": 202.0,
+      "absolute_change_at_most128_ULP_steps": 18,
+      "absolute_change_at_most1_ULP_steps": 1
+    },
+    "last10_energy": {
+      "accepted_steps": 10,
+      "net_energy_change_Ha": -1.4370016288012266e-10,
+      "recorded_decrease_steps": 10,
+      "recorded_equal_energy_steps": 0,
+      "recorded_increase_steps": 0,
+      "minimum_decrease_ULP": 1.0,
+      "median_decrease_ULP": 3.5,
+      "maximum_decrease_ULP": 30.0,
+      "absolute_change_at_most128_ULP_steps": 10,
+      "absolute_change_at_most1_ULP_steps": 1
+    },
+    "last_step_energy": {
+      "accepted_steps": 1,
+      "net_energy_change_Ha": -1.8189894035458565e-12,
+      "recorded_decrease_steps": 1,
+      "recorded_equal_energy_steps": 0,
+      "recorded_increase_steps": 0,
+      "minimum_decrease_ULP": 1.0,
+      "median_decrease_ULP": 1.0,
+      "maximum_decrease_ULP": 1.0,
+      "absolute_change_at_most128_ULP_steps": 1,
+      "absolute_change_at_most1_ULP_steps": 1
+    },
+    "final_CI_coefficient_change_from_initial_norm": {
+      "6s_1/2": 7.800039695876744e-05,
+      "5d_3/2": 9.918239487674334e-05,
+      "5d_5/2": 9.920465911099943e-05,
+      "6p_1/2": 0.00011270727412219774,
+      "6p_3/2": 0.00010942576731671043
+    },
+    "maximum_phase_aligned_adjacent_CI_coefficient_change_norm": {
+      "6s_1/2": 0.00018561776784708318,
+      "5d_3/2": 0.0002228797733327082,
+      "5d_5/2": 0.0002232735161111657,
+      "6p_1/2": 0.000211334044326608,
+      "6p_3/2": 0.00022099580087404266
+    },
+    "selected_global_column_changes": 0,
+    "frozen_reference_overlap_squared_initial": {
+      "6s_1/2": 0.998676105132549,
+      "5d_3/2": 0.9984711945303347,
+      "5d_5/2": 0.9949379566192181,
+      "6p_1/2": 0.9938472875894858,
+      "6p_3/2": 0.9909985887339541
+    },
+    "frozen_reference_overlap_squared_final": {
+      "6s_1/2": 0.9986750226679731,
+      "5d_3/2": 0.998471084067586,
+      "5d_5/2": 0.9949333452594399,
+      "6p_1/2": 0.9938405820410288,
+      "6p_3/2": 0.9910034997931828
+    },
+    "CI_response_interpretation": "Signed coefficient changes in the moving orbital basis; not independent physical cross-orbital overlaps. Physical overlap probabilities are the saved original-reference tracker records, hash-bound but not recomputed here.",
+    "near_roundoff_interpretation": "Accepted-only recorded energies resolve their observed float64 differences; no rejected trials, Armijo margins, exact mixed-CI energy delta oracle or failure causality is available. Maximum-iteration stop is observed, no line-search failure is established."
+  },
+  "resources": {
+    "actual_affinity": [
+      29
+    ],
+    "address_space_cap_bytes": 1073741824,
+    "wall_cap_s": 30,
+    "seconds_uncontrolled": 4.478440226987004,
+    "peak_RSS_MiB": 71.78125,
+    "controlled_performance_claim": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "actual_backend_pids": [
+    4100444
+  ],
+  "observed_backend_max_threads": 10,
+  "requested_OpenMP_team_size": 4,
+  "total_process_thread_cap": 8,
+  "thread_cap_violation": true,
+  "maximum_observed_CPU_active_threads": 7,
+  "observed_thread_CPU_seconds": {
+    "4100444/4100444": 0.31,
+    "4100444/4100478": 0.13,
+    "4100444/4100479": 0.13,
+    "4100444/4100480": 0.13,
+    "4100444/4100490": 0.17,
+    "4100444/4100491": 0.22,
+    "4100444/4100492": 0.22
+  },
+  "sampled_backend_peak_RSS_bytes": 521056256,
+  "samples": 22,
+  "mapped_runtime_library_sha256": {
+    "/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libgfortran.so.5.0.0": "67faab0feef3cc4b20d98daffda4de59f6816ab565b044da096487f4075fccdf",
+    "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2": "bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14",
+    "/usr/lib/x86_64-linux-gnu/libc.so.6": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+    "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1": "9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee",
+    "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0": "645478cbe100d1465b9d45f7047bca3965358f4d399937e544f55ac7a924d5a3",
+    "/usr/lib/x86_64-linux-gnu/libm.so.6": "1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8"
+  },
+  "scope": "10 ms /proc observer; peak RSS/threads are sampled lower bounds, not exact resource counters"
+}

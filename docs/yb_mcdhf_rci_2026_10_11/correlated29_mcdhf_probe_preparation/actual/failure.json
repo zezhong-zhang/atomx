@@ -1,0 +1,8 @@
+{
+  "scientific_success_claim": false,
+  "error": "Scientific gate failed: direction0_reported_derivative",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py\", line 559, in main\n    probe(contract, execution)\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py\", line 518, in probe\n    check(f\"direction{number}_reported_derivative\", abs(reported - analytical), ledger[\"gate\"])\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py\", line 162, in check\n    raise ValueError(\"Scientific gate failed: \" + name)\nValueError: Scientific gate failed: direction0_reported_derivative\n",
+  "progress_path": "progress.json",
+  "driver_sha256": "7489d91e9f5bc820ba71db94ef6449c886a544a22392ff117682721e737c7572",
+  "contract_sha256": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195"
+}

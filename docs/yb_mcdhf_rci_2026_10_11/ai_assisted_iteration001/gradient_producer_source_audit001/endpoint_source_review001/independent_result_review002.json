@@ -1,0 +1,271 @@
+{
+  "all_review_checks_passed": true,
+  "attribution_limits": [
+    "Dominant measured localization is the forward-versus-transposed/angular-assembly arithmetic route. It does not prove transpose weights are physically wrong or identify a single rounding operation.",
+    "No certified numerical bound, new ordinary-FD success, physical stationarity, experimental validation or controlled performance speedup follows.",
+    "Presence of fastmath alone is not a causal attribution. Ordinary h left/right association and radial polynomial differences remain separately measured.",
+    "The half-ULP checks only validate coherence of exported scalar decomposition fields; they are not a scientific arithmetic error bound."
+  ],
+  "bindings_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/actual/complete_ordered_radial_keys.json": "ffe9db158a3fadfa196685257ab46b8be967ef37f885c272f43ebef49b5f6106",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/actual/result.json": "c2178765aff7afb0a2a2897eeb0d26332b6f0b77cb04dcd6fd6b7be0f54673dd",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/contract.json": "22f0277174d5efcf6c64395057849babb50032f0e08c1df6a4d8dafdee299586",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/execution_binding.json": "06fd55f76abb364f1d9533ff19b1dd9412bd935d4e6a54e143b376e74a378385",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/handoff.json": "ecfe0508473e876b1addc73f80a789a927a5c5d9676c1d9922ada329b02832ce",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/preparation.json": "b57c4fa64bce740408f3c35e453f4bce825dcb2955bd6224e15f934d33f70212",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/root_execution.json": "57ba133937e5aa4bf20deaf188e572b15967b349b2f0a53221cbb07b16033b52",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/run.py": "dc0a7579c9982f2f1cd68d4b07469714eedce41afd07dc05bf4fb8ec6cbbb20b"
+  },
+  "checks": [
+    {
+      "name": "root_closed_success_400_guards",
+      "passed": true
+    },
+    {
+      "name": "receipt_result_binding",
+      "passed": true
+    },
+    {
+      "name": "binding_and_result_source_contract_hashes",
+      "passed": true
+    },
+    {
+      "name": "all191_controls_passed",
+      "passed": true
+    },
+    {
+      "name": "all_exact_work_counts",
+      "passed": true
+    },
+    {
+      "name": "all_count_caps",
+      "passed": true
+    },
+    {
+      "name": "all_zero_producer_counts",
+      "passed": true
+    },
+    {
+      "name": "all_input_bindings",
+      "passed": true
+    },
+    {
+      "name": "original_UID_order_and_weights",
+      "passed": true
+    },
+    {
+      "name": "actual_positive_norms",
+      "passed": true
+    },
+    {
+      "name": "baseline_full_signed_density_replay_matches",
+      "passed": true
+    },
+    {
+      "name": "native_polynomial_aggregate_replays_exactly",
+      "passed": true
+    },
+    {
+      "name": "complete_unique19589_keys",
+      "passed": true
+    },
+    {
+      "name": "key_shapes_h57_r19532",
+      "passed": true
+    },
+    {
+      "name": "all_primitive_values_finite",
+      "passed": true
+    },
+    {
+      "name": "exact_requests_and_banded_work_identity",
+      "passed": true
+    },
+    {
+      "name": "key_set_same_full_saved_baseline_union",
+      "passed": true
+    },
+    {
+      "name": "radial_key_orbitals_bound31",
+      "passed": true
+    },
+    {
+      "name": "no_physics_or_optimizer_upgrade",
+      "passed": true
+    },
+    {
+      "name": "memory_and_geometry_caps",
+      "passed": true
+    },
+    {
+      "name": "reported_decomposition_export_resolution/[1, 1, 0]",
+      "passed": true
+    },
+    {
+      "name": "reported_decomposition_export_resolution/[5, 1, 0]",
+      "passed": true
+    },
+    {
+      "name": "reported_decomposition_export_resolution/[3, 1, 0]",
+      "passed": true
+    },
+    {
+      "name": "reported_decomposition_export_resolution/[3, -1, 0]",
+      "passed": true
+    },
+    {
+      "name": "reported_decomposition_export_resolution/[1, -1, 0]",
+      "passed": true
+    }
+  ],
+  "complete_keys": {
+    "h": 57,
+    "r": 19532,
+    "same_saved_signed_baseline_union": true,
+    "total": 19589,
+    "unique": true
+  },
+  "executed_controls": {
+    "angular": {
+      "blocks": 5,
+      "nnz": 11120112,
+      "pairs": 1654843,
+      "structural_keys": 19589
+    },
+    "controlled_timing": false,
+    "counts": {
+      "CI_eigh": 0,
+      "H": 0,
+      "NPZ_load": 11,
+      "angular_block_terms": 5,
+      "angular_forward_table": 10,
+      "angular_nullspace": 38,
+      "angular_projection": 10,
+      "banded_contraction": 390640,
+      "bank_getter": 21872,
+      "bank_transpose_miss": 28,
+      "dense_projected_target": 25,
+      "density_kernel": 36166,
+      "native_hS_assembly": 0,
+      "ordinary_radial_evaluation": 39178,
+      "pair_potential": 5468,
+      "polynomial_cache_miss": 19589,
+      "polynomial_key_request": 19589,
+      "right_associated_onebody_endpoint": 114,
+      "saved_raw_operator_requests": 69,
+      "signed_target_density": 10,
+      "sparse_projected_target": 25,
+      "stored_H_MV": 5
+    },
+    "frozen_guards": 400,
+    "passed": 191,
+    "total": 191
+  },
+  "observations": [
+    "Native explicit and reconstruction aggregate exactly reproduce the saved original mixed JSON and baseline signed densities exactly reproduce their saved tables.",
+    "About92.12% of this pair polynomial-minus-stored discrepancy lies between transpose-density ordinary radial contraction and stored-H route. About7.88% remains in polynomial-versus-ordinary radial producer arithmetic.",
+    "Forward-table signed-pair increments use same FP64 radial endpoint values and native FP64 signed pair products; their weighted result is withinabout2.00e-14Ha of stored-R, comparedwithabout2.67e-11Ha for transpose-density contraction.",
+    "Dense-versus-genuine-sparse projected amplitudes differ byatmost1.3877787807814457e-17; their complete forward signed-pair increments agree withinexport resolution here.",
+    "Declared longdouble reconstruction remainder is zero across7626components atthispair. This is a represented diagnostic, not an exact dyadic or general reconstruction certificate."
+  ],
+  "per_state_reported_decomposition": [
+    {
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "decomposition_reported_float_residual_Ha": 0.0,
+      "dense_sparse_amplitude_max": 0.0,
+      "forward_dense_minus_sparse_signed_pair_Ha": 0.0,
+      "forward_dense_signed_pair_minus_stored_Ha": 1.3965132786544136e-14,
+      "half_ULP_export_resolution_Ha": 5.0487097934144756e-27,
+      "ordinary_minus_stored_Ha": 2.72019021239672e-11,
+      "polynomial_minus_ordinary_Ha": 2.289920081358388e-12,
+      "polynomial_minus_stored_Ha": 2.949182220532559e-11
+    },
+    {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "decomposition_reported_float_residual_Ha": 0.0,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "forward_dense_minus_sparse_signed_pair_Ha": -5.293955920339377e-23,
+      "forward_dense_signed_pair_minus_stored_Ha": 2.1270464313680567e-14,
+      "half_ULP_export_resolution_Ha": 6.664296927307108e-27,
+      "ordinary_minus_stored_Ha": 3.3341162627348404e-11,
+      "polynomial_minus_ordinary_Ha": 2.277179296525093e-12,
+      "polynomial_minus_stored_Ha": 3.56183419238735e-11
+    },
+    {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "decomposition_reported_float_residual_Ha": 0.0,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "forward_dense_minus_sparse_signed_pair_Ha": 5.293955920339377e-23,
+      "forward_dense_signed_pair_minus_stored_Ha": -2.3712289739942873e-13,
+      "half_ULP_export_resolution_Ha": 3.4331226595218434e-27,
+      "ordinary_minus_stored_Ha": 2.3301409789980354e-11,
+      "polynomial_minus_ordinary_Ha": 2.2797531377886934e-12,
+      "polynomial_minus_stored_Ha": 2.5581162927769047e-11
+    },
+    {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "decomposition_reported_float_residual_Ha": 0.0,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "forward_dense_minus_sparse_signed_pair_Ha": -1.0587911840678754e-22,
+      "forward_dense_signed_pair_minus_stored_Ha": -8.838546860225153e-14,
+      "half_ULP_export_resolution_Ha": 3.4331226595218434e-27,
+      "ordinary_minus_stored_Ha": 2.5064010680504523e-11,
+      "polynomial_minus_ordinary_Ha": 2.2756629818394578e-12,
+      "polynomial_minus_stored_Ha": 2.733967366234398e-11
+    },
+    {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "decomposition_reported_float_residual_Ha": 0.0,
+      "dense_sparse_amplitude_max": 0.0,
+      "forward_dense_minus_sparse_signed_pair_Ha": 0.0,
+      "forward_dense_signed_pair_minus_stored_Ha": 1.9033344431451465e-13,
+      "half_ULP_export_resolution_Ha": 3.4331226595218434e-27,
+      "ordinary_minus_stored_Ha": 2.4458026513489862e-11,
+      "polynomial_minus_ordinary_Ha": 2.2820109905695934e-12,
+      "polynomial_minus_stored_Ha": 2.6740037504059455e-11
+    }
+  ],
+  "principal_measured_Ha": {
+    "forward_dense_signed_pair_R_Ha": 3.832158121928559e-07,
+    "forward_dense_signed_pair_minus_stored_Ha": -1.9987864949151917e-14,
+    "forward_sparse_signed_pair_R_Ha": 3.8321581219285597e-07,
+    "ordinary_minus_stored_Ha": 2.667330234701672e-11,
+    "ordinary_minus_stored_fraction_of_total": 0.9212237017276635,
+    "polynomial_h_minus_ordinary_h_Ha": 1.8458958921785643e-12,
+    "polynomial_minus_ordinary_Ha": 2.280905297655893e-12,
+    "polynomial_minus_stored_Ha": 2.8954207644672613e-11,
+    "polynomial_r_minus_ordinary_r_Ha": 4.35009405666563e-13,
+    "right_minus_left_associated_h_Ha": 2.0519081496851027e-12
+  },
+  "principal_next_minimal_action": "Independently admit complete reference-centered forward T@(R1-R0) and T@(explicit+reconstruction) signed-pair contractions with the same five native states and actualnorms, compared with already-saved difference of forward endpoint assemblies. This isolates deep forward-assembly nonadditivity without new radial/H/CI/gradient/optimizer calls. Qualify a coherent energy/gradient producer before any optimizer adoption; no cutoff enlargement is indicated by this numerical result.",
+  "review_access": {
+    "NPZ_stat_header_hash_body": 0,
+    "frozen_preparation_source_data_edits": 0,
+    "new_native_calls": 0,
+    "numerical_imports": 0,
+    "saved_JSON_and_SOURCE_only": true
+  },
+  "review_check_count": 25,
+  "root_owns_RESULTS_and_current_guides": true,
+  "status": "independent_saved_JSON_result_review_passed"
+}

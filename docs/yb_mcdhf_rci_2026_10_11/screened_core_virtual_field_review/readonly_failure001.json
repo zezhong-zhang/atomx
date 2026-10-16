@@ -1,0 +1,15 @@
+{
+  "record_id": "readonly-static-harness-failure001",
+  "driver_sha256": "67408153d2749e82f84eeaf2e992d495e6b84df15c6f06f8656add2795c5c53d",
+  "failure": "adapter_exact_external_self_attributes",
+  "cause": "AST subtraction included conditional _convol_cache write, so cache is not in the set of unassigned external reads; consumer still requires a prebound matching cache. No physical issue and no source/physics call occurred.",
+  "actual_external_reads": [
+    "bsp_data",
+    "mean_field_coeffs",
+    "mean_field_normalization",
+    "subshells"
+  ],
+  "expected_incorrectly_included": "_convol_cache",
+  "scientific_calls": 0,
+  "tests_executed": 0
+}

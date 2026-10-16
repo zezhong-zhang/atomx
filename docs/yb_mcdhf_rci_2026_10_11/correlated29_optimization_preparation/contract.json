@@ -1,0 +1,193 @@
+{
+  "status": "source_only_prospective_pending_actual29_probe",
+  "root_execution_authorized": false,
+  "scientific_execution_permitted": false,
+  "hypothesis": "In the same complete1046 finite DC family, all29 correlated orbital relaxation may change same-state lower/upper gaps; neither lower EOL nor nonstationarity establishes experimental improvement. A bounded public optimization at the qualified exact probe point separates initial orbital response from another model-space scan.",
+  "source": {
+    "root": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source",
+    "file_count": 356,
+    "map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "identity_path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+    "identity_sha256": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "observed_probe_contract_sha256": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195",
+    "observed_probe_is_not_an_execution_or_final_input_binding": true
+  },
+  "read_only_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/run.py": "ace1a91c1d02ce0da594d040806c3af389cb7ffc61ed0006f9b5dd70d5b547ff",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/contract.json": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/RESULTS.md": "a14488043811625b7fafa81afdb34de321ef3be1de211b2ec528783378938baa"
+  },
+  "fixed": {
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "native005 Fermi A175",
+    "ns": 123,
+    "all29_radials_active": true,
+    "coordinate_count": 3451,
+    "complete_target_sector_CSFs": 1046,
+    "full_declared_parent_CSFs": 2163,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "original_nuclear_positive_P_groups": 7,
+    "original_no_pair_P_changed": false,
+    "reference_tracker": "original balanced531 DC/native005 waves, never rebase",
+    "five_state_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "original nuclear no-pair DC only",
+    "Breit_QED_recoil_empirical_added": false,
+    "no_config_or_amplitude_pruning": true,
+    "no_globalground_fullspectrum_claim": true,
+    "inverse_metric_policy": "exact qualified probe3451 layout/x/P/inverse, old24 embedded and new5 declared same-kappa SPD copies; no reseeding/rescaling or old2856 metric claim",
+    "all29_frozen_vs_optimized_boundary": "old24 exact seed is preserved as archive, but all29 may change during genuine optimization"
+  },
+  "required_future_inputs": {
+    "actual_probe_all_declared_derivative_gates_passed": null,
+    "root_frozen_probe_driver_contract_and_execution_hashes": null,
+    "independent_saved_point_and_metric_verification": null,
+    "exact3451_x_P_inverse_arrays_and_layout_hashes": null,
+    "source_ordered1046_basis_and_five_physical_target_binding": null,
+    "samepoint_complete_H_CI_signed_gradient_reference": null,
+    "new3451_metric_and_geometry_SHA": null,
+    "new_objective_content_SHA": null,
+    "root_exact_execution_contract": null
+  },
+  "objective_identity_payload": [
+    "complete orderedCSF signatures and5J/parity block partition",
+    "all29 ordered keys",
+    "original5 physical reference UIDs and equalweights",
+    "tracker referenceCI/binding/radial hashes",
+    "DC/no-pair and nucleus/workspace identity",
+    "source356map SHA",
+    "new3451 metric/geometry identity"
+  ],
+  "public_optimizer": {
+    "calls": 1,
+    "max_iter": 16,
+    "accepted_points_including_zero_max": 17,
+    "tolerance": 1e-07,
+    "energy_tolerance_Ha": 1e-08,
+    "projector_source": "nuclear",
+    "orbital_preconditioner": "spectral",
+    "occupation_floor": 0.05,
+    "history_size": 10,
+    "resume_state": "public OrbitalOptimizationState.from_arrays from exact actualprobe recovered-coordinate point",
+    "allow_objective_change": false,
+    "return_state": true,
+    "checkpoint_callback": "accepted-point only; complete retainedH/source/physical state/metric/gradient/numeric gates, including iteration0 entry replay",
+    "retain_hamiltonian": true,
+    "energy_difference": null,
+    "linear_energy_increments": false,
+    "preconditioner_matrices": null,
+    "preconditioner_factory": null
+  },
+  "ordinary_line_search_decision": {
+    "current_choice": "ordinary public path for early bounded progress; not a claim that initial29 step will be accepted",
+    "initial_scale_pending": true,
+    "first_descent_formula": "d=-T(M*g); slope=g.dot(d)=-g.dot(T(M*g))=-2*energy_indicator_Ha",
+    "near_roundoff_trigger_from_source": "abs(trialE-E)<=128*spacing(max(abs(E),1))",
+    "approx_scale_for_E14067_Ha": {
+      "one_ULP_Ha": 1.8189894035458565e-12,
+      "128ULP_Ha": 2.3283064365386963e-10
+    },
+    "cannot_infer_from_residual_only": true,
+    "actual_measurement_required": "archive actual raw trial energy differences, derivative and accepted step; prospective stopping at resource boundary or native line_search_failed, no acceptance workaround",
+    "mixed_diagnostic_is_optimizer_callback": false,
+    "separate_adapter_qualification_if_resolution_blocks_progress": true
+  },
+  "diagnostic_adapter_blocker": {
+    "current_API_returns": "dict with diagnostic_only=True,certified_error_bound=False,optimizer_adapter=False",
+    "optimizer_callback_requires": "finite float change or None",
+    "reported_and_Rayleigh_objectives_must_not_be_silently_interchanged": true,
+    "medium_two_direction_FD_is_not_Armijo_error_bound": true,
+    "future_acceptance_requirement": "qualified upper error bound: delta_estimate+epsilon<=1e-4*step*g.dot(d), plus original physical/CI/constraint gates; unsupported changes returnNone",
+    "root_new_contract_required_for_adapter": true
+  },
+  "proposed_resources_pending_probe_timing": {
+    "CPU": 1,
+    "threads": 1,
+    "memory_GiB": 3.95,
+    "inner_wall_s": 300,
+    "outer_wall_s": 315,
+    "accepted_boundary_soft_stop_s": 285,
+    "max_new_accepted_steps": 16,
+    "max_full_gradient_calls": 17,
+    "max_energy_trial_evaluations": 64,
+    "max_complete_CI_solves": 65,
+    "max_complete_H_builds": 65,
+    "max_checkpoint_H_builds": 0,
+    "checkpoint_H_source": "same acceptedCI retained immutable owner, validate exact same inputs; no extraHbuilder",
+    "functional_initial_hS": 7,
+    "max_CI_internal_hS": 455,
+    "max_total_hS": 462,
+    "max_from_arrays_validation_Dirac": 7,
+    "from_arrays_active_S_SPD_eigchecks": 7,
+    "from_arrays_inverse_block_SPD_eigchecks": 29,
+    "optimizer_resume_validation_spectra": 0,
+    "max_initial_reference_overlap_builds": 1,
+    "raw_overlap_pair_cap": 1000000,
+    "max_determinants_per_complete_sector": 2000,
+    "max_functional_tracking_resolves": 81,
+    "max_checkpoint_tracking_resolves": 17,
+    "max_total_tracking_resolves": 98,
+    "max_tracking_SVD": 490,
+    "native_max_backtrack_per_accepted_step": 56,
+    "global_trial_cap_stops_before_native_worst896": true,
+    "no_wall_time_or_RSS_prediction_claim": true
+  },
+  "gates": {
+    "CI_column_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "original_P_leakage_S_norm_squared": 1e-12,
+    "entry_raw_g_replay": 1e-09,
+    "entry_preconditioned_g_replay": 1e-10,
+    "orbital_residual": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "experimental_relative_goal": 0.01,
+    "experimental_gate_is_report_only_not_fit_target": true
+  },
+  "stop_and_archive": [
+    "Missing or failed probe/point/source/metric/target binding denies execution",
+    "Entry point completeH/CI/rawg/pg mismatch stops before any orbital step",
+    "RetainedH input/source/physicalUID/weights/Gram/residual/no-pair mismatch stops and preserves latest accepted point",
+    "Native line_search_failed preserves failure; no tolerance or diagnosticcallback workaround",
+    "16accepted/64trials/17gradients/wall/memory/load stop preserves exact last accepted state",
+    "Same-model lower/upper and differential gaps/moments/RMS separately reported; no previouspoint or correction splice"
+  ],
+  "implementation_changes": [],
+  "new_scientific_calls": 0,
+  "new_numerical_eigensolves": 0,
+  "source_or_peer_files_modified": false
+}

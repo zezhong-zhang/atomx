@@ -1,0 +1,109 @@
+{
+  "created_utc": "2026-10-11T16:15:24.076390+00:00",
+  "passed": true,
+  "message_id": "om_x100b638f66f890a4c022bc622939307",
+  "position": 1615,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1615",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "cycle": "2026-10-11T16",
+  "idempotency_key": "231e321c-5acf-5db5-98e7-4ba404b68550",
+  "source_stage": {
+    "number": 21,
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage021.json",
+    "sha256": "31755192cadf74415e8c921fa3288d32c90fcaab703a35f3e832d2f49a75407a",
+    "global_accepted_step": 80
+  },
+  "registry_source": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage021/registry_stage021.json",
+    "sha256": "813d537bb8af47bbd7d2eec29e6e2ade39455473fceffd8673919242d971a836"
+  },
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "title": "Atomx · 任务与谱学实验对照",
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-12 00:00:03",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-12 00:00",
+    "full_visible_content_matches": true,
+    "readback_characters": 9516,
+    "readback_is_raw_DSL": false,
+    "readback_representation": "CLI-rendered full card text; sent schema2 card archived separately",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "actual_send": {
+    "started_at": "2026-10-11T16:00:00.880512+00:00",
+    "finished_at": "2026-10-11T16:00:03.823105+00:00",
+    "passed": true
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "job": null,
+    "jobs": [],
+    "automatic_physics_jobs": 0,
+    "finished_at": "2026-10-11T16:00:05.665391+00:00"
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_calls_by_this_audit": 0,
+  "new_scientific_calls_by_this_audit": 0,
+  "cards_sent_by_this_audit": 0,
+  "files_sha256": {
+    "capture.json": "de425c2fb74a3111fb00b545986c123dfb57346fd06ce5ba7abaa6150b79536e",
+    "card.json": "2c42cd340039d0a8287ea29bb356d35b3f2593c242fce708bd6d3d7e49a997b6",
+    "iteration_request.json": "1623d6ff55cb3f575e9c1a23af8a590f05f303ddfe5974d7824f62cbc1fce79c",
+    "readback.json": "624cb21ed9706817d0c0926965244843247628e8dc77e91b9325f36f3c4a770d",
+    "readback_execution.json": "d0fc1311a8d4ae12c4a7523d3509b343bcf40d8d38c91ddbcd2b8363afd57c1b",
+    "receipt.json": "ae85474feddf883faf8acb02efe43f21df4d0fe2673a8fcc16736c56742df393",
+    "send_status.json": "e440bab2902ab4bcd6163721a335319e2002d58b8a8279483ef231ac2b96a122",
+    "service_iteration_status.json": "1623d6ff55cb3f575e9c1a23af8a590f05f303ddfe5974d7824f62cbc1fce79c"
+  },
+  "verifier_sha256": "144b0f88ce2ed5a1b2d681e094f58c08324cb466c61fe844572492a48dfd39f4",
+  "shared_utilities_sha256": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093",
+  "scope": "Saved-text/hash/receipt binding only; no producer replay or physical/stationarity/experiment certification upgrade.",
+  "native_iteration_scope": {
+    "new_independent_native_launch_for_this_hourly_card": false,
+    "continuing_work": "Parallel source/math and qualification preparation continued under existing authorization; no new independent native launch is attributed to this hour24 card.",
+    "historical_run005_claimed_as_new_launch": false,
+    "later_stage022_root_qualification003_is_separate": true
+  }
+}

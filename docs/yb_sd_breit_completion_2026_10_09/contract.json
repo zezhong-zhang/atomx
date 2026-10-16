@@ -1,0 +1,10 @@
+{
+  "hypothesis": "Missing two-core-hole Q propagation and correlation-coupled static Breit can change five Yb+ levels beyond the one-hole model; neither extension is assumed to improve experiment.",
+  "fixed": {"Z":70,"nucleus":"frozen v68_default Fermi potential","basis":"same frozen ns123 B-spline spinors","reference_union":["[Xe]4f14 6s1","[Xe]4f14 5d1","[Xe]4f14 6p1"],"excitation_targets":["6s","5d","6p"],"frozen":"all [Xe] shells","SD":"all NR singles/doubles plus complete jj parentage","sectors":[[1,1],[3,1],[5,1],[1,-1],[3,-1]],"no_external_sigma":true,"experiment":"previous frozen Yb II ASD excitation rows; no fit/shift"},
+  "distinguishing_outcomes": ["one-hole to complete declared SD changes in each total energy and four transitions", "first-order expectation vs full DCB re-solve", "strict restricted second-order Coulomb-Breit interference vs total correlated Breit response"],
+  "numerical_gates": {"full_residual_Ha":1e-10,"dense_energy_agreement_Ha":1e-10,"full_projector_agreement":1e-8,"minimum_P_weight":0.5,"old_one_hole_DC_replay_Ha":1e-10,"matched_h0_P_zero_Ha":1e-10},
+  "experimental_gate": {"new_target_max_four_excitation_relative_error":0.01,"historical_5_percent_gate_unchanged":true,"space_convergence_cm1":1.0},
+  "resources": {"CSFs_per_sector":1000,"determinants_per_sector":6000,"address_space_GiB":8,"wall_seconds_per_sector":600,"BLAS_threads":1,"OMP_threads":1,"Numba_threads":1,"execution":"one sector process at a time; preserve cap failures"},
+  "stopping": "No model selection or bracket by experiment; stop a sector on cap/gate failure, record failure. Complete the five-sector declared panel if numerical gates pass. A failed spatial/experimental gate is not loosened.",
+  "limits": ["This is finite-space NR-CISD, not atomic linearized all-order SD, CCSD or FS-CCSDT.", "Higher virtual orbitals, deep-core excitations, radial optimization, QED and resonance poles remain separate capabilities."]
+}

@@ -1,0 +1,9 @@
+{"status": "literal13_fixed_transported_direction_two_h_FD_completed", "all_passed": false, "controls": 745, "completed": {"H": 5, "CI": 5, "public_reported_energy_evaluate": 6, "gradient_from_weights": 3, "initial_hS": 7, "CI_internal_hS": 7, "mixed_radial_hS": 28, "hS_total": 42, "validation_Dirac": 7, "complete_SciPy_eigh": 32, "geometry_SPD_eigvalsh": 38, "polar_retraction": 28, "polar_numpy_eigh_fallback": 0, "tracker_resolve": 19, "tracking_SVD": 95, "tracker_overlap": 20, "mixed_ci_finite_increment": 4, "unfiltered_target_RDM": 25, "optimizer": 0, "GPU": 0, "gradient_pair_potential": 2118, "retained_RDM": 1, "finite_component_cache_miss": 78356, "finite_potential_cache_miss": 16491, "finite_density_cache_miss": 22797, "gradient_components": 8472}}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py", line 1008, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py", line 1000, in main
+    execute(Path(args.execution_binding))
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py", line 980, in execute
+    raise ValueError("Original finite derivative gates failed; all four finite ledgers preserved")
+ValueError: Original finite derivative gates failed; all four finite ledgers preserved

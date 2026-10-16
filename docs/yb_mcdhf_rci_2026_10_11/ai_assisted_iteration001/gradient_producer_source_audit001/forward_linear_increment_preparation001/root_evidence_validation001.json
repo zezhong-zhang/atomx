@@ -1,0 +1,34 @@
+{
+  "status": "root_fresh_frozen_evidence_validation",
+  "experiments": {
+    "endpoint_radial_contraction_preparation001": {
+      "exit_code": 1,
+      "guards": 396,
+      "all_unchanged": true,
+      "receipt_sha256": "f2c629497fe77a6bb6f2b701d04bc6a07af1a29ddbb423848ac7900995d16a4b",
+      "SOURCE_checks": 26
+    },
+    "endpoint_radial_contraction_preparation002": {
+      "exit_code": 0,
+      "guards": 400,
+      "all_unchanged": true,
+      "receipt_sha256": "57ba133937e5aa4bf20deaf188e572b15967b349b2f0a53221cbb07b16033b52",
+      "SOURCE_checks": 29
+    },
+    "forward_linear_increment_preparation001": {
+      "exit_code": 0,
+      "guards": 399,
+      "all_unchanged": true,
+      "receipt_sha256": "2ab94d2c48cf0fdb3f42c02b202c4a809cd3865221a551b9ab36c4139ed65667",
+      "SOURCE_checks": 24
+    }
+  },
+  "source_python_files": 356,
+  "physical_decision_input_hashes_checked": 28,
+  "frozen_dataset_artifacts_checked": 10,
+  "unique_files_hashed": 448,
+  "new_NPZ_load_or_header_access": 0,
+  "native_scientific_calls": 0,
+  "shared_source_adoption": false,
+  "original_failures_preserved": true
+}

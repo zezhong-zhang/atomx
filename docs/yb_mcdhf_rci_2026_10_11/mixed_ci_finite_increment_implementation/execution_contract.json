@@ -1,0 +1,74 @@
+{
+  "finite_qualification_execution_authorized": true,
+  "qualification_contract_sha256": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+  "preparation_verification_sha256": "ebd71f1365c980c5d7514cb3539297a797dde874e8be52f59304a30add02a477",
+  "sealed_at_utc": "2026-10-11T11:51:24.270877+00:00",
+  "root_reviewed_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/preparation_verification.json": "ebd71f1365c980c5d7514cb3539297a797dde874e8be52f59304a30add02a477",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/README.md": "5def5f494aa29a891c087e3da7a09b322f3b32b83d27e081ce169a50aa6496f9",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/run.py": "f065d8be47439bd2affafdc863926198d235b19f5efafd019a6cb86a54b4fe52",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/frozen_comparator.py": "e6c043a32af51f42088ab87661d0bc2b4039cdf98d621d4d7cc0337dfcc7d05c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions.npz": "874079c342694329255244596caacc45c00e13151c025974803d6496bd264bd4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions_identity.json": "de8379fc9819b540ae9bcc353f7c8350210b45425ec11495f4defb4b1bccc9db",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/verify_preparation.py": "472b0aaf29cf64cc0fe106f2b7969a1e4abf238d34783081e3a03175c1f342fc",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "src/atomx/numerics/ci_energy_increment.py": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367",
+    "src/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "src/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json": "1ef6cab59eac700bc8cfe7f3fd1ca441a18a452972fe4e0d5bc61aad1d3c94cc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_source_review/verification.json": "2c2e25221bcf9dc8c2fd2f3b2bb4e05ed417ebd0377400090dbb9497162f4c53",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage010/delivery_proof.json": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed"
+  },
+  "resources": {
+    "CPU_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_time_seconds": 300,
+    "maximum_H_builds": 18,
+    "maximum_complete_CI_solves": 13,
+    "maximum_full_gradients": 3,
+    "maximum_optimizer_calls": 0,
+    "candidate_native_calls": {
+      "H_build": 13,
+      "CI_solve": 13,
+      "gradient": 2,
+      "one_body_assembly": 48,
+      "nuclear_Dirac_solve": 3,
+      "polar_retraction": 36,
+      "physical_overlap": 41,
+      "tracking_SVD": 80,
+      "SciPy_eigh": 64,
+      "optimizer": 0
+    },
+    "frozen_comparator_calls": {
+      "H_build": 5,
+      "CI_solve": 0,
+      "gradient": 1,
+      "one_body_assembly": 6,
+      "physical_overlap": 2,
+      "tracking_SVD": 2
+    },
+    "independent_Decimal_matrix_domains": 25,
+    "hidden_warmups": 0
+  },
+  "actual_cpu_affinity": [
+    2
+  ],
+  "thread_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  },
+  "host_load_observed": [
+    9.09716796875,
+    9.16552734375,
+    9.173828125
+  ],
+  "cpu_probe_one_second_busy_fraction": 0,
+  "stage010_actual_message_id": "om_x100b6383208108a0dfe7bb2bfc0f771",
+  "scope": "Once, frozen complete finite source/test/Decimal oracle qualification. No optimizer/Armijo/Yb physics/performance certification; preserve failure and all counters."
+}

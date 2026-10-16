@@ -1,0 +1,37 @@
+{
+  "status": "prospective_bound_closed_failure_metadata_once",
+  "metadata_execution_authorized_after_exact_root_closure": true,
+  "closure_driver_sha256": "37ad9e0b3f8c913e65208be40169ce7304dabc9ac272cec4de270d930d9e5f17",
+  "scientific_execution_binding_sha256": "34fea4f7b5d8a68767884d21ee484f1b67097f381f44b24391f172c4117da154",
+  "frozen_preparation_sha256": {
+    "run.py": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+    "contract.json": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+    "prepare.py": "544885bad86f7a02cae279c2ce607fb10e6a78c3ab50bf30c9ae0d0f4aad5840",
+    "preparation.json": "09ed4bf3682ac1424598e35ccaea63de079906dca1320b7bd734b41a1b81280b",
+    "README.md": "058d520413ada9b6a9aacf093b7cae0a13efc55868b0518008d6fadf91401614",
+    "docimpact.json": "e09d9c12927aee36cc71fbbea2e2c40097f408e65bf9e0b992467cd27caba17e",
+    "preparation_draft_failure.json": "63cc0fbaab4df010b20e052535563f8390491823486808e915b9c20b597935c4",
+    "handoff.json": "6eaf1bccdcc7cd7acb7b9b7f90ae3f8127145462036b3c92d46493bdfe5cef89",
+    "root_source_review.json": "23aab338c9edab82af3e833d7a7629b3c2bed54e774a36f12594c147ca360187"
+  },
+  "closed_input_sha256": {
+    "root_execution.json": "2a4459f5c95d5d069a30309df260d5521f787ac55872a8f835a2756a87b9c42f",
+    "actual/failure.json": "2a868fdaf9998b07527f31d90c7c2faa8dec85d9402b8e268466b748ed982d8b"
+  },
+  "actual_record": "actual/failure.json",
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 35
+  },
+  "NPZ_reads_or_rehashes": 0,
+  "NumPy_Atomx_imports": 0,
+  "new_physical_calls": 0,
+  "no_API": true,
+  "scientific_domain_pass_is_not_metadata_closure_pass": true,
+  "ordinary_reported_FAIL_must_not_upgrade": true,
+  "prepare_consumed_actual_records": false,
+  "authorizing_root_message": "Root FD31939 CLOSED exit1 39.976s, shape representation failure; close current failure metadata only, no rerun."
+}

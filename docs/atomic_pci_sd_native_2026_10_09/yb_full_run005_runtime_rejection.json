@@ -1,0 +1,9 @@
+{
+  "pid": 3696342,
+  "command": ".venv/bin/python -u docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py --run yb_full_run005 --term21-threads 16 --term21-mode streamed ",
+  "time": 1791539392.880318,
+  "reason": "OpenBLAS Bad memory unallocation warning during full 16-worker term21; abort unvalidated action before accepting numerical result",
+  "evidence": "yb_full_run005.log",
+  "physical_space": "unchanged full 68 core /414 virtual /l<=3 /5 Ha",
+  "status": "rejected concurrency/runtime experiment, no equation or spectrum pass"
+}

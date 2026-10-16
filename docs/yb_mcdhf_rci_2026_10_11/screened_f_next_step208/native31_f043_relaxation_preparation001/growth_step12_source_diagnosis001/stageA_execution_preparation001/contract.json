@@ -1,0 +1,1155 @@
+{
+  "status": "concrete_SOURCE_ONLY_stageA_exact_numerical_history_replay",
+  "executor_implemented": true,
+  "execution_authorized": false,
+  "hypothesis": "Reconstruct the actual step13 direction and endpoint from complete chronological saved gradients to distinguish source-consistent secant acceleration from missing state or numerical implementation mismatch. No physical cause is presumed.",
+  "source_sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "metadata_inputs": {
+    "optimizer_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "runtime_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json",
+      "sha256": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68"
+    },
+    "runtime_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+      "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532"
+    },
+    "runtime_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+      "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739"
+    },
+    "scalar_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json",
+      "sha256": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607"
+    },
+    "original_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/contract.json",
+      "sha256": "e222059435dbd4e800fa23d1fbff0f0ef9f5a8cdebb4889c520d573b01f833e4"
+    },
+    "resource_clarification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_polar_resource_clarification001.json",
+      "sha256": "7e78c10c9774463967dafdfa72e1d06fb096df76bb50cec9fe29456e9a60f35d"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "point_manifest_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json",
+      "sha256": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1"
+    },
+    "point_manifest_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json",
+      "sha256": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1"
+    },
+    "point_manifest_2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json",
+      "sha256": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a"
+    },
+    "point_manifest_3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json",
+      "sha256": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956"
+    },
+    "point_manifest_4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json",
+      "sha256": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564"
+    },
+    "point_manifest_5": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json",
+      "sha256": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54"
+    },
+    "point_manifest_6": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json",
+      "sha256": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3"
+    },
+    "point_manifest_7": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json",
+      "sha256": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5"
+    },
+    "point_manifest_8": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json",
+      "sha256": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3"
+    },
+    "point_manifest_9": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json",
+      "sha256": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827"
+    },
+    "point_manifest_10": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json",
+      "sha256": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842"
+    },
+    "point_manifest_11": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json",
+      "sha256": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d"
+    },
+    "point_manifest_12": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json",
+      "sha256": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632"
+    },
+    "point_manifest_13": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19"
+    }
+  },
+  "points": [
+    {
+      "index": 0,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json",
+      "manifest_sha256": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.npz",
+      "array_sha256": "9d318724e8fc233091a05e60efa1ce7c768df92f1a5edc963401384d839e5ada",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "inverse_diagonal": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "projector_0": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_0": {
+          "shape": [
+            2,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_1": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_1": {
+          "shape": [
+            4,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_2": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_2": {
+          "shape": [
+            6,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_3": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_3": {
+          "shape": [
+            7,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_4": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_4": {
+          "shape": [
+            6,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_5": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_5": {
+          "shape": [
+            4,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "projector_6": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "float64"
+        },
+        "inverse_blocks_6": {
+          "shape": [
+            2,
+            119,
+            119
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json",
+      "manifest_sha256": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.npz",
+      "array_sha256": "146d340db796ed610b123ba303a75d16815db24391feb234f8a2dc0cb1a1b803",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json",
+      "manifest_sha256": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.npz",
+      "array_sha256": "c01e92dd5a7774128dcfd1332f589128578cb89580718586dd9c40ce49d3d8d8",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json",
+      "manifest_sha256": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.npz",
+      "array_sha256": "95f37b27757d9151b6ef05c4fe65db4113b34a76d3515486db1efd6ce9829ad0",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json",
+      "manifest_sha256": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.npz",
+      "array_sha256": "9c017242ec4d759c7b97fc99a4ddf068ab5307b265dfe032968643ab95ac9d0a",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json",
+      "manifest_sha256": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.npz",
+      "array_sha256": "4fd414088d53e0c3fea1db002a2c78935b607d33ba345b058396ad43704b4efd",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 6,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json",
+      "manifest_sha256": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.npz",
+      "array_sha256": "90084413e97630dd050bbf08aa7e59e5a7aa613efbf907665a04d4ae3a0d3268",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 7,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json",
+      "manifest_sha256": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.npz",
+      "array_sha256": "0e4016f097cdb339960b67853cd73a441217f6f78d96b52ebb2dac43b63aff07",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 8,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json",
+      "manifest_sha256": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.npz",
+      "array_sha256": "70b83004b76f4d1bebf8349954199d88d8f3c1142751f4d6ae3eecbb822a4a87",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 9,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json",
+      "manifest_sha256": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.npz",
+      "array_sha256": "2f9cfed64d0e4bf64d7a05870b7cce3c80770805ee25b72bd05f72440e8930d1",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 10,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json",
+      "manifest_sha256": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.npz",
+      "array_sha256": "b89565f22bcc4f0f533554367ba73c7931408de69f4d5ef5b0a270e105a6eae8",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 11,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json",
+      "manifest_sha256": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.npz",
+      "array_sha256": "fa9b97c3f97c37c8cd0e9cc32270486bd90a81900d03ba5302986b841585933b",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 12,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json",
+      "manifest_sha256": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.npz",
+      "array_sha256": "9a2dfa73a214c05a2534d77e0987b86bfc516aad70b9fa29020a4afb9d6951b4",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "retained_radial": {
+          "shape": [
+            31,
+            246
+          ],
+          "dtype": "float64"
+        },
+        "raw_coordinate_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "tangent_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        },
+        "preconditioned_gradient": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "index": 13,
+      "manifest_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "manifest_sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+      "array_path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+      "array_sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+      "deferred_no_NPZ_read_or_rehash_in_preparation": true,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "float64"
+        }
+      }
+    }
+  ],
+  "fixed": {
+    "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "coordinate_dimension": 3689,
+    "orbital_keys": 31,
+    "history_size": 10,
+    "initial_history_empty": true,
+    "complete_same_kappa_groups": [
+      {
+        "keys": [
+          [
+            4,
+            -4
+          ],
+          [
+            5,
+            -4
+          ]
+        ],
+        "shape": [
+          119,
+          2
+        ],
+        "slice": [
+          0,
+          238
+        ],
+        "new_f_inverse_source": "original same-kappa4f SPD only"
+      },
+      {
+        "keys": [
+          [
+            3,
+            -3
+          ],
+          [
+            4,
+            -3
+          ],
+          [
+            5,
+            -3
+          ],
+          [
+            6,
+            -3
+          ]
+        ],
+        "shape": [
+          119,
+          4
+        ],
+        "slice": [
+          238,
+          714
+        ],
+        "new_f_inverse_source": null
+      },
+      {
+        "keys": [
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            5,
+            -2
+          ],
+          [
+            6,
+            -2
+          ],
+          [
+            7,
+            -2
+          ]
+        ],
+        "shape": [
+          119,
+          6
+        ],
+        "slice": [
+          714,
+          1428
+        ],
+        "new_f_inverse_source": null
+      },
+      {
+        "keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ],
+          [
+            7,
+            -1
+          ]
+        ],
+        "shape": [
+          119,
+          7
+        ],
+        "slice": [
+          1428,
+          2261
+        ],
+        "new_f_inverse_source": null
+      },
+      {
+        "keys": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ]
+        ],
+        "shape": [
+          119,
+          6
+        ],
+        "slice": [
+          2261,
+          2975
+        ],
+        "new_f_inverse_source": null
+      },
+      {
+        "keys": [
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "shape": [
+          119,
+          4
+        ],
+        "slice": [
+          2975,
+          3451
+        ],
+        "new_f_inverse_source": null
+      },
+      {
+        "keys": [
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "shape": [
+          119,
+          2
+        ],
+        "slice": [
+          3451,
+          3689
+        ],
+        "new_f_inverse_source": "original same-kappa4f SPD only"
+      }
+    ],
+    "data_kind": "literal original accepted0..12 x plus retained radial g and coordinate raw/tangent/pg; accepted13 x; original baseline layout/P/inverses. All runtime dtype float64 except exact ordered int64 keys.",
+    "original_P_and_inverse_not_rebuilt": true
+  },
+  "source_reuse": "Parse the SHA-bound f043 AST and compile only exact original metric hash, tangent, spectral precondition, polar/retract functions and chronological original two-loop plus transported secant admission/drop blocks. Do not import Atomx or call optimize_orbitals.",
+  "public_gradient_coordinate_reconstruction": "Rebuild g from saved retained radial gradient using original P.T@column_stack and exact original tangent expression, then compare to saved coordinate/tangent/pg and original residual/indicator. This is numerical coordinate mapping only, not a new physical gradient.",
+  "section_control": "Source function extraction and AST identities recorded in preparation. No guessed last10 slice and no changed pair curvature threshold, rho, step, metric or objective. Preserve original positive relative curvature predicate1e-12 and original tangent vector transport.",
+  "gates": {
+    "original_slope_absolute": 1e-10,
+    "predicted_step13_coordinate_endpoint_max": 1e-12,
+    "stored_raw_tangent_pg_max": 1e-10,
+    "original_residual_scalar_absolute": 1e-10,
+    "original_indicator_scalar_absolute": 1e-10,
+    "coordinate_Gram_max": 1e-10,
+    "signed31_slope_partition_absolute": 1e-10,
+    "original_metric_SHA": "exact"
+  },
+  "resources": {
+    "interpreter": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 45,
+    "maximum_system_load1": 32,
+    "thread_environment": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "NPZ_loads_max": 14,
+    "fields_decoded_exact": 94,
+    "decoded_bytes_exact": 7544472,
+    "decoded_bytes_max": 8388608,
+    "maximum_each_archive_bytes_hashed": 67108864,
+    "maximum_total_archive_bytes_hashed": 939524096,
+    "small_coordinate_Gram_numpy_eigh_max": 7,
+    "small_Gram_shape_max": [
+      7,
+      7
+    ],
+    "single_final_original_polar_all7kappas": true,
+    "H_CI_newgradient_Dirac_optimizer_calls": 0,
+    "direction_replays_exact": 13,
+    "chronological_new_pair_admissions_max": 12,
+    "native_transported_old_pairs_max": 65,
+    "native_two_loop_pair_visits_max": 150,
+    "ledger_transported_old_pairs_max": 65,
+    "tangent_actions_for_native_and_ledger_old_pair_transport_max": 260,
+    "final_signed_cross_matrix_max_shape": [
+      10,
+      10
+    ],
+    "runtime_bound_estimate": "Only ~7.2MiB decoded fields, <=896MiB streamed archive hash and one seven-group polar. NumPy import and hashing may dominate; actual30s cap is not a completion promise. H/C members are neither selected nor decompressed."
+  },
+  "full_signed_diagnostics": [
+    "All retained and dropped chronological old-pair curvatures, norms, rho and actual pair counts.",
+    "Exact replayed slopes0..12, direction norm and signed original-M steepest correction cross term; direction identity is norm\u00b2SD+norm\u00b2correction+2SD\u00b7correction.",
+    "Full signed s_i.T y_j cross matrix for final history, all31 signed g\u00b7direction contributions.",
+    "One original polar endpoint against literal accepted13 x; export direction12 and transported normalized direction13 only after all original gates."
+  ],
+  "outputs": [
+    "actual/result.json with counters/checks/allpair/direction ledgers",
+    "actual/reconstructed_direction.npz after successful replay; future direction only, not stageB qualification"
+  ],
+  "stop": "First source/array/dtype/metric/g/slope/endpoint/resource mismatch preserves failed numerical evidence and stops. No physical calls, no altered polar branch, no retry, no stageB executor or optimization continuation.",
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/execution_binding.json",
+  "preparation": {
+    "numerical_imports": 0,
+    "NPZ_reads_or_rehashes": 0,
+    "physical_calls": 0,
+    "frozen_proposal_or_scientific_files_modified": false
+  }
+}

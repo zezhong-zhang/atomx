@@ -1,0 +1,96 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "synthetic_exact_metadata_predicate_only",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:execution_authorized_by_root",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:qualification_authorized",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:driver_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:candidate_source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:candidate_source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:point_arrays_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_full_gradients",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_CI_solves",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_public_H_builds",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_optimizer_calls",
+      "passed": true
+    },
+    {
+      "name": "reject_empty_authority",
+      "passed": true
+    },
+    {
+      "name": "authorization_precedes_physical_imports",
+      "passed": true
+    },
+    {
+      "name": "no_optimizer_call_in_qualification_consumer",
+      "passed": true
+    },
+    {
+      "name": "declared_forward_counted_original_functions",
+      "passed": true
+    },
+    {
+      "name": "full_g_pg_original_gates_kept",
+      "passed": true
+    },
+    {
+      "name": "full_point_stays531_no_model_shrink",
+      "passed": true
+    },
+    {
+      "name": "preflight_current_driver_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_import_in_metadata_proof",
+      "passed": true
+    }
+  ],
+  "checks_count": 20,
+  "contract_sha256": "35e83f94fbb9221260e491af76c8f079fa405fb83e7bbcc78e4eb6569be679ec",
+  "driver_sha256": "69cdad3bad51d74a38cd635b5a3536c3e5446126809e4e3a8dd060c7bbebe5af",
+  "new_CI_solves": 0,
+  "new_H_builds": 0,
+  "new_gradients": 0,
+  "optimizer_calls": 0,
+  "preflight_checks_count": 390,
+  "preflight_sha256": "05fb7a1a26f005c1d7b966c64de8c9da741aabb368d04af6aa6fd8186eb49ad3",
+  "science_execution_pending_exact_root_contract": true,
+  "scope": "Metadata predicate, static AST and source/input admission only; not root authority or numerical qualification"
+}

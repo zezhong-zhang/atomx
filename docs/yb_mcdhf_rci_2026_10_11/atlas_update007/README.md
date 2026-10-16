@@ -1,0 +1,7 @@
+Atlas v8 is privately deployed: 21 models / 84 rows, including the separate history10/history40 fork terminals at 32 local updates/global240 from literal 208. Both original stationarity gates and experimental gates remain FAIL. The old 19 models/76 rows, three old trajectory objects, 20 old evidence assets,6019 NIST gzip payloads, renderer and hosting bytes are preserved.
+
+The common lineage has 209 saved point identities. The forks add 66 records, sharing local0–11; the five run objects contain 277 records and 262 distinct identities. Global240 is branch-specific, and the fork measurements retain their f043 source epoch.
+
+[The saved-data proof](data_verification.json) passed. [The desktop/mobile browser proof](browser_result.json) passed 57 checks; its [single execution receipt](browser_execution.json) records owned server/browser cleanup. Root pushed the 17-file website-only commit and [successfully deployed v8](deployment_result.json) to the existing owner-private site. The [publication manifest](publication_manifest.json) separates raw local tar SHA from Sites normalized content identity and binds the exact audience receipt.
+
+[RESULTS](RESULTS.md) gives the closed evidence and limits. The old pending-browser/publication README and docimpact are preserved in[prepublication_docs](prepublication_docs/README.md); original prospective contracts/handoffs and all failures remain historical phase evidence. This final metadata closure performs no new scientific/array/browser/API calls or commits, and does not edit the main campaign README or registry.

@@ -1,0 +1,108 @@
+{
+  "status": "metadata_AST_preparation_verified_no_execution",
+  "all_preparation_checks_passed": true,
+  "checks": [
+    {
+      "name": "prepared_only",
+      "passed": true
+    },
+    {
+      "name": "not_executed",
+      "passed": true
+    },
+    {
+      "name": "exact_accepted160",
+      "passed": true
+    },
+    {
+      "name": "whole353_epoch",
+      "passed": true
+    },
+    {
+      "name": "inherited_stationarity_fail",
+      "passed": true
+    },
+    {
+      "name": "remaining_complete_sizes",
+      "passed": true
+    },
+    {
+      "name": "complete_pair_budget",
+      "passed": true
+    },
+    {
+      "name": "complete_residual_budget",
+      "passed": true
+    },
+    {
+      "name": "exact_four_SVD_gvd_refinement",
+      "passed": true
+    },
+    {
+      "name": "two_completeCI_four_H",
+      "passed": true
+    },
+    {
+      "name": "raw_publicCI_hS_explicit",
+      "passed": true
+    },
+    {
+      "name": "zero_external_field_geometry_calls",
+      "passed": true
+    },
+    {
+      "name": "unchanged_full_spectrum_gates",
+      "passed": true
+    },
+    {
+      "name": "helper_bound_exactly",
+      "passed": true
+    },
+    {
+      "name": "first_complement_bound",
+      "passed": true
+    },
+    {
+      "name": "compile_only",
+      "passed": true
+    },
+    {
+      "name": "helper_no_physical_or_spectral_imports",
+      "passed": true
+    },
+    {
+      "name": "no_new_Fock_functional_constructor",
+      "passed": true
+    },
+    {
+      "name": "publicCI_raw_onebody_forwarded",
+      "passed": true
+    },
+    {
+      "name": "all_input_and_source_hashes_via_metadata",
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_or_numpy_scipy_imports",
+      "passed": true
+    },
+    {
+      "name": "pending_binding_rejected_before_science",
+      "passed": true
+    },
+    {
+      "name": "focused_Ruff",
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "driver_sha256": "42fc5171d6b73470284cb2efedac9361015b5f4824f40723339313a6d5fc1296",
+  "contract_sha256": "0d552b666b446e62f6804575f8b06ea8caaf1a62da1d155d60aed996986488de",
+  "helper_sha256": "1126ac7d8c6c6a3d04642de2b7fcadcb5abe6022b67de955aa271d8d8d8f5fbb",
+  "verification_driver_sha256": "978eae29090750c6147c0a5dba3162427910f3662957fd749780ed8d4bf70c77",
+  "physical_imports": 0,
+  "scientific_calls": 0,
+  "eigensolves": 0,
+  "Ruff_output": "All checks passed!",
+  "pending_exact_new_root_binding": true
+}

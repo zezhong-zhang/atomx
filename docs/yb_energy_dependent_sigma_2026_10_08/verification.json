@@ -1,0 +1,36 @@
+{
+  "affected_tests_passed": 137,
+  "intentional_QED_coverage_warnings": 27,
+  "source_change_after_capture": "Finite real scalar input guards only; no change to coupling kernel, poles, weights or scalar equations. Capture source remains separately archived.",
+  "matched_final_source_root_replay_errors_Ha": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "max_root_residual_Ha": 6.938893903907228e-17,
+  "full_capture_source_unchanged": true,
+  "CI_injection": true,
+  "experiment_and_space_gates": {
+    "completed": true,
+    "on_shell_replay_passed": true,
+    "dyson_residual_and_residue_passed": true,
+    "experimental_5percent_goal_passed": false,
+    "max_relative_excitation_error": 0.0526824600600374,
+    "l4_to_l6_Dyson_increments_cm1": [
+      -558.3845334440957,
+      156.1623848694253,
+      -503.1821376516091,
+      180.89005224795983
+    ],
+    "partial_wave_1cm1_gate_passed": false,
+    "radial_convergence": "not_tested",
+    "higher_order_coverage": "not_completed",
+    "radiative_operators_dressed": false,
+    "scope": "diagonal frozen-orbital Dyson only"
+  },
+  "pdf_text_values_verified": true,
+  "ruff": "passed",
+  "git_diff_check": "passed"
+}

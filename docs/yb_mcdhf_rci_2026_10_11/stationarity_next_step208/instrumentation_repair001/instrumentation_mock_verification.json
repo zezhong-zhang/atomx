@@ -1,0 +1,74 @@
+{
+  "all_mock_checks_passed": true,
+  "checks": [
+    {
+      "name": "mock_frozen_and_equal_but_distinct",
+      "passed": true
+    },
+    {
+      "name": "original_instance_assignment_refused",
+      "passed": true
+    },
+    {
+      "name": "previous_existing_counter_preserved",
+      "passed": true
+    },
+    {
+      "name": "target_exact_original_result_returned",
+      "passed": true
+    },
+    {
+      "name": "target_captured_exact_return_elements",
+      "passed": true
+    },
+    {
+      "name": "non_target_exact_original_result_returned",
+      "passed": true
+    },
+    {
+      "name": "equal_non_target_does_not_capture",
+      "passed": true
+    },
+    {
+      "name": "second_target_result_unchanged",
+      "passed": true
+    },
+    {
+      "name": "second_non_target_result_unchanged",
+      "passed": true
+    },
+    {
+      "name": "existing_counter_four_calls_once_each",
+      "passed": true
+    },
+    {
+      "name": "self_args_kwargs_exactly_forwarded",
+      "passed": true
+    },
+    {
+      "name": "original_method_called_exactly_with_same_inputs",
+      "passed": true
+    },
+    {
+      "name": "frozen_target_fields_unchanged",
+      "passed": true
+    },
+    {
+      "name": "frozen_other_fields_unchanged",
+      "passed": true
+    },
+    {
+      "name": "no_instance_resolve_attribute_installed",
+      "passed": true
+    },
+    {
+      "name": "no_numpy_atomx_import",
+      "passed": true
+    }
+  ],
+  "mock_counter_calls": 4,
+  "real_CIBasisTracking_import": false,
+  "physical_calls": 0,
+  "NumPy_Atomx_imports": 0,
+  "NPZ_bytes_or_arrays_read": 0
+}

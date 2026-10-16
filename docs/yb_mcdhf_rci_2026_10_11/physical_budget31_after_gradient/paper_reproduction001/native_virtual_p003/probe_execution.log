@@ -1,0 +1,49 @@
+{
+  "status": "PASS_COMPLETE_6P_OFFSHELL_PROBE",
+  "contract_sha256": "c1301bfafb381abd6cfc66174fc82b61b0c3ed250da3c13a9df9b4980e801005",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "independent_radial_correction": {
+    "analytic_cases": 3,
+    "maximum_error": 1.1102230246251565e-16,
+    "status": "PASS"
+  },
+  "new_radial_roots": [
+    {
+      "key": [
+        6,
+        1
+      ],
+      "energy_Ha": -0.3011129391721854,
+      "dual_Ha": 1.7478507447615075e-14,
+      "Gram": 0.0,
+      "overlap": 1.8785800105077315e-18,
+      "electron_columns": 172
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "energy_Ha": -0.2883066652386744,
+      "dual_Ha": 1.4201720759680961e-14,
+      "Gram": 2.220446049250313e-16,
+      "overlap": 4.522139847863937e-18,
+      "electron_columns": 172
+    }
+  ],
+  "core_residual_seconds": 35.59869502400397,
+  "EA_action_seconds": 7.448828729990055,
+  "core_energy_Ha": -0.006696914622722261,
+  "operator_sha256": "3dbd7dac74ada513b50853fb745eb1d936be63a4fdae3794802018fd5e107a2e",
+  "core_amplitudes": 689589,
+  "scalar_core_coordinates": 37533,
+  "attachment_coordinates": 127620,
+  "new_core_rank_residuals": {
+    "1": 0.001132503801881606,
+    "2": 0.007156530444335603,
+    "3": 0.0010794717105236979
+  },
+  "newS_EA_residual_Ha": 0.02038398150918103,
+  "elapsed_seconds": 51.9553816189873,
+  "peak_RSS_MiB": 1531.640625
+}

@@ -1,0 +1,40 @@
+{
+  "created_at_utc": "2026-10-11T12:23:19.836741+00:00",
+  "foreground_command": [
+    "taskset",
+    "-c",
+    "31",
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/mixed_ci_one_body_mapping_audit/run.py"
+  ],
+  "python_symlink_preserved": true,
+  "environment_command": [
+    "taskset",
+    "-c",
+    "31",
+    "/data/code/atomx/.venv/bin/python",
+    "-c",
+    "import sys, numpy; print(sys.executable); print(sys.prefix); print(numpy.__version__)"
+  ],
+  "environment_admission_exit": 0,
+  "environment_admission_log_sha256": "b2d56d9d24fe780ed28d89f189bb6136defa481283ffaa75711aeaf48a6c243e",
+  "prior_failed_launch_files_sha256": {
+    "execution.log": "e3f8a67c51d7e8319d1403b751dee768a2f0de7982b6b58244282f5d2d82822e",
+    "execution_record.json": "3986408415459711925ee8723a75b4c089615a29b832add0fa9258e9a6741fde"
+  },
+  "exact_seal_sha256": {
+    "execution_contract.json": "339e6b7f5867dd2ca7a44a5d6047c2aad8034d68f5fa096b1c3d0678210b689d",
+    "contract.json": "727971280dfb52ffe93d6eedabfee9a1ec1d249658a60d104d7e18ab8953a294",
+    "run.py": "781d312fe4ac221b96410c52bd71b0d147f0745619de196a7c9ec6351d1d3e97"
+  },
+  "root_separate_successor_authorization": true,
+  "one_numerical_audit_invocation": true,
+  "controlled_performance_claim": false,
+  "exit_code": 0,
+  "elapsed_seconds": 0.11373741901479661,
+  "log_sha256": "c52f7acf680a87638a0890b03019b90e0e621d5bc9df99cc7cc9b8615642a0f3",
+  "result_sha256": "cf431b4cfe5591db700f37bd8e0becaa04d856c568bb0cd90fec6fd08fa25b8f",
+  "sealed_files_unchanged": true,
+  "prior_failure_bytes_unchanged": true
+}

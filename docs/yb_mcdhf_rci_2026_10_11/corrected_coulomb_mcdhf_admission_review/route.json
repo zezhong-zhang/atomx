@@ -1,0 +1,53 @@
+{
+  "source_only": true,
+  "implemented_public_API_reuse": [
+    "CSFOrbitalFunctional",
+    "ci_solve retain_hamiltonian=True",
+    "CIResult.hamiltonian_for",
+    "CIBasisTracking.resolve",
+    "OrbitalOptimizationState.from_arrays",
+    "optimize_orbitals checkpoint_callback",
+    "exact_reported_point/reported_acceptance_decision pure saved-H guard"
+  ],
+  "new_corrected_baseline_required": [
+    "completeH roots signedC realowner",
+    "five originalUIDs/.2",
+    "fullradial/rawcoordinate/tangent/pg",
+    "sameoldP/x/inverse/metric rawh/S/L(h)",
+    "originalresidual/Gram/stationarity gates"
+  ],
+  "old_values_not_corrected_acceptance_targets": [
+    "H allroots signedC rawg pg",
+    "oldcenteredradialnumerical anchors"
+  ],
+  "preserved_cross_epoch_bitwise": [
+    "orderedCSFs",
+    "all29directP@x",
+    "rawhS/L(h)",
+    "layoutP/x/inverse/metric",
+    "nucleus/reference_tracker"
+  ],
+  "minimal_baseline_forecast": {
+    "H": 1,
+    "CI": 1,
+    "original_public_gradient": 1,
+    "optional_complete_normalized_weighted_gradient": 2,
+    "total_gradient_if_fullnormalized": 3
+  },
+  "two_direction_qualification_forecast": {
+    "H": 5,
+    "CI": 5,
+    "gradient": 3,
+    "CIonly_trials": 4,
+    "callback": null
+  },
+  "actual_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "optimizer": 0
+  },
+  "independent_bounds_claimed": false,
+  "corrected_epoch_qualified": false
+}

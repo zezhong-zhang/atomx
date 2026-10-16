@@ -1,0 +1,196 @@
+{
+  "record_id": "2026-10-11-mixed-stable-increment-design",
+  "created_at_utc": "2026-10-11T09:27:42.884487+00:00",
+  "status": "read_only_prospective_design_not_implemented",
+  "authorization": {
+    "shared_source_edits": false,
+    "new_H_builds": 0,
+    "new_CI_solves": 0,
+    "new_gradients": 0,
+    "optimizer_calls": 0,
+    "active_run_changes": false,
+    "new_scientific_tests": false,
+    "implementation_or_successor_solve_authorized": false
+  },
+  "hypothesis": "If complete recorded trial/accepted-point diagnostics establish an energy-resolution obstruction in this fixed531 native objective, shared exact signed radial increments plus finite-norm CI response may distinguish physical decreases. Total energy magnitude or nonmonotonic residuals alone do not establish that mechanism.",
+  "fixed_model": {
+    "Z": 70,
+    "electrons": 69,
+    "CSFs": 531,
+    "NR_configurations": 21,
+    "radial_spinors": 24,
+    "ns": 123,
+    "ks": 9,
+    "nucleus": "native005 Fermi A175",
+    "operator": "full no-pair Dirac-Coulomb only; unchanged original004 nuclear projector and inverse metric",
+    "equal_target_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "targets": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    "physical_target": "Frozen CIBasisTracking reference/CSF signed canonical order from actual run002 objective_identity; never rebase",
+    "metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "gates": {
+      "original_orbital_tolerance": 1e-07,
+      "original_estimated_energy_tolerance_Ha": 1e-08,
+      "CI_residual_Ha": 1e-08,
+      "CI_orthogonality": 1e-10,
+      "matrix_hermiticity_Ha": 1e-10,
+      "cross_symmetry_zero_Ha": 1e-14,
+      "baseline_matrix_replay_Ha": 5e-09,
+      "baseline_target_energy_replay_Ha": 5e-09,
+      "coordinate_reconstruction_max": 1e-12,
+      "radial_Gram_error": 1e-10,
+      "projector_leakage_norm": 1e-10,
+      "central_derivative_absolute_Ha_per_coordinate": 3e-07,
+      "central_derivative_relative": 0.0001,
+      "physical_tracking_majority_squared_overlap_strict": 0.5,
+      "Armijo": 0.0001,
+      "same_complete_metric_SHA": true,
+      "no_531_stationarity_claim_from_bare005": true,
+      "full_public_optimizer_required": true,
+      "stationarity_both_original_gates_required": true,
+      "accepted_checkpoint_same_full_metric_SHA": true,
+      "original_reference_tracking_never_rebased": true,
+      "bare_same_recovered_point_projected_gradient_max": 1e-09,
+      "bare_same_recovered_point_preconditioned_gradient_max": 1e-10,
+      "same_recovered_coordinates_and_waves_exact": true
+    }
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/result.json": "438fe049c5c82da3d7d10e839f8f3500edb7f4d8f63d503f6679cd21aa59a0c8",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/independent_verification.json": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/card_evidence.json": "40ebcb5b28be935109fd1d6c8549cb0d01861dbc9ee97149e1ae55e94436c08e",
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage003.json": "e37fe166d453634402c0ea7fd4bd6b6ec260e360a0f25457f9bb502267f830a5",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/recovered_coordinates.npz": "fa3b24adca61cc827b924b70a89734543472268835942800ca641f2ab513c693",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json": "50f20c59136f2b49ff4c10d32a58cf214860a2da6affa8e10a829d411c69838e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/contract.json": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/run.py": "52b045f3d71c17d55080dc8b9a6a40c760bd289bcb080cb6fb8b0c887d42654d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/verify_endpoint.py": "9fb44a1b956adf6d42fcdd7481014fb0d7d8b80d1fe2d916364973165b54d407",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/source_identity.json": "13b43b3ec35f8e1ee42912fc213f53fc905b282ca168bf158598bd81af32978e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/execution_contract.json": "071201a15ac7ef4f07dfb225428bc01bde716132d498d8f40b4b6704190aba80",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/new_source_baseline_controls.json": "a04383f3f4a38d67d7bfad3b83bafd4f4d2509a54f0793d6a6a3fed06e322a83",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/execution_failure_pre_solve.json": "41775f0416e665f10076ff30aaa1e92254561689d7392facbc5489eccd6f3037",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/preparation_verification.json": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/diagnostic_source.py": "dced7d5d010924ca74bc6e2ba9ec3d1a7f0898eb1d8f3a2b048417c64900a668",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/contract.json": "4b29674efaa8eaeecf87b93c9cbd483838247ad66e78b79e9df0b77ef0d41665",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/contract.json": "ba6025c7492598e70482f082d6e7cb61b5ebdbc4be79a97fa45613e169d3384c",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/result.json": "eecc779e480f6c68f8279b25a1e5a32c85b804387fd30a14f50f015fdfea91be",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/arrays.npz": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/verification.json": "aa0b8a4df377c471559164a85d50df84a86b83bb47b73f5f4bd8499297ddce19",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json": "7bbc99f9b73c6ceb3a9a1262497bf1ec853e08e5c05d1d11528f4347b2d81958",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/run.py": "0651d4c350e76c66fe9f7f649efed14c8ca0dcbb0cd2945046d796ba4630ee63",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/verify_endpoint.py": "7b72b114aa3aa21ffd1e124ba9b144a29c66ecd6d324e419736aed839e8f264e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/preparation_verification.json": "1fee1a1cbba8431cdc070aa31234c1ca9074b2aace70ed54bfa3d10efc6bed4e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/successor_assessment_contract.json": "12682de3196b9f6fe28d0f2f370f5181a59ba20b2130502134e256d38ab486d9",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/mixed_difference_algebra.py": "a766b3160649a8781ae07f28975478e72cc7e82931af41e1cb433e2ad84dab3c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/mixed_difference_algebra.json": "be59023561993a0c3a26237c72d2bf17692b6a1d4ea22d6bac6960b57395be30",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md": "f4f66f6539da52afb74cc3bc2760951b57553778cbbb4f0919530cc5f5490914",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_original_metric_descent_0.0001_minus.npz": "4e7d59d5506701dd63b76765153920c6441541782dfdcc34e0e6965de6d3da80",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_original_metric_descent_0.0001_plus.npz": "3324218682f503560aeddec50c4eefbcda8ee3423b01717e16c486870c562ecc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_original_metric_descent_5e-05_minus.npz": "214b595d8552755525f9b83da3f8008c729a7d03174ed28f5b2d65c22e72235e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_original_metric_descent_5e-05_plus.npz": "ebd05620af2ba41272aeb85012819671bdb20f6e3f33efe3ab4356c2a5549bda",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_valence_focused_tangent_0.0001_minus.npz": "7fe645bf8f21a88dba2bc73e56c45bb8c6f6f83c9de173b760b349037859e036",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_valence_focused_tangent_0.0001_plus.npz": "7cfda831da535252e776bc294cad1e80f7c1422e7fbb2a066f39d0373a9fafe6",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_valence_focused_tangent_5e-05_minus.npz": "2beb7312a9d183f65ee5c8f9105610bdf36f3faae0f99268067db3d279f98311",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/FD_normalized_valence_focused_tangent_5e-05_plus.npz": "b540096a81a89476a359cdab9eb0ca1b07b23fe2e1fe27d739a6ec54fe63965b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/baseline_arrays.npz": "b52dbb9e8452b3081028c43061f4c9a8e031544c1935b26d20c315915f252750",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/line_trial_0.npz": "7a12a32a127a1280d5034a1e0adad8146f1087e3ef097bc00197396608a08521"
+  },
+  "source_identity_sha256": "aeb1e1a5bdcc84746bfa65c64eef83f645ebfd36e86ff05750224cd8be75c922",
+  "not_bound": "Mutable active result, latest_checkpoint pointer and ongoing run.log are not inputs. The source/contract/accepted evidence may be read; no active-run trial is recomputed.",
+  "mechanism_admission": {
+    "requires": [
+      "Root-frozen accepted endpoint plus independent full-H/CI/gradient original-metric verification",
+      "Saved rejected and accepted trial x, explicit original-projector increment, trial/reference full signed H/CI, physical tracking, exact resolved weights, derivative, step, Armijo RHS, stable-vs-rounded EOL differences and actual termination reason",
+      "Matched full objective and complete source/H/nucleus/orbital/CSF/target/normalization identities",
+      "Separate budget/iteration-cap, state-selection ambiguity, nonconvex secant/preconditioning, finite CI residual and true numerical energy-resolution mechanisms"
+    ],
+    "does_not_admit": [
+      "Only large total energy",
+      "Only step count or nonmonotonic orbital residual",
+      "Old bare5 or one-step531 result extrapolated to current endpoint",
+      "Any floating energy decrease substituted for original orbital residual"
+    ],
+    "if_missing": "Remain a proposal and preserve original run endpoint/failure; a separately prospective bounded diagnostic is required before implementation or solver adoption."
+  },
+  "minimal_prototype": {
+    "step1": "Factor private existing fixed-density complete radial polynomial into signed_weights_radial_increment; existing public scope guards unchanged. No source change in this design.",
+    "step2": "Independent pure-array real rank-one finite-norm reported-eigenvalue and Rayleigh-quotient response algebra; preserve both residual offsets; no amplitude cutoff.",
+    "step3": "Method-owned mixed callback composes independently resolved fixed targets, unfiltered per-target contract_bilinear(c1,c1)/n1 and shared radial increment with response/error diagnostics. H0/H1 and snapshot provenance supplied explicitly; CIResult has no matrix field.",
+    "step4": "Only after independent high-precision full signed radial and response tests, declare semantics/error bounds and qualify a conservative scalar upper-bound adapter or richer typed engine interface in a new source epoch.",
+    "initial_support": "Real isolated rank-one targets in unchanged complete signed CSF order/space, pure DC B-spline radial representation. Unsupported cluster/complex/charge/changed-space/operator/tracking cases reject explicitly; no fallback density freeze.",
+    "future_cluster": "Complete equally weighted physical subspaces only; invariant finite Gram/projector/trace formulation, after separate qualification. No per-column equality or unequal-weight rotation."
+  },
+  "objective_semantics": {
+    "reported_identity": "Exact mathematical identity for actual rounded saved H0/H1, lambda0/lambda1 and finite-norm vectors; reproduces stored lambda difference and cannot recover information already lost by lambda storage or EOL averaging.",
+    "quotient_candidate": "Continuous normalized Rayleigh-quotient EOL of actual retained signed vectors; must be distinguished from reported finite lambdas and bound against the same eigenvalue objective before any optimizer use. No silent objective switch.",
+    "rounding": "Extended precision, math.fsum and a small residual gate alone are not a rigorous near-roundoff decrement bound. Independently bound radial/response arithmetic, finite eigensolver error, H assembly, CI norm/Gram, orbital reconstruction/constraint defect and filtered-gradient discrepancy.",
+    "armijo": "Original coefficient1e-4 and original gradient/metric preserved. If using a bound-aware callback, acceptance requires certified delta_upper <= existing Armijo RHS. None means unsupported scope; numerically unresolved cannot silently fall back to a rounding-prone favorable subtraction."
+  },
+  "validation_plan_not_executed": {
+    "independent_anchors": [
+      "High-precision complete signed small radial Hamiltonian using frozen native angular/cell coefficients, including ordered offdiagonal one-body ket norm and final real symmetrization",
+      "Exact finite-norm nonsymmetric-normalization controls, nonzero offdiagonal interference, sign reversal, perturbed CI residuals and huge common core offset",
+      "Forward/reverse/zero/explicit projected finite increments and tiny step against full oracle; complete quartic terms including cross-delta product",
+      "Rank-one phase gauge invariance and explicit degenerate/unequal-weight rejection; full-span invariant trace tests before supporting clusters",
+      "Old fixed-density forward/reverse/zero/normalization and polar controls remain; no old guard removal",
+      "Same frozen full531 endpoint/trials; complete original-metric stationarity and tracked targets independently replayed; original gates decide"
+    ],
+    "prior_239_only": "Historical239 saved-matrix algebra controls/45 pairs establish finite rounded matrix identity, not a new radial polynomial, roundoff error bound or current stall.",
+    "no_new_pass_claim": true
+  },
+  "stopping": "One source/contract/documentation/AST/hash verification only. Do not execute science calls or modify shared source. Parent owns any new sealed prototype source epoch, independent gates and subsequent prospective diagnostic/run.",
+  "documentation_disposition": "New design successor distinguishes current available public resume from historical pending-API assessment. No current public capability/default changed. Parent owns consolidated navigation. Existing preserve-metric insight already covers constraint/roundoff limits; no new global rule.",
+  "resource_policy": {
+    "design_verifier_CPU_threads": 1,
+    "design_verifier_address_space_GiB": 0.5,
+    "design_verifier_wall_timeout_s": 60,
+    "future_small_oracle_experiment": "Separate prospective owner/contract/admission required; complete model preserved, no automatic run or 531 rescan in this task."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "81",
+    "time": "22.834",
+    "timestamp": "2026-10-11T00:12:54.607856+08:00",
+    "hostname": "fermi"
+  },
+  "source_files": 356,
+  "source_unchanged": true,
+  "actual_executable_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "backend_manifest_sha256": "3c2c951c0700894a9fbe2922f21fa363ef99df7a8ba1e7888cfdb8d282927717",
+  "contract_sha256": "83af033128e283ed3b4324ffd44e0834d08f84e90eb9f785a05a79a3eb5bd9b3",
+  "limits": "Finite Be nuclear Z4 ns30 10spinor/120det oracle, not production-scale Yb FS-CCSDT or correlation-tail convergence. Tests have fixed original per-gate tolerances.",
+  "scientific_gates_Ha": {
+    "signed_CI": 1e-11,
+    "exact_three_electron_FSCC": 1e-09,
+    "frozen_core_FCI": 1e-11
+  },
+  "highest_level_achieved": false
+}

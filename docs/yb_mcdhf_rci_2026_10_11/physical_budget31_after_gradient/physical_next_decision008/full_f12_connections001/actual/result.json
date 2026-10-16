@@ -1,0 +1,68 @@
+{
+  "CSFs_integer_native": 5717,
+  "RSS_before_graph_KiB": 165268,
+  "RSS_highwater_KiB": 2010012,
+  "claim_scope": "Complete structural graph only; no angular coefficients, full H/CI admission, energy or NIST accuracy result.",
+  "determinant_sha256": "51abe507ea2a998c8270bffed0a61aca25684ea8351886dec1e3687d7053547e",
+  "diagonals": 92715,
+  "elapsed_seconds": 46.05483614300101,
+  "enumeration_seconds": 0.9324803710005654,
+  "graph_seconds": 45.12212075900061,
+  "host_after": {
+    "MemAvailable_bytes": 122232664064,
+    "load1": 1.17529296875
+  },
+  "host_before": {
+    "MemAvailable_bytes": 122385993728,
+    "load1": 1.14990234375
+  },
+  "imported_sources": {
+    "src/atomx/__init__.py": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3",
+    "src/atomx/angular/__init__.py": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+    "src/atomx/angular/clebsch.py": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd",
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "src/atomx/angular/csf_hamiltonian.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+    "src/atomx/angular/csf_recoupling.py": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035",
+    "src/atomx/angular/ls_coupling.py": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+    "src/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+    "src/atomx/angular/rcfp.py": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/angular/wigner.py": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+    "src/atomx/compare.py": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c",
+    "src/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+    "src/atomx/types.py": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+  },
+  "last_pair": [
+    92714,
+    92714
+  ],
+  "ordered_by_replacements": {
+    "0": 92715,
+    "1": 1206876,
+    "2": 42420584
+  },
+  "ordered_pair_sha256": "9a49475f11b27a0889a1d187c9a5a18a445db0e92510688362f0b131d4a290e4",
+  "pairs": 43720175,
+  "patterns_sha256": "1a6443b61357a706b676c93d46583168034e053ecbbf11c1e9f63d228a68147e",
+  "prior007_ordered_pair_sha256_match": true,
+  "raw_determinants": 92715,
+  "rows_seen": 92715,
+  "spectator_index": {
+    "RSS_after_first_pair_KiB": 2010012,
+    "first_pair_and_index_census_seconds": 15.118626388000848,
+    "implicit_singletons_inferred_from_prior_U": 14009296,
+    "inference_scope": "Prior007 originalU minus actual retainedU; not a new production counter or separately materialized singleton set.",
+    "largest_bucket": 121,
+    "owned_bytes_scope": "After pruning sys.getsizeof(map)+retained keys+lists; construction fullmap and rebuild transient are absent from this payload but included in whole-run RSS highwater. Shared row integer objects, masks, caches and arenas excluded.",
+    "reconstructed_original_K": 23456895,
+    "reconstructed_original_U": 16684544,
+    "reconstructed_original_V": 92428751,
+    "retained_map_key_list_owned_bytes": 436174880,
+    "retained_memberships": 9447599,
+    "retained_ordered_visits": 78419455,
+    "retained_unique_buckets": 2675248,
+    "smallest_bucket": 2
+  },
+  "stage": "complete",
+  "success": true
+}

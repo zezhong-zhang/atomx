@@ -1,0 +1,1252 @@
+{
+  "phase": "completed",
+  "started": {
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI": 1,
+    "H": 1,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "CI_source_pair": 593,
+    "factor_get": 4744,
+    "direct_semiseparable": 4744,
+    "band_scalar": 49054,
+    "centered_dense_helper": 5,
+    "scipy_eigh": 5,
+    "tracking_resolution": 2,
+    "tracking_SVD": 10,
+    "gradient": 1,
+    "gradient_source_pair": 593,
+    "gradient_band_expand": 2372
+  },
+  "completed": {
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "factor_get": 4744,
+    "direct_semiseparable": 4744,
+    "CI_source_pair": 593,
+    "band_scalar": 49054,
+    "H": 1,
+    "scipy_eigh": 5,
+    "centered_dense_helper": 5,
+    "CI": 1,
+    "tracking_SVD": 10,
+    "tracking_resolution": 2,
+    "gradient_band_expand": 2372,
+    "gradient_source_pair": 593,
+    "gradient": 1
+  },
+  "call_wall_seconds_uncontrolled": {
+    "tracking_overlap": 4.129835866158828,
+    "initial_hS": 0.30366228916682303,
+    "CI_internal_hS": 0.03676675003953278,
+    "density_band": 0.15993155492469668,
+    "factor_get": 3.2158110751770437,
+    "direct_semiseparable": 0.6414030769374222,
+    "CI_source_pair": 3.7116623611655086,
+    "band_scalar": 0.14843839779496193,
+    "H": 4.77155647194013,
+    "scipy_eigh": 0.00977153005078435,
+    "centered_dense_helper": 0.00990109471604228,
+    "CI": 5.029678357997909,
+    "tracking_SVD": 0.00019990676082670689,
+    "tracking_resolution": 2.9914742512628436,
+    "gradient_band_expand": 0.145813214359805,
+    "gradient_source_pair": 0.3135806852951646,
+    "gradient": 0.4216682789847255
+  },
+  "stages_uncontrolled_seconds": {
+    "source_point_angular_setup": 25.754745782120153,
+    "public_energy_trial_including_tracking_owner": 6.631335796089843,
+    "complete_trial_eigenpair_Gram_owner_validation": 0.12596913403831422,
+    "public_accepted_gradient_including_tracking": 2.046612908830866,
+    "complete_checked_compressed_archive_fsync_readback": 0.16278549889102578
+  },
+  "checks": [
+    {
+      "name": "complete_dimensions_531_2163_1046_29",
+      "passed": true
+    },
+    {
+      "name": "complete69electrons",
+      "passed": true
+    },
+    {
+      "name": "complete_sector_1_-1",
+      "passed": true
+    },
+    {
+      "name": "complete_sector_1_1",
+      "passed": true
+    },
+    {
+      "name": "complete_sector_3_-1",
+      "passed": true
+    },
+    {
+      "name": "complete_sector_3_1",
+      "passed": true
+    },
+    {
+      "name": "complete_sector_5_1",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_order",
+      "passed": true
+    },
+    {
+      "name": "exact29radialkey_order",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_1",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_1",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_2",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_2",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_3",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_3",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_-2",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_-2",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_-4",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_-4",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_-3",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_-3",
+      "passed": true
+    },
+    {
+      "name": "original_Lh_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_Lh_bytes_-1",
+      "passed": true
+    },
+    {
+      "name": "saved_metric_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_metric_bytes_-1",
+      "passed": true
+    },
+    {
+      "name": "original3451_metric_bytes",
+      "passed": true
+    },
+    {
+      "name": "exact3451coordinate_shape",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, -4)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_0",
+      "passed": true,
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(3, -3)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, -3)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(5, -3)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(6, -3)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_1",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_1",
+      "passed": true,
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_1",
+      "passed": true,
+      "error": 2.6973307108245835e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(2, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(3, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(5, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(6, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(7, -2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_2",
+      "passed": true,
+      "error": 1.1060183738343954e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_2",
+      "passed": true,
+      "error": 9.230946657983871e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_2",
+      "passed": true,
+      "error": 3.269141010098268e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(1, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(2, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(3, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(5, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(6, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(7, -1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_3",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_3",
+      "passed": true,
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_3",
+      "passed": true,
+      "error": 4.763178040861193e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(2, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(3, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(5, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(6, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(7, 1)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_4",
+      "passed": true,
+      "error": 3.0784278451330597e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_4",
+      "passed": true,
+      "error": 3.532429156128871e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_4",
+      "passed": true,
+      "error": 3.525235626345363e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(3, 2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(4, 2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(5, 2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "original_coordinate_wave_(6, 2)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_5",
+      "passed": true,
+      "error": 2.301218360861247e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_5",
+      "passed": true,
+      "error": 2.8449465006019636e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_5",
+      "passed": true,
+      "error": 3.0248913082721073e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "original_coordinate_wave_(4, 3)",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "coordinate_Gram_6",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-10
+    },
+    {
+      "name": "radial_Gram_6",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "no_pair_leakage_6",
+      "passed": true,
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12
+    },
+    {
+      "name": "complete_five_centered_public_blocks",
+      "passed": true
+    },
+    {
+      "name": "actual_provenance_centered_origins",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "whole_H_exact_symmetric",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "full_CI_column_norm_residual",
+      "passed": true,
+      "error": 9.340528914883138e-12,
+      "limit": 1e-08
+    },
+    {
+      "name": "full_CI_Gram",
+      "passed": true,
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "read_only_owned_H",
+      "passed": true
+    },
+    {
+      "name": "stale_owner_rejected",
+      "passed": true
+    },
+    {
+      "name": "same_trial_CI_object",
+      "passed": true
+    },
+    {
+      "name": "same_reported_objective",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_complete_radial_gradient",
+      "passed": true,
+      "error": 3.5016434196677437e-13,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_raw_g",
+      "passed": true,
+      "error": 9.24362322796135e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_tangent_g",
+      "passed": true,
+      "error": 9.243619758514399e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_metric_pg",
+      "passed": true,
+      "error": 5.549125612139272e-13,
+      "limit": 1e-10
+    },
+    {
+      "name": "original_equal5weights",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "exact_five_UID_support",
+      "passed": true
+    },
+    {
+      "name": "same_raw_h_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_full_H",
+      "passed": true,
+      "error": 7.275957614183426e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "historical_unshifted_full_roots_source_evolution",
+      "passed": true,
+      "error": 1.6370904631912708e-11,
+      "limit": 1e-08
+    },
+    {
+      "name": "archive_exact_H",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_energies",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_mixing",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_radial_gradient",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_raw_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_pg",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_weights",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_x",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_keys",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_P",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_Q",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "source_import_atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.types",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.compare",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.basis",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.integrals",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.knots",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.dirac",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.schrodinger",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.wigner",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.clebsch",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.mscheme",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.rcfp",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.ls_coupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.coefficients",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.quadrature",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.spline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.coulomb",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.operators",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.matrix",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.subshell",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.breit_pauli",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.hyperfine_presets",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.scf_observables",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.evaluate",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.diis",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.yk",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.radial_metric",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.radial_state",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.dirac_fock",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.hartree_fock_slater",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.hydrogenic",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mbpt",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.parsing",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.mohr_se",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.mohr",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.indelicato",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.shabaev",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.welton",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.protocol",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.adapters",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.quadrature",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.radial_workspace",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.breit",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qed",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.stack",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.ci",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.csf.solver",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mcdhf.solver",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.electron_space",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mcdhf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.csf.variational",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.levels",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.overlap",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.state_average",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.tracking",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.orbital_optimization",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.potentials",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.potentials.nuclear",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.radial_density",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.radial_snapshot",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.effective_one_body",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.hamiltonian_snapshot",
+      "passed": true
+    }
+  ],
+  "elapsed_uncontrolled_seconds": 36.00472832005471
+}

@@ -1,0 +1,1190 @@
+{
+  "NPZ_header_archive_reads": 6,
+  "NPZ_numerical_payload_decodes": 0,
+  "UTC": "2026-10-14T00:31:38.665111+00:00",
+  "archives": [
+    {
+      "declared_fields": 6,
+      "members": [
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 20352328,
+          "name": "H",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 12888,
+          "name": "energies",
+          "shape": [
+            1595
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": true,
+          "member_bytes": 20352328,
+          "name": "mixing",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 624,
+          "name": "keys",
+          "shape": [
+            31,
+            2
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "P",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "Q",
+          "shape": [
+            31,
+            123
+          ]
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_whole_CI.npz",
+      "role": "baseline_arrays",
+      "uncompressed_bytes": 40779432,
+      "whole_sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593"
+    },
+    {
+      "declared_fields": 18,
+      "members": [
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "x",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 20352328,
+          "name": "H",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 12888,
+          "name": "energies",
+          "shape": [
+            1595
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": true,
+          "member_bytes": 20352328,
+          "name": "mixing",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 624,
+          "name": "keys",
+          "shape": [
+            31,
+            2
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "P",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "Q",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 61136,
+          "name": "retained_radial",
+          "shape": [
+            31,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "raw_coordinate_gradient",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "tangent_gradient",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "preconditioned_gradient",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "inverse_diagonal",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_0",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_1",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_2",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_3",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_4",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_5",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_6",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 226704,
+          "name": "inverse_blocks_0",
+          "shape": [
+            2,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 453280,
+          "name": "inverse_blocks_1",
+          "shape": [
+            4,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 679856,
+          "name": "inverse_blocks_2",
+          "shape": [
+            6,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 793144,
+          "name": "inverse_blocks_3",
+          "shape": [
+            7,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 679856,
+          "name": "inverse_blocks_4",
+          "shape": [
+            6,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 453280,
+          "name": "inverse_blocks_5",
+          "shape": [
+            4,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 226704,
+          "name": "inverse_blocks_6",
+          "shape": [
+            2,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 61136,
+          "name": "full_minus_retained_radial",
+          "shape": [
+            31,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 61136,
+          "name": "full_normalized_radial",
+          "shape": [
+            31,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f16",
+          "fortran_order": false,
+          "member_bytes": 122144,
+          "name": "raw_h_quotient_corrected_radial",
+          "shape": [
+            31,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "full_normalized_raw_coordinate",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "full_normalized_tangent",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 29640,
+          "name": "full_normalized_pg",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f16",
+          "fortran_order": false,
+          "member_bytes": 59152,
+          "name": "raw_h_corrected_raw_coordinate",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f16",
+          "fortran_order": false,
+          "member_bytes": 59152,
+          "name": "raw_h_corrected_tangent",
+          "shape": [
+            3689
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f16",
+          "fortran_order": false,
+          "member_bytes": 59152,
+          "name": "raw_h_corrected_pg",
+          "shape": [
+            3689
+          ]
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+      "role": "checkpoint_arrays",
+      "uncompressed_bytes": 46652624,
+      "whole_sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee"
+    },
+    {
+      "declared_fields": 5,
+      "members": [
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 20720,
+          "name": "energies",
+          "shape": [
+            2574
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": true,
+          "member_bytes": 53003936,
+          "name": "mixing",
+          "shape": [
+            2574,
+            2574
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 624,
+          "name": "keys",
+          "shape": [
+            31,
+            2
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "P",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 30632,
+          "name": "Q",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 12888,
+          "name": "old_to_expanded",
+          "shape": [
+            1595
+          ]
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/actual/saved_complete2574_spectrum.npz",
+      "role": "expanded_arrays",
+      "uncompressed_bytes": 53099432,
+      "whole_sha256": "6c178654fa0a4dd4cf94868226d86e0f8445884c69d123e29931d9000e335093"
+    },
+    {
+      "declared_fields": 2,
+      "members": [
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 2255816,
+          "name": "matrix_Ha",
+          "shape": [
+            531,
+            531
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 4376,
+          "name": "energies_Ha",
+          "shape": [
+            531
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": true,
+          "member_bytes": 2255816,
+          "name": "mixing",
+          "shape": [
+            531,
+            531
+          ]
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "role": "reference_arrays",
+      "uncompressed_bytes": 4516008,
+      "whole_sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    {
+      "declared_fields": 7,
+      "members": [
+        {
+          "consumed": false,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 184,
+          "name": "kappas",
+          "shape": [
+            7
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 22976,
+          "name": "original_x",
+          "shape": [
+            2856
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 22976,
+          "name": "inverse_diagonal",
+          "shape": [
+            2856
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 23744,
+          "name": "old24_P",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 23744,
+          "name": "old24_Q",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 512,
+          "name": "old24_keys",
+          "shape": [
+            24,
+            2
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_-4",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_-4",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_-3",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_-3",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_-2",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_-2",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_-1",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_-1",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_1",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_1",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_2",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_2",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "h_3",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 484256,
+          "name": "s_3",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_0",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 113416,
+          "name": "inverse_blocks_0",
+          "shape": [
+            1,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_1",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 339992,
+          "name": "inverse_blocks_1",
+          "shape": [
+            3,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_2",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 566568,
+          "name": "inverse_blocks_2",
+          "shape": [
+            5,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_3",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 679856,
+          "name": "inverse_blocks_3",
+          "shape": [
+            6,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_4",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 566568,
+          "name": "inverse_blocks_4",
+          "shape": [
+            5,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_5",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 339992,
+          "name": "inverse_blocks_5",
+          "shape": [
+            3,
+            119,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 234320,
+          "name": "projector_6",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 113416,
+          "name": "inverse_blocks_6",
+          "shape": [
+            1,
+            119,
+            119
+          ]
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "role": "saved_S",
+      "uncompressed_bytes": 11233768,
+      "whole_sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    {
+      "declared_fields": 18,
+      "members": [
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 512,
+          "name": "orbital_keys",
+          "shape": [
+            24,
+            2
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 23744,
+          "name": "P",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 23744,
+          "name": "Q",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 168,
+          "name": "energies_dc_Ha",
+          "shape": [
+            5
+          ]
+        },
+        {
+          "consumed": false,
+          "dtype": "<f8",
+          "fortran_order": true,
+          "member_bytes": 328,
+          "name": "mixing_dc",
+          "shape": [
+            5,
+            5
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_nv",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_ks",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_ksp",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_ksq",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_nsp",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_nsq",
+          "shape": []
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 8408,
+          "name": "basis_gr",
+          "shape": [
+            115,
+            9
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 8408,
+          "name": "basis_grw",
+          "shape": [
+            115,
+            9
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 66368,
+          "name": "basis_bsp_p",
+          "shape": [
+            115,
+            9,
+            8
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 74648,
+          "name": "basis_bsp_q",
+          "shape": [
+            115,
+            9,
+            9
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 74648,
+          "name": "basis_bsp_q_d",
+          "shape": [
+            115,
+            9,
+            9
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 66368,
+          "name": "basis_bsp_p_d",
+          "shape": [
+            115,
+            9,
+            8
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 1184,
+          "name": "basis_t",
+          "shape": [
+            132
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<f8",
+          "fortran_order": false,
+          "member_bytes": 1168,
+          "name": "basis_tp",
+          "shape": [
+            130
+          ]
+        },
+        {
+          "consumed": true,
+          "dtype": "<i8",
+          "fortran_order": false,
+          "member_bytes": 136,
+          "name": "basis_ns",
+          "shape": []
+        }
+      ],
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "role": "workspace",
+      "uncompressed_bytes": 350648,
+      "whole_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    }
+  ],
+  "authorization": "Root explicitly authorized stdlib ZIP+NPY header preflight after preserved001 loading failure",
+  "contract_sha256": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e",
+  "declared_fields": 56,
+  "direct_shape_fields": 49,
+  "driver_sha256": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d",
+  "malformed_schema_regressions_rejected": 5,
+  "numpy_or_atomx_imports": 0,
+  "scientific_calls": 0,
+  "shape_choices_fields": 7,
+  "status": "PASS_all_six_archives_all_member_NPY_headers_stdlib_only"
+}

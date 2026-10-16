@@ -1,0 +1,149 @@
+{
+  "baseline_gradient_calls": 2,
+  "total_run_full_gradient_calls_before_optimizer": 2,
+  "planned_max_total_run_full_gradient_calls": 164,
+  "same_start160_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "same_start160_arrays_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+  "same_independent160_replay_sha256": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+  "same_authoritative_x_direct_waves_exact": true,
+  "same_objective_sha256": "ae850ddc1fa246c062ef3c130173eb1c07de0106c363c4ce87120ca1d45fa199",
+  "mixed_EO_energy_Ha": -14067.398651577136,
+  "mixed_original_residual": 4.717047646600387e-05,
+  "mixed_original_energy_indicator_Ha": 6.8897239137767995e-09,
+  "matrix_replay_error_Ha": 0.0,
+  "all_CI_energy_replay_error_Ha": 0.0,
+  "samepoint_full531_projected_gradient_error": 0.0,
+  "samepoint_full531_preconditioned_gradient_error": 0.0,
+  "samepoint_saved_CI_EOL_error_Ha": 0.0,
+  "samepoint_saved_CI_residual_error": 0.0,
+  "samepoint_saved_CI_indicator_error_Ha": 0.0,
+  "entry_independent160_residual_error": 0.0,
+  "entry_independent160_indicator_error_Ha": 0.0,
+  "entry_reported_EO_error_Ha": 0.0,
+  "full_fresh_numeric": {
+    "CI_residual_Ha": 2.443941415115657e-11,
+    "CI_orthogonality": 3.1086244689504383e-15,
+    "matrix_hermiticity_Ha": 0.0
+  },
+  "physical_tracking": [
+    {
+      "reference_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.998676105132549
+      ],
+      "projected_probability": [
+        0.998676105132549
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9949379566192181
+      ],
+      "projected_probability": [
+        0.9949379566192181
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9984711945303347
+      ],
+      "projected_probability": [
+        0.9984711945303347
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9909985887339541
+      ],
+      "projected_probability": [
+        0.9909985887339541
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9938472875894858
+      ],
+      "projected_probability": [
+        0.9938472875894858
+      ]
+    }
+  ],
+  "metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "starting_stationarity_passed": false,
+  "nonstationary_start_permitted_not_certified": true,
+  "bare005_gradient_evaluations": 0
+}

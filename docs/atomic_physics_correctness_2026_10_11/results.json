@@ -1,0 +1,338 @@
+{
+  "status": "bounded physics correctness audit complete; public noncanonical FSCC guard fixed; missing production physics remains",
+  "highest_level_reached": false,
+  "fitted_corrections": false,
+  "all_physical_terms_complete": false,
+  "new_production_yb_roots": 0,
+  "new_finite_attachment_roots_rerun": 8,
+  "cutoff_convergence_proves_physical_completeness": false,
+  "inputs": {
+    "current_five_states": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "physics_scale_assessment": {
+      "path": "docs/atomic_physics_budget_2026_10_11/results.json",
+      "sha256": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32"
+    },
+    "consumer_coverage": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/coverage/evidence.json",
+      "sha256": "54e1f423a8946278648cffb52e57d700651c868222eda6b2cd944d6a65ebf620"
+    },
+    "fscc_live": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/result.json",
+      "sha256": "e34d28f5748c45b246e9d27d97a99819da7227b4e16a599908403361fe0caf28"
+    },
+    "fscc_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/full_arrays.npz",
+      "sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd"
+    },
+    "fscc_source_archive": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/source_inputs.tar.gz",
+      "sha256": "b130627baec53f9130aad8e213d09e5a0f8fac5c4a3f5d2904e93a4a844f9133"
+    },
+    "original_binary_rejection": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/original_rejection.json",
+      "sha256": "0d2292c3b7b4c1bb8f3e9645b6e0c9e1373895d264823c8e9e9d1aec4b22ccdf"
+    },
+    "fscc_current_entry": {
+      "path": "src/atomx/methods/fscc.py",
+      "sha256": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de"
+    },
+    "sd_two_core": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/result.json",
+      "sha256": "01d62c3e4a55fa056b65a4aeb7e2e5d158daa7fd608a4dfd4605ca9cb26e825d"
+    },
+    "sd_two_core_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/arrays.npz",
+      "sha256": "a7f99ce8f34b142311aeeb92b2a4036064df353cc93daef68bed2bd490bef28a"
+    },
+    "sd_four_core_initial_negative": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/four-core-run002/result.json",
+      "sha256": "06d1b89717cfe04563b94697b10fb692a3707d9f796e3e5fca37c80e1152f10a"
+    },
+    "sd_complete_domain": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient.json",
+      "sha256": "0663869f826671525c89edce55265570b371ecf22bcc9b987dd0055ed35cd0d1"
+    },
+    "sd_complete_domain_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient_arrays.npz",
+      "sha256": "329332ca931c29d1a6c76cd906d55a048e90497887d2c7778d90f6c1b99c37ab"
+    },
+    "independent_review": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/review/evidence.json",
+      "sha256": "b276e43b380723762465d72d0cd969de5072f2e60d81e9761855382b8fcd6224"
+    },
+    "core_current_entry": {
+      "path": "src/atomx/methods/core_sd.py",
+      "sha256": "6a9938294c89ab4493a55b6e771c3545df2c0a70a8eb828a4e3148549d11846f"
+    },
+    "sd_final_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/summary.json",
+      "sha256": "7f0249dcb7ca61135a8d36b933fecfbc399b3b963c82210c8e87d496ed75b1e8"
+    },
+    "sd_documentation_identity": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/docstring_identity_chain.json",
+      "sha256": "82a4244719767545279086a43731bf628fd70f3d801663a77e4933fc0d935083"
+    },
+    "fresh_fscc_four_core": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_7dfcbdd2c5046c49b1c4/result.json",
+      "sha256": "f88608fd8ae2aac282049324dac59b434afb2f5e4e1cc1a7275afa3494a0fffe"
+    },
+    "fresh_finite_properties": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_9f5d626cde40701f5d7b/result.json",
+      "sha256": "cecf6513aa3e63e201578183c9ddb575e7844c6abcf9d15443ea04c7528a19b8"
+    },
+    "fresh_complete_norm": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/result.json",
+      "sha256": "dcc67d47989721f13d4d94975bd2a5726dfe95fb293340273e45db6a03508526"
+    },
+    "nist_dependency_repair": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/hourly_dependency/handoff.json",
+      "sha256": "fc9b934be63984de48e051b8416de4dff4b93450770dac9b6bf15774033b5415"
+    },
+    "nist_current_direct_consumer": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/hourly_dependency/actual001/result.json",
+      "sha256": "113c4996353099b6ef8d77fd2e7eed5b638f827bc6c99d76dcd0d8ffd475ac59"
+    },
+    "nist_registered_consumer": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py",
+      "sha256": "9a258fa4a4504ca4030b4842cb04a2f41691357f89ebc4bbef2f5ff444c8586c"
+    },
+    "current_parallel_registry": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel_registry.json",
+      "sha256": "4666fda2dbf3458b3d1f418b9e7c4c03de47d7d1ff6b1c15e79f36b048a1df0a"
+    },
+    "sd_occupied_p_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/summary.json",
+      "sha256": "629ccf8ae5225f6d6386adb321f98e96662260224e69c8dab4b38f16750fdc8a"
+    },
+    "sd_occupied_p_verification": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/verification.json",
+      "sha256": "9cddaad3f5c4a461614a3a64c4cc32556d80a6747af75db308f41a0a2b01e223"
+    },
+    "sd_occupied_p_signal_replay": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/signal.json",
+      "sha256": "399bd87503409557f799ad1da59f2fd5de95cd1f826cca74acf08997ee078a2a"
+    },
+    "sd_occupied_p_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/result.json",
+      "sha256": "827c9091d2a19adbb35923c706f14248aa1d6ec4e0d45f88aa3f8f3461c36a7a"
+    },
+    "sd_occupied_p_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/arrays.npz",
+      "sha256": "b655f2fb1da242140349cc003ce13f9e1b8d1bbd057a81195286762296ea46c8"
+    },
+    "sd_occupied_p_separated_action_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/signal_arrays.npz",
+      "sha256": "1b22ca7b4b425f27b5796a90fab3eb5dbe466af67742b3d81798535b57df2ea7"
+    },
+    "sd_occupied_p_coordinates": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/coordinates.json",
+      "sha256": "4bc545e7d8b3b70abe5821803ec0ab62ed16f8ac1f393e680d7c15ad23fb5df7"
+    },
+    "fixed_H_method_ladder_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/results.json",
+      "sha256": "ec91f7013c308bb046c128d4a1361f570ae72362cc071b1d84bfe4cadf1a2897"
+    },
+    "fixed_H_method_ladder_replay": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/replay.json",
+      "sha256": "d3aaeadb83c4d6c0f956cb212895d9bc93c02baa0069bec0eb3dd0caef97ee88"
+    },
+    "fixed_H_method_ladder_contract": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/contract.json",
+      "sha256": "2099cafb0b27bb3d7248b622cf1b4bcac4b2d3c2aa099a026c8619cdfd51e097"
+    },
+    "fixed_H_fci_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/fci_result.json",
+      "sha256": "3e0063b68d1f68be46993985eb40bed610ea3c5c9d5c9a5f23dfba17678fa45a"
+    },
+    "fixed_H_lccsd_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/lccsd_result.json",
+      "sha256": "cf05dc5eba51752d103b7b331aefc430ded655bea56fe66dd7226a726b4f881a"
+    },
+    "fixed_H_ccsd_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsd_result.json",
+      "sha256": "68b6b0785867eb4c1827db0bd809d3c997a83683c068cf9153d1d7ca6bb55464"
+    },
+    "fixed_H_ccsdt_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsdt_result.json",
+      "sha256": "3acce5622e94e51d8150dbe77001a1f3bac85ea8d312769192883931fcddc3c4"
+    },
+    "fixed_H_fci_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/fci_arrays.npz",
+      "sha256": "329800fcb4a8d48508eeb099a3496cee9aeac37d0207c1eedbbfb88c2c04fe2d"
+    },
+    "fixed_H_lccsd_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/lccsd_arrays.npz",
+      "sha256": "336f2b89c3ec2aa38f9bddf85e9501a37ffa20ec5ca1d0bb75ad74130edb6223"
+    },
+    "fixed_H_ccsd_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsd_arrays.npz",
+      "sha256": "3cd354502db67993ca5758095c72b08ff887c44bb1c632bb1253d56e4337a6be"
+    },
+    "fixed_H_ccsdt_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsdt_arrays.npz",
+      "sha256": "ae05d9df0a1b5b9209a6d388fc5d4b30b9b804550b393651682579daa913cc4f"
+    },
+    "fixed_H_method_ladder_source_inputs": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/source_inputs.tar.gz",
+      "sha256": "98acfc5446ae0f2bbeae47fa735569532e68fa107e39d9e6283c07354094d6e6"
+    },
+    "fixed_H_method_ladder_scientific_outputs": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/scientific_outputs.tar.gz",
+      "sha256": "6f17aa33784f8e1781f36e41b10ab85750d83ed99bfba8872f53a1f465b8230a"
+    },
+    "actual_v2_before_integration": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/delivery_v2_source/manifest.json",
+      "sha256": "fa9c017b8790a588ade5bd8b97b5f55780e4f02a947d071a3c3d0c9389ae93aa"
+    },
+    "method_strategy_assessment": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_strategy_audit.json",
+      "sha256": "5eb61f6115a472f39d10088bdf65d45486da4e42d7b82c2191e821558f3d745c"
+    }
+  },
+  "completed": {
+    "fscc_public_guard": "Any actual nonzero Fov in0h1p requires pinned corrected sector source capability before export/launch; no H mutation.",
+    "fscc_bloch_residual_Ha": 1.7763568394002505e-15,
+    "fscc_heff_error_Ha": 4.218847493575595e-15,
+    "fscc_all8_fci_error_Ha": 1.5987211554602254e-14,
+    "sd_complete_finite_valence_map_checks": 20,
+    "sd_two_class_attachment_columns": 28,
+    "sd_four_core_complete_projected_columns": 34,
+    "sd_four_core_physical_dimension": 17,
+    "sd_four_core_complete_domain_error_Ha": 1.5987211554602254e-14,
+    "sd_four_core_independent_solved_residual_Ha": 5.336009412104659e-15,
+    "sd_raw_random_failure": "Invalid simultaneous-exchange domain; initial negative retained, complete allowed image independently verified; no SD diagram bug inferred.",
+    "current_source_consumers": "Actual receipt-triggered four-core FSCC, finite properties and complete five-state norm replayed; NIST current-producer direct audit passed, original failed-source job retained.",
+    "fixed_four_core_retained_attachment_residual_Ha": 6.483789199984713e-14,
+    "fixed_four_core_maximum_fci_energy_difference_Ha": 9.093014787353582e-06,
+    "nist_original_accuracy_gates": {
+      "excitation": false,
+      "splitting": false,
+      "observed_wavelength": false
+    },
+    "fixed_four_core_omitted_rank_full_residual_Ha": 0.0022838708058473354,
+    "sd_occupied_p_mixed_j_control": {
+      "scope": "pass_finite_occupied_p_mixed_j_zero_Born_MBPT2_only",
+      "model": {
+        "Z": 10,
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "core_electrons": 10,
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        "spinors": 14,
+        "complete_magnetic_multiplets": true,
+        "complete_fixed_N_determinants": 1001,
+        "QSD_signed_components_per_direction": 310,
+        "native_raw_rho_count": 37,
+        "independent_scalar_planning_count": 19
+      },
+      "coverage": {
+        "zero_source_input": 1,
+        "genuine_first_Born_input": 1,
+        "core_MBPT2_coefficient": 1,
+        "full_arbitrary_rho_domain_derived": false,
+        "complete_all_direction_SD_action": false,
+        "all_order_SD_root_solved": false,
+        "strong_correlation_or_spectroscopy_claim": false
+      },
+      "source_signed_max_error_Ha": 3.642919299551295e-17,
+      "first_Born_affine_signed_max_error_Ha": 3.6428981237276135e-17,
+      "core_MBPT2_Ha": {
+        "independent": -6.966411700696071e-10,
+        "native": -6.966411700696108e-10
+      },
+      "core_MBPT2_error_Ha": 3.7223127564886245e-24,
+      "genuine_occupied_p_and_mixed_j_signals": "Occupied p3/2-p3/2 -> virtual s-s source1.47e-5Ha/E2-2.53e-10Ha and occupied s-p3/2 -> virtual s-p1/2 source2.41e-6Ha/E2-8.37e-12Ha; branch magnitudes are explicit, no roundoff-only branches credited.",
+      "weak_diffuse_virtual_model": true,
+      "full_native_rho_domain_or_all_order_spectroscopy_certified": false,
+      "new_production_yb_roots": 0
+    },
+    "fixed_H_method_ladder": {
+      "status": "fixed_H_method_rank_discriminator_pass",
+      "scope": "Actual frozen Z4 4-core/12-spinor signed DC plus finite-frequency transverse H; complete 495/792 determinant oracle; no production Yb extrapolation",
+      "core_signed_method_errors_Ha": {
+        "lccsd": -0.013187159741676169,
+        "ccsd": 2.2787471545271387e-05,
+        "ccsdt": 3.170001489749552e-06
+      },
+      "core_retained_equation_residuals_Ha": {
+        "lccsd": 8.881784197001252e-16,
+        "ccsd": 4.9636049393939063e-14,
+        "ccsdt": 5.62007072010904e-14
+      },
+      "attachment_total_root_abs_errors_cm1": {
+        "ccsd": 770.0686412058039,
+        "ccsdt": 1.9956860645353658
+      },
+      "attachment_minus_own_core_abs_errors_cm1": {
+        "ccsd": 775.0699131229004,
+        "ccsdt": 1.2999511561519745
+      },
+      "actual_FSCC_attachment_roots_per_method": {
+        "ccsd": 8,
+        "ccsdt": 8
+      },
+      "lccsd_implementation": "Actual public dense finite linearized_sd.solve linked core equations; not native pCI CoreSD HPC.",
+      "matched_H_lccsd_attachment_executed": false,
+      "fixed_H_same_as_SD_Z6_DC_control": false,
+      "whole_method_responses_do_not_add": true,
+      "production_Yb_error_transfer_or_bound": false,
+      "controlled_performance_or_parallel_efficiency_claim": false
+    }
+  },
+  "declared_production_omissions": [
+    "nonlinear cluster products",
+    "connected T3/S3",
+    "balanced independent4f-hole multireference roots/relaxation",
+    "complete transverse SD core/valence/Sigma2 chain",
+    "same-state dressed properties/QED/recoil"
+  ],
+  "selected_next": [
+    "Check complete low-order coefficients and constrained amplitude directions of the frozen production five-state Yb model; occupied-p/mixed-j zero/Born/MBPT2 finite controls passed, but the complete native mixed-j rho domain and all-order directions remain unverified.",
+    "Transfer matched-H nonlinear/rank discrimination to the actual production branch, where possible with native CoreSD and explicit valence attachment; measure balanced independent4f-hole roots, signed couplings and complementary Q against competing explanations. The finite Z4 core method ladder has completed; no same-H LCCSD attachment or heavy-shell response was measured.",
+    "Select missing physics by same-model upper-minus-lower, centroid and splitting; complete transverse core/valence/Sigma2 and same-state dressed property/QED/recoil operators without duplicating retained terms.",
+    "Only after retained-equation/operator gates and important physical coverage are established: full shared five-state g/energy-tail and CPU/GPU scaling without model shrinkage."
+  ],
+  "next_execution_status": "占据p／多j有限Born、MBPT2与310分量真控制及固定Z4同H真实LCCSD／CCSD／CCSDT／FCI已实跑并独立重放。当前源FSCC／性质／完整范数／NIST原审计已复验，实验精度失败保留。新的生产Yb物理补全executor尚未注册，发卡不等于新Yb求根。",
+  "selection_reason": "扩截断不能修复错误方程，也不会补出未保留的激发秩／算符。固定H有限方法辨别已实证关联近似差远大于保留数值残差；p核低阶控制已增加真实非零分支，但尚不能证明强相关或生产完整性。下一步须在原生产模型检验低阶／完整允许域、非线性／秩／平衡4f孔态及完整算符，才能判定Yb主导偏差。",
+  "card_summary": "物理正确性优先：公共非正则0h1p已加来源绑定的方程修复门，完整120×8 Bloch残差1.78e−15Ha；原SD两类二阶28个M列与四核34投影方向通过。新增Ne占据p／多j真实零输入、Born、MBPT2与310个signed分量通过，但未证全rho域／全阶／强相关Ne谱。固定Z4同H真实LCCSD、CCSD、CCSDT核能对FCI差分别−0.0131872、+2.27875e−5、+3.17000e−6Ha，保留方程均通过；LCCSD为有限密集核入口，无匹配附着，量级不能转移到Yb。生产Yb仍缺非线性／完整三激发、平衡4f孔态与完整横向／性质链。先原五态低阶和同模型物理辨别，再扩截断／GPU。NIST三个实验精度门仍失败；没有新Yb谱或最高水平认证。 主线pCI型约化SD；FS-CCSDT作近闭壳高阶对照，开放f壳优先平衡多参考CI与核关联（建议待实施）。",
+  "conditional_physics_discriminators": {
+    "observed": "At unchanged Z4 noncanonical 12-spinor DC plus fixed finite-frequency transverse H, actual whole-method core errors versus finite FCI are LCCSD -0.013187159741676169Ha, CCSD +2.2787471545271387e-5Ha and CCSDT +3.170001489749552e-6Ha while each retained equation passes its original gate.",
+    "inference": "Method truncation can dominate numerical residual at fixed orbital space. This finite discriminator justifies measuring missing production physics before adding orbital cutoffs.",
+    "boundary": "The Z4 transverse-H ladder and Z6 DC native-SD domain control are different models. The Ne occupied-p low-order control is weak coupling. Do not splice their amplitudes/energies, add conditional method increments, extrapolate their size to Yb or certify full atomic physics."
+  },
+  "method_selection": {
+    "assessment": "docs/atomic_physics_correctness_2026_10_11/method_strategy_audit.json",
+    "current_large_yb_route": "pCI-type J-reduced linearized SD",
+    "fscc_role": "near-closed-shell higher-rank independent comparator",
+    "eu_open_f_recommendation": "balanced multi-reference CI/MCDHF with verified core effective correlation",
+    "implemented_general_open_f_fscc": false
+  }
+}

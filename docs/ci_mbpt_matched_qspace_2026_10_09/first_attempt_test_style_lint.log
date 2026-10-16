@@ -1,0 +1,63 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/test_ci_effective_qspace.py:2:1
+   |
+ 1 |   """Finite P/Q propagation: full-Hamiltonian states, signs and disjoint spaces."""
+ 2 | / from unittest.mock import patch
+ 3 | |
+ 4 | | import numpy as np
+ 5 | | import pytest
+ 6 | |
+ 7 | | from atomx.config.csf import enumerate_jj_orbital_space
+ 8 | | from atomx.methods.ci_effective import FiniteCIModel, build_finite_ci_effective_hamiltonian
+ 9 | | from atomx.methods.dirac_fock import DFSolver, Subshell
+10 | | from atomx.methods.mbpt import build_virtual_basis
+   | |__________________________________________________^
+   |
+help: Organize imports
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_ci_effective_qspace.py:27:39
+   |
+25 |         assert root.residual_Ha < 1e-13
+26 |         assert 0 < root.p_weight < 1
+27 |         with pytest.raises(ValueError): root.coefficients.flags.writeable=True
+   |                                       ^
+28 |     energy=-.5
+29 |     hpq=h[:2,2:]; hqq=h[2:,2:]
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests/test_ci_effective_qspace.py:29:17
+   |
+27 |         with pytest.raises(ValueError): root.coefficients.flags.writeable=True
+28 |     energy=-.5
+29 |     hpq=h[:2,2:]; hqq=h[2:,2:]
+   |                 ^
+30 |     expected=h[:2,:2]+hpq@np.linalg.solve(energy*np.eye(2)-hqq,hpq.T)
+31 |     np.testing.assert_allclose(model.effective_hamiltonian(energy),expected,atol=1e-15)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests/test_ci_effective_qspace.py:40:35
+   |
+38 |     flipped=FiniteCIModel(phase@h@phase,(0,1),reference_identity='phase',
+39 |                           csf_identities=('a','b','c','d'),radial_binding=('phase',))
+40 |     original=model.solve((-1.,.4)); other=flipped.solve((-1.,.4))
+   |                                   ^
+41 |     assert other.energy_Ha == pytest.approx(original.energy_Ha,abs=1e-13)
+42 |     np.testing.assert_allclose(np.outer(other.coefficients,other.coefficients),
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests/test_ci_effective_qspace.py:65:48
+   |
+63 |     model=FiniteCIModel([[-.5,.1],[.1,0]],(0,),reference_identity='pole',
+64 |                         csf_identities=(0,1),radial_binding=('analytic',))
+65 |     with pytest.raises(ValueError,match='pole'): model.solve((-1.,1.))
+   |                                                ^
+66 |     with pytest.raises(ValueError,match='symmetric'):
+67 |         FiniteCIModel([[0,1],[0,0]],(0,),reference_identity='bad',
+   |
+
+Found 5 errors.
+[*] 1 fixable with the `--fix` option.

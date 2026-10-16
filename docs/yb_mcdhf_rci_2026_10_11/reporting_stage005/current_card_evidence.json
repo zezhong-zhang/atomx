@@ -1,0 +1,119 @@
+{
+  "method": "MCDHF -> RCI",
+  "computed_run": "public531 accepted160 → same-point static Breit RCI",
+  "producer": "Atomx native public orbital optimizer and complete native static CSF Hamiltonian",
+  "CSFs": 531,
+  "radial_orbitals": 24,
+  "electrons": 69,
+  "stationarity": {
+    "converged": false,
+    "orbital_residual": 4.717047646600387e-05,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 6.8897239137767995e-09,
+    "energy_tolerance": 1e-08,
+    "residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "termination_reason": "parent maximum_iterations",
+    "iterations": 160
+  },
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14053.345801784004,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": null,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14053.230645248426,
+      "computed_cm1": 25273.938194955826,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 2313.138194955827,
+      "relative_error": 0.10074292685602537,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14053.227153153524,
+      "computed_cm1": 26040.364436248143,
+      "experimental_cm1": 24332.69,
+      "error_cm1": 1707.674436248144,
+      "relative_error": 0.07018025694027852,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14053.23208857919,
+      "computed_cm1": 24957.16370754091,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -2104.6562924590908,
+      "relative_error": -0.0777721636038925,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14053.216254607849,
+      "computed_cm1": 28432.318730760864,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -1959.9112692391354,
+      "relative_error": -0.06448724786694282,
+      "gate_pass": false,
+      "uncertainty_cm1": null
+    }
+  ],
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "fitted_corrections": false,
+  "inputs": {
+    "contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json",
+      "sha256": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609"
+    },
+    "execution_contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/execution_contract.json",
+      "sha256": "59a62bccafb453d6d0b89fa8c9b98e95612c10ddb3e6a6ceaaf9cbf1b67681a3"
+    },
+    "run.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/run.py",
+      "sha256": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2"
+    },
+    "verify_arrays.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/verify_arrays.py",
+      "sha256": "c372cf2c83b4138f8b0f818c4217ef5797ff4859dd9097e273d51ad8d181c9e4"
+    },
+    "result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json",
+      "sha256": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3"
+    },
+    "saved_array_verification.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json",
+      "sha256": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978"
+    },
+    "arrays.npz": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/arrays.npz",
+      "sha256": "a5d3f3f5c3f27cee1c8f70531c247e8deb9ed7a77a3f75034754a9c30c88691e"
+    },
+    "root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/root_execution.json",
+      "sha256": "872fa03a9b2f2f0d0855b7fd92b52c039e69783d07aad5f6a38e7d0d58278dd5"
+    }
+  },
+  "card_summary": "本表为完整531同点静态RCI诊断。原DC驻值失败保留，不能认证完整核价/虚空间收敛。"
+}

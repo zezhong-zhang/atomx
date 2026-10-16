@@ -1,0 +1,5 @@
+{
+  "status": "failed_assertion_format",
+  "reason": "Verifier searched U+2212 minus but numeric format uses ASCII hyphen. Actual values/reference identities and reader tests were correct.",
+  "fix": "Match actual numeric format; no card/data/model/threshold change."
+}

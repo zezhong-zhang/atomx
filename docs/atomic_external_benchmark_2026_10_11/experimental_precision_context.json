@@ -1,0 +1,65 @@
+{
+  "scope": "Experimental precision of the original complete saved YbII five states; source-bound current NIST audit, no new spectral roots and no matched external production Yb spectrum in this comparison.",
+  "citation_path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_b9d63532c7e444e11ab8/probe/result.json",
+  "sha256": "b9816d2639591ae2d194187242bcf1b05e1e71914deb931c68f38f9b5cb0ed12",
+  "gates": {
+    "actual_full_theory_same_H_core_space_zero": true,
+    "current_whole_array_norm_consumed": true,
+    "strict_unique_state_matching": true,
+    "observed_not_Ritz_or_level_derived": true,
+    "multipole_species_medium_coverage_preserved": true,
+    "missing_uncertainty_never_zero": true,
+    "original1percent_accuracy_failures_preserved": true,
+    "whole_state_gap_requests_emitted": true,
+    "source_and_input_unchanged": true
+  },
+  "scientific_accuracy_gates": {
+    "excitation": false,
+    "splitting": false,
+    "observed_wavelength": false
+  },
+  "metrics": {
+    "excitation_cm1": {
+      "required": 4,
+      "scored": 4,
+      "missing_or_ambiguous": 0,
+      "passing": 1,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 950.8665190086285,
+      "mean_absolute_error": 594.6813576128679,
+      "rms_error": 665.0754031151098,
+      "max_absolute_relative_error": 0.041412604047273115
+    },
+    "splitting_cm1": {
+      "required": 2,
+      "scored": 2,
+      "missing_or_ambiguous": 0,
+      "passing": 0,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 128.4361878975028,
+      "mean_absolute_error": 116.61321714985525,
+      "rms_error": 117.21102785719023,
+      "max_absolute_relative_error": 0.09361988781717402
+    },
+    "observed_wavelength_nm": {
+      "required": 4,
+      "scored": 2,
+      "missing_or_ambiguous": 2,
+      "passing": 1,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 3.800607925385407,
+      "mean_absolute_error": 3.5935238340485682,
+      "rms_error": 3.599485708647824,
+      "max_absolute_relative_error": 0.011550876283721362
+    }
+  },
+  "coverage": {
+    "required_states": 5,
+    "unique_nominal_states": 5,
+    "snapshot_levels": 349,
+    "snapshot_lines": 327
+  },
+  "reference_scope": "localASD5.12 YbII 349 levels /327 lines, exact underlying frozen snapshot",
+  "cannot_infer": "Matched numerical operators vs AMBiT/pCI/EXP-T do not certify complete physical space/correlation or NIST accuracy. Other software production accuracy must use separately matched complete spectra, not shared-integral tests.",
+  "highest_level_reached": false
+}

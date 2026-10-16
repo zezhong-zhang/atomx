@@ -1,0 +1,26 @@
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_ci_sd_space.py:27:72
+   |
+25 |     expected = set()
+26 |     for occ in itertools.product(range(3), range(3), range(4)):
+27 |         if sum(occ) == 3 and min(sum(max(q-r.get(k, 0), 0) for k, q in zip(keys, occ))
+   |                                                                        ^^^^^^^^^^^^^^
+28 |                                 for r in reference) <= rank:
+29 |             expected.add(tuple(occ))
+   |
+help: Add explicit value for parameter `strict=`
+
+B905 `zip()` without an explicit `strict=` parameter
+  --> tests/test_ci_sd_space.py:37:92
+   |
+35 |         assert len(plan.reference_configurations) == 2
+36 |         csfs, p = plan.materialize()
+37 |         independent = enumerate_jj_csfs_many([' '.join(f'{n}{"sp"[l]}{q}' for (n, l), q in zip(keys, occ) if q)
+   |                                                                                            ^^^^^^^^^^^^^^
+38 |                                                for occ in expected])
+39 |         signatures = {csf_signature(c).key for c in independent
+   |
+help: Add explicit value for parameter `strict=`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).

@@ -1,0 +1,395 @@
+{
+  "created_at": "2026-10-11T07:36:51.603774+00:00",
+  "scope": "Owned independent physics-audit evidence and numerical same-operator anchors; no Yb stationarity or experimental improvement claimed",
+  "preserved_source_snapshots": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/AGENTS.md",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/methods/csf/solver.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/numerics/bspline/orbital_optimization.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/methods/csf/variational.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/physics/csf/radial_density.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/methods/ci.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/physics/csf/matrix.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/physics/csf/tracking.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/physics/csf/state_average.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/corrections/stack.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/corrections/qed.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/tests/test_mcdhf.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/tests/test_ci_state_average.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/source/src/atomx/numerics/shooting/preconditioner.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/methods/csf/variational.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/numerics/bspline/orbital_optimization.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/physics/csf/radial_density.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/physics/csf/matrix.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/numerics/bspline/convol.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/polar/src/atomx/numerics/bspline/orbital_optimization.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/methods/csf/variational.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/physics/csf/radial_density.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/numerics/bspline/convol.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/physics/csf/matrix.py",
+      "matched": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/numerics/bspline/orbital_optimization.py",
+      "matched": true
+    }
+  ],
+  "content_bound_inputs": [
+    {
+      "name": "current_sd_comparison",
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "matched": true
+    },
+    {
+      "name": "frozen_ci_transverse",
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "matched": true
+    },
+    {
+      "name": "finite_ci_core_holes",
+      "path": "docs/yb_sd_breit_completion_2026_10_09/results.json",
+      "matched": true
+    },
+    {
+      "name": "default_se_coverage",
+      "path": "docs/yb_diagnosis_repair_2026_10_08/qed_coverage_after.json",
+      "matched": true
+    },
+    {
+      "name": "previous_budget",
+      "path": "docs/atomic_physics_budget_2026_10_11/results.json",
+      "matched": true
+    },
+    {
+      "name": "old_projector_anchor",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_result.json",
+      "matched": true
+    },
+    {
+      "name": "corrected_projector_replay",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_replay.json",
+      "matched": true
+    },
+    {
+      "name": "stable_difference_oracle",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/stable_difference_review.json",
+      "matched": true
+    },
+    {
+      "name": "polar_oracle",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/polar_review.json",
+      "matched": true
+    },
+    {
+      "name": "native_Yb_angular_filter",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/stable_polar_endpoint/result.json",
+      "matched": true
+    },
+    {
+      "name": "constraint_center_oracle",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/constraint_center_review.json",
+      "matched": true
+    },
+    {
+      "name": "native_Yb_radial_constraint",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/radial_constraint_endpoint002/result.json",
+      "matched": true
+    }
+  ],
+  "current_source_hashes": {
+    "src/atomx/methods/csf/variational.py": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+    "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192"
+  },
+  "stable_difference_physical_sources_unchanged": "See the retained old oracle epoch; current variational adds separate constrained API and explicit-increment private branch.",
+  "optimizer_matches_separate_polar_epoch": false,
+  "previous_verification": "verification_before_constraint_center.json",
+  "ruff": {
+    "exit_code": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": "",
+    "command": ".venv/bin/ruff check docs/yb_mcdhf_rci_2026_10_11/physics_audit/review_constraint_center.py docs/yb_mcdhf_rci_2026_10_11/physics_audit/analyze.py tests/test_mcdhf_fock_projector.py"
+  },
+  "pytest": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_mcdhf_fock_projector.py tests/test_mcdhf_stable_energy_difference.py tests/test_mcdhf_polar_retraction.py -q",
+    "exit_code": 0,
+    "stdout": "17 passed in 0.66s",
+    "same_source_epoch": true
+  },
+  "frozen_old_projector_regressions": {
+    "reference": "old_optimizer_test_failure.json",
+    "expected_exit_code": 1,
+    "failed_cases": 3
+  },
+  "stable_oracle": {
+    "reference": "stable_difference_review.json",
+    "passed": true,
+    "long_double_precision_bits": 63,
+    "controls": 4
+  },
+  "polar_oracle": {
+    "reference": "polar_review.json",
+    "passed": true,
+    "decimal_precision_digits": 75,
+    "controls": 9
+  },
+  "source_modified_by_subagent": false,
+  "measured_Yb_experimental_improvement": false,
+  "total_physical_error_bound_cm1": null,
+  "performance_speedup_claim": false,
+  "relative_document_links": [
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "results.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "source_manifest.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "fock_projector_replay.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "results_before_post_audit_repairs.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../../src/atomx/methods/csf/variational.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../../src/atomx/physics/csf/radial_density.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../../src/atomx/numerics/bspline/orbital_optimization.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../../src/atomx/methods/csf/solver.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../TRANSVERSE_INTERACTION.md",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../../../tests/test_mcdhf_fock_projector.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "fock_projector_result.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "executed_probe_fock_projector.py.txt",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "old_optimizer_test_failure.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "fock_projector_replay.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "stable_difference_review.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "stable_difference_contract.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "review_stable_difference.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../native_run/stable_polar_endpoint/result.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "../native_run/radial_constraint_endpoint002/result.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "polar_review.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "polar_review_contract.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "review_polar.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "post_audit_source_manifest.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "constraint_center_review.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "constraint_center_contract.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "constraint_center_api_contract.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "review_constraint_center.py",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "failed_constraint_center_compression.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "failed_stable_difference_serialization.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/README.md",
+      "target": "documentation_impact_review.json",
+      "exists": true
+    }
+  ],
+  "passed": true,
+  "optimizer_matches_constraint_center_epoch": true,
+  "constraint_center_oracle": {
+    "reference": "constraint_center_review.json",
+    "passed": true,
+    "formula_controls": 6,
+    "actual_API_controls": 6,
+    "decimal_precision_digits": 80,
+    "fixed_operator_compression_mantissa_bits": 63,
+    "source_epoch": {
+      "src/atomx/methods/csf/variational.py": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "src/atomx/numerics/bspline/orbital_optimization.py": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192"
+    }
+  },
+  "live_regression_test_hashes": {
+    "tests/test_mcdhf_fock_projector.py": "eda32b2e38a22a05782fbf2a2274b27fec48aa2612a1bc79a0e5e04b5a2b83c2",
+    "tests/test_mcdhf_stable_energy_difference.py": "3ad0a29de124f7db3762fdc7becc831e21978c63f4748814f562eb3fc2865202",
+    "tests/test_mcdhf_polar_retraction.py": "087ad7b00b39aee76e8eaf5fe2c817730dd4f800c1142803074383834559a810"
+  }
+}

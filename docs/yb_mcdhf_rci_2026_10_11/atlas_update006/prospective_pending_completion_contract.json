@@ -1,0 +1,143 @@
+{
+  "status": "source_only_waiting_exact_closed_completion_binding",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "completion_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/completion.json",
+  "completion_input_pending": true,
+  "prechange_manifest_sha256": "579c4f5874817c37c42e6dd14541199d7d737fe02381876aae6689d41ca44a9a",
+  "old_overlay_sha256": "fb09b3fd4f2480807c3708adb2a6c6dd57de569830625f3d2eda0b3337072e6b",
+  "old_models_sha256": "bb3640f24642d5ea76af8ca66a2965c74368e83cd08e61d646395bf0f5217095",
+  "shared_utilities_path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update005/prepare.py",
+  "shared_utilities_sha256": "887de8a19e8ad6b441de11d74850fa127115143f73babc2a4f0cca46d8d7a9d0",
+  "new_overlay": "dist/updates/yb-correlated29-run003-endpoint16.json",
+  "new_evidence_dir": "dist/evidence/yb-correlated29-run005-endpoint208",
+  "model_id": "correlated29_run005_endpoint208_DC",
+  "terminal_iteration": 128,
+  "trajectory_points": 129,
+  "global_initial_step": 80,
+  "global_terminal_step": 208,
+  "new_source_filenames": [
+    "completion.json",
+    "actual/result.json",
+    "root_execution.json",
+    "contract.json",
+    "execution_contract.json",
+    "RESULTS.md"
+  ],
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+  "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+  "fixed": {
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "complete_target_CSFs": 1046,
+    "full_parent_CSFs": 2163,
+    "full_parent_not_computed": true,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "five_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "reference_UIDs": {
+      "6s_1/2": [
+        1,
+        1,
+        0
+      ],
+      "5d_3/2": [
+        3,
+        1,
+        0
+      ],
+      "5d_5/2": [
+        5,
+        1,
+        0
+      ],
+      "6p_1/2": [
+        1,
+        -1,
+        0
+      ],
+      "6p_3/2": [
+        3,
+        -1,
+        0
+      ]
+    },
+    "operator": "same original nuclear no-pair Dirac-Coulomb",
+    "nucleus": "Z70 Fermi A175",
+    "electrons": 69,
+    "all29_allowed_to_relax": true,
+    "tracker_rebased": false,
+    "projector_changed": false,
+    "Breit_QED_recoil_or_empirical_added": false
+  },
+  "original_gates": {
+    "orbital_residual": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "experimental_relative_goal": 0.01
+  },
+  "expected": {
+    "previous_models": 18,
+    "previous_rows": 72,
+    "total_models": 19,
+    "total_rows": 76,
+    "unchanged_gzip_payloads": 6019,
+    "new_models": 1,
+    "new_run_points": 129,
+    "all_per_run_point_records": 211,
+    "distinct_global_points": 209,
+    "global_updates": 208
+  },
+  "policy": [
+    "Only consume explicitly closed native completion; no discovery of running outputs",
+    "Exactly one saved-JSON local build after all final hashes bound",
+    "Preserve all original18 models72rows, two native model/run objects,14source assets,6019gzip,hosting and index.html bytes",
+    "Reuse atlas005 public saved utilities and run004 verified schema/reference template; do not duplicate old builder",
+    "Append full129points, predeclared terminal128/global208; no bestgap selection",
+    "Sharedglobal80 is not a new update; allfive samepoint energies/array identity must match run004",
+    "Original f043/29/1046/3451/P/tracker/UID/.2/DC unchanged; no spliced corrections/externalbackend",
+    "Original1e-7/1e-8Ha and experiment1%FAIL preserved; no physical/completeness/speedup certification",
+    "No new H/CI/g/Dirac/eigen/optimizer/NPZ numeric replay,API,publish,push,deploy,card,registry or mainREADME edits"
+  ],
+  "resources": {
+    "saved_JSON_CPU": 1,
+    "memory_GiB": 2,
+    "local_build_cap_s": 180,
+    "browser_cap_s": 90,
+    "local_loopback_only": true
+  },
+  "inputs_sha256": {},
+  "science_calls": 0,
+  "publication_performed": false
+}

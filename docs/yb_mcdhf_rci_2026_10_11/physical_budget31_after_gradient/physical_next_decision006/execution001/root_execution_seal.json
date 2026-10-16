@@ -1,0 +1,34 @@
+{
+  "execution_authorized_by_root": true,
+  "once_only": true,
+  "driver_sha256": "4e10a7ddb34e3f2a6366b57c3725420138ff35dd2059e921958138bd0438d220",
+  "contract_sha256": "b78049cad488491af636bbd018a417629c844de217e8bb8c2801bb076cf486a2",
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "inner_seconds": 900,
+    "outer_seconds": 915,
+    "decoded_input_bytes": 268435456,
+    "host_load1_max": 16,
+    "host_MemAvailable_GiB_min": 10,
+    "calls": {
+      "H": 2,
+      "H_projection": 10,
+      "block_terms": 10,
+      "angular_table": 10,
+      "angular_nullspace": 43,
+      "raw_hS": 14,
+      "radial_evaluator": 2,
+      "radial_key": 168916,
+      "pair_potential": 168916,
+      "density": 1984,
+      "pair_convolution": 675664,
+      "factor_getter": 675664,
+      "banded_contraction": 337832,
+      "Davidson": 10,
+      "operator_action": 2500
+    }
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe"
+}

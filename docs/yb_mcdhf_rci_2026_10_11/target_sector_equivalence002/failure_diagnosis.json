@@ -1,0 +1,22 @@
+{
+  "diagnosis": "serialization_type_mismatch_in_frozen_driver",
+  "tracking_source_sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+  "predecessor_driver_sha256": "686fd3695557aec7845a6acb4437b02eee22b7a7bb5b772886e9667380bfaab7",
+  "predecessor_failure_sha256": "844e24cdf9c30b7e1581a4c929dd951e6497ca9f5700dfcc8a43b261f975dfdc",
+  "actual_completed_CI_gradient_calls": 2,
+  "actual_explicit_H_builds": 2,
+  "pre_failure_gates_passed": 19,
+  "matrix_and_saved_spectrum_and_EOL_check_errors": {
+    "saved_full_H_replay": 0.0,
+    "saved_complete_full_spectrum_replay": 0.0,
+    "frozen_point_EOL_replay": 0.0,
+    "principal_whole_sector_H": 0.0,
+    "retained_to_omitted_sector_H": 0.0,
+    "equal_EOL_energy": 0.0
+  },
+  "source_fact": "CIBasisTracking.resolve diagnostics selected_levels list of tuple(J2,parity,root); JSON checkpoint nested lists",
+  "logical_fact": "Python tuple != list even with identical elements; original third equality always rejects nonempty selected_levels across this serialization boundary",
+  "limitation": "Old full/sector actualtarget diagnostic values and numerical gradient arrays were not persisted. Their equality cannot be certified from oldfailure; no new science executed during diagnosis.",
+  "correction": "Normalize sequences only before exact value/grouporder comparison; persist each new completed model CI/gradient/weights/targetdiagnostics and H before later gates; old failure stays unqualified.",
+  "new_H_CI_gradient_optimizer_calls": 0
+}

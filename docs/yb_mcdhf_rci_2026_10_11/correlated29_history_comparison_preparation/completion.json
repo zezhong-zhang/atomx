@@ -1,0 +1,4021 @@
+{
+  "all_completion_metadata_checks_passed": true,
+  "branch_metadata_checks": {
+    "history10": 15,
+    "history40": 15
+  },
+  "branches": {
+    "history10": {
+      "completion_sha256": "bea50700825ad740f8cce64ec0ada469b347b1dab556f3e41d257fcf444d7366",
+      "actual_status": "bounded_public_optimizer_returned",
+      "actual_foreground_exit_code": 0,
+      "all_live_controls_passed": true,
+      "failed_live_controls": [],
+      "actual_qualified_points": 33,
+      "actual_new_accepted_steps": 32,
+      "forensic_unqualified_candidates": [],
+      "stationarity_passed": false
+    },
+    "history40": {
+      "completion_sha256": "e78a9ce9b72c1d6a7f9944a019282e78f783ecb85bf21c0d6cc7a5dabadc40aa",
+      "actual_status": "bounded_public_optimizer_returned",
+      "actual_foreground_exit_code": 0,
+      "all_live_controls_passed": true,
+      "failed_live_controls": [],
+      "actual_qualified_points": 33,
+      "actual_new_accepted_steps": 32,
+      "forensic_unqualified_candidates": [],
+      "stationarity_passed": false
+    }
+  },
+  "comparison": {
+    "same_literal208_baseline_qualified": true,
+    "common_accepted_horizon": 32,
+    "common_global_accepted_step": 240,
+    "comparison_selection": "Largest common qualified accepted-index horizon; no NIST or energy minimum selection.",
+    "first_observed_numerical_divergence": {
+      "accepted_index": 12,
+      "global_accepted_step": 220,
+      "changed_saved_identity_fields": [
+        "state_sha256",
+        "owner_input_sha256",
+        "owner_H_sha256",
+        "reported_EO_Ha",
+        "orbital_residual",
+        "energy_indicator_Ha",
+        "exact_point",
+        "physical_targets"
+      ],
+      "scope": "Saved coordinate/state/H-owner/energy ledger identity; no array numerical replay."
+    },
+    "all_common_horizon_points": [
+      {
+        "accepted_index": 0,
+        "global_accepted_step": 208,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423387638946,
+          "orbital_residual": 0.0009553265963620529,
+          "energy_indicator_Ha": 1.4594365307472928e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.3164606344617,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.069534924045,
+              "splitting_cm1": 873.8203775924121
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.8586825135,
+              "splitting_cm1": 3375.322418825577
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423387638946,
+          "orbital_residual": 0.0009553265963620529,
+          "energy_indicator_Ha": 1.4594365307472928e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.3164606344617,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.069534924045,
+              "splitting_cm1": 873.8203775924121
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.8586825135,
+              "splitting_cm1": 3375.322418825577
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 1,
+        "global_accepted_step": 209,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423387980689,
+          "orbital_residual": 0.000805764679236198,
+          "energy_indicator_Ha": 4.5272131458642764e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.760639790444,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.444169506845,
+              "splitting_cm1": 873.5170590747075
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.18977801981,
+              "splitting_cm1": 3375.2190865909797
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423387980689,
+          "orbital_residual": 0.000805764679236198,
+          "energy_indicator_Ha": 4.5272131458642764e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.760639790444,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.444169506845,
+              "splitting_cm1": 873.5170590747075
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.18977801981,
+              "splitting_cm1": 3375.2190865909797
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 2,
+        "global_accepted_step": 210,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423388097064,
+          "orbital_residual": 0.0009016370202906087,
+          "energy_indicator_Ha": 6.366855052318497e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2055.2167711405245,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26423.174880836432,
+              "splitting_cm1": 873.2792492989283
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.327895268227,
+              "splitting_cm1": 3375.034089098943
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423388097064,
+          "orbital_residual": 0.0009016370202906087,
+          "energy_indicator_Ha": 6.366855052318497e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2055.2167711405245,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26423.174880836432,
+              "splitting_cm1": 873.2792492989283
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.327895268227,
+              "splitting_cm1": 3375.034089098943
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 3,
+        "global_accepted_step": 211,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.42338828259,
+          "orbital_residual": 0.0009781370813630181,
+          "energy_indicator_Ha": 1.3218018947685262e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2055.0404767499713,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.8444753436,
+              "splitting_cm1": 873.2544101035201
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.17657242047,
+              "splitting_cm1": 3374.9893291235203
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.42338828259,
+          "orbital_residual": 0.0009781370813630181,
+          "energy_indicator_Ha": 1.3218018947685262e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2055.0404767499713,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.8444753436,
+              "splitting_cm1": 873.2544101035201
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.17657242047,
+              "splitting_cm1": 3374.9893291235203
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 4,
+        "global_accepted_step": 212,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423388664607,
+          "orbital_residual": 0.002083300708865006,
+          "energy_indicator_Ha": 2.0929874305864577e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.012225395296,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.116676334972,
+              "splitting_cm1": 874.2394054252836
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.81259459253,
+              "splitting_cm1": 3375.3516482656414
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423388664607,
+          "orbital_residual": 0.002083300708865006,
+          "energy_indicator_Ha": 2.0929874305864577e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.012225395296,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.116676334972,
+              "splitting_cm1": 874.2394054252836
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.81259459253,
+              "splitting_cm1": 3375.3516482656414
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 5,
+        "global_accepted_step": 213,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423388827272,
+          "orbital_residual": 0.0010282727568583531,
+          "energy_indicator_Ha": 3.961254089909326e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.1468257924466,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26421.720686970377,
+              "splitting_cm1": 874.3272143105169
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.34985780277,
+              "splitting_cm1": 3374.762515519298
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423388827272,
+          "orbital_residual": 0.0010282727568583531,
+          "energy_indicator_Ha": 3.961254089909326e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.1468257924466,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26421.720686970377,
+              "splitting_cm1": 874.3272143105169
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28215.34985780277,
+              "splitting_cm1": 3374.762515519298
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 6,
+        "global_accepted_step": 214,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.4233894636,
+          "orbital_residual": 0.0011832506780438748,
+          "energy_indicator_Ha": 9.184334758861038e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.7686972395436,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.38692026947,
+              "splitting_cm1": 873.987302702426
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28214.700655315424,
+              "splitting_cm1": 3374.4115155193613
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.4233894636,
+          "orbital_residual": 0.0011832506780438748,
+          "energy_indicator_Ha": 9.184334758861038e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2054.7686972395436,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26422.38692026947,
+              "splitting_cm1": 873.987302702426
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28214.700655315424,
+              "splitting_cm1": 3374.4115155193613
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 7,
+        "global_accepted_step": 215,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423389740066,
+          "orbital_residual": 0.0010846172403036597,
+          "energy_indicator_Ha": 2.0245549681272427e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.554511744595,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.295210342516,
+              "splitting_cm1": 873.6424379466262
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28214.35372631559,
+              "splitting_cm1": 3375.0636335251875
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423389740066,
+          "orbital_residual": 0.0010846172403036597,
+          "energy_indicator_Ha": 2.0245549681272427e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.554511744595,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.295210342516,
+              "splitting_cm1": 873.6424379466262
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28214.35372631559,
+              "splitting_cm1": 3375.0636335251875
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 8,
+        "global_accepted_step": 216,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423389979995,
+          "orbital_residual": 0.0008762586445658882,
+          "energy_indicator_Ha": 1.2535822255061718e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.768085396627,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.424748628913,
+              "splitting_cm1": 873.7464364827974
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28213.85339545274,
+              "splitting_cm1": 3375.231966292071
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423389979995,
+          "orbital_residual": 0.0008762586445658882,
+          "energy_indicator_Ha": 1.2535822255061718e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.768085396627,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26420.424748628913,
+              "splitting_cm1": 873.7464364827974
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28213.85339545274,
+              "splitting_cm1": 3375.231966292071
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 9,
+        "global_accepted_step": 217,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423390396752,
+          "orbital_residual": 0.0007193120220733685,
+          "energy_indicator_Ha": 1.2620690696992059e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.395309203402,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.75136302763,
+              "splitting_cm1": 873.963483120082
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28213.497081009158,
+              "splitting_cm1": 3375.1248985369457
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423390396752,
+          "orbital_residual": 0.0007193120220733685,
+          "energy_indicator_Ha": 1.2620690696992059e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.395309203402,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.75136302763,
+              "splitting_cm1": 873.963483120082
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28213.497081009158,
+              "splitting_cm1": 3375.1248985369457
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 10,
+        "global_accepted_step": 218,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423390652602,
+          "orbital_residual": 0.0008288047168920354,
+          "energy_indicator_Ha": 1.0296381296273687e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.5273570382446,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.603705171176,
+              "splitting_cm1": 873.825983068924
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28212.668361815933,
+              "splitting_cm1": 3375.086720934334
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423390652602,
+          "orbital_residual": 0.0008288047168920354,
+          "energy_indicator_Ha": 1.0296381296273687e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.5273570382446,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.603705171176,
+              "splitting_cm1": 873.825983068924
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28212.668361815933,
+              "splitting_cm1": 3375.086720934334
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 11,
+        "global_accepted_step": 219,
+        "same_saved_numerical_identity": true,
+        "history10": {
+          "reported_EO_Ha": -14067.423390705113,
+          "orbital_residual": 0.0011298187181722438,
+          "energy_indicator_Ha": 3.1850291150169697e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.659139950454,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.131542243635,
+              "splitting_cm1": 873.7896654417382
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28211.07925320735,
+              "splitting_cm1": 3375.517811660022
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423390705113,
+          "orbital_residual": 0.0011298187181722438,
+          "energy_indicator_Ha": 3.1850291150169697e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2053.659139950454,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26419.131542243635,
+              "splitting_cm1": 873.7896654417382
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28211.07925320735,
+              "splitting_cm1": 3375.517811660022
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 0.0,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 0.0,
+            "history40_minus_history10_excitation_cm1": 0.0
+          }
+        ]
+      },
+      {
+        "accepted_index": 12,
+        "global_accepted_step": 220,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391033835,
+          "orbital_residual": 0.0011468049811435696,
+          "energy_indicator_Ha": 2.498992980341508e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.882134461102,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.762428895872,
+              "splitting_cm1": 873.6605131232027
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.73200528047,
+              "splitting_cm1": 3376.772433156373
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391037624,
+          "orbital_residual": 0.001135551199620289,
+          "energy_indicator_Ha": 2.4609453673597937e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9250443206606,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.79878660495,
+              "splitting_cm1": 873.6347768758933
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.666691491966,
+              "splitting_cm1": 3376.761683704026
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -3.788954927586019e-09,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 4.102730599697679e-08,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.770430000964552e-07,
+            "history40_minus_history10_excitation_cm1": 0.051799457458400866
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.5978002920746803e-07,
+            "history40_minus_history10_excitation_cm1": 0.02606321014900459
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.239121386082843e-07,
+            "history40_minus_history10_excitation_cm1": -0.05814748693956062
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.7289024728816e-07,
+            "history40_minus_history10_excitation_cm1": -0.06889693928678753
+          }
+        ]
+      },
+      {
+        "accepted_index": 13,
+        "global_accepted_step": 221,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391307508,
+          "orbital_residual": 0.000722253600077535,
+          "energy_indicator_Ha": 1.7126397608493895e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9496351648654,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.646428787393,
+              "splitting_cm1": 873.0587242401089
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.475867487494,
+              "splitting_cm1": 3377.163749391333
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391328875,
+          "orbital_residual": 0.0006480536319473739,
+          "energy_indicator_Ha": 1.5985256735336942e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9421837830587,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.741044408216,
+              "splitting_cm1": 873.1130104515832
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.711799589,
+              "splitting_cm1": 3377.121487747365
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -2.1367668523453176e-08,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -6.267455319175497e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -3.44052750733681e-07,
+            "history40_minus_history10_excitation_cm1": 0.06204389394042664
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -9.670657163951546e-08,
+            "history40_minus_history10_excitation_cm1": 0.11633010541481781
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 5.766123649664223e-07,
+            "history40_minus_history10_excitation_cm1": 0.26410653081620694
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.8405414670705795e-07,
+            "history40_minus_history10_excitation_cm1": 0.22184488684797543
+          }
+        ]
+      },
+      {
+        "accepted_index": 14,
+        "global_accepted_step": 222,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391616412,
+          "orbital_residual": 0.0004851579176586008,
+          "energy_indicator_Ha": 8.442786195573578e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.2728144078656,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.226875180982,
+              "splitting_cm1": 873.1904726994981
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.622647055494,
+              "splitting_cm1": 3377.0596638247625
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391371894,
+          "orbital_residual": 0.0007943383206517677,
+          "energy_indicator_Ha": 2.8928079800409204e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.5998782722168,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.61988379797,
+              "splitting_cm1": 873.2587524415248
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.315675922368,
+              "splitting_cm1": 3376.9738322862395
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 2.4451765057165176e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 7.408380042761564e-08,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.6780995792942122e-06,
+            "history40_minus_history10_excitation_cm1": 0.35204077176967985
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.989204974961467e-06,
+            "history40_minus_history10_excitation_cm1": 0.42032051379646873
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.0638614185154438e-06,
+            "history40_minus_history10_excitation_cm1": -0.24975010743946768
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.4549386833095923e-06,
+            "history40_minus_history10_excitation_cm1": -0.33558164596252027
+          }
+        ]
+      },
+      {
+        "accepted_index": 15,
+        "global_accepted_step": 223,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391746328,
+          "orbital_residual": 0.0004921970798280559,
+          "energy_indicator_Ha": 6.595822191910144e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.2835692566027,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.148111868475,
+              "splitting_cm1": 873.4213787287299
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.30849045815,
+              "splitting_cm1": 3377.094568605182
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391660888,
+          "orbital_residual": 0.0006255111791802114,
+          "energy_indicator_Ha": 8.212445494376691e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.3803197343705,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.33395746779,
+              "splitting_cm1": 873.5037577951516
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.367112753152,
+              "splitting_cm1": 3377.0651882591956
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 8.543975127395242e-08,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -3.540208126651123e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.675460564205423e-07,
+            "history40_minus_history10_excitation_cm1": 0.13641815945811686
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.428927008528262e-07,
+            "history40_minus_history10_excitation_cm1": 0.21879722587982542
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.3264874471351504e-09,
+            "history40_minus_history10_excitation_cm1": 0.07820919232835877
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.315402187174186e-07,
+            "history40_minus_history10_excitation_cm1": 0.04882884634207585
+          }
+        ]
+      },
+      {
+        "accepted_index": 16,
+        "global_accepted_step": 224,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391845121,
+          "orbital_residual": 0.0003624284735952074,
+          "energy_indicator_Ha": 2.288763497913905e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.0376650033663,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.80571326684,
+              "splitting_cm1": 873.4659774184584
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.416127370812,
+              "splitting_cm1": 3377.317877439211
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391827491,
+          "orbital_residual": 0.0004016896381698163,
+          "energy_indicator_Ha": 3.625568159729356e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.0037991046865,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.743950584896,
+              "splitting_cm1": 873.4610146894192
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.405329213376,
+              "splitting_cm1": 3377.385775524981
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": 1.762964529916644e-08,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.6959529602900147e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -9.824907465372235e-08,
+            "history40_minus_history10_excitation_cm1": -0.058785044519027
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.208609319292009e-07,
+            "history40_minus_history10_excitation_cm1": -0.06374777355813421
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -8.584902388975024e-08,
+            "history40_minus_history10_excitation_cm1": -0.05606354794872459
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.2351741790771484e-07,
+            "history40_minus_history10_excitation_cm1": 0.011834537821414415
+          }
+        ]
+      },
+      {
+        "accepted_index": 17,
+        "global_accepted_step": 225,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391912855,
+          "orbital_residual": 0.00029027369102454956,
+          "energy_indicator_Ha": 3.1169195253871755e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.1839854727855,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.77960127176,
+              "splitting_cm1": 873.0195346096516
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.05991299888,
+              "splitting_cm1": 3377.892132378205
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423391942813,
+          "orbital_residual": 0.00029583822752048903,
+          "energy_indicator_Ha": 7.594357927243505e-08,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.0311821678797,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.657261038385,
+              "splitting_cm1": 873.2040626165799
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.233945059448,
+              "splitting_cm1": 3377.6917676326157
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -2.9958755476400256e-08,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.5139994502533227e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.2132859410485253e-06,
+            "history40_minus_history10_excitation_cm1": -0.23305703752703266
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -3.7251447793096304e-07,
+            "history40_minus_history10_excitation_cm1": -0.04852903059872915
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.250167770194821e-06,
+            "history40_minus_history10_excitation_cm1": 0.307608557628555
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.3723881642799824e-07,
+            "history40_minus_history10_excitation_cm1": 0.10724381203908706
+          }
+        ]
+      },
+      {
+        "accepted_index": 18,
+        "global_accepted_step": 226,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.42339192163,
+          "orbital_residual": 0.0006528889515626085,
+          "energy_indicator_Ha": 9.139987542407247e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.6622773576732,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.22621470619,
+              "splitting_cm1": 873.1195900298408
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.67723241734,
+              "splitting_cm1": 3378.148824557502
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423392015584,
+          "orbital_residual": 0.0002449892763109225,
+          "energy_indicator_Ha": 7.09183063171446e-08,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9058022077193,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.608999486547,
+              "splitting_cm1": 873.1223059373006
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.655615076776,
+              "splitting_cm1": 3377.8917391445066
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -9.395444067195058e-08,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -8.297902240883559e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 9.068808140000328e-07,
+            "history40_minus_history10_excitation_cm1": 0.3811552358856716
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 9.192553989123553e-07,
+            "history40_minus_history10_excitation_cm1": 0.38387114334545913
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.473745214752853e-07,
+            "history40_minus_history10_excitation_cm1": 0.14977293476476916
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.3187418517190963e-06,
+            "history40_minus_history10_excitation_cm1": -0.10731247823059675
+          }
+        ]
+      },
+      {
+        "accepted_index": 19,
+        "global_accepted_step": 227,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423391985201,
+          "orbital_residual": 0.0004934723166318224,
+          "energy_indicator_Ha": 6.576123241338518e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.6895269164766,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.553879859166,
+              "splitting_cm1": 873.2227338316407
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.365861539958,
+              "splitting_cm1": 3378.2399781248932
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423392112414,
+          "orbital_residual": 0.00045836998673220937,
+          "energy_indicator_Ha": 5.006293901406448e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.1457629524257,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.079300682082,
+              "splitting_cm1": 872.9937632308029
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.079904256763,
+              "splitting_cm1": 3378.5760160816353
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -1.2721284292638302e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.033034540247172e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.516650056350045e-06,
+            "history40_minus_history10_excitation_cm1": 0.6628031834225112
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.4733832358615473e-06,
+            "history40_minus_history10_excitation_cm1": 0.4338325825847278
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.8269550966797397e-06,
+            "history40_minus_history10_excitation_cm1": -0.509982587689592
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.2958535080542788e-06,
+            "history40_minus_history10_excitation_cm1": -0.173944630947517
+          }
+        ]
+      },
+      {
+        "accepted_index": 20,
+        "global_accepted_step": 228,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.42339207088,
+          "orbital_residual": 0.0007285419756996495,
+          "energy_indicator_Ha": 9.752410262703445e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.3200983255188,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.38513150402,
+              "splitting_cm1": 873.026247927286
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.12783192591,
+              "splitting_cm1": 3378.366578216999
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423392375935,
+          "orbital_residual": 0.0006319171782340435,
+          "energy_indicator_Ha": 5.943090156001353e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.179533564017,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.28813420441,
+              "splitting_cm1": 872.4534030405011
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.89581520963,
+              "splitting_cm1": 3379.861853946084
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -3.050554369110614e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.1781539797084406e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.40621840627864e-08,
+            "history40_minus_history10_excitation_cm1": 0.24670963246535393
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.6641355361789465e-06,
+            "history40_minus_history10_excitation_cm1": -0.3261352543195244
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.22094968194142e-06,
+            "history40_minus_history10_excitation_cm1": -0.2288672023350955
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 4.592027835315093e-06,
+            "history40_minus_history10_excitation_cm1": 1.2664085267497285
+          }
+        ]
+      },
+      {
+        "accepted_index": 21,
+        "global_accepted_step": 229,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392219447,
+          "orbital_residual": 0.0003526475583058885,
+          "energy_indicator_Ha": 2.7339403754550104e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.341931034282,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.11391450949,
+              "splitting_cm1": 872.7887695057907
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.51644308376,
+              "splitting_cm1": 3378.696018630493
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423392635063,
+          "orbital_residual": 0.0004879796431999376,
+          "energy_indicator_Ha": 3.3317743294542675e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.786783185639,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.916508957267,
+              "splitting_cm1": 872.0705447234432
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28211.806136050913,
+              "splitting_cm1": 3380.988504421879
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -4.156154318479821e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -3.663424649857916e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.599386789370328e-06,
+            "history40_minus_history10_excitation_cm1": 0.23352931718545733
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.87185968470294e-06,
+            "history40_minus_history10_excitation_cm1": -0.4846954651620763
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.9437175069469959e-07,
+            "history40_minus_history10_excitation_cm1": 0.7613691062251746
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.0250962077407166e-05,
+            "history40_minus_history10_excitation_cm1": 3.053854897611018
+          }
+        ]
+      },
+      {
+        "accepted_index": 22,
+        "global_accepted_step": 230,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392307515,
+          "orbital_residual": 0.00036401321197906234,
+          "energy_indicator_Ha": 6.208855908460261e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.7079188258895,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.4018861321,
+              "splitting_cm1": 872.587813911603
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.33530615046,
+              "splitting_cm1": 3379.2843876650913
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423392838413,
+          "orbital_residual": 0.00058252291901295,
+          "energy_indicator_Ha": 3.741634293771742e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.832297479701,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.13637793461,
+              "splitting_cm1": 871.6802636712018
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28212.4333576395,
+              "splitting_cm1": 3381.6121547032744
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -5.308975232765079e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.151636287337169e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.760164978913963e-07,
+            "history40_minus_history10_excitation_cm1": 1.2790219467533461
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -3.4590866562211886e-06,
+            "history40_minus_history10_excitation_cm1": 0.37147170635216753
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.6629350031726062e-06,
+            "history40_minus_history10_excitation_cm1": 0.5462067969165219
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 7.943152013467625e-06,
+            "history40_minus_history10_excitation_cm1": 2.873973835099605
+          }
+        ]
+      },
+      {
+        "accepted_index": 23,
+        "global_accepted_step": 231,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392367858,
+          "orbital_residual": 0.0006353188338135848,
+          "energy_indicator_Ha": 1.0217818553063435e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.2422456208956,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.98522105488,
+              "splitting_cm1": 872.6540943497093
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28211.150812957567,
+              "splitting_cm1": 3379.8719710307378
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.42339283944,
+          "orbital_residual": 0.0008809264429473252,
+          "energy_indicator_Ha": 1.282739921651049e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.2837402256655,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.5354177566,
+              "splitting_cm1": 871.1615496985214
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28213.158311841442,
+              "splitting_cm1": 3381.291421721453
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -4.71582097816281e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -4.9739264795789495e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.613274434930645e-06,
+            "history40_minus_history10_excitation_cm1": 1.445723492430261
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.187259375816211e-06,
+            "history40_minus_history10_excitation_cm1": -0.046821158757666126
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.3875069271307439e-07,
+            "history40_minus_history10_excitation_cm1": 1.0611984233983094
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.328742529149167e-06,
+            "history40_minus_history10_excitation_cm1": 2.4806491141134757
+          }
+        ]
+      },
+      {
+        "accepted_index": 24,
+        "global_accepted_step": 232,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392627423,
+          "orbital_residual": 0.000439556183502495,
+          "energy_indicator_Ha": 5.809066320660009e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.812817175227,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.667057627597,
+              "splitting_cm1": 872.2187235646488
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.824229643058,
+              "splitting_cm1": 3379.8160907257006
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393199304,
+          "orbital_residual": 0.00044755762357739183,
+          "energy_indicator_Ha": 2.3901691738119147e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.259598050949,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.39607010776,
+              "splitting_cm1": 871.332731313807
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28211.351439193586,
+              "splitting_cm1": 3380.3305633635464
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -5.718811735277995e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.8665890567936003e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.8771628421964124e-06,
+            "history40_minus_history10_excitation_cm1": 1.2606078306707786
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.1597148841246963e-06,
+            "history40_minus_history10_excitation_cm1": 0.3746155798289692
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.0271854737075046e-06,
+            "history40_minus_history10_excitation_cm1": 0.18422779196407646
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.169243427691981e-07,
+            "history40_minus_history10_excitation_cm1": 0.6987004298098327
+          }
+        ]
+      },
+      {
+        "accepted_index": 25,
+        "global_accepted_step": 233,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392719791,
+          "orbital_residual": 0.0006205434864518415,
+          "energy_indicator_Ha": 7.362502137708315e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.2163910235618,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26416.176586778904,
+              "splitting_cm1": 872.0552469345239
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.61866023988,
+              "splitting_cm1": 3379.8344892721216
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393392617,
+          "orbital_residual": 0.00039081779241630034,
+          "energy_indicator_Ha": 2.3334889748784003e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2052.159120746187,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.897986572178,
+              "splitting_cm1": 871.3001152732759
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.315880405764,
+              "splitting_cm1": 3379.253317811479
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -6.728259904775769e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 7.259950507432222e-08,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 8.675833669258282e-07,
+            "history40_minus_history10_excitation_cm1": 0.17447879002065747
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.5730496417963877e-06,
+            "history40_minus_history10_excitation_cm1": -0.5806528712273575
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 4.5837441575713456e-07,
+            "history40_minus_history10_excitation_cm1": 0.08466780630988069
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.1896375983487815e-06,
+            "history40_minus_history10_excitation_cm1": -0.4965036543326278
+          }
+        ]
+      },
+      {
+        "accepted_index": 26,
+        "global_accepted_step": 234,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392821254,
+          "orbital_residual": 0.0006159242251723837,
+          "energy_indicator_Ha": 8.887429031761178e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.8184793487126,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.260330064968,
+              "splitting_cm1": 871.9456441195143
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.974431393643,
+              "splitting_cm1": 3380.2775031629244
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393536399,
+          "orbital_residual": 0.00046417600843018007,
+          "energy_indicator_Ha": 4.28720346574622e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9769025791684,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.17299170282,
+              "splitting_cm1": 871.1361440070541
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28209.020303786074,
+              "splitting_cm1": 3377.8585390421467
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -7.151447789510712e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.006571205332875e-07,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.1157266019145027e-06,
+            "history40_minus_history10_excitation_cm1": 0.398361705327261
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.5726272977190092e-06,
+            "history40_minus_history10_excitation_cm1": -0.4111384071329667
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.3010728657245636e-06,
+            "history40_minus_history10_excitation_cm1": 0.6585151396138826
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -7.720538633293472e-06,
+            "history40_minus_history10_excitation_cm1": -1.7604489811637904
+          }
+        ]
+      },
+      {
+        "accepted_index": 27,
+        "global_accepted_step": 235,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423392891862,
+          "orbital_residual": 0.000906334595137122,
+          "energy_indicator_Ha": 1.8295367061336237e-06,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.216713125923,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.471942649812,
+              "splitting_cm1": 871.5478377320287
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.490611504105,
+              "splitting_cm1": 3380.515079393812
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393652516,
+          "orbital_residual": 0.00036698055881864087,
+          "energy_indicator_Ha": 1.3059526815285771e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.7718780384603,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.524670458177,
+              "splitting_cm1": 870.9273884128634
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28208.10590409333,
+              "splitting_cm1": 3376.951529747599
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -7.60654074838385e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.2939311747904867e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 4.230361810186878e-06,
+            "history40_minus_history10_excitation_cm1": 0.4249973998630594
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.4033867046236992e-06,
+            "history40_minus_history10_excitation_cm1": -0.19545191930228611
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.2528893168782815e-06,
+            "history40_minus_history10_excitation_cm1": -0.009007646636746358
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.3983837561681867e-05,
+            "history40_minus_history10_excitation_cm1": -3.572557292849524
+          }
+        ]
+      },
+      {
+        "accepted_index": 28,
+        "global_accepted_step": 236,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423393154093,
+          "orbital_residual": 0.0005267405246813135,
+          "energy_indicator_Ha": 4.713269458939561e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.5611806236366,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26415.025633342728,
+              "splitting_cm1": 871.2073999493077
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.650782176614,
+              "splitting_cm1": 3380.348828969032
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.4233937271,
+          "orbital_residual": 0.0003290382695123194,
+          "energy_indicator_Ha": 5.90174381349445e-08,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.7678986692554,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.159164326597,
+              "splitting_cm1": 870.9065889451631
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28207.20509751144,
+              "splitting_cm1": 3376.8493915860854
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -5.730071279685944e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.168242180137895e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.042676326003857e-06,
+            "history40_minus_history10_excitation_cm1": -0.6859824136372481
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.672080543357879e-06,
+            "history40_minus_history10_excitation_cm1": -0.9867934177818825
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.0982876119669527e-06,
+            "history40_minus_history10_excitation_cm1": -1.1127264098759042
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.4846322301309556e-05,
+            "history40_minus_history10_excitation_cm1": -4.612163792822685
+          }
+        ]
+      },
+      {
+        "accepted_index": 29,
+        "global_accepted_step": 237,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423393278428,
+          "orbital_residual": 0.0003916557648432022,
+          "energy_indicator_Ha": 2.316826425042519e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.307071067595,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.61361872308,
+              "splitting_cm1": 871.2853388683252
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28210.5354566469,
+              "splitting_cm1": 3380.1832272800457
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393774343,
+          "orbital_residual": 0.0003720560101848026,
+          "energy_indicator_Ha": 2.608406467061339e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.5239877984814,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26413.70771830764,
+              "splitting_cm1": 870.9548692604367
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28207.035579587424,
+              "splitting_cm1": 3377.081176702228
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -4.959147190675139e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.531268809339963e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.3071210054913536e-06,
+            "history40_minus_history10_excitation_cm1": -0.7076186507074453
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.8013906810665503e-06,
+            "history40_minus_history10_excitation_cm1": -1.0380882585959625
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 7.310518412850797e-09,
+            "history40_minus_history10_excitation_cm1": -1.431843340928026
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.4126671885605901e-05,
+            "history40_minus_history10_excitation_cm1": -4.533893918745889
+          }
+        ]
+      },
+      {
+        "accepted_index": 30,
+        "global_accepted_step": 238,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423393346831,
+          "orbital_residual": 0.0004645366924870918,
+          "energy_indicator_Ha": 5.141118259320732e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.693047237445,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.575786447524,
+              "splitting_cm1": 871.3059866316507
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28208.879130093803,
+              "splitting_cm1": 3379.6808814105425
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423393918398,
+          "orbital_residual": 0.0004075012516474086,
+          "energy_indicator_Ha": 2.567130651538927e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2050.763460389936,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26412.560638283274,
+              "splitting_cm1": 871.0193799472909
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28207.112516059922,
+              "splitting_cm1": 3377.4044686972557
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -5.715664883609861e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 5.57711609872058e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.8210488380864263e-06,
+            "history40_minus_history10_excitation_cm1": -1.8431841536330467
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -4.126924977754243e-06,
+            "history40_minus_history10_excitation_cm1": -2.129790837992914
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 4.442563295015134e-06,
+            "history40_minus_history10_excitation_cm1": -0.24900555835483829
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -5.929536200710572e-06,
+            "history40_minus_history10_excitation_cm1": -2.5254182716416835
+          }
+        ]
+      },
+      {
+        "accepted_index": 31,
+        "global_accepted_step": 239,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423393486439,
+          "orbital_residual": 0.0005211936879503906,
+          "energy_indicator_Ha": 3.640150908191149e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.9066925644593,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26414.689354415565,
+              "splitting_cm1": 870.9929933672975
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28208.364535560166,
+              "splitting_cm1": 3379.122874808123
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423394105075,
+          "orbital_residual": 0.0004446621879552112,
+          "energy_indicator_Ha": 1.5546773580033797e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.0319796145195,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26412.580171977614,
+              "splitting_cm1": 871.058982373328
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28206.0850731898,
+              "splitting_cm1": 3377.152829071958
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -6.186364771565422e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 6.793432476115413e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.9971106414450333e-06,
+            "history40_minus_history10_excitation_cm1": -2.148775841571478
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -2.6964426069753245e-06,
+            "history40_minus_history10_excitation_cm1": -2.082786835540901
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 2.391563612036407e-06,
+            "history40_minus_history10_excitation_cm1": -0.9660985462542158
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -6.5846252255141735e-06,
+            "history40_minus_history10_excitation_cm1": -2.9361442824192636
+          }
+        ]
+      },
+      {
+        "accepted_index": 32,
+        "global_accepted_step": 240,
+        "same_saved_numerical_identity": false,
+        "history10": {
+          "reported_EO_Ha": -14067.423393554487,
+          "orbital_residual": 0.000355792320940183,
+          "energy_indicator_Ha": 3.6857904461478684e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.371139733343,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26413.780543591693,
+              "splitting_cm1": 870.8753063062104
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28208.139291696963,
+              "splitting_cm1": 3378.855129368516
+            }
+          ]
+        },
+        "history40": {
+          "reported_EO_Ha": -14067.423394399128,
+          "orbital_residual": 0.0006485365573953426,
+          "energy_indicator_Ha": 3.312556971205564e-07,
+          "stationarity_passed": false,
+          "nominal_four_gap_RMS_cm1": 2051.470109667979,
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26412.335917640467,
+              "splitting_cm1": 871.3986851882946
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28203.58629620181,
+              "splitting_cm1": 3376.4982806024236
+            }
+          ]
+        },
+        "history40_minus_history10_EO_Ha": -8.446404535789043e-07,
+        "matched_physical_target_differences": [
+          {
+            "label": "6s_1/2",
+            "UID": [
+              1,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 9.465711627854034e-06,
+            "history40_minus_history10_excitation_cm1": 0.0
+          },
+          {
+            "label": "5d_3/2",
+            "UID": [
+              3,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 1.4526976883644238e-06,
+            "history40_minus_history10_excitation_cm1": -1.758653280478029
+          },
+          {
+            "label": "5d_5/2",
+            "UID": [
+              5,
+              1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": 3.837387339444831e-06,
+            "history40_minus_history10_excitation_cm1": -1.2352743983938126
+          },
+          {
+            "label": "6p_1/2",
+            "UID": [
+              1,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -4.120200173929334e-06,
+            "history40_minus_history10_excitation_cm1": -2.981762984429224
+          },
+          {
+            "label": "6p_3/2",
+            "UID": [
+              3,
+              -1,
+              0
+            ],
+            "history40_minus_history10_energy_Ha": -1.4858793292660266e-05,
+            "history40_minus_history10_excitation_cm1": -5.3386117505215225
+          }
+        ]
+      }
+    ],
+    "horizon_changes_from_common208": {
+      "history10": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "delta_energy_Ha": 2.379661236773245e-05,
+          "transition_shift_cm1": 0.0,
+          "excitation_cm1": 0.0,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -5.919571776757948e-06,
+          "transition_shift_cm1": -6.521948560632154,
+          "excitation_cm1": 25891.255359807965,
+          "nominal_gap_cm1": 2930.4553598079656
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -1.9338303900440224e-05,
+          "transition_shift_cm1": -9.467019846833864,
+          "excitation_cm1": 26762.130666114175,
+          "nominal_gap_cm1": 2429.4406661141766
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -2.2106329197413288e-05,
+          "transition_shift_cm1": -10.074531178495818,
+          "excitation_cm1": 25955.569205451287,
+          "nominal_gap_cm1": -1106.2507945487123
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -6.01011561229825e-06,
+          "transition_shift_cm1": -6.541820635557087,
+          "excitation_cm1": 29334.424334819803,
+          "nominal_gap_cm1": -1057.8056651801962
+        }
+      ],
+      "history40": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "delta_energy_Ha": 3.3262323995586485e-05,
+          "transition_shift_cm1": 0.0,
+          "excitation_cm1": 0.0,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -4.466874088393524e-06,
+          "transition_shift_cm1": -8.280601841110183,
+          "excitation_cm1": 25889.496706527487,
+          "nominal_gap_cm1": 2928.6967065274875
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -1.5500916560995393e-05,
+          "transition_shift_cm1": -10.702294245227677,
+          "excitation_cm1": 26760.89539171578,
+          "nominal_gap_cm1": 2428.2053917157828
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -2.6226529371342622e-05,
+          "transition_shift_cm1": -13.056294162925042,
+          "excitation_cm1": 25952.58744246686,
+          "nominal_gap_cm1": -1109.2325575331415
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -2.0868908904958516e-05,
+          "transition_shift_cm1": -11.88043238607861,
+          "excitation_cm1": 29329.08572306928,
+          "nominal_gap_cm1": -1063.1442769307178
+        }
+      ]
+    },
+    "producer_work": {
+      "history10": {
+        "completed_calls": {
+          "H": 47,
+          "CI": 47,
+          "gradient": 33,
+          "optimizer": 1,
+          "validation_Dirac": 7,
+          "initial_hS": 7,
+          "CI_internal_hS": 7,
+          "geometry_eigvalsh": 36,
+          "scipy_eigh": 242,
+          "tracking_resolution": 79,
+          "tracking_SVD": 395,
+          "tracking_overlap": 80,
+          "polar_retraction": 322,
+          "polar_numpy_eigh": 0,
+          "unfiltered_target_density": 165
+        },
+        "attempted_calls": {
+          "H": 47,
+          "CI": 47,
+          "gradient": 33,
+          "optimizer": 1,
+          "validation_Dirac": 7,
+          "initial_hS": 7,
+          "CI_internal_hS": 7,
+          "geometry_eigvalsh": 36,
+          "scipy_eigh": 242,
+          "tracking_resolution": 79,
+          "tracking_SVD": 395,
+          "tracking_overlap": 80,
+          "polar_retraction": 322,
+          "polar_numpy_eigh": 0,
+          "unfiltered_target_density": 165
+        },
+        "accepted_steps": 32,
+        "accepted_step_histogram": {
+          "0.25": 1,
+          "0.5": 12,
+          "1.0": 19
+        },
+        "accepted_metadata_backtracks_sum": 14,
+        "fallback_attempt_acceptances": 0,
+        "actual_postbaseline_CI_evaluations": 46,
+        "postbaseline_CI_above_accepted_count": 14,
+        "actual_retained_secant_pair_count": null,
+        "retained_pair_count_scope": "Public saved diagnostics do not export pair retention, transport drops or history resets; capacity is not a pair count.",
+        "elapsed_uncontrolled_s": 223.35968253714964,
+        "outer_elapsed_uncontrolled_s": 223.79801099700853,
+        "wall_speedup_claim_valid": false
+      },
+      "history40": {
+        "completed_calls": {
+          "H": 43,
+          "CI": 43,
+          "gradient": 33,
+          "optimizer": 1,
+          "validation_Dirac": 7,
+          "initial_hS": 7,
+          "CI_internal_hS": 7,
+          "geometry_eigvalsh": 36,
+          "scipy_eigh": 222,
+          "tracking_resolution": 75,
+          "tracking_SVD": 375,
+          "tracking_overlap": 76,
+          "polar_retraction": 294,
+          "polar_numpy_eigh": 0,
+          "unfiltered_target_density": 165
+        },
+        "attempted_calls": {
+          "H": 43,
+          "CI": 43,
+          "gradient": 33,
+          "optimizer": 1,
+          "validation_Dirac": 7,
+          "initial_hS": 7,
+          "CI_internal_hS": 7,
+          "geometry_eigvalsh": 36,
+          "scipy_eigh": 222,
+          "tracking_resolution": 75,
+          "tracking_SVD": 375,
+          "tracking_overlap": 76,
+          "polar_retraction": 294,
+          "polar_numpy_eigh": 0,
+          "unfiltered_target_density": 165
+        },
+        "accepted_steps": 32,
+        "accepted_step_histogram": {
+          "0.25": 1,
+          "0.5": 8,
+          "1.0": 23
+        },
+        "accepted_metadata_backtracks_sum": 10,
+        "fallback_attempt_acceptances": 0,
+        "actual_postbaseline_CI_evaluations": 42,
+        "postbaseline_CI_above_accepted_count": 10,
+        "actual_retained_secant_pair_count": null,
+        "retained_pair_count_scope": "Public saved diagnostics do not export pair retention, transport drops or history resets; capacity is not a pair count.",
+        "elapsed_uncontrolled_s": 214.81509216618724,
+        "outer_elapsed_uncontrolled_s": 215.32903370889835,
+        "wall_speedup_claim_valid": false
+      }
+    },
+    "history_capacity_interpretation": {
+      "configured_capacities": {
+        "history10": 10,
+        "history40": 40
+      },
+      "both_entry_histories_empty": true,
+      "actual_retained_pairs_observed": false,
+      "capacity40_fully_exercised": false,
+      "first_possible_capacity_effect_direction": 12,
+      "maximum_directions_after_first_possible_difference": 21,
+      "scope": "32 updates cannot populate capacity40; actual positive-curvature acceptance/transport/reset counts are not exported. Divergence is evidence for these matched trajectories, not memory40 superiority."
+    },
+    "single_winner_selected": false,
+    "NIST_used_to_select_memory": false,
+    "controlled_timing_or_parallel_speedup_claim": false,
+    "new_stationarity_or_experimental_certification": false,
+    "historical_derivative_failures_unchanged": true,
+    "scope": "Two sole public ordinary-reported native runs, followed by stdlib byte hashes and saved Fraction/UID metadata arithmetic; no H/C/g independent replay."
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/run.py": "55ae5f87bcd2bcffcbddaf327efab97947c05ab2def533f371df6175365021b1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/root_launch_pair.py": "c35df62d5a8348725e8883ec1bb39b6603f43735b8585fa4df2537adc526ed14",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/root_pair_execution.json": "1ec5aa5a20e165a0e0954c3c318ecb3ccb2df85be909989a9516487a3e693918",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/handoff.json": "1e94dd64628a581a315d7f0635b071f8724c15c5c0010b7f11b6bf988e1016e3",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/contract.json": "ac1eed1005e6d5d9b78bfa9d1326b00ab3c49a3289c99e074cd5c2bd878d1746",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/preparation_verification.json": "83f83c23ee5bd5c5cc5dbc815fc183436b11cbbc38aa60b52d20396561ae529d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/execution_contract.json": "e222dae6e93548e91c8768a44885c880cbaafc7ded8a98169629b1bc47de6fee",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/actual/result.json": "ba73f5d7e4acf455923a2668c0521d8449fa304cccf1902b51dde63492b249d4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/contract.json": "acfeabaea9db4d13490a6c64f10a919d4ca27adf63f8bd5350672bfdd8994b63",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/preparation_verification.json": "c22bde9bb27eb292f7c6622ad04a5ca7c05c6eaef59893b4c6ec223cc515306d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/execution_contract.json": "f696ff6c0a1d16e076950a4226a2e09f904953a5763ad472f66bd8b94d3e0f1c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/actual/result.json": "3217dae6b8559e11628a673fdb316a1613c4b7b054b794e72caa5413ef7d48b2"
+  },
+  "completion_driver_sha256": "d0a27d693a125ff727b419b3cbcd0093352e4ad59c55662199bd3dd061bd7c43",
+  "completion_contract_sha256": "1c4ac9f0cb95313c0fbe5038cb4bd14b8006300f8d2357b67228a30b3864b7ba",
+  "scientific_calls_in_completion": 0,
+  "array_numerical_replays": 0,
+  "same_baseline_identity_check_passed": true,
+  "no_physical_imports": true,
+  "automatic_successor_authorized": false
+}

@@ -1,0 +1,35 @@
+Fri Oct  9 12:22:26 2026    docs/atomic_streaming_tail_2026_10_09/full_band_partial_profile.pstats
+
+         5380686 function calls (4751519 primitive calls) in 20.000 seconds
+
+   Ordered by: cumulative time
+   List reduced from 5889 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   20.000   20.000 runpy.py:260(run_path)
+   1105/2    0.008    0.000   19.999   10.000 {built-in method builtins.exec}
+        1    0.000    0.000   19.999   19.999 runpy.py:89(_run_module_code)
+        1    0.000    0.000   19.999   19.999 runpy.py:63(_run_code)
+        1    0.000    0.000   19.999   19.999 probe_full_band.py:1(<module>)
+        1    0.000    0.000   19.741   19.741 probe_full_band.py:16(main)
+        1    0.001    0.001   19.727   19.727 fscc.py:23(atomic_integrals)
+        1    0.020    0.020   18.460   18.460 spinor_integrals.py:246(build_spinor_integrals)
+601839/3908    0.122    0.000   18.369    0.005 {built-in method builtins.sum}
+   134263    0.116    0.000   18.288    0.000 spinor_integrals.py:306(g)
+   537050    0.216    0.000   18.155    0.000 spinor_integrals.py:301(direct)
+   132580    0.069    0.000   17.821    0.000 spinor_integrals.py:330(<genexpr>)
+  1252413    0.296    0.000   17.795    0.000 spinor_integrals.py:302(<genexpr>)
+    61519    0.182    0.000   17.541    0.000 matrix.py:746(evaluate)
+    15440    0.174    0.000   17.073    0.001 matrix.py:731(pair_potential)
+    62290   16.638    0.000   16.653    0.000 convol.py:963(_convol_case1_t)
+        7    0.001    0.000    1.265    0.181 mbpt.py:303(build_virtual_basis)
+        7    0.012    0.002    1.228    0.175 mbpt.py:158(_build_closed_shell_fock)
+      103    0.001    0.000    1.038    0.010 __init__.py:1(<module>)
+      196    0.002    0.000    0.861    0.004 convol.py:1715(compute_exchange_matrix_cell)
+    62878    0.020    0.000    0.740    0.000 convol.py:1564(get_rkb_t)
+       28    0.000    0.000    0.665    0.024 convol.py:1499(get_rkb)
+     4625    0.002    0.000    0.538    0.000 spinor_integrals.py:320(<genexpr>)
+      588    0.417    0.001    0.417    0.001 convol.py:992(_convol_case4_t)
+       14    0.000    0.000    0.322    0.023 convol.py:1676(_build_rkb_sym)
+
+

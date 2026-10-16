@@ -1,0 +1,38 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T14:07:44.338066+00:00",
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "315s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py",
+    "--execution",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/execution_contract.json"
+  ],
+  "cwd": "/data/code/atomx",
+  "launcher_sha256": "de40c4b2509aa59966e6029b7b1e13c7ac7d605e7bf33efcb833a927de938e2d",
+  "execution_contract_sha256": "c72c67d35a77894dc1b7bf1591a9e982b09fbb58cb0c636c72c3d300a9371b72",
+  "driver_sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7",
+  "contract_sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171",
+  "preparation_sha256": "1d556fb789340f42b5c295fe03e207e7608afb26a2c71d24014979cc99da2e03",
+  "thread_variables": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  },
+  "timing_scope": "uncontrolled cold qualification, no speedup certificate",
+  "exit_code": 1,
+  "elapsed_uncontrolled_seconds": 11.90246881917119,
+  "finished_utc": "2026-10-11T14:07:56.240746+00:00",
+  "log_sha256": "d87731e1f725427167358e8434e70e9ce128f6a9642d87c05276b29c9606397c",
+  "actual_files_sha256": {
+    "actual/anchors/failure.json": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b",
+    "actual/anchors/progress.json": "de3003d306bed198327d828bf8a16b6efb804593030a96b6e78107c67e27b372",
+    "actual/anchors_execution.json": "1108b8d2ec300966de5d160bb9d45863f62a49b87ca5668a828c3a0258f03baf",
+    "actual/anchors_process.json": "0a260dd1c950eda541a19b813c00e3b629cc8089d665c48f32065c684802475d",
+    "actual/failure.json": "d551f101033ea8c8a79f9faa5bdb5a42b8fc9812dc055141611e6b11f67fc167"
+  }
+}

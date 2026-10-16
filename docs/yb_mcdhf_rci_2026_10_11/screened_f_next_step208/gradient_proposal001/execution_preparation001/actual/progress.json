@@ -1,0 +1,92 @@
+{
+  "phase": "completed",
+  "attempted": {
+    "H": 2,
+    "CI": 2,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "gradient_from_weights": 3,
+    "gradient_pair_potential": 2100,
+    "retained_RDM": 1,
+    "unfiltered_target_RDM": 5,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "complete_eigh": 17,
+    "tracker_resolve": 2,
+    "tracking_SVD": 10,
+    "tracker_overlap": 3,
+    "optimizer": 0
+  },
+  "completed": {
+    "H": 2,
+    "CI": 2,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "gradient_from_weights": 3,
+    "gradient_pair_potential": 2100,
+    "retained_RDM": 1,
+    "unfiltered_target_RDM": 5,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "complete_eigh": 17,
+    "tracker_resolve": 2,
+    "tracking_SVD": 10,
+    "tracker_overlap": 3,
+    "optimizer": 0
+  },
+  "checks_count": 438,
+  "last_check": {
+    "name": "immutable_import_atomx.numerics.bspline.orbital_subspace",
+    "error": 0.0,
+    "limit": 0.0,
+    "passed": true
+  },
+  "archives_count": 20,
+  "last_archive": {
+    "path": "actual/full31_gradient_metric.npz",
+    "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+  },
+  "completed_point_names": [
+    "canonical",
+    "recovered"
+  ],
+  "hS_requests": {
+    "attempted": 76,
+    "completed": 76,
+    "hits": 69,
+    "misses": 7,
+    "by_CI": {
+      "canonical": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 31,
+        "misses": 7
+      },
+      "recovered": {
+        "attempted": 38,
+        "completed": 38,
+        "hits": 38,
+        "misses": 0
+      }
+    },
+    "carry_events": [
+      {
+        "CI": "canonical",
+        "same_workspace": false,
+        "same_nucleus": false,
+        "previous": 0,
+        "carried": 0,
+        "identical_tuples": true
+      },
+      {
+        "CI": "recovered",
+        "same_workspace": true,
+        "same_nucleus": true,
+        "previous": 7,
+        "carried": 7,
+        "identical_tuples": true
+      }
+    ]
+  },
+  "elapsed_uncontrolled_s": 46.85565616120584
+}

@@ -1,0 +1,168 @@
+F..............                                                          [100%]
+=================================== FAILURES ===================================
+________ test_signed_one_electron_matrix_and_native_iterative_consumer _________
+
+reference = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...4.05541717e-04,  2.43247497e-04, -8.37783754e-05,
+        0.00000000e+00,  0.00000000e+00]), -1, -0.1430294142494516)])
+
+    def test_signed_one_electron_matrix_and_native_iterative_consumer(reference):
+        # A closed J=0 core plus one electron has precisely δh_ac (no occupation
+        # multiplier). This anchors the signs as well as diagonal magnitudes.
+        correction = np.array([[.02, -.003, .004], [-.003, -.01, -.005], [.004, -.005, .03]])
+        op = operator(reference, correction)
+        configs = ['1s2 2s1', '1s2 3s1', '1s2 4s1']
+        bare = matrix(reference, configs)
+        changed = matrix(reference, configs, op)
+        np.testing.assert_allclose(changed-bare, correction, rtol=0, atol=2e-14)
+        action = matrix(reference, configs, op, as_operator=True)
+        np.testing.assert_allclose(action @ np.eye(3), changed, rtol=0, atol=2e-14)
+        core, od, _ = reference
+        csfs = enumerate_jj_csfs_many(configs)
+        args = (csfs, od, get_shared_orbital_basis(csfs), core._bsp_data, 4, 30)
+        dense = ci_mbpt_solve(*args, sigma1_operator=op, nuclear_potential=core._nuclear_potential)
+>       iterative = ci_mbpt_solve(*args, sigma1_operator=op, nuclear_potential=core._nuclear_potential,
+                                  n_states=2, solver='davidson', tol=1e-11)
+
+tests/test_ci_effective_one_body.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/methods/ci_mbpt.py:116: in ci_mbpt_solve
+    result = ci_solve(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+src/atomx/methods/ci.py:206: in ci_solve
+    w, v, n_iter = davidson_eigh(block, n_states=k, tol=tol, max_iter=max_iter)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+H = <3x3 _CustomLinearOperator with dtype=float64>, n_states = 2
+
+    def davidson_eigh(
+        H: np.ndarray,
+        n_states: int,
+        *,
+        tol: float = 1e-8,
+        max_iter: int = 200,
+        block_size: int | None = None,
+    ):
+        """Davidson-Liu block-iterative diagonalisation of a real symmetric
+        matrix, returning the lowest ``n_states`` eigenpairs.
+    
+        Designed for sparse-like dense CI matrices where ``n_states ≪ n``
+        so the LAPACK ``eigh`` cost (O(n³)) is wasteful.  Davidson scales
+        as O(n_iter · k · n²) with k = subspace size capped at ~5
+        n_states.
+    
+        Parameters
+        ----------
+        H
+            Real symmetric matrix (n × n).
+        n_states
+            Number of low-lying eigenpairs.
+        tol
+            Residual-norm convergence threshold per state.
+        max_iter
+            Hard iteration cap; raises ``RuntimeError`` if exceeded.
+        block_size
+            Vectors added to the subspace per iteration; default = n_states.
+    
+        Returns
+        -------
+        eigenvalues : ndarray, shape (n_states,)
+        eigenvectors : ndarray, shape (n, n_states)
+        n_iter : int
+    
+        References
+        ----------
+        - E. R. Davidson, *J. Comput. Phys.* **17**, 87 (1975).
+        - B. Liu, *Lawrence Berkeley Lab. Tech. Rep.* **8158** (1978).
+        """
+        n = H.shape[0]
+        if H.shape != (n, n):
+            raise ValueError(f"H must be square; got shape {H.shape}.")
+        if n_states < 1:
+            raise ValueError("n_states must be positive.")
+        if n_states > n:
+            raise ValueError(f"n_states={n_states} exceeds matrix dim {n}.")
+        if max_iter < 1:
+            raise ValueError("max_iter must be ≥ 1.")
+        if block_size is None:
+            block_size = n_states
+        if block_size < 1:
+            raise ValueError("block_size must be ≥ 1.")
+        rnorms = np.full(n_states, np.inf)  # for the RuntimeError diagnostics
+    
+        # Build initial guess: lowest-diagonal CSFs (cheap and effective
+        # for diagonally dominant CI matrices).
+        diag = np.asarray(H.diagonal() if hasattr(H, "diagonal") else np.diag(H)).real
+        initial_indices = np.argsort(diag)[:n_states]
+        V = np.zeros((n, n_states))
+        for i, idx in enumerate(initial_indices):
+            V[idx, i] = 1.0
+        V, _ = np.linalg.qr(V)
+        HV = H @ V
+    
+        max_subspace = min(n, max(8 * n_states, n_states + 20))
+    
+        for it in range(1, max_iter + 1):
+            # Rayleigh-Ritz projection
+            T = V.T @ HV
+            T = 0.5 * (T + T.T)  # enforce symmetry against drift
+            eigvals, eigvecs = linalg.eigh(T)
+            eigvals = eigvals[:n_states]
+            eigvecs = eigvecs[:, :n_states]
+    
+            ritz_vec = V @ eigvecs
+            ritz_HV = HV @ eigvecs
+            residuals = ritz_HV - ritz_vec * eigvals[None, :]
+            rnorms = np.linalg.norm(residuals, axis=0)
+    
+            if np.all(rnorms < tol):
+                return eigvals, ritz_vec, it
+    
+            # Davidson preconditioner: t_i = -r_i / (D - λ_i)
+            if V.shape[1] + block_size > max_subspace:
+                # Restart: shrink subspace to current Ritz vectors
+                V = ritz_vec.copy()
+                HV = ritz_HV.copy()
+                continue
+    
+            new_dirs: list[np.ndarray] = []
+            for i in range(min(block_size, n_states)):
+                if rnorms[i] < tol:
+                    continue
+                denom = diag - eigvals[i]
+                denom = np.where(np.abs(denom) > 1e-10, denom, 1.0)
+                t = -residuals[:, i] / denom
+                # Orthogonalise against V
+                t = t - V @ (V.T @ t)
+                nrm = np.linalg.norm(t)
+                if nrm < 1e-14:
+                    continue
+                t /= nrm
+                # Orthogonalise against pending new directions
+                for nd in new_dirs:
+                    t = t - nd * (nd @ t)
+                    nrm = np.linalg.norm(t)
+                    if nrm < 1e-14:
+                        break
+                    t /= nrm
+                if nrm > 1e-14:
+                    new_dirs.append(t)
+    
+            if not new_dirs:
+                raise RuntimeError(
+                    "Davidson stalled before convergence; no independent "
+                    f"correction vectors could be generated. residuals = {rnorms}."
+                )
+    
+            T_new = np.column_stack(new_dirs)
+            V = np.column_stack([V, T_new])
+            HV = np.column_stack([HV, H @ T_new])
+    
+>       raise RuntimeError(
+            f"Davidson did not converge in {max_iter} iterations; "
+            f"residuals = {rnorms}."
+        )
+E       RuntimeError: Davidson did not converge in 200 iterations; residuals = [0.00395929 0.0050323 ].
+
+src/atomx/methods/ci.py:437: RuntimeError
+=========================== short test summary info ============================
+FAILED tests/test_ci_effective_one_body.py::test_signed_one_electron_matrix_and_native_iterative_consumer
+1 failed, 14 passed in 0.95s

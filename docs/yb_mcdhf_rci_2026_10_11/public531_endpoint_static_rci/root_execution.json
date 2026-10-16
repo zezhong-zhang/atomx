@@ -1,0 +1,22 @@
+{
+  "created_at_utc": "2026-10-11T09:41:24.405017+00:00",
+  "foreground_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/run.py",
+    "solve",
+    "--execution-contract",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/execution_contract.json"
+  ],
+  "driver_sha256": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2",
+  "execution_contract_sha256": "59a62bccafb453d6d0b89fa8c9b98e95612c10ddb3e6a6ceaaf9cbf1b67681a3",
+  "launcher_sha256": "19f049b8c8fff0444f8a06a021a71adb05cb2abbd48ba09d0b8d27af3e8da25e",
+  "outer_wall_cap_s": 210,
+  "exit_code": 0,
+  "outer_wall_cap_stopped": false,
+  "elapsed_s": 31.859440033091232,
+  "log_sha256": "94fb78edabdca36d88b9de75864f793db811dfab09f31199629fa0f0955f27a0",
+  "execution_contract_unchanged": true,
+  "driver_unchanged": true,
+  "controlled_performance_claim": false
+}

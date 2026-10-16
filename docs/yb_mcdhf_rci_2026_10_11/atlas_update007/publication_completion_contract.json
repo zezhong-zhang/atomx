@@ -1,0 +1,38 @@
+{
+  "status": "prospective_saved_metadata_closure_authorized_by_parent_after_actual_v8_deployment",
+  "scope": "atlas_update007 saved metadata only",
+  "script_sha256": "6879068669517d91a10ba1804834e7c7772f15338a05e745d23f56b7050930bc",
+  "inputs_sha256": {
+    "data_verification.json": "aac6dff43b8007b7c109150c980f9067861adf7ea6cb0cf83d4fd466f7419751",
+    "browser_result.json": "acb4525bee595cfcd8b53d307b4e43423e4c9d1157fc31b5cad24720bccec92b",
+    "browser_execution.json": "2d2f4c470ff1206de2a999c708b790f019695a27bcd9e2ee6bb33c64a98aacd2",
+    "root_browser_execution_contract.json": "1790fe7b7d60ea559753bd9ce051b641122eb1c68758264b3fa092edb59bf19a",
+    "root_publication_preflight.json": "5bd0f36ec53fc2d7db2a17a94898495e30ad1bfeb6dd774bb1f2af5779f1f23c",
+    "root_push_and_archive.json": "428c92144daecb846b76efceee116842f656f89d0fefa8bef665b5cd8892a35f",
+    "root_source_commit.json": "acfd33eab7bb7734a09770bb8a9f198b59dde8d04587f4264a2ef86ba4b11fc6",
+    "saved_site_version.json": "5035563be2c858a07219f0ce5af01b6da70af4756bc2fe0fa875a9ebe31d8c73",
+    "deployment_result.json": "317c6d1fbbc76d91efd3ccc3ad0dd6c93da17afb9d8d6d3fad9b8b5e3a9d1f83",
+    "root_owner_audience.json": "2a06a5ce280c37781c882bf5d612fd68eaf7ca8a2b312905e0582c889bfc4728",
+    "README.md": "0acb478bde22399946b1a3d02f64f6bae15f00b6105ee4ed19ece2e5ce8a4855",
+    "docimpact.json": "f3fb18ed19cab6de080d5ffb20a2e0de7705c385275a19dd537c5508cf461a0e"
+  },
+  "old_current_document_inputs_archived_as": {
+    "README.md": "prepublication_docs/README.md",
+    "docimpact.json": "prepublication_docs/docimpact.json"
+  },
+  "resource_scope": "Tiny stdlib JSON/stat/hash/document consumer only; no tar decoding/rehash, array imports or external execution.",
+  "acceptance": "12 saved metadata checks before document changes; fail preserves actual evidence and does not run browser/API/science.",
+  "expected_deployment_id": "appgdep_6acbc582942881918eab0153038721aa",
+  "expected_version_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f~appgver_34ba36d925e88191ace29f18672ebe8c",
+  "forbidden": [
+    "scientific calls",
+    "NumPy/Atomx/NPZ imports",
+    "browser",
+    "API",
+    "publishing",
+    "new credentials",
+    "commit",
+    "main campaign README/registry edits"
+  ],
+  "old_receipt_source_scope": "Already closed root browser/publication facts, not new execution or scientific qualification."
+}

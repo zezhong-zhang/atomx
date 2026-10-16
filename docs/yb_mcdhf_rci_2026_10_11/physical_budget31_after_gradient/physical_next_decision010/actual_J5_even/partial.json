@@ -1,0 +1,417 @@
+{
+  "status": "PASS_complete_signed_density_and_analytic_radial_gradient",
+  "case": "J5_even",
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "checks": [
+    {
+      "name": "owned original radial/nuclear binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original metric identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram -4",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave -4",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction -4",
+      "observed": 1.4474099002681484e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram -3",
+      "observed": 1.2212453270876722e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave -3",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction -3",
+      "observed": 1.214306433183765e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram -2",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave -2",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction -2",
+      "observed": 9.71445146547012e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram -1",
+      "observed": 3.6637359812630166e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave -1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction -1",
+      "observed": 1.6479873021779667e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram 1",
+      "observed": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave 1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction 1",
+      "observed": 2.42861286636753e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram 2",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave 2",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction 2",
+      "observed": 2.0816681711721685e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "radial Gram 3",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "coordinate wave 3",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "tangent direction 3",
+      "observed": 1.5178830414797062e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "unique full signed CSF order",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "prior source-bound sector PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete 4f12 signed basis",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A exact saved nesting",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A original residual acceptance",
+      "observed": 6.4280023745459e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "A original norm",
+      "observed": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "A original signed overlap",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A original energy binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B exact saved nesting",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B original residual acceptance",
+      "observed": 5.23635588675874e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "B original norm",
+      "observed": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "B original signed overlap",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "B original energy binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "all 31 radial coordinates",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "one graph traversal per block",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete ordered pair census",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "positive actual CI norm 0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete finite key capacity 0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete finite gradient 0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "owned energy reconstruction 0",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "independent four-slot derivative 0",
+      "observed": 7.902012377769552e-14,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "positive actual CI norm 1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete finite key capacity 1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete finite gradient 1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "owned energy reconstruction 1",
+      "observed": 3.637978807091713e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "independent four-slot derivative 1",
+      "observed": 5.981326545168031e-14,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "unchanged current source after science",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "no retained angular table calls",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    }
+  ],
+  "counts": {
+    "connection_graphs": 1,
+    "ordered_pairs": 35054314
+  },
+  "states": {
+    "0": {
+      "arm": "A",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "energy_Ha": -14067.446779142374,
+      "actual_CI_norm": 0.9999999999999991,
+      "radial_keys": 18645,
+      "reconstruction_energy_Ha": -14067.446779142389,
+      "directional_action_Ha": -0.17066887914111276,
+      "independent_forward_Ha": -0.17066887914103374,
+      "forward_components_Ha": {
+        "h": -42.61666385500649,
+        "r": 42.44599497586546
+      },
+      "gradient_norm": 774.6592792788105,
+      "weights_sha256": "ded722fe4bbf6fbd4d87706b7ad2944d9747f59d24cf5f7192bb4f792d0a8b2f"
+    },
+    "1": {
+      "arm": "B",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "energy_Ha": -14067.459740483184,
+      "actual_CI_norm": 1.000000000000001,
+      "radial_keys": 19292,
+      "reconstruction_energy_Ha": -14067.459740483187,
+      "directional_action_Ha": -0.1681089314415337,
+      "independent_forward_Ha": -0.16810893144147387,
+      "forward_components_Ha": {
+        "h": -42.63386116481484,
+        "r": 42.465752233373365
+      },
+      "gradient_norm": 774.6460608136954,
+      "weights_sha256": "26cd678833d150c63c24f9ca282a1e088292e6ec33b30a93eef953f63e040223"
+    }
+  },
+  "host_load": [
+    0.966796875,
+    0.818359375,
+    0.75
+  ],
+  "CPU": 30,
+  "ordinary_FD005_superseded": false,
+  "stationarity_qualified": false,
+  "experimental_accuracy_qualified": false,
+  "public_full_spectrum_owner": false,
+  "controlled_timing": false,
+  "radial_binding": {
+    "external": [
+      "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+      "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+      "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+      "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+      "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+      "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+      "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+      "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+      "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+      "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+      "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+      "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+      "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+      "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+      "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+      "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+      "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+      "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+      "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+      "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+      "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+      "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+      "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+      "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+      "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+      "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+      "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+      "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+      "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+      "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+      "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+    ],
+    "core": [],
+    "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+    "Z": 70,
+    "ns": 123,
+    "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+  },
+  "direction_sha256": "a57552f82a82b4aeaeaa552c97548bd14c934b9472c6ff69b4e9541033449362",
+  "stage": "complete",
+  "elapsed_seconds": 624.9359587149993,
+  "peak_RSS_MiB": 2112.3125,
+  "distinct_radial_values": 19292,
+  "distinct_forward_derivatives": 19292,
+  "gradient_arrays_sha256": "6a91f11ca72b4b3af46cbf4c7f4348c6105972eb94646e98a4770c4fcde230f5"
+}

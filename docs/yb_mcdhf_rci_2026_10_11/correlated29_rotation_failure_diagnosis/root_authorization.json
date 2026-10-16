@@ -1,0 +1,27 @@
+{
+  "readonly_execution_authorized_by_root": true,
+  "created_utc": "2026-10-11T13:26:36.953390+00:00",
+  "contract_sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+  "driver_sha256": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d",
+  "parent_agent": "/root",
+  "parent_authorization_message": "\u5df2\u5b8c\u6574\u5ba1\u9605 contract7a5bcf04/driver7cdcb250\uff1a\u56fa\u5b9a001/002\u4fdd\u5b58\u6570\u7ec4\u3001\u539f3451 P/seed/h\u3001logical/raw\u53ca\u5b8c\u6574g exact actions\uff1b\u5176\u6761\u4ef6\u7ebf\u6027\u9884\u6d4b\u4e0d\u80fd\u5347\u7ea7\u539f\u95e8\u6216\u8bc1\u660e\u4e24\u4f53\u754c\u3002\u6388\u6743\u4e00\u6b21\u524d\u53f0 saved-only\u6267\u884c\uff0cCPU31/\u7ebf\u7a0b1/2GiB/90s\u5185\u5c42\u4e0e105s\u5916\u5c42hardtimeout\uff0c\u22648m\u8ba1\u6570\uff0c0H/CI/g/Dirac/\u8c31/RDM/cells\u3002\u8bf7\u5199 root_authorization.json \u7cbe\u786e\u7ed1\u5b9a\u8fd9\u4e24\u4e2aSHA\u53ca\u672c\u6d88\u606f\uff1b\u540c\u65f6\u7ed1\u5b9a\u65b0\u5361 om_x100b638c9148f0a0c3702e452b8bc6f\uff0ccycle mcdhf-stage015\uff08send_stdout/readback\u5df2\u5728delivery_stage015\uff0creceipt dispatch=true\uff09\u3002\u5148\u5b8c\u6574\u5199launcher/outer execution contract\u518d\u6267\u884c\u4e00\u6b21\uff0c\u4efb\u4f55\u5931\u8d25\u4fdd\u5b58\u505c\u6b62\u3002\u7ed9\u5b9e\u9645\u5206\u91cf\u3001\u8ba1\u6570\u548c\u5269\u4f59\u91cf\uff0c\u4e0d\u79f0qualified\u6216\u653e\u884c\u4f18\u5316\u3002",
+  "parent_message_utf8_sha256": "143282b0b11e01b5d0d038b042d4574614d4b35ef80c0701584c92fdc3bda00a",
+  "CPU": 31,
+  "threads": 1,
+  "address_space_GiB": 2,
+  "wall_seconds": 90,
+  "outer_wall_seconds": 105,
+  "max_exact_dyadic_scalar_products": 8000000,
+  "H_CI_gradient_Dirac_eigen_RDM_cells_max": 0,
+  "execution_count": 1,
+  "iteration_trigger": {
+    "cycle": "mcdhf-stage015",
+    "message_id": "om_x100b638c9148f0a0c3702e452b8bc6f",
+    "dispatch_ok": true,
+    "files_sha256": {
+      "delivery_proof.json": "ea1805a8c06f00d108b26b6480fcd37d9d3faba72c0ed10ae764473fd407b6fa",
+      "send_stdout.json": "40e9d48bb4ea400c73af73f988b20df223f14cd29d11d53a727ae135ba3ba2c4",
+      "readback.json": "a2b4c298baff53dbf4fbde90c9158b6d722fcc820f3e3cd131c86009dc7ed1fa"
+    }
+  }
+}

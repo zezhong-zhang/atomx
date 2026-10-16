@@ -1,0 +1,441 @@
+{
+  "created_at_UTC": "2026-10-11T04:15:53.722Z",
+  "task": "Independent root delivery evidence review",
+  "auditor": "benchmark_ambit",
+  "scope": "Read-only hashing and arithmetic verification; only this new audit file is written. No scientific implementation changes, no performance measurements and no tests rerun.",
+  "relative_paths_root": "docs/atomic_external_benchmark_2026_10_11",
+  "hash_verification": {
+    "gpu": {
+      "manifest": "docs/atomic_external_benchmark_2026_10_11/gpu/summary.json",
+      "manifest_sha256_before": "80ec6098d5b26a6b0c710811abe63d71345633564aa8d0d65c343893c4338b78",
+      "declared_file_count": 9,
+      "actual_entry_count": 9,
+      "checked_count": 9,
+      "verified_count": 9,
+      "missing": [],
+      "sha256_mismatch": [],
+      "size_mismatch": [],
+      "path_escape": [],
+      "changed_during_read": [],
+      "total_verified_bytes": 4543224,
+      "manifest_sha256_after": "80ec6098d5b26a6b0c710811abe63d71345633564aa8d0d65c343893c4338b78",
+      "manifest_unchanged": true,
+      "wall_seconds": 0.0027878249529749155,
+      "passed": true
+    },
+    "ambit": {
+      "manifest": "docs/atomic_external_benchmark_2026_10_11/ambit/artifact_manifest.json",
+      "manifest_sha256_before": "f05586d59ee99dca35c38286bde8d7c7391facdf68347718b48a460fd0aa3e32",
+      "declared_file_count": 860,
+      "actual_entry_count": 860,
+      "checked_count": 860,
+      "verified_count": 860,
+      "missing": [],
+      "sha256_mismatch": [],
+      "size_mismatch": [],
+      "path_escape": [],
+      "changed_during_read": [],
+      "total_verified_bytes": 370226301,
+      "manifest_sha256_after": "f05586d59ee99dca35c38286bde8d7c7391facdf68347718b48a460fd0aa3e32",
+      "manifest_unchanged": true,
+      "wall_seconds": 0.19318543490953743,
+      "passed": true
+    },
+    "fscc": {
+      "manifest": "docs/atomic_external_benchmark_2026_10_11/fscc/run003/output_sha256.json",
+      "manifest_sha256_before": "568912d8ca1ad5112ebbe707f59339e673eb91da1727a944bb3f0e2dcae5b070",
+      "declared_file_count": 960,
+      "actual_entry_count": 960,
+      "checked_count": 960,
+      "verified_count": 960,
+      "missing": [],
+      "sha256_mismatch": [],
+      "size_mismatch": [],
+      "path_escape": [],
+      "changed_during_read": [],
+      "total_verified_bytes": 108719354,
+      "manifest_sha256_after": "568912d8ca1ad5112ebbe707f59339e673eb91da1727a944bb3f0e2dcae5b070",
+      "manifest_unchanged": true,
+      "wall_seconds": 0.07344077399466187,
+      "passed": true
+    }
+  },
+  "totals": {
+    "declared_registered_entries": 1829,
+    "checked_registered_entries": 1829,
+    "verified_registered_entries": 1829,
+    "sha256_mismatches": 0,
+    "size_mismatches": 0,
+    "missing_registered_artifacts": 0,
+    "registered_artifacts_changed_during_read": 0,
+    "verified_bytes": 483488879
+  },
+  "fscc_paired_statistics": {
+    "declared_path": "fscc/paired_statistics.json",
+    "declared_sha256": "4ef35af0368a26082138d99a188462e2c8704787163c9db21278f705574305c3",
+    "all_five_rounds_retained": true,
+    "backend_rounds": [
+      {
+        "round": 0,
+        "T1_seconds": 0.6388289709575474,
+        "T2_seconds": 1.079604689963162,
+        "S2": 0.5917248942104405,
+        "E2": 0.29586244710522025,
+        "p1_actual_threads": 1,
+        "p2_actual_threads": 5,
+        "all_pair_environment_gates_pass": true,
+        "full_signed_correctness_pass": true,
+        "p1_record": "run003/scaling_r0_p1/benchmark_sample.json",
+        "p2_record": "run003/scaling_r0_p2/benchmark_sample.json"
+      },
+      {
+        "round": 1,
+        "T1_seconds": 0.6260961579391733,
+        "T2_seconds": 1.211967637995258,
+        "S2": 0.5165947821633361,
+        "E2": 0.25829739108166805,
+        "p1_actual_threads": 1,
+        "p2_actual_threads": 5,
+        "all_pair_environment_gates_pass": true,
+        "full_signed_correctness_pass": true,
+        "p1_record": "run003/scaling_r1_p1/benchmark_sample.json",
+        "p2_record": "run003/scaling_r1_p2/benchmark_sample.json"
+      },
+      {
+        "round": 2,
+        "T1_seconds": 0.623728564940393,
+        "T2_seconds": 1.0500594939803705,
+        "S2": 0.593993548476076,
+        "E2": 0.296996774238038,
+        "p1_actual_threads": 1,
+        "p2_actual_threads": 4,
+        "all_pair_environment_gates_pass": true,
+        "full_signed_correctness_pass": true,
+        "p1_record": "run003/scaling_r2_p1/benchmark_sample.json",
+        "p2_record": "run003/scaling_r2_p2/benchmark_sample.json"
+      },
+      {
+        "round": 3,
+        "T1_seconds": 0.6271017839899287,
+        "T2_seconds": 1.1210254529723898,
+        "S2": 0.559400129878562,
+        "E2": 0.279700064939281,
+        "p1_actual_threads": 1,
+        "p2_actual_threads": 4,
+        "all_pair_environment_gates_pass": true,
+        "full_signed_correctness_pass": true,
+        "p1_record": "run003/scaling_r3_p1/benchmark_sample.json",
+        "p2_record": "run003/scaling_r3_p2/benchmark_sample.json"
+      },
+      {
+        "round": 4,
+        "T1_seconds": 0.6333507139934227,
+        "T2_seconds": 1.3753663130337372,
+        "S2": 0.4604960205811634,
+        "E2": 0.2302480102905817,
+        "p1_actual_threads": 1,
+        "p2_actual_threads": 4,
+        "all_pair_environment_gates_pass": true,
+        "full_signed_correctness_pass": true,
+        "p1_record": "run003/scaling_r4_p1/benchmark_sample.json",
+        "p2_record": "run003/scaling_r4_p2/benchmark_sample.json"
+      }
+    ],
+    "private_wrapper_rounds": [
+      {
+        "round": 0,
+        "bare_seconds": 0.30947205796837807,
+        "private_wrapper_seconds": 0.31523155502509326,
+        "paired_extra_seconds": 0.00575949705671519,
+        "environment_and_precision_pass": true
+      },
+      {
+        "round": 1,
+        "bare_seconds": 0.31013592903036624,
+        "private_wrapper_seconds": 0.3219283090438694,
+        "paired_extra_seconds": 0.011792380013503134,
+        "environment_and_precision_pass": true
+      },
+      {
+        "round": 2,
+        "bare_seconds": 0.31548883102368563,
+        "private_wrapper_seconds": 0.3130292739951983,
+        "paired_extra_seconds": -0.0024595570284873247,
+        "environment_and_precision_pass": true
+      },
+      {
+        "round": 3,
+        "bare_seconds": 0.3121967740589753,
+        "private_wrapper_seconds": 0.31359231495298445,
+        "paired_extra_seconds": 0.001395540894009173,
+        "environment_and_precision_pass": true
+      },
+      {
+        "round": 4,
+        "bare_seconds": 0.31517012894619256,
+        "private_wrapper_seconds": 0.3218937939964235,
+        "paired_extra_seconds": 0.00672366505023092,
+        "environment_and_precision_pass": true
+      }
+    ],
+    "median_paired_S2": 0.559400129878562,
+    "median_paired_E2": 0.279700064939281,
+    "process_thread_E": 0.11188002597571241,
+    "median_private_wrapper_paired_extra_seconds": 0.00575949705671519,
+    "difference_of_median_private_wrapper_times_seconds": 0.003034780966117978,
+    "all_backend_precision_environment_gates_pass": true,
+    "all_wrapper_precision_environment_gates_pass": true,
+    "declared_vs_recomputed_failures": [],
+    "root_metrics_checks": null,
+    "note": "Current result.json backend S2 happens numerically to equal the paired median. Wrapper median-of-differences and difference-of-medians are distinct and both retained."
+  },
+  "retained_failure_and_historical_evidence": [
+    {
+      "path": "fscc/run001/stopped_thread_budget.json",
+      "exists": true,
+      "bytes": 3054,
+      "sha256": "4a008ca2fa712e6dc81be096774f09dc378ac2beec7c62ac21d2436173a96b91"
+    },
+    {
+      "path": "fscc/thread_preflight001/result.json",
+      "exists": true,
+      "bytes": 6732,
+      "sha256": "088a8a83512ba079ae40db0245f2b3625cc32a7038fe3367ea20e67892913d00"
+    },
+    {
+      "path": "fscc/thread_preflight001/p2/runtime_thread_cap_rejection.json",
+      "exists": true,
+      "bytes": 1364,
+      "sha256": "73c12ce5e75a493cb0d38b74fd6d87fa9ddbb68ca60a9495394a84209f285cf6"
+    },
+    {
+      "path": "fscc/thread_preflight002/result.json",
+      "exists": true,
+      "bytes": 13463,
+      "sha256": "51b98f5027fb5fbfa2c93d25df44bca3b1c90d8cf8615d26f4611392f0517d9f"
+    },
+    {
+      "path": "fscc/thread_preflight002/p4/runtime_thread_cap_rejection.json",
+      "exists": true,
+      "bytes": 1438,
+      "sha256": "f94bb04f2f8962ade451e0de7d489fcb79bbe66aabcc82785fbd43aca760ce64"
+    },
+    {
+      "path": "fscc/run002/result.json",
+      "exists": true,
+      "bytes": 180015,
+      "sha256": "de7e0c8eb32a7b7ba52429b2165b585dd8b63bb148b4b36d48c9773741cf6834"
+    },
+    {
+      "path": "fscc/run002/raw_samples.json",
+      "exists": true,
+      "bytes": 166079,
+      "sha256": "342904b80e4b530f9f2a89ed9c07a6c3fa5c2bf93e394752046539ef27b543b2"
+    },
+    {
+      "path": "fscc/run002/contract.json",
+      "exists": true,
+      "bytes": 124585,
+      "sha256": "1325a865e3c5c9e19115a88a767d68dcd1ba360a383e8e040f19c29bd1d64819"
+    },
+    {
+      "path": "ambit/result.json",
+      "exists": true,
+      "bytes": 176480,
+      "sha256": "c485f7d0241a789549bc0effc1e44ec74373a47c95b9f115d5e3576d57c6b8fc"
+    },
+    {
+      "path": "ambit/benchmark_v002.stdout",
+      "exists": true,
+      "bytes": 2280,
+      "sha256": "4c39390a666d00e01c9d7b8b5cba74d87d6495f3f61742dd7b25ab60d2983e6c"
+    },
+    {
+      "path": "ambit/benchmark_v002.stderr",
+      "exists": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ambit/timer_amendment.json",
+      "exists": true,
+      "bytes": 538,
+      "sha256": "d8393c14805b66cca58128ae34b158f115f1a1e4d4a5665b0726698fd4ca78db"
+    },
+    {
+      "path": "sd/yb_stage001/failure.json",
+      "exists": true,
+      "bytes": 196,
+      "sha256": "5cb799fff2f844408c7cdbc648b4060c413db08dd2019bef233abb90ca719895"
+    },
+    {
+      "path": "sd/yb_stage002/stopped_for_round_partition.json",
+      "exists": true,
+      "bytes": 1120,
+      "sha256": "40323cea35455ce968f16b6cc2bd07f7d8d08e778ff9f8c284a3705545a5f832"
+    },
+    {
+      "path": "sd/resource_partition.json",
+      "exists": true,
+      "bytes": 1562,
+      "sha256": "4f5f62c4a3766de99115c0a3b50461cfd7fe2c5822cf8f1dcb7ecf1172679c7e"
+    },
+    {
+      "path": "ambit/failure_adapter001/benchmark.stderr",
+      "exists": true,
+      "bytes": 779,
+      "sha256": "cb96b4a57d24de9ec17043e95713888ba4dd3b042d1acea8b43b98ec7b49275d"
+    },
+    {
+      "path": "ambit/matched_round00/atomx.stderr",
+      "exists": true,
+      "bytes": 1008,
+      "sha256": "e37c623bdd637c1263ddcdfe5087026635fccbd29558094423e2fe49ffc8b593"
+    },
+    {
+      "path": "fscc/run002/timing_review_withdrawal.json",
+      "exists": true,
+      "bytes": 857,
+      "sha256": "484f5b95d49788a43f37ae02f0b6f12242f7cc9ef9b7ffe56d0cf6f95410ee6e"
+    },
+    {
+      "path": "fscc/README.md",
+      "exists": true,
+      "bytes": 11083,
+      "sha256": "8cf074f97e796fef0b861931c3ad0f23f7baa55d74502af91e981d75967f8fee"
+    },
+    {
+      "path": "fscc/paired_statistics.json",
+      "exists": true,
+      "bytes": 1410,
+      "sha256": "4ef35af0368a26082138d99a188462e2c8704787163c9db21278f705574305c3"
+    },
+    {
+      "path": "aggregate.py",
+      "exists": true,
+      "bytes": 11125,
+      "sha256": "8ca46d70c53899629ec72d45f5e83537cdb4017422d851f89608c6c076e13292"
+    }
+  ],
+  "old_FSCC_polling_epoch": {
+    "raw_backend_records": 20,
+    "raw_finite_CI_records": 10,
+    "individual_backend_sample_files": 24,
+    "all_original_backend_times_equal_individual_records": true,
+    "all_original_backend_records_retain_times": true,
+    "old_polling_scaling_observed_seconds": {
+      "1": [
+        0.6647330630803481,
+        0.6646802530158311,
+        0.66461978899315,
+        0.6646396769210696,
+        0.6645734419580549
+      ],
+      "2": [
+        1.0652536670677364,
+        1.0650306360330433,
+        1.0651016000192612,
+        1.0652596279978752,
+        1.0651525559369475
+      ]
+    }
+  },
+  "FSCC_resource_rejections": [
+    {
+      "requested_workers": 4,
+      "status": "resource_rejected",
+      "claimed_observed_peak_threads": 9,
+      "recomputed_rejection_peak_threads": 10,
+      "speedup": null,
+      "logical_efficiency": null,
+      "process_efficiency": null,
+      "all_controlled_ratios_null": true,
+      "evidence": "fscc/thread_preflight002/p4/runtime_thread_cap_rejection.json",
+      "evidence_sha256": "f94bb04f2f8962ade451e0de7d489fcb79bbe66aabcc82785fbd43aca760ce64"
+    },
+    {
+      "requested_workers": 8,
+      "status": "resource_rejected",
+      "claimed_observed_peak_threads": 25,
+      "recomputed_rejection_peak_threads": 25,
+      "speedup": null,
+      "logical_efficiency": null,
+      "process_efficiency": null,
+      "all_controlled_ratios_null": true,
+      "evidence": "fscc/run001/stopped_thread_budget.json",
+      "evidence_sha256": "4a008ca2fa712e6dc81be096774f09dc378ac2beec7c62ac21d2436173a96b91"
+    }
+  ],
+  "claim_warnings": [
+    {
+      "field": "FSCC resource rejected p4 observed total peak",
+      "declared_peak": 9,
+      "actual_rejection_record_peak": 10,
+      "impact": "Resource rejection remains valid; report first threshold crossing and final sampled peak separately.",
+      "resolved_in_final_documentation": true,
+      "resolution_path": "fscc/README.md",
+      "resolution": "The frozen field 9 is first over-limit observation; final runtime rejection peak is 10. Neither rejected team receives speedup or efficiency."
+    }
+  ],
+  "GPU_guard_semantics": {
+    "controlled_speedup_null": true,
+    "controlled_efficiency_null": true,
+    "original_GPU_load_guard_rejected": true,
+    "complete_signed_CPU_and_GPU_science_gates_pass": true,
+    "all_five_observations_retained": true
+  },
+  "old_AMBiT_polling_epoch": {
+    "matched_pairs_retained": 5,
+    "native_thread_panels": {
+      "2": {
+        "pairs_retained": 5,
+        "executions_retained": 10,
+        "all_requested_cwds_exist": true,
+        "all_outer_polling_times_retained": true
+      },
+      "4": {
+        "pairs_retained": 5,
+        "executions_retained": 10,
+        "all_requested_cwds_exist": true,
+        "all_outer_polling_times_retained": true
+      },
+      "8": {
+        "pairs_retained": 5,
+        "executions_retained": 10,
+        "all_requested_cwds_exist": true,
+        "all_outer_polling_times_retained": true
+      }
+    },
+    "interpretation": "All old completion-poll observations remain frozen as deployed workflow observations; corrected child wait4 table supersedes native-lifetime interpretation, without deleting slow rounds."
+  },
+  "old_FSCC_run001": {
+    "declared_samples_preserved": 26,
+    "actual_sample_file_count": 26,
+    "every_stopped_record_directory_and_raw_sample_present": true,
+    "controlled_speedup_null": true
+  },
+  "FSCC_old_polling_withdrawal": {
+    "original_result_hash_matches": true,
+    "original_manifest_hash_matches": true,
+    "performance_speedup_and_efficiency_null": true,
+    "science_arrays_retained": true
+  },
+  "failure_list": [],
+  "resolved_observations": [
+    {
+      "field": "FSCC resource rejected p4 observed total peak",
+      "declared_peak": 9,
+      "actual_rejection_record_peak": 10,
+      "impact": "Resource rejection remains valid; report first threshold crossing and final sampled peak separately.",
+      "resolved_in_final_documentation": true,
+      "resolution_path": "fscc/README.md",
+      "resolution": "The frozen field 9 is first over-limit observation; final runtime rejection peak is 10. Neither rejected team receives speedup or efficiency."
+    }
+  ],
+  "interpretation": "The 1,829 registered files match their frozen SHA-256 manifests. All five FSCC paired scaling and private-wrapper observations match declared paired statistics; slow and negative-delta rounds are retained. Historical polling records, resource rejections and failed pilots remain. This audit verifies archived identity and statistics, not experimental accuracy or a full independent solver performance rank.",
+  "no_performance_experiments_run": true,
+  "no_tests_rerun": true,
+  "archive_unchanged": true,
+  "all_required_checks_pass": true,
+  "documentation_impact": "This additive audit is outside the immutable 860-file AMBiT manifest. The measured source archives, scientific arrays, old and final result files, shared guides and production implementation were not modified."
+}

@@ -15,7 +15,7 @@ repos:
     hooks:
       - id: end-of-file-fixer
         # Preserve byte identities of delivered evidence and generated reports.
-        exclude: &delivered_evidence '^docs/(agentic_science_beijing_light_source_2026_10_06|rare_earth_yb_spectrum_2026_10_08|spectroscopy_science_story_2026_10_06)/'
+        exclude: &delivered_evidence '^docs/([^/]+_20[0-9]{2}_[0-9]{2}_[0-9]{2}/|archive/)'
       - id: trailing-whitespace
         exclude: *delivered_evidence
       - id: check-merge-conflict

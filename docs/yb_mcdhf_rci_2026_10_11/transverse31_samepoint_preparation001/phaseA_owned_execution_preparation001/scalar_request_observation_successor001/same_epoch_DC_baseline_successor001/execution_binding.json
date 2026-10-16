@@ -1,0 +1,188 @@
+{
+  "execution_authorized_by_root": true,
+  "contract_sha256": "d2b055c39ec7bd720634b3be60ea5f82e2e3abb2a57f2565597b9f01305e7c42",
+  "driver_sha256": "5c85ed7971e68667870fbfaea6411322cff576d157b7b73c1dcc79ef80f62f7f",
+  "preparation_sha256": "28211310be0d5d88ce36bb59f842b597bb5d3ca13621c8f929cc21bf6bf0cdae",
+  "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+  "input_roles": {
+    "literal31_recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "literal31_DC_H_E_C": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_whole_CI.npz",
+      "sha256": "22d8b69d958663ec8cb915ad225eccb2e92032914a7ec342058a2c4e1c46ee9e"
+    },
+    "original31_fullmetric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce"
+    },
+    "completion.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+    },
+    "actual/result.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+    },
+    "actual/recovered_owner.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/DC_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2"
+    },
+    "actual/recovered_tracking.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f"
+    },
+    "actual/new_objective_identity.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "NIST_nominal_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_same_point_evidence.json",
+      "sha256": "1081af357943708a5ede027746cd90785d45402756dde63b8661821bdd713d40"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source_identity.json",
+      "sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a"
+    },
+    "primary_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/root_execution.json",
+      "sha256": "df5f37b1c322d632f70b70cd89623cc29daa4af2f52fda444330efb36845830c"
+    },
+    "primary_execution_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/execution_binding.json",
+      "sha256": "499e0a7381b6782e12065916fcbc19eb09291e2aa2d496b80a098c872b2fa2d9"
+    },
+    "integration_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/root_execution.json",
+      "sha256": "e59c6d68f90fefb19a6c190638da05c59bd72f2672175d4608bea6a49ffd2980"
+    },
+    "matched_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/root_execution.json",
+      "sha256": "dfa8b354a4830217c70910cc084c963c9c3588a2b3c832056d508468f6ac66e1"
+    },
+    "matched_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/result.json",
+      "sha256": "771d5bd3edbedce0db97a7892af46a0e5b726831798f8a196097e9449af1f972"
+    },
+    "matched_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/completion.json",
+      "sha256": "fe98ffb231a4fb863e2e1c59be5aa889617bf4aa32a370d14b7b8475195294eb"
+    },
+    "mixed_failed_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json",
+      "sha256": "1ac9729a6a256e4b1d976a8609c65c08a609ba46ad75177aca462dc6dda84d1b"
+    },
+    "mixed_saved_diagnostic": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed_failure_diagnosis001/diagnostic_completion.json",
+      "sha256": "5a64dfbc0ad2b4705c7da7b681b3652c6c59484677db1238e7f1a1ee6830816c"
+    },
+    "prepared_predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
+      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
+    },
+    "prepared_predecessor_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
+      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
+    },
+    "closed_phaseA_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/root_execution.json",
+      "sha256": "b8388cf1fcda83d26b53fb99e1443083b22fcdfb67453a3d2f3374533ad7e745"
+    },
+    "closed_phaseA_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/actual/failure.json",
+      "sha256": "6cac50e2b357e4d3b95550196b8628798c42589723cfdf0d045882d6e091e6a7"
+    },
+    "offline_diagnosis_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/saved_DC_failure_diagnosis001/root_execution.json",
+      "sha256": "4a550967868d0596b0ed7d40da8eefb85ec10f96a03b31ace08668f6c17e57f9"
+    },
+    "offline_diagnosis_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/saved_DC_failure_diagnosis001/actual/result.json",
+      "sha256": "7bed5f9bff625e5f13542b26814fdd89537104de0a8d7dddcc1b36ef3991b4d1"
+    },
+    "same_epoch_predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py",
+      "sha256": "f915725fce0b4fbeeb179256270265c382619c2d2d5075497124c527a1e0efc8"
+    },
+    "same_epoch_predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/contract.json",
+      "sha256": "5c668e3f38a97a60d77d42a33a5cbdacac410919506534aa8030116b570412dc"
+    }
+  },
+  "resources": {
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "CPU": 27,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 1200,
+    "outer_seconds": 1215,
+    "maximum_system_load1": 32,
+    "minimum_host_available_GiB": 4,
+    "maximum_signed_overlap_pairs": 30000,
+    "maximum_hS_getter_requests": 1000,
+    "calls": {
+      "NPZ_load": 6,
+      "nucleus_factory": 1,
+      "convol_cache": 1,
+      "CI": 3,
+      "H": 3,
+      "complete_eigh": 15,
+      "CI_internal_hS": 21,
+      "owner_build": 3,
+      "owner_matrix_read": 6,
+      "tracker_resolve": 3,
+      "tracker_overlap": 4,
+      "tracking_SVD": 15,
+      "transverse_factory": 2,
+      "transverse_uncached_evaluations": 2000000,
+      "zero_Helmholtz_kernels": 9,
+      "Dirac": 0,
+      "gradient": 0,
+      "optimizer": 0,
+      "polar": 0,
+      "Fock": 0
+    },
+    "maximum_transverse_scalar_requests": 2000000
+  },
+  "guardian_sha256": "5af05e84dd2c340b6d7acc73649b93357d5d5585527cdfd36204ce3ab008ee31",
+  "no_cards": true,
+  "fixed_RCI_only": true,
+  "no_MCDHF_continuation": true
+}

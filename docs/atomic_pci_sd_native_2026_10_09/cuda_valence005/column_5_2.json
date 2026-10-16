@@ -1,0 +1,67 @@
+{
+  "key": [
+    5,
+    2
+  ],
+  "energy_Ha": -0.22807151094046957,
+  "complete_numerators": 3375298,
+  "variants": {
+    "cpu": {
+      "seconds": 196.23720171500463,
+      "complete_mode_recovery": true
+    },
+    "cuda": {
+      "seconds": 89.79987111501396,
+      "complete_mode_recovery": true
+    }
+  },
+  "map_signed_errors_Ha": {
+    "affine": [
+      0.0,
+      3.469446951953614e-18,
+      0.0,
+      8.673617379884035e-19
+    ],
+    "homogeneous": [
+      0.0,
+      9.486769009248164e-20,
+      0.0,
+      1.0842021724855044e-19
+    ],
+    "value": [
+      0.0,
+      9.486769009248164e-20
+    ]
+  },
+  "retained_original_signed_errors_Ha": {
+    "cpu_affine_0": 8.470329472543003e-22,
+    "cpu_affine_1": 5.551115123125783e-17,
+    "cpu_affine_2": 5.421010862427522e-20,
+    "cpu_affine_3": 3.9898639947466563e-17,
+    "cpu_homogeneous_0": 4.711620769102046e-21,
+    "cpu_homogeneous_1": 2.846030702774449e-19,
+    "cpu_homogeneous_2": 2.3822801641527197e-21,
+    "cpu_homogeneous_3": 1.1540823906339842e-18,
+    "cpu_value_0": 4.711620769102046e-21,
+    "cpu_value_1": 2.846030702774449e-19,
+    "cpu_restored_0": 4.711620769102046e-21,
+    "cpu_restored_1": 2.846030702774449e-19,
+    "cpu_restored_2": 2.3822801641527197e-21,
+    "cpu_restored_3": 1.1540823906339842e-18,
+    "cuda_affine_0": 8.470329472543003e-22,
+    "cuda_affine_1": 5.551115123125783e-17,
+    "cuda_affine_2": 5.421010862427522e-20,
+    "cuda_affine_3": 3.9898639947466563e-17,
+    "cuda_homogeneous_0": 4.711620769102046e-21,
+    "cuda_homogeneous_1": 2.846030702774449e-19,
+    "cuda_homogeneous_2": 2.3822801641527197e-21,
+    "cuda_homogeneous_3": 1.1540823906339842e-18,
+    "cuda_value_0": 4.711620769102046e-21,
+    "cuda_value_1": 2.846030702774449e-19,
+    "cuda_restored_0": 4.711620769102046e-21,
+    "cuda_restored_1": 2.846030702774449e-19,
+    "cuda_restored_2": 2.3822801641527197e-21,
+    "cuda_restored_3": 1.1540823906339842e-18
+  },
+  "retained_original_outputs_sha256": "0a66e800bdf5b298dbe0496438727fc22ef0ff74f624c45db58c8253e93c0ef1"
+}

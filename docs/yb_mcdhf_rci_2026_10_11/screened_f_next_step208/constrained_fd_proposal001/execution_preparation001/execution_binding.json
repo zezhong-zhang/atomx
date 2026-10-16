@@ -1,0 +1,209 @@
+{
+  "execution_authorized_by_root": true,
+  "preparation_contract_sha256": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+  "driver_sha256": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+  "preparation_sha256": "09ed4bf3682ac1424598e35ccaea63de079906dca1320b7bd734b41a1b81280b",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "scientific_inputs_sha256": {
+    "gradient_qualification_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce",
+      "deferred_numerical": false
+    },
+    "gradient_qualification_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/closure_handoff.json",
+      "sha256": "d1f42b03e2bcaf8f7127ad2407fff35fa2c9a478152724823d03a5ef68d1e148",
+      "deferred_numerical": false
+    },
+    "original31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/contract.json",
+      "sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "recovered_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2",
+      "deferred_numerical": false
+    },
+    "recovered_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f",
+      "deferred_numerical": false
+    },
+    "full_signed_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/signed_tables.json",
+      "sha256": "c2bea5c3fd8626b3c0a89b675abd01e399e581cb590652d9368c76e31897a175",
+      "deferred_numerical": false
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "qualified_full31_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "recovered_coordinates_and_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "recovered_full_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "frozen_proposal_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/contract.json",
+      "sha256": "a4172ec08312332fc71b142ce02a52c81c2162495e275e48dc95f6034ed52025",
+      "deferred_numerical": false
+    },
+    "frozen_proposal_source_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/source_review.json",
+      "sha256": "982aa9e67b4105dd7b94b7730bca018d984623de235cc4a7474654ab392221f1",
+      "deferred_numerical": false
+    },
+    "hour27_delivery": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour27/delivery_authorization_proof.json",
+      "sha256": "421a5604bb55a91ce5cfd12c39984f3f7b59deb6db08727e08439b7825851dfb",
+      "deferred_numerical": false
+    }
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "maximum_system_load1": 32,
+    "minimum_host_available_GiB": 4,
+    "timing_claim_valid": false,
+    "caps_are_stops_not_completion_promise": true,
+    "calls": {
+      "H": 5,
+      "CI": 5,
+      "public_reported_energy_evaluate": 5,
+      "gradient_from_weights": 0,
+      "initial_hS": 7,
+      "CI_internal_hS": 35,
+      "mixed_radial_hS": 28,
+      "hS_total": 70,
+      "validation_Dirac": 7,
+      "complete_SciPy_eigh": 46,
+      "geometry_SPD_eigvalsh": 38,
+      "polar_retraction": 28,
+      "polar_numpy_eigh_fallback": 28,
+      "tracker_resolve": 18,
+      "tracking_SVD": 90,
+      "tracker_overlap": 19,
+      "mixed_ci_finite_increment": 4,
+      "unfiltered_target_RDM": 20,
+      "optimizer": 0,
+      "GPU": 0,
+      "gradient_pair_potential": 0,
+      "retained_RDM": 0,
+      "finite_component_cache_miss": 400000,
+      "finite_potential_cache_miss": 1200000,
+      "finite_density_cache_miss": 2400000
+    },
+    "hS_cache": "Observer forwards original getter/carry untouched. Per-CI complete7kappa coverage and actual hits/misses/producers, total ceilings rather than fragile exact getter count. First CI may produce7 native h/S, four subsequent same-geometry CI calls carry them. Four mixed radial operators each independently build7 h/S.",
+    "signed_term_work_cap": {
+      "complete_angular_term_capacity_per_trial": 100000,
+      "all_four_radial_components": 400000,
+      "potential_requests": 1200000,
+      "density_requests": 2400000,
+      "meaning": "Resource admission on the complete public angular table before finite-kernel traversal; reject entire experiment if exceeded, never prune terms/CSFs. Every retained term requests at most three potentials and six density accesses; cache hits/actual producers separately recorded."
+    },
+    "exact_Gram_Lambda_products": 16000000,
+    "five_fullH_and_C_dense_bytes": 203522000,
+    "memory_estimate": "Prior full31 twoCI/threeg peak1588.254MiB. Five retained H/C arrays add at most122113200 bytes over the two-array census; streamed call-scoped radial caches and finite exact-arithmetic capacity must fit the3.95GiB cap. Peak is unmeasured, stops preserve partial evidence.",
+    "time_estimate": "Source-based5CI +4 streamed finite kernels +exact4trial centering; prior2CI/3g run47.115s gives a feasibility reference only.300s is not a completion or timing claim.",
+    "no_unaccounted_retry": "Native Dirac finite-eigh at most3 attempts per validation kappa counted in21 of46 SciPy cap. Consumer never retries, rescales h or changes model.",
+    "interpreter_literal": "/data/code/atomx/.venv/bin/python",
+    "maximum_signed_overlap_pairs": 30000,
+    "maximum_hS_getter_requests": 400,
+    "finite_kernel_counter_semantics": "Class forwarding wrappers are captured inside unchanged instance-owned lru_cache; counters are actual cache-miss producers. Public per-key logical requests are bounded by the complete angular capacity, not called cache-miss counts. Initial and per-trial component/potential/density source invocation paths are preserved."
+  },
+  "root_owned_frozen_files": {
+    "run.py": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+    "contract.json": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+    "prepare.py": "544885bad86f7a02cae279c2ce607fb10e6a78c3ab50bf30c9ae0d0f4aad5840",
+    "preparation.json": "09ed4bf3682ac1424598e35ccaea63de079906dca1320b7bd734b41a1b81280b",
+    "README.md": "058d520413ada9b6a9aacf093b7cae0a13efc55868b0518008d6fadf91401614",
+    "docimpact.json": "e09d9c12927aee36cc71fbbea2e2c40097f408e65bf9e0b992467cd27caba17e",
+    "preparation_draft_failure.json": "63cc0fbaab4df010b20e052535563f8390491823486808e915b9c20b597935c4",
+    "handoff.json": "6eaf1bccdcc7cd7acb7b9b7f90ae3f8127145462036b3c92d46493bdfe5cef89",
+    "root_source_review.json": "23aab338c9edab82af3e833d7a7629b3c2bed54e774a36f12594c147ca360187"
+  },
+  "launcher_sha256": "37976c53a0ef82aca74c4ae530213b6bc71b6a2a35853d8c3b3e3e559127c309",
+  "actual_iteration_trigger": {
+    "cycle": "2026-10-11T19",
+    "position": 1621,
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour27/delivery_authorization_proof.json",
+    "sha256": "421a5604bb55a91ce5cfd12c39984f3f7b59deb6db08727e08439b7825851dfb",
+    "service_automatic_science_jobs": 0,
+    "root_separately_admitted_scientific_iteration": true
+  },
+  "no_retry": true,
+  "timing_claim_valid": false
+}

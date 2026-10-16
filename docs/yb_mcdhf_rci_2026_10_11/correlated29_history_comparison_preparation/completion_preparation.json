@@ -1,0 +1,27 @@
+{
+  "all_passed": true,
+  "controls": [
+    {
+      "name": "syntax_compiles_without_import",
+      "passed": true
+    },
+    {
+      "name": "stdlib_imports_only_source_AST",
+      "passed": true
+    },
+    {
+      "name": "root_closed_result_and_receipt_SHA_match",
+      "passed": true
+    },
+    {
+      "name": "completion_outputs_absent_before_once_run",
+      "passed": true
+    }
+  ],
+  "script_sha256": "d0a27d693a125ff727b419b3cbcd0093352e4ad59c55662199bd3dd061bd7c43",
+  "contract_sha256": "1c4ac9f0cb95313c0fbe5038cb4bd14b8006300f8d2357b67228a30b3864b7ba",
+  "imports_executed": 0,
+  "array_numerical_replays": 0,
+  "scientific_calls": 0,
+  "scope": "Source/closed-input metadata preparation only; closure not yet executed."
+}

@@ -1,0 +1,169 @@
+{
+  "complete_three_electron_FCI_log": {
+    "H_bytes_sha256": "c99c72ac13a4d5398eb88f02b6190f71ff54755cf2f2f300f6b3d1d34679b9fe",
+    "connected_T3_imag": 0.0,
+    "connected_T3_real": -0.000704139756721892,
+    "energy_imag": 0.0,
+    "energy_real": -3.492838795157548,
+    "energy_unit": "Hartree",
+    "full_transformed_nonreference_residual_Ha": 9.992007221626409e-16,
+    "hamiltonian_max_hermiticity_defect": 0.0,
+    "reference_energy_error_Ha": 8.881784197001252e-16
+  },
+  "created_utc": "2026-10-13T15:57:11.161987+00:00",
+  "documentation_disposition": "new README/receipt/EARS own this engine increment; parent owns current guides; no new general insight promoted",
+  "environment": {
+    "NUMBA_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1,
+    "OPENBLAS_NUM_THREADS": 1,
+    "cpu": 26,
+    "numpy": "2.2.6",
+    "python": "3.10.21",
+    "scipy": "1.15.3"
+  },
+  "initial_architecture_panel": {
+    "context": "Numba cache; no new engine import in the failing shooting subprocess",
+    "error": "ReferenceError: underlying object has vanished",
+    "failed": 1,
+    "failed_test": "test_shooting_drivers_run_without_method_imports",
+    "passed": 13,
+    "raw_tool_output_retained_in_session": true,
+    "reported_seconds": 2.49
+  },
+  "initial_receipt_write_precheck": {
+    "reason": "checked receipt.json local link before creating that receipt",
+    "resolution": "validate existing links first, then create receipt and validate all links; no source/equation/gate change",
+    "scope": "artifact dependency order; all preceding tiny numerical assertions passed",
+    "status": "FAILED"
+  },
+  "isolated_failed_test_replay": {
+    "NUMBA_CACHE_DIR": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_state_action001/numba_cache_001",
+    "criterion_or_source_changed": false,
+    "failed": 0,
+    "passed": 1,
+    "reported_seconds": 13.27,
+    "shared_cache_changed": false
+  },
+  "limits": [
+    "no production polynomial CC scaling",
+    "no speedup or certified RSS claim",
+    "no largeYb run, backend, fitting or borrowed energy corrections",
+    "no Wick/normal-order tensor diagram implementation",
+    "no current-guide or frozen-prior-result edits"
+  ],
+  "measurements": [
+    {
+      "complete_amplitudes": 19,
+      "electrons": 3,
+      "fifth_nested_commutator_max_abs": 1.6740958540805346e-22,
+      "hamiltonian_terms": 262,
+      "independent_dense_generator_payload_bytes": 121600,
+      "max_order": 3,
+      "rank_counts": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "reference_mask": 21,
+      "sector_dimension": 20,
+      "similarity_full_sector_term_pair_upper": 7520,
+      "similarity_max_abs_error": 1.1226435567921847e-15,
+      "spinors": 6
+    },
+    {
+      "complete_amplitudes": 19,
+      "electrons": 4,
+      "fifth_nested_commutator_max_abs": 0.0,
+      "hamiltonian_terms": 262,
+      "independent_dense_generator_payload_bytes": 68400,
+      "max_order": 3,
+      "rank_counts": [
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "reference_mask": 21,
+      "sector_dimension": 15,
+      "similarity_full_sector_term_pair_upper": 5640,
+      "similarity_max_abs_error": 1.7817696036042146e-15,
+      "spinors": 6
+    }
+  ],
+  "pinned_model_references": [
+    {
+      "commit": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+      "local_pinned_copy": "/data/code/atomx-references/2026-10-13-paper-source/EXP-T-pinned-models/sector00_ccsdt.c",
+      "pinned_sha256": "b4dcbcf4994ca85fab8501698f001135b498f0ffa942532e5baedca188937203",
+      "source_path": "src/rcc/models/sector00_ccsdt.c",
+      "upstream_url": "https://github.com/aoleynichenko/EXP-T/blob/aa8d809ad5818d4aa618dcdadbd7f12257ecbc28/src/rcc/models/sector00_ccsdt.c",
+      "working_tree_matches_pinned": true,
+      "working_tree_sha256": "b4dcbcf4994ca85fab8501698f001135b498f0ffa942532e5baedca188937203"
+    },
+    {
+      "commit": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+      "local_pinned_copy": "/data/code/atomx-references/2026-10-13-paper-source/EXP-T-pinned-models/sector01_ccsdt.c",
+      "pinned_sha256": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7",
+      "source_path": "src/rcc/models/sector01_ccsdt.c",
+      "upstream_url": "https://github.com/aoleynichenko/EXP-T/blob/aa8d809ad5818d4aa618dcdadbd7f12257ecbc28/src/rcc/models/sector01_ccsdt.c",
+      "working_tree_matches_pinned": true,
+      "working_tree_sha256": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7"
+    }
+  ],
+  "read_only_integration_review": {
+    "checks": [
+      "complete masks and excitation census align across representations",
+      "only exactly represented zero coefficients omitted",
+      "complex EA coefficients preserved; real finite core rejects imaginary coordinates",
+      "unit-coordinate analytic Jacobian equals commuting-excitation similarity derivative",
+      "same H, continuation, rank spaces, norm, energy reference and residual gates",
+      "full K*D*A admission precedes phase/ERI work",
+      "dense bank omitted; memory cap unchanged and Python overhead explicitly extra",
+      "per-scalar action budget does not certify whole nonlinear/EA work",
+      "consumers still enumerate complete sectors and retain dense H/Jacobian/projected eigensolver",
+      "EA similarity does not qualify folded 0h1p FS-RCC or the69-electron Yb paper"
+    ],
+    "verdict": "no practical scientific defect identified within finite source contract"
+  },
+  "schema": "atomx.native_state_action.receipt.v1",
+  "scope": "native complete finite scalar action, source-only integration review and independent small numerical oracles",
+  "source_bindings": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_state_action001/README.md": "6243d719ba016ba581a47058cd1a73eb81d9a0c19d80b3214ab5cb8a82ff203b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_triples.md": "21a512179e8ad4e38b0643aae1c5658e9608d50f5986736588d59862523d3b1d",
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/methods/coupled_cluster.py": "8779fc7b74482e91e9a2e974b4eac559c19da25703eba9bdb33eea48fd17bdf8",
+    "src/atomx/methods/eom_attachment.py": "2f892865e5b9310b6c272951a024bb37a2e7bdb5618ea0fbafeb6247847d7128",
+    "src/atomx/numerics/cluster_actions.py": "1f33a5d1a2deba979324eb27679b41412914ce0539960d41e9b4ff2cae3d13b6",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "tests/test_cc_state_action.py": "ddb46bbd0843c703aeee0c65435008ee1abc48e7304eeb6fffc4663738df8571",
+    "tests/test_cluster_actions.py": "80cc5c333fc8ab62ba217332888a4ef88d5c5bc3584289e046b0845cb167b971"
+  },
+  "source_manifest_sha256": "34f5474c38bc0243b281c733555d8d53b65470a5cde42ef20b8c9182bf1a8f0c",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 PYTHONPATH=src:. timeout 45s taskset -c 26 .venv/bin/python -m pytest -q tests/test_cluster_actions.py --timeout=20 --durations=5",
+    "diff": "PASS",
+    "failed": 0,
+    "isolated_numerical_import_rejecting_methods": "PASS",
+    "local_links": "PASS",
+    "passed": 7,
+    "reported_seconds": 0.18,
+    "ruff": "PASS"
+  }
+}

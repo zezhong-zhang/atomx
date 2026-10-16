@@ -1,0 +1,48 @@
+{
+  "status": "closed_science_PASS_host_FAIL_observational_only",
+  "closure_all_passed": true,
+  "closure_checks_count": 138,
+  "actual_recorded_gate_rows_PASS": 21891,
+  "all_science_gates_passed": true,
+  "all_host_gates_passed": false,
+  "controlled_warm_certificate": false,
+  "actual_H_CI_gradient": 14,
+  "actual_scipy_eigh": 70,
+  "actual_hS": 28,
+  "actual_GPU_optimizer": 0,
+  "observational_median_primary_ratio": 1.188720782152933,
+  "host_failure": [
+    {
+      "label": "pair3",
+      "idle_busy_fraction": 0.97,
+      "idle_limit": 0.05,
+      "idle_tick_deltas": [
+        97,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cause": "Unknown. Aggregate CPU ticks do not identify the process or establish external interference."
+    }
+  ],
+  "source_JSON_only_closure_science_calls": 0,
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/close.py": "e334e7e18d49ae52237c864d85009aea84ae88443fd8d679ba43d8ac2ecfc34d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/completion.json": "be2eda2cd795fe914f570597038d5bfb2e86fd936b144799ad8af393c2c93df3",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/RESULTS.md": "3bb12bfe8f428f1e7b6924ea04c101f1506bf83456494554d33be26923ec3f41",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/document_impact.json": "6dce0d31181e5bd70b80791d053aa91495b78a74b57647542bbf7870e9524612",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/result.json": "836581b108c8a31eaa7d0072ebb834d030e26affb8eb97902c2c0dd7460c4533",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/execution_receipt.json": "2d0ede28921cb473150b9ffdb270dde501e85007dbf2f52e1eda08d9b88c042c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/execution_contract.json": "6134c4d16d0dc21b70a63679cb9922bd37ca832901576a0fdfc52ddebfc3011e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/preparation_verification.json": "bae4ac0868e442eb2e96cbfea32c43127b2ee08d4773148ce3f619094fb3a980",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/handoff.json": "87d38ed0d710bd5167c3251149b08b93ef162fad55d251d38915aba20b4f0d47"
+  },
+  "actual_arrays_and_guard_outputs_preserved": true,
+  "original_FAILs_unchanged": true
+}

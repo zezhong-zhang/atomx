@@ -1,0 +1,58 @@
+--- before:gradient_from_weights
++++ after:gradient_from_weights
+@@ -20,6 +20,7 @@
+             self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
+                                      for key in self.keys}
+         vectors = {key: np.concatenate(orbitals[key]) for key in self.keys}
++        one_body_actions = {}
+         gradient_terms = {}
+ 
+         for key, weight in weights.items():
+@@ -28,9 +29,13 @@
+                 a, b = (na, kappa), (nb, kappa)
+                 h = self.one_body[kappa]
+                 if a in gradient:
+-                    gradient[a] += weight * (h @ vectors[b])
++                    if b not in one_body_actions:
++                        one_body_actions[b] = h @ vectors[b]
++                    gradient[a] += weight * one_body_actions[b]
+                 if b in gradient:
+-                    gradient[b] += weight * (h @ vectors[a])
++                    if a not in one_body_actions:
++                        one_body_actions[a] = h @ vectors[a]
++                    gradient[b] += weight * one_body_actions[a]
+             else:
+                 _, rank, a, b, c, d = key
+                 for left, right, source_a, source_b in ((a, b, c, d), (c, d, a, b)):
+@@ -42,15 +47,25 @@
+         # immediately: memory does not grow with the two-particle RDM size.
+         for (rank, source_a, source_b), terms in gradient_terms.items():
+             pp, qq = self._pair_potential(rank, orbitals[source_a], orbitals[source_b])
++            # Each signed RDM term keeps its original accumulation order.
++            # Reuse only exact actions on the same target radial spinor;
++            # these arrays belong to this source pair and this evaluation.
++            actions = {}
+             for left, right, weight in terms:
+-                pl, ql = orbitals[left]
+-                pr, qr = orbitals[right]
+                 if left in gradient:
+-                    gradient[left][:self.ns] += weight * (pp @ pr)
+-                    gradient[left][self.ns:] += weight * (qq @ qr)
++                    if right not in actions:
++                        pr, qr = orbitals[right]
++                        actions[right] = pp @ pr, qq @ qr
++                    gp, gq = actions[right]
++                    gradient[left][:self.ns] += weight * gp
++                    gradient[left][self.ns:] += weight * gq
+                 if right in gradient:
+-                    gradient[right][:self.ns] += weight * (pp @ pl)
+-                    gradient[right][self.ns:] += weight * (qq @ ql)
++                    if left not in actions:
++                        pl, ql = orbitals[left]
++                        actions[left] = pp @ pl, qq @ ql
++                    gp, gq = actions[left]
++                    gradient[right][:self.ns] += weight * gp
++                    gradient[right][self.ns:] += weight * gq
+         if record_diagnostics:
+             self.last_gradient = gradient
+         return gradient

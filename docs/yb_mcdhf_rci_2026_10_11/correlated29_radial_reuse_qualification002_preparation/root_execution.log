@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py", line 624, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py", line 613, in main
+    compare(execution)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py", line 545, in compare
+    check("signed_cluster_" + str(cluster), error, contract["gates"]["signed_cluster_span"])
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py", line 515, in check
+    raise ValueError("Saved parity gate failed: " + name)
+ValueError: Saved parity gate failed: signed_cluster_[296]

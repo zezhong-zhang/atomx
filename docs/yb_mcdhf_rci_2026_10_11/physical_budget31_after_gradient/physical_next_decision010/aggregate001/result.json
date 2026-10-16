@@ -1,0 +1,770 @@
+{
+  "status": "PASS_saved_complete_density_gradient_review",
+  "checks": [
+    {
+      "name": "matched live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "matched same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "matched saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "matched complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "matched finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/2",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/2",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/3",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/3",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/4",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/4",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/5",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/5",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/6",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/6",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/7",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/7",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/8",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/8",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/action/9",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "matched/norm/9",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_even live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even same radial keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even same literal direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/norm/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/unique state/0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_even/unique state/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even same radial keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even same literal direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/norm/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/unique state/0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_even/unique state/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even same radial keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even same literal direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/norm/0",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/unique state/0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J5_even/unique state/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd same radial keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd same literal direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/norm/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/unique state/0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J1_odd/unique state/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd live PASS",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd saved gradient bytes",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd complete gradient shape",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd finite complete arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd same radial keys",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd same literal direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/action/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/norm/0",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/unique state/0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/action/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/norm/1",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "J3_odd/unique state/1",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "all ten complete model states",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "checkpoint bytes still bound",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "A full EOL action closure",
+      "observed": 5.551115123125783e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "A independent line derivative [3, 1, 0]",
+      "observed": 4.496403249731884e-15,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "A independent line derivative [5, 1, 0]",
+      "observed": 1.4988010832439613e-14,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "A independent line derivative [1, -1, 0]",
+      "observed": 7.494005416219807e-16,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "A independent line derivative [3, -1, 0]",
+      "observed": 2.9976021664879227e-15,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "B full EOL action closure",
+      "observed": 0.0,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "B independent line derivative [3, 1, 0]",
+      "observed": 7.521760991835436e-15,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "B independent line derivative [5, 1, 0]",
+      "observed": 1.942890293094024e-15,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "B independent line derivative [1, -1, 0]",
+      "observed": 2.248201624865942e-15,
+      "limit": 2e-09,
+      "PASS": true
+    },
+    {
+      "name": "B independent line derivative [3, -1, 0]",
+      "observed": 6.689093723366568e-15,
+      "limit": 2e-09,
+      "PASS": true
+    }
+  ],
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "bindings": {
+    "matched": {
+      "result_sha256": "9907ad4471a1dc6aedfb1e60e1c08bd748624b26d21f22ca1094c739e002633e",
+      "gradient_sha256": "d64885aa58cc30b7c62041cc8800affb5b74bda5d3d37b9d300a57d3c8a42c6d"
+    },
+    "J1_even": {
+      "result_sha256": "b86bd4250280fea80fd142d48ab80f7e6571d75cc00a7b8c02b4e9881372c299",
+      "gradient_sha256": "ca90886fadc09d31e10eb0bc96d4f4e4db49f6db91666e47f1b4e25a9c8ef957"
+    },
+    "J3_even": {
+      "result_sha256": "056a6c92dcffd52b9e3c64afaec0624e80cfe0abca773cb0babcde1afa12eb61",
+      "gradient_sha256": "ef7ce69d7e9b1f4a2530f3096700da1f6ebbba7f336e5b5749104305a103b5e9"
+    },
+    "J5_even": {
+      "result_sha256": "52ec3df95530070a17d21cefdad428110aaecedc1c26e37054387a32e9acc148",
+      "gradient_sha256": "6a91f11ca72b4b3af46cbf4c7f4348c6105972eb94646e98a4770c4fcde230f5"
+    },
+    "J1_odd": {
+      "result_sha256": "feb92cc3be41945c303a55c94671e88c6249537781058f11ad526f7e176c78d1",
+      "gradient_sha256": "b6a4ceae276312c4eebbac40c5faeaedec176ee25255e4963d1b9cac88cb6309"
+    },
+    "J3_odd": {
+      "result_sha256": "3f17ff135e4d49f9555393d9e68057122f7e9a98cb39563be0779a3948b9d962",
+      "gradient_sha256": "1041f4e109eb1bb63bb91f915931c9959e826b551c7f12b6949b3a69c46e25ec"
+    }
+  },
+  "summaries": {
+    "A": {
+      "EOL_directional_derivative_Ha": -0.17084867330569836,
+      "lines": [
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "line_derivative_Ha": -0.00022362846512918866,
+          "forward_line_derivative_Ha": -0.00022362846513368506,
+          "difference_Ha": 4.496403249731884e-15,
+          "original_model_line_derivative_Ha": -0.0008865002496614982,
+          "complete_class_response_change_Ha": 0.0006628717845323095,
+          "same_direction_response_ratio": 0.2522599009019784
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "line_derivative_Ha": -0.0012875803255607832,
+          "forward_line_derivative_Ha": -0.0012875803255457952,
+          "difference_Ha": -1.4988010832439613e-14,
+          "original_model_line_derivative_Ha": -0.0022134917527542874,
+          "complete_class_response_change_Ha": 0.0009259114271935043,
+          "same_direction_response_ratio": 0.5816964639505089
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "line_derivative_Ha": -0.003155937869209813,
+          "forward_line_derivative_Ha": -0.003155937869210562,
+          "difference_Ha": 7.494005416219807e-16,
+          "original_model_line_derivative_Ha": -0.003263785447053469,
+          "complete_class_response_change_Ha": 0.00010784757784365606,
+          "same_direction_response_ratio": 0.9669562906038998
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "line_derivative_Ha": -0.002669725790832106,
+          "forward_line_derivative_Ha": -0.0026697257908291083,
+          "difference_Ha": -2.9976021664879227e-15,
+          "original_model_line_derivative_Ha": -0.0029468718127517723,
+          "complete_class_response_change_Ha": 0.0002771460219196664,
+          "same_direction_response_ratio": 0.9059524677251336
+        }
+      ],
+      "reference_metric_tangent_norm": 2.2381822314116393,
+      "reference_metric_pg_norm": 0.18969730071335442,
+      "reference_metric_g_dot_pg_Ha": 0.1783744322927581,
+      "stationarity_qualified": false
+    },
+    "B": {
+      "EOL_directional_derivative_Ha": -0.16823624729788528,
+      "lines": [
+        {
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "line_derivative_Ha": -0.00013621594735635512,
+          "forward_line_derivative_Ha": -0.00013621594734883335,
+          "difference_Ha": -7.521760991835436e-15,
+          "original_model_line_derivative_Ha": -0.0007594835109031028,
+          "complete_class_response_change_Ha": 0.0006232675635467477,
+          "same_direction_response_ratio": 0.17935339661868438
+        },
+        {
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "line_derivative_Ha": -0.001277440351997866,
+          "forward_line_derivative_Ha": -0.0012774403519959232,
+          "difference_Ha": -1.942890293094024e-15,
+          "original_model_line_derivative_Ha": -0.0021352515676558714,
+          "complete_class_response_change_Ha": 0.0008578112156580053,
+          "same_direction_response_ratio": 0.5982622241557559
+        },
+        {
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "line_derivative_Ha": -0.003067272914028335,
+          "forward_line_derivative_Ha": -0.003067272914026087,
+          "difference_Ha": -2.248201624865942e-15,
+          "original_model_line_derivative_Ha": -0.0030746434804933276,
+          "complete_class_response_change_Ha": 7.370566464992567e-06,
+          "same_direction_response_ratio": 0.9976027898805978
+        },
+        {
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "line_derivative_Ha": -0.002542851828364723,
+          "forward_line_derivative_Ha": -0.0025428518283580337,
+          "difference_Ha": -6.689093723366568e-15,
+          "original_model_line_derivative_Ha": -0.0026341533068397482,
+          "complete_class_response_change_Ha": 9.130147847502545e-05,
+          "same_direction_response_ratio": 0.9653393451937838
+        }
+      ],
+      "reference_metric_tangent_norm": 2.2011911188979494,
+      "reference_metric_pg_norm": 0.24429871853408125,
+      "reference_metric_g_dot_pg_Ha": 0.18021889972118754,
+      "stationarity_qualified": false
+    }
+  },
+  "ordinary_FD005_superseded": false,
+  "scope": "Readback/algebra only. Independent live radial forward checks already recorded; no new H residual/CI-response/finite-step derivative verification or optimizer admission."
+}

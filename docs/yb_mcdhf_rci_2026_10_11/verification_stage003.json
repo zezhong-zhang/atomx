@@ -1,0 +1,155 @@
+{
+  "created_at": "2026-10-11T08:33:50.931528+00:00",
+  "passed": true,
+  "primary_route": "Atomx native MCDHF -> RCI",
+  "scientific_inputs": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stationary_baseline.json",
+      "sha256": "820b5f5fd4d639b8c844c43bc45cf1f8ce5a23661bc90737b837b70a9f614b19"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json",
+      "sha256": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json",
+      "sha256": "50f20c59136f2b49ff4c10d32a58cf214860a2da6affa8e10a829d411c69838e"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/cv_discriminator/same005_orbitals001/result.json",
+      "sha256": "33f6cf200fa692742f36cb6a73607494aed115fb58ad09afd5d70ab5b66f0392"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/cv_discriminator/verification.json",
+      "sha256": "07a170f77763a2fb797b04e3a564d0018418efbf7685dbf1000ef3a617bb095f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/result.json",
+      "sha256": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/verification.json",
+      "sha256": "05031fa7e91d554d93f641d2bcab563b6b4b45319282847931c724c05cc4f005"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json",
+      "sha256": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json",
+      "sha256": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/verification.json",
+      "sha256": "f35190cc06a07d260a71c4901d175c4adc5df7bac8efade626f358e435b5b9ac"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/result.json",
+      "sha256": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/verification.json",
+      "sha256": "c64a84f7d8f3d332bce26f97c80d34250a43d12e9de12a4e94fd9dc8b8681371"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/result.json",
+      "sha256": "549be2307c15c55288f08fc549cb525934f95f008e0bcc480997ce6be1c8261c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage001.json",
+      "sha256": "71dd362b880879f8ea48316a13a5352d86cfe2346a94ccf1253f611d07a69f9b"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json",
+      "sha256": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json",
+      "sha256": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/verification.json",
+      "sha256": "dfc28113bbea4cc5b77f2477f74100ab9583024066a647eb0da08a1ff8d0399c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/independent_verification.json",
+      "sha256": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5"
+    }
+  ],
+  "all_353_source_files_unchanged_since_stage002": true,
+  "original_metric_preserved": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "five_reference_numerical_stationarity_passed": true,
+  "expanded531_MCDHF_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "mixed_CI_running_checks": 68,
+  "mixed_CI_independent_saved_array_checks": 432,
+  "mixed_probe_driver_is_prospectively_bound": false,
+  "derivative_oracle_is_independent_external_Hamiltonian": false,
+  "test_repetition": "Science implementation unchanged: retain stage002 160 science / 45 card tests; append source-bound diagnostic and publication verification",
+  "actual_card_message_id": "om_x100b638022c610a4c1180808be04364",
+  "actual_iteration_status": "implementation_frontier",
+  "registered_new_production_executor_started": false,
+  "saved_matrix_algebra_checks": 239,
+  "stable_mixed_radial_energy_increment_implemented": false,
+  "atlas_url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+  "owner_private_preserved": true,
+  "website_commit_sha": "b228bef8dd2dcfd7a170771e991056f7b0e8639d",
+  "relative_working_tree_links_checked": 337,
+  "broken": [],
+  "ruff_passed": true,
+  "artifacts": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage003.json",
+      "sha256": "e37fe166d453634402c0ea7fd4bd6b6ec260e360a0f25457f9bb502267f830a5"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage003/receipt.json",
+      "sha256": "4843bd493ec639f5817dfa177e64ac6e046fbc87806e88b3516ded6dbd46834b"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage003/iteration_result.json",
+      "sha256": "39703229970937627d3e83da183b8e2e5151cac04de3cc9537d1eb7f87539125"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/deployment.json",
+      "sha256": "e30dfca6c6b3d21b253542644f5137b9d8b44e0f8717f99189ec2024d95d3c61"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/verification.json",
+      "sha256": "7b705aafd4ac7c1785c618ad68b69a5fa4f822aa3613d7488c8a3e9e0e7276af"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/documentation_impact_stage003.json",
+      "sha256": "240adfa94ffb24cc605a2047625a37706d37c3d3f6347b99f8e5b6f72f245abe"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/stage003_ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/access_after_deploy.json",
+      "sha256": "c5f9af18b8e5b5a2c294817827db7998af601b5917ea28a0d4a6ab0895c2eeea"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/handoff_manifest.json",
+      "sha256": "3cda94e20fd6581216a950f7df2271d0b1c45d3240dfeff5c6bd282864802c8a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update/PUBLICATION.md",
+      "sha256": "b8e6223b31057594ea5292160d51e6ecd1155dbc73e23a99dfa619e5971ff8df"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/successor_assessment_verification.json",
+      "sha256": "7ec16239db39ec27946e7a23870a5d116339eb9afb7d00638b5882dfde7411ff"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/mixed_difference_algebra.json",
+      "sha256": "be59023561993a0c3a26237c72d2bf17692b6a1d4ea22d6bac6960b57395be30"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md",
+      "sha256": "f4f66f6539da52afb74cc3bc2760951b57553778cbbb4f0919530cc5f5490914"
+    }
+  ]
+}

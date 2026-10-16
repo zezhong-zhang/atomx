@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "representation": "exact cell pair-density matrix contraction",
+    "feature_geometry_sha256": "dd382b576ef211db8f28a8c93d1e4506d00bf0959993276580f6da4725f5065c",
+    "operand_sha256": "3fe2ec065c7e578e2ff19d4a71cd1b9f49369507086644c5701450c209c4c519",
+    "rank": 1,
+    "density_shape": [
+      10,
+      10
+    ],
+    "output_shape": [
+      9,
+      9
+    ],
+    "edge_batch_size": 1024,
+    "complete_work_bound_bytes": 3081344,
+    "max_work_bytes": 134217728,
+    "operator": "weighted native Coulomb C-product; no amplitude threshold"
+  },
+  "measurements": [
+    {
+      "old_seconds": 0.0001449330011382699,
+      "pair_seconds": 0.0006269019795581698
+    },
+    {
+      "pair_seconds": 0.000546430004760623,
+      "old_seconds": 0.0001004489604383707
+    },
+    {
+      "old_seconds": 9.995803702622652e-05,
+      "pair_seconds": 0.0005424119299277663
+    }
+  ],
+  "errors_Ha": [
+    1.6940658945086007e-19,
+    1.6940658945086007e-19,
+    1.6940658945086007e-19
+  ],
+  "baseline_prepare_seconds": 0.004356752033345401,
+  "pair_prepare_seconds": 0.0008970299968495965,
+  "baseline_potential_bytes": 1935360,
+  "scope": "same full native target/source partial waves and actual solved rho; pair-kernel timing only"
+}

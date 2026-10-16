@@ -1,0 +1,34 @@
+{
+  "hypothesis": "The same frozen-core Yb+ DC states also reproduce the scale of the paper DHF static quadrupole row; independent polynomial quadrature and analytic one-d-electron angular factors check the actual property convention.",
+  "fixed": "Source359 fingerprint0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a; full saved ns180/220 states, same normalized P/Q, A171 empirical Fermi nucleus and DC reference. No SCF/Fock/CI solve or borrowed corrections.",
+  "operator": "Theta(J)=-<J,M=J|sum_i r_i^2 C20(i)|J,M=J> in e a0^2; static omega=0 and closed-core trace zero.",
+  "references": {
+    "target": "https://arxiv.org/html/2504.01438v1 Table1 DHF Theta:2.500/3.690",
+    "convention": "https://tf.boulder.nist.gov/general/pdf/2107.pdf Eqs1,2a,2b: Theta(d3/2)=<r2>/5; Theta(d5/2)=2<r2>/7; distinct69e-EOL orbitals/TableVIII are not this frozen68e model"
+  },
+  "acceptance": {
+    "angular_absolute": 1e-14,
+    "full_closed_core_trace": 1e-13,
+    "independent_radial_absolute": 1e-10,
+    "independent_norm": 1e-10,
+    "two_basis_moment_drift_au": 1e-07
+  },
+  "resources": {
+    "threads": 1,
+    "cpu": 27,
+    "decoded_NPZ_bytes_max": 268435456,
+    "independent_quadrature": "ten Gauss-Legendre nodes per distinct knot interval, exact for degree<=19; RKB P/Q squares times r2 have degree<=18",
+    "calls": "six native static radial evaluations and six independent spline integrals; no atomic solves"
+  },
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/static_moments001.py": "2544c99e016c90f85026cc06bdaffcd1f0090d134523d9d8191b3d85ad82259c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/contract003.json": "0254683ea61d5401a11e87a822ca9068465dcd2e4b74413d4c696721ef899dd0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/result.json": "c618d13a96b4649d56be2c790118318606787a1cdb8b299c04fc2d63e0ce86f0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/blocks_ns180.npz": "b8da261e32ae2a4ed5666ce4d2fc3fbc4488c39fb6bb1310a7a8cb6d49794544",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/core_ns220.h5": "cc3c7ec4eb9c20d79c47f2127e037414410cc53b60762f5b2f27edc4e798ad0b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual003/blocks_ns220.npz": "c6e51939579bd6b690824a9926c9a7fdd92674c85bc9597942ba2324bad56cd8"
+  },
+  "stopping": "Preserve first failed control, no tolerance/grid/model changes",
+  "limitations": "DHF only; not correlated moments, field-shift/hyperfine constants, MCDHF stationarity or full paper reproduction."
+}

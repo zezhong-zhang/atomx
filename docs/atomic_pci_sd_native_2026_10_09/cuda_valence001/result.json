@@ -1,0 +1,260 @@
+{
+  "status": "all complete additive map/mode and declared solve gates passed",
+  "columns": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.10703375825070145,
+      "complete_numerators": 176,
+      "variants": {
+        "cpu": {
+          "seconds": 0.01834640302695334,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 2.0844464392391626e-15,
+          "raw_response_Ha": 1.2286179018605736e-15,
+          "matvecs": 30,
+          "solve_seconds": 0.07135508407372981
+        },
+        "cuda": {
+          "seconds": 1.6901588579639792,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 2.084514201874943e-15,
+          "raw_response_Ha": 1.2279673805570823e-15,
+          "matvecs": 30,
+          "solve_seconds": 2.5631048150826246
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          1.0842021724855044e-19,
+          0.0,
+          3.7269449679189215e-20
+        ],
+        "homogeneous": [
+          0.0,
+          4.743384504624082e-20,
+          0.0,
+          3.3881317890172014e-20
+        ],
+        "value": [
+          0.0,
+          4.743384504624082e-20
+        ]
+      },
+      "solve_signed_errors_Ha": {
+        "numerators": 3.469446951953614e-18,
+        "numerator_derivative": 4.336808689942018e-18,
+        "sigma1_Ha": 2.710505431213761e-20,
+        "sigma1_derivative": 0.0
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "energy_Ha": -0.034490527916716654,
+      "complete_numerators": 174,
+      "variants": {
+        "cpu": {
+          "seconds": 0.009524653083644807,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 3.1474389067254194e-16,
+          "raw_response_Ha": 2.421158976431692e-16,
+          "matvecs": 32,
+          "solve_seconds": 0.06148908706381917
+        },
+        "cuda": {
+          "seconds": 0.5084901100490242,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 3.148523108897905e-16,
+          "raw_response_Ha": 2.4210234511601314e-16,
+          "matvecs": 32,
+          "solve_seconds": 3.0243321349844337
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          4.336808689942018e-19,
+          0.0,
+          1.0164395367051604e-19
+        ],
+        "homogeneous": [
+          0.0,
+          8.131516293641283e-20,
+          0.0,
+          1.0164395367051604e-19
+        ],
+        "value": [
+          0.0,
+          8.131516293641283e-20
+        ]
+      },
+      "solve_signed_errors_Ha": {
+        "numerators": 3.469446951953614e-18,
+        "numerator_derivative": 1.8431436932253575e-18,
+        "sigma1_Ha": 3.1763735522036263e-21,
+        "sigma1_derivative": 6.776263578034403e-21
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "energy_Ha": -0.03441642056760737,
+      "complete_numerators": 234,
+      "variants": {
+        "cpu": {
+          "seconds": 0.015663936967030168,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 7.17172632044849e-16,
+          "raw_response_Ha": 3.5431726996826285e-16,
+          "matvecs": 32,
+          "solve_seconds": 0.11808756506070495
+        },
+        "cuda": {
+          "seconds": 0.9436115910066292,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 7.171997370991612e-16,
+          "raw_response_Ha": 3.542088497510143e-16,
+          "matvecs": 32,
+          "solve_seconds": 4.992322704056278
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          4.336808689942018e-19,
+          0.0,
+          3.7269449679189215e-20
+        ],
+        "homogeneous": [
+          0.0,
+          2.0328790734103208e-20,
+          0.0,
+          3.7269449679189215e-20
+        ],
+        "value": [
+          0.0,
+          2.0328790734103208e-20
+        ]
+      },
+      "solve_signed_errors_Ha": {
+        "numerators": 3.469446951953614e-18,
+        "numerator_derivative": 2.6020852139652106e-18,
+        "sigma1_Ha": 1.503483481376383e-20,
+        "sigma1_derivative": 1.0164395367051604e-20
+      }
+    },
+    {
+      "key": [
+        3,
+        2
+      ],
+      "energy_Ha": 0.019333184735315798,
+      "complete_numerators": 232,
+      "variants": {
+        "cpu": {
+          "seconds": 0.04243671300355345,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 2.8931934972775686e-16,
+          "raw_response_Ha": 2.684891154888791e-16,
+          "matvecs": 32,
+          "solve_seconds": 0.14918767695780843
+        },
+        "cuda": {
+          "seconds": 0.8675138979451731,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 2.8937355983638113e-16,
+          "raw_response_Ha": 2.6850266801603517e-16,
+          "matvecs": 32,
+          "solve_seconds": 4.389525644946843
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          1.0842021724855044e-19,
+          0.0,
+          2.879912020664621e-20
+        ],
+        "homogeneous": [
+          0.0,
+          2.879912020664621e-20,
+          0.0,
+          2.879912020664621e-20
+        ],
+        "value": [
+          0.0,
+          2.879912020664621e-20
+        ]
+      },
+      "solve_signed_errors_Ha": {
+        "numerators": 3.469446951953614e-18,
+        "numerator_derivative": 1.4094628242311558e-18,
+        "sigma1_Ha": 8.470329472543003e-22,
+        "sigma1_derivative": 0.0
+      }
+    },
+    {
+      "key": [
+        3,
+        -3
+      ],
+      "energy_Ha": 0.019333194194959977,
+      "complete_numerators": 176,
+      "variants": {
+        "cpu": {
+          "seconds": 0.0109620540169999,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 3.1919589584331054e-16,
+          "raw_response_Ha": 2.9145302572189044e-16,
+          "matvecs": 32,
+          "solve_seconds": 0.10049530293326825
+        },
+        "cuda": {
+          "seconds": 0.6552985629532486,
+          "complete_mode_recovery": true,
+          "raw_root_Ha": 3.1917895518436545e-16,
+          "raw_response_Ha": 2.9145641385367946e-16,
+          "matvecs": 32,
+          "solve_seconds": 3.830331427976489
+        }
+      },
+      "map_signed_errors_Ha": {
+        "affine": [
+          0.0,
+          1.0842021724855044e-19,
+          0.0,
+          2.371692252312041e-20
+        ],
+        "homogeneous": [
+          0.0,
+          1.6940658945086007e-20,
+          0.0,
+          2.371692252312041e-20
+        ],
+        "value": [
+          0.0,
+          1.6940658945086007e-20
+        ]
+      },
+      "solve_signed_errors_Ha": {
+        "numerators": 5.204170427930421e-18,
+        "numerator_derivative": 1.5178830414797062e-18,
+        "sigma1_Ha": 8.470329472543003e-22,
+        "sigma1_derivative": 2.541098841762901e-21
+      }
+    }
+  ],
+  "peak_rss_bytes": 697872384,
+  "controlled_timing": false,
+  "public_cuda_adopted": false,
+  "physical_metric_certified": false,
+  "experiment_validated": false
+}

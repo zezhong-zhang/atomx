@@ -1,0 +1,941 @@
+{
+  "error_type": "ValueError",
+  "message": "Saved-matrix diagnostic gate failed: no_H_radial_or_MCDHF_producer_module_imports",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py\", line 881, in execute\n    check(\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py\", line 227, in check\n    raise ValueError(\"Saved-matrix diagnostic gate failed: \" + name)\nValueError: Saved-matrix diagnostic gate failed: no_H_radial_or_MCDHF_producer_module_imports\n",
+  "checks": [
+    {
+      "name": "same_literal31_keys_bytes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_literal31_P_bytes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_literal31_Q_bytes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_complete_H_exact_symmetric",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_H_exact_symmetric",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_NR_configuration_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_parent_CSF_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_selected_CSF_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/all_parent_signed_signature_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/all_selected_signed_basis_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/all_parent_indices_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/all_occupation_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_electron_and_keys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/complete_NR_configuration_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/complete_parent_CSF_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/complete_selected_CSF_count",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/all_parent_signed_signature_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/all_selected_signed_basis_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/all_parent_indices_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/all_occupation_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "expanded/complete_electron_and_keys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete1595_signed_embedding",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exact5_complete_native_blocks",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native_complete_block_count/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_exact_cross_sector_zero/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native_complete_block_count/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_exact_cross_sector_zero/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native_complete_block_count/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_exact_cross_sector_zero/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native_complete_block_count/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_exact_cross_sector_zero/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native_complete_block_count/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "stored_exact_cross_sector_zero/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact_cross_sector_zero/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact_cross_sector_zero/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact_cross_sector_zero/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact_cross_sector_zero/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact_cross_sector_zero/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original_parent_byte_failure_preserved",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_whole1595_residual",
+      "error": 2.3551662488017063e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "baseline_whole1595_Gram",
+      "error": 4.218847493575595e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline_exact5_equal_weights",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_saved_UID_energy/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_saved_UID_energy/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_saved_UID_energy/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_saved_UID_energy/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline_saved_UID_energy/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "immutable_original531_reference",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original5_UID_selectors",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_complete2574_residual",
+      "error": 2.924688811339975e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "saved_complete2574_Gram",
+      "error": 3.552713678800501e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved5_equal_UID_weights",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_all5_original_UIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exactly5_complete_block_eigh",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "exactly1_original_tracker_resolve",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "zero_new_H_hS_radial_g_Dirac_optimizer_native_CI",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "no_H_radial_or_MCDHF_producer_module_imports",
+      "error": 1.0,
+      "limit": 0.0,
+      "passed": false
+    }
+  ],
+  "attempted": {
+    "H": 0,
+    "hS": 0,
+    "radial_key": 0,
+    "gradient": 0,
+    "Dirac_spectrum": 0,
+    "optimizer": 0,
+    "native_ci_solve": 0,
+    "angular_null_space": 43,
+    "complete_block_eigh": 5,
+    "tracker_signed_overlap": 2,
+    "public_projection": 20,
+    "tracker_resolve": 1,
+    "tracking_SVD": 5
+  },
+  "completed": {
+    "H": 0,
+    "hS": 0,
+    "radial_key": 0,
+    "gradient": 0,
+    "Dirac_spectrum": 0,
+    "optimizer": 0,
+    "native_ci_solve": 0,
+    "angular_null_space": 43,
+    "complete_block_eigh": 5,
+    "public_projection": 20,
+    "tracker_signed_overlap": 2,
+    "tracking_SVD": 5,
+    "tracker_resolve": 1
+  },
+  "work": {
+    "input_archive_loads": 5,
+    "input_decoded_bytes": 99540424,
+    "complete_block_eigh": 5,
+    "exact_difference_entries": 110,
+    "affected_rows": 72
+  },
+  "archives": [
+    {
+      "path": "saved_block_1_1_spectrum.npz",
+      "sha256": "7521afc3e79ba525bc543ed5d82a5911ed4f5e87cb0c4ea38a6b59da4643d83a"
+    },
+    {
+      "path": "saved_block_1_-1_spectrum.npz",
+      "sha256": "59dae943d6f31ee57179ed29cc488a8a492cc39954e698537c2db11b2e01cf05"
+    },
+    {
+      "path": "saved_block_3_1_spectrum.npz",
+      "sha256": "d761f2e3b79ef0aa0d69b5431e3006366fa730e6cf410505a63573511962eacf"
+    },
+    {
+      "path": "saved_block_3_-1_spectrum.npz",
+      "sha256": "d80f93828ba3773c7bff896613fa486908a2f39943355123cc92838505df18ce"
+    },
+    {
+      "path": "saved_block_5_1_spectrum.npz",
+      "sha256": "3fdbb5884835507613d92d25a4ff8778334609ba9cc2f2a0403beac004085dee"
+    },
+    {
+      "path": "saved_complete2574_spectrum.npz",
+      "sha256": "6c178654fa0a4dd4cf94868226d86e0f8445884c69d123e29931d9000e335093"
+    },
+    {
+      "path": "tracker_complete_signed_overlap_1.npz",
+      "sha256": "ad7e8f825559abd4943abc45a8ea8199b65d883996e88bdbf8ce852dd9d36342"
+    },
+    {
+      "path": "tracker_complete_signed_overlap_2.npz",
+      "sha256": "c7c85abb99e6ab688a33086f4eec79d8968efce5d6ede059ef536e242318c976"
+    }
+  ],
+  "points": {
+    "baseline": {
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.52623146285,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9788593583858127
+            ],
+            "projected_probability": [
+              0.9788593583858127
+            ]
+          },
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.41704066896,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9730183038940053
+            ],
+            "projected_probability": [
+              0.9730183038940053
+            ]
+          },
+          "excitation_cm1": 23964.609237227007,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1003.8092372270075
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.413297705267,
+          "tracker": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9728873980070339
+            ],
+            "projected_probability": [
+              0.9728873980070339
+            ]
+          },
+          "excitation_cm1": 24786.094814193955,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 453.40481419395655
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.407917382181,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9676309980732365
+            ],
+            "projected_probability": [
+              0.9676309980732365
+            ]
+          },
+          "excitation_cm1": 25966.939240058768,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1094.880759941232
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.392090303934,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9602002348411741
+            ],
+            "projected_probability": [
+              0.9602002348411741
+            ]
+          },
+          "excitation_cm1": 29440.58140381538,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -951.6485961846192
+        }
+      ],
+      "multiplets": {
+        "5d": {
+          "centroid_cm1": 24457.500583407174,
+          "splitting_cm1": 821.4855769669484
+        },
+        "6p": {
+          "centroid_cm1": 28282.700682563172,
+          "splitting_cm1": 3473.6421637566127
+        }
+      },
+      "EOL_reported_Ha": -14067.43131550464,
+      "nominal_four_gap_RMS_cm1": 910.7150815960732,
+      "original_stationarity_passed": false,
+      "expanded_MCDHF_optimized": false
+    },
+    "saved_expanded": {
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.543029892717,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.973888765574757
+            ],
+            "projected_probability": [
+              0.973888765574757
+            ]
+          },
+          "delta_upper_Ha": -0.016798429865957587,
+          "delta_lower_Ha": -0.016798429865957587,
+          "transition_delta_upper_minus_lower_cm1": 0.0,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.431706438138,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9690819082468677
+            ],
+            "projected_probability": [
+              0.9690819082468677
+            ]
+          },
+          "delta_upper_Ha": -0.014665769176644972,
+          "delta_lower_Ha": -0.016798429865957587,
+          "transition_delta_upper_minus_lower_cm1": 468.0649186095487,
+          "excitation_cm1": 24432.674155836554,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1471.8741558365546
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.427026513486,
+          "tracker": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.968952879572559
+            ],
+            "projected_probability": [
+              0.968952879572559
+            ]
+          },
+          "delta_upper_Ha": -0.013728808218729682,
+          "delta_lower_Ha": -0.016798429865957587,
+          "transition_delta_upper_minus_lower_cm1": 673.7040794496625,
+          "excitation_cm1": 25459.798893643616,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1127.1088936436172
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.42403627422,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9672677320223554
+            ],
+            "projected_probability": [
+              0.9672677320223554
+            ]
+          },
+          "delta_upper_Ha": -0.01611889203923056,
+          "delta_lower_Ha": -0.016798429865957587,
+          "transition_delta_upper_minus_lower_cm1": 149.14131401822453,
+          "excitation_cm1": 26116.080554076994,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -945.7394459230054
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.408155970108,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9627474569599056
+            ],
+            "projected_probability": [
+              0.9627474569599056
+            ]
+          },
+          "delta_upper_Ha": -0.01606566617374483,
+          "delta_lower_Ha": -0.016798429865957587,
+          "transition_delta_upper_minus_lower_cm1": 160.82304122468898,
+          "excitation_cm1": 29601.40444504007,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -790.8255549599307
+        }
+      ],
+      "multiplets": {
+        "5d": {
+          "centroid_cm1": 25048.94899852079,
+          "splitting_cm1": 1027.124737807062,
+          "delta_centroid_cm1": 591.4484151136166,
+          "delta_splitting_cm1": 205.63916084011362,
+          "ordered_centroid_arithmetic_bound_cm1": {
+            "numerator": 289389363749948529,
+            "denominator": 773712524553362671811952640,
+            "upper_binary64": 3.740269862078334e-10,
+            "upper_binary64_hex": "0x1.9b3f3cbb3c9eap-32"
+          },
+          "ordered_splitting_arithmetic_bound_cm1": {
+            "numerator": 939808454914327959,
+            "denominator": 2475880078570760549798248448,
+            "upper_binary64": 3.795856120207756e-10,
+            "upper_binary64_hex": "0x1.a15bd9ef0278cp-32"
+          }
+        },
+        "6p": {
+          "centroid_cm1": 28439.629814719043,
+          "splitting_cm1": 3485.3238909630745,
+          "delta_centroid_cm1": 156.92913215587032,
+          "delta_splitting_cm1": 11.681727206461801,
+          "ordered_centroid_arithmetic_bound_cm1": {
+            "numerator": 2726897575256723757201749922829977,
+            "denominator": 5575186299632655785383929568162090376495104,
+            "upper_binary64": 4.891132652260243e-10,
+            "upper_binary64_hex": "0x1.0ce4928d57277p-31"
+          },
+          "ordered_splitting_arithmetic_bound_cm1": {
+            "numerator": 3311341744179913169866649323504587,
+            "denominator": 5575186299632655785383929568162090376495104,
+            "upper_binary64": 5.939427969246687e-10,
+            "upper_binary64_hex": "0x1.46860478a5743p-31"
+          }
+        }
+      },
+      "EOL_reported_Ha": -14067.446791017735,
+      "nominal_four_gap_RMS_cm1": 1113.1729590120467,
+      "diagnostic_label": "SAVED_MATRIX_CONDITIONAL_DIAGNOSTIC"
+    }
+  },
+  "diagnostic_label": "SAVED_MATRIX_CONDITIONAL_DIAGNOSTIC",
+  "original_parent_byte_gate_remains_failed": true,
+  "source_or_model_qualified": false,
+  "original_stationarity_passed": false,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "contract_sha256": "5cab2c6eebe9e030aaf76f9f62679a33f9f9188704217cac6dcfdce008e97c6e",
+  "driver_sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+  "execution_binding_sha256": "18eeed4afe0f5b1690c200cf58d0b8d87c432f6ac2c11a35525a967e2dc3b3e4",
+  "no_retry": true,
+  "elapsed_uncontrolled_s": 6.18817454901,
+  "peak_RSS_MiB": 616.45703125
+}

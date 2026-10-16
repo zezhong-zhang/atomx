@@ -1,0 +1,664 @@
+{
+  "error_type": "ValueError",
+  "message": "Scientific/numeric gate failed: virtual_original_P_minimum/(6, -3)",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py\", line 387, in execute\n    check(\"virtual_original_P_minimum/\" + str(key), abs(energy - roots[0]),\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py\", line 211, in check\n    raise ValueError(\"Scientific/numeric gate failed: \" + name)\nValueError: Scientific/numeric gate failed: virtual_original_P_minimum/(6, -3)\n",
+  "checks": [
+    {
+      "name": "baseline/full_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/target_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/signature_uniqueness",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/electrons69",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/full_block_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_target_blocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/full_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/target_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/signature_uniqueness",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/electrons69",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/full_block_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/complete_target_blocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/full_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/target_CSF_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/signature_uniqueness",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/electrons69",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/full_block_count",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/complete_target_blocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline_full_signed_order",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_old24keys",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "same_workspace_ns123",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/radialkeys_complete",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "baseline/rawcap",
+      "error": 231.0,
+      "limit": 2000,
+      "passed": true
+    },
+    {
+      "name": "baseline/paircap",
+      "error": 1525.0,
+      "limit": 1000000,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(1, -1)",
+      "error": 227.0,
+      "limit": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(1, 1)",
+      "error": 218.0,
+      "limit": 222,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(3, -1)",
+      "error": 231.0,
+      "limit": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(3, 1)",
+      "error": 213.0,
+      "limit": 213,
+      "passed": true
+    },
+    {
+      "name": "baseline/raw_kinematic_upper/(5, 1)",
+      "error": 158.0,
+      "limit": 159,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/radialkeys_complete",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/rawcap",
+      "error": 1203.0,
+      "limit": 2000,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/paircap",
+      "error": 3678.0,
+      "limit": 1000000,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/raw_kinematic_upper/(1, -1)",
+      "error": 1203.0,
+      "limit": 1215,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/raw_kinematic_upper/(1, 1)",
+      "error": 1165.0,
+      "limit": 1176,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/raw_kinematic_upper/(3, -1)",
+      "error": 1077.0,
+      "limit": 1079,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/raw_kinematic_upper/(3, 1)",
+      "error": 1028.0,
+      "limit": 1031,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/raw_kinematic_upper/(5, 1)",
+      "error": 751.0,
+      "limit": 753,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/radialkeys_complete",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/rawcap",
+      "error": 980.0,
+      "limit": 2000,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/paircap",
+      "error": 6047.0,
+      "limit": 1000000,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(1, -1)",
+      "error": 980.0,
+      "limit": 990,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(1, 1)",
+      "error": 883.0,
+      "limit": 891,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(3, -1)",
+      "error": 964.0,
+      "limit": 966,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(3, 1)",
+      "error": 855.0,
+      "limit": 855,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/raw_kinematic_upper/(5, 1)",
+      "error": 635.0,
+      "limit": 637,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -4)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, -2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(1, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, -1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(2, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(6, 1)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(3, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(5, 2)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "coordinate_oldwave/(4, 3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_diagonal",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_original_metric_SHA",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "native_HS_all7kappa",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-4",
+      "error": 9.325873406851315e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-4",
+      "error": 2.765991148911055e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-3",
+      "error": 6.035236233434861e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-3",
+      "error": 2.6381841411958005e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-2",
+      "error": 5.440092820663267e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-2",
+      "error": 3.255165753351451e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/-1",
+      "error": 4.9398885842513814e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/-1",
+      "error": 4.763178040861193e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/1",
+      "error": 8.104628079763643e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/1",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/1",
+      "error": 3.525235626345363e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/2",
+      "error": 6.439293542825908e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/2",
+      "error": 3.0248913082721073e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_P_SGram/3",
+      "error": 5.401461758238462e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_SGram/3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old24_P_leakage/3",
+      "error": 1.679884715518849e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "native_virtual_complete29keys",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_complement_rank/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_unresolved_minimum/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_phase_anchor/(6, -3)",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "virtual_original_P_minimum/(6, -3)",
+      "error": 3.808705173469207e-08,
+      "limit": 1e-08,
+      "passed": false
+    }
+  ],
+  "calls": {
+    "attempted_complete_CI": 0,
+    "completed_complete_CI": 0,
+    "implicit_H_attempts": 0,
+    "completed_implicit_H": 0,
+    "explicit_H_attempts": 0,
+    "completed_explicit_H": 0,
+    "virtual_generator_attempts": 1,
+    "completed_virtual_generator": 1,
+    "native_nuclear_Dirac_attempts": 5,
+    "completed_native_nuclear_Dirac": 5,
+    "native_complement_lowest_root_attempts": 5,
+    "completed_native_complement_lowest_root": 5,
+    "original_P_gap_spectral_attempts": 1,
+    "completed_original_P_gap_spectral": 1,
+    "initial_one_body_matrix_attempts": 7,
+    "completed_initial_one_body_matrices": 7,
+    "gradients": 0,
+    "optimizer_calls": 0
+  },
+  "completed_evidence": [],
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "contract_sha256": "7ef7e2153d26f1df94cba68393bc1256f618c1794dc6286e20e8eebcb3289c73",
+  "driver_sha256": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+  "execution_binding_sha256": "fbc3ef9d273f7d5a459f041a97056856e3448fdb69dc976c18e12ab4d158da7f",
+  "scientific_success_claim": false,
+  "elapsed_uncontrolled_s": 6.098206612979993
+}

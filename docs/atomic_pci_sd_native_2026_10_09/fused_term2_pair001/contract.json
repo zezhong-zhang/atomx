@@ -1,0 +1,19 @@
+{
+  "hypothesis": "exact reach plus disjoint angular fusion reduces warm complete GPU term2 time at unchanged full signed value/response/transfer gates",
+  "fixed": "complete archived68core414virtual/ns123/Fermi/l<=3/5Ha/6s/22538 native angular rows, same complete numerator/prime/energy and FP64",
+  "gate_Ha": 1e-11,
+  "host_cap_bytes": 34359738368,
+  "host_payload_bound_bytes": 479154176,
+  "device_cap_bytes": 2147483648,
+  "combined_device_payload_bound_bytes": 1096489824,
+  "load_guard": 27,
+  "device_guard": "GPU0 no compute context except this process before and after every pair invocation",
+  "timing": "complete warm term2 including CPU validation and all host/device input/output copies; signed comparison outside timer; both full-response and value-only policies",
+  "pair_order": [
+    "original,fused",
+    "fused,original",
+    "original,fused"
+  ],
+  "stop": "first signed/finite/source/cap failure rejects; failed load/device guard retains correctness and records timing rejection without claiming a ratio",
+  "scope": "frozen complete stage; no new COMMON/full-map/solve/physical-spectrum/end-to-end/public adoption claim"
+}

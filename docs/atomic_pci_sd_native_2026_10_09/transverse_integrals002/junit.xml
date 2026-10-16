@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="81" time="12.550" timestamp="2026-10-11T00:08:16.081685+08:00" hostname="fermi"><testcase classname="tests.test_transverse_spinor_integrals" name="test_complete_signed_many_electron_ci_and_zero_limit[False]" time="0.319" /><testcase classname="tests.test_transverse_spinor_integrals" name="test_complete_signed_many_electron_ci_and_zero_limit[True]" time="0.054" /><testcase classname="tests.test_transverse_spinor_integrals" name="test_frozen_core_ledger_stream_replay_cache_eviction_and_owned_inputs" time="0.274" /><testcase classname="tests.test_transverse_spinor_integrals" name="test_atomic_band_frequencies_and_unsupported_inputs" time="0.197" /><testcase classname="tests.test_transverse_spinor_integrals" name="test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian[C1]" time="1.424" /><testcase classname="tests.test_transverse_spinor_integrals" name="test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian[axial]" time="0.163"><failure message="ValueError: backend lacks the bound exact axial/parity capability">native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/transverse_integrals002/test_tmp/test_live_finite_frequency_fsc1')
+tensor_symmetry = 'axial'
+
+    @pytest.mark.parametrize("tensor_symmetry", ["C1", "axial"])
+    def test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian(
+        native, tmp_path, tensor_symmetry
+    ):
+        executable = os.environ.get("ATOMX_EXPT_EXECUTABLE")
+        if not executable:
+            pytest.skip("set ATOMX_EXPT_EXECUTABLE for the actual EXP-T gate")
+        a = integrals(
+            native,
+            include_breit=True,
+            breit_orbital_energies=energies(native),
+            representation="on_demand",
+            transverse_cache_size=2,
+        )
+        _, full = determinant_matrix(a, 3)
+&gt;       result = compute(
+            a,
+            executable=executable,
+            directory=tmp_path / "fsccsdt",
+            model="CCSDT",
+            sector="0h1p",
+            active_indices=range(2, 10),
+            tile_size=4,
+            tolerance=1e-12,
+            residual_bound_tolerance_Ha=1e-9,
+            tensor_symmetry=tensor_symmetry,
+        )
+
+tests/test_transverse_spinor_integrals.py:226: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+integrals = OnDemandSpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), ...apper object at 0x7054b0ae57a0&gt;, _diagnostics=&lt;function build_spinor_integrals.&lt;locals&gt;.diagnostics at 0x7054b093dab0&gt;)
+
+    def compute(integrals, *, executable, directory, model='CCSD', sector='0h0p',
+                active_indices=(), tolerance=1e-10, residual_bound_tolerance_Ha=1e-8,
+                maxiter=200, memory_bytes=8*1024**3, tile_size=32, threads=2,
+                timeout_seconds=600, environment=None, tensor_symmetry='C1'):
+        """Solve all retained amplitude equations, with explicit resource limits.
+    
+        ``active_indices`` supplies exact global model spinor indices. Complementary
+        virtuals remain in the amplitudes. No intruder shifts or selections are
+        added. Closed and requested valence sectors must both converge before a
+        result is returned. On failure, the complete run log remains in directory.
+        """
+        active = tuple(sorted(active_indices))
+        if tensor_symmetry not in ('C1', 'axial'):
+            raise ValueError('tensor symmetry must be C1 or axial')
+        n, o = len(integrals.labels), integrals.noccupied
+        allowed = range(o, n) if sector == '0h1p' else range(o)
+        if sector == '0h0p' and active or sector != '0h0p' and not active:
+            raise ValueError('valence sector requires explicit model-space indices')
+        if len(set(active)) != len(active) or any(i not in allowed for i in active):
+            raise ValueError('model spinors must belong to the requested particle/hole space')
+        if any(not isinstance(i, (int, np.integer)) or isinstance(i, bool) for i in active):
+            raise ValueError('model spinor indices must be integers')
+        model_groups = {}
+        for i in allowed:
+            model_groups.setdefault(tuple(integrals.labels[i][:2]), set()).add(i)
+        chosen = set(active)
+        if any(chosen &amp; group and not group.issubset(chosen) for group in model_groups.values()):
+            raise ValueError('atomic model space must retain complete magnetic multiplets')
+        estimate = resource_estimate(integrals, model=model, sector=sector, active_count=len(active))
+        if estimate['estimated_working_bytes'] &gt; memory_bytes:
+            raise MemoryError(f'full requested tensors exceed memory cap: {estimate}')
+        if not (0 &lt; tolerance &lt; 1e-3 and residual_bound_tolerance_Ha &gt; 0
+                and maxiter &gt; 0 and 0 &lt; tile_size &lt;= 2048 and threads &gt; 0 and timeout_seconds &gt; 0):
+            raise ValueError('invalid solver controls')
+        executable = Path(executable).resolve(strict=True)
+        if b'ATOMX_INTEGRALS_V1' not in executable.read_bytes():
+            raise ValueError('executable does not implement the Atomx integral ABI')
+        backend = json.loads((executable.parent/'atomx_backend.json').read_text())
+        if backend['abi'] != 'ATXCC001' or backend['executable_sha256'] != _sha(executable):
+            raise ValueError('backend executable/source manifest mismatch')
+        if tensor_symmetry == 'axial' and (
+                'axial' not in backend.get('tensor_symmetries', ()) or
+                backend.get('axial_max_omega_x2') != 62 or
+                b'ATOMX_AXIAL_V1' not in executable.read_bytes()):
+&gt;           raise ValueError('backend lacks the bound exact axial/parity capability')
+E           ValueError: backend lacks the bound exact axial/parity capability
+
+src/atomx/methods/fscc.py:386: ValueError</failure></testcase><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.0-0]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.0-1]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.0-2]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.0-3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.0-4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1e-09-0]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1e-09-1]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1e-09-2]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1e-09-3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1e-09-4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.1-0]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.1-1]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.1-2]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.1-3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[0.1-4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1.0-0]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1.0-1]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1.0-2]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1.0-3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[1.0-4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[3.0-0]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[3.0-1]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[3.0-2]" time="0.000" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[3.0-3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_multipole_against_direct_angular_projection[3.0-4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_static_limit_retains_distance_kernel_without_cancellation[0]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_static_limit_retains_distance_kernel_without_cancellation[1]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_static_limit_retains_distance_kernel_without_cancellation[2]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_static_limit_retains_distance_kernel_without_cancellation[3]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_static_limit_retains_distance_kernel_without_cancellation[4]" time="0.001" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[0-full]" time="0.025" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[0-retardation]" time="0.025" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[0-difference]" time="0.025" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[1-full]" time="0.027" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[1-retardation]" time="0.027" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[1-difference]" time="0.027" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[3-full]" time="0.038" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[3-retardation]" time="0.038" /><testcase classname="tests.test_finite_frequency_breit" name="test_radial_contraction_against_split_quadrature[3-difference]" time="0.038" /><testcase classname="tests.test_finite_frequency_breit" name="test_full_transverse_static_limit_and_hermiticity" time="0.499" /><testcase classname="tests.test_finite_frequency_breit" name="test_ci_frequency_is_explicit_and_recorded" time="0.034" /><testcase classname="tests.test_finite_frequency_breit" name="test_live_fac_two_electron_matrix_elements[False-10]" time="1.834" /><testcase classname="tests.test_finite_frequency_breit" name="test_live_fac_two_electron_matrix_elements[False-82]" time="0.107" /><testcase classname="tests.test_finite_frequency_breit" name="test_live_fac_two_electron_matrix_elements[True-10]" time="0.149" /><testcase classname="tests.test_finite_frequency_breit" name="test_live_fac_two_electron_matrix_elements[True-82]" time="0.124" /><testcase classname="tests.test_finite_frequency_public" name="test_dhf_public_finite_operator_replaces_static_without_mc[shooting]" time="0.339" /><testcase classname="tests.test_finite_frequency_public" name="test_dhf_public_finite_operator_replaces_static_without_mc[bspline]" time="0.777" /><testcase classname="tests.test_finite_frequency_public" name="test_explicit_zero_frequencies_recover_static_open_shell_ensemble" time="0.301" /><testcase classname="tests.test_finite_frequency_public" name="test_public_multiconfiguration_final_hamiltonian[shooting]" time="0.185" /><testcase classname="tests.test_finite_frequency_public" name="test_public_multiconfiguration_final_hamiltonian[bspline]" time="0.152" /><testcase classname="tests.test_finite_frequency_public" name="test_frequency_inputs_fail_before_correlation_solve" time="0.001" /><testcase classname="tests.test_finite_frequency_public" name="test_method_objects_share_the_frequency_controls" time="0.358" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_signed_antisymmetry_and_native_frozen_core_projection" time="0.149" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_phase_covariance_and_owned_arrays" time="0.043" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_metric_resource_and_model_rejection" time="0.004" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_signed_nonhermitian_heff_parser" time="0.001" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_complete_virtual_band_and_integral_replay" time="0.033" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_axial_export_complete_signed_stream_and_replay[16]" time="0.016" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_axial_export_complete_signed_stream_and_replay[48]" time="0.009" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_axial_export_complete_signed_stream_and_replay[128]" time="0.007" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_axial_export_complete_signed_stream_and_replay[4194304]" time="0.006" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_axial_rejects_actual_forbidden_signed_integrals" time="0.007" /><testcase classname="tests.test_spinor_integrals_fscc" name="test_live_axial_full_ccsdt_signed_phase_and_all_supported_sectors" time="0.000"><skipped type="pytest.skip" message="set ATOMX_EXPT_AXIAL_EXECUTABLE for actual exact tensor blocking">/data/code/atomx/tests/test_spinor_integrals_fscc.py:196: set ATOMX_EXPT_AXIAL_EXECUTABLE for actual exact tensor blocking</skipped></testcase><testcase classname="tests.test_spinor_integrals_fscc" name="test_live_tensor_fsccsdt_against_complete_three_electron_ci" time="2.295" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_streamed_signed_eri_bytes_and_phases[16]" time="0.066" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_streamed_signed_eri_bytes_and_phases[80]" time="0.036" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_streamed_signed_eri_bytes_and_phases[4194304]" time="0.033" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_frozen_core_scalar_contractions_and_native_cap" time="0.009" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_complete_band_preserved_without_quartic_native_array" time="0.090" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_pair_potential_cache_capacity_preserves_signed_operator" time="0.007" /><testcase classname="tests.test_streaming_spinor_integrals" name="test_streamed_fsccsdt_electronic_replay" time="1.545" /><testcase classname="tests.test_closed_shell_fock" name="test_overlapping_core_and_rotated_signed_fock[False-point]" time="0.039" /><testcase classname="tests.test_closed_shell_fock" name="test_overlapping_core_and_rotated_signed_fock[True-point]" time="0.063" /><testcase classname="tests.test_closed_shell_fock" name="test_overlapping_core_and_rotated_signed_fock[True-fermi]" time="0.057" /><testcase classname="tests.test_closed_shell_fock" name="test_full_core_self_interaction_and_fractional_rejection" time="0.000" /></testsuite></testsuites>

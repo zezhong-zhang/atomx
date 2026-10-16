@@ -1,0 +1,32 @@
+{
+  "actual_successor_run": true,
+  "actual_successor_saved_array_replay": true,
+  "all_saved_arrays_bitwise_identical": true,
+  "all_scientific_case_values_identical": true,
+  "array_sha256": "27fb2937c6701c7771d27910f0fc09364699e6e7ac8010ba0125c6da7aa96aba",
+  "change_scope": "Only import ordering, precise E402 exemptions for imports intentionally after resource gates, and ROOT administrative ancestor depth for nested successor. Complete scientific AST identical after excluding import declarations and ROOT binding. No physical arithmetic, input, resource gate or tolerance change.",
+  "files": {
+    "probe.py": {
+      "original_sha256": "1b012550bf0794d88b89e33c1f3165eb3a3b29ef71e537e977d4236ca82c38cc",
+      "scientific_AST_identical": true,
+      "scientific_AST_sha256": "fab16ec288e4b7fa4780f4e208444b86c6c20f8bc73a33160505868dc469802d",
+      "successor_sha256": "27884ba83e4519d0c417e8a73209564fab5848e24e485308949e58750b7ab1f7"
+    },
+    "verify.py": {
+      "original_sha256": "a5c36e5f42d20db03d11328a8ce9a585055a559343e5357248d2169b13cb6ccb",
+      "scientific_AST_identical": true,
+      "scientific_AST_sha256": "a9be164855450d2c113cc2fbef28f0fa613fa33f9b8875489d421e246a78aec6",
+      "successor_sha256": "40c207405e9845d37bd2218c4681abe2012d6db185696e048308c1d9e334ddda"
+    }
+  },
+  "interpretation_correction": {
+    "old_0_4263_Ha": "Only the F_N QQ projection plus PP/HH control residual, not a complete Fock commutator residual.",
+    "old_named_full_Fock_PP_HH_all_blocks_control": "The implemented fock_K is C_Q dagger F_N C_Q. It is not the complete all-12-block Q[F_N,T]Phi because the singles-to-doubles subtraction T1 F_N Phi is absent.",
+    "unchanged_valid_evidence": "Complete native K and roots pass independent full commutator. The DD block difference after F_N QQ + PP + HH remains valid; DD commutator equals this Fock projection. PH attribution is independent review evidence, not this style-only probe."
+  },
+  "original_354_source_archive_preserved": true,
+  "original_results_sha256": "c1523e30ff9f3628923774be54093a56700a89d5420959537b8543aa9aa9de91",
+  "saved_array_count": 39,
+  "status": "passed",
+  "successor_result_sha256": "0ccdcd1903642a129ce7ce2704f2768b9026d2eb3f3ab99a6cb935c060dee3a8"
+}

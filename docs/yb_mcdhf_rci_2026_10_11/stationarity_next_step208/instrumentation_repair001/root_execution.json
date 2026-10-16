@@ -1,0 +1,39 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "started_utc": "2026-10-11T18:06:45.911515+00:00",
+  "finished_utc": "2026-10-11T18:07:52.913525+00:00",
+  "elapsed_uncontrolled_seconds": 67.00202152505517,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "315s",
+    "taskset",
+    "-c",
+    "30",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/run.py",
+    "--execute"
+  ],
+  "seal_sha256": "63860c9ca2d0843dc3f98c0d7fe553f5a851de1cc0501170188d4a29be16c513",
+  "driver_sha256": "cbcc5cf31cd148d90883899b4ded3e2a9641172a60e1a02381bbfaf628712a8b",
+  "contract_sha256": "a4002bfaba7012efdad1bca269e4bf8fd4810bee25a619439a6edf6bf78acfce",
+  "launcher_sha256": "84a8a5b00b8c300a1e8169010f3a3beaa0da82146fc5b5394bcb920ed707176d",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outer_wall_seconds": 315,
+  "kill_after_seconds": 5,
+  "partial_outputs_preserved": true,
+  "no_retry": true,
+  "timing_claim_valid": false,
+  "actual_iteration_trigger": {
+    "delivery_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour26/delivery_authorization_proof.json",
+    "delivery_proof_sha256": "4c5cb3b239bfead79da5f29f6756981a85eab6170fe8e8fce24c59d30718ff0f",
+    "cycle": "2026-10-11T18",
+    "message_id": "om_x100b6388a4f608a0c11b6c64647646b",
+    "request_key": "b808873d-d4b3-51c6-8c11-8c7aff879377",
+    "message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1620",
+    "separately_admitted_root_iteration": true,
+    "service_actual_scientific_jobs": 0
+  }
+}

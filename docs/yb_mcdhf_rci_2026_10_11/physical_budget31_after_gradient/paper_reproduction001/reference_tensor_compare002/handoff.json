@@ -1,0 +1,66 @@
+{
+  "complete_arrays_sha256": "b348a45330ef25dc6d619269695e2b1c0c48df0973308a93415c6ff0daa9ad83",
+  "documentation_impact": "Own isolated records only; root owns current-guide/EARS integration",
+  "execution_exit": 1,
+  "execution_result_sha256": "9d3a4b5ff605446dd42cf727d2c1d266df6e2be490a358b79e9a14452d6999cd",
+  "first_scientific_failure": {
+    "message": "qualification failed: independent_tensor:stored_Heff_minus_wave_projection_Ha",
+    "type": "RuntimeError"
+  },
+  "interpretation": {
+    "limits": "Real data cannot distinguish transpose from adjoint or certify a general complex/public API correction. The initial gate remains failed. Full omitted4p3h residual remains nonzero; full N4 FCI matching is not established.",
+    "no_backend_equation_defect_demonstrated": true,
+    "observation": "Actual tensor core T1/T2/T3 and model omega agree with native; four roots agree. Stored real H_eff is transposed relative to ket-wave projected H_eff; correcting only its orientation in a separate saved-array diagnostic restores retained Bloch and physical-wave matching."
+  },
+  "native_and_tensor_solver_snapshot_unchanged": true,
+  "no_new_Ne4_case": true,
+  "no_new_physics_producer_calls_in_postdiagnosis": true,
+  "postfailure_orientation_sha256": "bbd596cd47bc73b76a0091dc2b11472f8fbb1c2e1b79f4a31163d2b166ce9242",
+  "postfailure_wave_sha256": "f09a806a9515a4972e14fcbe867b0ed096810bb980edadf7af4a2eafb86a0476",
+  "smallest_next_discriminator": "A separate complex phase-covariant tensor case against analytically transformed original real core/attached/model waves, with transpose/adjoint mappings separately predeclared; source-only review before any public reader change.",
+  "source_guard": {
+    "numerical_calls": 0,
+    "private_python_sources": 358,
+    "scientific_model": "N3/seven-spinor finite synthetic two-body toy; not a closed atomic core",
+    "status": "SOURCE_ready",
+    "tensor_sources": 307
+  },
+  "source_line_bindings": [
+    {
+      "line_sha256": "4460d4180588a1f764dab10f77524dc605e9293c82a2927313713aafee13a915",
+      "path": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source/src/rcc/interfaces/pyscf_interface.c",
+      "source_sha256": "5dcf0d92d69370682a11164ae8e3ccdfbc6fb1b56ca5ac104f5d17704cded70a",
+      "start": 57,
+      "stop": 81
+    },
+    {
+      "line_sha256": "ebce871a608a51fc815ec35ad1bcd43cefbccfc27016e599fa158b0cd017d60a",
+      "path": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source/src/rcc/heff/heff.c",
+      "source_sha256": "90709f8d34f188bad3bafb0b811379ef622fcc383db87326c1ecdae4c9d261a7",
+      "start": 212,
+      "stop": 233
+    },
+    {
+      "line_sha256": "878e1a906573d0d13134bd79f2459c1535c018ad6d57783d6cbca052ed97a0d9",
+      "path": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source/src/rcc/heff/slater_rules.c",
+      "source_sha256": "281081b89884a562f9dc9ad44f7771b5800b3d52b78f2a3983900be3451a6127",
+      "start": 280,
+      "stop": 285
+    },
+    {
+      "line_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source/src/rcc/heff/formatted_heff_file.c",
+      "source_sha256": "c345eb795e8734d98b03ca27ece234c4ba50e3885fa733ba7cbc019e650a041a",
+      "start": 146,
+      "stop": 161
+    },
+    {
+      "line_sha256": "3c0035d4548892410c62f8108cb63b67d35f0d5aa52d0b0d87557eb078e75ba9",
+      "path": "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/parallel001/public_backend_source/src/rcc/models/sector01.c",
+      "source_sha256": "f73ee35aead1a0f856012db090d50892e0503691aa0551edd36ffa6b6f32204c",
+      "start": 889,
+      "stop": 910
+    }
+  ],
+  "status": "CLOSED_failed_direct_matrix_gate_with_saved_real_orientation_diagnosis"
+}

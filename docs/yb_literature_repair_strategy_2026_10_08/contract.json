@@ -1,0 +1,29 @@
+{
+  "task": "Literature-grounded repair strategy for the retained Yb II discrepancies",
+  "date": "2026-10-08",
+  "status": "reading, source audit and table arithmetic; no new many-body prediction",
+  "hypotheses": [
+    "Complete higher-order correlation has relevant magnitude but a monovalent all-order model alone need not fix the 6p states",
+    "Moving explicit 4f-hole configurations into CI requires a complementary Q space and balanced orbital relaxation",
+    "A small first-order Breit shift does not bound second-order Coulomb-Breit correlation"
+  ],
+  "fixed_measured_reference": "../yb_correlation_tail_2026_10_08/analysis/results.json: fine_l6_e200; Z70 empirical Fermi nucleus, 68-electron closed core, all 19 occupied radial orbitals, native full two-diagram second-order self-energy and scalar Dyson branch",
+  "comparisons": "Excitation energies relative to each method's own ground state, matched configuration, J and parity. Printed literature precision retained. Literature methods are not the same Hamiltonian/representation as Atomx, and table differences must not be injected as physical corrections.",
+  "allowed_work": "Read primary literature, inspect actual implementation, reproduce arithmetic and analytic sign checks, write and deliver a strategy report",
+  "gates": {
+    "archived_artifact_sha256": "exact",
+    "current_production_source_sha256": "exact match to prior tested source",
+    "arithmetic_replay_cm1": 1e-8,
+    "analytic_small_coupling_sign_check": "exact direction, not a predicted shift",
+    "source_table_verification": "read printed primary table and distinguish paper data from retained experiment"
+  },
+  "resource_caps": {
+    "many_body_runs": 0,
+    "arithmetic_seconds": 60,
+    "PDF_download_bytes_per_file": 20000000,
+    "PDF_download_seconds_per_file": 45,
+    "arithmetic_peak_memory_MiB": 512
+  },
+  "stopping": "Complete quantified literature comparisons, implementation audit, prioritized actionable setups and delivery checks. Do not fabricate an accuracy pass, fit spectroscopy parameters, alter source, or launch an uncontrolled large CI/CC scan.",
+  "authority": "The preceding tail report remains the current measured result; this topic owns the literature-backed next-step recommendation only. Archived evidence stays unchanged."
+}

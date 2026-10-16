@@ -1,0 +1,269 @@
+{
+  "address_cap_bytes": 8589934592,
+  "affinity": 32,
+  "elapsed_s": 0.646459983,
+  "exit_code": 0,
+  "load_after": [
+    9.1474609375,
+    9.2353515625,
+    10.08447265625
+  ],
+  "load_before": [
+    9.1474609375,
+    9.2353515625,
+    10.08447265625
+  ],
+  "load_gate_pass": true,
+  "maxrss_bytes": 1317466112,
+  "peak_threads": 1,
+  "pid": 566746,
+  "pure_backend_efficiency_claim": false,
+  "status": "exited",
+  "system_seconds": 0.20810299999999998,
+  "thread_cap_pass": true,
+  "thread_samples": [
+    {
+      "seconds": 0.030253681,
+      "threads": 1
+    },
+    {
+      "seconds": 0.040525024,
+      "threads": 1
+    },
+    {
+      "seconds": 0.050764416,
+      "threads": 1
+    },
+    {
+      "seconds": 0.061005993,
+      "threads": 1
+    },
+    {
+      "seconds": 0.071241208,
+      "threads": 1
+    },
+    {
+      "seconds": 0.081484688,
+      "threads": 1
+    },
+    {
+      "seconds": 0.091715734,
+      "threads": 1
+    },
+    {
+      "seconds": 0.101945348,
+      "threads": 1
+    },
+    {
+      "seconds": 0.112167669,
+      "threads": 1
+    },
+    {
+      "seconds": 0.122395439,
+      "threads": 1
+    },
+    {
+      "seconds": 0.132627518,
+      "threads": 1
+    },
+    {
+      "seconds": 0.142914069,
+      "threads": 1
+    },
+    {
+      "seconds": 0.153384006,
+      "threads": 1
+    },
+    {
+      "seconds": 0.163847942,
+      "threads": 1
+    },
+    {
+      "seconds": 0.174313601,
+      "threads": 1
+    },
+    {
+      "seconds": 0.184771656,
+      "threads": 1
+    },
+    {
+      "seconds": 0.19524004,
+      "threads": 1
+    },
+    {
+      "seconds": 0.205703986,
+      "threads": 1
+    },
+    {
+      "seconds": 0.215968215,
+      "threads": 1
+    },
+    {
+      "seconds": 0.226414868,
+      "threads": 1
+    },
+    {
+      "seconds": 0.236877221,
+      "threads": 1
+    },
+    {
+      "seconds": 0.247349312,
+      "threads": 1
+    },
+    {
+      "seconds": 0.257817826,
+      "threads": 1
+    },
+    {
+      "seconds": 0.268286681,
+      "threads": 1
+    },
+    {
+      "seconds": 0.278757079,
+      "threads": 1
+    },
+    {
+      "seconds": 0.289227056,
+      "threads": 1
+    },
+    {
+      "seconds": 0.299489563,
+      "threads": 1
+    },
+    {
+      "seconds": 0.309908934,
+      "threads": 1
+    },
+    {
+      "seconds": 0.320380304,
+      "threads": 1
+    },
+    {
+      "seconds": 0.330847746,
+      "threads": 1
+    },
+    {
+      "seconds": 0.341321771,
+      "threads": 1
+    },
+    {
+      "seconds": 0.351791388,
+      "threads": 1
+    },
+    {
+      "seconds": 0.362267606,
+      "threads": 1
+    },
+    {
+      "seconds": 0.372738946,
+      "threads": 1
+    },
+    {
+      "seconds": 0.383210376,
+      "threads": 1
+    },
+    {
+      "seconds": 0.393683219,
+      "threads": 1
+    },
+    {
+      "seconds": 0.404159638,
+      "threads": 1
+    },
+    {
+      "seconds": 0.414643311,
+      "threads": 1
+    },
+    {
+      "seconds": 0.425129368,
+      "threads": 1
+    },
+    {
+      "seconds": 0.435650191,
+      "threads": 1
+    },
+    {
+      "seconds": 0.446125058,
+      "threads": 1
+    },
+    {
+      "seconds": 0.456603591,
+      "threads": 1
+    },
+    {
+      "seconds": 0.467076483,
+      "threads": 1
+    },
+    {
+      "seconds": 0.477539818,
+      "threads": 1
+    },
+    {
+      "seconds": 0.487978827,
+      "threads": 1
+    },
+    {
+      "seconds": 0.498441661,
+      "threads": 1
+    },
+    {
+      "seconds": 0.508908432,
+      "threads": 1
+    },
+    {
+      "seconds": 0.519381715,
+      "threads": 1
+    },
+    {
+      "seconds": 0.529846783,
+      "threads": 1
+    },
+    {
+      "seconds": 0.540322932,
+      "threads": 1
+    },
+    {
+      "seconds": 0.55079374,
+      "threads": 1
+    },
+    {
+      "seconds": 0.561265952,
+      "threads": 1
+    },
+    {
+      "seconds": 0.57173678,
+      "threads": 1
+    },
+    {
+      "seconds": 0.582173605,
+      "threads": 1
+    },
+    {
+      "seconds": 0.592649634,
+      "threads": 1
+    },
+    {
+      "seconds": 0.60312968,
+      "threads": 1
+    },
+    {
+      "seconds": 0.613252863,
+      "threads": 1
+    },
+    {
+      "seconds": 0.623373592,
+      "threads": 1
+    },
+    {
+      "seconds": 0.633497226,
+      "threads": 1
+    },
+    {
+      "seconds": 0.643623135,
+      "threads": 1
+    }
+  ],
+  "timer": "CLOCK_MONOTONIC around Popen plus blocking os.wait4",
+  "user_seconds": 0.438218,
+  "wall_cap_seconds": 600
+}

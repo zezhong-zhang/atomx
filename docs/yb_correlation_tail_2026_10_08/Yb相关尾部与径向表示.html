@@ -1,0 +1,392 @@
+<!DOCTYPE html><html lang="zh-CN"><meta charset="utf-8"><title>Yb⁺ 相关尾部与径向表示</title><style>
+@page { size:A4; margin:16mm 16mm 17mm;
+ @bottom-center { content:'Atomx · Yb⁺ 相关尾部与径向表示    ' counter(page) ' / ' counter(pages); font:8pt 'Noto Sans CJK SC'; color:#627686; }
+}
+body { font:9.7pt 'Noto Sans CJK SC',sans-serif; line-height:1.58; color:#203342; }
+h1 { font-size:21pt; line-height:1.4; color:#174d69; margin-bottom:7mm; }
+h2 { font-size:14.5pt; color:#174d69; border-bottom:1px solid #cadbe4; padding-bottom:1.5mm; margin-top:6mm; }
+h3 { font-size:11.4pt; color:#315e77; margin-top:5mm; }
+h1,h2,h3 { break-after:avoid; }
+p { margin:2.5mm 0; orphans:3; widows:3; }
+a { color:#1f6487; text-decoration:none; overflow-wrap:anywhere; }
+table { border-collapse:collapse; width:100%; font-size:7.8pt; margin:4mm 0; line-height:1.5; }
+th,td { border:1px solid #cad9e2; padding:1.4mm; overflow-wrap:anywhere; }
+th { background:#e9f0f4; text-align:left; }
+thead { display:table-header-group; } tr { break-inside:avoid; }
+img { display:block; width:100%; height:auto; margin:4mm 0; }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f1f5f7; padding:3mm; font-size:7.5pt; line-height:1.45; }
+code { font-family:'DejaVu Sans Mono','Noto Sans CJK SC',monospace; font-size:.87em; }
+li { margin:1.6mm 0; }
+@media screen { body { max-width:1000px; margin:40px auto; padding:0 24px; } }
+
+body {line-height:1.5;} p {margin:2mm 0;} table {font-size:8.3pt;}
+</style><body><h1>Yb⁺ 谱线继续定位：相关尾部与径向表示</h1>
+<p>2026-10-08，Atomx 原生实算。承接<a href="../yb_energy_dependent_sigma_2026_10_08/README.md">能量自洽与二阶自能修复</a>。本报告是当前尾部诊断；前两轮源码、输入、失败及结果保持封存。</p>
+<h2>有判断力的结论</h2>
+<p>本轮完成两组完整五态计算和共同空间对照：粗径向基扩至 ℓ≤8、200 Ha，加密径向基计算 ℓ≤6、200 Ha。核、全部占据轨道、反对称 Coulomb 算符和 Dyson 分支规则保持一致，未按实验改选根或调参。</p>
+<p><strong>高分波和正能尾部仍未收敛。</strong>粗基最后 ℓ7→8 的最大跃迁增量为 <strong>39.156 cm⁻¹</strong>；细基 100→200 Ha 的最大增量为 <strong>17.577 cm⁻¹</strong>。共同 ℓ≤6/200 Ha 的径向加密响应最高 <strong>2.300 cm⁻¹</strong>。这些是实际已算增量，均不能当作未算无限尾部的误差界。</p>
+<p>粗基 ℓ≤8/200 Ha 的实验最大相对偏差为 <strong>5.485%</strong>，细基 ℓ≤6/200 Ha 为 <strong>5.384%</strong>，四能级 5% 目标分别为 <strong>未通过 / 未通过</strong>。扩空间对 5d 与 6p 的作用不同，不能用统一能量偏移解释剩余误差。数值闭合和实验准确度必须分别报告。</p>
+<p>独立电离阈值锚进一步表明：细基模型的基态过束缚 <strong>600.31 cm⁻¹</strong>，5d 上态偏浅 <strong>257.32/313.32 cm⁻¹</strong>，6p 上态偏浅 <strong>838.52/1036.08 cm⁻¹</strong>。所以剩余跃迁偏差同时包含基态和上态的系统偏差，不能唯一归给基态。详见后面的 <a href="https://physics.nist.gov/cgi-bin/ASD/ie.pl?at_num_out=1&amp;biblio=1&amp;e_out=0&amp;el_name_out=1&amp;ion_charge_out=1&amp;spectra=ytterbium&amp;unc_out=1&amp;units=1">NIST ASD 阈值对照</a>；这是当前纯 DC 模型与物理实验的比较，还不是遗漏相关、Breit/QED 等分项的精密误差预算。</p>
+<p>本轮修正了诊断 setup 的空间覆盖：完整保留更高能量、更高分波及加密径向表示中的虚轨道，同时减去各自空间的基态。<strong>生产物理源码没有新增修改</strong>；没有发现需据此改符号或改系数的 Coulomb 算符缺陷。不能把空间扩展、标量能量自洽或不同模型的文献修正相加，伪装成已收敛预测。</p>
+<h2>第一性原理与固定 setup</h2>
+<p>求解 Eₐ=εₐ+Σ₂,ₐ(Eₐ)，其中 Σ₂(w)=Σᵢ Wᵢ/(w−pᵢ)，原生反对称耦合 Wᵢ≥0；2p1h 与 2h1p 两类图全部保留。跃迁 Eγ=E上−E基，所以必须看 ΔE上−ΔE基。固定一套完整极点后，按虚轨道 κ 和能量精确筛选各子空间，每个空间重新求五态根；只去掉严格零耦合，没有幅度阈值或根数截断。</p>
+<p>Z=70，经验 Fermi 核；68 电子 [Xe]4f¹⁴ 闭核，19 个占据径向轨道全部参加；五个外部态为 6s₁/₂、5d₃/₂、5d₅/₂、6p₁/₂、6p₃/₂。虚轨道在闭核完整 VN 场中产生，即相对 69 电子 Yb⁺ 的 V^(N−1)，不得再从 68 核移走一电子。两套参考均为已独立通过数值控制的冻结核 DF：粗基 ns=123、细基 ns=230，阶数 ks=9、外盒 R≈60 a₀；细基同时加密实际径向网格，不能将本对照归成单纯 ns 参数误差。</p>
+<p>能级与能移表使用 cm⁻¹，参数、残差及权重另标单位。所有计算为纯 Dirac–Coulomb，没有添加 Breit、QED、反冲或超精细项。标量 Dyson 仅迭代外部能量，未重新优化轨道、密度或核 Fock 场，未实现完整 Brueckner/GF2/高阶屏蔽。这些实数附着根不认证此前 Ne 的复自电离共振或宽度。</p>
+<h2>虚轨道数与表示覆盖</h2>
+<p>下表包含束缚虚轨道及窗口内全部正能虚轨道；数量为实际构造值，不是默认上限。</p>
+<table>
+<thead>
+<tr>
+<th>正能上限/Ha</th>
+<th>粗基 ℓ≤6</th>
+<th>粗基 ℓ≤8</th>
+<th>细基 ℓ≤6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>763</td>
+<td>991</td>
+<td>769</td>
+</tr>
+<tr>
+<td>20</td>
+<td>835</td>
+<td>1086</td>
+<td>1533</td>
+</tr>
+<tr>
+<td>50</td>
+<td>861</td>
+<td>1121</td>
+<td>1616</td>
+</tr>
+<tr>
+<td>100</td>
+<td>879</td>
+<td>1146</td>
+<td>1649</td>
+</tr>
+<tr>
+<td>200</td>
+<td>897</td>
+<td>1170</td>
+<td>1688</td>
+</tr>
+</tbody>
+</table>
+<p>在共同 ℓ≤6/50 Ha，径向加密使虚轨道从 861 增至 1616；粗基提高上限至 200 Ha 仅增至 897。这提示能量窗与有限径向谱必须一起检查。<strong>数量增加本身不能证明能量误差大或小，下一节以实际耦合响应判定。</strong>初次细基预检仅构造 &lt;50 Ha 谱，其文件里的“200 Ha 数量”受这个前置过滤限制；当前表采用另行完整构造的 200 Ha 快照及完整捕获，原预检保留并注明范围。</p>
+<p><img alt="虚空间容量与共同空间径向响应" src="representation_and_response.png" /></p>
+<h2>三因素的同空间控制</h2>
+<p>每一行均同时更新全部五态；“径向加密”对照使用各自 DF 核、五态与度量，不混用粗基基态和细基激发态。1 cm⁻¹ 门沿用预声明值，不因结果改变。</p>
+<table>
+<thead>
+<tr>
+<th>控制</th>
+<th>5d₃/₂</th>
+<th>5d₅/₂</th>
+<th>6p₁/₂</th>
+<th>6p₃/₂</th>
+<th>1 cm⁻¹ 门</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粗基 ℓ6→8，200 Ha</td>
+<td>-119.995</td>
+<td>-108.070</td>
+<td>+28.149</td>
+<td>+31.421</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>粗基 ℓ7→8，200 Ha</td>
+<td>-39.156</td>
+<td>-35.213</td>
+<td>+8.912</td>
+<td>+10.071</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>粗基 ℓ8，100→200 Ha</td>
+<td>-16.598</td>
+<td>-22.180</td>
+<td>+10.266</td>
+<td>+11.238</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>细基 ℓ6，100→200 Ha</td>
+<td>-17.577</td>
+<td>-15.218</td>
+<td>+10.372</td>
+<td>+12.402</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>径向加密，ℓ6/50 Ha</td>
+<td>-21.990</td>
+<td>+1.487</td>
+<td>-2.043</td>
+<td>+0.076</td>
+<td>未通过</td>
+</tr>
+<tr>
+<td>径向加密，ℓ6/200 Ha</td>
+<td>-1.914</td>
+<td>+2.300</td>
+<td>+0.480</td>
+<td>+0.681</td>
+<td>未通过</td>
+</tr>
+</tbody>
+</table>
+<p>这些是分别固定另两个因素后的条件响应，<strong>不能相加成为误差预算</strong>。高分波增量在不同能量窗有不同值，径向响应也随能量窗变化；只在一个低能窗观察平台会遗漏这种交互。细基 ℓ4→6 的最大跃迁增量仍为 569.499 cm⁻¹，尚未在细基测 ℓ7/8，因此粗基高分波结果不能移植为细基收敛证书。</p>
+<p>共同 ℓ≤6/200 Ha 的单态变化如下。DF 与相关项分别列出，避免把参考变化错误归为相关；激发能明确减去同一模型基态。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th>DF 附着能变化</th>
+<th>相关能移变化</th>
+<th>总附着能变化</th>
+<th>跃迁变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td>+0.0000</td>
+<td>-1.2341</td>
+<td>-1.2341</td>
+<td>+0.0000</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td>-0.0000</td>
+<td>-3.1483</td>
+<td>-3.1483</td>
+<td>-1.9142</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td>-0.0000</td>
+<td>+1.0655</td>
+<td>+1.0655</td>
+<td>+2.2996</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td>+0.0000</td>
+<td>-0.7540</td>
+<td>-0.7540</td>
+<td>+0.4801</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td>+0.0000</td>
+<td>-0.5533</td>
+<td>-0.5533</td>
+<td>+0.6808</td>
+</tr>
+</tbody>
+</table>
+<h2>能级、劈裂与实验</h2>
+<table>
+<thead>
+<tr>
+<th>上态</th>
+<th>实验</th>
+<th>旧粗基 ℓ6/50</th>
+<th>粗基 ℓ8/200</th>
+<th>细基 ℓ6/200</th>
+<th>细基−实验</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5d_3/2</td>
+<td>22960.80</td>
+<td>23872.31</td>
+<td>23700.35</td>
+<td>23818.43</td>
+<td>+857.63</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td>24332.69</td>
+<td>25273.08</td>
+<td>25135.96</td>
+<td>25246.33</td>
+<td>+913.64</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td>27061.82</td>
+<td>28473.14</td>
+<td>28528.32</td>
+<td>28500.65</td>
+<td>+1438.83</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td>30392.23</td>
+<td>31993.37</td>
+<td>32059.36</td>
+<td>32028.62</td>
+<td>+1636.39</td>
+</tr>
+</tbody>
+</table>
+<p>实验沿用封存的 <a href="https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm">NIST Yb II 能级表</a>，不做能量平移或参数拟合。粗基 ℓ8/200 的 5d、6p 劈裂为 1435.609、3531.037；细基 ℓ6/200 为 1427.897、3527.966；对应实验为 1371.89、3330.41。基态共同误差不影响这些同多重态劈裂，剩余劈裂误差须在上态相关和算符层面解释。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th>粗基 ℓ8/200 能移</th>
+<th>细基 ℓ6/200 能移</th>
+<th>细基 Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td>-8098.698</td>
+<td>-8042.991</td>
+<td>0.982395</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td>-8670.915</td>
+<td>-8497.127</td>
+<td>0.974775</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td>-7714.892</td>
+<td>-7548.815</td>
+<td>0.975795</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td>-4272.800</td>
+<td>-4244.762</td>
+<td>0.988250</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td>-3552.410</td>
+<td>-3527.443</td>
+<td>0.989940</td>
+</tr>
+</tbody>
+</table>
+<p>细基 ℓ6/200 中，能量求根相对直接相加自能的最大跃迁响应为 110.899 cm⁻¹。它与第三阶图、非对角轨道响应和辐射顶角不是同一修正。文献中的三阶/全阶结果只能帮助选择下一项控制，不能未经同模型验证加到本表。QED 加入后的完整轨道 SCF 本轮没有测量；先验纯 DC 相关与表示，是避免用小修正补偿未闭合主模型的必要步骤。</p>
+<h2>独立文献量级核对</h2>
+<p>重新读取已封存的 <a href="https://doi.org/10.1103/PhysRevA.79.022512">Safronova 等 2009 年论文 Table I</a>，比较相同附着相关量的<strong>在壳二阶值</strong>，不将非线性 Dyson 能移混充论文 E₂。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th>论文在壳 E₂</th>
+<th>粗基在壳 E₂</th>
+<th>粗基−论文</th>
+<th>细基在壳 E₂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td>-8288</td>
+<td>-8247.00</td>
+<td>+41.00</td>
+<td>-8190.17</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td>-9003</td>
+<td>-8898.63</td>
+<td>+104.37</td>
+<td>-8719.93</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td>-8001</td>
+<td>-7908.66</td>
+<td>+92.34</td>
+<td>-7738.12</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td>-4344</td>
+<td>-4324.38</td>
+<td>+19.62</td>
+<td>-4295.97</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td>-3606</td>
+<td>-3588.97</td>
+<td>+17.03</td>
+<td>-3563.72</td>
+</tr>
+</tbody>
+</table>
+<p>论文采用 70 个九阶 B 样条、R=200 a₀，二阶 ℓ≤8 并外推更高分波；本轮为有限 R≈60、无外推。上述 17–104 cm⁻¹ 粗基差值支持二阶量级与约定，不能精确归为本模型的缺失尾项。</p>
+<p>论文印刷三阶项相对基态的激发能差依次为 −2043、−2317、−681、−850 cm⁻¹。它们说明高阶相关可在当前残差尺度起作用，但直接移植会让 5d 过度修正，且模型并不匹配。仅再次迭代 Σ₂ 也不会生成完整三阶图：冻结参考下使全部 W→λ²W，Dyson 展开为 δE=λ²Σ₂(ε)+λ⁴Σ₂′(ε)Σ₂(ε)+…，只是特定能量反馈项。下一步需原生同模型高阶/非对角响应，不能靠经验常数或文献表值补齐。</p>
+<h2>独立绝对能量锚：区分基态与上态</h2>
+<p><a href="https://physics.nist.gov/cgi-bin/ASD/ie.pl?at_num_out=1&amp;biblio=1&amp;e_out=0&amp;el_name_out=1&amp;ion_charge_out=1&amp;spectra=ytterbium&amp;unc_out=1&amp;units=1">NIST ASD 5.12 电离数据</a>给出 Yb II → Yb III 闭核基态的电离能 12.179185 eV、所列不确定度 0.000025 eV（L12907）。沿用 Atomx 单位转换，I=98231.75174 cm⁻¹，所列阈值不确定度约 0.202 cm⁻¹；<a href="https://physics.nist.gov/cgi-bin/ASD/energy1.pl?biblio=on&amp;conf_out=on&amp;de=0&amp;format=0&amp;j_out=on&amp;lande_out=on&amp;level_out=on&amp;multiplet_ordered=0&amp;output=0&amp;page_size=15&amp;perc_out=on&amp;spectrum=Yb+II&amp;submit=Retrieve+Data&amp;temp=&amp;term_out=on&amp;unc_out=1&amp;units=0">当前 ASD 能级表</a>的四个激发能与本轮封存值一致。将实验和理论都放在 Yb III [Xe]4f¹⁴ ¹S₀ 零点：E基,exp=−I，E上,exp=Eγ,exp−I。没有平移理论能量、修改激发能或拟合阈值。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th>实验附着能</th>
+<th>细基附着能</th>
+<th>计算−实验</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td>-98231.75</td>
+<td>-98832.06</td>
+<td>-600.31</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td>-75270.95</td>
+<td>-75013.64</td>
+<td>+257.32</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td>-73899.06</td>
+<td>-73585.74</td>
+<td>+313.32</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td>-71169.93</td>
+<td>-70331.41</td>
+<td>+838.52</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td>-67839.52</td>
+<td>-66803.45</td>
+<td>+1036.08</td>
+</tr>
+</tbody>
+</table>
+<p>相对误差严格满足 δEγ=δE上−δE基，最大记账闭合误差为 1.455e-11 cm⁻¹。基态过束缚约 600 cm⁻¹ 是共同贡献，6p 上态还各有约 839/1036 cm⁻¹ 偏浅，故单独修正基态不足以解释当前四条激发能。</p>
+<p>这次核对还发现：旧 Handbook 的阈值为 98207 cm⁻¹，2009 论文 Table I 引用的基态束缚锚为 98269 cm⁻¹，分别与当前 ASD 差 -24.75、+37.25 cm⁻¹。它们不改变原有激发能差或纯二阶增量对照，但不能混为同一个绝对能量基准。旧证据不重写；新绝对诊断明确使用当前 ASD。阈值不确定度不是完整实验能级、同位素/超精细或理论算符误差界。</p>
+<h2>验证、边界与下一项判别</h2>
+<p>两个完整空间及所有子空间的 Dyson 根均通过预声明无加权极点穿越、DF 连续分支与残差检查；根最大残差 <strong>1.318e-16 Ha</strong>。旧粗基在壳重放误差最高 <strong>4.850e-15 Ha</strong>，旧 Dyson 子空间重放误差最高 <strong>0.000e+00 Ha</strong>，门均为 1e−10 Ha。完整虚轨道 Gram 最大误差 <strong>3.220e-14</strong>，核空间最大重叠 <strong>3.216e-15</strong>，门均为 1e−7。</p>
+<p>两组五态能移均实际注入各自原生 CI；能量匹配误差最高 <strong>3.638e-12 Ha</strong>，CI 残差最高 <strong>0.000e+00 Ha</strong>，门 1e−8；所有态匹配权重为 1。该门验证能量记账，不认证新的跃迁矩阵元、寿命或辐射率。生产源码哈希与上一轮 <strong>137 项通过的测试版本完全相同</strong>；本轮未重复未受影响的单元测试，新增证据是两组完整 live 捕获、子空间重放、径向度量和 CI 注入。</p>
+<p>后续顺序由剩余门决定：在细径向表示继续扩高分波及正能上限，并检查外盒/有限谱密度；随后用原生同模型计算判别非对角轨道响应和高阶屏蔽，与同 Hamiltonian 的独立方法比较。现有两套径向基、有限能窗和分波上限不足以认证渐近外推、总理论误差或精密实验一致性。</p>
+<h2>复现、资源与文档处置</h2>
+<p>完整十态捕获耗时 2428.83 s，峰值单进程 RSS 4725.3 MiB。六个独立计算工作进程，每进程 BLAS/OMP 一线程；粗基单态上限 1800 s、细基 5400 s，均未超限。记录了实际机器负载，这些时间不是受控性能倍数。原候选项数预估有 1000 项算术笔误，已在 workload_count_check.json 更正；未改变模型、计算窗口或资源上限。</p>
+<p>本目录保留契约、捕获源码、全量极点、轨道快照、原始日志、all_models.csv、每态身份、CI 和表示审计。前三次表示审计驱动分别遇到原生二维求积数组与两代 manifest 格式的读取错误，均发生在诊断脚本；失败契约、源码与日志保留，v4 用相同物理输入和容差通过。前两轮封存 manifest 的 <strong>93 / 52 项哈希全部复核未变</strong>。</p>
+<p>交付复现包包含完整 Atomx 捕获源码、coarse/fine DF 输入、控制驱动和结果汇总；大体积全量耦合极点 NPZ 留在本地并封存哈希，不混称“可离线即时重放全极点”。从包中源码可重新捕获，按 REPLAY.txt 在独立目录运行，驱动拒绝覆盖旧结果。运行主顺序为 run_controls.py → analyze_controls.py → build_report.py；audit_representation.py 是已封存快照的补充审计。</p>
+<p>当前文档入口和验证状态更新到本报告；上一轮自能 API、测试说明及独立 Breit/QED 对照保留为阶段证据，能力边界不变。洞察并入已有“跃迁反馈优先”规则：窗口扫描必须核对实际有限谱，并以完整上下态的共同空间响应判断；没有新增根规则。</p></body></html>

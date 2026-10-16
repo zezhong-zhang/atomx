@@ -1,0 +1,37 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "started_utc": "2026-10-11T18:50:36.382986+00:00",
+  "finished_utc": "2026-10-11T18:51:23.498292+00:00",
+  "elapsed_uncontrolled_s": 47.11531714000739,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "315s",
+    "taskset",
+    "-c",
+    "31",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/run.py",
+    "--execution-binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/execution_binding.json"
+  ],
+  "binding_sha256": "a8f72baa4eba7fedcc503e8d08bd6945d39444c87b7dfc38eb05c7d0233f7cb1",
+  "driver_sha256": "cbe3d11f83fcf2442c6ae9130a2f55fa1d1ee7a2631c509ddaecdc2045ff3a34",
+  "contract_sha256": "ac6704aca641dd64c038b6759a01b13a0f0ec05f1addd2cb32d0cf8a74c1bfce",
+  "launcher_sha256": "a6dd0a50e53f2b265b0362c2b8fae3694aee4285cd95c89d707e8cc069f073fa",
+  "log_sha256": "f86b527e2b891d71e81de34f1f9b4b878f95df11f0cbeaf217850152897f2c2d",
+  "outer_wall_seconds": 315,
+  "kill_after_seconds": 5,
+  "partial_outputs_preserved": true,
+  "no_retry": true,
+  "timing_claim_valid": false,
+  "actual_iteration_trigger": {
+    "standing_user_authorization": "native Atomx MCDHF RCI and physics correctness/completeness first; continue after card with separately sealed bounded scientific work",
+    "hour26_card_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour26/delivery_authorization_proof.json",
+    "hour26_card_proof_sha256": "4c5cb3b239bfead79da5f29f6756981a85eab6170fe8e8fce24c59d30718ff0f",
+    "service_automatic_scientific_jobs": 0,
+    "launch_kind": "root foreground separately admitted native31 fullgradient discriminator"
+  }
+}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_sigma2_solved001.py", line 448, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_sigma2_solved001.py", line 189, in main
+    core, orbitals, plan, actual_rows, _, _, problem, fock = prepare(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/finite_valence_fixture.py", line 68, in prepare
+    backend_builder(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_sigma2_solved001.py", line 179, in builder
+    return build_sigma2_fock(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/build_sigma2_fock_control.py", line 15, in build_sigma2_fock
+    manifest = build_sigma2(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/build_sigma2_control.py", line 88, in build_sigma2
+    raise AssertionError("unexpected screening core COMMON coverage")
+AssertionError: unexpected screening core COMMON coverage

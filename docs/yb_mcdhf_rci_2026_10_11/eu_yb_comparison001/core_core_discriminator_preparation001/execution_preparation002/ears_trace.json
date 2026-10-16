@@ -1,0 +1,13 @@
+{
+  "task": "native current31 5p-double fixed-orbital RCI preparation",
+  "requirements": [
+    "When comparing the added 5p-double sector, retain all 91+9 configurations and every signed CSF in all five complete blocks.",
+    "Before new diagonalization, the driver shall preserve full expanded H and reject any byte mismatch of the embedded baseline H.",
+    "While executing, the driver shall obey exact SOURCE/input/acceptance/resource seals and stop on the first failure without retry.",
+    "When reporting a conditional result, retain the failed original orbital stationarity and exclude a complete-physics claim."
+  ],
+  "scope": "Only this new preparation directory changed.",
+  "science_calls": 0,
+  "NPZ_access": 0,
+  "formatting_successor": "002; preserve frozen, unexecuted 001. Whole AST verified except import order; same physical code and gates."
+}

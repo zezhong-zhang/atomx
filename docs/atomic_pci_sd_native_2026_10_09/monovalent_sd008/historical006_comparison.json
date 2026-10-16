@@ -1,0 +1,786 @@
+{
+  "scope": "Current corrected noncanonical Fock action vs earlier006; source change, not a formatting-only identity",
+  "same_array_names": true,
+  "arrays": {
+    "core_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "core_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "core_denominators": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "labels": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "one_body_Ha": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "fock_Ha": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "direct_half_antisym_eri_Ha": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_linear": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.0803274247406236e-09
+    },
+    "2_-1_-1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1346453210900904e-15
+    },
+    "2_-1_-1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_coefficients": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1346453210900904e-15
+    },
+    "2_-1_-1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_primary_diagram": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.279865879417642e-11
+    },
+    "2_-1_-1_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.279865879417642e-11
+    },
+    "2_-1_-1_dense_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.279865879417642e-11
+    },
+    "2_-1_-1_independent_solution": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.134753741307339e-15
+    },
+    "2_-1_-1_fixed_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.13692214565231e-15
+    },
+    "2_-1_-1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_-1_valence_S": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1346453210900904e-15
+    },
+    "2_-1_-1_full_state": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.134536900872842e-15
+    },
+    "2_-1_1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_linear": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.0803274247406236e-09
+    },
+    "2_-1_1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1411505341250034e-15
+    },
+    "2_-1_1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_coefficients": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1411505341250034e-15
+    },
+    "2_-1_1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_primary_diagram": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.2798651855282515e-11
+    },
+    "2_-1_1_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.279865879417642e-11
+    },
+    "2_-1_1_dense_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.279865879417642e-11
+    },
+    "2_-1_1_independent_solution": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1354042626108303e-15
+    },
+    "2_-1_1_fixed_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.137138986086807e-15
+    },
+    "2_-1_1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-1_1_valence_S": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.1411505341250034e-15
+    },
+    "2_-1_1_full_state": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 3.141042113907755e-15
+    },
+    "3_-1_-1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_linear": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.957108724555013e-10
+    },
+    "3_-1_-1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7004626873262652e-15
+    },
+    "3_-1_-1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_coefficients": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7004626873262652e-15
+    },
+    "3_-1_-1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_primary_diagram": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.240528926948485e-12
+    },
+    "3_-1_-1_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.2405219880545815e-12
+    },
+    "3_-1_-1_dense_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.240528926948485e-12
+    },
+    "3_-1_-1_independent_solution": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.6998121660227739e-15
+    },
+    "3_-1_-1_fixed_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.6997037458055253e-15
+    },
+    "3_-1_-1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_-1_valence_S": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7004626873262652e-15
+    },
+    "3_-1_-1_full_state": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7004626873262652e-15
+    },
+    "3_-1_1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_linear": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 2.957108724555013e-10
+    },
+    "3_-1_1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7006795277607623e-15
+    },
+    "3_-1_1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_coefficients": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7006795277607623e-15
+    },
+    "3_-1_1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_primary_diagram": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.240535865842389e-12
+    },
+    "3_-1_1_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.2405219880545815e-12
+    },
+    "3_-1_1_dense_action": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 6.2405219880545815e-12
+    },
+    "3_-1_1_independent_solution": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.700029006457271e-15
+    },
+    "3_-1_1_fixed_amplitudes": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.6995953255882768e-15
+    },
+    "3_-1_1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "3_-1_1_valence_S": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7006795277607623e-15
+    },
+    "3_-1_1_full_state": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.7006795277607623e-15
+    },
+    "2_1_-1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_-1_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_1_1_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-3_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_-1_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_1_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_source": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_linear": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_gaps": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_coefficients": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_random": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_primary_diagram": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_dense_action": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_independent_solution": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_fixed_amplitudes": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_full_masks": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_full_H": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_core_T": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_valence_S": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "2_-2_3_full_state": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_1_-1_P": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_1_-1_Q": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_-1_P": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_-1_Q": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_3_-1_P": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_3_-1_Q": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_1_P": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_1_Q": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_-2_P": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "radial_2_-2_Q": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_1_length_finite_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_1_length_long_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_1_velocity_finite_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_1_velocity_long_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_-2_length_finite_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_-2_length_long_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_-2_velocity_finite_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "E1_-2_velocity_long_wavelength": {
+      "bitwise_equal": true,
+      "max_absolute_difference": 0.0
+    }
+  }
+}

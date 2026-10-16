@@ -1,0 +1,52 @@
+{
+  "expectation_contract": "Fresh complete same-integral and same-spinor Dirac-Coulomb CI, exact original 98/20/37/37-level spaces, 2003 radial keys, FAC8000/density4, Atomx2000/4000, point/infinite-mass/noQED/Breit, absolute1e-11Ha ANDrelative1e-10. No relaxed gates, fit, selected favorable blocks or historical rewrite.",
+  "action_experiment": "Build isolated existing dump frontend against unchanged localFAC libs/suppliedlibgfortran; explicitInitializeMPI(1); sharedtiminglock and8GiBAS/600s childwatchdog; exactCSFassembly plus publiccompleteCI matrix and cusp-factored commonspinor radial integration. Keep every signedmatrix/spinor/grid/integral and entireeigmultiset; freeze actual dirtysources/libs/config, observed mappedruntime, allarrays logicalhashes/readback.",
+  "results": {
+    "authoritative_run": "actual005",
+    "complete_levels": 192,
+    "complete_radial_keys": 2003,
+    "complete_symmetry_blocks": 35,
+    "complete_arrays": 670,
+    "complete_array_coordinates": 635443,
+    "source_files_unchanged": 868,
+    "mapped_dependencies_unchanged": 121,
+    "common_integrals_joint_gates_pass": [
+      true,
+      true,
+      true,
+      false
+    ],
+    "common_spinor4000_joint_gates_pass": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "raw_max_Ha": [
+      1.2486616185469757e-08,
+      1.673090821441292e-08,
+      1.2734813026327174e-07,
+      2.129327185684815e-06
+    ],
+    "analytic_c_aligned_max_Ha": [
+      1.2446882635686052e-08,
+      1.6721095619232074e-08,
+      1.221474121848587e-07,
+      1.2613163562491536e-06
+    ],
+    "selected_historical_regressions": {
+      "passed": 30,
+      "errors": 0,
+      "firstattempt_retained": "25passed,5Numba cache setup errors; fresh privatecache samefixtures30passed"
+    }
+  },
+  "significance_limits": "Commonintegral angularassembly agrees tightly butPb fullabsolute gatefails. Raw/commonspinor andanalyticallyc-aligned errors remainradial/representation numeric residuals, not independentlyoptimizedmodelerror/experimentalerror. PublicCI selfidentity doesnotreplaceFACfailedgates. WholeFACexport timing vswarmAtomxassembly unequal scopes; no speeduprank here. DefaultcompressedYk currentepochcontrast notmeasured. Highestlevel notachieved.",
+  "retained_attempts": {
+    "actual001": "PrivatePython3.10 digestadapter failed before science, retainedlog",
+    "actual002": "Complete implicitserial science success, previousreplayepoch retained",
+    "actual003": "Completeexplicitserial science success, previousreplayepoch retained",
+    "actual004": "FirstcompleteFACexecution then privateCSF JSONserializationfailed, retainedallfiles",
+    "actual005": "Finalcompleteexplicitserial panel+CSFcoupling/nucleararrays+buildmetadata"
+  },
+  "knowledge_distillation": "No new lastingrule: existing same-H identity, complete phase-invariant eigenspace, unchanged originalgates, actualdirtyruntimehashes and mismatched timing scopes apply. Root integrates currentFAC account/links and ignoredtrace."
+}

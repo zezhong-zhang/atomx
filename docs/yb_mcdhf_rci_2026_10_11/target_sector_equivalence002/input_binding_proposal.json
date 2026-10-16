@@ -1,0 +1,68 @@
+{
+  "record_id": "root-review-only-serialization-successor002-binding-proposal",
+  "execution_authorized_by_root": false,
+  "input_status": "frozen_verified_public531_checkpoint",
+  "pending_exact_root_execution_contract": true,
+  "preparation_contract_sha256": "2ba3c405204958a5c9e56ac4b353b79cf08c80c710b730933027640b56e85c1f",
+  "driver_sha256": "eeca1a408462cf01a3bb09fa9a2189546f4bc39126bdab6d8eb4f3e4437f5963",
+  "files": {
+    "checkpoint_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c"
+    },
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "checkpoint_verification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "sha256": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "sha256": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e"
+    },
+    "objective_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "sha256": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9"
+    },
+    "parent_execution_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "sha256": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "tracking_orbitals": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "basis_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "sha256": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "original_geometry_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "sha256": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7"
+    }
+  },
+  "expected_checkpoint_objective_sha256": "ae850ddc1fa246c062ef3c130173eb1c07de0106c363c4ce87120ca1d45fa199",
+  "expected_source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source",
+  "tracker_inputs_attested_original_objective_by_root": false,
+  "review_required": "Root must independently review driver/prospectivecontract and create a separate exactexecutioncontract; proposal binding does not authorize any scientific evaluation. Keep failedstationarity false.",
+  "predecessor_failed_execution_binding_sha256": "43b853efd2caba912c76408fa87acee202ad8c03c01bf6e217f013a254770029"
+}

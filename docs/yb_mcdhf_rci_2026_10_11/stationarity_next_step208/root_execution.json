@@ -1,0 +1,36 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 1,
+  "started_utc": "2026-10-11T17:53:42.507449+00:00",
+  "finished_utc": "2026-10-11T17:53:56.657763+00:00",
+  "elapsed_uncontrolled_seconds": 14.150323709007353,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "315s",
+    "taskset",
+    "-c",
+    "30",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/run.py",
+    "--execute"
+  ],
+  "seal_sha256": "13da504446e4110b11a5223362cf321efbb9b2ce592eaa47bb1d0486b47e6bde",
+  "driver_sha256": "637b40efc68b6b6085e5a5045b9e6bfc5afde344fb48b4d0c27d6b4137b0f996",
+  "contract_sha256": "a756379a809a8f236a7cca661f267665a1a7f6032542a513cd972bd7815feb82",
+  "launcher_sha256": "8f2afd88f194154fa10b0050482065884f798325ca58cb6e8df3b81884fc14de",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outer_wall_seconds": 315,
+  "kill_after_seconds": 5,
+  "partial_outputs_preserved": true,
+  "no_retry": true,
+  "timing_claim_valid": false,
+  "actual_iteration_trigger": {
+    "message_id": "om_x100b638847e328a0c3481985e0c6222",
+    "delivery_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_authorization_proof.json",
+    "delivery_proof_sha256": "1fdca9428d73bd08d76f989c8e588f80ea44c7c69bde6a6310835078a0014b80",
+    "service_status": "waiting_for_evidence_repair_no_scientific_jobs",
+    "root_separate_native_launch": true
+  }
+}

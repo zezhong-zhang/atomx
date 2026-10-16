@@ -1,0 +1,62 @@
+{
+  "created_utc": "2026-10-11T08:59:56.668801+00:00",
+  "status": "prospective_read_only_physics_discriminator_audit",
+  "owner": "/root/mcdhf_physics_audit",
+  "scope": "Select one highest-information next physical discriminator for the actual69-electron24-radial531-CSF finite model; preserve current source/targets/scientific gates. Only read frozen evidence/current operators, difference already-saved energies, and perform analytic combinatorial space/resource estimates.",
+  "hypothesis": "The available signed lower/upper responses distinguish family-induced centroid and splitting changes, but do not identify the dominant unmeasured no-pair/core-double/virtual/QED contribution. A bounded matched-state experiment should discriminate the most plausible remaining mechanism before a broad cutoff scan.",
+  "fixed_conditions": {
+    "reference": "native005 orbitals and existing balanced531 finite family, equal five DC EOL targets, original positive nuclear P and originalmetric aae3a596...",
+    "stationarity_gates": {
+      "residual": 1e-07,
+      "estimated_energy_Ha": 1e-08
+    },
+    "experimental_gate": "original1% nominal NIST per-line gate; no fitting or isotope-specific inference"
+  },
+  "forbidden": [
+    "newCI solve",
+    "newHamiltonian construction",
+    "newgradient",
+    "newoptimizer run",
+    "source edit",
+    "oldproof edit",
+    "transplanted003 corrections",
+    "invented uncertainty bound"
+  ],
+  "planned_read_only_controls": [
+    "input/source hashes fixed",
+    "all shifts explicitly upper-minus-same-lower",
+    "multiplet centroid weights2J+1 and split separately",
+    "same003 correction ledger remains independent and cannot close005/531 gap",
+    "kinematic determinant/J-block counting checked against archived531 before extrapolating prospective core-double resource estimates",
+    "qualify all unmeasured no-pair/correlation/radial/QED scales as unknown"
+  ],
+  "resource_caps_for_audit": {
+    "no_physical_evaluation": true,
+    "kinematic_count_max_determinants": 250000,
+    "one_thread": true,
+    "no_timing_or_GPUclaim": true
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/contract.json": "6667b9940e7d70d883fa3fbec6e36af1db2e4462af6e92cc307ba6e3c74843b8",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/result.json": "438fe049c5c82da3d7d10e839f8f3500edb7f4d8f63d503f6679cd21aa59a0c8",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/result.json": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/result.json": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+    "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/coverage_correction.json": "acdbbb347f339cca7705f39b93f6bb4798cf66686d3cad81a1e298504fb2d583",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/contract.json": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201"
+  },
+  "source_sha256": {
+    "src/atomx/numerics/bspline/orbital_optimization.py": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+    "src/atomx/methods/csf/variational.py": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+    "src/atomx/physics/csf/breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+    "src/atomx/physics/csf/transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+    "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "src/atomx/corrections/qed.py": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+    "src/atomx/corrections/qedmod/shabaev.py": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+    "src/atomx/corrections/stack.py": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526"
+  },
+  "stopping": "Freeze existing-response ledger and concrete ranked recommendation plus smallest prospective experiment contracts/count estimates; no execution of those physics contracts."
+}

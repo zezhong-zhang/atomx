@@ -1,0 +1,3 @@
+03HKT existing hourly card sent once at position1621. One readback captured, all table rows and nonformatting content match. The strict nine-operation format gate remains FAILED; saved metadata qualification separately matches the exact eight-operation protocol already bound in hour26/contract.json. No resend or new timer. The service is implementation_frontier with zero automatic scientific jobs; root native31 finite-response execution needs a separate exact source/contract admission.
+
+[Original proof](delivery_proof.json), [separate saved qualification](delivery_authorization_proof.json), [readback receipt](readback_execution.json), and [contract](contract.json) preserve both scopes.

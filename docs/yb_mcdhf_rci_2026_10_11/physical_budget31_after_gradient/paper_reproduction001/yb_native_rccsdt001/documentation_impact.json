@@ -1,0 +1,73 @@
+{
+  "timestamp_UTC": "2026-10-14T15:18:27.545035+00:00",
+  "scope": "Actual-Yb finite CCSDT/EOM-EA reproduction drivers, live run, independent saved-data validation and current documentation; no production source/API/default edit.",
+  "dispositions": [
+    {
+      "path": "docs/ATOMIC_FSCC.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md",
+      "action": "update",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/README.md",
+      "action": "add",
+      "reason": "Publish the measured native finite pilot and explicit frozen-core/attachment-rank/full-H/experimental/scaling limits; preserve MCDHF main route."
+    }
+  ],
+  "retained": [
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "reason": "No architecture or dependency change; existing bounded finite CC/EA design is used."
+    },
+    {
+      "path": "docs/TESTING.md",
+      "reason": "Existing relevant panel and external skip policy unchanged; exact executed tests retained in this increment."
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "reason": "No public API/default/behavior change or data migration."
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "reason": "Existing independent operator/rank/residual and provenance standards applied without changing gates."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "reason": "No new general insight: existing same-operator/rank/physical-residual/source-identity principles cover this measurement."
+    },
+    {
+      "path": "AGENTS.md",
+      "reason": "No new global rule; existing principles applied."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/RESULTS.md",
+      "reason": "Prior sealed source epoch and tests remain intact; current README links the new independently bound evidence."
+    }
+  ],
+  "insight_status": "No new general insight promoted; measured finite-space result registered in current reference index.",
+  "trace": "trace.md (ignored local EARS; durable evidence lives in this topic)"
+}

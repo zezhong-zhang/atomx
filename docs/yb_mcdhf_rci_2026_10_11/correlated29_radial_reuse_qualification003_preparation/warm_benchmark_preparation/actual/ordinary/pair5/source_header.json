@@ -1,0 +1,242 @@
+{
+  "source_map_sha256": "756938d54b66a5caf5507707cb352e787cb8e1338bbb2b8c54a9a6e586e0d349",
+  "driver_sha256": "39a24a498e0cdb9217d8b91d3e60611827c1d8fbce9c2133ff61664b7e74dd69",
+  "helper_sha256": "a5270e1701746135676beb976644b5f993ec92e05019f89d87163690c947ab43",
+  "input_files_sha256": {
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/fresh_baseline.npz",
+      "sha256": "a6ba90f1e16e73d11eed6716f9a8317b16f3b35bc9d15874cb9769184ca4c72d"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/all_gradients_metric.npz",
+      "sha256": "1d08466f5dcb369f70ff20066c11d867090ce38d16f3e84d8f1e4fd927eb2d3a"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "sha256": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json",
+      "sha256": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json",
+      "sha256": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8"
+    },
+    "source_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate.patch",
+      "sha256": "390b0c404a22fdd28f46f208b81513fb33c7f37a4fff060d54ca1a0743477d5e"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "original_signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "original_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "conditional_direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "conditional_direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis002/actual/result.json",
+      "sha256": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3"
+    },
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    },
+    "corrected_baseline_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/result.json",
+      "sha256": "55f364277566c4d20e9460a7f95e31328b7604160916c7fa8ca12d01385caed0"
+    },
+    "corrected_baseline_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/completion.json",
+      "sha256": "a97b231a24d1704a77bf0a872be29b792838f9a09b4100f52860eea0ae9a6445"
+    },
+    "corrected_baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "corrected_baseline_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/root_execution.json",
+      "sha256": "840ae02164e287a599924c23cb24f81aa802dce36e55cdf8b158ed7d3d1d67f2"
+    },
+    "inner_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+      "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+    },
+    "shared_fix_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "shared_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/actual/result.json",
+      "sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce"
+    },
+    "predecessor_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b"
+    },
+    "predecessor_closed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/completion.json",
+      "sha256": "55b0136be88c013939d1e2f9d8cef28ea57947b0ed9ec49082f3dcc1d76bf9b8"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py",
+      "sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    },
+    "ordinary_centering_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary.patch",
+      "sha256": "aefce434382c5a87376acf39a5e91d724255d6a55b32673e5a43bac6cc437f79"
+    },
+    "prior002_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+    },
+    "prior002_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+    },
+    "common_shift_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/result.json",
+      "sha256": "9e961e94f134fd859c89feb867cca3aad843fa4b3d5e027db9febce809c706c8"
+    },
+    "common_shift_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/root_execution.json",
+      "sha256": "52a10893049acd80e37b58191da3d82dd59ba2a04f6ed958ce2a02c971e06aa8"
+    },
+    "common_shift_shifted_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/shifted_arrays.npz",
+      "sha256": "948f4c213ca077df6ca358b3b83b710a0d14b919b9858a38ec00185ccf8b3384"
+    },
+    "qualified003_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/run.py",
+      "sha256": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61"
+    },
+    "qualified003_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/contract.json",
+      "sha256": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a"
+    },
+    "qualification003_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/result.json",
+      "sha256": "04592757c7ef05a22b181453d31d708c6d41d3fe6d433b372447c42369c73836"
+    },
+    "qualification003_comparison": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/comparison.json",
+      "sha256": "a4bda374b3246398e480ac1d21ac50a17c7e1e4c7824989908d71deb74b79f76"
+    },
+    "qualification003_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/completion.json",
+      "sha256": "b5b0cc9a5ab4a7b009058a197e9bde82043dfa068b5c064eba4a46458c2e98b0"
+    },
+    "qualification003_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/root_execution.json",
+      "sha256": "27fbab86c8be671bb0b390b96cf621e68444f70c5073e45fa61039e6d9649946"
+    },
+    "qualification003_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/preparation_verification.json",
+      "sha256": "97d597d4d8d63e31961a144a19ce3a9795437a879c5be7984e74a0635e572b86"
+    },
+    "shared_adoption_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/completion.json",
+      "sha256": "f5a1b7a7acec9c15cf607f908685ab351ba300292c809fd152dd824299555d6a"
+    },
+    "shared_adoption_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/root_test_execution.json",
+      "sha256": "af31c4dfa65e6e112c595578eb5b09f2a7c1cab6491b08718bc753a2634b1f23"
+    },
+    "warm_design_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/contract.json",
+      "sha256": "dc8b9584f4291385cf30c903ae32a58d3fc9f1901c590e3b28518973c7e16e38"
+    },
+    "literal_helper_boundaries": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/HELPER_BOUNDARIES.md",
+      "sha256": "bf4f94447f60f1b2f1e27d7628fac4eb514aa0c094c3f471357201c7b33881ee"
+    },
+    "literal_helper_refactor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/helper_refactor_proposal.json",
+      "sha256": "ea03828425236ea9c4da220e094b815663cf26d80c78bd0ed1ceb23f7e186e7c"
+    },
+    "history32_pilot10_closed": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json",
+      "sha256": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9"
+    },
+    "history32_pilot40_closed": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json",
+      "sha256": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78"
+    }
+  },
+  "H_bytes_sha256": "d4812225dbd4a16db02473fb9752fa3e3712cb08a7b7c3d7af0ab7480e5b5f98",
+  "actual_new_H_number": 7,
+  "fresh_owner": true
+}

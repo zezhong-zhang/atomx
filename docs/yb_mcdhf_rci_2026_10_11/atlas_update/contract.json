@@ -1,0 +1,42 @@
+{
+  "created_utc": "2026-10-11T08:11:58.911961+00:00",
+  "status": "prospective_before_site_edits",
+  "scope": "Prepare only local existing owner-private atlas update. No commit, push, deployment, credential read or scientific source change; root controls publication.",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "project_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f",
+  "initial_HEAD": "d987d8e02b7395bb8c16afae7c10b7c5eb726dd6",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage002/receipt.json": "55a6a5111cc71f770e4a776b08794362d26f9da063f67f40ec596bd864b583c1",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stationary_baseline.json": "820b5f5fd4d639b8c844c43bc45cf1f8ce5a23661bc90737b837b70a9f614b19",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json": "50f20c59136f2b49ff4c10d32a58cf214860a2da6affa8e10a829d411c69838e",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+    "tools/export_nist_atlas.py": "7276e18a2de03969d6d4f5501bc4a3fca2fa668c651ee0edb2df008013deec41",
+    "docs/atomic_nist_atlas_2026_10_11/deployment.json": "e6dba21059cf4f1ae292fc3e7b84edf27b3f311d5969116a7bad962910081ec7"
+  },
+  "prechange_manifest_sha256": "92848677f078bd4655f1e6ae4d3d9584ad24ae0532984a44a6cf7c36df8a452d",
+  "fixed_conditions": [
+    "118 elements and original index.json unchanged",
+    "Every original 6019 gzip payload unchanged byte-for-byte, including Yb II",
+    "Original NIST levels/lines/IE/sources/history/models unchanged",
+    "Append standalone Yb II current model overlay loaded only for 70/+1",
+    "Native005 5-CSF MCDHF DC and same-orbital static RCI baseline plus all three fixed-orbital DC/static families",
+    "Four unique nominal ASD branches matched afresh by normalized configuration,2J,parity,evaluated unflagged finite energy and unique common6s zero; original rows not matching selectors",
+    "Missing uncertainty remains null; no new uncertainty bounds or fitted values",
+    "1% nominal comparisons use original gate; no model production/highest/expanded-stationarity certification"
+  ],
+  "acceptance": [
+    "All scientific input SHA bindings and stationarity/RCI proof pass",
+    "Exactly8 new current models/32 rows, historical2 models/8 rows kept",
+    "Per-model four predicted energies and derived multiplet centroids/splittings match scientific source and rematched ASD",
+    "All original tracked assets except index.html remain unchanged",
+    "Browser desktop/mobile118-element navigation, all model boundaries, pagination, filters,download,sources and no JS errors",
+    "Changed source paths are reviewable and hosting manifest/audience preserved"
+  ],
+  "matching_implementation": "Use existing level_record plus frozen native005 atomx.reference_data.nist normalization/J/parity convention; no export/recalculation",
+  "no_publication_here": true,
+  "no_scientific_source_edit": true
+}

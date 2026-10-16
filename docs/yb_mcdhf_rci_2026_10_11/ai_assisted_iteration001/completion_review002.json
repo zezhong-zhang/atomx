@@ -1,0 +1,65 @@
+{
+  "status": "closed_current_AI_and_native_physics_evidence_review",
+  "UTC": "2026-10-13T01:23:54.120265+00:00",
+  "current_documents_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "6dc91074b4f9472eb3ab915c9e8d5b1f367699ba76e10d3187645ad568c83fb1",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/README.md": "bae4f4d480ca3b9421932f46f30325273ff9dce3461aad00393b3dd160390238",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md": "a387e1d19f09955676bdf7ddd6fd44f381a291f7b67174b5abead2fb7f6e45fb",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/documentation_impact.md": "b5b8aca57fbd1d1d739ac69e43119db01f83d6dfd8bb59372f53091564311db3",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/README.md": "87e6d4492623a04b68346b55443f48df08b4c79e766dc9dfa4c70992bb382141",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/documentation_impact.md": "92dc2ae01bb1c75111515b798d9419a605045a9e514f57769544dbf14bcaa068",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/RESULTS.md": "e2bd3edef351325be87eb4214f95afdc3bdd2e57cebc2694814863dde26b39e8",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/RESULTS.md": "1cddace0134aeb08dac52f2441c07ec60fce2419fdb01bea58f1fd94847c5980",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/RESULTS.md": "7510ac24b43e040647efd0da02fe5151011a479b48098701af005637295cd82d",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_import_cause_audit001/README.md": "2c30aa382bf0dc5d4fd0fdcc238ef67e3589b25587cd3cd7954820472a4189ab"
+  },
+  "local_links_checked": 282,
+  "missing_local_links": [],
+  "advice_eligible_learned_atomic_predictions": 0,
+  "original_failures_retained": true,
+  "AI_acceleration_measured": false,
+  "cards_timer_state_observed": "inactive and disabled",
+  "new_shared_solver_source_changes": false,
+  "experiments": [
+    {
+      "directory": "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001",
+      "exit_code": 0,
+      "artifact_sha256": "c21e42a6c8acbfb71e685b8ab46395712fb6fd2872e48de17092843818bf57dd",
+      "controls": 96,
+      "PASS": 96,
+      "FAIL": 0,
+      "sources_and_inputs_unchanged": true
+    },
+    {
+      "directory": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002",
+      "exit_code": 1,
+      "artifact_sha256": "62ec06b7c03af18b6b8ce5cd9b9d1739ea8148472e759dea5f33e4c3975c3f64",
+      "controls": 158,
+      "PASS": 157,
+      "FAIL": 1,
+      "sources_and_inputs_unchanged": true
+    },
+    {
+      "directory": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001",
+      "exit_code": 1,
+      "artifact_sha256": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+      "controls": 57,
+      "PASS": 56,
+      "FAIL": 1,
+      "sources_and_inputs_unchanged": true
+    }
+  ],
+  "JSON_conditional_summary_sha256": "e5cc20b9ad180d188229b48be22fdfc4b6d7d84b78fc3952b23a77d36772e0ec",
+  "scope": "Metadata identities, full saved gate ledgers and doc arithmetic; no additional numerical arrays or physics replay",
+  "supersedes_current_review": {
+    "path": "completion_review.json",
+    "sha256": "62c5483e97c1b48b4f23082e6b914621d40a0e585ac29f98876e945a0b3798da"
+  },
+  "frozen_dataset_artifacts_checked": 10,
+  "source_import_audit_sha256": "cf417f91b1658df8cce3a851b0bc6a1362bbea9990b62ab3b345a3257f4814f4",
+  "source_import_line_hash_bindings_checked": 18,
+  "latest_advice_sha256": "098fba8f73bc262b67993946017b4d5f5bcb3cab2d97105dad8617296f167acf",
+  "closed_failed_candidates_excluded": 2,
+  "selector_current_tests": "17 PASS, full Ruff PASS, current source hashes unchanged",
+  "shared_source_adoption": false
+}

@@ -1,0 +1,1352 @@
+{
+  "status": "nonstationary_fixed_point_complete531_static_RCI_diagnostic",
+  "static_RCI_numeric_integrity_passed": true,
+  "DC_original_stationarity_passed": false,
+  "inherited_DC_stationarity_evidence": {
+    "independent_verification_sha256": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "integrity_passed": true,
+    "orbital_residual": 4.717047646600387e-05,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error_Ha": 6.8897239137767995e-09,
+    "energy_tolerance_Ha": 1e-08,
+    "stationarity_passed": false,
+    "new_gradient_calls": 0
+  },
+  "checks_count": 72,
+  "checks": [
+    {
+      "name": "complete_signed531_order_and69e",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete24radial_pool_ns123",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_projector:0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:0",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:0",
+      "error": 1.6631269190627199e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:1",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:1",
+      "error": 1.6242487928872843e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:2",
+      "error": 1.8042077910682713e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:3",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:3",
+      "error": 2.1824706277201518e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:4",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:4",
+      "error": 1.8775610845842974e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:5",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:5",
+      "error": 1.7392214661371067e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_projector:6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "exact_authoritative_x_unpack:6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "radial_Gram:6",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_no_pair:6",
+      "error": 1.2961036669645098e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_diagonal",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks:6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_original_metric_SHA",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "verified_saved_samepoint_DC/finite_complete_H_CI",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "verified_saved_samepoint_DC/residual_Ha",
+      "error": 2.4405279718322734e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "verified_saved_samepoint_DC/full_CI_Gram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "verified_saved_samepoint_DC/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "verified_saved_samepoint_DC/cross_symmetry_zero",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "DC_five_equal_physical_targets",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete16symmetryblocks",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/finite_complete_H_CI",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/residual_Ha",
+      "error": 3.353495966677116e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/full_CI_Gram",
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "static_Breit/cross_symmetry_zero",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "static_five_equal_physical_targets",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6s_1/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6s_1/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/NIST_target_Jparity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "6s_1/2/DC_samepoint_verified_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "6s_1/2/same_lower_upper_delta",
+      "error": 0.0,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/DC_samepoint_verified_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "5d_3/2/same_lower_upper_delta",
+      "error": 6.17284001691587e-13,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/DC_samepoint_verified_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "5d_5/2/same_lower_upper_delta",
+      "error": 2.3092638912203256e-13,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/DC_samepoint_verified_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "6p_1/2/same_lower_upper_delta",
+      "error": 1.55964130499342e-12,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/DC_samepoint_verified_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "6p_3/2/same_lower_upper_delta",
+      "error": 1.5631940186722204e-12,
+      "limit": 1e-07,
+      "passed": true
+    }
+  ],
+  "DC_rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "column": 0,
+      "local_root": 0,
+      "energy_Ha": -14067.494147908563,
+      "excitation_cm1": 0.0,
+      "excitation_from_actual_finite_ground_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 0.0,
+      "nominal_relative_gap": null
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "column": 2,
+      "local_root": 0,
+      "energy_Ha": -14067.379002235699,
+      "excitation_cm1": 25271.554104875377,
+      "excitation_from_actual_finite_ground_cm1": 25271.554104875377,
+      "NIST_nominal_cm1": 22960.8,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2310.7541048753774,
+      "nominal_relative_gap": 0.10063909379792424
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "column": 3,
+      "local_root": 0,
+      "energy_Ha": -14067.375368277375,
+      "excitation_cm1": 26069.115768406056,
+      "excitation_from_actual_finite_ground_cm1": 26069.115768406056,
+      "NIST_nominal_cm1": 24332.69,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 1736.4257684060576,
+      "nominal_relative_gap": 0.07136184977518134
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "column": 1,
+      "local_root": 0,
+      "energy_Ha": -14067.380340402113,
+      "excitation_cm1": 24977.86052447862,
+      "excitation_from_actual_finite_ground_cm1": 24977.86052447862,
+      "NIST_nominal_cm1": 27061.82,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -2083.95947552138,
+      "nominal_relative_gap": -0.07700736593183244
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "column": 4,
+      "local_root": 0,
+      "energy_Ha": -14067.36439906193,
+      "excitation_cm1": 28476.580284668536,
+      "excitation_from_actual_finite_ground_cm1": 28476.580284668536,
+      "NIST_nominal_cm1": 30392.23,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1915.649715331463,
+      "nominal_relative_gap": -0.06303090346879658
+    }
+  ],
+  "static_rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "column": 0,
+      "local_root": 0,
+      "energy_Ha": -14053.345801784004,
+      "excitation_cm1": 0.0,
+      "excitation_from_actual_finite_ground_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 0.0,
+      "nominal_relative_gap": null,
+      "absolute_upper_static_minus_DC_Ha": 14.148346124558884,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": 0.0,
+      "nominal_1percent_pass": null
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "column": 2,
+      "local_root": 0,
+      "energy_Ha": -14053.230645248426,
+      "excitation_cm1": 25273.938194955826,
+      "excitation_from_actual_finite_ground_cm1": 25273.938194955826,
+      "NIST_nominal_cm1": 22960.8,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2313.138194955827,
+      "nominal_relative_gap": 0.10074292685602537,
+      "absolute_upper_static_minus_DC_Ha": 14.148356987272564,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": 2.3840900804498233,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "column": 3,
+      "local_root": 0,
+      "energy_Ha": -14053.227153153524,
+      "excitation_cm1": 26040.364436248143,
+      "excitation_from_actual_finite_ground_cm1": 26040.364436248143,
+      "NIST_nominal_cm1": 24332.69,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 1707.674436248144,
+      "nominal_relative_gap": 0.07018025694027852,
+      "absolute_upper_static_minus_DC_Ha": 14.148215123850605,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -28.751332157913566,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "column": 1,
+      "local_root": 0,
+      "energy_Ha": -14053.23208857919,
+      "excitation_cm1": 24957.16370754091,
+      "excitation_from_actual_finite_ground_cm1": 24957.16370754091,
+      "NIST_nominal_cm1": 27061.82,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -2104.6562924590908,
+      "nominal_relative_gap": -0.0777721636038925,
+      "absolute_upper_static_minus_DC_Ha": 14.148251822922248,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -20.696816937710537,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "column": 4,
+      "local_root": 0,
+      "energy_Ha": -14053.216254607849,
+      "excitation_cm1": 28432.318730760864,
+      "excitation_from_actual_finite_ground_cm1": 28432.318730760864,
+      "NIST_nominal_cm1": 30392.23,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1959.9112692391354,
+      "nominal_relative_gap": -0.06448724786694282,
+      "absolute_upper_static_minus_DC_Ha": 14.148144454080466,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -44.26155390767235,
+      "nominal_1percent_pass": false
+    }
+  ],
+  "multiplets": [
+    {
+      "label": "5d",
+      "degeneracy_weights": [
+        4,
+        6
+      ],
+      "DC": {
+        "centroid_cm1": 25750.091102993785,
+        "splitting_cm1": 797.5616635306797
+      },
+      "static_Breit": {
+        "centroid_cm1": 25733.79393973122,
+        "splitting_cm1": 766.4262412923163
+      },
+      "NIST_nominal": {
+        "centroid_cm1": 23783.933999999997,
+        "splitting_cm1": 1371.8899999999994
+      },
+      "static_minus_DC_centroid_cm1": -16.297163262566755,
+      "DC_gap_centroid_cm1": 1966.1571029937877,
+      "static_gap_centroid_cm1": 1949.859939731221,
+      "static_minus_DC_splitting_cm1": -31.13542223836339,
+      "DC_gap_splitting_cm1": -574.3283364693198,
+      "static_gap_splitting_cm1": -605.4637587076832
+    },
+    {
+      "label": "6p",
+      "degeneracy_weights": [
+        2,
+        4
+      ],
+      "DC": {
+        "centroid_cm1": 27310.340364605232,
+        "splitting_cm1": 3498.719760189917
+      },
+      "static_Breit": {
+        "centroid_cm1": 27273.93372302088,
+        "splitting_cm1": 3475.155023219955
+      },
+      "NIST_nominal": {
+        "centroid_cm1": 29282.093333333334,
+        "splitting_cm1": 3330.41
+      },
+      "static_minus_DC_centroid_cm1": -36.406641584351746,
+      "DC_gap_centroid_cm1": -1971.7529687281021,
+      "static_gap_centroid_cm1": -2008.1596103124539,
+      "static_minus_DC_splitting_cm1": -23.564736969961814,
+      "DC_gap_splitting_cm1": 168.30976018991714,
+      "static_gap_splitting_cm1": 144.74502321995533
+    }
+  ],
+  "DC_tracking": [
+    {
+      "reference_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.998676105132549
+      ],
+      "projected_probability": [
+        0.998676105132549
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9949379566192181
+      ],
+      "projected_probability": [
+        0.9949379566192181
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9984711945303347
+      ],
+      "projected_probability": [
+        0.9984711945303347
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9909985887339541
+      ],
+      "projected_probability": [
+        0.9909985887339541
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9938472875894858
+      ],
+      "projected_probability": [
+        0.9938472875894858
+      ]
+    }
+  ],
+  "static_tracking": [
+    {
+      "reference_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9985924901540056
+      ],
+      "projected_probability": [
+        0.9985924901540056
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9948353295934668
+      ],
+      "projected_probability": [
+        0.9948353295934668
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9983766983309398
+      ],
+      "projected_probability": [
+        0.9983766983309398
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          3,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.9905077044705686
+      ],
+      "projected_probability": [
+        0.9905077044705686
+      ]
+    },
+    {
+      "reference_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "selected_levels": [
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "per_level_weight": 0.2,
+      "principal_overlap_squared": [
+        0.993413172300707
+      ],
+      "projected_probability": [
+        0.993413172300707
+      ]
+    }
+  ],
+  "tracked6s_is_actual_finite_ground": {
+    "DC": true,
+    "static_Breit": true
+  },
+  "static_minus_DC_same_lower_Ha": 14.148346124558884,
+  "CI_provenance": {
+    "physical_operator": "Atomx public complete static Breit Gaunt+zero-frequency retardation",
+    "numerical_engine": "consumer scipy.linalg.eigh evd exact J/parity blocks",
+    "n_blocks": 16,
+    "n_csf": 531,
+    "n_states": 531
+  },
+  "nominal_four_NIST_gap_goal_passed": false,
+  "stationarity_certified": false,
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "frequency_dependent_Breit_included": false,
+  "QED_recoil_included": false,
+  "full_correlation_complete": false,
+  "calls": {
+    "full_H_builds": 1,
+    "full_CI_spectrum_solves": 1,
+    "new_DC_H_builds": 0,
+    "new_DC_CI_solves": 0,
+    "gradients": 0,
+    "optimizer_calls": 0
+  },
+  "timings_uncontrolled_s": {
+    "static_H": 27.226387435104698,
+    "complete_blocked_CI": 0.0023473049513995647,
+    "total": 31.610721706878394
+  },
+  "peak_RSS_MiB": 1051.828125,
+  "resource_admission": {
+    "original_accounting_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "original_accounting_CPUs": 32,
+    "selected_CPU": 29,
+    "load_average": [
+      9.28857421875,
+      9.34228515625,
+      9.51806640625
+    ],
+    "load1_per_available_CPU": 0.2902679443359375,
+    "host_available_GiB": 112.43096160888672,
+    "admitted": true,
+    "purpose": "Resource feasibility; not a controlled performance comparison"
+  },
+  "actual_CPU_affinity": [
+    29
+  ],
+  "contract_sha256": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+  "driver_sha256": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2",
+  "execution_contract_sha256": "59a62bccafb453d6d0b89fa8c9b98e95612c10ddb3e6a6ceaaf9cbf1b67681a3",
+  "arrays_sha256": "a5d3f3f5c3f27cee1c8f70531c247e8deb9ed7a77a3f75034754a9c30c88691e",
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json": "7bbc99f9b73c6ceb3a9a1262497bf1ec853e08e5c05d1d11528f4347b2d81958",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/preflight.json": "080662396627d8900b6d65df230a389a8506e2155a090feeb527584cf817f789",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/arrays.npz": "c74acfa5b426cc7cc5c4c8a2c766e9ffdc5be7d16e3e00c870a040af75dcfa95",
+    "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json": "140af5746c837f40b607b9d2447ca57ce24d372dac527af19b160134006250c4"
+  },
+  "loaded_native_modules": {
+    "atomx.constants": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/constants.py",
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+    },
+    "atomx.types": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/types.py",
+      "sha256": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+    },
+    "atomx.compare": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/compare.py",
+      "sha256": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c"
+    },
+    "atomx": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/__init__.py",
+      "sha256": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3"
+    },
+    "atomx.angular.wigner": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/wigner.py",
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7"
+    },
+    "atomx.angular.clebsch": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/clebsch.py",
+      "sha256": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd"
+    },
+    "atomx.angular.mscheme": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/mscheme.py",
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+    },
+    "atomx.angular.rcfp": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/rcfp.py",
+      "sha256": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd"
+    },
+    "atomx.angular.csf_recoupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/csf_recoupling.py",
+      "sha256": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035"
+    },
+    "atomx.angular.ls_coupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/ls_coupling.py",
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1"
+    },
+    "atomx.angular.recoupling": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/recoupling.py",
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    "atomx.angular": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/__init__.py",
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61"
+    },
+    "atomx.angular.coefficients": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/coefficients.py",
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+    },
+    "atomx.angular.csf_hamiltonian": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/csf_hamiltonian.py",
+      "sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167"
+    },
+    "atomx.config": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/__init__.py",
+      "sha256": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3"
+    },
+    "atomx.config.subshell": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/subshell.py",
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce"
+    },
+    "atomx.config.parsing": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/parsing.py",
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e"
+    },
+    "atomx.config.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/csf.py",
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999"
+    },
+    "atomx.methods.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/base.py",
+      "sha256": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95"
+    },
+    "atomx.methods.breit_pauli": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/breit_pauli.py",
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208"
+    },
+    "atomx.data": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/__init__.py",
+      "sha256": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d"
+    },
+    "atomx.data.hyperfine_presets": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/hyperfine_presets.py",
+      "sha256": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc"
+    },
+    "atomx.methods.scf_observables": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/scf_observables.py",
+      "sha256": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739"
+    },
+    "atomx.numerics": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/__init__.py",
+      "sha256": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125"
+    },
+    "atomx.numerics.bspline.basis": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/basis.py",
+      "sha256": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb"
+    },
+    "atomx.numerics.bspline.integrals": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/integrals.py",
+      "sha256": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c"
+    },
+    "atomx.numerics.bspline.knots": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/knots.py",
+      "sha256": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a"
+    },
+    "atomx.numerics.bspline": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/__init__.py",
+      "sha256": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9"
+    },
+    "atomx.numerics.bspline.convol": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "atomx.numerics.bspline.dirac_assembly": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/dirac_assembly.py",
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28"
+    },
+    "atomx.numerics.bspline.evaluate": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/evaluate.py",
+      "sha256": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059"
+    },
+    "atomx.numerics.diis": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/diis.py",
+      "sha256": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37"
+    },
+    "atomx.numerics.yk": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/yk.py",
+      "sha256": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8"
+    },
+    "atomx.numerics.radial_metric": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/radial_metric.py",
+      "sha256": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4"
+    },
+    "atomx.radial_state": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/radial_state.py",
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de"
+    },
+    "atomx.methods.dirac_fock": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/dirac_fock.py",
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52"
+    },
+    "atomx.methods.hartree_fock_slater": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hartree_fock_slater.py",
+      "sha256": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4"
+    },
+    "atomx.methods.hydrogenic": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hydrogenic.py",
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942"
+    },
+    "atomx.methods.mbpt": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mbpt.py",
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    },
+    "atomx.methods.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/__init__.py",
+      "sha256": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0"
+    },
+    "atomx.corrections.qedmod.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/base.py",
+      "sha256": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30"
+    },
+    "atomx.data.flambaum_ginges": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/flambaum_ginges.py",
+      "sha256": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839"
+    },
+    "atomx.corrections.qedmod.flambaum_ginges": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/flambaum_ginges.py",
+      "sha256": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280"
+    },
+    "atomx.data.mohr_se": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/mohr_se.py",
+      "sha256": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c"
+    },
+    "atomx.physics.base": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/base.py",
+      "sha256": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be"
+    },
+    "atomx.physics.dirac": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/dirac.py",
+      "sha256": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c"
+    },
+    "atomx.physics.schrodinger": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/schrodinger.py",
+      "sha256": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d"
+    },
+    "atomx.physics": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/__init__.py",
+      "sha256": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c"
+    },
+    "atomx.corrections.qedmod.mohr": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/mohr.py",
+      "sha256": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7"
+    },
+    "atomx.corrections.qedmod.indelicato": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/indelicato.py",
+      "sha256": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d"
+    },
+    "atomx.corrections.qedmod.shabaev": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/shabaev.py",
+      "sha256": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b"
+    },
+    "atomx.corrections.qedmod.welton": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/welton.py",
+      "sha256": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a"
+    },
+    "atomx.corrections.qedmod": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/__init__.py",
+      "sha256": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951"
+    },
+    "atomx.corrections.protocol": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/protocol.py",
+      "sha256": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce"
+    },
+    "atomx.corrections.adapters": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/adapters.py",
+      "sha256": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d"
+    },
+    "atomx.numerics.quadrature": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/quadrature.py",
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021"
+    },
+    "atomx.numerics.radial_workspace": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/radial_workspace.py",
+      "sha256": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21"
+    },
+    "atomx.corrections.breit": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/breit.py",
+      "sha256": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596"
+    },
+    "atomx.corrections.qed": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qed.py",
+      "sha256": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd"
+    },
+    "atomx.corrections.stack": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/stack.py",
+      "sha256": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526"
+    },
+    "atomx.corrections": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/__init__.py",
+      "sha256": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081"
+    },
+    "atomx.methods.ci": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/ci.py",
+      "sha256": "0514fc2bd5110fe7a8284f0d448d3d9ee984665a1f9e028142d8c35d6c12549b"
+    },
+    "atomx.physics.csf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/__init__.py",
+      "sha256": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7"
+    },
+    "atomx.numerics.shooting": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/__init__.py",
+      "sha256": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01"
+    },
+    "atomx.numerics.shooting.constants": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/constants.py",
+      "sha256": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643"
+    },
+    "atomx.numerics.shooting.quadrature": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/quadrature.py",
+      "sha256": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a"
+    },
+    "atomx.numerics.shooting.spline": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/spline.py",
+      "sha256": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e"
+    },
+    "atomx.numerics.shooting.coulomb": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/coulomb.py",
+      "sha256": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158"
+    },
+    "atomx.numerics.shooting.operators": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/operators.py",
+      "sha256": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d"
+    },
+    "atomx.physics.csf.matrix": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/matrix.py",
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    "atomx.methods.csf.solver": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/solver.py",
+      "sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82"
+    },
+    "atomx.methods.mcdhf.solver": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mcdhf/solver.py",
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c"
+    },
+    "atomx.numerics.shooting.electron_space": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/electron_space.py",
+      "sha256": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2"
+    },
+    "atomx.methods.mcdhf": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mcdhf/__init__.py",
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167"
+    },
+    "atomx.methods": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/__init__.py",
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09"
+    },
+    "atomx.methods.csf.variational": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/variational.py",
+      "sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72"
+    },
+    "atomx.physics.csf.levels": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/levels.py",
+      "sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946"
+    },
+    "atomx.physics.csf.state_average": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/state_average.py",
+      "sha256": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8"
+    },
+    "atomx.physics.csf.overlap": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/overlap.py",
+      "sha256": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b"
+    },
+    "atomx.physics.csf.tracking": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/tracking.py",
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12"
+    },
+    "atomx.potentials": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/__init__.py",
+      "sha256": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13"
+    },
+    "atomx.potentials.nuclear": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/nuclear.py",
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0"
+    },
+    "atomx.physics.csf.radial_density": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "atomx.physics.csf.breit_ci": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/breit_ci.py",
+      "sha256": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1"
+    },
+    "atomx.physics.csf.retardation": {
+      "file": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/retardation.py",
+      "sha256": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3"
+    }
+  },
+  "frozen_inputs_verified_after_execution": true,
+  "independent_saved_array_verification_pending": true,
+  "performance_comparison_valid": false
+}

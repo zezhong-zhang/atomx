@@ -1,0 +1,47 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/cuda_python_runtime/cupy_backends/cuda/libs/__init__.py", line 34, in __getattr__
+    _pathfinder.load_nvidia_dynamic_lib(pathfinder_name)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/load_nvidia_dynamic_lib.py", line 330, in load_nvidia_dynamic_lib
+    return _load_lib_no_cache(libname)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/load_nvidia_dynamic_lib.py", line 178, in _load_lib_no_cache
+    load_dependencies(desc, load_nvidia_dynamic_lib)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/load_dl_common.py", line 42, in load_dependencies
+    load_func(dep)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/load_nvidia_dynamic_lib.py", line 330, in load_nvidia_dynamic_lib
+    return _load_lib_no_cache(libname)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/load_nvidia_dynamic_lib.py", line 199, in _load_lib_no_cache
+    ctx.raise_not_found()
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/cuda/pathfinder/_dynamic_libs/search_steps.py", line 67, in raise_not_found
+    raise DynamicLibNotFoundError(f'Failure finding "{self.lib_searched_for}": {err}\n{att}')
+cuda.pathfinder._dynamic_libs.load_dl_common.DynamicLibNotFoundError: Failure finding "libcublasLt.so.13 or libcublasLt.so.12": No such file: libcublasLt.so.13 or libcublasLt.so.12, No such file: libcublasLt.so.13 or libcublasLt.so.12, No such file: libcublasLt.so.13 or libcublasLt.so.12
+  listdir("/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib"):
+    libcudadevrt.a
+    libcudart.so.13
+    libcudart_static.a
+    libnvJitLink.so.13
+    libnvrtc-builtins.so.13.2
+    libnvrtc.so.13
+    libnvvm.so.4
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_numba_full_fields001.py", line 293, in <module>
+    main(args.run_name)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_numba_full_fields001.py", line 204, in main
+    control.compute(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/cuda_full_term2_control.py", line 366, in compute
+    v1 = cp.ascontiguousarray(p_s @ amplitude.T)
+  File "cupy/_core/core.pyx", line 1590, in cupy._core.core._ndarray_base.__matmul__
+  File "cupy/_core/_routines_linalg.pyx", line 842, in cupy._core._routines_linalg.matmul
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/cuda_python_runtime/cupy_backends/cuda/libs/__init__.py", line 38, in __getattr__
+    raise ImportError(str(e)) from e
+ImportError: Failure finding "libcublasLt.so.13 or libcublasLt.so.12": No such file: libcublasLt.so.13 or libcublasLt.so.12, No such file: libcublasLt.so.13 or libcublasLt.so.12, No such file: libcublasLt.so.13 or libcublasLt.so.12
+  listdir("/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib"):
+    libcudadevrt.a
+    libcudart.so.13
+    libcudart_static.a
+    libnvJitLink.so.13
+    libnvrtc-builtins.so.13.2
+    libnvrtc.so.13
+    libnvvm.so.4

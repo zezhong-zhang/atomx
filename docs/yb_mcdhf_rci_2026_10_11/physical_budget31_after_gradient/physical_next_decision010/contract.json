@@ -1,0 +1,30 @@
+{
+  "hypothesis": "Stream signed determinant bilinears directly into complete DC radial keys without retaining angular coefficient tables, preserving cached and independent Fock results; complete 4f12 selected-state densities can then feed native full radial gradients.",
+  "fixed": "Owned009 complete A/B configurations, accepted13 R0 31 orbital DC, all signed CSFs and radial coordinates; no model cuts, coefficient thresholds, NIST, optimizer, terminal16 splice, or public full-spectrum owner fabricated.",
+  "validation": "Independent small Fock creation/annihilation operator; complete radial-key cached/streamed comparisons including coherent signed left/right, batch, core and parentages; complete native gradient comparisons and original independent derivative panel.",
+  "gates": {
+    "key_abs": 1e-12,
+    "small_Fock_bilinear_abs": 1e-11,
+    "gradient_abs": 1e-09,
+    "full_R0_energy_reconstruction_Ha": 1e-07,
+    "radial_Gram_abs": 1e-10
+  },
+  "resources": {
+    "qualification_AS_GiB": 8,
+    "complete_sector_AS_GiB": 8,
+    "complete_sector_wall_s": 1200,
+    "max_concurrent": 3,
+    "threads": 1,
+    "sector_CPUs": [
+      28,
+      29,
+      30
+    ],
+    "raw_determinants_max": 92715,
+    "CSFs_B_sum": 45686,
+    "ordered_pairs_max_per_sector": 43720175,
+    "radial_keys_capacity_bound": 384706
+  },
+  "stop": "First failed scientific gate retains failure, no retry/tolerance/step/space change. Stream density qualification does not supersede failed ordinary FD005; no optimizer continuation until derivative admission.",
+  "preexecution_resource_revision": "4 -> 8 GiB for shared matched/full worker admission, before any scientific case; no scientific gate/model/cap changed after a failed run."
+}

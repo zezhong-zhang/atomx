@@ -1,0 +1,169 @@
+--- predecessor/run.py
++++ successor002/run.py
+@@ -52,7 +52,7 @@
+                 "preparation_sha256": sha(HERE / "preparation_verification.json"),
+                 "ordinary_source_map_sha256": contract["ordinary"]["source_map_sha256"],
+                 "candidate_source_map_sha256": contract["candidate"]["source_map_sha256"],
+-                "CPU": 31, "max_H": 2, "max_CI": 2, "max_gradient": 2,
++                "CPU": 30, "max_H": 2, "max_CI": 2, "max_gradient": 2,
+                 "wall_seconds": 300, "address_space_GiB": 3.95,
+                 "purpose": "same_operator_complete29_equivalence_uncontrolled_profile"}
+     if any(execution.get(k) != v for k, v in required.items()):
+@@ -63,6 +63,13 @@
+     for row in contract["inputs"].values():
+         if sha(REPO / row["path"]) != row["sha256"]:
+             raise ValueError("Immutable input mismatch: " + row["path"])
++    baseline = json.loads((REPO / contract["inputs"]["corrected_baseline_result"]["path"]).read_text())
++    closure = json.loads((REPO / contract["inputs"]["corrected_baseline_completion"]["path"]).read_text())
++    if not (baseline.get("all_numeric_controls_passed") is True
++            and baseline.get("corrected_samepoint_full_gradient_and_centered_directions_completed") is True
++            and closure.get("all_completion_metadata_checks_passed") is True
++            and baseline.get("source_map_sha256") == contract["lineage"]["actual_baseline_source_map"]):
++        raise ValueError("Corrected samepoint baseline prerequisite is not closed and passed")
+     for variant in ("ordinary", "candidate"):
+         row = contract[variant]
+         identity = json.loads((REPO / row["identity"]).read_text())
+@@ -73,8 +80,8 @@
+                 raise ValueError("Frozen source mismatch: " + name)
+     if any(os.environ.get(k) != "1" for k in contract["resources"]["thread_variables"]):
+         raise ValueError("Explicit one-thread environment required")
+-    if 31 not in os.sched_getaffinity(0):
+-        raise ValueError("CPU31 unavailable")
++    if 30 not in os.sched_getaffinity(0):
++        raise ValueError("CPU30 unavailable")
+     # Correctness may run at high load; these timings are never controlled.
+     return contract
+ 
+@@ -82,7 +89,7 @@
+ def worker(phase, execution):
+     contract = admit(execution)
+     resource.setrlimit(resource.RLIMIT_AS, (int(3.95 * 2**30), int(3.95 * 2**30)))
+-    os.sched_setaffinity(0, {31})
++    os.sched_setaffinity(0, {30})
+     signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError("Shared300s cap")))
+     signal.alarm(max(1, int(execution["remaining_seconds"])))
+     variant = "candidate" if phase == "anchors" else phase
+@@ -157,21 +164,30 @@
+         if phase == "anchors":
+             from atomx.numerics.bspline import basis
+             from atomx.numerics.bspline.knots import make_knots
+-            basis.prepare_bspline_data = wrap("basis_setup", basis.prepare_bspline_data, 5)
++            basis.prepare_bspline_data = wrap("basis_setup", basis.prepare_bspline_data, 7)
+             # NumPy leggauss uses one small companion-matrix eigvalsh per
+             # geometry; this is declared quadrature setup, not a Dirac solve.
+-            np.linalg.eigvalsh = wrap("Gauss_setup_eigvalsh", np.linalg.eigvalsh, 5)
+-            for index, (ns, balance) in enumerate(((95, False), (96, False), (95, True), (96, True), (4, False))):
+-                ks = 4 if ns == 4 else 9
+-                knots = np.r_[np.zeros(4), np.full(4, .7)] if ns == 4 else make_knots(ns, ks, .0125, 50.)
+-                data = basis.prepare_bspline_data(knots, ns, ks, n_gauss=16 if ns == 4 else None,
+-                                                 kinetic_balance=balance)
++            np.linalg.eigvalsh = wrap("Gauss_setup_eigvalsh", np.linalg.eigvalsh, 7)
++            for index, case in enumerate(contract["anchor_setup"]["cases"]):
++                ns, ks, balance = case["ns"], case["ks"], case["kinetic_balance"]
++                analytic = case.get("monomial_degrees")
++                knots = (np.r_[np.zeros(ks), np.full(ks, .7)] if analytic is not None
++                         else make_knots(ns, ks, .0125, 50.))
++                data = basis.prepare_bspline_data(knots, ns, ks,
++                    n_gauss=16 if analytic is not None else None, kinetic_balance=balance)
+                 cache = convol.ConvolCache(data)
+                 cache.release_shared_banks()
+                 orders = data.get("ksp", ks), data.get("ksq", ks)
+-                if ns == 4:
+-                    radial = np.linspace(0., .7, 4)
+-                    waves = tuple((scale * radial, scale * radial) for scale in (1., -2., 3., 4.))
++                if analytic is not None:
++                    from math import comb
++                    coeff = []
++                    for order, degree in zip(orders, analytic, strict=True):
++                        active = np.array([0. if i < degree else .7**degree *
++                            comb(i, degree) / comb(order - 1, degree) for i in range(order)])
++                        coeff.append(np.r_[active, np.zeros(ns - order)])
++                    waves = tuple((scale * coeff[0], scale * coeff[1]) for scale in (1., -2., 3., 4.))
++                    if balance:
++                        gate("exact_RKB_unused_P_tail_zero", np.all(coeff[0][orders[0]:] == 0.))
+                 else:
+                     rng = np.random.Generator(np.random.PCG64(19011 + index))
+                     waves = tuple((rng.normal(size=ns), rng.normal(size=ns)) for _ in range(4))
+@@ -179,8 +195,9 @@
+                     **{f"wave_{i}_{j}": v for i, pair in enumerate(waves) for j, v in enumerate(pair)})
+                 target = tuple(convol._density_sym(waves[0][j], waves[1][j], ns, orders[j]) for j in range(2))
+                 source_density = tuple(convol._density_sym(waves[2][j], waves[3][j], ns, orders[j]) for j in range(2))
+-                for rank in (0, 1, 6):
++                for rank in case["ranks"]:
+                     reference_parts = [np.zeros((ns, order)) for order in orders]
++                    analytic_parts = [0., 0.]
+                     for left in range(2):
+                         for right in range(2):
+                             labels = ("p", "q")
+@@ -201,9 +218,14 @@
+                             va = convol._sum_amb_banded(target[left], a, ns, orders[left])
+                             vb = convol._sum_amb_banded(target[left], b, ns, orders[left])
+                             close(f"signed_{index}_{rank}_{component}", vb, va, 1e-10, 2e-12)
+-                            if ns == 4:
+-                                expected = -24 * (.7**5 / 5 * 2 / (3 + rank))
+-                                close(f"analytic_{rank}_{component}", va, expected, 0., 2e-13)
++                            if analytic is not None:
++                                degree_left, degree_right = 2 * analytic[left], 2 * analytic[right]
++                                expected = (-24 * .7**(degree_left + degree_right + 1)
++                                    / (degree_left + degree_right + 1)
++                                    * (1 / (degree_left + rank + 1) + 1 / (degree_right + rank + 1)))
++                                close(f"analytic_dense_{index}_{rank}_{component}", va, expected, 0., 2e-13)
++                                close(f"analytic_factored_{index}_{rank}_{component}", vb, expected, 0., 2e-13)
++                                analytic_parts[left] += expected
+                             reference_parts[left] += a
+                     counts = {k: started.get(k, 0) for k in ("direct_full_bank", "direct_semiseparable")}
+                     routed = matrix._bspline_pair_potential(cache, ns, orders, rank, source_density)
+@@ -212,9 +234,9 @@
+                     for left in range(2):
+                         close(f"routed_{index}_{rank}_{left}", routed[left], reference_parts[left], 2e-12, 2e-12)
+                         scalar = convol._sum_amb_banded(target[left], routed[left], ns, orders[left])
+-                        if ns == 4:
+-                            close(f"analytic_routed_{rank}_{left}", scalar,
+-                                  -48 * (.7**5 / 5 * 2 / (3 + rank)), 0., 2e-13)
++                        if analytic is not None:
++                            close(f"analytic_routed_{index}_{rank}_{left}", scalar,
++                                  analytic_parts[left], 0., 2e-13)
+                 cache.release_shared_banks()
+                 flush("geometry_" + str(index))
+             for name, expected in contract["anchor_calls"].items():
+@@ -293,6 +315,7 @@
+     import atomx.numerics.bspline.convol as convol
+     for name in ("_density_sym", "_convol_case1_t", "_convol_case1_semiseparable_t"):
+         setattr(variational, name, getattr(convol, name))
++    variational._banded_to_full_add = wrap("gradient_band_expand", variational._banded_to_full_add)
+ 
+     def load(role):
+         path = REPO / contract["inputs"][role]["path"]
+@@ -303,6 +326,13 @@
+ 
+     start = time.monotonic()
+     saved, gradient, geometry, radial = (load(k) for k in ("saved_point", "saved_gradient", "screened_geometry", "geometry_workspace"))
++    # The new reference is the genuine corrected-f043 baseline. Its historical
++    # original500ac fields are comparison data, never an equivalence oracle.
++    for public, stored in (("radial_gradient", "production_radial"),
++                           ("raw_coordinate_gradient", "production_raw_coordinate"),
++                           ("tangent_gradient", "production_tangent"),
++                           ("preconditioned_gradient", "production_preconditioned")):
++        gradient[public] = gradient[stored]
+     waves = {tuple(map(int, key)): (p.copy(), q.copy()) for key, p, q in
+              zip(saved["keys"], saved["P"], saved["Q"], strict=True)}
+     data = {k[6:]: v.item() if v.ndim == 0 else v.copy() for k, v in radial.items() if k.startswith("basis_")}
+@@ -423,8 +453,7 @@
+         uid = tuple(row["reference_levels"][0])
+         gate("unique_UID_" + str(uid), uid not in bindings and tuple(row["selected_levels"][0][:2]) == uid[:2])
+         bindings[uid] = row
+-    original_records = load("saved_progress")["records"]
+-    reference_targets = next(row["targets"] for row in original_records if row["name"] == "recovered_coordinate_point")
++    reference_targets = load("corrected_baseline_result")["targets"]
+     target_rows = []
+     for target in targets:
+         uid = target["twoJ"], target["parity"], target["models"]["DC"]["local_root"]
+@@ -578,7 +607,7 @@
+                   "no_retry": True, "remaining_phases_unexecuted": True})
+             raise RuntimeError("Closed failed worker: " + phase)
+     resource.setrlimit(resource.RLIMIT_AS, (int(3.95 * 2**30), int(3.95 * 2**30)))
+-    os.sched_setaffinity(0, {31})
++    os.sched_setaffinity(0, {30})
+     signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError("Comparison shared300s cap")))
+     signal.alarm(max(1, int(300 - (time.monotonic() - begin))))
+     compare(execution)

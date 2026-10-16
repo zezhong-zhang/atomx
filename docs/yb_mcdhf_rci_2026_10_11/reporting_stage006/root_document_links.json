@@ -1,0 +1,295 @@
+{
+  "all_passed": true,
+  "checks_count": 46,
+  "checks": [
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "原生路线",
+      "target": "../atomic_native_roadmap_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "本轮合同",
+      "target": "contract.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "前版清单",
+      "target": "previous_sources/manifest.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第二轮终点独立重验",
+      "target": "public_mixed_resume_run003/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第六阶段汇总",
+      "target": "results_stage006.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "当前卡片证据",
+      "target": "reporting_stage006/current_card_evidence.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "005 实算与重放",
+      "target": "native_run/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "五参考归档卡片证据",
+      "target": "native_run/card_evidence_stationary_baseline.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "固定轨道物理判别",
+      "target": "cv_discriminator/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "平衡家族实算",
+      "target": "balanced_cv_replay/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "前瞻枚举",
+      "target": "balanced_cv_frontier/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "测试记录",
+      "target": "test_attempts.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第二阶段来源绑定汇总",
+      "target": "results_stage002.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "回执",
+      "target": "delivery_stage002/receipt.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "实际选择器状态",
+      "target": "delivery_stage002/iteration_result.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第三阶段汇总",
+      "target": "results_stage003.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "混合 CI 驻值诊断",
+      "target": "mixed_ci_stationarity_probe/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "后继公共接口与能差评估",
+      "target": "mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "实现及验证",
+      "target": "public_optimizer_resume/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "根代理受影响回归",
+      "target": "public_resume_integration/contract.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "中止",
+      "target": "public_mixed_resume_run/execution_failure_pre_solve.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "同点旧源码参考",
+      "target": "matched_recovered_point_reference/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "后继公共续算",
+      "target": "public_mixed_resume_run002/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "独立终点重放",
+      "target": "public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第四阶段",
+      "target": "results_stage004.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "同点静态RCI",
+      "target": "public531_endpoint_static_rci/README_result.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第三阶段实际回执",
+      "target": "delivery_stage003/receipt.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "实现前沿状态",
+      "target": "delivery_stage003/iteration_result.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "本次发布证据",
+      "target": "atlas_update002/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "原版本2发布",
+      "target": "atlas_update/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "第三阶段总核验",
+      "target": "verification_stage003.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "独立1,795项数组核验",
+      "target": "target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "身份后继",
+      "target": "results_stage005b.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "下一步物理判别合同",
+      "target": "physical_frontier004/decision_and_prospective_experiment.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "稳定 polar 判别",
+      "target": "stable_polar/contract.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "线性增量判别",
+      "target": "native_run/linear_map_increment_endpoint/result.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "前瞻约束",
+      "target": "centered_increment_contract.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "同 003 轨道修正账",
+      "target": "correction_budget/README.md",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "native_run",
+      "target": "native_run/",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "physics_audit",
+      "target": "physics_audit/",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "label": "performance",
+      "target": "performance/",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md",
+      "label": "deployment",
+      "target": "deployment.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md",
+      "label": "access reread",
+      "target": "access_after_deploy.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md",
+      "label": "frozen handoff",
+      "target": "handoff_manifest.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md",
+      "label": "root preflight",
+      "target": "root_publication_preflight.json",
+      "passed": true
+    },
+    {
+      "document": "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md",
+      "label": "push/archive receipt",
+      "target": "root_push_and_archive.json",
+      "passed": true
+    }
+  ],
+  "scientific_calls": 0,
+  "claims": {
+    "public320_independent_checks": 1011,
+    "original_residual_passed": false,
+    "point160_static_checks": 3710,
+    "exact_sector_independent_checks": 1795,
+    "website_version": 3,
+    "highest_level_reached": false
+  },
+  "documents_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "1bd6716c34bb6ebe3685e2bd8bdd2a60a414ee9a0e7de5bd94640b278dd29a65",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update002/PUBLICATION.md": "4762a1cf2fc53659240bd19d80ce01073eaeccb94f37f56bd6ef1afefbf75e9e"
+  }
+}

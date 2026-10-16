@@ -1,0 +1,22 @@
+{
+  "created_at_utc": "2026-10-11T10:47:07.928432+00:00",
+  "foreground_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/run.py",
+    "panel",
+    "--execution-contract",
+    "docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/execution_contract.json"
+  ],
+  "driver_sha256": "76fb780c3d9d58a0aa79518ca58263a6abe738fbd89834f152df07864bb0e08f",
+  "execution_contract_sha256": "8e35696ca3ad583087460aa566039a0dfac62b0d121ea8d1beb557797c8adc04",
+  "launcher_sha256": "19f049b8c8fff0444f8a06a021a71adb05cb2abbd48ba09d0b8d27af3e8da25e",
+  "outer_wall_cap_s": 315,
+  "exit_code": 0,
+  "outer_wall_cap_stopped": false,
+  "elapsed_s": 56.25078494893387,
+  "log_sha256": "08345a5d870a3c7b5e4239a35550d568c6b463c89d85bb80c97b533a7c427ee4",
+  "execution_contract_unchanged": true,
+  "driver_unchanged": true,
+  "controlled_performance_claim": false
+}

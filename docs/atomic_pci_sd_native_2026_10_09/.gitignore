@@ -1,0 +1,31 @@
+# Isolated downloaded optional wheels; the pinned installer log and runtime
+# metadata/hashes belong in the retained controls, not copied package sources.
+cuda_python_runtime/
+
+# Large local run evidence; retain on disk, outside the software history.
+# Reports and replay drivers remain tracked. See ../repository_cleanup_2026_10_16/README.md.
+/parallel_six_fscc_scope001/core4_n12_001/fscc/cc.log
+
+# Local test aliases and compiled executables.
+/expt_compact_public001_cases/test_axial_export_complete_sigcurrent
+/expt_compact_public001_cases/test_axial_rejects_actual_forbcurrent
+/expt_compact_public001_cases/test_complete_virtual_band_andcurrent
+/expt_compact_public001_cases/test_live_axial_full_ccsdt_sigcurrent
+/expt_compact_public001_cases/test_live_tensor_fsccsdt_againcurrent
+/expt_compact_public001_cases/test_metric_resource_and_modelcurrent
+/expt_compact_public001_cases/test_signed_nonhermitian_heff_current
+/expt_compact_public002/cases/test_axial_export_complete_sigcurrent
+/expt_compact_public002/cases/test_axial_rejects_actual_forbcurrent
+/expt_compact_public002/cases/test_complete_virtual_band_andcurrent
+/expt_compact_public002/cases/test_live_axial_full_ccsdt_sigcurrent
+/expt_compact_public002/cases/test_live_tensor_fsccsdt_againcurrent
+/expt_compact_public002/cases/test_metric_resource_and_modelcurrent
+/expt_compact_public002/cases/test_signed_nonhermitian_heff_current
+/valence_response_split001/cases/test_live_complete_valence_apicurrent
+/valence_response_split001/cases/test_live_screening_common_rescurrent
+/valence_response_split001/cases/test_live_screening_rejects_wrcurrent
+/valence_response_split001/cases/test_live_valence_result_identcurrent
+/valence_term2_public004/cases/test_live_complete_valence_apicurrent
+/valence_term2_public004/cases/test_live_screening_common_rescurrent
+/valence_term2_public004/cases/test_live_screening_rejects_wrcurrent
+/valence_term2_public004/cases/test_live_valence_result_identcurrent

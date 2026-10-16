@@ -56,7 +56,7 @@ python scripts/build_project_index.py --tests src/atomx/atom.py --limit 10
 
 ## 其他上下文
 
-- 测试 326，工具/示例 98，文档 94，配置 5 个文件。
+- 测试 326，工具/示例 98，文档 549，配置 5 个文件。
 - 详细路径、AST 定义/类方法、静态内部导入和内容 SHA 存在 PROJECT_INDEX.json（schema 2）。
 - 不含归档目录、source_* 源码快照和运行输出；保留的专题文档仍须按正文识别适用范围。
 - 名称匹配无结果时直接 rg；只查询源代码结构，不推断实现状态、正确性或性能。

@@ -1,0 +1,11 @@
+{
+  "hypothesis": "A complete rotational-scalar signed spinor Hamiltonian, including orbital-difference transverse exchange, can be represented exactly by normalized antisymmetric J/parity pair matrices without electric-C-rank division or Coulomb parity pruning.",
+  "fixed_model": {"Z": 4, "ns": 30, "ks": 7, "core": [[1,-1]], "virtual": [[2,-1],[2,1],[2,-2]], "spinors": 10, "orbitals": "common native converged DC 1s core and VN virtuals", "modes": ["dc", "static", "dynamic"], "dynamic_frequencies": "fixed actual common DC Fock diagonal; symmetric two-vertex operator average"},
+  "controls": ["all signed magnetic two-body coordinates", "complete independent elementary-fermion 120-by-120 three-electron Hamiltonian", "independent native jj-CSF J0 matrix including offdiagonals", "complete J/M pair metric", "unchanged core Fock/h/reference ledger", "radial phase covariance", "nonspherical rejection", "resource rejection before ERI evaluation"],
+  "acceptance": {"complete_matrix_Ha": 1e-11, "angular_metric": 1e-12, "phase_covariance_Ha": 1e-12, "finite_linked_SD_raw_residual_Ha": 1e-12},
+  "stopping": "Stop on any original numerical/scientific gate failure; preserve result and do not prune, fit or relax gates. No large Yb solve, no validated EXP-T modification.",
+  "caps": {"address_bytes": 4294967296, "threads": 1, "runtime_seconds": 120},
+  "scope": "Actual reusable complete J-pair integral bridge and complete finite two-electron scalar linearized SD; existing scalable core/valence/Sigma2 pCI diagrams remain DC-only.",
+  "initial_test_failure": {"passed":3, "failed":1, "cause":"Test referenced absent singles_commutator_Ha instead of owning result field singles_product_subtraction_Ha; scientific arrays/gates unchanged."},
+  "highest_level_reached": false
+}

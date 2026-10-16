@@ -1,0 +1,19 @@
+{
+  "hypothesis": "A runnable source-change audit must not override the current physical-completeness production priority in the card headline.",
+  "fixed": "No solver, source-bound job, scientific gate, resource cap or dispatch behavior changes.",
+  "distinguishing_outcomes": "Current priority appears with and without queued finite audits; tampered physical evidence still rejects.",
+  "acceptance": "Affected scheduling tests pass; existing jobs are byte-identical after annotation.",
+  "stop": "No physics solves or expanded cutoffs in this reporting fix.",
+  "before": [
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py",
+      "before": "docs/atomic_physics_correctness_2026_10_11/planner_priority/before_parallel_planner.py",
+      "sha256": "c00b82f75d80ec9012227fb03f81c0b4ce7c0d4a9c4b91570823bc5def93e0ed"
+    },
+    {
+      "path": "tests/test_atomic_parallel_iteration.py",
+      "before": "docs/atomic_physics_correctness_2026_10_11/planner_priority/before_test_atomic_parallel_iteration.py",
+      "sha256": "4f65e77264ea8bf72574e61635924a4710f12b41cb7ab8fae036026951855266"
+    }
+  ]
+}

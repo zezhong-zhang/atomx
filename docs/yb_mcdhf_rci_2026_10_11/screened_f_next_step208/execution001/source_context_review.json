@@ -1,0 +1,56 @@
+{
+  "status": "source_JSON_only_review_no_runtime",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "immutable_source_root": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "native_forwarding": {
+    "class": "atomx.methods.dirac_fock.DFSolver",
+    "source_sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "entrypoints": [
+      "_precompute_angular_coefficients(None)",
+      "_build_hf_matrix_dbsr(target_i,orbitals,skip_pq_exchange=False)"
+    ],
+    "attributes_set": [
+      "subshells",
+      "mean_field_coeffs",
+      "mean_field_normalization",
+      "bsp_data",
+      "_convol_cache"
+    ],
+    "constructor_and_SCF_used": false,
+    "weights": "Cij=qcore_j;Di=1;alternate3C/3D;zero target population;closed19/qj=2abs(kappa),68electrons",
+    "assembled_field": "logicalL(savedrawhN)+block(PP,PQ;QP,QQ) exactlyonce, with fullnativecross exchange; no Fock no-pair P rebuild"
+  },
+  "independent_scalar": {
+    "entrypoint": "atomx.physics.csf.frozen_core.closed_core_one_body",
+    "source_sha256": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "radial": "atomx.numerics.bspline.convol.compute_slater_rk_cell",
+    "radial_source_sha256": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe",
+    "scalar_order": "32ordered signed bilinears from8P-only/Q-only old4f+savednuclear5f unnormalized probes, beforeFock full118spectra andanyCI",
+    "pair_order": "r(rank,a,b,c,d) forwards nativePaQaPbQbPcQcPdQd;bare h=0;closed-core directqj R0(a,b;j,j),exchange public reduced_C_jj^2/(2abs(kappa_a)) sum"
+  },
+  "hS_source_review": {
+    "source_sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "paths": [
+      "build_ci_matrix->_reset_memo_for_ci_build",
+      "_metric_check_due->_check_orbital_metric->_dirac_blocks(7kappa)",
+      "_radial_evaluator->one_body_blocks comprehension overallprovided29/31keys->_dirac_blocks"
+    ],
+    "source_forecast_requests": 74,
+    "exact_request_count_is_acceptance_gate": false,
+    "request_cap": 128,
+    "producer_cap": 14,
+    "source_expected_producers": 7,
+    "carry_guard": "same workspaceobject, sampled workspace/nuclear fingerprint, samenuclearobject;secondH carries7same tuples;getter returnschecked logicalh/S for eachrequest",
+    "coverage": "BothCI all7kappa,actual cachemisses=7nativeproducers; all requests/hits/misses recorded",
+    "preserved_prior_failure": "Oldnuclear run expected14vsactual7 remainsFAILED;new contract7prospective never changesoldproof"
+  },
+  "reference_anchors": {
+    "closed_shell_signed_magnetic_ERI": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py",
+    "FAC_angular_conventions": "tests/test_fac_angular_conventions.py",
+    "coverage_boundary": "Existing independent signedclosed-shell and FAC reducedC/Wigner conventions are source references only. New actualf32scalar qualification stillPENDING; no foreign backend"
+  },
+  "NumPy_Atomx_imports": 0,
+  "NPZ_reads": 0,
+  "H_CI_gradient_Dirac_optimizer_calls": 0,
+  "no_source_or_other_owner_edits": true
+}

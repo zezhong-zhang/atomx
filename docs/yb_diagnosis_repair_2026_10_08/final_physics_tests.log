@@ -1,0 +1,113 @@
+........................................................................ [ 55%]
+.........................................................                [100%]
+=============================== warnings summary ===============================
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_multidigit_orbital_label_uses_full_principal_number
+  /data/code/atomx/src/atomx/corrections/qedmod/mohr.py:159: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    F_val = _interpolate_se_f(Z, n, kappa)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=6, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=6, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=8, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=8, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=10, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=30, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=30, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_indelicato_vs_fac.py::test_indelicato_reads_full_multi_digit_principal_n[10-1-10p1/2]
+  /data/code/atomx/src/atomx/corrections/qedmod/indelicato.py:54: RuntimeWarning: self-energy n=10, kappa=1, Z=42 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    return _interpolate_se_f(Z, n, kappa)
+
+tests/test_qed_indelicato_vs_fac.py::test_indelicato_reads_full_multi_digit_principal_n[12--2-12p3/2]
+  /data/code/atomx/src/atomx/corrections/qedmod/indelicato.py:54: RuntimeWarning: self-energy n=12, kappa=-2, Z=42 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    return _interpolate_se_f(Z, n, kappa)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+129 passed, 27 warnings in 12.39s

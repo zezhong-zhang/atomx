@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-10-11T08:39:33.684079+00:00",
+  "status": "prospective_regression_contract_not_yet_run",
+  "scope": "Root integration and affected optimizer regression after the separately contracted public resume implementation; no new physical operator or relaxed gate",
+  "hypothesis": "Opt-in restored immutable geometry/metric supports a new full correlated objective without changing the existing fresh optimization path or old physical stationarity gates",
+  "control": "Unchanged independent-particle and actual MCDHF/shooting/projector/stable-increment/determinant-cap tests, plus native agent new immutable resume numerical controls",
+  "test_inputs_sha256": {
+    "tests/test_orbital_optimizer_history.py": "67311907677369bbf41ad3459f0754300944fbc8cf0189375e97a368e969ddaf",
+    "tests/test_mcdhf.py": "8c87ed22201a7b037e7a413c5e0c38e584d4d08a7a52ee48ff0f76ab95c2c59b",
+    "tests/test_mcdhf_shooting_preconditioner.py": "0ff00d53f2f10477ae4c822d82a1a2e20bbb513bfb2aa7d2877424de6068a503",
+    "tests/test_mcdhf_stable_energy_difference.py": "3ad0a29de124f7db3762fdc7becc831e21978c63f4748814f562eb3fc2865202",
+    "tests/test_mcdhf_gradient_reuse.py": "b0c282d52060f362853991672348e1ecbe0fd000b2efdccebe1abd2644546826",
+    "tests/test_mcdhf_polar_retraction.py": "087ad7b00b39aee76e8eaf5fe2c817730dd4f800c1142803074383834559a810",
+    "tests/test_mcdhf_determinant_cap.py": "9e9cfcb562641591f431cb699b24137c0b4154bf9e8c68117d0707763df725c5",
+    "tests/test_mcdhf_fock_projector.py": "eda32b2e38a22a05782fbf2a2274b27fec48aa2612a1bc79a0e5e04b5a2b83c2"
+  },
+  "source_policy": "Bind the complete actual dirty source epoch to a separate run manifest immediately before execution. Keep old stage002/stage003 reports byte-identical. The implementation has its own prospective contract.",
+  "acceptance": [
+    "All selected original test assertions pass without altered fixtures or gate relaxation",
+    "New opt-in resume tests pass independent numerical references, mismatch rejection and genuine accepted-checkpoint controls",
+    "Native baseline/scientific evidence remains unchanged; do not recertify highest or experiment from these tests",
+    "Public 531 run begins only after source/API review and its own sealed runtime contract"
+  ],
+  "stopping_condition": "Preserve a failure and inspect cause; no repeated full-panel run without a new source change or unresolved failure",
+  "resources": {
+    "cpu_threads": 1,
+    "wall_budget_s": 300,
+    "controlled_performance_claim": false,
+    "numba_cache": "Fresh generated task-specific isolated cache to avoid the archived compiler-key weak-reference cache failure"
+  },
+  "parent_stage003_verification_sha256": "d6fd7fc680ad0eae43067582da364d6c68d698f54a3f97df6b20aa17f6cc8275"
+}

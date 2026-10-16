@@ -1,0 +1,28 @@
+{
+  "before_count": 338,
+  "final_count": 338,
+  "modified": {
+    "src/atomx/methods/fscc.py": {
+      "before": "6e61ce45c5323e5a5e3bdccf5f212e833b08fb6c4faedcd4d858bb3953053710",
+      "final": "4bf1a15612cf522c189beb0a8f5c198d14c13b43fe965d214816cd6f18f976c1"
+    },
+    "src/atomx/physics/csf/matrix.py": {
+      "before": "fb159c5e0fef7451803d00664c4b544a2a75519fdcb00ab44975c81a9f45325d",
+      "final": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    "src/atomx/physics/csf/radial_snapshot.py": {
+      "before": "e65280a104c3079b4ac901cee8913a6a09ebca25192cd69c1a78833fa353b3ed",
+      "final": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "src/atomx/physics/csf/spinor_integrals.py": {
+      "before": "df9fe48a52ebb839d34b83485f8e159f6bba42c3f8514c6820a5643b52520d4f",
+      "final": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e"
+    }
+  },
+  "stage1_source_file": "current_source_sha256.json",
+  "final_source_file": "final_source_sha256.json",
+  "final_capture_verified": true,
+  "backend_sha256": "9f06ef3a31a29856b99194d8fb0f305c68831c800cff3867e1c3585658290c2a",
+  "shared_kernel_scope": "Explicit cache capacity and diagnostics only in matrix/radial_snapshot; default integral arithmetic unchanged",
+  "source_bridge": "36-virtual final-source solve; 54-virtual final-source export; complete Ne signed bytes and actual SD energy replay"
+}

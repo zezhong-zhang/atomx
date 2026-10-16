@@ -1,0 +1,33 @@
+{
+  "status": "CLOSED_PASS",
+  "files": {
+    "compare.py": "ca9c480b121a4995915c9c277f07dc67ddfb13b77b81292ac0a33049595597d9",
+    "contract.json": "fd0298d98be5d86d66699d41acfbf0856f57d7e08e52780f26d9ce568e218d30",
+    "source_before.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "source_before.json": "96bf7df2ed99ed137387f330fe4e05192b126ec130c85bf171974027aa9e1fa7",
+    "actual/result.json": "0de9c5faa97a302abba3ff06f33b6ed9aa4eb1663a1a72f877ec12c468e53dfa",
+    "closure_summary.json": "24c876dcb8cac4db70bff8b0bc2f3cb70af9f4bb49b7d189f7477385fdb2e8dd",
+    "RESULTS.md": "6e15d78a388b7c57df0923e0996b0f90dde4be39e48817aca22e93aac6ae29fd",
+    "trace.md": "d29fcac323a29cef18910c385492f5e0a6bc477225944098cd897cb0f1d6aa93"
+  },
+  "science_rewrites": 0,
+  "once_only_execution": true,
+  "root_authorization": "Parent task explicitly admitted one bounded angular-only run without another seal cycle.",
+  "source_chain": {
+    "before": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "after": "adc5bd8f4d7782019b488b122a0cc94a053975e804fdbb7660693dc2bd5a8680"
+  },
+  "original_failures_preserved": [
+    "3 original D3/2 directional derivative failures",
+    "nonstationary shared-orbital objective",
+    "full4f12 angular assembly/work unqualified"
+  ],
+  "validation": {
+    "current_after_source_unchanged": true,
+    "driver_and_contract_match_actual_run": true,
+    "all_bound_receipt_files_match": true,
+    "own_report_links_exist": true,
+    "ruff": "PASS",
+    "actual_science_rewrites": 0
+  }
+}

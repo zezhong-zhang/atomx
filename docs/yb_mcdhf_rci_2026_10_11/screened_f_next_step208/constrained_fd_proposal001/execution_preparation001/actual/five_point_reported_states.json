@@ -1,0 +1,222 @@
+{
+  "baseline": {
+    "rows": [
+      {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "selected_level": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "weight": 0.2,
+        "energy_Ha": -14067.522083457936,
+        "tracker": {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9889947984124412
+          ],
+          "projected_probability": [
+            0.9889947984124412
+          ]
+        },
+        "excitation_cm1": 0.0
+      },
+      {
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "selected_level": [
+          3,
+          1,
+          0
+        ],
+        "column": 1,
+        "weight": 0.2,
+        "energy_Ha": -14067.405029022495,
+        "tracker": {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9902749957645322
+          ],
+          "projected_probability": [
+            0.9902749957645322
+          ]
+        },
+        "excitation_cm1": 25690.479067807206
+      },
+      {
+        "label": "5d_5/2",
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "selected_level": [
+          5,
+          1,
+          0
+        ],
+        "column": 3,
+        "weight": 0.2,
+        "energy_Ha": -14067.4010253246,
+        "tracker": {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9907705118022989
+          ],
+          "projected_probability": [
+            0.9907705118022989
+          ]
+        },
+        "excitation_cm1": 26569.18918747062
+      },
+      {
+        "label": "6p_1/2",
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "selected_level": [
+          1,
+          -1,
+          0
+        ],
+        "column": 2,
+        "weight": 0.2,
+        "energy_Ha": -14067.403702662497,
+        "tracker": {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9833229417554243
+          ],
+          "projected_probability": [
+            0.9833229417554243
+          ]
+        },
+        "excitation_cm1": 25981.581439339643
+      },
+      {
+        "label": "6p_3/2",
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "selected_level": [
+          3,
+          -1,
+          0
+        ],
+        "column": 4,
+        "weight": 0.2,
+        "energy_Ha": -14067.38830609472,
+        "tracker": {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9812779769273628
+          ],
+          "projected_probability": [
+            0.9812779769273628
+          ]
+        },
+        "excitation_cm1": 29360.737476723258
+      }
+    ],
+    "EOL_reported_Ha": -14067.42402931245,
+    "multiplets": {
+      "5d": {
+        "centroid_cm1": 26217.705139605252,
+        "splitting_cm1": 878.7101196634139
+      },
+      "6p": {
+        "centroid_cm1": 28234.352130928717,
+        "splitting_cm1": 3379.1560373836146
+      }
+    },
+    "physical_point": "baseline",
+    "operator": "dirac-coulomb",
+    "original_tracker_not_rebased": true,
+    "actual_EO_ULP_Ha": 1.8189894035458565e-12,
+    "no_stationarity_claim": true
+  }
+}

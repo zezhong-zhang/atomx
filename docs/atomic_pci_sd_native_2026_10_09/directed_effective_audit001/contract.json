@@ -1,0 +1,7 @@
+{
+  "hypothesis": "Directed fixed-column-energy SD screening must not be treated as Hermitian CI input without measuring complete physical matrix identities.",
+  "fixed": "Same source-bound C2+ nativeDC .37virtual-rotation fixed-energy case00, all6s-p radial columns/16magnetic states and120antisymmetric pairs; all Sigma1/Sigma2 outputs from same solved004 case. No symmetrization or energy extrapolation.",
+  "criterion_Ha": 1e-11,
+  "distinguishing": "Particle-swap covariance is a scalar two-body identity. Measure adjoint defects of Sigma1, irreducible pairSigma2 and combined frozen-energy valenceH; a nonzero defect is recorded, not averaged away.",
+  "scope": "finite directed operator consumer audit, not physical energy/metric/experimental validation"
+}

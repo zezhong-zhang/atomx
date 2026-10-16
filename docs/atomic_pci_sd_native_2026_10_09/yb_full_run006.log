@@ -1,0 +1,11 @@
+{"stage": "complete space and plan", "coordinates": 28218500, "payload": 10220442316, "seconds": 1.7229629519861192}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py", line 241, in <module>
+    main(parser.parse_args())
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py", line 95, in main
+    build(
+  File "/data/code/atomx/tools/build_pci_sd_backend.py", line 675, in build
+    completed.check_returncode()
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 457, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-c', 'native_bridge.f90']' returned non-zero exit status 1.

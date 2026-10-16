@@ -1,0 +1,54 @@
+{
+  "status": "COMPLETE_WITH_PRESERVED_PREEXISTING_TEST_AND_API_FAILURES",
+  "current_source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "production_scope": "One new numerical module; additive real-DC radial derivative class/factory; no changes to existing default/optimizer/CI behavior.",
+  "attempts": [
+    {
+      "driver": "run.py",
+      "session": 21379,
+      "exit_code": 1,
+      "result_sha256": "397d3c3e7e91ee89404cdd56d9d30d92d1020ef8a07a952beb68a6ca1deabc0a",
+      "reason": "Raw tuple to CSFSignature API; first block-builder entry rejected, no completed CI matrix/key/eigen/response output. Radial setup ran."
+    },
+    {
+      "driver": "run002.py",
+      "session": 57115,
+      "exit_code": 0,
+      "result_sha256": "faabc2bc31c8cb284c3bf458e1dc659f1f78db064e46417ba7dd0a9b2b017a79",
+      "reason": "Explicit signature adapter; same359-file source, model/gates/steps/caps; full completion once."
+    }
+  ],
+  "guarded_test_sessions": [
+    {
+      "session": 26277,
+      "exit_code": 1,
+      "result": "67PASS/2FAIL,65.12s"
+    },
+    {
+      "session": 25765,
+      "exit_code": 1,
+      "result": "Before-source42PASS/same2FAIL,75.48s"
+    }
+  ],
+  "unfinished_workers": 0,
+  "counts": {
+    "exact_block_matrix_calls": 30,
+    "radial_keys": 19828,
+    "complete_eigh_calls": 10,
+    "response_calls": 10
+  },
+  "scientific_gate_step_cap_model_changes": 0,
+  "new_displaced_H_calls": 0,
+  "optimizer_calls": 0,
+  "CPU": 27,
+  "threads": 1,
+  "AS_bytes": 8589934592,
+  "seconds_cap": 600,
+  "elapsed_seconds": 96.66255320799974,
+  "peak_RSS_MiB": 1089.37890625,
+  "environment_at_closure": {
+    "python": "3.10.21 (main, Aug 14 2026, 15:33:52) [Clang 22.1.3 ]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43"
+  },
+  "scope": "Unpaired feasibility; complete original spaces only; no full4f12 response or experimental improvement."
+}

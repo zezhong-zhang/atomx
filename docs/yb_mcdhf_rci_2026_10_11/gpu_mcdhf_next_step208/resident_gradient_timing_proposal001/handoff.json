@@ -1,0 +1,67 @@
+{
+  "status": "SOURCE_JSON_PLAN_REVIEW_NO_SCIENCE_EXECUTOR_OR_AUTHORIZATION",
+  "files": {
+    "SOURCE_FINDINGS.json": "87f7be73410a13877f3797a17433137ed261f04d8bb97f32ae78c8c96f6ab25e",
+    "contract.json": "9ac90f50cec057f1936024c8b1fda0bc451e500ebc2c854dfd4705fafd3c4582",
+    "README.md": "58e21223c64caa274c5a682af9b31e3cc05aa2c511ae6f8a9317d2595aa9b13f",
+    "EARS.md": "d4ee7389b4c6549175f0600d60c7e4a7300bc5e8bbb000a1cdfcb95c8a2b5e6b",
+    "documentation_impact.json": "bbbb5e2a0e4400ebe0cfb6fd8c0d4be444a66e9c4fcbe3e2e9124800af464631"
+  },
+  "inputs": {
+    "closed_GPU_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+      "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+    },
+    "closed_GPU_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+      "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+    },
+    "closed_GPU_metadata": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+      "sha256": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758"
+    },
+    "qualified_consumer_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/run.py",
+      "sha256": "8b25ccdddba36e58d662052bd07b8b991b3995b43570a368862d269c6553cc06"
+    },
+    "qualified_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/contract.json",
+      "sha256": "5689311c8cb435f1eff358ceaa9cbd06c128fa7a7a164bc8e2ecb932c16ee8c1"
+    },
+    "frozen_private_native_adapter": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/native_adapter.py",
+      "sha256": "b903784cfdda3e931ae08abc11d113c8637b224e4e6aa501351762b5801df2be"
+    },
+    "adapter_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_native_adapter_preparation001/contract.json",
+      "sha256": "4cbc728cd01c662a29e4b869a13b8aa48b9bbeb8d4c4b5d8a5df69025009cd13"
+    },
+    "frozen_batch_executor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/batch_executor.py",
+      "sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+    },
+    "executor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/contract.json",
+      "sha256": "3eb86a54b92c985460d3721b234a7fd94d2ed9338a5adfea7c92c3da17ad62a5"
+    },
+    "native31_FD_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "native31_FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "report033_metadata_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/closure001/completion.json",
+      "sha256": "bbb10c0aa88f25699b53b95d9c12f9d1c16dc9d5561c28e9058890274b91dd05"
+    },
+    "prior_load_guard_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/contract.json",
+      "sha256": "1c7541074eeb3e824c8348decc1534819c2b2e7b9fedc186e701839e2842a97d"
+    }
+  },
+  "required_next": "Root technical review of scope and literal setup/validation/budget extraction before any executor or controlled run.",
+  "new_physical_calls": 0,
+  "no_existing_times_promoted_to_speedup": true
+}

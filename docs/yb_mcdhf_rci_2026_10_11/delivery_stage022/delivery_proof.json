@@ -1,0 +1,133 @@
+{
+  "created_utc": "2026-10-11T16:15:23.957542+00:00",
+  "passed": true,
+  "message_id": "om_x100b638f067e5ca0dee5748e0a93e50",
+  "position": 1616,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1616",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "cycle": "mcdhf-stage022",
+  "idempotency_key": "4d69016a-136c-5363-9743-26f3f13e6425",
+  "source_stage": {
+    "number": 22,
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage022.json",
+    "sha256": "01fe36e742e392b9a92f92348908d38dcc0f222bd7ea96e0ce3250c0f2e247cd",
+    "global_accepted_step": 208
+  },
+  "registry_source": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage022/registry_stage022.json",
+    "sha256": "44a389a82a288c0419a1ead6d7758865e567f069b753e86a87553b5ecd9be8de"
+  },
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "title": "Atomx · 任务与谱学实验对照",
+    "receipt_create_time_Asia_Hong_Kong": "2026-10-12 00:08:43",
+    "readback_create_time_Asia_Hong_Kong": "2026-10-12 00:08",
+    "full_visible_content_matches": true,
+    "readback_characters": 9300,
+    "readback_is_raw_DSL": false,
+    "readback_representation": "CLI-rendered full card text; sent schema2 card archived separately",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "actual_send": {
+    "started_at": "2026-10-11T16:08:40.773448+00:00",
+    "finished_at": "2026-10-11T16:08:43.829865+00:00",
+    "passed": true
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "job": null,
+    "jobs": [],
+    "automatic_physics_jobs": 0,
+    "finished_at": "2026-10-11T16:08:45.683037+00:00"
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_calls_by_this_audit": 0,
+  "new_scientific_calls_by_this_audit": 0,
+  "cards_sent_by_this_audit": 0,
+  "files_sha256": {
+    "capture.json": "d9deffbe57b5346c349632c3eb928deea7ad0a05b6e4858a2493e1319f0aa39e",
+    "card.json": "d47e80e04eaf957ddac32977c330bc2d85bf5213752a66d0f8ae4694ed275f79",
+    "iteration_request.json": "b6073ebc2e3fecf5fc162a78ae706076a6da6ccadf137cc7d662f070b58b66dd",
+    "readback.json": "13b9886f85c4e6425b2b72d0838f43c7bfcca1e210f5032fa8bf0544a15a8252",
+    "readback_execution.json": "f5aeadcacc2c3b9ebf40ee3f1a592c0170ee785ad52e21a1a8c829fba4968016",
+    "receipt.json": "e7a803f0cbe69496c7028ceca05028d234169f8eb173ecc17883bc262fbf452d",
+    "registry_stage022.json": "44a389a82a288c0419a1ead6d7758865e567f069b753e86a87553b5ecd9be8de",
+    "root_send_execution.json": "37fadd3f1f44a9c1def44dd78edbc47ad40ea493cc93a3e891d7892fc80deb55",
+    "root_send_stdout.json": "811a98d44f5ff1d849c51de19ef8167c30957ed2f490c20187a0e2b2f2931133",
+    "send_status.json": "b773a78e4941e192eef6f6b5d1c943df5e4d789c14cd1298f88160f4929d7a2f",
+    "service_iteration_status.json": "b6073ebc2e3fecf5fc162a78ae706076a6da6ccadf137cc7d662f070b58b66dd"
+  },
+  "verifier_sha256": "144b0f88ce2ed5a1b2d681e094f58c08324cb466c61fe844572492a48dfd39f4",
+  "shared_utilities_sha256": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093",
+  "scope": "Saved-text/hash/receipt binding only; no producer replay or physical/stationarity/experiment certification upgrade.",
+  "separate_root_bounded_iteration": {
+    "kind": "Private numerical radial-reuse qualification003 at original corrected29 same point; not new orbital optimization or shared adoption",
+    "started_after_this_card": true,
+    "actual_closed_exit_code": 0,
+    "started_utc": "2026-10-11T16:08:56.647404+00:00",
+    "finished_utc": "2026-10-11T16:10:24.945933+00:00",
+    "elapsed_uncontrolled_seconds": 88.29829456401058,
+    "actual_declared_calls": {
+      "H": 2,
+      "CI": 2,
+      "gradient": 2,
+      "optimizer": 0,
+      "GPU": 0,
+      "scipy_eigh": 17,
+      "Gauss_setup_eigvalsh": 7
+    },
+    "all_equivalence_gates_passed": true,
+    "shared_adoption_claim": false,
+    "speedup_certified": false,
+    "files_sha256": {
+      "root_execution.json": "27fbab86c8be671bb0b390b96cf621e68444f70c5073e45fa61039e6d9649946",
+      "once_marker.json": "4340145d37a86a2f20f79d687e3c9fc2ec418b1499a315bd43930bf9af46bafb",
+      "execution_contract.json": "4952a825e2abb86be127968721126098548a56016248e5bf14ebc37c05a2bc60",
+      "actual/result.json": "04592757c7ef05a22b181453d31d708c6d41d3fe6d433b372447c42369c73836",
+      "actual/comparison.json": "a4bda374b3246398e480ac1d21ac50a17c7e1e4c7824989908d71deb74b79f76"
+    }
+  }
+}

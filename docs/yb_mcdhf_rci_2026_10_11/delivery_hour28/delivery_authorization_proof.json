@@ -1,0 +1,75 @@
+{
+  "status": "saved_JSON_actual_delivery_qualified_by_existing_nine_operation_protocol",
+  "passed": true,
+  "created_utc": "2026-10-11T20:02:41.711009+00:00",
+  "original_eight_operation_gate_still_failed": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/delivery_proof.json",
+    "sha256": "da038d7481e9d7ce531c397f45949e84f509a729cad9a430bc4e19ebe3a10c7b"
+  },
+  "existing_prior_nine_operation_contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour27/contract.json",
+    "sha256": "b1fd10970e0b73c54291cb693a98d47e2ff87f0234b58831bca7b49114b9c96c"
+  },
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1622",
+  "message_id": "om_x100b638ae2f028acdfafe95d734a863",
+  "position": 1622,
+  "source_stage": 32,
+  "source_SHA": "c9aaacd44598f186a255cf1cc066f0cdf52d731f983e6a95d766185dcf02a896",
+  "cycle": "2026-10-11T20",
+  "service_status": "completed",
+  "decision_status": "implementation_frontier",
+  "automatic_registered_scientific_probes": 4,
+  "automatic_Yb_MCDHF_jobs": 0,
+  "job_summary": [
+    {
+      "job_id": "parallel_fscc_scope_ab20a6c1c7fd283841b9",
+      "lane": "fscc_scope",
+      "status": "completed",
+      "process_started_at": "2026-10-11T20:00:06.417372+00:00",
+      "process_finished_at": "2026-10-11T20:00:15.091981+00:00",
+      "result_sha256": "131af529219e1e98c8fce62e37c8eb7ad79cbb5da810465a9eeaf1be24c2c314",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "observed_wall_seconds": 7.753065417055041
+    },
+    {
+      "job_id": "parallel_properties_186965904f2badbb3a51",
+      "lane": "properties",
+      "status": "completed",
+      "process_started_at": "2026-10-11T20:00:06.418093+00:00",
+      "process_finished_at": "2026-10-11T20:00:09.235072+00:00",
+      "result_sha256": "f9bbbbd9dbf77148706f243e12328ff6e827d73cbad21549135f6b4beea15d22",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "observed_wall_seconds": 1.9521980278659612
+    },
+    {
+      "job_id": "parallel_sd_diagrams_bdd51776c41eb7b4124e",
+      "lane": "sd_diagrams",
+      "status": "completed",
+      "process_started_at": "2026-10-11T20:00:06.417766+00:00",
+      "process_finished_at": "2026-10-11T20:00:07.232429+00:00",
+      "result_sha256": "2e6debd517e677a0a6f73e828df3930293362679d413dae73b278a6b21254973",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "observed_wall_seconds": 0.6527522529941052
+    },
+    {
+      "job_id": "parallel_gpu_c19f0c8976d2ba80a068",
+      "lane": "gpu",
+      "status": "completed",
+      "process_started_at": "2026-10-11T20:00:06.417868+00:00",
+      "process_finished_at": "2026-10-11T20:00:11.187171+00:00",
+      "result_sha256": "a89a882a7b5f395cc51bed438ab981669d1853b2c824bd3dda20c02972260778",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "observed_wall_seconds": 4.606237427098677
+    }
+  ],
+  "readback_calls_in_saved_evidence": 1,
+  "new_API_calls": 0,
+  "new_send_calls": 0,
+  "new_NPZ_numerical_calls": 0,
+  "no_original_failure_promoted": true,
+  "all_card_rows_and_other_visible_text_match_prior_exact_format_protocol": true
+}

@@ -1,0 +1,75 @@
+{
+  "owned_source_files": [
+    {
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192",
+      "previous_sha256": "28611e8b557977652a273f13021cc07a08086f6fbd6f82ef4105d5b17886d319"
+    },
+    {
+      "path": "src/atomx/methods/csf/variational.py",
+      "sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "previous_sha256": "652be6483d93f439f7200421fcde19d3af8342c86cbfe97543a5a26b295d9103"
+    },
+    {
+      "path": "src/atomx/methods/csf/solver.py",
+      "sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+      "previous_sha256": "5d662eede52009e4852907f3ce10a95be9edae6c03cb75115ce44dafc6599164"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "previous_sha256": "4761534a0660ae92034420cf7064bb538cf5cbd7716bb8cb23203684de9bde27"
+    },
+    {
+      "path": "src/atomx/methods/csf/charge_variational.py",
+      "sha256": "160ef5305854273948940d05bfcabfcd1e382ae9d46f3b8887e258f696fdcacb",
+      "previous_sha256": "fca4674fd96ac036cee020e467105a7327c98467915fbfb4b1118c6984102586"
+    },
+    {
+      "path": "src/atomx/methods/csf/grid_functional.py",
+      "sha256": "fb363fe9f2524f3bcb694a04bd6c134dbc528d1758a788cd5a4a4436e2e42e83",
+      "previous_sha256": "b1a227fae381df8fc58dcd6d534d9c5b748dc0536b20c60970199eaa05c68cb1"
+    },
+    {
+      "path": "src/atomx/methods/csf/grid_solver.py",
+      "sha256": "4a3c11bc8ee7e7c6c13f8af0a643b8f1c32b94b82bbdba07e15fa83f1f55232c",
+      "previous_sha256": "d8a7966eb9f3bf2b74d52981f0da4422dd8ce3b2637f7ac1adadc538fd2a4a6f"
+    }
+  ],
+  "owned_test_files": [
+    "tests/test_mcdhf_determinant_cap.py",
+    "tests/test_mcdhf_fock_projector.py",
+    "tests/test_mcdhf_gradient_reuse.py",
+    "tests/test_mcdhf_stable_energy_difference.py",
+    "tests/test_mcdhf_polar_retraction.py",
+    "tests/test_native_mcdhf_card.py",
+    "tests/test_atomic_parallel_iteration.py"
+  ],
+  "documentation_review": {
+    "docs/DF_SOLVER_CONTROLS.md": "Caps, projector and numerical constrained increment boundary now match real consumers.",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "Primary native MCDHF/RCI route, with constraints and retained external comparisons.",
+    "docs/AGENT_REFERENCE.md": "Latest native Yb guide ahead of historical SD guide.",
+    "docs/AGENT_INSIGHTS.md": "Merge explicit user main-route decision into reusable principle.",
+    "docs/THEORY_NIST_COMPARISON.md": "Stationarity and input-bound source/model classification appear beside comparison.",
+    "docs/README.md": "New primary route linked without deleting old evidence.",
+    "docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md": "MCDHF/RCI main route; SD/CC secondary comparators.",
+    "docs/atomx_hourly_progress_2026_10_10/README.md": "New current MCDHF proof and six directions; bounded service frontier remains explicit.",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/README.md": "Correct the former future-only 68-CSF text to completed fixed005-orbital RCI; immutable numerical proofs remain unchanged."
+  },
+  "scientific_limits": [
+    "No universal highest-level certification",
+    "Five one-CSF targets omit CV mixing",
+    "Unchanged-density method unsupported for mixed CI response",
+    "Wide Gram precision platform-specific; no constant full physical error bound",
+    "RDM numerical coefficient filter remains and is not a proven physical error bound",
+    "No speedup/parallel efficiency inferred under failed load guard"
+  ],
+  "no_unrelated_git_staging_or_commits": true,
+  "post_run_source_change": "Only optimizer comment clarification; 353-file numerical source epoch is preserved and AST equality verified.",
+  "source_bound_scientific_results": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json",
+    "sha256": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66"
+  },
+  "new_numerical_stationarity_limit": "Declared five-CSF common-radial MCDHF numerical stationarity and same-orbital RCI only; no dynamical core-valence correlation completeness, isotope resolved experiment, radial convergence or highest-accuracy certification.",
+  "test_boundary": "Existing untracked parallel-iteration test file had a pre-existing body; only the model-identity parameterization was changed here. It is hashed, not represented as wholly new in root_changes.patch."
+}

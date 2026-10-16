@@ -1,0 +1,14 @@
+{
+  "hypothesis": "A disjoint native finite-CI model can include explicit 4f holes without adding and double counting the existing closed-core Sigma1; full Q-Q propagation can change the five-state differential response relative to bare P and diagonal-Q controls.",
+  "reference": "Read-only v68_default Yb frozen common orbitals, Z=70, empirical Fermi nucleus A=175, Dirac-Coulomb only, ns=123; no orbital reoptimization",
+  "P": "All [Xe]4f14 v1 configurations over v={6s1/2,5d3/2,5d5/2,6p1/2,6p3/2}, split into five J/parity sectors",
+  "Q": "All [Xe]4f13 v2 configurations over precisely the same five valence orbitals, every allowed jj coupling tree in each sector; no amplitude pruning",
+  "excluded": "4f12 states, higher valence orbitals, other core holes, radial tails, Breit, QED, complete SD/CC and previously computed Sigma1; this is a model response probe, not a converged Yb spectrum",
+  "observables": "Each bare/full-Q total energy, P weight, root shift, four ground-referenced transitions, two fine-structure splittings, full-Hamiltonian residual and independent dense eigenvector agreement; experimental residuals contextual only",
+  "zero": "One native bare Hamiltonian for each N=69 sector from the same orbital pool and nucleus; no attachment threshold or separate ionic energy claimed",
+  "preflight": "Record every CSF signature and sector/determinant count before constructing H. Reject any dimension/resource excess without changing configurations.",
+  "resources": {"workers":1,"blas_threads":1,"address_space_MiB":4096,"seconds_per_sector":300,"CSF_dimension_cap":256,"determinants_cap":2000},
+  "gates": {"full_CI_energy_error_Ha":1e-10,"full_vector_projector_error":1e-8,"full_residual_Ha":1e-10,"state_P_weight_minimum":0.5},
+  "branch": "Lowest P-connected root per fixed J/parity in a common pole-free interval containing its bare P energy; reject ambiguous/lost states or Q poles, never select by experimental agreement",
+  "stop": "Failure in preflight, root identity, residual or dense anchor stops the probe; preserve failed outputs. Full-Q and diagonal-Q changes are alternatives, never additive corrections."
+}

@@ -1,0 +1,132 @@
+{
+  "status": "SOURCE_JSON_only_prepared_NOT_executed",
+  "all_SOURCE_checks_passed": true,
+  "checks": [
+    {
+      "name": "parse",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_literal_native_order_preflight",
+      "passed": true
+    },
+    {
+      "name": "same_physical_UID_set_resources_gates",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import math",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "same_scientific_execute_AST",
+      "passed": true
+    },
+    {
+      "name": "metadata_no_numerical_import",
+      "passed": true
+    },
+    {
+      "name": "11_bound_arrays_no_preparation_census",
+      "passed": true
+    },
+    {
+      "name": "same1595_31_ns123_fiveUIDs",
+      "passed": true
+    },
+    {
+      "name": "exact19589_allstructural_keys",
+      "passed": true
+    },
+    {
+      "name": "bounded_resources",
+      "passed": true
+    },
+    {
+      "name": "bounded_complete_key_requests",
+      "passed": true
+    },
+    {
+      "name": "no_newH_CI_orhS",
+      "passed": true
+    },
+    {
+      "name": "original_gates_unchanged",
+      "passed": true
+    },
+    {
+      "name": "geometry_complete_prefix_not_assumed_wholearchive",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_exit0",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_access_scope",
+      "passed": true
+    },
+    {
+      "name": "help_exit0",
+      "passed": true
+    },
+    {
+      "name": "Ruff",
+      "passed": true
+    },
+    {
+      "name": "links",
+      "passed": true
+    },
+    {
+      "name": "no_binding_actual_or_numericalimports",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "dc0a7579c9982f2f1cd68d4b07469714eedce41afd07dc05bf4fb8ec6cbbb20b",
+  "contract_sha256": "22f0277174d5efcf6c64395057849babb50032f0e08c1df6a4d8dafdee299586",
+  "verifier_sha256": "760f76f1655f03e496c4eaef65d82ac04683fd5fc9c3a7ee1343340652bf0e9b",
+  "README_sha256": "10e9febda315bdd9beacbf1accf96b59fd16e9675fb9aa3f5f0dfda9d54ce8b6",
+  "NPZ_stat_hash_header_ZIP_body_access": 0,
+  "numerical_imports_calls": 0,
+  "original_two_failures_preserved": true,
+  "certified_error_bound": false,
+  "source_default_stdout": "SOURCE only: 0 NPZ hashes/header/body access; 0 numerical imports/calls.",
+  "Ruff": "All checks passed!"
+}

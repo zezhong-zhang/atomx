@@ -1,0 +1,16 @@
+{
+  "status": "SOURCE_JSON_METADATA_EXPECTATION_FAILED_NOT_SCIENTIFIC_FAILURE",
+  "failed_check": "actual_source_union700_matches3g2100_metadata",
+  "incorrect_expected_each_g_source_jobs": 700,
+  "observed_per_table_source_jobs": {
+    "retained": 706,
+    "full_minus_retained": 688,
+    "full_normalized": 706
+  },
+  "observed_total_actual_pair_calls": 2100,
+  "cause": "2100/3 is a mean, not individual complete source union; exact source-union JSON counting corrects attribution",
+  "historical_contract_sha256": "99535c165e88dbd5134aa0dfd6d7d151457ebd32d3723bd5f5e99a729f827db8",
+  "historical_prepare_sha256": "c38e3d6919705f0a1d0841f2ab08f17b1756f5af0f4138485f6d9d6bdf2c9ed3",
+  "all_scientific_numerical_imports_array_compile_calls": 0,
+  "old_native_result_or_source_gate_changes": 0
+}

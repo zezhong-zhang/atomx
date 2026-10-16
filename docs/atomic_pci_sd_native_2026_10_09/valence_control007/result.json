@@ -1,0 +1,289 @@
+{
+  "allorder": {
+    "core_raw_residual_Ha": 2.8086907799540484e-14,
+    "valence_raw_residual_Ha": 2.540415794394235e-14,
+    "oracle_raw_residual_Ha": 4.966464251573294e-13,
+    "derivative_raw_residual_Ha": 3.8528896869824414e-13,
+    "signed_action_error_Ha": 2.2551405187698492e-17,
+    "singles_action_error_Ha": 2.168404344971009e-19,
+    "signed_root_error_Ha": 5.108586080201927e-13,
+    "resolved_derivatives": [
+      {
+        "step_Ha": 0.001,
+        "rows": [
+          {
+            "row": [
+              2,
+              -1
+            ],
+            "numerical": -5.651303248277581e-05,
+            "native": -5.651302915297967e-05,
+            "fixed_amplitude": -4.642163166264262e-05,
+            "error": 3.3297961352725565e-12
+          },
+          {
+            "row": [
+              3,
+              -1
+            ],
+            "numerical": -1.7649447952884916e-05,
+            "native": -1.7649446814768815e-05,
+            "fixed_amplitude": -1.4063538816650603e-05,
+            "error": 1.1381161007931791e-12
+          }
+        ]
+      },
+      {
+        "step_Ha": 0.0003,
+        "rows": [
+          {
+            "row": [
+              2,
+              -1
+            ],
+            "numerical": -5.6513029452078376e-05,
+            "native": -5.651302915297967e-05,
+            "fixed_amplitude": -4.642163166264262e-05,
+            "error": 2.990987042457774e-13
+          },
+          {
+            "row": [
+              3,
+              -1
+            ],
+            "numerical": -1.7649446917428927e-05,
+            "native": -1.7649446814768815e-05,
+            "fixed_amplitude": -1.4063538816650603e-05,
+            "error": 1.0266011199228271e-13
+          }
+        ]
+      },
+      {
+        "step_Ha": 0.0001,
+        "rows": [
+          {
+            "row": [
+              2,
+              -1
+            ],
+            "numerical": -5.6513029185906736e-05,
+            "native": -5.651302915297967e-05,
+            "fixed_amplitude": -4.642163166264262e-05,
+            "error": 3.2927064124322475e-14
+          },
+          {
+            "row": [
+              3,
+              -1
+            ],
+            "numerical": -1.7649446826243005e-05,
+            "native": -1.7649446814768815e-05,
+            "fixed_amplitude": -1.4063538816650603e-05,
+            "error": 1.1474189518445241e-14
+          }
+        ]
+      }
+    ],
+    "reduced_coordinates": 32,
+    "magnetic_coordinates": 648
+  },
+  "magnetic_map": {
+    "singles_max_Ha": 1.7618285302889447e-19,
+    "doubles_max_Ha": 2.2551405187698492e-17,
+    "paper_gauge_difference_Ha": 0.001794638385714792,
+    "paper_physical_difference_Ha": 3.686287386450715e-18,
+    "native_antisym_error_Ha": 8.881784197001252e-16,
+    "all_magnetic_double_coordinates": 512,
+    "core_radial_key": [
+      1,
+      -1
+    ]
+  },
+  "derivative": [
+    {
+      "step_Ha": 0.001,
+      "singles_error": 3.136087343860814e-13,
+      "doubles_error": 2.9909793717274036e-11
+    },
+    {
+      "step_Ha": 0.0003,
+      "singles_error": 2.8260275115052705e-14,
+      "doubles_error": 2.6882238839467942e-12
+    },
+    {
+      "step_Ha": 0.0001,
+      "singles_error": 3.188099876325415e-15,
+      "doubles_error": 2.993650249569213e-13
+    }
+  ],
+  "nxv": 5,
+  "nvh": 8,
+  "energy_Ha": -0.5910768909929702,
+  "source_bound_core_provenance": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', '2f220727b3648086ffeaad0c3d160e218cbeb0c992c80193b1c6f3260b7f7089', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2', 'e0123c8277eb109180580210743fce946e110cbda4046179a1a363d6779bcfe7'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'),), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.7763568394002505e-15,
+    "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+    "integral_bytes": 10368,
+    "radial_pair_cache_size": 16384,
+    "representation": "native on-demand radial/angular DC",
+    "construction_scalar_radial_pairs": 17,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+    "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "backend_sha256": "8c8e955d2a867b1cf2f345170864b7eec03bf6720516796f07f0c5a77c302f6f",
+    "initialization": "original pCI rhocore",
+    "blas": null,
+    "blas_runtime": null,
+    "term21": {
+      "mode": "original pCI term21",
+      "threads": 0
+    },
+    "core_singles": {
+      "mode": "original pCI terma4",
+      "workers": 0
+    },
+    "feature_identity": {
+      "representation": "native cell Coulomb polynomial density coordinates",
+      "geometry_sha256": "eecd16f308cdb697223513a2681ef494270c2fb4224e8e4a1360964eb375a30b",
+      "coefficient_sizes": [
+        30,
+        30
+      ],
+      "component_orders": [
+        7,
+        7
+      ],
+      "auxiliary_nodes": 624,
+      "same_cell_edges": 8424,
+      "quadrature_nodes": [
+        24,
+        13
+      ],
+      "payload_estimate_bytes": 3161472,
+      "rank_cache_capacity": 8,
+      "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+      "native_geometry_sha256": "136eef576de95fbfc09d13ae55c6611ddee811e5576ab5c2aa661be78adaf291",
+      "density_polynomial_degree": 12,
+      "interpolation_nodes_per_component_cell": 13
+    },
+    "method": "closed-core linearized SD, native DC",
+    "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+    "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+    "resources": {
+      "dimensions": {
+        "NHF": 624,
+        "NX": 3,
+        "NS": 1,
+        "KX1": 3,
+        "NXX": 3,
+        "NK": 3,
+        "NN": 1,
+        "KK": 3,
+        "NCH": 8,
+        "NXK": 5,
+        "NV": 24,
+        "NG": 13,
+        "NE": 8424
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ]
+      ],
+      "virtual_keys": [
+        [
+          2,
+          -1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -2
+        ]
+      ],
+      "raw_amplitudes": 34,
+      "independent_scalar_amplitudes": 11,
+      "complete_payload_bound_bytes": 60577000,
+      "krylov_vector_bytes": 272,
+      "radial_pair_cache_size": 16384,
+      "radial_pair_cache_array_bound_bytes": 55050240,
+      "blas_initialization_scratch_bytes": 44928,
+      "term21_threads": 0,
+      "term21_mode": "original",
+      "term21_worker_scratch_bytes": 0,
+      "term21_parallel_scratch_bytes": 0,
+      "core_singles_blas": false,
+      "core_singles_worker_scratch_bytes": 0,
+      "core_singles_parallel_scratch_bytes": 0,
+      "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+    },
+    "direct_sd_source_sha256": {
+      "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+      "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+      "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+    }
+  },
+  "seconds": 8.017004147986881,
+  "load": [
+    11.8076171875,
+    13.578125,
+    16.90771484375
+  ],
+  "model": "canonical control, not native physical Fock",
+  "status": "prototype convention audit; no public valence precision claim"
+}

@@ -1,0 +1,219 @@
+{
+  "status": "SOURCE_JSON_only_prepared_NO_numerical_execution",
+  "all_SOURCE_JSON_checks_passed": true,
+  "checks": [
+    {
+      "name": "complete365_source_epoch",
+      "passed": true
+    },
+    {
+      "name": "all365_source_hashes",
+      "passed": true
+    },
+    {
+      "name": "all_input_paths_exist",
+      "passed": true
+    },
+    {
+      "name": "all_bound_SHA_schema",
+      "passed": true
+    },
+    {
+      "name": "all_JSON_source_input_hashes",
+      "passed": true
+    },
+    {
+      "name": "six_NPZ_identities_deferred",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physical_calls_and_caps",
+      "passed": true
+    },
+    {
+      "name": "unchanged_operators_and_thresholds",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physical_definition",
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_nonbaseline_inputs",
+      "passed": true
+    },
+    {
+      "name": "current_saved_DC_explicit_binding",
+      "passed": true
+    },
+    {
+      "name": "failed_receipt_exact_binding",
+      "passed": true
+    },
+    {
+      "name": "failure_exact_binding",
+      "passed": true
+    },
+    {
+      "name": "offline_result_exact_binding",
+      "passed": true
+    },
+    {
+      "name": "old_failure_preserved",
+      "passed": true
+    },
+    {
+      "name": "no_actual_output",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import inspect",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import math",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from collections import Counter",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import inspect",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import math",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from collections import Counter",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "entire_numerical_execute_AST_unchanged_except_result_labels",
+      "passed": true
+    },
+    {
+      "name": "driver_verifier_AST_parse",
+      "passed": true
+    },
+    {
+      "name": "default_SOURCE_only_exit0",
+      "passed": true
+    },
+    {
+      "name": "default_no_numerical_imports",
+      "passed": true
+    },
+    {
+      "name": "help_exit0",
+      "passed": true
+    },
+    {
+      "name": "Ruff",
+      "passed": true
+    },
+    {
+      "name": "local_links_exist_or_single_write_outputs",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "5c85ed7971e68667870fbfaea6411322cff576d157b7b73c1dcc79ef80f62f7f",
+  "contract_sha256": "d2b055c39ec7bd720634b3be60ea5f82e2e3abb2a57f2565597b9f01305e7c42",
+  "verifier_sha256": "773ca6fddaf978a60a299e2a6dc5c5e9b8cbbee11c6bf32a3e568bc9cb8c6417",
+  "README_sha256": "4458b3f7fd6be7c5b5f714584a97a7cf599f3caf076c44dda6b54c692b0ab2c9",
+  "documentation_impact_sha256": "11d309bbeebf884db42ad3b50c0503bd66d9a9bc3735a7fc4d6ffad102b34c36",
+  "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+  "source_identity_sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a",
+  "source_files": 365,
+  "deferred_NPZ_file_hashes": 6,
+  "NPZ_reads_hashes_loads": 0,
+  "NumPy_Atomx_imports": 0,
+  "physical_calls": 0,
+  "API_cards_registry_calls": 0,
+  "sharedsrc_mutations": 0,
+  "root_binding_required": true,
+  "original_failed_byte_gate_passed": false,
+  "current_MCDHF_optimizer_qualified": false,
+  "default_mode_summary": {
+    "status": "SOURCE_JSON_only",
+    "source_map": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+    "deferred_NPZ_hashes": 6,
+    "numerical_imports": 0,
+    "physical_calls": 0
+  },
+  "Ruff": "All checks passed!"
+}

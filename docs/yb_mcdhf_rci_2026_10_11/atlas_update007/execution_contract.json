@@ -1,0 +1,24 @@
+{
+  "status": "prospective_local_build_once",
+  "parent_authorization": "Root atlas_update007 local stdlib payload/site preparation instruction; no browser or publication authorized.",
+  "contract_sha256": "28fba85ec2fd718cec692b48c7aeefa18a49ef6ffdd78a5e71687c85bd5f99d2",
+  "scripts_sha256": {
+    "prepare.py": "09583e6131d5e4f8f3120b6dd7d9211e00fbad43fc935eafec8a77856a172f21",
+    "verify_data.py": "2d973ae0c8f757c0d3a02dba34939b4a861bbba96ee1aca44472490eb599f20d"
+  },
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "memory_bytes": 2147483648,
+    "max_wall_seconds": 180
+  },
+  "commands": [
+    "prepare.py",
+    "verify_data.py"
+  ],
+  "scientific_calls": 0,
+  "array_numerical_replays": 0,
+  "browser_calls": 0,
+  "publication_calls": 0,
+  "stop": "Once; preserve first failure and partial evidence, no automatic retry."
+}

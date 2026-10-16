@@ -1,0 +1,398 @@
+{
+  "reference_energy_Ha": -128.690773051903,
+  "correlation_energy_Ha": -0.15971517458010187,
+  "total_energy_Ha": -128.8504882264831,
+  "residual_max_Ha": 2.789153428613442e-12,
+  "residual_l2_Ha": 5.531590608634434e-12,
+  "solve_matvecs": 24,
+  "solve_wall_seconds": 2.450611772015691,
+  "prepare_seconds": 0.12419741693884134,
+  "scf_seconds": 0.17879347305279225,
+  "full_wall_seconds": 5.055888653034344,
+  "action_seconds": [
+    0.10479275800753385,
+    0.10249461699277163,
+    0.10251440305728465
+  ],
+  "peak_rss_bytes": 378257408,
+  "space": {
+    "virtual_lmax": 1,
+    "virtual_energy_max_Ha": 50.0,
+    "virtual_orbital_energies_Ha": {
+      "(3, -1)": 0.0030144307509464034,
+      "(4, -1)": 0.01200027365295347,
+      "(5, -1)": 0.026399306319457527,
+      "(6, -1)": 0.04453435322967047,
+      "(7, -1)": 0.0755735505829244,
+      "(8, -1)": 0.16945822269259658,
+      "(9, -1)": 0.5381065575710631,
+      "(10, -1)": 2.278467152094258,
+      "(11, -1)": 11.740745199646986,
+      "(3, 1)": 0.0057928416516931465,
+      "(4, 1)": 0.017011886793918168,
+      "(5, 1)": 0.03272001248898663,
+      "(6, 1)": 0.05260162403029402,
+      "(7, 1)": 0.09391954237064447,
+      "(8, 1)": 0.22550471852366438,
+      "(9, 1)": 0.7312484657147746,
+      "(10, 1)": 2.8513889975361115,
+      "(11, 1)": 12.886181776410414,
+      "(3, -2)": 0.005902708527767906,
+      "(4, -2)": 0.01733431256330081,
+      "(5, -2)": 0.03334621956384415,
+      "(6, -2)": 0.05415357924814459,
+      "(7, -2)": 0.09720635967286269,
+      "(8, -2)": 0.23142438299323398,
+      "(9, -2)": 0.7240962460678446,
+      "(10, -2)": 2.6545163756940418,
+      "(11, -2)": 10.334752631154128,
+      "(12, -2)": 41.68667155123297
+    },
+    "positive_energy_projector": "native Dirac VN complement, complete retained band",
+    "virtual_space_source_sha256": "705e6445fe35b35f018bdd11c37c3a75abac1cd92fea6967af8d4686072787e1"
+  },
+  "provenance": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('3a406f3f0a6a0184e6f2d572263cc783e76ee50f6bed3c85662bb6dee7ff6541', 'cde2f2f5ec4c06f1426aeba533504b1b6fcc7a5ecf5390e8b518bf62e24d8515', '3fa50f4c90eeff1cf1a344475026248592c0a908571a7b3850ecb2cf6764b4db', 'd62a88be2d7eac3bddbc08c2ac1bc4013fcedb1926955a59882d69ca20a80d52', 'd54ef27556aaecf4d16fe561c21ef15159c827b3c4b6deace37858c6dd41f6f5', '49f2e5d8875dbce710cf944f060e6f63131b44ff2e37635fd847cd069629e356', '92638993fcb6f266a28e8176c0c3c21806356c249e5a232ce1df9fa712c3b8f4', '98c8cd535720594dc870a96e3fba939382e0b7c578b75df84f81d64964276d80', '04c8a3edd3b26d48c40ba20a41572be842bdd5cbc902109a6d4ead8031dfbbdf', 'e015798e4d8a7f6c9dfbbffd9a4af7841cb1e196429ad8e9e14da4e269227479', 'efdaa30b63db84d1778f017c65d0e4d2d9e590d7ca8d83f57f26de873abe77c8', 'd21e44bfda8e8f7f2de77bdb8a21f83f7c7ecea75870b10a014d66a692e132c2', 'f7dfe6fa5144b843825b70fdbe269fcb9534ad5dd239b2d6fb46dba7b609f32f', 'bb897285bc1e20907d352773fb68289caa97ca0e24ab7a4c48b438c34293abe4', '72b08659b00c71f43448176fd8bb15bf4a7f8e8d6336e0c758fa329351d61dd1', '1315afa9780253e521a20873a8e028931e28d41516ede574f2c3892cbaf3856b', '73e6f0be3c4c4268fed9c03417fa2babff2a4c17c154a6873e375898aaeb5aa2', 'd57d6c54cf69b2029638d99fe1a26c34428daa40c51efa6e8553008299884ac1', '8233a10a6589bb2f8a4208414f1e1473267b904f245bde18161e2ae5d9f6d800', 'c7c5bf345dc4c888cc5f0024d5972eb19632577da4110a294cd757a694969b57', 'c6351a1f19e94b7479238abf72135e5fdcad488d4d3dfde56c227b3a1c1df055', 'ba4454db9d25ae0bd3316acffb73e1a7f597a1720072e44a68dc2b8dc5787f6e', 'af73772470ed336650b9163433d06b3dc5651113ed3f7483e22e13240f5af778', '72fca644d18935f11685a5235471d2be360dd2195b34e971e69eddd108b2aca8', 'bb77f307ee3e3a65c03462c24fa5960b332ae64ac8533c6b1722afc92f6de955', 'defc501352f8923de8b7d3f7073c37a832d695034665af244edd5301c817ba09', '7a2507cf8029780507a79ac9d8918ef18f260ccae93c0f3e5b1bbab917597347', 'c45e8663c22a63b8e7fe3c9470f1a49504679e80bff60bde1d89667102a765a8', 'bda8b839a52a93b4467e71eac9eed7b2e136b6206d2d2f934eec16dbc324c604', '8ad3b8dd5555be2ecea03f057b23e0161cd969f4da516c19f365940c6773d9d0', 'bd1d4824bfee8e49c7b0b803eec60bbd92cc4eed34eb096a94ea0ff82c906c1c', '006142c092db0e62dbba214043114b9191b9c0e268d0abcbcffe7a45d318d97b'), core=(((1, -1), '3a406f3f0a6a0184e6f2d572263cc783e76ee50f6bed3c85662bb6dee7ff6541'), ((2, -2), 'd62a88be2d7eac3bddbc08c2ac1bc4013fcedb1926955a59882d69ca20a80d52'), ((2, -1), 'cde2f2f5ec4c06f1426aeba533504b1b6fcc7a5ecf5390e8b518bf62e24d8515'), ((2, 1), '3fa50f4c90eeff1cf1a344475026248592c0a908571a7b3850ecb2cf6764b4db')), geometry='ba8fe1598c48f534a0ff71a5b73f884d6e98baa329ecd882c01e843c6e3884f9', Z=10, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ]
+    ],
+    "virtual_keys": [
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        8,
+        -1
+      ],
+      [
+        9,
+        -1
+      ],
+      [
+        10,
+        -1
+      ],
+      [
+        11,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        8,
+        1
+      ],
+      [
+        9,
+        1
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        11,
+        1
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        8,
+        -2
+      ],
+      [
+        9,
+        -2
+      ],
+      [
+        10,
+        -2
+      ],
+      [
+        11,
+        -2
+      ],
+      [
+        12,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.2878587085651816e-14,
+    "hermitian_projection_max_Ha": 8.659739592076221e-15,
+    "integral_bytes": 236672,
+    "radial_pair_cache_size": 1024,
+    "representation": "native on-demand radial/angular DC",
+    "construction_scalar_radial_pairs": 342,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+    "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "backend_sha256": "3871418072d87a7eaf3557fe1678376863fdd19c67bb2fef120c7ce358bb4dec",
+    "feature_identity": {
+      "representation": "native cell Coulomb auxiliary nodes",
+      "geometry_sha256": "dd382b576ef211db8f28a8c93d1e4506d00bf0959993276580f6da4725f5065c",
+      "coefficient_sizes": [
+        30,
+        30
+      ],
+      "component_orders": [
+        7,
+        7
+      ],
+      "auxiliary_nodes": 2688,
+      "same_cell_edges": 4704,
+      "quadrature_nodes": [
+        24,
+        7
+      ],
+      "payload_estimate_bytes": 650496,
+      "rank_cache_capacity": 8,
+      "contraction": "weighted bilinear c-product; no new quadrature or screening"
+    },
+    "method": "closed-core linearized SD, native DC",
+    "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+    "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+    "resources": {
+      "dimensions": {
+        "NHF": 2688,
+        "NX": 11,
+        "NS": 4,
+        "KX1": 3,
+        "NXX": 11,
+        "NK": 3,
+        "NN": 4,
+        "KK": 3,
+        "NCH": 76,
+        "NXK": 40,
+        "NV": 24,
+        "NG": 7,
+        "NE": 4704
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          9,
+          -1
+        ],
+        [
+          10,
+          -1
+        ],
+        [
+          11,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          8,
+          -2
+        ],
+        [
+          9,
+          -2
+        ],
+        [
+          10,
+          -2
+        ],
+        [
+          11,
+          -2
+        ],
+        [
+          12,
+          -2
+        ]
+      ],
+      "raw_amplitudes": 6711,
+      "independent_scalar_amplitudes": 2492,
+      "complete_payload_bound_bytes": 26938268,
+      "krylov_vector_bytes": 53688,
+      "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+    },
+    "direct_sd_source_sha256": {
+      "core_sd.py": "1c44ea4d674be4d691e0592f8f403183b91d9cf72fcbc45726b5f01b952054de",
+      "sd_rho.py": "77ed34cdac00e1e1e4ba68a2954ca7aabab16077e3dcd6593a9b6e4580a64d75",
+      "coulomb_features.py": "3b1429b03e4cd0cedcdd17729cdb28deec09fa8c333965c3a0e6827a682784e6"
+    },
+    "solver": "matrix-free restarted GMRES with full diagonal preconditioner",
+    "krylov_restart": 30,
+    "maxiter": 100,
+    "requested_residual_tolerance_Ha": 1e-10,
+    "estimated_krylov_bytes": 2147520,
+    "space_converged": false,
+    "experiment_validated": false
+  },
+  "experiment_gate": "not evaluated",
+  "space_convergence_gate": "not evaluated"
+}

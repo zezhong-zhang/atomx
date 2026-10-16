@@ -1,0 +1,178 @@
+{
+  "backend": "EXP-T Atomx interface",
+  "executable_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "backend_source_manifest_sha256": "3c2c951c0700894a9fbe2922f21fa363ef99df7a8ba1e7888cfdb8d282927717",
+  "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+  "backend_patch_sha256": "6505d9766204c7b107c75867c69179bacec8a51a763fcef20aa4bacf2f370574",
+  "atomx_solver_sha256": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e",
+  "model": "CCSDT",
+  "sector": "0h1p",
+  "active_indices": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "model_matrix_order": "ascending global active indices, original EXP-T one-particle/hole determinant basis",
+  "tensor_symmetry": "C1",
+  "resources": {
+    "occupied": 2,
+    "virtual": 8,
+    "core_independent_amplitudes": 44,
+    "raw_tensor_coordinates": 21840,
+    "estimated_working_bytes": 11332144,
+    "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+  },
+  "tolerance": 1e-14,
+  "residual_bound_tolerance_Ha": 1e-11,
+  "memory_bytes": 536870912,
+  "tile_size": 4,
+  "threads": 1,
+  "integral_manifest_sha256": "7026203441d9914c142da70a1608a53214f85283a71e39396491fe77cee22ca4",
+  "input_sha256": "1a38ba6d84722b23227ba0768bb62e512796134100e43ba711aaceddec13eeb1",
+  "integrals": {
+    "abi": "ATXCC001",
+    "labels": [
+      [
+        1,
+        -1,
+        -1
+      ],
+      [
+        1,
+        -1,
+        1
+      ],
+      [
+        2,
+        -1,
+        -1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        2,
+        1,
+        -1
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        2,
+        -2,
+        -3
+      ],
+      [
+        2,
+        -2,
+        -1
+      ],
+      [
+        2,
+        -2,
+        1
+      ],
+      [
+        2,
+        -2,
+        3
+      ]
+    ],
+    "noccupied": 2,
+    "reference_energy_Ha": -13.613335177526945,
+    "frozen_energy_Ha": 0.0,
+    "identity": {
+      "hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+      "binding": "CIReferenceBinding(external=('045134b7e366c7023b97dfa14f8bcb60f2dae7eb44abbaeb8106421a4cfa6e9d', '61b63f5f563036315740d0f697869edf02169c7295d91307ae84cf51a9fe176a', 'a925b26d01f56b511676afa398d7b8e3273529c8cb933cbf01482ba032fe689f', '8ea7e558616b69af4b82b61f6c2def90be346e5ea6e55fa706f3ae674276f982'), core=(((1, -1), '045134b7e366c7023b97dfa14f8bcb60f2dae7eb44abbaeb8106421a4cfa6e9d'),), geometry='9281992e816c38c5d01c27c6c3d1b9d0dc06ea86ea9b11ba1293ebf2afe3d6db', Z=4, ns=42, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+        "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+        "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+        "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+        "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ]
+      ],
+      "virtual_keys": [
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.1102230246251565e-15,
+      "hermitian_projection_max_Ha": 1.1102230246251565e-16,
+      "integral_bytes": 21680,
+      "radial_pair_cache_size": 1024,
+      "breit_frequency": "orbital_differences",
+      "transverse_cache_size": 128,
+      "transverse_retained_array_bound_bytes": 3096576,
+      "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+      "orbital_relaxation": false,
+      "frequency_prescription": "symmetric-two-vertex-orbital-differences",
+      "orbital_energies_Ha": [
+        {
+          "n": 1,
+          "kappa": -1,
+          "energy": -5.6681495447207695
+        },
+        {
+          "n": 2,
+          "kappa": -2,
+          "energy": -0.5194060654649366
+        },
+        {
+          "n": 2,
+          "kappa": -1,
+          "energy": -0.6661832323491998
+        },
+        {
+          "n": 2,
+          "kappa": 1,
+          "energy": -0.5194467067860231
+        }
+      ],
+      "note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms."
+    },
+    "export": {
+      "logical_bytes": 20228,
+      "max_integral_file_bytes": 2147483648,
+      "max_chunk_bytes": 4194304,
+      "producer": {
+        "representation": "packed",
+        "resident_matrix_bytes": 3200,
+        "resident_eri_bytes": 18480,
+        "dense_eri_bytes": 18480
+      }
+    },
+    "files": {
+      "ATOMX_ONE": "c7c10854fe95a38de7058cf1dcd2e0609add90c1269cf2c5d22f3936cbb0e135",
+      "ATOMX_TWO": "dc6108a08fa891698039a36b457a6dc4a145204eaa3052f06d838e563aafa26b"
+    }
+  }
+}

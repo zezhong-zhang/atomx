@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/run_array_qualification.py", line 141, in <module>
+    raise SystemExit(main())
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/run_array_qualification.py", line 110, in main
+    cols = [int(v["column"]) for v in rows]
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/run_array_qualification.py", line 110, in <listcomp>
+    cols = [int(v["column"]) for v in rows]
+KeyError: 'column'

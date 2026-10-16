@@ -1,0 +1,401 @@
+{
+  "status": "finite_candidate_pass",
+  "highest_level_reached": false,
+  "fock_decode_max_Ha": 0.0,
+  "core_cluster_max": 4.9276988739466177e-17,
+  "core_projected_residual_max_Ha": 5.116114111600558e-17,
+  "core_energy_Ha": -13.613503294114961,
+  "exact_oracle_gate_pass": true,
+  "intermediate_normalization_max": 0.0,
+  "backend_wave_bloch_residual_max_Ha": 3.552713678800501e-15,
+  "backend_wave_bloch_by_core_holes_Ha": [
+    3.552713678800501e-15,
+    4.0245584642661925e-16,
+    1.8821749714348357e-16
+  ],
+  "backend_heff_minus_wave_projection_max_Ha": 3.774758283725532e-15,
+  "wave_minus_exact_max": 1.5673587375206491e-15,
+  "backend_strict_heff_max_Ha": 5.662137425588298e-15,
+  "q1_residual_minus_Fov_T2_commutator_Ha": 4.1611954433275905e-07,
+  "q1_residual_plus_Fov_T2_commutator_Ha": 4.1611954396499767e-07,
+  "Fov_T2_commutator_max_Ha": 4.161195439303032e-07,
+  "residual_minus_open_Fov_T2_max_Ha": 4.161195440794894e-07,
+  "residual_plus_open_Fov_T2_max_Ha": 4.16119543781117e-07,
+  "open_Fov_T2_max_Ha": 4.161195439303032e-07,
+  "gates": {
+    "oracle_Ha": 1e-11,
+    "strict_backend_Ha": 1e-10,
+    "normalization": 1e-12
+  },
+  "decoder_metadata": {
+    "t1c": {
+      "name": "t1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 2,
+      "sha256": "375d9ad6aba6f451f6858cfbfc5914b78a03fce9f2bf77f700a30242061d7a66"
+    },
+    "t2c": {
+      "name": "t2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 9,
+      "coordinates": 256,
+      "nonzero": 40,
+      "sha256": "3bdb5c7b196188d57892cf97ee6d240c4114a81ff3e515565e1f51304a399ff1"
+    },
+    "t3c": {
+      "name": "t3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 27,
+      "coordinates": 4096,
+      "nonzero": 383,
+      "sha256": "e724c375b7ef067b30a0b37ffaf23351f6f6c0f624c1af822cc4b17d31b1652f"
+    },
+    "s1c": {
+      "name": "s1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 9,
+      "coordinates": 64,
+      "nonzero": 0,
+      "sha256": "902218ac36d1325805f9fde8e2717d2ba419ba7195e40a5a527127ce6ffcb556"
+    },
+    "s2c": {
+      "name": "s2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 27,
+      "coordinates": 1024,
+      "nonzero": 114,
+      "sha256": "f830f4dd2dec7fafe9ddd4415528b41ee008073f07cf1ad3fd5c513f00887a40"
+    },
+    "s3c": {
+      "name": "s3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 81,
+      "coordinates": 16384,
+      "nonzero": 1788,
+      "sha256": "04060fd555cd9e097c242d8a767474d27d53e64bd482e689df702e60de85990f"
+    },
+    "hp": {
+      "name": "hp",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 2,
+      "sha256": "fcbc4223952edf52e9f353f9093cf414a945f290ce34631e4c45066fb1807614"
+    },
+    "ph": {
+      "name": "ph",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 2,
+      "sha256": "ec2e4dc68db7f591be38b22dc13b740122e929ff43e49cf7287b9c8bee5f3c61"
+    },
+    "pphh": {
+      "name": "pphh",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        112,
+        104,
+        104
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 9,
+      "coordinates": 256,
+      "nonzero": 24,
+      "sha256": "13f4758ac47a3506150fd743d180bfa0708b1d01aa1ae8da9a16016f5394c87b"
+    }
+  },
+  "scope": "Complete finite source-bound actual signed amplitude audit, no production repair or scalability claim",
+  "decoder_and_core_gate_pass": true,
+  "strict_backend_gate_pass": true,
+  "card_summary": "FS-CCSDT \u65b9\u7a0b\u5ba1\u8ba1\uff1a\u5b8c\u6574\u5b9e\u9645\u5e45\u5ea6 Bloch \u6b8b\u5dee 3.553e-15 Ha\uff1bHEFF \u4e25\u683c\u95e8 \u901a\u8fc7\u3002\u6709\u9650\u8bca\u65ad\uff0c\u751f\u4ea7\u5927\u7a7a\u95f4\u4e0e\u6700\u9ad8\u7cbe\u5ea6\u8ba4\u8bc1\u7ee7\u7eed\u9a8c\u8bc1\u3002",
+  "candidate_energy_root_max_Ha": 1.0658141036401503e-14,
+  "candidate_raw_equation_bound_Ha": 2.6840039709083358e-15,
+  "original_integral_files_match": {
+    "ATOMX_ONE": true,
+    "ATOMX_TWO": true
+  },
+  "original_backend_unchanged": true,
+  "candidate_backend_sha256": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+  "source_and_inputs": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.c": "29f9c909bd9702be8643f3136fa8e1d5f53c827268b7f99f416e539c56e1a231",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.h": "50378d2fe774d9b37c37281441e83000c40c4774a818df71f8cd83e66c111b3b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.c": "74c45e1382c2bbb30146632ab09240f4928e09cae9cd139f2a1b2a9fc9cff1dd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.h": "eabd67839634ad299b0da6bd006e5f552a34b425578f15e27ee771f71bbb0b8b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/comdef.h": "616ba79360f52c3a74a332e4df0bf9a1895bc88f0b1af387e4ce627f36a6c2e8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/options.h": "3c86fec4d2db6cdd2bea76ee53d06c9dce5ae95ada562a88a593b2aa573f074a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/interfaces/pyscf_interface.c": "5dcf0d92d69370682a11164ae8e3ccdfbc6fb1b56ca5ac104f5d17704cded70a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/io/io.c": "73d28e2357c8ac33bcd3ed6d0cdbefe99e114e738551d6ebadd334df1de4c3e4",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector00.c": "cf5bfe9e1a843d505af782f3f2157ef60eaaf0ff2086da0e1a4274988dd60f18",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01.c": "42ee99ee532a00d8a29dbef5532b75d4717f46da71375ffbeb705334b980fc04",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01_ccsdt.c": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/sorting/sort_1e.c": "04d65feddcd48b1bc133e40c9eeb68a1313b18595dea29c83c73af4e1923aa7b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/sorting/sort_pyscf.c": "4b6a906a2b7c634f26cf1c61ebf9c68f3544bf9f1bbfa376501cfd5b1295250b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001-build/expt.x": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "e564bdd5c2bc7886302c0dc15cdbaed61ba1ab2943436b6b195eea01a79773f3",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_bloch_oracle.py": "28fd62d8681dc9142b71e4605bc65b06fa1997f90d4219a3db5b8c8c6f393383",
+    "/data/code/atomx/src/atomx/methods/fscc.py": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e",
+    "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "/data/code/atomx/tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/ATOMX_ONE": "940a5bd5b2ef34b75b34fdda7cb2ce7a36585df923b6a093744f6ec9ef0ceab2",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/ATOMX_TWO": "34d4c7c25b22d9cd55da5400d8b9daf4836bbd1c9e3207c05b3ee06c230c7e71",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/cc.inp": "1a38ba6d84722b23227ba0768bb62e512796134100e43ba711aaceddec13eeb1",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/cc.log": "5c6ec08a565bee93dada29712be2479683edc3b754c53a0834c4eaa73f4d594f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/integrals.json": "6755dec19b9ae93f335c9e32a425e6fd77c2e900660ebbb3a62b182e33120ed7",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/model_space_matrix.npz": "387e555ed704bd55db326da8b27af297cd689d81375ff756ad690474bfbfbe88",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/request.json": "ecb7990f7e1815bedc4af26d3ae3dc36a2a88b5896601d1d2043120e2d94ad88",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/result.json": "1cc786493730143355f29d5d8eb0336703a0f73060da6689a6c5cc8d5132e997",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hh.dg": "fff0d51a2897eedc828cc74ea1aa4f1d78074caebc7c25b12f608d52e3b8311a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hhhh.dg": "e21f060fa400be2c38ab6c2805406d493d9797b79d7798e8b6f2f061b35e8a0b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hhhp.dg": "5a34ab8004bb99f4a9355be1a11fdc6c3f69ffe523b574c97fe64b8e862f0e6e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hhph.dg": "6ff4e949e6add825b7b6e23a476abecf40a8bcbd807d3331c2e5751199960fa2",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hhpp.dg": "780c9924e0455707792a57357aec49ff9f0d627c8907666d26b2dcb923cb96fe",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hp.dg": "fcbc4223952edf52e9f353f9093cf414a945f290ce34631e4c45066fb1807614",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hphh.dg": "2f25ff000c1f2e7932f0056c79da4b2ef07f3f186a61982aaaddcbfb0034de4b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hphp.dg": "393b942cdedeab6b8377a01bc109a976095631aa8b2460dc4832fefaead2a8e6",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/hvhh.dg": "4edcf7bd73119290c7a478771206ead7d00bc309cd6ac14b0e0eba7e37cb819c",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/ph.dg": "ec2e4dc68db7f591be38b22dc13b740122e929ff43e49cf7287b9c8bee5f3c61",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/phhh.dg": "c3bfbf2ef7c45349be976a93e248c68c9b846eaaa4bfb851296e9a646eb87677",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/phhp.dg": "84b4914d0da23cd799a6981792d6d73b690299a6ac9f02ab5a61e002c53af454",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/phpp.dg": "67d74a900f46235f47fcc00615caeb3d050544384d129479467b6bd95f6dee76",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/pp.dg": "5a2818ad73c7645e091ac88902c6fcdc292a17fa2ee08cb66bdef5dc1e8a8bcd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/pphh.dg": "13f4758ac47a3506150fd743d180bfa0708b1d01aa1ae8da9a16016f5394c87b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/pphp.dg": "b9272cf2f2c03ab7bfb24c4670b0284ec3f59ed5b4c1a9831620b7492b112a3e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/ppph.dg": "388254fcf768fa5fadc97446ff53c448f268c0e94e281d4e98d2e8843267caad",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/ppppr.dg": "4e19f7934e2cebe0e2bbc870b9e7b30029816bf93d88a384c05cd9498e55ebd0",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/pvpp.dg": "60a3c7018e4cc7a94b37090322a0e76672a64a3870f378c0962d325940e176fb",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/s1c.dg": "5bcd7de85d56a8e12d906feb856f200305b3aaaf8edf971f0110a8e9bd41cad0",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/s2c.dg": "8f700a4eaf7a8adfedd66e872f28634c3a1273b031b682652d04671efef2aa70",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/s3c.dg": "182baf0948b4a6b9d51fdc935cf5a16df0c50e067d29acb7ddbb472631c8efe2",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/t1c.dg": "375d9ad6aba6f451f6858cfbfc5914b78a03fce9f2bf77f700a30242061d7a66",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/t2c.dg": "85aa134b42b1f4354f02ded7ce0a094a24769b7f98b23a3f9dec8fa6f2c9aba8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/t3c.dg": "6f13114bc01a245aab1f494cf684618d62778e6c22e458b264e28c9825fa297b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/veff01.dg": "e53708f4e93bbe5dbab2196165d6beec06af5ed7f97e7111402cd14df9e9b170",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/vhph.dg": "9e67e9e6d5bde0c8eaee2b28067adaa4c01e07e76d03028bbc988127ef7a282a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/vphh.dg": "21cf06bda1b24e2afe02eedabfe70ceebbb27911221d84c0b84760ea0693158e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/scratch/vppp.dg": "38e3f7c6d68d7c7b83d2681b45d255fc3b4df5daa2dcb6d7c98a440fca531299",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/validate_candidate.py": "d98f993c222767a414646ed8d04a186f83b27138028720b197beb4a034bc9951",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/expt.x": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/atomx_backend.json": "fd610d05ff7e8ef385e157213e85ba6daed3a757c99d3516fc90cc09d3092451"
+  },
+  "complete_candidate_gate_pass": true,
+  "inputs_unchanged": true,
+  "arrays_sha256": "93e701564688472efd840469a35d1cb32b1c6b518c46b052d5ccabc69d04d446",
+  "archive_sha256": "f66edc7a355d2e5c7568bd572ec78cb91631329a92a47dbffe9ffd04f1531245",
+  "observed_phase_wall_seconds": 0.820824634982273,
+  "peak_RSS_bytes": 199778304
+}

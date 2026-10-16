@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN"><meta charset="utf-8"><title>Yb⁺ 能量自洽与尾部控制</title><style>
+@page { size:A4; margin:16mm 16mm 17mm;
+ @bottom-center { content:'Atomx · Yb⁺ 能量自洽与尾部控制    ' counter(page) ' / ' counter(pages); font:8pt 'Noto Sans CJK SC'; color:#627686; }
+}
+body { font:9.7pt 'Noto Sans CJK SC',sans-serif; line-height:1.58; color:#203342; }
+h1 { font-size:21pt; line-height:1.4; color:#174d69; margin-bottom:7mm; }
+h2 { font-size:14.5pt; color:#174d69; border-bottom:1px solid #cadbe4; padding-bottom:1.5mm; margin-top:6mm; }
+h3 { font-size:11.4pt; color:#315e77; margin-top:5mm; }
+h1,h2,h3 { break-after:avoid; }
+p { margin:2.5mm 0; orphans:3; widows:3; }
+a { color:#1f6487; text-decoration:none; overflow-wrap:anywhere; }
+table { border-collapse:collapse; width:100%; font-size:7.8pt; margin:4mm 0; line-height:1.5; }
+th,td { border:1px solid #cad9e2; padding:1.4mm; overflow-wrap:anywhere; }
+th { background:#e9f0f4; text-align:left; }
+thead { display:table-header-group; } tr { break-inside:avoid; }
+img { display:block; width:100%; height:auto; margin:4mm 0; }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f1f5f7; padding:3mm; font-size:7.5pt; line-height:1.45; }
+code { font-family:'DejaVu Sans Mono','Noto Sans CJK SC',monospace; font-size:.87em; }
+li { margin:1.6mm 0; }
+@media screen { body { max-width:1000px; margin:40px auto; padding:0 24px; } }
+
+img {max-width:100%;} h2 {break-after:avoid;} body {line-height:1.5;} p {margin:2mm 0;} table {font-size:8.6pt;}
+</style><body><h1>Yb⁺ 谱线继续修复：能量依赖、自洽根与相关尾部</h1>
+<p>2026-10-08。计算软件：Atomx。承接<a href="../yb_diagnosis_repair_2026_10_08/README.md">上一轮定位与修复</a>，原始基线、失败记录和已发送文件保持封存。</p>
+<h2>结论与修改</h2>
+<p>本轮补上了二阶自能随能量变化的求值接口、不可变极点快照以及与 DF 态连续相接的标量 Dyson 求根，并将求出的五个单体能移实际注入原生 CI。固定核、轨道和空间后，可直接测出这项自洽响应，而无需依赖实验调参。</p>
+<p>当前四条激发能的 5% 实验目标<strong>未通过</strong>，最大相对误差为 <strong>5.268%</strong>。ℓ≤4 扩到 ℓ≤6 后，四条激发能仍变化 <strong>-558.38, +156.16, -503.18, +180.89 cm⁻¹</strong>（依次为 5d₃/₂、6p₁/₂、5d₅/₂、6p₃/₂），1 cm⁻¹ 分波收敛门<strong>未通过</strong>。本轮是完成了一项可复算的模型修复，当前结果仍有空间及高阶相关误差。能量自洽对四条激发能的最大响应为 <strong>110.05 cm⁻¹</strong>，与保留的千 cm⁻¹ 量级残差相比，这一项不足以解释主偏差。</p>
+<p>137 项相关测试通过，27 条警告来自上一轮保留的未覆盖轨道 QED 解析估算告警。所有新计算均为纯 Dirac–Coulomb，不将这些 QED 估算混入结果。</p>
+<h2>为什么要区分两种自洽</h2>
+<p>上一轮算的是 E_on = ε_DF + Σ₂(ε_DF)。本轮保持参考轨道及全部内部能量固定，求解 E_Dyson = ε_DF + Σ₂(E_Dyson)。因此只改变外部能量变量，不重建电子密度或 Fock 场。它和含 QED 的轨道 SCF、非对角 Brueckner 轨道优化、全 Green 函数 GF2、耦合簇高阶屏蔽属于不同计算。</p>
+<p>闭核以 68 电子 [Xe]4f¹⁴ 为参考，外部价电子不加入闭核占据。19 个占据径向轨道全部参加，虚轨道保留束缚态和低于 50 Ha 的全部正能态，完整 ℓ≤6 含 13 个 κ 块，实际 861 个虚轨道；无生效的根数截断。核为 Z=70 的经验 Fermi 模型，径向基为原封存 ns=123、ks=9、R≈60 a₀。DF 的既有径向控制不能自动作为自能径向收敛证明。</p>
+<h2>从第一性原理选择根</h2>
+<p>两种二阶图共同构成 Σ₂(w)=Σᵢ Wᵢ/(w−pᵢ)，其中 Wᵢ≥0。2p1h 图的 pᵢ=ε_r+ε_s−ε_b；2h1p 图的 pᵢ=ε_b+ε_c−ε_r。耦合仍来自 Atomx 的反对称 Coulomb 矩阵元和全部允许多极项，磁态平均约定保持不变。</p>
+<p>在没有非零耦合极点的区间内，Σ₂′(w)=−Σᵢ Wᵢ/(w−pᵢ)²≤0，所以 f(w)=w−ε_DF−Σ₂(w) 严格递增。预声明主计算区间为 [ε_DF−0.1, ε_DF] Ha，要求包含 DF 能量、无极点且存在根，任何检查失败即拒绝。不能按实验最接近原则改选卫星根。权重 Z=[1−Σ₂′(E)]⁻¹ 必须位于 (0,1]。</p>
+<p>这里的实数 Dyson 极点是冻结核单价电子附着能模型的准粒子根，不是此前 Ne 自电离复共振的检验，也不提供自电离宽度。标量求根会保留一类能量反馈，不能替代独立的第三阶图、屏蔽顶角及轨道响应。</p>
+<h2>五个态与四条谱线的实测</h2>
+<p>以下修正和激发能单位为 cm⁻¹，均不含 Breit、QED、反冲和超精细项。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th style="text-align: right;">直接相加的自能</th>
+<th style="text-align: right;">自洽根能移</th>
+<th style="text-align: right;">自洽响应</th>
+<th style="text-align: right;">Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td style="text-align: right;">-8129.55</td>
+<td style="text-align: right;">-7983.47</td>
+<td style="text-align: right;">+146.08</td>
+<td style="text-align: right;">0.982394</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td style="text-align: right;">-8603.53</td>
+<td style="text-align: right;">-8383.73</td>
+<td style="text-align: right;">+219.80</td>
+<td style="text-align: right;">0.974775</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td style="text-align: right;">-4263.57</td>
+<td style="text-align: right;">-4212.75</td>
+<td style="text-align: right;">+50.82</td>
+<td style="text-align: right;">0.988249</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td style="text-align: right;">-7649.65</td>
+<td style="text-align: right;">-7462.54</td>
+<td style="text-align: right;">+187.12</td>
+<td style="text-align: right;">0.975795</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td style="text-align: right;">-3539.20</td>
+<td style="text-align: right;">-3503.17</td>
+<td style="text-align: right;">+36.03</td>
+<td style="text-align: right;">0.989940</td>
+</tr>
+</tbody>
+</table>
+<p>激发能统一减去各自空间和算法下的 6s 基态；最后一列为自洽相对直接相加的跃迁变化。</p>
+<table>
+<thead>
+<tr>
+<th>上态</th>
+<th style="text-align: right;">实验</th>
+<th style="text-align: right;">直接相加</th>
+<th style="text-align: right;">自洽求根</th>
+<th style="text-align: right;">自洽−实验</th>
+<th style="text-align: right;">自洽响应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5d_3/2</td>
+<td style="text-align: right;">22960.80</td>
+<td style="text-align: right;">23798.59</td>
+<td style="text-align: right;">23872.31</td>
+<td style="text-align: right;">+911.51</td>
+<td style="text-align: right;">+73.72</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td style="text-align: right;">27061.82</td>
+<td style="text-align: right;">28568.40</td>
+<td style="text-align: right;">28473.14</td>
+<td style="text-align: right;">+1411.32</td>
+<td style="text-align: right;">-95.26</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td style="text-align: right;">24332.69</td>
+<td style="text-align: right;">25232.04</td>
+<td style="text-align: right;">25273.08</td>
+<td style="text-align: right;">+940.39</td>
+<td style="text-align: right;">+41.04</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td style="text-align: right;">30392.23</td>
+<td style="text-align: right;">32103.42</td>
+<td style="text-align: right;">31993.37</td>
+<td style="text-align: right;">+1601.14</td>
+<td style="text-align: right;">-110.05</td>
+</tr>
+</tbody>
+</table>
+<p>实验参考沿用原报告封存的 <a href="https://physics.nist.gov/PhysRefData/Handbook/Tables/ytterbiumtable6.htm">NIST Yb II 数据</a>，没有更新或拟合参考值；自然同位素、核模型及超精细平均的差异尚未形成精密误差预算。</p>
+<h2>相关尾部：同一耦合数据上的控制</h2>
+<p>下表通过保留极点的原始虚轨道角动量和最大虚轨道能量进行精确过滤。5/20 Ha 窗口总包含负能的束缚虚轨道；每个窗口重新求上下态的根。耦合权重没有按大小截断。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">ℓ 上限</th>
+<th style="text-align: right;">虚轨道能量上限/Ha</th>
+<th style="text-align: right;">5d₃/₂</th>
+<th style="text-align: right;">6p₁/₂</th>
+<th style="text-align: right;">5d₅/₂</th>
+<th style="text-align: right;">6p₃/₂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">24430.69</td>
+<td style="text-align: right;">28316.98</td>
+<td style="text-align: right;">25776.26</td>
+<td style="text-align: right;">31812.48</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">24002.30</td>
+<td style="text-align: right;">28445.99</td>
+<td style="text-align: right;">25390.95</td>
+<td style="text-align: right;">31961.64</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">23867.15</td>
+<td style="text-align: right;">27892.41</td>
+<td style="text-align: right;">25139.59</td>
+<td style="text-align: right;">31323.30</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">23810.58</td>
+<td style="text-align: right;">28358.84</td>
+<td style="text-align: right;">25213.48</td>
+<td style="text-align: right;">31859.43</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">23872.31</td>
+<td style="text-align: right;">28473.14</td>
+<td style="text-align: right;">25273.08</td>
+<td style="text-align: right;">31993.37</td>
+</tr>
+</tbody>
+</table>
+<p>各图按其中最大虚轨道能量分组后，得到下列<strong>单态自能贡献</strong>。这些组之间无重叠，但它们的数值不是缺失 &gt;50 Ha 尾部的误差上界，不能据此宣布高能尾部收敛。</p>
+<table>
+<thead>
+<tr>
+<th>态</th>
+<th style="text-align: right;">全束缚虚轨道</th>
+<th style="text-align: right;">0–5 Ha</th>
+<th style="text-align: right;">5–20 Ha</th>
+<th style="text-align: right;">20–50 Ha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6s_1/2</td>
+<td style="text-align: right;">-2609.11</td>
+<td style="text-align: right;">-4230.68</td>
+<td style="text-align: right;">-929.17</td>
+<td style="text-align: right;">-214.50</td>
+</tr>
+<tr>
+<td>5d_3/2</td>
+<td style="text-align: right;">-55.51</td>
+<td style="text-align: right;">-7181.45</td>
+<td style="text-align: right;">-993.91</td>
+<td style="text-align: right;">-152.86</td>
+</tr>
+<tr>
+<td>6p_1/2</td>
+<td style="text-align: right;">-1593.33</td>
+<td style="text-align: right;">-2069.79</td>
+<td style="text-align: right;">-452.05</td>
+<td style="text-align: right;">-97.58</td>
+</tr>
+<tr>
+<td>5d_5/2</td>
+<td style="text-align: right;">+176.75</td>
+<td style="text-align: right;">-6625.03</td>
+<td style="text-align: right;">-859.38</td>
+<td style="text-align: right;">-154.88</td>
+</tr>
+<tr>
+<td>6p_3/2</td>
+<td style="text-align: right;">-1251.43</td>
+<td style="text-align: right;">-1793.27</td>
+<td style="text-align: right;">-380.90</td>
+<td style="text-align: right;">-77.57</td>
+</tr>
+</tbody>
+</table>
+<p>下一项有判别力的检验是保持同一核，分别扩展正能上限、高分波和径向自能表示；随后比较非对角轨道响应与高阶屏蔽。只扩大轨道空间或只迭代外部能量，都无法证明另一项已经充分包含。</p>
+<p><img alt="能量依赖与分波尾部的实测" src="energy_dependence_and_tail.png" /></p>
+<h2>代码与验证边界</h2>
+<p>新入口位于 <a href="../../src/atomx/methods/mbpt_transitions.py">mbpt_transitions.py</a>。旧的 mbpt2_orbital_energy_shift 默认行为保持在壳；显式 evaluation_energy_au 只改能量自变量。build_mbpt2_self_energy 保存原生精确非零权重和极点，返回 DiagonalSelfEnergy，其 solve_dyson 输出能量、能移、残差和权重。调用者必须提供覆盖核、态、哈密顿量、原生径向度量及虚空间的 reference_identity；不允许跨参考复用快照。</p>
+<p>独立测试包括四种占据或外部 s/p/d 目标的在壳与离壳自旋轨道求和；解析导数与有限差分；两态厄米矩阵的本征值与本征矢物理分量，独立验证根和 Z；以及极点穿越、错误分支区间、非有限输入、负权重和快照不可变性。没有改宽此前的容差。</p>
+<p>原空间在壳重放最大误差 <strong>4.850e-15 Ha</strong>（门 1e−10）；五态求根最大残差 <strong>6.939e-17 Ha</strong>（门 1e−10）。原生 CI 对求出的能移做完整单体密度注入，最大能量匹配误差 <strong>3.638e-12 Ha</strong>（门 1e−8），态匹配权重最低 <strong>1.000000</strong>。这验证能量注入，不认证新的辐射跃迁矩阵元或寿命。</p>
+<p>完整捕获耗时 779.58 s，峰值 RSS 1138.2 MiB；线程为 1，预声明资源上限 1000 s。机器负载已保存，时间仅为本次非受控观测，不作为性能倍数。计算期间生产源码 SHA 未改变。</p>
+<h2>复现与证据</h2>
+<p>契约、输入和实际脏源码 SHA、每态身份、精确极点 NPZ、原始日志、CI 残差及 CSV 均保存在本目录。完整极点留在 results/l6_e50_all，捕获源码为 Atomx_Dyson_source.zip，交付源码为 Atomx_Dyson_final_source.zip。捕获完成后增加了有限实数标量输入检查，拒绝把复能量静默转换成实数；最终源码重放五个实数根与捕获结果完全一致，独立测试也已更新。汇总复现包同时包含封存 DF 基线、所需公共加载器与旧在壳参考；按包内说明可从源码重新捕获全部极点，或在本地使用已保存极点立即重放。</p>
+<p>运行顺序：</p>
+<pre><code>.venv/bin/python docs/yb_energy_dependent_sigma_2026_10_08/run_dyson.py
+.venv/bin/python docs/yb_energy_dependent_sigma_2026_10_08/analyze_and_inject.py
+.venv/bin/python docs/yb_energy_dependent_sigma_2026_10_08/build_report.py
+</code></pre>
+<p>驱动拒绝覆盖已有实验目录；重新运行时先在独立 checkout 中保留或移动原输出，不能删除原始科学证据来重跑。新源码使用独立 on/off-shell 及两态控制；其在壳部分对旧封存结果的匹配建立了两轮之间的源身份链。</p>
+<p>物理依据：<a href="https://arxiv.org/abs/1205.5895">Porsev 等（2012）Yb⁺ 核相关有效哈密顿量</a>；<a href="https://doi.org/10.1103/PhysRevA.79.022512">Safronova 等（2009）Yb II 二阶、三阶及全阶对照</a>；<a href="https://pyscf.org/user/agf2.html">PySCF 官方 AGF2 理论说明</a>。本轮采用对角冻结轨道极点展开，并未实现这些参考中的完整全阶或 Green 函数迭代方法。</p></body></html>

@@ -1,0 +1,120 @@
+{
+  "scope": {
+    "model": "dynamic signed complete PP/HH 10x12; excludes source owner setup and entire SD solve",
+    "pairs": [
+      {
+        "cpu_warm_host_seconds": 9.343598503619432e-06,
+        "gpu_warm_transfer_inclusive_seconds": 0.0001397875021211803,
+        "cpu_warm_kernel_and_scoped_workers_seconds": 2.6724999770522116e-06,
+        "gpu_complete_amplitude_upload_seconds": 5.9853075072169304e-05,
+        "gpu_warm_resident_host_seconds": 3.5679747816175224e-05,
+        "gpu_warm_device_event_seconds": 3.5582399368286135e-05,
+        "gpu_complete_separated_output_download_seconds": 4.2209052480757236e-05
+      },
+      {
+        "gpu_warm_transfer_inclusive_seconds": 0.00013387484941631555,
+        "cpu_warm_host_seconds": 7.783150067552924e-06,
+        "cpu_warm_kernel_and_scoped_workers_seconds": 2.3133994545787574e-06,
+        "gpu_complete_amplitude_upload_seconds": 6.388104520738125e-05,
+        "gpu_warm_resident_host_seconds": 3.544079954735935e-05,
+        "gpu_warm_device_event_seconds": 3.531360030174255e-05,
+        "gpu_complete_separated_output_download_seconds": 3.9453967474401e-05
+      },
+      {
+        "cpu_warm_host_seconds": 7.84480362199247e-06,
+        "gpu_warm_transfer_inclusive_seconds": 0.0001338167523499578,
+        "cpu_warm_kernel_and_scoped_workers_seconds": 2.436595968902111e-06,
+        "gpu_complete_amplitude_upload_seconds": 5.755806341767311e-05,
+        "gpu_warm_resident_host_seconds": 3.46843502484262e-05,
+        "gpu_warm_device_event_seconds": 3.451200127601624e-05,
+        "gpu_complete_separated_output_download_seconds": 3.941403701901436e-05
+      },
+      {
+        "gpu_warm_transfer_inclusive_seconds": 0.0001491806993726641,
+        "cpu_warm_host_seconds": 7.748650386929511e-06,
+        "cpu_warm_kernel_and_scoped_workers_seconds": 2.1776475477963684e-06,
+        "gpu_complete_amplitude_upload_seconds": 5.787890404462814e-05,
+        "gpu_warm_resident_host_seconds": 3.382275463081896e-05,
+        "gpu_warm_device_event_seconds": 3.3686399459838866e-05,
+        "gpu_complete_separated_output_download_seconds": 3.8812984712421894e-05
+      },
+      {
+        "cpu_warm_host_seconds": 7.693999214097857e-06,
+        "gpu_warm_transfer_inclusive_seconds": 0.00013231890043243765,
+        "cpu_warm_kernel_and_scoped_workers_seconds": 2.453650813549757e-06,
+        "gpu_complete_amplitude_upload_seconds": 5.8330013416707516e-05,
+        "gpu_warm_resident_host_seconds": 3.413785016164184e-05,
+        "gpu_warm_device_event_seconds": 3.399200141429901e-05,
+        "gpu_complete_separated_output_download_seconds": 3.91440698876977e-05
+      }
+    ],
+    "repeats_per_pair": 20,
+    "event_scope": "CUDA events bracket all 20 kernels and intervening host-launch gaps, not a single-kernel device duration",
+    "comparison_scope": "CPU warm host and GPU transfer-inclusive use same full apply_into validation; resident observations have separate explicit scopes"
+  },
+  "observed_median_seconds": {
+    "cpu_warm_host_seconds": 7.783150067552924e-06,
+    "gpu_warm_transfer_inclusive_seconds": 0.00013387484941631555,
+    "cpu_warm_kernel_and_scoped_workers_seconds": 2.436595968902111e-06,
+    "gpu_complete_amplitude_upload_seconds": 5.8330013416707516e-05,
+    "gpu_warm_resident_host_seconds": 3.46843502484262e-05,
+    "gpu_warm_device_event_seconds": 3.451200127601624e-05,
+    "gpu_complete_separated_output_download_seconds": 3.941403701901436e-05
+  },
+  "guard": {
+    "parent_cpu_load_before_plus1": true,
+    "parent_cpu_load_drift_le4": true,
+    "original_gpu_load_passed": false
+  },
+  "controlled_cpu_gpu_speedup": null,
+  "controlled_gpu_efficiency": null,
+  "realized_owned_device_bytes": 1361840,
+  "process_peak_rss_bytes": 530800640,
+  "wall_seconds": 4.22426321299281,
+  "gates": {
+    "cpu_density": {
+      "rank0_public_full_signed_max": 0.0,
+      "rank1_public_full_signed_max": 0.0,
+      "rank2_public_full_signed_max": 0.0,
+      "rank3_public_full_signed_max": 0.0
+    },
+    "cpu_ladders": {
+      "dc": {
+        "pp_complete_max_Ha": 1.3877787807814457e-17,
+        "hh_complete_max_Ha": 6.938893903907228e-18
+      },
+      "static": {
+        "pp_complete_max_Ha": 6.938893903907228e-18,
+        "hh_complete_max_Ha": 2.7755575615628914e-17
+      },
+      "dynamic": {
+        "pp_complete_max_Ha": 3.469446951953614e-18,
+        "hh_complete_max_Ha": 0.0
+      }
+    },
+    "caller_workers_restored": true,
+    "cpu_complete_signed_correctness": true,
+    "gpu_admitted": true,
+    "gpu_complete_signed_correctness": true,
+    "gpu_controlled_timing": false,
+    "ptx_no_fma_or_atomic": true,
+    "source_and_input_unchanged": true,
+    "caller_workers_restored_after_cuda": true,
+    "complete_runtime_dependencies_unchanged": true
+  },
+  "source_and_runtime_fixed": true,
+  "files_sha256": {
+    "actual001/inputs.npz": "bb83f71005f99d4662554822c648c1c0658fd101cd019e1119ceae4fccc48667",
+    "actual001/sources.tar.gz": "ab62d4de4adf4de841a3f383ff2ccfb2c8feae9f83391ba4d2900f6bdd3b515f",
+    "actual001/result.json": "ea89df8d785b09cebeeea5fd7493fac5cc60e58989e638596c50daaaeccda53a",
+    "actual001/density_0.ptx": "3e2557851714703c3541daa2b4b3173e08cb60dd8325f1ccd9396ae0ac509626",
+    "actual001/density_1.ptx": "615c8e33e0bf6f0d05477894bb935769ddfe02a4797e280e1ad28c07c4f49ac9",
+    "actual001/arrays.npz": "9d82cd739c48648be3fb30020a83d35366d825fee5eefec0cad82cb432ca10d9",
+    "actual001/ladder_0.ptx": "fa896ebf1683b9fe14889ee92238a967cfc5ee3aab798807a1dcd4f4edf3afe5",
+    "actual001/density_2.ptx": "601529319aa7d81d9023efc5dee042e913cf97f3c71da4d8d4d8d90265a2e8b8",
+    "actual001/source_sha256.json": "bf2ad7e4fd986c284e138bfe425ccb76d0973cd8b18d374575ede882673424b0"
+  },
+  "source_result_sha256": "ea89df8d785b09cebeeea5fd7493fac5cc60e58989e638596c50daaaeccda53a",
+  "interpretation": "Actual tiny complete matrices are upload/launch/download dominated. Other GPU compute PIDs persist, so timings remain observations and no controlled speedup, efficiency or production inference is admitted.",
+  "highest_level_reached": false
+}

@@ -1,0 +1,13 @@
+# Actual guard003 qualification
+
+The root-sealed strict-mapping successor completed once: **19 passed in 0.50 s** (pytest), complete driver scope 0.674096 s and peak RSS 250376 KiB. This is a qualification result, not controlled performance evidence. The completed calls are **1 H / 6 h-S / 2 initial physical overlaps / 0 CI / 0 gradient**, with zero radial finite increments, eigensolves, SVD, retraction or optimizer.
+
+The genuine public baseline Hamiltonian, complete physical input hash and matrix hash matched original saved baseline H. All six raw native h/S outputs matched original saved raw matrices byte for byte. The functional one-body representation matched **L(savedraw) = tril(savedraw)+tril(savedraw,-1).T** strictly. Original complete saved eigenpair residual/Gram validation preceded attachment to the genuine owner. The [baseline controls](actual/baseline_owner_validation.json) and [captured native raw matrices](actual/captured_native_raw_hS.npz) preserve those checks.
+
+Both saved `1e-6` derivatives passed the unchanged relative `1e-5` / absolute `1e-8` gate. All three saved scales remain reported separately in [direction0](actual/saved_direction0_scales.json) and [direction1](actual/saved_direction1_scales.json). The 16 unsupported categories and legacy mixed guards rejected without new physical calls; rank used a legitimate rank-two tracker, and the malformed operator shell remained a negative refusal only.
+
+This result does not retrospectively pass the [original `1e-4` failure](../mixed_ci_finite_increment_implementation/actual/result.json) or the [guard002 representation mismatch](../mixed_ci_finite_increment_guard_qualification002/actual/result.json). It depends on the separate [138-control zero-builder representation audit](../mixed_ci_one_body_mapping_audit/RESULTS.md), which did not claim arbitrary full-space raw/L equivalence. No thirteen-point physical run was repeated.
+
+The production source remains epoch `0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193`. These helium native numerical and consumer gates are prerequisites for a separately contracted Yb qualification. They do not prove Yb accuracy, experimental acceptance, stationarity, optimizer integration or a performance gain.
+
+The [actual result](actual/result.json), [root execution](root_execution.json), [full log](root_execution.log), [contract](contract.json), [execution seal](execution_contract.json), and [completion ledger](completion.json) bind actual evidence. Completion checks only file hashes and already recorded scalar controls; zero scientific calculations were repeated. The contract-bound preparation README remains unchanged as historical preparation; this file is the current outcome.

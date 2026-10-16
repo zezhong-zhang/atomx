@@ -1,0 +1,29 @@
+{
+  "UTC": "2026-10-14T01:08:53.635425+00:00",
+  "status": "closed_complete_five_state_measurement_three_line_gates_failed_and_physical_class_census",
+  "files": {
+    "tests/test_mcdhf_state_resolved_derivative.py": "ec99b5f65817e83d1738bafb9ad38becd62a2a564e385ecf2124e1d1ae9e5369",
+    "docs/TESTING.md": "d4f697b4f44a0a695d38978932f216129506bd26875fcc0cf3d1b61cb9e5a54e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md": "93edf309c0bf07885d76f1d67bb8c91792a35e3ebc0bfe397e15e7e968b8a4d2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/README.md": "5e8ce42c7b30ff4ba12172b719ae68e92c795ac16ef1b348a22c22781b3c6277",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/STATUS.md": "bea4358ec24162ffe642621dba1139763705385c409743729e7e031d41f0d08a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/documentation_impact.json": "02c575e7e3ad6e70ba1cd3624ef91c2f32e5fac0f64af63c8c4e0a5d5e58e107",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/trace.md": "3e984adaa81c7f9b7770c93418413f93005ecfc4e672328590189243443dfa4b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/source_scope_review.json": "45d131f50176cef0e4b1b91b590c01f909e6b785772264c36ec7a18da883de25",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/missing_4f12_budget.json": "e0e29f1b151cd8b75e2d9924e2bb2adc616e355a92c52bf7a40b8dedf6be9be3",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/census_validation.json": "6bf6869791f40dfe87a000022e14de88bf3dd99a4b405967b6bfa7a673a1e762",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/independent_anchor001/receipt.json": "441ef3cd6c0bfc00c02450685319b6bad950ef61cf7dab1a161cf526fad3cb7b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/run.py": "bba8234d35e9f025a6f89925026348fef8990eb36037e1d0e74abf99981cda38",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/contract.json": "6b8a0dd102220e688ed12f99795d1ae763e3c1d9af14ceeaf02357bd7e1e34c1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/result.json": "ff8ab7892c620b6c1ed1b175c580a53d6865529528a18f473831ce956c3f1b82",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/RESULTS.md": "05014d883f0f55e44cf111b95c2f7f887ca72852367eb6754df1e6e7c7e54894",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/result_review.json": "d03ef2d7a9cfcdfd668f73688016dd0a41f9324803988968a2d838a70e4446e2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/closure_receipt.json": "0848a3583ebbbb5586ea43bee7521a5915fa5a6f7b0a2c7431acbfab98937def"
+  },
+  "scientific_verdict": "674/677 controls PASS;37/40 ordinaryFD PASS including20states/4EOL/13lines; three D3/2line failures preserved. No retry or gate/step changes.",
+  "independent_regressions": "30 existing tests plus4 new tests PASS; production source unchanged.",
+  "missing_class": "82NR/43112targetCSFs atsame31radials, independent fullspinorbitalDP validates count. No4f12energycomputed.",
+  "source_scope_correction": "SparseH/projection andDavidson alreadyexist. Dense67\u201369GB is counterfactual, not sparsememorylowerbound. Reuseexisting path; currentdensityprojection and retaineddenseH-onlyownership requirequalification.",
+  "links_checked": true,
+  "new_general_insight": "none beyond existing physicalspace/metric/state-identity rules"
+}

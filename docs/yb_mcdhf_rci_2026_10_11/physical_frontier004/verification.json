@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-11T09:14:32.194906+00:00",
+  "status": "frozen_read_only_frontier_audit_passed",
+  "files_sha256": {
+    "contract.json": "9fc10913c4d354e64ba37216e1c3b23237bf596ee4f42d16ade765a2559dba08",
+    "count_spaces.py": "2db118cc9acbad942b648581390ff2a66864606408c1c144830c90ee817595ec",
+    "kinematic_preflight.json": "46d9d890a121ad6fe468ea3b1d1d8c3bdfa09e2e74a6ce38ea16ee66c1a9ac32",
+    "derive_responses.py": "afbf4b2bcd447704418f360b9e63ceea92e5727ed2202c0d52b4192892f528d0",
+    "same_model_responses.json": "9c5495838727bc4062e104297be08bee7528a093e28a75b1f79a08cc17f25c48",
+    "decision_and_prospective_experiment.json": "bdb4e64093f982b4e61e9e50cdf74e102e4fe5bd8d4da4b7e863142437e9136d"
+  },
+  "controls": {
+    "source_and_inputs_rechecked_at_freeze": 18,
+    "saved_energy_arithmetic": {
+      "count": 110,
+      "passed": true
+    },
+    "independent_combinatorial_matches": {
+      "count": 88,
+      "passed": true
+    },
+    "target_subset_count_checks_passed": true,
+    "proposal_resource_and_physical_scope_checks_passed": true
+  },
+  "scope": "Only immutable saved-energy arithmetic, independent magnetic/angular multiplicity counts, current operator/code reads and prospective prioritization. No H, CI, gradient, optimizer, new radial virtual construction or timed physics executed. Existing failed003/005/frozen531 evidence and source untouched. No tests duplicated. Originalstationarity and NIST gates unchanged. Next contracts are proposals, not completed numerical evaluations.",
+  "knowledge_impact_review": {
+    "current_topic": "New physics frontier004 conditional rank-versus-virtual discriminator, plus exact complete target-sector counts; no previous scientific result superseded.",
+    "documentation_disposition": "All old proof/source retained. Currentguide no-pair crude/GRASP-style analogy caveat explicitly recorded in prospective JSON; parent must use measured/source-defined words in current summary. Parent may link frozen own directory in root current guide.",
+    "lasting_rule": "Existing AGENTS.md already requires same lower-upper operator/space identity, complete unreachable-sector removal, no silent model shrink and distinction of stationarity vs experimental accuracy; no new AGENTS rule needed."
+  },
+  "known_limits": {
+    "physical_solver_executed_in_this_audit": false,
+    "new_H_or_CI_or_gradient_or_optimizer": false,
+    "source_or_oldproof_edits": false,
+    "full_physics_complete": false,
+    "full_spectrum_certified": false,
+    "experimental_gate_passed": false,
+    "missing_physics_bound": null
+  }
+}

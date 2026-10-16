@@ -1,0 +1,1090 @@
+{
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/contract.json": "f91cf03e4d9f84163f6896bf628e8d9aecfeb61f57d94a82cbe8fadf1a5d2f55",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/test_receipt.json": "e7daf7f8b5ac604ddea0036e13bf3bd64c13ef0d62c140e7500adecefcbcfab9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/run.py": "2a2195b69c81c590ac9f205c41550cb1b9f328209c80e0b92e75d5c29eeec2e2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/complete_models.json": "1c05b5162d02ae89e619dc5ff08fda18e2b59f56b5f6e1fbf6cacffa1a17c38a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/plan.json": "6efb832349d602436f3dccabffeaf5371ed655ce2bc083d854992ea7e0616413",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/aggregate001/result.json": "3c9d222c6e1a07eebc11ab6791118c94f31691f2eb9e99483e1b78dcf097598f",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/result.json": "beeaab96288b64d9da6844332c3c874b059e26635b1a4f5ec66f0488e5c35041",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/basis.json": "3913fa3689aa987d13c86b8040f69cc18a8062b87d8820a9c2b7e46e0e4a0e39",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/A_selected.npz": "cb13e1843fb1d7968a35c9bcdc2f9334c8660711fb61629d6e09e39cca4af8a8",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/B_selected.npz": "f7a954dff9b4c29c390d068fa792128c52b5976c5835c213144e742171ad28fe",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/result.json": "b5663cf84acee8eb783dc0d1d36b6b8b90912787e35d920b619b9c2f6b362398",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/basis.json": "8a108bc0445b6ef0582382cc63cee56dcf04c8bd7562f6fb8e67225ff37d61ba",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/A_selected.npz": "9841331f12f31db55cd222a2e68f383c74b4c5c251edb89c6835540e01e9e7ea",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/B_selected.npz": "4e23420f246e3814f7f5a4d8751c32808d89fc7400c89a3d0792dde318026c00",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/result.json": "d8f25c2590306154af2c71b05113d9c73ac509ae5c72ba034f800a02ad9ae420",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/basis.json": "ea521d22a8e6cf9e5ea67dc8c250dcb68146a0db8f7eaff0d0cb87f813ed5146",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/A_selected.npz": "ce6b68828499eeb23a8a3eaf2e77b6f0516459adb46f978fb050a1df2c24c84f",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/B_selected.npz": "aab42be73f4eb3436d79ef7b283794ac11f3c35b4422aef2ef2b8e62e71353cc",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/result.json": "67792f5f3be36ce67e31f5e1f4345479145f188c89f29815f2641f79eb9c0487",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/basis.json": "ec8b54ac65efad57003ee11fe5856c85b556daefe5508a4e4e3c03ac379f44df",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/A_selected.npz": "749bf72e6637ae3ce8d3a80704d364d261151c21ffc370913a230bff33567ea8",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/B_selected.npz": "38554d339f3c093700a5ef7e1209dd39159fdf88685b9fbb03f086f22e7db1f5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/result.json": "43d78d45021ba38afcfc1d01ffcec8f239c4eaf5ec831cc03cc076de38dd69ff",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/basis.json": "a4d97bc100502edef8c569aa9b6dddf68312263f6af56996dad0eac390dd50f1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/A_selected.npz": "b5d35706080437ac2ef0a42b2a643c38b7e9367c39ab97056d26d52326b0b69b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/B_selected.npz": "ff268196dc9e3bb4252b1e5720675338bd733f9796b3216f3f94d56ddef98f3d"
+  },
+  "base_contract": {
+    "status": "SOURCE_ready_native_sparse_fixed_basis_qualification",
+    "hypothesis": "Existing sparse determinant Hamiltonian and exact CSF projection retain the same complete full-CSF Dirac-Coulomb operator and lowest2 per-sector roots as owned dense point13 controls; no larger correlation model is calculated here.",
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "fixed": {
+      "A": 175,
+      "A_NR_CSF": [
+        91,
+        1595
+      ],
+      "B_NR_CSF": [
+        100,
+        2574
+      ],
+      "Z": 70,
+      "coordinates": 3689,
+      "electrons": 69,
+      "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+      "kappas": [
+        -4,
+        -3,
+        -2,
+        -1,
+        1,
+        2,
+        3
+      ],
+      "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+      "native_UID_order": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          5,
+          1,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "ns": 123,
+      "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+      "operator": "full native unshifted Dirac-Coulomb, frozen nuclear positive-energy P and original S/inverse",
+      "point": "literal accepted13 as already bound paired diagnostic, no terminal16correction splicing",
+      "radials": 31,
+      "same_direction": "negative checkpoint13 full_normalized_pg (A), not B full_preconditioned; every coordinate included",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "inputs": {
+      "basis_maps": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json",
+        "sha256": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742"
+      },
+      "checkpoint": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+        "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19"
+      },
+      "checkpoint_arrays": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+        "sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee"
+      },
+      "layout": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+        "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+      },
+      "models": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json",
+        "sha256": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d"
+      },
+      "saved_S": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+        "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+      },
+      "source_identity": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+        "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+      },
+      "tracking_binding": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+        "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+      },
+      "workspace": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+        "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+      },
+      "A_R0": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz",
+        "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593"
+      },
+      "A_R0_record": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json",
+        "sha256": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72"
+      },
+      "B_R0": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz",
+        "sha256": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0"
+      },
+      "B_R0_record": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json",
+        "sha256": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80"
+      },
+      "preparation_driver": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py",
+        "sha256": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d"
+      },
+      "preparation_contract": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json",
+        "sha256": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e"
+      },
+      "preparation_result": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json",
+        "sha256": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541"
+      }
+    },
+    "arrays": {
+      "checkpoint_arrays": {
+        "fields": {
+          "full_normalized_pg": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "full_normalized_tangent": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "inverse_blocks_0": {
+            "dtype": "<f8",
+            "shape": [
+              2,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_1": {
+            "dtype": "<f8",
+            "shape": [
+              4,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_2": {
+            "dtype": "<f8",
+            "shape": [
+              6,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_3": {
+            "dtype": "<f8",
+            "shape": [
+              7,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_4": {
+            "dtype": "<f8",
+            "shape": [
+              6,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_5": {
+            "dtype": "<f8",
+            "shape": [
+              4,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_6": {
+            "dtype": "<f8",
+            "shape": [
+              2,
+              119,
+              119
+            ]
+          },
+          "inverse_diagonal": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "projector_0": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_4": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_5": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_6": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "x": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "workspace": {
+        "fields": {
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              24,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              24,
+              123
+            ]
+          },
+          "basis_bsp_p": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                8
+              ],
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                8
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                8
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                8
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                8
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                8
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_p_d": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                8
+              ],
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                8
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                8
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                8
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                8
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                8
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_q": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_q_d": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_gr": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9
+              ],
+              [
+                115,
+                12
+              ],
+              [
+                115,
+                16
+              ],
+              [
+                115,
+                18
+              ],
+              [
+                115,
+                24
+              ],
+              [
+                115,
+                32
+              ]
+            ]
+          },
+          "basis_grw": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9
+              ],
+              [
+                115,
+                12
+              ],
+              [
+                115,
+                16
+              ],
+              [
+                115,
+                18
+              ],
+              [
+                115,
+                24
+              ],
+              [
+                115,
+                32
+              ]
+            ]
+          },
+          "basis_ks": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ksp": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ksq": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ns": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nsp": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nsq": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nv": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_t": {
+            "dtype": "<f8",
+            "shape": [
+              132
+            ]
+          },
+          "basis_tp": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                130
+              ],
+              [
+                132
+              ]
+            ]
+          },
+          "orbital_keys": {
+            "dtype": "<i8",
+            "shape": [
+              24,
+              2
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "saved_S": {
+        "fields": {
+          "s_-1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-4": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "A_R0": {
+        "fields": {
+          "H": {
+            "dtype": "<f8",
+            "shape": [
+              1595,
+              1595
+            ]
+          },
+          "energies": {
+            "dtype": "<f8",
+            "shape": [
+              1595
+            ]
+          },
+          "mixing": {
+            "dtype": "<f8",
+            "shape": [
+              1595,
+              1595
+            ]
+          },
+          "keys": {
+            "dtype": "<i8",
+            "shape": [
+              31,
+              2
+            ]
+          },
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          }
+        },
+        "uncompressed_cap": 40780456
+      },
+      "B_R0": {
+        "fields": {
+          "H": {
+            "dtype": "<f8",
+            "shape": [
+              2574,
+              2574
+            ]
+          },
+          "energies": {
+            "dtype": "<f8",
+            "shape": [
+              2574
+            ]
+          },
+          "mixing": {
+            "dtype": "<f8",
+            "shape": [
+              2574,
+              2574
+            ]
+          },
+          "keys": {
+            "dtype": "<i8",
+            "shape": [
+              31,
+              2
+            ]
+          },
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          }
+        },
+        "uncompressed_cap": 106091504
+      }
+    },
+    "angular_census": [
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1
+        ],
+        "nullspace_calls": 1,
+        "q": 1,
+        "twoj": 1
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 2,
+        "twoj": 1
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3
+        ],
+        "nullspace_calls": 2,
+        "q": 1,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 2,
+        "nonnegative_M2": [
+          0,
+          2,
+          4
+        ],
+        "nullspace_calls": 3,
+        "q": 2,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3
+        ],
+        "nullspace_calls": 2,
+        "q": 3,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 4,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5
+        ],
+        "nullspace_calls": 3,
+        "q": 1,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 3,
+        "nonnegative_M2": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "nullspace_calls": 5,
+        "q": 2,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 3,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7,
+          9
+        ],
+        "nullspace_calls": 5,
+        "q": 3,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5
+        ],
+        "nullspace_calls": 3,
+        "q": 5,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 6,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "nullspace_calls": 4,
+        "q": 1,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 4,
+        "nonnegative_M2": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "nullspace_calls": 7,
+        "q": 2,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "nullspace_calls": 4,
+        "q": 7,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 8,
+        "twoj": 7
+      }
+    ],
+    "resources": {
+      "CPU": 27,
+      "threads": 1,
+      "AS_bytes": 8589934592,
+      "inner_seconds": 900,
+      "outer_seconds": 915,
+      "decoded_input_bytes": 268435456,
+      "host_load1_max": 16,
+      "host_MemAvailable_GiB_min": 10,
+      "calls": {
+        "H": 2,
+        "H_projection": 10,
+        "block_terms": 10,
+        "angular_table": 10,
+        "angular_nullspace": 43,
+        "raw_hS": 14,
+        "radial_evaluator": 2,
+        "radial_key": 168916,
+        "pair_potential": 168916,
+        "density": 1984,
+        "pair_convolution": 675664,
+        "factor_getter": 675664,
+        "banded_contraction": 337832,
+        "Davidson": 10,
+        "operator_action": 2500
+      }
+    },
+    "gates": {
+      "whole_action_max_abs_Ha": 1e-08,
+      "full_reference_eigenpair_max_abs_Ha": 1e-08,
+      "sparse_diagonal_max_abs_Ha": 1e-08,
+      "bilinear_symmetry_Ha": 1e-10,
+      "cross_symmetry_Ha": 0.0,
+      "Davidson_tol_L2_Ha": 1e-09,
+      "Davidson_max_iter": 200,
+      "Davidson_selected_eigenpair_max_abs_Ha": 1e-08,
+      "selected_energy_max_abs_Ha": 1e-08,
+      "selected_signed_wave_max_abs": 1e-08,
+      "selected_projector_max_abs": 1e-08,
+      "selected_Gram": 1e-10,
+      "batch_columns": 32,
+      "selected_roots_per_sector": 2,
+      "Davidson_selected_eigenpair_L2_Ha": 1e-08
+    },
+    "memory_work": "Complete A1595/B2574 H/E/C oracle146,712,016bytes; all5symmetryblocks retained. Existing native sparse determinant H and sparse exact CSF projection, no new dense H or dense determinant H, action on every full dense reference eigenvector in32-column batches.10 angular tables capped4mNNZ each/40m total and600MB CSR payload;8GiB hardstop. Existing full dense controls are read only. No public iterative snapshot/tracker qualification, no larger4f12energy, no timingclaim.",
+    "stop": "First source/header/geometry/nucleus/basis/action/eigenpair/phase/UID/resource failure closes once-only evidence; no automatic retry, tolerance or solver/model changes.",
+    "documentation": "Own execution001 only. Root owns parent status/currentguides. No shared source edits or new API/default."
+  },
+  "cases": [
+    "matched",
+    "J1_even",
+    "J3_even",
+    "J5_even",
+    "J1_odd",
+    "J3_odd"
+  ],
+  "derivative_action_abs_Ha": 1e-09,
+  "all_key_abs": 1e-12,
+  "full_gradient_abs": 1e-09,
+  "energy_reconstruction_abs_Ha": 1e-07,
+  "limits": {
+    "AS_bytes": 8589934592,
+    "seconds": 1200,
+    "decoded_bytes": 268435456,
+    "radial_keys": 384706,
+    "raw_determinants": 92715,
+    "load1_max": 32,
+    "available_GiB_min": 32
+  },
+  "interpretation": "Fixed R0 real DC bilinears and analytic radial gradients only; failed ordinary FD005 remains failed. No full-spectrum owner, eigensolve, optimizer or experimental admission."
+}

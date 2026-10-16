@@ -1,0 +1,994 @@
+{
+  "original_core_NR": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14",
+  "selected_sectors": [
+    [
+      1,
+      -1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "construction": "Preserve all69 original NR rows first; append bare5f plus21 new one-hole pair rows containing5f; enumerate all public jj branches and coupling trees, retain five complete target sectors.",
+  "models": {
+    "baseline": {
+      "configs": [
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1"
+        },
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1"
+        },
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7s1"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6d1"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s2"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d2"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7p2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7p2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7p2"
+        }
+      ],
+      "full_NR_configs": 69,
+      "full_CSFs": 2163,
+      "complete_target_CSFs": 1046,
+      "full_J_parity_sectors": 17,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 158,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1140
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 150,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1023
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 256,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 982
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 236,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 873
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 246,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 637
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "dense_unblocked_H_or_C_bytes": 8752928
+    },
+    "complete5f": {
+      "configs": [
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1"
+        },
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1"
+        },
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7s1"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6d1"
+        },
+        {
+          "family": "bare_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7s1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s2"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 6d1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d2"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d1 7p1"
+        },
+        {
+          "family": "4f_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7p2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7s1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 6d1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d2"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d1 7p1"
+        },
+        {
+          "family": "5p_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7p2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7s1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 6d1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d2"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d1 7p1"
+        },
+        {
+          "family": "5s_new_virtual",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7p2"
+        },
+        {
+          "family": "bare",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7p1 5f1"
+        },
+        {
+          "family": "4f",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5f2"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7p1 5f1"
+        },
+        {
+          "family": "5p",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5f2"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7p1 5f1"
+        },
+        {
+          "family": "5s",
+          "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5f2"
+        }
+      ],
+      "full_NR_configs": 91,
+      "full_CSFs": 3789,
+      "complete_target_CSFs": 1595,
+      "full_J_parity_sectors": 20,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 219,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1872
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 223,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1917
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 367,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1653
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 370,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1694
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 416,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1324
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -4
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "dense_unblocked_H_or_C_bytes": 20352200
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "logical_change": "Exact per-evaluation radial action reuse in the native MCDHF correlated gradient",
+  "source_owner": "src/atomx/methods/csf/variational.py::CSFOrbitalFunctional.gradient_from_weights",
+  "public_defaults_or_contracts_changed": false,
+  "physical_operator_or_thresholds_changed": false,
+  "dispositions": [
+    {"path": "docs/yb_mcdhf_rci_2026_10_11/performance/README.md", "action": "create", "reason": "Owns measured finite-kernel evidence, limits, source epochs, and the next radial-producer gap"},
+    {"path": "docs/ARCHITECTURE_DESIGN.md", "action": "retain", "reason": "Shared physics/numerics ownership and method interfaces are unchanged"},
+    {"path": "docs/DF_SOLVER_CONTROLS.md", "action": "retain", "reason": "No orbital controls, projector model, CSF selection, or convergence threshold changed"},
+    {"path": "docs/yb_mcdhf_rci_2026_10_11/README.md", "action": "root integration requested", "reason": "Root owns current native Yb MCDHF route and will link this performance increment"}
+  ],
+  "lasting_insight": "Existing same-source Coulomb contraction already avoids repeated potentials. Remove repeated exact potential actions next, binding reuse to one current orbital trial and source pair, without moving signed sums or truncating coefficients."
+}

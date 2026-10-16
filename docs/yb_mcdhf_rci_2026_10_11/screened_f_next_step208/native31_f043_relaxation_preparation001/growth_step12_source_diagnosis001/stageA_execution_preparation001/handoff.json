@@ -1,0 +1,41 @@
+{
+  "status": "SOURCE_ONLY_stageA_root_review_ready_NOT_EXECUTED",
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/run.py": "80540c01c0709b1a4cdfe6cd9292e6ccad3f7373e3e2fd29fdd0560833663967",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/contract.json": "4a40f8ad3037a1ff5663ff43723b93cde4af5d5c9871e4d9cde538a655ff9de6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/verify_preparation.py": "d0c8b4c0589e0391851dd7ef1b5ed75b34e3431df4db1258b384468beac0ea8c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/preparation.json": "9904da0597e6cea9da18aa8cf64e3a251bf6836f77163eb3feb2d1d2a6895613",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/README.md": "5685b3ebab3ed41a5abc2d82cca488f27c8fa7439ec4d9d35314b48df27295c7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/source_review.json": "3aa7705e8f4cc6c49a1727e4eb0d9985f2d4f0cf86aab9fe8bbc0b62e938839f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/docimpact.json": "65932eac5bfab5322c5938d29f49dd16f3450b405710f8d021ac15d27cfff2f2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/trace.md": "8c1aace84e98adc3071c4508d8c8c757f45d26bb2d8e71524483d2a172f8dc92"
+  },
+  "driver_sha256": "80540c01c0709b1a4cdfe6cd9292e6ccad3f7373e3e2fd29fdd0560833663967",
+  "contract_sha256": "4a40f8ad3037a1ff5663ff43723b93cde4af5d5c9871e4d9cde538a655ff9de6",
+  "preparation_sha256": "9904da0597e6cea9da18aa8cf64e3a251bf6836f77163eb3feb2d1d2a6895613",
+  "preparation_controls": 21,
+  "Ruff": "passed",
+  "source_epoch": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_optimizer_sha256": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+  "original_proposal_and_resource_clarification_immutable": true,
+  "actual_runtime": null,
+  "NPZ_reads_or_rehashes": 0,
+  "numerical_imports_or_execution": 0,
+  "physical_calls": 0,
+  "no_stageB_or_automatic_continuation": true,
+  "missing_history_inputs": [],
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageA_execution_preparation001/execution_binding.json",
+  "root_binding_and_foreground45s_launcher_required": true,
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 45,
+    "NPZ_loads_max": 14,
+    "decoded_fields_exact": 94,
+    "decoded_bytes_exact": 7544472,
+    "small_Gram_eigh_max": 7,
+    "H_CI_new_gradient_Dirac_optimizer": 0
+  }
+}

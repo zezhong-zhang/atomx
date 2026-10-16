@@ -1,0 +1,3206 @@
+{
+  "records": [
+    {
+      "case": "coarse_l6_e200",
+      "state": "6s_1/2",
+      "core_zero_Ha": -14067.058077561107,
+      "bare_Fock_error_Ha": 1.2797318760249254e-11,
+      "operator_error_Ha": 1.3099139828387507e-12,
+      "CI_Dyson_error_Ha": -1.3934298159767877e-11,
+      "eigen_residual_Ha": 1.2710574864626038e-13,
+      "wave_projector_error": 2.7632687804590716e-12,
+      "saved_matrix_sha256": "0ea13f7c3bf17b958ed5c9f9c0454ec7d899c60f943c07a3f1f52ba9d178b61c",
+      "producer_identity": "d7d269fb5e13ac4adb7c695566643944a8c313863bdd8993d9bb3705cbff0fce:canonical",
+      "legacy_residue_asymmetry_Ha2": 5.421010862427522e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "d7d269fb5e13ac4adb7c695566643944a8c313863bdd8993d9bb3705cbff0fce:canonical",
+        "energy_Ha": -0.4515153010913119,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            -1
+          ],
+          [
+            7,
+            -1
+          ],
+          [
+            8,
+            -1
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "1d7352a72a241e45238d77bc26922b164fbda35dfc04e55dc5e5157850406650",
+            "730805016a594ff2d45b1597468269cb3f77ac5dd0471999e005aa6c99862825",
+            "91cd188286f485041a1e508e6d58d8c357e0548fe0e55ccf4000ce94986c6855"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "d58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089"
+            ]
+          ],
+          "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+          "Z": 70,
+          "ns": 123,
+          "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+        },
+        "matrix_sha256": "2fcff34399167b3ecbc9c260135a1b517460e4c4e5abdf5efe10d7a59e723927"
+      },
+      "seconds": 2.5057469160528854,
+      "RSS_MiB": 1273.05078125,
+      "passed": true
+    },
+    {
+      "case": "coarse_l6_e200",
+      "state": "5d_3/2",
+      "core_zero_Ha": -14067.058077561107,
+      "bare_Fock_error_Ha": 1.0197814814816297e-11,
+      "operator_error_Ha": 5.611275333272658e-13,
+      "CI_Dyson_error_Ha": -1.1836087665528794e-12,
+      "eigen_residual_Ha": 4.856703836433968e-13,
+      "wave_projector_error": 3.237146661838608e-12,
+      "saved_matrix_sha256": "043763b6074f8617699236517f142be9ce1f2c620c9e1c1ede93b5fcc7f51769",
+      "producer_identity": "d968142acac3947d05b8fb2476f44bd7e50d143428196e547bdb55bac15b6260:canonical",
+      "legacy_residue_asymmetry_Ha2": 4.235164736271502e-22,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "d968142acac3947d05b8fb2476f44bd7e50d143428196e547bdb55bac15b6260:canonical",
+        "energy_Ha": -0.34321424336367146,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "17022be50eb7a4d3d98ab82bc7dcdd9c124b5e37c558615897170d2a5d8dde2a",
+            "3e1ae21e5d1d311890289bf780b6fbbba691f7854f14351dcfc05fba84fd07b1",
+            "089e403ced4da962c0055c212f0b63870976a00e9655a0e787766d3150ea53a4"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "d58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089"
+            ]
+          ],
+          "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+          "Z": 70,
+          "ns": 123,
+          "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+        },
+        "matrix_sha256": "ef2cbf70d0158471214b8d0e073a72870f1bd7591dacd63b617882dfc6adff8a"
+      },
+      "seconds": 3.2936016329331324,
+      "RSS_MiB": 1511.875,
+      "passed": true
+    },
+    {
+      "case": "coarse_l6_e200",
+      "state": "5d_5/2",
+      "core_zero_Ha": -14067.058077561107,
+      "bare_Fock_error_Ha": 7.52274631476979e-12,
+      "operator_error_Ha": 1.0898669119963067e-12,
+      "CI_Dyson_error_Ha": 6.5910055191409356e-12,
+      "eigen_residual_Ha": 1.8340262846438325e-12,
+      "wave_projector_error": 5.854344786726529e-13,
+      "saved_matrix_sha256": "22453577430bce212b2671420f632a01eb49607d7da333bef0b0d7ba96fdd013",
+      "producer_identity": "00219a1dcd39c0f58eb0efd6d83f772ec1367c1958f3c5de9f1bd474bb0a67e8:canonical",
+      "legacy_residue_asymmetry_Ha2": 1.3552527156068805e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "00219a1dcd39c0f58eb0efd6d83f772ec1367c1958f3c5de9f1bd474bb0a67e8:canonical",
+        "energy_Ha": -0.3364400193215687,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            5,
+            -3
+          ],
+          [
+            6,
+            -3
+          ],
+          [
+            7,
+            -3
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "0304fd04fab9df93e1f496b2a785ca50b94b008a75945faf5d17c5b4d1da28d0",
+            "cc409ed6c51d93c940387fcad0c2600f389eaec70f4506db96e873691c19caa5",
+            "47bf56c2267b1239e2a9fd1845531cf433c25c0ff533d80a3ed5786b36f229a7"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "d58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089"
+            ]
+          ],
+          "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+          "Z": 70,
+          "ns": 123,
+          "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+        },
+        "matrix_sha256": "daf1df04dcef05eaf7452c7735bb9418cf7847a753f2723e917c80e5613ca3ea"
+      },
+      "seconds": 3.774146956973709,
+      "RSS_MiB": 1659.49609375,
+      "passed": true
+    },
+    {
+      "case": "coarse_l6_e200",
+      "state": "6p_1/2",
+      "core_zero_Ha": -14067.058077561107,
+      "bare_Fock_error_Ha": 9.888284635550804e-12,
+      "operator_error_Ha": 1.1570969876695258e-12,
+      "CI_Dyson_error_Ha": -5.935252289646087e-12,
+      "eigen_residual_Ha": 2.5421149729252077e-13,
+      "wave_projector_error": 7.640520161000808e-13,
+      "saved_matrix_sha256": "d1bda40d144cd44fa2c966d95abde79f1cd262254a017c1e6b3f69c9dd64b83b",
+      "producer_identity": "0f19e11734bac9a30cc439eee398e0b09bb0de2a77f8c3187c5c4bed9198121d:canonical",
+      "legacy_residue_asymmetry_Ha2": 2.710505431213761e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "0f19e11734bac9a30cc439eee398e0b09bb0de2a77f8c3187c5c4bed9198121d:canonical",
+        "energy_Ha": -0.32115363520049334,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "8c4e419f77e74273599dfd2600cc15165b0418712a05efea164c003172c3345b",
+            "49ba688fc621495ca030ae65576bea09ad951ad271d196a534ca5a6b55e7fac0",
+            "e50ad4f939cc497aa17b8ced8102e669e0ce71aa0d197cd066bd945344c3bda2"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "d58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089"
+            ]
+          ],
+          "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+          "Z": 70,
+          "ns": 123,
+          "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+        },
+        "matrix_sha256": "8099325cc46ad6c62c4110975f6a34874a9a955244f04487418e3bc2bc4fc20e"
+      },
+      "seconds": 2.3837283820612356,
+      "RSS_MiB": 1659.49609375,
+      "passed": true
+    },
+    {
+      "case": "coarse_l6_e200",
+      "state": "6p_3/2",
+      "core_zero_Ha": -14067.058077561107,
+      "bare_Fock_error_Ha": 1.0636602709723775e-11,
+      "operator_error_Ha": 1.7468318458391252e-12,
+      "CI_Dyson_error_Ha": -3.752942401291648e-12,
+      "eigen_residual_Ha": 1.1368683772161603e-13,
+      "wave_projector_error": 2.0816126600209373e-12,
+      "saved_matrix_sha256": "d7b8b106ab90931897785bad158da2c59c9d239b8e3515e3b14665c5dc7bd1d8",
+      "producer_identity": "7d1c351a3f30ba58325b7ae4a3d7c839298ecf1ef849adb2cff53e5283bfe729:canonical",
+      "legacy_residue_asymmetry_Ha2": 1.3552527156068805e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "7d1c351a3f30ba58325b7ae4a3d7c839298ecf1ef849adb2cff53e5283bfe729:canonical",
+        "energy_Ha": -0.3049149493216406,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            -2
+          ],
+          [
+            7,
+            -2
+          ],
+          [
+            8,
+            -2
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "f2ef258bedbef80b9ef17a06b30df9d68adfd58cbd8d6ead9a2b2c65cad459ec",
+            "bd5ce11e23b21859fd747cb59bba6459be3deb1bf33cf5647c34f0f7eda6745e",
+            "6e3fac36a85760504c7983e809a1f24a1a2d661e3d30805fd228b4763b3d7331"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "d58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089"
+            ]
+          ],
+          "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+          "Z": 70,
+          "ns": 123,
+          "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+        },
+        "matrix_sha256": "e3df72813386c77a733b3a81aaeba7add19050b884ee79d20f5e3fa07b50aab1"
+      },
+      "seconds": 3.210628218948841,
+      "RSS_MiB": 1659.49609375,
+      "passed": true
+    },
+    {
+      "case": "fine_l6_e200",
+      "state": "6s_1/2",
+      "core_zero_Ha": -14067.05807741815,
+      "bare_Fock_error_Ha": 1.1430384416755146e-11,
+      "operator_error_Ha": 7.698824217028388e-13,
+      "CI_Dyson_error_Ha": -6.673328556416891e-12,
+      "eigen_residual_Ha": 4.687428401686771e-13,
+      "wave_projector_error": 2.7092772469927695e-12,
+      "saved_matrix_sha256": "8e0f680a5fdd38fb7bdde70e2c88b9358ef6c9d4e82302fc99636faf7a487cb6",
+      "producer_identity": "9a8c3074b2309a175d6ae5504bee796e1fff6805248a2eeef132a762aa475c2f:canonical",
+      "legacy_residue_asymmetry_Ha2": 1.0587911840678754e-22,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "9a8c3074b2309a175d6ae5504bee796e1fff6805248a2eeef132a762aa475c2f:canonical",
+        "energy_Ha": -0.45152139381995093,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            -1
+          ],
+          [
+            7,
+            -1
+          ],
+          [
+            8,
+            -1
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "976788d14fd489714231c40f22f1e4e5a41ae404d59df516c52e6028c56fb978",
+            "db16128a2927f3aafc219f53e78bf3ea37b0a3b4b34ce58720737871eb75b55d",
+            "424fc5ebbe4fe9efb0a99bb5ad4fc9dd7d523ab0b68ac16651b57a2eed8814b1"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "34a489497a650056e93817590d7603bd99bc7204a3c08c79d8ba3fd4e13b67ef"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "d616aa03a54686897dd466a542b0e697bde0a7280bf95d782f1a54040063d41e"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "22d55f8e5da734261c8eeb074957bfecfea4a41821459e3519db559ec1f02674"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "ee5fb54d98a02553d61e943d9a5ca60ab2f5c8dba781ba07e10f33bd68b6fb0a"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "e2b98c349d714b0f7a4ed1632a2f6225ca20da55054cae563515c9c54e042396"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "5bfc59c9a29cb076abd559287043fa37be5e2886c0947dcd2e98a9f121b8ce3f"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2b0ad7aaf4660e14e7f1586b88ebcaab10ec4c108b7bc01b11fdf05e451b239e"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "58393cb8e728278d2bea04c376fc728a15c13b691b9fc43d3b8d2483a54065c5"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "a67cf846050eb89cf1e1ebddfe9654169bc886ce16ba7cc01229689de5572f33"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "171bf73e456501264e0dd2a0913add39df6c390c79422d63634a57b54b42a1cf"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "9d5aa849adf134b8cc02154e2c3d4971bfb1164710d2d6485b09d06aaa66b526"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "36fdc43e9b0b99748987272cfabdcaf58a2f9c2e208ffc1f364adba055a54731"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "a736517e5c1ccdb82829fba080f06e54a428a108f29f625956d32b2883cbb47d"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b0fc513353486191696f1554fe133ab5ac8cd129ecc971c8c33f69a153c99ff1"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "460426d2aa1e9513c54417ed2994f9595f6a09e1f4901f993782fe87084d58eb"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "1d2bbb3aa652e91662dc9b80ad2259cd1c91617cdce90b00348ecde177505905"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "4cb93e7c8181d40c2c007ac868493887c4138921c8fe400322f5c26fa0b1024c"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "918d635636717b1e7f69dd9b7b8967ec950b078989d96559155da91a7a9c1ff6"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "f42e7d3e8aa213e5080d1614914574607ae0193282835daea1e3565daf96ad22"
+            ]
+          ],
+          "geometry": "b79562cac0f7b5992576cecbf532b26ba22e3e75427f8e8b4505cb1096eb78d8",
+          "Z": 70,
+          "ns": 230,
+          "nuclear": "7cb0fa472c831ac2e15a9f1ea93061bc16a208ff55e132c4d8846db4949d42f6"
+        },
+        "matrix_sha256": "2aa9dc4c612e69bbdff748fca35fb1a9fdf43f765c89880e91ae0e593e1c9f99"
+      },
+      "seconds": 8.148020761087537,
+      "RSS_MiB": 4382.640625,
+      "passed": true
+    },
+    {
+      "case": "fine_l6_e200",
+      "state": "5d_3/2",
+      "core_zero_Ha": -14067.05807741815,
+      "bare_Fock_error_Ha": 1.408934080515678e-11,
+      "operator_error_Ha": 1.4217221150358839e-12,
+      "CI_Dyson_error_Ha": -1.0276113293627986e-11,
+      "eigen_residual_Ha": 5.684341886080802e-14,
+      "wave_projector_error": 1.9080570456964097e-12,
+      "saved_matrix_sha256": "74cd68fa8ab2008be91a3da083ca7f5b2029dfaf0445db3302ba556387f0cf96",
+      "producer_identity": "f9669eeb50086d91921f72f015ef97c2fc6fdff96a64b2eb75c277695cce3883:canonical",
+      "legacy_residue_asymmetry_Ha2": 5.421010862427522e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "f9669eeb50086d91921f72f015ef97c2fc6fdff96a64b2eb75c277695cce3883:canonical",
+        "energy_Ha": -0.34323000565446027,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "5043215553c0e2a73828b9313980e763b41f115deda9d60793feb69fec215b43",
+            "566b01d59796ce6f4a05ed68ea084f05470f89ed31c3a3c2cacec8a81fcb474c",
+            "a9acbf44a11a21e208180a0518e1a167da525ce4b60de4fab1c6dea16ebdbf05"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "34a489497a650056e93817590d7603bd99bc7204a3c08c79d8ba3fd4e13b67ef"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "d616aa03a54686897dd466a542b0e697bde0a7280bf95d782f1a54040063d41e"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "22d55f8e5da734261c8eeb074957bfecfea4a41821459e3519db559ec1f02674"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "ee5fb54d98a02553d61e943d9a5ca60ab2f5c8dba781ba07e10f33bd68b6fb0a"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "e2b98c349d714b0f7a4ed1632a2f6225ca20da55054cae563515c9c54e042396"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "5bfc59c9a29cb076abd559287043fa37be5e2886c0947dcd2e98a9f121b8ce3f"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2b0ad7aaf4660e14e7f1586b88ebcaab10ec4c108b7bc01b11fdf05e451b239e"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "58393cb8e728278d2bea04c376fc728a15c13b691b9fc43d3b8d2483a54065c5"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "a67cf846050eb89cf1e1ebddfe9654169bc886ce16ba7cc01229689de5572f33"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "171bf73e456501264e0dd2a0913add39df6c390c79422d63634a57b54b42a1cf"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "9d5aa849adf134b8cc02154e2c3d4971bfb1164710d2d6485b09d06aaa66b526"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "36fdc43e9b0b99748987272cfabdcaf58a2f9c2e208ffc1f364adba055a54731"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "a736517e5c1ccdb82829fba080f06e54a428a108f29f625956d32b2883cbb47d"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b0fc513353486191696f1554fe133ab5ac8cd129ecc971c8c33f69a153c99ff1"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "460426d2aa1e9513c54417ed2994f9595f6a09e1f4901f993782fe87084d58eb"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "1d2bbb3aa652e91662dc9b80ad2259cd1c91617cdce90b00348ecde177505905"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "4cb93e7c8181d40c2c007ac868493887c4138921c8fe400322f5c26fa0b1024c"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "918d635636717b1e7f69dd9b7b8967ec950b078989d96559155da91a7a9c1ff6"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "f42e7d3e8aa213e5080d1614914574607ae0193282835daea1e3565daf96ad22"
+            ]
+          ],
+          "geometry": "b79562cac0f7b5992576cecbf532b26ba22e3e75427f8e8b4505cb1096eb78d8",
+          "Z": 70,
+          "ns": 230,
+          "nuclear": "7cb0fa472c831ac2e15a9f1ea93061bc16a208ff55e132c4d8846db4949d42f6"
+        },
+        "matrix_sha256": "33d93d50cc5b014d5a7aa43a07af548349c8c61a2b65b40f6b0ea92f7b3b34ec"
+      },
+      "seconds": 11.257827593013644,
+      "RSS_MiB": 5210.0625,
+      "passed": true
+    },
+    {
+      "case": "fine_l6_e200",
+      "state": "5d_5/2",
+      "core_zero_Ha": -14067.05807741815,
+      "bare_Fock_error_Ha": 1.2073120281286265e-11,
+      "operator_error_Ha": 1.0350782730927932e-12,
+      "CI_Dyson_error_Ha": 1.1656675624749369e-11,
+      "eigen_residual_Ha": 6.844854043943255e-13,
+      "wave_projector_error": 5.495132127109059e-12,
+      "saved_matrix_sha256": "e31e11805f8d13d99dcbd5a39b1c72637048048ebf058028b6a984e5b20780e3",
+      "producer_identity": "dddb82f2130b1d6673216c99bea0c788d5e9c4f34e4447a0930a0b8165176f05:canonical",
+      "legacy_residue_asymmetry_Ha2": 1.0842021724855044e-19,
+      "legacy_sigma_projection_error_Ha": 1.734723475976807e-18,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "dddb82f2130b1d6673216c99bea0c788d5e9c4f34e4447a0930a0b8165176f05:canonical",
+        "energy_Ha": -0.3364346760689083,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            5,
+            -3
+          ],
+          [
+            6,
+            -3
+          ],
+          [
+            7,
+            -3
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "6a0eb14ec3cf6c6e1d80b15984f2c1616693089c8e23f97fa9129bec0ea25db6",
+            "0f2ece6ab527d771fff9fe70b744b80516b15fd115dcc8240a1348eec2189db2",
+            "e46243b22f32e2c153972583075b39326816395ccc76fcbb9bb35b9a660d3b4f"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "34a489497a650056e93817590d7603bd99bc7204a3c08c79d8ba3fd4e13b67ef"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "d616aa03a54686897dd466a542b0e697bde0a7280bf95d782f1a54040063d41e"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "22d55f8e5da734261c8eeb074957bfecfea4a41821459e3519db559ec1f02674"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "ee5fb54d98a02553d61e943d9a5ca60ab2f5c8dba781ba07e10f33bd68b6fb0a"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "e2b98c349d714b0f7a4ed1632a2f6225ca20da55054cae563515c9c54e042396"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "5bfc59c9a29cb076abd559287043fa37be5e2886c0947dcd2e98a9f121b8ce3f"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2b0ad7aaf4660e14e7f1586b88ebcaab10ec4c108b7bc01b11fdf05e451b239e"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "58393cb8e728278d2bea04c376fc728a15c13b691b9fc43d3b8d2483a54065c5"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "a67cf846050eb89cf1e1ebddfe9654169bc886ce16ba7cc01229689de5572f33"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "171bf73e456501264e0dd2a0913add39df6c390c79422d63634a57b54b42a1cf"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "9d5aa849adf134b8cc02154e2c3d4971bfb1164710d2d6485b09d06aaa66b526"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "36fdc43e9b0b99748987272cfabdcaf58a2f9c2e208ffc1f364adba055a54731"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "a736517e5c1ccdb82829fba080f06e54a428a108f29f625956d32b2883cbb47d"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b0fc513353486191696f1554fe133ab5ac8cd129ecc971c8c33f69a153c99ff1"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "460426d2aa1e9513c54417ed2994f9595f6a09e1f4901f993782fe87084d58eb"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "1d2bbb3aa652e91662dc9b80ad2259cd1c91617cdce90b00348ecde177505905"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "4cb93e7c8181d40c2c007ac868493887c4138921c8fe400322f5c26fa0b1024c"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "918d635636717b1e7f69dd9b7b8967ec950b078989d96559155da91a7a9c1ff6"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "f42e7d3e8aa213e5080d1614914574607ae0193282835daea1e3565daf96ad22"
+            ]
+          ],
+          "geometry": "b79562cac0f7b5992576cecbf532b26ba22e3e75427f8e8b4505cb1096eb78d8",
+          "Z": 70,
+          "ns": 230,
+          "nuclear": "7cb0fa472c831ac2e15a9f1ea93061bc16a208ff55e132c4d8846db4949d42f6"
+        },
+        "matrix_sha256": "5638ae60ed6d0de409402de79210faf12b4e8c2bbea44e857a88901ec427497b"
+      },
+      "seconds": 13.216362438979559,
+      "RSS_MiB": 5728.8671875,
+      "passed": true
+    },
+    {
+      "case": "fine_l6_e200",
+      "state": "6p_1/2",
+      "core_zero_Ha": -14067.05807741815,
+      "bare_Fock_error_Ha": 7.776668198289372e-12,
+      "operator_error_Ha": 9.621366203749204e-13,
+      "CI_Dyson_error_Ha": -9.312550730555813e-12,
+      "eigen_residual_Ha": 3.457650183405701e-13,
+      "wave_projector_error": 2.869017523554618e-12,
+      "saved_matrix_sha256": "8c37ccf38754c4c5b8e6fe77f82b4963fffe86efc0e891579bb7bf5dcb25ea99",
+      "producer_identity": "0970fdcde3f8ff650ee38f7273eb03d78f10001aabc4172e33522bea205235fe:canonical",
+      "legacy_residue_asymmetry_Ha2": 3.3881317890172014e-21,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "0970fdcde3f8ff650ee38f7273eb03d78f10001aabc4172e33522bea205235fe:canonical",
+        "energy_Ha": -0.3211573823352962,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "b0372336b108c53ced82caeedf43db10fc6400a8a10b8e75320c6594907ca4f5",
+            "65a7c9fc6f436fc82e680102e754f332e0fef22c02015ad2d9186fd1cafba8f7",
+            "1ac55fab548c8edabd96a4aaeaf6de317d964c89f8d5c230d08e0810bcae79df"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "34a489497a650056e93817590d7603bd99bc7204a3c08c79d8ba3fd4e13b67ef"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "d616aa03a54686897dd466a542b0e697bde0a7280bf95d782f1a54040063d41e"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "22d55f8e5da734261c8eeb074957bfecfea4a41821459e3519db559ec1f02674"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "ee5fb54d98a02553d61e943d9a5ca60ab2f5c8dba781ba07e10f33bd68b6fb0a"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "e2b98c349d714b0f7a4ed1632a2f6225ca20da55054cae563515c9c54e042396"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "5bfc59c9a29cb076abd559287043fa37be5e2886c0947dcd2e98a9f121b8ce3f"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2b0ad7aaf4660e14e7f1586b88ebcaab10ec4c108b7bc01b11fdf05e451b239e"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "58393cb8e728278d2bea04c376fc728a15c13b691b9fc43d3b8d2483a54065c5"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "a67cf846050eb89cf1e1ebddfe9654169bc886ce16ba7cc01229689de5572f33"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "171bf73e456501264e0dd2a0913add39df6c390c79422d63634a57b54b42a1cf"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "9d5aa849adf134b8cc02154e2c3d4971bfb1164710d2d6485b09d06aaa66b526"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "36fdc43e9b0b99748987272cfabdcaf58a2f9c2e208ffc1f364adba055a54731"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "a736517e5c1ccdb82829fba080f06e54a428a108f29f625956d32b2883cbb47d"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b0fc513353486191696f1554fe133ab5ac8cd129ecc971c8c33f69a153c99ff1"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "460426d2aa1e9513c54417ed2994f9595f6a09e1f4901f993782fe87084d58eb"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "1d2bbb3aa652e91662dc9b80ad2259cd1c91617cdce90b00348ecde177505905"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "4cb93e7c8181d40c2c007ac868493887c4138921c8fe400322f5c26fa0b1024c"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "918d635636717b1e7f69dd9b7b8967ec950b078989d96559155da91a7a9c1ff6"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "f42e7d3e8aa213e5080d1614914574607ae0193282835daea1e3565daf96ad22"
+            ]
+          ],
+          "geometry": "b79562cac0f7b5992576cecbf532b26ba22e3e75427f8e8b4505cb1096eb78d8",
+          "Z": 70,
+          "ns": 230,
+          "nuclear": "7cb0fa472c831ac2e15a9f1ea93061bc16a208ff55e132c4d8846db4949d42f6"
+        },
+        "matrix_sha256": "7a3ea067c2dba905b9a340fbc3388aa8217fe0a06c0d08c64492895a1be66021"
+      },
+      "seconds": 8.281026054988615,
+      "RSS_MiB": 5728.8671875,
+      "passed": true
+    },
+    {
+      "case": "fine_l6_e200",
+      "state": "6p_3/2",
+      "core_zero_Ha": -14067.05807741815,
+      "bare_Fock_error_Ha": 8.58468851561156e-12,
+      "operator_error_Ha": 3.655478697517367e-13,
+      "CI_Dyson_error_Ha": -4.617195514811101e-12,
+      "eigen_residual_Ha": 4.687428401686771e-13,
+      "wave_projector_error": 3.84103165940175e-12,
+      "saved_matrix_sha256": "6ea12ea5f726ed1852420b86f1527691d226b15b066957b2ec287fcf8dbd2624",
+      "producer_identity": "37952bde485be2c9e62b525f065ef718237a13aa2703c7268268a1e3e07908b0:canonical",
+      "legacy_residue_asymmetry_Ha2": 1.3552527156068805e-20,
+      "legacy_sigma_projection_error_Ha": 0.0,
+      "explicit_legacy_binding": {
+        "theory": "closed-core second-order attachment Sigma1 (2p1h + 2h1p)",
+        "reference_identity": "37952bde485be2c9e62b525f065ef718237a13aa2703c7268268a1e3e07908b0:canonical",
+        "energy_Ha": -0.30491768043332135,
+        "units": "Hartree",
+        "frozen_energy_argument": true,
+        "orbital_keys": [
+          [
+            6,
+            -2
+          ],
+          [
+            7,
+            -2
+          ],
+          [
+            8,
+            -2
+          ]
+        ],
+        "correlated_core": [
+          {
+            "orbital_key": [
+              1,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              2,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              2,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              3,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              3,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              3,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -4
+            ],
+            "occupation": 8
+          },
+          {
+            "orbital_key": [
+              4,
+              -3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              4,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              4,
+              2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              4,
+              3
+            ],
+            "occupation": 6
+          },
+          {
+            "orbital_key": [
+              5,
+              -2
+            ],
+            "occupation": 4
+          },
+          {
+            "orbital_key": [
+              5,
+              -1
+            ],
+            "occupation": 2
+          },
+          {
+            "orbital_key": [
+              5,
+              1
+            ],
+            "occupation": 2
+          }
+        ],
+        "producer_binding": {
+          "external": [
+            "751f8adaa4ec54cd6f106be7eb15dc63f44a411867881cb4d6c6d5e4069ec747",
+            "de5f086aa94004cf269a941e2544fa0778fb9f0b272314059aa12955452ecaf3",
+            "152d2670b2b5222c8d81b9372ae87e44d7b5f8a6e9233b36e1d282b6685e1206"
+          ],
+          "core": [
+            [
+              [
+                1,
+                -1
+              ],
+              "34a489497a650056e93817590d7603bd99bc7204a3c08c79d8ba3fd4e13b67ef"
+            ],
+            [
+              [
+                2,
+                -2
+              ],
+              "d616aa03a54686897dd466a542b0e697bde0a7280bf95d782f1a54040063d41e"
+            ],
+            [
+              [
+                2,
+                -1
+              ],
+              "22d55f8e5da734261c8eeb074957bfecfea4a41821459e3519db559ec1f02674"
+            ],
+            [
+              [
+                2,
+                1
+              ],
+              "ee5fb54d98a02553d61e943d9a5ca60ab2f5c8dba781ba07e10f33bd68b6fb0a"
+            ],
+            [
+              [
+                3,
+                -3
+              ],
+              "e2b98c349d714b0f7a4ed1632a2f6225ca20da55054cae563515c9c54e042396"
+            ],
+            [
+              [
+                3,
+                -2
+              ],
+              "5bfc59c9a29cb076abd559287043fa37be5e2886c0947dcd2e98a9f121b8ce3f"
+            ],
+            [
+              [
+                3,
+                -1
+              ],
+              "2b0ad7aaf4660e14e7f1586b88ebcaab10ec4c108b7bc01b11fdf05e451b239e"
+            ],
+            [
+              [
+                3,
+                1
+              ],
+              "58393cb8e728278d2bea04c376fc728a15c13b691b9fc43d3b8d2483a54065c5"
+            ],
+            [
+              [
+                3,
+                2
+              ],
+              "a67cf846050eb89cf1e1ebddfe9654169bc886ce16ba7cc01229689de5572f33"
+            ],
+            [
+              [
+                4,
+                -4
+              ],
+              "171bf73e456501264e0dd2a0913add39df6c390c79422d63634a57b54b42a1cf"
+            ],
+            [
+              [
+                4,
+                -3
+              ],
+              "9d5aa849adf134b8cc02154e2c3d4971bfb1164710d2d6485b09d06aaa66b526"
+            ],
+            [
+              [
+                4,
+                -2
+              ],
+              "36fdc43e9b0b99748987272cfabdcaf58a2f9c2e208ffc1f364adba055a54731"
+            ],
+            [
+              [
+                4,
+                -1
+              ],
+              "a736517e5c1ccdb82829fba080f06e54a428a108f29f625956d32b2883cbb47d"
+            ],
+            [
+              [
+                4,
+                1
+              ],
+              "b0fc513353486191696f1554fe133ab5ac8cd129ecc971c8c33f69a153c99ff1"
+            ],
+            [
+              [
+                4,
+                2
+              ],
+              "460426d2aa1e9513c54417ed2994f9595f6a09e1f4901f993782fe87084d58eb"
+            ],
+            [
+              [
+                4,
+                3
+              ],
+              "1d2bbb3aa652e91662dc9b80ad2259cd1c91617cdce90b00348ecde177505905"
+            ],
+            [
+              [
+                5,
+                -2
+              ],
+              "4cb93e7c8181d40c2c007ac868493887c4138921c8fe400322f5c26fa0b1024c"
+            ],
+            [
+              [
+                5,
+                -1
+              ],
+              "918d635636717b1e7f69dd9b7b8967ec950b078989d96559155da91a7a9c1ff6"
+            ],
+            [
+              [
+                5,
+                1
+              ],
+              "f42e7d3e8aa213e5080d1614914574607ae0193282835daea1e3565daf96ad22"
+            ]
+          ],
+          "geometry": "b79562cac0f7b5992576cecbf532b26ba22e3e75427f8e8b4505cb1096eb78d8",
+          "Z": 70,
+          "ns": 230,
+          "nuclear": "7cb0fa472c831ac2e15a9f1ea93061bc16a208ff55e132c4d8846db4949d42f6"
+        },
+        "matrix_sha256": "19ea296b47f549d3af92e2744d59ac96e245b8aab512c6810f4932f2fadff4c3"
+      },
+      "seconds": 11.259019890101627,
+      "RSS_MiB": 5728.8671875,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "seconds": 71.93523552792612
+}

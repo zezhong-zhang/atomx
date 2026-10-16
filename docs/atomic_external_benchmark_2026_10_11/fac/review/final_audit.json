@@ -1,0 +1,2104 @@
+{
+  "precision": {
+    "run": "docs/atomic_external_benchmark_2026_10_11/fac/precision/actual005",
+    "result_sha256": "de78c00bd77c1515434f601bdab9663177976ee704da8e1138fce4bf92d279c1",
+    "actual_source_and_runtime": {
+      "source_files": 868,
+      "source_archive_bytes_decoded": 28446715,
+      "source_archive_hash_failures": [],
+      "source_before_equals_after": true,
+      "runtime_files": 121,
+      "runtime_first_equals_after": true,
+      "current_runtime_all_match": true
+    },
+    "cases": [
+      {
+        "z": 10,
+        "sequence": "helium_like",
+        "levels": 98,
+        "integrals": 1419,
+        "complete_arrays": 190,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 1.3500311979441904e-13,
+            "max_relative": 2.4732339714054463e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 98
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2486850664572557e-08,
+              "max_relative": 4.792329090925724e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2447038955087919e-08,
+              "max_relative": 4.788438828801267e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.063267677878457e-08,
+              "max_relative": 1.9970245423186688e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.062191455433961e-08,
+              "max_relative": 1.9970245423186688e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2486616185469757e-08,
+              "max_relative": 4.792286933772229e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2446882635686052e-08,
+              "max_relative": 4.788394985361633e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.063258385311741e-08,
+              "max_relative": 1.9964248890354638e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.062182162867245e-08,
+              "max_relative": 1.9964248890354638e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 6,
+        "sequence": "carbon_like",
+        "levels": 20,
+        "integrals": 34,
+        "complete_arrays": 126,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 5.684341886080802e-14,
+            "max_relative": 1.5288701466974132e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 20
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.6733295638005075e-08,
+              "max_relative": 4.4376392593012033e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.6723483042824228e-08,
+              "max_relative": 4.4350369770878147e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.6544776921564335e-09,
+              "max_relative": 3.5358233222537493e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.650189566746121e-09,
+              "max_relative": 3.5358233222537493e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.673090821441292e-08,
+              "max_relative": 4.437006118950951e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.6721095619232074e-08,
+              "max_relative": 4.4344038367375623e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.6544244014512515e-09,
+              "max_relative": 3.531937327833415e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.650136276040939e-09,
+              "max_relative": 3.531937327833415e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 26,
+        "sequence": "neon_like",
+        "levels": 37,
+        "integrals": 275,
+        "complete_arrays": 177,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 3.410605131648481e-12,
+            "max_relative": 3.0488902427032272e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 37
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2735540622088592e-07,
+              "max_relative": 1.1354552207003291e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2215605238452554e-07,
+              "max_relative": 1.0890996427712352e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 2.895802708735573e-08,
+              "max_relative": 8.541135322116793e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 2.7229020815866534e-08,
+              "max_relative": 8.541135322116793e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2734813026327174e-07,
+              "max_relative": 1.1353903508663442e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.221474121848587e-07,
+              "max_relative": 1.0890226098433783e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 2.8956776532140793e-08,
+              "max_relative": 8.540512246184441e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 2.7227770260651596e-08,
+              "max_relative": 8.540512246184441e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 82,
+        "sequence": "neon_like",
+        "levels": 37,
+        "integrals": 275,
+        "complete_arrays": 177,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 3.092281986027956e-11,
+            "max_relative": 2.2862682102349357e-15,
+            "absolute_pass": false,
+            "relative_pass": true,
+            "strict_pass": false,
+            "count": 37
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 2.1292325982358307e-06,
+              "max_relative": 1.5693383615517318e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2612017599167302e-06,
+              "max_relative": 9.352912435292458e-11,
+              "absolute_pass": false,
+              "relative_pass": true,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 1.0698370616069042e-06,
+              "max_relative": 4.86818900891652e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 1.0280804829676526e-06,
+              "max_relative": 4.86818900891652e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 2.129327185684815e-06,
+              "max_relative": 1.5694080766746052e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2613163562491536e-06,
+              "max_relative": 9.353762267172358e-11,
+              "absolute_pass": false,
+              "relative_pass": true,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 1.069836908840216e-06,
+              "max_relative": 4.8628829727709834e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 1.0280803302009645e-06,
+              "max_relative": 4.8628829727709834e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      }
+    ],
+    "complete_arrays_decoded": 670,
+    "complete_coordinates_decoded": 635443,
+    "complete_array_bytes_decoded": 5083544,
+    "same_H_absolute_gate_Ha": 1e-11,
+    "same_H_relative_gate": 1e-10,
+    "failed_gates_retained": true,
+    "experimental_accuracy_claim": false,
+    "performance_ranking_claim": false
+  },
+  "audit_is_read_only": true,
+  "new_scientific_measurements": false,
+  "precision_alias_result_sha256": "6481e4eb397c3d68d80f2ba8002a1183d9d0554f2c98ba0b350393a55d5504b5",
+  "performance_initial_epoch": {
+    "result_sha256": "3aa3131a47aefa38719baad8ddec53066d11721ded53fa4af90ab67394fd2e3a",
+    "source_before_sha256": "81950b3068c74ce4ac546d502ea09741478432899c6db2181c1e0d4cf2d0da0b",
+    "source_archive_sha256": "ac80f5acbdac642fa784fcf4826edf2be8fdc5c70a909e6ef4ed6b7203c23847",
+    "groups": 21,
+    "complete_case_checks": [
+      {
+        "folder": "measured/FAC/round000/p1/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round000/p1/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round000/p1/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round000/p1/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round000/p2/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round000/p2/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round000/p2/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round000/p2/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round000/p4/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round000/p4/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round000/p4/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round000/p4/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round000/p8/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round000/p8/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round000/p8/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round000/p8/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/Atomx/round000/p1/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round000/p1/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round000/p1/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round000/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "5fa8455500ac8a01fa8b082409ed2f8c3e12bd193da1131f71a49a9df404f43f",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6fb6e1c640b9a64b1d2109c323f0face0e97fbc48e65242988f6fd4b25056dcf",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d5378afae27b0e2b6c846c96fccaf18261228ba32f506c6aa5bbb0cb33a4dfa3",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "8107169883d07eb367dc4137f2002d91a7d92eb62735f52469be775d0de6ed40",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "aec298743f6352e5ba8926807985adb42b2e33542a2aea131ed04dce126c5487",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "1e1526f48c393ddb79bec1428868fc06f2508f26fac73e3fadc6cb5021512298",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "634a355c2e4722f2aa7093aac7ac19cf012ecf7ad353d2a8d8f7e277db993ab8",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "399c0ae23ecb58b86d2d312bef3a7a95fb622e8be4b67b678fad3dc6d1359651",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "fa3240d35eb0ff743e11532ca4ec12dc5c33b27ab1e1976b766f8758f66faba9",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6e0409ed7031696c94d2af41f4ad2bbb319f566d0916f9b3f6a33aade27c40f7",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "32fa8f8fb2a597bc14adb13205d1dc4636a2dbe2fbe3c6fe973cf11e6b4f5eea",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c7fba1420994389eaea63e19a9f4fe589ec9378b49694a9d961b6262d13d017d",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "a500f181fa2f348c4cec61e2418985e5377011b13924406536bf22477188f825",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "fb865c6f6c228df032be6f36b4086f503e503b310765e32c2d849e0837407a40",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "92b574b4138b0aca52f60df85618040e3a3b5af18f45a799acf55ad2aa3c6319",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "fef5047cb954b58d07f2b80d118b86c97b9b349d6b57fd65cbd93c31a3072f30",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "ca317bb51d5e56f984a46bb1c92e478b1e3c0c811b98e4eef79673adf3871519",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6adcacad33b158f3ead508b31629e9dc2e1c3a47229ac33ba46c092eaf3ba638",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "753965e29371ab4bcd817309c8246bdf8d94523145d01e99d44f560f39cb76e1",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "3990ee396988f0dbc2d7cc9d2888d7cb837e8b38884250742fb6325ecd7346d0",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "cbd237b08ca65c95ca301d4de54d39a0a3c32824355a0fdd83e22fd741881119",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round001/p8/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round001/p8/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round001/p8/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round001/p8/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round001/p4/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round001/p4/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round001/p4/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round001/p4/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round001/p2/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round001/p2/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round001/p2/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round001/p2/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round001/p1/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round001/p1/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round001/p1/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round001/p1/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round002/p1/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round002/p1/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round002/p1/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round002/p1/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "measured/FAC/round002/p2/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round002/p2/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round002/p2/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round002/p2/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 2,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "measured/FAC/round002/p4/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round002/p4/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round002/p4/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round002/p4/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 4,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "measured/FAC/round002/p8/Z018",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round002/p8/Z026",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round002/p8/Z054",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/FAC/round002/p8/Z082",
+        "complete_arrays": 12,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 8,
+        "actual_active_peak_threads": 8
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c5d986d75da51adc3a1bc7b94f9210f917ac22be8bcf2e2e39c67a64f274e4bd",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d26d2d7b928460b4f1b4bb6a161d0a756b5bf52c6a1ef836d80e8c5aa2a43b03",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c599283e1a3a86e69979782042f402b82493f2a5edb9d61a9bbd43204bdd0dc5",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "9a53ea982b1c436345db4e91e4f876c730af0cc459b8aaac3810770eb7d41e40",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "f0892ef8a46384e95d6d81262672282f327dd9bf13d9b75bb102a7ee137d2ba0",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d0a94233591c68a126e7452170d04e2088a36e12ad1389a70130e478e46039b1",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "051407bf62f44783b5ff053059175845959256ba19d9d3407c3b82693efdc9e4",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "66e1bc41bc7a2e47ae78b8bfcf3c4752da97dfdb2ea795c4b9b3248084f2043f",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "1a280bd0bb15218f54b364a0b5f8371225a00ee40cbc367bf47d7e8556623b2f",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "e34f3c22b5016d2c5ca3607c5ceec1be1328bf1faf83c190ca98be52fe64afc6",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "f77113a1a571d386cdb85bd17cf50a760f74962fe10c7d313f6e03c2aeb0e921",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "c7bd98c5888fd47c3346a44a9d941c4a2864f6efd8b2932e8f772b6fbe73d86c",
+        "actual_process_peak_threads": 7
+      }
+    ],
+    "complete_arrays_decoded": 1002,
+    "complete_coordinates_decoded": 133758,
+    "complete_bytes_decoded": 1070064,
+    "source_files": 1084,
+    "source_archive_all_verified": true,
+    "mapped_runtime_files": 113,
+    "current_mapped_runtime_all_verified": true,
+    "recomputed_cpu_rows": [
+      {
+        "backend": "FAC",
+        "workers": 1,
+        "paired_speedups": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seconds_median": 4.769211565,
+        "speedup": 1.0,
+        "efficiency": 1.0,
+        "controlled": true,
+        "actual_process_peak_threads": 1
+      },
+      {
+        "backend": "FAC",
+        "workers": 2,
+        "paired_speedups": [
+          1.0108371984941174,
+          1.0091788938637074,
+          1.0105336252733317
+        ],
+        "seconds_median": 4.718080787,
+        "speedup": 1.0105336252733317,
+        "efficiency": 0.5052668126366658,
+        "controlled": true,
+        "actual_process_peak_threads": 2
+      },
+      {
+        "backend": "FAC",
+        "workers": 4,
+        "paired_speedups": [
+          1.0038259259445206,
+          1.0103735045406153,
+          1.0099776947172525
+        ],
+        "seconds_median": 4.730715194,
+        "speedup": 1.0099776947172525,
+        "efficiency": 0.25249442367931313,
+        "controlled": true,
+        "actual_process_peak_threads": 4
+      },
+      {
+        "backend": "FAC",
+        "workers": 8,
+        "paired_speedups": [
+          0.9972878989479321,
+          1.0051212714741649,
+          1.0054872517884548
+        ],
+        "seconds_median": 4.751842271,
+        "speedup": 1.0051212714741649,
+        "efficiency": 0.1256401589342706,
+        "controlled": true,
+        "actual_process_peak_threads": 8
+      },
+      {
+        "backend": "Atomx",
+        "workers": 1,
+        "paired_speedups": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seconds_median": 7.851794377,
+        "speedup": null,
+        "efficiency": null,
+        "controlled": false,
+        "actual_process_peak_threads": 1
+      },
+      {
+        "backend": "Atomx",
+        "workers": 2,
+        "paired_speedups": [
+          1.1159902186746997,
+          1.0036991464761609,
+          0.9889454803710124
+        ],
+        "seconds_median": 7.865309622,
+        "speedup": null,
+        "efficiency": null,
+        "controlled": false,
+        "actual_process_peak_threads": 3
+      },
+      {
+        "backend": "Atomx",
+        "workers": 4,
+        "paired_speedups": [
+          1.1138536589869525,
+          1.0063885532923553,
+          0.9918764355301104
+        ],
+        "seconds_median": 7.861597115,
+        "speedup": null,
+        "efficiency": null,
+        "controlled": false,
+        "actual_process_peak_threads": 7
+      }
+    ],
+    "array_values_units": "Native array units; not all Hartree.",
+    "equal_accuracy_cross_code_ranking": false,
+    "default_Yk_current_epoch_measured": false,
+    "fac_timed_export": "stock text tables and binary Hamiltonians; NPZ/JSON decode outside timer",
+    "atomx_timed_export": "additional signed matrix/eigenvector/radial capture plus NPZ/JSON inside timer",
+    "failed_children_retained": [
+      {
+        "folder": "measured/Atomx/round000/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "5fa8455500ac8a01fa8b082409ed2f8c3e12bd193da1131f71a49a9df404f43f",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6fb6e1c640b9a64b1d2109c323f0face0e97fbc48e65242988f6fd4b25056dcf",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d5378afae27b0e2b6c846c96fccaf18261228ba32f506c6aa5bbb0cb33a4dfa3",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "8107169883d07eb367dc4137f2002d91a7d92eb62735f52469be775d0de6ed40",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "aec298743f6352e5ba8926807985adb42b2e33542a2aea131ed04dce126c5487",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "1e1526f48c393ddb79bec1428868fc06f2508f26fac73e3fadc6cb5021512298",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "634a355c2e4722f2aa7093aac7ac19cf012ecf7ad353d2a8d8f7e277db993ab8",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "399c0ae23ecb58b86d2d312bef3a7a95fb622e8be4b67b678fad3dc6d1359651",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round000/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "fa3240d35eb0ff743e11532ca4ec12dc5c33b27ab1e1976b766f8758f66faba9",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6e0409ed7031696c94d2af41f4ad2bbb319f566d0916f9b3f6a33aade27c40f7",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "32fa8f8fb2a597bc14adb13205d1dc4636a2dbe2fbe3c6fe973cf11e6b4f5eea",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c7fba1420994389eaea63e19a9f4fe589ec9378b49694a9d961b6262d13d017d",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "a500f181fa2f348c4cec61e2418985e5377011b13924406536bf22477188f825",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "fb865c6f6c228df032be6f36b4086f503e503b310765e32c2d849e0837407a40",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "92b574b4138b0aca52f60df85618040e3a3b5af18f45a799acf55ad2aa3c6319",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "fef5047cb954b58d07f2b80d118b86c97b9b349d6b57fd65cbd93c31a3072f30",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "ca317bb51d5e56f984a46bb1c92e478b1e3c0c811b98e4eef79673adf3871519",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "6adcacad33b158f3ead508b31629e9dc2e1c3a47229ac33ba46c092eaf3ba638",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "753965e29371ab4bcd817309c8246bdf8d94523145d01e99d44f560f39cb76e1",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "3990ee396988f0dbc2d7cc9d2888d7cb837e8b38884250742fb6325ecd7346d0",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round001/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "cbd237b08ca65c95ca301d4de54d39a0a3c32824355a0fdd83e22fd741881119",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c5d986d75da51adc3a1bc7b94f9210f917ac22be8bcf2e2e39c67a64f274e4bd",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d26d2d7b928460b4f1b4bb6a161d0a756b5bf52c6a1ef836d80e8c5aa2a43b03",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "c599283e1a3a86e69979782042f402b82493f2a5edb9d61a9bbd43204bdd0dc5",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p1/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "9a53ea982b1c436345db4e91e4f876c730af0cc459b8aaac3810770eb7d41e40",
+        "actual_process_peak_threads": 1
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "f0892ef8a46384e95d6d81262672282f327dd9bf13d9b75bb102a7ee137d2ba0",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "d0a94233591c68a126e7452170d04e2088a36e12ad1389a70130e478e46039b1",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "051407bf62f44783b5ff053059175845959256ba19d9d3407c3b82693efdc9e4",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p2/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "66e1bc41bc7a2e47ae78b8bfcf3c4752da97dfdb2ea795c4b9b3248084f2043f",
+        "actual_process_peak_threads": 3
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z018",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "1a280bd0bb15218f54b364a0b5f8371225a00ee40cbc367bf47d7e8556623b2f",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z026",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "e34f3c22b5016d2c5ca3607c5ceec1be1328bf1faf83c190ca98be52fe64afc6",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z054",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": true,
+        "exit_code": 1,
+        "stderr_sha256": "f77113a1a571d386cdb85bd17cf50a760f74962fe10c7d313f6e03c2aeb0e921",
+        "actual_process_peak_threads": 7
+      },
+      {
+        "folder": "measured/Atomx/round002/p4/Z082",
+        "complete_arrays": 0,
+        "scientific_case_admitted": false,
+        "current_science_ok": false,
+        "baseline_science_ok": false,
+        "exit_code": 1,
+        "stderr_sha256": "c7bd98c5888fd47c3346a44a9d941c4a2864f6efd8b2932e8f772b6fbe73d86c",
+        "actual_process_peak_threads": 7
+      }
+    ],
+    "incomplete_workflow_times_not_accepted_as_full_workflow_cost": true
+  },
+  "performance_fresh_cache_epoch": {
+    "result_sha256": "b0c0c12757a82fd1fc53ee72afc622f88dafd19b247f564c9d079c931f072d08",
+    "source_before_sha256": "a1af1590c508b53b6818136692acd2111e4186b7f09e721d4f776fbc6acc0c14",
+    "source_archive_sha256": "a3adbd58353fbe8bf8e5689f54ec3d45b7c7e96551e9ec8770b6fdc5a5399eef",
+    "groups": 9,
+    "complete_case_checks": [
+      {
+        "folder": "fresh_cache002/measured/round000/p1/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p1/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p1/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p1/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p2/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p2/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p2/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p2/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p4/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p4/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p4/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round000/p4/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p4/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p4/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p4/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p4/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p2/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p2/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p2/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p2/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p1/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p1/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p1/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round001/p1/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p1/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p1/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p1/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p1/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 1,
+        "actual_active_peak_threads": 1
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p2/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p2/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p2/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p2/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 3,
+        "actual_active_peak_threads": 2
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p4/Z018",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p4/Z026",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p4/Z054",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      },
+      {
+        "folder": "fresh_cache002/measured/round002/p4/Z082",
+        "complete_arrays": 142,
+        "scientific_case_admitted": true,
+        "all_arrays_bitwise_equal_baseline": true,
+        "complete_level_line_basis_identities_equal": true,
+        "actual_process_peak_threads": 7,
+        "actual_active_peak_threads": 4
+      }
+    ],
+    "complete_arrays_decoded": 5112,
+    "complete_coordinates_decoded": 1568664,
+    "complete_bytes_decoded": 12549312,
+    "source_files": 1086,
+    "source_archive_all_verified": true,
+    "mapped_runtime_files": 109,
+    "current_mapped_runtime_all_verified": true,
+    "recomputed_cpu_rows": [
+      {
+        "backend": "Atomx",
+        "workers": 1,
+        "paired_speedups": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "seconds_median": 8.928899115,
+        "speedup": 1.0,
+        "efficiency": 1.0,
+        "controlled": true,
+        "actual_process_peak_threads": 1
+      },
+      {
+        "backend": "Atomx",
+        "workers": 2,
+        "paired_speedups": [
+          1.007190357173268,
+          1.0012784416605873,
+          0.9941741367543133
+        ],
+        "seconds_median": 8.981222489,
+        "speedup": 1.0012784416605873,
+        "efficiency": 0.5006392208302937,
+        "controlled": true,
+        "actual_process_peak_threads": 3
+      },
+      {
+        "backend": "Atomx",
+        "workers": 4,
+        "paired_speedups": [
+          1.016311889944641,
+          0.9894637657452547,
+          0.9989943277091081
+        ],
+        "seconds_median": 8.964118658,
+        "speedup": 0.9989943277091081,
+        "efficiency": 0.24974858192727703,
+        "controlled": true,
+        "actual_process_peak_threads": 7
+      }
+    ],
+    "array_values_units": "Native array units; not all Hartree.",
+    "equal_accuracy_cross_code_ranking": false,
+    "default_Yk_current_epoch_measured": false,
+    "fac_timed_export": "stock text tables and binary Hamiltonians; NPZ/JSON decode outside timer",
+    "atomx_timed_export": "additional signed matrix/eigenvector/radial capture plus NPZ/JSON inside timer",
+    "failed_children_retained": [],
+    "incomplete_workflow_times_not_accepted_as_full_workflow_cost": true
+  },
+  "model_spread": {
+    "result_sha256": "d63caf5658ea47eb1e844230a2f825516cc81ac637749f8945f1a03163e49734",
+    "cases": [
+      {
+        "z": 18,
+        "excitation_levels_recomputed": 16,
+        "E1_lines_recomputed": 10,
+        "maximum_excitation_relative_spread": 0.0012429200579505938,
+        "maximum_A_relative_spread": 0.03785095825211626,
+        "maximum_S_relative_spread": 0.040469239397128653
+      },
+      {
+        "z": 26,
+        "excitation_levels_recomputed": 16,
+        "E1_lines_recomputed": 10,
+        "maximum_excitation_relative_spread": 0.0004442189389978025,
+        "maximum_A_relative_spread": 0.016177377206411436,
+        "maximum_S_relative_spread": 0.014864774282952298
+      },
+      {
+        "z": 54,
+        "excitation_levels_recomputed": 16,
+        "E1_lines_recomputed": 10,
+        "maximum_excitation_relative_spread": 6.903218791599722e-05,
+        "maximum_A_relative_spread": 0.013517278493474949,
+        "maximum_S_relative_spread": 0.013630778461558135
+      },
+      {
+        "z": 82,
+        "excitation_levels_recomputed": 16,
+        "E1_lines_recomputed": 10,
+        "maximum_excitation_relative_spread": 2.6235128334244824e-05,
+        "maximum_A_relative_spread": 0.0024247198858223795,
+        "maximum_S_relative_spread": 0.0023609004939760814
+      }
+    ],
+    "excitation_levels_recomputed": 64,
+    "E1_lines_recomputed": 40,
+    "inputs_sha256": {
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z018/science.json": "4b7e9e611123cd0cf9aaad599a494aac1ede5922b80cb2762336937873c6a383",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z018/science.json": "bcdf22aed06fd1ecdfdd0758a510a7f6bc9d79d6f211647f9908116be19b3476",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z026/science.json": "546dbfe8748c332c51f4785828af4d76c5cee6cabd1955b821e44ace3b5bd038",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z026/science.json": "43b07b405922590fe89c18a7ca5f9a3d46cd818e97ea55bb72dc4d64b2750b2b",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z054/science.json": "e8282e0b69b88e259f0ece840e33fbfa3897c7f294ad40b9ea628846f155bdb3",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z054/science.json": "141887f2928908320ff7b163ff7b1fb8311054c36f52e76b30fb381ba23d6ce6",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z082/science.json": "4b9d25781d194c116271b7fd3c75014f917d196f6de5bd504c92f29cfb8e00e4",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z082/science.json": "5d97467081cea6096453df57e7b22511855bceb7106931f46aa817e9db49e919"
+    },
+    "Hartree_eV": 27.211386245981167,
+    "matching": "Declared config/J/parity and energy rank only.",
+    "eigenstate_overlap_identity_claim": false,
+    "NIST_accuracy_claim": false,
+    "equal_accuracy_software_ranking_claim": false,
+    "FAC_line_strength_normalization_scope": "This pure-CI E1 fixture: S = reduced_matrix_element^2/2."
+  },
+  "epoch_identity_chain": {
+    "common_files_unchanged": 1084,
+    "new_private_helpers": [
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/cache_preflight.py",
+      "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_atomx_epoch.py"
+    ],
+    "physics_source_changed": false
+  },
+  "official_result_sha256": "3c23b992a8e5fe62de71b6705ce317695519d18ff892600f5c782c077714325e",
+  "official_rows_independently_bound_to_admitted_epochs": true,
+  "manifests": {
+    "precision": {
+      "manifest_sha256": "5033add3108fb0bcbdf795c12e70adb778922901f7144c25c0467740ad4133c6",
+      "files_rehashed": 450,
+      "bytes_rehashed": 111028148,
+      "failures": [],
+      "passed": true
+    },
+    "performance": {
+      "manifest_sha256": "f6f1c21e18056ab62cf06e04e40854cc3381028bbc1b3a31787630e97a690380",
+      "files_rehashed": 2592,
+      "bytes_rehashed": 110104746,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "passed": true,
+  "passed_meaning": "Evidence identities, completeness, arithmetic and admission checks passed; scientific target failures remain failures.",
+  "scientific_comparison_all_gates_passed": false,
+  "default_Yk_current_epoch_measured": false,
+  "scientific_failed_gates_retained": true,
+  "highest_level_reached": false,
+  "audit_script_sha256": "6b37430a09cb29148749924bbc131ca6dd27e72c344077c87c3878530c8420b0"
+}

@@ -1,0 +1,162 @@
+{
+  "status": "pass",
+  "scope": "complete matched numerical operators after fresh public root/response certification; no physical spectrum, convergence, controlled timing or experimental claim",
+  "left": "yb_full_valence005",
+  "right": "yb_full_valence012",
+  "gate_Ha": 1e-11,
+  "raw_gate_Ha": 1e-10,
+  "host_cap_bytes": 1073741824,
+  "complete_array_payload_bound_bytes": 225705984,
+  "columns": [
+    {
+      "column": [
+        6,
+        -1
+      ],
+      "energy_Ha": -0.4136654527300543,
+      "complete_signed_errors_Ha": {
+        "denominators": 0.0,
+        "numerator_derivative": 0.0,
+        "numerators": 0.0,
+        "sigma1": 3.469446951953614e-18,
+        "sigma1_derivative": 1.951563910473908e-18
+      },
+      "raw_root_Ha": [
+        1.7147741560030738e-15,
+        1.7208456881689926e-15
+      ],
+      "raw_prime_Ha": [
+        3.380976054678797e-15,
+        3.3749045225128782e-15
+      ]
+    },
+    {
+      "column": [
+        6,
+        1
+      ],
+      "energy_Ha": -0.30111293052522115,
+      "complete_signed_errors_Ha": {
+        "denominators": 0.0,
+        "numerator_derivative": 0.0,
+        "numerators": 0.0,
+        "sigma1": 2.168404344971009e-18,
+        "sigma1_derivative": 8.673617379884035e-18
+      },
+      "raw_root_Ha": [
+        2.6922908347160046e-15,
+        2.6922908347160046e-15
+      ],
+      "raw_prime_Ha": [
+        2.400857290751901e-15,
+        1.790234627208065e-15
+      ]
+    },
+    {
+      "column": [
+        6,
+        -2
+      ],
+      "energy_Ha": -0.2883066794582305,
+      "complete_signed_errors_Ha": {
+        "denominators": 0.0,
+        "numerator_derivative": 0.0,
+        "numerators": 0.0,
+        "sigma1": 5.204170427930421e-18,
+        "sigma1_derivative": 1.734723475976807e-17
+      },
+      "raw_root_Ha": [
+        3.0704605524789486e-15,
+        3.073929999430902e-15
+      ],
+      "raw_prime_Ha": [
+        1.6306400674181987e-15,
+        2.2343238370581275e-15
+      ]
+    },
+    {
+      "column": [
+        5,
+        2
+      ],
+      "energy_Ha": -0.3030715109404696,
+      "complete_signed_errors_Ha": {
+        "denominators": 0.0,
+        "numerator_derivative": 0.0,
+        "numerators": 0.0,
+        "sigma1": 3.469446951953614e-18,
+        "sigma1_derivative": 3.469446951953614e-18
+      },
+      "raw_root_Ha": [
+        1.5187504032176946e-15,
+        1.5161483180037294e-15
+      ],
+      "raw_prime_Ha": [
+        1.0269562977782698e-15,
+        1.0269562977782698e-15
+      ]
+    },
+    {
+      "column": [
+        5,
+        -3
+      ],
+      "energy_Ha": -0.30088635780633766,
+      "complete_signed_errors_Ha": {
+        "denominators": 0.0,
+        "numerator_derivative": 0.0,
+        "numerators": 0.0,
+        "sigma1": 1.0408340855860843e-17,
+        "sigma1_derivative": 2.168404344971009e-18
+      },
+      "raw_root_Ha": [
+        1.6601303665098044e-15,
+        1.6627324517237696e-15
+      ],
+      "raw_prime_Ha": [
+        1.3721662694976544e-15,
+        1.3747683547116196e-15
+      ]
+    }
+  ],
+  "screening_signed_errors_Ha": {
+    "energy_parameters_Ha": 0.0,
+    "joint_derivative": 0.0,
+    "radial_Ha": 0.0
+  },
+  "input_sha256": {
+    "yb_full_valence005/contract.json": "35bf78b7f4778ddfdb5fc0636b7fc83b88732b2eed2cd19aed625d658123db7b",
+    "yb_full_valence005/source_sha256.json": "319b68aa29b3173685a572e35266678d70ced3bb67995d2015dd37100109323a",
+    "yb_full_valence005/resource.json": "2b43a53d7e977a41702afdd8097e2ea2d02b0c5536d0dc70ba8adc211a23abbf",
+    "yb_full_valence012/contract.json": "3bf60262a13b73dafcc10901c183436c48bd04f4d17a9cddf234b40ca950e9f6",
+    "yb_full_valence012/source_sha256.json": "965c45f7273d398091710de49b13bb4a0a385e339a037522df643913e1b9c8dd",
+    "yb_full_valence012/resource.json": "0d72bcdd7415f92c97c2c79de56bd244400408d62e7246fccdf30a83712e8060",
+    "yb_full_valence005/valence_6_-1.npz": "ca553914b9ed50ee00371a5a4a3ecd7406b533d6048635dc3894ce6c1f9746b8",
+    "yb_full_valence012/valence_6_-1.npz": "f94a4491e59e5f394de94cc525ad2f39a86559ba8699a83b16626c9e058f0525",
+    "yb_full_valence005/valence_6_-1.json": "efb58a63f5b92ab9ef95eb4a9e8232513add7f187c231a4e1703a45d00e521c9",
+    "yb_full_valence012/valence_6_-1.json": "91f7bbab3163eb04d03a727ffdf2793add0f4e97140244388a3b5303b58473df",
+    "yb_full_valence005/valence_6_1.npz": "28e4f53d67f28c878455617eb41ff3eaf8168bfee109ed9e61b4e5fe20b43f1c",
+    "yb_full_valence012/valence_6_1.npz": "ad4c62443a6574580432731ce7881ce238e35fc27f6f5d22c6d3c5e02dbab6e5",
+    "yb_full_valence005/valence_6_1.json": "b55a1b80e2537f685d1147f788e622755bbca0b8b6a6679abe3417d1e4b65db7",
+    "yb_full_valence012/valence_6_1.json": "cc42cc0ec3bcd192974c9f37e4c0a080afdf406aa039c62b95618dc009dc8d39",
+    "yb_full_valence005/valence_6_-2.npz": "2c13c88856eebbe514357f26c830e7648b0d94ddede46d75e5c0896998792263",
+    "yb_full_valence012/valence_6_-2.npz": "9ce40f1e3d148da8ef171b8fbfb53ea531aabeb8e6033f9342a7cc41a2d63037",
+    "yb_full_valence005/valence_6_-2.json": "812fdc80f92485a62762df881e1a177226c986b89b65b8ec31483f9891233c09",
+    "yb_full_valence012/valence_6_-2.json": "e3fe6f813fefbe2ed616c76447b3e30b497fa6480e1a588b4cf79b0cfc4acb24",
+    "yb_full_valence005/valence_5_2.npz": "c9885a4987359f91bcfe94a6d984493b0eb436b025a6389d1eb1692e862be425",
+    "yb_full_valence012/valence_5_2.npz": "c7e446eccfe5b0638545a44717303f98e1c49156b97a46e7da97a47083aa2e80",
+    "yb_full_valence005/valence_5_2.json": "20e2b9a00a7f5e872ba4eb128a44f41ea73084a96b03cf8c7528b97ba53ef863",
+    "yb_full_valence012/valence_5_2.json": "57660ce9efb7195d7c57b20a47ccfa641f72b557e0939e4010a40dd3b2c10aa2",
+    "yb_full_valence005/valence_5_-3.npz": "14b0e113c82ccbec3a7808043e6084f20baddee137d765aefea9b82e6e3775c1",
+    "yb_full_valence012/valence_5_-3.npz": "68daa4fd333092b11c632ed93d7993d111a7add0dce04d06efa35275289dc9b0",
+    "yb_full_valence005/valence_5_-3.json": "73925f960c387a17e1c13f16b16d560437f72bfcc1440de136fab72a5bc6598d",
+    "yb_full_valence012/valence_5_-3.json": "ceadc5753fa96fb7e030fa6cac23181d39ea42d874c6bb8a0f128bc0460019d6",
+    "yb_full_valence005/sigma2.json": "44e230848cff5c649bf3a8316ae730c2ff650464d397476af1d8f6cd5c790cc7",
+    "yb_full_valence005/sigma2.npz": "41ba4d87f663c73f90d9f44c609ad0833b2358baed09b7f389655d5d4a2b1724",
+    "yb_full_valence005/result.json": "d21b48fa08767a3b7aa5f08c29abf52823d941ca7e67971b9600d06236b23048",
+    "yb_full_valence012/sigma2.json": "6622d0e1d9341066d7409078121cc5e3026bb22f23e1458f551cf865c321e650",
+    "yb_full_valence012/sigma2.npz": "41ba4d87f663c73f90d9f44c609ad0833b2358baed09b7f389655d5d4a2b1724",
+    "yb_full_valence012/result.json": "e4fe8520254b2e40cd0ecc618b75c7a19530f9c5b958f78ab98f54ed5ebb4a3f"
+  },
+  "comparator_source_sha256": "d3b8ed88c37fc881a66bb4008933ec5443f357bacf119a35a14a5373b9445435"
+}

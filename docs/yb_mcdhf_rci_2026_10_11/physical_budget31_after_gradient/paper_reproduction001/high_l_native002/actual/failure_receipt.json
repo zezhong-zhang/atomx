@@ -1,0 +1,21 @@
+{
+  "contract_sha256": "329fd4abd8d50ad00ee7098e4382532f347b65ab9ef14ade8ca01599ef031eb5",
+  "driver_sha256": "3df657a5d9c1eca6d52a2a974ac0ee42ccb0248b3f89b922913fee23f271df7c",
+  "evidence_limits": "Process returned exit1; in-memory partial numeric ledger was lost. No actual result.json or complete_proof.npz exists. Reaching phase-bank construction shows preceding gates did not raise but no numeric values are reconstructed or declared independently certified.",
+  "execution_binding_sha256": "614af9238f3d79f40f4ead5d93be70fba7690261f3a6d869beb8c6d5f1fdd002",
+  "first_failure": {
+    "attempted_entry": 19,
+    "completed_entry_cap": 18,
+    "message": "producer entry cap: native_hS_entries",
+    "stage": "Second CIRadialSnapshot construction after complete original one- and two-electron CI",
+    "type": "RuntimeError"
+  },
+  "no_source_or_scientific_gate_relaxation": true,
+  "scientific_retries_into002": 0,
+  "second_failure": {
+    "message": "Object of type bool is not JSON serializable",
+    "scope": "numpy.bool_ observed branch check in result ledger writer",
+    "type": "TypeError"
+  },
+  "status": "CLOSED_exit1_producer_cap_and_receipt_writer_failure"
+}

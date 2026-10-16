@@ -1,0 +1,23 @@
+{
+  "scope": "Fresh-process saved-solution replay using the unchanged production operator; not an independent full-particle-sector oracle.",
+  "consumer_sha256": "cebddfd0d5b5aaa8b09585c2d565aa3b937262e17a9d54734958b3f4091a793b",
+  "experiment_contract_sha256": "d9b5f6cf4b91683c963205f097c026e4e8be614d58fb8edc08e691b492a536a7",
+  "core_equations": 1292379,
+  "attachment_equations_per_partner": 191880,
+  "partners": 12,
+  "gates": {
+    "core_residual_Ha": 1e-10,
+    "EA_residual_Ha": 1e-10,
+    "J2": 1e-07,
+    "core_Jplus": 1e-07,
+    "canonical_R_norm": 1e-08
+  },
+  "resources": {
+    "wall_seconds": 360,
+    "cpu": 27,
+    "threads": 1,
+    "AS_GiB": 24,
+    "workspace_MiB": 16384
+  },
+  "stopping": "First failed gate or wall/resource cap stops; keep failed replay and do not alter solved evidence."
+}

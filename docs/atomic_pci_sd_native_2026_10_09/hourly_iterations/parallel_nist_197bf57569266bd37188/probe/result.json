@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "gates": {
+    "actual_full_theory_same_H_core_space_zero": true,
+    "current_whole_array_norm_consumed": true,
+    "strict_unique_state_matching": true,
+    "observed_not_Ritz_or_level_derived": true,
+    "multipole_species_medium_coverage_preserved": true,
+    "missing_uncertainty_never_zero": true,
+    "original1percent_accuracy_failures_preserved": true,
+    "whole_state_gap_requests_emitted": true,
+    "source_and_input_unchanged": true
+  },
+  "scientific_accuracy_gates": {
+    "excitation": false,
+    "splitting": false,
+    "observed_wavelength": false
+  },
+  "coverage": {
+    "required_states": 5,
+    "unique_nominal_states": 5,
+    "snapshot_levels": 349,
+    "snapshot_lines": 327
+  },
+  "metrics": {
+    "excitation_cm1": {
+      "required": 4,
+      "scored": 4,
+      "missing_or_ambiguous": 0,
+      "passing": 1,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 950.8665190086285,
+      "mean_absolute_error": 594.6813576128679,
+      "rms_error": 665.0754031151098,
+      "max_absolute_relative_error": 0.041412604047273115
+    },
+    "splitting_cm1": {
+      "required": 2,
+      "scored": 2,
+      "missing_or_ambiguous": 0,
+      "passing": 0,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 128.4361878975028,
+      "mean_absolute_error": 116.61321714985525,
+      "rms_error": 117.21102785719023,
+      "max_absolute_relative_error": 0.09361988781717402
+    },
+    "observed_wavelength_nm": {
+      "required": 4,
+      "scored": 2,
+      "missing_or_ambiguous": 2,
+      "passing": 1,
+      "complete_and_all_pass": false,
+      "max_absolute_error": 3.800607925385407,
+      "mean_absolute_error": 3.5935238340485682,
+      "rms_error": 3.599485708647824,
+      "max_absolute_relative_error": 0.011550876283721362
+    }
+  },
+  "seconds": 1.1665324759669602,
+  "peak_rss_bytes": 141705216,
+  "card_summary": "YbII原完整五态同H/空间/零点审计通过；4能级、2精细分裂仍保留原失败，真实观测线仅2/4，缺失不确定度和E2观测线不计零误差；已输出必须全五态联合计算的gap队列，未产生新谱或精度提升。",
+  "highest_level_reached": false
+}

@@ -1,0 +1,46 @@
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+______ test_untabulated_yb_valence_warns_through_scalar_entrypoint[auto] _______
+
+method = 'auto'
+
+    @pytest.mark.parametrize("method", ["auto", "mohr", "indelicato"])
+    def test_untabulated_yb_valence_warns_through_scalar_entrypoint(method):
+        # No radial screening here: this gate checks coverage propagation,
+        # not the validity of the high-Z leading-order hydrogenic estimate.
+>       with pytest.warns(RuntimeWarning, match="leading.*not precision QED"):
+E       Failed: DID NOT WARN. No warnings of type (<class 'RuntimeWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_qed_approximation_coverage.py:14: Failed
+______ test_untabulated_yb_valence_warns_through_scalar_entrypoint[mohr] _______
+
+method = 'mohr'
+
+    @pytest.mark.parametrize("method", ["auto", "mohr", "indelicato"])
+    def test_untabulated_yb_valence_warns_through_scalar_entrypoint(method):
+        # No radial screening here: this gate checks coverage propagation,
+        # not the validity of the high-Z leading-order hydrogenic estimate.
+>       with pytest.warns(RuntimeWarning, match="leading.*not precision QED"):
+E       Failed: DID NOT WARN. No warnings of type (<class 'RuntimeWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_qed_approximation_coverage.py:14: Failed
+___ test_untabulated_yb_valence_warns_through_scalar_entrypoint[indelicato] ____
+
+method = 'indelicato'
+
+    @pytest.mark.parametrize("method", ["auto", "mohr", "indelicato"])
+    def test_untabulated_yb_valence_warns_through_scalar_entrypoint(method):
+        # No radial screening here: this gate checks coverage propagation,
+        # not the validity of the high-Z leading-order hydrogenic estimate.
+>       with pytest.warns(RuntimeWarning, match="leading.*not precision QED"):
+E       Failed: DID NOT WARN. No warnings of type (<class 'RuntimeWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_qed_approximation_coverage.py:14: Failed
+=========================== short test summary info ============================
+FAILED tests/test_qed_approximation_coverage.py::test_untabulated_yb_valence_warns_through_scalar_entrypoint[auto]
+FAILED tests/test_qed_approximation_coverage.py::test_untabulated_yb_valence_warns_through_scalar_entrypoint[mohr]
+FAILED tests/test_qed_approximation_coverage.py::test_untabulated_yb_valence_warns_through_scalar_entrypoint[indelicato]
+3 failed, 1 passed in 0.22s

@@ -1,0 +1,1043 @@
+{
+  "status": "RUNNING",
+  "controls": [
+    {
+      "name": "all359_previous_production_files_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "prior_same_T_complete_tensor_residual",
+      "measured": 2.9906361675297033e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "prior_same_T_core_energy",
+      "measured": 3.3133044918809418e-12,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "prior_all_directed_tensor_EA_entries",
+      "measured": 3.730349362740526e-14,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "prior_tensor_solved_core_energy",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_A171_nucleus",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "complete16_spinors_4core_64frozen",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "old10_spinors_are_exact_prefix",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "nested_one_body",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nested_fock",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nested_origin",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "nested_signed_ERI",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "independent_core_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "independent_core_Hermitian",
+      "measured": 1.3877787807814457e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "fullCI_core_J0",
+      "measured": 6.610299507936392e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "fullCI_core_equation",
+      "measured": 7.882583474838611e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD:core_equation",
+      "measured": 3.2496825597225915e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD:T_preserves_M_parity",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD:independent_core_energy",
+      "measured": 3.315866895295394e-12,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD:core_J0",
+      "measured": 1.4591310435478796e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD:zero_T3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:core_equation",
+      "measured": 3.309935740205758e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:T_preserves_M_parity",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:independent_core_energy",
+      "measured": 3.315278824037038e-12,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:core_J0",
+      "measured": 7.321485787070068e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:nonzero_T3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-5:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_equation",
+      "measured": 5.262066823941147e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_J2:D5",
+      "measured": 1.2285056588178536e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:all_directed_Hbar",
+      "measured": 3.319122754419368e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:R2:projected_equation",
+      "measured": 3.1086244689504383e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:R2:J2:D5",
+      "measured": 1.5284043462710641e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:R3:projected_equation",
+      "measured": 1.7763568394002505e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD:R3:J2:D5",
+      "measured": 1.0844197046055082e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:all_directed_Hbar",
+      "measured": 3.3164582191602676e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:R2:projected_equation",
+      "measured": 2.4424906541753444e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:R2:J2:D5",
+      "measured": 1.1398563397669027e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:R3:projected_equation",
+      "measured": 1.4654943925052066e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT:R3:J2:D5",
+      "measured": 1.1201035478126948e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_equation",
+      "measured": 7.271960811294775e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_J2:D3",
+      "measured": 3.473978957791988e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_J2:D5",
+      "measured": 3.691051362721146e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:all_directed_Hbar",
+      "measured": 3.319344799024293e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R2:projected_equation",
+      "measured": 3.3306690738754696e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R2:J2:D3",
+      "measured": 1.7452630056777293e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R2:J2:D5",
+      "measured": 4.45186886455195e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R3:projected_equation",
+      "measured": 2.220446049250313e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R3:J2:D3",
+      "measured": 1.134355294679158e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD:R3:J2:D5",
+      "measured": 1.91961076367361e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:all_directed_Hbar",
+      "measured": 3.3164582191602676e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R2:projected_equation",
+      "measured": 3.774758283725532e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R2:J2:D3",
+      "measured": 1.1075343164397712e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R2:J2:D5",
+      "measured": 1.4628740934376873e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R3:projected_equation",
+      "measured": 1.2212453270876722e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R3:J2:D3",
+      "measured": 1.0826890199279488e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT:R3:J2:D5",
+      "measured": 1.2734291803756403e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_equation",
+      "measured": 8.659739592076221e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:S",
+      "measured": 5.980178902192022e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:D3",
+      "measured": 1.7684727173977673e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:D5",
+      "measured": 1.7684145580579466e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:all_directed_Hbar",
+      "measured": 3.3240077357277187e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R2:projected_equation",
+      "measured": 5.773159728050814e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R2:J2:S",
+      "measured": 1.4096018707605875e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R2:J2:D3",
+      "measured": 2.1256821898515707e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R2:J2:D5",
+      "measured": 8.384558743556642e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R3:projected_equation",
+      "measured": 1.3322676295501878e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R3:J2:S",
+      "measured": 4.439300555043212e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R3:J2:D3",
+      "measured": 2.9603170292227e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD:R3:J2:D5",
+      "measured": 2.746349052552782e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:all_directed_Hbar",
+      "measured": 3.3244518249375687e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R2:projected_equation",
+      "measured": 3.774758283725532e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R2:J2:S",
+      "measured": 5.524849686185428e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R2:J2:D3",
+      "measured": 1.8503170417276054e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R2:J2:D5",
+      "measured": 2.428821237699445e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R3:projected_equation",
+      "measured": 1.7763568394002505e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R3:J2:S",
+      "measured": 4.998853568910212e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R3:J2:D3",
+      "measured": 8.730730203843905e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT:R3:J2:D5",
+      "measured": 2.0307507213376434e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_equation",
+      "measured": 1.6486811915683575e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:S",
+      "measured": 4.0865905687515816e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:D3",
+      "measured": 1.0860351366718271e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:D5",
+      "measured": 1.0860966789492036e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:all_directed_Hbar",
+      "measured": 3.3233416019129436e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R2:projected_equation",
+      "measured": 4.551914400963142e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R2:J2:S",
+      "measured": 1.4119974217672233e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R2:J2:D3",
+      "measured": 8.274997583711347e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R2:J2:D5",
+      "measured": 7.48348754656124e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R3:projected_equation",
+      "measured": 1.3322676295501878e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R3:J2:S",
+      "measured": 4.610063000449757e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R3:J2:D3",
+      "measured": 5.940994683532377e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD:R3:J2:D5",
+      "measured": 6.626973077114809e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:all_directed_Hbar",
+      "measured": 3.320232977443993e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R2:projected_equation",
+      "measured": 4.440892098500626e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R2:J2:S",
+      "measured": 5.656356682473203e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R2:J2:D3",
+      "measured": 6.229103478366141e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R2:J2:D5",
+      "measured": 1.193343656249349e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R3:projected_equation",
+      "measured": 1.532107773982716e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R3:J2:S",
+      "measured": 5.021776264875758e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R3:J2:D3",
+      "measured": 8.678634301190604e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT:R3:J2:D5",
+      "measured": 5.872100387393358e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_equation",
+      "measured": 9.048317650695026e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_J2:D3",
+      "measured": 3.824667446840049e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_J2:D5",
+      "measured": 3.9860678683373596e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:all_directed_Hbar",
+      "measured": 3.3226754680981685e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R2:projected_equation",
+      "measured": 4.218847493575595e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R2:J2:D3",
+      "measured": 1.6736935030444368e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R2:J2:D5",
+      "measured": 3.5263699537499167e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R3:projected_equation",
+      "measured": 1.199040866595169e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R3:J2:D3",
+      "measured": 9.107354632478986e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD:R3:J2:D5",
+      "measured": 8.287925911958815e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:all_directed_Hbar",
+      "measured": 3.3208991112587682e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R2:projected_equation",
+      "measured": 3.3306690738754696e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R2:J2:D3",
+      "measured": 1.0024402532274105e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R2:J2:D5",
+      "measured": 3.5659274097252686e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R3:projected_equation",
+      "measured": 2.1760371282653068e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R3:J2:D3",
+      "measured": 9.391043951472153e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT:R3:J2:D5",
+      "measured": 1.4565053425681274e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:independent_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:H_Hermitian",
+      "measured": 2.7755575615628914e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_equation",
+      "measured": 6.0342356111853235e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_J2:D5",
+      "measured": 1.192354793784654e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:all_directed_Hbar",
+      "measured": 3.319122754419368e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:R2:projected_equation",
+      "measured": 2.220446049250313e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:R2:J2:D5",
+      "measured": 1.5042993862841105e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:R3:projected_equation",
+      "measured": 1.176836406102666e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD:R3:J2:D5",
+      "measured": 1.0880782445751667e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:symmetry_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:T_sector_closed",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:all_directed_Hbar",
+      "measured": 3.319122754419368e-12,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:R2:projected_equation",
+      "measured": 2.886579864025407e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:R2:J2:D5",
+      "measured": 1.1310345911065892e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:R3:projected_equation",
+      "measured": 8.43769498715119e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT:R3:J2:D5",
+      "measured": 1.1127368695244618e-15,
+      "cap": 1e-07,
+      "passed": true
+    }
+  ],
+  "sectors": [
+    {
+      "m2": -5,
+      "full_FCI_dimension": 237,
+      "complete_R3_dimension": 58
+    },
+    {
+      "m2": -3,
+      "full_FCI_dimension": 322,
+      "complete_R3_dimension": 86
+    },
+    {
+      "m2": -1,
+      "full_FCI_dimension": 374,
+      "complete_R3_dimension": 102
+    },
+    {
+      "m2": 1,
+      "full_FCI_dimension": 374,
+      "complete_R3_dimension": 102
+    },
+    {
+      "m2": 3,
+      "full_FCI_dimension": 322,
+      "complete_R3_dimension": 86
+    },
+    {
+      "m2": 5,
+      "full_FCI_dimension": 237,
+      "complete_R3_dimension": 58
+    }
+  ],
+  "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+  "contract_sha256": "6e4263050bceaa162f588b95bf79a2f9299ad9cfa7a355b3edc07890e5bc627d",
+  "cores": {
+    "CCSD": {
+      "energy_Ha": -0.0016978713329631745,
+      "correlation_Ha": -0.0016978713329631745,
+      "residual_Ha": 3.2496825597225915e-14,
+      "full_H_residual_Ha": 0.002013838717152815,
+      "FCI_error_Ha": 7.305275993019222e-07,
+      "T3_norm": 0.0,
+      "evaluations": 74
+    },
+    "CCSDT": {
+      "energy_Ha": -0.0016986087247126136,
+      "correlation_Ha": -0.0016986087247126136,
+      "residual_Ha": 3.309935740205758e-14,
+      "full_H_residual_Ha": 9.49617812984119e-05,
+      "FCI_error_Ha": -6.864150137175784e-09,
+      "T3_norm": 0.00036688283604067795,
+      "evaluations": 89
+    }
+  }
+}

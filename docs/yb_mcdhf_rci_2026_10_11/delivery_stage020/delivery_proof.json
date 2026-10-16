@@ -1,0 +1,99 @@
+{
+  "proof_created_at": "2026-10-11T15:27:25.025187+00:00",
+  "passed": true,
+  "successful_send_and_readback": true,
+  "cycle": "mcdhf-stage020",
+  "idempotency_key": "5fc5bb5a-9087-56a2-870f-3eb4db46adf1",
+  "message_id": "om_x100b638ec6ba80a4c233dcdfe17102c",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1612",
+  "message_position": "1612",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "source_stage020": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage020.json",
+    "sha256": "062ec4ed9dfa63f5c0d3077befde8047fbcaa974eae2bb9e033c76324bf7da8b"
+  },
+  "registry_sha256": "0654a750d56713f890f566564d67b7bdb4b82afad81d9a45e4193fffc8a5b83a",
+  "actual_card": {
+    "payload_schema": "2.0",
+    "elements": 15,
+    "all_visible_content_matches": true,
+    "raw_readback_schema_available": false,
+    "readback_representation": "CLI-rendered card text; sent raw v2 DSL archived separately",
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "service_iteration": {
+    "request_status": "implementation_frontier",
+    "request_jobs_count": 0,
+    "dispatch_ok": true,
+    "new_service_science_not_inferred_from_dispatch": true
+  },
+  "same_card_root_native_iteration": {
+    "started_utc": "2026-10-11T15:17:43.253446+00:00",
+    "finished_utc": "2026-10-11T15:24:35.192070+00:00",
+    "execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/root_execution.json",
+      "sha256": "3e35d7833971982213e7dfa234d522648db12b3a6ae69590328763f564889d1e"
+    },
+    "new_accepted_steps": 64,
+    "total_accepted_steps": 80,
+    "stationarity_passed": false,
+    "meaning": "After this actual card was sent, root immediately launched one sealed native MCDHF continuation; service queue and root actual science are separate."
+  },
+  "actual_readback_calls": 1,
+  "new_scientific_calls_by_delivery_audit": 0,
+  "cards_sent_by_delivery_audit": 0,
+  "copied_configurations_or_secrets": false,
+  "files_sha256": {
+    "readback.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "readback.json": "21c7384b1b249bf8fe9f1f768ba1e18eadad231fcc2c6ba08d6e44d9a1cbb911",
+    "readback_execution.json": "7f4d32f62c8ba566ee12ffd56b8826b728cebaf2963560542fb6a468e176abd8",
+    "service_iteration_status.json": "c67c34c0e85601dae5b0e31e241d13d48b390b7f2277b31673e9e2b802e5f03a",
+    "registry_stage020.json": "0654a750d56713f890f566564d67b7bdb4b82afad81d9a45e4193fffc8a5b83a",
+    "card.json": "67f9f10e9903e87e093439990fa175e41c2cbc7a96e0cd18e08a38f809e06ca3",
+    "send_status.json": "b39e944f3ed72ca13bb9b4d620aa028fed435a2ae8809c63e67331aa9fa86655",
+    "receipt.json": "8fe2694f4b5deeb8e1f63e6b5a7b21c4552d1194174775701b1a390bac36252f",
+    "iteration_request.json": "c67c34c0e85601dae5b0e31e241d13d48b390b7f2277b31673e9e2b802e5f03a"
+  }
+}

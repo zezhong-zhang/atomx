@@ -1,0 +1,275 @@
+{
+  "status": "prospective_public_interface_and_algebra_assessment_verified",
+  "all_passed": true,
+  "checks_count": 44,
+  "checks": [
+    {
+      "name": "algebra_239_gates",
+      "passed": true
+    },
+    {
+      "name": "45_matched_pairs",
+      "passed": true
+    },
+    {
+      "name": "finite_lambda_algebra_5e-12",
+      "passed": true
+    },
+    {
+      "name": "quotient_algebra_5e-12",
+      "passed": true
+    },
+    {
+      "name": "no_new_physics_evaluations",
+      "passed": true
+    },
+    {
+      "name": "radial_polynomial_not_implemented",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_original_metric_descent_0.0001_minus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_original_metric_descent_0.0001_plus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_original_metric_descent_5e-05_minus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_original_metric_descent_5e-05_plus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_valence_focused_tangent_0.0001_minus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_valence_focused_tangent_0.0001_plus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_valence_focused_tangent_5e-05_minus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/FD_normalized_valence_focused_tangent_5e-05_plus.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/baseline_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/independent_verification.json",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/line_trial_0.npz",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_input/result.json",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_external/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "contract_bound_external/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/result.json",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/README.md",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/verification.json",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/independent_verification.json",
+      "passed": true
+    },
+    {
+      "name": "earlier_immutable/documentation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "same_executable_AST/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "no_public_original_metric_resume_argument",
+      "passed": true
+    },
+    {
+      "name": "original_callback_available",
+      "passed": true
+    },
+    {
+      "name": "old_density_prediction_wrong_sign",
+      "passed": true
+    },
+    {
+      "name": "CI_response_cannot_be_dropped",
+      "passed": true
+    },
+    {
+      "name": "successor_doc_link/README.md",
+      "passed": true
+    },
+    {
+      "name": "successor_doc_link/successor_assessment_contract.json",
+      "passed": true
+    },
+    {
+      "name": "successor_doc_link/mixed_difference_algebra.py",
+      "passed": true
+    },
+    {
+      "name": "successor_doc_link/mixed_difference_algebra.json",
+      "passed": true
+    },
+    {
+      "name": "successor_doc_link/successor_assessment_verification.json",
+      "passed": true
+    },
+    {
+      "name": "no_unmeasured_mixed_roundoff_claim",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physical_gates",
+      "passed": true
+    },
+    {
+      "name": "distinct_reported_and_quotient",
+      "passed": true
+    }
+  ],
+  "immutable_prior_evidence_sha256": {
+    "result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "README.md": "067083abdfb3f63ede0bebc926a2edd0138432decce793d3f9a990b2493dc2f0",
+    "card_evidence.json": "40ebcb5b28be935109fd1d6c8549cb0d01861dbc9ee97149e1ae55e94436c08e",
+    "verification.json": "dfc28113bbea4cc5b77f2477f74100ab9583024066a647eb0da08a1ff8d0399c",
+    "independent_verification.json": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5",
+    "documentation_verification.json": "65b862f1fc1140a7c7157436138b88788eb94494e4b3aff8354e5d5f0718dc63"
+  },
+  "assessment_artifacts_sha256": {
+    "PUBLIC_OPTIMIZATION_SUCCESSOR.md": "f4f66f6539da52afb74cc3bc2760951b57553778cbbb4f0919530cc5f5490914",
+    "successor_assessment_contract.json": "12682de3196b9f6fe28d0f2f370f5181a59ba20b2130502134e256d38ab486d9",
+    "mixed_difference_algebra.py": "a766b3160649a8781ae07f28975478e72cc7e82931af41e1cb433e2ad84dab3c",
+    "mixed_difference_algebra.json": "be59023561993a0c3a26237c72d2bf17692b6a1d4ea22d6bac6960b57395be30"
+  },
+  "source_scope": [
+    {
+      "file": "numerics/bspline/orbital_optimization.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/numerics/bspline/orbital_optimization.py",
+      "frozen_sha256": "4aa0c6fe1b43b5ab7a2481bcf03662c8db82d313b40e718ef82f38825b88a44b",
+      "current_path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "current_sha256": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192",
+      "same_AST": true,
+      "same_bytes": false
+    },
+    {
+      "file": "methods/csf/variational.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/csf/variational.py",
+      "frozen_sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "current_path": "src/atomx/methods/csf/variational.py",
+      "current_sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "same_AST": true,
+      "same_bytes": true
+    },
+    {
+      "file": "methods/csf/solver.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/methods/csf/solver.py",
+      "frozen_sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+      "current_path": "src/atomx/methods/csf/solver.py",
+      "current_sha256": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+      "same_AST": true,
+      "same_bytes": true
+    },
+    {
+      "file": "physics/csf/radial_density.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/radial_density.py",
+      "frozen_sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "current_path": "src/atomx/physics/csf/radial_density.py",
+      "current_sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "same_AST": true,
+      "same_bytes": true
+    },
+    {
+      "file": "physics/csf/matrix.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/physics/csf/matrix.py",
+      "frozen_sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "current_path": "src/atomx/physics/csf/matrix.py",
+      "current_sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "same_AST": true,
+      "same_bytes": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "frozen_path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source/atomx/angular/csf_hamiltonian.py",
+      "frozen_sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "current_path": "src/atomx/angular/csf_hamiltonian.py",
+      "current_sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "same_AST": true,
+      "same_bytes": true
+    }
+  ],
+  "public_optimizer_arguments": [
+    "functional",
+    "orbitals",
+    "max_iter",
+    "tolerance",
+    "energy_tolerance",
+    "preconditioner_matrices",
+    "preconditioner_factory",
+    "refresh_patience",
+    "refresh_min_ratio",
+    "max_refreshes",
+    "projector_source",
+    "occupation_floor",
+    "progress_callback",
+    "orbital_preconditioner",
+    "history_size",
+    "energy_difference",
+    "linear_energy_increments"
+  ],
+  "source_edits": false,
+  "new_full_optimization_run": false,
+  "scope": "Saved-matrix algebra, source-interface/AST, immutable old evidence and proposal-document checks; no radial polynomial implementation or near-roundoff accuracy certification"
+}

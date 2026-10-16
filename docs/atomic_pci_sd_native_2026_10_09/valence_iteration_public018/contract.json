@@ -1,0 +1,10 @@
+{
+  "hypothesis": "Complete restart snapshots support interrupted numerical continuation without altering current source/root/response/Sigma2 gates",
+  "fixed": "same four original/optimized core and serial/eight-worker valence modes, physical inputs and Krylov maxiter/restart cycle semantics unchanged",
+  "gate": "all26 live checks, extended initial-guess test covers immutable full snapshots, root/response resumption and callback interruption propagation; no skips",
+  "cap": "two additional complete float64 work vectors preflighted before callbacks; user retained snapshots belong to caller",
+  "stop": "any raw/signed/API guard failure rejects adoption",
+  "scope": "restart snapshots are unverified numerical guesses with actual state/core/source/packed-coordinate/denominator identity; never certified physical results",
+  "scipy_version": "1.15.3",
+  "gmres_sha256": "2f62c56215feae9317af834af5db5125efdf63ae638c60387a500c511bba0bd4"
+}

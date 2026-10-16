@@ -1,0 +1,220 @@
+{
+  "status": "saved_JSON_complete_increment_analysis",
+  "input_sha256": {
+    "actual/result.json": "5b631503147217f3728dddb6e17dc8692abe66f2b50079339f968143c56d80af",
+    "actual/complete_trial_signed_key_contributions.json": "cf3ec93daef4bd6afe5955a7ff64ebb5df3a1472d4b7430457ceb913d08bc9fb",
+    "root_execution.json": "2ab94d2c48cf0fdb3f42c02b202c4a809cd3865221a551b9ab36c4139ed65667"
+  },
+  "checks": {
+    "live_count": 98,
+    "live_pass": 98,
+    "unchanged_guard_files": 399,
+    "complete_unique_keys": 19589,
+    "complete_signed_targets": 5,
+    "all_key_coefficients_including_zeros": true
+  },
+  "weighted_forward_Ha": {
+    "native_delta": 3.832425054831237e-07,
+    "native_poly": 3.8324478638838306e-07,
+    "wide_delta": 3.8324250548305925e-07,
+    "wide_poly": 3.832447863883569e-07
+  },
+  "diagnostics_Ha": {
+    "wide_delta_minus_transpose": {
+      "weighted_Ha": -8.623947252051757e-21,
+      "max_abs_target_Ha": 4.654108452074882e-20
+    },
+    "wide_poly_minus_transpose": {
+      "weighted_Ha": -8.613421378757021e-21,
+      "max_abs_target_Ha": 4.6568665824298637e-20
+    },
+    "sparse_minus_dense_wide_delta": {
+      "weighted_Ha": 7.113753267956038e-24,
+      "max_abs_target_Ha": 4.2496403969911797e-23
+    },
+    "native_delta_minus_transpose": {
+      "weighted_Ha": 5.579690470297218e-20,
+      "max_abs_target_Ha": 8.236058998370915e-20
+    },
+    "native_poly_minus_transpose": {
+      "weighted_Ha": 1.752181019407162e-20,
+      "max_abs_target_Ha": 3.5058990437900244e-20
+    },
+    "wide_minus_native_delta": {
+      "weighted_Ha": -6.442085195502394e-20,
+      "max_abs_target_Ha": 6.768513929670547e-20
+    },
+    "wide_minus_native_poly": {
+      "weighted_Ha": -2.6135231572828643e-20,
+      "max_abs_target_Ha": 6.25560766615997e-20
+    },
+    "native_delta_minus_saved_forward_signed_pair_delta": {
+      "weighted_Ha": 2.6693290267772168e-11,
+      "max_abs_target_Ha": 3.331989218282184e-11
+    },
+    "native_delta_minus_saved_endpoint_subtraction": {
+      "weighted_Ha": 2.6692445216596135e-11,
+      "max_abs_target_Ha": 3.3318635984574305e-11
+    },
+    "wide_delta_minus_saved_stored": {
+      "weighted_Ha": 2.6673302338433926e-11,
+      "max_abs_target_Ha": 3.3341162580792275e-11
+    }
+  },
+  "complete_poly_minus_ordinary_key_sum_Ha": 2.2809052961949324e-12,
+  "complete_signed_categories": {
+    "h": {
+      "keys": 57,
+      "weighted_Ha": 1.845895892650974e-12
+    },
+    "r": {
+      "keys": 19532,
+      "weighted_Ha": 4.350094035439582e-13
+    }
+  },
+  "largest_weighted_key_differences_display_only": [
+    {
+      "key": [
+        "h",
+        1,
+        -1,
+        1
+      ],
+      "poly_minus_ordinary_Ha": 1.0835496616531803e-12
+    },
+    {
+      "key": [
+        "h",
+        2,
+        -1,
+        2
+      ],
+      "poly_minus_ordinary_Ha": 3.2508457500996886e-13
+    },
+    {
+      "key": [
+        "h",
+        3,
+        -1,
+        3
+      ],
+      "poly_minus_ordinary_Ha": 2.323212834030874e-13
+    },
+    {
+      "key": [
+        "h",
+        4,
+        -3,
+        4
+      ],
+      "poly_minus_ordinary_Ha": -1.8664569977728478e-13
+    },
+    {
+      "key": [
+        "h",
+        2,
+        -2,
+        2
+      ],
+      "poly_minus_ordinary_Ha": 1.4223776564786607e-13
+    },
+    {
+      "key": [
+        "r",
+        0,
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "poly_minus_ordinary_Ha": 1.3867460119450602e-13
+    },
+    {
+      "key": [
+        "h",
+        4,
+        -2,
+        4
+      ],
+      "poly_minus_ordinary_Ha": 1.35398491396088e-13
+    },
+    {
+      "key": [
+        "r",
+        0,
+        [
+          1,
+          -1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "poly_minus_ordinary_Ha": -1.3120974303300463e-13
+    },
+    {
+      "key": [
+        "r",
+        0,
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "poly_minus_ordinary_Ha": 1.0995669988417826e-13
+    },
+    {
+      "key": [
+        "h",
+        4,
+        -4,
+        4
+      ],
+      "poly_minus_ordinary_Ha": 1.0737536585510212e-13
+    }
+  ],
+  "interpretation": "At this complete bound pair, direct native forward and transpose increments agree; separately rounded forward endpoint assembly has a different increment. Per-key ranking describes the smaller radial polynomial-versus-endpoint part only.",
+  "certified_error_bound": false,
+  "exact_rounding_operation_proved": false,
+  "ordinary_FD_passed": false,
+  "gradient_repaired": false,
+  "optimizer_qualified": false,
+  "physics_stationarity_qualified": false,
+  "controlled_timing": false,
+  "AI_acceleration_measured": false,
+  "NPZ_access": 0,
+  "new_native_calls": 0
+}

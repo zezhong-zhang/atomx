@@ -1,0 +1,117 @@
+{
+  "scientific_result_sha256": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+  "verification_sha256": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+  "script_sha256": "497296f9b7a80ef4278fc701e7385e89c8e88d7ec5bc22edd9193a93744591f9",
+  "card_summary_text": "固定005已驻值MCDHF的同24径向轨道，原生RCI完成4f→4f+5p→4f+5p+5s完整允许pair族（294/468/531 CSF），全部DC/static Breit根与有符号态绑定、21707项独立重放均通过。真实基态仍6s；完整4f使ground发生815 cm⁻¹量级降能，揭示旧68族缺少ground通道。5p对跃迁差能改变304–808 cm⁻¹，5s为15.8–34.2 cm⁻¹。最终D3/D5/P1/P3实验gap依次+2082.9/+1302.9/-2027.3/-2129.1 cm⁻¹，仍未过1%。这是固定轨道的balanced-family RCI判别，尚未做扩展空间MCDHF驻值，不能称完整CV或生产谱。",
+  "final_static_rows": [
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "column": 2,
+      "local_root": 0,
+      "energy_Ha": -14053.22965649585,
+      "energy_delta_from_previous_Ha": -0.0002857580147974659,
+      "energy_delta_from_bare_Ha": -0.0028257060221221764,
+      "excitation_from_tracked_6s_cm1": 25043.73164662899,
+      "excitation_from_actual_finite_ground_cm1": 25043.73164662899,
+      "transition_delta_from_previous_cm1": -34.182034050703805,
+      "transition_delta_from_bare_cm1": 1286.4407823310648,
+      "NIST_nominal_cm1": 22960.8,
+      "gap_cm1": 2082.9316466289893,
+      "relative_error": 0.09071685858632927,
+      "nominal_1percent_comparison_pass": false,
+      "binding_unambiguous": true,
+      "bare_character_weight": 0.9962354659561282,
+      "family_weights": {
+        "bare": 0.9962354659561282,
+        "4f": 0.0024319641126646506,
+        "5p": 0.0012022274726336585,
+        "5s": 0.00013034245857198004
+      }
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "column": 3,
+      "local_root": 0,
+      "energy_Ha": -14053.226959817186,
+      "energy_delta_from_previous_Ha": -0.00027275841239315923,
+      "energy_delta_from_bare_Ha": -0.0022625562305620406,
+      "excitation_from_tracked_6s_cm1": 25635.58420242633,
+      "excitation_from_actual_finite_ground_cm1": 25635.58420242633,
+      "transition_delta_from_previous_cm1": -31.328951105151646,
+      "transition_delta_from_bare_cm1": 1410.0378752359538,
+      "NIST_nominal_cm1": 24332.69,
+      "gap_cm1": 1302.8942024263306,
+      "relative_error": 0.053545013002110765,
+      "nominal_1percent_comparison_pass": false,
+      "binding_unambiguous": true,
+      "bare_character_weight": 0.9971660615866594,
+      "family_weights": {
+        "bare": 0.9971660615866594,
+        "4f": 0.0017067747067851023,
+        "5p": 0.0010030912801727487,
+        "5s": 0.0001240724263825799
+      }
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "column": 1,
+      "local_root": 0,
+      "energy_Ha": -14053.229698416486,
+      "energy_delta_from_previous_Ha": -5.79776842641877e-05,
+      "energy_delta_from_bare_Ha": -0.008455095961835468,
+      "excitation_from_tracked_6s_cm1": 25034.531130641248,
+      "excitation_from_actual_finite_ground_cm1": 25034.531130641248,
+      "transition_delta_from_previous_cm1": 15.809970024860377,
+      "transition_delta_from_bare_cm1": 50.932500513110426,
+      "NIST_nominal_cm1": 27061.82,
+      "gap_cm1": -2027.288869358752,
+      "relative_error": -0.0749132493438635,
+      "nominal_1percent_comparison_pass": false,
+      "binding_unambiguous": true,
+      "bare_character_weight": 0.9797643427094535,
+      "family_weights": {
+        "bare": 0.9797643427094535,
+        "4f": 0.01708825739515134,
+        "5p": 0.0031226410832503474,
+        "5s": 2.4758812144764948e-05
+      }
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "column": 4,
+      "local_root": 0,
+      "energy_Ha": -14053.214988009948,
+      "energy_delta_from_previous_Ha": -5.524244625121355e-05,
+      "energy_delta_from_bare_Ha": -0.006572959728146088,
+      "excitation_from_tracked_6s_cm1": 28263.092182802062,
+      "excitation_from_actual_finite_ground_cm1": 28263.092182802062,
+      "transition_delta_from_previous_cm1": 16.410285379450215,
+      "transition_delta_from_bare_cm1": 464.0136565772991,
+      "NIST_nominal_cm1": 30392.23,
+      "gap_cm1": -2129.1378171979377,
+      "relative_error": -0.07005533378754826,
+      "nominal_1percent_comparison_pass": false,
+      "binding_unambiguous": true,
+      "bare_character_weight": 0.9830869285913938,
+      "family_weights": {
+        "bare": 0.9830869285913938,
+        "4f": 0.014556226519238434,
+        "5p": 0.0023330959801210133,
+        "5s": 2.374890924586036e-05
+      }
+    }
+  ],
+  "scope": "Fixed native005 converged MCDHF orbitals: nested balanced-family fixed-orbital RCI discriminator only; not expanded-family MCDHF stationarity, not complete CV, not a production or experimental certification.",
+  "artifacts_sha256": {
+    "spectral_summary.csv": "b914da61c8dd165caed05e1dd7be57a1fbb24e47131242c2e5f62fdcc9776574",
+    "energy_increments.csv": "92cd272a09ffac459cd47e88ae5bf9457f23e207bb75ec66c3fd9ad3d44ef0f7"
+  }
+}

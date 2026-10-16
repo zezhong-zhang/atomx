@@ -1,0 +1,58 @@
+--- run.py
++++ run002.py
+@@ -61,15 +61,15 @@
+ def prepare():
+     original = read(BASE/'physical_next_decision006/execution001/contract.json')
+     inputs = {v['path']:v['sha256'] for v in original['inputs'].values()}
+-    paths = [HERE/'run.py',HERE/'test_receipt.json',HERE/'grasp_source_reference.json',
+-             BASE/'physical_next_decision011/actual001/result.json']
++    paths = [Path(__file__),HERE/'test_receipt.json',HERE/'grasp_source_reference.json',
++             BASE/'physical_next_decision011/actual001/result.json',HERE/'actual001/result.json',HERE/'contract.json']
+     for arm in ('A','B'):
+         paths.extend(OLD/'actual'/(arm+'_R0'+suffix) for suffix in ('.json','.npz'))
+         paths.append(OLD/'actual'/(arm+'_R0_state_gradients.json'))
+     inputs.update({str(p.relative_to(ROOT)):sha(p) for p in paths})
+     mapping = source_map()
+     identity = hashlib.sha256(json.dumps(mapping,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+-    save(HERE/'source_current.json',dict(all_atomx_python_sha256=mapping,source_map_sha256=identity))
++    save(HERE/'source_current002.json',dict(all_atomx_python_sha256=mapping,source_map_sha256=identity))
+     contract = dict(hypothesis='The measured O(h^2) finite CI-response component follows the independent analytic 2n+1 coefficient, rather than a missing first-derivative factor.',
+         formula='Q(H0-E0)Q c1=-Q H1 c0, c0.T c1=0; B_CI=c1.T H2 c0+c1.T(H1-E1)c1; finite coefficient-response FD=h^2 B_CI+O(h^4). H1/H2 are derivatives, not Taylor coefficients.',
+         fixed=original['fixed'],original=original,source_map_sha256=identity,inputs=inputs,
+@@ -86,13 +86,13 @@
+                 'available_min_bytes':16*1024**3,'radial_keys':70971,'raw_determinants':2659,
+                 'exact_block_matrix_calls':30,'complete_eigh_calls':10,'response_calls':10,
+                 'decoded_input_bytes':256*1024**2,'array_output_bytes':128*1024**2})
+-    save(HERE/'contract.json',contract)
++    save(HERE/'contract002.json',contract)
+     print(json.dumps(dict(status='PREPARED_SOURCE_ONLY',source=identity,inputs=len(inputs))))
+ 
+ 
+ def execute():
+-    contract = read(HERE/'contract.json')
+-    identity = read(HERE/'source_current.json')
++    contract = read(HERE/'contract002.json')
++    identity = read(HERE/'source_current002.json')
+     if source_map()!=identity['all_atomx_python_sha256']:
+         raise ValueError('current actual source changed')
+     for path,h in contract['inputs'].items():
+@@ -105,7 +105,7 @@
+             or os.sched_getaffinity(0)!={cap['CPU']} or any(os.environ.get(k)!='1' for k in THREADS)
+             or available<cap['available_min_bytes'] or os.getloadavg()[0]>cap['load_max']):
+         raise ValueError('resource admission')
+-    out = HERE/'actual001'
++    out = HERE/'actual002'
+     out.mkdir()
+     resource.setrlimit(resource.RLIMIT_AS,(cap['AS_bytes'],cap['AS_bytes']))
+     signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('600s stop')))
+@@ -208,7 +208,9 @@
+             for row in meta['rows']:
+                 uid,label = row['UID'],row['label']
+                 indices = np.array([i for i,s in enumerate(meta['owner']['CSFs']) if (s[2][1],s[1])==tuple(uid[:2])])
+-                signatures = [deep(meta['owner']['CSFs'][i][2]) for i in indices]
++                signatures = [angular.CSFSignature(*deep(meta['owner']['CSFs'][i][2])) for i in indices]
++                check('literal signature roundtrip '+arm+label,
++                      [sig.key for sig in signatures]==[deep(meta['owner']['CSFs'][i][2]) for i in indices])
+                 operators = []
+                 for order in range(3):
+                     count('exact_block_matrix_calls',cap['exact_block_matrix_calls'])

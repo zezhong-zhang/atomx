@@ -1,0 +1,48 @@
+{
+  "status": "PASS_READ_ONLY_CLOSED_RESULT_REVIEW",
+  "checks": {
+    "root_seal_exact": true,
+    "driver_hash_matches_contract": true,
+    "all_bound_sources_current": true,
+    "all_bound_inputs_current": true,
+    "actual_success_closed": true,
+    "raw_native_integer_CSF_census_exact": true,
+    "pattern_hash_exact": true,
+    "ordered_graph_count_exact": true,
+    "all_replacement_counts_exact": true,
+    "replacement_counts_sum_to_graph": true,
+    "all_rows_diagonals_present": true,
+    "last_coordinate_exact": true,
+    "live_membership_count_exact": true,
+    "live_bucket_visit_count_exact": true,
+    "bucket_count_inside_integer_bounds": true,
+    "elapsed_inside_alarm": true,
+    "RSS_below_enforced_AS_cap": true,
+    "host_admission_pass": true,
+    "imported_origins_hashes_bound": true,
+    "claim_scope_excludes_H_CI_energy": true
+  },
+  "all_pass": true,
+  "files": {
+    "run.py": "a06a94d4664d6f98e127aead86151c233ce679629674ef0014dd663578c05598",
+    "contract.json": "0dcc9af0c925483dffc15bfdd773dcdefe067d845e01167ac8b205502e3f084a",
+    "root_execution_seal.json": "3aa58948ad9a0b8b9bd4fa873f61c0b0da1b93a555eb74c8f2545dd6faeefa68",
+    "actual/result.json": "6a531c280de0b7e6041b6c39f9bef0e8f8d88be14619ed29f5002784753f39bf",
+    "README.md": "50ddb134e5187a79bdbbc35f6bcc4d60582d464e0ab3db993b7d3d00e9a3d66f"
+  },
+  "imported_source_count": 14,
+  "actual_ordered_pair_sha256": "9a49475f11b27a0889a1d187c9a5a18a445db0e92510688362f0b131d4a290e4",
+  "limits": [
+    "Reviewer did not rerun native graph or form H/CI/angular coefficients.",
+    "Full graph equality follows source proof, exact target space, strict unique order, allowed distance and independent complete integer count; digest is a new deterministic output, not a pre-existing independent reference.",
+    "Peak RSS and Python owned payload exclude different scopes; neither admits actual full coefficient-table/CI memory.",
+    "Single-run diagnostic time includes scalar distance checks, hashing and bucket metadata scan; no speedup or parallel-efficiency claim."
+  ],
+  "next_exact_representation_bound": {
+    "singleton_buckets_lower_bound": 9912193,
+    "singleton_list_payload_lower_bound_bytes": 872272984,
+    "scope": "Unimplemented store-first-index/promote-on-second proposal; measured interpreter first-populated-list size88bytes; shared index object is already retained by existing bucket lists.",
+    "measured_first_populated_list_bytes": 88,
+    "measured_python_version": "3.10.21 (main, Aug 14 2026, 15:33:52) [Clang 22.1.3 ]"
+  }
+}

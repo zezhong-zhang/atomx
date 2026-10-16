@@ -1,0 +1,74 @@
+......FF.                                                                [100%]
+=================================== FAILURES ===================================
+____ test_native_be_full_j0_projection_with_static_operator_coverage[False] ____
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+breit = False
+
+    @pytest.mark.parametrize('breit', [False, True])
+    def test_native_be_full_j0_projection_with_static_operator_coverage(native, breit):
+        from atomx.angular.csf_hamiltonian import csf_magnetic_vector, csf_signature
+        from atomx.config.csf import get_shared_orbital_basis
+        from atomx.methods.ci_sd import plan_sd_ci_space
+        from atomx.physics.csf.matrix import build_ci_matrix
+        core, od = native
+        result = compute('1s2', ('2s', '2p'), od, core._bsp_data, 4, 30,
+                         reference_identity='Be2+ full J0 SD', include_breit=breit,
+                         nuclear_potential=core._nuclear_potential)
+        plan = plan_sd_ci_space(('1s2',), ('2s', '2p'), J2=0, parity=1)
+        csfs, p = plan.materialize()
+        csfs = (csfs[p[0]],)+tuple(c for i, c in enumerate(csfs) if i != p[0])
+        keys = get_shared_orbital_basis(csfs)
+        h = build_ci_matrix(csfs, od, keys, core._bsp_data, 4, 30,
+                            include_breit=breit, nuclear_potential=core._nuclear_potential)
+        vectors = tuple(csf_magnetic_vector(csf_signature(c), 0, tuple(keys)) for c in csfs)
+        replay = solve(h, vectors, vectors[0][0][0], reference_identity='same native snapshot')
+        assert result.total_energy_Ha == replay.total_energy_Ha
+        assert result.equation_residual_Ha < 1e-12
+        assert result.provenance['scalar_plan']['scalar_amplitudes'] == 4
+        assert ('static-breit' in result.provenance['hamiltonian_terms']) == breit
+>       assert abs(result.total_energy_Ha-np.linalg.eigvalsh(h)[0]) > 1e-5
+E       assert np.float64(2.6161544042224705e-09) > 1e-05
+E        +  where np.float64(2.6161544042224705e-09) = abs((-13.614111054387884 - np.float64(-13.61411105177173)))
+E        +    where -13.614111054387884 = LinearizedSDResult(reference_energy_Ha=-13.613943330793543, correlation_energy_Ha=-0.0001677235943405729, total_energy...), (0, 1, 0))), (((2, -2, 2),), 0, ((0, 0, 0),)), (((2, 1, 2),), 0, ((0, 0, 0),)), (((2, -1, 2),), 0, ((0, 0, 0),)))})).total_energy_Ha
+
+tests/test_linearized_sd.py:154: AssertionError
+____ test_native_be_full_j0_projection_with_static_operator_coverage[True] _____
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+breit = True
+
+    @pytest.mark.parametrize('breit', [False, True])
+    def test_native_be_full_j0_projection_with_static_operator_coverage(native, breit):
+        from atomx.angular.csf_hamiltonian import csf_magnetic_vector, csf_signature
+        from atomx.config.csf import get_shared_orbital_basis
+        from atomx.methods.ci_sd import plan_sd_ci_space
+        from atomx.physics.csf.matrix import build_ci_matrix
+        core, od = native
+        result = compute('1s2', ('2s', '2p'), od, core._bsp_data, 4, 30,
+                         reference_identity='Be2+ full J0 SD', include_breit=breit,
+                         nuclear_potential=core._nuclear_potential)
+        plan = plan_sd_ci_space(('1s2',), ('2s', '2p'), J2=0, parity=1)
+        csfs, p = plan.materialize()
+        csfs = (csfs[p[0]],)+tuple(c for i, c in enumerate(csfs) if i != p[0])
+        keys = get_shared_orbital_basis(csfs)
+        h = build_ci_matrix(csfs, od, keys, core._bsp_data, 4, 30,
+                            include_breit=breit, nuclear_potential=core._nuclear_potential)
+        vectors = tuple(csf_magnetic_vector(csf_signature(c), 0, tuple(keys)) for c in csfs)
+        replay = solve(h, vectors, vectors[0][0][0], reference_identity='same native snapshot')
+        assert result.total_energy_Ha == replay.total_energy_Ha
+        assert result.equation_residual_Ha < 1e-12
+        assert result.provenance['scalar_plan']['scalar_amplitudes'] == 4
+        assert ('static-breit' in result.provenance['hamiltonian_terms']) == breit
+>       assert abs(result.total_energy_Ha-np.linalg.eigvalsh(h)[0]) > 1e-5
+E       assert np.float64(2.7964048854300927e-09) > 1e-05
+E        +  where np.float64(2.7964048854300927e-09) = abs((-13.61344520635266 - np.float64(-13.613445203556255)))
+E        +    where -13.61344520635266 = LinearizedSDResult(reference_energy_Ha=-13.61327707503739, correlation_energy_Ha=-0.00016813131527024092, total_energy...), (0, 1, 0))), (((2, -2, 2),), 0, ((0, 0, 0),)), (((2, 1, 2),), 0, ((0, 0, 0),)), (((2, -1, 2),), 0, ((0, 0, 0),)))})).total_energy_Ha
+
+tests/test_linearized_sd.py:154: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_linearized_sd.py::test_native_be_full_j0_projection_with_static_operator_coverage[False]
+FAILED tests/test_linearized_sd.py::test_native_be_full_j0_projection_with_static_operator_coverage[True]
+2 failed, 7 passed in 0.58s

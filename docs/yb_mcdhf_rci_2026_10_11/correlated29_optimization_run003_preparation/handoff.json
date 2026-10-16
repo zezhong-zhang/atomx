@@ -1,0 +1,26 @@
+{
+  "status": "prepared_requires_exact_root_execution_not_executed",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "files_sha256": {
+    "run.py": "6cc8b788515c4eeb0d87bf58f7e53a07bbecda2fae97d157db182974ca37fa9a",
+    "contract.json": "97744a8356c10d09381efc2d1e791657ac47a4274759149df05e77d2d4a7f83a",
+    "verify_preparation.py": "02ac2cb52ecd93cb6e9798fd00205eb20eb3295be7ac44f890df08232ede6d52",
+    "preparation_verification.json": "64960f65e969855994415e927203d89b0b593e4dc9f154c30e77f66f1d1aa445",
+    "README.md": "a7f2e4a8e7eefd5876260ab7f22c1235435460cda849f78e842253d50871074f",
+    "documentation_impact.json": "aaac66175a582a12d366bf48c22fc3d2bba2fa5dd274eaccbbbc7c1fc0c5cb13"
+  },
+  "scientific_calls": 0,
+  "numerical_imports": 0,
+  "execution_authorized": false,
+  "own_corrected_baseline_arrays": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/fresh_baseline.npz",
+    "sha256": "a6ba90f1e16e73d11eed6716f9a8317b16f3b35bc9d15874cb9769184ca4c72d"
+  },
+  "own_corrected_gradient_metric": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/all_gradients_metric.npz",
+    "sha256": "1d08466f5dcb369f70ff20066c11d867090ce38d16f3e84d8f1e4fd927eb2d3a"
+  },
+  "budget": "onepublicoptimizer <=16accepted/65H/65CI/17productiong CPU31threads1/3.95GiB600inner615outer",
+  "unchanged_production": "ordinaryreported/EOL/publicretainedgradient/energy_differenceNone/originalthresholds",
+  "not_claimed": "optimizer executed, stationarity, gap reduction, uniform bound or experimental certification"
+}

@@ -1,0 +1,44 @@
+{
+  "status": "closed_scalar_metadata_documentation_only",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607"
+  },
+  "actual_live_controls": 1582,
+  "scalar_closure_controls": 77,
+  "new_scientific_calls": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "independent_H_C_gradient_replay": false,
+  "closed_actual_counts": {
+    "H": 23,
+    "CI": 23,
+    "gradient_from_weights": 51,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "SciPy_eigh": 122,
+    "tracker_resolve": 62,
+    "tracking_SVD": 310,
+    "tracker_overlap": 63,
+    "polar": 154,
+    "polar_numpy_eigh": 32,
+    "unfiltered_target_RDM": 85,
+    "retained_RDM": 17,
+    "gradient_pair_source": 35679,
+    "optimizer": 1
+  },
+  "original_stationarity_passed": false,
+  "last_qualified_checkpoint": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+  "unqualified_candidates": [],
+  "document_outputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/RESULTS.md": "a69607553a1945b8e6274488aee27d6ae45b2c32c0772ef09b665f07b326ce25",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/trace_completion.md": "a90fd8b3ed5b648990257b4abc89f5c6a636780b5eef3241d375e2358d9697c7"
+  },
+  "frozen_preparation_driver_source_contract_handoff_trace_and_actual_records_modified": false,
+  "shared_source_mainREADME_registry_timer_card_site_edits": 0,
+  "documentation_disposition": "Add separate closure RESULTS and completion EARS; original prepared README and all frozen preparation handoffs retain their prospective source identities.",
+  "decision": "No automatic continuation; investigate fixed step12 search/derivative behaviour before more iterations.",
+  "claim_limits": "Finite stored-H descent and smaller reported nominal RMS are observations. Original stationarity fails, metric indicator is not a rigorous bound, and current-source failures remain unmodified."
+}

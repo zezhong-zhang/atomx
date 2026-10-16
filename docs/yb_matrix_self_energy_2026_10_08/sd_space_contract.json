@@ -1,0 +1,8 @@
+{
+  "hypothesis": "Angular reduction may make tensor storage practical while dense Q-Q storage is impossible",
+  "fixed": "both complete l6/200 preflight spaces; all 19 radial core orbitals",
+  "scope": "core singles/doubles coupled to J0 and EA 1p/2p1h symmetry counts, not an SD implementation",
+  "gates": "identical-j Pauli count equals binomial spin-orbital dimension; two distinct radial shells equal direct-product dimension",
+  "cap_seconds": 60,
+  "allocation": "integer histograms only; no amplitude/integral matrix; <=64 MiB"
+}

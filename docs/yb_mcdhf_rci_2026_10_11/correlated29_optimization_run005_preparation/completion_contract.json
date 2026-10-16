@@ -1,0 +1,30 @@
+{
+  "scope": "Once pure stdlib closure of closed run005; no NumPy/Atomx, no H/CI/gradient/optimizer/eigen/array numerical replay",
+  "prospective_before_run": true,
+  "root_authorized": true,
+  "authorization": "Root closed-run005 message authorizes source-hash/prospective contract then once stdlib completion, preserving prior11 metadata/checkpoint Fraction guards.",
+  "script_sha256": "600adeaaec43e20c99387cfab6436620615d656816b0740b8149f3b7de4437d7",
+  "predecessor_script_sha256": "546c5d891dd5dfd9ad3a0d93c7e8e56618464b36955644fe5604b890f53b120d",
+  "sole_consumer_adaptations": [
+    "run005 title",
+    "atmost128 new steps/129 points",
+    "global origin80 instead of16",
+    "last producer point, no gap-based selection"
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/result.json": "9487855b439ebf4fdc5530535348fc4e8c4ede1652aff4a9faf7d3d3b0ad8358",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/root_execution.json": "5878daf7524c421b826923cee63487d46e533c2137cfb8a03bd6821399909295",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/run.py": "0e0186662e2daafe39b4be2f486d44826a5019a05b7186e801d768da2087e02c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/contract.json": "2bc0a06209a39b6197a1da03ffa56c1649536cf97d5a583e1f2cf9a3b2fed739",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/execution_contract.json": "90a36d07829fdff5ee6a799b85a592033a9ed6846caa60bc50c0ece7889d6efc",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/preparation_verification.json": "b9863013472f17c1bc4b4f78b9b6d753d2f2b11e92e1edf7c6abbdcc34443510"
+  },
+  "resources": {
+    "CPU": 30,
+    "max_wall_seconds": 60,
+    "max_address_space_bytes": 1073741824,
+    "scientific_calls": 0,
+    "array_numerical_replays": 0
+  },
+  "stopping": "Once only; preserve failure log and partial closure, do not retry silently or rewrite actual data."
+}

@@ -1,0 +1,4980 @@
+{
+  "previous_stage": "bare005",
+  "targets": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "models": {
+        "DC": {
+          "column": 0,
+          "local_root": 0,
+          "bare_best_column": 0,
+          "bare_weight": 0.9925246067684146,
+          "previous_same_state_column": 0,
+          "previous_overlap_weight": 0.9925246067684146,
+          "previous_static_or_DC_independent_assigned_column": 0,
+          "operator_overlap_weight": 0.9999976550297465,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.3981871945234161,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 0,
+              "energy_Ha": -14067.48701187838,
+              "weight": 0.9925246067684146
+            },
+            {
+              "column": 126,
+              "energy_Ha": -14067.088824683857,
+              "weight": 0.0004210927548326095
+            },
+            {
+              "column": 147,
+              "energy_Ha": -14067.075290384937,
+              "weight": 1.7715593467764815e-05
+            },
+            {
+              "column": 166,
+              "energy_Ha": -14067.065707724676,
+              "weight": 0.0006028642824284543
+            },
+            {
+              "column": 185,
+              "energy_Ha": -14067.051271284592,
+              "weight": 7.765630501595146e-05
+            },
+            {
+              "column": 200,
+              "energy_Ha": -14067.037905711526,
+              "weight": 9.217545696859308e-05
+            },
+            {
+              "column": 204,
+              "energy_Ha": -14067.031976315124,
+              "weight": 0.00013173772422814565
+            },
+            {
+              "column": 212,
+              "energy_Ha": -14067.020272928306,
+              "weight": 2.518634857683758e-05
+            },
+            {
+              "column": 224,
+              "energy_Ha": -14067.007799111863,
+              "weight": 0.0002684672986485363
+            },
+            {
+              "column": 235,
+              "energy_Ha": -14066.997811502055,
+              "weight": 0.0037882468166304437
+            },
+            {
+              "column": 239,
+              "energy_Ha": -14066.993839110934,
+              "weight": 2.874736137509522e-05
+            },
+            {
+              "column": 245,
+              "energy_Ha": -14066.985513215015,
+              "weight": 0.00019211512573119252
+            },
+            {
+              "column": 256,
+              "energy_Ha": -14066.95083235593,
+              "weight": 0.0018293881636808832
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 0,
+              "weight": 0.9925246067684146
+            },
+            {
+              "column": 126,
+              "weight": 0.0004210927548326095
+            },
+            {
+              "column": 147,
+              "weight": 1.7715593467764815e-05
+            },
+            {
+              "column": 166,
+              "weight": 0.0006028642824284543
+            },
+            {
+              "column": 185,
+              "weight": 7.765630501595146e-05
+            },
+            {
+              "column": 200,
+              "weight": 9.217545696859308e-05
+            },
+            {
+              "column": 204,
+              "weight": 0.00013173772422814565
+            },
+            {
+              "column": 212,
+              "weight": 2.518634857683758e-05
+            },
+            {
+              "column": 224,
+              "weight": 0.0002684672986485363
+            },
+            {
+              "column": 235,
+              "weight": 0.0037882468166304437
+            },
+            {
+              "column": 239,
+              "weight": 2.874736137509522e-05
+            },
+            {
+              "column": 245,
+              "weight": 0.00019211512573119252
+            },
+            {
+              "column": 256,
+              "weight": 0.0018293881636808832
+            }
+          ]
+        },
+        "static_Breit": {
+          "column": 0,
+          "local_root": 0,
+          "bare_best_column": 0,
+          "bare_weight": 0.9922600320743542,
+          "previous_same_state_column": 0,
+          "previous_overlap_weight": 0.9922600320743542,
+          "previous_static_or_DC_independent_assigned_column": 0,
+          "operator_overlap_weight": 0.9999976550297465,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.39053054084251926,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 0,
+              "energy_Ha": -14053.338790951844,
+              "weight": 0.9922600320743542
+            },
+            {
+              "column": 127,
+              "energy_Ha": -14052.948260411002,
+              "weight": 0.00041845511078187736
+            },
+            {
+              "column": 144,
+              "energy_Ha": -14052.937119835218,
+              "weight": 1.7307604337440753e-05
+            },
+            {
+              "column": 167,
+              "energy_Ha": -14052.925372430653,
+              "weight": 0.0005920371941057304
+            },
+            {
+              "column": 185,
+              "energy_Ha": -14052.911143458805,
+              "weight": 8.64395009605676e-05
+            },
+            {
+              "column": 198,
+              "energy_Ha": -14052.898334765778,
+              "weight": 0.00015010928461863307
+            },
+            {
+              "column": 204,
+              "energy_Ha": -14052.893621402893,
+              "weight": 0.00013037447882471525
+            },
+            {
+              "column": 212,
+              "energy_Ha": -14052.881829710495,
+              "weight": 2.9063096355309737e-05
+            },
+            {
+              "column": 224,
+              "energy_Ha": -14052.869372399164,
+              "weight": 0.00021528878823134023
+            },
+            {
+              "column": 235,
+              "energy_Ha": -14052.858186183688,
+              "weight": 0.00372578341071862
+            },
+            {
+              "column": 239,
+              "energy_Ha": -14052.855512694545,
+              "weight": 0.00020365282754037953
+            },
+            {
+              "column": 245,
+              "energy_Ha": -14052.84731577488,
+              "weight": 0.0002453988924975561
+            },
+            {
+              "column": 256,
+              "energy_Ha": -14052.812467366828,
+              "weight": 0.0019260577366739552
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 0,
+              "weight": 0.9922600320743542
+            },
+            {
+              "column": 127,
+              "weight": 0.00041845511078187736
+            },
+            {
+              "column": 144,
+              "weight": 1.7307604337440753e-05
+            },
+            {
+              "column": 167,
+              "weight": 0.0005920371941057304
+            },
+            {
+              "column": 185,
+              "weight": 8.64395009605676e-05
+            },
+            {
+              "column": 198,
+              "weight": 0.00015010928461863307
+            },
+            {
+              "column": 204,
+              "weight": 0.00013037447882471525
+            },
+            {
+              "column": 212,
+              "weight": 2.9063096355309737e-05
+            },
+            {
+              "column": 224,
+              "weight": 0.00021528878823134023
+            },
+            {
+              "column": 235,
+              "weight": 0.00372578341071862
+            },
+            {
+              "column": 239,
+              "weight": 0.00020365282754037953
+            },
+            {
+              "column": 245,
+              "weight": 0.0002453988924975561
+            },
+            {
+              "column": 256,
+              "weight": 0.0019260577366739552
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "models": {
+        "DC": {
+          "column": 1,
+          "local_root": 0,
+          "bare_best_column": 1,
+          "bare_weight": 0.9969917370319411,
+          "previous_same_state_column": 1,
+          "previous_overlap_weight": 0.9969917370319411,
+          "previous_static_or_DC_independent_assigned_column": 1,
+          "operator_overlap_weight": 0.9999982694977997,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.24710874289667117,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 1,
+              "energy_Ha": -14067.376357314697,
+              "weight": 0.9969917370319411
+            },
+            {
+              "column": 86,
+              "energy_Ha": -14067.1292485718,
+              "weight": 9.454664145241497e-05
+            },
+            {
+              "column": 99,
+              "energy_Ha": -14067.114278091392,
+              "weight": 4.574082142155813e-07
+            },
+            {
+              "column": 121,
+              "energy_Ha": -14067.09261301127,
+              "weight": 3.8939234364023056e-05
+            },
+            {
+              "column": 131,
+              "energy_Ha": -14067.085599141321,
+              "weight": 4.650906225480996e-07
+            },
+            {
+              "column": 143,
+              "energy_Ha": -14067.077047213477,
+              "weight": 0.0002199278024857442
+            },
+            {
+              "column": 151,
+              "energy_Ha": -14067.072077855995,
+              "weight": 1.825037061755756e-05
+            },
+            {
+              "column": 157,
+              "energy_Ha": -14067.068863407414,
+              "weight": 3.791215790379432e-05
+            },
+            {
+              "column": 172,
+              "energy_Ha": -14067.062709838705,
+              "weight": 0.00012054982014848993
+            },
+            {
+              "column": 184,
+              "energy_Ha": -14067.051782548413,
+              "weight": 1.8724595676471096e-05
+            },
+            {
+              "column": 191,
+              "energy_Ha": -14067.044489760294,
+              "weight": 1.7513563421489243e-05
+            },
+            {
+              "column": 198,
+              "energy_Ha": -14067.038784904777,
+              "weight": 1.1241357537646765e-05
+            },
+            {
+              "column": 203,
+              "energy_Ha": -14067.032410018439,
+              "weight": 0.000350429208494239
+            },
+            {
+              "column": 207,
+              "energy_Ha": -14067.027233436995,
+              "weight": 0.00012690649632896153
+            },
+            {
+              "column": 208,
+              "energy_Ha": -14067.024321395602,
+              "weight": 4.844530249936751e-05
+            },
+            {
+              "column": 213,
+              "energy_Ha": -14067.02025232209,
+              "weight": 0.00020933751740870814
+            },
+            {
+              "column": 220,
+              "energy_Ha": -14067.012517480172,
+              "weight": 0.00011279145014472503
+            },
+            {
+              "column": 232,
+              "energy_Ha": -14067.000816863476,
+              "weight": 1.1326279641872612e-06
+            },
+            {
+              "column": 240,
+              "energy_Ha": -14066.993479810695,
+              "weight": 0.0009352897554118824
+            },
+            {
+              "column": 243,
+              "energy_Ha": -14066.986455095983,
+              "weight": 3.953337114746876e-05
+            },
+            {
+              "column": 246,
+              "energy_Ha": -14066.985511830539,
+              "weight": 0.0001416711221717534
+            },
+            {
+              "column": 248,
+              "energy_Ha": -14066.980946387715,
+              "weight": 5.190040620239711e-05
+            },
+            {
+              "column": 255,
+              "energy_Ha": -14066.951474448213,
+              "weight": 0.00018339543586971124
+            },
+            {
+              "column": 271,
+              "energy_Ha": -14066.897196699432,
+              "weight": 0.0002289022319711805
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 1,
+              "weight": 0.9969917370319411
+            },
+            {
+              "column": 86,
+              "weight": 9.454664145241497e-05
+            },
+            {
+              "column": 99,
+              "weight": 4.574082142155813e-07
+            },
+            {
+              "column": 121,
+              "weight": 3.8939234364023056e-05
+            },
+            {
+              "column": 131,
+              "weight": 4.650906225480996e-07
+            },
+            {
+              "column": 143,
+              "weight": 0.0002199278024857442
+            },
+            {
+              "column": 151,
+              "weight": 1.825037061755756e-05
+            },
+            {
+              "column": 157,
+              "weight": 3.791215790379432e-05
+            },
+            {
+              "column": 172,
+              "weight": 0.00012054982014848993
+            },
+            {
+              "column": 184,
+              "weight": 1.8724595676471096e-05
+            },
+            {
+              "column": 191,
+              "weight": 1.7513563421489243e-05
+            },
+            {
+              "column": 198,
+              "weight": 1.1241357537646765e-05
+            },
+            {
+              "column": 203,
+              "weight": 0.000350429208494239
+            },
+            {
+              "column": 207,
+              "weight": 0.00012690649632896153
+            },
+            {
+              "column": 208,
+              "weight": 4.844530249936751e-05
+            },
+            {
+              "column": 213,
+              "weight": 0.00020933751740870814
+            },
+            {
+              "column": 220,
+              "weight": 0.00011279145014472503
+            },
+            {
+              "column": 232,
+              "weight": 1.1326279641872612e-06
+            },
+            {
+              "column": 240,
+              "weight": 0.0009352897554118824
+            },
+            {
+              "column": 243,
+              "weight": 3.953337114746876e-05
+            },
+            {
+              "column": 246,
+              "weight": 0.0001416711221717534
+            },
+            {
+              "column": 248,
+              "weight": 5.190040620239711e-05
+            },
+            {
+              "column": 255,
+              "weight": 0.00018339543586971124
+            },
+            {
+              "column": 271,
+              "weight": 0.0002289022319711805
+            }
+          ]
+        },
+        "static_Breit": {
+          "column": 1,
+          "local_root": 0,
+          "bare_best_column": 1,
+          "bare_weight": 0.9968468925943896,
+          "previous_same_state_column": 1,
+          "previous_overlap_weight": 0.9968468925943896,
+          "previous_static_or_DC_independent_assigned_column": 1,
+          "operator_overlap_weight": 0.9999982694977997,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.2393649775222002,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 1,
+              "energy_Ha": -14053.227963294165,
+              "weight": 0.9968468925943896
+            },
+            {
+              "column": 86,
+              "energy_Ha": -14052.988598316642,
+              "weight": 9.999155306524464e-05
+            },
+            {
+              "column": 101,
+              "energy_Ha": -14052.9733521517,
+              "weight": 4.966772295773325e-07
+            },
+            {
+              "column": 123,
+              "energy_Ha": -14052.952028580501,
+              "weight": 3.6211951030997724e-05
+            },
+            {
+              "column": 131,
+              "energy_Ha": -14052.947099942177,
+              "weight": 4.9393275069133335e-06
+            },
+            {
+              "column": 147,
+              "energy_Ha": -14052.936554482034,
+              "weight": 0.00021703057469766595
+            },
+            {
+              "column": 151,
+              "energy_Ha": -14052.933724488534,
+              "weight": 2.387338260108104e-05
+            },
+            {
+              "column": 161,
+              "energy_Ha": -14052.92861936467,
+              "weight": 4.737479254792082e-05
+            },
+            {
+              "column": 175,
+              "energy_Ha": -14052.922397725742,
+              "weight": 0.00010728602409998583
+            },
+            {
+              "column": 184,
+              "energy_Ha": -14052.912150246999,
+              "weight": 5.354634160819014e-06
+            },
+            {
+              "column": 190,
+              "energy_Ha": -14052.905436301246,
+              "weight": 1.9790101170359947e-05
+            },
+            {
+              "column": 197,
+              "energy_Ha": -14052.898514413038,
+              "weight": 3.1535437034155914e-06
+            },
+            {
+              "column": 205,
+              "energy_Ha": -14052.893429014184,
+              "weight": 0.00037511739004185874
+            },
+            {
+              "column": 207,
+              "energy_Ha": -14052.888749879889,
+              "weight": 0.00010690311792379546
+            },
+            {
+              "column": 208,
+              "energy_Ha": -14052.886021902863,
+              "weight": 7.282767344055546e-05
+            },
+            {
+              "column": 213,
+              "energy_Ha": -14052.8811020952,
+              "weight": 0.0002179401387800586
+            },
+            {
+              "column": 220,
+              "energy_Ha": -14052.873718847997,
+              "weight": 0.0001230345674798106
+            },
+            {
+              "column": 233,
+              "energy_Ha": -14052.862540045951,
+              "weight": 4.946044398200978e-07
+            },
+            {
+              "column": 240,
+              "energy_Ha": -14052.854919343306,
+              "weight": 0.0009745018330688415
+            },
+            {
+              "column": 243,
+              "energy_Ha": -14052.848262392814,
+              "weight": 4.584940539179558e-05
+            },
+            {
+              "column": 246,
+              "energy_Ha": -14052.846569685773,
+              "weight": 0.00017666319271492122
+            },
+            {
+              "column": 248,
+              "energy_Ha": -14052.842758905084,
+              "weight": 5.743446001792591e-05
+            },
+            {
+              "column": 255,
+              "energy_Ha": -14052.813180080198,
+              "weight": 0.00019563642831647854
+            },
+            {
+              "column": 270,
+              "energy_Ha": -14052.759010523549,
+              "weight": 0.00024120203218103012
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 1,
+              "weight": 0.9968468925943896
+            },
+            {
+              "column": 86,
+              "weight": 9.999155306524464e-05
+            },
+            {
+              "column": 101,
+              "weight": 4.966772295773325e-07
+            },
+            {
+              "column": 123,
+              "weight": 3.6211951030997724e-05
+            },
+            {
+              "column": 131,
+              "weight": 4.9393275069133335e-06
+            },
+            {
+              "column": 147,
+              "weight": 0.00021703057469766595
+            },
+            {
+              "column": 151,
+              "weight": 2.387338260108104e-05
+            },
+            {
+              "column": 161,
+              "weight": 4.737479254792082e-05
+            },
+            {
+              "column": 175,
+              "weight": 0.00010728602409998583
+            },
+            {
+              "column": 184,
+              "weight": 5.354634160819014e-06
+            },
+            {
+              "column": 190,
+              "weight": 1.9790101170359947e-05
+            },
+            {
+              "column": 197,
+              "weight": 3.1535437034155914e-06
+            },
+            {
+              "column": 205,
+              "weight": 0.00037511739004185874
+            },
+            {
+              "column": 207,
+              "weight": 0.00010690311792379546
+            },
+            {
+              "column": 208,
+              "weight": 7.282767344055546e-05
+            },
+            {
+              "column": 213,
+              "weight": 0.0002179401387800586
+            },
+            {
+              "column": 220,
+              "weight": 0.0001230345674798106
+            },
+            {
+              "column": 233,
+              "weight": 4.946044398200978e-07
+            },
+            {
+              "column": 240,
+              "weight": 0.0009745018330688415
+            },
+            {
+              "column": 243,
+              "weight": 4.584940539179558e-05
+            },
+            {
+              "column": 246,
+              "weight": 0.00017666319271492122
+            },
+            {
+              "column": 248,
+              "weight": 5.743446001792591e-05
+            },
+            {
+              "column": 255,
+              "weight": 0.00019563642831647854
+            },
+            {
+              "column": 270,
+              "weight": 0.00024120203218103012
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "models": {
+        "DC": {
+          "column": 3,
+          "local_root": 0,
+          "bare_best_column": 3,
+          "bare_weight": 0.9978881249614038,
+          "previous_same_state_column": 2,
+          "previous_overlap_weight": 0.9978881249614038,
+          "previous_static_or_DC_independent_assigned_column": 3,
+          "operator_overlap_weight": 0.9999988879307317,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.2293343235323846,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 3,
+              "energy_Ha": -14067.373727516702,
+              "weight": 0.9978881249614038
+            },
+            {
+              "column": 68,
+              "energy_Ha": -14067.14439319317,
+              "weight": 1.7602106414622233e-05
+            },
+            {
+              "column": 88,
+              "energy_Ha": -14067.12746743995,
+              "weight": 1.2898504090250733e-05
+            },
+            {
+              "column": 104,
+              "energy_Ha": -14067.109143579119,
+              "weight": 8.948823003675507e-06
+            },
+            {
+              "column": 112,
+              "energy_Ha": -14067.102519341659,
+              "weight": 5.744769038069261e-07
+            },
+            {
+              "column": 122,
+              "energy_Ha": -14067.09201255112,
+              "weight": 1.132342116631252e-06
+            },
+            {
+              "column": 127,
+              "energy_Ha": -14067.088632517776,
+              "weight": 2.4391072863088617e-05
+            },
+            {
+              "column": 129,
+              "energy_Ha": -14067.087395679497,
+              "weight": 1.1446435266409735e-06
+            },
+            {
+              "column": 141,
+              "energy_Ha": -14067.078682865467,
+              "weight": 1.0898365816450413e-05
+            },
+            {
+              "column": 153,
+              "energy_Ha": -14067.070918506606,
+              "weight": 2.8022095432538842e-05
+            },
+            {
+              "column": 158,
+              "energy_Ha": -14067.068639532317,
+              "weight": 2.3112393101618494e-06
+            },
+            {
+              "column": 162,
+              "energy_Ha": -14067.066743477406,
+              "weight": 0.00016097795873546594
+            },
+            {
+              "column": 178,
+              "energy_Ha": -14067.058288121676,
+              "weight": 8.029220468909754e-06
+            },
+            {
+              "column": 186,
+              "energy_Ha": -14067.050202478524,
+              "weight": 0.00011225966209114555
+            },
+            {
+              "column": 193,
+              "energy_Ha": -14067.043646356822,
+              "weight": 6.982209522343912e-06
+            },
+            {
+              "column": 194,
+              "energy_Ha": -14067.042833639129,
+              "weight": 2.0439389663190842e-05
+            },
+            {
+              "column": 199,
+              "energy_Ha": -14067.038511084596,
+              "weight": 4.324341379740546e-06
+            },
+            {
+              "column": 201,
+              "energy_Ha": -14067.036057290243,
+              "weight": 2.5824530295716744e-05
+            },
+            {
+              "column": 210,
+              "energy_Ha": -14067.023756456883,
+              "weight": 7.312987731524454e-05
+            },
+            {
+              "column": 218,
+              "energy_Ha": -14067.016345732622,
+              "weight": 2.4798525397921132e-05
+            },
+            {
+              "column": 219,
+              "energy_Ha": -14067.0159003438,
+              "weight": 1.8025397455499228e-06
+            },
+            {
+              "column": 221,
+              "energy_Ha": -14067.011564271423,
+              "weight": 8.162165333085748e-05
+            },
+            {
+              "column": 229,
+              "energy_Ha": -14067.004857911088,
+              "weight": 8.219888134876207e-07
+            },
+            {
+              "column": 234,
+              "energy_Ha": -14066.999003248688,
+              "weight": 1.6127260238853107e-06
+            },
+            {
+              "column": 241,
+              "energy_Ha": -14066.989213412531,
+              "weight": 1.0861191856803478e-06
+            },
+            {
+              "column": 242,
+              "energy_Ha": -14066.988779098287,
+              "weight": 5.2180682414895214e-05
+            },
+            {
+              "column": 249,
+              "energy_Ha": -14066.980936695632,
+              "weight": 5.372839452143051e-05
+            },
+            {
+              "column": 251,
+              "energy_Ha": -14066.980079798124,
+              "weight": 0.0006053945940714153
+            },
+            {
+              "column": 254,
+              "energy_Ha": -14066.952592908121,
+              "weight": 0.00017979205786377634
+            },
+            {
+              "column": 257,
+              "energy_Ha": -14066.948695665864,
+              "weight": 0.0005824372493919896
+            },
+            {
+              "column": 277,
+              "energy_Ha": -14066.88874941622,
+              "weight": 6.707648886229474e-06
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 3,
+              "weight": 0.9978881249614038
+            },
+            {
+              "column": 68,
+              "weight": 1.7602106414622233e-05
+            },
+            {
+              "column": 88,
+              "weight": 1.2898504090250733e-05
+            },
+            {
+              "column": 104,
+              "weight": 8.948823003675507e-06
+            },
+            {
+              "column": 112,
+              "weight": 5.744769038069261e-07
+            },
+            {
+              "column": 122,
+              "weight": 1.132342116631252e-06
+            },
+            {
+              "column": 127,
+              "weight": 2.4391072863088617e-05
+            },
+            {
+              "column": 129,
+              "weight": 1.1446435266409735e-06
+            },
+            {
+              "column": 141,
+              "weight": 1.0898365816450413e-05
+            },
+            {
+              "column": 153,
+              "weight": 2.8022095432538842e-05
+            },
+            {
+              "column": 158,
+              "weight": 2.3112393101618494e-06
+            },
+            {
+              "column": 162,
+              "weight": 0.00016097795873546594
+            },
+            {
+              "column": 178,
+              "weight": 8.029220468909754e-06
+            },
+            {
+              "column": 186,
+              "weight": 0.00011225966209114555
+            },
+            {
+              "column": 193,
+              "weight": 6.982209522343912e-06
+            },
+            {
+              "column": 194,
+              "weight": 2.0439389663190842e-05
+            },
+            {
+              "column": 199,
+              "weight": 4.324341379740546e-06
+            },
+            {
+              "column": 201,
+              "weight": 2.5824530295716744e-05
+            },
+            {
+              "column": 210,
+              "weight": 7.312987731524454e-05
+            },
+            {
+              "column": 218,
+              "weight": 2.4798525397921132e-05
+            },
+            {
+              "column": 219,
+              "weight": 1.8025397455499228e-06
+            },
+            {
+              "column": 221,
+              "weight": 8.162165333085748e-05
+            },
+            {
+              "column": 229,
+              "weight": 8.219888134876207e-07
+            },
+            {
+              "column": 234,
+              "weight": 1.6127260238853107e-06
+            },
+            {
+              "column": 241,
+              "weight": 1.0861191856803478e-06
+            },
+            {
+              "column": 242,
+              "weight": 5.2180682414895214e-05
+            },
+            {
+              "column": 249,
+              "weight": 5.372839452143051e-05
+            },
+            {
+              "column": 251,
+              "weight": 0.0006053945940714153
+            },
+            {
+              "column": 254,
+              "weight": 0.00017979205786377634
+            },
+            {
+              "column": 257,
+              "weight": 0.0005824372493919896
+            },
+            {
+              "column": 277,
+              "weight": 6.707648886229474e-06
+            }
+          ]
+        },
+        "static_Breit": {
+          "column": 3,
+          "local_root": 0,
+          "bare_best_column": 3,
+          "bare_weight": 0.9977911109503844,
+          "previous_same_state_column": 2,
+          "previous_overlap_weight": 0.9977911109503844,
+          "previous_static_or_DC_independent_assigned_column": 3,
+          "operator_overlap_weight": 0.9999988879307317,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.22190515703550773,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 3,
+              "energy_Ha": -14053.225524911912,
+              "weight": 0.9977911109503844
+            },
+            {
+              "column": 70,
+              "energy_Ha": -14053.003619754876,
+              "weight": 1.881988869476614e-05
+            },
+            {
+              "column": 88,
+              "energy_Ha": -14052.986811116609,
+              "weight": 1.3590623528725194e-05
+            },
+            {
+              "column": 105,
+              "energy_Ha": -14052.968358923132,
+              "weight": 9.35584303216303e-06
+            },
+            {
+              "column": 114,
+              "energy_Ha": -14052.961727846337,
+              "weight": 3.93432511050862e-07
+            },
+            {
+              "column": 120,
+              "energy_Ha": -14052.953734106299,
+              "weight": 1.5740453085422992e-06
+            },
+            {
+              "column": 126,
+              "energy_Ha": -14052.949814047008,
+              "weight": 1.4217257173177012e-05
+            },
+            {
+              "column": 130,
+              "energy_Ha": -14052.947173903296,
+              "weight": 1.3902864126962616e-05
+            },
+            {
+              "column": 143,
+              "energy_Ha": -14052.93797565892,
+              "weight": 1.121862968751018e-05
+            },
+            {
+              "column": 154,
+              "energy_Ha": -14052.931208136186,
+              "weight": 1.3563464549807629e-05
+            },
+            {
+              "column": 158,
+              "energy_Ha": -14052.929494128159,
+              "weight": 2.2296790700248252e-05
+            },
+            {
+              "column": 164,
+              "energy_Ha": -14052.926119312078,
+              "weight": 0.00016253223103098854
+            },
+            {
+              "column": 179,
+              "energy_Ha": -14052.917558742907,
+              "weight": 7.798393340485887e-06
+            },
+            {
+              "column": 186,
+              "energy_Ha": -14052.909778961664,
+              "weight": 0.00010587657315105082
+            },
+            {
+              "column": 191,
+              "energy_Ha": -14052.905373644882,
+              "weight": 1.857861682356618e-06
+            },
+            {
+              "column": 194,
+              "energy_Ha": -14052.902243726041,
+              "weight": 2.114746068784434e-05
+            },
+            {
+              "column": 199,
+              "energy_Ha": -14052.898315755718,
+              "weight": 2.4527539415600795e-06
+            },
+            {
+              "column": 201,
+              "energy_Ha": -14052.897225583329,
+              "weight": 2.8869090134059193e-05
+            },
+            {
+              "column": 210,
+              "energy_Ha": -14052.885365121883,
+              "weight": 8.269064033074667e-05
+            },
+            {
+              "column": 217,
+              "energy_Ha": -14052.877992474834,
+              "weight": 1.7729338376160868e-05
+            },
+            {
+              "column": 219,
+              "energy_Ha": -14052.877367113631,
+              "weight": 3.7900689680637226e-05
+            },
+            {
+              "column": 221,
+              "energy_Ha": -14052.871797425492,
+              "weight": 5.1275462361525104e-05
+            },
+            {
+              "column": 227,
+              "energy_Ha": -14052.86657964687,
+              "weight": 8.079734501684024e-07
+            },
+            {
+              "column": 234,
+              "energy_Ha": -14052.860786418447,
+              "weight": 1.3374513184278255e-06
+            },
+            {
+              "column": 241,
+              "energy_Ha": -14052.85099980662,
+              "weight": 6.673013695336167e-07
+            },
+            {
+              "column": 242,
+              "energy_Ha": -14052.850507286548,
+              "weight": 4.861353799080678e-05
+            },
+            {
+              "column": 249,
+              "energy_Ha": -14052.842732414609,
+              "weight": 1.439740130744191e-05
+            },
+            {
+              "column": 251,
+              "energy_Ha": -14052.841200179224,
+              "weight": 0.0007277456209742333
+            },
+            {
+              "column": 254,
+              "energy_Ha": -14052.813365827276,
+              "weight": 3.291660678392772e-05
+            },
+            {
+              "column": 257,
+              "energy_Ha": -14052.809271394475,
+              "weight": 0.0007363436144338046
+            },
+            {
+              "column": 275,
+              "energy_Ha": -14052.750592882094,
+              "weight": 6.996207956859365e-06
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 3,
+              "weight": 0.9977911109503844
+            },
+            {
+              "column": 70,
+              "weight": 1.881988869476614e-05
+            },
+            {
+              "column": 88,
+              "weight": 1.3590623528725194e-05
+            },
+            {
+              "column": 105,
+              "weight": 9.35584303216303e-06
+            },
+            {
+              "column": 114,
+              "weight": 3.93432511050862e-07
+            },
+            {
+              "column": 120,
+              "weight": 1.5740453085422992e-06
+            },
+            {
+              "column": 126,
+              "weight": 1.4217257173177012e-05
+            },
+            {
+              "column": 130,
+              "weight": 1.3902864126962616e-05
+            },
+            {
+              "column": 143,
+              "weight": 1.121862968751018e-05
+            },
+            {
+              "column": 154,
+              "weight": 1.3563464549807629e-05
+            },
+            {
+              "column": 158,
+              "weight": 2.2296790700248252e-05
+            },
+            {
+              "column": 164,
+              "weight": 0.00016253223103098854
+            },
+            {
+              "column": 179,
+              "weight": 7.798393340485887e-06
+            },
+            {
+              "column": 186,
+              "weight": 0.00010587657315105082
+            },
+            {
+              "column": 191,
+              "weight": 1.857861682356618e-06
+            },
+            {
+              "column": 194,
+              "weight": 2.114746068784434e-05
+            },
+            {
+              "column": 199,
+              "weight": 2.4527539415600795e-06
+            },
+            {
+              "column": 201,
+              "weight": 2.8869090134059193e-05
+            },
+            {
+              "column": 210,
+              "weight": 8.269064033074667e-05
+            },
+            {
+              "column": 217,
+              "weight": 1.7729338376160868e-05
+            },
+            {
+              "column": 219,
+              "weight": 3.7900689680637226e-05
+            },
+            {
+              "column": 221,
+              "weight": 5.1275462361525104e-05
+            },
+            {
+              "column": 227,
+              "weight": 8.079734501684024e-07
+            },
+            {
+              "column": 234,
+              "weight": 1.3374513184278255e-06
+            },
+            {
+              "column": 241,
+              "weight": 6.673013695336167e-07
+            },
+            {
+              "column": 242,
+              "weight": 4.861353799080678e-05
+            },
+            {
+              "column": 249,
+              "weight": 1.439740130744191e-05
+            },
+            {
+              "column": 251,
+              "weight": 0.0007277456209742333
+            },
+            {
+              "column": 254,
+              "weight": 3.291660678392772e-05
+            },
+            {
+              "column": 257,
+              "weight": 0.0007363436144338046
+            },
+            {
+              "column": 275,
+              "weight": 6.996207956859365e-06
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "models": {
+        "DC": {
+          "column": 2,
+          "local_root": 0,
+          "bare_best_column": 2,
+          "bare_weight": 0.9797507504465508,
+          "previous_same_state_column": 3,
+          "previous_overlap_weight": 0.9797507504465508,
+          "previous_static_or_DC_independent_assigned_column": 2,
+          "operator_overlap_weight": 0.9999761227417597,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.16340375525396666,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 2,
+              "energy_Ha": -14067.374146668317,
+              "weight": 0.9797507504465508
+            },
+            {
+              "column": 20,
+              "energy_Ha": -14067.210742913063,
+              "weight": 0.003951756384575602
+            },
+            {
+              "column": 31,
+              "energy_Ha": -14067.17569682413,
+              "weight": 0.00045441848074358583
+            },
+            {
+              "column": 35,
+              "energy_Ha": -14067.171563774677,
+              "weight": 4.2266692230789914e-07
+            },
+            {
+              "column": 47,
+              "energy_Ha": -14067.163588798985,
+              "weight": 0.00032655460147718685
+            },
+            {
+              "column": 52,
+              "energy_Ha": -14067.160761534959,
+              "weight": 2.108866825499979e-05
+            },
+            {
+              "column": 74,
+              "energy_Ha": -14067.138656507,
+              "weight": 0.0030432093874280977
+            },
+            {
+              "column": 77,
+              "energy_Ha": -14067.136216692848,
+              "weight": 0.005994323682789426
+            },
+            {
+              "column": 97,
+              "energy_Ha": -14067.115343185937,
+              "weight": 8.888376206540244e-05
+            },
+            {
+              "column": 114,
+              "energy_Ha": -14067.102194517724,
+              "weight": 0.004783827651779858
+            },
+            {
+              "column": 144,
+              "energy_Ha": -14067.076720247394,
+              "weight": 0.0005681114265413718
+            },
+            {
+              "column": 164,
+              "energy_Ha": -14067.066394304964,
+              "weight": 0.0009167356516813583
+            },
+            {
+              "column": 286,
+              "energy_Ha": -14066.867300797194,
+              "weight": 1.880783939375671e-05
+            },
+            {
+              "column": 287,
+              "energy_Ha": -14066.839491118228,
+              "weight": 8.110934979729681e-05
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 2,
+              "weight": 0.9797507504465508
+            },
+            {
+              "column": 20,
+              "weight": 0.003951756384575602
+            },
+            {
+              "column": 31,
+              "weight": 0.00045441848074358583
+            },
+            {
+              "column": 35,
+              "weight": 4.2266692230789914e-07
+            },
+            {
+              "column": 47,
+              "weight": 0.00032655460147718685
+            },
+            {
+              "column": 52,
+              "weight": 2.108866825499979e-05
+            },
+            {
+              "column": 74,
+              "weight": 0.0030432093874280977
+            },
+            {
+              "column": 77,
+              "weight": 0.005994323682789426
+            },
+            {
+              "column": 97,
+              "weight": 8.888376206540244e-05
+            },
+            {
+              "column": 114,
+              "weight": 0.004783827651779858
+            },
+            {
+              "column": 144,
+              "weight": 0.0005681114265413718
+            },
+            {
+              "column": 164,
+              "weight": 0.0009167356516813583
+            },
+            {
+              "column": 286,
+              "weight": 1.880783939375671e-05
+            },
+            {
+              "column": 287,
+              "weight": 8.110934979729681e-05
+            }
+          ]
+        },
+        "static_Breit": {
+          "column": 2,
+          "local_root": 0,
+          "bare_best_column": 2,
+          "bare_weight": 0.9783658224131576,
+          "previous_same_state_column": 3,
+          "previous_overlap_weight": 0.9783658224131576,
+          "previous_static_or_DC_independent_assigned_column": 2,
+          "operator_overlap_weight": 0.9999761227417597,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.15593345969136863,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 2,
+              "energy_Ha": -14053.22618369773,
+              "weight": 0.9783658224131576
+            },
+            {
+              "column": 21,
+              "energy_Ha": -14053.070250238039,
+              "weight": 0.004091062559886632
+            },
+            {
+              "column": 30,
+              "energy_Ha": -14053.03720002307,
+              "weight": 0.0005067030561970657
+            },
+            {
+              "column": 35,
+              "energy_Ha": -14053.03052066183,
+              "weight": 1.5331554522858064e-07
+            },
+            {
+              "column": 46,
+              "energy_Ha": -14053.025154178786,
+              "weight": 0.00035653051128437836
+            },
+            {
+              "column": 53,
+              "energy_Ha": -14053.019928571126,
+              "weight": 2.7066132861123773e-05
+            },
+            {
+              "column": 74,
+              "energy_Ha": -14052.99827706863,
+              "weight": 0.0028267982654275425
+            },
+            {
+              "column": 75,
+              "energy_Ha": -14052.99731460366,
+              "weight": 0.006708940254762775
+            },
+            {
+              "column": 96,
+              "energy_Ha": -14052.976795200657,
+              "weight": 8.75451542841766e-05
+            },
+            {
+              "column": 113,
+              "energy_Ha": -14052.962820726834,
+              "weight": 0.005314044670906095
+            },
+            {
+              "column": 142,
+              "energy_Ha": -14052.9381920148,
+              "weight": 0.0006081695032450821
+            },
+            {
+              "column": 162,
+              "energy_Ha": -14052.92804790109,
+              "weight": 0.0010027903579773172
+            },
+            {
+              "column": 286,
+              "energy_Ha": -14052.729372737274,
+              "weight": 1.9443740017833138e-05
+            },
+            {
+              "column": 287,
+              "energy_Ha": -14052.701592320695,
+              "weight": 8.493006444741987e-05
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 2,
+              "weight": 0.9783658224131576
+            },
+            {
+              "column": 21,
+              "weight": 0.004091062559886632
+            },
+            {
+              "column": 30,
+              "weight": 0.0005067030561970657
+            },
+            {
+              "column": 35,
+              "weight": 1.5331554522858064e-07
+            },
+            {
+              "column": 46,
+              "weight": 0.00035653051128437836
+            },
+            {
+              "column": 53,
+              "weight": 2.7066132861123773e-05
+            },
+            {
+              "column": 74,
+              "weight": 0.0028267982654275425
+            },
+            {
+              "column": 75,
+              "weight": 0.006708940254762775
+            },
+            {
+              "column": 96,
+              "weight": 8.75451542841766e-05
+            },
+            {
+              "column": 113,
+              "weight": 0.005314044670906095
+            },
+            {
+              "column": 142,
+              "weight": 0.0006081695032450821
+            },
+            {
+              "column": 162,
+              "weight": 0.0010027903579773172
+            },
+            {
+              "column": 286,
+              "weight": 1.9443740017833138e-05
+            },
+            {
+              "column": 287,
+              "weight": 8.493006444741987e-05
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "models": {
+        "DC": {
+          "column": 4,
+          "local_root": 0,
+          "bare_best_column": 4,
+          "bare_weight": 0.983166561325303,
+          "previous_same_state_column": 4,
+          "previous_overlap_weight": 0.983166561325303,
+          "previous_static_or_DC_independent_assigned_column": 4,
+          "operator_overlap_weight": 0.9999771149732297,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.12741771226137644,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 4,
+              "energy_Ha": -14067.36019162638,
+              "weight": 0.983166561325303
+            },
+            {
+              "column": 7,
+              "energy_Ha": -14067.232773914118,
+              "weight": 0.0005374073530687604
+            },
+            {
+              "column": 14,
+              "energy_Ha": -14067.220248645244,
+              "weight": 0.00017956590690461845
+            },
+            {
+              "column": 23,
+              "energy_Ha": -14067.206065009768,
+              "weight": 0.002018789214386359
+            },
+            {
+              "column": 28,
+              "energy_Ha": -14067.17852951918,
+              "weight": 1.848324859844139e-06
+            },
+            {
+              "column": 38,
+              "energy_Ha": -14067.16898598547,
+              "weight": 6.051225014299518e-05
+            },
+            {
+              "column": 41,
+              "energy_Ha": -14067.167810614963,
+              "weight": 0.00010627918888002354
+            },
+            {
+              "column": 46,
+              "energy_Ha": -14067.164033417483,
+              "weight": 9.754510632667728e-05
+            },
+            {
+              "column": 57,
+              "energy_Ha": -14067.153787022879,
+              "weight": 0.00048205561586972393
+            },
+            {
+              "column": 62,
+              "energy_Ha": -14067.150395918348,
+              "weight": 0.0024369027207926937
+            },
+            {
+              "column": 70,
+              "energy_Ha": -14067.143069889742,
+              "weight": 0.0015671457237604078
+            },
+            {
+              "column": 73,
+              "energy_Ha": -14067.138857122834,
+              "weight": 0.0008444645335745892
+            },
+            {
+              "column": 85,
+              "energy_Ha": -14067.129393671621,
+              "weight": 0.0026188378559162833
+            },
+            {
+              "column": 94,
+              "energy_Ha": -14067.121652824373,
+              "weight": 0.002130400230578366
+            },
+            {
+              "column": 98,
+              "energy_Ha": -14067.11524993315,
+              "weight": 8.053878684003033e-06
+            },
+            {
+              "column": 109,
+              "energy_Ha": -14067.105188262944,
+              "weight": 3.1991787105242082e-06
+            },
+            {
+              "column": 118,
+              "energy_Ha": -14067.094829161935,
+              "weight": 0.0008062886790056842
+            },
+            {
+              "column": 125,
+              "energy_Ha": -14067.090095502794,
+              "weight": 0.0005380409839468224
+            },
+            {
+              "column": 149,
+              "energy_Ha": -14067.075082520516,
+              "weight": 0.0005287955355578089
+            },
+            {
+              "column": 159,
+              "energy_Ha": -14067.068162191708,
+              "weight": 0.0006499986874638285
+            },
+            {
+              "column": 168,
+              "energy_Ha": -14067.065487120874,
+              "weight": 0.0010967379262077004
+            },
+            {
+              "column": 269,
+              "energy_Ha": -14066.924632182167,
+              "weight": 1.7148190589715314e-05
+            },
+            {
+              "column": 270,
+              "energy_Ha": -14066.89787954453,
+              "weight": 9.164987504792208e-05
+            },
+            {
+              "column": 279,
+              "energy_Ha": -14066.882912627541,
+              "weight": 1.0095779235498768e-09
+            },
+            {
+              "column": 285,
+              "energy_Ha": -14066.867788392405,
+              "weight": 1.7912965425661452e-06
+            },
+            {
+              "column": 290,
+              "energy_Ha": -14066.836652974916,
+              "weight": 9.979408300719436e-06
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 4,
+              "weight": 0.983166561325303
+            },
+            {
+              "column": 7,
+              "weight": 0.0005374073530687604
+            },
+            {
+              "column": 14,
+              "weight": 0.00017956590690461845
+            },
+            {
+              "column": 23,
+              "weight": 0.002018789214386359
+            },
+            {
+              "column": 28,
+              "weight": 1.848324859844139e-06
+            },
+            {
+              "column": 38,
+              "weight": 6.051225014299518e-05
+            },
+            {
+              "column": 41,
+              "weight": 0.00010627918888002354
+            },
+            {
+              "column": 46,
+              "weight": 9.754510632667728e-05
+            },
+            {
+              "column": 57,
+              "weight": 0.00048205561586972393
+            },
+            {
+              "column": 62,
+              "weight": 0.0024369027207926937
+            },
+            {
+              "column": 70,
+              "weight": 0.0015671457237604078
+            },
+            {
+              "column": 73,
+              "weight": 0.0008444645335745892
+            },
+            {
+              "column": 85,
+              "weight": 0.0026188378559162833
+            },
+            {
+              "column": 94,
+              "weight": 0.002130400230578366
+            },
+            {
+              "column": 98,
+              "weight": 8.053878684003033e-06
+            },
+            {
+              "column": 109,
+              "weight": 3.1991787105242082e-06
+            },
+            {
+              "column": 118,
+              "weight": 0.0008062886790056842
+            },
+            {
+              "column": 125,
+              "weight": 0.0005380409839468224
+            },
+            {
+              "column": 149,
+              "weight": 0.0005287955355578089
+            },
+            {
+              "column": 159,
+              "weight": 0.0006499986874638285
+            },
+            {
+              "column": 168,
+              "weight": 0.0010967379262077004
+            },
+            {
+              "column": 269,
+              "weight": 1.7148190589715314e-05
+            },
+            {
+              "column": 270,
+              "weight": 9.164987504792208e-05
+            },
+            {
+              "column": 279,
+              "weight": 1.0095779235498768e-09
+            },
+            {
+              "column": 285,
+              "weight": 1.7912965425661452e-06
+            },
+            {
+              "column": 290,
+              "weight": 9.979408300719436e-06
+            }
+          ]
+        },
+        "static_Breit": {
+          "column": 4,
+          "local_root": 0,
+          "bare_best_column": 4,
+          "bare_weight": 0.981927601253492,
+          "previous_same_state_column": 4,
+          "previous_overlap_weight": 0.981927601253492,
+          "previous_static_or_DC_independent_assigned_column": 4,
+          "operator_overlap_weight": 0.9999771149732297,
+          "bare_binding_disagrees": false,
+          "adjacent_binding_disagrees": false,
+          "minimum_same_symmetry_gap_Ha": 0.12058894447000057,
+          "unambiguous": true,
+          "complete_bare_distribution": [
+            {
+              "column": 4,
+              "energy_Ha": -14053.212339464044,
+              "weight": 0.981927601253492
+            },
+            {
+              "column": 7,
+              "energy_Ha": -14053.091750519574,
+              "weight": 0.0005995383182049071
+            },
+            {
+              "column": 14,
+              "energy_Ha": -14053.07934515399,
+              "weight": 0.00019188124789878763
+            },
+            {
+              "column": 23,
+              "energy_Ha": -14053.06565445451,
+              "weight": 0.002008638394847944
+            },
+            {
+              "column": 29,
+              "energy_Ha": -14053.037377282368,
+              "weight": 5.575004318036509e-06
+            },
+            {
+              "column": 36,
+              "energy_Ha": -14053.03044738366,
+              "weight": 5.034657092420304e-05
+            },
+            {
+              "column": 41,
+              "energy_Ha": -14053.026954311605,
+              "weight": 0.00018916308000260513
+            },
+            {
+              "column": 44,
+              "energy_Ha": -14053.025427044202,
+              "weight": 4.424770014643878e-05
+            },
+            {
+              "column": 58,
+              "energy_Ha": -14053.01442090933,
+              "weight": 0.0009538464745830765
+            },
+            {
+              "column": 62,
+              "energy_Ha": -14053.010284143775,
+              "weight": 0.0022240332460474665
+            },
+            {
+              "column": 69,
+              "energy_Ha": -14053.003982294142,
+              "weight": 0.0021298892229147416
+            },
+            {
+              "column": 73,
+              "energy_Ha": -14052.998278551344,
+              "weight": 0.0009391119583042198
+            },
+            {
+              "column": 85,
+              "energy_Ha": -14052.988841695169,
+              "weight": 0.0025068032543731494
+            },
+            {
+              "column": 94,
+              "energy_Ha": -14052.980948255416,
+              "weight": 0.002148827191607928
+            },
+            {
+              "column": 98,
+              "energy_Ha": -14052.976647092168,
+              "weight": 8.8033060467288e-06
+            },
+            {
+              "column": 108,
+              "energy_Ha": -14052.966786281313,
+              "weight": 2.1513291362574877e-06
+            },
+            {
+              "column": 117,
+              "energy_Ha": -14052.955838076408,
+              "weight": 0.0007951778908254223
+            },
+            {
+              "column": 124,
+              "energy_Ha": -14052.951287058473,
+              "weight": 0.0007074833392632151
+            },
+            {
+              "column": 148,
+              "energy_Ha": -14052.936528419998,
+              "weight": 0.000583437913237304
+            },
+            {
+              "column": 157,
+              "energy_Ha": -14052.929696477448,
+              "weight": 0.0006113736721255353
+            },
+            {
+              "column": 163,
+              "energy_Ha": -14052.9268681409,
+              "weight": 0.0012470356421622538
+            },
+            {
+              "column": 269,
+              "energy_Ha": -14052.784177220241,
+              "weight": 1.7566116136887373e-05
+            },
+            {
+              "column": 272,
+              "energy_Ha": -14052.757450634017,
+              "weight": 9.524726033267342e-05
+            },
+            {
+              "column": 279,
+              "energy_Ha": -14052.744944446513,
+              "weight": 8.011807574059918e-09
+            },
+            {
+              "column": 285,
+              "energy_Ha": -14052.729867982733,
+              "weight": 1.8176613015997157e-06
+            },
+            {
+              "column": 289,
+              "energy_Ha": -14052.69874549586,
+              "weight": 1.0394939958722554e-05
+            }
+          ],
+          "complete_previous_distribution": [
+            {
+              "column": 4,
+              "weight": 0.981927601253492
+            },
+            {
+              "column": 7,
+              "weight": 0.0005995383182049071
+            },
+            {
+              "column": 14,
+              "weight": 0.00019188124789878763
+            },
+            {
+              "column": 23,
+              "weight": 0.002008638394847944
+            },
+            {
+              "column": 29,
+              "weight": 5.575004318036509e-06
+            },
+            {
+              "column": 36,
+              "weight": 5.034657092420304e-05
+            },
+            {
+              "column": 41,
+              "weight": 0.00018916308000260513
+            },
+            {
+              "column": 44,
+              "weight": 4.424770014643878e-05
+            },
+            {
+              "column": 58,
+              "weight": 0.0009538464745830765
+            },
+            {
+              "column": 62,
+              "weight": 0.0022240332460474665
+            },
+            {
+              "column": 69,
+              "weight": 0.0021298892229147416
+            },
+            {
+              "column": 73,
+              "weight": 0.0009391119583042198
+            },
+            {
+              "column": 85,
+              "weight": 0.0025068032543731494
+            },
+            {
+              "column": 94,
+              "weight": 0.002148827191607928
+            },
+            {
+              "column": 98,
+              "weight": 8.8033060467288e-06
+            },
+            {
+              "column": 108,
+              "weight": 2.1513291362574877e-06
+            },
+            {
+              "column": 117,
+              "weight": 0.0007951778908254223
+            },
+            {
+              "column": 124,
+              "weight": 0.0007074833392632151
+            },
+            {
+              "column": 148,
+              "weight": 0.000583437913237304
+            },
+            {
+              "column": 157,
+              "weight": 0.0006113736721255353
+            },
+            {
+              "column": 163,
+              "weight": 0.0012470356421622538
+            },
+            {
+              "column": 269,
+              "weight": 1.7566116136887373e-05
+            },
+            {
+              "column": 272,
+              "weight": 9.524726033267342e-05
+            },
+            {
+              "column": 279,
+              "weight": 8.011807574059918e-09
+            },
+            {
+              "column": 285,
+              "weight": 1.8176613015997157e-06
+            },
+            {
+              "column": 289,
+              "weight": 1.0394939958722554e-05
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "complete_previous_to_current_assignment": {
+    "DC": [
+      {
+        "source_column": 0,
+        "destination_column": 0,
+        "twoJ": 1,
+        "parity": 1,
+        "squared_overlap": 0.9925246067684146,
+        "individual_best_column": 0,
+        "top_two_margin": 0.9887363599517841
+      },
+      {
+        "source_column": 1,
+        "destination_column": 1,
+        "twoJ": 3,
+        "parity": 1,
+        "squared_overlap": 0.9969917370319411,
+        "individual_best_column": 1,
+        "top_two_margin": 0.9960564472765292
+      },
+      {
+        "source_column": 2,
+        "destination_column": 3,
+        "twoJ": 5,
+        "parity": 1,
+        "squared_overlap": 0.9978881249614038,
+        "individual_best_column": 3,
+        "top_two_margin": 0.9972827303673324
+      },
+      {
+        "source_column": 3,
+        "destination_column": 2,
+        "twoJ": 1,
+        "parity": -1,
+        "squared_overlap": 0.9797507504465508,
+        "individual_best_column": 2,
+        "top_two_margin": 0.9737564267637614
+      },
+      {
+        "source_column": 4,
+        "destination_column": 4,
+        "twoJ": 3,
+        "parity": -1,
+        "squared_overlap": 0.983166561325303,
+        "individual_best_column": 4,
+        "top_two_margin": 0.9805477234693867
+      }
+    ],
+    "static_Breit": [
+      {
+        "source_column": 0,
+        "destination_column": 0,
+        "twoJ": 1,
+        "parity": 1,
+        "squared_overlap": 0.9922600320743542,
+        "individual_best_column": 0,
+        "top_two_margin": 0.9885342486636356
+      },
+      {
+        "source_column": 1,
+        "destination_column": 1,
+        "twoJ": 3,
+        "parity": 1,
+        "squared_overlap": 0.9968468925943896,
+        "individual_best_column": 1,
+        "top_two_margin": 0.9958723907613208
+      },
+      {
+        "source_column": 2,
+        "destination_column": 3,
+        "twoJ": 5,
+        "parity": 1,
+        "squared_overlap": 0.9977911109503844,
+        "individual_best_column": 3,
+        "top_two_margin": 0.9970547673359507
+      },
+      {
+        "source_column": 3,
+        "destination_column": 2,
+        "twoJ": 1,
+        "parity": -1,
+        "squared_overlap": 0.9783658224131576,
+        "individual_best_column": 2,
+        "top_two_margin": 0.9716568821583949
+      },
+      {
+        "source_column": 4,
+        "destination_column": 4,
+        "twoJ": 3,
+        "parity": -1,
+        "squared_overlap": 0.981927601253492,
+        "individual_best_column": 4,
+        "top_two_margin": 0.9794207979991189
+      }
+    ]
+  },
+  "complete_DC_to_static_assignment": [
+    {
+      "source_column": 0,
+      "destination_column": 0,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9999976550297465,
+      "individual_best_column": 0,
+      "top_two_margin": 0.9999965481168488
+    },
+    {
+      "source_column": 126,
+      "destination_column": 127,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9994494426251255,
+      "individual_best_column": 127,
+      "top_two_margin": 0.9990792373171553
+    },
+    {
+      "source_column": 147,
+      "destination_column": 144,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9993420225448417,
+      "individual_best_column": 144,
+      "top_two_margin": 0.9989737488527516
+    },
+    {
+      "source_column": 166,
+      "destination_column": 167,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9992732837950214,
+      "individual_best_column": 167,
+      "top_two_margin": 0.9990014983800345
+    },
+    {
+      "source_column": 185,
+      "destination_column": 185,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9986008296488191,
+      "individual_best_column": 185,
+      "top_two_margin": 0.9981668940993986
+    },
+    {
+      "source_column": 200,
+      "destination_column": 198,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9976565566911519,
+      "individual_best_column": 198,
+      "top_two_margin": 0.9968250701343714
+    },
+    {
+      "source_column": 204,
+      "destination_column": 204,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9983737407999637,
+      "individual_best_column": 204,
+      "top_two_margin": 0.9975050260234117
+    },
+    {
+      "source_column": 212,
+      "destination_column": 212,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9991811632287793,
+      "individual_best_column": 212,
+      "top_two_margin": 0.9989203282532289
+    },
+    {
+      "source_column": 224,
+      "destination_column": 224,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9985553408327968,
+      "individual_best_column": 224,
+      "top_two_margin": 0.9975553415262981
+    },
+    {
+      "source_column": 235,
+      "destination_column": 235,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.976903820529934,
+      "individual_best_column": 235,
+      "top_two_margin": 0.9560019372153529
+    },
+    {
+      "source_column": 239,
+      "destination_column": 239,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.978805982366769,
+      "individual_best_column": 239,
+      "top_two_margin": 0.9577804559968442
+    },
+    {
+      "source_column": 245,
+      "destination_column": 245,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9992576781463525,
+      "individual_best_column": 245,
+      "top_two_margin": 0.9987176063607578
+    },
+    {
+      "source_column": 256,
+      "destination_column": 256,
+      "twoJ": 1,
+      "parity": 1,
+      "squared_overlap": 0.9999478855250725,
+      "individual_best_column": 256,
+      "top_two_margin": 0.9999366317720483
+    },
+    {
+      "source_column": 3,
+      "destination_column": 3,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9999988879307317,
+      "individual_best_column": 3,
+      "top_two_margin": 0.9999984797697298
+    },
+    {
+      "source_column": 68,
+      "destination_column": 70,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.999992315865865,
+      "individual_best_column": 70,
+      "top_two_margin": 0.9999894622200605
+    },
+    {
+      "source_column": 88,
+      "destination_column": 88,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9999841989754393,
+      "individual_best_column": 88,
+      "top_two_margin": 0.9999791516197578
+    },
+    {
+      "source_column": 104,
+      "destination_column": 105,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9997075184533672,
+      "individual_best_column": 105,
+      "top_two_margin": 0.9994544015457755
+    },
+    {
+      "source_column": 112,
+      "destination_column": 114,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9989934962339139,
+      "individual_best_column": 114,
+      "top_two_margin": 0.9984456042177711
+    },
+    {
+      "source_column": 122,
+      "destination_column": 120,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.999183428904829,
+      "individual_best_column": 120,
+      "top_two_margin": 0.9986392501931803
+    },
+    {
+      "source_column": 127,
+      "destination_column": 126,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.6709886579637244,
+      "individual_best_column": 126,
+      "top_two_margin": 0.34225203238060475
+    },
+    {
+      "source_column": 129,
+      "destination_column": 130,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.6710364049336787,
+      "individual_best_column": 130,
+      "top_two_margin": 0.34234053048336927
+    },
+    {
+      "source_column": 141,
+      "destination_column": 143,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9998274040976898,
+      "individual_best_column": 143,
+      "top_two_margin": 0.9997797171016062
+    },
+    {
+      "source_column": 153,
+      "destination_column": 154,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.5960132745155174,
+      "individual_best_column": 154,
+      "top_two_margin": 0.19306427193700865
+    },
+    {
+      "source_column": 158,
+      "destination_column": 158,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.5967915531091715,
+      "individual_best_column": 158,
+      "top_two_margin": 0.1937734316660794
+    },
+    {
+      "source_column": 162,
+      "destination_column": 164,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9987026534511675,
+      "individual_best_column": 164,
+      "top_two_margin": 0.9978330656549539
+    },
+    {
+      "source_column": 178,
+      "destination_column": 179,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9997825410251077,
+      "individual_best_column": 179,
+      "top_two_margin": 0.9997264308581774
+    },
+    {
+      "source_column": 186,
+      "destination_column": 186,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9987182365130847,
+      "individual_best_column": 186,
+      "top_two_margin": 0.9983865163638491
+    },
+    {
+      "source_column": 193,
+      "destination_column": 191,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9457490331299174,
+      "individual_best_column": 191,
+      "top_two_margin": 0.8923308860516902
+    },
+    {
+      "source_column": 194,
+      "destination_column": 194,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9448742064757132,
+      "individual_best_column": 194,
+      "top_two_margin": 0.8911199321335824
+    },
+    {
+      "source_column": 199,
+      "destination_column": 199,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.7090252292110498,
+      "individual_best_column": 199,
+      "top_two_margin": 0.4192169184174609
+    },
+    {
+      "source_column": 201,
+      "destination_column": 201,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.7098760133662071,
+      "individual_best_column": 201,
+      "top_two_margin": 0.420735895575231
+    },
+    {
+      "source_column": 210,
+      "destination_column": 210,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9978151770223745,
+      "individual_best_column": 210,
+      "top_two_margin": 0.9969262501544245
+    },
+    {
+      "source_column": 218,
+      "destination_column": 217,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.6994688400148344,
+      "individual_best_column": 217,
+      "top_two_margin": 0.4187003171056957
+    },
+    {
+      "source_column": 219,
+      "destination_column": 219,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.6881873865478819,
+      "individual_best_column": 219,
+      "top_two_margin": 0.39055144766669053
+    },
+    {
+      "source_column": 221,
+      "destination_column": 221,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9662961865851272,
+      "individual_best_column": 221,
+      "top_two_margin": 0.9364285366616609
+    },
+    {
+      "source_column": 229,
+      "destination_column": 227,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9998878108347787,
+      "individual_best_column": 227,
+      "top_two_margin": 0.9998518712110503
+    },
+    {
+      "source_column": 234,
+      "destination_column": 234,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9998472093117581,
+      "individual_best_column": 234,
+      "top_two_margin": 0.9997978800428415
+    },
+    {
+      "source_column": 241,
+      "destination_column": 241,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9992402682324537,
+      "individual_best_column": 241,
+      "top_two_margin": 0.9985322135432754
+    },
+    {
+      "source_column": 242,
+      "destination_column": 242,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9984720873536681,
+      "individual_best_column": 242,
+      "top_two_margin": 0.9977599605605251
+    },
+    {
+      "source_column": 249,
+      "destination_column": 249,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9764367922242849,
+      "individual_best_column": 249,
+      "top_two_margin": 0.9532080479121825
+    },
+    {
+      "source_column": 251,
+      "destination_column": 251,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9753012771181608,
+      "individual_best_column": 251,
+      "top_two_margin": 0.9519167861142087
+    },
+    {
+      "source_column": 254,
+      "destination_column": 254,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9203906083481975,
+      "individual_best_column": 254,
+      "top_two_margin": 0.8411688240698734
+    },
+    {
+      "source_column": 257,
+      "destination_column": 257,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.920529786084462,
+      "individual_best_column": 257,
+      "top_two_margin": 0.8411766133081172
+    },
+    {
+      "source_column": 277,
+      "destination_column": 275,
+      "twoJ": 5,
+      "parity": 1,
+      "squared_overlap": 0.9999973341497889,
+      "individual_best_column": 275,
+      "top_two_margin": 0.9999965562424112
+    },
+    {
+      "source_column": 1,
+      "destination_column": 1,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9999982694977997,
+      "individual_best_column": 1,
+      "top_two_margin": 0.9999977295782932
+    },
+    {
+      "source_column": 86,
+      "destination_column": 86,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9999929329414604,
+      "individual_best_column": 86,
+      "top_two_margin": 0.9999902624936599
+    },
+    {
+      "source_column": 99,
+      "destination_column": 101,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9999781491774452,
+      "individual_best_column": 101,
+      "top_two_margin": 0.9999675043694325
+    },
+    {
+      "source_column": 121,
+      "destination_column": 123,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9891194009914807,
+      "individual_best_column": 123,
+      "top_two_margin": 0.9783001275245227
+    },
+    {
+      "source_column": 131,
+      "destination_column": 131,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9874276208247597,
+      "individual_best_column": 131,
+      "top_two_margin": 0.9766555583407144
+    },
+    {
+      "source_column": 143,
+      "destination_column": 147,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.991893088389337,
+      "individual_best_column": 147,
+      "top_two_margin": 0.9858904694622203
+    },
+    {
+      "source_column": 151,
+      "destination_column": 151,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9727680573511941,
+      "individual_best_column": 151,
+      "top_two_margin": 0.9519162106996993
+    },
+    {
+      "source_column": 157,
+      "destination_column": 161,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9786255038151298,
+      "individual_best_column": 161,
+      "top_two_margin": 0.9578894254330949
+    },
+    {
+      "source_column": 172,
+      "destination_column": 175,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9966128331279572,
+      "individual_best_column": 175,
+      "top_two_margin": 0.9943863224828969
+    },
+    {
+      "source_column": 184,
+      "destination_column": 184,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9839530483919229,
+      "individual_best_column": 184,
+      "top_two_margin": 0.9709498428724945
+    },
+    {
+      "source_column": 191,
+      "destination_column": 190,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9760490450590201,
+      "individual_best_column": 190,
+      "top_two_margin": 0.963307497880071
+    },
+    {
+      "source_column": 198,
+      "destination_column": 197,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9869448858507114,
+      "individual_best_column": 197,
+      "top_two_margin": 0.9763875891093687
+    },
+    {
+      "source_column": 203,
+      "destination_column": 205,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9955399916288904,
+      "individual_best_column": 205,
+      "top_two_margin": 0.993711357014087
+    },
+    {
+      "source_column": 207,
+      "destination_column": 207,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9950555615843413,
+      "individual_best_column": 207,
+      "top_two_margin": 0.9919969031633835
+    },
+    {
+      "source_column": 208,
+      "destination_column": 208,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9954235806273128,
+      "individual_best_column": 208,
+      "top_two_margin": 0.9933978547651247
+    },
+    {
+      "source_column": 213,
+      "destination_column": 213,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9899439737297667,
+      "individual_best_column": 213,
+      "top_two_margin": 0.9865607217306801
+    },
+    {
+      "source_column": 220,
+      "destination_column": 220,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9943003147738478,
+      "individual_best_column": 220,
+      "top_two_margin": 0.9906631848479883
+    },
+    {
+      "source_column": 232,
+      "destination_column": 233,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9992364777221595,
+      "individual_best_column": 233,
+      "top_two_margin": 0.9989608407567772
+    },
+    {
+      "source_column": 240,
+      "destination_column": 240,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9980249649569352,
+      "individual_best_column": 240,
+      "top_two_margin": 0.9965184874222467
+    },
+    {
+      "source_column": 243,
+      "destination_column": 243,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9997258131147483,
+      "individual_best_column": 243,
+      "top_two_margin": 0.9995818900360621
+    },
+    {
+      "source_column": 246,
+      "destination_column": 246,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9971925033389423,
+      "individual_best_column": 246,
+      "top_two_margin": 0.9956528320214525
+    },
+    {
+      "source_column": 248,
+      "destination_column": 248,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9998851446390878,
+      "individual_best_column": 248,
+      "top_two_margin": 0.9997920475065868
+    },
+    {
+      "source_column": 255,
+      "destination_column": 255,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9999444218375428,
+      "individual_best_column": 255,
+      "top_two_margin": 0.9999214389016562
+    },
+    {
+      "source_column": 271,
+      "destination_column": 270,
+      "twoJ": 3,
+      "parity": 1,
+      "squared_overlap": 0.9999956386499338,
+      "individual_best_column": 270,
+      "top_two_margin": 0.9999943252487249
+    },
+    {
+      "source_column": 4,
+      "destination_column": 4,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9999771149732297,
+      "individual_best_column": 4,
+      "top_two_margin": 0.9999734582612627
+    },
+    {
+      "source_column": 7,
+      "destination_column": 7,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9998597972083952,
+      "individual_best_column": 7,
+      "top_two_margin": 0.999796927289543
+    },
+    {
+      "source_column": 14,
+      "destination_column": 14,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9998805773852943,
+      "individual_best_column": 14,
+      "top_two_margin": 0.9998187316077437
+    },
+    {
+      "source_column": 23,
+      "destination_column": 23,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9995292291137482,
+      "individual_best_column": 23,
+      "top_two_margin": 0.9994005082170055
+    },
+    {
+      "source_column": 28,
+      "destination_column": 29,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.999665042381632,
+      "individual_best_column": 29,
+      "top_two_margin": 0.9994811365553
+    },
+    {
+      "source_column": 38,
+      "destination_column": 36,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9926541675232147,
+      "individual_best_column": 36,
+      "top_two_margin": 0.9864576576335351
+    },
+    {
+      "source_column": 41,
+      "destination_column": 41,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9424727147130636,
+      "individual_best_column": 41,
+      "top_two_margin": 0.892224257166391
+    },
+    {
+      "source_column": 46,
+      "destination_column": 44,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9484121527697563,
+      "individual_best_column": 44,
+      "top_two_margin": 0.8973240263395535
+    },
+    {
+      "source_column": 57,
+      "destination_column": 58,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9608762455329094,
+      "individual_best_column": 58,
+      "top_two_margin": 0.9258626273463262
+    },
+    {
+      "source_column": 62,
+      "destination_column": 62,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9644837292393984,
+      "individual_best_column": 62,
+      "top_two_margin": 0.9294866712455766
+    },
+    {
+      "source_column": 70,
+      "destination_column": 69,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9946705723447631,
+      "individual_best_column": 69,
+      "top_two_margin": 0.9913041356113077
+    },
+    {
+      "source_column": 73,
+      "destination_column": 73,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9987960677813909,
+      "individual_best_column": 73,
+      "top_two_margin": 0.9981487732344709
+    },
+    {
+      "source_column": 85,
+      "destination_column": 85,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9966889041386693,
+      "individual_best_column": 85,
+      "top_two_margin": 0.9950777908544578
+    },
+    {
+      "source_column": 94,
+      "destination_column": 94,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9992901451531808,
+      "individual_best_column": 94,
+      "top_two_margin": 0.9990506535582796
+    },
+    {
+      "source_column": 98,
+      "destination_column": 98,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9988597396425716,
+      "individual_best_column": 98,
+      "top_two_margin": 0.9981746585262076
+    },
+    {
+      "source_column": 109,
+      "destination_column": 108,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9998080666945353,
+      "individual_best_column": 108,
+      "top_two_margin": 0.9997382618480642
+    },
+    {
+      "source_column": 118,
+      "destination_column": 117,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9941893464579318,
+      "individual_best_column": 117,
+      "top_two_margin": 0.989024646181437
+    },
+    {
+      "source_column": 125,
+      "destination_column": 124,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9945360513922569,
+      "individual_best_column": 124,
+      "top_two_margin": 0.9893298413721501
+    },
+    {
+      "source_column": 149,
+      "destination_column": 148,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9997911208132587,
+      "individual_best_column": 148,
+      "top_two_margin": 0.9997049187874212
+    },
+    {
+      "source_column": 159,
+      "destination_column": 157,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9970289003377086,
+      "individual_best_column": 157,
+      "top_two_margin": 0.9941697576589063
+    },
+    {
+      "source_column": 168,
+      "destination_column": 163,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.997005077476021,
+      "individual_best_column": 163,
+      "top_two_margin": 0.9941461036311319
+    },
+    {
+      "source_column": 269,
+      "destination_column": 269,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9999822447492908,
+      "individual_best_column": 269,
+      "top_two_margin": 0.9999732886073098
+    },
+    {
+      "source_column": 270,
+      "destination_column": 272,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.999937222435005,
+      "individual_best_column": 272,
+      "top_two_margin": 0.9998853389525014
+    },
+    {
+      "source_column": 279,
+      "destination_column": 279,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.999939088212363,
+      "individual_best_column": 279,
+      "top_two_margin": 0.9998873382363586
+    },
+    {
+      "source_column": 285,
+      "destination_column": 285,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9999919664145394,
+      "individual_best_column": 285,
+      "top_two_margin": 0.9999863642779317
+    },
+    {
+      "source_column": 290,
+      "destination_column": 289,
+      "twoJ": 3,
+      "parity": -1,
+      "squared_overlap": 0.9999932929000297,
+      "individual_best_column": 289,
+      "top_two_margin": 0.9999876872546131
+    },
+    {
+      "source_column": 2,
+      "destination_column": 2,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999761227417597,
+      "individual_best_column": 2,
+      "top_two_margin": 0.9999675442928962
+    },
+    {
+      "source_column": 20,
+      "destination_column": 21,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9996816449842713,
+      "individual_best_column": 21,
+      "top_two_margin": 0.9995034439143069
+    },
+    {
+      "source_column": 31,
+      "destination_column": 30,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9996305279977882,
+      "individual_best_column": 30,
+      "top_two_margin": 0.9994508900659838
+    },
+    {
+      "source_column": 35,
+      "destination_column": 35,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9996793083832196,
+      "individual_best_column": 35,
+      "top_two_margin": 0.999425487169951
+    },
+    {
+      "source_column": 47,
+      "destination_column": 46,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9996817989323682,
+      "individual_best_column": 46,
+      "top_two_margin": 0.9994284088380483
+    },
+    {
+      "source_column": 52,
+      "destination_column": 53,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9998466369004901,
+      "individual_best_column": 53,
+      "top_two_margin": 0.9997379445129622
+    },
+    {
+      "source_column": 74,
+      "destination_column": 74,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9987770357792337,
+      "individual_best_column": 74,
+      "top_two_margin": 0.9977980717524448
+    },
+    {
+      "source_column": 77,
+      "destination_column": 75,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9996099214238673,
+      "individual_best_column": 75,
+      "top_two_margin": 0.9994062520961371
+    },
+    {
+      "source_column": 97,
+      "destination_column": 96,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999390259900691,
+      "individual_best_column": 96,
+      "top_two_margin": 0.9998921144526237
+    },
+    {
+      "source_column": 114,
+      "destination_column": 113,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9989461766514869,
+      "individual_best_column": 113,
+      "top_two_margin": 0.9979688514224325
+    },
+    {
+      "source_column": 144,
+      "destination_column": 142,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999535515180669,
+      "individual_best_column": 142,
+      "top_two_margin": 0.9999165950157646
+    },
+    {
+      "source_column": 164,
+      "destination_column": 162,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999534810818309,
+      "individual_best_column": 162,
+      "top_two_margin": 0.9999164224670543
+    },
+    {
+      "source_column": 286,
+      "destination_column": 286,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999923998332154,
+      "individual_best_column": 286,
+      "top_two_margin": 0.9999849793694908
+    },
+    {
+      "source_column": 287,
+      "destination_column": 287,
+      "twoJ": 1,
+      "parity": -1,
+      "squared_overlap": 0.9999922348195711,
+      "individual_best_column": 287,
+      "top_two_margin": 0.9999848136740096
+    },
+    {
+      "source_column": 6,
+      "destination_column": 6,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999767007685131,
+      "individual_best_column": 6,
+      "top_two_margin": 0.9999665880887769
+    },
+    {
+      "source_column": 12,
+      "destination_column": 12,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999184855479935,
+      "individual_best_column": 12,
+      "top_two_margin": 0.9998589290109385
+    },
+    {
+      "source_column": 16,
+      "destination_column": 16,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9974766144539117,
+      "individual_best_column": 16,
+      "top_two_margin": 0.9950322875797907
+    },
+    {
+      "source_column": 21,
+      "destination_column": 20,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9916770398564332,
+      "individual_best_column": 20,
+      "top_two_margin": 0.9858146979248459
+    },
+    {
+      "source_column": 24,
+      "destination_column": 24,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9941148181456251,
+      "individual_best_column": 24,
+      "top_two_margin": 0.9882484486237963
+    },
+    {
+      "source_column": 27,
+      "destination_column": 27,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9997638697572805,
+      "individual_best_column": 27,
+      "top_two_margin": 0.999556436008027
+    },
+    {
+      "source_column": 39,
+      "destination_column": 37,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9986125479002247,
+      "individual_best_column": 37,
+      "top_two_margin": 0.9975548860233717
+    },
+    {
+      "source_column": 44,
+      "destination_column": 47,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9969773216905136,
+      "individual_best_column": 47,
+      "top_two_margin": 0.9954463167494906
+    },
+    {
+      "source_column": 51,
+      "destination_column": 48,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9981640902962547,
+      "individual_best_column": 48,
+      "top_two_margin": 0.9966226403775381
+    },
+    {
+      "source_column": 54,
+      "destination_column": 51,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9958022198163323,
+      "individual_best_column": 51,
+      "top_two_margin": 0.9942091646356802
+    },
+    {
+      "source_column": 59,
+      "destination_column": 59,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9844183148926915,
+      "individual_best_column": 59,
+      "top_two_margin": 0.9724893709282689
+    },
+    {
+      "source_column": 66,
+      "destination_column": 65,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9685903401417436,
+      "individual_best_column": 65,
+      "top_two_margin": 0.9478129998950564
+    },
+    {
+      "source_column": 72,
+      "destination_column": 72,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9764278837049188,
+      "individual_best_column": 72,
+      "top_two_margin": 0.9573169709121719
+    },
+    {
+      "source_column": 80,
+      "destination_column": 79,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9961312371635311,
+      "individual_best_column": 79,
+      "top_two_margin": 0.9927838377714355
+    },
+    {
+      "source_column": 83,
+      "destination_column": 83,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9957175109030745,
+      "individual_best_column": 83,
+      "top_two_margin": 0.9924108903352427
+    },
+    {
+      "source_column": 93,
+      "destination_column": 92,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9992287340195959,
+      "individual_best_column": 92,
+      "top_two_margin": 0.9988203919153525
+    },
+    {
+      "source_column": 103,
+      "destination_column": 103,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9997454118141205,
+      "individual_best_column": 103,
+      "top_two_margin": 0.9996598677649192
+    },
+    {
+      "source_column": 111,
+      "destination_column": 110,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9996829953738429,
+      "individual_best_column": 110,
+      "top_two_margin": 0.999599618038747
+    },
+    {
+      "source_column": 124,
+      "destination_column": 122,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9989853500918574,
+      "individual_best_column": 122,
+      "top_two_margin": 0.9980972957918127
+    },
+    {
+      "source_column": 132,
+      "destination_column": 132,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.998227001360353,
+      "individual_best_column": 132,
+      "top_two_margin": 0.9973316629424188
+    },
+    {
+      "source_column": 136,
+      "destination_column": 135,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9998563710021747,
+      "individual_best_column": 135,
+      "top_two_margin": 0.9997577231337049
+    },
+    {
+      "source_column": 148,
+      "destination_column": 146,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9997942194294436,
+      "individual_best_column": 146,
+      "top_two_margin": 0.9996602759765911
+    },
+    {
+      "source_column": 161,
+      "destination_column": 159,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9995572681530553,
+      "individual_best_column": 159,
+      "top_two_margin": 0.9993282658516385
+    },
+    {
+      "source_column": 173,
+      "destination_column": 171,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9997323149043633,
+      "individual_best_column": 171,
+      "top_two_margin": 0.9995829546233262
+    },
+    {
+      "source_column": 206,
+      "destination_column": 206,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999891286200829,
+      "individual_best_column": 206,
+      "top_two_margin": 0.9999856895859198
+    },
+    {
+      "source_column": 263,
+      "destination_column": 263,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999956031522883,
+      "individual_best_column": 263,
+      "top_two_margin": 0.999993570339155
+    },
+    {
+      "source_column": 268,
+      "destination_column": 268,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999924090646801,
+      "individual_best_column": 268,
+      "top_two_margin": 0.9999862969805512
+    },
+    {
+      "source_column": 274,
+      "destination_column": 274,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9947932235582673,
+      "individual_best_column": 274,
+      "top_two_margin": 0.9897192000413435
+    },
+    {
+      "source_column": 278,
+      "destination_column": 278,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9949130526310295,
+      "individual_best_column": 278,
+      "top_two_margin": 0.989835454180612
+    },
+    {
+      "source_column": 281,
+      "destination_column": 281,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9998680980355572,
+      "individual_best_column": 281,
+      "top_two_margin": 0.9997479839544647
+    },
+    {
+      "source_column": 283,
+      "destination_column": 283,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999890406666638,
+      "individual_best_column": 283,
+      "top_two_margin": 0.9999852095598762
+    },
+    {
+      "source_column": 291,
+      "destination_column": 291,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.9999949700243451,
+      "individual_best_column": 291,
+      "top_two_margin": 0.9999911465864416
+    },
+    {
+      "source_column": 293,
+      "destination_column": 293,
+      "twoJ": 5,
+      "parity": -1,
+      "squared_overlap": 0.999998050725571,
+      "individual_best_column": 293,
+      "top_two_margin": 0.9999969705955679
+    },
+    {
+      "source_column": 5,
+      "destination_column": 5,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999997169446886,
+      "individual_best_column": 5,
+      "top_two_margin": 0.9999996542792977
+    },
+    {
+      "source_column": 11,
+      "destination_column": 11,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999739471965605,
+      "individual_best_column": 11,
+      "top_two_margin": 0.9999597841502111
+    },
+    {
+      "source_column": 15,
+      "destination_column": 15,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999276604443501,
+      "individual_best_column": 15,
+      "top_two_margin": 0.9999026479907424
+    },
+    {
+      "source_column": 18,
+      "destination_column": 18,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999388515889542,
+      "individual_best_column": 18,
+      "top_two_margin": 0.9999191917901239
+    },
+    {
+      "source_column": 25,
+      "destination_column": 25,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999512321276125,
+      "individual_best_column": 25,
+      "top_two_margin": 0.9999414493866858
+    },
+    {
+      "source_column": 29,
+      "destination_column": 31,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9010457876424537,
+      "individual_best_column": 31,
+      "top_two_margin": 0.8021796868942602
+    },
+    {
+      "source_column": 30,
+      "destination_column": 28,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9006326024157572,
+      "individual_best_column": 28,
+      "top_two_margin": 0.8017104687585335
+    },
+    {
+      "source_column": 40,
+      "destination_column": 40,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9992205739251495,
+      "individual_best_column": 40,
+      "top_two_margin": 0.9987854476509734
+    },
+    {
+      "source_column": 50,
+      "destination_column": 50,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.7072824949215799,
+      "individual_best_column": 50,
+      "top_two_margin": 0.41578473837643715
+    },
+    {
+      "source_column": 55,
+      "destination_column": 54,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.7076122403509905,
+      "individual_best_column": 54,
+      "top_two_margin": 0.4157079811701194
+    },
+    {
+      "source_column": 56,
+      "destination_column": 56,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.998908628896639,
+      "individual_best_column": 56,
+      "top_two_margin": 0.9983104583684611
+    },
+    {
+      "source_column": 63,
+      "destination_column": 63,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9800953461858254,
+      "individual_best_column": 63,
+      "top_two_margin": 0.9604325139088912
+    },
+    {
+      "source_column": 69,
+      "destination_column": 67,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9790528177850424,
+      "individual_best_column": 67,
+      "top_two_margin": 0.9594745777848375
+    },
+    {
+      "source_column": 75,
+      "destination_column": 76,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9976659502874966,
+      "individual_best_column": 76,
+      "top_two_margin": 0.9966780133674181
+    },
+    {
+      "source_column": 78,
+      "destination_column": 78,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9993080267327693,
+      "individual_best_column": 78,
+      "top_two_margin": 0.9990433597505108
+    },
+    {
+      "source_column": 87,
+      "destination_column": 87,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9982509347210172,
+      "individual_best_column": 87,
+      "top_two_margin": 0.9972985145743736
+    },
+    {
+      "source_column": 91,
+      "destination_column": 91,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9998701240439143,
+      "individual_best_column": 91,
+      "top_two_margin": 0.9998318403079396
+    },
+    {
+      "source_column": 101,
+      "destination_column": 99,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9995253004519566,
+      "individual_best_column": 99,
+      "top_two_margin": 0.9992561778024366
+    },
+    {
+      "source_column": 106,
+      "destination_column": 106,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9998116828015484,
+      "individual_best_column": 106,
+      "top_two_margin": 0.9997332522323839
+    },
+    {
+      "source_column": 120,
+      "destination_column": 119,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9946943910079818,
+      "individual_best_column": 119,
+      "top_two_margin": 0.9898281650344494
+    },
+    {
+      "source_column": 128,
+      "destination_column": 129,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9857900009246925,
+      "individual_best_column": 129,
+      "top_two_margin": 0.9807650820234807
+    },
+    {
+      "source_column": 142,
+      "destination_column": 138,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9772597071533694,
+      "individual_best_column": 138,
+      "top_two_margin": 0.9609326126555178
+    },
+    {
+      "source_column": 145,
+      "destination_column": 145,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9786854260562304,
+      "individual_best_column": 145,
+      "top_two_margin": 0.9611578546909414
+    },
+    {
+      "source_column": 156,
+      "destination_column": 155,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9987052539120854,
+      "individual_best_column": 155,
+      "top_two_margin": 0.9979557055572483
+    },
+    {
+      "source_column": 175,
+      "destination_column": 172,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9993962003425918,
+      "individual_best_column": 172,
+      "top_two_margin": 0.9991190420192766
+    },
+    {
+      "source_column": 259,
+      "destination_column": 260,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.999995800523457,
+      "individual_best_column": 260,
+      "top_two_margin": 0.9999947788755018
+    },
+    {
+      "source_column": 264,
+      "destination_column": 264,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999973369108057,
+      "individual_best_column": 264,
+      "top_two_margin": 0.9999960553481744
+    },
+    {
+      "source_column": 266,
+      "destination_column": 266,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999933988964296,
+      "individual_best_column": 266,
+      "top_two_margin": 0.9999897105612807
+    },
+    {
+      "source_column": 275,
+      "destination_column": 276,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9996733748322747,
+      "individual_best_column": 276,
+      "top_two_margin": 0.9993758389738212
+    },
+    {
+      "source_column": 280,
+      "destination_column": 280,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9997012574456192,
+      "individual_best_column": 280,
+      "top_two_margin": 0.9994037063019865
+    },
+    {
+      "source_column": 282,
+      "destination_column": 282,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9999704999981214,
+      "individual_best_column": 282,
+      "top_two_margin": 0.9999458479855127
+    },
+    {
+      "source_column": 289,
+      "destination_column": 290,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9597712320241412,
+      "individual_best_column": 290,
+      "top_two_margin": 0.9195447723269573
+    },
+    {
+      "source_column": 292,
+      "destination_column": 292,
+      "twoJ": 7,
+      "parity": -1,
+      "squared_overlap": 0.9597698339659515,
+      "individual_best_column": 292,
+      "top_two_margin": 0.9195436303862292
+    },
+    {
+      "source_column": 8,
+      "destination_column": 8,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999940915761835,
+      "individual_best_column": 8,
+      "top_two_margin": 0.9999905980418231
+    },
+    {
+      "source_column": 13,
+      "destination_column": 13,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999477079000842,
+      "individual_best_column": 13,
+      "top_two_margin": 0.9999096317356945
+    },
+    {
+      "source_column": 17,
+      "destination_column": 17,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999332590588071,
+      "individual_best_column": 17,
+      "top_two_margin": 0.9998950053914988
+    },
+    {
+      "source_column": 26,
+      "destination_column": 26,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999737033087781,
+      "individual_best_column": 26,
+      "top_two_margin": 0.9999650517409885
+    },
+    {
+      "source_column": 32,
+      "destination_column": 32,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9013496331408978,
+      "individual_best_column": 32,
+      "top_two_margin": 0.8029019842743114
+    },
+    {
+      "source_column": 34,
+      "destination_column": 33,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9013030459732202,
+      "individual_best_column": 33,
+      "top_two_margin": 0.8029061892993556
+    },
+    {
+      "source_column": 37,
+      "destination_column": 39,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9997767523447961,
+      "individual_best_column": 39,
+      "top_two_margin": 0.9996203484037489
+    },
+    {
+      "source_column": 49,
+      "destination_column": 52,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9995988960632165,
+      "individual_best_column": 52,
+      "top_two_margin": 0.999409810720689
+    },
+    {
+      "source_column": 58,
+      "destination_column": 57,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9986344711059989,
+      "individual_best_column": 57,
+      "top_two_margin": 0.9975737932815786
+    },
+    {
+      "source_column": 61,
+      "destination_column": 60,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9906922653792966,
+      "individual_best_column": 60,
+      "top_two_margin": 0.9819191321074918
+    },
+    {
+      "source_column": 64,
+      "destination_column": 64,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9901278645216492,
+      "individual_best_column": 64,
+      "top_two_margin": 0.9812647202998855
+    },
+    {
+      "source_column": 79,
+      "destination_column": 80,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9997272095233826,
+      "individual_best_column": 80,
+      "top_two_margin": 0.9996401309180111
+    },
+    {
+      "source_column": 82,
+      "destination_column": 82,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9998307401073262,
+      "individual_best_column": 82,
+      "top_two_margin": 0.999747843721354
+    },
+    {
+      "source_column": 95,
+      "destination_column": 95,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9837795181119466,
+      "individual_best_column": 95,
+      "top_two_margin": 0.9675776013867323
+    },
+    {
+      "source_column": 96,
+      "destination_column": 97,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9830937164227668,
+      "individual_best_column": 97,
+      "top_two_margin": 0.9669032762905538
+    },
+    {
+      "source_column": 105,
+      "destination_column": 104,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9994272697674296,
+      "individual_best_column": 104,
+      "top_two_margin": 0.9990450154220188
+    },
+    {
+      "source_column": 113,
+      "destination_column": 111,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9996052308672787,
+      "individual_best_column": 111,
+      "top_two_margin": 0.9993674992866839
+    },
+    {
+      "source_column": 139,
+      "destination_column": 137,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999728036278221,
+      "individual_best_column": 137,
+      "top_two_margin": 0.9999605012308156
+    },
+    {
+      "source_column": 154,
+      "destination_column": 153,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999485039023136,
+      "individual_best_column": 153,
+      "top_two_margin": 0.9999249140346387
+    },
+    {
+      "source_column": 179,
+      "destination_column": 177,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999684475337788,
+      "individual_best_column": 177,
+      "top_two_margin": 0.9999448686182918
+    },
+    {
+      "source_column": 262,
+      "destination_column": 262,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999980786617201,
+      "individual_best_column": 262,
+      "top_two_margin": 0.9999965629147952
+    },
+    {
+      "source_column": 265,
+      "destination_column": 265,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.999994235295814,
+      "individual_best_column": 265,
+      "top_two_margin": 0.999990778525306
+    },
+    {
+      "source_column": 276,
+      "destination_column": 277,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999906787329299,
+      "individual_best_column": 277,
+      "top_two_margin": 0.9999870022465315
+    },
+    {
+      "source_column": 284,
+      "destination_column": 284,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999901630852355,
+      "individual_best_column": 284,
+      "top_two_margin": 0.999984828558423
+    },
+    {
+      "source_column": 288,
+      "destination_column": 288,
+      "twoJ": 9,
+      "parity": -1,
+      "squared_overlap": 0.9999926215539414,
+      "individual_best_column": 288,
+      "top_two_margin": 0.9999872760927035
+    },
+    {
+      "source_column": 9,
+      "destination_column": 9,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999810708771919,
+      "individual_best_column": 9,
+      "top_two_margin": 0.9999716822988186
+    },
+    {
+      "source_column": 19,
+      "destination_column": 19,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999455047597496,
+      "individual_best_column": 19,
+      "top_two_margin": 0.99990872176437
+    },
+    {
+      "source_column": 22,
+      "destination_column": 22,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999519174264394,
+      "individual_best_column": 22,
+      "top_two_margin": 0.9999150857503241
+    },
+    {
+      "source_column": 33,
+      "destination_column": 34,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999874793755792,
+      "individual_best_column": 34,
+      "top_two_margin": 0.999984461872784
+    },
+    {
+      "source_column": 42,
+      "destination_column": 43,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9094044046749908,
+      "individual_best_column": 43,
+      "top_two_margin": 0.8188144850320791
+    },
+    {
+      "source_column": 45,
+      "destination_column": 42,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9073088238254425,
+      "individual_best_column": 42,
+      "top_two_margin": 0.8168834012441658
+    },
+    {
+      "source_column": 53,
+      "destination_column": 55,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.997730400131445,
+      "individual_best_column": 55,
+      "top_two_margin": 0.9956455173548617
+    },
+    {
+      "source_column": 76,
+      "destination_column": 77,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999629290678904,
+      "individual_best_column": 77,
+      "top_two_margin": 0.9999415799957955
+    },
+    {
+      "source_column": 84,
+      "destination_column": 84,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9998964441043563,
+      "individual_best_column": 84,
+      "top_two_margin": 0.9998093778249774
+    },
+    {
+      "source_column": 100,
+      "destination_column": 102,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9925629884180588,
+      "individual_best_column": 102,
+      "top_two_margin": 0.985447667287382
+    },
+    {
+      "source_column": 102,
+      "destination_column": 100,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9928567748023686,
+      "individual_best_column": 100,
+      "top_two_margin": 0.9857310179806538
+    },
+    {
+      "source_column": 116,
+      "destination_column": 116,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.999565260216757,
+      "individual_best_column": 116,
+      "top_two_margin": 0.999268220490708
+    },
+    {
+      "source_column": 174,
+      "destination_column": 170,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.999987635900749,
+      "individual_best_column": 170,
+      "top_two_margin": 0.9999812644455178
+    },
+    {
+      "source_column": 267,
+      "destination_column": 267,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999947157131089,
+      "individual_best_column": 267,
+      "top_two_margin": 0.9999895615908078
+    },
+    {
+      "source_column": 273,
+      "destination_column": 273,
+      "twoJ": 11,
+      "parity": -1,
+      "squared_overlap": 0.9999946289805266,
+      "individual_best_column": 273,
+      "top_two_margin": 0.999989474558633
+    },
+    {
+      "source_column": 10,
+      "destination_column": 10,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9999999884309476,
+      "individual_best_column": 10,
+      "top_two_margin": 0.9999999806760408
+    },
+    {
+      "source_column": 36,
+      "destination_column": 38,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9999961292677646,
+      "individual_best_column": 38,
+      "top_two_margin": 0.9999941230596792
+    },
+    {
+      "source_column": 48,
+      "destination_column": 49,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9999934241055077,
+      "individual_best_column": 49,
+      "top_two_margin": 0.9999891484618572
+    },
+    {
+      "source_column": 92,
+      "destination_column": 93,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9998914439192194,
+      "individual_best_column": 93,
+      "top_two_margin": 0.9997988263210644
+    },
+    {
+      "source_column": 108,
+      "destination_column": 107,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9999752303461743,
+      "individual_best_column": 107,
+      "top_two_margin": 0.9999638271293867
+    },
+    {
+      "source_column": 135,
+      "destination_column": 133,
+      "twoJ": 13,
+      "parity": -1,
+      "squared_overlap": 0.9998959845002575,
+      "individual_best_column": 133,
+      "top_two_margin": 0.9998031313411283
+    },
+    {
+      "source_column": 60,
+      "destination_column": 61,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999983785291928,
+      "individual_best_column": 61,
+      "top_two_margin": 0.9999976913442181
+    },
+    {
+      "source_column": 65,
+      "destination_column": 66,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999966840659154,
+      "individual_best_column": 66,
+      "top_two_margin": 0.9999952090660517
+    },
+    {
+      "source_column": 90,
+      "destination_column": 90,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999925796740691,
+      "individual_best_column": 90,
+      "top_two_margin": 0.9999871929406587
+    },
+    {
+      "source_column": 115,
+      "destination_column": 115,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999352926829281,
+      "individual_best_column": 115,
+      "top_two_margin": 0.9998822957882931
+    },
+    {
+      "source_column": 117,
+      "destination_column": 118,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.99903756534479,
+      "individual_best_column": 118,
+      "top_two_margin": 0.9981433041439016
+    },
+    {
+      "source_column": 130,
+      "destination_column": 128,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9987036791521664,
+      "individual_best_column": 128,
+      "top_two_margin": 0.9978070198564973
+    },
+    {
+      "source_column": 133,
+      "destination_column": 134,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.999592035737316,
+      "individual_best_column": 134,
+      "top_two_margin": 0.9992504668621678
+    },
+    {
+      "source_column": 150,
+      "destination_column": 150,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9991668920728239,
+      "individual_best_column": 150,
+      "top_two_margin": 0.9984493431223276
+    },
+    {
+      "source_column": 155,
+      "destination_column": 160,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.7879252329042751,
+      "individual_best_column": 160,
+      "top_two_margin": 0.576122635975142
+    },
+    {
+      "source_column": 160,
+      "destination_column": 156,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.7754727378128015,
+      "individual_best_column": 156,
+      "top_two_margin": 0.5673111893862067
+    },
+    {
+      "source_column": 167,
+      "destination_column": 168,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9843104108550915,
+      "individual_best_column": 168,
+      "top_two_margin": 0.9728067513858958
+    },
+    {
+      "source_column": 176,
+      "destination_column": 176,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9992378562739536,
+      "individual_best_column": 176,
+      "top_two_margin": 0.9988640140423318
+    },
+    {
+      "source_column": 181,
+      "destination_column": 181,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9986212879309397,
+      "individual_best_column": 181,
+      "top_two_margin": 0.9974316260946338
+    },
+    {
+      "source_column": 187,
+      "destination_column": 187,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.8870107552016834,
+      "individual_best_column": 187,
+      "top_two_margin": 0.7830263918238131
+    },
+    {
+      "source_column": 188,
+      "destination_column": 189,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.8956365970995093,
+      "individual_best_column": 189,
+      "top_two_margin": 0.7937019306349379
+    },
+    {
+      "source_column": 190,
+      "destination_column": 192,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.989754581320344,
+      "individual_best_column": 192,
+      "top_two_margin": 0.9800535648483034
+    },
+    {
+      "source_column": 197,
+      "destination_column": 200,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9998384425060767,
+      "individual_best_column": 200,
+      "top_two_margin": 0.9997790351265002
+    },
+    {
+      "source_column": 202,
+      "destination_column": 202,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9998056325722283,
+      "individual_best_column": 202,
+      "top_two_margin": 0.9997470871301601
+    },
+    {
+      "source_column": 211,
+      "destination_column": 211,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9998430203877701,
+      "individual_best_column": 211,
+      "top_two_margin": 0.9997457985998413
+    },
+    {
+      "source_column": 216,
+      "destination_column": 216,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999437228659014,
+      "individual_best_column": 216,
+      "top_two_margin": 0.9999266699685888
+    },
+    {
+      "source_column": 222,
+      "destination_column": 222,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9978565585287359,
+      "individual_best_column": 222,
+      "top_two_margin": 0.996757646599418
+    },
+    {
+      "source_column": 223,
+      "destination_column": 223,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9709059592050461,
+      "individual_best_column": 223,
+      "top_two_margin": 0.9434168443563333
+    },
+    {
+      "source_column": 225,
+      "destination_column": 228,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9678369540884264,
+      "individual_best_column": 228,
+      "top_two_margin": 0.9398777403040439
+    },
+    {
+      "source_column": 233,
+      "destination_column": 232,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9965188824813386,
+      "individual_best_column": 232,
+      "top_two_margin": 0.9930823746357721
+    },
+    {
+      "source_column": 236,
+      "destination_column": 236,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.999814871055651,
+      "individual_best_column": 236,
+      "top_two_margin": 0.9996667148771547
+    },
+    {
+      "source_column": 244,
+      "destination_column": 244,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999426185582048,
+      "individual_best_column": 244,
+      "top_two_margin": 0.9999073119730548
+    },
+    {
+      "source_column": 250,
+      "destination_column": 250,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999263543076965,
+      "individual_best_column": 250,
+      "top_two_margin": 0.9998910863117035
+    },
+    {
+      "source_column": 258,
+      "destination_column": 258,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.7652920851415332,
+      "individual_best_column": 258,
+      "top_two_margin": 0.5305919201908423
+    },
+    {
+      "source_column": 260,
+      "destination_column": 261,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.7652897572629267,
+      "individual_best_column": 261,
+      "top_two_margin": 0.5305871770754431
+    },
+    {
+      "source_column": 272,
+      "destination_column": 271,
+      "twoJ": 7,
+      "parity": 1,
+      "squared_overlap": 0.9999954134289837,
+      "individual_best_column": 271,
+      "top_two_margin": 0.9999924347838179
+    },
+    {
+      "source_column": 67,
+      "destination_column": 68,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999969863499668,
+      "individual_best_column": 68,
+      "top_two_margin": 0.9999952715705144
+    },
+    {
+      "source_column": 89,
+      "destination_column": 89,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999987824728906,
+      "individual_best_column": 89,
+      "top_two_margin": 0.9999981615342594
+    },
+    {
+      "source_column": 107,
+      "destination_column": 109,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999792498200527,
+      "individual_best_column": 109,
+      "top_two_margin": 0.9999667550902095
+    },
+    {
+      "source_column": 119,
+      "destination_column": 121,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999652775451323,
+      "individual_best_column": 121,
+      "top_two_margin": 0.9999522748326661
+    },
+    {
+      "source_column": 138,
+      "destination_column": 140,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9990414045534143,
+      "individual_best_column": 140,
+      "top_two_margin": 0.9981150694583849
+    },
+    {
+      "source_column": 146,
+      "destination_column": 149,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9958487577436493,
+      "individual_best_column": 149,
+      "top_two_margin": 0.9917301515212787
+    },
+    {
+      "source_column": 152,
+      "destination_column": 152,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9938109453456352,
+      "individual_best_column": 152,
+      "top_two_margin": 0.9897045209746058
+    },
+    {
+      "source_column": 165,
+      "destination_column": 166,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9991424050864746,
+      "individual_best_column": 166,
+      "top_two_margin": 0.9985846910332243
+    },
+    {
+      "source_column": 171,
+      "destination_column": 173,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9993061814853531,
+      "individual_best_column": 173,
+      "top_two_margin": 0.9988151397267397
+    },
+    {
+      "source_column": 177,
+      "destination_column": 178,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.999725376142923,
+      "individual_best_column": 178,
+      "top_two_margin": 0.9995975069357342
+    },
+    {
+      "source_column": 183,
+      "destination_column": 183,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9998376579029755,
+      "individual_best_column": 183,
+      "top_two_margin": 0.9997186383540153
+    },
+    {
+      "source_column": 189,
+      "destination_column": 188,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9973397391891227,
+      "individual_best_column": 188,
+      "top_two_margin": 0.9951890665588332
+    },
+    {
+      "source_column": 192,
+      "destination_column": 193,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9976624112358154,
+      "individual_best_column": 193,
+      "top_two_margin": 0.9955069466113063
+    },
+    {
+      "source_column": 196,
+      "destination_column": 196,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9998193188902024,
+      "individual_best_column": 196,
+      "top_two_margin": 0.9997341540356881
+    },
+    {
+      "source_column": 209,
+      "destination_column": 209,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9997753789015096,
+      "individual_best_column": 209,
+      "top_two_margin": 0.9996877243515939
+    },
+    {
+      "source_column": 215,
+      "destination_column": 214,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999169953694542,
+      "individual_best_column": 214,
+      "top_two_margin": 0.9998679130580077
+    },
+    {
+      "source_column": 227,
+      "destination_column": 226,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9464354807859479,
+      "individual_best_column": 226,
+      "top_two_margin": 0.8971470164108697
+    },
+    {
+      "source_column": 230,
+      "destination_column": 229,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.8515925505174966,
+      "individual_best_column": 229,
+      "top_two_margin": 0.7236140171231435
+    },
+    {
+      "source_column": 231,
+      "destination_column": 231,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.8211500922850461,
+      "individual_best_column": 231,
+      "top_two_margin": 0.676782037162293
+    },
+    {
+      "source_column": 237,
+      "destination_column": 237,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9984693345439078,
+      "individual_best_column": 237,
+      "top_two_margin": 0.9970023135424595
+    },
+    {
+      "source_column": 247,
+      "destination_column": 247,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9999175556159063,
+      "individual_best_column": 247,
+      "top_two_margin": 0.9998531876512334
+    },
+    {
+      "source_column": 253,
+      "destination_column": 253,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9963143502974422,
+      "individual_best_column": 253,
+      "top_two_margin": 0.9926318940933092
+    },
+    {
+      "source_column": 261,
+      "destination_column": 259,
+      "twoJ": 9,
+      "parity": 1,
+      "squared_overlap": 0.9963145159243738,
+      "individual_best_column": 259,
+      "top_two_margin": 0.9926322216966156
+    },
+    {
+      "source_column": 81,
+      "destination_column": 81,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999995779315455,
+      "individual_best_column": 81,
+      "top_two_margin": 0.9999993793720289
+    },
+    {
+      "source_column": 110,
+      "destination_column": 112,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.999996578075437,
+      "individual_best_column": 112,
+      "top_two_margin": 0.9999943037277834
+    },
+    {
+      "source_column": 134,
+      "destination_column": 136,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999605554921746,
+      "individual_best_column": 136,
+      "top_two_margin": 0.9999278933923592
+    },
+    {
+      "source_column": 137,
+      "destination_column": 139,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999566235547982,
+      "individual_best_column": 139,
+      "top_two_margin": 0.9999239680906631
+    },
+    {
+      "source_column": 169,
+      "destination_column": 169,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999684680683398,
+      "individual_best_column": 169,
+      "top_two_margin": 0.9999476849313212
+    },
+    {
+      "source_column": 170,
+      "destination_column": 174,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999653199493435,
+      "individual_best_column": 174,
+      "top_two_margin": 0.9999487489180343
+    },
+    {
+      "source_column": 180,
+      "destination_column": 180,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.999972536064245,
+      "individual_best_column": 180,
+      "top_two_margin": 0.9999580561538343
+    },
+    {
+      "source_column": 195,
+      "destination_column": 195,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999309024437785,
+      "individual_best_column": 195,
+      "top_two_margin": 0.9998946750444933
+    },
+    {
+      "source_column": 205,
+      "destination_column": 203,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999074868497866,
+      "individual_best_column": 203,
+      "top_two_margin": 0.9998813000587897
+    },
+    {
+      "source_column": 226,
+      "destination_column": 225,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9719293379727356,
+      "individual_best_column": 225,
+      "top_two_margin": 0.943901037634055
+    },
+    {
+      "source_column": 228,
+      "destination_column": 230,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9719377295154407,
+      "individual_best_column": 230,
+      "top_two_margin": 0.9439072261992904
+    },
+    {
+      "source_column": 238,
+      "destination_column": 238,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999866196978138,
+      "individual_best_column": 238,
+      "top_two_margin": 0.9999821051797737
+    },
+    {
+      "source_column": 252,
+      "destination_column": 252,
+      "twoJ": 11,
+      "parity": 1,
+      "squared_overlap": 0.9999696022871389,
+      "individual_best_column": 252,
+      "top_two_margin": 0.9999444516725372
+    },
+    {
+      "source_column": 43,
+      "destination_column": 45,
+      "twoJ": 15,
+      "parity": -1,
+      "squared_overlap": 0.9999876260355731,
+      "individual_best_column": 45,
+      "top_two_margin": 0.9999752520711458
+    },
+    {
+      "source_column": 71,
+      "destination_column": 71,
+      "twoJ": 15,
+      "parity": -1,
+      "squared_overlap": 0.9999876260355731,
+      "individual_best_column": 71,
+      "top_two_margin": 0.9999752520711458
+    },
+    {
+      "source_column": 123,
+      "destination_column": 125,
+      "twoJ": 13,
+      "parity": 1,
+      "squared_overlap": 0.9999977519344037,
+      "individual_best_column": 125,
+      "top_two_margin": 0.9999963785885487
+    },
+    {
+      "source_column": 163,
+      "destination_column": 165,
+      "twoJ": 13,
+      "parity": 1,
+      "squared_overlap": 0.9999930825914083,
+      "individual_best_column": 165,
+      "top_two_margin": 0.9999887313995331
+    },
+    {
+      "source_column": 182,
+      "destination_column": 182,
+      "twoJ": 13,
+      "parity": 1,
+      "squared_overlap": 0.9999701959644347,
+      "individual_best_column": 182,
+      "top_two_margin": 0.9999475846547776
+    },
+    {
+      "source_column": 214,
+      "destination_column": 215,
+      "twoJ": 13,
+      "parity": 1,
+      "squared_overlap": 0.7438669784841474,
+      "individual_best_column": 215,
+      "top_two_margin": 0.48773564132557234
+    },
+    {
+      "source_column": 217,
+      "destination_column": 218,
+      "twoJ": 13,
+      "parity": 1,
+      "squared_overlap": 0.7438435379130319,
+      "individual_best_column": 218,
+      "top_two_margin": 0.4877213441563426
+    },
+    {
+      "source_column": 140,
+      "destination_column": 141,
+      "twoJ": 15,
+      "parity": 1,
+      "squared_overlap": 1.0,
+      "individual_best_column": 141,
+      "top_two_margin": 1.0
+    }
+  ],
+  "bare_spectral_moments": [
+    {
+      "model": "DC",
+      "label": "6s_1/2",
+      "bare_spectral_centroid_Ha": -14067.483362718058,
+      "bare_spectral_variance_Ha2": 0.0017790400723403815,
+      "width_cm1_not_linewidth": 9257.147709778043
+    },
+    {
+      "model": "static_Breit",
+      "label": "6s_1/2",
+      "bare_spectral_centroid_Ha": -14053.335076971696,
+      "bare_spectral_variance_Ha2": 0.0017792573505038185,
+      "width_cm1_not_linewidth": 9257.712990649059
+    },
+    {
+      "model": "DC",
+      "label": "5d_3/2",
+      "bare_spectral_centroid_Ha": -14067.375251204452,
+      "bare_spectral_variance_Ha2": 0.0004128767879264615,
+      "width_cm1_not_linewidth": 4459.586190215098
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_3/2",
+      "bare_spectral_centroid_Ha": -14053.226830789828,
+      "bare_spectral_variance_Ha2": 0.0004129893009712136,
+      "width_cm1_not_linewidth": 4460.193789692911
+    },
+    {
+      "model": "DC",
+      "label": "5d_5/2",
+      "bare_spectral_centroid_Ha": -14067.372918252997,
+      "bare_spectral_variance_Ha2": 0.000313845399541632,
+      "width_cm1_not_linewidth": 3888.142843297981
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_5/2",
+      "bare_spectral_centroid_Ha": -14053.224697260957,
+      "bare_spectral_variance_Ha2": 0.00031391993884896923,
+      "width_cm1_not_linewidth": 3888.604539197564
+    },
+    {
+      "model": "DC",
+      "label": "6p_1/2",
+      "bare_spectral_centroid_Ha": -14067.369366564979,
+      "bare_spectral_variance_Ha2": 0.0011489774507337314,
+      "width_cm1_not_linewidth": 7439.437182462088
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_1/2",
+      "bare_spectral_centroid_Ha": -14053.221243320511,
+      "bare_spectral_variance_Ha2": 0.0011487526373312599,
+      "width_cm1_not_linewidth": 7438.709332231589
+    },
+    {
+      "model": "DC",
+      "label": "6p_3/2",
+      "bare_spectral_centroid_Ha": -14067.356403046419,
+      "bare_spectral_variance_Ha2": 0.0008759685607704896,
+      "width_cm1_not_linewidth": 6495.739318928669
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_3/2",
+      "bare_spectral_centroid_Ha": -14053.208415050221,
+      "bare_spectral_variance_Ha2": 0.0008758383520719794,
+      "width_cm1_not_linewidth": 6495.25652009665
+    }
+  ]
+}

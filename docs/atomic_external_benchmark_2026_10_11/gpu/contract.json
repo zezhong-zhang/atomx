@@ -1,0 +1,69 @@
+{
+  "hypothesis": "Actual complete density and source/PP/HH scalar control exposes CPU/GPU correctness and cold/upload/download/warm timing scope; no production or hardware-wide efficiency claim follows tiny fixed-work fixtures.",
+  "fixed_control": {
+    "fixed_model": "Z4, ns30, 12 spinors; closed 1s2+2s2 core and complete 3s,2p1/2,2p3/2 virtual multiplets on common Be2+ native DC orbital owner",
+    "modes": [
+      "dc",
+      "static",
+      "dynamic"
+    ],
+    "identity": "Same signed public integral Hamiltonian, fixed complete orbital-difference frequencies, unchanged core/frozen/Fock/reference ledger",
+    "gate_Ha": 1e-11,
+    "raw_gate_not_relaxed": true,
+    "caps": {
+      "threads": 1,
+      "address_bytes": 4294967296,
+      "cpu_seconds": 120
+    },
+    "highest_level_reached": false,
+    "hypothesis": "Existing Numba CPU/CUDA FP64 arithmetic and scoped one-worker owner can evaluate identical complete signed density batches; full new core ladder matrices can also use one common ordered FP64 scalar kernel.",
+    "controls": [
+      "full CPU/CUDA arrays, same input and fixed precision",
+      "device memory and host address admission",
+      "cold compilation/allocation/transfer separately",
+      "alternating paired warm scope",
+      "host/GPU load guards",
+      "no end-to-end extrapolation"
+    ],
+    "automatic_admission": "Hard4GiB host address remains. If CUDA context VAS does not fit, CPU full gates complete and GPU status deferred. Separate declared manual GPU experiment may use128GiB VAS with32MiB owned device payload; no override in automatic runner.",
+    "manual_gpu_caps": {
+      "host_virtual_address_bytes": 137438953472,
+      "owned_device_payload_bytes": 33554432,
+      "threads": 1,
+      "cpu_seconds": 120
+    },
+    "stop": "Reject device absence/resource failure explicitly. Correctness continues under failed load guard, with no controlled speedup claim.",
+    "model_sizes": {
+      "spinors": 12,
+      "occupied_spinors": 4,
+      "virtual_spinors": 8,
+      "radial_orbitals": 5,
+      "scalar_doubles": 10,
+      "full_four_electron_dimension": 495,
+      "complete_basis_and_signed_batch": [
+        10,
+        12
+      ],
+      "density_all_ordered_radial_pairs": [
+        2688,
+        25
+      ],
+      "density_ranks": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "input_sha256": "bb83f71005f99d4662554822c648c1c0658fd101cd019e1119ceae4fccc48667",
+    "metadata_amendment": "Same prospective fixed model and original gates; explicitly enumerate derived complete dimensions and payload before subsequent automatic replay, no coordinate or threshold changed",
+    "numeric_payload_cap_bytes": 33554432,
+    "pp_hh_multiply_adds_per_direction": 56
+  },
+  "parent_contract": "../contract.json",
+  "source_entry_sha256": "be0b01d5c9cbfe0f3ead989cd262c9d6fe3dae058f92e22f936cb8655042a541",
+  "timing_scope": "Original full signed density all ranks and complete 10x12 scalar ladder batches, 5 alternating pairs; measured wall includes defined transfer scopes.",
+  "load_rule": "Retain original no-other-GPU-compute-process guard; original4GiB/32MiB caps; stricter parent CPU load drift maximum4.0 checked separately.",
+  "stop": "Any dependency or full output correctness failure rejects comparison, any failed load guard speedup=null.",
+  "highest_level_reached": false
+}

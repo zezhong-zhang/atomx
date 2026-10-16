@@ -1,0 +1,3 @@
+# Complete spectrum numerical qualification, first κ only
+
+Prepared; no refinement has been executed. [Contract](contract.json) binds the original failed field, all116 roots, original nuclear P, accepted160 point, original metric, and613-control saved audit. It admits one bounded complete-spectrum longdouble Jacobi invocation, with zero new physical builders. The original1e−8 full-spectrum residual,1e−10 Gram,1e−12 leakage, and1e−8 minimum gates remain. A pass would qualify onlyκ−3 numerics; it would not supply screened CI/line shifts, MCDHF stationarity, or experimental accuracy. Root must provide exact execution binding before invocation.

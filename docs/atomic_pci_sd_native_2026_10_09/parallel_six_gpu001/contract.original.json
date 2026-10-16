@@ -1,0 +1,34 @@
+{
+  "fixed_model": "Z4, ns30, 12 spinors; closed 1s2+2s2 core and complete 3s,2p1/2,2p3/2 virtual multiplets on common Be2+ native DC orbital owner",
+  "modes": [
+    "dc",
+    "static",
+    "dynamic"
+  ],
+  "identity": "Same signed public integral Hamiltonian, fixed complete orbital-difference frequencies, unchanged core/frozen/Fock/reference ledger",
+  "gate_Ha": 1e-11,
+  "raw_gate_not_relaxed": true,
+  "caps": {
+    "threads": 1,
+    "address_bytes": 4294967296,
+    "cpu_seconds": 120
+  },
+  "highest_level_reached": false,
+  "hypothesis": "Existing Numba CPU/CUDA FP64 arithmetic and scoped one-worker owner can evaluate identical complete signed density batches; full new core ladder matrices can also use one common ordered FP64 scalar kernel.",
+  "controls": [
+    "full CPU/CUDA arrays, same input and fixed precision",
+    "device memory and host address admission",
+    "cold compilation/allocation/transfer separately",
+    "alternating paired warm scope",
+    "host/GPU load guards",
+    "no end-to-end extrapolation"
+  ],
+  "automatic_admission": "Hard4GiB host address remains. If CUDA context VAS does not fit, CPU full gates complete and GPU status deferred. Separate declared manual GPU experiment may use128GiB VAS with32MiB owned device payload; no override in automatic runner.",
+  "manual_gpu_caps": {
+    "host_virtual_address_bytes": 137438953472,
+    "owned_device_payload_bytes": 33554432,
+    "threads": 1,
+    "cpu_seconds": 120
+  },
+  "stop": "Reject device absence/resource failure explicitly. Correctness continues under failed load guard, with no controlled speedup claim."
+}

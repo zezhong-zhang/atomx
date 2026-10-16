@@ -1,0 +1,1292 @@
+{
+  "prescription": {
+    "DC": "Embed each signed bare five-state CI vector into the full 68-CSF basis; track within its exact (2J,parity) block by largest squared overlap. Retain the complete overlap distribution and all block roots.",
+    "static_Breit": "Complete one-to-one maximum-overlap assignment from DC to static CI vectors within exact symmetry blocks; retain bare-reference strongest-overlap alternative and any disagreement. Do not replace target identity with local-root zero.",
+    "unambiguous_individual_branch_minimum_squared_overlap": 0.5,
+    "squared_overlap_tie_window": 1e-10,
+    "near_degenerate_energy_window_Ha": 1e-08,
+    "ambiguity_action": "Retain candidates and complete-subspace data, flag ambiguous branch; do not certify a unique physical state or an experimental pass.",
+    "ground": "Find global minimum over all 68 roots and report its symmetry, complete family weights, and bare-state weights. Excitations from tracked 6s and from actual finite-model ground remain separate.",
+    "moments": "For each bare vector, report the full spectral measure, centroid and variance. Weighted-multiplet D/P centroids use degeneracy 2J+1; fine splittings retain upper/lower identity."
+  },
+  "targets": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "bare_column": 0,
+      "DC_column": 0,
+      "DC_local_root": 0,
+      "DC_bare_squared_overlap": 1.0,
+      "DC_top_two_weight_margin": 1.0,
+      "DC_unambiguous": true,
+      "static_column": 0,
+      "static_local_root": 0,
+      "DC_to_static_squared_overlap": 1.0,
+      "static_bare_squared_overlap": 1.0,
+      "static_bare_best_column": 0,
+      "static_bare_best_weight": 1.0,
+      "static_bare_binding_disagrees": false,
+      "DC_complete_block_overlap_distribution": [
+        {
+          "column": 0,
+          "local_root": 0,
+          "energy_Ha": -14067.483362718063,
+          "bare_weight": 1.0
+        },
+        {
+          "column": 57,
+          "local_root": 1,
+          "energy_Ha": -14067.068161348507,
+          "bare_weight": 0.0
+        }
+      ],
+      "static_complete_block_bare_overlap_distribution": [
+        {
+          "column": 0,
+          "local_root": 0,
+          "energy_Ha": -14053.335076971704,
+          "bare_weight": 1.0
+        },
+        {
+          "column": 57,
+          "local_root": 1,
+          "energy_Ha": -14052.930039345048,
+          "bare_weight": 2.783230783475404e-16
+        }
+      ]
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "bare_column": 1,
+      "DC_column": 1,
+      "DC_local_root": 0,
+      "DC_bare_squared_overlap": 0.9999668351730612,
+      "DC_top_two_weight_margin": 0.9999365905075159,
+      "DC_unambiguous": true,
+      "static_column": 1,
+      "static_local_root": 0,
+      "DC_to_static_squared_overlap": 0.9999999740815868,
+      "static_bare_squared_overlap": 0.9999649595057791,
+      "static_bare_best_column": 1,
+      "static_bare_best_weight": 0.9999649595057791,
+      "static_bare_binding_disagrees": false,
+      "DC_complete_block_overlap_distribution": [
+        {
+          "column": 1,
+          "local_root": 0,
+          "energy_Ha": -14067.37526372355,
+          "bare_weight": 0.9999668351730612
+        },
+        {
+          "column": 45,
+          "local_root": 1,
+          "energy_Ha": -14067.122870472802,
+          "bare_weight": 8.418341220212516e-07
+        },
+        {
+          "column": 56,
+          "local_root": 2,
+          "energy_Ha": -14067.078452515228,
+          "bare_weight": 1.7045345313868134e-06
+        },
+        {
+          "column": 58,
+          "local_root": 3,
+          "energy_Ha": -14067.065239825022,
+          "bare_weight": 3.737927399138533e-07
+        },
+        {
+          "column": 65,
+          "local_root": 4,
+          "energy_Ha": -14066.988920889351,
+          "bare_weight": 3.024466554523028e-05
+        }
+      ],
+      "static_complete_block_bare_overlap_distribution": [
+        {
+          "column": 1,
+          "local_root": 0,
+          "energy_Ha": -14053.22684365665,
+          "bare_weight": 0.9999649595057791
+        },
+        {
+          "column": 46,
+          "local_root": 1,
+          "energy_Ha": -14052.982219754758,
+          "bare_weight": 9.008127065382814e-07
+        },
+        {
+          "column": 56,
+          "local_root": 2,
+          "energy_Ha": -14052.940234519903,
+          "bare_weight": 1.8089414368952036e-06
+        },
+        {
+          "column": 58,
+          "local_root": 3,
+          "energy_Ha": -14052.927113492866,
+          "bare_weight": 4.0240931476190266e-07
+        },
+        {
+          "column": 65,
+          "local_root": 4,
+          "energy_Ha": -14052.85077062424,
+          "bare_weight": 3.192833076336239e-05
+        }
+      ]
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "bare_column": 2,
+      "DC_column": 2,
+      "DC_local_root": 0,
+      "DC_bare_squared_overlap": 0.9999512486789616,
+      "DC_top_two_weight_margin": 0.9999081517700611,
+      "DC_unambiguous": true,
+      "static_column": 2,
+      "static_local_root": 0,
+      "DC_to_static_squared_overlap": 0.9999999704836935,
+      "static_bare_squared_overlap": 0.9999488308817783,
+      "static_bare_best_column": 2,
+      "static_bare_best_weight": 0.9999488308817783,
+      "static_bare_binding_disagrees": false,
+      "DC_complete_block_overlap_distribution": [
+        {
+          "column": 2,
+          "local_root": 0,
+          "energy_Ha": -14067.372933921835,
+          "bare_weight": 0.9999512486789616
+        },
+        {
+          "column": 42,
+          "local_root": 1,
+          "energy_Ha": -14067.136554300256,
+          "bare_weight": 3.571865137778531e-06
+        },
+        {
+          "column": 46,
+          "local_root": 2,
+          "energy_Ha": -14067.121418254968,
+          "bare_weight": 4.329371229029305e-08
+        },
+        {
+          "column": 53,
+          "local_root": 3,
+          "energy_Ha": -14067.086299020171,
+          "bare_weight": 2.4235681194951156e-10
+        },
+        {
+          "column": 54,
+          "local_root": 4,
+          "energy_Ha": -14067.080671941363,
+          "bare_weight": 3.814024560910309e-08
+        },
+        {
+          "column": 60,
+          "local_root": 5,
+          "energy_Ha": -14067.062969479128,
+          "bare_weight": 2.459308332439015e-07
+        },
+        {
+          "column": 62,
+          "local_root": 6,
+          "energy_Ha": -14067.047113648792,
+          "bare_weight": 4.309690890042497e-05
+        },
+        {
+          "column": 67,
+          "local_root": 7,
+          "energy_Ha": -14066.98298192952,
+          "bare_weight": 1.7549398517501611e-06
+        }
+      ],
+      "static_complete_block_bare_overlap_distribution": [
+        {
+          "column": 2,
+          "local_root": 0,
+          "energy_Ha": -14053.224713312278,
+          "bare_weight": 0.9999488308817783
+        },
+        {
+          "column": 42,
+          "local_root": 1,
+          "energy_Ha": -14052.995805297296,
+          "bare_weight": 3.788273862690584e-06
+        },
+        {
+          "column": 47,
+          "local_root": 2,
+          "energy_Ha": -14052.980768167967,
+          "bare_weight": 4.540198856938887e-08
+        },
+        {
+          "column": 53,
+          "local_root": 3,
+          "energy_Ha": -14052.948049745619,
+          "bare_weight": 2.990533661939833e-10
+        },
+        {
+          "column": 54,
+          "local_root": 4,
+          "energy_Ha": -14052.942453093998,
+          "bare_weight": 4.1012301159779944e-08
+        },
+        {
+          "column": 60,
+          "local_root": 5,
+          "energy_Ha": -14052.924847870532,
+          "bare_weight": 2.4753450148754503e-07
+        },
+        {
+          "column": 62,
+          "local_root": 6,
+          "energy_Ha": -14052.906431660513,
+          "bare_weight": 4.521011880114595e-05
+        },
+        {
+          "column": 67,
+          "local_root": 7,
+          "energy_Ha": -14052.844831857341,
+          "bare_weight": 1.8364777129908468e-06
+        }
+      ]
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "bare_column": 3,
+      "DC_column": 3,
+      "DC_local_root": 0,
+      "DC_bare_squared_overlap": 0.9866528142250959,
+      "DC_top_two_weight_margin": 0.9794406268315912,
+      "DC_unambiguous": true,
+      "static_column": 3,
+      "static_local_root": 0,
+      "DC_to_static_squared_overlap": 0.9999809921566466,
+      "static_bare_squared_overlap": 0.985636397104154,
+      "static_bare_best_column": 3,
+      "static_bare_best_weight": 0.985636397104154,
+      "static_bare_binding_disagrees": false,
+      "DC_complete_block_overlap_distribution": [
+        {
+          "column": 3,
+          "local_root": 0,
+          "energy_Ha": -14067.372298931352,
+          "bare_weight": 0.9866528142250959
+        },
+        {
+          "column": 19,
+          "local_root": 1,
+          "energy_Ha": -14067.209919037534,
+          "bare_weight": 0.004205785262966101
+        },
+        {
+          "column": 24,
+          "local_root": 2,
+          "energy_Ha": -14067.174769632542,
+          "bare_weight": 0.0006427995049312406
+        },
+        {
+          "column": 32,
+          "local_root": 3,
+          "energy_Ha": -14067.161534734469,
+          "bare_weight": 0.001286413613502105
+        },
+        {
+          "column": 51,
+          "local_root": 4,
+          "energy_Ha": -14067.115604306471,
+          "bare_weight": 0.007212187393504714
+        }
+      ],
+      "static_complete_block_bare_overlap_distribution": [
+        {
+          "column": 3,
+          "local_root": 0,
+          "energy_Ha": -14053.224285166123,
+          "bare_weight": 0.985636397104154
+        },
+        {
+          "column": 19,
+          "local_root": 1,
+          "energy_Ha": -14053.069399117385,
+          "bare_weight": 0.004369215993643846
+        },
+        {
+          "column": 24,
+          "local_root": 2,
+          "energy_Ha": -14053.036244561701,
+          "bare_weight": 0.000721090201476077
+        },
+        {
+          "column": 32,
+          "local_root": 3,
+          "energy_Ha": -14053.023023535405,
+          "bare_weight": 0.001413509945368889
+        },
+        {
+          "column": 51,
+          "local_root": 4,
+          "energy_Ha": -14052.976818471374,
+          "bare_weight": 0.007859786755357834
+        }
+      ]
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "bare_column": 4,
+      "DC_column": 4,
+      "DC_local_root": 0,
+      "DC_bare_squared_overlap": 0.9874143060773979,
+      "DC_top_two_weight_margin": 0.9793980012513184,
+      "DC_unambiguous": true,
+      "static_column": 4,
+      "static_local_root": 0,
+      "DC_to_static_squared_overlap": 0.9999811278318869,
+      "static_bare_squared_overlap": 0.9864343808873665,
+      "static_bare_best_column": 4,
+      "static_bare_best_weight": 0.9864343808873665,
+      "static_bare_binding_disagrees": false,
+      "DC_complete_block_overlap_distribution": [
+        {
+          "column": 4,
+          "local_root": 0,
+          "energy_Ha": -14067.359027151391,
+          "bare_weight": 0.9874143060773979
+        },
+        {
+          "column": 8,
+          "local_root": 1,
+          "energy_Ha": -14067.229991733708,
+          "bare_weight": 0.0009889668339647642
+        },
+        {
+          "column": 13,
+          "local_root": 2,
+          "energy_Ha": -14067.219906592247,
+          "bare_weight": 0.0003654365239414148
+        },
+        {
+          "column": 20,
+          "local_root": 3,
+          "energy_Ha": -14067.191441750965,
+          "bare_weight": 0.0008778239788377684
+        },
+        {
+          "column": 28,
+          "local_root": 4,
+          "energy_Ha": -14067.168703651396,
+          "bare_weight": 3.2949441547612464e-05
+        },
+        {
+          "column": 31,
+          "local_root": 5,
+          "energy_Ha": -14067.163549926914,
+          "bare_weight": 6.725764232028527e-05
+        },
+        {
+          "column": 39,
+          "local_root": 6,
+          "energy_Ha": -14067.14118096539,
+          "bare_weight": 0.008016304826079457
+        },
+        {
+          "column": 47,
+          "local_root": 7,
+          "energy_Ha": -14067.120844773419,
+          "bare_weight": 0.0022369546759099367
+        }
+      ],
+      "static_complete_block_bare_overlap_distribution": [
+        {
+          "column": 4,
+          "local_root": 0,
+          "energy_Ha": -14053.211139665254,
+          "bare_weight": 0.9864343808873665
+        },
+        {
+          "column": 8,
+          "local_root": 1,
+          "energy_Ha": -14053.089020257294,
+          "bare_weight": 0.0010962230913463382
+        },
+        {
+          "column": 13,
+          "local_root": 2,
+          "energy_Ha": -14053.079031158446,
+          "bare_weight": 0.0003762176099781158
+        },
+        {
+          "column": 20,
+          "local_root": 3,
+          "energy_Ha": -14053.05130561635,
+          "bare_weight": 0.0007735571640392335
+        },
+        {
+          "column": 28,
+          "local_root": 4,
+          "energy_Ha": -14053.03018812844,
+          "bare_weight": 3.52760552478685e-05
+        },
+        {
+          "column": 31,
+          "local_root": 5,
+          "energy_Ha": -14053.02508871384,
+          "bare_weight": 6.479025520076245e-05
+        },
+        {
+          "column": 39,
+          "local_root": 6,
+          "energy_Ha": -14053.001812899814,
+          "bare_weight": 0.008638957302731934
+        },
+        {
+          "column": 45,
+          "local_root": 7,
+          "energy_Ha": -14052.982277925077,
+          "bare_weight": 0.0025805976340890773
+        }
+      ]
+    }
+  ],
+  "complete_DC_to_static_assignment": [
+    {
+      "twoJ": 1,
+      "parity": 1,
+      "DC_column": 0,
+      "static_column": 0,
+      "squared_overlap": 1.0,
+      "row_best_static_column": 0,
+      "row_best_weight": 1.0,
+      "top_two_weight_margin": 0.9999999999999997,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": 1,
+      "DC_column": 57,
+      "static_column": 57,
+      "squared_overlap": 1.0,
+      "row_best_static_column": 57,
+      "row_best_weight": 1.0,
+      "top_two_weight_margin": 0.9999999999999997,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 2,
+      "static_column": 2,
+      "squared_overlap": 0.9999999704836935,
+      "row_best_static_column": 2,
+      "row_best_weight": 0.9999999704836935,
+      "top_two_weight_margin": 0.9999999462431263,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 42,
+      "static_column": 42,
+      "squared_overlap": 0.9999950127898574,
+      "row_best_static_column": 42,
+      "row_best_weight": 0.9999950127898574,
+      "top_two_weight_margin": 0.9999927717137623,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 46,
+      "static_column": 47,
+      "squared_overlap": 0.9999893182398585,
+      "row_best_static_column": 47,
+      "row_best_weight": 0.9999893182398585,
+      "top_two_weight_margin": 0.9999853312964676,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 53,
+      "static_column": 53,
+      "squared_overlap": 0.9999944934515245,
+      "row_best_static_column": 53,
+      "row_best_weight": 0.9999944934515245,
+      "top_two_weight_margin": 0.9999916153809382,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 54,
+      "static_column": 54,
+      "squared_overlap": 0.9999941444910738,
+      "row_best_static_column": 54,
+      "row_best_weight": 0.9999941444910738,
+      "top_two_weight_margin": 0.9999901582488434,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 60,
+      "static_column": 60,
+      "squared_overlap": 0.9999923380278977,
+      "row_best_static_column": 60,
+      "row_best_weight": 0.9999923380278977,
+      "top_two_weight_margin": 0.9999871006987925,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 62,
+      "static_column": 62,
+      "squared_overlap": 0.9999932664156228,
+      "row_best_static_column": 62,
+      "row_best_weight": 0.9999932664156228,
+      "top_two_weight_margin": 0.999988029878033,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "DC_column": 67,
+      "static_column": 67,
+      "squared_overlap": 0.9999989102593327,
+      "row_best_static_column": 67,
+      "row_best_weight": 0.9999989102593327,
+      "top_two_weight_margin": 0.9999982127956337,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "DC_column": 1,
+      "static_column": 1,
+      "squared_overlap": 0.9999999740815868,
+      "row_best_static_column": 1,
+      "row_best_weight": 0.9999999740815868,
+      "top_two_weight_margin": 0.9999999515559986,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "DC_column": 45,
+      "static_column": 46,
+      "squared_overlap": 0.9999969067661779,
+      "row_best_static_column": 46,
+      "row_best_weight": 0.9999969067661779,
+      "top_two_weight_margin": 0.9999948562350113,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "DC_column": 56,
+      "static_column": 56,
+      "squared_overlap": 0.9999963280282813,
+      "row_best_static_column": 56,
+      "row_best_weight": 0.9999963280282813,
+      "top_two_weight_margin": 0.999994129828124,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "DC_column": 58,
+      "static_column": 58,
+      "squared_overlap": 0.9999957249637321,
+      "row_best_static_column": 58,
+      "row_best_weight": 0.9999957249637321,
+      "top_two_weight_margin": 0.9999935307725313,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "DC_column": 65,
+      "static_column": 65,
+      "squared_overlap": 0.9999995137105305,
+      "row_best_static_column": 65,
+      "row_best_weight": 0.9999995137105305,
+      "top_two_weight_margin": 0.9999990777349694,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 4,
+      "static_column": 4,
+      "squared_overlap": 0.9999811278318869,
+      "row_best_static_column": 4,
+      "row_best_weight": 0.9999811278318869,
+      "top_two_weight_margin": 0.9999695310207142,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 8,
+      "static_column": 8,
+      "squared_overlap": 0.9997469462621613,
+      "row_best_static_column": 8,
+      "row_best_weight": 0.9997469462621613,
+      "top_two_weight_margin": 0.9995978991342428,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 13,
+      "static_column": 13,
+      "squared_overlap": 0.9997989533766183,
+      "row_best_static_column": 13,
+      "row_best_weight": 0.9997989533766183,
+      "top_two_weight_margin": 0.9996516779166928,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 20,
+      "static_column": 20,
+      "squared_overlap": 0.9993207676010973,
+      "row_best_static_column": 20,
+      "row_best_weight": 0.9993207676010973,
+      "top_two_weight_margin": 0.9988583711066605,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 28,
+      "static_column": 28,
+      "squared_overlap": 0.9998682614056565,
+      "row_best_static_column": 28,
+      "row_best_weight": 0.9998682614056565,
+      "top_two_weight_margin": 0.9998107657828641,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 31,
+      "static_column": 31,
+      "squared_overlap": 0.9998342364481707,
+      "row_best_static_column": 31,
+      "row_best_weight": 0.9998342364481707,
+      "top_two_weight_margin": 0.9997779585735611,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 39,
+      "static_column": 39,
+      "squared_overlap": 0.9991574720958639,
+      "row_best_static_column": 39,
+      "row_best_weight": 0.9991574720958639,
+      "top_two_weight_margin": 0.9986978594105103,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "DC_column": 47,
+      "static_column": 45,
+      "squared_overlap": 0.9996936410815368,
+      "row_best_static_column": 45,
+      "row_best_weight": 0.9996936410815368,
+      "top_two_weight_margin": 0.9994059830104316,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "DC_column": 3,
+      "static_column": 3,
+      "squared_overlap": 0.9999809921566466,
+      "row_best_static_column": 3,
+      "row_best_weight": 0.9999809921566466,
+      "top_two_weight_margin": 0.9999719256512878,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "DC_column": 19,
+      "static_column": 19,
+      "squared_overlap": 0.9996263852196451,
+      "row_best_static_column": 19,
+      "row_best_weight": 0.9996263852196451,
+      "top_two_weight_margin": 0.9993710741905323,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "DC_column": 24,
+      "static_column": 24,
+      "squared_overlap": 0.9996730134966976,
+      "row_best_static_column": 24,
+      "row_best_weight": 0.9996730134966976,
+      "top_two_weight_margin": 0.9994150319325387,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "DC_column": 32,
+      "static_column": 32,
+      "squared_overlap": 0.9998569783683645,
+      "row_best_static_column": 32,
+      "row_best_weight": 0.9998569783683645,
+      "top_two_weight_margin": 0.999796615328112,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "DC_column": 51,
+      "static_column": 51,
+      "squared_overlap": 0.999899964736861,
+      "row_best_static_column": 51,
+      "row_best_weight": 0.999899964736861,
+      "top_two_weight_margin": 0.9998456693707243,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 5,
+      "static_column": 5,
+      "squared_overlap": 0.9999772681371984,
+      "row_best_static_column": 5,
+      "row_best_weight": 0.9999772681371984,
+      "top_two_weight_margin": 0.99996596182016,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 11,
+      "static_column": 11,
+      "squared_overlap": 0.9999404331723469,
+      "row_best_static_column": 11,
+      "row_best_weight": 0.9999404331723469,
+      "top_two_weight_margin": 0.9998948543588722,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 15,
+      "static_column": 15,
+      "squared_overlap": 0.999939013198797,
+      "row_best_static_column": 15,
+      "row_best_weight": 0.999939013198797,
+      "top_two_weight_margin": 0.9998934689089869,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 22,
+      "static_column": 22,
+      "squared_overlap": 0.9998553720673221,
+      "row_best_static_column": 22,
+      "row_best_weight": 0.9998553720673221,
+      "top_two_weight_margin": 0.9997540696530993,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 29,
+      "static_column": 29,
+      "squared_overlap": 0.99984917693809,
+      "row_best_static_column": 29,
+      "row_best_weight": 0.99984917693809,
+      "top_two_weight_margin": 0.9997484323103857,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 33,
+      "static_column": 33,
+      "squared_overlap": 0.9991080997453274,
+      "row_best_static_column": 33,
+      "row_best_weight": 0.9991080997453274,
+      "top_two_weight_margin": 0.9982944182176996,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 34,
+      "static_column": 34,
+      "squared_overlap": 0.9991783777396124,
+      "row_best_static_column": 34,
+      "row_best_weight": 0.9991783777396124,
+      "top_two_weight_margin": 0.998365530403802,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "DC_column": 50,
+      "static_column": 50,
+      "squared_overlap": 0.9999931978675353,
+      "row_best_static_column": 50,
+      "row_best_weight": 0.9999931978675353,
+      "top_two_weight_margin": 0.9999909612890726,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 10,
+      "static_column": 10,
+      "squared_overlap": 0.9999705586252735,
+      "row_best_static_column": 10,
+      "row_best_weight": 0.9999705586252735,
+      "top_two_weight_margin": 0.9999480826031301,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 14,
+      "static_column": 14,
+      "squared_overlap": 0.9999250871339186,
+      "row_best_static_column": 14,
+      "row_best_weight": 0.9999250871339186,
+      "top_two_weight_margin": 0.9998955057802703,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 17,
+      "static_column": 17,
+      "squared_overlap": 0.9999453830881644,
+      "row_best_static_column": 17,
+      "row_best_weight": 0.9999453830881644,
+      "top_two_weight_margin": 0.9999247022419698,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 23,
+      "static_column": 23,
+      "squared_overlap": 0.9927126802860837,
+      "row_best_static_column": 23,
+      "row_best_weight": 0.9927126802860837,
+      "top_two_weight_margin": 0.9854834327199352,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 25,
+      "static_column": 25,
+      "squared_overlap": 0.9923771876383665,
+      "row_best_static_column": 25,
+      "row_best_weight": 0.9923771876383665,
+      "top_two_weight_margin": 0.9851427772110767,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 35,
+      "static_column": 35,
+      "squared_overlap": 0.9996687117728194,
+      "row_best_static_column": 35,
+      "row_best_weight": 0.9996687117728194,
+      "top_two_weight_margin": 0.9993470356772318,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 36,
+      "static_column": 36,
+      "squared_overlap": 0.9999221572369775,
+      "row_best_static_column": 36,
+      "row_best_weight": 0.9999221572369775,
+      "top_two_weight_margin": 0.9998550099958081,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "DC_column": 52,
+      "static_column": 52,
+      "squared_overlap": 0.9999952894945529,
+      "row_best_static_column": 52,
+      "row_best_weight": 0.9999952894945529,
+      "top_two_weight_margin": 0.9999922768240216,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 6,
+      "static_column": 6,
+      "squared_overlap": 0.9999937862689993,
+      "row_best_static_column": 6,
+      "row_best_weight": 0.9999937862689993,
+      "top_two_weight_margin": 0.9999891991533608,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 12,
+      "static_column": 12,
+      "squared_overlap": 0.9999585448672222,
+      "row_best_static_column": 12,
+      "row_best_weight": 0.9999585448672222,
+      "top_two_weight_margin": 0.9999250490884298,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 16,
+      "static_column": 16,
+      "squared_overlap": 0.9999415769470176,
+      "row_best_static_column": 16,
+      "row_best_weight": 0.9999415769470176,
+      "top_two_weight_margin": 0.9999079783661056,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 26,
+      "static_column": 27,
+      "squared_overlap": 0.5313062656135316,
+      "row_best_static_column": 27,
+      "row_best_weight": 0.5313062656135316,
+      "top_two_weight_margin": 0.06265124517009912,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 27,
+      "static_column": 26,
+      "squared_overlap": 0.531306490467635,
+      "row_best_static_column": 26,
+      "row_best_weight": 0.531306490467635,
+      "top_two_weight_margin": 0.06265878167110284,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 37,
+      "static_column": 37,
+      "squared_overlap": 0.999973503590828,
+      "row_best_static_column": 37,
+      "row_best_weight": 0.999973503590828,
+      "top_two_weight_margin": 0.9999564092942466,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "DC_column": 43,
+      "static_column": 43,
+      "squared_overlap": 0.9999721303400859,
+      "row_best_static_column": 43,
+      "row_best_weight": 0.9999721303400859,
+      "top_two_weight_margin": 0.9999472272044407,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 11,
+      "parity": -1,
+      "DC_column": 7,
+      "static_column": 7,
+      "squared_overlap": 0.9999894609221096,
+      "row_best_static_column": 7,
+      "row_best_weight": 0.9999894609221096,
+      "top_two_weight_margin": 0.9999852061223582,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 11,
+      "parity": -1,
+      "DC_column": 18,
+      "static_column": 18,
+      "squared_overlap": 0.9999862644975516,
+      "row_best_static_column": 18,
+      "row_best_weight": 0.9999862644975516,
+      "top_two_weight_margin": 0.9999760763338401,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 11,
+      "parity": -1,
+      "DC_column": 21,
+      "static_column": 21,
+      "squared_overlap": 0.9999929980882735,
+      "row_best_static_column": 21,
+      "row_best_weight": 0.9999929980882735,
+      "top_two_weight_margin": 0.9999895715955671,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 11,
+      "parity": -1,
+      "DC_column": 30,
+      "static_column": 30,
+      "squared_overlap": 0.9999826498307354,
+      "row_best_static_column": 30,
+      "row_best_weight": 0.9999826498307354,
+      "top_two_weight_margin": 0.99997244823213,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 13,
+      "parity": -1,
+      "DC_column": 9,
+      "static_column": 9,
+      "squared_overlap": 1.0,
+      "row_best_static_column": 9,
+      "row_best_weight": 1.0,
+      "top_two_weight_margin": 1.0,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 38,
+      "static_column": 38,
+      "squared_overlap": 0.9999983877143496,
+      "row_best_static_column": 38,
+      "row_best_weight": 0.9999983877143496,
+      "top_two_weight_margin": 0.9999976640104924,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 40,
+      "static_column": 40,
+      "squared_overlap": 0.9999974934295193,
+      "row_best_static_column": 40,
+      "row_best_weight": 0.9999974934295193,
+      "top_two_weight_margin": 0.9999963595078126,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 49,
+      "static_column": 49,
+      "squared_overlap": 0.9999957940975599,
+      "row_best_static_column": 49,
+      "row_best_weight": 0.9999957940975599,
+      "top_two_weight_margin": 0.9999929692976725,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 55,
+      "static_column": 55,
+      "squared_overlap": 0.9999943849541734,
+      "row_best_static_column": 55,
+      "row_best_weight": 0.9999943849541734,
+      "top_two_weight_margin": 0.9999915585916997,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 61,
+      "static_column": 61,
+      "squared_overlap": 0.9999895718998395,
+      "row_best_static_column": 61,
+      "row_best_weight": 0.9999895718998395,
+      "top_two_weight_margin": 0.9999809669307054,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 64,
+      "static_column": 64,
+      "squared_overlap": 0.9999899254257083,
+      "row_best_static_column": 64,
+      "row_best_weight": 0.9999899254257083,
+      "top_two_weight_margin": 0.9999813178695932,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "DC_column": 66,
+      "static_column": 66,
+      "squared_overlap": 0.9999987739541233,
+      "row_best_static_column": 66,
+      "row_best_weight": 0.9999987739541233,
+      "top_two_weight_margin": 0.9999979449481167,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": 1,
+      "DC_column": 41,
+      "static_column": 41,
+      "squared_overlap": 0.9999985816012191,
+      "row_best_static_column": 41,
+      "row_best_weight": 0.9999985816012191,
+      "top_two_weight_margin": 0.9999979666292464,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": 1,
+      "DC_column": 48,
+      "static_column": 48,
+      "squared_overlap": 0.9999995136310568,
+      "row_best_static_column": 48,
+      "row_best_weight": 0.9999995136310568,
+      "top_two_weight_margin": 0.999999058221884,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": 1,
+      "DC_column": 59,
+      "static_column": 59,
+      "squared_overlap": 0.9999862351022116,
+      "row_best_static_column": 59,
+      "row_best_weight": 0.9999862351022116,
+      "top_two_weight_margin": 0.9999731104671903,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 9,
+      "parity": 1,
+      "DC_column": 63,
+      "static_column": 63,
+      "squared_overlap": 0.9999865185134051,
+      "row_best_static_column": 63,
+      "row_best_weight": 0.9999865185134051,
+      "top_two_weight_margin": 0.9999733906318666,
+      "unambiguous_weight": true
+    },
+    {
+      "twoJ": 11,
+      "parity": 1,
+      "DC_column": 44,
+      "static_column": 44,
+      "squared_overlap": 1.0,
+      "row_best_static_column": 44,
+      "row_best_weight": 1.0,
+      "top_two_weight_margin": 1.0,
+      "unambiguous_weight": true
+    }
+  ],
+  "bare_reference_spectral_moments": [
+    {
+      "model": "DC",
+      "label": "6s_1/2",
+      "centroid_Ha": -14067.483362718063,
+      "variance_Ha2": 1.9509519759325757e-38,
+      "width_cm1": 3.065544450345102e-14,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "static_Breit",
+      "label": "6s_1/2",
+      "centroid_Ha": -14053.335076971702,
+      "variance_Ha2": 4.566042593600453e-17,
+      "width_cm1": 0.0014830449263644008,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "DC",
+      "label": "5d_3/2",
+      "centroid_Ha": -14067.375251204456,
+      "variance_Ha2": 4.753903842154732e-06,
+      "width_cm1": 478.53039111846607,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_3/2",
+      "centroid_Ha": -14053.226830789832,
+      "variance_Ha2": 4.754140066678672e-06,
+      "width_cm1": 478.54228021144684,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "DC",
+      "label": "5d_5/2",
+      "centroid_Ha": -14067.372918252995,
+      "variance_Ha2": 5.0709575934866425e-06,
+      "width_cm1": 494.23024336478665,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_5/2",
+      "centroid_Ha": -14053.224697260956,
+      "variance_Ha2": 5.071446100609583e-06,
+      "width_cm1": 494.2540484524321,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "DC",
+      "label": "6p_1/2",
+      "centroid_Ha": -14067.369366564984,
+      "variance_Ha2": 0.0006597476472882234,
+      "width_cm1": 5637.327337437208,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_1/2",
+      "centroid_Ha": -14053.221243320517,
+      "variance_Ha2": 0.0006596479992179773,
+      "width_cm1": 5636.901591315929,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "DC",
+      "label": "6p_3/2",
+      "centroid_Ha": -14067.356403046422,
+      "variance_Ha2": 0.0005524042564360101,
+      "width_cm1": 5158.374113855261,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_3/2",
+      "centroid_Ha": -14053.208415050225,
+      "variance_Ha2": 0.000552355339183414,
+      "width_cm1": 5158.145713120595,
+      "centroid_identity": "Complete bare-reference spectral measure, not a tracked eigenenergy"
+    }
+  ]
+}

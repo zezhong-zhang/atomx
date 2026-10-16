@@ -1,0 +1,87 @@
+{
+  "all_passed": true,
+  "checks_count": 16,
+  "checks": [
+    {
+      "name": "link the proposed diff",
+      "path": "proposed_matrix.patch",
+      "passed": true
+    },
+    {
+      "name": "link finite He profile",
+      "path": "../performance/gradient_probe001/profile.txt",
+      "passed": true
+    },
+    {
+      "name": "link actual counter ledger",
+      "path": "../correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "passed": true
+    },
+    {
+      "name": "link source review",
+      "path": "review.json",
+      "passed": true
+    },
+    {
+      "name": "link retained-H chain",
+      "path": "../retained_hamiltonian_performance/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "link contract.json",
+      "path": "contract.json",
+      "passed": true
+    },
+    {
+      "name": "link review.json",
+      "path": "review.json",
+      "passed": true
+    },
+    {
+      "name": "link documentation_impact.json",
+      "path": "documentation_impact.json",
+      "passed": true
+    },
+    {
+      "name": "source-only review761",
+      "passed": true
+    },
+    {
+      "name": "no physical calls",
+      "passed": true
+    },
+    {
+      "name": "dominant stage and speed unknown",
+      "passed": true
+    },
+    {
+      "name": "stored-key source-pair count exactly593",
+      "passed": true
+    },
+    {
+      "name": "proposal remains unapplied",
+      "passed": true
+    },
+    {
+      "name": "physical qualification false",
+      "passed": true
+    },
+    {
+      "name": "optimizer not authorized",
+      "passed": true
+    },
+    {
+      "name": "explicit 2H2CI2g proposed cap",
+      "passed": true
+    }
+  ],
+  "files_sha256": {
+    "README.md": "e846ab8e8345545a7ed6c3b07ba8cd6d7526e201a5f00774e4a4f987840fda20",
+    "contract.json": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c",
+    "verify_source.py": "b0ed918822f474a152c089d5ce8e322fe9422aef122a0d18f20a0c5dc355adfb",
+    "proposed_matrix.patch": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482",
+    "review.json": "51cf7496e0db98f8c0dcfd1f084c763785970aef80f991b85afe3a2912e7851a",
+    "documentation_impact.json": "4f50f71048f4f0522754923ff8fc37ac74ff74a8056618ee6b05ec57ff9aeec8"
+  },
+  "scope": "Documentation/link/metadata consistency only; no tests/science/performance execution."
+}

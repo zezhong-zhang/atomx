@@ -1,0 +1,108 @@
+{
+  "hypothesis": "A fresh stationary native 68-electron reference reproduces the scale of the published DHF attachment energies before any correlation correction; a fixed two-basis comparison distinguishes radial error from the later correlation gap.",
+  "paper": {
+    "version": "arXiv:2504.01438v1",
+    "url": "https://arxiv.org/html/2504.01438v1",
+    "table": "Table1, energy/DHF",
+    "EA_cm1": [
+      -90790,
+      -66517,
+      -66038
+    ],
+    "state_order": [
+      "6s S1/2",
+      "5d D3/2",
+      "5d D5/2"
+    ],
+    "reference_only": true,
+    "rounding_halfwidth_cm1": 0.5,
+    "unknowns": "40-GTO exponents, nuclear model/parameters, exact DHF DC/Breit separation, correlated partitions and solver controls remain unknown."
+  },
+  "fixed": {
+    "Z": 70,
+    "closed_core_electrons": 68,
+    "target_electrons": 69,
+    "core": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14",
+    "nucleus": "Fermi empirical radius selected by A171; not an experimental radius and not an asserted paper input",
+    "nuclear_mass_number": 171,
+    "r_min": "native Fermi first-step default",
+    "r_max_bohr": 500.0,
+    "basis_order": 9,
+    "kinetic_balance": true,
+    "grid": "pure exponential native make_knots, not the paper GTO basis",
+    "exchange": "nonlocal HF",
+    "hamiltonian": "Dirac-Coulomb only, rest energy subtracted; no recoil/QED/Breit",
+    "electron_projector": "native solve_dirac positive branch, stored-core S-orthogonal complement for attached orbitals",
+    "comparison_zero": "E(Yb69 frozen core)-E(Yb68) = valence Fock eigenvalue",
+    "optimization": "closed68-electron DHF only; no69-electron MCDHF claim",
+    "radial_sizes": [
+      180,
+      220
+    ],
+    "scf_max_iter": 160,
+    "scf_tolerance": 1e-09,
+    "scf_orbital_tolerance": 1e-08,
+    "valence_keys": [
+      [
+        6,
+        -1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ]
+  },
+  "acceptance": {
+    "core_converged": true,
+    "occupied_S_Gram": 1e-10,
+    "occupied_Fock_tangent_dual_Ha": 1e-06,
+    "valence_projected_dual_Ha": 1e-08,
+    "valence_S_Gram": 1e-10,
+    "core_CI_minus_DHF_Ha": 1e-07,
+    "full69_CI_minus_core_plus_valence_Ha": 1e-07,
+    "radial_EA_and_lines_drift_cm1": 1.0,
+    "paper": "Observed difference from rounded row only; numerical agreement is not exact input/method reproduction or experimental accuracy."
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "seconds": 1200,
+    "load1_max": 24,
+    "available_min_bytes": 17179869184,
+    "estimate": "19 core and3 attached radial orbitals, seven Fock pencils/arm, three complete electron eigensystems/arm; largest active pencil433 and at most217 electron columns; four singleton CI blocks/arm; <256MiB retained NumPy payload/arm, <2GiB anticipated RSS.",
+    "fock_calls_per_arm": 7,
+    "valence_eigensystems_per_arm": 3,
+    "CI_CSFS_per_arm": 4,
+    "CI_calls_per_arm": 2,
+    "raw_determinant_cap": 32,
+    "array_output_bytes": 268435456
+  },
+  "stopping": "Stop on first identity, convergence, residual or resource failure; preserve partial results. No automatic retry, radial-size scan, relaxed gate, fitted energy, borrowed paper correction or backend execution.",
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_contract.json": "8fc3f09620b7da9b0fc71c30dc294afb2c84674af5a450d85dc7c654c7db6fd8",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/run002.py": "10c171ae5fb2ceb3a0d44f6f7955db9837c814bde8bca60791226c0fedc40fa5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/contract.json": "08524184689285c59ee21f0161e18c9924c995d2fe200a9d6ffe32ec186561c5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual001/result.json": "f7a98e75b8068b3edbb633fa866d52e6bbf276ebb4a65222520891480bffe757",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual001/core_ns180.h5": "cb68d74ea0dfdbf17d5957718ae6e0c121d9461972c19d22f078c44124d6a969",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/diagnosis001/result.json": "69b0ecbd0973557ced64bcd7a7b91c82356ad5db1bb836094f3d882574c51a43"
+  },
+  "predecessor": {
+    "contract_sha256": "08524184689285c59ee21f0161e18c9924c995d2fe200a9d6ffe32ec186561c5",
+    "failure_sha256": "f7a98e75b8068b3edbb633fa866d52e6bbf276ebb4a65222520891480bffe757",
+    "diagnosis_sha256": "69b0ecbd0973557ced64bcd7a7b91c82356ad5db1bb836094f3d882574c51a43",
+    "scope": "Same source, nucleus, radial sizes, physics, scientific gates and caps; repair only explicit whole-branch metric representation before native refinement."
+  },
+  "metric_repair": {
+    "method": "one ordered Cholesky QR on the entire supplied positive branch in the original complement metric",
+    "column_change_S_norm_max": 1e-08,
+    "input_and_output_Gram_max": 1e-10,
+    "root_policy": "No energies, columns, model or physical span removed; leading root is subsequently refined and checked in the same original pencil."
+  }
+}

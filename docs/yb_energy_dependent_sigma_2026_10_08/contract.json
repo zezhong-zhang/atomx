@@ -1,0 +1,30 @@
+{
+  "hypothesis": "Energy dependence of the diagonal second-order attachment self-energy measurably changes the Yb+ spectrum relative to on-shell addition, without changing the core or orbital space.",
+  "fixed_conditions": "Retained Z70 Fermi V68 closed core, same ns123/R60 native radial metric, same five external normalized DF valence spinors, all 19 core orbitals; Dirac-Coulomb only.",
+  "primary_space": "Complete l<=6 virtual kappa blocks, all bound and positive-energy virtuals below 50 Ha; no active root count truncation.",
+  "tail_control": "Derive l<=4 by exact filtering of the retained pole expansion against original virtual kappa identities; additionally split 0-5, 5-20 and 20-50 Ha contribution groups. No small-coupling pruning.",
+  "distinguishing_outcomes": "Compare individual attachment shifts, excitation residuals, and l4-to-l6 increments with and without scalar Dyson solving. A numerical root pass is separate from experimental or spatial convergence.",
+  "branch": "Solve E=epsilon_DF+Sigma2(E) on a pole-free interval containing epsilon_DF; select the branch connected to the DF root as coupling goes to zero. Do not select a satellite root by experimental proximity.",
+  "initial_bracket_Ha": "[epsilon_DF-0.1, epsilon_DF]; reject any nonzero-weight pole in the bracket and reject a bracket without a root. No tuning to experimental energies.",
+  "scope": "Diagonal frozen-orbital Dyson energy dependence only; no off-diagonal Brueckner orbital relaxation, self-consistent GF2, vertex corrections, QED, Breit, RPA, or correlated radiative rates.",
+  "gates": {
+    "independent_spin_orbital_off_shell": "rel1e-11 abs1e-13 Ha",
+    "one_pole_analytic_Hermitian_control": "Dyson energy and residue match a 2x2 Hermitian Hamiltonian eigenvalue and eigenvector weight",
+    "on_shell_replay_Ha": 1e-10,
+    "root_residual_Ha": 1e-10,
+    "denominator_floor_Ha": 1e-8,
+    "residue": "0 < Z <= 1",
+    "CI_injection_Ha": 1e-8,
+    "experimental_goal_relative": 0.05,
+    "correlation_space_goal_cm1": 1.0
+  },
+  "resources": {
+    "threads_per_process": 1,
+    "full_capture_cap_seconds": 1000,
+    "prior_l6_capture_free_elapsed_seconds": 767.43,
+    "cap_change_reason": "Exact nonzero pole/weight storage, physical group metadata and replay checks add work; no change to physical space.",
+    "anticipated_peak_RSS_MiB": 1400,
+    "root_and_tail_replay_cap_seconds": 120
+  },
+  "stopping_condition": "Stop after full-space capture, matched on-shell replay, all five Dyson roots and l4/l6 controls; preserve failures and do not claim radial, higher-order, radiative, or precision convergence."
+}

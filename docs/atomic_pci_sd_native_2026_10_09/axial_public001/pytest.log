@@ -1,0 +1,34 @@
+..........F........                                                      [100%]
+=================================== FAILURES ===================================
+______ test_live_axial_full_ccsdt_signed_phase_and_all_supported_sectors _______
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-300/test_live_axial_full_ccsdt_sig0')
+
+    def test_live_axial_full_ccsdt_signed_phase_and_all_supported_sectors(native, tmp_path):
+        executable = os.environ.get('ATOMX_EXPT_AXIAL_EXECUTABLE')
+        if not executable:
+            pytest.skip('set ATOMX_EXPT_AXIAL_EXECUTABLE for actual exact tensor blocking')
+        from atomx.physics.csf.sparse_ci import assemble_sparse_hamiltonian
+        core, od = native
+        a = integrals(native)
+        def run(a, name, symmetry, sector='0h1p'):
+            active = range(2, 10) if sector == '0h1p' else (range(2) if sector == '1h0p' else ())
+            return compute(a, executable=executable, directory=tmp_path/name,
+                model='CCSDT', sector=sector, active_indices=active, tensor_symmetry=symmetry,
+                tile_size=4, tolerance=1e-12, residual_bound_tolerance_Ha=1e-9)
+        c1 = run(a, 'C1', 'C1')
+        axial = run(a, 'axial', 'axial')
+>       assert np.max(abs(c1.model_space_matrix_Ha-axial.model_space_matrix_Ha)) < 1e-9
+E       AssertionError: assert np.float64(0.5195894250763285) < 1e-09
+E        +  where np.float64(0.5195894250763285) = <function max at 0x7585b49f77f0>(array([[1.46598673e-01, 5.19589425e-01, 5.19589425e-01, 5.19589425e-01,\n        5.19589425e-01, 5.19589425e-01, 5.1958...19589425e-01, 5.19589425e-01, 5.19589425e-01,\n        5.19589425e-01, 5.19589425e-01, 5.19589425e-01, 0.00000000e+00]]))
+E        +    where <function max at 0x7585b49f77f0> = np.max
+E        +    and   array([[1.46598673e-01, 5.19589425e-01, 5.19589425e-01, 5.19589425e-01,\n        5.19589425e-01, 5.19589425e-01, 5.1958...19589425e-01, 5.19589425e-01, 5.19589425e-01,\n        5.19589425e-01, 5.19589425e-01, 5.19589425e-01, 0.00000000e+00]]) = abs((array([[-6.66188099e-01+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....      0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n         0.00000000e+00+0.j, -5.19589425e-01+0.j]]) - array([[-0.51958943+0.j]])))
+E        +      where array([[-6.66188099e-01+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....      0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n         0.00000000e+00+0.j, -5.19589425e-01+0.j]]) = FSCCResult(model='CCSDT', sector='0h1p', core_energy_Ha=-13.614111051771697, sector_energies_Ha=(-14.280299150325959, ...     0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n         0.00000000e+00+0.j, -5.19589425e-01+0.j]])).model_space_matrix_Ha
+E        +      and   array([[-0.51958943+0.j]]) = FSCCResult(model='CCSDT', sector='0h1p', core_energy_Ha=-13.614111051771697, sector_energies_Ha=(-14.280299150325959, ...'4c9302e22b4ca9d20cc90b90b4e0dd64fb69cf144c79125cf90b3f0c53dd0856'}), model_space_matrix_Ha=array([[-0.51958943+0.j]])).model_space_matrix_Ha
+
+tests/test_spinor_integrals_fscc.py:207: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_spinor_integrals_fscc.py::test_live_axial_full_ccsdt_signed_phase_and_all_supported_sectors
+1 failed, 18 passed in 7.88s

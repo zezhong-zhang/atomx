@@ -1,0 +1,117 @@
+AMBiT  Copyright (C) 2018  Julian Berengut
+This program comes with ABSOLUTELY NO WARRANTY; for details see LICENSE.
+
+AMBiT version:    
+      git branch: master fe1115a
+      compiled:   Fri Oct  9 00:47:08 HKT 2026
+----------------------------------------------------------
+input:
+----------------------------------------------------------
+argc = 25
+BeII.input
+ID=BeII_native_reference
+Z=4
+-s12
+[Lattice]
+Lattice/NumPoints=4000
+Lattice/StartPoint=1.e-6
+Lattice/EndPoint=40.
+[HF]
+HF/N=2
+HF/Configuration=1s2
+[Basis]
+Basis/--bspline-basis
+Basis/ValenceBasis=6spdf
+Basis/FrozenCore=1s2
+[CI]
+CI/LeadingConfigurations=2s1, 2p1, 3s1, 3p1
+CI/ElectronExcitations=0
+CI/HoleExcitations=0
+CI/NumSolutions=3
+CI/EvenParityTwoJ=1
+CI/OddParityTwoJ=1, 3
+[MBPT]
+MBPT/Basis=8spdf
+BeII.input
+
+----------------------------------------------------------
+Nuclear RMS radius = 3.65856
+Core orbitals: 
+    1s  E = -5.66814895316  size: (2641) 8.729
+Excited orbitals: 
+    2s  E = -0.666183290208  size: (3999) 40
+    3s  E = -0.266523141407  size: (3999) 40
+    4s  E = -0.142880462597  size: (3999) 40
+    5s  E = -0.0889289882597  size: (3999) 40
+    6s  E = -0.0598705587352  size: (3999) 40
+    7s  E = -0.0348642708532  size: (3999) 40
+    8s  E = -0.00225840426796  size: (3999) 40
+    2p  E = -0.519446705578  size: (3999) 40
+    3p  E = -0.228426314989  size: (3999) 40
+    4p  E = -0.127665345928  size: (3999) 40
+    5p  E = -0.0813597766389  size: (3999) 40
+    6p  E = -0.0549951685055  size: (3999) 40
+    7p  E = -0.029598913281  size: (3999) 40
+    8p  E = 0.00368386203761  size: (3999) 40
+   2p+  E = -0.51940610683  size: (3999) 40
+   3p+  E = -0.22841414562  size: (3999) 40
+   4p+  E = -0.127660270826  size: (3999) 40
+   5p+  E = -0.0813574648155  size: (3999) 40
+   6p+  E = -0.0549944251773  size: (3999) 40
+   7p+  E = -0.0296025996873  size: (3999) 40
+   8p+  E = 0.00371082036265  size: (3999) 40
+    3d  E = -0.222296892787  size: (3999) 40
+    4d  E = -0.125042912706  size: (3999) 40
+    5d  E = -0.0800142494163  size: (3999) 40
+    6d  E = -0.0544172023057  size: (3999) 40
+    7d  E = -0.0302452335063  size: (3999) 40
+    8d  E = 0.0014975378405  size: (3999) 40
+   3d+  E = -0.222294262523  size: (3999) 40
+   4d+  E = -0.12504182632  size: (3999) 40
+   5d+  E = -0.0800137201975  size: (3999) 40
+   6d+  E = -0.0544169061415  size: (3999) 40
+   7d+  E = -0.0302448742326  size: (3999) 40
+   8d+  E = 0.00151833096523  size: (3999) 40
+    4f  E = -0.125001128  size: (3999) 40
+    5f  E = -0.0799965402005  size: (3999) 40
+    6f  E = -0.0548460616592  size: (3999) 40
+    7f  E = -0.0326812328098  size: (3999) 40
+    8f  E = -0.00362412842965  size: (3999) 40
+   4f+  E = -0.125000580944  size: (3999) 40
+   5f+  E = -0.0799962791423  size: (3999) 40
+   6f+  E = -0.0548459154709  size: (3999) 40
+   7f+  E = -0.0326811324471  size: (3999) 40
+   8f+  E = -0.00363215382497  size: (3999) 40
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 0.5, P = even (N = 2):
+0: -0.66637267    -146251.896583 /cm
+                 2s1  100.0000%
+    g-factor = 2
+
+1: -0.26654464    -58499.7857842 /cm
+                 3s1  100.0000%
+    g-factor = 2
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 0.5, P = odd (N = 2):
+0: -0.51981053    -114085.224886 /cm
+                 2p1  100.0000%
+    g-factor = 0.66667
+
+1: -0.22848632    -50146.9515455 /cm
+                 3p1  100.0000%
+    g-factor = 0.66667
+
+ Number of CSFs = 2; Finding solutions using Eigen...
+Solutions for J = 1.5, P = odd (N = 2):
+0: -0.51976976    -114076.27628 /cm
+                 2p1  100.0000%
+    g-factor = 1.3333
+
+1: -0.22847412    -50144.2735747 /cm
+                 3p1  100.0000%
+    g-factor = 1.3333
+
+
+Finished

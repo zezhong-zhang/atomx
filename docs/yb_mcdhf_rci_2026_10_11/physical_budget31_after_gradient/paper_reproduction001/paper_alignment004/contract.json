@@ -1,0 +1,78 @@
+{
+  "hypothesis": "At fixed owned orbitals/DC Hamiltonian/18 virtual spinors, opening the complete frozen 5p3/2 quartet changes differential core/valence correlation. The embedded predecessor must reproduce all its equations before solving any new amplitudes.",
+  "fixed": {
+    "nucleus": "empirical A171 Fermi, identical to predecessor; exact paper nuclear parameters unknown",
+    "radial": "same ns180/order9/R500/RKB; same complete6s,5d3/2,5d5/2,6p1/2,6p3/2 virtuals",
+    "Hamiltonian": "Dirac-Coulomb, common original 68e HF energy zero, no empirical shift/Breit/QED/recoil",
+    "equations": "complete SDT core and R3 attachment; exact M/parity, highest-weight J, all12 magnetic partners; canonical R norm only",
+    "old_core": "18 correlated:5s2,5p1/2^2,4f14;50 frozen",
+    "new_core": "22 correlated:old18 plus complete5p3/2^4;46 frozen",
+    "method_scope": "finite EA-CCSDT/R3; not a claim of valence-universal FS-RCCSDT or full-paper reproduction"
+  },
+  "gates": {
+    "identity_Ha": 1e-10,
+    "core_residual_Ha": 1e-10,
+    "EA_residual_Ha": 1e-10,
+    "J2": 1e-07,
+    "core_Jplus": 1e-07,
+    "canonical_R_norm": 1e-08
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 25769803776,
+    "workspace_MiB": 16384,
+    "previous_workspace_MiB": 8192,
+    "reason_for_workspace_change": "22x18 scalar conservative payload is12.583GB, above prior8GiB; existing process AS24GiB unchanged",
+    "probe_wall_seconds": 360,
+    "solve_wall_seconds": 2400,
+    "core_calls_max": 60,
+    "Davidson_basis_per_target_max": 48,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368,
+    "plan": {
+      "core_amplitudes": 1292379,
+      "attachment_coordinates": 191880,
+      "dense_core_coordinates": 62256348,
+      "dense_attachment_coordinates": 2829834,
+      "resident_integral_bytes": 20505600,
+      "numerical_upper_bytes": 12583357392,
+      "attachment_matrix_bytes": 294543475200,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "rejected_next_full_f_plan": {
+      "core_amplitudes": 7753680,
+      "attachment_coordinates": 1156704,
+      "dense_core_coordinates": 349409984,
+      "dense_attachment_coordinates": 15882272,
+      "resident_integral_bytes": 68071104,
+      "numerical_upper_bytes": 70672663744,
+      "attachment_matrix_bytes": 10703713148928,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    }
+  },
+  "distinguishing_outcomes": "First establish exact old-coordinate/energy/Fock/ERI recovery and nonzero newly opened residuals. A solved new spectrum is accepted only after complete equations and partners pass; improvement against experiment is measured, never a gate.",
+  "stopping": "First identity/source/resource/equation failure stops and is retained. No automatic rank, orbital, residual, root-weight or model changes. Independent call and wall limits apply. No full-f allocation under this contract.",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/paper_alignment004/align_core.py": "7aa467fc912e5f5643a6798e890e74133d34e17a447fc6c2096183f72d206f86",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/operator.json": "9bfde7c8d18358fa13e77a3f026eadc293d04d11861edd1d769cb9ea04e1806d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/integrals.npz": "822231dedf82c8ff29575c4065cecaff2276463b2f6773183a3c8d082a00246a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/core.npz": "44ea0e56474dae125592375f95044ae6057c49820c039af957529b9181915ebb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/result.json": "c1d59624104af388ecedbf9b88a62dd11fe0afb38f7d7b1b9bc9f345d0215a6e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/probe001/virtuals.npz": "8a41e754bca0a23897dfdb7e52b8be22fa4f45091ba3bf7353ef77aaf2a26d61",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/increment_receipt.json": "f4fc4f8c50f1e5c2d81d7d374e1558e5cb80147b092537566e2532f389d1ebdc",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/prepare_virtuals.py": "769d87e77c7417344958dce80fb2c24dab802c0edc6adfb6ac8baeee91253dde",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/solve.py": "c6a7d51618d2f6961905274666aa01a216b2d68e1125353780484ae63ba1e6e1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/diis_core.py": "a624ee333103637ac708b28a5edd253bb233a11d71fdbcfb44d5ab54dfc2a27b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/blocks_ns180.npz": "bf756c539eb1dda0aa9013082dcc4c46356892429ad98e0576eac7e368090c72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/S_root.npz": "ece331fee3242516a15f43c6a5e85914aa4ebbae6507da4d8b898c9471f642cd",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/D3_root.npz": "7a72820eada733abbd312b0aa1ce8ab4f6a1124b8c79bd3cc1b834b06f80c645",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/actual001/D5_root.npz": "8ac1de86762016d32e561f0f7eb05aff9caa13606be69597e171f13eac1aebf0"
+  }
+}

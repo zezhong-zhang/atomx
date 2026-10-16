@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "literal_counts",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "literal_frozen_origin",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "noncanonical_Fov_preserved",
+      "observed": true
+    },
+    {
+      "PASS": false,
+      "limit": null,
+      "name": "tensor_prospective_work",
+      "observed": false
+    }
+  ],
+  "contract_sha256": "89ca5a96da481b1162696b70193637ef099e0f1b7f8000584b0c9eeeed62d556",
+  "counts": {},
+  "elapsed_seconds": 0.21157789599965326,
+  "failure": {
+    "message": "qualification failed: tensor_prospective_work",
+    "type": "RuntimeError"
+  },
+  "host": {
+    "affinity": [
+      28
+    ],
+    "available_bytes": 96545697792,
+    "load": [
+      0.2158203125,
+      0.24169921875,
+      0.36865234375
+    ]
+  },
+  "peak_RSS_bytes": 154087424,
+  "phases_seconds": {},
+  "run_sha256": "46dd6a68920b40d060865565958d7bf043dacd75aae93e173885824729092e03",
+  "scope": "Exact existing seven-spinor/N3 real synthetic two-body test model. SpinorIntegrals is the native owned integral boundary, but these Gaussian h/ERI are not native atomic radial integrals, complete magnetic multiplets or an atomic closed shell. External tensor software is comparator only; no Sahoo EA/Yb reproduction or method equivalence assumed.",
+  "status": "FAILED_preserved"
+}

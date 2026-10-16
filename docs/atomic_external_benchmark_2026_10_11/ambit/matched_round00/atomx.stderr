@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/atomx_action.py", line 128, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/atomx_action.py", line 112, in main
+    action()  # All 27 entries and three components, angular-cache warmup only.
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/atomx_action.py", line 89, in action
+    sigma = build_mbpt2_matrix_self_energy(
+  File "/data/code/atomx/src/atomx/methods/mbpt_matrix.py", line 271, in build_mbpt2_matrix_self_energy
+    _capture_attachment_self_energy(
+  File "/data/code/atomx/src/atomx/methods/mbpt_transitions.py", line 253, in _capture_attachment_self_energy
+    virtuals.extend((P, Q, kap, e) for P, Q, e in states)
+  File "/data/code/atomx/src/atomx/methods/mbpt_transitions.py", line 253, in <genexpr>
+    virtuals.extend((P, Q, kap, e) for P, Q, e in states)
+ValueError: too many values to unpack (expected 3)

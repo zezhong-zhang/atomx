@@ -1,0 +1,67 @@
+--- preserved-stage031/refresh.py
++++ new-stage032/refresh.py
+@@ -57,12 +57,17 @@
+         '新度量不能与旧3451残差直接比较改善；finite-CI-response导数及4f/f组合旋转FD仍待资格。')
+     panel['card_summary'] += '\n' + metadata_note
+     for relative in contract['roles'].values():
+-        panel['inputs'][relative] = contract['inputs'][relative]
++        panel['inputs'][relative] = bound(R / relative)
++    for binding in panel['inputs'].values():
++        assert isinstance(binding, dict) and {'path', 'sha256'} <= binding.keys(), 'Renderer input binding schema'
++        assert isinstance(binding['path'], str) and isinstance(binding['sha256'], str)
++        assert len(binding['sha256']) == 64 and sha(R / binding['path']) == binding['sha256']
+     assert all(panel[k] == v for k, v in original_panel.items() if k not in ('card_summary', 'inputs'))
+     old_tail = '网页v8已有21模型84行。'
+     assert result['card_summary'].count(old_tail) == 1
+     result['card_summary'] = result['card_summary'].replace(old_tail, '') + metadata_note
+     result['created_at'] = datetime.now(timezone.utc).isoformat()
++    result['failed_reporting_stage031'] = copy.deepcopy(contract['failed_predecessor'])
+     result['inputs']['historical_current_mcdhf_stage030'] = original['inputs']['current_mcdhf']
+     result['historical_atlas_current_publication_stage030'] = copy.deepcopy(original['atlas_current_publication'])
+     result['atlas_current_publication'] = {'proof': bound(R / contract['roles']['publication']), 'version': 9,
+@@ -82,7 +87,7 @@
+         'max_recovered_vs_canonical_transition_delta_cm1': max(abs(row['delta_transition_cm1']) for row in gradient['points']['recovered']['rows']),
+         'next_combined4f_f_rotation_FD': 'pending; no actual finite-response qualification in this report'}
+     for role, relative in contract['roles'].items():
+-        result['inputs']['stage031_' + role] = bound(R / relative)
++        result['inputs']['stage032_' + role] = bound(R / relative)
+     allowed = {'created_at', 'inputs', 'card_summary', 'atlas_current_publication', 'current_native_card_evidence'}
+     assert all(result[k] == v for k, v in original.items() if k not in allowed)
+     record = read(registry)
+@@ -90,8 +95,8 @@
+     once(B / 'current_card_evidence.json', panel)
+     result['inputs']['current_mcdhf'] = bound(B / 'current_card_evidence.json')
+     result['current_native_card_evidence'] = bound(B / 'current_card_evidence.json')
+-    once(T / 'results_stage031.json', result)
+-    record.update(physics_budget_result=str((T / 'results_stage031.json').relative_to(R)),
++    once(T / 'results_stage032.json', result)
++    record.update(physics_budget_result=str((T / 'results_stage032.json').relative_to(R)),
+                   yb_mcdhf_result=str((B / 'current_card_evidence.json').relative_to(R)), updated_at=result['created_at'])
+     record['tasks'][4].update(status='远程v9已发布23模型92行；私有访问',
+         detail='原21模型84行、277轨迹和6019NIST载荷保留。新增两组固定31/1595 RCI未优化；原驻值与实验门FAIL。')
+@@ -107,21 +112,21 @@
+     once(B / 'preview_card.json', card)
+     once(B / 'preview_citations.json', citations)
+     assert sha(registry) == contract['registry_before_sha256'], 'Concurrent registry change; refuse'
+-    temporary = registry.with_suffix('.stage031.tmp')
++    temporary = registry.with_suffix('.stage032.tmp')
+     temporary.write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+     temporary.replace(registry)
+-    planner_spec = importlib.util.spec_from_file_location('stage031_planner', H / 'parallel_planner.py')
++    planner_spec = importlib.util.spec_from_file_location('stage032_planner', H / 'parallel_planner.py')
+     planner = importlib.util.module_from_spec(planner_spec)
+     planner_spec.loader.exec_module(planner)
+     decision = {'status': 'implementation_frontier', 'jobs': [], 'frontier': [], 'evidence': []}
+     planner.annotate_physics_priority(R, H, decision)
+     assert decision['direction'] == result['card_summary']
+-    once(B / 'integration_proof.json', {'all_passed': True, 'result': bound(T / 'results_stage031.json'),
++    once(B / 'integration_proof.json', {'all_passed': True, 'result': bound(T / 'results_stage032.json'),
+         'panel': bound(B / 'current_card_evidence.json'), 'registry': bound(registry),
+         'all_scientific_stage030_fields_preserved': True, 'direct_new_citation_count': 4,
+         'render_elements': len(card['body']['elements']), 'render_citations': len(citations),
+         'new_science_arrays_API_cards': 0, 'original_stationarity_experimental_FAIL_preserved': True})
+-    print(json.dumps({'status': 'metadata_stage031_integrated', 'elements': len(card['body']['elements']), 'citations': len(citations)}))
++    print(json.dumps({'status': 'metadata_stage032_integrated', 'elements': len(card['body']['elements']), 'citations': len(citations)}))
+ 
+ 
+ if __name__ == '__main__':

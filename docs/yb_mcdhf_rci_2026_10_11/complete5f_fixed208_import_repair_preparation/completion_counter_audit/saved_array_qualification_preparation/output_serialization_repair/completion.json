@@ -1,0 +1,527 @@
+{
+  "status": "metadata_closed; separately admitted saved-array qualification passed",
+  "all_metadata_checks_passed": true,
+  "metadata_checks_count": 23,
+  "metadata_checks": [
+    {
+      "name": "root_receipt_exact",
+      "passed": true
+    },
+    {
+      "name": "verification_exact",
+      "passed": true
+    },
+    {
+      "name": "root_closed_exit0",
+      "passed": true
+    },
+    {
+      "name": "run.py_bound",
+      "passed": true
+    },
+    {
+      "name": "contract.json_bound",
+      "passed": true
+    },
+    {
+      "name": "inputs.json_bound",
+      "passed": true
+    },
+    {
+      "name": "binding_matches_receipt_and_verifier",
+      "passed": true
+    },
+    {
+      "name": "389_live_checks_all_pass",
+      "passed": true
+    },
+    {
+      "name": "18_loads_once_exact_declared_roles",
+      "passed": true
+    },
+    {
+      "name": "18_NPZ_inputs_44_total",
+      "passed": true
+    },
+    {
+      "name": "zero_new_builders_and_solves",
+      "passed": true
+    },
+    {
+      "name": "original14gate_preserved",
+      "passed": true
+    },
+    {
+      "name": "old_serialization_receipt_exact",
+      "passed": true
+    },
+    {
+      "name": "old_serialization_failure_exact",
+      "passed": true
+    },
+    {
+      "name": "original_science_count_failure_exact",
+      "passed": true
+    },
+    {
+      "name": "finite_qualification_not_complete_physics",
+      "passed": true
+    },
+    {
+      "name": "complete1046_and1595_targetspaces",
+      "passed": true
+    },
+    {
+      "name": "literal208_no_stationarity_or_global_spectrum_promotion",
+      "passed": true
+    },
+    {
+      "name": "both_experiment_gates_remain_false",
+      "passed": true
+    },
+    {
+      "name": "all_NIST_uncertainties_remain_None",
+      "passed": true
+    },
+    {
+      "name": "two_complete118_spectra",
+      "passed": true
+    },
+    {
+      "name": "original_relative_virtual_gate_retained",
+      "passed": true
+    },
+    {
+      "name": "metadata_closure_no_NPZ_or_science",
+      "passed": true
+    }
+  ],
+  "evidence": {
+    "root_execution.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_execution.json",
+      "sha256": "b7cea6a3126cb523257846b4bd50dae71da7c5c9a3222f3ae95fa39cafca45ed"
+    },
+    "actual/verification.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json",
+      "sha256": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986"
+    },
+    "execution_binding.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/execution_binding.json",
+      "sha256": "18a9c85ca644a50785deb8cd527fcddc2550f7d652cc939a8b815a94e59f2c59"
+    },
+    "root_once_marker.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/root_once_marker.json",
+      "sha256": "7e2c2cd95f557cb1f4ff4643448a9a4dcf9f5396030ec4a77b86ef02231b84fe"
+    },
+    "run.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/run.py",
+      "sha256": "9fb99648ce6ccde650076aa4b870a4412a752029ff5da74735a7e7fe8a5306cc"
+    },
+    "contract.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/contract.json",
+      "sha256": "0551848cf013549d2922dfc80a0dd10f90d62237bb7533582701a2b0e31d440e"
+    },
+    "inputs.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/inputs.json",
+      "sha256": "88ec1c9b2f8be31d9f379f2d9ca04a41f01a4d298644051e706b7dfd957a9262"
+    },
+    "preparation.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/preparation.json",
+      "sha256": "939e0b4d0a0ac7732f1ae477429d9acb8ed2d6d956fa7efcd5e3790f9843a3d2"
+    },
+    "handoff.json": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/handoff.json",
+      "sha256": "7729f79892eaf04c14cdbdebb59d87239e8d358e0eb8ee67a805c21e5505daeb"
+    }
+  },
+  "retained_failures": {
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/actual/failure.json": "519276a3cff97212c0b5f6fc2d4f276cf6908040ab7be5b2e1b1c758ff86b989",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/root_execution.json": "4b4d8b572fb654e33dd468a38d2120f669464b2f62b5ee9ee053e12c4395e4c1"
+  },
+  "numerical_scope": {
+    "live_saved_array_checks": 389,
+    "NPZ_loads_once": 18,
+    "new_H_CI_g_Fock_Dirac_SVD_eigen_optimizer_Atomx_calls": 0,
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "inner_wall_seconds": 120,
+    "outer_wall_seconds": 135,
+    "elapsed_uncontrolled_seconds": 1.0405576799530536,
+    "peak_RSS_MiB": 209.4921875,
+    "timing_claim_valid": false
+  },
+  "physical_source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "literal_point": "run005 accepted0128/global208, unchanged old29 radial waves/P/x/inverse, NOT a240 fork",
+  "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "operator": "Scalar native no-pair Dirac-Coulomb only; no static/dynamic Breit/QED/recoil/effective additions/fitting",
+  "same_point_responses": {
+    "baseline": {
+      "name": "baseline",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "energy_Ha": -14067.521782596226,
+          "principal_overlap_squared": [
+            0.9895441643346349
+          ],
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "nominal_relative_gap": null
+        },
+        {
+          "label": "5d_5/2",
+          "reference_UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "energy_Ha": -14067.399802221913,
+          "principal_overlap_squared": [
+            0.9928680275841096
+          ],
+          "excitation_cm1": 26771.59768596101,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2438.9076859610104,
+          "nominal_relative_gap": 0.10023173294695369
+        },
+        {
+          "label": "5d_3/2",
+          "reference_UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "energy_Ha": -14067.403783640504,
+          "principal_overlap_squared": [
+            0.9923827498025045
+          ],
+          "excitation_cm1": 25897.777308368597,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2936.9773083685977,
+          "nominal_relative_gap": 0.12791267326785644
+        },
+        {
+          "label": "6p_3/2",
+          "reference_UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "energy_Ha": -14067.388095317778,
+          "principal_overlap_squared": [
+            0.9817768795287403
+          ],
+          "excitation_cm1": 29340.96615545536,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1051.2638445446391,
+          "nominal_relative_gap": -0.034589888420317925
+        },
+        {
+          "label": "6p_1/2",
+          "reference_UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "energy_Ha": -14067.403474418305,
+          "principal_overlap_squared": [
+            0.9838141430552894
+          ],
+          "excitation_cm1": 25965.643736629783,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1096.1762633702165,
+          "nominal_relative_gap": -0.04050637626627538
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26422.069534924045,
+          "splitting_cm1": 873.8203775924121
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28215.8586825135,
+          "splitting_cm1": 3375.322418825577
+        }
+      ],
+      "EOL_reported_Ha": -14067.423387638946,
+      "nominal_four_gap_RMS_cm1": 2054.3164606344617,
+      "nominal_four_1percent_goal_passed": false,
+      "fixed_literal208": true,
+      "full_parent_CSFs": 2163,
+      "complete_target_CSFs": 1046,
+      "radial_orbitals": 29,
+      "original_stationarity_passed": false,
+      "expanded_stationarity_evaluated": false,
+      "full_spectrum_certified": false
+    },
+    "complete5f": {
+      "name": "complete5f",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "energy_Ha": -14067.522136927037,
+          "principal_overlap_squared": [
+            0.9895463001540337
+          ],
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "nominal_relative_gap": null,
+          "absolute_delta_upper_Ha": -0.0003543308102962328,
+          "absolute_delta_lower_Ha": -0.0003543308102962328,
+          "transition_delta_upper_minus_lower_cm1": 0.0
+        },
+        {
+          "label": "5d_5/2",
+          "reference_UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "energy_Ha": -14067.40017106361,
+          "principal_overlap_squared": [
+            0.9928721234457155
+          ],
+          "excitation_cm1": 26768.412914582717,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2435.7229145827187,
+          "nominal_relative_gap": 0.10010084847103706,
+          "absolute_delta_upper_Ha": -0.0003688416963996133,
+          "absolute_delta_lower_Ha": -0.0003543308102962328,
+          "transition_delta_upper_minus_lower_cm1": -3.1847713782919564
+        },
+        {
+          "label": "5d_3/2",
+          "reference_UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "energy_Ha": -14067.404167115248,
+          "principal_overlap_squared": [
+            0.9923911372520853
+          ],
+          "excitation_cm1": 25891.38095425978,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2930.5809542597817,
+          "nominal_relative_gap": 0.12763409612294788,
+          "absolute_delta_upper_Ha": -0.0003834747440123465,
+          "absolute_delta_lower_Ha": -0.0003543308102962328,
+          "transition_delta_upper_minus_lower_cm1": -6.396354108815869
+        },
+        {
+          "label": "6p_3/2",
+          "reference_UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "energy_Ha": -14067.388408176996,
+          "principal_overlap_squared": [
+            0.9818524376029302
+          ],
+          "excitation_cm1": 29350.068117896182,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1042.1618821038173,
+          "nominal_relative_gap": -0.03429040521553757,
+          "absolute_delta_upper_Ha": -0.00031285921795642935,
+          "absolute_delta_lower_Ha": -0.0003543308102962328,
+          "transition_delta_upper_minus_lower_cm1": 9.101962440820833
+        },
+        {
+          "label": "6p_1/2",
+          "reference_UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "energy_Ha": -14067.403791477744,
+          "principal_overlap_squared": [
+            0.9838580088396692
+          ],
+          "excitation_cm1": 25973.823857080795,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1087.9961429192044,
+          "nominal_relative_gap": -0.040204100940705555,
+          "absolute_delta_upper_Ha": -0.00031705943911219947,
+          "absolute_delta_lower_Ha": -0.0003543308102962328,
+          "transition_delta_upper_minus_lower_cm1": 8.180120451014519
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26417.600130453542,
+          "splitting_cm1": 877.0319603229364,
+          "delta_centroid_cm1": -4.469404470502923,
+          "delta_splitting_cm1": 3.211582730524242
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28224.653364291054,
+          "splitting_cm1": 3376.244260815387,
+          "delta_centroid_cm1": 8.794681777555525,
+          "delta_splitting_cm1": 0.9218419898097636
+        }
+      ],
+      "EOL_reported_Ha": -14067.423734952126,
+      "nominal_four_gap_RMS_cm1": 2048.8342930560993,
+      "nominal_four_1percent_goal_passed": false,
+      "fixed_literal208": true,
+      "full_parent_CSFs": 3789,
+      "complete_target_CSFs": 1595,
+      "radial_orbitals": 31,
+      "original_stationarity_passed": false,
+      "expanded_stationarity_evaluated": false,
+      "full_spectrum_certified": false
+    }
+  },
+  "full_saved_CI_root_residual_max_Ha": {
+    "baseline": 2.6212641987247152e-11,
+    "complete5f": 2.966207718182766e-11
+  },
+  "full_saved_virtual_spectral_residual_summary": [
+    {
+      "key": [
+        5,
+        3
+      ],
+      "directions": 118,
+      "max_absolute_residual_Ha": 7.994631797254837e-08,
+      "max_relative_residual": 3.046936598786699e-15,
+      "applied_original_gate": "relative<=1e-8, not absolute<=1e-8",
+      "minimum_Rayleigh_Ha": -138.55339013456742,
+      "next_root_gap_Ha": 58.43419458495703
+    },
+    {
+      "key": [
+        5,
+        -4
+      ],
+      "directions": 118,
+      "max_absolute_residual_Ha": 6.464302521148277e-08,
+      "max_relative_residual": 1.3607893988826615e-12,
+      "applied_original_gate": "relative<=1e-8, not absolute<=1e-8",
+      "minimum_Rayleigh_Ha": -138.10304248677954,
+      "next_root_gap_Ha": 58.01715767018496
+    }
+  ],
+  "original_expected14_gate_passed": false,
+  "original_scientific_execution_passed": false,
+  "original_serialization_execution_passed": false,
+  "original208_stationarity_passed": false,
+  "expanded_MCDHF_stationarity_evaluated": false,
+  "experiment_goal_passed": false,
+  "physical_or_radial_completeness_certified": false,
+  "limits": [
+    "Original expected14-versusactual7 gate and exit1 remain FAIL.",
+    "Literal208 original two stationarity gates and experiment FAIL remain.",
+    "Other parent sectors are only enumerated; no full-spectrum/globalground assertion.",
+    "Both full saved physical spectra are evaluated, but no new eigensolve or optimum construction.",
+    "Owner workspace/wave hashes are recomputed; the nuclear callable itself is not instantiated or resampled. Its byte-bound equality and unchanged input/runtime cache guard are consumed.",
+    "Original public tracker signed spans/ambiguity gates are consumed; no fresh determinant overlaps or SVD. Saved UID/columns, complete degenerate weight equality and principal thresholds independently checked.",
+    "No NIST fit/cross-epoch correction or selecting another seed/branch."
+  ],
+  "metadata_closure_NPZ_NumPy_Atomx_physical_API_calls": 0
+}

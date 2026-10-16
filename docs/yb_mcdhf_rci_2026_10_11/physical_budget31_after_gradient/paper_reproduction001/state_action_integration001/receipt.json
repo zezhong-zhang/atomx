@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "status": "complete_finite_integration_measured",
+  "source_sha256": {
+    "src/atomx/numerics/cluster_actions.py": "1f33a5d1a2deba979324eb27679b41412914ce0539960d41e9b4ff2cae3d13b6",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "src/atomx/methods/coupled_cluster.py": "8779fc7b74482e91e9a2e974b4eac559c19da25703eba9bdb33eea48fd17bdf8",
+    "src/atomx/methods/eom_attachment.py": "2f892865e5b9310b6c272951a024bb37a2e7bdb5618ea0fbafeb6247847d7128",
+    "tests/test_eom_attachment.py": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2",
+    "tests/test_cc_state_action.py": "ddb46bbd0843c703aeee0c65435008ee1abc48e7304eeb6fffc4663738df8571"
+  },
+  "artifacts_sha256": {
+    "contract.json": "fab24ed2a0ef2517d2d1a72598eb9af0c381d6fb47b827e98b2351522fe08ca3",
+    "benchmark.py": "4d44f7eb869f99b96dbe190402c3ad2ee9740b2077288a1dd9491adac72e9945",
+    "benchmark_result.json": "d669b458c9c0ccb561ba0dba49ed9289298d01c31d0a677c9f4bc2a0ae18da99",
+    "complete_results.npz": "3b62b2e8820650afbb1a4bec13239e57364caad2398e8664d81bbcd254382746",
+    "README.md": "cd7e412844379742bbb729865d317ac2d8dec2eca8289a7d575aee8504666002"
+  },
+  "affected_panel": {
+    "passed": 50,
+    "skipped": 0,
+    "elapsed_seconds": 5.17,
+    "files": [
+      "tests/test_finite_ccsd.py",
+      "tests/test_finite_ccsdt.py",
+      "tests/test_eom_attachment.py",
+      "tests/test_cc_state_action.py",
+      "tests/test_cluster_actions.py",
+      "tests/test_scaffolds.py",
+      "tests/test_architecture_boundaries.py",
+      "tests/test_architecture_scientific_fidelity.py"
+    ],
+    "evidence": "actual foreground pytest output in this task; no JUnit file generated"
+  },
+  "default": "dense",
+  "production_yb_reproduction": false,
+  "scope": "complete finite CC/EA action/storage qualification",
+  "previous_epochs_preserved": [
+    "../paper_contract.json",
+    "../native_triples.md",
+    "../development_receipt.json"
+  ],
+  "documentation_disposition": {
+    "update": [
+      "docs/ATOMIC_FSCC.md",
+      "docs/ARCHITECTURE_CAPABILITIES.md",
+      "docs/TESTING.md",
+      "paper_reproduction001/README.md",
+      "docs/MIGRATION.md"
+    ],
+    "retain": [
+      "old contracts and numerical failures with original hashes"
+    ]
+  },
+  "guides_checked_sha256": {
+    "docs/ATOMIC_FSCC.md": "5a3e989c85e753d36b7e09ac3ea959d5c477c111a6ce77108fd20ebf0c21c823",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "747c4e3a6e13aca28ba8da4f8a2192d63a2006a8a9ab48b17ffa2f44e579f53e",
+    "docs/TESTING.md": "0defac61ad1b61cef51eb3f5b3a754d33938bef93fa3b22f4bc4c1ff88a804bb",
+    "docs/MIGRATION.md": "b7c5001c85ce0fa1b08dc9ea045c476a03efd101fb573cce4e60c0fced79faf4"
+  }
+}

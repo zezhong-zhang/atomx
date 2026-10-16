@@ -1,0 +1,126 @@
+{
+  "status": "primary_literature_and_local_contract_scalar_audit_only",
+  "UTC": "2026-10-13T14:39:33.856259+00:00",
+  "primary_source": "https://arxiv.org/html/2504.01438v1",
+  "PDF_version": "https://arxiv.org/pdf/2504.01438v1",
+  "table": "Table1 EA energy rows; verified against PDF page2 and HTML",
+  "EA_units": "cm^-1",
+  "EA_order": [
+    "6s S1/2",
+    "5d D3/2",
+    "5d D5/2"
+  ],
+  "EA_table_rows": {
+    "RCCSD": [
+      -97642,
+      -73525,
+      -72268
+    ],
+    "RCCSDT": [
+      -97859,
+      -74198,
+      -72915
+    ],
+    "Extra": [
+      -191,
+      -752,
+      -703
+    ],
+    "Breit": [
+      68,
+      -2,
+      -28
+    ],
+    "Final": [
+      -97982,
+      -74952,
+      -73646
+    ],
+    "Experiment": [
+      -98232,
+      -75271,
+      -73899
+    ]
+  },
+  "derived_excitation_rows": {
+    "RCCSD": [
+      24117,
+      25374
+    ],
+    "RCCSDT": [
+      23661,
+      24944
+    ],
+    "Extra": [
+      -561,
+      -512
+    ],
+    "Breit": [
+      -70,
+      -96
+    ],
+    "Final": [
+      23030,
+      24336
+    ],
+    "Experiment": [
+      22961,
+      24333
+    ]
+  },
+  "triples_contribution_to_excitation": [
+    -456,
+    -430
+  ],
+  "center_value_errors": [
+    69,
+    3
+  ],
+  "center_value_relative_errors_percent": [
+    0.3005095596881669,
+    0.012328936012822093
+  ],
+  "EA_uncertainties_Final": [
+    300,
+    350,
+    350
+  ],
+  "transition_uncertainty_from_EA": "Not inferred: inter-state covariance absent;3cm^-1 center match is not certified error bound",
+  "RCCSDT_baseline_max_l": 4,
+  "Extra_channel_l": [
+    5,
+    6
+  ],
+  "Extra_channel_method": "RCCSD; not all g/h/i combined and not RCCSDT h/i",
+  "other_primary_refs": [
+    "https://arxiv.org/html/2502.06225v1",
+    "https://arxiv.org/html/1205.5895v2"
+  ],
+  "current_model_contract_path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/contract.json",
+  "current_model_contract_SHA256": "0bd6ec3736e1c0c8b648dfad6feddcf72533334c2e3334c6bb9d811759551f23",
+  "current_kappas": [
+    -4,
+    -3,
+    -2,
+    -1,
+    1,
+    2,
+    3
+  ],
+  "current_orbital_l": [
+    3,
+    2,
+    1,
+    0,
+    1,
+    2,
+    3
+  ],
+  "current_max_l": 3,
+  "current_g_h_i_radials_present": false,
+  "scope": "Two published D-transition benchmarks and contribution scales; no full-Yb-spectrum precision certificate or transferable correction. Native MCDHF/RCI remains main route; higher-l and systematic core/higher-order coverage need explicit budget.",
+  "NPZ_access_or_scientific_imports_or_new_H_CI_gradient": 0,
+  "shared_solver_edits": 0,
+  "backend_adoption": false,
+  "cards_timer_actions": 0
+}

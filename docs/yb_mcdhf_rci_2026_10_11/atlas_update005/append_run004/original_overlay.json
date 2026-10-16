@@ -1,0 +1,5555 @@
+{
+  "status": "closed_bounded_native_correlated29_MCDHF_nonstationary_endpoint",
+  "species": {
+    "z": 70,
+    "charge": 1,
+    "symbol": "Yb",
+    "label": "Yb II"
+  },
+  "models": [
+    {
+      "id": "correlated29_run003_endpoint16_DC",
+      "title": "原生29轨道相关MCDHF · run003末态16步 · DC",
+      "model_kind": "nonstationary_correlated29_mcdhf_endpoint",
+      "saved_run": "correlated29_optimization_run003_preparation/accepted_0016",
+      "operator": "DC",
+      "rci_csf_count": 1046,
+      "target_sector_csf_count": 1046,
+      "declared_full_model_csf_count": 2163,
+      "full_parent_computed": false,
+      "symmetry_block_count": 5,
+      "radial_orbital_count": 29,
+      "active_coordinate_count": 3451,
+      "electron_count": 69,
+      "accepted_steps": 16,
+      "all29_allowed_to_relax": true,
+      "state_average_weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "orbital_residual": 0.04090991741227255,
+      "energy_indicator_Ha": 0.003408179199100851,
+      "orbital_tolerance": 1e-07,
+      "energy_indicator_tolerance_Ha": 1e-08,
+      "stationarity_passed": false,
+      "experimental_gate_passed": false,
+      "production_certified": false,
+      "highest_level_reached": false,
+      "physical_completeness_certified": false,
+      "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+      "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+      "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+      "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+      "point_manifest_sha256": "a9ce2ff0fc1236ea88d46280caa7b14ae6698c34b937b605b8d6f866e6c43c90",
+      "point_arrays_sha256": "0e7154ee19cca9181d20b4367f3cd6416ed742d5916d775bdaeff7e969687dfc",
+      "original_tracker_rebased": false,
+      "no_pair_projector_changed": false,
+      "ground": {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "selected_level": [
+          1,
+          1,
+          0
+        ],
+        "energy_Ha": -14067.513069904404,
+        "tracking": {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9871916409220932
+          ],
+          "projected_probability": [
+            0.9871916409220932
+          ]
+        },
+        "excitation_cm1": 0.0,
+        "NIST_nominal_cm1": 0.0,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 0.0,
+        "delta_upper_Ha": -0.0004686380470957374,
+        "delta_lower_Ha": -0.0004686380470957374,
+        "transition_shift_cm1": 0.0,
+        "delta_upper_from_initial_Ha": -0.016551936758332886,
+        "delta_lower_from_initial_Ha": -0.016551936758332886,
+        "transition_shift_from_initial_cm1": 0.0,
+        "state_average_weight": 0.2
+      },
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.513069904404,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9871916409220932
+            ],
+            "projected_probability": [
+              0.9871916409220932
+            ]
+          },
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0004686380470957374,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": 0.0,
+          "delta_upper_from_initial_Ha": -0.016551936758332886,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 0.0,
+          "state_average_weight": 0.2
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.39416042454,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9915268820925861
+            ],
+            "projected_probability": [
+              0.9915268820925861
+            ]
+          },
+          "excitation_cm1": 26097.614258881138,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3136.814258881139,
+          "delta_upper_Ha": -0.0009083710629056441,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -96.51024154308156,
+          "delta_upper_from_initial_Ha": -0.014038765755685745,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 551.5772793585165,
+          "state_average_weight": 0.2
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.388635961664,
+          "tracking": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9866168676965565
+            ],
+            "projected_probability": [
+              0.9866168676965565
+            ]
+          },
+          "excitation_cm1": 27310.093711795365,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2977.4037117953667,
+          "delta_upper_Ha": -0.0004541678736131871,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": 3.175835990843429,
+          "delta_upper_from_initial_Ha": -0.011977781936366227,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1003.9109433490667,
+          "state_average_weight": 0.2
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.393048870466,
+          "tracking": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9861089071965875
+            ],
+            "projected_probability": [
+              0.9861089071965875
+            ]
+          },
+          "excitation_cm1": 26341.57217926002,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -720.2478207399799,
+          "delta_upper_Ha": -0.0005908487328269985,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -26.822145199505208,
+          "delta_upper_from_initial_Ha": -0.011432544100898667,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1123.5768162935456,
+          "state_average_weight": 0.2
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.376654381333,
+          "tracking": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9833457381260257
+            ],
+            "projected_probability": [
+              0.9833457381260257
+            ]
+          },
+          "excitation_cm1": 29939.746638275745,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -452.4833617242548,
+          "delta_upper_Ha": -0.0005410778103396297,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -15.898690333986467,
+          "delta_upper_from_initial_Ha": -0.010982077710650628,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1222.4427612347172,
+          "state_average_weight": 0.2
+        }
+      ],
+      "rows": [
+        {
+          "configuration": "4f14 5d1",
+          "two_j": 3,
+          "parity": 1,
+          "matching": "unique_nominal_branch",
+          "candidates": 1,
+          "level_id": "070002.000009",
+          "nist_row": 3,
+          "configuration_nist": "4f14.5d",
+          "term_nist": "2D",
+          "j_text_nist": "3/2",
+          "reference_cm1": 22960.8,
+          "uncertainty_cm1": null,
+          "reference_kind": "evaluated",
+          "reference_code": "",
+          "handbook_cm1": 22960.8,
+          "asd_minus_handbook_cm1": 0,
+          "reference_zero_level_id": "070002.000001",
+          "label": "5d_3/2",
+          "calculated_cm1": 26097.614258881138,
+          "error_cm1": 3136.814258881139,
+          "error_percent": 13.661606994883188,
+          "relative_goal": 0.01,
+          "goal_pass": false,
+          "source_energy_Ha": -14067.39416042454,
+          "source_physical_UID": {
+            "twoJ": 3,
+            "parity": 1,
+            "local_root": 0
+          },
+          "source_column": 1,
+          "exact_J_local_root": 0,
+          "physical_reference_overlap_squared": 0.9915268820925861,
+          "physical_reference_overlap_scope": "Frozen original balanced531 DC tracker/native005 reference; not bare weight",
+          "state_average_weight": 0.2,
+          "state_binding_unambiguous": true,
+          "delta_upper_from_initial_Ha": -0.014038765755685745,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 551.5772793585165
+        },
+        {
+          "configuration": "4f14 5d1",
+          "two_j": 5,
+          "parity": 1,
+          "matching": "unique_nominal_branch",
+          "candidates": 1,
+          "level_id": "070002.000010",
+          "nist_row": 4,
+          "configuration_nist": "4f14.5d",
+          "term_nist": "2D",
+          "j_text_nist": "5/2",
+          "reference_cm1": 24332.69,
+          "uncertainty_cm1": null,
+          "reference_kind": "evaluated",
+          "reference_code": "",
+          "handbook_cm1": 24332.69,
+          "asd_minus_handbook_cm1": 0,
+          "reference_zero_level_id": "070002.000001",
+          "label": "5d_5/2",
+          "calculated_cm1": 27310.093711795365,
+          "error_cm1": 2977.4037117953667,
+          "error_percent": 12.23622917069739,
+          "relative_goal": 0.01,
+          "goal_pass": false,
+          "source_energy_Ha": -14067.388635961664,
+          "source_physical_UID": {
+            "twoJ": 5,
+            "parity": 1,
+            "local_root": 0
+          },
+          "source_column": 3,
+          "exact_J_local_root": 0,
+          "physical_reference_overlap_squared": 0.9866168676965565,
+          "physical_reference_overlap_scope": "Frozen original balanced531 DC tracker/native005 reference; not bare weight",
+          "state_average_weight": 0.2,
+          "state_binding_unambiguous": true,
+          "delta_upper_from_initial_Ha": -0.011977781936366227,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1003.9109433490667
+        },
+        {
+          "configuration": "4f14 6p1",
+          "two_j": 1,
+          "parity": -1,
+          "matching": "unique_nominal_branch",
+          "candidates": 1,
+          "level_id": "070002.000012",
+          "nist_row": 8,
+          "configuration_nist": "4f14.6p",
+          "term_nist": "2P*",
+          "j_text_nist": "1/2",
+          "reference_cm1": 27061.82,
+          "uncertainty_cm1": null,
+          "reference_kind": "evaluated",
+          "reference_code": "",
+          "handbook_cm1": 27061.82,
+          "asd_minus_handbook_cm1": 0,
+          "reference_zero_level_id": "070002.000001",
+          "label": "6p_1/2",
+          "calculated_cm1": 26341.57217926002,
+          "error_cm1": -720.2478207399799,
+          "error_percent": -2.6614906933088016,
+          "relative_goal": 0.01,
+          "goal_pass": false,
+          "source_energy_Ha": -14067.393048870466,
+          "source_physical_UID": {
+            "twoJ": 1,
+            "parity": -1,
+            "local_root": 0
+          },
+          "source_column": 2,
+          "exact_J_local_root": 0,
+          "physical_reference_overlap_squared": 0.9861089071965875,
+          "physical_reference_overlap_scope": "Frozen original balanced531 DC tracker/native005 reference; not bare weight",
+          "state_average_weight": 0.2,
+          "state_binding_unambiguous": true,
+          "delta_upper_from_initial_Ha": -0.011432544100898667,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1123.5768162935456
+        },
+        {
+          "configuration": "4f14 6p1",
+          "two_j": 3,
+          "parity": -1,
+          "matching": "unique_nominal_branch",
+          "candidates": 1,
+          "level_id": "070002.000015",
+          "nist_row": 9,
+          "configuration_nist": "4f14.6p",
+          "term_nist": "2P*",
+          "j_text_nist": "3/2",
+          "reference_cm1": 30392.23,
+          "uncertainty_cm1": null,
+          "reference_kind": "evaluated",
+          "reference_code": "",
+          "handbook_cm1": 30392.23,
+          "asd_minus_handbook_cm1": 0,
+          "reference_zero_level_id": "070002.000001",
+          "label": "6p_3/2",
+          "calculated_cm1": 29939.746638275745,
+          "error_cm1": -452.4833617242548,
+          "error_percent": -1.4888126396919699,
+          "relative_goal": 0.01,
+          "goal_pass": false,
+          "source_energy_Ha": -14067.376654381333,
+          "source_physical_UID": {
+            "twoJ": 3,
+            "parity": -1,
+            "local_root": 0
+          },
+          "source_column": 4,
+          "exact_J_local_root": 0,
+          "physical_reference_overlap_squared": 0.9833457381260257,
+          "physical_reference_overlap_scope": "Frozen original balanced531 DC tracker/native005 reference; not bare weight",
+          "state_average_weight": 0.2,
+          "state_binding_unambiguous": true,
+          "delta_upper_from_initial_Ha": -0.010982077710650628,
+          "delta_lower_from_initial_Ha": -0.016551936758332886,
+          "transition_shift_from_initial_cm1": 1222.4427612347172
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26825.101930629673,
+          "reference_centroid_cm1": 23783.933999999997,
+          "centroid_gap_cm1": 3041.1679306296755,
+          "splitting_cm1": 1212.4794529142273,
+          "reference_splitting_cm1": 1371.8899999999994,
+          "splitting_gap_cm1": -159.41054708577212,
+          "reference_uncertainty_cm1": null
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28740.35515193717,
+          "reference_centroid_cm1": 29282.093333333334,
+          "centroid_gap_cm1": -541.7381813961656,
+          "splitting_cm1": 3598.174459015725,
+          "reference_splitting_cm1": 3330.41,
+          "splitting_gap_cm1": 267.76445901572515,
+          "reference_uncertainty_cm1": null
+        }
+      ],
+      "EOL_Ha": -14067.413113908482,
+      "initial_EOL_Ha": -14067.40011728723,
+      "EOL_delta_Ha": -0.012996621251659235,
+      "nominal_gap_RMS_cm1": 2203.8622162949996,
+      "initial_nominal_gap_RMS_cm1": 2048.36463776004,
+      "initial_orbital_residual": 0.021499084147010395,
+      "elapsed_uncontrolled_s": 116.915610200027,
+      "peak_RSS_MiB": 1144.9921875,
+      "runtime_controls": 1175,
+      "completion_metadata_checks": 11,
+      "completed_calls": {
+        "H": 27,
+        "CI": 27,
+        "gradient": 17,
+        "optimizer": 1,
+        "validation_Dirac": 7,
+        "initial_hS": 7,
+        "CI_internal_hS": 7,
+        "geometry_eigvalsh": 36,
+        "scipy_eigh": 142,
+        "tracking_resolution": 43,
+        "tracking_SVD": 215,
+        "tracking_overlap": 44,
+        "polar_retraction": 182,
+        "polar_numpy_eigh": 37,
+        "unfiltered_target_density": 85
+      },
+      "source": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/result.json",
+      "sha256": "d73ce5d790786a719a31d08a87c84a13194c7dc358cb060faced9b6008e12f6d",
+      "source_asset": "evidence/yb-correlated29-run003-endpoint16/actual-result.json",
+      "completion_asset": "evidence/yb-correlated29-run003-endpoint16/completion.json",
+      "is_current": true,
+      "stationarity_note": "16个共同轨道更新后，原残差与能量指示量均未通过1e−7 / 1e−8 Ha门。停止原因是声明的步数上限；能量下降不代表驻值或实验精度。",
+      "scope": "原生MCDHF共同优化全部29轨道与完整五目标J/宇称扇区1046有符号CSF；3451新空间坐标度量、原七个核no-pair子空间及原physical tracker固定，五态等权0.2。声明父空间2163 CSF，其余扇区未计算，未认证全谱或全局基态。",
+      "boundary_note": "只取预声明run003的末态16，不按最小gap挑中间点；全部17点保留。DC，未加静态/动态Breit、QED、反冲或经验修正。f043源；不与旧修正拼接。117秒是本次未受控墙钟时间，不是并行或软件间性能比较。1175运行控制与11元数据闭环不替代物理完备性/独立末态HCIg重放。"
+    }
+  ],
+  "runs": [
+    {
+      "model_id": "correlated29_run003_endpoint16_DC",
+      "terminal_iteration": 16,
+      "trajectory": [
+        {
+          "iteration": 0,
+          "reported_EOL_Ha": -14067.40011728723,
+          "orbital_residual": 0.021499084147010395,
+          "energy_indicator_Ha": 0.0001207034808866711,
+          "nominal_four_gap_RMS_cm1": 2048.36463776004,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.496517967646,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9962918001051708
+                ],
+                "projected_probability": [
+                  0.9962918001051708
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_from_initial_Ha": 0.0,
+              "delta_lower_from_initial_Ha": 0.0,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.380121658784,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9980938866520037
+                ],
+                "projected_probability": [
+                  0.9980938866520037
+                ]
+              },
+              "excitation_cm1": 25546.03697952262,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2585.2369795226223,
+              "delta_upper_from_initial_Ha": 0.0,
+              "delta_lower_from_initial_Ha": 0.0,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.376658179728,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9969503557771567
+                ],
+                "projected_probability": [
+                  0.9969503557771567
+                ]
+              },
+              "excitation_cm1": 26306.1827684463,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 1973.4927684463,
+              "delta_upper_from_initial_Ha": 0.0,
+              "delta_lower_from_initial_Ha": 0.0,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.381616326365,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9928915285020735
+                ],
+                "projected_probability": [
+                  0.9928915285020735
+                ]
+              },
+              "excitation_cm1": 25217.995362966474,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1843.8246370335255,
+              "delta_upper_from_initial_Ha": 0.0,
+              "delta_lower_from_initial_Ha": 0.0,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.365672303622,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9920998396977088
+                ],
+                "projected_probability": [
+                  0.9920998396977088
+                ]
+              },
+              "excitation_cm1": 28717.303877041028,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1674.926122958972,
+              "delta_upper_from_initial_Ha": 0.0,
+              "delta_lower_from_initial_Ha": 0.0,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26002.124452876826,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2218.190452876828,
+              "splitting_cm1": 760.1457889236772,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -611.7442110763222,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27550.867705682846,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1731.2256276504886,
+              "splitting_cm1": 3499.3085140745534,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 168.89851407455353,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0000.json",
+          "source_manifest_sha256": "e9c747bcb3f0a694a7bf6a42749c3e96fa732880b6ffde11d7cf85a6be2d7c03",
+          "source_arrays_sha256": "79c90abd3de0c5ae4d7faa803fd74172cdc6ccfbe3f30488e4c4c314685b94dc",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": null
+        },
+        {
+          "iteration": 1,
+          "reported_EOL_Ha": -14067.400311719506,
+          "orbital_residual": 0.017574967949825628,
+          "energy_indicator_Ha": 8.453740899603307e-05,
+          "nominal_four_gap_RMS_cm1": 2075.5089643715655,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.496781620803,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9961250503730641
+                ],
+                "projected_probability": [
+                  0.9961250503730641
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.00026365315716248006,
+              "delta_lower_Ha": -0.00026365315716248006,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.00026365315716248006,
+              "delta_lower_from_initial_Ha": -0.00026365315716248006,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.380184256976,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.997997062490243
+                ],
+                "projected_probability": [
+                  0.997997062490243
+                ]
+              },
+              "excitation_cm1": 25590.163443881745,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2629.363443881746,
+              "delta_upper_Ha": -6.259819201659411e-05,
+              "delta_lower_Ha": -0.00026365315716248006,
+              "transition_shift_cm1": 44.1264643591225,
+              "delta_upper_from_initial_Ha": -6.259819201659411e-05,
+              "delta_lower_from_initial_Ha": -0.00026365315716248006,
+              "transition_shift_from_initial_cm1": 44.12646435912393,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.376722623816,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9968801178823915
+                ],
+                "projected_probability": [
+                  0.9968801178823915
+                ]
+              },
+              "excitation_cm1": 26349.904105484373,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2017.2141054843742,
+              "delta_upper_Ha": -6.444408791139722e-05,
+              "delta_lower_Ha": -0.00026365315716248006,
+              "transition_shift_cm1": 43.72133703807586,
+              "delta_upper_from_initial_Ha": -6.444408791139722e-05,
+              "delta_lower_from_initial_Ha": -0.00026365315716248006,
+              "transition_shift_from_initial_cm1": 43.721337038074125,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.381923970439,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9922218632487615
+                ],
+                "projected_probability": [
+                  0.9922218632487615
+                ]
+              },
+              "excitation_cm1": 25208.340472825883,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1853.4795271741168,
+              "delta_upper_Ha": -0.0003076440734730568,
+              "delta_lower_Ha": -0.00026365315716248006,
+              "transition_shift_cm1": -9.654890140590618,
+              "delta_upper_from_initial_Ha": -0.0003076440734730568,
+              "delta_lower_from_initial_Ha": -0.00026365315716248006,
+              "transition_shift_from_initial_cm1": -9.654890140591306,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.365946125501,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9913924408804341
+                ],
+                "projected_probability": [
+                  0.9913924408804341
+                ]
+              },
+              "excitation_cm1": 28715.072100544337,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1677.1578994556621,
+              "delta_upper_Ha": -0.0002738218790909741,
+              "delta_lower_Ha": -0.00026365315716248006,
+              "transition_shift_cm1": -2.231776496690521,
+              "delta_upper_from_initial_Ha": -0.0002738218790909741,
+              "delta_lower_from_initial_Ha": -0.00026365315716248006,
+              "transition_shift_from_initial_cm1": -2.231776496690145,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26046.007840843326,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2262.073840843328,
+              "splitting_cm1": 759.7406616026274,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -612.149338397372,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27546.161557971518,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1735.931775361816,
+              "splitting_cm1": 3506.7316277184545,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 176.3216277184547,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0001.json",
+          "source_manifest_sha256": "bed80f47b0cb8a06c69443fb89e5ed151fa6bf4ad8fa448d88b23dd36c50171d",
+          "source_arrays_sha256": "88d286b32d1934c2e2ecd81bf92b6d864188d5a129c4665643cf537279e9fe6a",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 2,
+          "reported_EOL_Ha": -14067.400464501136,
+          "orbital_residual": 0.02055533804299603,
+          "energy_indicator_Ha": 0.0004701398425940909,
+          "nominal_four_gap_RMS_cm1": 2033.694326534468,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.497036127712,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9958279642885215
+                ],
+                "projected_probability": [
+                  0.9958279642885215
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.00025450690918660257,
+              "delta_lower_Ha": -0.00025450690918660257,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.0005181600663490826,
+              "delta_lower_from_initial_Ha": -0.0005181600663490826,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38050553956,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9978705546728326
+                ],
+                "projected_probability": [
+                  0.9978705546728326
+                ]
+              },
+              "excitation_cm1": 25575.507877050455,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2614.707877050456,
+              "delta_upper_Ha": -0.0003212825849914225,
+              "delta_lower_Ha": -0.00025450690918660257,
+              "transition_shift_cm1": -14.655566831287471,
+              "delta_upper_from_initial_Ha": -0.0003838807770080166,
+              "delta_lower_from_initial_Ha": -0.0005181600663490826,
+              "transition_shift_from_initial_cm1": 29.470897527833586,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.377085117743,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9967733954572622
+                ],
+                "projected_probability": [
+                  0.9967733954572622
+                ]
+              },
+              "excitation_cm1": 26326.203694504813,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 1993.5136945048143,
+              "delta_upper_Ha": -0.000362493927241303,
+              "delta_lower_Ha": -0.00025450690918660257,
+              "transition_shift_cm1": -23.700410979560246,
+              "delta_upper_from_initial_Ha": -0.00042693801515270025,
+              "delta_lower_from_initial_Ha": -0.0005181600663490826,
+              "transition_shift_from_initial_cm1": 20.020926058514306,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.38187278801,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9918971948361066
+                ],
+                "projected_probability": [
+                  0.9918971948361066
+                ]
+              },
+              "excitation_cm1": 25275.4315276713,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1786.388472328701,
+              "delta_upper_Ha": 5.1182429160689935e-05,
+              "delta_lower_Ha": -0.00025450690918660257,
+              "transition_shift_cm1": 67.09105484541455,
+              "delta_upper_from_initial_Ha": -0.00025646164431236684,
+              "delta_lower_from_initial_Ha": -0.0005181600663490826,
+              "transition_shift_from_initial_cm1": 57.43616470482448,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.36582293265,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9910152864615422
+                ],
+                "projected_probability": [
+                  0.9910152864615422
+                ]
+              },
+              "excitation_cm1": 28797.967616150614,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1594.2623838493855,
+              "delta_upper_Ha": 0.00012319285087869503,
+              "delta_lower_Ha": -0.00025450690918660257,
+              "transition_shift_cm1": 82.89551560627804,
+              "delta_upper_from_initial_Ha": -0.00015062902821227908,
+              "delta_lower_from_initial_Ha": -0.0005181600663490826,
+              "transition_shift_from_initial_cm1": 80.66373910958646,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26025.92536752307,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2241.991367523071,
+              "splitting_cm1": 750.6958174543579,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -621.1941825456415,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27623.788919990842,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1658.304413342492,
+              "splitting_cm1": 3522.5360884793154,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 192.1260884793155,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0002.json",
+          "source_manifest_sha256": "54eab553de4bf2b11fb0c275d6a9d7138bd4698ed11c2efa87c2a712c24ff61b",
+          "source_arrays_sha256": "80da0f45e9cd30640be9046accc215433512bbc0ce33d5bec455ed25120270b2",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 3,
+          "reported_EOL_Ha": -14067.400536144847,
+          "orbital_residual": 0.02491527792556547,
+          "energy_indicator_Ha": 0.00039840292001565053,
+          "nominal_four_gap_RMS_cm1": 2017.7712267040129,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.49720136129,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9955035115890035
+                ],
+                "projected_probability": [
+                  0.9955035115890035
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.00016523357771802694,
+              "delta_lower_Ha": -0.00016523357771802694,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.0006833936440671096,
+              "delta_lower_from_initial_Ha": -0.0006833936440671096,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.380628540037,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.997714884469157
+                ],
+                "projected_probability": [
+                  0.997714884469157
+                ]
+              },
+              "excitation_cm1": 25584.7769713983,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2623.9769713983005,
+              "delta_upper_Ha": -0.00012300047637836542,
+              "delta_lower_Ha": -0.00016523357771802694,
+              "transition_shift_cm1": 9.269094347844392,
+              "delta_upper_from_initial_Ha": -0.000506881253386382,
+              "delta_lower_from_initial_Ha": -0.0006833936440671096,
+              "transition_shift_from_initial_cm1": 38.73999187567824,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.377248598352,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9966396634032512
+                ],
+                "projected_probability": [
+                  0.9966396634032512
+                ]
+              },
+              "excitation_cm1": 26326.588426770075,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 1993.8984267700762,
+              "delta_upper_Ha": -0.00016348060853488278,
+              "delta_lower_Ha": -0.00016523357771802694,
+              "transition_shift_cm1": 0.38473226526151105,
+              "delta_upper_from_initial_Ha": -0.000590418623687583,
+              "delta_lower_from_initial_Ha": -0.0006833936440671096,
+              "transition_shift_from_initial_cm1": 20.40565832377615,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.381850250178,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9914464183319661
+                ],
+                "projected_probability": [
+                  0.9914464183319661
+                ]
+              },
+              "excitation_cm1": 25316.642588530063,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1745.1774114699365,
+              "delta_upper_Ha": 2.253783168271184e-05,
+              "delta_lower_Ha": -0.00016523357771802694,
+              "transition_shift_cm1": 41.21106085876459,
+              "delta_upper_from_initial_Ha": -0.000233923812629655,
+              "delta_lower_from_initial_Ha": -0.0006833936440671096,
+              "transition_shift_from_initial_cm1": 98.64722556358902,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.36575197438,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9905420093736319
+                ],
+                "projected_probability": [
+                  0.9905420093736319
+                ]
+              },
+              "excitation_cm1": 28849.805735068727,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1542.4242649312728,
+              "delta_upper_Ha": 7.095827095326968e-05,
+              "delta_lower_Ha": -0.00016523357771802694,
+              "transition_shift_cm1": 51.83811891811163,
+              "delta_upper_from_initial_Ha": -7.96707572590094e-05,
+              "delta_lower_from_initial_Ha": -0.0006833936440671096,
+              "transition_shift_from_initial_cm1": 132.5018580276992,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26029.863844621366,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2245.929844621369,
+              "splitting_cm1": 741.8114553717751,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -630.0785446282243,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27672.084686222504,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1610.0086471108298,
+              "splitting_cm1": 3533.1631465386636,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 202.7531465386637,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0003.json",
+          "source_manifest_sha256": "8daaf80f928600ab911720d2b21a353400c606585e46aec9db182550ce915028",
+          "source_arrays_sha256": "cea92be653932160a1e9393f583bb69e7bfbe43477883318e2d494ba9bcc594b",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 4,
+          "reported_EOL_Ha": -14067.40073800764,
+          "orbital_residual": 0.024227818457850922,
+          "energy_indicator_Ha": 0.0004282044368457659,
+          "nominal_four_gap_RMS_cm1": 2090.165363660362,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.497505461228,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9951648937416538
+                ],
+                "projected_probability": [
+                  0.9951648937416538
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0003040999381482834,
+              "delta_lower_Ha": -0.0003040999381482834,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.000987493582215393,
+              "delta_lower_from_initial_Ha": -0.000987493582215393,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.380485535166,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9975260441451786
+                ],
+                "projected_probability": [
+                  0.9975260441451786
+                ]
+              },
+              "excitation_cm1": 25682.90513446838,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2722.10513446838,
+              "delta_upper_Ha": 0.0001430048705515219,
+              "delta_lower_Ha": -0.0003040999381482834,
+              "transition_shift_cm1": 98.12816307007749,
+              "delta_upper_from_initial_Ha": -0.0003638763828348601,
+              "delta_lower_from_initial_Ha": -0.000987493582215393,
+              "transition_shift_from_initial_cm1": 136.86815494575785,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.377114259038,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9964693652917794
+                ],
+                "projected_probability": [
+                  0.9964693652917794
+                ]
+              },
+              "excitation_cm1": 26422.814720048285,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2090.1247200482867,
+              "delta_upper_Ha": 0.00013433931417239364,
+              "delta_lower_Ha": -0.0003040999381482834,
+              "transition_shift_cm1": 96.22629327821181,
+              "delta_upper_from_initial_Ha": -0.0004560793095151894,
+              "delta_lower_from_initial_Ha": -0.000987493582215393,
+              "transition_shift_from_initial_cm1": 116.63195160198666,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.382324107306,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9903025312596999
+                ],
+                "projected_probability": [
+                  0.9903025312596999
+                ]
+              },
+              "excitation_cm1": 25279.38519189417,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1782.4348081058306,
+              "delta_upper_Ha": -0.00047385712787217926,
+              "delta_lower_Ha": -0.0003040999381482834,
+              "transition_shift_cm1": -37.25739663589485,
+              "delta_upper_from_initial_Ha": -0.0007077809405018343,
+              "delta_lower_from_initial_Ha": -0.000987493582215393,
+              "transition_shift_from_initial_cm1": 61.38982892769491,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.366260675462,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9894456878184452
+                ],
+                "projected_probability": [
+                  0.9894456878184452
+                ]
+              },
+              "excitation_cm1": 28804.900974190135,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1587.329025809864,
+              "delta_upper_Ha": -0.0005087010831630323,
+              "delta_lower_Ha": -0.0003040999381482834,
+              "transition_shift_cm1": -44.9047608785886,
+              "delta_upper_from_initial_Ha": -0.0005883718404220417,
+              "delta_lower_from_initial_Ha": -0.000987493582215393,
+              "transition_shift_from_initial_cm1": 87.59709714910787,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26126.850885816326,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2342.9168858163284,
+              "splitting_cm1": 739.909585579906,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -631.9804144200934,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27629.729046758148,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1652.3642865751863,
+              "splitting_cm1": 3525.5157822959663,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 195.1057822959665,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0004.json",
+          "source_manifest_sha256": "d2e2359b70c4937503e39ebe3b37b435e2120c822656025502d8c5eab313196e",
+          "source_arrays_sha256": "e6b35b99b2e5a634adbb2ce60ab38d911ca536169a43d24dac4c3d780e22e6cd",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 5,
+          "reported_EOL_Ha": -14067.40079483825,
+          "orbital_residual": 0.02949428218970384,
+          "energy_indicator_Ha": 0.0018172010077853462,
+          "nominal_four_gap_RMS_cm1": 2182.4603009503726,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.497742803635,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9945407658566623
+                ],
+                "projected_probability": [
+                  0.9945407658566623
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.00023734240676276386,
+              "delta_lower_Ha": -0.00023734240676276386,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.0012248359889781568,
+              "delta_lower_from_initial_Ha": -0.0012248359889781568,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38007291344,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9971799407212482
+                ],
+                "projected_probability": [
+                  0.9971799407212482
+                ]
+              },
+              "excitation_cm1": 25825.555772983596,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2864.755772983597,
+              "delta_upper_Ha": 0.0004126217263547005,
+              "delta_lower_Ha": -0.00023734240676276386,
+              "transition_shift_cm1": 142.65063851521907,
+              "delta_upper_from_initial_Ha": 4.874534351984039e-05,
+              "delta_lower_from_initial_Ha": -0.0012248359889781568,
+              "transition_shift_from_initial_cm1": 279.51879346097485,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.376777074982,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9961590196029598
+                ],
+                "projected_probability": [
+                  0.9961590196029598
+                ]
+              },
+              "excitation_cm1": 26548.908703617086,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2216.218703617087,
+              "delta_upper_Ha": 0.0003371840557520045,
+              "delta_lower_Ha": -0.00023734240676276386,
+              "transition_shift_cm1": 126.0939835687983,
+              "delta_upper_from_initial_Ha": -0.00011889525376318488,
+              "delta_lower_from_initial_Ha": -0.0012248359889781568,
+              "transition_shift_from_initial_cm1": 242.72593517078712,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.382683383921,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9885019523367836
+                ],
+                "projected_probability": [
+                  0.9885019523367836
+                ]
+              },
+              "excitation_cm1": 25252.62372644693,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1809.1962735530687,
+              "delta_upper_Ha": -0.00035927661519963294,
+              "delta_lower_Ha": -0.00023734240676276386,
+              "transition_shift_cm1": -26.761465447238255,
+              "delta_upper_from_initial_Ha": -0.0010670575557014672,
+              "delta_lower_from_initial_Ha": -0.0012248359889781568,
+              "transition_shift_from_initial_cm1": 34.628363480456755,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.366698015274,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9877090451101045
+                ],
+                "projected_probability": [
+                  0.9877090451101045
+                ]
+              },
+              "excitation_cm1": 28761.006617518557,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1631.223382481443,
+              "delta_upper_Ha": -0.00043733981146942824,
+              "delta_lower_Ha": -0.00023734240676276386,
+              "transition_shift_cm1": -43.89435667158011,
+              "delta_upper_from_initial_Ha": -0.00102571165189147,
+              "delta_lower_from_initial_Ha": -0.0012248359889781568,
+              "transition_shift_from_initial_cm1": 43.702740477529005,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26259.56753136369,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2475.633531363692,
+              "splitting_cm1": 723.3529306334894,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -648.53706936651,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27591.545653828012,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1690.5476795053219,
+              "splitting_cm1": 3508.3828910716256,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 177.97289107162578,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0005.json",
+          "source_manifest_sha256": "953a17df14ceccb691b6740a9eace37e131cc1f5ecf91b573b9717cda6f90f75",
+          "source_arrays_sha256": "7857fb4cfd3bbad8e882451017892d9681cd36dd203c7dfe5653b6f567135f6e",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 6,
+          "reported_EOL_Ha": -14067.401399391745,
+          "orbital_residual": 0.030289391103784005,
+          "energy_indicator_Ha": 0.0014836855497531755,
+          "nominal_four_gap_RMS_cm1": 2156.6810014712396,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.4986306051,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9938626628042204
+                ],
+                "projected_probability": [
+                  0.9938626628042204
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0008878014650690602,
+              "delta_lower_Ha": -0.0008878014650690602,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.002112637454047217,
+              "delta_lower_from_initial_Ha": -0.002112637454047217,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38073910749,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9970056590080598
+                ],
+                "projected_probability": [
+                  0.9970056590080598
+                ]
+              },
+              "excitation_cm1": 25874.192978779127,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2913.3929787791276,
+              "delta_upper_Ha": -0.0006661940496996976,
+              "delta_lower_Ha": -0.0008878014650690602,
+              "transition_shift_cm1": 48.63720579552934,
+              "delta_upper_from_initial_Ha": -0.0006174487061798573,
+              "delta_lower_from_initial_Ha": -0.002112637454047217,
+              "transition_shift_from_initial_cm1": 328.1559992565053,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.377581738274,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9960691531016147
+                ],
+                "projected_probability": [
+                  0.9960691531016147
+                ]
+              },
+              "excitation_cm1": 26567.155423503325,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2234.4654235033267,
+              "delta_upper_Ha": -0.0008046632920013508,
+              "delta_lower_Ha": -0.0008878014650690602,
+              "transition_shift_cm1": 18.246719886240555,
+              "delta_upper_from_initial_Ha": -0.0009235585457645357,
+              "delta_lower_from_initial_Ha": -0.002112637454047217,
+              "transition_shift_from_initial_cm1": 260.9726550570267,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.383013313492,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9881695114673217
+                ],
+                "projected_probability": [
+                  0.9881695114673217
+                ]
+              },
+              "excitation_cm1": 25375.062454678056,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1686.7575453219433,
+              "delta_upper_Ha": -0.00032992957130772993,
+              "delta_lower_Ha": -0.0008878014650690602,
+              "transition_shift_cm1": 122.4387282311254,
+              "delta_upper_from_initial_Ha": -0.0013969871270091971,
+              "delta_lower_from_initial_Ha": -0.002112637454047217,
+              "transition_shift_from_initial_cm1": 157.06709171158218,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.367032194365,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9874563047995055
+                ],
+                "projected_probability": [
+                  0.9874563047995055
+                ]
+              },
+              "excitation_cm1": 28882.51268404445,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1509.7173159555496,
+              "delta_upper_Ha": -0.00033417909071431495,
+              "delta_lower_Ha": -0.0008878014650690602,
+              "transition_shift_cm1": 121.50606652589462,
+              "delta_upper_from_initial_Ha": -0.001359890742605785,
+              "delta_lower_from_initial_Ha": -0.002112637454047217,
+              "transition_shift_from_initial_cm1": 165.2088070034224,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26289.970445613646,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2506.0364456136485,
+              "splitting_cm1": 692.9624447241986,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -678.9275552758008,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 27713.362607588988,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1568.7307257443463,
+              "splitting_cm1": 3507.4502293663936,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 177.04022936639376,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0006.json",
+          "source_manifest_sha256": "2252e6a0f3209ee9a978114be2047094602288079fe10ece1a932b6dd00e7ab6",
+          "source_arrays_sha256": "002695f8a53971e0cd54967f93746c1409dd4a0478efcc376cc6c9ca2b66f522",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 7,
+          "reported_EOL_Ha": -14067.402053468713,
+          "orbital_residual": 0.03485254075336638,
+          "energy_indicator_Ha": 0.002275760562199981,
+          "nominal_four_gap_RMS_cm1": 2035.0066251740245,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.499828691893,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9924881064822879
+                ],
+                "projected_probability": [
+                  0.9924881064822879
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0011980867930105887,
+              "delta_lower_Ha": -0.0011980867930105887,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.0033107242470578058,
+              "delta_lower_from_initial_Ha": -0.0033107242470578058,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.381910008804,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9966176387799293
+                ],
+                "projected_probability": [
+                  0.9966176387799293
+                ]
+              },
+              "excitation_cm1": 25880.159501707752,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2919.359501707753,
+              "delta_upper_Ha": -0.0011709013142535696,
+              "delta_lower_Ha": -0.0011980867930105887,
+              "transition_shift_cm1": 5.966522928627283,
+              "delta_upper_from_initial_Ha": -0.0017883500204334268,
+              "delta_lower_from_initial_Ha": -0.0033107242470578058,
+              "transition_shift_from_initial_cm1": 334.12252218513095,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.37901390458,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9959189525152589
+                ],
+                "projected_probability": [
+                  0.9959189525152589
+                ]
+              },
+              "excitation_cm1": 26515.780908751374,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2183.0909087513755,
+              "delta_upper_Ha": -0.001432166305676219,
+              "delta_lower_Ha": -0.0011980867930105887,
+              "transition_shift_cm1": -51.37451475195294,
+              "delta_upper_from_initial_Ha": -0.0023557248514407547,
+              "delta_lower_from_initial_Ha": -0.0033107242470578058,
+              "transition_shift_from_initial_cm1": 209.5981403050755,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.382736376197,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9883166139274054
+                ],
+                "projected_probability": [
+                  0.9883166139274054
+                ]
+              },
+              "excitation_cm1": 25698.792822642474,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1363.027177357526,
+              "delta_upper_Ha": 0.00027693729498423636,
+              "delta_lower_Ha": -0.0011980867930105887,
+              "transition_shift_cm1": 323.73036796441767,
+              "delta_upper_from_initial_Ha": -0.0011200498320249608,
+              "delta_lower_from_initial_Ha": -0.0033107242470578058,
+              "transition_shift_from_initial_cm1": 480.79745967599956,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.366778362093,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9874010694177582
+                ],
+                "projected_probability": [
+                  0.9874010694177582
+                ]
+              },
+              "excitation_cm1": 29201.17208549323,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1191.0579145067713,
+              "delta_upper_Ha": 0.00025383227148267906,
+              "delta_lower_Ha": -0.0011980867930105887,
+              "transition_shift_cm1": 318.6594014487767,
+              "delta_upper_from_initial_Ha": -0.0011060584711231058,
+              "delta_lower_from_initial_Ha": -0.0033107242470578058,
+              "transition_shift_from_initial_cm1": 483.86820845220063,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26261.532345933927,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2477.5983459339295,
+              "splitting_cm1": 635.6214070436217,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -736.2685929563777,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28033.71233120964,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1248.3810021236932,
+              "splitting_cm1": 3502.3792628507545,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 171.9692628507546,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0007.json",
+          "source_manifest_sha256": "0394051b1ef3eb6e4d45f99075a1e06800c67c155a09c8dda8c9561b3c2b39ec",
+          "source_arrays_sha256": "b2c89ec8a0b1c682abc27b8e95fde5f211dee11f4b25bd14298647c90dad9b30",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 8,
+          "reported_EOL_Ha": -14067.40290713203,
+          "orbital_residual": 0.036451153085611955,
+          "energy_indicator_Ha": 0.001878779287699337,
+          "nominal_four_gap_RMS_cm1": 2019.2118956735492,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.501278315582,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9907982211895879
+                ],
+                "projected_probability": [
+                  0.9907982211895879
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.001449623689040891,
+              "delta_lower_Ha": -0.001449623689040891,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.004760347936098697,
+              "delta_lower_from_initial_Ha": -0.004760347936098697,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.382844226342,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.995776688446132
+                ],
+                "projected_probability": [
+                  0.995776688446132
+                ]
+              },
+              "excitation_cm1": 25993.27807669044,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3032.4780766904405,
+              "delta_upper_Ha": -0.000934217538087978,
+              "delta_lower_Ha": -0.001449623689040891,
+              "transition_shift_cm1": 113.11857498268601,
+              "delta_upper_from_initial_Ha": -0.002722567558521405,
+              "delta_lower_from_initial_Ha": -0.004760347936098697,
+              "transition_shift_from_initial_cm1": 447.2410971678182,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.380245636117,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9953225270816035
+                ],
+                "projected_probability": [
+                  0.9953225270816035
+                ]
+              },
+              "excitation_cm1": 26563.602708343748,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2230.912708343749,
+              "delta_upper_Ha": -0.001231731537700398,
+              "delta_lower_Ha": -0.001449623689040891,
+              "transition_shift_cm1": 47.82179959237646,
+              "delta_upper_from_initial_Ha": -0.0035874563891411526,
+              "delta_lower_from_initial_Ha": -0.004760347936098697,
+              "transition_shift_from_initial_cm1": 257.4199398974488,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.383024496381,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9875155280565024
+                ],
+                "projected_probability": [
+                  0.9875155280565024
+                ]
+              },
+              "excitation_cm1": 25953.713376339114,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -1108.1066236608858,
+              "delta_upper_Ha": -0.000288120183540741,
+              "delta_lower_Ha": -0.001449623689040891,
+              "transition_shift_cm1": 254.92055369664155,
+              "delta_upper_from_initial_Ha": -0.0014081700155657018,
+              "delta_lower_from_initial_Ha": -0.004760347936098697,
+              "transition_shift_from_initial_cm1": 735.7180133726397,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.367142985719,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9858084921214713
+                ],
+                "projected_probability": [
+                  0.9858084921214713
+                ]
+              },
+              "excitation_cm1": 29439.30207446767,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -952.9279255323308,
+              "delta_upper_Ha": -0.00036462362550082617,
+              "delta_lower_Ha": -0.001449623689040891,
+              "transition_shift_cm1": 238.1299889744404,
+              "delta_upper_from_initial_Ha": -0.001470682096623932,
+              "delta_lower_from_initial_Ha": -0.004760347936098697,
+              "transition_shift_from_initial_cm1": 721.9981974266411,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26335.472855682427,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2551.538855682429,
+              "splitting_cm1": 570.3246316533077,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -801.5653683466917,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28277.439175091484,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -1004.6541582418504,
+              "splitting_cm1": 3485.588698128555,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 155.17869812855497,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0008.json",
+          "source_manifest_sha256": "c6b84964d522ced8f44c1c0db018f60fb733889b0adc886e8b884f84fa252998",
+          "source_arrays_sha256": "2a2c9bc22b2e6feff4a58485026548884d10d9a2b758c14fdaf7714d31cb2a23",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 9,
+          "reported_EOL_Ha": -14067.404749952935,
+          "orbital_residual": 0.05830721663003828,
+          "energy_indicator_Ha": 0.0048825623242683466,
+          "nominal_four_gap_RMS_cm1": 2162.793113869326,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.504344604598,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9883451005515017
+                ],
+                "projected_probability": [
+                  0.9883451005515017
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.003066289016715018,
+              "delta_lower_Ha": -0.003066289016715018,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.007826636952813715,
+              "delta_lower_from_initial_Ha": -0.007826636952813715,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38436040789,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9942002759869827
+                ],
+                "projected_probability": [
+                  0.9942002759869827
+                ]
+              },
+              "excitation_cm1": 26333.487341929063,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3372.687341929064,
+              "delta_upper_Ha": -0.0015161815481405938,
+              "delta_lower_Ha": -0.003066289016715018,
+              "transition_shift_cm1": 340.20926523862363,
+              "delta_upper_from_initial_Ha": -0.004238749106661999,
+              "delta_lower_from_initial_Ha": -0.007826636952813715,
+              "transition_shift_from_initial_cm1": 787.4503624064419,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.381942749136,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9943935208355099
+                ],
+                "projected_probability": [
+                  0.9943935208355099
+                ]
+              },
+              "excitation_cm1": 26864.102105721606,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2531.412105721607,
+              "delta_upper_Ha": -0.0016971130189631367,
+              "delta_lower_Ha": -0.003066289016715018,
+              "transition_shift_cm1": 300.4993973778551,
+              "delta_upper_from_initial_Ha": -0.005284569408104289,
+              "delta_lower_from_initial_Ha": -0.007826636952813715,
+              "transition_shift_from_initial_cm1": 557.919337275307,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.384341881243,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9871625567526835
+                ],
+                "projected_probability": [
+                  0.9871625567526835
+                ]
+              },
+              "excitation_cm1": 26337.553470989667,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -724.2665290103323,
+              "delta_upper_Ha": -0.0013173848619771888,
+              "delta_lower_Ha": -0.003066289016715018,
+              "transition_shift_cm1": 383.840094650551,
+              "delta_upper_from_initial_Ha": -0.0027255548775428906,
+              "delta_lower_from_initial_Ha": -0.007826636952813715,
+              "transition_shift_from_initial_cm1": 1119.5581080231932,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.368760121804,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9834953133350637
+                ],
+                "projected_probability": [
+                  0.9834953133350637
+                ]
+              },
+              "excitation_cm1": 29757.354379775697,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -634.8756202243021,
+              "delta_upper_Ha": -0.0016171360857697437,
+              "delta_lower_Ha": -0.003066289016715018,
+              "transition_shift_cm1": 318.0523053080296,
+              "delta_upper_from_initial_Ha": -0.0030878181823936757,
+              "delta_lower_from_initial_Ha": -0.007826636952813715,
+              "transition_shift_from_initial_cm1": 1040.0505027346699,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26651.85620020459,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2867.9222002045935,
+              "splitting_cm1": 530.6147637925424,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -841.275236207457,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28617.42074351369,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -664.6725898196455,
+              "splitting_cm1": 3419.80090878603,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 89.3909087860302,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0009.json",
+          "source_manifest_sha256": "ea4cfec76e0089ed689934ae163b558ca9c2348865738f3d966fa349d1e42a9d",
+          "source_arrays_sha256": "f22f31b7b04619f2af4320eb934b8a81106938f17a6bc03627415ea0364d741f",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 10,
+          "reported_EOL_Ha": -14067.405123900171,
+          "orbital_residual": 0.09212333577815127,
+          "energy_indicator_Ha": 0.028670628181838208,
+          "nominal_four_gap_RMS_cm1": 2198.2322299502907,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.505423304656,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9869143999775991
+                ],
+                "projected_probability": [
+                  0.9869143999775991
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0010787000574055128,
+              "delta_lower_Ha": -0.0010787000574055128,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.008905337010219228,
+              "delta_lower_from_initial_Ha": -0.008905337010219228,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.385232089206,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9927247636275289
+                ],
+                "projected_probability": [
+                  0.9927247636275289
+                ]
+              },
+              "excitation_cm1": 26378.922704015462,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3418.1227040154627,
+              "delta_upper_Ha": -0.0008716813154023839,
+              "delta_lower_Ha": -0.0010787000574055128,
+              "transition_shift_cm1": 45.43536208639792,
+              "delta_upper_from_initial_Ha": -0.005110430422064383,
+              "delta_lower_from_initial_Ha": -0.008905337010219228,
+              "transition_shift_from_initial_cm1": 832.8857244928404,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.382245591212,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.99354413592596
+                ],
+                "projected_probability": [
+                  0.99354413592596
+                ]
+              },
+              "excitation_cm1": 27034.383250169118,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2701.693250169119,
+              "delta_upper_Ha": -0.0003028420760529116,
+              "delta_lower_Ha": -0.0010787000574055128,
+              "transition_shift_cm1": 170.28114444751296,
+              "delta_upper_from_initial_Ha": -0.005587411484157201,
+              "delta_lower_from_initial_Ha": -0.008905337010219228,
+              "transition_shift_from_initial_cm1": 728.200481722819,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.38445594413,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.987019316112303
+                ],
+                "projected_probability": [
+                  0.987019316112303
+                ]
+              },
+              "excitation_cm1": 26549.266858474224,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -512.5531415257756,
+              "delta_upper_Ha": -0.00011406288649595808,
+              "delta_lower_Ha": -0.0010787000574055128,
+              "transition_shift_cm1": 211.71338748455787,
+              "delta_upper_from_initial_Ha": -0.0028396177640388487,
+              "delta_lower_from_initial_Ha": -0.008905337010219228,
+              "transition_shift_from_initial_cm1": 1331.27149550775,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.368262571657,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9814629750049821
+                ],
+                "projected_probability": [
+                  0.9814629750049821
+                ]
+              },
+              "excitation_cm1": 30103.301312318054,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -288.92868768194603,
+              "delta_upper_Ha": 0.0004975501469743904,
+              "delta_lower_Ha": -0.0010787000574055128,
+              "transition_shift_cm1": 345.9469325423551,
+              "delta_upper_from_initial_Ha": -0.0025902680354192853,
+              "delta_lower_from_initial_Ha": -0.008905337010219228,
+              "transition_shift_from_initial_cm1": 1385.997435277026,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26772.199031707656,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2988.2650317076586,
+              "splitting_cm1": 655.4605461536557,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -716.4294538463437,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28918.62316103678,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -363.47017229655467,
+              "splitting_cm1": 3554.0344538438294,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 223.62445384382954,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0010.json",
+          "source_manifest_sha256": "d9e90dd6464df7f61654d18243e7ef7eae56792592c1250be4b737e1f6b5ff07",
+          "source_arrays_sha256": "2d86055bc04fb0119725092942dabda04f92ba067987619685e9f748237b02ae",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 11,
+          "reported_EOL_Ha": -14067.40532618418,
+          "orbital_residual": 0.09706989079298042,
+          "energy_indicator_Ha": 0.030216142780196707,
+          "nominal_four_gap_RMS_cm1": 2251.8345980658983,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.505687886172,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9856070868229975
+                ],
+                "projected_probability": [
+                  0.9856070868229975
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.00026458151660335716,
+              "delta_lower_Ha": -0.00026458151660335716,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.009169918526822585,
+              "delta_lower_from_initial_Ha": -0.009169918526822585,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.385503388554,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9910844577541903
+                ],
+                "projected_probability": [
+                  0.9910844577541903
+                ]
+              },
+              "excitation_cm1": 26377.448310393036,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3416.648310393037,
+              "delta_upper_Ha": -0.0002712993482418824,
+              "delta_lower_Ha": -0.00026458151660335716,
+              "transition_shift_cm1": -1.4743936224249734,
+              "delta_upper_from_initial_Ha": -0.005381729770306265,
+              "delta_lower_from_initial_Ha": -0.009169918526822585,
+              "transition_shift_from_initial_cm1": 831.4113308704145,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.381794020104,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.991126867496181
+                ],
+                "projected_probability": [
+                  0.991126867496181
+                ]
+              },
+              "excitation_cm1": 27191.56058345095,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2858.870583450953,
+              "delta_upper_Ha": 0.0004515711079875473,
+              "delta_lower_Ha": -0.00026458151660335716,
+              "transition_shift_cm1": 157.17733328183473,
+              "delta_upper_from_initial_Ha": -0.005135840376169654,
+              "delta_lower_from_initial_Ha": -0.009169918526822585,
+              "transition_shift_from_initial_cm1": 885.3778150046528,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.385065651231,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9854090162299776
+                ],
+                "projected_probability": [
+                  0.9854090162299776
+                ]
+              },
+              "excitation_cm1": 26473.520547882556,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -588.2994521174442,
+              "delta_upper_Ha": -0.0006097071018302813,
+              "delta_lower_Ha": -0.00026458151660335716,
+              "transition_shift_cm1": -75.74631059166752,
+              "delta_upper_from_initial_Ha": -0.00344932486586913,
+              "delta_lower_from_initial_Ha": -0.009169918526822585,
+              "transition_shift_from_initial_cm1": 1255.5251849160813,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.368579974831,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9796853655826195
+                ],
+                "projected_probability": [
+                  0.9796853655826195
+                ]
+              },
+              "excitation_cm1": 30091.70829863394,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -300.52170136605855,
+              "delta_upper_Ha": -0.00031740317353978753,
+              "delta_lower_Ha": -0.00026458151660335716,
+              "transition_shift_cm1": -11.593013684113362,
+              "delta_upper_from_initial_Ha": -0.002907671208959073,
+              "delta_lower_from_initial_Ha": -0.009169918526822585,
+              "transition_shift_from_initial_cm1": 1374.4044215929134,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26865.915674227785,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 3081.981674227787,
+              "splitting_cm1": 814.1122730579154,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -557.777726942084,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28885.64571505015,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -396.4476182831859,
+              "splitting_cm1": 3618.1877507513855,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 287.7777507513856,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0011.json",
+          "source_manifest_sha256": "af08fb1406869715d597a749956583af0706ab923d2c71d83bfe4fb7dcf8c0df",
+          "source_arrays_sha256": "8f24c89b3773868d94ae7f7bcaf590dfdd0a64e6acb655cf961b64f955e8d49b",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 12,
+          "reported_EOL_Ha": -14067.407078560693,
+          "orbital_residual": 0.1050252849683603,
+          "energy_indicator_Ha": 0.021381448707792884,
+          "nominal_four_gap_RMS_cm1": 2294.10238663051,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.507490503196,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9864159845787505
+                ],
+                "projected_probability": [
+                  0.9864159845787505
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0018026170237135375,
+              "delta_lower_Ha": -0.0018026170237135375,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.010972535550536122,
+              "delta_lower_from_initial_Ha": -0.010972535550536122,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38711694525,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9917215739829539
+                ],
+                "projected_probability": [
+                  0.9917215739829539
+                ]
+              },
+              "excitation_cm1": 26418.942255989186,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3458.142255989187,
+              "delta_upper_Ha": -0.0016135566966113402,
+              "delta_lower_Ha": -0.0018026170237135375,
+              "transition_shift_cm1": 41.493945596149636,
+              "delta_upper_from_initial_Ha": -0.006995286466917605,
+              "delta_lower_from_initial_Ha": -0.010972535550536122,
+              "transition_shift_from_initial_cm1": 872.9052764665648,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38325452739,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9911834956232267
+                ],
+                "projected_probability": [
+                  0.9911834956232267
+                ]
+              },
+              "excitation_cm1": 27266.644991903315,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2933.954991903316,
+              "delta_upper_Ha": -0.0014605072865379043,
+              "delta_lower_Ha": -0.0018026170237135375,
+              "transition_shift_cm1": 75.08440845236319,
+              "delta_upper_from_initial_Ha": -0.006596347662707558,
+              "delta_lower_from_initial_Ha": -0.010972535550536122,
+              "transition_shift_from_initial_cm1": 960.4622234570161,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.386940392766,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9829821922231914
+                ],
+                "projected_probability": [
+                  0.9829821922231914
+                ]
+              },
+              "excitation_cm1": 26457.691047516826,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -604.1289524831736,
+              "delta_upper_Ha": -0.0018747415342659224,
+              "delta_lower_Ha": -0.0018026170237135375,
+              "transition_shift_cm1": -15.829500365731656,
+              "delta_upper_from_initial_Ha": -0.005324066400135052,
+              "delta_lower_from_initial_Ha": -0.010972535550536122,
+              "transition_shift_from_initial_cm1": 1239.6956845503519,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.370590434859,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9761496990724436
+                ],
+                "projected_probability": [
+                  0.9761496990724436
+                ]
+              },
+              "excitation_cm1": 30046.092031879747,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -346.1379681202525,
+              "delta_upper_Ha": -0.0020104600280319573,
+              "delta_lower_Ha": -0.0018026170237135375,
+              "transition_shift_cm1": -45.61626675419294,
+              "delta_upper_from_initial_Ha": -0.00491813123699103,
+              "delta_lower_from_initial_Ha": -0.010972535550536122,
+              "transition_shift_from_initial_cm1": 1328.7881548387195,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26927.56389753766,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 3143.629897537663,
+              "splitting_cm1": 847.7027359141284,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -524.187264085871,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28849.958370425436,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -432.1349629078977,
+              "splitting_cm1": 3588.400984362921,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 257.99098436292115,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0012.json",
+          "source_manifest_sha256": "61efbd7611047d3461dda28cf40de83c1fd13bdd05de682bdf5eb5f8ab8590ab",
+          "source_arrays_sha256": "27a1674072cbe05536ff978688973ae4593fc04cfa0bfef2dd0e3a9af15db90b",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 13,
+          "reported_EOL_Ha": -14067.41017237257,
+          "orbital_residual": 0.08114835330885525,
+          "energy_indicator_Ha": 0.011387053029621218,
+          "nominal_four_gap_RMS_cm1": 2164.03534533923,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.510426414428,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9870107949142274
+                ],
+                "projected_probability": [
+                  0.9870107949142274
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0029359112322708825,
+              "delta_lower_Ha": -0.0029359112322708825,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.013908446782807005,
+              "delta_lower_from_initial_Ha": -0.013908446782807005,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.391115434837,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9923723005244828
+                ],
+                "projected_probability": [
+                  0.9923723005244828
+                ]
+              },
+              "excitation_cm1": 26185.733263379938,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3224.9332633799386,
+              "delta_upper_Ha": -0.003998489586592768,
+              "delta_lower_Ha": -0.0029359112322708825,
+              "transition_shift_cm1": -233.20899260924904,
+              "delta_upper_from_initial_Ha": -0.010993776053510373,
+              "delta_lower_from_initial_Ha": -0.013908446782807005,
+              "transition_shift_from_initial_cm1": 639.6962838573163,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38667777774,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9909349380649174
+                ],
+                "projected_probability": [
+                  0.9909349380649174
+                ]
+              },
+              "excitation_cm1": 27159.686418813293,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2826.9964188132944,
+              "delta_upper_Ha": -0.0034232503494422417,
+              "delta_lower_Ha": -0.0029359112322708825,
+              "transition_shift_cm1": -106.95857309002271,
+              "delta_upper_from_initial_Ha": -0.0100195980121498,
+              "delta_lower_from_initial_Ha": -0.013908446782807005,
+              "transition_shift_from_initial_cm1": 853.5036503669944,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.38949587171,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9862998704287893
+                ],
+                "projected_probability": [
+                  0.9862998704287893
+                ]
+              },
+              "excitation_cm1": 26541.186283636867,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -520.6337163631324,
+              "delta_upper_Ha": -0.002555478944486822,
+              "delta_lower_Ha": -0.0029359112322708825,
+              "transition_shift_cm1": 83.49523612004309,
+              "delta_upper_from_initial_Ha": -0.007879545344621874,
+              "delta_lower_from_initial_Ha": -0.013908446782807005,
+              "transition_shift_from_initial_cm1": 1323.190920670393,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.373146364134,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9817209712189576
+                ],
+                "projected_probability": [
+                  0.9817209712189576
+                ]
+              },
+              "excitation_cm1": 30129.488431803675,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -262.7415681963248,
+              "delta_upper_Ha": -0.0025559292753314367,
+              "delta_lower_Ha": -0.0029359112322708825,
+              "transition_shift_cm1": 83.39639992392983,
+              "delta_upper_from_initial_Ha": -0.007474060512322467,
+              "delta_lower_from_initial_Ha": -0.013908446782807005,
+              "transition_shift_from_initial_cm1": 1412.1845547626472,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26770.10515663995,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 2986.1711566399536,
+              "splitting_cm1": 973.9531554333553,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -397.93684456664414,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28933.387715748075,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -348.70561758525946,
+              "splitting_cm1": 3588.3021481668075,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 257.8921481668076,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0013.json",
+          "source_manifest_sha256": "442c6643581406a404bd6be05dfba79af66bd6e9e8e9062834be64ea786da90e",
+          "source_arrays_sha256": "ec30f4d215a8ab6a1ef5d0cc5a9c91fe839c4f13a666b3dee69e231eb6d7ca7e",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 14,
+          "reported_EOL_Ha": -14067.411619840988,
+          "orbital_residual": 0.06635517596611916,
+          "energy_indicator_Ha": 0.0045138214694966615,
+          "nominal_four_gap_RMS_cm1": 2176.297264665257,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.511811157327,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9869778530225526
+                ],
+                "projected_probability": [
+                  0.9869778530225526
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0013847428981534904,
+              "delta_lower_Ha": -0.0013847428981534904,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.015293189680960495,
+              "delta_lower_from_initial_Ha": -0.015293189680960495,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.392497002498,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9920771860596229
+                ],
+                "projected_probability": [
+                  0.9920771860596229
+                ]
+              },
+              "excitation_cm1": 26186.430147349514,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3225.630147349515,
+              "delta_upper_Ha": -0.0013815676611557137,
+              "delta_lower_Ha": -0.0013847428981534904,
+              "transition_shift_cm1": 0.6968839695776404,
+              "delta_upper_from_initial_Ha": -0.012375343714666087,
+              "delta_lower_from_initial_Ha": -0.015293189680960495,
+              "transition_shift_from_initial_cm1": 640.3931678268927,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.387949778604,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9899162365263213
+                ],
+                "projected_probability": [
+                  0.9899162365263213
+                ]
+              },
+              "excitation_cm1": 27184.430435299884,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2851.7404352998856,
+              "delta_upper_Ha": -0.0012720008635369595,
+              "delta_lower_Ha": -0.0013847428981534904,
+              "transition_shift_cm1": 24.74401648659361,
+              "delta_upper_from_initial_Ha": -0.011291598875686759,
+              "delta_lower_from_initial_Ha": -0.015293189680960495,
+              "transition_shift_from_initial_cm1": 878.2476668535855,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.390994684583,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9847549848593462
+                ],
+                "projected_probability": [
+                  0.9847549848593462
+                ]
+              },
+              "excitation_cm1": 26516.150817902704,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -545.6691820972956,
+              "delta_upper_Ha": -0.001498812873251154,
+              "delta_lower_Ha": -0.0013847428981534904,
+              "transition_shift_cm1": -25.03546573416243,
+              "delta_upper_from_initial_Ha": -0.009378358217873028,
+              "delta_lower_from_initial_Ha": -0.015293189680960495,
+              "transition_shift_from_initial_cm1": 1298.15545493623,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.374846581928,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9802242649955775
+                ],
+                "projected_probability": [
+                  0.9802242649955775
+                ]
+              },
+              "excitation_cm1": 30060.24969538427,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -331.9803046157285,
+              "delta_upper_Ha": -0.0017002177937683882,
+              "delta_lower_Ha": -0.0013847428981534904,
+              "transition_shift_cm1": -69.23873641940513,
+              "delta_upper_from_initial_Ha": -0.009174278306090855,
+              "delta_lower_from_initial_Ha": -0.015293189680960495,
+              "transition_shift_from_initial_cm1": 1342.9458183432434,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26785.230320119736,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 3001.296320119738,
+              "splitting_cm1": 998.00028795037,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -373.88971204962945,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28878.883402890413,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -403.2099304429212,
+              "splitting_cm1": 3544.098877481567,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 213.68887748156703,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0014.json",
+          "source_manifest_sha256": "ec05ff70712d7149b7290ebc1f949f484afa0fec664dc32f8a0cffacb24c8a64",
+          "source_arrays_sha256": "ed302e81f985c404330270f6439a4542a528e8347b97c78798399fbc3c3fdb14",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 15,
+          "reported_EOL_Ha": -14067.412521287777,
+          "orbital_residual": 0.04829729892894701,
+          "energy_indicator_Ha": 0.002937912859024762,
+          "nominal_four_gap_RMS_cm1": 2234.4945807188656,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.512601266357,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9870738118928614
+                ],
+                "projected_probability": [
+                  0.9870738118928614
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0007901090302766534,
+              "delta_lower_Ha": -0.0007901090302766534,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.01608329871123715,
+              "delta_lower_from_initial_Ha": -0.01608329871123715,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.393252053476,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9915640140763138
+                ],
+                "projected_probability": [
+                  0.9915640140763138
+                ]
+              },
+              "excitation_cm1": 26194.12450042422,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3233.32450042422,
+              "delta_upper_Ha": -0.0007550509781140136,
+              "delta_lower_Ha": -0.0007901090302766534,
+              "transition_shift_cm1": 7.694353074705141,
+              "delta_upper_from_initial_Ha": -0.0131303946927801,
+              "delta_lower_from_initial_Ha": -0.01608329871123715,
+              "transition_shift_from_initial_cm1": 648.0875209015976,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.38818179379,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.987718547680334
+                ],
+                "projected_probability": [
+                  0.987718547680334
+                ]
+              },
+              "excitation_cm1": 27306.91787580452,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2974.2278758045213,
+              "delta_upper_Ha": -0.00023201518706628121,
+              "delta_lower_Ha": -0.0007901090302766534,
+              "transition_shift_cm1": 122.4874405046351,
+              "delta_upper_from_initial_Ha": -0.01152361406275304,
+              "delta_lower_from_initial_Ha": -0.01608329871123715,
+              "transition_shift_from_initial_cm1": 1000.7351073582213,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.392458021734,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9847301718947195
+                ],
+                "projected_probability": [
+                  0.9847301718947195
+                ]
+              },
+              "excitation_cm1": 26368.394324459525,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -693.4256755404749,
+              "delta_upper_Ha": -0.0014633371501986403,
+              "delta_lower_Ha": -0.0007901090302766534,
+              "transition_shift_cm1": -147.75649344317864,
+              "delta_upper_from_initial_Ha": -0.010841695368071669,
+              "delta_lower_from_initial_Ha": -0.01608329871123715,
+              "transition_shift_from_initial_cm1": 1150.3989614930506,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.376113303522,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9805382659174845
+                ],
+                "projected_probability": [
+                  0.9805382659174845
+                ]
+              },
+              "excitation_cm1": 29955.64532860973,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -436.58467139026834,
+              "delta_upper_Ha": -0.0012667215942201437,
+              "delta_lower_Ha": -0.0007901090302766534,
+              "transition_shift_cm1": -104.60436677453907,
+              "delta_upper_from_initial_Ha": -0.010440999900310999,
+              "delta_lower_from_initial_Ha": -0.01608329871123715,
+              "transition_shift_from_initial_cm1": 1238.3414515687036,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26861.8005256524,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 3077.8665256524037,
+              "splitting_cm1": 1112.7933753803009,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -259.09662461969856,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28759.894993892998,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -522.198339440336,
+              "splitting_cm1": 3587.2510041502064,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 256.8410041502066,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0015.json",
+          "source_manifest_sha256": "228a76ef7c9f42ca2e3586ff49b5fb8db69259e0949496661720da1ec8d5cbbd",
+          "source_arrays_sha256": "e5e2d725fe701345d4ddd1d81e40fe48ceaa2916b78b08d7ea181b7beefe3dc7",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        },
+        {
+          "iteration": 16,
+          "reported_EOL_Ha": -14067.413113908482,
+          "orbital_residual": 0.04090991741227255,
+          "energy_indicator_Ha": 0.003408179199100851,
+          "nominal_four_gap_RMS_cm1": 2203.8622162949996,
+          "targets": [
+            {
+              "label": "6s_1/2",
+              "UID": [
+                1,
+                1,
+                0
+              ],
+              "column": 0,
+              "selected_level": [
+                1,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.513069904404,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9871916409220932
+                ],
+                "projected_probability": [
+                  0.9871916409220932
+                ]
+              },
+              "excitation_cm1": 0.0,
+              "NIST_nominal_cm1": 0.0,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 0.0,
+              "delta_upper_Ha": -0.0004686380470957374,
+              "delta_lower_Ha": -0.0004686380470957374,
+              "transition_shift_cm1": 0.0,
+              "delta_upper_from_initial_Ha": -0.016551936758332886,
+              "delta_lower_from_initial_Ha": -0.016551936758332886,
+              "transition_shift_from_initial_cm1": 0.0,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_3/2",
+              "UID": [
+                3,
+                1,
+                0
+              ],
+              "column": 1,
+              "selected_level": [
+                3,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.39416042454,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9915268820925861
+                ],
+                "projected_probability": [
+                  0.9915268820925861
+                ]
+              },
+              "excitation_cm1": 26097.614258881138,
+              "NIST_nominal_cm1": 22960.8,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 3136.814258881139,
+              "delta_upper_Ha": -0.0009083710629056441,
+              "delta_lower_Ha": -0.0004686380470957374,
+              "transition_shift_cm1": -96.51024154308156,
+              "delta_upper_from_initial_Ha": -0.014038765755685745,
+              "delta_lower_from_initial_Ha": -0.016551936758332886,
+              "transition_shift_from_initial_cm1": 551.5772793585165,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "5d_5/2",
+              "UID": [
+                5,
+                1,
+                0
+              ],
+              "column": 3,
+              "selected_level": [
+                5,
+                1,
+                0
+              ],
+              "energy_Ha": -14067.388635961664,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    5,
+                    1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9866168676965565
+                ],
+                "projected_probability": [
+                  0.9866168676965565
+                ]
+              },
+              "excitation_cm1": 27310.093711795365,
+              "NIST_nominal_cm1": 24332.69,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": 2977.4037117953667,
+              "delta_upper_Ha": -0.0004541678736131871,
+              "delta_lower_Ha": -0.0004686380470957374,
+              "transition_shift_cm1": 3.175835990843429,
+              "delta_upper_from_initial_Ha": -0.011977781936366227,
+              "delta_lower_from_initial_Ha": -0.016551936758332886,
+              "transition_shift_from_initial_cm1": 1003.9109433490667,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_1/2",
+              "UID": [
+                1,
+                -1,
+                0
+              ],
+              "column": 2,
+              "selected_level": [
+                1,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.393048870466,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    1,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9861089071965875
+                ],
+                "projected_probability": [
+                  0.9861089071965875
+                ]
+              },
+              "excitation_cm1": 26341.57217926002,
+              "NIST_nominal_cm1": 27061.82,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -720.2478207399799,
+              "delta_upper_Ha": -0.0005908487328269985,
+              "delta_lower_Ha": -0.0004686380470957374,
+              "transition_shift_cm1": -26.822145199505208,
+              "delta_upper_from_initial_Ha": -0.011432544100898667,
+              "delta_lower_from_initial_Ha": -0.016551936758332886,
+              "transition_shift_from_initial_cm1": 1123.5768162935456,
+              "state_average_weight": 0.2
+            },
+            {
+              "label": "6p_3/2",
+              "UID": [
+                3,
+                -1,
+                0
+              ],
+              "column": 4,
+              "selected_level": [
+                3,
+                -1,
+                0
+              ],
+              "energy_Ha": -14067.376654381333,
+              "tracking": {
+                "reference_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "selected_levels": [
+                  [
+                    3,
+                    -1,
+                    0
+                  ]
+                ],
+                "per_level_weight": 0.2,
+                "principal_overlap_squared": [
+                  0.9833457381260257
+                ],
+                "projected_probability": [
+                  0.9833457381260257
+                ]
+              },
+              "excitation_cm1": 29939.746638275745,
+              "NIST_nominal_cm1": 30392.23,
+              "NIST_uncertainty_cm1": null,
+              "nominal_gap_cm1": -452.4833617242548,
+              "delta_upper_Ha": -0.0005410778103396297,
+              "delta_lower_Ha": -0.0004686380470957374,
+              "transition_shift_cm1": -15.898690333986467,
+              "delta_upper_from_initial_Ha": -0.010982077710650628,
+              "delta_lower_from_initial_Ha": -0.016551936758332886,
+              "transition_shift_from_initial_cm1": 1222.4427612347172,
+              "state_average_weight": 0.2
+            }
+          ],
+          "multiplets": [
+            {
+              "label": "5d",
+              "degeneracy_weights": [
+                4,
+                6
+              ],
+              "centroid_cm1": 26825.101930629673,
+              "reference_centroid_cm1": 23783.933999999997,
+              "centroid_gap_cm1": 3041.1679306296755,
+              "splitting_cm1": 1212.4794529142273,
+              "reference_splitting_cm1": 1371.8899999999994,
+              "splitting_gap_cm1": -159.41054708577212,
+              "reference_uncertainty_cm1": null
+            },
+            {
+              "label": "6p",
+              "degeneracy_weights": [
+                2,
+                4
+              ],
+              "centroid_cm1": 28740.35515193717,
+              "reference_centroid_cm1": 29282.093333333334,
+              "centroid_gap_cm1": -541.7381813961656,
+              "splitting_cm1": 3598.174459015725,
+              "reference_splitting_cm1": 3330.41,
+              "splitting_gap_cm1": 267.76445901572515,
+              "reference_uncertainty_cm1": null
+            }
+          ],
+          "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.json",
+          "source_manifest_sha256": "a9ce2ff0fc1236ea88d46280caa7b14ae6698c34b937b605b8d6f866e6c43c90",
+          "source_arrays_sha256": "0e7154ee19cca9181d20b4367f3cd6416ed742d5916d775bdaeff7e969687dfc",
+          "stationarity_passed": false,
+          "experimental_certification": false,
+          "exact_stored_H_acceptance_qualified": true
+        }
+      ],
+      "receipt": {
+        "started_utc": "2026-10-11T14:58:29.876302+00:00",
+        "finished_utc": "2026-10-11T15:00:26.792120+00:00",
+        "exit_code": 0,
+        "elapsed_uncontrolled_seconds": 116.915610200027,
+        "timing_scope": "uncontrolled native MCDHF bounded optimization; no performance speedup certificate"
+      }
+    }
+  ],
+  "source_files": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/completion.json",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/completion.json",
+      "sha256": "277586b6e4161a54cd135aebd6cbcc7bd6e414554af01d48c7910df87d8d6727"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/result.json",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/actual-result.json",
+      "sha256": "d73ce5d790786a719a31d08a87c84a13194c7dc358cb060faced9b6008e12f6d"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/root_execution.json",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/root_execution.json",
+      "sha256": "87db434fb353c5356f18fe08817148ca8c00a4de6261b8d3a728b53a8f713d1f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/contract.json",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/contract.json",
+      "sha256": "97744a8356c10d09381efc2d1e791657ac47a4274759149df05e77d2d4a7f83a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/execution_contract.json",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/execution_contract.json",
+      "sha256": "71347989fe8a495c0211307585c5a21b7e49d32a5d49c81b5d6fe53a01d53e6c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/RESULTS.md",
+      "asset": "evidence/yb-correlated29-run003-endpoint16/RESULTS.md",
+      "sha256": "853845d6f6b999289c05c76184c68e0a950c40647e04cf3ede52ef9d9e17663b"
+    }
+  ],
+  "nist_payload_sha256": "8157ff6a2dc6df5274bcefd1ab009082a552e1d4f2e6f59f353516332c5d3bea",
+  "reference_zero_level_id": "070002.000001",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "Hartree_cm1": 219474.63136314112,
+  "CODATA": "2022",
+  "old_models_preserved": 16,
+  "old_rows_preserved": 64,
+  "total_models": 17,
+  "total_rows": 68,
+  "append_only_overlay": true,
+  "endpoint_selection": "predeclared terminal accepted16; no minimum-gap selection",
+  "stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "physical_completeness_certified": false,
+  "performance_comparison_valid": false,
+  "new_scientific_calls": 0,
+  "publication_performed": false,
+  "future_append_policy": "Another run requires explicit closed completion, new contract and separate terminal model; never infer running state."
+}

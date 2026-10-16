@@ -1,0 +1,75 @@
+CMake Deprecation Warning at CMakeLists.txt:30 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+CMake Warning (dev) at CMakeLists.txt:33 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The C compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Warning (dev) at CMakeLists.txt:34 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning (dev) at CMakeLists.txt:35 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The Fortran compiler identification is GNU 15.2.0
+x86_64-linux-gnu-gfortran-15: fatal error: cannot execute ‘cc1’: posix_spawnp: No such file or directory
+compilation terminated.
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - failed
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran - broken
+CMake Error at /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestFortranCompiler.cmake:59 (message):
+  The Fortran compiler
+
+    "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: '/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/CMakeFiles/CMakeScratch/TryCompile-fdxLxg'
+    
+    Run Build Command(s): /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a98e9/fast
+    /usr/bin/gmake  -f CMakeFiles/cmTC_a98e9.dir/build.make CMakeFiles/cmTC_a98e9.dir/build
+    gmake[1]: Entering directory '/data/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/CMakeFiles/CMakeScratch/TryCompile-fdxLxg'
+    Building Fortran object CMakeFiles/cmTC_a98e9.dir/testFortranCompiler.f.o
+    /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran   -fallow-argument-mismatch  -c /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/CMakeFiles/CMakeScratch/TryCompile-fdxLxg/testFortranCompiler.f -o CMakeFiles/cmTC_a98e9.dir/testFortranCompiler.f.o
+    Linking Fortran executable cmTC_a98e9
+    /home/zzhang/.cache/uv/archive-v0/gherq2Ilh6UFVaJJ/lib/python3.10/site-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a98e9.dir/link.txt --verbose=1
+    x86_64-linux-gnu-gfortran-15: fatal error: ‘-fuse-linker-plugin’, but liblto_plugin.so not found
+    compilation terminated.
+    /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran -fallow-argument-mismatch  CMakeFiles/cmTC_a98e9.dir/testFortranCompiler.f.o -o cmTC_a98e9
+    gmake[1]: *** [CMakeFiles/cmTC_a98e9.dir/build.make:102: cmTC_a98e9] Error 1
+    gmake[1]: Leaving directory '/data/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/CMakeFiles/CMakeScratch/TryCompile-fdxLxg'
+    gmake: *** [Makefile:134: cmTC_a98e9/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:35 (enable_language)
+
+
+-- Configuring incomplete, errors occurred!

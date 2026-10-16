@@ -1,0 +1,18 @@
+{
+  "status": "full-source/resources/independent-gates bound before launch",
+  "production_numerical_pass": false,
+  "gate_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/public_valence017/result.json": "d369560be184e160365957b5360b35ec6db2cae6e809855c58ee428ddfefeb0a",
+    "docs/atomic_pci_sd_native_2026_10_09/public_valence017/comparison.json": "176a8074073603acaeb253e0e5f3f2659fde2e65094ace90bff10db2a71b99e5",
+    "docs/atomic_pci_sd_native_2026_10_09/public_valence017/source_sha256.json": "42c5c2e3ba8dc67fb77e594d1d8bfa25c8c6abfdf1e77bb2604fe9611f1d08c0",
+    "docs/atomic_pci_sd_native_2026_10_09/cuda_krylov003/result.json": "6d88e45ff3650a0b64abc30c8d0392b25e5005e23fcf28763e6fd689c16db217",
+    "docs/atomic_pci_sd_native_2026_10_09/yb_full_valence010/resource.json": "05d645c158ec472c497264cb0534d00eb70f5fadf38e9029bba633978e7390e8",
+    "docs/atomic_pci_sd_native_2026_10_09/yb_full_valence010/source_sha256.json": "3806b9e49285f9b51bc8c50ca405748af24993c08b5c3122f2f7a221146a5f19"
+  },
+  "load": [
+    12.38232421875,
+    12.7119140625,
+    14.6142578125
+  ],
+  "policy": "private resident GPU numerical guesses, actual public GMRES recertification; full68core/414virtual/five columns/directed screening;32GiB host/8GiB owned numerical pool+2GiB original diagram pool"
+}

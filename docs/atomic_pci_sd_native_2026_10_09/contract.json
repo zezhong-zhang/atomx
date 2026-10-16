@@ -1,0 +1,35 @@
+{
+  "hypothesis": "Native cell Coulomb integrals admit an exact sparse auxiliary-node bilinear action. Connect original pCI reduced core SD diagrams only after matching native radial metric, original rho phases and complete finite commutator, preserving noncanonical Fock terms.",
+  "fixed": [
+    "original pCI pinned 4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "native complete retained radial/magnetic spaces and cell integrator",
+    "no fitted shifts, virtual cutoff changes or lowered gates",
+    "separate numerical/correlation-space/experimental convergence"
+  ],
+  "controls": [
+    "signed random real/complex radial quartets against native cell integrator with and without kinetic balance",
+    "symmetric bilinear density action, linearity, component cross terms",
+    "original pCI raw reduced diagram action projected to independent signed finite SD commutator"
+  ],
+  "gates": {
+    "radial_absolute_Ha": 1e-11,
+    "commutator_absolute_Ha": 1e-11,
+    "amplitude_residual_Ha": 1e-10,
+    "space_cm": 1.0,
+    "experiment_fraction": 0.01
+  },
+  "caps": {
+    "initial_auxiliary_payload_bytes": 134217728,
+    "initial_core_DIAGRAM_workspace_bytes": 2147483648,
+    "threads": 1
+  },
+  "stopping": [
+    "reject any metric/integral/convention mismatch before large solve",
+    "retain failed anchors, do not interpret residual alone as highest precision"
+  ],
+  "load": [
+    9.171875,
+    9.20849609375,
+    9.2001953125
+  ]
+}

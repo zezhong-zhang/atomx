@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/reporting_stage031/refresh.py", line 128, in <module>
+    main()
+    ~~~~^^
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/reporting_stage031/refresh.py", line 103, in main
+    card, citations = sync_card.render(record, datetime.now(timezone.utc))
+                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/sync_card.py", line 144, in render
+    + mcdhf_summary(mcdhf, citations))
+      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/data/code/atomx/docs/atomx_hourly_progress_2026_10_10/sync_card.py", line 57, in mcdhf_summary
+    path = (REPO / binding["path"]).resolve()
+                   ~~~~~~~^^^^^^^^
+TypeError: string indices must be integers, not 'str'

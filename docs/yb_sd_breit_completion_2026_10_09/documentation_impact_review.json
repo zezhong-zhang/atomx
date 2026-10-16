@@ -1,0 +1,104 @@
+{
+  "reviewed": [
+    {
+      "path": "README.md",
+      "disposition": "update",
+      "reason": "Expose lower-level finite NR-SD/DCB/CCSD and no facade/production-SD claim",
+      "sha256": "f6dd639c17c93b3ad588af5283df8e42fa37a0a8f7d822ecb80ebc2605b89100"
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "disposition": "update",
+      "reason": "Replace obsolete CC scaffold and DC-only P/Q claims; add NR-SD, restricted mixed Breit order and finite CC limits",
+      "sha256": "fd4c288ad1cd9b6ea406ee516da72f3b9097b4a3b56cd8fc85d04e848d217699"
+    },
+    {
+      "path": "docs/README.md",
+      "disposition": "update",
+      "reason": "Route latest measured increment; date-scope sealed matrix/literature/science-story descriptions",
+      "sha256": "8a0d2f7a7558715049b4a310248df343f59d3d16ae21225fb4d4b18362091c4a"
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md",
+      "disposition": "update",
+      "reason": "Update task routing and disambiguate current small finite spaces from earlier large-virtual self energy",
+      "sha256": "ff3d32bec6c8b82bbec38a71c0c1b5de9810e0da0dd66059f3afbe4b2fb8a105"
+    },
+    {
+      "path": "docs/TESTING.md",
+      "disposition": "update",
+      "reason": "New physical anchors, affected 119-test scope and distinction from saved-matrix/full-assembly replay",
+      "sha256": "b2bcf14f79c163122facfcc136ebd5bd3506be4e53042e82cdf2c5f269a365c8"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "disposition": "update",
+      "reason": "Current implemented coverage and negative experiment/space results, without erasing earlier dated controls",
+      "sha256": "af55ce8200d7e1962a18bcc378083b09f9c4d46067564f107e3974058f8e2944"
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "disposition": "update",
+      "reason": "Merge supported CC-vs-CISD and common-mode/cross-order lessons into convention-first",
+      "sha256": "e42ebd935057641ab2b64a59909055b82a06dd22dbbe7d953b08b57b5dff1741"
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "disposition": "update",
+      "reason": "Document explicit CC inputs/new result fields and optional static DCB factory contract",
+      "sha256": "0a9c75b401cf6cbb19cacce9596f549ce5a2e12575edd12308546414cf4ddaf5"
+    },
+    {
+      "path": "docs/yb_sd_breit_completion_2026_10_09/README.md",
+      "disposition": "update",
+      "reason": "One owning account of this increment with setup, actual numbers, boundaries, replay and raw evidence",
+      "sha256": "59ffbbe924ad9e275ecbafc4ff5a4c14f4714f455aeb7c56b5293ff77fd6407e"
+    },
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "disposition": "retain",
+      "reason": "Existing methods/physics/numerics dependency policy is unchanged; new methods reuse shared operators and scipy numerical root",
+      "sha256": "24aaf4b1127d36fb348d639a239b757a08c1179cf519e27716f9bf04bd1df88b"
+    },
+    {
+      "path": "docs/CI_MBPT_SIGMA2_SPEC.md",
+      "disposition": "retain",
+      "reason": "General two-valence screened Sigma2 remains unfinished; explicit finite NR-CISD and restricted C-B order are not that interface",
+      "sha256": "8e2ceff3c8749ce52802bd4d5c4340ab8f4f9ea7dd9a8a77d219653abd895aed"
+    },
+    {
+      "path": "docs/book/PLAN.md",
+      "disposition": "retain",
+      "reason": "Book plan lists correlation topics without falsely specifying implemented large-scale CC; it remains a proposal",
+      "sha256": "07d10dc7279f042b6569ea56c1add3002f9af5c9d6870ff0df4cb5dcf14e14d3"
+    },
+    {
+      "path": "AGENTS.md",
+      "disposition": "retain",
+      "reason": "Existing explicit coverage, matched Hamiltonian, independent anchors, P/Q partition and evidence rules suffice; no new rule",
+      "sha256": "369d019c92f8fd77611b7d65187e1350f8586184ea67d59e29a1e42489ea131d"
+    },
+    {
+      "path": "PROJECT_INDEX.md",
+      "disposition": "retain",
+      "reason": "No commit/staging requested; staged-index hook is not run on unrelated dirty work. Current guides identify new files directly",
+      "sha256": "93abba424d520917e67e5012e535efa06b4ff137b7dceefae875a1acc9903bce"
+    }
+  ],
+  "local_links_checked": {
+    "README.md": 42,
+    "docs/ARCHITECTURE_CAPABILITIES.md": 11,
+    "docs/README.md": 56,
+    "docs/AGENT_REFERENCE.md": 86,
+    "docs/TESTING.md": 10,
+    "docs/VERIFICATION.md": 35,
+    "docs/AGENT_INSIGHTS.md": 41,
+    "docs/MIGRATION.md": 14,
+    "docs/yb_sd_breit_completion_2026_10_09/README.md": 11
+  },
+  "missing": [],
+  "passed": true,
+  "archived_topics": "Eight sealed topics checked independently in old_archive_integrity.json; no historical file rewritten",
+  "insight": "Merged into convention-first; no root AGENTS change",
+  "source_claims": "119 selected tests; finite CCSD anchors and five declared Yb DC/DCB sectors; no complete atomic SD/FSCC/QED-SCF or precision success"
+}

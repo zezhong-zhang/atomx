@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 75, in <module>
+    if __name__=="__main__":main()
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 58, in main
+    bad=[name for name,meta in entries.items() if sha(REPO/name)!=meta["sha256"]]
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 58, in <listcomp>
+    bad=[name for name,meta in entries.items() if sha(REPO/name)!=meta["sha256"]]
+  File "/data/code/atomx/docs/yb_diagnosis_repair_2026_10_08/common.py", line 26, in sha
+    def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/pathlib.py", line 1126, in read_bytes
+    with self.open(mode='rb') as f:
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/data/code/atomx/Atomx_MBPT_measurement_source.zip'

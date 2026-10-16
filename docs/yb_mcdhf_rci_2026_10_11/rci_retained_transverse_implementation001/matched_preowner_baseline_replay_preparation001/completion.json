@@ -1,0 +1,105 @@
+{
+  "status": "closed_JSON_scalar_metadata_only",
+  "inputs": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/result.json",
+      "sha256": "771d5bd3edbedce0db97a7892af46a0e5b726831798f8a196097e9449af1f972"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/root_execution.json",
+      "sha256": "dfa8b354a4830217c70910cc084c963c9c3588a2b3c832056d508468f6ac66e1"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/execution_binding.json",
+      "sha256": "cbcf9f8c1078f4399a64f9d53e191ee12f36e3dcee5a50baecf4a7f6d8c56e9d"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/executor_contract.json",
+      "sha256": "144828e28a3c5dd87d9efe1a5e0c688cf188ed57e5d33561be171c20f8ff6cae"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/executor_handoff.json",
+      "sha256": "e2a0af68d3ed23fab0714eccca318b98642c8804b8efb83615bc066e7c7f5827"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/source_recipe.json",
+      "sha256": "ccbcb17f9e018a84a4a6dd03cea56752469754e5c37ba79cd3d75d759836fbb5"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/contract.json",
+      "sha256": "6acbc1e3d9390b6e125cb09391202f579cc35895c6f88dbcf699097cced73311"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/worker.py",
+      "sha256": "cf27d95fff8b06d3aeb5fd0ea83ebb1dd70e705397cd39990688c019d23b5998"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/run.py",
+      "sha256": "afd8cc21429bc5ed2b2aae8aca0eef340521f5fc193fc307103ecaf0b3e0a27f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/current/result.json",
+      "sha256": "9193af75a153ac3d28c859a227c2449a6530b9a83a8b6acad45e9aa3d18a479e"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/current/calls.json",
+      "sha256": "464ab867e4db996393b591c63f0f88238b0593316b2b081d039a73f1c022faec"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/current/owner.json",
+      "sha256": "5d9f87e0c37519e23a68565bdc65b7c663b7906a7031f20d1288647bf63beaf2"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/preowner/result.json",
+      "sha256": "d98188d8341fb677de51a9d7f7cd6b25de1781ec10943110543c85ca02667b0c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/preowner/calls.json",
+      "sha256": "464ab867e4db996393b591c63f0f88238b0593316b2b081d039a73f1c022faec"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/preowner/owner.json",
+      "sha256": "5d9f87e0c37519e23a68565bdc65b7c663b7906a7031f20d1288647bf63beaf2"
+    }
+  ],
+  "same_epoch_owner_change_baseline_qualified": true,
+  "full_H_and_signed_gradient_bitwise_equal": true,
+  "DC_schema1_header_equal": true,
+  "H_shape": [
+    29,
+    29
+  ],
+  "gradient_shape": [
+    7,
+    70
+  ],
+  "all_root_residual_max_Ha": 2.631478597749094e-15,
+  "all_root_Gram_max": 1.9984014443252818e-15,
+  "actual_counts": {
+    "H": 2,
+    "gradient": 2,
+    "CI": 0,
+    "hS": 12,
+    "physical_overlap": 4,
+    "SVD": 4,
+    "Dirac": 0,
+    "eigh": 0,
+    "polar": 0,
+    "optimizer": 0,
+    "worker_NPZ_loads": 6,
+    "controller_NPZ_loads": 0
+  },
+  "elapsed_uncontrolled_s": 34.8569351430051,
+  "actual_archive_files_bound": 730,
+  "shared_source_files_bound": 365,
+  "source_and_inputs_unchanged": true,
+  "closure_work": "stdlib JSON/scalar assertions; no NPZ reads, NumPy/Atomx imports, numerical recomputation or new producers",
+  "scope": "same numerical epoch owner header/caller change at saved ns35 He29CSF baseline only",
+  "original_old_source002_full_H_parity_passed": false,
+  "original_h1e_4_FD_passed": false,
+  "original_mixed_suite_passed": false,
+  "current_optimizer_qualified": false,
+  "native31_RCI_qualified": false,
+  "controlled_performance_certified": false,
+  "phaseA_disposition": "independent SOURCE-only admission preparation may proceed; actual native31 DC/static/zero gates still required"
+}

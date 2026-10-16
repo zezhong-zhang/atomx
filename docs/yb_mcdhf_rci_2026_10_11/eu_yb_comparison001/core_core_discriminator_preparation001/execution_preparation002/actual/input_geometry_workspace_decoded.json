@@ -1,0 +1,148 @@
+{
+  "fields": [
+    {
+      "name": "orbital_keys",
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 384
+    },
+    {
+      "name": "P",
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616
+    },
+    {
+      "name": "Q",
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616
+    },
+    {
+      "name": "basis_nv",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_ks",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_ksp",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_ksq",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_nsp",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_nsq",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    },
+    {
+      "name": "basis_gr",
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 8280
+    },
+    {
+      "name": "basis_grw",
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 8280
+    },
+    {
+      "name": "basis_bsp_p",
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "bytes": 66240
+    },
+    {
+      "name": "basis_bsp_q",
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 74520
+    },
+    {
+      "name": "basis_bsp_q_d",
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 74520
+    },
+    {
+      "name": "basis_bsp_p_d",
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "bytes": 66240
+    },
+    {
+      "name": "basis_t",
+      "shape": [
+        132
+      ],
+      "dtype": "<f8",
+      "bytes": 1056
+    },
+    {
+      "name": "basis_tp",
+      "shape": [
+        130
+      ],
+      "dtype": "<f8",
+      "bytes": 1040
+    },
+    {
+      "name": "basis_ns",
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8
+    }
+  ],
+  "cumulative_decoded_bytes": 42915896
+}

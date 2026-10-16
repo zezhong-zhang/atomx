@@ -1,0 +1,54 @@
+{
+  "policy": "Preserve the independently corrected leading vector exactly through whole-complement metric reconstruction; no extra Newton/QR iterations.",
+  "rows": [
+    {
+      "ns": 180,
+      "kappa": -3,
+      "physical_Gram": 1.0340144539211504e-14,
+      "original_residual_Ha": 1.8990592058750183e-14,
+      "energy_movement_Ha": -1.6653345369377348e-16,
+      "pass_original": true
+    },
+    {
+      "ns": 180,
+      "kappa": -1,
+      "physical_Gram": 1.068676397375512e-14,
+      "original_residual_Ha": 3.792267822346694e-14,
+      "energy_movement_Ha": 1.1102230246251565e-16,
+      "pass_original": true
+    },
+    {
+      "ns": 180,
+      "kappa": 2,
+      "physical_Gram": 9.797392931665261e-15,
+      "original_residual_Ha": 2.380023155596074e-14,
+      "energy_movement_Ha": -3.885780586188048e-16,
+      "pass_original": true
+    },
+    {
+      "ns": 220,
+      "kappa": -3,
+      "physical_Gram": 1.1341730506153613e-14,
+      "original_residual_Ha": 2.172367558858151e-14,
+      "energy_movement_Ha": -5.551115123125783e-17,
+      "pass_original": true
+    },
+    {
+      "ns": 220,
+      "kappa": -1,
+      "physical_Gram": 1.8560131730127605e-14,
+      "original_residual_Ha": 4.0800826355021237e-14,
+      "energy_movement_Ha": -5.551115123125783e-17,
+      "pass_original": true
+    },
+    {
+      "ns": 220,
+      "kappa": 2,
+      "physical_Gram": 2.690621163370377e-14,
+      "original_residual_Ha": 2.4633206397908545e-14,
+      "energy_movement_Ha": -2.220446049250313e-16,
+      "pass_original": true
+    }
+  ],
+  "all_pass": true
+}

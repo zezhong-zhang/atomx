@@ -1,0 +1,12 @@
+{
+  "source_sha256": "9d791b80ac8fbc266fb5e552ead8a4971b9ef3427ed98277a246098276b39ff4",
+  "cpu_algorithm_sha256": "4e9c18fcc7f62be582987e765a7ee5b068d98bc774ceafedd71fb9a87553a8b9",
+  "cupy_version": "14.2.0",
+  "cuda_runtime": 13020,
+  "own_pool_cap_bytes": 8589934592,
+  "operator_device_bound_bytes": 3624448,
+  "dtype": "float64 only",
+  "physical_actions": "complete native operator through explicit full-vector copies",
+  "coefficient_scope": "small Hessenberg/QR/least-squares CPU only; complete vectors and recycled image QR remain on-device",
+  "public_adopted": false
+}

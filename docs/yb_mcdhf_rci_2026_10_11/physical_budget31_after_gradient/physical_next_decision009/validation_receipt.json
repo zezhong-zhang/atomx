@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "source_files_verified": 358,
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "all_bound_worker_metadata_and_array_hashes_verified": true,
+  "tests_distinct": 262,
+  "matched_live_checks": 523,
+  "matched_offline_checks": 222,
+  "full_class_live_checks": 265,
+  "full_class_offline_checks": 554,
+  "full_CSF_totals": {
+    "A": 44707,
+    "B": 45686
+  },
+  "returned_roots": 20,
+  "max_full_operator_residual_L2_Ha": 9.46485954347845e-10,
+  "sectors": {
+    "actual_J1_even": {
+      "live_checks": 53,
+      "source": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+      "elapsed": 427.14144241599934,
+      "RSS_MiB": 2326.0234375
+    },
+    "actual_J1_odd": {
+      "live_checks": 53,
+      "source": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+      "elapsed": 405.8434782959994,
+      "RSS_MiB": 2328.546875
+    },
+    "actual_J3_even": {
+      "live_checks": 53,
+      "source": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+      "elapsed": 453.89005207899936,
+      "RSS_MiB": 2310.45703125
+    },
+    "actual_J3_odd": {
+      "live_checks": 53,
+      "source": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+      "elapsed": 432.33774104700024,
+      "RSS_MiB": 2332.0703125
+    },
+    "actual_J5_even": {
+      "live_checks": 53,
+      "source": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+      "elapsed": 468.76136792799844,
+      "RSS_MiB": 2220.82421875
+    }
+  },
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/result.json": "beeaab96288b64d9da6844332c3c874b059e26635b1a4f5ec66f0488e5c35041",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/result.json": "67792f5f3be36ce67e31f5e1f4345479145f188c89f29815f2641f79eb9c0487",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/result.json": "b5663cf84acee8eb783dc0d1d36b6b8b90912787e35d920b619b9c2f6b362398",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/result.json": "43d78d45021ba38afcfc1d01ffcec8f239c4eaf5ec831cc03cc076de38dd69ff",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/result.json": "d8f25c2590306154af2c71b05113d9c73ac509ae5c72ba034f800a02ad9ae420"
+  },
+  "working_tree_link_check": {
+    "documents": [
+      "docs/ARCHITECTURE_CAPABILITIES.md",
+      "docs/MIGRATION.md",
+      "docs/TESTING.md",
+      "docs/AGENT_REFERENCE.md",
+      "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/README.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/README.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/aggregate001/RESULTS.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/RESULTS.md",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/README.md"
+    ],
+    "broken_links": [],
+    "scope": "Working-tree candidate targets: Git tracked plus inventoried untracked/nonignored files. No stage, commit or clean-checkout publication claim."
+  },
+  "whitespace_errors": [],
+  "git_diff_check": "PASS",
+  "source_after_snapshots_match": true,
+  "all_scientific_workers_terminated": true,
+  "no_new_general_insight": true
+}

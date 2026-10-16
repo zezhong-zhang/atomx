@@ -1,0 +1,21 @@
+{
+  "status": "authorized same-model launch after required gates",
+  "gates": {
+    "cuda_valence002/result.json": "aa5738199b1e32cc8ea742ffdc73efe01895a0ff8c5b65c1d2afeaf8f553049e",
+    "public_valence011/result.json": "81979fd5e1a0a5204fab32446a691f9eef3c304f561859c0e5a7f4a15cc86396",
+    "valence_core_certificate_public021/result.json": "67b065b3ed8df37db42d3210ac475bf2d1099ac5ae92de6253c204e5fa8e73e9"
+  },
+  "solver": "certifiedGMRES; withdrawn GCROT not used",
+  "driver_sha256": "fe6576ec934868b7fe9d01b8d7ab749c5d77f49f97e9d33ed8a69e2fb13d0cb9",
+  "source_chain": "56vector initial planning,180vector unlaunchedGCROTplanning withdrawn, currentfullinitialization/core/map logging only; actual sources archived at launch",
+  "host_bound_bytes": 21061522020,
+  "host_cap_bytes": 34359738368,
+  "device_cap_bytes": 2147483648,
+  "parent": "completed CPU004columns only; fresh raw/source/signed gates required",
+  "load": [
+    17.5791015625,
+    21.70751953125,
+    23.59033203125
+  ],
+  "timing_scope": "diagnostic only; no pairedcontrolled gain or experimental claim"
+}

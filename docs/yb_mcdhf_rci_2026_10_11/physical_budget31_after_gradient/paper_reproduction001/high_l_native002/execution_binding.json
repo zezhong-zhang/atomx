@@ -1,0 +1,12 @@
+{
+  "command": "timeout 135s taskset -c 28 env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 .venv/bin/python -I run.py --execute",
+  "files": {
+    "README.md": "87883f32bb08dd801d538ddc1219d18105e3ce9313c6ab5e132998d6b071009e",
+    "contract.json": "329fd4abd8d50ad00ee7098e4382532f347b65ab9ef14ade8ca01599ef031eb5",
+    "preparation.json": "cc32dbd0011e4f658111b4f493e7ca580da39717d86511fed0764854b2e40abf",
+    "run.py": "3df657a5d9c1eca6d52a2a974ac0ee42ccb0248b3f89b922913fee23f271df7c"
+  },
+  "prepared_UTC": "2026-10-13T15:05:50Z",
+  "status": "frozen_before_first_numerical_pilot",
+  "task_authorization": "root delegated concrete bounded native high-l proof execution; no Yb CI admitted"
+}

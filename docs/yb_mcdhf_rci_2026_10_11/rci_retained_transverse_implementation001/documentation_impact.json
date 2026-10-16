@@ -1,0 +1,21 @@
+{
+  "changed_sources": [
+    "src/atomx/methods/ci.py",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py"
+  ],
+  "current_guide": {
+    "path": "docs/TRANSVERSE_INTERACTION.md",
+    "disposition": "updated retained operator options, full map, precision, DC consumer rejection and pending numerical qualification"
+  },
+  "source_docstrings": "updated producer/snapshot/CI retention coverage",
+  "tests": "obsolete static-Breit rejection replaced by full ordinary-builder qualification; all other unsupported scopes retained",
+  "retained": [
+    "docs/ARCHITECTURE_DESIGN.md complete identity invariants already correct",
+    "CIRadialSnapshot DC integral cache remains separate from transverse operators",
+    "f043 historical source and frozen transverse31 SOURCE recipe describe their prior epoch and are not rewritten",
+    "global registry/campaign README/trace are root-owned and untouched"
+  ],
+  "search": "rg retained/HamiltonianSnapshot/Dirac-Coulomb-only/retention in relevant current guide, methods and owner source; history evidence retained",
+  "new_insight": "none; existing complete operator/input identity and coverage contracts apply",
+  "numeric_validation": "pending root scheduling; static checks only"
+}

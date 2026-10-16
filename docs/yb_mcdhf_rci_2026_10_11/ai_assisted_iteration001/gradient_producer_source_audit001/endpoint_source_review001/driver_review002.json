@@ -1,0 +1,57 @@
+{
+  "artifacts_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/README.md": "10e9febda315bdd9beacbf1accf96b59fd16e9675fb9aa3f5f0dfda9d54ce8b6",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/contract.json": "22f0277174d5efcf6c64395057849babb50032f0e08c1df6a4d8dafdee299586",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/handoff.json": "ecfe0508473e876b1addc73f80a789a927a5c5d9676c1d9922ada329b02832ce",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/preparation.json": "b57c4fa64bce740408f3c35e453f4bce825dcb2955bd6224e15f934d33f70212",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/run.py": "dc0a7579c9982f2f1cd68d4b07469714eedce41afd07dc05bf4fb8ec6cbbb20b",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/verify_preparation.py": "760f76f1655f03e496c4eaef65d82ac04683fd5fc9c3a7ee1343340652bf0e9b"
+  },
+  "assertion_inventory_rows": 71,
+  "execution_authorization": false,
+  "metadata_SOURCE_checks": 79,
+  "metadata_audit_sha256": "ffae18ee90bef5d575ff776e2f4997fb014d97a7e904f642634c72db1da92234",
+  "native_order": [
+    [
+      1,
+      1,
+      0
+    ],
+    [
+      5,
+      1,
+      0
+    ],
+    [
+      3,
+      1,
+      0
+    ],
+    [
+      3,
+      -1,
+      0
+    ],
+    [
+      1,
+      -1,
+      0
+    ]
+  ],
+  "native_order_preflight_before_any_numerical_branch": true,
+  "preparation_SOURCE_checks": 29,
+  "prior_failure_and_reviews_preserved": true,
+  "prior_review_error": "The original independent review missed a literal JSON ordering contradiction available during SOURCE preparation; the new metadata audit explicitly evaluates this condition and remaining scalar/schema predicates.",
+  "remaining_runtime_gates": "Actual arrays, kernel arithmetic, work counters and host environment are not independently measured by this review; immutable previous closed JSON evidence is separately identified.",
+  "review_access": {
+    "NPZ_stat_header_hash_body": 0,
+    "SOURCE_JSON_only": true,
+    "edits_to_predecessor_or_successor": 0,
+    "numerical_execution": 0,
+    "numerical_imports": 0
+  },
+  "same_physical_UID_set_weights_space_operators_resources_original_gates": true,
+  "scientific_execute_AST_unchanged": true,
+  "scope": "Only metadata preflight/declared native versus display order corrected; no physics equation, numerical execute body, acceptance gate or automatic retry policy changed. Root owns separately authorized one-shot bounded execution.",
+  "status": "independent_frozen_SOURCE_JSON_successor_review_passed"
+}

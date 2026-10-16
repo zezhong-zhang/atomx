@@ -1,0 +1,74 @@
+{
+  "status": {
+    "completed": true,
+    "on_shell_replay_passed": true,
+    "dyson_residual_and_residue_passed": true,
+    "experimental_5percent_goal_passed": false,
+    "max_relative_excitation_error": 0.0526824600600374,
+    "l4_to_l6_Dyson_increments_cm1": [
+      -558.3845334440957,
+      156.1623848694253,
+      -503.1821376516091,
+      180.89005224795983
+    ],
+    "partial_wave_1cm1_gate_passed": false,
+    "radial_convergence": "not_tested",
+    "higher_order_coverage": "not_completed",
+    "radiative_operators_dressed": false,
+    "scope": "diagonal frozen-orbital Dyson only"
+  },
+  "max_root_residual_Ha": 6.938893903907228e-17,
+  "max_on_shell_replay_error_Ha": 4.850286838831153e-15,
+  "comparison": [
+    {
+      "label": "6s_1/2",
+      "epsilon_DF_Ha": -0.41366545273185834,
+      "on_shell_shift_cm1": -8129.547099876307,
+      "Dyson_shift_cm1": -7983.467915561729,
+      "residue": 0.9823938348407283,
+      "excitation_Dyson_cm1": 0.0,
+      "experiment_cm1": 0.0,
+      "residual_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "epsilon_DF_Ha": -0.3030715109235863,
+      "on_shell_shift_cm1": -8603.526571241413,
+      "Dyson_shift_cm1": -8383.727481050562,
+      "residue": 0.9747745317429799,
+      "excitation_Dyson_cm1": 23872.30504387835,
+      "experiment_cm1": 22960.8,
+      "residual_cm1": 911.505043878351
+    },
+    {
+      "label": "6p_1/2",
+      "epsilon_DF_Ha": -0.30111293053392457,
+      "on_shell_shift_cm1": -4263.570076133737,
+      "Dyson_shift_cm1": -4212.748198585609,
+      "residue": 0.9882493014097663,
+      "excitation_Dyson_cm1": 28473.143035359393,
+      "experiment_cm1": 27061.82,
+      "residual_cm1": 1411.3230353593935
+    },
+    {
+      "label": "5d_5/2",
+      "epsilon_DF_Ha": -0.3008863577005671,
+      "on_shell_shift_cm1": -7649.654042062834,
+      "Dyson_shift_cm1": -7462.5388448698695,
+      "residue": 0.9757948786944408,
+      "excitation_Dyson_cm1": 25273.079378153165,
+      "experiment_cm1": 24332.69,
+      "residual_cm1": 940.389378153166
+    },
+    {
+      "label": "6p_3/2",
+      "epsilon_DF_Ha": -0.2883066793824426,
+      "on_shell_shift_cm1": -3539.196891852976,
+      "Dyson_shift_cm1": -3503.1710414498407,
+      "residue": 0.9899401443834929,
+      "excitation_Dyson_cm1": 31993.36744311047,
+      "experiment_cm1": 30392.23,
+      "residual_cm1": 1601.1374431104705
+    }
+  ]
+}

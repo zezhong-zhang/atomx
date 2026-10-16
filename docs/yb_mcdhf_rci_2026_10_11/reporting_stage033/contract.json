@@ -1,0 +1,144 @@
+{
+  "status": "SOURCE_JSON_STAGE033_FROZEN_PENDING_ROOT_METADATA_SEAL_NO_INTEGRATION",
+  "driver_sha256": "34d14fccce053072f96381af364c0405bf17dd365c7e1811baf40c578925d993",
+  "registry_before_sha256": "061cba14e68681b17d102114386df08c239f695af62a968121e35390074a752a",
+  "roles": {
+    "base_result": "docs/yb_mcdhf_rci_2026_10_11/results_stage032.json",
+    "base_panel": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/current_card_evidence.json",
+    "base_proof": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/integration_proof.json",
+    "base_driver": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/refresh.py",
+    "utility": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage030/refresh.py",
+    "renderer": "docs/atomx_hourly_progress_2026_10_10/sync_card.py",
+    "planner": "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py",
+    "FD_actual": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+    "FD_domains": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+    "FD_receipt": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+    "FD_closure": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/completion.json",
+    "primary_receipt": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/root_execution.json",
+    "primary_log": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/foreground.log",
+    "integration_receipt": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/root_execution.json",
+    "integration_log": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/foreground.log",
+    "mixed_receipt": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json",
+    "mixed_log": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/foreground.log",
+    "mixed_calls": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/candidate_calls.json",
+    "mixed_finite_records": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/finite_diagnostics.json",
+    "original_GPU_actual": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/actual/result.json",
+    "original_GPU_receipt": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/controller/execution_receipt.json",
+    "original_GPU_closure": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/closure001/completion.json",
+    "GPU_successor_actual": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+    "GPU_successor_receipt": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+    "GPU_successor_closure": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+    "GPU_successor_preparation": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/handoff.json",
+    "current_shared_preparation_identity": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/shared_source_at_preparation.json",
+    "hour28_service": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/service_iteration_status.json",
+    "hour28_original_capture": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/delivery_proof.json",
+    "hour28_authorization": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/delivery_authorization_proof.json"
+  },
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage032.json": "c9aaacd44598f186a255cf1cc066f0cdf52d731f983e6a95d766185dcf02a896",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/current_card_evidence.json": "48c931fb0f114933273296ed3c600fcee2c1e12b982349ea5c3488e77ce531e8",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/integration_proof.json": "25c6ad35f2f9d3a67a2c0068a7d4a50e0a920700de21a42b2cb7cef7e7719abc",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/refresh.py": "2babafec2a4a2e7a9d84b6263dfe092674b4cccbd13be867ce23f41c5fb407a4",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage030/refresh.py": "cd881f3dac81c1c7a1862e288ffb5cab6db5c6ac04e0a929ebc62deb1df71425",
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "02a2af97c2972766e19e84d4530ec72e85a255eb0d09e0de1c6700de6eac0b38",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py": "f7be70c5c9e4e78fb7b7c7184c225294c652c3e8d71a87081943a89f68f32b3c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/completion.json": "cb8786578e848cd5ad2bba8c5f1d1a31691c6cc478b2bd674359f5c582e49b9e",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/root_execution.json": "df5f37b1c322d632f70b70cd89623cc29daa4af2f52fda444330efb36845830c",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/primary001/foreground.log": "e53ca3cc5f61860e00cbc0627cda481149cbcb3722f2809b0ad2be6cf7685b11",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/root_execution.json": "e59c6d68f90fefb19a6c190638da05c59bd72f2672175d4608bea6a49ffd2980",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/integration001/foreground.log": "02d915b8660f51a976dc80acd4893719f198f21991fec3ad9fe9f2e68ae9b5ea",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json": "1ac9729a6a256e4b1d976a8609c65c08a609ba46ad75177aca462dc6dda84d1b",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/foreground.log": "e78233f3f617e3c341dd49d7bad81f1f8aa868c19355d090699b0cdaf0145f3a",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/candidate_calls.json": "08869bd076c78143139648f6a32a2ee2475a04d791f541fb6af2c20a86e4e259",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/finite_diagnostics.json": "c87ed4d6cce6136ac453e7f172022cfd1cf5121dd35734e27247b0ad59cef81f",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/actual/result.json": "001a2d0e49e62d4288c65538853d6bb2bd6911567212a14c9c489d56f3b6f7ee",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/controller/execution_receipt.json": "687af214a5f36bdeb19bc3350f0bbe51b84923735b67b36202fc45ef8bbb7cd5",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/closure001/completion.json": "3e6e6a086a21cbe045d72e0d89f500ab31971dc66889bbc01dc891aa64078ccd",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/handoff.json": "e4574b254b42b8a449e64e97952a71c331b2badbc14945cf3796aba934b8645c",
+    "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/shared_source_at_preparation.json": "e52ccb6e01f4825e4e788657ae96593a1f3a548f09b01d7d1c85b4da53a9812c",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/service_iteration_status.json": "b3dfc6b4da99f910bce544e9e7474558a21b12504bdaf4b9d18d3e1065515169",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/delivery_proof.json": "da038d7481e9d7ce531c397f45949e84f509a729cad9a430bc4e19ebe3a10c7b",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour28/delivery_authorization_proof.json": "60c0fa68ed256ecbe0599a3ae10b7652aaf2fa0faa3836a707e1a54f39b029ec"
+  },
+  "stage032_metadata_note": "网页v9已发布23模型92行，原21模型84行与277轨迹保留，仍为私有访问。GPU私有batch仅源码/descriptor准备，0数值或CUDA执行，无加速认证。31轨道完整有符号HF-partial梯度实际438控制PASS；31未优化。新3689诊断度量残差0.00516218>1e−7、g·pg/2指示量9.08956e−5 Ha>1e−8，均FAIL，指示量不是能级误差界。新度量不能与旧3451残差直接比较改善；finite-CI-response导数及4f/f组合旋转FD仍待资格。",
+  "closed_GPU_successor": {
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+      "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+    },
+    "receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+      "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+    },
+    "closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+      "sha256": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758"
+    }
+  },
+  "private_f043_source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "mixed_expected_completed_calls": {
+    "H_build": 13,
+    "CI_solve": 13,
+    "gradient": 2,
+    "one_body_assembly": 48,
+    "nuclear_Dirac_solve": 3,
+    "polar_retraction": 36,
+    "physical_overlap": 41,
+    "tracking_SVD": 80,
+    "SciPy_eigh": 55,
+    "optimizer": 0
+  },
+  "mixed_failures": [
+    {
+      "name": "main_H_bitwise_against_old_source002",
+      "status": "FAIL_source_epoch_difference_under_audit_no_waiver"
+    },
+    {
+      "name": "coarse_h1e-4_centered_direction",
+      "measured": -0.00872063585143113,
+      "analytic": -0.00872046743791834,
+      "error_Ha_per_unit": 1.6841351279e-07,
+      "original_gate": 8.72046743791834e-08,
+      "status": "FAIL_no_gate_change"
+    }
+  ],
+  "fixed": {
+    "base_stage032_scientific_fields_rows_history_preserved": true,
+    "old3451_and_new3689_FAIL_kept": true,
+    "one_direction31FD_not_fullspace": true,
+    "private_f043_GPU_not_current_shared_adoption": true,
+    "primary63_integration26_not_mixedPASS": true,
+    "mixed42PASS2FAIL_retained": true,
+    "originalGPU196PASS1FAIL_retained": true,
+    "controlled_speedup": false,
+    "hourly_timer_unchanged": true
+  },
+  "allowed_registry_changes": [
+    "result/panel/updated_at pointers",
+    "task0/status/detail",
+    "task5/status/detail"
+  ],
+  "exclusive_outputs": [
+    "registry_before.json",
+    "current_card_evidence.json",
+    "preview_card.json",
+    "preview_citations.json",
+    "integration_proof.json"
+  ],
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "RSS_bytes": 1073741824,
+    "inner_seconds": 60,
+    "outer_seconds": 65,
+    "new_science_NPZ_GPU_API_card_timer_calls": 0
+  },
+  "stop": "Explicit root exact SHA admission only. Changed source inputs, registry, closed receipt or existing outputs => fail without retry. No scientific evaluation, arrays, API, timer or publication.",
+  "preparation_execution_not_metadata_integration": true
+}

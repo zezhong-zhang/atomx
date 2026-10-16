@@ -1,0 +1,257 @@
+--- a/src/rcc/engine/diagram.c
++++ b/src/rcc/engine/diagram.c
+@@ -40,6 +40,8 @@
+  */
+ 
+ #include <assert.h>
++#include <stdint.h>
++#include <limits.h>
+ #include <ctype.h>
+ #include <math.h>
+ #include <stdio.h>
+@@ -98,7 +100,7 @@
+     int order_arr[CC_DIAGRAM_MAX_RANK];
+     size_t i;
+     block_t **block_list;  // temporary storage for the created symmetry blocks
+-    int max_sbs;            // max number of sym blocks = (# spinor blocks)^rank
++    size_t block_capacity = 64; // storage for actual created blocks only
+     int blocks_counter = 0;          // counter of created blocks
+     int ijkl[CC_DIAGRAM_MAX_RANK];  // indices for the arbitrary-nested loop
+     int only_unique = perm_unique;
+@@ -133,16 +135,33 @@
+     int storage_type = guess_storage_class(name, rank, qparts, valence);
+ 
+     // create symmetry blocks
+-    max_sbs = (int) pow(n_spinor_blocks, rank);
+-    block_list = (block_t **) cc_malloc(sizeof(block_t *) * max_sbs);
++    block_list = (block_t **) cc_malloc(sizeof(block_t *) * block_capacity);
+ 
+     int is_fully_sym = (irrep == get_totally_symmetric_irrep()) ? 1 : 0;
+ 
+-    // dynamically-nested loop over tensor's dimensions
++    int *axis_blocks[CC_DIAGRAM_MAX_RANK];
++    size_t axis_sizes[CC_DIAGRAM_MAX_RANK] = {0};
++    size_t axis_positions[CC_DIAGRAM_MAX_RANK] = {0};
++    int empty_product = 0;
++    size_t visited = 0;
++    if (n_spinor_blocks > INT_MAX || n_spinor_blocks > SIZE_MAX / sizeof(int)) {
++        errquit("Atomx reachable block-axis extent exceeds exact backend range");
++    }
+     for (i = 0; i < rank; i++) {
+-        ijkl[i] = 0;
+-    }
+-    while (ijkl[0] < n_spinor_blocks) {
++        axis_blocks[i] = cc_malloc(sizeof(int) * n_spinor_blocks);
++        for (size_t b = 0; b < n_spinor_blocks; b++) {
++            int index = (int) b;
++            if (!is_symblock_zero(1, &index, &dg->qparts[i],
++                                  &dg->valence[i], &dg->t3space[i])) {
++                axis_blocks[i][axis_sizes[i]++] = index;
++            }
++        }
++        if (axis_sizes[i] == 0) empty_product = 1;
++        else ijkl[i] = axis_blocks[i][0];
++    }
++    while (!empty_product && axis_positions[0] < axis_sizes[0]) {
++        if (visited == SIZE_MAX) errquit("Atomx complete candidate count overflow");
++        visited++;
+ 
+         // check symmetry for the block (direct product decomposition scheme)
+         int sym[CC_DIAGRAM_MAX_RANK];
+@@ -181,19 +200,34 @@
+         }*/
+ 
+         // save this block (and count it)
++        if ((size_t) blocks_counter == block_capacity) {
++            if (block_capacity > (size_t) INT_MAX / 2 ||
++                block_capacity > SIZE_MAX / (2 * sizeof(block_t *))) {
++                errquit("Atomx compact block pointer extent exceeds exact backend range");
++            }
++            size_t new_capacity = block_capacity * 2;
++            block_t **grown = cc_malloc(sizeof(block_t *) * new_capacity);
++            memcpy(grown, block_list, sizeof(block_t *) * block_capacity);
++            cc_free(block_list);
++            block_list = grown;
++            block_capacity = new_capacity;
++        }
+         block_list[blocks_counter] = block;
+         blocks_counter++;
+ 
+         // proceed to the next iteration: new set of indices
+         next_symblock:
+-        ijkl[rank - 1]++;
++        axis_positions[rank - 1]++;
+         for (i = rank - 1; i > 0; i--) {
+-            if (ijkl[i] >= n_spinor_blocks) {
+-                ijkl[i] = 0;
+-                ijkl[i - 1]++;
++            if (axis_positions[i] >= axis_sizes[i]) {
++                axis_positions[i] = 0;
++                axis_positions[i - 1]++;
+             }
+-            else {
+-                break;
++            else break;
++        }
++        if (axis_positions[0] < axis_sizes[0]) {
++            for (i = 0; i < rank; i++) {
++                ijkl[i] = axis_blocks[i][axis_positions[i]];
+             }
+         }
+         // new unique combination of spinor blocks is constructed.
+@@ -201,6 +235,9 @@
+     }
+ 
+     diagram_bind_blocks(dg, blocks_counter, block_list);
++    printf("ATOMX_REACHABLE_BLOCKS rank=%d base=%zu visited=%zu created=%d\n",
++           rank, n_spinor_blocks, visited, blocks_counter);
++    for (i = 0; i < rank; i++) cc_free(axis_blocks[i]);
+ 
+     // cleanup
+     cc_free(block_list);
+@@ -228,23 +265,48 @@
+ /**
+  * Adds blocks to the inverted index.
+  */
++/* ATOMX_COMPACT_INDEX_V1: the existing size_t pointer holds pairs.
++ * No public struct ABI change; every consuming function is replaced below.
++ */
++static size_t atomx_block_key(int rank, const int *indices)
++{
++    if (rank < 1 || rank > CC_DIAGRAM_MAX_RANK || n_spinor_blocks == 0) {
++        errquit("Atomx compact index has invalid rank or block base");
++    }
++    size_t key = 0;
++    for (int i = 0; i < rank; i++) {
++        if (indices[i] < 0 || (size_t) indices[i] >= n_spinor_blocks ||
++            key > (SIZE_MAX - (size_t) indices[i]) / n_spinor_blocks) {
++            errquit("Atomx compact index coordinate or key extent invalid");
++        }
++        key = key * n_spinor_blocks + (size_t) indices[i];
++    }
++    return key;
++}
++
++static int atomx_compare_index_pair(const void *a, const void *b)
++{
++    size_t ka = ((const size_t *) a)[0], kb = ((const size_t *) b)[0];
++    return (ka > kb) - (ka < kb);
++}
++
+ void diagram_init_inverse_index(diagram_t *dg, size_t n_blocks, block_t **block_list)
+ {
+-    int dims[CC_DIAGRAM_MAX_RANK];
+-    size_t rank = dg->rank;
+-
+-    for (int i = 0; i < CC_DIAGRAM_MAX_RANK; i++) {
+-        dims[i] = n_spinor_blocks;
+-    }
+-
+-    size_t inv_index_size = int_pow(n_spinor_blocks, dg->rank);
+-    dg->inv_index = (size_t *) cc_malloc(inv_index_size * sizeof(size_t));
+-    memset(dg->inv_index, 0, inv_index_size * sizeof(size_t));
+-
++    if (n_blocks > SIZE_MAX / (2 * sizeof(size_t))) {
++        errquit("Atomx complete compact index exceeds exact byte extent");
++    }
++    dg->inv_index = NULL;
++    if (n_blocks == 0) return;
++    dg->inv_index = cc_malloc(2 * sizeof(size_t) * n_blocks);
+     for (size_t i = 0; i < n_blocks; i++) {
+-        block_t *block = block_list[i];
+-        size_t ii = tensor_index_to_linear(rank, dims, block->spinor_blocks);
+-        dg->inv_index[ii] = i;
++        dg->inv_index[2 * i] = atomx_block_key(dg->rank, block_list[i]->spinor_blocks);
++        dg->inv_index[2 * i + 1] = i;
++    }
++    qsort(dg->inv_index, n_blocks, 2 * sizeof(size_t), atomx_compare_index_pair);
++    for (size_t i = 1; i < n_blocks; i++) {
++        if (dg->inv_index[2 * i] == dg->inv_index[2 * (i - 1)]) {
++            errquit("Atomx complete compact index contains duplicate block identity");
++        }
+     }
+ }
+ 
+@@ -329,34 +391,24 @@
+  */
+ block_t *diagram_get_block(diagram_t *dg, int *spinor_blocks_nums)
+ {
+-    static int dims[CC_DIAGRAM_MAX_RANK];
+-    static int initialized = 0;
+-
+-    if (initialized == 0) {
+-        initialized = 1;
+-        for (int i = 0; i < CC_DIAGRAM_MAX_RANK; i++) {
+-            dims[i] = n_spinor_blocks;
+-        }
+-    }
+-
+-    /*
+-     * Some diagrams can contain no integrals due to symmetry reasons
+-     * (sometimes for modest-size problems)
+-     */
+-    if (dg->n_blocks == 0) {
+-        return NULL;
+-    }
+-
+-    size_t ii = tensor_index_to_linear(dg->rank, dims, spinor_blocks_nums);
+-    size_t block_index = dg->inv_index[ii];
++    if (dg->n_blocks == 0) return NULL;
++    size_t key = atomx_block_key(dg->rank, spinor_blocks_nums);
++    size_t low = 0, high = dg->n_blocks;
++    while (low < high) {
++        size_t mid = low + (high - low) / 2;
++        size_t found = dg->inv_index[2 * mid];
++        if (found < key) low = mid + 1;
++        else high = mid;
++    }
++    if (low == dg->n_blocks || dg->inv_index[2 * low] != key) return NULL;
++    size_t block_index = dg->inv_index[2 * low + 1];
++    if (block_index >= dg->n_blocks) errquit("Atomx compact block index invalid");
+     block_t *ret = dg->blocks[block_index];
+-
+     for (int i = 0; i < dg->rank; i++) {
+         if (ret->spinor_blocks[i] != spinor_blocks_nums[i]) {
+-            return NULL;
+-        }
+-    }
+-
++            errquit("Atomx compact block identity differs");
++        }
++    }
+     return ret;
+ }
+ 
+@@ -659,7 +711,9 @@
+     io_write(f, dg->order, sizeof(int) * dg->rank);
+ 
+     // inverted index
+-    io_write(f, dg->inv_index, sizeof(size_t) * int_pow(n_spinor_blocks, dg->rank));
++    /* Explicit private diagram format: old dense files are never guessed. */
++    const char atomx_magic[8] = "ATXDG002";
++    io_write(f, atomx_magic, sizeof(atomx_magic));
+ 
+     // total number of symmetry blocks in this diagram
+     io_write(f, &dg->n_blocks, sizeof(dg->n_blocks));
+@@ -709,8 +763,11 @@
+     io_read(f, dg->order, sizeof(int) * dg->rank);
+ 
+     // inverted index
+-    dg->inv_index = (size_t *) cc_malloc(sizeof(size_t) * int_pow(n_spinor_blocks, dg->rank));
+-    io_read(f, dg->inv_index, sizeof(size_t) * int_pow(n_spinor_blocks, dg->rank));
++    char atomx_magic[8];
++    io_read(f, atomx_magic, sizeof(atomx_magic));
++    if (memcmp(atomx_magic, "ATXDG002", sizeof(atomx_magic)) != 0) {
++        errquit("Atomx compact backend requires its explicit ATXDG002 diagram format");
++    }
+ 
+     // total number of symmetry blocks in this diagram
+     io_read(f, &dg->n_blocks, sizeof(dg->n_blocks));
+@@ -720,6 +777,7 @@
+     for (int i = 0; i < dg->n_blocks; i++) {
+         dg->blocks[i] = block_read_binary(f);
+     }
++    diagram_init_inverse_index(dg, dg->n_blocks, dg->blocks);
+ 
+     io_close(f);
+ 

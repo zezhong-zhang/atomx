@@ -1,0 +1,30 @@
+{
+  "hypothesis": "A separate fixed-density Lagrangian-centered increment has the same energy on the exact native metric-orthonormal manifold. Its multiplier must differentiate the actual h/n CI extension and its Gram increment must include quadratic polar curvature.",
+  "fixed_conditions": {
+    "physical_model": "real Z=4 1s1 2s1 equal J=0/J=1 signed angular weights and actual B-spline finite-cell Coulomb tensor, compressed into four positive nuclear radial eigenvectors",
+    "basis_ns": 35,
+    "basis_order": 9,
+    "coordinate_dimension": [4, 2],
+    "oracle": "80-decimal mpmath full one-body quotient/quartic energy and complete metric-polar normalized endpoints; fixed cell/subspace operators compressed in long double",
+    "source_change": "none; proposed formula tested independently in the owning audit"
+  },
+  "controls": [
+    "full actual-quotient derivative against automatic high-precision differentiation",
+    "same-kappa offdiagonal multiplier",
+    "complete Gram increment versus linear-cross-only error on a true finite polar step",
+    "positive and negative floating-scale normal defects on small tangent steps",
+    "pure normal drift",
+    "non-roundoff endpoint defect must be rejected even if Gram change is small"
+  ],
+  "gates": {
+    "analytic_vs_automatic_gradient_max_abs": 1e-60,
+    "native_projected_quotient_gradient_max_abs_Ha": 8e-12,
+    "Gram_difference_identity_max_abs": 1e-60,
+    "physical_centered_oracle_comparison": "record actual discrepancy to canonical metric-polar energy; do not assert exact off-manifold equality",
+    "roundoff_endpoint_guard": "max abs(G_base-I) and max abs(G_trial-I) each <=64*float64 epsilon",
+    "real_defect_control": "1e-8 normal deviation returns unsupported; original full energy-difference API semantics untouched"
+  },
+  "caps": {"threads": 1, "memory_soft_GiB": 1, "duration_seconds": 90},
+  "stopping_condition": "one finite-coordinate anchor panel; no Yb optimizer rerun or tolerance change",
+  "limits": "Centering is exactly equivalent only on the constraint manifold. At finite defects, the normalized-oracle discrepancy includes multiplier response times defect and quadratic defect terms. A roundoff guard plus an energy-margin/error check is needed for sign certification."
+}

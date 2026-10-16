@@ -1,0 +1,546 @@
+{
+  "passed": true,
+  "production_certified": false,
+  "stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "diagnostic_only": true,
+  "no_complete_corrected_spectrum_claim": true,
+  "input_run": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta",
+  "source_map_sha256": "1960c27b68af53ca50f74174da6e1678919efdd51a7db39b4dfbc8bba2a763d1",
+  "contract_sha256": "cce973f6310e099508e330ace0e217395c168ef374f5eea97a73e2a539043c1d",
+  "input_hashes": {
+    "contract.json": "de517cdbd74ce183ec9f13d7b71aa4689186f3c0b628571a5a1200fd01362b69",
+    "source_identity.json": "79816bf5aa6d521d90a63f03d87005048e777eddd7448fe4f8a5cbe1bcda33e8",
+    "preflight.json": "8137b885f536babbdff9b4ec592656e330f35bf69b36a861a01611d59a2ff2a9",
+    "result.json": "4bcb2be60a2edf90f3eb76642a526fcee0a5f5ca1c754af4fe74078ebba8b27c",
+    "mcdhf_diagnostics.json": "cd6d2b9fbffadcbd34fa3ae208c7030c48c40995198856f429052718c9166780",
+    "orbitals_workspace.npz": "0e3523c41ae085914d5d938fac1ecb8734e50adde10ae2954f0b3560279c2ecc",
+    "ci_arrays.npz": "1df41a0936a9c335aa5a20c0ac76d12a5cf73080d4d0328ec6bed03288c3bcf6"
+  },
+  "checks": [
+    {
+      "name": "saved_DC_roots",
+      "maximum_absolute_Ha": 0.0,
+      "limit_Ha": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "DC_CI_residual",
+      "maximum_absolute_Ha": 0.0,
+      "limit_Ha": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "saved_static_Breit_roots",
+      "maximum_absolute_Ha": 0.0,
+      "limit_Ha": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "dynamic_zero_frequency_equals_static",
+      "maximum_absolute_Ha": 0.0,
+      "limit_Ha": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "Uehling_point_source_scalar_vs_independent_occupation",
+      "maximum_absolute_Ha": 1.3322676295501878e-15,
+      "limit_Ha": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "WK_local_model_scalar_vs_independent_occupation",
+      "maximum_absolute_Ha": 4.163336342344337e-17,
+      "limit_Ha": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "SE_indelicato_overlap_model_scalar_vs_independent_occupation",
+      "maximum_absolute_Ha": 5.329070518200751e-15,
+      "limit_Ha": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "SE_shabaev_local_partial_scalar_vs_independent_occupation",
+      "maximum_absolute_Ha": 3.552713678800501e-15,
+      "limit_Ha": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "NMS_public_state_vs_radial_consumer",
+      "maximum_absolute_Ha": 0.0,
+      "limit_Ha": 1e-10,
+      "passed": true
+    }
+  ],
+  "state_correction_ledger": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "DC_excitation_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "DC_minus_NIST_cm1": 0.0,
+      "components": {
+        "static_Breit": {
+          "absolute_Ha": 14.148285734576348,
+          "relative_to_6s_cm1": 0.0
+        },
+        "dynamic_Breit_total": {
+          "absolute_Ha": 13.897788627711634,
+          "relative_to_6s_cm1": 0.0
+        },
+        "dynamic_minus_static_Breit": {
+          "absolute_Ha": -0.2504971068647137,
+          "relative_to_6s_cm1": 0.0
+        },
+        "Uehling_point_source": {
+          "absolute_Ha": -2.0061990467160142,
+          "relative_to_6s_cm1": 0.0
+        },
+        "WK_local_model": {
+          "absolute_Ha": 0.07303714853432168,
+          "relative_to_6s_cm1": 0.0
+        },
+        "SE_indelicato_overlap_model": {
+          "absolute_Ha": 11.710176119463496,
+          "relative_to_6s_cm1": 0.0
+        },
+        "SE_shabaev_local_partial": {
+          "absolute_Ha": 10.746368309585028,
+          "relative_to_6s_cm1": 0.0
+        },
+        "NMS_Breit_point_Coulomb": {
+          "absolute_Ha": 0.041836641188008485,
+          "relative_to_6s_cm1": 0.0
+        },
+        "SMS_Breit_point_Coulomb": {
+          "absolute_Ha": -0.013394502692475968,
+          "relative_to_6s_cm1": 0.0
+        }
+      }
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "DC_excitation_cm1": 23727.734334044137,
+      "NIST_nominal_cm1": 22960.8,
+      "DC_minus_NIST_cm1": 766.9343340441374,
+      "components": {
+        "static_Breit": {
+          "absolute_Ha": 14.14842040233998,
+          "relative_to_6s_cm1": 29.556157779637026
+        },
+        "dynamic_Breit_total": {
+          "absolute_Ha": 13.897920315428564,
+          "relative_to_6s_cm1": 28.90211312830347
+        },
+        "dynamic_minus_static_Breit": {
+          "absolute_Ha": -0.25050008691141556,
+          "relative_to_6s_cm1": -0.6540446513335544
+        },
+        "Uehling_point_source": {
+          "absolute_Ha": -2.0061315771006805,
+          "relative_to_6s_cm1": 14.807868953592237
+        },
+        "WK_local_model": {
+          "absolute_Ha": 0.07303475535035323,
+          "relative_to_6s_cm1": -0.5252431692608167
+        },
+        "SE_indelicato_overlap_model": {
+          "absolute_Ha": 11.711678157312102,
+          "relative_to_6s_cm1": 329.65920311636717
+        },
+        "SE_shabaev_local_partial": {
+          "absolute_Ha": 10.746117844442235,
+          "relative_to_6s_cm1": -54.970744883817346
+        },
+        "NMS_Breit_point_Coulomb": {
+          "absolute_Ha": 0.04183853430357807,
+          "relative_to_6s_cm1": 0.4154908417623792
+        },
+        "SMS_Breit_point_Coulomb": {
+          "absolute_Ha": -0.013396210803550268,
+          "relative_to_6s_cm1": -0.3748870483593726
+        }
+      }
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "DC_excitation_cm1": 24239.76037721347,
+      "NIST_nominal_cm1": 24332.69,
+      "DC_minus_NIST_cm1": -92.92962278652703,
+      "components": {
+        "static_Breit": {
+          "absolute_Ha": 14.14822097904107,
+          "relative_to_6s_cm1": -14.212197233658332
+        },
+        "dynamic_Breit_total": {
+          "absolute_Ha": 13.897716391120412,
+          "relative_to_6s_cm1": -15.85409922948002
+        },
+        "dynamic_minus_static_Breit": {
+          "absolute_Ha": -0.2505045879206591,
+          "relative_to_6s_cm1": -1.6419019958216887
+        },
+        "Uehling_point_source": {
+          "absolute_Ha": -2.0061315696507136,
+          "relative_to_6s_cm1": 14.80950403232374
+        },
+        "WK_local_model": {
+          "absolute_Ha": 0.07303475480666845,
+          "relative_to_6s_cm1": -0.525362494276992
+        },
+        "SE_indelicato_overlap_model": {
+          "absolute_Ha": 11.711969850007286,
+          "relative_to_6s_cm1": 393.6783498631305
+        },
+        "SE_shabaev_local_partial": {
+          "absolute_Ha": 10.746134411081826,
+          "relative_to_6s_cm1": -51.334787766696024
+        },
+        "NMS_Breit_point_Coulomb": {
+          "absolute_Ha": 0.04183823651931715,
+          "relative_to_6s_cm1": 0.35013475087200185
+        },
+        "SMS_Breit_point_Coulomb": {
+          "absolute_Ha": -0.01339604447095886,
+          "relative_to_6s_cm1": -0.33838126417628633
+        }
+      }
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "DC_excitation_cm1": 25019.26064690967,
+      "NIST_nominal_cm1": 27061.82,
+      "DC_minus_NIST_cm1": -2042.559353090328,
+      "components": {
+        "static_Breit": {
+          "absolute_Ha": 14.148123232254875,
+          "relative_to_6s_cm1": -35.66513710090997
+        },
+        "dynamic_Breit_total": {
+          "absolute_Ha": 13.897624432076555,
+          "relative_to_6s_cm1": -36.036776480515066
+        },
+        "dynamic_minus_static_Breit": {
+          "absolute_Ha": -0.2504988001783204,
+          "relative_to_6s_cm1": -0.3716393796050949
+        },
+        "Uehling_point_source": {
+          "absolute_Ha": -2.0061348065001274,
+          "relative_to_6s_cm1": 14.099097700444387
+        },
+        "WK_local_model": {
+          "absolute_Ha": 0.0730348912597173,
+          "relative_to_6s_cm1": -0.4954145116830866
+        },
+        "SE_indelicato_overlap_model": {
+          "absolute_Ha": 11.71158714639664,
+          "relative_to_6s_cm1": 309.68461599538665
+        },
+        "SE_shabaev_local_partial": {
+          "absolute_Ha": 10.74613446301871,
+          "relative_to_6s_cm1": -51.32338893839309
+        },
+        "NMS_Breit_point_Coulomb": {
+          "absolute_Ha": 0.041835258589003804,
+          "relative_to_6s_cm1": -0.303445406875266
+        },
+        "SMS_Breit_point_Coulomb": {
+          "absolute_Ha": -0.013393155768082431,
+          "relative_to_6s_cm1": 0.2956157347454902
+        }
+      }
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "DC_excitation_cm1": 27864.42447658691,
+      "NIST_nominal_cm1": 30392.23,
+      "DC_minus_NIST_cm1": -2527.805523413088,
+      "components": {
+        "static_Breit": {
+          "absolute_Ha": 14.147987982685663,
+          "relative_to_6s_cm1": -65.34898644567964
+        },
+        "dynamic_Breit_total": {
+          "absolute_Ha": 13.897471614558526,
+          "relative_to_6s_cm1": -69.57634491560951
+        },
+        "dynamic_minus_static_Breit": {
+          "absolute_Ha": -0.25051636812713696,
+          "relative_to_6s_cm1": -4.227358469929857
+        },
+        "Uehling_point_source": {
+          "absolute_Ha": -2.006131837906767,
+          "relative_to_6s_cm1": 14.750628633899282
+        },
+        "WK_local_model": {
+          "absolute_Ha": 0.07303477116439545,
+          "relative_to_6s_cm1": -0.5217723881723553
+        },
+        "SE_indelicato_overlap_model": {
+          "absolute_Ha": 11.71200540690052,
+          "relative_to_6s_cm1": 401.4821858981253
+        },
+        "SE_shabaev_local_partial": {
+          "absolute_Ha": 10.746147514592783,
+          "relative_to_6s_cm1": -48.45889952980611
+        },
+        "NMS_Breit_point_Coulomb": {
+          "absolute_Ha": 0.04183512214047971,
+          "relative_to_6s_cm1": -0.3333923964016336
+        },
+        "SMS_Breit_point_Coulomb": {
+          "absolute_Ha": -0.013393019563344943,
+          "relative_to_6s_cm1": 0.325509219295726
+        }
+      }
+    }
+  ],
+  "splitting_correction_cm1": {
+    "5d_fine": {
+      "static_Breit": -43.768355013295356,
+      "dynamic_Breit_total": -44.75621235778349,
+      "dynamic_minus_static_Breit": -0.9878573444881344,
+      "Uehling_point_source": 0.0016350787315030364,
+      "WK_local_model": -0.0001193250161753141,
+      "SE_indelicato_overlap_model": 64.01914674676331,
+      "SE_shabaev_local_partial": 3.635957117121323,
+      "NMS_Breit_point_Coulomb": -0.0653560908903773,
+      "SMS_Breit_point_Coulomb": 0.03650578418308626
+    },
+    "6p_fine": {
+      "static_Breit": -29.683849344769673,
+      "dynamic_Breit_total": -33.53956843509444,
+      "dynamic_minus_static_Breit": -3.8557190903247625,
+      "Uehling_point_source": 0.651530933454895,
+      "WK_local_model": -0.026357876489268683,
+      "SE_indelicato_overlap_model": 91.7975699027387,
+      "SE_shabaev_local_partial": 2.864489408586974,
+      "NMS_Breit_point_Coulomb": -0.029946989526367606,
+      "SMS_Breit_point_Coulomb": 0.029893484550235824
+    }
+  },
+  "component_coverage": {
+    "Dirac-Coulomb": "public ci_solve on fixed common spinors, replay saved energies/amplitudes",
+    "static_Breit": "public ci_solve include_breit=True, complete static Gaunt+retardation, replay saved RCI",
+    "dynamic_Breit": "public ci_solve include_breit=True plus complete 24-key orbital energy map; each orbital epsilon is diagonal EOL Lagrange multiplier/(2 objective occupation) from saved same-state gradient, or the existing public zero-occupation one-body convention; symmetric average of two vertex |epsilon_a-epsilon_c| frequencies, real one-photon model replaces static Breit",
+    "dynamic_zero_frequency_check": "same complete zero map must reproduce static Breit roots",
+    "Uehling": "public short_range_radial_matrix and scalar_one_body_expectations; point-source local VP on fixed Fermi orbitals, finite-charge convolution absent",
+    "WK": "public V_wichmann_kroll approximate local model and same full scalar CI expectation, not precision higher-loop VP",
+    "SE_default": "public self_energy_radial_matrix(method=indelicato): tabulated K/L/available SD rows plus warned leading analytic fallback, orbital-attraction overlap screening; diagonal radial model, screened many-body/nonlocal terms absent",
+    "SE_local_discriminator": "public shabaev_local matrix; actual local-model overlap for supported kappa -1,+1,-2 only; d/f components absent, no complete-SE claim",
+    "SE_full_coverage": "public shabaev request records actual NotImplementedError; no missing term substituted",
+    "NMS": "public one-body point-Coulomb Breit recoil radial/CSF matrix divided by A175 mass proxy; finite-size/radiative/higher-order recoil absent",
+    "SMS": "public two-body point-Coulomb Breit recoil CSF matrix with Z=70, VINTI/SMS2/SMS3 divided by same mass; finite-size/radiative/higher-order recoil absent"
+  },
+  "unsupported": {
+    "finite_charge_Uehling_and_WK": "local public potentials do not consume the A175 Fermi charge distribution",
+    "screened_many_body_SE_and_VP": "not supplied by these fixed one-body models",
+    "finite_size_radiative_higher_order_recoil": "point-Coulomb Breit recoil consumers omit these operators",
+    "SE_shabaev_full": "Full non-local Shabaev operator is not yet implemented. The non-local projector term requires hydrogenic Dirac-Coulomb Green's functions on the B-spline basis and a port of  f/potgen/se_pot.f:nonlocal_se_pot  +  fse_dat.f tables.  Use backend 'shabaev_local' for the local-only approximation, 'mohr' (default) for tabulated F(Zα), or 'flambaum_ginges' for the electric radiative potential."
+  },
+  "warnings_by_component": {
+    "DC_replay": [],
+    "static_Breit": [],
+    "dynamic_zero_frequency": [],
+    "dynamic_Breit": [],
+    "Uehling_point_source": [],
+    "WK_local_model": [],
+    "SE_indelicato_overlap_model": [
+      "self-energy n=4, kappa=-4, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
+      "self-energy n=4, kappa=3, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
+      "self-energy n=6, kappa=-2, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
+      "self-energy n=6, kappa=-1, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
+      "self-energy n=6, kappa=1, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied."
+    ],
+    "SE_shabaev_local_partial": [],
+    "NMS_Breit_radial": [],
+    "SMS_Breit_CSF": []
+  },
+  "nucleus": {
+    "model": "fermi",
+    "radius_mass_number": 175,
+    "requested_mass_number": null,
+    "rms_radius_fm": 5.246119777900239,
+    "reference_rms_radius_fm": 5.246119777900239,
+    "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+    "radius_clamped": false,
+    "diffuseness_bohr": 9.890591372451268e-06,
+    "half_density_radius_bohr": 0.00011885936071054029
+  },
+  "nuclear_mass_me": 321326.71784955,
+  "mass_prescription": "public default_nuclear_mass_me(70,175)=175*PROTON_ELECTRON_MASS_RATIO, not measured isotope mass",
+  "dynamic_Breit_provenance": {
+    "n_csf": 5,
+    "n_orbitals": 24,
+    "solver": "dense-blocked",
+    "n_blocks": 5,
+    "block_sizes": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "matrix_free": false,
+    "breit": "finite-frequency-transverse-in-blocks",
+    "breit_frequency_prescription": "symmetric-two-vertex-orbital-differences",
+    "breit_orbital_energies_Ha": [
+      {
+        "n": 1,
+        "kappa": -1,
+        "energy": -2267.8921490992548
+      },
+      {
+        "n": 2,
+        "kappa": -2,
+        "energy": -331.7281208869674
+      },
+      {
+        "n": 2,
+        "kappa": -1,
+        "energy": -389.13196102719326
+      },
+      {
+        "n": 2,
+        "kappa": 1,
+        "energy": -370.2967181847651
+      },
+      {
+        "n": 3,
+        "kappa": -3,
+        "energy": -57.62995929156226
+      },
+      {
+        "n": 3,
+        "kappa": -2,
+        "energy": -73.33325193690423
+      },
+      {
+        "n": 3,
+        "kappa": -1,
+        "energy": -89.94789584372971
+      },
+      {
+        "n": 3,
+        "kappa": 1,
+        "energy": -81.66157646695154
+      },
+      {
+        "n": 3,
+        "kappa": 2,
+        "energy": -59.4313009142017
+      },
+      {
+        "n": 4,
+        "kappa": -4,
+        "energy": -0.7188734274944737
+      },
+      {
+        "n": 4,
+        "kappa": -3,
+        "energy": -7.66112828659796
+      },
+      {
+        "n": 4,
+        "kappa": -2,
+        "energy": -13.609183313037395
+      },
+      {
+        "n": 4,
+        "kappa": -1,
+        "energy": -18.907603778722706
+      },
+      {
+        "n": 4,
+        "kappa": 1,
+        "energy": -15.512954380009521
+      },
+      {
+        "n": 4,
+        "kappa": 2,
+        "energy": -8.017083412252793
+      },
+      {
+        "n": 4,
+        "kappa": 3,
+        "energy": -0.7776424035856262
+      },
+      {
+        "n": 5,
+        "kappa": -3,
+        "energy": -0.3056254278842298
+      },
+      {
+        "n": 5,
+        "kappa": -2,
+        "energy": -1.4246876826527217
+      },
+      {
+        "n": 5,
+        "kappa": -1,
+        "energy": -2.675817204441957
+      },
+      {
+        "n": 5,
+        "kappa": 1,
+        "energy": -1.6600735741825636
+      },
+      {
+        "n": 5,
+        "kappa": 2,
+        "energy": -0.30795839016524007
+      },
+      {
+        "n": 6,
+        "kappa": -2,
+        "energy": -0.28911024305689703
+      },
+      {
+        "n": 6,
+        "kappa": -1,
+        "energy": -0.4160699025937898
+      },
+      {
+        "n": 6,
+        "kappa": 1,
+        "energy": -0.3020737633059785
+      }
+    ],
+    "breit_note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms."
+  },
+  "resource": {
+    "total_seconds_uncontrolled": 7.722647939110175,
+    "stage_seconds_uncontrolled": {
+      "DC_replay": 2.923849160084501,
+      "static_Breit": 1.320617028977722,
+      "dynamic_zero_frequency": 0.5310634069610387,
+      "dynamic_Breit": 0.6633424428291619,
+      "Uehling_point_source": 1.1432706960476935,
+      "WK_local_model": 0.10339044989086688,
+      "SE_indelicato_overlap_model": 0.021547708893194795,
+      "SE_shabaev_local_partial": 0.12864449503831565,
+      "NMS_Breit_radial": 0.0019453170243650675,
+      "SMS_Breit_CSF": 0.2451675811316818
+    },
+    "peak_RSS_MiB": 779.55859375,
+    "controlled_timing_claim": false
+  },
+  "original_stationarity": {
+    "orbital_residual": 2.670347390185656e-06,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 3.2140910014161694e-12,
+    "energy_tolerance": 1e-08,
+    "termination_reason": "line_search_failed"
+  },
+  "correction_arrays_sha256": "d2d9ada95c932c8eccf5f2ef3eb48558b8fc409d74eb81021975cca48171498e"
+}

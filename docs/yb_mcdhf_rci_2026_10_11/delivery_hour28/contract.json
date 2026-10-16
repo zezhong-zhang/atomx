@@ -1,0 +1,60 @@
+{
+  "cycle": "2026-10-11T20",
+  "registry_SHA": "061cba14e68681b17d102114386df08c239f695af62a968121e35390074a752a",
+  "result_SHA": "c9aaacd44598f186a255cf1cc066f0cdf52d731f983e6a95d766185dcf02a896",
+  "chat": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot": "ou_c697e48a528ad9aa6157f62531561b59",
+  "text_utility_SHA": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093",
+  "allowed_exact_table_format_operations": [
+    {
+      "operation": "insert",
+      "payload": "",
+      "readback": "---"
+    },
+    {
+      "operation": "replace",
+      "payload": ":",
+      "readback": "---"
+    },
+    {
+      "operation": "replace",
+      "payload": ":",
+      "readback": "---"
+    },
+    {
+      "operation": "replace",
+      "payload": ":",
+      "readback": "---"
+    },
+    {
+      "operation": "replace",
+      "payload": ":",
+      "readback": "---"
+    },
+    {
+      "operation": "insert",
+      "payload": "",
+      "readback": "|"
+    },
+    {
+      "operation": "insert",
+      "payload": "",
+      "readback": "||||||"
+    },
+    {
+      "operation": "insert",
+      "payload": "",
+      "readback": "|||||"
+    }
+  ],
+  "scope": "one existing send readback; no resend/scheduler/science; service captured actual status and root jobs distinct",
+  "source_SHA": "888fd26bc4637f3cadd086a9ec948886758ac16940e655ccec7d61008e086b18",
+  "actual_readback_calls": 1,
+  "wall_seconds": 60,
+  "format_protocol_prior_contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour26/contract.json",
+    "sha256": "1178a49134a183490a7d7e8b91e7e7d2b692136942c3d9b335e463fe032e919a"
+  },
+  "root_review": "one existing04HKT send, same eight exact formatting operations prebound from hour26; source/result/registry32 fixed; no resend or science",
+  "actual_message_id": "om_x100b638ae2f028acdfafe95d734a863"
+}

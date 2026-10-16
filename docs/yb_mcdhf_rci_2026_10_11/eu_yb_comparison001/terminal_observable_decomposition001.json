@@ -1,0 +1,161 @@
+{
+  "status": "closed_terminal_JSON_observable_decomposition_only",
+  "source_manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+  "source_manifest_sha256": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+  "closed_result": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+  "closed_result_sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+  "point": 16,
+  "ions": "Yb+ / Yb II",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "original_stationarity_passed": false,
+  "all_rows": [
+    {
+      "label": "6s_1/2",
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "selected_level": [
+        1,
+        1,
+        0
+      ],
+      "column": 0,
+      "weight": 0.2,
+      "energy_Ha": -14067.587260143415,
+      "excitation_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "nominal_gap_cm1": 0.0,
+      "delta_upper_Ha": -0.026242309160807054,
+      "delta_lower_Ha": -0.026242309160807054,
+      "transition_shift_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "selected_level": [
+        3,
+        1,
+        0
+      ],
+      "column": 1,
+      "weight": 0.2,
+      "energy_Ha": -14067.48946158955,
+      "excitation_cm1": 21464.301557320276,
+      "NIST_nominal_cm1": 22960.8,
+      "nominal_gap_cm1": -1496.4984426797237,
+      "delta_upper_Ha": -0.024656379368025227,
+      "delta_lower_Ha": -0.026242309160807054,
+      "transition_shift_cm1": 348.0713566386141
+    },
+    {
+      "label": "5d_5/2",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "selected_level": [
+        5,
+        1,
+        0
+      ],
+      "column": 2,
+      "weight": 0.2,
+      "energy_Ha": -14067.483136353048,
+      "excitation_cm1": 22852.53050680512,
+      "NIST_nominal_cm1": 24332.69,
+      "nominal_gap_cm1": -1480.1594931948785,
+      "delta_upper_Ha": -0.02267191075043229,
+      "delta_lower_Ha": -0.026242309160807054,
+      "transition_shift_cm1": 783.6118749365464
+    },
+    {
+      "label": "6p_1/2",
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "selected_level": [
+        1,
+        -1,
+        0
+      ],
+      "column": 3,
+      "weight": 0.2,
+      "energy_Ha": -14067.470047145045,
+      "excitation_cm1": 25725.279608163462,
+      "NIST_nominal_cm1": 27061.82,
+      "nominal_gap_cm1": -1336.5403918365373,
+      "delta_upper_Ha": -0.02948760822073382,
+      "delta_lower_Ha": -0.026242309160807054,
+      "transition_shift_cm1": -712.2608148405752
+    },
+    {
+      "label": "6p_3/2",
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "selected_level": [
+        3,
+        -1,
+        0
+      ],
+      "column": 4,
+      "weight": 0.2,
+      "energy_Ha": -14067.451575139803,
+      "excitation_cm1": 29779.416149205746,
+      "NIST_nominal_cm1": 30392.23,
+      "nominal_gap_cm1": -612.8138507942531,
+      "delta_upper_Ha": -0.027053577698097797,
+      "delta_lower_Ha": -0.026242309160807054,
+      "transition_shift_cm1": -178.05286315840064
+    }
+  ],
+  "multiplets": [
+    {
+      "label": "5d",
+      "degeneracy_weights": [
+        4,
+        6
+      ],
+      "centroid_cm1": 22297.23892701118,
+      "nominal_centroid_cm1": 23783.933999999997,
+      "centroid_gap_cm1": -1486.6950729888158,
+      "splitting_cm1": 1388.2289494848446,
+      "nominal_splitting_cm1": 1371.8899999999994,
+      "splitting_gap_cm1": 16.338949484845216,
+      "nominal_relative_splitting_gap": 0.011909810177816896
+    },
+    {
+      "label": "6p",
+      "degeneracy_weights": [
+        2,
+        4
+      ],
+      "centroid_cm1": 28428.03730219165,
+      "nominal_centroid_cm1": 29282.093333333334,
+      "centroid_gap_cm1": -854.0560311416848,
+      "splitting_cm1": 4054.136541042284,
+      "nominal_splitting_cm1": 3330.41,
+      "splitting_gap_cm1": 723.7265410422842,
+      "nominal_relative_splitting_gap": 0.21730854190393503
+    }
+  ],
+  "calls": {
+    "NPZ_read_or_hash": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "optimizer": 0
+  },
+  "interpretation": "Different centroid and splitting errors are observables, not causal attribution, omitted-physics bounds, or a stationarity certificate."
+}

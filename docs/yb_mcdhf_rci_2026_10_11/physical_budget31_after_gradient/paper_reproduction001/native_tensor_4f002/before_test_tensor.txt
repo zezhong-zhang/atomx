@@ -1,0 +1,182 @@
+"""Tensor equations versus independent full fermion exponentials and FCI."""
+import itertools
+from dataclasses import replace
+
+import numpy as np
+import pytest
+from scipy.linalg import expm
+from test_eom_attachment import independent_hamiltonian, integrals
+from test_finite_ccsdt import _integrals
+
+from atomx.methods.tensor_coupled_cluster import (
+    CCSDTTensorOperator,
+    TensorCoreResult,
+    resource_plan,
+)
+from atomx.physics.csf.spinor_integrals import SpinorIntegrals
+
+
+def lift(operator, vector, masks, attachment=False):
+    """Occupation-list signs independent of native tensor permutation maps."""
+    coordinate = operator.attachment if attachment else operator.core
+    ref = (1 << operator.o)-1
+    lookup = {m: i for i, m in enumerate(masks)}
+    matrix = np.zeros((len(masks), 1 if attachment else len(masks)))
+    targets, phases = [], []
+    for section, particles, holes, _ in coordinate.blocks:
+        for amplitude, particle, hole in zip(vector[section], particles, holes, strict=True):
+            operations = [(operator.o+int(p), True) for p in particle]
+            operations += [(int(h), False) for h in reversed(hole)]
+            for col, mask in enumerate((ref,) if attachment else masks):
+                occupied = [i for i in range(operator.o+operator.v) if mask & (1 << i)]
+                sign = 1
+                for orbital, create in reversed(operations):
+                    if (orbital in occupied) == create:
+                        break
+                    sign *= (-1)**sum(i < orbital for i in occupied)
+                    if create:
+                        occupied.append(orbital)
+                    else:
+                        occupied.remove(orbital)
+                else:
+                    row = lookup[sum(1 << i for i in occupied)]
+                    matrix[row, col] += amplitude*sign
+                    if attachment or mask == ref:
+                        targets.append(row)
+                        phases.append(sign)
+    return matrix, targets, phases
+
+
+@pytest.mark.parametrize('spinors', [6, 7])
+def test_all_core_and_attachment_coordinates_against_full_exponentials(spinors):
+    obj, h, eri = integrals(spinors=spinors)
+    op = CCSDTTensorOperator(obj)
+    rng = np.random.default_rng(331)
+    vector = rng.normal(scale=.025, size=op.core.size)
+    mc, hc = independent_hamiltonian(obj, h, eri, obj.noccupied)
+    ma, ha = independent_hamiltonian(obj, h, eri, obj.noccupied+1)
+    tc, core_rows, core_phase = lift(op, vector, mc)
+    ta, _, _ = lift(op, vector, ma)
+    hcbar, habar = expm(-tc)@hc@expm(tc), expm(-ta)@ha@expm(ta)
+    ref = mc.index((1 << op.o)-1)
+    np.testing.assert_allclose(op.core_residual(vector),
+                               np.array(core_phase)*hcbar[core_rows, ref], atol=2e-13, rtol=0)
+    energy = op.core_energy(vector)
+    assert energy == pytest.approx(hcbar[ref, ref], abs=2e-13)
+    core = TensorCoreResult(vector, energy, energy-obj.reference_energy_Ha,
+                            np.max(abs(op.core_residual(vector))), 0, op.operator_sha256)
+    _, rows, phase = lift(op, np.ones(op.attachment.size), ma, True)
+    expected = np.array(phase)[:, None]*habar[np.ix_(rows, rows)]*np.array(phase)[None, :]
+    expected -= energy*np.eye(len(rows))
+    actual = op.attachment_matrix(core, batch_size=3)
+    assert np.max(abs(actual-actual.T)) > 1e-4
+    np.testing.assert_allclose(actual, expected, atol=2e-13, rtol=0)
+    signed = rng.normal(size=(op.attachment.size, 2))
+    np.testing.assert_allclose(op.attachment_action(core, signed), expected@signed, atol=3e-13, rtol=0)
+
+
+def test_complete_three_electron_tensor_core_and_ea_match_fci():
+    obj, h, eri = integrals()
+    op = CCSDTTensorOperator(obj)
+    result = op.solve_core()
+    _, hc = independent_hamiltonian(obj, h, eri, 3)
+    _, ha = independent_hamiltonian(obj, h, eri, 4)
+    assert result.amplitude_residual_Ha < 1e-10
+    assert result.total_energy_Ha == pytest.approx(np.linalg.eigvalsh(hc)[0], abs=1e-11)
+    assert np.linalg.norm(result.amplitudes[op.core.blocks[2][0]]) > 1e-6
+    matrix = op.attachment_matrix(result)
+    roots = np.linalg.eigvals(matrix)
+    assert np.max(abs(roots.imag)) < 1e-12
+    np.testing.assert_allclose(np.sort(roots.real),
+                               np.linalg.eigvalsh(ha)-result.total_energy_Ha, atol=1e-10, rtol=0)
+    assert not result.amplitudes.flags.writeable
+    with pytest.raises(ValueError):
+        result.amplitudes.flags.writeable = True
+    sd = op.solve_core(retained_rank=2)
+    assert sd.retained_rank == 2
+    assert np.all(sd.amplitudes[op.core.blocks[2][0]] == 0)
+    assert abs(sd.total_energy_Ha-result.total_energy_Ha) > 1e-8
+
+
+def test_four_electron_t3_equations_preserve_omitted_quadruple_defect():
+    n, o = 8, 4
+    one, pair = _integrals(n)
+    order = [0, 2, 4, 6, 1, 3, 5, 7]
+    one = one[np.ix_(order, order)]
+    pairs = tuple(itertools.combinations(range(n), 2))
+    def eri(p, q, r, s):
+        p, q, r, s = (order[k] for k in (p, q, r, s))
+        if p == q or r == s:
+            return 0.
+        sign = (-1 if p > q else 1)*(-1 if r > s else 1)
+        return sign*pair[pairs.index(tuple(sorted((p, q)))), pairs.index(tuple(sorted((r, s))))]
+    packed = [eri(p, q, r, s) for p in range(n-1) for q in range(p+1, n)
+              for r in range(p, n-1) for s in range(r+1, n)]
+    fock = one+np.array([[sum(eri(p, i, q, i) for i in range(o))
+                          for q in range(n)] for p in range(n)])
+    reference = np.trace(one[:o, :o])+.5*sum(eri(i, j, i, j) for i in range(o) for j in range(o))
+    obj = SpinorIntegrals(tuple(range(n)), o, one, fock, packed, 0., reference, {'anchor': '4e8'})
+    op = CCSDTTensorOperator(obj)
+    vector = np.random.default_rng(513).normal(scale=.025, size=op.core.size)
+    masks, h = independent_hamiltonian(obj, one, eri, o)
+    t, rows, phase = lift(op, vector, masks)
+    hbar = expm(-t)@h@expm(t)
+    reference_row = masks.index((1 << o)-1)
+    np.testing.assert_allclose(op.core_residual(vector),
+                               np.array(phase)*hbar[rows, reference_row], atol=3e-13, rtol=0)
+    quadruple = masks.index(sum(1 << i for i in range(o, n)))
+    assert abs(hbar[quadruple, reference_row]) > 1e-5
+    assert quadruple not in rows
+
+
+def test_tensor_radial_phase_covariance_and_energy_zero():
+    obj, _, _ = integrals()
+    phase = np.array([-1., 1., -1., 1., -1., 1.])
+    changed, _, _ = integrals(phases=phase, frozen=-1.2)
+    a, b = CCSDTTensorOperator(obj), CCSDTTensorOperator(changed)
+    ca, cb = a.solve_core(), b.solve_core()
+    assert cb.total_energy_Ha-ca.total_energy_Ha == pytest.approx(1.1, abs=1e-12)
+    d = []
+    for _, particles, holes, _ in a.attachment.blocks:
+        d.extend(np.prod(phase[a.o+p])*np.prod(phase[h]) for p, h in zip(particles, holes, strict=True))
+    d = np.array(d)
+    np.testing.assert_allclose(b.attachment_matrix(cb),
+                               d[:, None]*a.attachment_matrix(ca)*d[None, :], atol=1e-11, rtol=0)
+    with pytest.raises(ValueError, match='different tensor operator'):
+        b.attachment_action(ca, np.ones(b.attachment.size))
+
+
+def test_admission_before_eri_or_coordinate_allocation(monkeypatch):
+    obj, _, _ = integrals()
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError('integral evaluated after failed admission')
+    monkeypatch.setattr(type(obj), 'eri', forbidden)
+    with pytest.raises(MemoryError):
+        CCSDTTensorOperator(obj, memory_MiB=.001)
+    plan = resource_plan(68, 12)
+    assert plan['core_amplitudes'] == 11176684
+    assert plan['numerical_upper_bytes'] > 8*1024**3
+    assert plan['full_particle_sectors_enumerated'] is False
+
+
+def test_input_and_complete_rank_contracts():
+    obj, _, _ = integrals()
+    op = CCSDTTensorOperator(obj)
+    for vector in (np.zeros(op.core.size-1), np.full(op.core.size, np.nan)):
+        with pytest.raises(ValueError):
+            op.core_residual(vector)
+    with pytest.raises(ValueError):
+        op.solve_core(continuation=(1., .5))
+    with pytest.raises(ValueError):
+        op.solve_core(tolerance_Ha=0)
+    with pytest.raises(ValueError):
+        resource_plan(True, 3)
+    with pytest.raises(ValueError):
+        resource_plan(3, 3, attachment_rank=4)
+    complex_h = obj.one_body_Ha.copy()
+    complex_h[0, 1] += .01j
+    complex_h[1, 0] -= .01j
+    complex_f = obj.fock_Ha+complex_h-obj.one_body_Ha
+    rotated = replace(obj, one_body_Ha=complex_h, fock_Ha=complex_f)
+    with pytest.raises(NotImplementedError, match='exactly real'):
+        CCSDTTensorOperator(rotated)

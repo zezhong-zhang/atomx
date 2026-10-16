@@ -1,0 +1,462 @@
+{
+  "numerical_first_kappa_qualification_passed": true,
+  "contract_sha256": "606de11b36c4b8f9f81d5bc0a425ab6b04015557a9562c647218d13ab1ab6cad",
+  "driver_sha256": "ea5287bcbbe316e1fd71096f020b3943b82b1367493cf12cf530c2f880b1f476",
+  "execution_binding_sha256": "967eb8a23ea01e285df2950cb296f816fe642bf31b04e256464c6f41b522ef92",
+  "input_roles": {
+    "failed_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json",
+      "sha256": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201"
+    },
+    "failed_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py",
+      "sha256": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996"
+    },
+    "failed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json",
+      "sha256": "7056e3893c0c301a151b00a1f1935f93299c303e6298c1931da534cc7557cf33"
+    },
+    "failed_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json",
+      "sha256": "1bd1873506710576beb32cbb3fc4e6fdd1fb1756f36a4274c6c9251428f12c19"
+    },
+    "saved_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json",
+      "sha256": "a88c4b9b5d1bf7f5014fef075437c49a18f9c4c9c0ec3181f8cbd4d9130ba6c9"
+    },
+    "saved_audit_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/contract.json",
+      "sha256": "f4e1186e2196bd7923b0a73263c3cb4b60fc58e9c6760028d096248c8243c079"
+    },
+    "saved_audit_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verify_arrays.py",
+      "sha256": "7340ccc4a1b461d5025c478bd153ba1f35362cb0a6c86d87a56a795c356410cf"
+    },
+    "saved_diagnostic_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/diagnostic_arrays.npz",
+      "sha256": "5d37a131d92ca062b289c8122b759db8e738326bd03b043eb98256bceb496752"
+    },
+    "geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz",
+      "sha256": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9"
+    },
+    "field": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz",
+      "sha256": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317"
+    },
+    "complement": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_native_complement.npz",
+      "sha256": "f471cded1760a295392edba4ed589ac2612d84e3f951125a918dc80c36cd378e"
+    },
+    "raw_gvd": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_full_gvd_vectors.npz",
+      "sha256": "819ce573cfb0a0999029672a57415568414ce001b6f85baf95d456552c9edf5d"
+    },
+    "original_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz",
+      "sha256": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070"
+    },
+    "checkpoint_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c"
+    },
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "sha256": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "field_scalar_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json",
+      "sha256": "ce38b2a8d487bc325d0861f4241c0b71f0b0fede67d980ba4b4efb8132b539a0"
+    },
+    "iteration_trigger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage010/delivery_proof.json",
+      "sha256": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed"
+    }
+  },
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "calls": {
+    "complete_spectrum_refinement_attempts": 1,
+    "completed_complete_spectrum_refinements": 1,
+    "attempted_complete_sweeps": 1,
+    "completed_complete_sweeps": 1,
+    "attempted_pair_rotations": 6670,
+    "completed_pair_rotations": 6670,
+    "skipped_exact_zero_pairs": 0,
+    "physical_residual_evaluations": 2,
+    "near_identity_Gram_whitenings": 1,
+    "new_LAPACK_eigensolves": 0,
+    "new_SVD": 0,
+    "new_matrix_linear_solves": 0,
+    "new_Atomx_Fock_Slater_Dirac_SCF_hS_H_CI_gradient_optimizer_calls": 0
+  },
+  "checks": [
+    {
+      "name": "longdouble_has_more_precision_than_float64",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_failure_and_audit_remain_failed",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_stationarity_not_passed",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/h",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/s",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/original_P",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/frozen",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/complement",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/basis",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/projected_h",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_saved_complement_bytes/projected_s",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "native_auxiliary_operator_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "native_S_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_initial116_coefficients_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_point_bytes/old24_keys",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_point_bytes/old24_P",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_point_bytes/old24_Q",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_point_bytes/original_x",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_point_bytes/inverse_diagonal",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/0",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/3",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/4",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/5",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_inverse_bytes/6",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_complete_metric_SHA",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete116_shape",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_h_exact_Hermitian",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_s_exact_Hermitian",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_P_Gram",
+      "error": 6.051257585293346e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "original_B_Gram",
+      "error": 6.270103793809545e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "old_frozen_span_orthogonal_to_B",
+      "error": 2.4024466342692387e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete_basis_near_identity_Gram_inf",
+      "error": 1.990738073059009e-14,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "whitened_actual_Gram",
+      "error": 6.8288759770673215e-19,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete_physical_norms_positive/1",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_physical_norms_positive/2",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "complete_spectrum_refinement_converged_within_budget",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "full116_SGram_original_gate",
+      "error": 3.1073234263434557e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full116_constrained_residual_original_gate",
+      "error": 2.046064473029049e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full116_original_P_leakage",
+      "error": 9.478061960424628e-29,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "minimum_cluster_resolved_original_gate",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "raw_minimum_energy_original_gate",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "raw_original_root_identity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "new_raw_original_P_leakage",
+      "error": 2.1492307871470986e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "new_raw_projected_residual_original_gate",
+      "error": 7.169582595224873e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "new_raw_frozen_whole_Gram_original_gate",
+      "error": 8.645428123399412e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "lowest_phase_anchor_nonzero",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_import",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "no_scipy_import",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    }
+  ],
+  "completed_evidence": [
+    {
+      "name": "initial_complete_representation",
+      "path": "initial_complete_representation.npz",
+      "sha256": "16ecb1ad94ddbea0137627a22920f5e93c5ca9083a3ea458ca2c74f20692d390"
+    },
+    {
+      "name": "before_refinement",
+      "path": "before_refinement.npz",
+      "sha256": "1f099607c8093a32bb76d7edde0b8623df379ed3be93c5a8d7e4dae98e2cfc20"
+    },
+    {
+      "name": "complete_sweep_01",
+      "path": "complete_sweep_01.npz",
+      "sha256": "4572148ea9b60d68e6da73e7f04614b4a845ce2a3b2d81d2f5087b7978f6c9e6"
+    },
+    {
+      "name": "final_complete_spectrum",
+      "path": "final_complete_spectrum.npz",
+      "sha256": "4e1f7cc12ce2374d3eccb70cd165d9e0ef50d792fdc8673830fc7a700e96fcea"
+    }
+  ],
+  "sweeps": [
+    {
+      "sweep": 1,
+      "full_root_count": 116,
+      "original_full_physical_residual_relative_max": 2.046064473029049e-14,
+      "full_Gram_error": 3.1073234263434557e-16,
+      "complete_reduced_offdiagonal_relative_max": 2.992227547781371e-16
+    }
+  ],
+  "first_kappa_full_root_count": 116,
+  "original_failure_preserved": true,
+  "original49_failed_roots_not_selected_or_pruned": true,
+  "numerical_method": {
+    "name": "deterministic_complete_spectrum_longdouble_cyclic_Jacobi",
+    "initial_basis": "All saved116 generalized eigenvectors in original frozen complement; no selected subset.",
+    "projection": "Recontract B^T h B andB^T S B in longdouble; average transpose to implement original exactly Hermitian finite h/S; record difference and evaluate every final vector against original saved h/S.",
+    "whitening": "Near-I all116 basis Gram; fourth-order binomial inverse square root, fail ifGram infinity defect>1e-10; recompute actualGram.",
+    "rotations": "Lexicographic i<j for all116 pairs every complete sweep; stable hypot Jacobi rotation inlongdouble. Only exactzero offdiagonal skipped. Update full matrix and all116 coefficients; no amplitude/sector truncation.",
+    "stopping": "At complete sweep boundaries only; stop if full reduced offdiagonal relative2norm<=1e-12 AND all116 final physical original-relative residual<=1e-8. Maximum12sweeps; else fail with all arrays/counters. No alternative driver or scan.",
+    "final_order": "Sort all116 by actual originalh/S physical Rayleigh, retain full permutation and full vectors; pre/post original-root mapping saved. Lowest separated cluster must pass original1e-10gap and minimum1e-8 controls.",
+    "phase": "Lowest virtual only: originalP coordinate max-absolute anchor, jointP/Q phase; save unphasedraw and phase, no radialprojection or renormalization substitute."
+  },
+  "initial_full_residual_max": 3.1097115045566876e-08,
+  "final_full_residual_max": 2.046064473029049e-14,
+  "lowest_actual_Rayleigh_Ha": -0.15489704630095255,
+  "first_actual_gap_Ha": 0.06056159638620158,
+  "raw_actual_Rayleigh_Ha": -0.15489704630095255,
+  "raw_old_root_overlap_squared": 0.9999999999999967,
+  "raw_projected_residual_relative": 7.169582595224873e-16,
+  "actual_wall_s": 0.8291354540269822,
+  "Atomx_imports": 0,
+  "new_physical_builders": 0,
+  "screened_CI_response_available": false,
+  "other_four_kappas_qualified": false,
+  "original_stationarity_passed": false,
+  "experimental_validation_passed": false,
+  "scope": "Numerical refinement of saved auxiliary operator in exactlytheoriginal finiteP/complement. No newphysical construction/CI or physical/stationarity/experimental pass; other4\u03ba andscreened1046 response still unmeasured."
+}

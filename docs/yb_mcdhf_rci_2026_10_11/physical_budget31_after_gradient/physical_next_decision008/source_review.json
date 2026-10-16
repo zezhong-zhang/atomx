@@ -1,0 +1,80 @@
+{
+  "status": "PASS_READ_ONLY_SOURCE_AND_PREPARATION_REVIEW_NO_NATIVE_SCIENCE",
+  "checks": {
+    "only_connected_pairs_AST_changed": true,
+    "old_qualified_007_source": true,
+    "new_root_final_source": true,
+    "benchmark_driver_binding": true,
+    "graph_driver_binding": true,
+    "benchmark_all_bound_sources_inputs": true,
+    "graph_all_bound_sources_inputs": true,
+    "graph_resource_cap_unchanged": true,
+    "graph_hash_gate_uses_closed007": true
+  },
+  "all_pass": true,
+  "source": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision008/angular_before.py": "82a1ff35bbcdfbe54498b24958de59f349ee75b0c3017a69d89567ad8e938e61",
+    "src/atomx/angular/csf_hamiltonian.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0"
+  },
+  "proof": {
+    "unchanged_bucket_membership": "Same common frozen mask, native determinant order and spectator removals. Each determinant generates a given spectator at most once, so the first stored index is shared and each promotion starts a list of distinct row IDs.",
+    "index_zero": "get() sentinel checked with `is None`; row0 is not confused with absence.",
+    "singleton_pruning": "A bucket of length1 contributes only its own diagonal; explicitly initializing columns={row} preserves it. Every non-diagonal connection necessarily has a repeated bucket and is retained.",
+    "duplicates": "Repeated determinant masks are distinct row indices; second occurrence promotes to a list, retaining their mutual graph coordinates.",
+    "ordering": "Row-local sorted sets, col>=row triangular filter and all downstream signed table ordering unchanged.",
+    "edges": "Empty input yields none; vacuum, single all-frozen determinant and any disconnected determinant retain exactly their diagonal. One active electron uses existing min(2,N)=1 removal. No coefficient, radial, phase, configuration or solver change.",
+    "memory": "First occurrences avoid perbucket list; promoted-only dict comprehension shares existing keys/lists and drops singleton keys. Old and new dictionaries can overlap during rebuild; whole-run RSS must include construction transient. No extra singleton set/count retained in production."
+  },
+  "benchmark_preparation": {
+    "driver_sha256": "a2fbb2abe77939e7f5242a099255d70961895b01044132604d1a12ee3b40ffb7",
+    "contract_sha256": "8e1132a252267ecea85a3ba149b9d9bcfaa6d29f92fb02ae7f4246da8986d75a",
+    "old_arm": "Inject only literal archived _connected_pairs into current module globals; qualified typedCSR and all other angular AST unchanged.",
+    "fixed": "Full originalA1595/B2574,10complete symmetryblocks,ABBAfreshworkersCPU27/threads1/6GiB/300s.",
+    "gates": "Completepair/table/key/projection/actionidentities exact; signedaction1e-10andabsnegativecontrol1e-8; firstfailure stops before nextworker.",
+    "timing_scope": "Angular table construction only; no full-H/CI/spectrum/parallel performance claim."
+  },
+  "full_graph_preparation": {
+    "driver_sha256": "5b114b823dc33e2273e9777c727f634fef39267b75e5d74eae4512bd3b723e82",
+    "contract_sha256": "f984661a3eff5f306f0f4dd728d12c920cb4de3b5c5cf7392b7a39f202ef4cc9",
+    "fixed": {
+      "CSFs_integer_only": 5717,
+      "NR_configurations": 182,
+      "active_electrons": 23,
+      "arm": "B_plus_complete_4f12",
+      "bucket_ordered_pair_visits": 92428751,
+      "electrons": 69,
+      "frozen_spinors": 46,
+      "jj_patterns": 738,
+      "ordered_pairs": 43720175,
+      "ordered_pairs_by_replacements": {
+        "0": 92715,
+        "1": 1206876,
+        "2": 42420584
+      },
+      "original_unique_buckets": 16684544,
+      "patterns_sha256": "1a6443b61357a706b676c93d46583168034e053ecbbf11c1e9f63d228a68147e",
+      "prior_determinant_sha256": "51abe507ea2a998c8270bffed0a61aca25684ea8351886dec1e3687d7053547e",
+      "prior_ordered_pair_sha256": "9a49475f11b27a0889a1d187c9a5a18a445db0e92510688362f0b131d4a290e4",
+      "raw_determinants": 92715,
+      "sector": [
+        1,
+        1
+      ],
+      "spectator_memberships": 23456895,
+      "triangular": false
+    },
+    "resources": {
+      "AS_bytes": 4294967296,
+      "CPU": 28,
+      "alarm_seconds": 300,
+      "host_MemAvailable_GiB_min": 10,
+      "host_load1_max": 16,
+      "outer_seconds": 310,
+      "threads": 1
+    },
+    "control": "Prior007closedactualandcontract bound; require fullpattern and nativeorderedmaskidentity plus exact whole43,720,175 pair SHA256 match.",
+    "live_frame_census": "Observe only promoted lists, count retainedU/K/V/min/max/ownedbytes. Infer implicitS=prior007U\u2212actualretainedU; then verifyretainedK+S=23,456,895andretainedV+S=92,428,751. S is prior-bound inference, not newly measured production counter.",
+    "limits": "Source-only integerpreparation, no native graph allocation until exactrootseal. Same4GiB cap; no fitguarantee, table/CI memoryadmission or energy result."
+  },
+  "new_insight": "No new general insight; existing exact sparsity and source-bound matched evidence rules cover the increment."
+}

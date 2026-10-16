@@ -1,0 +1,88 @@
+{
+  "core_raw_residual_Ha": 2.8086907799540484e-14,
+  "valence_raw_residual_Ha": 2.540415794394235e-14,
+  "oracle_raw_residual_Ha": 4.966464251573294e-13,
+  "derivative_raw_residual_Ha": 3.8528896869824414e-13,
+  "signed_action_error_Ha": 2.2551405187698492e-17,
+  "singles_action_error_Ha": 2.168404344971009e-19,
+  "signed_root_error_Ha": 5.108586080201927e-13,
+  "resolved_derivatives": [
+    {
+      "step_Ha": 0.001,
+      "rows": [
+        {
+          "row": [
+            2,
+            -1
+          ],
+          "numerical": -5.651303248277581e-05,
+          "native": -5.651302915297967e-05,
+          "fixed_amplitude": -4.642163166264262e-05,
+          "error": 3.3297961352725565e-12
+        },
+        {
+          "row": [
+            3,
+            -1
+          ],
+          "numerical": -1.7649447952884916e-05,
+          "native": -1.7649446814768815e-05,
+          "fixed_amplitude": -1.4063538816650603e-05,
+          "error": 1.1381161007931791e-12
+        }
+      ]
+    },
+    {
+      "step_Ha": 0.0003,
+      "rows": [
+        {
+          "row": [
+            2,
+            -1
+          ],
+          "numerical": -5.6513029452078376e-05,
+          "native": -5.651302915297967e-05,
+          "fixed_amplitude": -4.642163166264262e-05,
+          "error": 2.990987042457774e-13
+        },
+        {
+          "row": [
+            3,
+            -1
+          ],
+          "numerical": -1.7649446917428927e-05,
+          "native": -1.7649446814768815e-05,
+          "fixed_amplitude": -1.4063538816650603e-05,
+          "error": 1.0266011199228271e-13
+        }
+      ]
+    },
+    {
+      "step_Ha": 0.0001,
+      "rows": [
+        {
+          "row": [
+            2,
+            -1
+          ],
+          "numerical": -5.6513029185906736e-05,
+          "native": -5.651302915297967e-05,
+          "fixed_amplitude": -4.642163166264262e-05,
+          "error": 3.2927064124322475e-14
+        },
+        {
+          "row": [
+            3,
+            -1
+          ],
+          "numerical": -1.7649446826243005e-05,
+          "native": -1.7649446814768815e-05,
+          "fixed_amplitude": -1.4063538816650603e-05,
+          "error": 1.1474189518445241e-14
+        }
+      ]
+    }
+  ],
+  "reduced_coordinates": 32,
+  "magnetic_coordinates": 648
+}

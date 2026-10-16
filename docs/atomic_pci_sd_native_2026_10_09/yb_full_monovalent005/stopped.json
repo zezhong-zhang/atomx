@@ -1,0 +1,46 @@
+{
+  "status": "explicitly stopped after complete five CPU/CUDA signed-map gates and two self-consistent roots with actual CPU rechecks; remaining roots incomplete",
+  "owned_pid": 1794812,
+  "reason": "Observed parallel contention raises legacy numerical16 full action cost from roughly8-12s to19s; retain five map arrays and two roots, stop duplicate numerical16 branch while separate source-bound numerical64 full006 recomputes actual core/maps/all roots under unchanged physics/gates",
+  "complete_map_columns": 5,
+  "complete_feedback_roots": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "raw_Ha": 1.6309384398560667e-11,
+      "energy_Ha": 5.898059818321144e-17,
+      "actions": 102,
+      "cpu_raw_Ha": 1.630935664298505e-11
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "raw_Ha": 1.877659232116984e-11,
+      "energy_Ha": 3.226585665316861e-16,
+      "actions": 135,
+      "cpu_raw_Ha": 1.877659232116984e-11
+    }
+  ],
+  "source_match": true,
+  "production_source_files": 367,
+  "gpu_source_files": 10,
+  "last_observation": {
+    "stage": "complete_standalone_map",
+    "map_call": 284,
+    "linear": true,
+    "seconds": 18.612597463070415,
+    "reference_Ha": 0.022276137022248316,
+    "peak_rss_bytes": 6370369536,
+    "load_after": [
+      24.43115234375,
+      18.50927734375,
+      15.91943359375
+    ],
+    "elapsed_seconds": 3287.35338929703
+  },
+  "scope": "Partial source-bound core/map/two-root evidence only; no complete five-root or experimental certification"
+}

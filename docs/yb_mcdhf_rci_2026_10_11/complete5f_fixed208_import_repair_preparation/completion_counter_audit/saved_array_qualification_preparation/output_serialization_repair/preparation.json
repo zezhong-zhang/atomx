@@ -1,0 +1,148 @@
+{
+  "all_source_JSON_checks_passed": true,
+  "checks_count": 33,
+  "checks": [
+    {
+      "name": "only2literalencodingchanges",
+      "passed": true
+    },
+    {
+      "name": "computationalASTidenticalexcept2encodingnodes",
+      "passed": true
+    },
+    {
+      "name": "inputsbyteidentical",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/hypothesis",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/literal_point",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/metric_sha256",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/original29keys",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/target_UIDs",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/weights",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/operator",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/inputs_sha256",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/acceptance",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/resources",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/NPZ_count_roles",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/planned_numeric_checks",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/limits",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/limitations",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/execution_binding_required",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/new_scientific_calls_during_preparation",
+      "passed": true
+    },
+    {
+      "name": "unchangedcontract/NPZ_decodes_during_preparation",
+      "passed": true
+    },
+    {
+      "name": "actualserializationfailureclosed",
+      "passed": true
+    },
+    {
+      "name": "actual389allPASS18loads",
+      "passed": true
+    },
+    {
+      "name": "originalexpected14stillfalse",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/run.py",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/contract.json",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/inputs.json",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/preparation.json",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/actual/failure.json",
+      "passed": true
+    },
+    {
+      "name": "inheritclosedbytes/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "same18NPZmaps",
+      "passed": true
+    },
+    {
+      "name": "noAtomxSciPyimports",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "9fb99648ce6ccde650076aa4b870a4412a752029ff5da74735a7e7fe8a5306cc",
+  "contract_sha256": "0551848cf013549d2922dfc80a0dd10f90d62237bb7533582701a2b0e31d440e",
+  "inputs_sha256": "88ec1c9b2f8be31d9f379f2d9ca04a41f01a4d298644051e706b7dfd957a9262",
+  "exact_driver_diff_sha256": "1856c5aa25d7c8d183401dfc8b840594b6acb7350f6df23550f797a6ecc07885",
+  "NumPy_NPZ_Atomx_scientific_API_calls": 0,
+  "executed_or_compiled_driver": false,
+  "new_attempt_executed": false,
+  "Ruff_passed": true,
+  "local_link_checks_passed": true,
+  "exact_diff_changed_lines": 2
+}

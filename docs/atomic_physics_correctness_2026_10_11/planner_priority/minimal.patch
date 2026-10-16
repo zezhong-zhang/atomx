@@ -1,0 +1,57 @@
+--- before/docs/atomx_hourly_progress_2026_10_10/parallel_planner.py
++++ current/docs/atomx_hourly_progress_2026_10_10/parallel_planner.py
+@@ -194,7 +194,9 @@
+     for item in decision.get("frontier", []):
+         if item["gap"] == "yb_physical_space_and_experiment":
+             item.update(direction=direction, dependency=data["next_execution_status"])
+-    if decision["status"] == "implementation_frontier" and not decision["jobs"]:
++    if decision["status"] == "implementation_frontier":
++        if decision["jobs"]:
++            direction = "先完成已准入的源变化有限复验；生产推进方向：\n" + direction
+         decision.update(direction=direction, reason=data["selection_reason"])
+ 
+ 
+--- before/tests/test_atomic_parallel_iteration.py
++++ current/tests/test_atomic_parallel_iteration.py
+@@ -75,6 +75,41 @@
+         distinguishing_outcomes="retained negative result",
+         scientific_gates=dict(target_Ha=1e-10),
+     )
++
++
++@pytest.mark.parametrize("has_job", [False, True])
++def test_physics_priority_survives_queued_finite_audits(tmp_path, has_job):
++    here = tmp_path / "controller"
++    here.mkdir()
++    state = tmp_path / "five_states.json"
++    state.write_text('{"same_frozen_model": true}')
++    report = dict(
++        fitted_corrections=False,
++        highest_level_reached=False,
++        inputs=dict(current_five_states=dict(path=state.name, sha256=planner.sha(state))),
++        card_summary="Check complete retained equations before cutoff scans.",
++        next_execution_status="New production equations not registered.",
++        selection_reason="Cutoff convergence cannot restore missing equations.",
++    )
++    (tmp_path / "physics.json").write_text(json.dumps(report))
++    (here / "progress.json").write_text(
++        json.dumps(dict(physics_budget_result="physics.json", yb_comparison=state.name))
++    )
++    jobs = [dict(id="finite_audit", scientific_gate_Ha=1e-11)] if has_job else []
++    original_jobs = json.dumps(jobs, sort_keys=True)
++    decision = dict(
++        status="implementation_frontier", direction="old expansion priority",
++        evidence=[], jobs=jobs,
++        frontier=[dict(gap="yb_physical_space_and_experiment")],
++    )
++    planner.annotate_physics_priority(tmp_path, here, decision)
++    assert report["card_summary"] in decision["direction"]
++    assert decision["reason"] == report["selection_reason"]
++    assert json.dumps(decision["jobs"], sort_keys=True) == original_jobs
++    assert decision["status"] == "implementation_frontier"
++    state.write_text('{"different_model": true}')
++    with pytest.raises(ValueError, match="input identity changed"):
++        planner.annotate_physics_priority(tmp_path, here, decision)
+ 
+ 
+ @pytest.fixture

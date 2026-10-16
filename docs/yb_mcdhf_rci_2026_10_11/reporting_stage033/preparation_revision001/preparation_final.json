@@ -1,0 +1,53 @@
+{
+  "status": "SOURCE_JSON_FROZEN_PREPARATION_NO_EXECUTION",
+  "all_passed": true,
+  "historical117_preparation": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/preparation.json",
+    "sha256": "44cbe92988e657c13b5621906b1aaffbcf07ad78b96c433416045438f59a2e55"
+  },
+  "checks_count": 7,
+  "checks": [
+    {
+      "name": "historical117 preparation retained",
+      "passed": true
+    },
+    {
+      "name": "driver contract frozen unchanged",
+      "passed": true
+    },
+    {
+      "name": "format only preparer source delta",
+      "passed": true
+    },
+    {
+      "name": "preparer source parsed",
+      "passed": true
+    },
+    {
+      "name": "all role hashes still exact",
+      "passed": true
+    },
+    {
+      "name": "registry unchanged after actual04HKT card",
+      "passed": true
+    },
+    {
+      "name": "no integration outputs produced",
+      "passed": true
+    }
+  ],
+  "driver": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/refresh.py",
+    "sha256": "c636dd320023399aa348f496f015a495728d59274bf08302108e07cfe2b59978"
+  },
+  "contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/contract.json",
+    "sha256": "b4decc5ff0c42cba5985cdf2cb5f29eb18e2eb588240e7499e296e88003e77e8"
+  },
+  "current_preparer": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/prepare.py",
+    "sha256": "3719b7cabcc794d4423712c041708b37662fefaf30bb0611a5d525faa658849b"
+  },
+  "Ruff": "All checks passed after two semicolon-only formatting repairs; original preparation preserved.",
+  "new_science_arrays_API_card_registry_timer_calls": 0
+}

@@ -1,0 +1,26 @@
+{
+  "status": "PREDECLARED_BEFORE_SOURCE_REGRESSION_DISCRIMINATOR",
+  "hypothesis": "The two legacy mixed finite-increment failures are source-preexisting, because this increment only appends unused functions/classes to that module and adds one unimported numerical module. Compare the same fixture against the full actual358-file pre-increment source, without changing tests/steps/gates.",
+  "before_source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "archive_members_checked": 358,
+  "legacy_module_original_AST_prefix_unchanged": true,
+  "limits": {
+    "H_build": 13,
+    "CI_solve": 13,
+    "gradient": 2,
+    "one_body_assembly": 48,
+    "nuclear_Dirac_solve": 3,
+    "polar_retraction": 36,
+    "physical_overlap": 41,
+    "tracking_SVD": 80,
+    "SciPy_eigh": 64,
+    "optimizer": 0
+  },
+  "CPU": 25,
+  "threads": 1,
+  "AS_bytes": 4294967296,
+  "seconds": 180,
+  "output": "mixed_before_regression001",
+  "scientific_retry": false,
+  "scope": "Matched before-source diagnosis, not repeat of changed-source run or alteration of failed tests."
+}

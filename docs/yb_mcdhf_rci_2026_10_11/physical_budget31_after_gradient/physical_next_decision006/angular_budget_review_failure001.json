@@ -1,0 +1,7 @@
+{
+  "status": "FAILED_root_review_assumption_preserved",
+  "stage": "metadata_only",
+  "claim": "payload_floor>=100*pair_count",
+  "science_calls": 0,
+  "cause": "Root assumed100byte minimum for every encoded integer; source helper excludes cached integer coordinates0..256. Inspect formula and qualify exact bound separately."
+}

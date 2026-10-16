@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "/data/code/atomx/docs/atomic_native_roadmap_2026_10_11/eu_baseline/audit.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"verified\", \"inputs\": 4, \"nist_rows\": 10, \"fitted_levels\": 3, \"unfitted_holdout_levels\": 6, \"card_summary\": \"Eu³⁺ Atomx原生4f⁶/3003行列式：历史三目标标定RMS 8.2 cm⁻¹；对本地NIST括号半经验⁵D₀/₁/₂ RMS 9.03 cm⁻¹。s₂先验固定、s₄/s₆拟合；此列为标定成功与参考对比，独立实验认证未建立；未拟合⁷F单列保留。\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/data/code/atomx/.venv/bin/ruff",
+        "check",
+        "/data/code/atomx/docs/atomic_native_roadmap_2026_10_11/eu_baseline/audit.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    }
+  ],
+  "outputs": {
+    "audit.py": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/audit.py",
+      "sha256": "bca19449bc486f27e1a8d6fe01785843e0ab77433e720f817e3fa1a03b1c6e9b"
+    },
+    "evidence.json": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/evidence.json",
+      "sha256": "3280f7906883ce9ce230dc02a8845815440596cbc19559fdeb18191745f7ae80"
+    },
+    "query_snapshot.json": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/query_snapshot.json",
+      "sha256": "8378fa6797dc78d5e5a15a614c4e842a69f497f68a948b45c6359ff1150ec153"
+    },
+    "README.md": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/README.md",
+      "sha256": "b0d1e8d63f98ca821c1ec4b87e2f530424463e42aebc98371be9eaf156e47bfe"
+    }
+  },
+  "scope": "read-only live source/AST/exact SQLite query replay and lint; no physical solver rerun or new timing"
+}

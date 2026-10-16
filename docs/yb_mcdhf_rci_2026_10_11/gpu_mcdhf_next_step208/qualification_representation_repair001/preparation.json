@@ -1,0 +1,585 @@
+{
+  "status": "SOURCE_JSON_AST_DESCRIPTOR_ONLY_NO_SCIENTIFIC_QUALIFICATION",
+  "all_passed": true,
+  "checks_count": 99,
+  "checks": [
+    {
+      "name": "entry_has_no_numerical_modules",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib_only_run.py",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib_only_launch.py",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib_only_prepare.py",
+      "passed": true
+    },
+    {
+      "name": "no_exec_AST_or_dynamic_text",
+      "passed": true
+    },
+    {
+      "name": "default_metadata_contract",
+      "passed": true
+    },
+    {
+      "name": "exact_six_NPZ_roles_deferred_unread",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_models",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_reference_models",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_f043_identity",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_result",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_contract",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_driver",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_receipt",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_completion",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_layout",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_objective",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_basis",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_recovered_owner",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_recovered_tracking",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_signed_tables",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter_binding",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter_union",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter_contract",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter_preparation",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_adapter_handoff",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_shared_source_identity",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_historical700_metadata_failure",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_executor",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_executor_contract",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_executor_preparation",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_executor_handoff",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_old_FD_failure",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_old_FD_receipt",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_old_FD_completion",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_current_shared_source_identity",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_FD_result",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_FD_domain_ledger",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_FD_root_receipt",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_native31_FD_completion",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_driver",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_launcher",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_contract",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_result",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_receipt",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_seal",
+      "passed": true
+    },
+    {
+      "name": "input_source_JSON_prior_qualification_closure",
+      "passed": true
+    },
+    {
+      "name": "actual31_FD730_complete_controls",
+      "passed": true
+    },
+    {
+      "name": "not_scientifically_authorized",
+      "passed": true
+    },
+    {
+      "name": "old_representation_failure_not_FD_anchor",
+      "passed": true
+    },
+    {
+      "name": "shared_source_full356_unchanged",
+      "passed": true
+    },
+    {
+      "name": "shared_source_identity_map",
+      "passed": true
+    },
+    {
+      "name": "current_shared_epoch_is_not_f043_replay",
+      "passed": true
+    },
+    {
+      "name": "private_source356_map",
+      "passed": true
+    },
+    {
+      "name": "native438_literal_coordinate",
+      "passed": true
+    },
+    {
+      "name": "native438_literal_tangent",
+      "passed": true
+    },
+    {
+      "name": "native438_literal_metric_action",
+      "passed": true
+    },
+    {
+      "name": "native438_literal_represent",
+      "passed": true
+    },
+    {
+      "name": "public_g_246_contiguous_source",
+      "passed": true
+    },
+    {
+      "name": "native_saved31_246_producer",
+      "passed": true
+    },
+    {
+      "name": "saved_and_new_g_shape_admitted_no_2x123",
+      "passed": true
+    },
+    {
+      "name": "original_metric_and_derivative_domains_kept",
+      "passed": true
+    },
+    {
+      "name": "captured_mask_set1_before_public_setup",
+      "passed": true
+    },
+    {
+      "name": "private_CPU4_finally_restores_mask",
+      "passed": true
+    },
+    {
+      "name": "outer_mask_and_affinity_restore",
+      "passed": true
+    },
+    {
+      "name": "CPU4_same_factory_after_identity_guard",
+      "passed": true
+    },
+    {
+      "name": "all_four_bands_original_order_observed",
+      "passed": true
+    },
+    {
+      "name": "hS_factors_banks_moment_requests_not_producer_inference",
+      "passed": true
+    },
+    {
+      "name": "all_phase_kernel_producers_observed",
+      "passed": true
+    },
+    {
+      "name": "no_shared_default_install_or_fallback",
+      "passed": true
+    },
+    {
+      "name": "hard_caps_fresh_single_point",
+      "passed": true
+    },
+    {
+      "name": "CUDA_RSS_virtual_device_domains_distinct",
+      "passed": true
+    },
+    {
+      "name": "foreground_guard_samples_process_group",
+      "passed": true
+    },
+    {
+      "name": "CPU4_actual_affinity_admission",
+      "passed": true
+    },
+    {
+      "name": "literal_interpreter_exists",
+      "passed": true
+    },
+    {
+      "name": "runtime_literal_path_NumPy_literal_file",
+      "passed": true
+    },
+    {
+      "name": "runtime_literal_path_Numba_literal_file",
+      "passed": true
+    },
+    {
+      "name": "isolated_existing_CUDA_runtime_paths",
+      "passed": true
+    },
+    {
+      "name": "descriptor_closed_failed_ordinary_retained_raw_diagnostic_only",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_deferred_role",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_old29_path",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_production_admission",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_baseline_only",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_empty_domains",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_fullspace_claim",
+      "passed": true
+    },
+    {
+      "name": "descriptor_reject_wrong_metric",
+      "passed": true
+    },
+    {
+      "name": "metadata_old_direct_tuple_JSON_mismatch_reproduced",
+      "passed": true
+    },
+    {
+      "name": "metadata_new_plain_exact_all_fields",
+      "passed": true
+    },
+    {
+      "name": "metadata_no_field_dropped_or_tolerated",
+      "passed": true
+    },
+    {
+      "name": "only_two_declared_runtime_representation_changes",
+      "passed": true
+    },
+    {
+      "name": "actual_owner_saved_before_strict_comparison",
+      "passed": true
+    },
+    {
+      "name": "original_physics_gate_cap_hardware_unchanged_fixed",
+      "passed": true
+    },
+    {
+      "name": "original_physics_gate_cap_hardware_unchanged_resources",
+      "passed": true
+    },
+    {
+      "name": "original_physics_gate_cap_hardware_unchanged_gates",
+      "passed": true
+    },
+    {
+      "name": "original_physics_gate_cap_hardware_unchanged_actual_native31_directional_prerequisite",
+      "passed": true
+    },
+    {
+      "name": "original_physics_gate_cap_hardware_unchanged_runtime",
+      "passed": true
+    },
+    {
+      "name": "exit_still_zero_numerical_imports",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "8b25ccdddba36e58d662052bd07b8b991b3995b43570a368862d269c6553cc06",
+  "launcher_sha256": "91c942102a5526c5d1f580b3a7f5887ca79eba7c72491cd12d965a3799266f7c",
+  "contract_sha256": "5689311c8cb435f1eff358ceaa9cbd06c128fa7a7a164bc8e2ecb932c16ee8c1",
+  "prepare_sha256": "ab74abe1a6cb6965a126e882ecd8b554afc2a668d67a48e03c73f9660f1dafe1",
+  "actual_FD_prerequisite": {
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "domain_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/derivative_domains.json",
+      "sha256": "7c8c333b30bb163f8d62cb909e23d22803035fa1631b54f4f575fbe20ac914a3"
+    },
+    "root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "recorded_domains": {
+      "1e-05": {
+        "ordinary_reported": {
+          "h": 1e-05,
+          "derivative": -0.03712684701895341,
+          "analytic": -0.0371269850032454,
+          "error": 1.3798429198547124e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 1.8189894035458562e-07,
+          "difference_against_full_normalized": 1.3798428859235212e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "376266236243337087066453129214130518638682128287605840865827295058798627106660767371980254794395711206599512304896246930129267525682855952503255064719690729440179847690702929693758263573437",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 6.000510288244917e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-622239353920970654602540059533449390515756581400798826878050385205447381734035119224547532177703717249784620064968651623129070465626167458465804689",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": -0.03712698494323581
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "1005746334611005580976312263580770460126716628700539299127996190572383868702730796214902536335061395988546110466826745467393842572676337263",
+              "denominator": "16759759912428247745467074950345804958011239904489044646710468401105896243552821925483200076605462158640409231569633102555498733334511339562684383232",
+              "display": 6.00095908214766e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      },
+      "5e-06": {
+        "ordinary_reported": {
+          "h": 5e-06,
+          "derivative": -0.03712721081683412,
+          "analytic": -0.0371269850032454,
+          "error": -2.2581358872370005e-07,
+          "threshold": 3.71269850032454e-07,
+          "passed": true,
+          "endpoint_ULP_over_2h": 3.6379788070917124e-07,
+          "difference_against_full_normalized": -2.2581359211681917e-07,
+          "reported_target_and_EO_offsets_in_mixed_ledgers": true
+        },
+        "independent_centered": [
+          {
+            "reference": "fixedLambda_ideal",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-39439104587919182492375185930802942842887293501141845021355114538467148510259522317405086838486435068495750586032841503700651807265223819640945992253817205638178951787055348841504653",
+              "denominator": "1062275985633534197379176413104937254659186235454063846398888276400807119721704485478325004530458571337778658972493002030693158675305414478819039957533174703887662541670786438063456256",
+              "display": -0.03712698500324091
+            },
+            "error": {
+              "numerator": "118824521195183666652078230260845810329261746318380593162241674388704219275900851757518277191560556464248316948804117824512217605803393705843036928074748541493648124434518028634360099027901",
+              "denominator": "6270570637641398832245076456515091924245163041868089960206621280847240217980355222808189086492031176168781502515993546648290460002191476049967144495693298649977856144225323471674813608511460807278592",
+              "display": 1.894955468357153e-11
+            },
+            "threshold": 3.712698500324091e-07,
+            "passed": true
+          },
+          {
+            "reference": "public_retained",
+            "derivative": {
+              "numerator": "-155559838652262946372213869386294142995102685276986734912410456800069424934434906527605504546565986644415554032268106368231990021125420030260578805",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": -0.03712698498429136
+            },
+            "analytic": {
+              "numerator": "-125117691949949700264648857473182090968704145229174031199020418697",
+              "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+              "display": -0.0371269850032454
+            },
+            "error": {
+              "numerator": "79416300931172540741146270529029075104892128982236964283291468142169840454214077551585576751795949981110584154256963962129582477524956683",
+              "denominator": "4189939978107061936366768737586451239502809976122261161677617100276474060888205481370800019151365539660102307892408275638874683333627834890671095808",
+              "display": 1.8954042622598943e-11
+            },
+            "threshold": 3.71269850032454e-07,
+            "passed": true
+          }
+        ],
+        "production_callback": false,
+        "no_uniform_error_bound": true
+      }
+    },
+    "recorded_controls_passed": true,
+    "raw_kernel_diagnostic_only": true,
+    "assertions": {
+      "source_sha256": {
+        "document": "result",
+        "pointer": [
+          "source_map_sha256"
+        ]
+      },
+      "metric_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_metric_sha256"
+        ]
+      },
+      "geometry_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_geometry_sha256"
+        ]
+      },
+      "state_sha256": {
+        "document": "result",
+        "pointer": [
+          "new_state_sha256"
+        ]
+      },
+      "objective_sha256": {
+        "document": "result",
+        "pointer": [
+          "objective_identity"
+        ]
+      }
+    }
+  },
+  "six_NPZ_roles_deferred_unread": [
+    "workspace",
+    "original_hS",
+    "tracking_CI",
+    "recovered_point",
+    "recovered_CI",
+    "saved_gradient_metric"
+  ],
+  "historical_public_source_identity_sha256": "bef2f5d6b66d81efb0ce54ec8b2bd37c8f40a1855b07ed6ed3057912b79a50d3",
+  "current_public_source_identity_sha256": "75530458e6b2734cb4a309bad56e0102f44120a97cdc8c03e41b1890f886a7d2",
+  "public_map_defaultJSON_sha256": "d8ebff1e213feed82bd06cb16d85f698ecbb02eab0aaf5c7183302db698250b9",
+  "arrays_or_NPZ_bytes_reads": 0,
+  "numerical_imports_or_calls": 0,
+  "GPU_queries_JIT_calls": 0
+}

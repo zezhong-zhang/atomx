@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "reference_UID": [
+        1,
+        1,
+        0
+      ],
+      "screened_energy_Ha": -14067.52208345794,
+      "provisional_nuclear_energy_Ha": -14067.522136927037,
+      "screened_minus_nuclear_energy_Ha": 5.346909711079206e-05,
+      "screened_minus_nuclear_excitation_cm1": 0.0,
+      "comparator_overall_qualified": false,
+      "additive_correction": false
+    },
+    {
+      "label": "5d_5/2",
+      "reference_UID": [
+        5,
+        1,
+        0
+      ],
+      "screened_energy_Ha": -14067.4010253246,
+      "provisional_nuclear_energy_Ha": -14067.40017106361,
+      "screened_minus_nuclear_energy_Ha": -0.0008542609903088305,
+      "screened_minus_nuclear_excitation_cm1": -199.22372631365215,
+      "comparator_overall_qualified": false,
+      "additive_correction": false
+    },
+    {
+      "label": "5d_3/2",
+      "reference_UID": [
+        3,
+        1,
+        0
+      ],
+      "screened_energy_Ha": -14067.405029022495,
+      "provisional_nuclear_energy_Ha": -14067.404167115248,
+      "screened_minus_nuclear_energy_Ha": -0.0008619072468718514,
+      "screened_minus_nuclear_excitation_cm1": -200.90188565413337,
+      "comparator_overall_qualified": false,
+      "additive_correction": false
+    },
+    {
+      "label": "6p_3/2",
+      "reference_UID": [
+        3,
+        -1,
+        0
+      ],
+      "screened_energy_Ha": -14067.388306094716,
+      "provisional_nuclear_energy_Ha": -14067.388408176996,
+      "screened_minus_nuclear_energy_Ha": 0.00010208228013652842,
+      "screened_minus_nuclear_excitation_cm1": 10.669360423962644,
+      "comparator_overall_qualified": false,
+      "additive_correction": false
+    },
+    {
+      "label": "6p_1/2",
+      "reference_UID": [
+        1,
+        -1,
+        0
+      ],
+      "screened_energy_Ha": -14067.403702662501,
+      "provisional_nuclear_energy_Ha": -14067.403791477744,
+      "screened_minus_nuclear_energy_Ha": 8.881524263415486e-05,
+      "screened_minus_nuclear_excitation_cm1": 7.757582258847833,
+      "comparator_overall_qualified": false,
+      "additive_correction": false
+    }
+  ],
+  "same_original29_operator_model": true,
+  "inference": "Finite seed sensitivity only; prior nuclear late counter FAIL preserved, no convergence or missing-physics bound."
+}

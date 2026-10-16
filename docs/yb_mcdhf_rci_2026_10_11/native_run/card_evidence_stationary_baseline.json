@@ -1,0 +1,254 @@
+{
+  "method": "MCDHF -> RCI",
+  "computed_run": "nuclear_eol005_projected_increment",
+  "producer": "Atomx native MCDHFSolver and public ci_solve, frozen 353-file source epoch",
+  "stationarity": {
+    "converged": true,
+    "orbital_residual": 5.143009363125294e-08,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 3.447850250858113e-15,
+    "energy_tolerance": 1e-08,
+    "termination_reason": "converged",
+    "gradient_norm": 3.987031122325624e-07,
+    "residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "stable_energy_comparisons": 37,
+    "iterations": 68
+  },
+  "inputs": {
+    "contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/contract.json",
+      "sha256": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461"
+    },
+    "preflight": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/preflight.json",
+      "sha256": "b41e498133c5084bb3eb7208ae2702fb14da4accfa9c019e619748083dab3730"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json",
+      "sha256": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0"
+    },
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json",
+      "sha256": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b"
+    },
+    "diagnostics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/mcdhf_diagnostics.json",
+      "sha256": "9f7e45e34ea7d6b879365c18535a202333c4b300648fa4d6c6ef445e73626bf4"
+    },
+    "orbitals": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "CI_and_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/ci_arrays.npz",
+      "sha256": "8832bdddd490acf14b40b39386e5bf200d7126a49a355ac3a4e64ab7cc796a6e"
+    },
+    "line_search_trials": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/line_search_trials.json",
+      "sha256": "06a20eee39f9511fbdebf283227be1f115d579e7169b442aada03085bfe0b09f"
+    },
+    "verification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/verification.json",
+      "sha256": "a5b822d0f69829cfcf2eb3fd00dad6cab224900882ac32b3ab3ce09ce352bcf0"
+    },
+    "numerical_successor_spec": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/numerical_successor_spec.json",
+      "sha256": "a6f84bc12fe73c0f267dfcdf21e5306d5964f24de006ab21bfe2f8d0dffcb6a0"
+    },
+    "stationarity_replay": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json",
+      "sha256": "50f20c59136f2b49ff4c10d32a58cf214860a2da6affa8e10a829d411c69838e"
+    },
+    "stationarity_replay_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/contract.json",
+      "sha256": "4b29674efaa8eaeecf87b93c9cbd483838247ad66e78b79e9df0b77ef0d41665"
+    },
+    "independent_projected_API_replay": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/centered_API_projected_endpoint002/result.json",
+      "sha256": "f0e8fda711767a52b3d16583461aab734a2f234e6ffbf25a4ffb7a655f621e7d"
+    },
+    "independent_projected_API_verification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/centered_API_projected_endpoint002/verification.json",
+      "sha256": "0f75b3e78d42808e55ccf946fa9b4bac027ee2053714f929a538a88480b723b7"
+    },
+    "independent_projected_API_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/centered_API_projected_endpoint002/contract.json",
+      "sha256": "85edc0ab3573427cc0b38d85a22e42225a872678c6cb00a666ece0657aaa3c93"
+    },
+    "explicit_polynomial_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/linear_map_increment_endpoint/result.json",
+      "sha256": "58acbcc15c337493f7b54814167a534d0b53d36d5035071985de9aca51ae103b"
+    },
+    "explicit_polynomial_verification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/linear_map_increment_endpoint/verification.json",
+      "sha256": "076f495f6204ce92396795618242921967cabb67de5406123e72cb7df7d4281b"
+    },
+    "environment": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/environment.json",
+      "sha256": "86e7184e3808409eb1fc10bd78066ac26b205e1a0fda3c09d38e1658e09e427d"
+    },
+    "experimental_reference": {
+      "path": "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json",
+      "sha256": "140af5746c837f40b607b9d2447ca57ce24d372dac527af19b160134006250c4"
+    }
+  },
+  "CSFs": 5,
+  "radial_orbitals": 24,
+  "electrons": 69,
+  "state_average": "equal fixed five J/parity resolved roots in common orthonormal orbitals",
+  "Hamiltonian": "Dirac-Coulomb optimized, complete static Breit in same-orbital RCI; Fermi nucleus default A=175 radius, nuclear fixed no-pair projector",
+  "correlation_scope": "Five CSFs in five different symmetry blocks: no within-block correlation mixing or core-hole excitations. The 69-electron core participates in common radial optimization but core-valence dynamical correlation is absent.",
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14053.335076971707,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": null,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14053.226830789828,
+      "computed_cm1": 23757.290864297924,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 796.4908642979244,
+      "relative_error": 0.03468915997255864,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14053.224697260956,
+      "computed_cm1": 24225.546327190375,
+      "experimental_cm1": 24332.69,
+      "error_cm1": -107.14367280962324,
+      "relative_error": -0.004403281051524646,
+      "gate_pass": true,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14053.221243320524,
+      "computed_cm1": 24983.598630128137,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -2078.2213698718624,
+      "relative_error": -0.07679532898644151,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14053.20841505022,
+      "computed_cm1": 27799.078526224763,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -2593.151473775237,
+      "relative_error": -0.08532284316666584,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    }
+  ],
+  "rows_dc": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14067.483362718069,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": null,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14067.375251204452,
+      "computed_cm1": 23727.734597131453,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 766.9345971314542,
+      "relative_error": 0.033401910958305206,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14067.372918252995,
+      "computed_cm1": 24239.75825814294,
+      "experimental_cm1": 24332.69,
+      "error_cm1": -92.9317418570572,
+      "relative_error": -0.0038192136527879657,
+      "gate_pass": true,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14067.369366564992,
+      "computed_cm1": 25019.26367341187,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -2042.5563265881283,
+      "relative_error": -0.07547741898320691,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14067.356403046417,
+      "computed_cm1": 27864.427133808735,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -2527.802866191265,
+      "relative_error": -0.08317266834948488,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    }
+  ],
+  "production_certified": true,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "fitted_corrections": false,
+  "status": "stationary_five_CSF_meanfield_baseline_only",
+  "next_action": "Compare a prospectively bounded explicit 68-CSF 4f-hole RCI discriminator on the same stationary 005 orbitals with complete target-character tracking; this is not 68-CSF MCDHF stationarity certification. Quantify physical correlation effects before expanding radial cutoffs.",
+  "card_summary": "Yb+ 原生五态 MCDHF 驻值门已闭合：从原初始化完整计算68步，24径向轨道共同优化；原metric不变，驻值残差5.1430e-8 <1e-7、能量误差估计3.4479e-15 Ha <1e-8，独立原metric重放通过。该5-CSF数值基线合格，CV相关与实验精度仍未合格：同轨道静态Breit RCI的D3/D5/P1/P3相对NIST偏差 +796.49/-107.14/-2078.22/-2593.15 cm^-1。下一步在同一驻值轨道上做显式4f空穴68-CSF RCI物理判别并跟踪态性，不宣称最高精度。",
+  "previous_evidence_preserved": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stable_delta.json",
+    "sha256": "3960e699f54a1674fbb42865e3f90e57c64d4fe577f48c6b3cc42f700b5feb3d"
+  },
+  "numerical_change_only": true,
+  "production_certification_scope": "Declared five-CSF common-radial MCDHF numerical stationarity and same-orbital RCI only; no dynamical core-valence correlation completeness, isotope resolved experiment, radial convergence or highest-accuracy certification.",
+  "resource_observation": {
+    "solve_seconds_uncontrolled": 132.34016119199805,
+    "RCI_seconds_uncontrolled": 1.645414164988324,
+    "peak_RSS_MiB": 860.29296875,
+    "controlled_performance": false
+  }
+}

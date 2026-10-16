@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "PASS": true,
+      "limit": 67108864,
+      "name": "baseline_all_decoded_bytes",
+      "observed": 4128312
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_one_body",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_Fock",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_complete_packed_ERI",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 1e-14,
+      "name": "fixed_phase_unitarity",
+      "observed": 4.440892098500626e-16
+    }
+  ],
+  "contract_sha256": "6279c56a95097c37f0da8d50b57623acce2a7be018b70eb9c4f02c5195d17163",
+  "counts": {
+    "complete_baseline_archive_decoded": 1,
+    "native_complex_CC_calls": 0
+  },
+  "driver_sha256": "2f7961dc99b09c736938a43ef218b13d03937847102d82b9555bbecf4c94f171",
+  "elapsed_seconds": 0.27162949900957756,
+  "failure": {
+    "message": "one-body and Fock operators must be Hermitian",
+    "type": "ValueError"
+  },
+  "host": {
+    "affinity": [
+      28
+    ],
+    "available_bytes": 96590028800,
+    "load": [
+      0.3642578125,
+      0.26025390625,
+      0.2685546875
+    ]
+  },
+  "peak_RSS_bytes": 159715328,
+  "phases_seconds": {},
+  "scope": "Fixed diagonal complex orbital phases of the exact same N3/seven-spinor real two-body toy and four frozen roots. All35 core/35 attachment determinants, all34 R rows, nonzeroT3 and omittedR4 remain. No real-only native complex solver call, backend/parser/shared-source change, new physical model or atomic claim.",
+  "status": "FAILED_preserved"
+}

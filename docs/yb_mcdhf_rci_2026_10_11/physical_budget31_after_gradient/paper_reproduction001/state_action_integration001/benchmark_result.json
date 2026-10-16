@@ -1,0 +1,152 @@
+{
+  "status": "passed",
+  "measured_seconds": {
+    "dense": [
+      0.015667215979192406,
+      0.015745554002933204,
+      0.015764648996992037,
+      0.016222352016484365,
+      0.01613785300287418
+    ],
+    "state_action": [
+      0.36748261799220927,
+      0.36715394898783416,
+      0.3678164869779721,
+      0.36968981599784456,
+      0.3713448139897082
+    ]
+  },
+  "medians_seconds": {
+    "dense": 0.015764648996992037,
+    "state_action": 0.3678164869779721
+  },
+  "tracemalloc_peak_bytes": {
+    "dense": 880527,
+    "state_action": 239058
+  },
+  "complete_comparison_errors": [
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 0.0,
+      "projected_operator_Ha": 0.0,
+      "attachment_energies_Ha": 0.0,
+      "physical_projectors": 0.0,
+      "full_residuals_Ha": 0.0
+    },
+    {
+      "core_energy_Ha": 0.0,
+      "amplitudes": 1.249000902703301e-16,
+      "projected_operator_Ha": 1.1102230246251565e-16,
+      "attachment_energies_Ha": 1.0658141036401503e-14,
+      "physical_projectors": 3.0953017926549364e-13,
+      "full_residuals_Ha": 1.1025902413308586e-14
+    }
+  ],
+  "generator_bytes": {
+    "dense": 666400,
+    "state_action": 0
+  },
+  "load_end": [
+    0.39990234375,
+    0.28955078125,
+    0.296875
+  ],
+  "projected_residual_max_Ha": 6.217248937900877e-15,
+  "full_residual_max_Ha": 0.12387130834331994,
+  "source_sha256": {
+    "src/atomx/numerics/cluster_actions.py": "1f33a5d1a2deba979324eb27679b41412914ce0539960d41e9b4ff2cae3d13b6",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "src/atomx/methods/coupled_cluster.py": "8779fc7b74482e91e9a2e974b4eac559c19da25703eba9bdb33eea48fd17bdf8",
+    "src/atomx/methods/eom_attachment.py": "2f892865e5b9310b6c272951a024bb37a2e7bdb5618ea0fbafeb6247847d7128",
+    "tests/test_eom_attachment.py": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2",
+    "tests/test_cc_state_action.py": "ddb46bbd0843c703aeee0c65435008ee1abc48e7304eeb6fffc4663738df8571"
+  }
+}

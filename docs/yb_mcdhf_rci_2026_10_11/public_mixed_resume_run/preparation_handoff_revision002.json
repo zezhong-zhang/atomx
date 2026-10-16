@@ -1,0 +1,31 @@
+{
+  "prepared_revision": 2,
+  "status": "preparation frozen; root has separately sealed runtime source; this owner has started no scientific solve",
+  "final_owned_files_sha256": {
+    "run.py": "52b045f3d71c17d55080dc8b9a6a40c760bd289bcb080cb6fb8b0c887d42654d",
+    "verify_endpoint.py": "9fb44a1b956adf6d42fcdd7481014fb0d7d8b80d1fe2d916364973165b54d407",
+    "contract.json": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+    "verify_preparation.py": "e3fa62558cd298f7baed9a616afb45997c7cafeed77993c199a8d9556cd6848e",
+    "verify_endpoint_guards.py": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+    "endpoint_guard_verification.json": "0508d5971897b704ca71a52b4bf7816cc60333842cb2de086cd31f3cfa776886",
+    "README.md": "e900ea6b429f170aa9ed3c26f48eab3aece83ba7d8e55c9811e7c7183b6f3e2a",
+    "preflight.json": "6667855b89a9f32fa760a7644d4c1ccbcf0d7630e6da54094f93568d82984025",
+    "preflight.log": "500f677aa905b218106c200ab0d7aa3b33b4b26819d2445bffda2f338eec9055",
+    "preparation_verification.json": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+    "preparation_verification_revision001.json": "8b70993076db5e407b0c160c422d90e6e7a8728640f096c844ab6a6706784de7",
+    "preparation_verification_revision002.json": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+    "source_identity.json": "13b43b3ec35f8e1ee42912fc213f53fc905b282ca168bf158598bd81af32978e"
+  },
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "preparation_checks_count": 41,
+  "synthetic_guard_checks_count": 49,
+  "baseline_full_gradient_calls": 2,
+  "max_optimizer_full_gradient_calls": 162,
+  "max_total_run_full_gradient_calls": 164,
+  "separate_endpoint_replay_max_full_gradient_calls": 1,
+  "checkpoint_guard_scope": "accepted complete boolean/source/preparation/execution/frozen inputs against immutable files; canonical new objective rebuilt from actual source CSF order, physical target identities, source map, nucleus/DC/radial/reference archive SHA; saved full H eigenpair residual+Gram without degenerate saved-column equality",
+  "scope": "41 preparation gates and49 synthetic checks; no real endpoint verification and no new physical Hamiltonian/CI/gradient/optimizer evaluation by this revision",
+  "previous_preparation_proof_preserved_sha256": "8b70993076db5e407b0c160c422d90e6e7a8728640f096c844ab6a6706784de7",
+  "root_runtime_source_seal_is_later_than_preparation_proof": true,
+  "prepared_files_frozen_no_further_edits": true
+}

@@ -1,0 +1,5 @@
+{
+  "status": "failed_verifier_schema",
+  "reason": "CLI mget provides flattened card text in message.content; verifier expected body.content. Message/chat/own-bot checks passed.",
+  "fix": "Read actual content field. No message/card/evidence mutation or resend."
+}

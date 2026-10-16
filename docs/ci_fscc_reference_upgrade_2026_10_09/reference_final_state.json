@@ -1,0 +1,208 @@
+[
+  {
+    "name": "pCI",
+    "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI",
+    "revision": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "tracked_changes": "M src/conf_init.f90",
+    "build": {
+      "code": "pCI",
+      "commands": [
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "-S",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI",
+          "-B",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build",
+          "-DCMAKE_Fortran_COMPILER=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+          "-DCMAKE_PREFIX_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr",
+          "-DCMAKE_LIBRARY_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DUSE_DP_INTEGRALS=ON"
+        ],
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "--build",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build",
+          "--parallel",
+          "1"
+        ]
+      ],
+      "workers": 1,
+      "stages": [
+        0,
+        0
+      ],
+      "elapsed_seconds": 6.436500885058194,
+      "success": true
+    },
+    "binaries": [
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/add",
+        "bytes": 61688,
+        "sha256": "9d431bdd2d5d57934f5478403ef6487e2e067717d9127b8c1960f10053b853bb"
+      },
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/bass",
+        "bytes": 264264,
+        "sha256": "abb1cbd6c560ca7ad37cff95755212447cb4d57f475602538193364b2e3930e6"
+      },
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/hfd",
+        "bytes": 230600,
+        "sha256": "d31688c7aefae8a7687c08295bba65cda1c5c350364601c99aefac2a5c32f596"
+      },
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/ine",
+        "bytes": 238264,
+        "sha256": "6656231c16c873545ac4adc205ab0a95e83226ba1ba182776c0d28664b3037fa"
+      },
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/pol",
+        "bytes": 205136,
+        "sha256": "e2a386962ff8b3b2390df36d36881120237398a9cde1b30b5469f76451fac321"
+      }
+    ],
+    "binary_dependencies": {
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/add": "\tlinux-vdso.so.1 (0x000070c669c1d000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x000070c669ac7000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000070c669800000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000070c669a99000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000070c669c1f000)\n",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/bass": "\tlinux-vdso.so.1 (0x0000731c74401000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x0000731c73cc5000)\n\tlibmvec.so.1 => /usr/lib/x86_64-linux-gnu/libmvec.so.1 (0x0000731c73bca000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000731c73b9c000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x0000731c73800000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000731c74403000)\n",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/hfd": "\tlinux-vdso.so.1 (0x00007d13da144000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007d13da001000)\n\tlibmvec.so.1 => /usr/lib/x86_64-linux-gnu/libmvec.so.1 (0x00007d13d9905000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007d13d9fd3000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007d13d9600000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007d13da146000)\n",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/ine": "\tlinux-vdso.so.1 (0x0000714e3ab45000)\n\tlibopenblas.so.0 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so.0 (0x0000714e387a0000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x0000714e38665000)\n\tlibmvec.so.1 => /usr/lib/x86_64-linux-gnu/libmvec.so.1 (0x0000714e3856a000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000714e3853c000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x0000714e38200000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000714e3ab47000)\n\tlibgfortran.so.5 => not found\n",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build/src/pol": "\tlinux-vdso.so.1 (0x00007f02b06f7000)\n\tlibopenblas.so.0 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so.0 (0x00007f02ae358000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007f02ae21d000)\n\tlibmvec.so.1 => /usr/lib/x86_64-linux-gnu/libmvec.so.1 (0x00007f02ae122000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f02ae0f4000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007f02ade00000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f02b06f9000)\n\tlibgfortran.so.5 => not found\n"
+    }
+  },
+  {
+    "name": "AMBiT",
+    "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT",
+    "revision": "fe1115aaed97b340e1f4d625d451b165c5bcd7a5",
+    "tracked_changes": "",
+    "build": {
+      "code": "AMBiT",
+      "commands": [
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "-S",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT",
+          "-B",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build",
+          "-DCMAKE_Fortran_COMPILER=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+          "-DCMAKE_PREFIX_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr",
+          "-DCMAKE_LIBRARY_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DUSE_OPENBLAS=ON",
+          "-DUSE_OPENMP=ON",
+          "-DBUILD_TESTING=OFF"
+        ],
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "--build",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build",
+          "--parallel",
+          "1"
+        ]
+      ],
+      "workers": 1,
+      "stages": [
+        0,
+        0
+      ],
+      "elapsed_seconds": 4.084218631964177,
+      "success": true
+    },
+    "binaries": [
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+        "bytes": 2734704,
+        "sha256": "3cc9dec7de880f6a0609599887c55a5960781b4f8e451c6d2f83052a75746fb6"
+      }
+    ],
+    "binary_dependencies": {
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit": "\tlinux-vdso.so.1 (0x000079e76fd5b000)\n\tlibopenblas.so.0 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so.0 (0x000079e76d698000)\n\tlibgomp.so.1 => /usr/lib/x86_64-linux-gnu/libgomp.so.1 (0x000079e76fcdf000)\n\tlibabsl_raw_hash_set.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_raw_hash_set.so.20260107 (0x000079e76fccd000)\n\tlibabsl_raw_logging_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_raw_logging_internal.so.20260107 (0x000079e76fcc8000)\n\tlibgsl.so.28 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libgsl.so.28 (0x000079e76d200000)\n\tlibstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x000079e76ce00000)\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x000079e76d572000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000079e76fc98000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000079e76ca00000)\n\tlibmvec.so.1 => /usr/lib/x86_64-linux-gnu/libmvec.so.1 (0x000079e76d105000)\n\tlibgfortran.so.5 => not found\n\tlibabsl_hashtablez_sampler.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_hashtablez_sampler.so.20260107 (0x000079e76fc90000)\n\tlibabsl_hash.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_hash.so.20260107 (0x000079e76fc8b000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000079e76fd5d000)\n\tlibgslcblas.so.0 => not found\n\tlibabsl_synchronization.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_synchronization.so.20260107 (0x000079e76fc75000)\n\tlibabsl_time.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_time.so.20260107 (0x000079e76fc63000)\n\tlibabsl_stacktrace.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_stacktrace.so.20260107 (0x000079e76fc5d000)\n\tlibabsl_graphcycles_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_graphcycles_internal.so.20260107 (0x000079e76fc54000)\n\tlibabsl_kernel_timeout_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_kernel_timeout_internal.so.20260107 (0x000079e76fc4f000)\n\tlibabsl_symbolize.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_symbolize.so.20260107 (0x000079e76fc45000)\n\tlibabsl_tracing_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_tracing_internal.so.20260107 (0x000079e76fc40000)\n\tlibabsl_malloc_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_malloc_internal.so.20260107 (0x000079e76fc39000)\n\tlibabsl_base.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_base.so.20260107 (0x000079e76f9f9000)\n\tlibabsl_spinlock_wait.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_spinlock_wait.so.20260107 (0x000079e76fc34000)\n\tlibabsl_strings.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_strings.so.20260107 (0x000079e76d54b000)\n\tlibabsl_time_zone.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_time_zone.so.20260107 (0x000079e76d530000)\n\tlibabsl_borrowed_fixup_buffer.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_borrowed_fixup_buffer.so.20260107 (0x000079e76d513000)\n\tlibabsl_debugging_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_debugging_internal.so.20260107 (0x000079e76d50c000)\n\tlibabsl_demangle_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_demangle_internal.so.20260107 (0x000079e76d4fe000)\n\tlibabsl_strings_internal.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_strings_internal.so.20260107 (0x000079e76d4f6000)\n\tlibabsl_throw_delegate.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_throw_delegate.so.20260107 (0x000079e76d4f0000)\n\tlibabsl_demangle_rust.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_demangle_rust.so.20260107 (0x000079e76d4e9000)\n\tlibabsl_decode_rust_punycode.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_decode_rust_punycode.so.20260107 (0x000079e76d4e4000)\n\tlibabsl_utf8_for_code_point.so.20260107 => /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/libabsl_utf8_for_code_point.so.20260107 (0x000079e76d0fe000)\n"
+    }
+  },
+  {
+    "name": "EXP-T",
+    "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T",
+    "revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+    "tracked_changes": "M src/rcc/engine/mult.c",
+    "build": {
+      "code": "EXP-T",
+      "commands": [
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "-S",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T",
+          "-B",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build",
+          "-DCMAKE_Fortran_COMPILER=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+          "-DCMAKE_PREFIX_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr",
+          "-DCMAKE_LIBRARY_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_Fortran_FLAGS=-fallow-argument-mismatch",
+          "-DCMAKE_C_FLAGS=",
+          "-DBUILD_TESTING=OFF",
+          "-DTARGET=HASWELL"
+        ],
+        [
+          "uv",
+          "run",
+          "--no-project",
+          "--with",
+          "cmake==3.31.6",
+          "cmake",
+          "--build",
+          "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build",
+          "--parallel",
+          "3"
+        ]
+      ],
+      "workers": 3,
+      "stages": [
+        0,
+        0
+      ],
+      "elapsed_seconds": 122.92287390492857,
+      "success": true
+    },
+    "binaries": [
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/expt.x",
+        "bytes": 2581384,
+        "sha256": "a6a053e33eb648445bba2a12a42397620d9ba6269eeb256f8a4fe30242fa799c"
+      },
+      {
+        "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/expt_diatomic.x",
+        "bytes": 619664,
+        "sha256": "406db47fb275efe3bde2018e2792173c7e850c1f28d65b8f2dde259c7cd3f9bd"
+      }
+    ],
+    "binary_dependencies": {
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/expt.x": "\tlinux-vdso.so.1 (0x00007e4a45967000)\n\tlibgfortran.so.5 => not found\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007e4a454da000)\n\tlibgomp.so.1 => /usr/lib/x86_64-linux-gnu/libgomp.so.1 (0x00007e4a4547b000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007e4a4544d000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007e4a45200000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007e4a45969000)\n",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/expt_diatomic.x": "\tlinux-vdso.so.1 (0x000075cb8b786000)\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x000075cb8b5b2000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x000075cb8b200000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000075cb8b788000)\n"
+    }
+  }
+]

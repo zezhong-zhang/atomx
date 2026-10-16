@@ -1,0 +1,6 @@
+{
+  "status": "rejected retained full scientific gate",
+  "max_error_Ha": 6.227713806284299e-05,
+  "cause": "New multiple-core diagnostic expander chose ai<=bi but plan stores ai>=bi. It omitted all mixed-core numerators. Source and full signed failure tensors retained; no gate changed.",
+  "replacement": "valence_fock_control003 replays fixed lower-triangular expander with complete native Fock and independent fermion gates"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "outer_wall_stop": false,
+  "elapsed_uncontrolled_s": 50.719402495989925,
+  "source_and_inputs_unchanged": true,
+  "frozen_guard_files": 400,
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/run.py",
+    "--execute",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/execution_binding.json"
+  ],
+  "guardian_sha256": "2a537fbd07b4ead5d60548898a7c14c0913a2524045926b38cf2c782b44f41d2",
+  "root_review_seal_sha256": "3304ab2a95efe820a5cdbe73b0702f6b90a1e7b14581d60f037767ee37a62948",
+  "execution_binding_sha256": "16740baddfced92535a7c066ed4188f32b6f0528e2c30e0618c0677148d4e1dd",
+  "execution_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result_sha256": "36296ce9c12573269e9e0b0e9b58dfb5180b72145796f86d20fb43a1ac9727b5",
+  "failure_sha256": null,
+  "controlled_timing": false,
+  "ordinary_FD_failures_preserved": true,
+  "physical_stationarity_and_experimental_gates_upgraded": false
+}

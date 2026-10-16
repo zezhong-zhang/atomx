@@ -1,0 +1,412 @@
+{
+  "GPU_speedup_claim": false,
+  "actual_calls": {
+    "CI": 14,
+    "H": 21,
+    "gradient": 14
+  },
+  "candidate_source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "checks": [
+    {
+      "name": "pair1 complete same physics",
+      "passed": true
+    },
+    {
+      "name": "pair2 complete same physics",
+      "passed": true
+    },
+    {
+      "name": "pair3 complete same physics",
+      "passed": true
+    },
+    {
+      "name": "pair4 complete same physics",
+      "passed": true
+    },
+    {
+      "name": "pair5 complete same physics",
+      "passed": true
+    },
+    {
+      "name": "all14 declared chains exact budgets",
+      "passed": true
+    },
+    {
+      "name": "all worker runtime caps",
+      "passed": true
+    }
+  ],
+  "children": [
+    {
+      "after_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.12357711791992,
+        "load1_per_available_cpu": 0.290863037109375,
+        "load_average": [
+          9.3076171875,
+          9.3671875,
+          9.37060546875
+        ]
+      },
+      "before_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.45039749145508,
+        "load1_per_available_cpu": 0.2869110107421875,
+        "load_average": [
+          9.18115234375,
+          9.34521484375,
+          9.36328125
+        ]
+      },
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/run.py",
+        "worker",
+        "--kind",
+        "ordinary",
+        "--execution-contract",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/execution_contract.json",
+        "--output-dir",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/actual/ordinary"
+      ],
+      "exit_code": 0,
+      "kind": "ordinary",
+      "observed_worker_process_seconds": 11.236816928954795,
+      "process_cold_elapsed_seconds": 11.236816928954795
+    },
+    {
+      "after_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.18647384643555,
+        "load1_per_available_cpu": 0.2942047119140625,
+        "load_average": [
+          9.41455078125,
+          9.388671875,
+          9.37744140625
+        ]
+      },
+      "before_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.12358093261719,
+        "load1_per_available_cpu": 0.290863037109375,
+        "load_average": [
+          9.3076171875,
+          9.3671875,
+          9.37060546875
+        ]
+      },
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/run.py",
+        "worker",
+        "--kind",
+        "retained",
+        "--execution-contract",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/execution_contract.json",
+        "--output-dir",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/actual/retained"
+      ],
+      "exit_code": 0,
+      "kind": "retained",
+      "observed_worker_process_seconds": 10.837857713922858,
+      "process_cold_elapsed_seconds": 10.837857713922858
+    },
+    {
+      "after_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.38592529296875,
+        "load1_per_available_cpu": 0.310821533203125,
+        "load_average": [
+          9.9462890625,
+          9.52197265625,
+          9.4228515625
+        ]
+      },
+      "before_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.18673324584961,
+        "load1_per_available_cpu": 0.2942047119140625,
+        "load_average": [
+          9.41455078125,
+          9.388671875,
+          9.37744140625
+        ]
+      },
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/run.py",
+        "worker",
+        "--kind",
+        "warm",
+        "--execution-contract",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/execution_contract.json",
+        "--output-dir",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/actual/warm"
+      ],
+      "exit_code": 0,
+      "kind": "warm",
+      "observed_worker_process_seconds": 33.6656039650552,
+      "process_cold_elapsed_seconds": null
+    }
+  ],
+  "cold_scope": "one fresh process per mode with its own initially empty Numba cache; OS filesystem caches not flushed; cold observations only",
+  "contract_sha256": "877b4a7c309ce68641b1c9533466c1c827c2bb6b57a1961f84202527401442c1",
+  "controlled_admission_passed": true,
+  "controlled_warm_chain_speedup_supported": true,
+  "execution_contract_sha256": "8e35696ca3ad583087460aa566039a0dfac62b0d121ea8d1beb557797c8adc04",
+  "median_warm_ratio": 1.242593810757533,
+  "observed_panel_seconds": 55.92856850591488,
+  "optimizer_calls": 0,
+  "original_stationarity_passed": false,
+  "prerequisite_qualification_sha256": "aa9fcee094905e8529a69b4643004600ba408f0d73e59fae8fbbadad25f22473",
+  "scientific_parity_passed": true,
+  "scope": "Same native531 accepted320 point: energy trial -> pre-gradient complete eigenpair gate -> accepted full signed gradient -> physical tracker and callback H -> complete original-metric validation -> identical compressed NPZ fsync/readback and JSON manifest. Warm chain ratio only; separate process-cold observations.",
+  "stopping_condition": null,
+  "warm_pairs": [
+    {
+      "ordinary_over_retained": 1.2474900258999337,
+      "ordinary_seconds": 2.2255880038719624,
+      "pair": 1,
+      "retained_seconds": 1.7840527440421283
+    },
+    {
+      "ordinary_over_retained": 1.2988454921429593,
+      "ordinary_seconds": 2.209006635006517,
+      "pair": 2,
+      "retained_seconds": 1.7007462768815458
+    },
+    {
+      "ordinary_over_retained": 1.2209513004057109,
+      "ordinary_seconds": 2.117228878196329,
+      "pair": 3,
+      "retained_seconds": 1.7340813491027802
+    },
+    {
+      "ordinary_over_retained": 1.242593810757533,
+      "ordinary_seconds": 2.217375000938773,
+      "pair": 4,
+      "retained_seconds": 1.7844729160424322
+    },
+    {
+      "ordinary_over_retained": 1.1967198705054731,
+      "ordinary_seconds": 2.184541934868321,
+      "pair": 5,
+      "retained_seconds": 1.8254413490649313
+    }
+  ],
+  "warm_ratio_range": [
+    1.1967198705054731,
+    1.2988454921429593
+  ],
+  "whole_optimizer_speedup_claim": false
+}

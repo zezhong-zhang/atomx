@@ -1,0 +1,261 @@
+{
+  "pass_": true,
+  "saved_array_replay_only": true,
+  "new_orbital_or_amplitude_solves": 0,
+  "native_API_calls": 0,
+  "representation_only_view_not_a_CoreSD_result": true,
+  "magnitudes": {
+    "source_max_Ha": 2.710201983608294e-05,
+    "first_Born_wave_max": 8.61974543376926e-06,
+    "full_homogeneous_commutator_max_Ha": 3.8160405245508565e-05,
+    "diagonal_Fock_commutator_max_Ha": 2.7102019836082994e-05,
+    "interaction_only_commutator_max_Ha": 1.105838540942557e-05,
+    "full_affine_action_max_Ha": 1.1058385409425625e-05,
+    "native_source_D_Born_roundoff_max_Ha": 3.3881317890172014e-21,
+    "lifted_D_Born_roundoff_max_Ha": 1.694065894508601e-21
+  },
+  "errors": {
+    "full_affine_action_error_Ha": 3.6428981237276135e-17,
+    "full_homogeneous_action_error_Ha": 1.294266343404571e-18,
+    "interaction_only_action_error_Ha": 1.3738874404464751e-18
+  },
+  "relative_errors": {
+    "full_affine_relative_error": 3.2942405141916884e-12,
+    "interaction_only_relative_error": 1.2423942461577146e-13,
+    "source_relative_error": 1.3441504808808401e-12,
+    "first_Born_relative_error": 2.17998739561308e-12,
+    "MBPT2_relative_error": 5.343228216208781e-15
+  },
+  "H_operator_roundoff_scale_Ha": 2.85751253939756e-14,
+  "branch_signals": {
+    "((-2,), (-1,))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-2,), (1,))": {
+      "source_max_Ha": 8.131516293641283e-20,
+      "interaction_action_max_Ha": 9.564275832644382e-25,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": -1.3119144967413534e-38
+    },
+    "((-2, -2), (-1, -1))": {
+      "source_max_Ha": 1.4674864277968902e-05,
+      "interaction_action_max_Ha": 9.655386281184185e-06,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 6,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -2.5298718870241e-10
+    },
+    "((-2, -2), (-1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 24,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-2, -2), (1, 1))": {
+      "source_max_Ha": 7.422286559109936e-07,
+      "interaction_action_max_Ha": 7.444136397899427e-07,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 6,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -6.450755165184927e-13
+    },
+    "((1,), (-1,))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 4,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((1,), (1,))": {
+      "source_max_Ha": 2.0878183817213403e-10,
+      "interaction_action_max_Ha": 2.7761652270394806e-08,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 4,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -1.015352866866716e-19
+    },
+    "((-2, 1), (-1, -1))": {
+      "source_max_Ha": 1.2705494208814505e-21,
+      "interaction_action_max_Ha": 1.226424505080575e-21,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": -1.891303894334506e-42
+    },
+    "((-2, 1), (-1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 32,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-2, 1), (1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 1.4517017773036295e-22,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((1, 1), (-1, -1))": {
+      "source_max_Ha": 1.458891793948013e-05,
+      "interaction_action_max_Ha": 9.626813937629204e-06,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 1,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -1.2434415153351258e-10
+    },
+    "((1, 1), (-1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 4,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((1, 1), (1, 1))": {
+      "source_max_Ha": 4.10528017688538e-06,
+      "interaction_action_max_Ha": 2.196261491060793e-06,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 1,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -9.81425148111933e-12
+    },
+    "((-1,), (-1,))": {
+      "source_max_Ha": 4.895196574483673e-10,
+      "interaction_action_max_Ha": 5.709235583593944e-08,
+      "occupied_p": false,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -2.5550412655260756e-19
+    },
+    "((-1,), (1,))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": false,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-2, -1), (-1, -1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 16,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-2, -1), (-1, 1))": {
+      "source_max_Ha": 2.406445237892344e-06,
+      "interaction_action_max_Ha": 1.2944487635989597e-06,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 64,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -8.36744824942483e-12
+    },
+    "((-2, -1), (1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": true,
+      "complete_components": 16,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-1, 1), (-1, -1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-1, 1), (-1, 1))": {
+      "source_max_Ha": 9.18341506043437e-06,
+      "interaction_action_max_Ha": 2.6845464051017168e-06,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 32,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -1.0918696113436108e-10
+    },
+    "((-1, 1), (1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": true,
+      "mixed_j_holes": false,
+      "complete_components": 8,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-1, -1), (-1, -1))": {
+      "source_max_Ha": 2.710201983608294e-05,
+      "interaction_action_max_Ha": 1.105838540942557e-05,
+      "occupied_p": false,
+      "mixed_j_holes": false,
+      "complete_components": 6,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -1.9083916013944387e-10
+    },
+    "((-1, -1), (-1, 1))": {
+      "source_max_Ha": 0.0,
+      "interaction_action_max_Ha": 0.0,
+      "occupied_p": false,
+      "mixed_j_holes": false,
+      "complete_components": 24,
+      "source_above_H_roundoff_scale": false,
+      "MBPT2_Ha": 0.0
+    },
+    "((-1, -1), (1, 1))": {
+      "source_max_Ha": 1.3152024334182398e-06,
+      "interaction_action_max_Ha": 1.004345511881594e-06,
+      "occupied_p": false,
+      "mixed_j_holes": false,
+      "complete_components": 6,
+      "source_above_H_roundoff_scale": true,
+      "MBPT2_Ha": -4.569329557775109e-13
+    }
+  },
+  "interpretation": "Full affine error includes source/diagonal cancellation; interaction-only K-D removes diagonal Fock using exact saved Born direction plus lifted floating division correction. No vector components discarded.",
+  "full_arbitrary_rho_domain_derived": false,
+  "scope": "Saved zero/Born coefficient topology only",
+  "inputs_sha256": {
+    "arrays.npz": "b655f2fb1da242140349cc003ce13f9e1b8d1bbd057a81195286762296ea46c8",
+    "result.json": "827c9091d2a19adbb35923c706f14248aa1d6ec4e0d45f88aa3f8f3461c36a7a",
+    "coordinates.json": "4bc545e7d8b3b70abe5821803ec0ab62ed16f8ac1f393e680d7c15ad23fb5df7",
+    "native_admission.json": "a144a9439eadff182f45592ba3ff02c6126d939de3d0338edb6b30a4fc58422c",
+    "source/src/atomx/methods/monovalent_sd.py": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751",
+    "source/tests/test_monovalent_sd.py": "ffc724ea64578620025251ab200a1c3232cfe55dab69afdd70d5c265e98adeba"
+  },
+  "signal_replay_sha256": "b1de0d601fb966c55f0d671e28b199f63fa19f2c3ca2a57cc5913b09d13fc1f6",
+  "signal_arrays_sha256": "1b22ca7b4b425f27b5796a90fab3eb5dbe466af67742b3d81798535b57df2ea7"
+}

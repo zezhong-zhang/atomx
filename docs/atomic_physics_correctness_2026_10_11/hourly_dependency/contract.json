@@ -1,0 +1,31 @@
+{
+  "hypothesis": "An explicit current norm producer allows unchanged full-state NIST gates to consume a fresh same-H whole-array norm proof after a source identity update. Old historical norm remains the CLI default and its stale-source rejection remains valid.",
+  "fixed": "Original five roots, all 28,218,500 core coordinates, all18M, physical identities, original1percent gates; no roots or physical models changed.",
+  "owned_mutations": [
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_registry.json"
+  ],
+  "before_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py": "9f2c61dcf17dafe13dcc1109080ff3010061fc9f3d783a983d161f65a124b6a4",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_registry.json": "f4252e03c22adbb4dbcd4460eece7dc80f7633b0db732a37e0417f2b7c5f1ed5"
+  },
+  "selected_norm_run": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe",
+  "selected_norm_proof_sha256": {
+    "resource.json": "4eed756e00f5bf137e4e4c84af7956df3fdf8eac88cdbcd465bb933ec6417299",
+    "fresh_finite_anchor.json": "0d967f73a8ca70aa9a8838bedb6c12e66110a788558472f10287112de223fe09",
+    "result.json": "2890e388bbb3714c7148827db0459f2fd35268f5f17e27365278714cc74b0349",
+    "progress.json": "13bdb1207708a0b35bb03cecfae2919e9780426bfbf8b2771fa6e78afe9b6a33",
+    "source_and_input_postcheck.json": "9029349d50347df5cab642cf6bd9988f4410b597d0cdcb5f07c63beb5b647e67",
+    "input_sha256.json": "ed104c4e22e589b190de4d3cbff1d85967dc5adf06f5fda50759eed7ed417e13",
+    "source_sha256.json": "24c6166c8e49efcc7c156ae623ddc0d12b6cd2ae0fbc685ba6d119e42f5960f4",
+    "contract.json": "551ba20765ccafa1faa053a13ef58165bf5bbf70102b4481f8b793a4932edc5b"
+  },
+  "acceptance": "Current norm source/input hashes and original root/fullstate gates all pass; NIST scientific accuracy failures stay failed; only NIST arguments/input_files change in registry.",
+  "limits": {
+    "address_bytes": 4294967296,
+    "timeout_s": 120,
+    "threads": 1
+  },
+  "stop": "Reject on missing/incompatible/in-repo source proof; no sourcehash bypass, historical output rewrite, or state pruning.",
+  "new_atomic_roots": 0
+}

@@ -1,0 +1,9 @@
+{"status": "FAILED_ANALYTIC_CURVATURE_PRESERVED", "counts": {"exact_block_matrix_calls": 1}, "elapsed_seconds": 0.8209544380006264, "peak_RSS_MiB": 269.42578125}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/run.py", line 275, in <module>
+    prepare() if args.prepare else execute()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/run.py", line 215, in execute
+    operators.append(angular.exact_block_matrix(signatures,lambda key,order=order:values(key)[order],max_determinants=2000 if arm=='A' else 2659))
+  File "/data/code/atomx/src/atomx/angular/csf_hamiltonian.py", line 1632, in exact_block_matrix
+    j2 = int(signatures[0].total_J2)
+AttributeError: 'tuple' object has no attribute 'total_J2'

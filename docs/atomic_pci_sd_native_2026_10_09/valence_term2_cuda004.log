@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 601, in <module>
+    main(args)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 226, in main
+    subprocess.run(
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-shared', '-fopenmp', 'native_bridge.o', 'core_diagrams.o', 'term21_streamed.o', '_pci_valence.o', 'valence_diagrams.o', '_pci_sigma2.o', 'sigma2_diagrams.o', 'cuda_density_bridge.o', 'valence_term2_cpu.o', 'valence_term2_streamed.o', '-o', 'native_core_sd.so', 'core_singles_blas.o', 'core_single_to_doubles_blas.o', '-L/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so', '-Wl,-rpath,/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp']' returned non-zero exit status 1.

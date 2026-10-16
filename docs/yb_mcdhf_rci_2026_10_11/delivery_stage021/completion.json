@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-10-11T15:58:54.722645+00:00",
+  "status": "actual_delivery_and_separate_root_iteration_closed",
+  "passed": true,
+  "scope": "Saved-only delivery/full visible-text and closed root-receipt/result binding. This is not an independent physical producer/optimizer/accepted-point replay or physical success certificate.",
+  "message_id": "om_x100b638eadb5b068c1205d85d5d5cb0",
+  "message_position": "1614",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1614",
+  "delivery_proof": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage021/delivery_proof.json",
+    "sha256": "2da337b6b4921b9c5d60dc6ec25ad9e48615d1111600f817c59a5b5344bc9680"
+  },
+  "prepared_proof_preserved": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage021/delivery_prepared.json",
+    "sha256": "e957a880f1a0c4f351ecd322b827a9c74fc144dcfc084c46ce1315ab4544833f"
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "job": null,
+    "automatic_physics_jobs": 0
+  },
+  "separate_root_bounded_iteration": {
+    "root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/root_execution.json",
+      "sha256": "5878daf7524c421b826923cee63487d46e533c2137cfb8a03bd6821399909295"
+    },
+    "actual_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/result.json",
+      "sha256": "9487855b439ebf4fdc5530535348fc4e8c4ede1652aff4a9faf7d3d3b0ad8358"
+    },
+    "exit_code": 0,
+    "started_utc": "2026-10-11T15:41:47.250643+00:00",
+    "finished_utc": "2026-10-11T15:56:05.660764+00:00",
+    "elapsed_uncontrolled_seconds": 858.4100081629585,
+    "initial_global_accepted_step": 80,
+    "new_accepted_steps": 128,
+    "terminal_global_accepted_step": 208,
+    "saved_points": 129,
+    "actual_runtime_controls": 8233,
+    "actual_runtime_controls_all_passed": true,
+    "reported_completed_calls": {
+      "H": 187,
+      "CI": 187,
+      "gradient": 129,
+      "optimizer": 1,
+      "validation_Dirac": 7,
+      "initial_hS": 7,
+      "CI_internal_hS": 7
+    },
+    "terminal_original_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "terminal_original_orbital_residual": 0.0009553265963620529,
+    "original_orbital_tolerance": 1e-07,
+    "terminal_original_estimated_energy_error_ha": 1.4594365307472928e-06,
+    "original_energy_tolerance_ha": 1e-08,
+    "terminal_four_gap_RMS_cm1": 2054.3164606344617,
+    "stationarity_passed": false,
+    "experimental_certification": false,
+    "physical_completeness_certified": false,
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "terminal_point_selected_without_gap_optimization": true
+  },
+  "new_API_calls": 0,
+  "new_scientific_calls": 0,
+  "new_cards_sent": 0,
+  "new_model_evaluations": 0,
+  "main_README_registry_source_stage021_and_site_changed": false,
+  "readme_before_sha256": "04c09376ecf95fad6d5fefb74a538be0d0bff503331386a050a1fa53f6b18b79",
+  "readme_after_sha256": "ee2ba4bbd952e885ebea26b4c1f6fa70fbb6b455283c332d5fb7589ebd99b534",
+  "verifier_sha256": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093"
+}

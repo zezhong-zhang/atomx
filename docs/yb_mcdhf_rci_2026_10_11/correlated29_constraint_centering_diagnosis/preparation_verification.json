@@ -1,0 +1,18 @@
+{
+  "zero_physical_calls": true,
+  "numerical_imports_during_preparation": 0,
+  "checks": {
+    "all_inputs_match": true,
+    "source_parses": true,
+    "exact_full_Gram_quadratic_expression_present": true,
+    "signed_offdiagonal_multiplier_present": true,
+    "finite_CI_response_kept": true,
+    "no_Atomx_Scipy_imports": true,
+    "original_gate_exact": true,
+    "root_authorization_before_numpy": true,
+    "no_actual_directory": true
+  },
+  "contract_sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1",
+  "driver_sha256": "0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d",
+  "all_passed": true
+}

@@ -1,0 +1,382 @@
+{
+  "all_independent_saved_array_checks_passed": true,
+  "checks_count": 54,
+  "checks": [
+    {
+      "name": "actual_foreground_closed_success",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "runtime_source_driver_bound",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "first\u03ba_only_scope",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/complete_spectrum_refinement_attempts",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/completed_complete_spectrum_refinements",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/attempted_complete_sweeps",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/completed_complete_sweeps",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/attempted_pair_rotations",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/completed_pair_rotations",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/skipped_exact_zero_pairs",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/physical_residual_evaluations",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/near_identity_Gram_whitenings",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/new_LAPACK_eigensolves",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/new_SVD",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/new_matrix_linear_solves",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "actual_counter/new_Atomx_Fock_Slater_Dirac_SCF_hS_H_CI_gradient_optimizer_calls",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "stage_bytes/initial_complete_representation.npz",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "stage_bytes/before_refinement.npz",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "stage_bytes/complete_sweep_01.npz",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "stage_bytes/final_complete_spectrum.npz",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "original_failure_preserved",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_arrays/h",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_arrays/s",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_arrays/basis",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_arrays/original_P",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_arrays/frozen",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "whole116_sort_permutation",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "all116_physical_columns",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "all116_norms_positive",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "full116_original_h_S_residual",
+      "error": 2.046064473029049e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full116_original_SGram",
+      "error": 3.1073234263434557e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved_actual_Rayleigh_replay",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "saved_absolute_residual_replay",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "saved_relative_residual_replay",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "all116_sorted_Rayleigh",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "all116_frozen_orthogonality",
+      "error": 1.6588242304789496e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "all116_originalP_leakage",
+      "error": 9.480335175989535e-29,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "full_signed_overlap_replay",
+      "error": 3.141114151412941e-18,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete_signed_span_preserved",
+      "error": 1.8579943394288545e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full_rotation_orthogonality",
+      "error": 4.228388472693467e-18,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full_rotation_congruence_relative",
+      "error": 4.959263673907517e-25,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "coefficient_whitening_and_rotation",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "final_sweep_sorted_physical_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "new_raw_actual_lowest_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "joint_phase_raw_bytes",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "originalP_phase_anchor",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "canonical_phase_is_fixed_anchor",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "minimum_physical_energy_original_gate",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "minimum_isolated_cluster_original_gate",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "lowest_original_signed_root_identity",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "lowest_and_frozen_Gram",
+      "error": 8.645428123399412e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "raw_projected_auxiliary_residual_original_gate",
+      "error": 7.169582595224873e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "runtime_summary_allroot_replay",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_or_scipy_import",
+      "error": 0.0,
+      "limit": 0,
+      "passed": true
+    }
+  ],
+  "contract_sha256": "8930f7d954c4f6b4809398b2940b4c171d269a8b38d94d68f7ec4df2821e306d",
+  "audit_driver_sha256": "d545c867a9dd9deb5b08d76542fbdda95c998791de46cb767a232a3330080a66",
+  "bound_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json": "7056e3893c0c301a151b00a1f1935f93299c303e6298c1931da534cc7557cf33",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json": "1bd1873506710576beb32cbb3fc4e6fdd1fb1756f36a4274c6c9251428f12c19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json": "a88c4b9b5d1bf7f5014fef075437c49a18f9c4c9c0ec3181f8cbd4d9130ba6c9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/contract.json": "f4e1186e2196bd7923b0a73263c3cb4b60fc58e9c6760028d096248c8243c079",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verify_arrays.py": "7340ccc4a1b461d5025c478bd153ba1f35362cb0a6c86d87a56a795c356410cf",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/diagnostic_arrays.npz": "5d37a131d92ca062b289c8122b759db8e738326bd03b043eb98256bceb496752",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_native_complement.npz": "f471cded1760a295392edba4ed589ac2612d84e3f951125a918dc80c36cd378e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_full_gvd_vectors.npz": "819ce573cfb0a0999029672a57415568414ce001b6f85baf95d456552c9edf5d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json": "ce38b2a8d487bc325d0861f4241c0b71f0b0fede67d980ba4b4efb8132b539a0",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage010/delivery_proof.json": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/run.py": "ea5287bcbbe316e1fd71096f020b3943b82b1367493cf12cf530c2f880b1f476",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/contract.json": "606de11b36c4b8f9f81d5bc0a425ab6b04015557a9562c647218d13ab1ab6cad",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/execution_binding.json": "967eb8a23ea01e285df2950cb296f816fe642bf31b04e256464c6f41b522ef92",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/root_execution.json": "81c4635381f2b0ac680ab8b075eaae5f6edfe0c61816981632e87a0d9df72472",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/root_execution.log": "162bf9670fafe0cf26f4014f9c2d9715c3c6cc2d0a3394b2177f451dd49804a7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/result.json": "6ff54fc187397ec0279e5d6609c81ee2b92af9ffb8fc11d3031def2d65016656",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/sweep_history.json": "53666af8bed24860d7d2331f379627c1e980ad4f1f911939a0197371e7248ac4",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/resource_admission.json": "31e7af8f006ebbb556257a2c7627b96d07840cb1760ccd91fcb7249df4cf698c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/initial_complete_representation.npz": "16ecb1ad94ddbea0137627a22920f5e93c5ca9083a3ea458ca2c74f20692d390",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/before_refinement.npz": "1f099607c8093a32bb76d7edde0b8623df379ed3be93c5a8d7e4dae98e2cfc20",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/complete_sweep_01.npz": "4572148ea9b60d68e6da73e7f04614b4a845ce2a3b2d81d2f5087b7978f6c9e6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/final_complete_spectrum.npz": "4e1f7cc12ce2374d3eccb70cd165d9e0ef50d792fdc8673830fc7a700e96fcea"
+  },
+  "first_kappa_complete_roots": 116,
+  "original_full_residual_max": 3.1097115045566876e-08,
+  "independently_replayed_full_residual_max": 2.046064473029049e-14,
+  "independently_replayed_Gram_error": 3.1073234263434557e-16,
+  "lowest_Rayleigh_Ha": -0.15489704630095255,
+  "first_Rayleigh_gap_Ha": 0.06056159638620158,
+  "old_lowest_signed_overlap_squared": 0.9999999999999967,
+  "full_rotation_congruence_absolute_max_Ha": 2.220446049250313e-16,
+  "full_rotation_congruence_relative": 4.959263673907517e-25,
+  "original_failed_invocation_remains_failed": true,
+  "other_four_kappas_qualified": false,
+  "screened_CI_response_available": false,
+  "original_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "new_Atomx_H_CI_Dirac_virtual_gradient_optimizer_eigensolves": 0,
+  "Atomx_imports": 0,
+  "scope": "First\u03ba\u22123 complete116 saved-spectrum qualification; all original gates replayed. No physical builder, eigen solve, screenedCI response, other\u03ba, or experimental claim."
+}

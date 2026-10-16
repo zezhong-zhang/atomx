@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-11T01:24:20.639282+00:00",
+  "hypothesis": "Adopt per-consumer bounded exact angular Gram caching while preserving all physical norm terms and original caps.",
+  "fixed": [
+    "complete signed core/valence amplitudes and allM",
+    "original1e-11 component/norm/M gates",
+    "original64MiB norm payload cap",
+    "full five Yb states and all retained radial bands"
+  ],
+  "source_and_inputs": {
+    "docs/atomic_pci_sd_native_2026_10_09/monovalent_norm_control.py": "06936ba9521e7867092f752da9ea6c7da923016914736741eb9ecf243e4528e4",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_followup001/run002/proposed_helper.patch": "74d6f77f8258043e45a1ed91f3946403d3da1c3253470c447d6412d8c9d881f2",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_followup001/run002/candidate_norm.py": "353ead8e2d18e6c49672e79b9a97fdd0cffe15239f8fb0d2d61f0ebbb8018499",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_followup001/run002/result.json": "a3f6b45078f77d3c13688cd5616490bd2d637637d1185a4ccbc7803f7314f837",
+    "docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm.py": "e2f1144d69c0b0cc5878518c93281c40fa1fa4ecd7a98bfcd11df379648e4d9d",
+    "docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm_multicore.py": "ce4d2f52deed5679e92df6ed726aecd7fc02cbc5153484d2b5cd491a1ce5cce2"
+  },
+  "acceptance": [
+    "actual existing finite and multicore independent fermion replays",
+    "exact adopted candidate AST after formatting",
+    "four complete space scratch count below original64MiB",
+    "no fullYb norm or experimental accuracy claim from counts"
+  ],
+  "stopping_condition": "Original finite/multicore/guard plus complete-l4 signed controls; failure retained, no cap increase or space cut.",
+  "highest_level_reached": false
+}

@@ -1,0 +1,112 @@
+{
+  "all_passed": true,
+  "scope": "Prepared-only source/input/link/ownership check; no scientific execution",
+  "links": [
+    {
+      "target": "../public_mixed_resume_run002/contract.json",
+      "exists": true
+    },
+    {
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "target": "preflight.json",
+      "exists": true
+    },
+    {
+      "target": "preparation_verification.json",
+      "exists": true
+    },
+    {
+      "target": "run.py",
+      "exists": true
+    },
+    {
+      "target": "verify_arrays.py",
+      "exists": true
+    }
+  ],
+  "unchanged_inputs": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/preflight.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "passed": true
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/arrays.npz",
+      "passed": true
+    },
+    {
+      "path": "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json",
+      "passed": true
+    }
+  ],
+  "owned_file_sha256": {
+    "README.md": "e7e8b07652bc43dcba44ebaa65a21351bca66f0257832cfaa04b511432fb5174",
+    "contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "preflight.json": "8cc69932856ee86b438f4117426e88fcc0c8031c0b9e6289d21241f1ff1d1245",
+    "preparation_verification.json": "9054e4c3d2580dda3e8d470d699d74bd26508d7965fd2908ecb26e60d953d869",
+    "run.py": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2",
+    "trace.md": "0a35852671af49e8affd0158e06b36e915543c8965c77af45b8df218e21aca2f",
+    "verify_arrays.py": "c372cf2c83b4138f8b0f818c4217ef5797ff4859dd9097e273d51ad8d181c9e4",
+    "verify_preparation.py": "d2f1296fce31da1c6225b488b2633449b166d5d75a1e1361c494ec7ffdb2c0a4"
+  },
+  "new_H_CI_gradient_optimizer": 0,
+  "source_shared_edits": false,
+  "documentation_impact": {
+    "new": "Owning prepared consumer README/contract/controls/verifier",
+    "retained": "Every original source/consumer/scientific failure and reference remains immutable and authoritative for its recorded epoch"
+  }
+}

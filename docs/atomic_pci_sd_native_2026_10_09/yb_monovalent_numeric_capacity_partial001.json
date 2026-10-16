@@ -1,0 +1,67 @@
+{
+  "status": "paired completed partial-root diagnostics; no five-root certificate",
+  "rows": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "actions_numeric16": 102,
+      "actions_numeric64": 56,
+      "restarts_numeric16": 5,
+      "restarts_numeric64": 0,
+      "correlation_energy_difference_Ha": 5.660749646807517e-14,
+      "maximum_redundant_coordinate_difference": 4.3245360417665246e-11,
+      "bare_D0_bitwise_equal": true,
+      "feedback_shifted_denominator_difference_Ha": 4.547473508864641e-13,
+      "raw_numeric16_Ha": 1.6309384398560667e-11,
+      "raw_numeric64_Ha": 1.3626384742781994e-11,
+      "solve_numeric16_seconds": 598.434722108068,
+      "solve_numeric64_seconds": 358.8087778200861,
+      "payloads_sha256": {
+        "yb_full_monovalent005": {
+          ".json": "b38295a2926ad54f3ea4d5f452292fa1eec7a4ab043fedc678cd3dd13521d09f",
+          ".npz": "2064efa1e90f3ca15ea26d1f99c1a15a45b02acf95648aa6666f12d53ae4f244"
+        },
+        "yb_full_monovalent006": {
+          ".json": "ab6c5d361061922806380b224662784328d3f28c080563f10fa8b32dd210ef0e",
+          ".npz": "fc8e40e97d43a1c2a03b4654c0b9ae2239848af56bb949a420df5e72db6b7603"
+        }
+      }
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "actions_numeric16": 135,
+      "actions_numeric64": 78,
+      "restarts_numeric16": 7,
+      "restarts_numeric64": 1,
+      "correlation_energy_difference_Ha": -1.0085335344633961e-13,
+      "maximum_redundant_coordinate_difference": 1.0413158529898325e-10,
+      "bare_D0_bitwise_equal": true,
+      "feedback_shifted_denominator_difference_Ha": 1.1368683772161603e-13,
+      "raw_numeric16_Ha": 1.877659232116984e-11,
+      "raw_numeric64_Ha": 1.18770557624992e-11,
+      "solve_numeric16_seconds": 1093.6249881419353,
+      "solve_numeric64_seconds": 468.3511912759859,
+      "payloads_sha256": {
+        "yb_full_monovalent005": {
+          ".json": "781e74d1fffebb0d94ea15499aa7707a310668930022dcdd28a572aaf0638200",
+          ".npz": "6345d4e5005581816d1e82f45c8ab06e04116c352be019b8d0260246c647936e"
+        },
+        "yb_full_monovalent006": {
+          ".json": "1d2563fbd4a2ec4c605687c722f8b0a8f46399d40f05554fbb00ca8111093172",
+          ".npz": "4afa98b63f3e2f2fa220cc1b934a8ddc83f8cf3db8d1cf53d3156059353b5b1d"
+        }
+      }
+    }
+  ],
+  "source_match_at_comparison": true,
+  "common_source_files": [
+    "88743971bf16ed416fc1d59ab7a72677c435d91ab694ecf9c4475d78782c0c7e",
+    "88743971bf16ed416fc1d59ab7a72677c435d91ab694ecf9c4475d78782c0c7e"
+  ],
+  "scope": "same complete physical coordinates and CPU-certified raw gates; action counts and live-load time observations, no controlled time ratio; redundant coordinate difference is not normalized physical-state distance; no independent scientific oracle or experimental precision"
+}

@@ -1,0 +1,138 @@
+{
+  "status": "saved_diagnostic_closed_original_mixed_FAIL_preserved",
+  "result_sha256": "91faf16b8a17fca50aeba38c26b40df19b7c6b45e4234eedfcc2b06ab97a52a9",
+  "root_receipt_sha256": "edb87ef41ecbce5fda4860d26a2797c9c8244d6523d14477215dbfcf89a6cac9",
+  "root_binding_sha256": "627f0072f5cc27cd11515f0e9036cb3686cf4e58b4b032f7b28532ac5cf837a3",
+  "elapsed_uncontrolled_s": 0.12809193995781243,
+  "complete_source_unchanged": true,
+  "input_unchanged": true,
+  "NPZ_loads": 16,
+  "new_producers": 0,
+  "H_comparisons": [
+    {
+      "index": 0,
+      "original_array_equal": false,
+      "changed_count": 85,
+      "max_absolute_Ha": 2.220446049250313e-16,
+      "max_ULP": 108135,
+      "max_diagonal_Ha": 2.220446049250313e-16,
+      "max_offdiagonal_Ha": 9.71445146547012e-17,
+      "frozen_H_current_full_spectrum_residual": 2.6733323251982214e-15
+    },
+    {
+      "index": 1,
+      "original_array_equal": false,
+      "changed_count": 91,
+      "max_absolute_Ha": 2.220446049250313e-16,
+      "max_ULP": 76548,
+      "max_diagonal_Ha": 2.220446049250313e-16,
+      "max_offdiagonal_Ha": 1.0408340855860843e-16,
+      "frozen_H_current_full_spectrum_residual": 2.284339473607819e-15
+    },
+    {
+      "index": 2,
+      "original_array_equal": false,
+      "changed_count": 84,
+      "max_absolute_Ha": 1.1102230246251565e-16,
+      "max_ULP": 14542,
+      "max_diagonal_Ha": 1.1102230246251565e-16,
+      "max_offdiagonal_Ha": 9.71445146547012e-17,
+      "frozen_H_current_full_spectrum_residual": 3.72212934969273e-15
+    },
+    {
+      "index": 7,
+      "original_array_equal": false,
+      "changed_count": 90,
+      "max_absolute_Ha": 1.1102230246251565e-16,
+      "max_ULP": 37874,
+      "max_diagonal_Ha": 1.1102230246251565e-16,
+      "max_offdiagonal_Ha": 9.71445146547012e-17,
+      "frozen_H_current_full_spectrum_residual": 2.7141586538581354e-15
+    },
+    {
+      "index": 8,
+      "original_array_equal": false,
+      "changed_count": 80,
+      "max_absolute_Ha": 1.1102230246251565e-16,
+      "max_ULP": 64788,
+      "max_diagonal_Ha": 1.1102230246251565e-16,
+      "max_offdiagonal_Ha": 1.1102230246251565e-16,
+      "frozen_H_current_full_spectrum_residual": 2.8305072013764235e-15
+    }
+  ],
+  "gradient": {
+    "array_equal": false,
+    "bytes_equal": false,
+    "changed_count": 22,
+    "max_absolute": 1.0842021724855044e-19,
+    "max_ULP": 8
+  },
+  "all13_max_residual": 4.087361505585961e-15,
+  "all13_max_Gram": 2.4236255363740966e-15,
+  "directions": [
+    {
+      "direction": 0,
+      "analytic": -0.00872046743791834,
+      "frozen_analytic": -0.00872046743791834,
+      "scales": [
+        {
+          "h": 0.0001,
+          "error": -1.6841351279002492e-07,
+          "original_tolerance": 8.72046743791834e-08,
+          "within_original_tolerance": false,
+          "even_rayleigh_change": 5.036663553164227e-05
+        },
+        {
+          "h": 1e-06,
+          "error": -2.5926255933783615e-11,
+          "original_tolerance": 8.72046743791834e-08,
+          "within_original_tolerance": true,
+          "even_rayleigh_change": 5.036777752064268e-09
+        },
+        {
+          "h": 1e-08,
+          "error": -7.872245669574007e-09,
+          "original_tolerance": 8.72046743791834e-08,
+          "within_original_tolerance": true,
+          "even_rayleigh_change": 5.036905900698351e-13
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "analytic": 0.012938447545993053,
+      "frozen_analytic": 0.012938447545993053,
+      "scales": [
+        {
+          "h": 0.0001,
+          "error": 2.1141501343295566e-06,
+          "original_tolerance": 1.2938447545993054e-07,
+          "within_original_tolerance": false,
+          "even_rayleigh_change": 5.192779767422945e-05
+        },
+        {
+          "h": 1e-06,
+          "error": 2.2519441172930144e-10,
+          "original_tolerance": 1.2938447545993054e-07,
+          "within_original_tolerance": true,
+          "even_rayleigh_change": 5.192872740887152e-09
+        },
+        {
+          "h": 1e-08,
+          "error": 3.993153223011414e-09,
+          "original_tolerance": 1.2938447545993054e-07,
+          "within_original_tolerance": true,
+          "even_rayleigh_change": 5.192966547769629e-13
+        }
+      ]
+    }
+  ],
+  "disposition": {
+    "bitwise": "All five H and full baseline gradient fail original equality; small measured magnitudes do not change that gate. ULP maxima occur on tiny matrix entries; absolute and ULP scales must both be retained.",
+    "derivative": "Both h1e-4 gates fail. The two already declared smaller scales pass each original numerical tolerance. Pattern and finite decomposition are consistent with finite-step effects plus reconstruction noise at smallest h, not a uniform proof or original test pass.",
+    "source": "Historical quadrature-bank convention is a source candidate; immediate pre-owner matched numerical replay is not yet performed.",
+    "phaseA": "HOLD pending root review of source disposition/qualification; no optimizer or producer admission."
+  },
+  "CPU_count": 1,
+  "CPU_affinity": 27
+}

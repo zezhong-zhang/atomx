@@ -1,0 +1,27 @@
+{
+  "run_result_sha256": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e",
+  "raw_samples_sha256": "0501c7a7ca029d7a86a6454243dddc6cc4cad22cb941be8464dcdc3acb86710a",
+  "scaling_statistic": "Median of five within-round T1/T2 ratios; time rows retain per-team median/min/max. No confidence interval or large-scale extrapolation.",
+  "all_round_speedups_T1_over_T2": [
+    0.5917248942104405,
+    0.5165947821633361,
+    0.593993548476076,
+    0.559400129878562,
+    0.4604960205811634
+  ],
+  "median_paired_speedup": 0.559400129878562,
+  "logical_requested_team_efficiency": 0.279700064939281,
+  "process_thread_resource_efficiency": 0.11188002597571241,
+  "observed_process_thread_peak": 5,
+  "resource_efficiency_statistic": "median paired speedup / aggregate observed p2 total-thread peak; distinct from CPU utilization or instantaneous active-thread efficiency.",
+  "private_wrapper_label": "Private low-overhead wait wrapper: unchanged Atomx export/validation/readback plus temporary blocking-wait launcher; not untouched production wrapper latency.",
+  "all_round_private_wrapper_extra_seconds": [
+    0.00575949705671519,
+    0.011792380013503134,
+    -0.0024595570284873247,
+    0.001395540894009173,
+    0.00672366505023092
+  ],
+  "median_paired_private_wrapper_extra_seconds": 0.00575949705671519,
+  "difference_of_time_medians_private_wrapper_extra_seconds": 0.003034780966117978
+}

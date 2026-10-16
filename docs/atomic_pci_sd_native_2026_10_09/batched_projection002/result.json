@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "cases": [
+    {
+      "name": "baseline_full",
+      "signed_errors_Ha": [
+        2.574980159653073e-19,
+        2.846030702774449e-19
+      ],
+      "load_after": [
+        12.478515625,
+        13.33740234375,
+        14.77490234375
+      ]
+    },
+    {
+      "name": "batched_full",
+      "signed_errors_Ha": [
+        2.507217523872729e-19,
+        2.981555974335137e-19
+      ],
+      "load_after": [
+        12.55908203125,
+        13.32568359375,
+        14.75537109375
+      ]
+    },
+    {
+      "name": "batched_value",
+      "signed_errors_Ha": [
+        2.507217523872729e-19
+      ],
+      "load_after": [
+        12.5947265625,
+        13.31982421875,
+        14.74560546875
+      ]
+    },
+    {
+      "name": "batched_restored",
+      "signed_errors_Ha": [
+        2.507217523872729e-19,
+        2.981555974335137e-19
+      ],
+      "load_after": [
+        12.65771484375,
+        13.30908203125,
+        14.72607421875
+      ]
+    }
+  ],
+  "mode_error_Ha": 0.0,
+  "restored_error_Ha": 0.0,
+  "energy_Ha": -0.3386654527300543,
+  "shape": [
+    64,
+    64,
+    1076
+  ],
+  "angular_rows": 22538,
+  "physical_columns": 1,
+  "controlled_timing": null,
+  "public_adopted": false
+}

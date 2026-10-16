@@ -1,0 +1,1351 @@
+{
+  "status": "PASS_analytic_CI_response_curvature_original_FD_failures_preserved",
+  "checks": [
+    {
+      "name": "decoded input budget 347848",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 347848",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 5617168",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 5617168",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 9006064",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 9006064",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 9067568",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 9067568",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original literal radial/nuclear binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "original residual metric",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "complete direction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -4",
+      "observed": 2.7755575615628914e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -4",
+      "observed": 1.530080315920168e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -4",
+      "observed": 1.2197274440461925e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -3",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -3",
+      "observed": 2.992397996059992e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -3",
+      "observed": 2.6020852139652106e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -2",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -2",
+      "observed": 6.938893903907228e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -2",
+      "observed": 1.5612511283791264e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 -1",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint -1",
+      "observed": 1.734723475976807e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint -1",
+      "observed": 3.3881317890172014e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 1",
+      "observed": 1.3877787807814457e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 1",
+      "observed": 4.163336342344337e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 1",
+      "observed": 7.589415207398531e-19,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 2",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 2",
+      "observed": 2.42861286636753e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 2",
+      "observed": 2.6020852139652106e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "native polar0 3",
+      "observed": 5.551115123125783e-17,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "first constraint 3",
+      "observed": 1.3660947373317356e-17,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "second constraint 3",
+      "observed": 1.3010426069826053e-18,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "polar0 minus literal saved bank",
+      "observed": 3.552713678800501e-15,
+      "limit": 1e-12,
+      "PASS": true
+    },
+    {
+      "name": "same complete basis shape A",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 49784728",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 49784728",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip A6s_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 A6s_1/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual A6s_1/2",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram A6s_1/2",
+      "observed": 2.9976021664879227e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap A6s_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action A6s_1/2",
+      "observed": 6.645239913893874e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip A5d_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 A5d_3/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual A5d_3/2",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram A5d_3/2",
+      "observed": 3.774758283725532e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap A5d_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action A5d_3/2",
+      "observed": 5.1236792586450974e-14,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip A5d_5/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 A5d_5/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual A5d_5/2",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram A5d_5/2",
+      "observed": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap A5d_5/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action A5d_5/2",
+      "observed": 1.171673869038159e-12,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip A6p_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 A6p_1/2",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual A6p_1/2",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram A6p_1/2",
+      "observed": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap A6p_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action A6p_1/2",
+      "observed": 1.1541601008246971e-12,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip A6p_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 A6p_3/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual A6p_3/2",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram A6p_3/2",
+      "observed": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap A6p_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action A6p_3/2",
+      "observed": 6.025457910396881e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A5d_3/20.002",
+      "observed": 9.143492105680756e-13,
+      "limit": 5.393210826075689e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A5d_3/20.001",
+      "observed": 5.299431053927069e-13,
+      "limit": 1.348152028617547e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A5d_5/20.002",
+      "observed": 2.6110409535187353e-13,
+      "limit": 4.6284341885191486e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A5d_5/20.001",
+      "observed": 6.355487583182911e-13,
+      "limit": 1.1573936834970273e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A6p_1/20.002",
+      "observed": 2.730882479995673e-14,
+      "limit": 4.032314266390106e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A6p_1/20.001",
+      "observed": 3.375036711649223e-13,
+      "limit": 1.008250732036209e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A6p_3/20.002",
+      "observed": 6.145550359118243e-13,
+      "limit": 8.18103041329943e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature A6p_3/20.001",
+      "observed": 4.893137342633374e-13,
+      "limit": 2.0450897658372148e-11,
+      "PASS": true
+    },
+    {
+      "name": "same complete basis shape B",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "decoded input budget 155812936",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "finite arrays 155812936",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip B6s_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 B6s_1/2",
+      "observed": 9.094947017729282e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual B6s_1/2",
+      "observed": 1.2732925824820995e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram B6s_1/2",
+      "observed": 3.219646771412954e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap B6s_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action B6s_1/2",
+      "observed": 1.3156142841808105e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip B5d_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 B5d_3/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual B5d_3/2",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram B5d_3/2",
+      "observed": 3.774758283725532e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap B5d_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action B5d_3/2",
+      "observed": 3.1671887334994153e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip B5d_5/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 B5d_5/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual B5d_5/2",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram B5d_5/2",
+      "observed": 3.3306690738754696e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap B5d_5/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action B5d_5/2",
+      "observed": 2.645661467681748e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip B6p_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 B6p_1/2",
+      "observed": 1.0913936421275139e-11,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual B6p_1/2",
+      "observed": 1.6370904631912708e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram B6p_1/2",
+      "observed": 3.774758283725532e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap B6p_1/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action B6p_1/2",
+      "observed": 1.6736612096224235e-14,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "literal signature roundtrip B6p_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "fresh polar0 H matches literal R0 B6p_3/2",
+      "observed": 7.275957614183426e-12,
+      "limit": 1e-07,
+      "PASS": true
+    },
+    {
+      "name": "complete residual B6p_3/2",
+      "observed": 1.4551915228366852e-11,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "complete Gram B6p_3/2",
+      "observed": 2.7755575615628914e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "literal root and overlap B6p_3/2",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "first action B6p_3/2",
+      "observed": 4.916345108796349e-13,
+      "limit": 1e-09,
+      "PASS": true
+    },
+    {
+      "name": "array output budget",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B5d_3/20.002",
+      "observed": 2.6716435936074006e-13,
+      "limit": 5.3384479383204746e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B5d_3/20.001",
+      "observed": 6.369218204161204e-13,
+      "limit": 1.3348970499454067e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B5d_5/20.002",
+      "observed": 1.8404867557790021e-13,
+      "limit": 4.7792491477516996e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B5d_5/20.001",
+      "observed": 5.384319578760391e-13,
+      "limit": 1.1950584968324155e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B6p_1/20.002",
+      "observed": 2.0074156554647823e-13,
+      "limit": 2.3332722734024737e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B6p_1/20.001",
+      "observed": 8.349139662384343e-14,
+      "limit": 5.8338490674462364e-12,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B6p_3/20.002",
+      "observed": 5.440503639467814e-13,
+      "limit": 4.24232809569872e-11,
+      "PASS": true
+    },
+    {
+      "name": "analytic response curvature B6p_3/20.001",
+      "observed": 5.245702584015073e-13,
+      "limit": 1.0603877450909726e-11,
+      "PASS": true
+    },
+    {
+      "name": "exact complete work",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged source after",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/run002.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/test_receipt.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/grasp_source_reference.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision011/actual001/result.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/actual001/result.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/contract.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0_state_gradients.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.npz",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "unchanged input docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0_state_gradients.json",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    }
+  ],
+  "states": {
+    "A": {
+      "6s_1/2": {
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 223,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16624691951344164,
+        "second_Ha": 0.7505597336556753,
+        "CI_third_coefficient_Ha": 0.04064552569760721,
+        "nearest_gap_Ha": 0.30066995932065765,
+        "response_residual_Ha": 1.4915055168935448e-13,
+        "gauge_defect": 3.0278720140304833e-21,
+        "overlap_squared": 1.0000000000000027,
+        "arrays_sha256": "04fe40d6cca19224533c5711cc2ba4dc17b6b889364ee3ce8375d26f2c337423"
+      },
+      "5d_3/2": {
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 370,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16713341976381868,
+        "second_Ha": 0.7472112691662103,
+        "CI_third_coefficient_Ha": 0.0433423596979477,
+        "nearest_gap_Ha": 0.1595821637656627,
+        "response_residual_Ha": 1.7049288690097378e-13,
+        "gauge_defect": 5.4181480420262644e-20,
+        "overlap_squared": 0.9999999999999996,
+        "arrays_sha256": "0dac220906dc6d6e6a03edf5a7e921f3957f0c0aef8bb32e4f99cf0d644700e8"
+      },
+      "5d_5/2": {
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 416,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.1684604112656898,
+        "second_Ha": 0.748686428437828,
+        "CI_third_coefficient_Ha": 0.042959677515842946,
+        "nearest_gap_Ha": 0.14118547320867947,
+        "response_residual_Ha": 1.63773006671109e-13,
+        "gauge_defect": 5.249152457942267e-21,
+        "overlap_squared": 1.0000000000000004,
+        "arrays_sha256": "91798a419ce5afce760a61f8189ff9230c3e5e2cead0ed67c84b97d0e662a092"
+      },
+      "6p_1/2": {
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "root": 0,
+        "dimension": 219,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.1695107049600057,
+        "second_Ha": 0.7615602096658489,
+        "CI_third_coefficient_Ha": 0.04266168965800846,
+        "nearest_gap_Ha": 0.06892196069202328,
+        "response_residual_Ha": 1.8805799354133689e-13,
+        "gauge_defect": 2.7615314890157724e-20,
+        "overlap_squared": 1.0000000000000013,
+        "arrays_sha256": "6dfc251b24eb821b2be9d3fa12e246b93b904dbe4932b0a13ae980f5c16d96e8"
+      },
+      "6p_3/2": {
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "root": 0,
+        "dimension": 367,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16919379132625761,
+        "second_Ha": 0.7566650654141637,
+        "CI_third_coefficient_Ha": 0.0447361945430159,
+        "nearest_gap_Ha": 0.03154097125661792,
+        "response_residual_Ha": 1.533484360953324e-13,
+        "gauge_defect": 1.4494057208423228e-21,
+        "overlap_squared": 0.9999999999999993,
+        "arrays_sha256": "d5f5a74402170c9dc4ec65fa1a3c7dce18de762963243e30a8a369e65403712b"
+      }
+    },
+    "B": {
+      "6s_1/2": {
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 365,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16387627220809828,
+        "second_Ha": 0.7526931035629802,
+        "CI_third_coefficient_Ha": 0.039329073787195724,
+        "nearest_gap_Ha": 0.31745234015943424,
+        "response_residual_Ha": 9.948157289822354e-14,
+        "gauge_defect": 1.0320257520206762e-20,
+        "overlap_squared": 1.0,
+        "arrays_sha256": "0f9bb0af21fb1a0803fbb4b18ef2363512ba8070bcc179fadce01bdb2deb11f6"
+      },
+      "5d_3/2": {
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 596,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16463575571855257,
+        "second_Ha": 0.7486551183173077,
+        "CI_third_coefficient_Ha": 0.04199823096526612,
+        "nearest_gap_Ha": 0.17423692538432078,
+        "response_residual_Ha": 1.2260438794058514e-13,
+        "gauge_defect": 2.5938998138824656e-21,
+        "overlap_squared": 0.9999999999999993,
+        "arrays_sha256": "0aeecbe72a5dd4961cb29ca634ee85da407a8b8bd4027baf262a90fab6c6c4b4"
+      },
+      "5d_5/2": {
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "root": 0,
+        "dimension": 652,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16601152377535824,
+        "second_Ha": 0.7500999249052549,
+        "CI_third_coefficient_Ha": 0.04171865234890268,
+        "nearest_gap_Ha": 0.15490440988833143,
+        "response_residual_Ha": 1.8555323118471125e-13,
+        "gauge_defect": 2.6127717042879865e-20,
+        "overlap_squared": 0.9999999999999991,
+        "arrays_sha256": "9c6fd53ce892ca21686c6513392e42e0eb195808b4e9c3951b199ad1072e57d4"
+      },
+      "6p_1/2": {
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "root": 0,
+        "dimension": 362,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.1669509156884767,
+        "second_Ha": 0.7610666784087766,
+        "CI_third_coefficient_Ha": 0.04049576010928835,
+        "nearest_gap_Ha": 0.0848485291844554,
+        "response_residual_Ha": 1.4366080032089574e-13,
+        "gauge_defect": 2.3723495160721417e-20,
+        "overlap_squared": 1.0000000000000009,
+        "arrays_sha256": "f71d7ec0232ed4196d2495611f92ac58594291ff7a4a99f4d9124ce5dc60d9dc"
+      },
+      "6p_3/2": {
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "root": 0,
+        "dimension": 599,
+        "origin_Ha": -14067.0,
+        "first_Ha": -0.16651042551529738,
+        "second_Ha": 0.7553252142781813,
+        "CI_third_coefficient_Ha": 0.04145037384763607,
+        "nearest_gap_Ha": 0.04755896501956158,
+        "response_residual_Ha": 1.2012368106987791e-13,
+        "gauge_defect": 3.019809305269757e-20,
+        "overlap_squared": 1.0000000000000022,
+        "arrays_sha256": "8f58a0da27df99a8f9bb259c0651dafc5a0eed94b22b87f4a5477a6a50684f45"
+      }
+    }
+  },
+  "predictions": {
+    "A/5d_3/2/0.002": {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.0026968340003404867,
+      "predicted_Ha": 1.0787336001361947e-08,
+      "measured_Ha": 1.0786421652151379e-08,
+      "error_Ha": 9.143492105680756e-13,
+      "limit_Ha": 5.393210826075689e-11
+    },
+    "A/5d_3/2/0.001": {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.0026968340003404867,
+      "predicted_Ha": 2.6968340003404867e-09,
+      "measured_Ha": 2.696304057235094e-09,
+      "error_Ha": 5.299431053927069e-13,
+      "limit_Ha": 1.348152028617547e-11
+    },
+    "A/5d_5/2/0.002": {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.0023141518182357365,
+      "predicted_Ha": 9.256607272942946e-09,
+      "measured_Ha": 9.256868377038298e-09,
+      "error_Ha": 2.6110409535187353e-13,
+      "limit_Ha": 4.6284341885191486e-11
+    },
+    "A/5d_5/2/0.001": {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.0023141518182357365,
+      "predicted_Ha": 2.3141518182357364e-09,
+      "measured_Ha": 2.3147873669940547e-09,
+      "error_Ha": 6.355487583182911e-13,
+      "limit_Ha": 1.1573936834970273e-11
+    },
+    "A/6p_1/2/0.002": {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.002016163960401253,
+      "predicted_Ha": 8.064655841605012e-09,
+      "measured_Ha": 8.064628532780212e-09,
+      "error_Ha": 2.730882479995673e-14,
+      "limit_Ha": 4.032314266390106e-11
+    },
+    "A/6p_1/2/0.001": {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.002016163960401253,
+      "predicted_Ha": 2.016163960401253e-09,
+      "measured_Ha": 2.016501464072418e-09,
+      "error_Ha": 3.375036711649223e-13,
+      "limit_Ha": 1.008250732036209e-11
+    },
+    "A/6p_3/2/0.002": {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.004090668845408693,
+      "predicted_Ha": 1.6362675381634772e-08,
+      "measured_Ha": 1.636206082659886e-08,
+      "error_Ha": 6.145550359118243e-13,
+      "limit_Ha": 8.18103041329943e-11
+    },
+    "A/6p_3/2/0.001": {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.004090668845408693,
+      "predicted_Ha": 4.090668845408693e-09,
+      "measured_Ha": 4.09017953167443e-09,
+      "error_Ha": 4.893137342633374e-13,
+      "limit_Ha": 2.0450897658372148e-11
+    },
+    "B/5d_3/2/0.002": {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.002669157178070397,
+      "predicted_Ha": 1.0676628712281588e-08,
+      "measured_Ha": 1.0676895876640949e-08,
+      "error_Ha": 2.6716435936074006e-13,
+      "limit_Ha": 5.3384479383204746e-11
+    },
+    "B/5d_3/2/0.001": {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.002669157178070397,
+      "predicted_Ha": 2.669157178070397e-09,
+      "measured_Ha": 2.669794099890813e-09,
+      "error_Ha": 6.369218204161204e-13,
+      "limit_Ha": 1.3348970499454067e-11
+    },
+    "B/5d_5/2/0.002": {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.002389578561706955,
+      "predicted_Ha": 9.55831424682782e-09,
+      "measured_Ha": 9.558498295503399e-09,
+      "error_Ha": 1.8404867557790021e-13,
+      "limit_Ha": 4.7792491477516996e-11
+    },
+    "B/5d_5/2/0.001": {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.002389578561706955,
+      "predicted_Ha": 2.389578561706955e-09,
+      "measured_Ha": 2.390116993664831e-09,
+      "error_Ha": 5.384319578760391e-13,
+      "limit_Ha": 1.1950584968324155e-11
+    },
+    "B/6p_1/2/0.002": {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.0011666863220926235,
+      "predicted_Ha": 4.666745288370494e-09,
+      "measured_Ha": 4.666544546804947e-09,
+      "error_Ha": 2.0074156554647823e-13,
+      "limit_Ha": 2.3332722734024737e-11
+    },
+    "B/6p_1/2/0.001": {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.0011666863220926235,
+      "predicted_Ha": 1.1666863220926234e-09,
+      "measured_Ha": 1.1667698134892473e-09,
+      "error_Ha": 8.349139662384343e-14,
+      "limit_Ha": 5.8338490674462364e-12
+    },
+    "B/6p_3/2/0.002": {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "step": 0.002,
+      "coefficient_Ha": 0.0021213000604403467,
+      "predicted_Ha": 8.485200241761387e-09,
+      "measured_Ha": 8.48465619139744e-09,
+      "error_Ha": 5.440503639467814e-13,
+      "limit_Ha": 4.24232809569872e-11
+    },
+    "B/6p_3/2/0.001": {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "step": 0.001,
+      "coefficient_Ha": 0.0021213000604403467,
+      "predicted_Ha": 2.1213000604403467e-09,
+      "measured_Ha": 2.120775490181945e-09,
+      "error_Ha": 5.245702584015073e-13,
+      "limit_Ha": 1.0603877450909726e-11
+    }
+  },
+  "counts": {
+    "exact_block_matrix_calls": 30,
+    "radial_keys": 19828,
+    "complete_eigh_calls": 10,
+    "response_calls": 10
+  },
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "ordinary_FD005_superseded": false,
+  "optimizer_admitted": false,
+  "experimental_accuracy_qualified": false,
+  "host_load": [
+    11.61572265625,
+    12.619140625,
+    11.19091796875
+  ],
+  "polar0_minus_saved_wave_max": 3.552713678800501e-15,
+  "decoded_input_bytes": 155812936,
+  "array_output_bytes": 62363256,
+  "elapsed_seconds": 96.66255320799974,
+  "peak_RSS_MiB": 1089.37890625
+}

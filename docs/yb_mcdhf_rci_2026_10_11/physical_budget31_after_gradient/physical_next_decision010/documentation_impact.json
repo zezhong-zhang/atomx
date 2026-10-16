@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE",
+  "code_to_documentation_route": "docs/DEVELOPMENT.md generic methods/physics and tests rows",
+  "actual_implementation_changes": [
+    "src/atomx/physics/csf/radial_density.py",
+    "src/atomx/methods/csf/variational.py"
+  ],
+  "updated": {
+    "docs/MIGRATION.md": "75f1eeb1c8d31fdcf3de5ec261e5688a6a7cb4e176a961f9bfe93e6f5b9824d8",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "d798e782036e8937704c848ef1171c822e59f73e8ca3f77cd691a362be1a1717",
+    "docs/ARCHITECTURE_DESIGN.md": "e6b03fba37dcac34580b31e0f0b4b892b05876c73382f520e1cba596ca362588",
+    "docs/TESTING.md": "1d493d80f349fdac1b97c8ddc2f9b849e51fa6905672a7c97a2f6b1f16bd5d42",
+    "docs/AGENT_REFERENCE.md": "74734c683e6698afd778455979c1e4e7b9c58b99826aae6f4c23c22cc07c5b2e",
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "f5216b14f34aa41e5125af9e01bd81043f8c981f72f120dbd7fcadf37def66fe",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md": "f60328d62841b63c09b385d79a0576dd8df3c3728f7b8cae22b1ac3a357ad336",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/README.md": "b4654be4c2e8db3987dcd10127fdf38c367ed9af99538929a115d524fe7fa25e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/RESULTS.md": "88903a33ff92bc5adb93d508a95376bddae7c7145a6a357a3bd02fc0c843b032"
+  },
+  "retained": {
+    "docs/VERIFICATION.md": "Existing production experimental/ownership limitations remain true; new mechanism and selected panel are registered in TESTING, capabilities and current owner.",
+    "docs/AGENT_INSIGHTS.md": "Existing preserve-metric rule already requires fresh gradients after correlation/objective changes; no new general insight is promoted. New fixed-point response data belongs to this topic.",
+    "AGENTS.md": "Existing source binding, exact signed representation, paired observable, metric and original-failure rules cover the increment. No rule change needed."
+  },
+  "link_check": {
+    "documents": 9,
+    "errors": [],
+    "scope": "Tracked plus nonignored untracked working-tree candidate files; not a clean-checkout publication gate."
+  },
+  "knowledge_distillation": "No new general insight: exact signed contraction and recomputing gradients after changing correlation space are already adopted; retain measured new D/P sensitivities in owning RESULTS.md."
+}

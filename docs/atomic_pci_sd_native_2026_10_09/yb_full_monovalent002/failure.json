@@ -1,0 +1,7 @@
+{
+  "type": "ValueError",
+  "message": "original complete core identity differs: physical_source_sha256",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_yb_full_monovalent.py\", line 247, in main\n    raise ValueError(\"original complete core identity differs: \" + field)\nValueError: original complete core identity differs: physical_source_sha256\n",
+  "seconds": 107.32349054794759,
+  "peak_rss_bytes": 2987937792
+}

@@ -1,0 +1,466 @@
+{
+  "status": "complete saved-evidence physics-scale analysis; no new atomic roots",
+  "highest_level_reached": false,
+  "new_atomic_root_solves": 0,
+  "fitted_corrections": false,
+  "total_physical_error_bound_cm1": null,
+  "inputs": {
+    "current_five_states": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "historical_cc_controls": {
+      "path": "docs/atomic_allorder_fscc_2026_10_09/results.json",
+      "sha256": "aa2d4cc2c20cd98478493678a04c839994395c7fcd8769bc994566ca0cfe0c25"
+    },
+    "frozen_dynamic_control": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+    },
+    "literature_tables": {
+      "path": "docs/yb_literature_repair_strategy_2026_10_08/results.json",
+      "sha256": "aa80bfebbe17bddee241b0877adef150455379b201e43a91f351a926ca534bdb"
+    },
+    "historical_scalar_tail": {
+      "path": "docs/yb_correlation_tail_2026_10_08/report_summary.json",
+      "sha256": "34f49d668fd3573e91d51015eeb78bf45c45e2b5b1384d9014917bdf7b67125b"
+    },
+    "current_space_contract": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/contract.json",
+      "sha256": "d625372f3d25f1c3381e703a23a7010038e1d04c6eb99e6be10156942f464c17"
+    },
+    "late_nist_audit": {
+      "path": "docs/atomic_external_benchmark_2026_10_11/experimental_precision_context.json",
+      "sha256": "8539b3c640264486748c394748e9fb8e4564427c76131bd2c5329eae7a1b585a"
+    },
+    "band_preflight": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/run004/result.json",
+      "sha256": "f6f7882f9d14888d3e58a137994a99425d0aea722aa6f3b2525b093ae95f12df"
+    }
+  },
+  "reference_facts_sha256": "bdf7b88d6faa6b8de7f12c127bb9ffc03befa9f57e3aae73bb2122dc7b250d5e",
+  "ionization_anchor_cm1": 98231.75173860446,
+  "threshold_listed_uncertainty_cm1": 0.2016385984337303,
+  "current_five_states": [
+    {
+      "key": [
+        6,
+        -1
+      ],
+      "twoJ": 1,
+      "configuration": "4f14 6s",
+      "experiment_cm1": 0.0,
+      "theory_cm1": 0.0,
+      "defect_cm1": 0.0,
+      "defect_Ha": 0.0,
+      "DF_transition_cm1": 0.0,
+      "current_SD_differential_correlation_cm1": 0.0,
+      "required_DF_to_experiment_difference_cm1": 0.0,
+      "attachment_cm1": -97603.5844440829,
+      "absolute_attachment_defect_cm1": 628.1672945215687,
+      "original_1percent_pass": null
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "twoJ": 1,
+      "configuration": "4f14 6p",
+      "experiment_cm1": 27061.82,
+      "theory_cm1": 27312.139166964753,
+      "defect_cm1": 250.3191669647531,
+      "defect_Ha": 0.0011405380449213596,
+      "DF_transition_cm1": 24702.42331989751,
+      "current_SD_differential_correlation_cm1": 2609.7158470672475,
+      "required_DF_to_experiment_difference_cm1": 2359.396680102491,
+      "attachment_cm1": -70291.44527711815,
+      "absolute_attachment_defect_cm1": 878.4864614863181,
+      "original_1percent_pass": true
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "twoJ": 3,
+      "configuration": "4f14 6p",
+      "experiment_cm1": 30392.23,
+      "theory_cm1": 30747.33941336696,
+      "defect_cm1": 355.10941336696123,
+      "defect_Ha": 0.0016179975387651969,
+      "DF_transition_cm1": 27513.070551969107,
+      "current_SD_differential_correlation_cm1": 3234.2688613978485,
+      "required_DF_to_experiment_difference_cm1": 2879.1594480308922,
+      "attachment_cm1": -66856.24503071595,
+      "absolute_attachment_defect_cm1": 983.2767078885227,
+      "original_1percent_pass": false
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "twoJ": 3,
+      "configuration": "4f14 5d",
+      "experiment_cm1": 22960.8,
+      "theory_cm1": 23911.666519008628,
+      "defect_cm1": 950.8665190086285,
+      "defect_Ha": 0.004332466641373835,
+      "DF_transition_cm1": 24272.56460526579,
+      "current_SD_differential_correlation_cm1": -360.8980862571548,
+      "required_DF_to_experiment_difference_cm1": -1311.764605265791,
+      "attachment_cm1": -73691.91792507427,
+      "absolute_attachment_defect_cm1": 1579.0338135301863,
+      "original_1percent_pass": false
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "twoJ": 5,
+      "configuration": "4f14 5d",
+      "experiment_cm1": 24332.69,
+      "theory_cm1": 25155.120331111128,
+      "defect_cm1": 822.4303311111289,
+      "defect_Ha": 0.003747268310706679,
+      "DF_transition_cm1": 24752.150283851406,
+      "current_SD_differential_correlation_cm1": 402.9700472597195,
+      "required_DF_to_experiment_difference_cm1": -419.46028385140744,
+      "attachment_cm1": -72448.46411297178,
+      "absolute_attachment_defect_cm1": 1450.597625632683,
+      "original_1percent_pass": false
+    }
+  ],
+  "doublet_diagnostics": [
+    {
+      "term": "5d",
+      "weights": [
+        4,
+        6
+      ],
+      "centroid_defect_cm1": 873.8048062701288,
+      "splitting_defect_cm1": -128.43618789749962
+    },
+    {
+      "term": "6p",
+      "weights": [
+        2,
+        4
+      ],
+      "centroid_defect_cm1": 320.17933123289185,
+      "splitting_defect_cm1": 104.79024640220814
+    }
+  ],
+  "current_state_assignment_scope": "Nominal reference-connected branches matched by J/parity; no physical configuration weight or normalized large SD state certified",
+  "numerical_residual_warning": "Retained equation residual is not an eigenvalue or physical-space error bound.",
+  "historical_model_controls": [
+    {
+      "control": "open5s5p:14to22core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 403.0497260970478,
+        "6p3/2": 586.0876123119306,
+        "5d3/2": 1333.1231712243316,
+        "5d5/2": 1453.1785636136883
+      },
+      "absolute_range_cm1": [
+        403.0497260970478,
+        1453.1785636136883
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "18to36virtuals,22core",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 329.2016215057556,
+        "6p3/2": 382.9517195798544,
+        "5d3/2": 530.7814219033717,
+        "5d5/2": 580.3323406939999
+      },
+      "absolute_range_cm1": [
+        329.2016215057556,
+        580.3323406939999
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "openall68core,36virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": -2.2515454674357898,
+        "6p3/2": -3.002784243773931,
+        "5d3/2": 1.7660696417042345,
+        "5d5/2": 1.484759973587643
+      },
+      "absolute_range_cm1": [
+        1.484759973587643,
+        3.002784243773931
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "CCSDtoCCSDT:14core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 26.95813104062472,
+        "6p3/2": 24.220386684377445,
+        "5d3/2": -50.79398544021751,
+        "5d5/2": -46.821552191067894
+      },
+      "absolute_range_cm1": [
+        24.220386684377445,
+        50.79398544021751
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    }
+  ],
+  "frozen_CI_Breit_controls": [
+    {
+      "key": [
+        5,
+        2
+      ],
+      "static_minus_DC_cm1": 27.587152016851178,
+      "dynamic_minus_static_cm1": -0.623222714599251
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "static_minus_DC_cm1": -37.22962395702052,
+      "dynamic_minus_static_cm1": -0.3769566178052628
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "static_minus_DC_cm1": -14.241037033018074,
+      "dynamic_minus_static_cm1": -1.5619577845573076
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "static_minus_DC_cm1": -65.5418961191026,
+      "dynamic_minus_static_cm1": -3.887288370697206
+    }
+  ],
+  "primary_literature_transition_components_cm1": {
+    "5d_3/2": {
+      "E3": -2043,
+      "B1": 28,
+      "B2": -287,
+      "ELS": -18
+    },
+    "5d_5/2": {
+      "E3": -2317,
+      "B1": -14,
+      "B2": -240,
+      "ELS": -18
+    },
+    "6p_1/2": {
+      "E3": -681,
+      "B1": -37,
+      "B2": 139,
+      "ELS": -19
+    },
+    "6p_3/2": {
+      "E3": -850,
+      "B1": -65,
+      "B2": 149,
+      "ELS": -18
+    }
+  },
+  "literature_SD_minus_MBPT_cm1": {
+    "5d_3/2": -1630,
+    "5d_5/2": -1691,
+    "6p_1/2": -691,
+    "6p_3/2": -761
+  },
+  "literature_warning": "Current LCCSD already resums higher-order Coulomb. Published E3/SD-minus-MBPT are diagnostic scales, not absent additive corrections.",
+  "historical_scalar_tail": {
+    "max_root_residual_Ha": 1.3183898417423734e-16,
+    "max_CI_energy_error_Ha": 3.637978807091713e-12,
+    "max_CI_residual_Ha": 0.0,
+    "max_virtual_Gram_error": 3.219646771412954e-14,
+    "max_occupied_overlap": 3.2161773244610004e-15,
+    "old_on_shell_replay_error_Ha": 4.850286838831153e-15,
+    "current_source_matches_previous_137_test_panel": true,
+    "captures_wall_seconds_uncontrolled": 2428.826017166022,
+    "max_process_RSS_MiB": 4725.2734375,
+    "fine_max_excitation_energy_feedback_cm1": 110.89946261144723,
+    "last_angular_increment_cm1": 39.156093417030206,
+    "fine_last_UV_increment_cm1": 17.576725898128643,
+    "radial200_max_increment_cm1": 2.2995752870810975,
+    "selected_control_gate_passed": {
+      "粗基 ℓ6→8，200 Ha": false,
+      "粗基 ℓ7→8，200 Ha": false,
+      "粗基 ℓ8，100→200 Ha": false,
+      "细基 ℓ6，100→200 Ha": false,
+      "径向加密，ℓ6/50 Ha": false,
+      "径向加密，ℓ6/200 Ha": false
+    },
+    "absolute_ionization_anchor_cm1": 98231.75173860446,
+    "fine_absolute_attachment_residuals_cm1": {
+      "6s_1/2": -600.3119114346337,
+      "5d_3/2": 257.3165289442986,
+      "5d_5/2": 313.3239559816575,
+      "6p_1/2": 838.5205631808494,
+      "6p_3/2": 1036.0761645631574
+    },
+    "absolute_relative_closure_error_cm1": 1.4551915228366852e-11
+  },
+  "normal_mass_shift_proxy": [
+    {
+      "key": [
+        6,
+        1
+      ],
+      "estimated_shift_cm1": -0.08483183288074395
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "estimated_shift_cm1": -0.09527181010860071
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "estimated_shift_cm1": -0.07197619186027347
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "estimated_shift_cm1": -0.0762767135255112
+    }
+  ],
+  "two_level_hypothetical": [
+    {
+      "assumed_gap_cm1": 1600.0,
+      "assumed_V_cm1": 200.0,
+      "repulsion_magnitude_cm1": 24.621125123532124,
+      "small_component_weight": 0.014928749927334062
+    },
+    {
+      "assumed_gap_cm1": 1600.0,
+      "assumed_V_cm1": 600.0,
+      "repulsion_magnitude_cm1": 200.0,
+      "small_component_weight": 0.09999999999999998
+    },
+    {
+      "assumed_gap_cm1": 1600.0,
+      "assumed_V_cm1": 1200.0,
+      "repulsion_magnitude_cm1": 642.2205101855957,
+      "small_component_weight": 0.22264990188738543
+    }
+  ],
+  "cost_proxies": [
+    {
+      "lmax": 3,
+      "Emax_Ha": 5.0,
+      "radial_virtual_count": 414,
+      "count_ratio": 1.0,
+      "virtual_pair_count_proxy_ratio": 1.0,
+      "historical_host_reservation_bytes": 17948568404,
+      "historical_admission": {
+        "status": "deferred",
+        "reasons": [
+          "live_device_free_memory_unverified",
+          "source_bound_tail_executor_required",
+          "native_angular_plan_count_required"
+        ],
+        "physical_model_reduced": false,
+        "solve_authorized": false
+      },
+      "scope": "Source-bound run004 complete-band counts and historical admission; pair proxy is not exact angular work, memory, time or speedup. Later bounded norm repair does not certify full production admission."
+    },
+    {
+      "lmax": 3,
+      "Emax_Ha": 10.0,
+      "radial_virtual_count": 441,
+      "count_ratio": 1.065217391304348,
+      "virtual_pair_count_proxy_ratio": 1.1346880907372403,
+      "historical_host_reservation_bytes": 20057772820,
+      "historical_admission": {
+        "status": "deferred",
+        "reasons": [
+          "live_device_free_memory_unverified",
+          "source_bound_tail_executor_required",
+          "native_angular_plan_count_required"
+        ],
+        "physical_model_reduced": false,
+        "solve_authorized": false
+      },
+      "scope": "Source-bound run004 complete-band counts and historical admission; pair proxy is not exact angular work, memory, time or speedup. Later bounded norm repair does not certify full production admission."
+    },
+    {
+      "lmax": 4,
+      "Emax_Ha": 5.0,
+      "radial_virtual_count": 532,
+      "count_ratio": 1.285024154589372,
+      "virtual_pair_count_proxy_ratio": 1.6512870778781301,
+      "historical_host_reservation_bytes": 27525364084,
+      "historical_admission": {
+        "status": "deferred",
+        "reasons": [
+          "complete_norm_scratch_exceeds_original_cap",
+          "live_device_free_memory_unverified",
+          "source_bound_tail_executor_required",
+          "native_angular_plan_count_required"
+        ],
+        "physical_model_reduced": false,
+        "solve_authorized": false
+      },
+      "scope": "Source-bound run004 complete-band counts and historical admission; pair proxy is not exact angular work, memory, time or speedup. Later bounded norm repair does not certify full production admission."
+    },
+    {
+      "lmax": 4,
+      "Emax_Ha": 10.0,
+      "radial_virtual_count": 567,
+      "count_ratio": 1.3695652173913044,
+      "virtual_pair_count_proxy_ratio": 1.875708884688091,
+      "historical_host_reservation_bytes": 30915356532,
+      "historical_admission": {
+        "status": "deferred",
+        "reasons": [
+          "complete_norm_scratch_exceeds_original_cap",
+          "live_device_free_memory_unverified",
+          "source_bound_tail_executor_required",
+          "native_angular_plan_count_required"
+        ],
+        "physical_model_reduced": false,
+        "solve_authorized": false
+      },
+      "scope": "Source-bound run004 complete-band counts and historical admission; pair proxy is not exact angular work, memory, time or speedup. Later bounded norm repair does not certify full production admission."
+    }
+  ],
+  "selected_next": "same-model complete five-state g-band versus energy-tail differential screen, then select one admitted full LCCSD increment from measured response and resource cost",
+  "selection_reason": "Current D centroid defect873.8cm^-1 and opposite D/P splitting defects establish differential model error. Correlation is a leading unverified hypothesis given historical scales and current unclosed l<=3/E<5Ha space; omitted Breit and other responses remain separate candidates.",
+  "next_execution_status": "planned, unlaunched; not a registered production executor",
+  "verification": {
+    "current_closure_max_cm1": 1.4551915228366852e-11,
+    "historical_closure_max_cm1": 3.6010544235409725e-07,
+    "primary_table_arithmetic_max_cm1": 0,
+    "complete_states": 5,
+    "complete_excitations": 4,
+    "complete_doublets": 2,
+    "original_experimental_failures_preserved": true
+  },
+  "card_summary": "物理优先：当前Yb完整五态/DC/ℓ≤3/<5Ha，D重心偏差+873.8cm⁻¹、P重心+320.2；共同ASD阈值下基态偏浅628.2cm⁻¹、D上态偏浅1451–1579。先判别g分波与5→10Ha对完整上下态的相关响应，再补同模型非线性/三激发及Coulomb–Breit交叉；冻结CI动态−静态仅0.4–3.9cm⁻¹，非当前SD修正或上界。文献和历史量级不相加。新方向尚未启动生产求根；每次卡片更新量级账与实际增量。"
+}

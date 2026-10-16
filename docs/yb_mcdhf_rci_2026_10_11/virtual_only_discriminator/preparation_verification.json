@@ -1,0 +1,103 @@
+{
+  "status": "metadata_preparation_passed_pending_NEW_root_binding",
+  "all_preparation_checks_passed": true,
+  "checks_count": 21,
+  "checks": [
+    {
+      "name": "finite_models_only_baseline_and_balanced_virtual",
+      "passed": true
+    },
+    {
+      "name": "baseline/bound_model_counts",
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_sector_counts_sum",
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/bound_model_counts",
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/complete_sector_counts_sum",
+      "passed": true
+    },
+    {
+      "name": "old21_NR_configs_unmodified_prefix",
+      "passed": true
+    },
+    {
+      "name": "original_complete_virtual_and_baseline_definitions",
+      "passed": true
+    },
+    {
+      "name": "same_fixed_sectors",
+      "passed": true
+    },
+    {
+      "name": "original_caps_not_relaxed",
+      "passed": true
+    },
+    {
+      "name": "finite_native_call_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_forbidden_new_consumers",
+      "passed": true
+    },
+    {
+      "name": "original_minimum_leakage_and_stationarity_gates",
+      "passed": true
+    },
+    {
+      "name": "no_physical_top_level_import",
+      "passed": true
+    },
+    {
+      "name": "no_generator_Dirac_gradient_optimizer_call_sites",
+      "passed": true
+    },
+    {
+      "name": "exact_scientific_call_sites_in_finite_loops",
+      "passed": true
+    },
+    {
+      "name": "only_full_gvd_vectors_no_subset",
+      "passed": true
+    },
+    {
+      "name": "native_arrays_saved_before_gvd_and_gates",
+      "passed": true
+    },
+    {
+      "name": "metadata_all_inputs_full353_and_original_tracker_pass",
+      "passed": true
+    },
+    {
+      "name": "metadata_no_Atomx_NumPy_SciPy_imports",
+      "passed": true
+    },
+    {
+      "name": "pending_proposal_fails_before_science",
+      "passed": true
+    },
+    {
+      "name": "no_scientific_output_artifacts",
+      "passed": true
+    }
+  ],
+  "physical_imports": 0,
+  "scientific_calls": 0,
+  "driver_sha256": "ada5d879bf18c82c25c21e492ea77f595a7e2aa5a05d7b03932d659bb5c9bf14",
+  "contract_sha256": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512",
+  "models_sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+  "preparation_driver_sha256": "67e955e131ce509de1060d57d6b877fc11a9fb33ef058dc48e36f59b3fca6ec9",
+  "execution_binding_proposal_sha256": "5847a5ff0be5d438d184055e15ecc73a7080dfd0a47439f08dc93ff5d6c762e1",
+  "frozen_source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "original_stationarity_passed": false,
+  "expanded_stationarity_evaluated": false,
+  "numerical_virtual_minima_measured_in_this_successor": false,
+  "experimental_gate_passed": false
+}

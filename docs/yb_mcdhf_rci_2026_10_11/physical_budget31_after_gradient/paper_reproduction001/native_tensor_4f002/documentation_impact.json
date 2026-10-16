@@ -1,0 +1,107 @@
+{
+  "timestamp_UTC": "2026-10-14T17:11:21.759718+00:00",
+  "source_changes": [
+    "src/atomx/numerics/tensor_recipes.py",
+    "src/atomx/methods/tensor_coupled_cluster.py"
+  ],
+  "test_change": "tests/test_tensor_coupled_cluster.py",
+  "dispositions": [
+    {
+      "path": "docs/ATOMIC_FSCC.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "ab4f072fb704ee3b6d3c16f1cb8e355141677d8f4d4deb2c177201d3c715e4bf"
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "05e9a9e4c02baeb0329875e22840bf1dc774be82fadeacda8490a4160e40955b"
+    },
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "699e55750092cca860bba6932875a5bf3acd3b534852bd4a4a241fc8f3835e8b"
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "44fcb3b2cef0da978aa08054e0a8d899daac29198cb96390795e9a7693981461"
+    },
+    {
+      "path": "docs/TESTING.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "267c7edfe27391848d63a38e60c19910f3c76dd600904f27d4517bd50931718c"
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "693a0e6372bda21aed4c2889c9a01e02fde2dbe2c1212180eceb45c175e47eb0"
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "afd1f41ae7e3f937abb1ba7f0ae1395b1f3cd43924eb2fc557f32e65311d4067"
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "cb42f7036797eb52e7d1b143554e1dc80365cec537afb9d92f437cbc7de19477"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "a05cfa64e7c8e28bce36b70312287f48c31168c893aeb339557a0204115de08a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "9824073aff6a6b1722037979cf3e9f8f8db45b3cf7c87816908b442eb2d75935"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md",
+      "action": "update/merge",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "83d69635a7cd376f6ef3e028de49bb9c7260b84e154dccc510863ce3a9d4e947"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/README.md",
+      "action": "add",
+      "reason": "Canonical complete-output API, exact scalar/Fock/warm controls; full4f same-state physics, paired kernel timing, initial/solver failures and projected-vs-full-H limits; current scope supersedes no archived bytes",
+      "sha256": "aa9a267f307db37c769fded1b22f951614687a43cc642c9ba1247dff93fc7a35"
+    }
+  ],
+  "retained": [
+    {
+      "path": "AGENTS.md",
+      "reason": "Existing signed representation, exact symmetry, source and matched performance principles suffice; no new global rule."
+    },
+    {
+      "path": "docs/README.md",
+      "reason": "Existing native tensor CC/EA code-to-guide ownership mapping remains valid; no renamed/removed module or new public solver."
+    },
+    {
+      "path": "pyproject.toml",
+      "reason": "No packaging/dependency change."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001",
+      "reason": "Preserve sealed historical source, fullCI/full-H and spectral evidence."
+    }
+  ],
+  "knowledge": {
+    "action": "merge",
+    "target": "docs/AGENT_INSIGHTS.md: Integral backend and tensor CC audit",
+    "status": "adopted within current tensor tests/API guidance; signed J projection is a local experiment",
+    "scope": "Preserve nested cancellations; qualify exact symmetry basis and original equations; bound fixed-kernel timing claims"
+  },
+  "publication_scope": "Present working-tree link targets only, including untracked/ignored artifacts. No clean-checkout or release claim."
+}

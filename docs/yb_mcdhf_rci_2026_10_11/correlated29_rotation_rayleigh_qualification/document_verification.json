@@ -1,0 +1,37 @@
+{
+  "all_document_checks_passed": true,
+  "checks": [
+    {
+      "label": "341-check saved-array audit",
+      "target": "../correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "exists": true,
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    {
+      "label": "source-only math review",
+      "target": "../correlated29_optimization_preparation/RAYLEIGH_OBJECTIVE_REVIEW.md",
+      "exists": true,
+      "sha256": "aab05b955157335d4b65403a9461659842776517e466730dddeccd3be0243896"
+    },
+    {
+      "label": "contract",
+      "target": "contract.json",
+      "exists": true,
+      "sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba"
+    },
+    {
+      "label": "run.py",
+      "target": "run.py",
+      "exists": true,
+      "sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe"
+    },
+    {
+      "label": "verify_preparation.py",
+      "target": "verify_preparation.py",
+      "exists": true,
+      "sha256": "3bb82c6dc925ee1b7a9bf44d8ea5249e9dfccfedf0afaf85903dd981f39e8793"
+    }
+  ],
+  "README_sha256": "58d51cbddebb3c5deb74028548f3df9f48fb2545b36c6f8a90e62fb482d2ad71",
+  "scope": "Local factual/source/link review, source-only preparation62PASS, Ruff pass. No science or authority implied."
+}

@@ -1,0 +1,146 @@
+{
+  "binding": {
+    "capture_calls": 5,
+    "depth": 0,
+    "outer_seconds": 0.015866590198129416,
+    "validate_calls": 4
+  },
+  "counters": {
+    "completed": {
+      "CI": 1,
+      "H": 1,
+      "gradient": 1
+    },
+    "started": {
+      "CI": 1,
+      "H": 1,
+      "gradient": 1
+    }
+  },
+  "current_case": {
+    "category": "cold",
+    "mode": "retained",
+    "pair": 0
+  },
+  "phase": "complete_case_archive",
+  "qualification_result_sha256": "aa9fcee094905e8529a69b4643004600ba408f0d73e59fae8fbbadad25f22473",
+  "records": [
+    {
+      "accepted_gradient_seconds": 1.0571165359579027,
+      "actual_calls": {
+        "CI": 1,
+        "H": 1,
+        "gradient": 1
+      },
+      "after_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 111.70583724975586,
+        "load1_per_available_cpu": 0.2942047119140625,
+        "load_average": [
+          9.41455078125,
+          9.388671875,
+          9.37744140625
+        ]
+      },
+      "arrays_sha256": "892553a08bfbf304a30812bf0cdee1148fa8c50dd551d989e749845d996513fa",
+      "before_gradient_full_eigenpair_validation_seconds": 0.005879392847418785,
+      "before_host": {
+        "admitted": true,
+        "available_cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "chosen_cpu": 29,
+        "host_available_GiB": 112.11420059204102,
+        "load1_per_available_cpu": 0.2926025390625,
+        "load_average": [
+          9.36328125,
+          9.3779296875,
+          9.3740234375
+        ]
+      },
+      "binding_capture_calls": 5,
+      "binding_seconds_subscope": 0.015866590198129416,
+      "binding_subscope_overlaps_stages": true,
+      "binding_validate_calls": 4,
+      "callback_tracking_and_H_seconds": 0.1288557650987059,
+      "category": "cold",
+      "checks_passed": true,
+      "energy_trial_seconds": 3.9451934739481658,
+      "full_archive_write_fsync_readback_seconds": 0.34183405595831573,
+      "identity_seconds": 0.02663895906880498,
+      "manifest_sha256": "f12ec1b85d3bcfc8f31db58488cea4f4969752a9527ec999c29bb8b21f97d797",
+      "mode": "retained",
+      "pair": 0,
+      "path": "actual/retained/cold_00_retained.npz",
+      "validation_seconds": 0.018495507072657347,
+      "whole_chain_seconds": 5.786527812946588
+    }
+  ],
+  "source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d"
+}

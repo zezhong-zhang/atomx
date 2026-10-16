@@ -1,0 +1,97 @@
+{
+  "status": "prepared_not_executed",
+  "files": {
+    "run.py": "93bf00130f6cd8517d92bd5b97e5f8ad280e83f0daa83c02b3324e2319380fae",
+    "contract.json": "61a55b5aa0a278ae5047c32da49f4d0ce6985836ce76de7d1577108d4c4e3a13",
+    "README.md": "8820c6fb8843ef72489ec61964eb096b47a87dfa667c6383dd7f16595ec3572f",
+    "preparation.json": "322d3654349a78a3fdd98dc4649f2fec3535ac9c6adf4656ad9018854b125fe7"
+  },
+  "root_execution_expected": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "93bf00130f6cd8517d92bd5b97e5f8ad280e83f0daa83c02b3324e2319380fae",
+    "contract_sha256": "61a55b5aa0a278ae5047c32da49f4d0ce6985836ce76de7d1577108d4c4e3a13",
+    "inputs": {
+      "ordinary_arrays": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/arrays.npz",
+        "sha256": "335082085c8e589a8dfb505a803efeb190ea045a748c74849ef2e28a776f2f7f"
+      },
+      "candidate_arrays": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/arrays.npz",
+        "sha256": "41ad69ba29b5111981b0297b523318690a11c6effef0655e08b1c2e6d2579135"
+      },
+      "ordinary_targets": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/targets_metric.json",
+        "sha256": "6307d6993b342e36a03251c070f5456dc88c8adce4e98bebd3ba25cd61ab9e5a"
+      },
+      "candidate_targets": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/targets_metric.json",
+        "sha256": "976b6f2310a3eb77123b51170392ad46544a52839188e2db70edd52aa0760070"
+      },
+      "ordinary_sectors": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/sector_columns.json",
+        "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+      },
+      "candidate_sectors": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/sector_columns.json",
+        "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+      },
+      "failed_comparison": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/comparison_failed.json",
+        "sha256": "38ef55405711c0ab888935175544f7ef644fdc0e1304449491719d9bc06f4c82"
+      },
+      "root_foreground": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+        "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+      },
+      "failed_completion": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+        "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+      },
+      "ordinary_source_identity": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+        "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+      },
+      "candidate_source_identity": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source_identity.json",
+        "sha256": "be26c536c4365b9d4f8c11c9e1700d6883b567b6ff693e1e89ad9a1e45ec4938"
+      },
+      "original_driver": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py",
+        "sha256": "8c050f9ebbcab77301b36fe200457601a235d78b178344c05b50b6b89df4cd8e"
+      },
+      "original_contract": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/contract.json",
+        "sha256": "265041933da6985de5bd22737d66faa47c6971b422216656d57fc04b93259c9e"
+      }
+    },
+    "resources": {
+      "python": "/data/code/atomx/.venv/bin/python",
+      "CPU": 30,
+      "threads": 1,
+      "memory_GiB": 1,
+      "inner_seconds": 30,
+      "outer_seconds": 35,
+      "kill_grace_seconds": 5,
+      "NumPy_version": "2.2.6",
+      "NPZ_loads": 2,
+      "max_unique_root_columns": 8,
+      "failed_root_neighbors": 2,
+      "max_target_clusters": 5,
+      "max_cluster_rank": 256,
+      "new_H_CI_gradient_optimizer_eig_SVD_QR_Dirac_GPU_calls": 0
+    }
+  },
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "35s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/run.py",
+    "--execution",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/execution_contract.json"
+  ],
+  "scientific_calls": 0,
+  "shared_route_applied": false,
+  "original_qualification": "FAILED; immutable; no new pass classification"
+}

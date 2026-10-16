@@ -1,0 +1,362 @@
+{
+  "status": "candidate_scientific_gate_failed",
+  "highest_level_reached": false,
+  "fock_decode_max_Ha": 0.0,
+  "core_cluster_max": 0.00230082154692781,
+  "core_projected_residual_max_Ha": 0.02483002548225748,
+  "core_energy_Ha": -13.613284542881148,
+  "intermediate_normalization_max": 0.0,
+  "backend_wave_bloch_residual_max_Ha": 0.02538055563489683,
+  "backend_wave_bloch_by_core_holes_Ha": [
+    0.0001937779973759772,
+    0.017769961473569396,
+    0.02538055563489683
+  ],
+  "backend_heff_minus_wave_projection_max_Ha": 0.00019377799737628826,
+  "wave_minus_exact_max": 0.004003794535618062,
+  "backend_strict_heff_max_Ha": 1.033800369267515e-14,
+  "q1_residual_minus_Fov_T2_commutator_Ha": 0.017769934728328305,
+  "q1_residual_plus_Fov_T2_commutator_Ha": 0.01776998821881273,
+  "Fov_T2_commutator_max_Ha": 1.736767714837171e-07,
+  "residual_minus_open_Fov_T2_max_Ha": 0.02538055563489683,
+  "residual_plus_open_Fov_T2_max_Ha": 0.02538055563489683,
+  "open_Fov_T2_max_Ha": 8.077465375198508e-08,
+  "gates": {
+    "oracle_Ha": 1e-11,
+    "strict_backend_Ha": 1e-10,
+    "normalization": 1e-12
+  },
+  "decoder_metadata": {
+    "t1c": {
+      "name": "t1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 16,
+      "sha256": "ba694847ebfa4b725018fed0f2f8e7a20e0000cece06470689d72a56f6eba256"
+    },
+    "t2c": {
+      "name": "t2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 9,
+      "coordinates": 256,
+      "nonzero": 256,
+      "sha256": "6194bce589896036fb6f2587c714ea4fb52db5d3bffdc5b58dab70567d8731fe"
+    },
+    "t3c": {
+      "name": "t3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 27,
+      "coordinates": 4096,
+      "nonzero": 4096,
+      "sha256": "0fb0752c20401a2960fff6eee4ec80c80af9491791ab34861319bed4eb0bf7a3"
+    },
+    "s1c": {
+      "name": "s1c",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 9,
+      "coordinates": 64,
+      "nonzero": 0,
+      "sha256": "88991928d879b3a155c15975f8c58e8852d2546a146bdbf5e7e55235d66e2346"
+    },
+    "s2c": {
+      "name": "s2c",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 27,
+      "coordinates": 1024,
+      "nonzero": 1024,
+      "sha256": "211b8248699ea1ed930cdb90a002d9553e6653ea4aebf4bdaeb6f4d1b5052ba3"
+    },
+    "s3c": {
+      "name": "s3c",
+      "rank": 6,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 81,
+      "coordinates": 16384,
+      "nonzero": 16384,
+      "sha256": "144901fbcba7f7173a633ed30ca1009218a9c59d20467f4331dc33fb42764dc5"
+    },
+    "hp": {
+      "name": "hp",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 16,
+      "sha256": "8ae2219b62844b2e6d2e984f62def280402f9b20e2b70e574ecff610c91c6fe1"
+    },
+    "ph": {
+      "name": "ph",
+      "rank": 2,
+      "symmetry": 1,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 3,
+      "coordinates": 16,
+      "nonzero": 16,
+      "sha256": "a33ecee6d9e3885f8e9fb011eea5e4f6a0504405aa1c60b167cbe3903c67d26c"
+    },
+    "pphh": {
+      "name": "pphh",
+      "rank": 4,
+      "symmetry": 1,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        112,
+        104,
+        104
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 9,
+      "coordinates": 256,
+      "nonzero": 112,
+      "sha256": "9ab5ef65e6297acfaba4194a7fb23c8c5a1021f9f610c85e6da28755bde72581"
+    }
+  },
+  "scope": "Complete finite source-bound actual signed amplitude audit, no production repair or scalability claim",
+  "decoder_and_core_gate_pass": false,
+  "strict_backend_gate_pass": true,
+  "candidate_energy_root_max_Ha": 1.7763568394002505e-14,
+  "candidate_raw_equation_bound_Ha": 1.5519605999603814e-13,
+  "original_integral_files_match": {
+    "ATOMX_ONE": true,
+    "ATOMX_TWO": true
+  },
+  "original_backend_unchanged": true,
+  "candidate_backend_sha256": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+  "source_and_inputs": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.c": "29f9c909bd9702be8643f3136fa8e1d5f53c827268b7f99f416e539c56e1a231",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.h": "50378d2fe774d9b37c37281441e83000c40c4774a818df71f8cd83e66c111b3b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.c": "74c45e1382c2bbb30146632ab09240f4928e09cae9cd139f2a1b2a9fc9cff1dd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.h": "eabd67839634ad299b0da6bd006e5f552a34b425578f15e27ee771f71bbb0b8b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/comdef.h": "616ba79360f52c3a74a332e4df0bf9a1895bc88f0b1af387e4ce627f36a6c2e8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/options.h": "3c86fec4d2db6cdd2bea76ee53d06c9dce5ae95ada562a88a593b2aa573f074a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/io/io.c": "73d28e2357c8ac33bcd3ed6d0cdbefe99e114e738551d6ebadd334df1de4c3e4",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01.c": "42ee99ee532a00d8a29dbef5532b75d4717f46da71375ffbeb705334b980fc04",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01_ccsdt.c": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001-build/expt.x": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "531364f015a58d349cb27b4dc81a68dc4d1aaee0a3f96e53553dea8aa2882461",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_bloch_oracle.py": "28fd62d8681dc9142b71e4605bc65b06fa1997f90d4219a3db5b8c8c6f393383",
+    "/data/code/atomx/src/atomx/methods/fscc.py": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e",
+    "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "/data/code/atomx/tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/ATOMX_ONE": "c15833c64a9d7fc52bc6b65461d27e21bef5c196671eb23e2120fe112611928e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/ATOMX_TWO": "cc83b49ec1458b8de82d8d0d4765f26a0c14ab4bd03a3f49864a06851bd6821f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/integrals.json": "dad68816676ac725a98e6c6ce111a16cd1d33eb76dee6b590897c823061efb91",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/rotation.npz": "17289dfd2c15fd12e80b5c60865ea925260e4c2120e55a7cd28737603b63ee49",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/complex_input001/rotation_identity.json": "4ae465b01a83d5887bd891e65e6fc428bd785f39062ac8900840c20ee22e4c71",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/validate_candidate.py": "66da27e9393aaa6e91fe4976d70d581d60e4f53744b3e85baf4458832afa35cd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/expt.x": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/atomx_backend.json": "fd610d05ff7e8ef385e157213e85ba6daed3a757c99d3516fc90cc09d3092451"
+  },
+  "complete_candidate_gate_pass": false,
+  "inputs_unchanged": true,
+  "arrays_sha256": "fdb7b64a35875a12cfe29c33403e9a4ba60007aada1caa10889b94af1c68b981",
+  "observed_phase_wall_seconds": 1.3787366399774328,
+  "peak_RSS_bytes": 391503872
+}

@@ -1,0 +1,23 @@
+{
+  "gpu_name": "NVIDIA GeForce RTX 4090",
+  "reported_memory_mib": 49140,
+  "driver_version": "595.91.07",
+  "numba_cuda_detected": true,
+  "compute_capability": [
+    8,
+    9
+  ],
+  "fp32_fp64_ratio": 64,
+  "numba_cuda_is_available": false,
+  "nvvm_available": false,
+  "nvvm_error": "NvvmSupportError: libNVVM cannot be found; libnvvm.so: cannot open shared object file: No such file or directory",
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "numba": "0.65.0",
+    "llvmlite": "0.47.0",
+    "numba-cuda": null,
+    "cupy": null
+  },
+  "gpu_kernel_executed": false
+}

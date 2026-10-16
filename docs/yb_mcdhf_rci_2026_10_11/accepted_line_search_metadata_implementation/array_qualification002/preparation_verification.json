@@ -1,0 +1,100 @@
+{
+  "all_passed": true,
+  "no_NumPy_import_or_array_calculation": true,
+  "source_helper_gates_unchanged": true,
+  "original_driver_sha256": "5654ebe6913315089ec2aba91d1070d645f4cf8f17632ea99bc8f9c569c5aa02",
+  "new_driver_sha256": "a179b2b390295a0fe365e68a07358fe4494d35832d4363e4d91f5ab859a12a11",
+  "contract_sha256": "89cf69c9b53fd54571e8b9f9492a712275d751c66005d445662d81adfbe100a9",
+  "helper_sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+  "exact_diff_sha256": "7a1ebdd060c80bcd6792ea963472e66498add8ee550deda939bae32566681e09",
+  "target_selector": {
+    "before_rows": 7,
+    "after_state_rows": 5,
+    "filtered_rows": [
+      "5d",
+      "6p"
+    ],
+    "selected_targets": [
+      {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "weight": 0.2
+      },
+      {
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "column": 2,
+        "weight": 0.2
+      },
+      {
+        "label": "5d_5/2",
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "column": 3,
+        "weight": 0.2
+      },
+      {
+        "label": "6p_1/2",
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "column": 1,
+        "weight": 0.2
+      },
+      {
+        "label": "6p_3/2",
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "column": 4,
+        "weight": 0.2
+      }
+    ],
+    "expected_UIDs_from_frozen_bare_tracking": {
+      "6s_1/2": [
+        1,
+        1,
+        0
+      ],
+      "5d_3/2": [
+        3,
+        1,
+        0
+      ],
+      "5d_5/2": [
+        5,
+        1,
+        0
+      ],
+      "6p_1/2": [
+        1,
+        -1,
+        0
+      ],
+      "6p_3/2": [
+        3,
+        -1,
+        0
+      ]
+    },
+    "reference_path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json"
+  },
+  "physical_calls": 0,
+  "actual_array_execution_authorized": false
+}

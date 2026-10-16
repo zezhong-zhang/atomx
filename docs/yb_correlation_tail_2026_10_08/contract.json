@@ -1,0 +1,15 @@
+{
+  "hypothesis": "A sparse high-energy virtual spectrum in the coarse radial basis can make an energy-ceiling scan falsely look converged; compare energy and angular tails together with an independently refined radial reference.",
+  "fixed_physics": "Z70 empirical Fermi nucleus; closed 68-electron [Xe]4f14 core; all 19 core radial orbitals; five external normalized core-orthogonal DF spinors; both antisymmetrized second-order diagrams and scalar DF-connected Dyson roots; Dirac-Coulomb only.",
+  "captures": [
+    {"name":"coarse_l8_e200", "reference":"v68_default", "ns":123, "lmax":8, "upper_ceiling_Ha":200, "actual_virtuals":1170, "cap_seconds_per_state":1800, "anticipated_peak_RSS_MiB_per_process":2500},
+    {"name":"fine_l6_e200", "reference":"v68_refined_newton", "ns":230, "lmax":6, "upper_ceiling_Ha":200, "actual_virtuals":1688, "cap_seconds_per_state":5400, "anticipated_peak_RSS_MiB_per_process":6000}
+  ],
+  "exact_subset_replays": "For coarse: l<=4/6/7/8 and emax=5/20/50/100/200Ha. For fine: l<=4/6 and emax=5/20/50/100/200Ha. Every subset retains all bound virtuals and re-solves all five Dyson roots; no coupling threshold.",
+  "factor_controls": "l6->l8 at the same coarse metric and energy ceiling; 50->100->200Ha at each common radial/angular model; ns123->230 at common l6 and ceiling. Fine reference orbitals and all five baseline attachment energies come from the independently converged fine V68 reference, never spliced with coarse states.",
+  "allocation": {"process_pool_workers":6, "BLAS_OMP_threads_per_process":1, "machine_CPU_count":32, "available_memory_GiB_at_preflight":111, "fine_2p1h_candidate_terms_per_state":27085804, "coarse_2p1h_candidate_terms_per_state":13015665, "aggregate_peak_RSS_estimate_GiB":36, "source_frozen_during_captures":true},
+  "gates": {"near_zero_nonzero_weight_denominator_Ha":1e-8, "Dyson_residual_Ha":1e-10, "retained_coarse_on_shell_replay_Ha":1e-10, "DF_metric_and_core_orthogonality":1e-7, "correlation_space_increment_cm1":1, "four_level_experimental_relative_error":0.05, "CI_injection_Ha":1e-8},
+  "root_branch": "For each declared subset use [epsilon_DF-0.1,epsilon_DF] if Sigma(epsilon_DF)<0, otherwise [epsilon_DF,epsilon_DF+0.1]; reject any intervening nonzero-weight pole or absent root. No experimental root selection.",
+  "limits": "Two radial grids and finite l/energy ceilings are convergence controls, not an extrapolated tail bound or a proof of higher-order, off-diagonal, Breit/QED or radiative-operator accuracy.",
+  "stopping": "Finish the two complete five-state captures and all declared matched controls, or stop a failed numerical gate with preserved failure evidence; do not silently reduce physical space or extend caps. New long-run caps are increased relative to the previous 1000-second five-state coarse run because actual virtual-pair count and radial contraction cost increase."
+}

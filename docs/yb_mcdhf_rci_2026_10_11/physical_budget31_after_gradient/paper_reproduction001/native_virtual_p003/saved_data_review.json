@@ -1,0 +1,843 @@
+{
+  "status": "PASS_SAVED_COMPLETE_6P_PROJECTED_REVIEW",
+  "controls": [
+    {
+      "name": "completed_actual",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_live_equation_controls",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_live_probe_controls",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_current_source_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all362_archive_members",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_archive_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "probe_contract.json:all_inputs_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "diis_qualification_contract.json:all_inputs_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "solve_contract.json:all_inputs_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "corner_contract.json:all_inputs_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "actual_contract_binding",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "probe_contract_binding",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "previous_all_artifacts_preserved",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "same_previous_source_epoch",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "independent_finite_DIIS_qualification",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p1:same_original_H",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p1:same_original_S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p1:same_original_occupied",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p1:original_radial_dual_Ha",
+      "measured": 1.7478507447615097e-14,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "p1:original_metric_norm",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "p1:original_occupied_overlap",
+      "measured": 1.8785800105077315e-18,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "p-2:same_original_H",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p-2:same_original_S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p-2:same_original_occupied",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "p-2:original_radial_dual_Ha",
+      "measured": 1.4201720759680954e-14,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "p-2:original_metric_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "p-2:original_occupied_overlap",
+      "measured": 4.522139847863937e-18,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "loaded_operator_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "[6, 1]:native_Fock_vs_original_radial_root",
+      "measured": 1.0436096431476471e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "[6, -2]:native_Fock_vs_original_radial_root",
+      "measured": 2.0483614804334138e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "all689589_core_equations",
+      "measured": 1.9321206535775664e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "all37533_exact_scalar_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "exact_forbidden_core_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "core_Jplus",
+      "measured": 8.016993725879423e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "all12_target_arrays",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:complete_highestM_sector",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:same_root_as_partner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:same_root_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:prescribed_bare_R1_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:all2Jplus1_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S_M1:J2",
+      "measured": 2.1765091029824272e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M1:all127620_original_R3_equations",
+      "measured": 2.5491970134187275e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:J2",
+      "measured": 1.190654018012327e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:all127620_original_R3_equations",
+      "measured": 2.549197186891075e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:complete_highestM_sector",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:same_root_as_partner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:same_root_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:prescribed_bare_R1_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:all2Jplus1_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:canonical_R_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:J2",
+      "measured": 1.6706154964532485e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:all127620_original_R3_equations",
+      "measured": 2.9397873024805676e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:canonical_R_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:J2",
+      "measured": 9.510198110336352e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:all127620_original_R3_equations",
+      "measured": 2.3598693745657817e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:J2",
+      "measured": 3.1437412396966446e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:all127620_original_R3_equations",
+      "measured": 2.359880520164115e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:J2",
+      "measured": 1.5698737294147986e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:all127620_original_R3_equations",
+      "measured": 2.9398317114015526e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:complete_highestM_sector",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:same_root_as_partner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:same_root_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:prescribed_bare_R1_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:all2Jplus1_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:J2",
+      "measured": 7.836962289995523e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:all127620_original_R3_equations",
+      "measured": 3.800221644529103e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:J2",
+      "measured": 1.8065033210165138e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:all127620_original_R3_equations",
+      "measured": 4.231275746446883e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:J2",
+      "measured": 1.9460666078824002e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:all127620_original_R3_equations",
+      "measured": 3.800227195644226e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:J2",
+      "measured": 2.919063253658316e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:all127620_original_R3_equations",
+      "measured": 3.800224371297567e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:canonical_R_norm",
+      "measured": 4.440892098500626e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:J2",
+      "measured": 8.058419786855846e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:all127620_original_R3_equations",
+      "measured": 4.231298211115897e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:exact_other_sector_zeros",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:canonical_R_norm",
+      "measured": 4.440892098500626e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:J2",
+      "measured": 3.554896226588727e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:all127620_original_R3_equations",
+      "measured": 3.800220511537833e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:same_state_line",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "D3:same_state_change",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "D5:same_state_line",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "D5:same_state_change",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "absolute_energy_origin",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "corner_contract_binding",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "corner_all_retained_ERI",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_all_retained_Fock",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_frozen_constant",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_frozen_one_body",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_all4254_SDT_equations",
+      "measured": 1.766701371470078e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "corner_core_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "corner_all12_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M1:corner_J2",
+      "measured": 2.6196969115223293e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M1:corner_original_R3_equations",
+      "measured": 1.472349763031284e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:corner_J2",
+      "measured": 9.568952263403427e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:corner_original_R3_equations",
+      "measured": 1.47234980097836e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:corner_J2",
+      "measured": 1.6765350141416877e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:corner_original_R3_equations",
+      "measured": 1.6710210069093923e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:corner_J2",
+      "measured": 3.154105930329434e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:corner_original_R3_equations",
+      "measured": 1.6710208002333532e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:corner_J2",
+      "measured": 6.17427474054637e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:corner_original_R3_equations",
+      "measured": 1.6710208652854835e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:corner_J2",
+      "measured": 1.823099674178832e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:corner_original_R3_equations",
+      "measured": 1.6710209960673706e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:corner_J2",
+      "measured": 1.2067981840889387e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:corner_original_R3_equations",
+      "measured": 9.395327701597345e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:corner_J2",
+      "measured": 4.03010451553834e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:corner_original_R3_equations",
+      "measured": 7.385704718708246e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:corner_J2",
+      "measured": 5.3686920561941285e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:corner_original_R3_equations",
+      "measured": 6.831871521414609e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:corner_J2",
+      "measured": 6.697369292893138e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:corner_original_R3_equations",
+      "measured": 6.831871434678435e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:corner_J2",
+      "measured": 1.7800542146576074e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:corner_original_R3_equations",
+      "measured": 7.385704457144471e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:corner_J2",
+      "measured": 2.1904838936104604e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:corner_original_R3_equations",
+      "measured": 9.395338890563765e-11,
+      "cap": 1e-10,
+      "passed": true
+    }
+  ],
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 25769803776,
+    "wall_seconds": 240,
+    "complete_core_calls": 1,
+    "complete_EA_partner_calls": 12
+  },
+  "scope": "Saved projectedSDT/R3 states and original radial pencils; replay is not an independent full18e FCI or exp(T) norm certificate.",
+  "maximum_partner_residual_Ha": 4.231298211115897e-11,
+  "lines_cm1": {
+    "D3": 25164.078643404588,
+    "D5": 25572.326410989943
+  },
+  "elapsed_seconds": 83.57336332899285,
+  "peak_RSS_MiB": 1317.4609375
+}

@@ -1,0 +1,1634 @@
+[
+  {
+    "backend": "NumBa_CPU1",
+    "category": "first",
+    "ordinal": 0,
+    "full_gradient_metric_s": 1.877521371236071,
+    "raw_gradient_s": 1.8770445920526981,
+    "original_metric_s": 0.0004767791833728552,
+    "validation_s": 0.20079236291348934,
+    "archive_s": 0.690379325998947,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "first",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.6289428488817066,
+    "raw_gradient_s": 0.6284711700864136,
+    "original_metric_s": 0.0004716787952929735,
+    "validation_s": 0.19619793118909,
+    "archive_s": 0.6816185298375785,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": true
+  },
+  {
+    "backend": "CUDA",
+    "category": "first",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.9113511389587075,
+    "raw_gradient_s": 0.9108325419947505,
+    "original_metric_s": 0.0005185969639569521,
+    "validation_s": 0.2014259269926697,
+    "archive_s": 0.692182585131377,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "explicit_warmup",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.7960348022170365,
+    "raw_gradient_s": 0.7955490960739553,
+    "original_metric_s": 0.0004857061430811882,
+    "validation_s": 0.19785086787305772,
+    "archive_s": 0.636292323935777,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [
+      0.06128647387959063,
+      0.06543993391096592,
+      0.061418543104082346,
+      0.05659161298535764,
+      0.055535111110657454,
+      0.026388064958155155
+    ],
+    "profile_enabled": true,
+    "first_call_JIT_reused": false,
+    "profile": {
+      "packet_band_transferinclusive_s": 0.32665973994880915,
+      "raw_remainder_density_identity_CPUactions_signedadd_s": 0.46888935612514615,
+      "fraction_packet_within_raw": 0.41060915229604183,
+      "device_kernel_transfer_duration_separately_available": false,
+      "timings_uncontrolled_and_not_scored": true
+    }
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "explicit_warmup",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.6166069528553635,
+    "raw_gradient_s": 0.6161384899169207,
+    "original_metric_s": 0.00046846293844282627,
+    "validation_s": 0.19805762800388038,
+    "archive_s": 0.6900098589248955,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [
+      0.029850452905520797,
+      0.03377720480784774,
+      0.025585020892322063,
+      0.01994105102494359,
+      0.026457234984263778,
+      0.00947277806699276
+    ],
+    "profile_enabled": true,
+    "first_call_JIT_reused": false,
+    "profile": {
+      "packet_band_transferinclusive_s": 0.14508374268189073,
+      "raw_remainder_density_identity_CPUactions_signedadd_s": 0.47105474723502994,
+      "fraction_packet_within_raw": 0.2354726170433755,
+      "device_kernel_transfer_duration_separately_available": false,
+      "timings_uncontrolled_and_not_scored": true
+    }
+  },
+  {
+    "backend": "CUDA",
+    "category": "explicit_warmup",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.5744572358671576,
+    "raw_gradient_s": 0.5739510010462254,
+    "original_metric_s": 0.0005062348209321499,
+    "validation_s": 0.19959730003029108,
+    "archive_s": 0.6814505129586905,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [
+      0.006402869941666722,
+      0.0014159600250422955,
+      0.0013465480878949165,
+      0.0013706630561500788,
+      0.0013919142074882984,
+      0.0009039039723575115
+    ],
+    "profile_enabled": true,
+    "first_call_JIT_reused": false,
+    "profile": {
+      "packet_band_transferinclusive_s": 0.012831859290599823,
+      "raw_remainder_density_identity_CPUactions_signedadd_s": 0.5611191417556256,
+      "fraction_packet_within_raw": 0.02235706404764395,
+      "device_kernel_transfer_duration_separately_available": false,
+      "timings_uncontrolled_and_not_scored": true
+    }
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "warm",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.7945477890316397,
+    "raw_gradient_s": 0.7940523449797183,
+    "original_metric_s": 0.0004954440519213676,
+    "validation_s": 0.2002202740404755,
+    "archive_s": 0.6959880380891263,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "warm",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.631891397992149,
+    "raw_gradient_s": 0.6314019449055195,
+    "original_metric_s": 0.0004894530866295099,
+    "validation_s": 0.19961719796992838,
+    "archive_s": 0.6915635380428284,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "CUDA",
+    "category": "warm",
+    "ordinal": 0,
+    "full_gradient_metric_s": 0.47541273199021816,
+    "raw_gradient_s": 0.47490740893408656,
+    "original_metric_s": 0.0005053230561316013,
+    "validation_s": 0.3002002409193665,
+    "archive_s": 0.6933602951467037,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "CUDA",
+    "category": "warm",
+    "ordinal": 1,
+    "full_gradient_metric_s": 0.47467779694125056,
+    "raw_gradient_s": 0.47418006882071495,
+    "original_metric_s": 0.0004977281205356121,
+    "validation_s": 0.2004919871687889,
+    "archive_s": 0.6827656920067966,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "warm",
+    "ordinal": 1,
+    "full_gradient_metric_s": 0.6235827249474823,
+    "raw_gradient_s": 0.623105786042288,
+    "original_metric_s": 0.00047693890519440174,
+    "validation_s": 0.19843652215786278,
+    "archive_s": 0.6914025340229273,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "warm",
+    "ordinal": 1,
+    "full_gradient_metric_s": 0.7995284071657807,
+    "raw_gradient_s": 0.7990247481502593,
+    "original_metric_s": 0.0005036590155214071,
+    "validation_s": 0.20026776404120028,
+    "archive_s": 0.7251515658572316,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "warm",
+    "ordinal": 2,
+    "full_gradient_metric_s": 0.6387431339826435,
+    "raw_gradient_s": 0.6382683590054512,
+    "original_metric_s": 0.0004747749771922827,
+    "validation_s": 0.19955405895598233,
+    "archive_s": 0.6791427328716964,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "warm",
+    "ordinal": 2,
+    "full_gradient_metric_s": 0.8061968388501555,
+    "raw_gradient_s": 0.8057120249141008,
+    "original_metric_s": 0.0004848139360547066,
+    "validation_s": 0.19823730597272515,
+    "archive_s": 0.611288727959618,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "CUDA",
+    "category": "warm",
+    "ordinal": 2,
+    "full_gradient_metric_s": 0.475688993697986,
+    "raw_gradient_s": 0.47518474282696843,
+    "original_metric_s": 0.0005042508710175753,
+    "validation_s": 0.20319155603647232,
+    "archive_s": 0.6986507279798388,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "CUDA",
+    "category": "warm",
+    "ordinal": 3,
+    "full_gradient_metric_s": 0.5914841438643634,
+    "raw_gradient_s": 0.59100327687338,
+    "original_metric_s": 0.0004808669909834862,
+    "validation_s": 0.200302500044927,
+    "archive_s": 0.6557216409128159,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "warm",
+    "ordinal": 3,
+    "full_gradient_metric_s": 0.7927299609873444,
+    "raw_gradient_s": 0.7922498260159045,
+    "original_metric_s": 0.0004801349714398384,
+    "validation_s": 0.1988198838662356,
+    "archive_s": 0.6364271380007267,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "warm",
+    "ordinal": 3,
+    "full_gradient_metric_s": 0.6320639529731125,
+    "raw_gradient_s": 0.6315972229931504,
+    "original_metric_s": 0.0004667299799621105,
+    "validation_s": 0.19963358901441097,
+    "archive_s": 0.6819603841286153,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU1",
+    "category": "warm",
+    "ordinal": 4,
+    "full_gradient_metric_s": 0.9036543208640069,
+    "raw_gradient_s": 0.9031619119923562,
+    "original_metric_s": 0.0004924088716506958,
+    "validation_s": 0.20391309494152665,
+    "archive_s": 0.6818751639220864,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "CUDA",
+    "category": "warm",
+    "ordinal": 4,
+    "full_gradient_metric_s": 0.47348432801663876,
+    "raw_gradient_s": 0.4729895449709147,
+    "original_metric_s": 0.0004947830457240343,
+    "validation_s": 0.1980148369912058,
+    "archive_s": 0.6479475360829383,
+    "NumBa_mask": 1,
+    "affinity": [
+      30
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        30
+      ],
+      "2364428": [
+        30
+      ],
+      "2364432": [
+        30
+      ],
+      "2364433": [
+        30
+      ],
+      "2364434": [
+        30
+      ],
+      "2364560": [
+        30
+      ],
+      "2364561": [
+        30
+      ],
+      "2364562": [
+        30
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 6
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  },
+  {
+    "backend": "NumBa_CPU4",
+    "category": "warm",
+    "ordinal": 4,
+    "full_gradient_metric_s": 0.629728029249236,
+    "raw_gradient_s": 0.6292597961146384,
+    "original_metric_s": 0.0004682331345975399,
+    "validation_s": 0.2033013019245118,
+    "archive_s": 0.6793632691260427,
+    "NumBa_mask": 4,
+    "affinity": [
+      28,
+      29,
+      30,
+      31
+    ],
+    "all_task_affinities": {
+      "2363078": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364428": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364432": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364433": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364434": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364560": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364561": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "2364562": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    "bands": {
+      "all_bands": 2824,
+      "bitwise_bands": 2824,
+      "max_scaled_band_error": 0.0
+    },
+    "adapter_delta": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 0,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 1
+    },
+    "engine_delta": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "warmup_packet_transferinclusive_s": [],
+    "profile_enabled": false,
+    "first_call_JIT_reused": false
+  }
+]

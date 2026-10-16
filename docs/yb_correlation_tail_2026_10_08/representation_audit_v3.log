@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 76, in <module>
+    if __name__=="__main__":main()
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 59, in main
+    bad=[name for name,meta in entries.items() if sha(manifest_root/name)!=meta["sha256"]]
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 59, in <listcomp>
+    bad=[name for name,meta in entries.items() if sha(manifest_root/name)!=meta["sha256"]]
+TypeError: string indices must be integers

@@ -1,0 +1,629 @@
+{
+  "all_orientation_diagnostics": {
+    "adjoint": {
+      "four_roots_minus_fixed_native_Ha": 2.435551760271437e-15,
+      "imaginary_roots_Ha": 2.0308514066678756e-17,
+      "mapped_minus_actual_wave_ket_Heff": 4.329872679941671e-15,
+      "mapped_minus_independent_expected_ket_Heff": 6.827899680164789e-15,
+      "omitted_Bloch_Ha": 0.0006117464841215067,
+      "physical_full_H_residual_Ha": 0.0005287174021825287,
+      "physical_projector_covariance": 1.9938592893379275e-13,
+      "retained_Bloch_Ha": 3.2180815507380825e-14
+    },
+    "conjugate": {
+      "four_roots_minus_fixed_native_Ha": 2.4216739724636227e-15,
+      "imaginary_roots_Ha": 8.897368684890035e-17,
+      "mapped_minus_actual_wave_ket_Heff": 0.13632142297843486,
+      "mapped_minus_independent_expected_ket_Heff": 0.1363214229784347,
+      "omitted_Bloch_Ha": 0.0006117464841215067,
+      "physical_full_H_residual_Ha": 0.14163995370618318,
+      "physical_projector_covariance": 0.6923114767054123,
+      "retained_Bloch_Ha": 0.13632142297843486
+    },
+    "raw": {
+      "four_roots_minus_fixed_native_Ha": 2.4216739724636227e-15,
+      "imaginary_roots_Ha": 8.897368684890035e-17,
+      "mapped_minus_actual_wave_ket_Heff": 0.0068379518644309896,
+      "mapped_minus_independent_expected_ket_Heff": 0.006837951864429735,
+      "omitted_Bloch_Ha": 0.0006117464841215067,
+      "physical_full_H_residual_Ha": 0.008667402655997908,
+      "physical_projector_covariance": 0.014219005141916742,
+      "retained_Bloch_Ha": 0.0068379518644309896
+    },
+    "transpose": {
+      "four_roots_minus_fixed_native_Ha": 2.435551760271437e-15,
+      "imaginary_roots_Ha": 2.0308514066678756e-17,
+      "mapped_minus_actual_wave_ket_Heff": 0.13639781293972902,
+      "mapped_minus_independent_expected_ket_Heff": 0.13639781293972886,
+      "omitted_Bloch_Ha": 0.0006117464841215067,
+      "physical_full_H_residual_Ha": 0.13966938075872248,
+      "physical_projector_covariance": 0.693542435817939,
+      "retained_Bloch_Ha": 0.13639781293972902
+    }
+  },
+  "checks": [
+    {
+      "PASS": true,
+      "limit": 67108864,
+      "name": "baseline_all_decoded_bytes",
+      "observed": 4128312
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_one_body",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_Fock",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 0.0,
+      "name": "baseline_literal_complete_packed_ERI",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 1e-14,
+      "name": "fixed_phase_unitarity",
+      "observed": 4.440892098500626e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "full_onebody_phase_covariance_after_ABI_storage",
+      "observed": 2.238026276897776e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "full_Fock_phase_covariance_after_ABI_storage",
+      "observed": 6.519052132912937e-17
+    },
+    {
+      "PASS": true,
+      "limit": 1e-14,
+      "name": "noncanonical_Fov_magnitude_preserved",
+      "observed": 1.3877787807814457e-17
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "complex_operator_distinguishes_conjugation",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "complete_core_and_attachment_masks",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "independent_complete_complex_core_H_covariance",
+      "observed": 4.4442968867242604e-15
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "independent_complete_complex_attachment_H_covariance",
+      "observed": 8.881864302603263e-15
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "complete_core_H_hermiticity",
+      "observed": 4.177767360805209e-17
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "complete_attachment_H_hermiticity",
+      "observed": 5.561946577567963e-17
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "all_complex_core_FCI_roots_covariant",
+      "observed": 1.0658141036401503e-14
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "all_complex_attachment_FCI_roots_covariant",
+      "observed": 7.993605777301127e-15
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "unchanged_reference_ground_overlap",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "same_nonzero_T3_Nplus1",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1000000.0,
+      "name": "same_four_model_condition",
+      "observed": 1.0238875510125687
+    },
+    {
+      "PASS": true,
+      "limit": 1e-12,
+      "name": "four_model_projector_condition_covariant",
+      "observed": 2.220446049250313e-16
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "same_four_root_gap",
+      "observed": true
+    }
+  ],
+  "common_model_reference_condition": 1.0238875510125687,
+  "counts": {
+    "complete_baseline_archive_decoded": 1,
+    "external_complex_tensor_launches": 1,
+    "independent_complete_complex_FCI": 2,
+    "independent_complete_complex_H": 2,
+    "native_complex_CC_calls": 0
+  },
+  "external_provenance": {
+    "active_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "atomx_solver_sha256": "d578dc2f81e92c7d828dde017e90e012c64fc3ecbef0ea96b1f276d0821edee7",
+    "backend": "EXP-T Atomx interface",
+    "backend_patch_sha256": "998ea26f9d5e209b32680ac1bbefcdf61fc498db5535685c0a64155fd3097fac",
+    "backend_source_manifest_sha256": "5516faf5a5f62ce18d148982bcb806dd8d74c038ace1373d8bc1feb477650ee9",
+    "executable_sha256": "cf230c3c8e1c70fb29cf019d794f228b4773d8ea79a498e4ee4aaf095438d7df",
+    "heff_sha256": "7b54e29f72e5ed25b4158e1aea510fe5a2ad61d08b713c4a14f7258463c69998",
+    "input_sha256": "2f587790773856654aec031fd0c9b07c06080f8b2772bfb4f213343054d001fb",
+    "integral_manifest_sha256": "5287d5a25acab40684798228b4549209f5a736264773d2f887602138aa44049e",
+    "integrals": {
+      "abi": "ATXCC001",
+      "export": {
+        "logical_bytes": 5152,
+        "max_chunk_bytes": 4194304,
+        "max_integral_file_bytes": 2147483648,
+        "producer": {
+          "dense_eri_bytes": 4256,
+          "representation": "packed",
+          "resident_eri_bytes": 4256,
+          "resident_matrix_bytes": 1568
+        }
+      },
+      "files": {
+        "ATOMX_ONE": "3f0357ab2a90348937c2b6f95373d450b0494041abd84ea82c800c929861e8d6",
+        "ATOMX_TWO": "04c2c951605befcf4e03e44e91a7cbbb7cb9e55648369b7548f5b3698e0ebffb"
+      },
+      "frozen_energy_Ha": -2.3,
+      "identity": {
+        "phase_case": "fixed orbital basis rephasing; same complete toy operator",
+        "scope": "finite two-body anchor"
+      },
+      "labels": [
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          3,
+          -1,
+          1
+        ],
+        [
+          4,
+          -1,
+          1
+        ],
+        [
+          5,
+          -1,
+          1
+        ],
+        [
+          6,
+          -1,
+          1
+        ],
+        [
+          7,
+          -1,
+          1
+        ]
+      ],
+      "noccupied": 3,
+      "reference_energy_Ha": -7.149498738039073
+    },
+    "log_sha256": "63a5dad3e510538aefbafeee2d452b0062d98d8bbc56cfac36edb0768d1306ac",
+    "memory_bytes": 536870912,
+    "model": "CCSDT",
+    "model_matrix_order": "ascending global active indices, original EXP-T one-particle/hole determinant basis",
+    "model_space_matrix_sha256": "408b9b497adda82c95d8dab6643807d3b715fc59d0f8535d4a2fb89c621f1155",
+    "noncanonical_attachment_equation": "ATOMX_FOV_T2_001",
+    "occupied_virtual_fock_max_Ha": 0.07176178946223533,
+    "residual_bound_tolerance_Ha": 1e-11,
+    "residual_scope": "backend raw Jacobi update bound; independent retained/Bloch and omitted-rank wave residuals are separate validations",
+    "resources": {
+      "core_independent_amplitudes": 34,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced",
+      "estimated_working_bytes": 2265792,
+      "occupied": 3,
+      "raw_tensor_coordinates": 4396,
+      "virtual": 4
+    },
+    "sector": "0h1p",
+    "statuses": {
+      "0h0p": [
+        1,
+        13,
+        2.1307575125205706e-14,
+        6.018130087246967e-15,
+        8.229065020557681e-16
+      ],
+      "0h1p": [
+        1,
+        23,
+        0.0,
+        9.921789001588582e-14,
+        3.700475884507959e-15
+      ]
+    },
+    "tensor_symmetry": "C1",
+    "threads": 1,
+    "tile_size": 4,
+    "tolerance": 1e-13,
+    "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28"
+  },
+  "frozen_roots_Ha": [
+    -0.603334852197227,
+    -0.47014179253730765,
+    -0.20115698836059925,
+    0.0554291986341694
+  ],
+  "host": {
+    "affinity": [
+      28
+    ],
+    "available_bytes": 96578543616,
+    "load": [
+      0.18408203125,
+      0.26318359375,
+      0.26416015625
+    ]
+  },
+  "independent_core_energy_Ha": -7.174772647253537,
+  "original_saved_model_projector_condition": 1.023887551012569,
+  "phases_seconds": {
+    "external_FSCC_call": 0.2203105130174663
+  },
+  "scope": "Fixed diagonal complex orbital phases of the exact same N3/seven-spinor real two-body toy and four frozen roots. All35 core/35 attachment determinants, all34 R rows, nonzeroT3 and omittedR4 remain. No real-only native complex solver call, backend/parser/shared-source change, new physical model or atomic claim.",
+  "status": "RUNNING",
+  "tensor_decoder_metadata": {
+    "hp": {
+      "blocks": 2,
+      "coordinates": 12,
+      "name": "hp",
+      "nonzero": 12,
+      "only_unique": 0,
+      "order": [
+        1,
+        2
+      ],
+      "qparts": [
+        104,
+        112
+      ],
+      "rank": 2,
+      "sha256": "bdb472c5b8bf006162b991f0eb4cc6e7fd7181ca094073e9c87aed45b9a656fb",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0
+      ]
+    },
+    "ph": {
+      "blocks": 2,
+      "coordinates": 12,
+      "name": "ph",
+      "nonzero": 12,
+      "only_unique": 0,
+      "order": [
+        1,
+        2
+      ],
+      "qparts": [
+        112,
+        104
+      ],
+      "rank": 2,
+      "sha256": "fae2dc438bf4807ac4dbefdf2808c534705ce1afa1df88334378fe29a2cb727e",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0
+      ]
+    },
+    "pphh": {
+      "blocks": 4,
+      "coordinates": 144,
+      "name": "pphh",
+      "nonzero": 72,
+      "only_unique": 1,
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "qparts": [
+        112,
+        112,
+        104,
+        104
+      ],
+      "rank": 4,
+      "sha256": "7cfe4d4cc133e557bc426a0184aa880b68de150c7d755540dac02da72e0f4911",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "s1c": {
+      "blocks": 4,
+      "coordinates": 16,
+      "name": "s1c",
+      "nonzero": 0,
+      "only_unique": 0,
+      "order": [
+        1,
+        2
+      ],
+      "qparts": [
+        112,
+        112
+      ],
+      "rank": 2,
+      "sha256": "0d8118386040de648ab51d5b70921bdb243241782b027f5d7f92d582f6388f3e",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0
+      ],
+      "valence": [
+        1,
+        0
+      ]
+    },
+    "s2c": {
+      "blocks": 8,
+      "coordinates": 192,
+      "name": "s2c",
+      "nonzero": 192,
+      "only_unique": 0,
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "qparts": [
+        112,
+        104,
+        112,
+        112
+      ],
+      "rank": 4,
+      "sha256": "129445e2ffab9d74a609ca68eae3778b752dc9a63bb79e1ad07bf5e0fdca66ed",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "s3c": {
+      "blocks": 16,
+      "coordinates": 2304,
+      "name": "s3c",
+      "nonzero": 2304,
+      "only_unique": 1,
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "qparts": [
+        112,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "rank": 6,
+      "sha256": "fee65869e021ebfc0b71007dbacdc8228003af7bf6a1082bc30c274a68b97acb",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "t1c": {
+      "blocks": 2,
+      "coordinates": 12,
+      "name": "t1c",
+      "nonzero": 12,
+      "only_unique": 0,
+      "order": [
+        1,
+        2
+      ],
+      "qparts": [
+        104,
+        112
+      ],
+      "rank": 2,
+      "sha256": "28e0aa4660ca2f2f4874ac23f2abadf43e15473889a9599eb188b3ba895dd35b",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0
+      ]
+    },
+    "t2c": {
+      "blocks": 4,
+      "coordinates": 144,
+      "name": "t2c",
+      "nonzero": 144,
+      "only_unique": 1,
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "qparts": [
+        104,
+        104,
+        112,
+        112
+      ],
+      "rank": 4,
+      "sha256": "eab10cd4a1117edf76c9bfb360fb8229aae351232dc7a6a186911a26ca345b73",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "t3c": {
+      "blocks": 8,
+      "coordinates": 1728,
+      "name": "t3c",
+      "nonzero": 1728,
+      "only_unique": 1,
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "qparts": [
+        104,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "rank": 6,
+      "sha256": "0677a50e183705bde1efeed2066646014b2dc12b42efc65d1b95e3cd95e5c7b6",
+      "symmetry": 1,
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "tensor_phase_metrics": {
+    "Nplus1_tensor_phase_covariance": 2.324723557494741e-14,
+    "T3_Nplus1_max": 0.0007981447320562498,
+    "T3_Nplus1_phase_covariance": 8.165466212898583e-16,
+    "backend_column_major_coefficients_conjugated_physical_projector": 1.9938592893379275e-13,
+    "core_complete_residual_Ha": 1.9634650760301616e-14,
+    "core_energy_FCI_Ha": 1.7763590760952187e-15,
+    "core_tensor_phase_covariance": 2.323434051950875e-14,
+    "hp_Fock_decode_Ha": 0.0,
+    "ket_wave_Heff_phase_covariance": 8.881817269147234e-15,
+    "model_omega_normalization": 0.0,
+    "model_omega_phase_covariance": 2.1495985884894556e-13,
+    "ph_Fock_decode_Ha": 0.0,
+    "raw_imaginary_max": 0.06819890646986453,
+    "raw_nonHermitian_max": 0.006837951864430976
+  }
+}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py", line 416, in <module>
+    main(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py", line 215, in main
+    result = valence.solve(
+  File "/data/code/atomx/src/atomx/methods/valence_sd.py", line 658, in solve
+    prime = inverse(rhs, seeds[1], stage="response")
+  File "/data/code/atomx/src/atomx/methods/valence_sd.py", line 644, in inverse
+    raise RuntimeError(
+RuntimeError: full valence raw residual gate failed: info=100, max=7.5524121014876365e+174 Ha
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000028
+CHANNEL    16  j1=  2  j2=  1  km= -2  kn= -2  k=  3    0.000124
+CHANNEL    24  j1=  2  j2=  2  km= -2  kn= -2  k=  3    0.118074
+ Number of channels =           24

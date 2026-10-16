@@ -1,0 +1,69 @@
+{
+  "status": "primary-source historical context frozen before new five-root comparison",
+  "source": {
+    "authors": [
+      "S. G. Porsev",
+      "M. S. Safronova",
+      "M. G. Kozlov"
+    ],
+    "title": "Correlation effects in Yb+ and implications for parity violation",
+    "doi": "10.1103/PhysRevA.86.022504",
+    "journal": "Physical Review A 86, 022504 (2012)",
+    "accepted_pdf_url": "https://link.aps.org/accepted/10.1103/PhysRevA.86.022504",
+    "locator": "Table I and Sec. II A",
+    "access_method": "web tool inspected accepted manuscript; selected numeric transcription, not an archived PDF checksum"
+  },
+  "method": "single-double linearized all-order, historical monovalent Yb+ result",
+  "rows": [
+    {
+      "key": [
+        5,
+        2
+      ],
+      "paper_all_order_excitation_cm1": 22820,
+      "handbook_experimental_cm1": 22960.8,
+      "difference_cm1": -140.79999999999927,
+      "relative_error": -0.006132190516009863
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "paper_all_order_excitation_cm1": 24261,
+      "handbook_experimental_cm1": 24332.69,
+      "difference_cm1": -71.68999999999869,
+      "relative_error": -0.0029462422773642656
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "paper_all_order_excitation_cm1": 27945,
+      "handbook_experimental_cm1": 27061.82,
+      "difference_cm1": 883.1800000000003,
+      "relative_error": 0.0326356468264145
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "paper_all_order_excitation_cm1": 31481,
+      "handbook_experimental_cm1": 30392.23,
+      "difference_cm1": 1088.7700000000004,
+      "relative_error": 0.03582395895266653
+    }
+  ],
+  "handbook_reference_sha256": "ee13d028f9e0075d00b7a6c4a65fded82fed6c62137fadaba7c2d6ba8c48818f",
+  "not_matched_atomx_hamiltonian_or_space": true,
+  "limitations": [
+    "A published SD method also has percent-level deviations for these p excitations; this is not a universal accuracy statement about pCI, AMBiT or EXP-T.",
+    "Table I first row is an ionization potential in Ha, not an excitation; exclude it from these comparisons.",
+    "Do not treat empirical screening in the separate MBPT(HO) column as parameter-free all-order performance.",
+    "Paper discusses near odd-parity 4f-hole mixing; atomx retains 2p1h doubles, so holes are not completely absent. A balanced nonperturbative P-space and higher-order correlations remain untested explanations of any atomx gap.",
+    "Do not assume exact all-order orbital space equals the paper MBPT basis; obtain its input before a matched-code validation.",
+    "No fitted shift, new physical error correction or tolerance change is authorized by this context."
+  ]
+}

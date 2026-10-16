@@ -1,0 +1,98 @@
+{
+  "NIST_four_gap_improved": false,
+  "accepted_steps": {
+    "additional": 160,
+    "total_two_fresh_history_segments": 320
+  },
+  "evidence_sha256": {
+    "completion": "66754125e3d9b223628aa3f6a3aa670edba00c01e232ce9e11a81993d906e733",
+    "independent1011_replay": "082d24ab57cada5c83101e7ac2a6930732838b1617724530d7ce5611303d65b4",
+    "saved4963audit": "9b49a7f68652d3681fb109da776274103f03f27a4f7ab581dc8976a2f430d9ce"
+  },
+  "experimental_gate_passed": false,
+  "four_rows": [
+    {
+      "NIST_nominal_cm1": 22960.8,
+      "absolute_upper_delta_from_fixed531_Ha": -0.0010948065046250122,
+      "absolute_upper_delta_from_parent160_Ha": 1.817261363612488e-07,
+      "energy_Ha": -14067.379002053973,
+      "excitation_cm1": 25271.653596594064,
+      "label": "5d_3/2",
+      "nominal_1percent_pass": false,
+      "nominal_gap_cm1": 2310.8535965940646,
+      "same_lower_delta_from_fixed531_Ha": -0.0021839442615601,
+      "same_lower_delta_from_parent160_Ha": -2.715914888540283e-07,
+      "same_lower_upper_transition_delta_cm1": 239.03810770700875,
+      "same_lower_upper_transition_delta_from_parent160_cm1": 0.09949171868720441
+    },
+    {
+      "NIST_nominal_cm1": 24332.69,
+      "absolute_upper_delta_from_fixed531_Ha": -0.00032517749423277564,
+      "absolute_upper_delta_from_parent160_Ha": 1.190212060464546e-06,
+      "energy_Ha": -14067.375367087163,
+      "excitation_cm1": 26069.436597201166,
+      "label": "5d_5/2",
+      "nominal_1percent_pass": false,
+      "nominal_gap_cm1": 1736.7465972011669,
+      "same_lower_delta_from_fixed531_Ha": -0.0021839442615601,
+      "same_lower_delta_from_parent160_Ha": -2.715914888540283e-07,
+      "same_lower_upper_transition_delta_cm1": 407.95215104921954,
+      "same_lower_upper_transition_delta_from_parent160_cm1": 0.3208287951092643
+    },
+    {
+      "NIST_nominal_cm1": 27061.82,
+      "absolute_upper_delta_from_fixed531_Ha": -0.0025882068803184666,
+      "absolute_upper_delta_from_parent160_Ha": -1.8654372979654e-06,
+      "energy_Ha": -14067.38034226755,
+      "excitation_cm1": 24977.510715757213,
+      "label": "6p_1/2",
+      "nominal_1percent_pass": false,
+      "nominal_gap_cm1": -2084.309284242787,
+      "same_lower_delta_from_fixed531_Ha": -0.0021839442615601,
+      "same_lower_delta_from_parent160_Ha": -2.715914888540283e-07,
+      "same_lower_upper_transition_delta_cm1": -88.72538922589229,
+      "same_lower_upper_transition_delta_from_parent160_cm1": -0.34980872140658903
+    },
+    {
+      "NIST_nominal_cm1": 30392.23,
+      "absolute_upper_delta_from_fixed531_Ha": -0.0014582577132387087,
+      "absolute_upper_delta_from_parent160_Ha": -2.6620164135238156e-06,
+      "energy_Ha": -14067.364401723946,
+      "excitation_cm1": 28476.055647039393,
+      "label": "6p_3/2",
+      "nominal_1percent_pass": false,
+      "nominal_gap_cm1": -1916.1743529606065,
+      "same_lower_delta_from_fixed531_Ha": -0.0021839442615601,
+      "same_lower_delta_from_parent160_Ha": -2.715914888540283e-07,
+      "same_lower_upper_transition_delta_cm1": 159.2697876780294,
+      "same_lower_upper_transition_delta_from_parent160_cm1": -0.524637629143399
+    }
+  ],
+  "highest_level_reached": false,
+  "method": "native mixed-CI EOL Dirac-Coulomb MCDHF iteration; original nuclear no-pair metric",
+  "nearroundoff_observation": {
+    "last10_median_decrease_ULP": 3.5,
+    "last_step_decrease_ULP": 1,
+    "optimizer_failure_proven": false,
+    "spacing_Ha": 1.8189894035458565e-12
+  },
+  "next_minimal_direction": "Keep physics/state/metric gates; discriminate stable responding-CI relative-energy evaluation and original-metric convergence before larger scans. Missing-physics assessment stays separate from stationarity.",
+  "original_stationarity": {
+    "complete_preconditioned_pg_samepoint_limit": 1e-10,
+    "complete_projected_coordinate_g_samepoint_limit": 1e-09,
+    "original_both_stationarity_gates_passed": false,
+    "original_energy_gate_passed": true,
+    "original_energy_indicator_Ha": 9.225371955806855e-12,
+    "original_energy_tolerance_Ha": 1e-08,
+    "original_orbital_gate_passed": false,
+    "original_orbital_residual": 1.9434848235489216e-06,
+    "original_orbital_tolerance": 1e-07,
+    "samepoint_full_vector_replay_passed": true,
+    "samepoint_g_replay_error": 0,
+    "samepoint_pg_replay_error": 0
+  },
+  "production_certified": false,
+  "static320_spectrum_calculated": false,
+  "status": "iteration-limited; original orbital gate FAIL",
+  "title": "Yb+ \u539f\u751f531 MCDHF\u7eed\u7b97\uff1a\u7d2f\u8ba1320\u6b65\uff0c\u4ecd\u672a\u9a7b\u503c"
+}

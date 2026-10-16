@@ -1,0 +1,56 @@
+{
+  "all_source_only_checks_passed": true,
+  "checks": 10,
+  "controls": [
+    {
+      "name": "single public optimizer call; only search-memory keyword/maxiter differ",
+      "passed": true
+    },
+    {
+      "name": "two metadata admissions execute no numerical import",
+      "passed": true
+    },
+    {
+      "name": "same original source/metric/physical target/tracker inputs and exact208seed",
+      "passed": true
+    },
+    {
+      "name": "only two declared search memories with empty initial histories",
+      "passed": true
+    },
+    {
+      "name": "separate CPU/thread/AS caps and same32step producer limits",
+      "passed": true
+    },
+    {
+      "name": "reserve accepts final33rd point/165th quotient/declaredpairupper",
+      "passed": true
+    },
+    {
+      "name": "reserve rejects pointcap before counter mutation",
+      "passed": true
+    },
+    {
+      "name": "reserve rejects paircap before counter mutation",
+      "passed": true
+    },
+    {
+      "name": "reserve rejects negativework before counter mutation",
+      "passed": true
+    },
+    {
+      "name": "unchanged exact guard and frozen consumer utilities",
+      "passed": true
+    }
+  ],
+  "runner_sha256": "55ae5f87bcd2bcffcbddaf327efab97947c05ab2def533f371df6175365021b1",
+  "contract_sha256": "ac1eed1005e6d5d9b78bfa9d1326b00ab3c49a3289c99e074cd5c2bd878d1746",
+  "preparation_driver_sha256": "966ab87685d16f826a40e527af2da655a529bb7e827cfffa7c634412bed3050e",
+  "numerical_imports": 0,
+  "array_reads": 0,
+  "H_CI_gradient_optimizer_Dirac_calls": 0,
+  "resource_mock_scope": "literal reserve resource counters only; exact arithmetic not requalified",
+  "Ruff": "passed",
+  "existing_optimizer_affected_test_source": "tests/test_orbital_optimizer_history.py read only; no tests rerun",
+  "root_actual_execution_still_pending": true
+}

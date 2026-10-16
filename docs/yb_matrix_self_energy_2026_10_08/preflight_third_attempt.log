@@ -1,0 +1,10 @@
+coarse_l6_e200 -1 68 metric 1.865174681370263e-14
+coarse_l6_e200 1 68 metric 3.219646771412954e-14
+coarse_l6_e200 -2 68 metric 2.6201263381153694e-14
+coarse_l6_e200 2 69 metric 2.731148640577885e-14
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_matrix_self_energy_2026_10_08/preflight.py", line 110, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_matrix_self_energy_2026_10_08/preflight.py", line 75, in main
+    raise ValueError("DF external reference identity/H0 gate failed")
+ValueError: DF external reference identity/H0 gate failed

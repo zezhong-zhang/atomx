@@ -1,0 +1,43 @@
+         353216 function calls (353189 primitive calls) in 10.181 seconds
+
+   Ordered by: cumulative time
+   List reduced from 206 to 35 due to restriction <35>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        7    0.000    0.000   10.052    1.436 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:162(_contract)
+        7    4.646    0.664   10.052    1.436 /data/code/atomx/src/atomx/numerics/tensor_recipes.py:39(contract)
+        1    0.000    0.000    8.965    8.965 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:167(core_residual)
+        1    0.000    0.000    8.921    8.921 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:169(<listcomp>)
+      574    0.032    0.000    5.302    0.009 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:1057(einsum)
+     1064    4.243    0.004    5.095    0.005 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/numeric.py:968(tensordot)
+        1    0.000    0.000    1.174    1.174 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:216(attachment_action)
+        1    0.000    0.000    1.130    1.130 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:231(<listcomp>)
+     3192    0.847    0.000    0.847    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+     1090    0.146    0.000    0.146    0.000 {built-in method numpy._core._multiarray_umath.c_einsum}
+        4    0.123    0.031    0.125    0.031 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:77(unpack)
+        3    0.001    0.000    0.124    0.041 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:152(_arrays)
+     1144    0.030    0.000    0.092    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:742(einsum_path)
+      572    0.002    0.000    0.086    0.000 /data/code/atomx/src/atomx/numerics/tensor_recipes.py:29(_path)
+        1    0.000    0.000    0.042    0.042 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:174(core_energy)
+      494    0.006    0.000    0.024    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:327(_greedy_path)
+      572    0.002    0.000    0.017    0.000 /data/code/atomx/src/atomx/numerics/tensor_recipes.py:32(<listcomp>)
+      572    0.007    0.000    0.014    0.000 /data/code/atomx/src/atomx/numerics/tensor_recipes.py:12(_parse)
+     1909    0.010    0.000    0.014    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_stride_tricks_impl.py:37(as_strided)
+     2102    0.004    0.000    0.013    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:221(_parse_possible_contraction)
+     2682    0.008    0.000    0.010    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:442(_can_dot)
+     5278    0.009    0.000    0.010    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:87(_find_contraction)
+     1144    0.005    0.000    0.008    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:552(_parse_einsum_input)
+    20303    0.006    0.000    0.006    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:58(_compute_size_by_dict)
+     6399    0.002    0.000    0.005    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:20(_flop_count)
+     1414    0.001    0.000    0.005    0.000 /home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/re.py:192(fullmatch)
+     4647    0.002    0.000    0.004    0.000 {built-in method builtins.sum}
+    45367    0.003    0.000    0.003    0.000 {method 'append' of 'list' objects}
+     4043    0.003    0.000    0.003    0.000 {built-in method numpy.asarray}
+    34762    0.003    0.000    0.003    0.000 {method 'count' of 'str' objects}
+54172/54164    0.002    0.000    0.002    0.000 {built-in method builtins.len}
+     1414    0.001    0.000    0.002    0.000 /home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/re.py:288(_compile)
+     1144    0.001    0.000    0.002    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/einsumfunc.py:925(<listcomp>)
+        2    0.002    0.001    0.002    0.001 /data/code/atomx/src/atomx/methods/tensor_coupled_cluster.py:92(pack)
+     5284    0.002    0.000    0.002    0.000 {built-in method builtins.sorted}
+
+

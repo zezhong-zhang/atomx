@@ -1,0 +1,91 @@
+{
+  "records": [
+    {
+      "model": "CCSD",
+      "tile_size": 4,
+      "core_energy_Ha": -13.61411105177,
+      "energies_Ha": [
+        -14.280292745818299,
+        -14.280292745818299,
+        -14.133735534491699,
+        -14.133735534491699,
+        -14.1336894375359,
+        -14.1336894375359,
+        -14.1336894375359,
+        -14.1336894375359
+      ],
+      "core_FCI_error_Ha": 1.7248424910576432e-12,
+      "sector_FCI_error_Ha": 1.1039312161287285e-05,
+      "amplitude_update": 9.994722063866313e-13,
+      "equation_residual_bound_Ha": 3.399051268963444e-11
+    },
+    {
+      "model": "CCSDT",
+      "tile_size": 4,
+      "core_energy_Ha": -13.61411105177,
+      "energies_Ha": [
+        -14.2802991503243,
+        -14.2802991503243,
+        -14.1337465724245,
+        -14.1337465724245,
+        -14.133700476846299,
+        -14.133700476846299,
+        -14.133700476846299,
+        -14.133700476846299
+      ],
+      "core_FCI_error_Ha": 1.7248424910576432e-12,
+      "sector_FCI_error_Ha": 1.7621459846850485e-12,
+      "amplitude_update": 9.994722063866313e-13,
+      "equation_residual_bound_Ha": 3.399051268963444e-11
+    },
+    {
+      "model": "CCSDT",
+      "tile_size": 32,
+      "core_energy_Ha": -13.61411105177,
+      "energies_Ha": [
+        -14.2802991503243,
+        -14.2802991503243,
+        -14.1337465724245,
+        -14.1337465724245,
+        -14.133700476846299,
+        -14.133700476846299,
+        -14.133700476846299,
+        -14.133700476846299
+      ],
+      "core_FCI_error_Ha": 1.7248424910576432e-12,
+      "sector_FCI_error_Ha": 1.7621459846850485e-12,
+      "amplitude_update": 9.994717727057623e-13,
+      "equation_residual_bound_Ha": 3.399049794081502e-11
+    }
+  ],
+  "integral_identity": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'),), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 2.220446049250313e-15,
+    "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+    "integral_bytes": 21680
+  },
+  "seconds": 1.7856982980156317,
+  "passed": true
+}

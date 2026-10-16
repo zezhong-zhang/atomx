@@ -1,0 +1,13 @@
+{
+  "command": "timeout 135s taskset -c 28 env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 BLIS_NUM_THREADS=1 .venv/bin/python -I run.py --execute",
+  "files": {
+    "README.md": "7d0d27960196229860015d49b883c4cb0c732e2a8cdbed25ceca5ed90ed56c74",
+    "contract.json": "da67c55e85a6ddf330bd6c77bb0bd94765b650f50fc17b35a431e9d088907a29",
+    "import_preflight.json": "c6e123c7aaf0829431b341ef6e5152ef161aea029c9703d1af781e07f958846d",
+    "preparation.json": "261186fadc26e0f994a62d24d7e4e3a8980fce381c21befe2c2ad2a447c78e34",
+    "run.py": "629049edac06eabe6362580fc46b60e65740c1fb9bebbdbb3a23a01affd1ce8f"
+  },
+  "prepared_UTC": "2026-10-13T15:11:21Z",
+  "status": "frozen_before_explicit_root_authorized_narrow_successor",
+  "task_authorization": "root explicit narrow work-count/scalar-export correction after preserved001/002 failures; no Yb CI admitted"
+}

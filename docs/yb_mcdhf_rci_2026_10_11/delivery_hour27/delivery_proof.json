@@ -1,0 +1,91 @@
+{
+  "passed": false,
+  "created_utc": "2026-10-11T19:03:56.568299+00:00",
+  "message_id": "om_x100b638985f164a4c4c63ae48639778",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "position": 1621,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1621",
+  "cycle": "2026-10-11T19",
+  "source_stage": 30,
+  "source_stage_sha256": "b5ff3e86d7b9b83fb87d9650c8481f300ceb6363e4c4d3782e7d7c543fcc968a",
+  "registry_sha256": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b",
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "raw_visible_string_equal": false,
+    "exact_observed_formatting_operations": [
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|||||"
+      }
+    ],
+    "all_table_rows_match": true,
+    "nonformatting_text_exact_by_bound_operation_list": false
+  },
+  "actual_send": {
+    "passed": true,
+    "started_at": "2026-10-11T19:00:01.213261+00:00",
+    "finished_at": "2026-10-11T19:00:04.327164+00:00"
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "automatic_jobs_in_top_level": 0,
+    "decision_status": "implementation_frontier",
+    "highest_level_reached": false
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_send_calls": 0,
+  "new_scientific_calls": 0,
+  "request_key": "5764b12b-713e-52ad-af9d-e88a808bf495",
+  "files_sha256": {
+    "readback.json": "7a84d25476c6cb412650ae084a5edc4d1ce27a2ef702a1985b8bff2a98bf2152",
+    "registry_stage030.json": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b",
+    "readback_execution.json": "a3b6a8ebce05c14c7856f1c11ba403712b3f28f1652e4bd2165a1823d75e4309",
+    "service_iteration_status.json": "ec7137c725107a41919b479429e7568a08e47a17f07fd2a1c7ccbd45d0434f19",
+    "once_marker.json": "8e36d6ed35f733993c9eb7c1b1b96db0ae12f7fe1e7642821a948b9d835bb686",
+    "card.json": "226cd4b1bfac9ee03faf6d7475e3b356fb1fcd1c6322e23a13612ccb52fb27b8",
+    "send_status.json": "121c7ddf528952bedf0a71032f055ff87b729f60b6ed29829e6f4de74b31ee5e",
+    "root_admission.json": "bd67802466742988491d6e38f47b1e4ccf2158d001f9a8e9138208270264ddf0",
+    "receipt.json": "1a36ea59787fe9d3a3b365942ea78a434da8ebe66b046af1d177766d304ee73a",
+    "iteration_request.json": "ec7137c725107a41919b479429e7568a08e47a17f07fd2a1c7ccbd45d0434f19",
+    "contract.json": "b1fd10970e0b73c54291cb693a98d47e2ff87f0234b58831bca7b49114b9c96c"
+  },
+  "verifier_sha256": "441d446b5a6e08428211f153b3b677aec8a3545c85103e59818f1504c3019f8c"
+}

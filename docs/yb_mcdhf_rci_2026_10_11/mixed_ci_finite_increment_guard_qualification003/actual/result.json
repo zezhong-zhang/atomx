@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "guard_qualification_passed": true,
+  "contract_sha256": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+  "execution_sha256": "e4965fd16172d16e3e4bd6085777e32088bcd6cfb2dda46b4955204ace1672d7",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "load_before": [
+    9.17333984375,
+    9.17724609375,
+    9.177734375
+  ],
+  "affinity": [
+    31
+  ],
+  "original_coarse_qualification_status": "failed; immutable",
+  "scope": "saved medium-step derivatives plus genuine-owner unsupported/legacy guards",
+  "pytest_exit_code": 0,
+  "actual_calls": {
+    "started": {
+      "H_build": 1,
+      "CI_solve": 0,
+      "gradient": 0,
+      "one_body_assembly": 6,
+      "nuclear_Dirac_solve": 0,
+      "polar_retraction": 0,
+      "physical_overlap": 2,
+      "tracking_SVD": 0,
+      "SciPy_eigh": 0,
+      "NumPy_eigh": 0,
+      "optimizer": 0,
+      "radial_increment": 0
+    },
+    "completed": {
+      "H_build": 1,
+      "CI_solve": 0,
+      "gradient": 0,
+      "one_body_assembly": 6,
+      "nuclear_Dirac_solve": 0,
+      "polar_retraction": 0,
+      "physical_overlap": 2,
+      "tracking_SVD": 0,
+      "SciPy_eigh": 0,
+      "NumPy_eigh": 0,
+      "optimizer": 0,
+      "radial_increment": 0
+    },
+    "limits": {
+      "H_build": 1,
+      "CI_solve": 0,
+      "gradient": 0,
+      "one_body_assembly": 6,
+      "nuclear_Dirac_solve": 0,
+      "polar_retraction": 0,
+      "physical_overlap": 2,
+      "tracking_SVD": 0,
+      "SciPy_eigh": 0,
+      "NumPy_eigh": 0,
+      "optimizer": 0,
+      "radial_increment": 0
+    }
+  },
+  "elapsed_seconds": 0.6740956648718566,
+  "load_after": [
+    9.17333984375,
+    9.17724609375,
+    9.177734375
+  ],
+  "max_RSS_KiB": 250376
+}

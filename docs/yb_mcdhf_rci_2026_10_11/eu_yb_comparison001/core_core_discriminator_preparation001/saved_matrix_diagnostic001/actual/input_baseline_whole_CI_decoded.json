@@ -1,0 +1,58 @@
+{
+  "fields": [
+    {
+      "name": "H",
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200
+    },
+    {
+      "name": "energies",
+      "shape": [
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 12760
+    },
+    {
+      "name": "mixing",
+      "shape": [
+        1595,
+        1595
+      ],
+      "dtype": "<f8",
+      "bytes": 20352200
+    },
+    {
+      "name": "keys",
+      "shape": [
+        31,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 496
+    },
+    {
+      "name": "P",
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504
+    },
+    {
+      "name": "Q",
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504
+    }
+  ],
+  "cumulative_decoded_bytes": 93843976
+}

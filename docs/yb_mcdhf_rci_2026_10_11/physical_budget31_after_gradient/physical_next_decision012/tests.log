@@ -1,0 +1,45 @@
+..............................................FF.....................    [100%]
+=================================== FAILURES ===================================
+__________ test_frozen_default_H_and_complete_signed_gradient_parity ___________
+
+finite_problem = {'calls': <test_mixed_ci_finite_increment.Calls object at 0x72a0a312ca00>, 'directions': [[array([[ 0.        ,  0.078....53183600e-10, -1.98176068e-10, -7.75070464e-11, -3.05070357e-11,
+       -2.02927100e-06, -2.57635475e-06]), ...}, ...}
+
+    def test_frozen_default_H_and_complete_signed_gradient_parity(finite_problem):
+        output = finite_problem['output']
+        old = np.load(output / 'frozen_comparators.npz', allow_pickle=False)
+        for index in (0, 1, 2, 7, 8):
+            new = np.load(output / f'CI_{index:02}.npz', allow_pickle=False)['H']
+>           assert np.array_equal(new, old[f'H_{index}'])
+E           assert False
+E            +  where False = <function array_equal at 0x72a0bbbe8670>(array([[-2.75011497e+00, -2.52771516e-01,  0.00000000e+00,\n        -1.24353295e-01,  0.00000000e+00,  4.39049470e-02,\n... 0.00000000e+00,\n         2.03584638e-02,  0.00000000e+00,  0.00000000e+00,\n         0.00000000e+00, -3.00723203e-01]]), array([[-2.75011497e+00, -2.52771516e-01,  0.00000000e+00,\n        -1.24353295e-01,  0.00000000e+00,  4.39049470e-02,\n... 0.00000000e+00,\n         2.03584638e-02,  0.00000000e+00,  0.00000000e+00,\n         0.00000000e+00, -3.00723203e-01]]))
+E            +    where <function array_equal at 0x72a0bbbe8670> = np.array_equal
+
+tests/test_mixed_ci_finite_increment.py:345: AssertionError
+_____ test_signed_central_directional_derivative_in_same_constrained_space _____
+
+finite_problem = {'calls': <test_mixed_ci_finite_increment.Calls object at 0x72a0a312ca00>, 'directions': [[array([[ 0.        ,  0.078....53183600e-10, -1.98176068e-10, -7.75070464e-11, -3.05070357e-11,
+       -2.02927100e-06, -2.57635475e-06]), ...}, ...}
+
+    def test_signed_central_directional_derivative_in_same_constrained_space(finite_problem):
+        problem = finite_problem
+        for direction in range(2):
+            derivative = 0.
+            for (_, keys, P, _), eta in zip(problem['layout'], problem['directions'][direction], strict=True):
+                tangent = P @ eta
+                derivative += sum(float(problem['gradient'][key] @ tangent[:, col])
+                                  for col, key in enumerate(keys))
+            plus, minus = problem['points'][1+direction*6:3+direction*6]
+            measured = (plus['diagnostic']['rayleigh_change']-minus['diagnostic']['rayleigh_change'])/(2e-4)
+>           assert measured == pytest.approx(derivative, rel=1e-5, abs=1e-8)
+E           assert -0.00872063585143113 == -0.00872046743791834 ± 8.7e-08
+E             
+E             comparison failed
+E             Obtained: -0.00872063585143113
+E             Expected: -0.00872046743791834 ± 8.7e-08
+
+tests/test_mixed_ci_finite_increment.py:367: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_mixed_ci_finite_increment.py::test_frozen_default_H_and_complete_signed_gradient_parity
+FAILED tests/test_mixed_ci_finite_increment.py::test_signed_central_directional_derivative_in_same_constrained_space
+2 failed, 67 passed in 65.12s (0:01:05)

@@ -1,0 +1,9 @@
+{
+  "pid": 1947682,
+  "set_extra_RLIMIT_CPU_seconds": 600,
+  "attempted_RLIMIT_CPU_seconds": 4800,
+  "attempt_succeeded": false,
+  "status": "owned first setup terminated; preserved; no measurement accepted",
+  "reason": "RLIMIT_CPU sums all worker thread CPU time. It cannot stand in for the declared 600 wall seconds; fresh probe uses actual wall watchdog and preserves every original declared cap.",
+  "base_contract_caps_increased": false
+}

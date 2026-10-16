@@ -1,0 +1,961 @@
+{
+  "all001_files_and_prior_reviews_unchanged": true,
+  "all_driver_assertion_inventory": [
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "sha(path) == row['sha256']",
+      "kind": "assert",
+      "line": 46
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "sha(path) == row['sha256']",
+      "kind": "assert",
+      "line": 48
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "total <= c['resources']['metadata_bytes_max']",
+      "kind": "assert",
+      "line": 49
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "identity['source_map_sha256'] == c['source_map_sha256']",
+      "kind": "assert",
+      "line": 51
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "len(identity['all_atomx_python_sha256']) == 356",
+      "kind": "assert",
+      "line": 52
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "all((sha(source / p.removeprefix('src/')) == value for p, value in identity['all_atomx_python_sha256'].items()))",
+      "kind": "assert",
+      "line": 54
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "receipt['status'] == 'foreground_closed' and receipt['exit_code'] == 0",
+      "kind": "assert",
+      "line": 60
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "receipt['source_and_inputs_unchanged'] and (not receipt['outer_wall_stop'])",
+      "kind": "assert",
+      "line": 61
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "receipt['result_sha256'] == c['input_roles']['replay_result']['sha256']",
+      "kind": "assert",
+      "line": 62
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "len(replay['checks']) == 96 and all((x['passed'] for x in replay['checks']))",
+      "kind": "assert",
+      "line": 63
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "replay['source_map_sha256'] == c['source_map_sha256']",
+      "kind": "assert",
+      "line": 64
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "replay['inputs_sha256']['baseline_arrays'] == c['input_roles']['baseline_arrays']['sha256']",
+      "kind": "assert",
+      "line": 65
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "replay['inputs_sha256']['trial_arrays'] == c['input_roles']['trial_arrays']['sha256']",
+      "kind": "assert",
+      "line": 69
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "len(parent['checks']) == 745 and sum((x['passed'] for x in parent['checks'])) == 743",
+      "kind": "assert",
+      "line": 74
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "not parent['all_declared_controls_passed']",
+      "kind": "assert",
+      "line": 78
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "manifest[row['parent_manifest_path']] == row['sha256']",
+      "kind": "assert",
+      "line": 82
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "native_order == c['preflight_native_order'] == c['fixed']['five_UIDs']",
+      "kind": "assert",
+      "line": 84
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "set(map(tuple, native_order)) == set(map(tuple, c['fixed']['display_UIDs']))",
+      "kind": "assert",
+      "line": 85
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "[row['weight'] for row in read(paths['mixed'])['targets']] == [0.2] * 5",
+      "kind": "assert",
+      "line": 86
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "previous_receipt['status'] == 'foreground_closed' and previous_receipt['exit_code'] == 1",
+      "kind": "assert",
+      "line": 91
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "previous_receipt['source_and_inputs_unchanged'] and (not previous_receipt['outer_wall_stop'])",
+      "kind": "assert",
+      "line": 95
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "previous_receipt['failure_sha256'] == c['input_roles']['predecessor_failure']['sha256']",
+      "kind": "assert",
+      "line": 99
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "len(previous_failure['checks']) == 160 and sum((row['passed'] for row in previous_failure['checks'])) == 159",
+      "kind": "assert",
+      "line": 103
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "[row['name'] for row in previous_failure['checks'] if not row['passed']] == ['original_native_target_accumulation_order']",
+      "kind": "assert",
+      "line": 107
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "previous_failure['counts']['ordinary_radial_evaluation'] == previous_failure['counts']['signed_target_density'] == previous_failure['counts']['H'] == previous_failure['counts']['CI_eigh'] == 0",
+      "kind": "assert",
+      "line": 110
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['execution_authorized_by_root'] is True",
+      "kind": "assert",
+      "line": 123
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['driver_sha256'] == sha(__file__)",
+      "kind": "assert",
+      "line": 124
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['contract_sha256'] == sha(HERE / 'contract.json')",
+      "kind": "assert",
+      "line": 125
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['preparation_sha256'] == sha(HERE / 'preparation.json')",
+      "kind": "assert",
+      "line": 126
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['input_roles'] == c['input_roles']",
+      "kind": "assert",
+      "line": 127
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "binding['resources'] == c['resources']",
+      "kind": "assert",
+      "line": 128
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "prep['all_SOURCE_checks_passed'] and prep['driver_sha256'] == sha(__file__)",
+      "kind": "assert",
+      "line": 130
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "sys.executable == caps['interpreter_literal']",
+      "kind": "assert",
+      "line": 132
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "os.environ.get(name) == '1'",
+      "kind": "assert",
+      "line": 134
+    },
+    {
+      "classification": "metadata or binding/environment guard; runtime-only environment not executed by review",
+      "condition": "caps['CPU'] in os.sched_getaffinity(0)",
+      "kind": "assert",
+      "line": 135
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "load1 <= caps['maximum_system_load1'] and available >= caps['minimum_host_available_GiB'] * 2 ** 30",
+      "kind": "check",
+      "line": 207,
+      "name_expression": "'before_numerical_host_resource_admission'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "not any((k == 'atomx' or k.startswith('atomx.') for k in sys.modules))",
+      "kind": "check",
+      "line": 213,
+      "name_expression": "'no_prior_Atomx_import'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "np.finfo(wide).nmant >= 63",
+      "kind": "check",
+      "line": 221,
+      "name_expression": "'wide_fraction_bits63'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "set(expected) <= set(z.files) and len(z.files) <= caps['geometry_archive_fields_max'] and ({key for key in z.files if key.startswith('basis_')} == {key for key in expected if key.startswith('basis_')})",
+      "kind": "check",
+      "line": 272,
+      "name_expression": "role + '/required_fields_and_complete_basis_prefix'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "set(z.files) == set(expected)",
+      "kind": "check",
+      "line": 280,
+      "name_expression": "role + '/complete_declared_fields'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "decoded <= caps['decoded_array_bytes_max']",
+      "kind": "check",
+      "line": 288,
+      "name_expression": "'decoded_bytes_cap'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "np.isfinite(a).all() and (not np.iscomplexobj(a))",
+      "kind": "check",
+      "line": 291,
+      "name_expression": "role + '/finite_real/' + key"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "data['H'].shape == (1595, 1595) and data['mixing'].shape == (1595, 1595) and (data['energies'].shape == (1595,)) and (data['keys'].shape == (31, 2)) and (data['P'].shape == data['Q'].shape == (31, 123))",
+      "kind": "check",
+      "line": 300,
+      "name_expression": "role + '/complete1595_31_shapes'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "all((data[k].dtype == np.dtype('float64') for k in ('H', 'mixing', 'energies', 'P', 'Q')))",
+      "kind": "check",
+      "line": 308,
+      "name_expression": "role + '/binary64'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "data['H'].tobytes() == data['H'].T.tobytes()",
+      "kind": "check",
+      "line": 315,
+      "name_expression": "role + '/bitwise_symmetric_H'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "hashlib.sha256(payload).hexdigest() == mixed['endpoint_input_sha256'][index]",
+      "kind": "check",
+      "line": 325,
+      "name_expression": "role + '/original_owner_input_binding'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "hashlib.sha256(frame).hexdigest() == mixed['endpoint_H_sha256'][index]",
+      "kind": "check",
+      "line": 334,
+      "name_expression": "role + '/original_owner_H_binding'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "owner['hamiltonian_terms'] == ['dirac-coulomb'] and owner['units'] == 'Hartree' and (owner['representation'] == 'dense-real-full-CSF')",
+      "kind": "check",
+      "line": 338,
+      "name_expression": "role + '/DC_real_Ha'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "old['keys'].tobytes() == new['keys'].tobytes()",
+      "kind": "check",
+      "line": 345,
+      "name_expression": "'same31_ordered_keys'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "increments['keys'].tobytes() == old['keys'].tobytes() and increments['P'].shape == increments['Q'].shape == (31, 123)",
+      "kind": "check",
+      "line": 352,
+      "name_expression": "'same31_increment_keys_shapes'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "workspace['ns'] == 123",
+      "kind": "check",
+      "line": 367,
+      "name_expression": "'original_ns123_geometry'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "a['kappa'].item() == kappa and a['raw_h'].shape == a['S'].shape == (246, 246) and (a['raw_h'].dtype == a['S'].dtype == np.dtype('float64'))",
+      "kind": "check",
+      "line": 371,
+      "name_expression": "'raw_operator_shape/' + str(kappa)"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "len(full) == 3789 and len(csfs) == 1595",
+      "kind": "check",
+      "line": 389,
+      "name_expression": "'complete_parent3789_selected1595'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "{csf.n_electrons for csf in full} == {69}",
+      "kind": "check",
+      "line": 392,
+      "name_expression": "'all69electrons'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "actual_basis == basis",
+      "kind": "check",
+      "line": 403,
+      "name_expression": "'complete_original_signed_basis'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "owner0['CSFs'] == owner1['CSFs'] and len(owner0['CSFs']) == 1595",
+      "kind": "check",
+      "line": 405,
+      "name_expression": "'same_complete_owner_CSF_basis'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "sparse.toarray().tobytes() == projection.tobytes()",
+      "kind": "check",
+      "line": 420,
+      "name_expression": "'genuine_sparse_dense_same_represented_projection/' + str(structure.j2)"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "len(structural_keys) == 19589",
+      "kind": "check",
+      "line": 430,
+      "name_expression": "'complete19589_angular_capacity'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "len(density.blocks) == 5",
+      "kind": "check",
+      "line": 431,
+      "name_expression": "'five_complete_density_blocks'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "total_nnz <= caps['angular_nnz_max']",
+      "kind": "check",
+      "line": 434,
+      "name_expression": "'complete_angular_nnz_budget'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "total_pairs <= caps['angular_pairs_max']",
+      "kind": "check",
+      "line": 439,
+      "name_expression": "'complete_angular_pairs_budget'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "[row['reference_level'] for row in mixed['targets']] == c['fixed']['five_UIDs']",
+      "kind": "check",
+      "line": 448,
+      "name_expression": "'original_native_target_accumulation_order'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "set(rows0) == set(rows1) == set(mixed_rows) == set(saved_tables) == set(map(tuple, c['fixed']['five_UIDs']))",
+      "kind": "check",
+      "line": 455,
+      "name_expression": "'complete_five_UIDs'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "tuple(row0['selected_level']) == tuple(row1['selected_level']) == uid and tuple(saved['selected_reference']) == tuple(saved['selected_trial']) == uid and (row0['weight'] == row1['weight'] == saved['weight'] == 0.2)",
+      "kind": "check",
+      "line": 467,
+      "name_expression": "'unchanged_UID_weight/' + str(uid)"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "old['energies'][col0] == row0['energy_Ha'] and new['energies'][col1] == row1['energy_Ha']",
+      "kind": "check",
+      "line": 476,
+      "name_expression": "'original_reported_roots/' + str(uid)"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "float(n0) == saved['norm0'] and float(n1) == saved['norm1'] and (n0 > 0) and (n1 > 0) and (saved['phase'] == (1 if a @ v >= 0 else -1))",
+      "kind": "check",
+      "line": 483,
+      "name_expression": "'original_actual_norm_phase/' + str(uid)"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "len(aggregate_weights) == mixed['signed_density_terms'] == 19589",
+      "kind": "check",
+      "line": 519,
+      "name_expression": "'complete_native_mixed_signed_union'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "increment.increment_sha256 == mixed['radial']['increment_sha256']",
+      "kind": "check",
+      "line": 549,
+      "name_expression": "'same_original_explicit_increment_hash'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "counts[key] == expected",
+      "kind": "check",
+      "line": 796,
+      "name_expression": "'exact_work/' + key"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "bool(metadata(arrays=True))",
+      "kind": "check",
+      "line": 797,
+      "name_expression": "'bound_arrays_geometry_source_unchanged'"
+    },
+    {
+      "classification": "JSON parts independently audited above; array/kernel/environment-derived parts remain runtime gates",
+      "condition": "all((value and Path(value).resolve().is_relative_to(source.resolve()) for value in modules.values()))",
+      "kind": "check",
+      "line": 803,
+      "name_expression": "'all_Atomx_module_origins_frozen'"
+    }
+  ],
+  "all_metadata_SOURCE_checks_passed": true,
+  "bound_metadata_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/actual/result.json": "c21e42a6c8acbfb71e685b8ab46395712fb6fd2872e48de17092843818bf57dd",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/contract.json": "47441b29c2197a3b48cf6268d50e55769f394ea5a5b5554e929f6786403616a6",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/saved_contraction_preparation001/root_execution.json": "d18a1fcd34d6c367799a436bba34a7af453d6878ce3830d60ca0295b9a2fb04c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_owner.json": "c7f8ec39209c65a9317232a5d82ea03c1c5503dd8b5f7651149245ea1fbd9653",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_signed_tables.json": "2698c2dde3c8b0fe9e9b3585726491e8b45f4c7af75faef981daad201514634a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/execution_source.py": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/failure.json": "7d56149359905d5747308879cbea66e2be55572f6b986f20936ad91226026e6c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/five_point_reported_states.json": "d39a75535a8d89a9de7062fe497d1bd185647faff8e30cc05aa91e42813c3589",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_mixed_finite_change.json": "9cf55e555e48aa2264cea031802a294c003113f30688ccb53c31e178ae34fa6a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/h0_plus_owner.json": "dc2a6f0e72d4561812af0e362bd6ce217e4bf43bdbb2610e6a27e441394925ec",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/result.json": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/execution_binding.json": "05a92b6a0cf5c15beb5d8d06ee78b51c29358de3216db2a39ec54e4837560eb3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/handoff.json": "a6b3c3a4a1aef1f5a21f0089de9ccdf9d2e95a46c7127688c45ee81bb389b648",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/preparation.json": "959879ab79113dddffe475bff3766e4852e65e2836a8e3eceacc6160db47a43b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/root_execution.json": "06f62b9d1aa63fb44514403ba560476dbb58315c11b221b2f484db026290b2bd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041"
+  },
+  "checks": [
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_result",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_failure",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_receipt",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_contract",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_driver",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_execution_source",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_preparation",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_handoff",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/parent_execution_binding",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/states",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/mixed",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/baseline_owner",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/trial_owner",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/source_identity",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/replay_result",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/replay_receipt",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/replay_contract",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/baseline_signed_tables",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/models",
+      "passed": true
+    },
+    {
+      "category": "metadata_binding",
+      "name": "bound_metadata_hash/canonical_basis",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "same_five_UID_set_unique_native_order",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "five_metadata_rows_no_duplicate_UIDs",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "all_UID_maps_match",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "selected_UID/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "weight/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "column/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "norm_phase_matches_closed_replay/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_exactnorm_same_float_export/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_unfiltered_key_schema/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "state_labels/(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "selected_UID/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "weight/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "column/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "norm_phase_matches_closed_replay/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_exactnorm_same_float_export/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_unfiltered_key_schema/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "state_labels/(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "selected_UID/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "weight/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "column/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "norm_phase_matches_closed_replay/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_exactnorm_same_float_export/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_unfiltered_key_schema/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "state_labels/(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "selected_UID/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "weight/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "column/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "norm_phase_matches_closed_replay/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_exactnorm_same_float_export/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_unfiltered_key_schema/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "state_labels/(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "selected_UID/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "weight/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "column/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "norm_phase_matches_closed_replay/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_exactnorm_same_float_export/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "baseline_unfiltered_key_schema/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "state_labels/(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "CSFs_same1595",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "all1595_owner_CSFS_match_canonical",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner_scalar_identity/0",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner31_orbitals/0",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner_inputframe/0",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner_scalar_identity/1",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner31_orbitals/1",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "owner_inputframe/1",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "same_owner_geometry_nuclear",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "keycapacity19589",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "radial_schema",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "geometry_role_matches_parent",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "successor_literal_native_order",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "successor_separate_display_UID_set",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "successor_resources_gates_fields_epoch_unchanged",
+      "passed": true
+    },
+    {
+      "category": "SOURCE_structure",
+      "name": "same_numerical_execute_AST",
+      "passed": true
+    },
+    {
+      "category": "SOURCE_structure",
+      "name": "SOURCE_default_checks_native_order",
+      "passed": true
+    },
+    {
+      "category": "SOURCE_structure",
+      "name": "SOURCE_default_UID_set_separate",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "001_preserved_159PASS_one_orderFAIL",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "001_closed_failed_unchanged",
+      "passed": true
+    },
+    {
+      "category": "metadata_schema",
+      "name": "001_stopped_before_radial_density_scalar_calls",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "passed": 79,
+    "total": 79
+  },
+  "display_order": [
+    [
+      1,
+      1,
+      0
+    ],
+    [
+      3,
+      1,
+      0
+    ],
+    [
+      5,
+      1,
+      0
+    ],
+    [
+      1,
+      -1,
+      0
+    ],
+    [
+      3,
+      -1,
+      0
+    ]
+  ],
+  "draft_successor_sha256": {
+    "README.md": "10e9febda315bdd9beacbf1accf96b59fd16e9675fb9aa3f5f0dfda9d54ce8b6",
+    "contract.json": "22f0277174d5efcf6c64395057849babb50032f0e08c1df6a4d8dafdee299586",
+    "run.py": "dc0a7579c9982f2f1cd68d4b07469714eedce41afd07dc05bf4fb8ec6cbbb20b",
+    "verify_preparation.py": "760f76f1655f03e496c4eaef65d82ac04683fd5fc9c3a7ee1343340652bf0e9b"
+  },
+  "limitations": [
+    "No NPZstat/header/hash/body access or numericalimports/execution.",
+    "Numeric norms/phases are checked against closed same-input JSON replay, not recomputed arrays.",
+    "Arraydtype/shape/frame/eigenresidual/Gram/kernelvalues/counters/resource availability remain original runtime gates; previously passed 001 controls are inherited observations, not new independent measurements.",
+    "No radial cause attribution, gradient repair, tolerance relaxation, or automatic retry authorization."
+  ],
+  "missed_review_item": "Prior independent source review accepted the runtime order guard without evaluating its available bound JSON predicate. It missed the preventable display/native order mismatch. Prior review and failed run remain immutable historical evidence.",
+  "native_accumulation_order": [
+    [
+      1,
+      1,
+      0
+    ],
+    [
+      5,
+      1,
+      0
+    ],
+    [
+      3,
+      1,
+      0
+    ],
+    [
+      3,
+      -1,
+      0
+    ],
+    [
+      1,
+      -1,
+      0
+    ]
+  ],
+  "old_order_predicate_observed": false,
+  "preserved_failure_sha256": "aa49147f32aa651a663bf3ed5d3b26eed0a70ce7ea4ed85de7bc0524017459a2",
+  "status": "independent_SOURCE_JSON_successor_preflight_audit"
+}

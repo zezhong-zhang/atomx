@@ -1,0 +1,67 @@
+{
+  "key": [
+    5,
+    -3
+  ],
+  "energy_Ha": -0.22588635780633765,
+  "complete_numerators": 3768714,
+  "variants": {
+    "cpu": {
+      "seconds": 340.3445401780773,
+      "complete_mode_recovery": true
+    },
+    "cuda": {
+      "seconds": 103.87391297298018,
+      "complete_mode_recovery": true
+    }
+  },
+  "map_signed_errors_Ha": {
+    "affine": [
+      0.0,
+      1.3877787807814457e-17,
+      0.0,
+      1.0842021724855044e-18
+    ],
+    "homogeneous": [
+      0.0,
+      9.486769009248164e-20,
+      0.0,
+      9.486769009248164e-20
+    ],
+    "value": [
+      0.0,
+      9.486769009248164e-20
+    ]
+  },
+  "retained_original_signed_errors_Ha": {
+    "cpu_affine_0": 5.421010862427522e-20,
+    "cpu_affine_1": 8.673617379884035e-17,
+    "cpu_affine_2": 1.0842021724855044e-19,
+    "cpu_affine_3": 4.85722573273506e-17,
+    "cpu_homogeneous_0": 3.3881317890172014e-21,
+    "cpu_homogeneous_1": 3.2017845406212553e-19,
+    "cpu_homogeneous_2": 3.3881317890172014e-21,
+    "cpu_homogeneous_3": 4.3029273720518457e-19,
+    "cpu_value_0": 3.3881317890172014e-21,
+    "cpu_value_1": 3.2017845406212553e-19,
+    "cpu_restored_0": 3.3881317890172014e-21,
+    "cpu_restored_1": 3.2017845406212553e-19,
+    "cpu_restored_2": 3.3881317890172014e-21,
+    "cpu_restored_3": 4.3029273720518457e-19,
+    "cuda_affine_0": 5.421010862427522e-20,
+    "cuda_affine_1": 8.673617379884035e-17,
+    "cuda_affine_2": 1.0842021724855044e-19,
+    "cuda_affine_3": 4.85722573273506e-17,
+    "cuda_homogeneous_0": 3.3881317890172014e-21,
+    "cuda_homogeneous_1": 3.066259269060567e-19,
+    "cuda_homogeneous_2": 3.3881317890172014e-21,
+    "cuda_homogeneous_3": 4.3029273720518457e-19,
+    "cuda_value_0": 3.3881317890172014e-21,
+    "cuda_value_1": 3.066259269060567e-19,
+    "cuda_restored_0": 3.3881317890172014e-21,
+    "cuda_restored_1": 3.066259269060567e-19,
+    "cuda_restored_2": 3.3881317890172014e-21,
+    "cuda_restored_3": 4.3029273720518457e-19
+  },
+  "retained_original_outputs_sha256": "c77995ae75afa666897e76fef3deebbfee152957b922faa4979ae540d52b7e90"
+}

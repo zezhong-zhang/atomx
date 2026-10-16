@@ -1,0 +1,15 @@
+{
+  "status": "ADMITTED_ONCE_ANALYTIC_CURVATURE",
+  "contract_sha256": "8ea0d0da36dcc263cba5ee84edf73972c857080a64722c87aa91de02a7a63ecb",
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "review": [
+    "Variational 2n+1 formula rederived for ordinary real normalized CI: no H3 contribution is silently included; returned coefficient is CI-response part only.",
+    "First-response inverse uses the complete finite same-symmetry eigensystem with every external state, checks H residual/Gram and rejects target degeneracy. Dense cap2048 exceeds max652 only within explicitly budgeted original spaces.",
+    "Polar first/second derivatives solve square-root Sylvester equations and include original Gram/tangency defects. A fresh polar0 H is built; difference from literal saved R0 is independently gated and reported.",
+    "Native normalized h derivative includes denominator terms; r derivative retains all first/second slot and cross terms in the original cell orientation, including complete P/Q sources/targets. Independent direct-cell anchors pass.",
+    "Thirty complete block matrix builds=H0/H1/H2 for all ten original targets; ten complete eigenblocks, ten response calls; no displaced H, FD h scan, model cut, optimizer or NIST.",
+    "015 new tests and25 new/polar/state tests pass. Guarded legacy panel has67PASS/2FAIL; full actual-before epoch reproduces both failures and all39 H/eigen arrays bitwise. Existing legacy AST is unchanged; these failures remain preserved, no new degradation observed.",
+    "Prediction gate is separately predeclared at0.5% or2e-12Ha for the response-only leading term. Passing it cannot retroactively pass original ordinary FD gates or certify total truncation/stationarity."
+  ],
+  "budget": "CPU27/thread1,8GiB AS,600s inner/630s outer, load<=24, available>=16GiB; all31 waves/3689coords, A1595/B2574, rawdet<=2659, radialkeys<=70971, output<=128MiB. First scientific failure stops without automatic retry."
+}

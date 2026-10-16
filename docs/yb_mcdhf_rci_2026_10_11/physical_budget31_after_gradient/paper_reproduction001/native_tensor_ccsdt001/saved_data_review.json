@@ -1,0 +1,2485 @@
+{
+  "status": "PASS_SAVED_NATIVE_TENSOR_REVIEW",
+  "controls": [
+    {
+      "name": "all_current_source_files",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "contract_source_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "result_contract_identity",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_input_bindings",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "complete_archive_members",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_archive_content_hashes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all196_live_controls",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "live_completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_prior_directed_entries",
+      "measured": 3.730349362740526e-14,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "full_core_FCI_eigen_equations",
+      "measured": 7.882583474838611e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full_core_FCI_Gram",
+      "measured": 1.7450538549526442e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "CCSD:physical_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "CCSD:J0",
+      "measured": 1.4591310435478796e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSD:preserved_nonzero_full_H",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD:saved_full_H_residual",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:physical_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:J0",
+      "measured": 7.321485787070068e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:preserved_nonzero_full_H",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT:saved_full_H_residual",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_all_equations",
+      "measured": 5.262066823941147e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_full_Gram",
+      "measured": 1.2695739652236447e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_J2:D5",
+      "measured": 1.2285056588178536e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:all_projected_equations",
+      "measured": 3.1086244689504383e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:all_physical_norms",
+      "measured": 8.881784197001252e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:J2:D5",
+      "measured": 1.5284043462710641e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:all_projected_equations",
+      "measured": 1.7763568394002505e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:all_physical_norms",
+      "measured": 1.1102230246251565e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:J2:D5",
+      "measured": 1.0844197046055082e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:all_projected_equations",
+      "measured": 2.4424906541753444e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:all_physical_norms",
+      "measured": 6.661338147750939e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:J2:D5",
+      "measured": 1.1398563397669027e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:all_projected_equations",
+      "measured": 1.4654943925052066e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:all_physical_norms",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:J2:D5",
+      "measured": 1.1201035478126948e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-5:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_all_equations",
+      "measured": 7.271960811294775e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_full_Gram",
+      "measured": 5.018229263415654e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_J2:D3",
+      "measured": 3.473978957791988e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_saved_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_J2:D5",
+      "measured": 3.691051362721146e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:all_projected_equations",
+      "measured": 3.3306690738754696e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:all_physical_norms",
+      "measured": 1.1102230246251565e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:J2:D3",
+      "measured": 1.7452630056777293e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:J2:D5",
+      "measured": 4.45186886455195e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:all_projected_equations",
+      "measured": 2.220446049250313e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:all_physical_norms",
+      "measured": 1.887379141862766e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:J2:D3",
+      "measured": 1.134355294679158e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:J2:D5",
+      "measured": 1.91961076367361e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:all_projected_equations",
+      "measured": 3.774758283725532e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:all_physical_norms",
+      "measured": 1.2212453270876722e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:J2:D3",
+      "measured": 1.1075343164397712e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:J2:D5",
+      "measured": 1.4628740934376873e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:all_projected_equations",
+      "measured": 1.2212453270876722e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:all_physical_norms",
+      "measured": 1.2212453270876722e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:J2:D3",
+      "measured": 1.0826890199279488e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:J2:D5",
+      "measured": 1.2734291803756403e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-3:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_all_equations",
+      "measured": 8.659739592076221e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_full_Gram",
+      "measured": 1.2196156910863118e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:S",
+      "measured": 5.980178902192022e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_saved_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:D3",
+      "measured": 1.7684727173977673e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_saved_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_J2:D5",
+      "measured": 1.7684145580579466e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:all_projected_equations",
+      "measured": 5.773159728050814e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:all_physical_norms",
+      "measured": 8.881784197001252e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:J2:S",
+      "measured": 1.4096018707605875e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:J2:D3",
+      "measured": 2.1256821898515707e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:J2:D5",
+      "measured": 8.384558743556642e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:all_projected_equations",
+      "measured": 1.3322676295501878e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:all_physical_norms",
+      "measured": 1.5543122344752192e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:J2:S",
+      "measured": 4.439300555043212e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:J2:D3",
+      "measured": 2.9603170292227e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:J2:D5",
+      "measured": 2.746349052552782e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:all_projected_equations",
+      "measured": 3.774758283725532e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:all_physical_norms",
+      "measured": 1.887379141862766e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:J2:S",
+      "measured": 5.524849686185428e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:J2:D3",
+      "measured": 1.8503170417276054e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:J2:D5",
+      "measured": 2.428821237699445e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:all_projected_equations",
+      "measured": 1.7763568394002505e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:all_physical_norms",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:J2:S",
+      "measured": 4.998853568910212e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:J2:D3",
+      "measured": 8.730730203843905e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:J2:D5",
+      "measured": 2.0307507213376434e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M-1:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_all_equations",
+      "measured": 1.6486811915683575e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_full_Gram",
+      "measured": 4.854704309262229e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:S",
+      "measured": 4.0865905687515816e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_saved_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:D3",
+      "measured": 1.0860351366718271e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_saved_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_J2:D5",
+      "measured": 1.0860966789492036e-11,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:all_projected_equations",
+      "measured": 4.551914400963142e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:all_physical_norms",
+      "measured": 8.881784197001252e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:J2:S",
+      "measured": 1.4119974217672233e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:J2:D3",
+      "measured": 8.274997583711347e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:J2:D5",
+      "measured": 7.48348754656124e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:all_projected_equations",
+      "measured": 1.3322676295501878e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:all_physical_norms",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:J2:S",
+      "measured": 4.610063000449757e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:J2:D3",
+      "measured": 5.940994683532377e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:J2:D5",
+      "measured": 6.626973077114809e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:all_projected_equations",
+      "measured": 4.440892098500626e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:all_physical_norms",
+      "measured": 1.9984014443252818e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:J2:S",
+      "measured": 5.656356682473203e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:J2:D3",
+      "measured": 6.229103478366141e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:J2:D5",
+      "measured": 1.193343656249349e-12,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:all_projected_equations",
+      "measured": 1.532107773982716e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:all_physical_norms",
+      "measured": 1.887379141862766e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:J2:S",
+      "measured": 5.021776264875758e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:target_energy:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:physical_defect_saved:S",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:omitted_defect_nonzero:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:J2:D3",
+      "measured": 8.678634301190604e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:J2:D5",
+      "measured": 5.872100387393358e-13,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M1:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_all_equations",
+      "measured": 9.048317650695026e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_full_Gram",
+      "measured": 1.0722253857022921e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_J2:D3",
+      "measured": 3.824667446840049e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_saved_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_J2:D5",
+      "measured": 3.9860678683373596e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:all_projected_equations",
+      "measured": 4.218847493575595e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:all_physical_norms",
+      "measured": 8.881784197001252e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:J2:D3",
+      "measured": 1.6736935030444368e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:J2:D5",
+      "measured": 3.5263699537499167e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:all_projected_equations",
+      "measured": 1.199040866595169e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:all_physical_norms",
+      "measured": 1.887379141862766e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:J2:D3",
+      "measured": 9.107354632478986e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:J2:D5",
+      "measured": 8.287925911958815e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:all_projected_equations",
+      "measured": 3.3306690738754696e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:all_physical_norms",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:J2:D3",
+      "measured": 1.0024402532274105e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:J2:D5",
+      "measured": 3.5659274097252686e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:all_projected_equations",
+      "measured": 2.1760371282653068e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:all_physical_norms",
+      "measured": 1.3322676295501878e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:J2:D3",
+      "measured": 9.391043951472153e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:target_energy:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:physical_defect_saved:D3",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:omitted_defect_nonzero:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:J2:D5",
+      "measured": 1.4565053425681274e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M3:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M5:complete_FCI_dimension",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_all_equations",
+      "measured": 6.0342356111853235e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_full_Gram",
+      "measured": 2.4088000111184543e-13,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_J2:D5",
+      "measured": 1.192354793784654e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:FCI_saved_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:all_projected_equations",
+      "measured": 2.220446049250313e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:all_physical_norms",
+      "measured": 6.661338147750939e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:J2:D5",
+      "measured": 1.5042993862841105e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:all_projected_equations",
+      "measured": 1.176836406102666e-14,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:all_physical_norms",
+      "measured": 8.881784197001252e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:J2:D5",
+      "measured": 1.0880782445751667e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSD_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:all_projected_equations",
+      "measured": 2.886579864025407e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:all_physical_norms",
+      "measured": 6.661338147750939e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:principal_restriction",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:J2:D5",
+      "measured": 1.1310345911065892e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R2:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:all_projected_equations",
+      "measured": 8.43769498715119e-15,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:all_physical_norms",
+      "measured": 1.1102230246251565e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:J2:D5",
+      "measured": 1.1127368695244618e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:target_energy:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:physical_defect_saved:D5",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "M5:CCSDT_R3:omitted_defect_nonzero:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "FCI:all_partners:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "FCI:multiplet_spread:S",
+      "measured": 5.329070518200751e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FCI:all_partners:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "FCI:multiplet_spread:D3",
+      "measured": 1.8041124150158794e-14,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FCI:all_partners:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "FCI:multiplet_spread:D5",
+      "measured": 1.587618925213974e-14,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FCI:line_ledger:D3",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FCI:line_ledger:D5",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:all_partners:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:multiplet_spread:S",
+      "measured": 3.4416913763379853e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:all_partners:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:multiplet_spread:D3",
+      "measured": 3.6637359812630166e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:all_partners:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:multiplet_spread:D5",
+      "measured": 7.494005416219807e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:line_ledger:D3",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R2:line_ledger:D5",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:all_partners:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:multiplet_spread:S",
+      "measured": 4.3298697960381105e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:all_partners:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:multiplet_spread:D3",
+      "measured": 2.886579864025407e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:all_partners:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:multiplet_spread:D5",
+      "measured": 1.0158540675320182e-14,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:line_ledger:D3",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSD_R3:line_ledger:D5",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:all_partners:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:multiplet_spread:S",
+      "measured": 3.219646771412954e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:all_partners:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:multiplet_spread:D3",
+      "measured": 4.052314039881821e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:all_partners:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:multiplet_spread:D5",
+      "measured": 7.327471962526033e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:line_ledger:D3",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R2:line_ledger:D5",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:all_partners:S",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:multiplet_spread:S",
+      "measured": 3.552713678800501e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:all_partners:D3",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:multiplet_spread:D3",
+      "measured": 3.7192471324942744e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:all_partners:D5",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:multiplet_spread:D5",
+      "measured": 9.603429163007604e-15,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:line_ledger:D3",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "CCSDT_R3:line_ledger:D5",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    }
+  ],
+  "source_files": 362,
+  "lines_cm1": {
+    "FCI": {
+      "D3": 24372.15830165356,
+      "D5": 24708.84903966661
+    },
+    "CCSD_R2": {
+      "D3": 24372.894275971943,
+      "D5": 24717.220962263247
+    },
+    "CCSD_R3": {
+      "D3": 24372.121428567025,
+      "D5": 24708.86755551356
+    },
+    "CCSDT_R2": {
+      "D3": 24372.999169200848,
+      "D5": 24717.26341603975
+    },
+    "CCSDT_R3": {
+      "D3": 24372.156946132207,
+      "D5": 24708.85356377753
+    }
+  },
+  "target_errors": [
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": -5,
+      "total_minus_FCI_cm1": 22.314610644332774,
+      "full_H_residual_Ha": 0.004722109848107755
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": -5,
+      "total_minus_FCI_cm1": 0.10383165093069051,
+      "full_H_residual_Ha": 0.002115568551683719
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": -5,
+      "total_minus_FCI_cm1": 22.196637576720672,
+      "full_H_residual_Ha": 0.004269625063038273
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": -5,
+      "total_minus_FCI_cm1": 0.0105170783477497,
+      "full_H_residual_Ha": 0.00025844727133505634
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D3",
+      "m2": -3,
+      "total_minus_FCI_cm1": 14.678662366786345,
+      "full_H_residual_Ha": 0.003977792207846476
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": -3,
+      "total_minus_FCI_cm1": 22.31461064261493,
+      "full_H_residual_Ha": 0.004722109848107768
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D3",
+      "m2": -3,
+      "total_minus_FCI_cm1": 0.048442718279299135,
+      "full_H_residual_Ha": 0.001577052285677576
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": -3,
+      "total_minus_FCI_cm1": 0.1038316497854613,
+      "full_H_residual_Ha": 0.0021155685516837212
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D3",
+      "m2": -3,
+      "total_minus_FCI_cm1": 14.62312875165162,
+      "full_H_residual_Ha": 0.0036846370468202913
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": -3,
+      "total_minus_FCI_cm1": 22.196637575197762,
+      "full_H_residual_Ha": 0.004269625063038271
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D3",
+      "m2": -3,
+      "total_minus_FCI_cm1": 0.004637446785700856,
+      "full_H_residual_Ha": 0.00020013659104235374
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": -3,
+      "total_minus_FCI_cm1": 0.010517077056321017,
+      "full_H_residual_Ha": 0.0002584472713350504
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "S",
+      "m2": -1,
+      "total_minus_FCI_cm1": 13.942688047402967,
+      "full_H_residual_Ha": 0.003063183698430125
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D3",
+      "m2": -1,
+      "total_minus_FCI_cm1": 14.678662365275617,
+      "full_H_residual_Ha": 0.003977792207846613
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": -1,
+      "total_minus_FCI_cm1": 22.314610646123718,
+      "full_H_residual_Ha": 0.004722109848107745
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "S",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.08531580377634611,
+      "full_H_residual_Ha": 0.0015245803326370089
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D3",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.04844271675638795,
+      "full_H_residual_Ha": 0.0015770522856775717
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.10383165326988208,
+      "full_H_residual_Ha": 0.002115568551683711
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "S",
+      "m2": -1,
+      "total_minus_FCI_cm1": 13.782261203398448,
+      "full_H_residual_Ha": 0.002677082376022327
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D3",
+      "m2": -1,
+      "total_minus_FCI_cm1": 14.623128750079974,
+      "full_H_residual_Ha": 0.003684637046820242
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": -1,
+      "total_minus_FCI_cm1": 22.19663757856035,
+      "full_H_residual_Ha": 0.004269625063038269
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "S",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.0059929672700832284,
+      "full_H_residual_Ha": 0.00013234023948690063
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D3",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.004637445445539016,
+      "full_H_residual_Ha": 0.0002001365910423604
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": -1,
+      "total_minus_FCI_cm1": 0.010517080418908906,
+      "full_H_residual_Ha": 0.00025844727133506377
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "S",
+      "m2": 1,
+      "total_minus_FCI_cm1": 13.942688046988735,
+      "full_H_residual_Ha": 0.003063183698430111
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D3",
+      "m2": 1,
+      "total_minus_FCI_cm1": 14.678662363521223,
+      "full_H_residual_Ha": 0.003977792207846605
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": 1,
+      "total_minus_FCI_cm1": 22.314610642529647,
+      "full_H_residual_Ha": 0.004722109848107808
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "S",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.0853158035570469,
+      "full_H_residual_Ha": 0.0015245803326370047
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D3",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.04844271509946058,
+      "full_H_residual_Ha": 0.0015770522856775762
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.10383164938341274,
+      "full_H_residual_Ha": 0.0021155685516837195
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "S",
+      "m2": 1,
+      "total_minus_FCI_cm1": 13.782261202935484,
+      "full_H_residual_Ha": 0.0026770823760223477
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D3",
+      "m2": 1,
+      "total_minus_FCI_cm1": 14.62312874850833,
+      "full_H_residual_Ha": 0.003684637046820256
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": 1,
+      "total_minus_FCI_cm1": 22.19663757512466,
+      "full_H_residual_Ha": 0.0042696250630383445
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "S",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.005992966880217966,
+      "full_H_residual_Ha": 0.00013234023948687938
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D3",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.004637443788611651,
+      "full_H_residual_Ha": 0.00020013659104236336
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": 1,
+      "total_minus_FCI_cm1": 0.010517077044137728,
+      "full_H_residual_Ha": 0.00025844727133505954
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D3",
+      "m2": 3,
+      "total_minus_FCI_cm1": 14.678662366761978,
+      "full_H_residual_Ha": 0.003977792207846484
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": 3,
+      "total_minus_FCI_cm1": 22.31461064310226,
+      "full_H_residual_Ha": 0.004722109848107826
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D3",
+      "m2": 3,
+      "total_minus_FCI_cm1": 0.048442718425498604,
+      "full_H_residual_Ha": 0.0015770522856775747
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": 3,
+      "total_minus_FCI_cm1": 0.10383164960271196,
+      "full_H_residual_Ha": 0.0021155685516837178
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D3",
+      "m2": 3,
+      "total_minus_FCI_cm1": 14.62312875157852,
+      "full_H_residual_Ha": 0.0036846370468202757
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": 3,
+      "total_minus_FCI_cm1": 22.19663757552671,
+      "full_H_residual_Ha": 0.004269625063038344
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D3",
+      "m2": 3,
+      "total_minus_FCI_cm1": 0.004637446931900329,
+      "full_H_residual_Ha": 0.00020013659104235575
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": 3,
+      "total_minus_FCI_cm1": 0.010517076934488123,
+      "full_H_residual_Ha": 0.00025844727133506604
+    },
+    {
+      "method": "CCSD_R2",
+      "target": "D5",
+      "m2": 5,
+      "total_minus_FCI_cm1": 22.314610644369324,
+      "full_H_residual_Ha": 0.004722109848107762
+    },
+    {
+      "method": "CCSD_R3",
+      "target": "D5",
+      "m2": 5,
+      "total_minus_FCI_cm1": 0.10383165074794116,
+      "full_H_residual_Ha": 0.0021155685516837178
+    },
+    {
+      "method": "CCSDT_R2",
+      "target": "D5",
+      "m2": 5,
+      "total_minus_FCI_cm1": 22.196637576757222,
+      "full_H_residual_Ha": 0.004269625063038268
+    },
+    {
+      "method": "CCSDT_R3",
+      "target": "D5",
+      "m2": 5,
+      "total_minus_FCI_cm1": 0.010517078189366936,
+      "full_H_residual_Ha": 0.00025844727133505753
+    }
+  ],
+  "scope": "Saved equations, complete target-multiplet identities, physical norms and full-H defects. No new atomic integrals or root solves; other M/parity sectors remain uncomputed."
+}

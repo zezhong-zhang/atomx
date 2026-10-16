@@ -1,0 +1,62 @@
+{
+  "timestamp_UTC": "2026-10-14T15:18:27.545035+00:00",
+  "status": "COMPLETE_WITHIN_DECLARED_PILOT",
+  "native_run": {
+    "session_id": 91065,
+    "exit_code": 0,
+    "reaped": true,
+    "log": "execution.log",
+    "result": "actual001/result.json",
+    "number_native_EOM_solves": 5,
+    "external_electronic_structure_calls": 0,
+    "elapsed_seconds": 7.107187569999951,
+    "peak_RSS_MiB": 539.71875,
+    "timing_scope": "New integral operator, full independent4e/5e CI, four factorial native EOM solves and signed phase solve; prior radial-bank construction excluded; unpaired feasibility only.",
+    "predeclared_resources": {
+      "cpu": 27,
+      "threads": 1,
+      "AS_bytes": 8589934592,
+      "seconds": 900,
+      "load1_max": 24,
+      "available_min_bytes": 17179869184,
+      "determinant_cap": 256,
+      "amplitude_cap": 256,
+      "generator_memory_MiB": 512,
+      "dense_generator_bytes_largest": 167001408,
+      "estimated_EA_NumPy_upper": 182988864,
+      "logical_term_action_cap": 2000000,
+      "estimated_H_term_actions": 982212,
+      "note": "Public amplitude128 and generator128MiB defaults are explicitly raised for this declared194-amplitude case. No determinant cap or physics reduction. Dense bank chosen because prior same-model state-action timing was slower; no performance claim.",
+      "calls": "four factorial nativeEOM solves plus one signed-radial phase covariance solve; one complete independent4e/5e FCI pair; one fresh native packed integral operator; no external program"
+    }
+  },
+  "tests": {
+    "session_id": 8105,
+    "exit_code": 0,
+    "reaped": true,
+    "tests": [
+      "tests/test_finite_ccsd.py",
+      "tests/test_finite_ccsdt.py",
+      "tests/test_eom_attachment.py",
+      "tests/test_spinor_integrals_fscc.py"
+    ],
+    "passed": 26,
+    "skipped": 2,
+    "skip_scope": "Only external EXP-T live tests requiring unset executable variables; native pilot executed.",
+    "log": "tests.log",
+    "junit": "tests.xml"
+  },
+  "saved_data_review": {
+    "status": "PASS_SAVED_NATIVE_CCSDT_REVIEW",
+    "controls": 48,
+    "file": "saved_data_review.json"
+  },
+  "closure_integrity": {
+    "session_id": 68685,
+    "exit_code": 0,
+    "reaped": true,
+    "file": "final_integrity_review.json"
+  },
+  "process_scope": "Known task sessions only. No unrelated session/process was stopped.",
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a"
+}

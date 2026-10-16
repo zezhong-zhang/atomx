@@ -1,0 +1,10 @@
+{
+  "test_source_sha256": "a8594961350897e86fb7a022496258a95ca5cd71a3fa4f76214252876c26a7ba",
+  "observed": "3 failed, 2 errors in 1.09s",
+  "diagnosis": [
+    "CSF magnetic masks are in sorted orbital order, exporter uses explicit occupied+virtual order; independent projection omitted signed permutation.",
+    "Initial basetemp parent missing.",
+    "20,000-byte budget rejects packed ERI before transverse caches; needs resident on-demand case to test the cache-specific rejection."
+  ],
+  "disposition": "Retain failures; repair harness representation and setup, keep 1e-11 signed CI and 1e-9 exact FSCC gates unchanged."
+}

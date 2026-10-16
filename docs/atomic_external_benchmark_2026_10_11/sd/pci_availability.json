@@ -1,0 +1,67 @@
+{
+  "time": "2026-10-11T04:01:34.825209+00:00",
+  "pci_checkout": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI",
+  "git_commit": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+  "executable_candidates": [
+    "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/py-lib/gen_rates_lifetimes.py"
+  ],
+  "mpi_fortran": null,
+  "mpirun": null,
+  "mpi_cc": null,
+  "original_production_program_runnable": null,
+  "reason": "No compiled all-order executable was found. Upstream all-order Makefile contains serial targets and does not require MPI. A standalone whole-program build and complete matched radial/basis/input exchange were not established in this task. Missing MPI compiler/launcher is recorded separately and only limits testing MPI CI programs.",
+  "tested_alternative": "Original pinned pCI equation blocks compiled into the source-bound Atomx radial/native ABI, compared against exact streamed native optimization. Shared lineage is declared; this is not independent software experimental accuracy/MPI/end-to-end comparison.",
+  "archived_upstream": [
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/valsd-ci.f",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/valsd-ci.f",
+      "sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+      "bytes": 114979
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/Makefile",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/Makefile",
+      "sha256": "ba62690bdc856f3baaecbc8f5b1954d9f591a74115ee2af9ccbaf2f01d6545a8",
+      "bytes": 1957
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/LICENSE.md",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/LICENSE.md",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/sdvw-ci.f",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/sdvw-ci.f",
+      "sha256": "828ea5d34c70e63bb21ceca5f6e6652da7dc3007ec9ba1021d0d6835c9726105",
+      "bytes": 87128
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/allcore-ci.f",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/allcore-ci.f",
+      "sha256": "c39f88b2228ef213eb4a1e860d1bdeadaffe9bceea2537426e312ddf3642c213",
+      "bytes": 111148
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/include/all.par",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/include/all.par",
+      "sha256": "29f09abd7a0d70a6b02da03e8c4b2a2e13241c742a47ffd0cebe65b916918520",
+      "bytes": 3349
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/include/global.par",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/include/global.par",
+      "sha256": "09531194694de58d5e5bd9b0ae3a0d68d374d6a697e6ca50ed50b993c764300b",
+      "bytes": 52
+    },
+    {
+      "path": "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/lib/all-order/include/allvw.par",
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/upstream/lib/all-order/include/allvw.par",
+      "sha256": "71b9d1fb8a8fd06be787aa77d9967095a9b7318295dfce7d605f1a08157480ee",
+      "bytes": 2064
+    }
+  ],
+  "compiled_allorder_program_found": false,
+  "serial_allorder_MPI_required": false,
+  "serial_original_build_feasibility": "Not tested for complete upstream main programs; native adapters successfully compile original diagram source with existing gfortran."
+}

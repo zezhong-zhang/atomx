@@ -1,0 +1,22 @@
+{
+  "status": "prepared frozen; no numerical execution",
+  "files_sha256": {
+    "preparation_verification.json": "6c206078d1de303e7380a0f82a2fcbf4c8fb2a4c8b46b21924d52a9275e9f1a2",
+    "run.py": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+    "README.md": "25503dc8fe30add88767086baaa17ad4f404a6da82507d110c89975becf612e3",
+    "test_saved_guards.py": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "verify_preparation.py": "a25fcf0ec35405f62dd8d1ffcd0d317188d5e54bdcf600fffd15a74f58b96c32",
+    "contract.json": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c"
+  },
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 taskset -c <root-admitted CPU> .venv/bin/python docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/run.py",
+  "requires_root_execution_contract": {
+    "guard_qualification_execution_authorized": true,
+    "contract_sha256": "d145f771f9a9d6b21b6103cc7f278108cde407b412baecc645a45be6bfcef11c",
+    "runner_sha256": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+    "test_sha256": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "preparation_verification_sha256": "6c206078d1de303e7380a0f82a2fcbf4c8fb2a4c8b46b21924d52a9275e9f1a2"
+  },
+  "counts": "1H/0CI/0g/6hS/2 initial overlaps; zero new radial finite increments or optimizer",
+  "caps": "CPU1,3.95GiB,120s",
+  "previous_failure_retained": true
+}

@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "3f2356bf521b5a542a5db282ac26d5ac79e8a79bd9c33e885373a6dfe852f84a",
+  "archive_bytes": 3226263,
+  "files_verified": 447,
+  "source_modules": 339,
+  "source_import_path": "/data/code/atomx/docs/atomic_reduced_sd_2026_10_09/extracted_bundle/atomx/src/atomx/__init__.py",
+  "original_pci_sources_verified": true,
+  "test_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_linearized_sd.py",
+    "tests/test_ci_sd_space.py",
+    "tests/test_finite_ccsd.py",
+    "tests/test_ci_effective_qspace.py",
+    "tests/test_architecture_boundaries.py",
+    "tests/test_architecture_scientific_fidelity.py"
+  ],
+  "exit_code": 0,
+  "passed": true,
+  "limitations": "56 selected native tests; excludes unfinished large-pool SD and valence accuracy gates"
+}

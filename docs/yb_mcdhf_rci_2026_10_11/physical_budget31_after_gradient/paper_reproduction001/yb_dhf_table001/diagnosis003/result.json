@@ -1,0 +1,67 @@
+{
+  "hypothesis": "Final embedding through the ill-conditioned Euclidean complement can lose whole-branch physical Gram. A single full-original-metric projection/ordered QR repairs representation and is checked on all six saved original pencils.",
+  "policy": "Same arrays/eigenvalues/core/all columns/gates; no atomic solve, no iterations or tolerance adjustment.",
+  "rows": [
+    {
+      "ns": 180,
+      "kappa": -3,
+      "columns": 174,
+      "physical_Gram_wide": 1.0329627778138395e-14,
+      "core_overlap": 1.825034464418744e-16,
+      "original_pencil_target_dual_Ha": 2.4672369276970654e-08,
+      "column_change_S_norm": 8.020870586880852e-11,
+      "passes_original_gates": false
+    },
+    {
+      "ns": 180,
+      "kappa": -1,
+      "columns": 171,
+      "physical_Gram_wide": 1.1138876279681575e-14,
+      "core_overlap": 3.7993351904264067e-16,
+      "original_pencil_target_dual_Ha": 8.547817608310427e-09,
+      "column_change_S_norm": 3.6301255992433303e-10,
+      "passes_original_gates": true
+    },
+    {
+      "ns": 180,
+      "kappa": 2,
+      "columns": 174,
+      "physical_Gram_wide": 1.0000247158137299e-14,
+      "core_overlap": 2.636781731187992e-16,
+      "original_pencil_target_dual_Ha": 7.165559481855207e-09,
+      "column_change_S_norm": 3.750059181679292e-10,
+      "passes_original_gates": true
+    },
+    {
+      "ns": 220,
+      "kappa": -3,
+      "columns": 214,
+      "physical_Gram_wide": 1.1362005086779092e-14,
+      "core_overlap": 2.394281494229832e-16,
+      "original_pencil_target_dual_Ha": 2.521451592736082e-08,
+      "column_change_S_norm": 1.6580351418749782e-11,
+      "passes_original_gates": false
+    },
+    {
+      "ns": 220,
+      "kappa": -1,
+      "columns": 211,
+      "physical_Gram_wide": 1.8500500610640902e-14,
+      "core_overlap": 3.275314790558641e-16,
+      "original_pencil_target_dual_Ha": 4.897200867299254e-09,
+      "column_change_S_norm": 1.2427492892097605e-10,
+      "passes_original_gates": true
+    },
+    {
+      "ns": 220,
+      "kappa": 2,
+      "columns": 214,
+      "physical_Gram_wide": 2.6406177591753455e-14,
+      "core_overlap": 2.7884345795803836e-16,
+      "original_pencil_target_dual_Ha": 2.6718060057068154e-08,
+      "column_change_S_norm": 1.7162054831689892e-10,
+      "passes_original_gates": false
+    }
+  ],
+  "all_pass": false
+}

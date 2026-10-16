@@ -1,0 +1,165 @@
+{
+  "status": "source_integer_census_only_not_runtime_authorized",
+  "explicit_new_raw_determinant_cap": 2659,
+  "scalar_overlap_group_census": [
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "baseline_raw_upper": 1640,
+      "candidate_raw_upper": 2623,
+      "scalar_compatible_overlap_pairs_upper": 14637
+    },
+    {
+      "twoJ": 1,
+      "parity": 1,
+      "baseline_raw_upper": 1705,
+      "candidate_raw_upper": 2659,
+      "scalar_compatible_overlap_pairs_upper": 17038
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "baseline_raw_upper": 1619,
+      "candidate_raw_upper": 2466,
+      "scalar_compatible_overlap_pairs_upper": 11245
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "baseline_raw_upper": 1660,
+      "candidate_raw_upper": 2478,
+      "scalar_compatible_overlap_pairs_upper": 14696
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "baseline_raw_upper": 1324,
+      "candidate_raw_upper": 1918,
+      "scalar_compatible_overlap_pairs_upper": 9038
+    }
+  ],
+  "scalar_compatible_pairs_upper_total": 66654,
+  "original_overlap_pair_cap_1000000_pass": true,
+  "method": "Complete Pauli magnetic occupancy records grouped by full occupied(kappa,m) multisets after removing unchanged deeper closed shells, retaining only patterns with N(J)>0. This is an upper bound for actual signed public magnetic support. No amplitudes or configurations pruned.",
+  "no_science_imports_or_NPZ_access": true,
+  "f043_source_semantics_control": [
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_block_structure",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_connected_pairs",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_coefficient_table",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_block_csf_sparse_matrix",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_verify_cached",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_radial_terms",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "two_body_angular",
+      "archived_matches_current": true
+    },
+    {
+      "file": "angular/csf_hamiltonian.py",
+      "symbol": "_pair_terms",
+      "archived_matches_current": true
+    },
+    {
+      "file": "methods/ci.py",
+      "symbol": "ci_solve",
+      "archived_matches_current": false
+    },
+    {
+      "file": "physics/csf/overlap.py",
+      "symbol": "_projection",
+      "archived_matches_current": true
+    },
+    {
+      "file": "physics/csf/overlap.py",
+      "symbol": "_overlaps",
+      "archived_matches_current": true
+    }
+  ],
+  "f043_source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx",
+  "f043_source_file_sha256": {
+    "angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "physics/csf/overlap.py": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b"
+  },
+  "source_allocation_census": {
+    "complete_selected_spaces": [
+      1595,
+      2574
+    ],
+    "raw_pair_coordinates_both_spaces_upper": 42577136,
+    "expanded_noncommon_electrons": 23,
+    "expanded_spectator_insertions_upper": 3072432,
+    "largest_block_spectator_insertions_upper": 672727,
+    "both_spaces_whole_H_plus_C_bytes": 146712016,
+    "both_spaces_dense_projection_bytes_upper": 68985208,
+    "largest_block_connected_coordinates_upper": 7070281,
+    "expanded_table_nnz_loose_upper": 32950943190,
+    "largest_overlap_minor_batch_bytes_upper": 101275992,
+    "CSR_bytes_formula": "16*nnz + 8*(rows+1), conservative int64 sparse indices; excludes source Python construction lists, conversion temporaries and referenced keys",
+    "pair_coordinates_bytes_formula": "16*connected_pairs",
+    "unknown_peak_terms": [
+      "actual connected p and coefficient z",
+      "normal-ordered field/key caches",
+      "Python containers/set capacity/allocator overhead",
+      "LAPACK/refinement temporary workspace",
+      "highest-weight/span caches",
+      "radial caches/geometry snapshot copies",
+      "runtime/native library baseline",
+      "serialization transients"
+    ]
+  },
+  "prospective_resources": {
+    "new_raw_cap": 2659,
+    "CPU": 27,
+    "threads": 1,
+    "hard_AS_GiB": 8,
+    "inner_wall_seconds": 900,
+    "outer_wall_seconds": 915,
+    "minimum_host_available_GiB": 10,
+    "maximum_connected_pairs_returned_total": 42577136,
+    "maximum_table_nnz_one_block": 20000000,
+    "maximum_retained_table_nnz_total": 50000000,
+    "original_overlap_pair_cap": 1000000,
+    "maximum_scalar_compatible_overlap_pairs": 66654,
+    "complete_H": 2,
+    "complete_CI": 2,
+    "complete_target_block_eigh": 10,
+    "new_gradient": 0,
+    "optimizer": 0,
+    "virtual_generator": 0,
+    "completion_guaranteed": false,
+    "controlled_performance_claim": false,
+    "require_root_exact_execution_binding": true,
+    "additional_user_permission_required": false
+  },
+  "stopping_policy": "Whole-arm rejection on source/input/raw-count/nested-H/complete-support/CI residual/Gram/tracker/resource mismatch. Work observers forward original source; nnz checks follow table allocation, so hard AS/wall caps govern Python construction. Preserve completed arrays/counters on MemoryError/work cap/timeout. No retry, amplitude/configuration pruning, changed weights, operator or physical tolerances.",
+  "preserved_preparation_sha256": {
+    "proposal.json": "ec4a18ba8a651750cd85bef9dbdf53ddec9a2d6c48df0a838222e3040cd32652",
+    "README.md": "1639199129ab9a9fe7fe07e333ad5e2f0bc8dd8bedcd8b47fa7fc355c614e037"
+  },
+  "scope": "Bounded-run proposal only; source-based formulas cannot certify peak RSS or completion. Numerical CI source is original f043 direct block eigh, not current centered source; angular/overlap allocation functions have matching AST controls."
+}

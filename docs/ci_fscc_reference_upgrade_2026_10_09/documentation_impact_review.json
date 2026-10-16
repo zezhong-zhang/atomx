@@ -1,0 +1,16 @@
+{
+  "updated": [
+    "docs/ARCHITECTURE_CAPABILITIES.md",
+    "docs/VERIFICATION.md",
+    "docs/TESTING.md",
+    "docs/README.md",
+    "docs/AGENT_REFERENCE.md",
+    "docs/AGENT_INSIGHTS.md",
+    "src/atomx/methods/ci_mbpt.py docstring"
+  ],
+  "retained": {
+    "AGENTS.md": "No new global rule; existing physical-identity and independent-gate obligations apply",
+    "docs/MIGRATION.md": "Only optional additive interfaces; legacy evaluation/root/default behavior preserved"
+  },
+  "archive_policy": "Old sealed evidence unchanged; new source identity and replay are separate"
+}

@@ -1,0 +1,40 @@
+{
+  "status": "prepared_unexecuted_requires_root_exact_binding",
+  "files_sha256": {
+    "contract.json": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba",
+    "run.py": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe",
+    "verify_preparation.py": "3bb82c6dc925ee1b7a9bf44d8ea5249e9dfccfedf0afaf85903dd981f39e8793",
+    "preparation_verification.json": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4",
+    "README.md": "58d51cbddebb3c5deb74028548f3df9f48fb2545b36c6f8a90e62fb482d2ad71",
+    "documentation_impact.json": "c33e7ab6d6a0980a1f790801e16e1dfe7d0710af9faefb661915f9b21a2ec553",
+    "document_verification.json": "5ff51c5e9d5f8bebbb6b831aa830b7c2cabb77a78fac31bffc8f08f375cca044"
+  },
+  "root_execution_required_fields": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe",
+    "contract_sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba",
+    "preparation_sha256": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4",
+    "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "new_scientific_target": "EOL_Rayleigh",
+    "CPU": 31,
+    "max_H": 3,
+    "max_CI": 3,
+    "max_full_gradient": 0,
+    "max_optimizer": 0,
+    "max_validation_Dirac": 7,
+    "max_total_hS": 42,
+    "wall_seconds": 120,
+    "address_space_GiB": 3.95,
+    "maximum_system_load1": "Root must choose explicit numeric resource admission ceiling; no implicit default"
+  },
+  "command": "OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 .venv/bin/python docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py --execution-contract <root-execution-binding.json>",
+  "metadata_authorize": "Same command with --authorize; pure standard-library checks only.",
+  "source_only_preparation_checks": 62,
+  "physical_calls": 0,
+  "numeric_imports": 0,
+  "original_failure_unchanged": true,
+  "optimizer_authorized": false,
+  "science_and_output_SHA_pending_root_execution": true,
+  "normalization_scope": "Complete matched c\u1d40Hc/(c\u1d40c) with both finite endpoint response/norm/residual retained; saved g is conditional, not new public gradient replay.",
+  "related_plan": "../correlated29_optimization_preparation/README.md remains contingent; parent may separately prepare ordinary reported-EOL early optimization without swapping callback semantics. No such execution occurs here."
+}

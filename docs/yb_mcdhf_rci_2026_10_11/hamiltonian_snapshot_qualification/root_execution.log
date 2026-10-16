@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/run.py", line 653, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/run.py", line 648, in main
+    qualify(args.execution_contract)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/run.py", line 594, in qualify
+    atomic_json(HERE / "signed_public_RDM.json", {"terms": rdm, "count": len(rdm),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/hamiltonian_snapshot_qualification/run.py", line 42, in atomic_json
+    json.dump(value, stream, indent=2, sort_keys=True, allow_nan=False)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 431, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable

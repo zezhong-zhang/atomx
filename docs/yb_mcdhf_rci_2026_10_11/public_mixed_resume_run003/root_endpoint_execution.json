@@ -1,0 +1,21 @@
+{
+  "created_at_utc": "2026-10-11T09:56:43.247302+00:00",
+  "foreground_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-u",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/verify_endpoint.py",
+    "--execution-contract",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/execution_contract.json"
+  ],
+  "driver_sha256": "32d3c4fab78f43a4f54b0ff9fb39e1d8ce3165675e101028ca0a98ed37db05f2",
+  "execution_contract_sha256": "6c7795a816b35dcacf331502ecc396d0afae4dda90fa5a3accd3d8be3ba4643c",
+  "launcher_sha256": "19f049b8c8fff0444f8a06a021a71adb05cb2abbd48ba09d0b8d27af3e8da25e",
+  "outer_wall_cap_s": 920,
+  "exit_code": 0,
+  "outer_wall_cap_stopped": false,
+  "elapsed_s": 6.783608810044825,
+  "log_sha256": "8156fc88bb449d394903795deab573fbb7a42114f6dedab475736dcafa6798b8",
+  "execution_contract_unchanged": true,
+  "driver_unchanged": true,
+  "controlled_performance_claim": false
+}

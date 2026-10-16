@@ -1,0 +1,41 @@
+{
+  "hypothesis": "Two endpoint wave operators and their physical metrics reproduce complete signed native electric transitions without bare POP or Euclidean averaging",
+  "fixed": "Be+ Z4/ns30/ks7 closed1s2 DC DHF; complete three-electron CSFs over 1s,2s,3s,2p1/2,2p3/2 native VN metric-orthogonal spinors; infinite nuclear mass; same native nuclear potential",
+  "sectors": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      -1
+    ],
+    [
+      3,
+      -1
+    ]
+  ],
+  "roots": "lowest two complete full-CI roots in J1/2 even; lowest root in each odd sector, selected before calculation",
+  "lines": "2p1/2,2p3/2 -> 2s and 3s -> 2p1/2,2p3/2; line-specific many-electron photon difference in every orbital pair",
+  "operators": "E1 length/velocity x finite_wavelength/explicit long_wavelength",
+  "independent_oracle": "lowest-M CSF vectors, explicit fermionic creation/annihilation and one-electron Wigner-Eckart components; no one_body_tensor_terms/effective transform; radial photon kernel is common",
+  "gates": {
+    "full_signed_operator_au": 1e-11,
+    "normalized_amplitude_au": 1e-11,
+    "reconstructed_state": 1e-11,
+    "invariant_residual_Ha": 1e-10
+  },
+  "caps": {
+    "dimension_cap": 128,
+    "max_determinants": 2000,
+    "angular_work_cap": 10000000,
+    "memory_bytes": 67108864
+  },
+  "stop": "Any complete array, signed state, amplitude or metric failure rejects this increment; no root substitution, amplitude screening, fitted shifts or operator averaging",
+  "scope": "Exact finite CI consumer only. No metric inferred for production SD, no Yb spectrum/space/experiment convergence, no performance claim",
+  "load": [
+    9.189453125,
+    9.2666015625,
+    9.63671875
+  ]
+}

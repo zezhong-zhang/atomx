@@ -1,0 +1,77 @@
+{
+  "hypothesis": "Current full-space standalone diagrams remain affine and retain the unchanged double-only fixed-energy map at bare ev; the reference-connected 6s coupled SD root passes actual full raw/energy gates",
+  "fixed": "Z70/V68/Fermi/ns123/l<=3; original all68 core electrons and all414 radial virtual roots below5Ha, real DC and complete signed redundant direct rho",
+  "input_sha256": "4e320b72f6517c6f016a1cd9a1f2f9462e3aebe571f1ddd0f0dc4473beadd153",
+  "seed_sha256": "40e62b3daa22855174c4c874bb3dcbf2e6ace878c2abb8fe37f5b4788ab2a90d",
+  "valence_keys": [
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      -3
+    ]
+  ],
+  "root_keys": [
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      -3
+    ]
+  ],
+  "root_method": "Private complete-image directed Davidson,16-vector subspace/MGS2/restart; actual public full raw/energy each8couplings and final affine",
+  "raw_residual_gate_Ha": 1e-10,
+  "signed_map_gate_Ha": 1e-11,
+  "replay_core_energy_gate_Ha": 1e-11,
+  "historical_complete_core_action_gate_Ha": 1e-11,
+  "source_transition": "Only the four previously validated shared CSF weak-amplitude filters may differ from historical physical sources. Require exact audited text replacements, unchanged other physical source hashes, unchanged physical/input/denominator identity, complete stored signed action comparison and actual new CoreSD raw/energy certification; historical results are never restamped",
+  "numerical_inverse_gate_Ha": null,
+  "restart": 20,
+  "krylov_vectors": 40,
+  "max_outer_iterations": 16,
+  "max_inverse_restarts": 200,
+  "diagnostic_map_cap": 1600,
+  "diagnostic_wall_cap_seconds": 12000,
+  "cap_bytes": 34359738368,
+  "core_workers": 8,
+  "valence_term2_workers": 8,
+  "inner_blas_threads": 1,
+  "private_term31_blas": true,
+  "private_davidson": true,
+  "private_large_root_actions": 160,
+  "load": [
+    12.1455078125,
+    12.06640625,
+    12.44580078125
+  ],
+  "stop": "Failed source/physical identity, signed map, raw/energy or denominator gate, cap overrun, or declared diagnostic work/time exhaustion rejects the run; retain full arrays and failure, never reduce physics or relax tolerance",
+  "scope": "Complete original finite radial/partial-wave window and numerical equations only; no radial convergence, independent large-H oracle, production normalized SD state/property, experimental, GPU or performance certificate"
+}

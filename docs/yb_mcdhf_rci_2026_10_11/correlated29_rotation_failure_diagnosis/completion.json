@@ -1,0 +1,103 @@
+{
+  "all_passed": true,
+  "links": [
+    {
+      "document": "README.md",
+      "target": "../correlated29_rotation_rayleigh_qualification002/actual/direction1_central.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../correlated29_rotation_rayleigh_qualification002/actual/direction1_diagnostics.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "diagnose_saved.py",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "root_authorization.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "root_execution.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "RESULTS.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "actual/result.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../../AGENT_INSIGHTS.md#preserve-metric",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "actual/result.json",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "root_authorization.json",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "root_execution.json",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "diagnose_saved.py",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "../../AGENT_INSIGHTS.md#preserve-metric",
+      "exists": true
+    }
+  ],
+  "scope": "Current documentation and closed saved-only result; no physical certification.",
+  "hashes": {
+    "README.md": "98d7ce15e76185cc3aa7fa9ba86ce19f17f7ff64bef6a4dca15a90b9e2452aef",
+    "RESULTS.md": "ddc4737a83b7855b097565dc5b2870b769c28658292dd8a04a9e31e95f721b14",
+    "decision.json": "d6d73047d7b555319823e0d6a5aa3c495f46b591460ee2abd612c58b3d831c4b",
+    "actual/result.json": "846453e8d8750ae360681e9d72e2b6794ae31d9b99419d99997e7b79805509ce",
+    "root_execution.json": "cf454661ce2d200762aeeddfbfb86bd262607ad8705afa395fd3522b74e6f16e",
+    "root_execution.log": "a9653ae64eaffa2e6afc0b87717f7a47317b4d8147a9e444b37b04b277eca9b5",
+    "contract.json": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+    "diagnose_saved.py": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d",
+    "root_authorization.json": "d98a79c9c05886490a4b821977eeff76f2d4fe2fe352b4e420a8a7fea254344b",
+    "outer_execution_contract.json": "2692989f2642856f5b75ba68b5733817cf431d8afd953cb0434f4edb2e4fbbbc",
+    "readonly_launch.py": "0c88b3d68eae80f5a444543249673709007a0b9602e3d12fe5dfe8bbe74a5393"
+  },
+  "calls": {
+    "physical_producer_calls": 0,
+    "eigen_SVD_calls": 0,
+    "two_body_cells_or_potentials": 0,
+    "new_public_RDM_contracts": 0
+  },
+  "exact_products": 2284625,
+  "original_failed_gate_unchanged": true,
+  "optimizer_authorized": false
+}

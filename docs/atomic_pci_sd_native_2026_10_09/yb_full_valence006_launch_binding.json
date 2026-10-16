@@ -1,0 +1,44 @@
+{
+  "gates": {
+    "cuda_valence002": {
+      "contract.json": "aba9aa0ccb6d2a8981dad26140bb03fa39af1da986cab82b8fee633c65ea6323",
+      "source_sha256.json": "da4bd8a8f54d48dfd817e879318366ca66777d49d8a62b262455e1a95e2517d0",
+      "result.json": "aa5738199b1e32cc8ea742ffdc73efe01895a0ff8c5b65c1d2afeaf8f553049e"
+    },
+    "public_valence014": {
+      "contract.json": "0775defb1d90851e40f6cd9b814842d0bbc4b41bcd998dbf71457e71db846de7",
+      "source_sha256.json": "819bffbdfaa0070e22c77d08118b742bdf56b64f9978a47c397321e25aafe606",
+      "result.json": "8460cbd13354d6246fd7c3e6ec95ae4a840331ccae5f1bf1cba374cbaaf4e0fc",
+      "comparison.json": "4584f8cebf5d1df3be66a0c535dd09cc9f39d1c59de2212a19a4cd064c90ba2e"
+    },
+    "public_valence015": {
+      "contract.json": "3b36e9e3ff9c2b5ba61388b63c5775c5ca349b55b0ce160d5cd0c7dcd6fb5b4f",
+      "source_sha256.json": "fc01f5aec890e6606813ce1d91bc5927dcb97e993bd5f32174a6f8bddaefcb1c",
+      "result.json": "c98dfdc7ac625380ad05ece86e5628225af4ae414206b052ace9ac743801227a",
+      "comparison.json": "c03ff020efae3b8ad0fb8c32f1a0c256aa3a8a6dfcc4ae55fa199bc283e86a7c"
+    },
+    "valence_reorthogonal_private028": {
+      "contract.json": "50cd0b44cb897bf27c7e1c51fb3d528bb1337c5a5aeb9f4844c40ae11207b6e5",
+      "source_sha256.json": "27c0d6a7e5b10636e984575daed96476907878a088cc0359d6814184f049ece9",
+      "pytest.log": "f9202f073c48aa619b47c27a59654a88e912a7bfd7a01dcc37fb36b724df63f0",
+      "ruff_source_binding.json": "e5023a59ffd8e6f1a95be2d1a8ee756328451015a4ad57ecc2afda435d85db6c"
+    },
+    "yb_full_valence007": {
+      "contract.json": "b60e97a1ded08d7b0ed10920bdfddf878930b7324b90c1f26adbcffe75650f93",
+      "source_sha256.json": "b166fd78c8636a0ab9ea31853b3dabef1918b497ef847c01707f055bf177f902",
+      "resource.json": "5c0b45fc80afb04f83fdee53ccab804f31169899f163db1374bad406b2c7bdff",
+      "preflight_only.json": "c7a3ddc14ca8b1d2460f23b883ca67cc4dd794f579c44603a9651cd281a9731f"
+    }
+  },
+  "source_driver_sha256": "d89bff635711d18177b1502daf40f78d553c58f202fb5a5f1d8c2f99397a7dc0",
+  "load": [
+    10.31982421875,
+    12.916015625,
+    17.6123046875
+  ],
+  "numerical_role": "privateMGS2 numerical guesses for new columns; actual fresh publicGMRES result only accepted and passed to directedSigma2",
+  "full_space": "unchanged68core/414virtual/all5columns",
+  "production_started": false,
+  "acceptance_pending": true,
+  "scope": "launch gate binding, no numerical production or performance pass"
+}

@@ -1,0 +1,42 @@
+{
+  "code": "AMBiT",
+  "commands": [
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--with",
+      "cmake==3.31.6",
+      "cmake",
+      "-S",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT",
+      "-B",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build",
+      "-DCMAKE_Fortran_COMPILER=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+      "-DCMAKE_PREFIX_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr",
+      "-DCMAKE_LIBRARY_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DUSE_OPENBLAS=ON",
+      "-DUSE_OPENMP=ON",
+      "-DBUILD_TESTING=OFF"
+    ],
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--with",
+      "cmake==3.31.6",
+      "cmake",
+      "--build",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build",
+      "--parallel",
+      "2"
+    ]
+  ],
+  "workers": 2,
+  "stages": [
+    1
+  ],
+  "elapsed_seconds": 0.26410426397342235,
+  "success": false
+}

@@ -1,0 +1,78 @@
+{
+  "hypothesis": "Original complete l<=3/E<5Ha radial space and signed SD counts can be reproduced from the frozen V68 reference; larger complete bands expose the true host/device/task cost before correlation allocation.",
+  "fixed": {
+    "Z": 70,
+    "core_electrons": 68,
+    "nucleus": "Fermi, original empirical A175 radius",
+    "ns": 123,
+    "hamiltonian": "Dirac-Coulomb",
+    "potential_mode": "VN, occupied metric-orthogonal complement",
+    "states": [
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ],
+    "common_energy_zero": "own jointly computed6s attachment energy in each full space",
+    "space_panel": [
+      [
+        3,
+        5.0
+      ],
+      [
+        3,
+        10.0
+      ],
+      [
+        4,
+        5.0
+      ],
+      [
+        4,
+        10.0
+      ]
+    ]
+  },
+  "distinguishing_outcomes": [
+    "Exact original complete key/count and coefficient replay supports shared-input tail planning.",
+    "Any original radial/coordinate identity mismatch rejects tail execution; save mismatch.",
+    "Any full-space cost above budget is deferred without pruning."
+  ],
+  "acceptance": {
+    "baseline_virtual_radial_count": 414,
+    "baseline_core_raw_amplitudes": 28218500,
+    "baseline_coefficient_absolute_gate": 1e-11,
+    "historical_count_gate": "exact integer equality for all five columns",
+    "source_gate": "all loaded scientific/control source hashes unchanged between before/after",
+    "experimental_gate_relative": 0.01,
+    "baseline_norm_certificate": "existing complete (1+T+S) norm only; no new property claim"
+  },
+  "caps": {
+    "probe_address_space_bytes": 4294967296,
+    "probe_wall_seconds": 120,
+    "probe_threads": 1,
+    "future_task_host_cap_bytes": 34359738368,
+    "future_task_device_cap_bytes": 2147483648,
+    "future_solver_numeric_subspace": 64,
+    "future_core_krylov_vectors": 40,
+    "future_diagnostic_actions_per_state": 160
+  },
+  "stop": "Any identity, baseline, nesting, finite-value, source, probe budget or time failure stops planning and preserves failure. No backend compilation, correlation action/root, emitted fake spectra or model shrink.",
+  "scope": "Counting/radial replay and conservative resource planning only; no physical-tail convergence, experimental improvement, timing speedup or highest-level certificate."
+}

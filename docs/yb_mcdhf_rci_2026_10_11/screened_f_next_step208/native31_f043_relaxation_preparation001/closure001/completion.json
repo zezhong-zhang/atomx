@@ -1,0 +1,3336 @@
+{
+  "all_scalar_completion_controls_passed": true,
+  "checks": [
+    {
+      "name": "explicit_foreground_closed_before_actual_read",
+      "passed": true
+    },
+    {
+      "name": "root_binding_source_and_driver_match",
+      "passed": true
+    },
+    {
+      "name": "root_postclosure_source_input_preservation",
+      "passed": true
+    },
+    {
+      "name": "actual_exit_status_consistent",
+      "passed": true
+    },
+    {
+      "name": "point_0_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_0_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point0_has_no_line_search_acceptance",
+      "passed": true
+    },
+    {
+      "name": "point_0_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_1_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_1_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_1_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_1_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_2_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_2_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_2_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_2_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_3_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_3_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_3_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_3_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_4_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_4_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_4_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_4_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_5_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_5_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_5_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_5_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_6_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_6_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_6_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_6_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_7_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_7_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_7_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_7_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_8_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_8_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_8_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_8_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_9_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_9_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_9_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_9_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_10_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_10_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_10_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_10_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_11_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_11_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_11_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_11_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_12_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_12_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_12_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_12_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_13_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_13_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_13_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_13_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_14_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_14_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_14_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_14_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_15_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_15_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_15_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_15_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "point_16_UID_lineage",
+      "passed": true
+    },
+    {
+      "name": "point_16_qualified_metric_source",
+      "passed": true
+    },
+    {
+      "name": "point_16_original_exact_acceptance_ledger",
+      "passed": true
+    },
+    {
+      "name": "point_16_saved_stationarity_and_spectra",
+      "passed": true
+    },
+    {
+      "name": "literal_actual_horizon_and_terminal_not_gap_selected",
+      "passed": true
+    },
+    {
+      "name": "attempted_completed_work_within_prospective_caps",
+      "passed": true
+    },
+    {
+      "name": "scope_objective_history_no_adoption",
+      "passed": true
+    },
+    {
+      "name": "actual_live_control_boolean_matches_ledger",
+      "passed": true
+    },
+    {
+      "name": "zero_numerical_imports_or_physical_replay",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/run.py": "be1b987d86208fa66736609a1cca09ec15a332957e27e111e5b1c6dec87e1ae0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/preparation.json": "440fcc67e85d9703efb37519bc1028e6d623bc60883eca3e58cadfdd3fd53ba5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/handoff.json": "c18557d972dce4977607a0769962b9f656c8f203740fd7df8f5e793386178109",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/execution_binding.json": "65df9ed1f3f4e68845c668854d455f83a1b455fdc2ba95a3a16b15377c86d805",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execute.py": "6aadc6673b5b3a249bbe814c211d67f707b53f6d34ffa3fdde1b8f8eec8c2556",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/foreground.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/accepted_candidate_before_gradient.json": "3bbfca86ea03af27c9b4405f4f9d42f063aa5de5383aff32f2c7c8d26ba16355",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000_signed_tables.json": "3731578d93ffcb0de5dee34296240e4b22aba98e14839b1bed9602b1f1be4710",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001_signed_tables.json": "44e805c0d43c3c6f8604acbd282ca558d9f261b55c69a46872eed7028df21e45",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002_signed_tables.json": "f0ffd431694a673186361c84229dd4aa92d0a6e268a6fc700244d94a989f5a95",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003_signed_tables.json": "9ef7a1de00a0516e83009291aa53019ad4e9e925eb122262997aa54efd24ba7b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004_signed_tables.json": "f6c05a74ebd2dd2e0e4f8c1d6d45de10d647ef4363974825c03c50b4b668cbca",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005_signed_tables.json": "cff2061222b8bdd4b8de9998a0284198dcf9fa4f5357b6d6d09a950f3f231f22",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006_signed_tables.json": "5cc94ae50bc2ce6d0937070bb5cb42c3f6ea9520ea9ac82e48e86e905f36d6e0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007_signed_tables.json": "2e8b161cf832955a6c5d0cbfe51f11be17639ab372982c0420a5480f7aa0452b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008_signed_tables.json": "acda497143d1f839dc82fd038e080b12963fbae453c7906dcb50f60896f9d2b2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009_signed_tables.json": "4462306b5610c929b2d255a6259b86ba699b1d396d263ea8cd61e7efb123f3f2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010_signed_tables.json": "e5d3370e91b9abf80b20135d30cd51e2732623860b18cb5fb09763df54fd0b9f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011_signed_tables.json": "01a1c0b940a939cbd4836831de31dc747069d757af72543ceddeade756313fc2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012_signed_tables.json": "55e3681030f37a546b42e1f7a63529e8e8f8452df294ba2ebd947bbfb3e8379b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013_signed_tables.json": "2698c2dde3c8b0fe9e9b3585726491e8b45f4c7af75faef981daad201514634a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014.json": "37ca465e94779bf82599d0e4fa396c90358b5eb071eb4e1147847d82b018fec3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014_signed_tables.json": "09aa50a9687244864056b1c056e84e1f43d2320866651741a73b3edcc699680f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015.json": "8f98725e4dbf30d96c4a902fb4bc33a6b6cedd2581178d484d9b05b976e130c9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015_signed_tables.json": "644ecee6121cd9fd91c25254aa1d2e4029bcb16f67538c2546f69973997d67d5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016_signed_tables.json": "f61daadb6e4fca292be8ba37196abbd4657a4fea6087cc05f25be5e77fea2bc0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/progress.json": "a5deaf54fd659d403415426bba3be20b3e2c69681b8dcfaf286d9904a1bd82f4",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0001.json": "95fdb18f6efdcc52c71347be663bf319481681d65ed392273fadb54a983eb0ef",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0002.json": "32e5fc12507f14112ab40dec0ac853e3d564371fc9a4444d9d8e8b6677d916e1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0003.json": "fddb0927a55dfbfeb86b89b1b2e7f2297674024d8017ea33984811b18ba48cbd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0004.json": "9847f8cc400d54ffba8ed31df844a30fed832df3e07c4b95881c5397b55eff9a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0005.json": "29b13df563d47493d729fa8f7ca39a694d036459b989ecd1eba6ae6f1f5a067f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0006.json": "ecf3564fc870d2236d0154fbe95099ccc5b29d995259ee5998e4d2e5172a13b5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0007.json": "8698af184d6f75b8cb4bb70661a505fbcdb902d09cb5913e50e0d2350a1a1491",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0008.json": "d635d060d854402231850de58d026a23bc466e4994f6154f562294f9141eed59",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0009.json": "6bc770d8b8ec9bde677961f8335e9db3da8f284f9882598b04590f8f06bf3ca9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0010.json": "9b00745bcf9179dd08b7adcf6904025ca8588e9a42546fe492b0da5d5d146de2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0011.json": "b7f63ddf16ff6e8ff765e37796ffe25860881a6891e08ff3f4e58cc4face89b3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0012.json": "1f1dfe923ea6495945759e9c40668aacdd4b371361eaba9b620a17deb6d71eac",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0013.json": "da3aeaac224c241ac0d6904294ac7bd604b32ea505602845cd7ea1856f6dda02",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0014.json": "4fcdb29e70350071e160706cd3730771222680db59ac57d59307d84a02eec900",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0015.json": "40d12bf285543e2093f3fe6b13ee28d270a232c66d4bed4fb779a5b60f3f748e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0016.json": "75ac29940e48f2849b1b935d98ae84e1b422f17393c67736f09d1a44db252319",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0017.json": "d7d58ee898532009b1a7e9bae7fa8278843dfeaf0c46d53bdb06d52f3deed5b0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0018.json": "a57e0de622cb1dbb0fec1af068c4145c22e71984965d2b512c039f5b084b57d7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0019.json": "e2044338df149d492edffb0b07098a92b01001aa3eb13457c544c545239839bd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0020.json": "03893538f180b727bdb8bbf9bec8eb12678a4d5477965df83af999b8bd288370",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0021.json": "83d5e4ee92a842d83432bffdbb0d7483932bf6f73441ddf082d01e9c9842b4cf",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0022.json": "e2c8571fc9b6a5da17148b7f5323f110f938fa0e85c8401496a332a8c822c03a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0023.json": "70c93dd015109f6bb6e7e3dbcb0d50da81689c499f90e32090f617315992e11f"
+  },
+  "output_JSON_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/accepted_candidate_before_gradient.json": "3bbfca86ea03af27c9b4405f4f9d42f063aa5de5383aff32f2c7c8d26ba16355",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000_signed_tables.json": "3731578d93ffcb0de5dee34296240e4b22aba98e14839b1bed9602b1f1be4710",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001_signed_tables.json": "44e805c0d43c3c6f8604acbd282ca558d9f261b55c69a46872eed7028df21e45",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002_signed_tables.json": "f0ffd431694a673186361c84229dd4aa92d0a6e268a6fc700244d94a989f5a95",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003_signed_tables.json": "9ef7a1de00a0516e83009291aa53019ad4e9e925eb122262997aa54efd24ba7b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004_signed_tables.json": "f6c05a74ebd2dd2e0e4f8c1d6d45de10d647ef4363974825c03c50b4b668cbca",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005_signed_tables.json": "cff2061222b8bdd4b8de9998a0284198dcf9fa4f5357b6d6d09a950f3f231f22",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006_signed_tables.json": "5cc94ae50bc2ce6d0937070bb5cb42c3f6ea9520ea9ac82e48e86e905f36d6e0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007_signed_tables.json": "2e8b161cf832955a6c5d0cbfe51f11be17639ab372982c0420a5480f7aa0452b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008_signed_tables.json": "acda497143d1f839dc82fd038e080b12963fbae453c7906dcb50f60896f9d2b2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009_signed_tables.json": "4462306b5610c929b2d255a6259b86ba699b1d396d263ea8cd61e7efb123f3f2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010_signed_tables.json": "e5d3370e91b9abf80b20135d30cd51e2732623860b18cb5fb09763df54fd0b9f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011_signed_tables.json": "01a1c0b940a939cbd4836831de31dc747069d757af72543ceddeade756313fc2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012_signed_tables.json": "55e3681030f37a546b42e1f7a63529e8e8f8452df294ba2ebd947bbfb3e8379b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013_signed_tables.json": "2698c2dde3c8b0fe9e9b3585726491e8b45f4c7af75faef981daad201514634a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014.json": "37ca465e94779bf82599d0e4fa396c90358b5eb071eb4e1147847d82b018fec3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014_signed_tables.json": "09aa50a9687244864056b1c056e84e1f43d2320866651741a73b3edcc699680f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015.json": "8f98725e4dbf30d96c4a902fb4bc33a6b6cedd2581178d484d9b05b976e130c9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015_signed_tables.json": "644ecee6121cd9fd91c25254aa1d2e4029bcb16f67538c2546f69973997d67d5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016_signed_tables.json": "f61daadb6e4fca292be8ba37196abbd4657a4fea6087cc05f25be5e77fea2bc0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/progress.json": "a5deaf54fd659d403415426bba3be20b3e2c69681b8dcfaf286d9904a1bd82f4",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0001.json": "95fdb18f6efdcc52c71347be663bf319481681d65ed392273fadb54a983eb0ef",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0002.json": "32e5fc12507f14112ab40dec0ac853e3d564371fc9a4444d9d8e8b6677d916e1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0003.json": "fddb0927a55dfbfeb86b89b1b2e7f2297674024d8017ea33984811b18ba48cbd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0004.json": "9847f8cc400d54ffba8ed31df844a30fed832df3e07c4b95881c5397b55eff9a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0005.json": "29b13df563d47493d729fa8f7ca39a694d036459b989ecd1eba6ae6f1f5a067f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0006.json": "ecf3564fc870d2236d0154fbe95099ccc5b29d995259ee5998e4d2e5172a13b5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0007.json": "8698af184d6f75b8cb4bb70661a505fbcdb902d09cb5913e50e0d2350a1a1491",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0008.json": "d635d060d854402231850de58d026a23bc466e4994f6154f562294f9141eed59",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0009.json": "6bc770d8b8ec9bde677961f8335e9db3da8f284f9882598b04590f8f06bf3ca9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0010.json": "9b00745bcf9179dd08b7adcf6904025ca8588e9a42546fe492b0da5d5d146de2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0011.json": "b7f63ddf16ff6e8ff765e37796ffe25860881a6891e08ff3f4e58cc4face89b3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0012.json": "1f1dfe923ea6495945759e9c40668aacdd4b371361eaba9b620a17deb6d71eac",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0013.json": "da3aeaac224c241ac0d6904294ac7bd604b32ea505602845cd7ea1856f6dda02",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0014.json": "4fcdb29e70350071e160706cd3730771222680db59ac57d59307d84a02eec900",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0015.json": "40d12bf285543e2093f3fe6b13ee28d270a232c66d4bed4fb779a5b60f3f748e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0016.json": "75ac29940e48f2849b1b935d98ae84e1b422f17393c67736f09d1a44db252319",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0017.json": "d7d58ee898532009b1a7e9bae7fa8278843dfeaf0c46d53bdb06d52f3deed5b0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0018.json": "a57e0de622cb1dbb0fec1af068c4145c22e71984965d2b512c039f5b084b57d7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0019.json": "e2044338df149d492edffb0b07098a92b01001aa3eb13457c544c545239839bd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0020.json": "03893538f180b727bdb8bbf9bec8eb12678a4d5477965df83af999b8bd288370",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0021.json": "83d5e4ee92a842d83432bffdbb0d7483932bf6f73441ddf082d01e9c9842b4cf",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0022.json": "e2c8571fc9b6a5da17148b7f5323f110f938fa0e85c8401496a332a8c822c03a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0023.json": "70c93dd015109f6bb6e7e3dbcb0d50da81689c499f90e32090f617315992e11f"
+  },
+  "scientific_calls": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "independent_H_C_gradient_replay": false,
+  "scope": "saved metadata and exact ledger arithmetic only",
+  "actual_status": "bounded_f043_public_optimizer_returned",
+  "actual_error": null,
+  "actual_exit_code": 0,
+  "actual_live_control_count": 1582,
+  "failed_live_controls": [],
+  "actual_new_qualified_steps": 16,
+  "trajectory": [
+    {
+      "iteration": 0,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json",
+      "manifest_sha256": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+      "array_sha256": "9d318724e8fc233091a05e60efa1ce7c768df92f1a5edc963401384d839e5ada",
+      "reported_EO_Ha": -14067.42402931245,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.794353685436,
+          "tangent_norm": 0.05264570395306823,
+          "residual": 0.0051621809234006855,
+          "indicator_Ha": 9.089562518896989e-05,
+          "absolute_tangent_defect": 2.8678910869039946e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.794353685438,
+          "tangent_norm": 0.05264570395300886,
+          "residual": 0.005162180923375838,
+          "indicator_Ha": 9.089562518880953e-05,
+          "absolute_tangent_defect": 2.8698967381111555e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.453225935797,
+          "tangent_norm": 0.052645703952321286,
+          "residual": 0.005162180923071644,
+          "indicator_Ha": 9.08956251865907e-05,
+          "absolute_tangent_defect": 2.5851681186650155e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522083457936,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405029022495,
+          "excitation_cm1": 25690.479067807206,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2729.6790678072066
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.4010253246,
+          "excitation_cm1": 26569.18918747062,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2236.499187470621
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.403702662497,
+          "excitation_cm1": 25981.581439339643,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1080.2385606603566
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.38830609472,
+          "excitation_cm1": 29360.737476723258,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1031.4925232767418
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26217.705139605252,
+          "splitting_cm1": 878.7101196634139
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28234.352130928717,
+          "splitting_cm1": 3379.1560373836146
+        }
+      ],
+      "RMS_cm1": 1915.9833377599443,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": null
+    },
+    {
+      "iteration": 1,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json",
+      "manifest_sha256": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1",
+      "array_sha256": "146d340db796ed610b123ba303a75d16815db24391feb234f8a2dc0cb1a1b803",
+      "reported_EO_Ha": -14067.424110859187,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.652207296058,
+          "tangent_norm": 0.11430196818061711,
+          "residual": 0.014308103099097816,
+          "indicator_Ha": 0.0003695731224009634,
+          "absolute_tangent_defect": 1.0433522892154498e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.652207296058,
+          "tangent_norm": 0.11430196818061984,
+          "residual": 0.014308103099063047,
+          "indicator_Ha": 0.0003695731224005347,
+          "absolute_tangent_defect": 1.0433528996718955e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5480.131871230463,
+          "tangent_norm": 0.11430196818168777,
+          "residual": 0.014308103099344854,
+          "indicator_Ha": 0.00036957312240895726,
+          "absolute_tangent_defect": 4.692829272049841e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522159092125,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -7.56341887608869e-05,
+          "delta_lower_Ha": -7.56341887608869e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.404966117349,
+          "excitation_cm1": 25720.884937338153,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2760.0849373381534,
+          "delta_upper_Ha": 6.290514647844248e-05,
+          "delta_lower_Ha": -7.56341887608869e-05,
+          "transition_shift_cm1": 30.40586953094644
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401000684726,
+          "excitation_cm1": 26591.19680043635,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2258.506800436353,
+          "delta_upper_Ha": 2.4639874027343467e-05,
+          "delta_lower_Ha": -7.56341887608869e-05,
+          "transition_shift_cm1": 22.007612965731326
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.403901083733,
+          "excitation_cm1": 25954.63279744654,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1107.1872025534612,
+          "delta_upper_Ha": -0.00019842123583657667,
+          "delta_lower_Ha": -7.56341887608869e-05,
+          "transition_shift_cm1": -26.948641893105666
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388527317995,
+          "excitation_cm1": 29328.78436553018,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1063.4456344698192,
+          "delta_upper_Ha": -0.00022122327573015355,
+          "delta_lower_Ha": -7.56341887608869e-05,
+          "transition_shift_cm1": -31.95311119307609
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26243.07205519707,
+          "splitting_cm1": 870.311863098199
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28204.06717616897,
+          "splitting_cm1": 3374.151568083642
+        }
+      ],
+      "RMS_cm1": 1941.3720629949637,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 2,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json",
+      "manifest_sha256": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a",
+      "array_sha256": "c01e92dd5a7774128dcfd1332f589128578cb89580718586dd9c40ce49d3d8d8",
+      "reported_EO_Ha": -14067.424126786083,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.652325740366,
+          "tangent_norm": 0.1873345170318273,
+          "residual": 0.025433403252171752,
+          "indicator_Ha": 0.0014968654847651501,
+          "absolute_tangent_defect": 8.886136839927353e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.652325740366,
+          "tangent_norm": 0.18733451703187887,
+          "residual": 0.025433403252153645,
+          "indicator_Ha": 0.0014968654847663102,
+          "absolute_tangent_defect": 8.887081540286466e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5480.2613215479805,
+          "tangent_norm": 0.18733451703209303,
+          "residual": 0.025433403252231434,
+          "indicator_Ha": 0.0014968654847602784,
+          "absolute_tangent_defect": 3.322788565169426e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.52220009396,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -4.100183468835894e-05,
+          "delta_lower_Ha": -4.100183468835894e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.404794018265,
+          "excitation_cm1": 25767.655182912902,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2806.855182912903,
+          "delta_upper_Ha": 0.00017209908401127905,
+          "delta_lower_Ha": -4.100183468835894e-05,
+          "transition_shift_cm1": 46.77024557474975
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.400884312956,
+          "excitation_cm1": 26625.736314259746,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2293.0463142597473,
+          "delta_upper_Ha": 0.00011637176976364572,
+          "delta_lower_Ha": -4.100183468835894e-05,
+          "transition_shift_cm1": 34.539513823392504
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404054552144,
+          "excitation_cm1": 25929.949237147877,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1131.8707628521224,
+          "delta_upper_Ha": -0.00015346841064456385,
+          "delta_lower_Ha": -4.100183468835894e-05,
+          "transition_shift_cm1": -24.683560298662783
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.38870095309,
+          "excitation_cm1": 29299.67472960531,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1092.5552703946887,
+          "delta_upper_Ha": -0.00017363509505230468,
+          "delta_lower_Ha": -4.100183468835894e-05,
+          "transition_shift_cm1": -29.109635924868506
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26282.503861721012,
+          "splitting_cm1": 858.0811313468439
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28176.432898786166,
+          "splitting_cm1": 3369.7254924574336
+        }
+      ],
+      "RMS_cm1": 1975.5572542862365,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 3,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json",
+      "manifest_sha256": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956",
+      "array_sha256": "95f37b27757d9151b6ef05c4fe65db4113b34a76d3515486db1efd6ce9829ad0",
+      "reported_EO_Ha": -14067.424181097442,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.833042492415,
+          "tangent_norm": 0.17030721223986942,
+          "residual": 0.029482897415162444,
+          "indicator_Ha": 0.0009529279203971674,
+          "absolute_tangent_defect": 1.487178719434829e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.83304249241,
+          "tangent_norm": 0.17030721223979617,
+          "residual": 0.029482897415174434,
+          "indicator_Ha": 0.0009529279203971274,
+          "absolute_tangent_defect": 1.487039451673639e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.249995828645,
+          "tangent_norm": 0.17030721223947246,
+          "residual": 0.02948289741500642,
+          "indicator_Ha": 0.0009529279203962985,
+          "absolute_tangent_defect": 5.726936300071094e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522186503034,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": 1.359092493657954e-05,
+          "delta_lower_Ha": 1.359092493657954e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405078929383,
+          "excitation_cm1": 25702.141556903323,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2741.341556903324,
+          "delta_upper_Ha": -0.0002849111187970266,
+          "delta_lower_Ha": 1.359092493657954e-05,
+          "transition_shift_cm1": -65.51362600957744
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401112502865,
+          "excitation_cm1": 26572.67155491806,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2239.9815549180603,
+          "delta_upper_Ha": -0.0002281899087392958,
+          "delta_lower_Ha": 1.359092493657954e-05,
+          "transition_shift_cm1": -53.06475934168567
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.403969893518,
+          "excitation_cm1": 25945.546794704762,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1116.2732052952379,
+          "delta_upper_Ha": 8.465862629236653e-05,
+          "delta_lower_Ha": 1.359092493657954e-05,
+          "transition_shift_cm1": 15.597557556887155
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388557658402,
+          "excitation_cm1": 29328.141415259026,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1064.0885847409736,
+          "delta_upper_Ha": 0.00014329468831419945,
+          "delta_lower_Ha": 1.359092493657954e-05,
+          "transition_shift_cm1": 28.466685653715214
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26224.45955571217,
+          "splitting_cm1": 870.5299980147356
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28200.60987507427,
+          "splitting_cm1": 3382.594620554264
+        }
+      ],
+      "RMS_cm1": 1930.7266302492453,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 4,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json",
+      "manifest_sha256": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564",
+      "array_sha256": "9c017242ec4d759c7b97fc99a4ddf068ab5307b265dfe032968643ab95ac9d0a",
+      "reported_EO_Ha": -14067.42435057409,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.823667831473,
+          "tangent_norm": 0.10475924981324602,
+          "residual": 0.015980701047721063,
+          "indicator_Ha": 0.0003342113002534046,
+          "absolute_tangent_defect": 4.147615885523091e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.823667831473,
+          "tangent_norm": 0.10475924981320912,
+          "residual": 0.015980701047701166,
+          "indicator_Ha": 0.0003342113002531878,
+          "absolute_tangent_defect": 4.147626074482492e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.272945663419,
+          "tangent_norm": 0.10475924981278928,
+          "residual": 0.015980701047596538,
+          "indicator_Ha": 0.00033421130025444886,
+          "absolute_tangent_defect": 3.3578356980091636e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522381940413,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00019543737835192587,
+          "delta_lower_Ha": -0.00019543737835192587,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.40527829103,
+          "excitation_cm1": 25701.28027968984,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2740.4802796898402,
+          "delta_upper_Ha": -0.00019936164608225226,
+          "delta_lower_Ha": -0.00019543737835192587,
+          "transition_shift_cm1": -0.8612772134836553
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401284769063,
+          "excitation_cm1": 26577.757041138888,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2245.067041138889,
+          "delta_upper_Ha": -0.0001722661982057616,
+          "delta_lower_Ha": -0.00019543737835192587,
+          "transition_shift_cm1": 5.085486220828336
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404105296033,
+          "excitation_cm1": 25958.722924142512,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1103.0970758574877,
+          "delta_upper_Ha": -0.0001354025152977556,
+          "delta_lower_Ha": -0.00019543737835192587,
+          "transition_shift_cm1": 13.176129437750681
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388702573908,
+          "excitation_cm1": 29339.229684547692,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1053.0003154523074,
+          "delta_upper_Ha": -0.0001449155060981866,
+          "delta_lower_Ha": -0.00019543737835192587,
+          "transition_shift_cm1": 11.088269288665135
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26227.166336559272,
+          "splitting_cm1": 876.4767614490484
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28212.394097745968,
+          "splitting_cm1": 3380.50676040518
+        }
+      ],
+      "RMS_cm1": 1928.4832774543981,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 5,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json",
+      "manifest_sha256": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54",
+      "array_sha256": "4fd414088d53e0c3fea1db002a2c78935b607d33ba345b058396ad43704b4efd",
+      "reported_EO_Ha": -14067.424421527774,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.752644335906,
+          "tangent_norm": 0.0610162170824142,
+          "residual": 0.011763315126251022,
+          "indicator_Ha": 0.00017918530952970715,
+          "absolute_tangent_defect": 6.311901700598641e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.75264433591,
+          "tangent_norm": 0.061016217082369845,
+          "residual": 0.0117633151262585,
+          "indicator_Ha": 0.00017918530952972406,
+          "absolute_tangent_defect": 6.313754984144215e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.633555438998,
+          "tangent_norm": 0.06101621708246188,
+          "residual": 0.011763315126318476,
+          "indicator_Ha": 0.00017918530952952817,
+          "absolute_tangent_defect": 3.807164581642421e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522490066624,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00010812621076183859,
+          "delta_lower_Ha": -0.00010812621076183859,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405327184204,
+          "excitation_cm1": 25714.2804284643,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2753.4804284642996,
+          "delta_upper_Ha": -4.8893174607655965e-05,
+          "delta_lower_Ha": -0.00010812621076183859,
+          "transition_shift_cm1": 13.000148774458843
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401362238115,
+          "excitation_cm1": 26584.48550965035,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2251.79550965035,
+          "delta_upper_Ha": -7.74690524849575e-05,
+          "delta_lower_Ha": -0.00010812621076183859,
+          "transition_shift_cm1": 6.728468511459948
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.40415192492,
+          "excitation_cm1": 25972.220026494528,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1089.599973505472,
+          "delta_upper_Ha": -4.6628887503175065e-05,
+          "delta_lower_Ha": -0.00010812621076183859,
+          "transition_shift_cm1": 13.497102352015101
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388776225005,
+          "excitation_cm1": 29346.79609734194,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1045.43390265806,
+          "delta_upper_Ha": -7.365109740931075e-05,
+          "delta_lower_Ha": -0.00010812621076183859,
+          "transition_shift_cm1": 7.566412794248552
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26236.40347717593,
+          "splitting_cm1": 870.2050811860499
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28221.937407059468,
+          "splitting_cm1": 3374.5760708474118
+        }
+      ],
+      "RMS_cm1": 1932.1230314286026,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 6,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json",
+      "manifest_sha256": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3",
+      "array_sha256": "90084413e97630dd050bbf08aa7e59e5a7aa613efbf907665a04d4ae3a0d3268",
+      "reported_EO_Ha": -14067.424439752547,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.729512535298,
+          "tangent_norm": 0.0629436714455787,
+          "residual": 0.008958499401804994,
+          "indicator_Ha": 0.00011659855195378823,
+          "absolute_tangent_defect": 9.808234510585994e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.729512535294,
+          "tangent_norm": 0.06294367144560205,
+          "residual": 0.008958499401789737,
+          "indicator_Ha": 0.00011659855195373422,
+          "absolute_tangent_defect": 9.80686753205678e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.76737044206,
+          "tangent_norm": 0.06294367144581064,
+          "residual": 0.008958499402151033,
+          "indicator_Ha": 0.0001165985519553669,
+          "absolute_tangent_defect": 2.967849809493438e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.52249895167,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -8.885046554496512e-06,
+          "delta_lower_Ha": -8.885046554496512e-06,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405329012043,
+          "excitation_cm1": 25715.829306537526,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2755.0293065375263,
+          "delta_upper_Ha": -1.827838786994107e-06,
+          "delta_lower_Ha": -8.885046554496512e-06,
+          "transition_shift_cm1": 1.5488780732256864
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.40135943116,
+          "excitation_cm1": 26587.05160744906,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2254.36160744906,
+          "delta_upper_Ha": 2.806955308187753e-06,
+          "delta_lower_Ha": -8.885046554496512e-06,
+          "transition_shift_cm1": 2.566097798709788
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404192897824,
+          "excitation_cm1": 25965.17755588465,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1096.6424441153504,
+          "delta_upper_Ha": -4.097290366189554e-05,
+          "delta_lower_Ha": -8.885046554496512e-06,
+          "transition_shift_cm1": -7.04247060987955
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.38881847004,
+          "excitation_cm1": 29339.474426015557,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1052.755573984443,
+          "delta_upper_Ha": -4.224503572913818e-05,
+          "delta_lower_Ha": -8.885046554496512e-06,
+          "transition_shift_cm1": -7.321671326382859
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26238.562687084446,
+          "splitting_cm1": 871.2223009115332
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28214.708802638586,
+          "splitting_cm1": 3374.2968701309073
+        }
+      ],
+      "RMS_cm1": 1935.4102721265301,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 7,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json",
+      "manifest_sha256": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5",
+      "array_sha256": "0e4016f097cdb339960b67853cd73a441217f6f78d96b52ebb2dac43b63aff07",
+      "reported_EO_Ha": -14067.424460880873,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.73929240092,
+          "tangent_norm": 0.06200296890326665,
+          "residual": 0.009525215265662907,
+          "indicator_Ha": 9.365215049249248e-05,
+          "absolute_tangent_defect": 1.333918798221632e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.739292400922,
+          "tangent_norm": 0.062002968903211955,
+          "residual": 0.009525215265651196,
+          "indicator_Ha": 9.365215049238825e-05,
+          "absolute_tangent_defect": 1.3336234847798674e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.721801804401,
+          "tangent_norm": 0.06200296890343792,
+          "residual": 0.00952521526539635,
+          "indicator_Ha": 9.365215049107287e-05,
+          "absolute_tangent_defect": 2.9325462260420084e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522460995458,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": 3.795621159952134e-05,
+          "delta_lower_Ha": 3.795621159952134e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405334003206,
+          "excitation_cm1": 25706.4034472803,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2745.6034472803003,
+          "delta_upper_Ha": -4.99116322316695e-06,
+          "delta_lower_Ha": 3.795621159952134e-05,
+          "transition_shift_cm1": -9.425859257224161
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.40134313969,
+          "excitation_cm1": 26582.296746133485,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2249.606746133486,
+          "delta_upper_Ha": 1.629146936465986e-05,
+          "delta_lower_Ha": 3.795621159952134e-05,
+          "transition_shift_cm1": -4.754861315573697
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404277449887,
+          "excitation_cm1": 25938.29009756201,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1123.5299024379892,
+          "delta_upper_Ha": -8.45520626171492e-05,
+          "delta_lower_Ha": 3.795621159952134e-05,
+          "transition_shift_cm1": -26.887458322638373
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388888816125,
+          "excitation_cm1": 29315.704819478633,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1076.5251805213666,
+          "delta_upper_Ha": -7.03460846125381e-05,
+          "delta_lower_Ha": 3.795621159952134e-05,
+          "transition_shift_cm1": -23.76960653692346
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26231.939426592213,
+          "splitting_cm1": 875.8932988531851
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28189.899912173092,
+          "splitting_cm1": 3377.4147219166225
+        }
+      ],
+      "RMS_cm1": 1937.8012480602622,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 8,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json",
+      "manifest_sha256": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3",
+      "array_sha256": "70b83004b76f4d1bebf8349954199d88d8f3c1142751f4d6ae3eecbb822a4a87",
+      "reported_EO_Ha": -14067.424485452235,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.772198490884,
+          "tangent_norm": 0.09972886615531024,
+          "residual": 0.00596595127166825,
+          "indicator_Ha": 0.00013733435413813675,
+          "absolute_tangent_defect": 1.71138319550151e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.772198490879,
+          "tangent_norm": 0.09972886615529618,
+          "residual": 0.005965951271651239,
+          "indicator_Ha": 0.00013733435413813605,
+          "absolute_tangent_defect": 1.711199488542434e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.560391576864,
+          "tangent_norm": 0.09972886615517405,
+          "residual": 0.005965951271449262,
+          "indicator_Ha": 0.00013733435413761287,
+          "absolute_tangent_defect": 3.1500935312181575e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522512567046,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -5.157158739166334e-05,
+          "delta_lower_Ha": -5.157158739166334e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.40537732494,
+          "excitation_cm1": 25708.214080865815,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2747.414080865816,
+          "delta_upper_Ha": -4.332173375587445e-05,
+          "delta_lower_Ha": -5.157158739166334e-05,
+          "transition_shift_cm1": 1.8106335855146372
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401397366317,
+          "excitation_cm1": 26581.714032478147,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2249.024032478148,
+          "delta_upper_Ha": -5.4226626161835156e-05,
+          "delta_lower_Ha": -5.157158739166334e-05,
+          "transition_shift_cm1": -0.5827136553383063
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404264595698,
+          "excitation_cm1": 25952.429921031733,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1109.3900789682666,
+          "delta_upper_Ha": 1.285418875340838e-05,
+          "delta_lower_Ha": -5.157158739166334e-05,
+          "transition_shift_cm1": 14.139823469723867
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.38887540717,
+          "excitation_cm1": 29329.966400078032,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1062.2635999219674,
+          "delta_upper_Ha": 1.3408955055638216e-05,
+          "delta_lower_Ha": -5.157158739166334e-05,
+          "transition_shift_cm1": 14.261580599398453
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26232.314051833215,
+          "splitting_cm1": 873.4999516123316
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28204.120907062596,
+          "splitting_cm1": 3377.536479046299
+        }
+      ],
+      "RMS_cm1": 1934.266239006178,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 9,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json",
+      "manifest_sha256": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827",
+      "array_sha256": "2f9cfed64d0e4bf64d7a05870b7cce3c80770805ee25b72bd05f72440e8930d1",
+      "reported_EO_Ha": -14067.424504153641,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.788251132952,
+          "tangent_norm": 0.09071233204161919,
+          "residual": 0.006145119758469054,
+          "indicator_Ha": 0.00010685197646033393,
+          "absolute_tangent_defect": 1.6210516592681147e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.788251132963,
+          "tangent_norm": 0.09071233204160166,
+          "residual": 0.0061451197584618585,
+          "indicator_Ha": 0.00010685197646022458,
+          "absolute_tangent_defect": 1.622123019571816e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.472506593331,
+          "tangent_norm": 0.09071233204138407,
+          "residual": 0.006145119758621039,
+          "indicator_Ha": 0.00010685197646094045,
+          "absolute_tangent_defect": 3.2996604379630494e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522566843907,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -5.427686119219288e-05,
+          "delta_lower_Ha": -5.427686119219288e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405422797945,
+          "excitation_cm1": 25710.146303907753,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2749.346303907754,
+          "delta_upper_Ha": -4.547300522972364e-05,
+          "delta_lower_Ha": -5.427686119219288e-05,
+          "transition_shift_cm1": 1.932223041937129
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401450573456,
+          "excitation_cm1": 26581.948809364174,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2249.2588093641752,
+          "delta_upper_Ha": -5.3207138989819214e-05,
+          "delta_lower_Ha": -5.427686119219288e-05,
+          "transition_shift_cm1": 0.23477688602692834
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404231698112,
+          "excitation_cm1": 25971.562500627104,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1090.2574993728958,
+          "delta_upper_Ha": 3.289758569735568e-05,
+          "delta_lower_Ha": -5.427686119219288e-05,
+          "transition_shift_cm1": 19.132579595369396
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.38884885478,
+          "excitation_cm1": 29347.706370276574,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1044.523629723426,
+          "delta_upper_Ha": 2.655239040905144e-05,
+          "delta_lower_Ha": -5.427686119219288e-05,
+          "transition_shift_cm1": 17.73997019854168
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26233.227807181607,
+          "splitting_cm1": 871.8025054564205
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28222.325080393417,
+          "splitting_cm1": 3376.1438696494697
+        }
+      ],
+      "RMS_cm1": 1929.8809107237043,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 10,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json",
+      "manifest_sha256": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842",
+      "array_sha256": "b89565f22bcc4f0f533554367ba73c7931408de69f4d5ef5b0a270e105a6eae8",
+      "reported_EO_Ha": -14067.424548052655,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.773445824112,
+          "tangent_norm": 0.07905657131545614,
+          "residual": 0.009596207478991385,
+          "indicator_Ha": 0.00014096720946323038,
+          "absolute_tangent_defect": 1.5221670856930265e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.773445824103,
+          "tangent_norm": 0.07905657131546466,
+          "residual": 0.009596207478957371,
+          "indicator_Ha": 0.00014096720946304945,
+          "absolute_tangent_defect": 1.523029970779404e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.557581091519,
+          "tangent_norm": 0.07905657131503448,
+          "residual": 0.009596207479016476,
+          "indicator_Ha": 0.00014096720946325843,
+          "absolute_tangent_defect": 3.852072425962028e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522593507027,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -2.666311957000289e-05,
+          "delta_lower_Ha": -2.666311957000289e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405499989625,
+          "excitation_cm1": 25699.056566679687,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2738.2565666796872,
+          "delta_upper_Ha": -7.7191680247779e-05,
+          "delta_lower_Ha": -2.666311957000289e-05,
+          "transition_shift_cm1": -11.08973722806502
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401513932895,
+          "excitation_cm1": 26573.8948981669,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2241.2048981668995,
+          "delta_upper_Ha": -6.335943908197805e-05,
+          "delta_lower_Ha": -2.666311957000289e-05,
+          "transition_shift_cm1": -8.053911197274791
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404256786931,
+          "excitation_cm1": 25971.908019707807,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1089.9119802921923,
+          "delta_upper_Ha": -2.508881880203262e-05,
+          "delta_lower_Ha": -2.666311957000289e-05,
+          "transition_shift_cm1": 0.34551908070498527
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.388876046798,
+          "excitation_cm1": 29347.59029048337,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1044.6397095166285,
+          "delta_upper_Ha": -2.7192018023924902e-05,
+          "delta_lower_Ha": -2.666311957000289e-05,
+          "transition_shift_cm1": -0.11607979320306863
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26223.959565572015,
+          "splitting_cm1": 874.8383314872117
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28222.36286689152,
+          "splitting_cm1": 3375.6822707755637
+        }
+      ],
+      "RMS_cm1": 1923.5532659647852,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 11,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json",
+      "manifest_sha256": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d",
+      "array_sha256": "fa9b97c3f97c37c8cd0e9cc32270486bd90a81900d03ba5302986b841585933b",
+      "reported_EO_Ha": -14067.424669908636,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.684232794252,
+          "tangent_norm": 0.13741820701698299,
+          "residual": 0.006762507644942842,
+          "indicator_Ha": 0.0001590632462193559,
+          "absolute_tangent_defect": 3.781723588716e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.684232794252,
+          "tangent_norm": 0.1374182070169126,
+          "residual": 0.006762507644909699,
+          "indicator_Ha": 0.0001590632462191015,
+          "absolute_tangent_defect": 3.789095229214024e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5479.953763733084,
+          "tangent_norm": 0.13741820701767887,
+          "residual": 0.006762507644670188,
+          "indicator_Ha": 0.00015906324621796947,
+          "absolute_tangent_defect": 3.5919702704974717e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.522615062806,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -2.155577931262087e-05,
+          "delta_lower_Ha": -2.155577931262087e-05,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.405636428311,
+          "excitation_cm1": 25673.842683031748,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2713.0426830317483,
+          "delta_upper_Ha": -0.00013643868624058086,
+          "delta_lower_Ha": -2.155577931262087e-05,
+          "transition_shift_cm1": -25.21388364794007
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401646051598,
+          "excitation_cm1": 26549.62914128714,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2216.939141287141,
+          "delta_upper_Ha": -0.00013211870282248128,
+          "delta_lower_Ha": -2.155577931262087e-05,
+          "transition_shift_cm1": -24.26575687975778
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404422376741,
+          "excitation_cm1": 25940.296203826372,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1121.5237961736275,
+          "delta_upper_Ha": -0.00016558981042180676,
+          "delta_lower_Ha": -2.155577931262087e-05,
+          "transition_shift_cm1": -31.611815881435774
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.389029623715,
+          "excitation_cm1": 29318.61499995719,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1073.6150000428097,
+          "delta_upper_Ha": -0.00015357691700046416,
+          "delta_lower_Ha": -2.155577931262087e-05,
+          "transition_shift_cm1": -28.975290526181904
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26199.314557984984,
+          "splitting_cm1": 875.7864582553921
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28192.50873458025,
+          "splitting_cm1": 3378.3187961308176
+        }
+      ],
+      "RMS_cm1": 1916.108331346619,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 12,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json",
+      "manifest_sha256": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632",
+      "array_sha256": "9a2dfa73a214c05a2534d77e0987b86bfc516aad70b9fa29020a4afb9d6951b4",
+      "reported_EO_Ha": -14067.424973304853,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.674778968943,
+          "tangent_norm": 0.19749864272082893,
+          "residual": 0.008436936470758398,
+          "indicator_Ha": 0.0004993183821354846,
+          "absolute_tangent_defect": 1.1188141391595348e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.674778968943,
+          "tangent_norm": 0.19749864272088113,
+          "residual": 0.008436936470760652,
+          "indicator_Ha": 0.0004993183821356095,
+          "absolute_tangent_defect": 1.1188155165198103e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5480.0380573974235,
+          "tangent_norm": 0.19749864272117615,
+          "residual": 0.008436936470784044,
+          "indicator_Ha": 0.0004993183821356801,
+          "absolute_tangent_defect": 4.073490575838395e-13,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.5228350894,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0002200265935243806,
+          "delta_lower_Ha": -0.0002200265935243806,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.40595942546,
+          "excitation_cm1": 25651.243258539864,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 2690.4432585398645,
+          "delta_upper_Ha": -0.0003229971480323002,
+          "delta_lower_Ha": -0.0002200265935243806,
+          "transition_shift_cm1": -22.59942449188388
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.401982033492,
+          "excitation_cm1": 26524.179894296012,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 2191.4898942960135,
+          "delta_upper_Ha": -0.00033598189475014806,
+          "delta_lower_Ha": -0.0002200265935243806,
+          "transition_shift_cm1": -25.4492469911273
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.404739963418,
+          "excitation_cm1": 25918.884240507377,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1142.9357594926223,
+          "delta_upper_Ha": -0.00031758667682879604,
+          "delta_lower_Ha": -0.0002200265935243806,
+          "transition_shift_cm1": -21.41196331899392
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.389350012489,
+          "excitation_cm1": 29296.588047478715,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -1095.641952521284,
+          "delta_upper_Ha": -0.0003203887736162869,
+          "delta_lower_Ha": -0.0002200265935243806,
+          "transition_shift_cm1": -22.026952478472325
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 26175.005239993552,
+          "splitting_cm1": 872.9366357561485
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28170.686778488267,
+          "splitting_cm1": 3377.703806971338
+        }
+      ],
+      "RMS_cm1": 1907.081954366132,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 13,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "manifest_sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+      "array_sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+      "reported_EO_Ha": -14067.43131550464,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9762.328569579679,
+          "tangent_norm": 2.1989704642126493,
+          "residual": 0.15397840068607158,
+          "indicator_Ha": 0.08405452468328684,
+          "absolute_tangent_defect": 2.1918759826418086e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9762.328569579662,
+          "tangent_norm": 2.198970464212474,
+          "residual": 0.15397840068601018,
+          "indicator_Ha": 0.0840545246832704,
+          "absolute_tangent_defect": 2.1917623448074782e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5472.040647287735,
+          "tangent_norm": 2.1989704642118446,
+          "residual": 0.15397840068596852,
+          "indicator_Ha": 0.08405452468323363,
+          "absolute_tangent_defect": 5.620498134059283e-12,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.52623146285,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0033963734513235977,
+          "delta_lower_Ha": -0.0033963734513235977,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.41704066896,
+          "excitation_cm1": 23964.609237227007,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": 1003.8092372270075,
+          "delta_upper_Ha": -0.011081243501394056,
+          "delta_lower_Ha": -0.0033963734513235977,
+          "transition_shift_cm1": -1686.6340213128576
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.413297705267,
+          "excitation_cm1": 24786.094814193955,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": 453.40481419395655,
+          "delta_upper_Ha": -0.011315671774354996,
+          "delta_lower_Ha": -0.0033963734513235977,
+          "transition_shift_cm1": -1738.0850801020579
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.407917382181,
+          "excitation_cm1": 25966.939240058768,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1094.880759941232,
+          "delta_upper_Ha": -0.003177418762788875,
+          "delta_lower_Ha": -0.0033963734513235977,
+          "transition_shift_cm1": 48.054999551389635
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.392090303934,
+          "excitation_cm1": 29440.58140381538,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -951.6485961846192,
+          "delta_upper_Ha": -0.002740291445661569,
+          "delta_lower_Ha": -0.0033963734513235977,
+          "transition_shift_cm1": 143.99335633666402
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 24457.500583407174,
+          "splitting_cm1": 821.4855769669484
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28282.700682563172,
+          "splitting_cm1": 3473.6421637566127
+        }
+      ],
+      "RMS_cm1": 910.7150815960732,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 14,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014.json",
+      "manifest_sha256": "37ca465e94779bf82599d0e4fa396c90358b5eb071eb4e1147847d82b018fec3",
+      "array_sha256": "e09ce35d022ca8fc1410d9f6a5c51fa467a1e7e7cb2d7d4d634b4735780e455a",
+      "reported_EO_Ha": -14067.447616324835,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9762.137251625165,
+          "tangent_norm": 2.5242835611314045,
+          "residual": 0.18404446788883272,
+          "indicator_Ha": 0.13303072457671783,
+          "absolute_tangent_defect": 2.5039428757285703e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9762.137251625172,
+          "tangent_norm": 2.524283561131339,
+          "residual": 0.18404446788886583,
+          "indicator_Ha": 0.13303072457671444,
+          "absolute_tangent_defect": 2.5040043400000098e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5473.178035122537,
+          "tangent_norm": 2.524283561130991,
+          "residual": 0.184044467888724,
+          "indicator_Ha": 0.1330307245767308,
+          "absolute_tangent_defect": 4.647177453652811e-12,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.540621212811,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.014389749960173503,
+          "delta_lower_Ha": -0.014389749960173503,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.436217036471,
+          "excitation_cm1": 22914.06811495277,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": -46.7318850472293,
+          "delta_upper_Ha": -0.019176367510226555,
+          "delta_lower_Ha": -0.014389749960173503,
+          "transition_shift_cm1": -1050.5411222742352
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.432432109412,
+          "excitation_cm1": 23744.763586032135,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": -587.9264139678635,
+          "delta_upper_Ha": -0.019134404145006556,
+          "delta_lower_Ha": -0.014389749960173503,
+          "transition_shift_cm1": -1041.3312281618191
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.42248895107,
+          "excitation_cm1": 25927.03459775848,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1134.7854022415195,
+          "delta_upper_Ha": -0.014571568888641195,
+          "delta_lower_Ha": -0.014389749960173503,
+          "transition_shift_cm1": -39.904642300287996
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.406322314408,
+          "excitation_cm1": 29475.20121955298,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -917.0287804470208,
+          "delta_upper_Ha": -0.014232010473278933,
+          "delta_lower_Ha": -0.014389749960173503,
+          "transition_shift_cm1": 34.619815737596845
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 23412.485397600387,
+          "splitting_cm1": 830.6954710793652
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28292.479012288142,
+          "splitting_cm1": 3548.1666217944985
+        }
+      ],
+      "RMS_cm1": 786.8483066369554,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 15,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015.json",
+      "manifest_sha256": "8f98725e4dbf30d96c4a902fb4bc33a6b6cedd2581178d484d9b05b976e130c9",
+      "array_sha256": "04025fb7118324790988b28d43a705b7c2b6c0f8f37f8b6a721e38816bac01f0",
+      "reported_EO_Ha": -14067.470273717134,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9760.469082159503,
+          "tangent_norm": 3.1821701465783265,
+          "residual": 0.7515805041729583,
+          "indicator_Ha": 0.5213985290662554,
+          "absolute_tangent_defect": 1.016938193118212e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9760.469082159503,
+          "tangent_norm": 3.1821701465783057,
+          "residual": 0.7515805041729675,
+          "indicator_Ha": 0.5213985290662555,
+          "absolute_tangent_defect": 1.0170715919844892e-11,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5484.436422534007,
+          "tangent_norm": 3.182170146579098,
+          "residual": 0.7515805041727284,
+          "indicator_Ha": 0.5213985290664364,
+          "absolute_tangent_defect": 5.656843944782669e-12,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.561017834254,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.020396621443069307,
+          "delta_lower_Ha": -0.020396621443069307,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.464805210182,
+          "excitation_cm1": 21116.230200681664,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": -1844.5697993183348,
+          "delta_upper_Ha": -0.028588173710886622,
+          "delta_lower_Ha": -0.020396621443069307,
+          "transition_shift_cm1": -1797.8379142711078
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.460464442298,
+          "excitation_cm1": 22068.918631868575,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": -2263.7713681314235,
+          "delta_upper_Ha": -0.028032332886141376,
+          "delta_lower_Ha": -0.020396621443069307,
+          "transition_shift_cm1": -1675.8449541635605
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.440559536824,
+          "excitation_cm1": 26437.540423004037,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -624.279576995963,
+          "delta_upper_Ha": -0.018070585754685453,
+          "delta_lower_Ha": -0.020396621443069307,
+          "transition_shift_cm1": 510.50582524555654
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.424521562105,
+          "excitation_cm1": 29957.469012364145,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -434.7609876358547,
+          "delta_upper_Ha": -0.01819924769733916,
+          "delta_lower_Ha": -0.020396621443069307,
+          "transition_shift_cm1": 482.26779281116853
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 21687.84325939381,
+          "splitting_cm1": 952.6884311869107
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28784.15948257744,
+          "splitting_cm1": 3519.928589360108
+        }
+      ],
+      "RMS_cm1": 1508.7942751045669,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    },
+    {
+      "iteration": 16,
+      "manifest": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+      "manifest_sha256": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+      "array_sha256": "5afa25ebe0ad14248b028ee723ed45ce8d86b339872b9f051a8a3cbc1686a08e",
+      "reported_EO_Ha": -14067.496296074172,
+      "metrics": {
+        "retained": {
+          "raw_norm": 9759.191706907046,
+          "tangent_norm": 5.062655404081547,
+          "residual": 0.68254770188387,
+          "indicator_Ha": 0.6018594158445788,
+          "absolute_tangent_defect": 6.422897968605213e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "full_normalized": {
+          "raw_norm": 9759.19170690704,
+          "tangent_norm": 5.06265540408156,
+          "residual": 0.6825477018838197,
+          "indicator_Ha": 0.6018594158445536,
+          "absolute_tangent_defect": 7.3105302644037e-12,
+          "no_energy_or_spectrum_error_bound": true
+        },
+        "raw_h_quotient_corrected": {
+          "raw_norm": 5493.485534981473,
+          "tangent_norm": 5.06265540408218,
+          "residual": 0.682547701883745,
+          "indicator_Ha": 0.601859415844731,
+          "absolute_tangent_defect": 6.825352195977854e-12,
+          "no_energy_or_spectrum_error_bound": true
+        }
+      },
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.587260143415,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.026242309160807054,
+          "delta_lower_Ha": -0.026242309160807054,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.48946158955,
+          "excitation_cm1": 21464.301557320276,
+          "NIST_nominal_cm1": 22960.8,
+          "nominal_gap_cm1": -1496.4984426797237,
+          "delta_upper_Ha": -0.024656379368025227,
+          "delta_lower_Ha": -0.026242309160807054,
+          "transition_shift_cm1": 348.0713566386141
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.483136353048,
+          "excitation_cm1": 22852.53050680512,
+          "NIST_nominal_cm1": 24332.69,
+          "nominal_gap_cm1": -1480.1594931948785,
+          "delta_upper_Ha": -0.02267191075043229,
+          "delta_lower_Ha": -0.026242309160807054,
+          "transition_shift_cm1": 783.6118749365464
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.470047145045,
+          "excitation_cm1": 25725.279608163462,
+          "NIST_nominal_cm1": 27061.82,
+          "nominal_gap_cm1": -1336.5403918365373,
+          "delta_upper_Ha": -0.02948760822073382,
+          "delta_lower_Ha": -0.026242309160807054,
+          "transition_shift_cm1": -712.2608148405752
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.451575139803,
+          "excitation_cm1": 29779.416149205746,
+          "NIST_nominal_cm1": 30392.23,
+          "nominal_gap_cm1": -612.8138507942531,
+          "delta_upper_Ha": -0.027053577698097797,
+          "delta_lower_Ha": -0.026242309160807054,
+          "transition_shift_cm1": -178.05286315840064
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "centroid_cm1": 22297.23892701118,
+          "splitting_cm1": 1388.2289494848446
+        },
+        {
+          "label": "6p",
+          "centroid_cm1": 28428.03730219165,
+          "splitting_cm1": 4054.136541042284
+        }
+      ],
+      "RMS_cm1": 1283.7699121117464,
+      "original_stationarity_passed": false,
+      "finite_stored_H_acceptance_qualified": true
+    }
+  ],
+  "last_qualified_checkpoint": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+  "unqualified_candidates": [],
+  "final_optimizer_diagnostics": {
+    "converged": false,
+    "iterations": 16,
+    "termination_reason": "maximum_iterations",
+    "line_search_fallbacks": 0,
+    "stable_energy_comparisons": 0,
+    "occupation_floor": 0.05,
+    "gradient_norm": 5.062655404081547,
+    "orbital_residual": 0.68254770188387,
+    "orbital_tolerance": 1e-07,
+    "residual_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "residual_metric_scope": "restored original projector/inverse metric; no occupation or spectral rebuild",
+    "estimated_energy_error": 0.6018594158445788,
+    "energy_tolerance": 1e-08,
+    "energy_history": [
+      -14067.42402931245,
+      -14067.424110859187,
+      -14067.424126786083,
+      -14067.424181097442,
+      -14067.42435057409,
+      -14067.424421527774,
+      -14067.424439752547,
+      -14067.424460880873,
+      -14067.424485452235,
+      -14067.424504153641,
+      -14067.424548052655,
+      -14067.424669908636,
+      -14067.424973304853,
+      -14067.43131550464,
+      -14067.447616324835,
+      -14067.470273717134,
+      -14067.496296074172
+    ],
+    "functional": "correlated Dirac-Coulomb CI",
+    "target": "frozen-reference physical CI subspace average in shared orthonormal orbitals",
+    "radial_labels": "correlation-orbital labels; not guaranteed spectroscopic excited states",
+    "projector": "fixed positive-energy nuclear Dirac B-spline subspace",
+    "no_pair_projector_leakage": {},
+    "excited_shell_constraints": "lower reference roots below each symmetry's first active shell are excluded",
+    "preconditioner": "screened Fock spectral gaps",
+    "update_preconditioner": "spectral",
+    "history_size": 10,
+    "shooting_iterations": 0,
+    "shooting_fallback_reason": null,
+    "shooting_operator": null,
+    "breit_qed": "subsequent RCI / perturbative corrections",
+    "resumed": true,
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "objective_changed": false,
+    "initial_history_size": 0,
+    "restored_original_metric": true,
+    "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "no_pair_projector_leakage_scope": "alternative yardstick not recomputed on resume"
+  },
+  "attempted": {
+    "H": 23,
+    "CI": 23,
+    "gradient_from_weights": 51,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "SciPy_eigh": 122,
+    "tracker_resolve": 62,
+    "tracking_SVD": 310,
+    "tracker_overlap": 63,
+    "polar": 154,
+    "polar_numpy_eigh": 32,
+    "unfiltered_target_RDM": 85,
+    "retained_RDM": 17,
+    "gradient_pair_source": 35679,
+    "optimizer": 1
+  },
+  "completed": {
+    "H": 23,
+    "CI": 23,
+    "gradient_from_weights": 51,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "SciPy_eigh": 122,
+    "tracker_resolve": 62,
+    "tracking_SVD": 310,
+    "tracker_overlap": 63,
+    "polar": 154,
+    "polar_numpy_eigh": 32,
+    "unfiltered_target_RDM": 85,
+    "retained_RDM": 17,
+    "gradient_pair_source": 35679,
+    "optimizer": 1
+  },
+  "exact_guard_budget": {
+    "points": 17,
+    "quotients": 85,
+    "examined_pairs": 4623405,
+    "nonzero_H_pairs": 2001021
+  },
+  "finite_stored_H_acceptance_count": 16,
+  "terminal_target_changes": [
+    {
+      "label": "6s_1/2",
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.06517668547894573,
+      "transition_shift_cm1": 0.0,
+      "terminal_excitation_cm1": 0.0,
+      "terminal_nominal_gap_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.08443256705504609,
+      "transition_shift_cm1": -4226.17751048693,
+      "terminal_excitation_cm1": 21464.301557320276,
+      "terminal_nominal_gap_cm1": -1496.4984426797237
+    },
+    {
+      "label": "5d_5/2",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.08211102844870766,
+      "transition_shift_cm1": -3716.6586806654996,
+      "terminal_excitation_cm1": 22852.53050680512,
+      "terminal_nominal_gap_cm1": -1480.1594931948785
+    },
+    {
+      "label": "6p_1/2",
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "delta_energy_Ha": -0.06634448254771996,
+      "transition_shift_cm1": -256.3018311761807,
+      "terminal_excitation_cm1": 25725.279608163462,
+      "terminal_nominal_gap_cm1": -1336.5403918365373
+    },
+    {
+      "label": "6p_3/2",
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "delta_energy_Ha": -0.06326904508387088,
+      "transition_shift_cm1": 418.67867248248876,
+      "terminal_excitation_cm1": 29779.416149205746,
+      "terminal_nominal_gap_cm1": -612.8138507942531
+    }
+  ],
+  "original_stationarity_passed": false,
+  "EO_delta_Ha": -0.07226676172285806,
+  "RMS_delta_cm1": -632.2134256481979,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "current_source_adopted": false,
+  "current_regression_failures_unchanged": true,
+  "no_automatic_continuation": true,
+  "experiment_or_physical_completeness_certified": false,
+  "elapsed_uncontrolled_s": 265.72603318002075,
+  "peak_RSS_MiB": 1606.57421875,
+  "closure_driver_sha256": "1433d7c1191e0a7a3822560eea839e6b8d3c2f44117148d0f9c96bfcc9f90d9c"
+}

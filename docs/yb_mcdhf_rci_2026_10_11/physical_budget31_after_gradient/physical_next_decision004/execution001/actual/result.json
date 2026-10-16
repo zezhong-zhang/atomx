@@ -1,0 +1,73 @@
+{
+  "status": "FAILED_preserved",
+  "checks": [
+    {
+      "name": "cold_highest_weight_cache_before_models",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    }
+  ],
+  "points": {},
+  "work": {},
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "original_failures_preserved": true,
+  "stationarity_or_FD_qualified": false,
+  "optimizer_authorized": false,
+  "controlled_timing": false,
+  "host_load": [
+    0.2216796875,
+    0.2958984375,
+    0.30908203125
+  ],
+  "available_bytes": 96444231680,
+  "exception": "KeyError('shape')",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution001/run.py\", line 385, in execute\n    baseline, savedB, cp, geometry, sm, reference = (\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution001/run.py\", line 386, in <genexpr>\n    archive(k)\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution001/run.py\", line 371, in archive\n    list(v.shape) != h[\"shape\"]\nKeyError: 'shape'\n",
+  "elapsed_uncontrolled_s": 0.3577676609857008,
+  "peak_RSS_bytes": 321949696,
+  "driver_sha256": "04c0f56127c5aa5cbdbdb75c15494a68f7c146d11e3edb8151cbcdff006cf4f1",
+  "contract_sha256": "59e982c87f4209b6c1ef1181564459cad42a7474e027cd21e068f0a78161448b",
+  "counts": {
+    "CI": 0,
+    "CI_eigh": 0,
+    "H": 0,
+    "H_projection": 0,
+    "angular_nullspace": 0,
+    "angular_table": 0,
+    "banded_contraction": 0,
+    "block_terms": 0,
+    "density": 0,
+    "factor_getter": 0,
+    "pair_convolution": 0,
+    "pair_potential": 0,
+    "polar_retraction": 0,
+    "radial_key": 0,
+    "raw_hS": 0,
+    "tracking_overlap": 0,
+    "tracking_projection": 0,
+    "tracking_resolve": 0,
+    "forbidden_science": 0,
+    "NPZ_load": 3
+  },
+  "attempted": {
+    "CI": 0,
+    "CI_eigh": 0,
+    "H": 0,
+    "H_projection": 0,
+    "angular_nullspace": 0,
+    "angular_table": 0,
+    "banded_contraction": 0,
+    "block_terms": 0,
+    "density": 0,
+    "factor_getter": 0,
+    "pair_convolution": 0,
+    "pair_potential": 0,
+    "polar_retraction": 0,
+    "radial_key": 0,
+    "raw_hS": 0,
+    "tracking_overlap": 0,
+    "tracking_projection": 0,
+    "tracking_resolve": 0,
+    "forbidden_science": 0
+  }
+}

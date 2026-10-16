@@ -1,0 +1,120 @@
+{
+  "status": "SOURCE_JSON_only_prepared_NOT_executed",
+  "all_SOURCE_checks_passed": true,
+  "checks": [
+    {
+      "name": "parse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import argparse",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import hashlib",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import json",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import math",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import os",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import resource",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import signal",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import sys",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/import time",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib/from pathlib import Path",
+      "passed": true
+    },
+    {
+      "name": "metadata_no_numerical_import",
+      "passed": true
+    },
+    {
+      "name": "11_bound_arrays_no_preparation_census",
+      "passed": true
+    },
+    {
+      "name": "same1595_31_ns123_fiveUIDs",
+      "passed": true
+    },
+    {
+      "name": "exact19589_allstructural_keys",
+      "passed": true
+    },
+    {
+      "name": "bounded_resources",
+      "passed": true
+    },
+    {
+      "name": "bounded_complete_key_requests",
+      "passed": true
+    },
+    {
+      "name": "no_newH_CI_orhS",
+      "passed": true
+    },
+    {
+      "name": "original_gates_unchanged",
+      "passed": true
+    },
+    {
+      "name": "geometry_complete_prefix_not_assumed_wholearchive",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_exit0",
+      "passed": true
+    },
+    {
+      "name": "SOURCE_default_access_scope",
+      "passed": true
+    },
+    {
+      "name": "help_exit0",
+      "passed": true
+    },
+    {
+      "name": "Ruff",
+      "passed": true
+    },
+    {
+      "name": "links",
+      "passed": true
+    },
+    {
+      "name": "no_binding_actual_or_numericalimports",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "18ab92896c107934da765f08e544c36b61f014fbd62f9bd5f36e34d509d77058",
+  "contract_sha256": "c7850f11ba343e1efcea4aedb01f64615a99fe9de4bd285427bc981450b8837d",
+  "verifier_sha256": "39f490d6b33060595ad41545c3ddb3f8d39be0f80593fa4bbc9038658f43c3e7",
+  "README_sha256": "6d7a9cbf4735d1b952c363fdea605b62f78b02a046bc1ffcaa2d64c7afb77eee",
+  "NPZ_stat_hash_header_ZIP_body_access": 0,
+  "numerical_imports_calls": 0,
+  "original_two_failures_preserved": true,
+  "certified_error_bound": false,
+  "source_default_stdout": "SOURCE only: 0 NPZ hashes/header/body access; 0 numerical imports/calls.",
+  "Ruff": "All checks passed!"
+}

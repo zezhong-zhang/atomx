@@ -1,0 +1,32 @@
+{
+  "hypothesis": "The unchanged-RDM callback computes the same finite-cell CI energy change using complete orbital-increment polynomials and the CI ket-norm convention, including near-rounded-total comparisons.",
+  "fixed_conditions": {
+    "Z": 4,
+    "configurations": ["1s1 2s1"],
+    "basis_ns": 35,
+    "basis_ks": 9,
+    "radial_metric": "actual B-spline overlap",
+    "ensemble": "equal weight in the complete one-CSF J=0 and J=1 blocks",
+    "corrections": "Dirac-Coulomb only",
+    "CI_inputs": "real functional.evaluate; no fabricated CI amplitudes",
+    "oracle": "independent full one-body/rkbT contractions in long double on the exact fixed double-precision cell banks; no production increment routine"
+  },
+  "controls": [
+    "finite same-kappa two-orbital rotation plus positive-space external admixture",
+    "one-orbital admixtures at 1e-8 and 1e-12",
+    "ket norm differs from unity by less than the existing CI overlap audit tolerance",
+    "reverse direction",
+    "raw angular RDM coefficients below the contract filter recorded separately"
+  ],
+  "gates": {
+    "full_CI_change_Ha": 3e-11,
+    "long_double_change_Ha": 3e-12,
+    "near_roundoff_long_double_change_Ha": 5e-17,
+    "near_roundoff_nonzero_sign": "stable callback and long-double full totals have the same nonzero sign",
+    "reverse_change_Ha": 3e-13,
+    "orthogonality": "keep the existing CI metric audit at 1e-7; no relaxation"
+  },
+  "caps": {"threads": 1, "memory_soft_GiB": 1, "duration_seconds": 90},
+  "stopping_condition": "one four-control finite-model panel; no truncation or physical-model scan",
+  "limitations": "Independently anchors the implemented finite angular/cell operator. It does not prove exact continuum physics, Yb stationarity, or mixed-CI energy response. Long double uses the existing rounded kernel banks."
+}

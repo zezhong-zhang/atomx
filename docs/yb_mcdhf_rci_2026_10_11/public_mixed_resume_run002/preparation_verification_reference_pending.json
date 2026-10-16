@@ -1,0 +1,294 @@
+{
+  "all_passed": true,
+  "checks_count": 50,
+  "checks": [
+    {
+      "name": "preflight_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "complete_count_caps",
+      "passed": true
+    },
+    {
+      "name": "input_source_identity_checked",
+      "passed": true
+    },
+    {
+      "name": "old_metric_exact",
+      "passed": true
+    },
+    {
+      "name": "no_compute_in_preflight",
+      "passed": true
+    },
+    {
+      "name": "no_execution_epoch",
+      "passed": true
+    },
+    {
+      "name": "no_endpoint_claim",
+      "passed": true
+    },
+    {
+      "name": "baseline_optimizer_total_gradient_budget_scope",
+      "passed": true
+    },
+    {
+      "name": "same_point_gradient_equality_gates_unchanged",
+      "passed": true
+    },
+    {
+      "name": "stationarity_gates_unchanged",
+      "passed": true
+    },
+    {
+      "name": "scientific_source_epoch_unchanged",
+      "passed": true
+    },
+    {
+      "name": "matched_reference_status_explicit",
+      "passed": true
+    },
+    {
+      "name": "run.py/syntax",
+      "passed": true
+    },
+    {
+      "name": "one_actual_public_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "original_strict_gates",
+      "passed": true
+    },
+    {
+      "name": "typed_resume_explicit_target_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint.py/syntax",
+      "passed": true
+    },
+    {
+      "name": "verifier_no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "verifier_checkpoint_objective_saved_eigenpair_checks_called",
+      "passed": true
+    },
+    {
+      "name": "verifier_identity_and_saved_eigenpairs_before_functional",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_entrance:solve",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_entrance:/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "Ruff_prepared_scripts",
+      "passed": true
+    },
+    {
+      "name": "synthetic_endpoint_guard_runner_passed",
+      "passed": true
+    },
+    {
+      "name": "synthetic_endpoint_guards_bound",
+      "passed": true
+    },
+    {
+      "name": "synthetic_guards_no_physics_or_endpoint_claim",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:planning_contract001.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:README.md",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:preflight.log",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:verify_preparation.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:endpoint_guard_verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_failed_predecessor_preparation:preparation_verification_revision001.json",
+      "passed": true
+    },
+    {
+      "name": "independent_old_point_identity_source_audit",
+      "passed": true
+    },
+    {
+      "name": "failed_predecessor_assertion_not_ignored_or_rewritten",
+      "passed": true
+    },
+    {
+      "name": "README_link:contract.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:audit_point_identity.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:point_identity_source_audit.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:run.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_preparation.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:endpoint_guard_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_no_execution_claim",
+      "passed": true
+    }
+  ],
+  "successor_run_number": 2,
+  "preparation_revision": 1,
+  "previous_preparation_proof_sha256": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+  "no_new_scientific_solves": true,
+  "source_epoch_sealed": false,
+  "frozen_owner_files_sha256": {
+    "contract.json": "b3e887ea376549e29783450e85b21824b1b28f6f3364e407af6a7dbc386c0d66",
+    "planning_contract001.json": "b3e887ea376549e29783450e85b21824b1b28f6f3364e407af6a7dbc386c0d66",
+    "run.py": "013f1b5fc2179e191871b6f2191149f9d42d8725a475df8737b1bd264776a223",
+    "verify_endpoint.py": "7b72b114aa3aa21ffd1e124ba9b144a29c66ecd6d324e419736aed839e8f264e",
+    "README.md": "4bc9f980a9962c1fe73679a0f72867cd66c5b6d8ea471e621462e3257fbf9ef1",
+    "preflight.json": "235d32e942aa0bff5e2794556205c3e600c75bad2693f5c3de91e70ed799ee48",
+    "preflight.log": "99af2168731fe64512607e0e311e8e95853b9d3156c423366d7f186f11081403",
+    "verify_preparation.py": "9dbed141803bf2ca82107a9fb72b0bf9b3b1c05cccb21c2f30f8c4150a0580df",
+    "verify_endpoint_guards.py": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+    "endpoint_guard_verification.json": "bc030e52efe1afd9d4c93d08a70d23dca98a7ff7ba38548f63e61ac82c82f441",
+    "predecessor_preparation_verification.json": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+    "audit_point_identity.py": "8baf60b10f9142f411e23e69370b181232fbbb05a894fa2d1bf56781709de9c9",
+    "point_identity_source_audit.json": "aef6f8fe28dcbd787b36810923f035fd8f18c82c4d6fa31664a2156d57018413"
+  },
+  "synthetic_endpoint_guard_checks_count": 49,
+  "public_API_declaration_observed": {
+    "typed_state_declared": true,
+    "required_keywords": [
+      "allow_objective_change",
+      "checkpoint_callback",
+      "max_wall_time",
+      "objective_identity",
+      "resume_state",
+      "return_state"
+    ],
+    "missing_keywords": [],
+    "available": true
+  },
+  "resource_read_only_admission": {
+    "observed_at_utc": "2026-10-11T09:09:47Z",
+    "load_average": [
+      9.3447265625,
+      9.3134765625,
+      9.27734375
+    ],
+    "available_CPUs": 32,
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "load1_per_available_CPU": 0.292022705078125,
+    "host_available_GiB": 112.28483200073242,
+    "admitted": true,
+    "purpose": "Resource feasibility; never a controlled timing certificate"
+  },
+  "matched_reference_status": {
+    "ready": false,
+    "status": "pending_native_frozen_reference",
+    "directory": "docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference",
+    "frozen_reference_files_verified": 0
+  },
+  "scope": "Structural/read-only preparation only; no resume invariant/physics/endpoint gate exercised here."
+}

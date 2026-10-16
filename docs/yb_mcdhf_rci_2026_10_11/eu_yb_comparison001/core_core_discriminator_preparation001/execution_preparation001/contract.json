@@ -1,0 +1,812 @@
+{
+  "status": "SOURCE_ONLY_once_executor_ready_for_root_review",
+  "execution_authorized": false,
+  "hypothesis": "Measure differential effects of the declared 5p-double correlation sector at the identical accepted13 31-orbital point, before increasing radial cutoffs.",
+  "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "full_source_count": 356,
+  "fixed": {
+    "Z": 70,
+    "A": 175,
+    "electrons": 69,
+    "ns": 123,
+    "radial_orbitals": 31,
+    "coordinates": 3689,
+    "nucleus": "native sampled Fermi A175",
+    "operator": "unshifted native Dirac-Coulomb",
+    "accepted_iteration": 13,
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "equal_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "baseline_original_stationarity_passed": false,
+    "baseline_fullsigned_metrics": {
+      "retained": {
+        "raw_norm": 9762.328569579679,
+        "tangent_norm": 2.1989704642126493,
+        "residual": 0.15397840068607158,
+        "indicator_Ha": 0.08405452468328684,
+        "absolute_tangent_defect": 2.1918759826418086e-11,
+        "no_energy_or_spectrum_error_bound": true
+      },
+      "full_normalized": {
+        "raw_norm": 9762.328569579662,
+        "tangent_norm": 2.198970464212474,
+        "residual": 0.15397840068601018,
+        "indicator_Ha": 0.0840545246832704,
+        "absolute_tangent_defect": 2.1917623448074782e-11,
+        "no_energy_or_spectrum_error_bound": true
+      },
+      "corrected": {
+        "raw_norm": 5472.040647287735,
+        "tangent_norm": 2.1989704642118446,
+        "residual": 0.15397840068596852,
+        "indicator_Ha": 0.08405452468323363,
+        "absolute_tangent_defect": 5.620498134059283e-12,
+        "no_energy_or_spectrum_error_bound": true
+      }
+    },
+    "baseline": {
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "weight": 0.2,
+          "energy_Ha": -14067.52623146285,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9788593583858127
+            ],
+            "projected_probability": [
+              0.9788593583858127
+            ]
+          },
+          "excitation_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "weight": 0.2,
+          "energy_Ha": -14067.41704066896,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9730183038940053
+            ],
+            "projected_probability": [
+              0.9730183038940053
+            ]
+          },
+          "excitation_cm1": 23964.609237227007
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "column": 2,
+          "weight": 0.2,
+          "energy_Ha": -14067.413297705267,
+          "tracker": {
+            "reference_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                5,
+                1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9728873980070339
+            ],
+            "projected_probability": [
+              0.9728873980070339
+            ]
+          },
+          "excitation_cm1": 24786.094814193955
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "column": 3,
+          "weight": 0.2,
+          "energy_Ha": -14067.407917382181,
+          "tracker": {
+            "reference_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                1,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9676309980732365
+            ],
+            "projected_probability": [
+              0.9676309980732365
+            ]
+          },
+          "excitation_cm1": 25966.939240058768
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "weight": 0.2,
+          "energy_Ha": -14067.392090303934,
+          "tracker": {
+            "reference_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "selected_levels": [
+              [
+                3,
+                -1,
+                0
+              ]
+            ],
+            "per_level_weight": 0.2,
+            "principal_overlap_squared": [
+              0.9602002348411741
+            ],
+            "projected_probability": [
+              0.9602002348411741
+            ]
+          },
+          "excitation_cm1": 29440.58140381538
+        }
+      ],
+      "EOL_reported_Ha": -14067.43131550464,
+      "multiplets": {
+        "5d": {
+          "centroid_cm1": 24457.500583407174,
+          "splitting_cm1": 821.4855769669484
+        },
+        "6p": {
+          "centroid_cm1": 28282.700682563172,
+          "splitting_cm1": 3473.6421637566127
+        }
+      },
+      "physical_point": "baseline",
+      "operator": "dirac-coulomb",
+      "original_tracker_not_rebased": true,
+      "actual_EO_ULP_Ha": 1.8189894035458565e-12,
+      "no_stationarity_claim": true
+    },
+    "nominal_NIST_cm1": {
+      "6s_1/2": 0.0,
+      "5d_3/2": 22960.8,
+      "5d_5/2": 24332.69,
+      "6p_1/2": 27061.82,
+      "6p_3/2": 30392.23
+    },
+    "nominal_NIST_uncertainty_cm1": null
+  },
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_GiB": 8,
+    "inner_seconds": 900,
+    "outer_seconds": 915,
+    "minimum_host_available_GiB": 10,
+    "raw_determinants_per_block": 2659,
+    "max_connected_pairs_total": 29850774,
+    "max_connected_pairs_per_block": 7070281,
+    "max_coefficient_table_nnz_per_block": 20000000,
+    "max_coefficient_table_nnz_total": 50000000,
+    "max_coefficient_tables": 5,
+    "max_signed_overlap_pairs": 1000000,
+    "max_signed_compatible_pairs_sum": 66654,
+    "max_input_decoded_bytes": 201326592,
+    "max_input_archive_loads": 6,
+    "max_complete_H_builds": 1,
+    "max_complete_CI_calls": 1,
+    "max_complete_CI_eigh": 5,
+    "max_native_hS_builds": 7,
+    "max_hS_requests": 100,
+    "max_angular_null_space_calls": 1024,
+    "max_tracking_SVD_calls": 10,
+    "max_public_overlap_calls": 4,
+    "max_projection_calls": 40,
+    "max_radial_key_evaluations": 1000000,
+    "optimizer": 0,
+    "gradients": 0,
+    "Dirac_spectra": 0,
+    "GPU": 0,
+    "timing_claim_valid": false,
+    "table_caps_checked_after_return": "AS and outer wall guard protect Python SET/list/CSR construction before a completed table can be counted."
+  },
+  "acceptance": {
+    "exact_nested_old_H_bytes": true,
+    "baseline_source_owner_basis_point_UID_identity": true,
+    "all_complete_CI_residual_Ha": 1e-08,
+    "all_complete_CI_Gram": 1e-10,
+    "matrix_hermiticity_Ha": 1e-10,
+    "cross_symmetry_zero_Ha": 1e-14,
+    "full_same_kappa_radial_Gram": 1e-10,
+    "saved_P_metric_Gram": 1e-10,
+    "original_P_leak_S_squared": 1e-12,
+    "inherited_ordered_Ritz_increase_Ha": 1e-08,
+    "original_public_tracker_principal_squared_strict_min": 0.5,
+    "original_public_tracker_score_boundary_strict_min": 1e-10,
+    "original_public_tracker_cluster_gap_Ha": 1e-10,
+    "nominal_improvement_required": false,
+    "stationarity_upgraded": false
+  },
+  "prerequisite": {
+    "stageB_expected_status": "literal13_fixed_transported_direction_two_h_FD_completed",
+    "stageB_overall_passed": false,
+    "exactly_preserved_ordinary_FD_failures": [
+      "ordinary_reported_FD_h0",
+      "ordinary_reported_FD_h1"
+    ],
+    "all_other_declared_StageB_controls_passed": true,
+    "stageB_closed_exit_code": 1,
+    "baseline_is_exact_accepted13": true
+  },
+  "input_roles": {
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "literal13_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+      "deferred_numerical": false
+    },
+    "native_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+      "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+      "deferred_numerical": false
+    },
+    "native_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+      "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+      "deferred_numerical": false
+    },
+    "stageB_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json",
+      "sha256": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+      "deferred_numerical": false
+    },
+    "stageB_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/result.json",
+      "sha256": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+      "deferred_numerical": false
+    },
+    "stageB_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/root_execution.json",
+      "sha256": "06f62b9d1aa63fb44514403ba560476dbb58315c11b221b2f484db026290b2bd",
+      "deferred_numerical": false
+    },
+    "baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_owner.json",
+      "sha256": "c7f8ec39209c65a9317232a5d82ea03c1c5503dd8b5f7651149245ea1fbd9653",
+      "deferred_numerical": false
+    },
+    "baseline_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_tracking.json",
+      "sha256": "ae66ca8416b79037e6a716c36c72c5ffa30d2c023bd3699265cebc338cc004d6",
+      "deferred_numerical": false
+    },
+    "baseline_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/basis_identity.json",
+      "sha256": "4cfe20d173de2d4994af0e8971c7b342cd845350693dbdc34b59d8592de33372",
+      "deferred_numerical": false
+    },
+    "baseline_state": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/state_identity.json",
+      "sha256": "1841a49f68cec8d8baf868e1a9b460bda613ac03cf17d68b004da5d98ae55d6c",
+      "deferred_numerical": false
+    },
+    "core_core_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/proposal.json",
+      "sha256": "ec4a18ba8a651750cd85bef9dbdf53ddec9a2d6c48df0a838222e3040cd32652",
+      "deferred_numerical": false
+    },
+    "resource_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/resource_admission_proposal001.json",
+      "sha256": "d5a5572214867399cab165366c55511a7f7010e26723d2354dc79fe4faf65345",
+      "deferred_numerical": false
+    },
+    "historical_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+      "sha256": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+      "deferred_numerical": false
+    },
+    "baseline_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_point.npz",
+      "sha256": "a6ea2c5a5531fcd0dccd1b564d406ae3120efbe26c7da484971ee72592a9ea9d",
+      "deferred_numerical": true
+    },
+    "baseline_whole_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_whole_CI.npz",
+      "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+      "deferred_numerical": true
+    },
+    "baseline_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/immutable_original_geometry_metric.npz",
+      "sha256": "f2ed4a218ff8266d998257672591308947650e6649fa85b01e68bc63940cd78c",
+      "deferred_numerical": true
+    },
+    "prepared_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation001/models.json",
+      "sha256": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d",
+      "deferred_numerical": false
+    }
+  },
+  "array_access": {
+    "geometry_workspace": {
+      "compressed_bytes_max": 67108864,
+      "fields_max": 64,
+      "basis_prefix": true,
+      "fields": {
+        "orbital_keys": {
+          "shape": [
+            24,
+            2
+          ],
+          "dtype": "<i8"
+        },
+        "P": {
+          "shape": [
+            24,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "Q": {
+          "shape": [
+            24,
+            123
+          ],
+          "dtype": "<f8"
+        }
+      }
+    },
+    "tracking_ci": {
+      "compressed_bytes_max": 8388608,
+      "fields_max": 2,
+      "fields": {
+        "energies_Ha": {
+          "shape": [
+            531
+          ],
+          "dtype": "<f8"
+        },
+        "mixing": {
+          "shape": [
+            531,
+            531
+          ],
+          "dtype": "<f8"
+        }
+      }
+    },
+    "screened_geometry": {
+      "compressed_bytes_max": 16777216,
+      "fields_max": 7,
+      "fields": {
+        "s_-4": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_-1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_1": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_2": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        },
+        "s_3": {
+          "shape": [
+            246,
+            246
+          ],
+          "dtype": "<f8"
+        }
+      }
+    },
+    "baseline_whole_CI": {
+      "compressed_bytes_max": 67108864,
+      "fields_max": 6,
+      "fields": {
+        "H": {
+          "shape": [
+            1595,
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "energies": {
+          "shape": [
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "mixing": {
+          "shape": [
+            1595,
+            1595
+          ],
+          "dtype": "<f8"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "<i8"
+        },
+        "P": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "Q": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        }
+      }
+    },
+    "baseline_point": {
+      "compressed_bytes_max": 8388608,
+      "fields_max": 4,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "keys": {
+          "shape": [
+            31,
+            2
+          ],
+          "dtype": "<i8"
+        },
+        "P": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        },
+        "Q": {
+          "shape": [
+            31,
+            123
+          ],
+          "dtype": "<f8"
+        }
+      }
+    },
+    "baseline_geometry": {
+      "compressed_bytes_max": 16777216,
+      "fields_max": 9,
+      "fields": {
+        "x": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "inverse_diagonal": {
+          "shape": [
+            3689
+          ],
+          "dtype": "<f8"
+        },
+        "projector_0": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_1": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_2": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_3": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_4": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_5": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        },
+        "projector_6": {
+          "shape": [
+            246,
+            119
+          ],
+          "dtype": "<f8"
+        }
+      }
+    }
+  },
+  "native_call_chain": [
+    "SOURCE/JSON full356 source and exact root seal; fresh exclusive actual directory; CPU27/thread1/8GiB/900s plus root915s hard foreground guardian.",
+    "Read declared complete baseline H/E/C and unchanged31 P/Q, original projectors/metric and immutable531 tracker inputs, with complete bounded field census.",
+    "Enumerate all 3789 baseline and 5741 expanded parent CSFs; retain every CSF of five complete blocks 1595->2574; save exact NR and signed-CSF/occupation/order maps.",
+    "Check original31 radial bytes, original P@x/S metric/owner/UID; baseline residual/Gram; unchanged sector union spinor ordering and common closed core. Complete public signed raw supports and overlap pair admission precede H.",
+    "Construct original531 native tracker once; resolve saved1595 baseline without H build or optimizer. Preserve exact StageB target energy, UIDs and weights.",
+    "One public native expanded full dense ci_solve(retain_hamiltonian=True,max_determinants=2659). Its unmodified physical builder observer archives H and tests byte-exact embedded1595 H before CI diagonalization. No new baseline H.",
+    "Archive complete2574 H/E/C, native owner, source/configuration mapping and counters before CI gates. Resolve same original531 tracker; archive signed samepoint baseline-five vs all2574 overlap without root selection or amplitude threshold.",
+    "Report absolute upper/lower shifts, four transitions, multiplet centroids/splittings and nominal NIST gaps/RMS as conditional fixed-orbital evidence only."
+  ],
+  "representation_control_boundary": "Same radial/order/closed-core source conditions are necessary, not a numerical proof. If the exact nested H byte gate fails, stop before expanded CI diagonalization; preserve complete expanded H and map. A separate source representation control is required, no tolerance relaxation or automatic retry.",
+  "stop": "First identity/resource/CI/tracker failure ends this once-only run. Preserve completed arrays and failure. Native raw or CSR caps reject whole experiment, never remove configurations or amplitudes. No fallback/backend/parameter retry.",
+  "preparation": {
+    "science_imports": 0,
+    "NPZ_reads": 0,
+    "NPZ_rehashes": 0,
+    "H_builds": 0,
+    "CI_calls": 0
+  },
+  "outputs": [
+    "complete expanded H/E/C plus native real owner",
+    "all original baseline arrays remain bound at their closed StageB paths",
+    "all parent/selected signed CSF and configuration/occupation maps, exact nested embedding",
+    "complete signed five-state-to-all2574 overlap and immutable original tracker diagnostics",
+    "conditional upper/lower/four-transition/centroid/splitting/NIST nominal comparison",
+    "attempted/completed producers, work/cache/projection census, first-failure receipts"
+  ]
+}

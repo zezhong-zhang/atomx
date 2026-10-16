@@ -1,0 +1,1861 @@
+[
+  {
+    "label": "base",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 0.0,
+      "reconstruction_radial": 0.0,
+      "reported_response": 0.0,
+      "rayleigh_response": -3.598784704654159e-20,
+      "reported_change": 0.0,
+      "rayleigh_change": -3.598784704654159e-20,
+      "direct_reported_root_difference": 0.0,
+      "direct_retained_quotient_difference": 0.0,
+      "reported_closure_error": 0.0,
+      "quotient_closure_error": -3.598784704654159e-20,
+      "floating_EO_difference": 0.0,
+      "floating_averaging_offset": 0.0,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            0.0,
+            0.0,
+            -6.602868831527088e-17,
+            6.602868831527088e-17
+          ],
+          "rayleigh_terms": [
+            0.0,
+            0.0,
+            -1.431247828745476e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            -6.602868831527088e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            2.0272303217003449e-16
+          ],
+          "coefficient_change_norm": 0.0,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999997,
+          "reported_terms": [
+            0.0,
+            0.0,
+            -4.859817893067052e-16,
+            4.859817893067052e-16
+          ],
+          "rayleigh_terms": [
+            0.0,
+            0.0,
+            -4.32129699662372e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -4.859817893067052e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            7.285274402418146e-16
+          ],
+          "coefficient_change_norm": 0.0,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "ae0e67ae95ac8696f8794c1f8e83de3e05ce5b902bc5a3edac62b40a1885b6ae",
+        "reconstruction_wave_max": 0.0,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "0E-128",
+    "oracle_reconstruction": "0E-128",
+    "oracle_complete_radial": "0E-128"
+  },
+  {
+    "label": "d0_0.0001",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 4.949339944998351e-05,
+      "reconstruction_radial": 5.922053511086924e-17,
+      "reported_response": 1.172496282654805e-09,
+      "rayleigh_response": 1.1724964564297658e-09,
+      "reported_change": 4.949457194632538e-05,
+      "rayleigh_change": 4.949457194649916e-05,
+      "direct_reported_root_difference": 4.9494571946584465e-05,
+      "direct_retained_quotient_difference": 4.9494571946758276e-05,
+      "reported_closure_error": -2.5908366164256735e-16,
+      "quotient_closure_error": -2.5911754296045753e-16,
+      "floating_EO_difference": 4.949457194669549e-05,
+      "floating_averaging_offset": 1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "cdb5a71b5a85f1ffcdf761d67beabb06c7abfad0f2922e970909556670e77df5"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "5e32af53b05188efcaabc717a9bbe888404f81ce3b8546127eebea52612a6e22"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 1.0,
+          "reported_terms": [
+            1.2014732692950108e-09,
+            -1.1240455002728517e-20,
+            -6.602868831527086e-17,
+            -9.252739565261765e-17
+          ],
+          "rayleigh_terms": [
+            1.2014732692950108e-09,
+            -1.1240395788899862e-20,
+            -1.4312478287454757e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            9.252739565261765e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            1.6137904043118057e-16
+          ],
+          "coefficient_change_norm": 3.3959120035667236e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.0000000000000013,
+          "reported_terms": [
+            1.1628375188623438e-09,
+            -2.595235832389785e-21,
+            -4.859817893067043e-16,
+            3.070858853931131e-16
+          ],
+          "rayleigh_terms": [
+            1.162837518862345e-09,
+            -2.597097905977718e-21,
+            -4.321296996623713e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -3.070858853931131e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            8.260886290611028e-16
+          ],
+          "coefficient_change_norm": 5.0968955241614627e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.2901220595851572e-15,
+          "CI_Gram": 1.7763568394002505e-15,
+          "radial_Gram": 1.3322676295501878e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "59baf7e62adce2e6b5a4bef736677fc2d70a93f75dbc49d873c2a89223644b25",
+        "reconstruction_wave_max": 1.576158908250802e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "0.000049493399449983443312742225970560227213874270487839377383716996651665210584467858",
+    "oracle_reconstruction": "5.9220535110858443987321466151521732441126417395143911376504013053986418230002680E-17",
+    "oracle_complete_radial": "0.000049493399450042663847853084414547548680025792220280503801112140563041714597521849"
+  },
+  {
+    "label": "d0_-0.0001",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 5.12375602745944e-05,
+      "reconstruction_radial": -2.276149567144186e-17,
+      "reported_response": 1.1388421781643729e-09,
+      "rayleigh_response": 1.1388422137446043e-09,
+      "reported_change": 5.123869911674981e-05,
+      "rayleigh_change": 5.1238699116785384e-05,
+      "direct_reported_root_difference": 5.123869911549672e-05,
+      "direct_retained_quotient_difference": 5.123869911553234e-05,
+      "reported_closure_error": 1.2530869896408559e-15,
+      "quotient_closure_error": 1.2530463320593876e-15,
+      "floating_EO_difference": 5.1238699115607744e-05,
+      "floating_averaging_offset": 1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "1621bb5441c2a092eb1e49891a7702c98067e88376abf46f3914bb314109aa8d"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "a7e5afdcbbade4faacfaa86adb6f523a8d1128699b613b4a55f32e862e05a3b8"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            1.923575175559622e-09,
+            -1.3489195139380561e-20,
+            -6.602868831527087e-17,
+            1.216047944205869e-16
+          ],
+          "rayleigh_terms": [
+            1.923575175559622e-09,
+            -1.348914393350476e-20,
+            -1.4312478287454757e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            -1.216047944205869e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            2.1204335832107476e-16
+          ],
+          "coefficient_change_norm": 4.3551725226402014e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999998,
+          "reported_terms": [
+            8.772645598669083e-10,
+            -8.162446959708853e-21,
+            -4.859817893067052e-16,
+            4.1996812767787156e-16
+          ],
+          "rayleigh_terms": [
+            8.772645598669091e-10,
+            -8.163721415776579e-21,
+            -4.32129699662372e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -4.1996812767787156e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            7.200852506838972e-16
+          ],
+          "coefficient_change_norm": 4.1158717125349624e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 3.787306277899716e-15,
+          "CI_Gram": 1.5543122344752192e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "b50d2b2b7c2fbebd282e89fd189f37c31aa6e6d984965054bc2d645fd337d680",
+        "reconstruction_wave_max": 1.8214596497756474e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "0.000051237560274593649985495568042227349520080212934247951595191828946187078095795624",
+    "oracle_reconstruction": "-2.2761495671431068298518466987662884990221845346964890189183583426085944056218764E-17",
+    "oracle_complete_radial": "0.000051237560274570888489824136973928831053092550049257729749844864055997894512369538"
+  },
+  {
+    "label": "d0_1e-06",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": -3.683691031826927e-09,
+      "reconstruction_radial": -3.667968367309411e-17,
+      "reported_response": 1.0174003623754837e-15,
+      "rayleigh_response": 1.3567262841804064e-15,
+      "reported_change": -3.6836900511062483e-09,
+      "rayleigh_change": -3.6836897117803266e-09,
+      "direct_reported_root_difference": -3.683689908662302e-09,
+      "direct_retained_quotient_difference": -3.6836895693003926e-09,
+      "reported_closure_error": -1.4244394627529234e-16,
+      "quotient_closure_error": -1.4247993400861238e-16,
+      "floating_EO_difference": -3.6836897976399996e-09,
+      "floating_averaging_offset": 1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "3d049e25eb4e529d434f91e6b3324b81c051941df5fc4dc7ae16faa6667613dd"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "403199f85365f268fd9bc46a79d861388a3bee10f56cb75d8c5cd5b5fa119af2"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999996,
+          "reported_terms": [
+            3.873768288470354e-15,
+            1.0006457612399738e-23,
+            -6.60286883152709e-17,
+            1.0304246162856728e-16
+          ],
+          "rayleigh_terms": [
+            3.873768288470354e-15,
+            1.0006267526434818e-23,
+            -1.4312478287454763e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            -1.0304246162856728e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            3.626465679976312e-16
+          ],
+          "coefficient_change_norm": 6.666683987416726e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999989,
+          "reported_terms": [
+            5.177602359110201e-16,
+            2.7300838464774727e-23,
+            -4.859817893067056e-16,
+            2.116131866545582e-17
+          ],
+          "rayleigh_terms": [
+            5.177602359110237e-16,
+            2.730003957104637e-23,
+            -4.321296996623724e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -2.116131866545582e-17
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            8.431097240650334e-16
+          ],
+          "coefficient_change_norm": 8.590490843948022e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 1.6545089304884222e-15,
+          "CI_Gram": 2.1094237467877974e-15,
+          "radial_Gram": 9.992007221626409e-16
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "72e04415e52e230a31d9effa7eefe58cfdc52e9882f6968f99242f354a81fc89",
+        "reconstruction_wave_max": 1.846801816766312e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "-3.6836910318251253191126681835838239811577854740863261831999457519126613115815196E-9",
+    "oracle_reconstruction": "-3.6679683673094153485643971911909780897317099754971359332106754606046752991443284E-17",
+    "oracle_complete_radial": "-3.6836910685048089922068216692277958930675663714034259381713050840194159176282725E-9"
+  },
+  {
+    "label": "d0_-1e-06",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 1.3757243911460354e-08,
+      "reconstruction_radial": -1.8528856956187776e-17,
+      "reported_response": 1.7242210972282181e-15,
+      "rayleigh_response": 1.3229773659326311e-15,
+      "reported_change": 1.3757245617152595e-08,
+      "rayleigh_change": 1.3757245215908863e-08,
+      "direct_reported_root_difference": 1.3757244676781966e-08,
+      "direct_retained_quotient_difference": 1.3757244275574222e-08,
+      "reported_closure_error": 9.403706294918835e-16,
+      "quotient_closure_error": 9.403346405177925e-16,
+      "floating_EO_difference": 1.3757245120871175e-08,
+      "floating_averaging_offset": 4.440892098500626e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "a490c3059c1c34be94a5e8092a88f22d74a4933dfcfd86252888a975c6e2728d"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "a72b066d51e555c29be50e6963e2d9b62824111c3d1b21a1cc02ad6e3ee27ed7"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 1.0000000000000002,
+          "reported_terms": [
+            4.595827987674386e-15,
+            -1.2479396839174124e-23,
+            -6.602868831527086e-17,
+            -2.83367893422453e-16
+          ],
+          "rayleigh_terms": [
+            4.595827987674387e-15,
+            -1.2479176209345156e-23,
+            -1.4312478287454754e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            2.83367893422453e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            4.619167072687776e-16
+          ],
+          "coefficient_change_norm": 7.202748668106632e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.0000000000000002,
+          "reported_terms": [
+            2.3207517501740247e-16,
+            -2.837692589550572e-23,
+            -4.859817893067049e-16,
+            1.1373909744847641e-15
+          ],
+          "rayleigh_terms": [
+            2.3207517501740557e-16,
+            -2.8376238923493626e-23,
+            -4.321296996623718e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -1.1373909744847641e-15
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            1.4042298902764941e-15
+          ],
+          "coefficient_change_norm": 8.047109175376703e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.2656075103852807e-15,
+          "CI_Gram": 1.7763568394002505e-15,
+          "radial_Gram": 1.6653345369377348e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "6b3563a50ed95b14225a39defa5499f668825a9a32d5e1a00bea8c23316de5b9",
+        "reconstruction_wave_max": 2.417069924878822e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "1.3757243911462131541522396196927928327856860854070496418457471458060262113604230E-8",
+    "oracle_reconstruction": "-1.8528856956187696589636212922567919233231796806006236549207196444857872770171182E-17",
+    "oracle_complete_radial": "1.3757243892933274585334699607291715405288941620838699612451234908853065668746356E-8"
+  },
+  {
+    "label": "d0_1e-08",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": -8.670098364819035e-11,
+      "reconstruction_radial": -7.89602554206274e-17,
+      "reported_response": -1.5257564896870788e-15,
+      "rayleigh_response": 9.687551940769348e-20,
+      "reported_change": -8.670258836493546e-11,
+      "rayleigh_change": -8.670106251157025e-11,
+      "direct_reported_root_difference": -8.670208995198436e-11,
+      "direct_retained_quotient_difference": -8.670056406263131e-11,
+      "reported_closure_error": -4.984129510926682e-16,
+      "quotient_closure_error": -4.984489389423105e-16,
+      "floating_EO_difference": -8.670220097428682e-11,
+      "floating_averaging_offset": -1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "270c3f2315a8758b011338f281a88329c6421bea9ef2444baf3529e054cf610a"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "5361dac2876aebbc3b7a9fbeb1505111d1a714448f97d9068cce2cc8f869fa3d"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            4.215986165323939e-19,
+            1.1230563186255347e-25,
+            -6.602868831527087e-17,
+            7.023957415758838e-17
+          ],
+          "rayleigh_terms": [
+            4.2159861653239394e-19,
+            1.1230358295444868e-25,
+            -1.4312478287454757e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            -7.023957415758838e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            1.4183036691457413e-16
+          ],
+          "coefficient_change_norm": 6.926563006418728e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.999999999999999,
+          "reported_terms": [
+            3.6617967333139956e-20,
+            2.783349763492072e-25,
+            -4.859817893067056e-16,
+            -1.5499409767121192e-15
+          ],
+          "rayleigh_terms": [
+            3.661796733314029e-20,
+            2.7832718087157867e-25,
+            -4.321296996623724e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            1.5499409767121192e-15
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            1.6417391773868522e-15
+          ],
+          "coefficient_change_norm": 8.313462795160515e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.4591190167400794e-15,
+          "CI_Gram": 1.6653345369377348e-15,
+          "radial_Gram": 9.992007221626409e-16
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "190d8f9fe70cb0a9b9301fa63ff5e6670ad732e20aacae781042ecf10a58e393",
+        "reconstruction_wave_max": 2.67589286911848e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "-8.6700983648195052787645750179993460978140128146735293935667033077006433729934527E-11",
+    "oracle_reconstruction": "-7.8960255420627349425034999588778395406189012154097636895827797926447122914412127E-17",
+    "oracle_complete_radial": "-8.6701062608450473414995175214993049756535534335747448033303928904804360177057438E-11"
+  },
+  {
+    "label": "d0_-1e-08",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 8.770836510992872e-11,
+      "reconstruction_radial": 7.848493989217226e-17,
+      "reported_response": 2.396391656779534e-16,
+      "rayleigh_response": 9.684131233807369e-20,
+      "reported_change": 8.770868323403428e-11,
+      "rayleigh_change": 8.770844369170992e-11,
+      "direct_reported_root_difference": 8.770895121301692e-11,
+      "direct_retained_quotient_difference": 8.770871170668039e-11,
+      "reported_closure_error": -2.6797898263271545e-16,
+      "quotient_closure_error": -2.6801497046943306e-16,
+      "floating_EO_difference": 8.770895121301692e-11,
+      "floating_averaging_offset": 0.0,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "2f031313f3e98bc8b6d5db07c470e6d3fe55f88f70f2f14c641ef82ea5dda57e"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "712be700f14083aeeb83e9e76b142449cc47abbb4493b0725c73b6640ff11ac6"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 1.0,
+          "reported_terms": [
+            4.2232033354001577e-19,
+            -1.1255275912296349e-25,
+            -6.602868831527087e-17,
+            -1.472601640778387e-16
+          ],
+          "rayleigh_terms": [
+            4.2232033354001577e-19,
+            -1.1255069391152788e-25,
+            -1.4312478287454757e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.472601640778387e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            1.773050895334729e-16
+          ],
+          "coefficient_change_norm": 6.93192579803218e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.0000000000000002,
+          "reported_terms": [
+            3.633241728506882e-20,
+            -2.7844305753029773e-25,
+            -4.859817893067049e-16,
+            8.764198554625081e-16
+          ],
+          "rayleigh_terms": [
+            3.633241728506915e-20,
+            -2.7843535608037893e-25,
+            -4.321296996623718e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -8.764198554625081e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            1.2749208886908217e-15
+          ],
+          "coefficient_change_norm": 8.308029062145562e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.5702862756613195e-15,
+          "CI_Gram": 2.220446049250313e-15,
+          "radial_Gram": 1.3322676295501878e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "f299f7f2f075474ad6eb0f251ece94c2c22b96621d7db836ec88da7b207c0eda",
+        "reconstruction_wave_max": 2.673193894585005e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "8.7708365109952486506175494812116453697937624743767640760898989255480870686381845E-11",
+    "oracle_reconstruction": "7.8484939892172183699135361911287615698037796307338045813934941263905210277389962E-17",
+    "oracle_complete_radial": "8.7708443594892378678359193947478364985553322781563948098944803190422134591592133E-11"
+  },
+  {
+    "label": "d1_0.0001",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 5.322110122411007e-05,
+      "reconstruction_radial": 1.1307331934274258e-17,
+      "reported_response": 7.52619776758849e-10,
+      "rayleigh_response": 7.526197208162991e-10,
+      "reported_change": 5.322185384389814e-05,
+      "rayleigh_change": 5.322185384384219e-05,
+      "direct_reported_root_difference": 5.3221853844709344e-05,
+      "direct_retained_quotient_difference": 5.322185384465344e-05,
+      "reported_closure_error": -8.112068417172325e-16,
+      "quotient_closure_error": -8.112474992987007e-16,
+      "floating_EO_difference": 5.322185384493139e-05,
+      "floating_averaging_offset": 2.220446049250313e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "540e8160ad7a2079205a5542f49fc6b46bfcbd86bbbe27a6568f7455336d51c1"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "d19576fe3a0b0bcc8a740aea5343d6febba685d547b34845d0d8f7504991c975"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999998,
+          "reported_terms": [
+            2.964440023344065e-10,
+            2.6585076741418406e-21,
+            -6.602868831527088e-17,
+            -1.5557278828198814e-17
+          ],
+          "rayleigh_terms": [
+            2.964440023344065e-10,
+            2.6584479832782893e-21,
+            -1.431247828745476e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.5557278828198814e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            2.8237995087026285e-16
+          ],
+          "coefficient_change_norm": 2.0135608774098548e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999998,
+          "reported_terms": [
+            9.046782936813861e-10,
+            9.308958523644148e-21,
+            -4.859817893067052e-16,
+            5.87719193705878e-16
+          ],
+          "rayleigh_terms": [
+            9.046782936813881e-10,
+            9.306194886729363e-21,
+            -4.32129699662372e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -5.87719193705878e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            8.918366557672762e-16
+          ],
+          "coefficient_change_norm": 6.415270622781882e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.75034277863018e-15,
+          "CI_Gram": 1.7763568394002505e-15,
+          "radial_Gram": 1.4432899320127035e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "8188dd0678af7f5b837f8dc7cff7230a2ae27b66750a077fb20de5688aae3bf6",
+        "reconstruction_wave_max": 1.750444407477847e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "0.000053221101224109492574043022747266137192542569722032241348599890464351464223478274",
+    "oracle_reconstruction": "1.1307331934287261012995041150824114226954878833377107366955312304714128175387026E-17",
+    "oracle_complete_radial": "0.000053221101224120799905977310008279132233693393836259196227433267571718419535782990"
+  },
+  {
+    "label": "d1_-0.0001",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 5.063256593148758e-05,
+      "reconstruction_radial": -7.0371109550833e-17,
+      "reported_response": 1.1755736286688382e-09,
+      "rayleigh_response": 1.1755731995109134e-09,
+      "reported_change": 5.0633741505045876e-05,
+      "rayleigh_change": 5.0633741504616715e-05,
+      "direct_reported_root_difference": 5.063374150549027e-05,
+      "direct_retained_quotient_difference": 5.0633741505061143e-05,
+      "reported_closure_error": -4.443941417110742e-16,
+      "quotient_closure_error": -4.444280230289643e-16,
+      "floating_EO_difference": 5.063374150537925e-05,
+      "floating_averaging_offset": -1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "bbc20b40558298263ef7c8bfab601cea888c4e1c56ea9cd7e4e553eaecf4ef75"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "872417f1c74fc421cef4a51cb0a78ba32f1fec7327bc1e134a44e2aa5f2a36cf"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            4.863714514400618e-10,
+            -1.4199645274882e-22,
+            -6.602868831527087e-17,
+            -1.0856079973487985e-16
+          ],
+          "rayleigh_terms": [
+            4.863714514400618e-10,
+            -1.4202915669368404e-22,
+            -1.431247828745476e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.0856079973487985e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            4.3448607966091884e-16
+          ],
+          "coefficient_change_norm": 2.554071701445579e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.000000000000001,
+          "reported_terms": [
+            1.40530711556649e-09,
+            1.6072874410243972e-20,
+            -4.859817893067045e-16,
+            1.1163408665648817e-15
+          ],
+          "rayleigh_terms": [
+            1.405307115566493e-09,
+            1.6069013775731216e-20,
+            -4.321296996623715e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -1.1163408665648817e-15
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            1.2502124061143727e-15
+          ],
+          "coefficient_change_norm": 7.776707927920073e-05,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.7969183144989728e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.3322676295501878e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "8faa1ac94be5dfbeac3344f8e7e70dc45a16d577c6a6791f9c94f8b3e8038b21",
+        "reconstruction_wave_max": 2.4511439427644943e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "0.000050632565931487844325252118979002743595180140031853869544728893611615754574418940",
+    "oracle_reconstruction": "-7.0371109550845944730446413941311223666788553880676981681814007365367531487071888E-17",
+    "oracle_complete_radial": "0.000050632565931417473215701273034272297181238828808187080990848216629933940567053570"
+  },
+  {
+    "label": "d1_1e-06",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 1.813131720620016e-08,
+      "reconstruction_radial": 8.110783101822121e-17,
+      "reported_response": 3.862292130284107e-15,
+      "rayleigh_response": 3.2247666274774977e-15,
+      "reported_change": 1.8131321149600122e-08,
+      "rayleigh_change": 1.8131320512074617e-08,
+      "direct_reported_root_difference": 1.8131321111169996e-08,
+      "direct_retained_quotient_difference": 1.813132047368048e-08,
+      "reported_closure_error": 3.843012635366647e-17,
+      "quotient_closure_error": 3.8394137379575515e-17,
+      "floating_EO_difference": 1.81313213332146e-08,
+      "floating_averaging_offset": 2.220446049250313e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "06362b6cebecbed592d6130e15cea57813711e4fcebf6e66802cfcd5785eb168"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "c9f6117f7c36dacaf3c95e96d73c1f36c55032328bc7eea6b85facf99ac79fc1"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            3.2209740851836934e-15,
+            1.4128596396312594e-23,
+            -6.602868831527088e-17,
+            -1.8133123451073967e-16
+          ],
+          "rayleigh_terms": [
+            3.2209740851836934e-15,
+            1.4128378656392978e-23,
+            -1.431247828745476e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.8133123451073967e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            4.716751273089895e-16
+          ],
+          "coefficient_change_norm": 5.262368283187491e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999983,
+          "reported_terms": [
+            3.226078819865419e-15,
+            -3.253742282092019e-23,
+            -4.859817893067059e-16,
+            1.418421116862092e-15
+          ],
+          "rayleigh_terms": [
+            3.2260788198654215e-15,
+            -3.2536720177305635e-23,
+            -4.321296996623726e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            -1.418421116862092e-15
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            1.5484218505106769e-15
+          ],
+          "coefficient_change_norm": 7.184898474067833e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 3.9757615111117025e-15,
+          "CI_Gram": 1.887379141862766e-15,
+          "radial_Gram": 1.3322676295501878e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "8088522238c222332ab6c13f063ab3f52f74f88d16f76c48e12a3028cecbc611",
+        "reconstruction_wave_max": 1.3926701313540432e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "1.8131317206189243507533055059423183528696963726931144472502271415454818644902138E-8",
+    "oracle_reconstruction": "8.1107831018221110652134604749034248280282072353186014901865303490463235714373563E-17",
+    "oracle_complete_radial": "1.8131317287297074525754165711557788277731212007213216825688286317320122135365374E-8"
+  },
+  {
+    "label": "d1_-1e-06",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": -7.745578731244956e-09,
+      "reconstruction_radial": 5.344751225397797e-17,
+      "reported_response": 3.083044572951998e-15,
+      "rayleigh_response": 3.647497130870957e-15,
+      "reported_change": -7.745575594752871e-09,
+      "rayleigh_change": -7.745575030300313e-09,
+      "direct_reported_root_difference": -7.745575625328627e-09,
+      "direct_retained_quotient_difference": -7.745575060840081e-09,
+      "reported_closure_error": 3.0575755269899855e-17,
+      "quotient_closure_error": 3.0539767950170123e-17,
+      "floating_EO_difference": -7.74557573635093e-09,
+      "floating_averaging_offset": -1.1102230246251565e-16,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "f2fec1b1e69e0265f09d18ac1510d431818612533b4c95d6bcded338da38eb92"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "d5d3568ce00b26d63740c40634e9c07802112cb9033e75485c50bb7fe144cb3e"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 0.9999999999999999,
+          "reported_terms": [
+            3.4109302659920545e-15,
+            -1.387697349823905e-23,
+            -6.602868831527087e-17,
+            -1.7777758563576794e-17
+          ],
+          "rayleigh_terms": [
+            3.410930265992055e-15,
+            -1.3876758397302696e-23,
+            -1.431247828745476e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.7777758563576794e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            8.185091423726652e-17
+          ],
+          "coefficient_change_norm": 5.491971158923146e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.0000000000000004,
+          "reported_terms": [
+            3.726400705844866e-15,
+            3.507491440075994e-23,
+            -4.859817893067048e-16,
+            -2.387341227558219e-16
+          ],
+          "rayleigh_terms": [
+            3.726400705844869e-15,
+            3.507403699600015e-23,
+            -4.3212969966237166e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            2.387341227558219e-16
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            5.107806985137667e-16
+          ],
+          "coefficient_change_norm": 8.422372648255337e-08,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 2.0979712656277603e-15,
+          "CI_Gram": 2.220446049250313e-15,
+          "radial_Gram": 1.1102230246251565e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "36bc34a50c5cda92394de6a0e6dcf1b42fc0900070f2fdadff2ca87bf25f8d58",
+        "reconstruction_wave_max": 2.1829394303458927e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "-7.7455787312356045693973447446642879012995697499449849714431483102679626385160655E-9",
+    "oracle_reconstruction": "5.3447512253977957329978280850672153151359545075224920397348631693624860105115672E-17",
+    "oracle_complete_radial": "-7.7455786777880923154193874146860070506274165985854398962182279129193309448912062E-9"
+  },
+  {
+    "label": "d1_1e-08",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": 1.2990377329371112e-10,
+      "reconstruction_radial": 3.844604021964451e-17,
+      "reported_response": -4.528407881820278e-16,
+      "rayleigh_response": 3.0648837459923537e-19,
+      "reported_change": 1.2990335889896316e-10,
+      "rayleigh_change": 1.2990381204623972e-10,
+      "direct_reported_root_difference": 1.2990364339771077e-10,
+      "direct_retained_quotient_difference": 1.2990409658097519e-10,
+      "reported_closure_error": -2.844987476027582e-16,
+      "quotient_closure_error": -2.8453473546532523e-16,
+      "floating_EO_difference": 1.2990364339771077e-10,
+      "floating_averaging_offset": 0.0,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "a7a93b32935663d598f4edf7ae8c898aba712fb49b48561717afe2956b457025"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "2b97a8d31d3ce357a91c5dc191d0e9b06eb75f541c0954723a9392e9aa3342d0"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 1.0000000000000002,
+          "reported_terms": [
+            3.311423261700804e-19,
+            1.400405872063057e-25,
+            -6.602868831527085e-17,
+            -1.5658912122173423e-16
+          ],
+          "rayleigh_terms": [
+            3.311423261700804e-19,
+            1.4003844771412502e-25,
+            -1.4312478287454754e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            1.5658912122173423e-16
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            3.6362500673299366e-16
+          ],
+          "coefficient_change_norm": 5.372599083850993e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 0.9999999999999991,
+          "reported_terms": [
+            3.462544780523553e-19,
+            -3.379351111654934e-25,
+            -4.859817893067055e-16,
+            -4.405662671918405e-17
+          ],
+          "rayleigh_terms": [
+            3.4625447805235557e-19,
+            -3.37927495722507e-25,
+            -4.3212969966237226e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            4.405662671918405e-17
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            6.923460904676776e-16
+          ],
+          "coefficient_change_norm": 7.789808290241933e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 4.035857538665748e-15,
+          "CI_Gram": 1.1102230246251565e-15,
+          "radial_Gram": 1.5543122344752192e-15
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "4609153cdafa4292f54529bc43e0797942c8ae029e4fa36e839d88151beb5d7f",
+        "reconstruction_wave_max": 1.7141386562995065e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "1.2990377329364811075859289479044005661033942461596171336669248596540884347950164E-10",
+    "oracle_reconstruction": "3.8446040219644474546422915050770302166992418532081489097432137387712693623656233E-17",
+    "oracle_complete_radial": "1.2990381173968833040306744121335510738064159160838024544818158339754623119219527E-10"
+  },
+  {
+    "label": "d1_-1e-08",
+    "diagnostic": {
+      "diagnostic_only": true,
+      "certified_error_bound": false,
+      "optimizer_adapter": false,
+      "scope": "complete real rank-one physically tracked B-spline Dirac-Coulomb",
+      "explicit_radial": -1.2886517762698757e-10,
+      "reconstruction_radial": -4.141660871876202e-17,
+      "reported_response": -4.487333850283907e-16,
+      "rayleigh_response": 3.0691048063666674e-19,
+      "reported_change": -1.2886566777698132e-10,
+      "rayleigh_change": -1.288652187366858e-10,
+      "direct_reported_root_difference": -1.2886580691429117e-10,
+      "direct_retained_quotient_difference": -1.288653578380078e-10,
+      "reported_closure_error": 1.3913730984533812e-16,
+      "quotient_closure_error": 1.391013220086205e-16,
+      "floating_EO_difference": -1.2886580691429117e-10,
+      "floating_averaging_offset": 0.0,
+      "signed_density_terms": 233,
+      "negative_signed_density_terms": 67,
+      "endpoint_input_sha256": [
+        "072c0232bd3711efc47b4221ff6be89cf28f0d1a652321886fb9ede22e5622a9",
+        "63338d7207d990b6cb639b93cf4bbaa18ef32a18c3b032b130f656f14fb4647b"
+      ],
+      "endpoint_H_sha256": [
+        "4f495961680c965e0ea0fe2e05f29f9c0675e4f912d2cda2dba9fdb0b7961dce",
+        "ae35d3d535cb6c0eb6ab0521b2895cfdbf23cadbf20073a40da3206809d890d3"
+      ],
+      "targets": [
+        {
+          "reference_level": [
+            0,
+            1,
+            0
+          ],
+          "selected_reference": [
+            0,
+            1,
+            0
+          ],
+          "selected_trial": [
+            0,
+            1,
+            0
+          ],
+          "weight": 0.25,
+          "phase": 1,
+          "norm0": 0.9999999999999999,
+          "norm1": 1.0,
+          "reported_terms": [
+            3.313318023508139e-19,
+            -1.4001525264143887e-25,
+            -6.602868831527087e-17,
+            1.133274851085043e-17
+          ],
+          "rayleigh_terms": [
+            3.313318023508139e-19,
+            -1.4001308337525582e-25,
+            -1.4312478287454757e-20
+          ],
+          "quotient_minus_reported": [
+            -6.602868831527088e-17,
+            -1.133274851085043e-17
+          ],
+          "residual_norms": [
+            2.0272303217003449e-16,
+            2.257078644542036e-16
+          ],
+          "coefficient_change_norm": 5.374892358504905e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        },
+        {
+          "reference_level": [
+            0,
+            1,
+            1
+          ],
+          "selected_reference": [
+            0,
+            1,
+            1
+          ],
+          "selected_trial": [
+            0,
+            1,
+            1
+          ],
+          "weight": 0.75,
+          "phase": 1,
+          "norm0": 0.9999999999999997,
+          "norm1": 1.0,
+          "reported_terms": [
+            3.467535446181182e-19,
+            3.381879638094417e-25,
+            -4.85981789306705e-16,
+            -9.455460856659362e-17
+          ],
+          "rayleigh_terms": [
+            3.467535446181185e-19,
+            3.381802491099598e-25,
+            -4.3212969966237184e-20
+          ],
+          "quotient_minus_reported": [
+            -4.859817893067052e-16,
+            9.455460856659362e-17
+          ],
+          "residual_norms": [
+            7.285274402418146e-16,
+            4.3292714878697937e-16
+          ],
+          "coefficient_change_norm": 7.802178932825236e-10,
+          "working_dtype": "longdouble",
+          "mantissa_fraction_bits": 63
+        }
+      ],
+      "full_CI_controls": [
+        {
+          "eigenpair_residual": 2.631478597749094e-15,
+          "CI_Gram": 1.9984014443252818e-15,
+          "radial_Gram": 1.2212453270876722e-15
+        },
+        {
+          "eigenpair_residual": 3.996706197320797e-15,
+          "CI_Gram": 2.4424906541753444e-15,
+          "radial_Gram": 8.881784197001252e-16
+        }
+      ],
+      "radial": {
+        "representation": "native-CI-cell-bank-banded",
+        "increment_sha256": "3c68b0e0026e9f808076a731b9d793f5cd97a469acbf909ee4854df2f168f058",
+        "reconstruction_wave_max": 1.7172099448266914e-16,
+        "reconstruction_dtype": "longdouble",
+        "reconstruction_mantissa_fraction_bits": 63,
+        "polynomial_dtype": "float64",
+        "certified_error_bound": false
+      }
+    },
+    "oracle_explicit": "-1.2886517762696166295761040149069115381263786675308553335943478585132401332070565E-10",
+    "oracle_reconstruction": "-4.1416608718762029803951867266943966810170504858650168207740992850357391465089381E-17",
+    "oracle_complete_radial": "-1.2886521904357038171964020544255842075660467692359039200960299359231686367809710E-10"
+  }
+]

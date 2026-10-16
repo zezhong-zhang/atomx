@@ -1,0 +1,3512 @@
+{
+  "status": "PASS_FULL4F_TARGETED_DAVIDSON",
+  "controls": [
+    {
+      "name": "all189834_saved_core_equations",
+      "measured": 1.0001765041178778e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved_core_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 6.259251986923965e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.150581482891596e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_idempotence",
+      "measured": 2.0569377881658615e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 1.9761309326524611e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.436588128905953e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.9516218420945335e-17,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 1.482190024836046e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 1.6130297178206904e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 6.705312136225261e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.1094729643216521e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 2.088505306062796e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.850458802944748e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 1.3223998659414506e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.397195142469514e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 1.0584727471302439e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:S:same_complete_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:S:stored_dense_root",
+      "measured": 1.1268763699945339e-13,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small:S:all_original_R3_equations",
+      "measured": 8.067823319135581e-12,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 6.409337285282214e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 2.1108097665132588e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_idempotence",
+      "measured": 1.9284416547489018e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 1.416855879104391e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 5.306360930309203e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 6.985550864038425e-17,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 3.517550880823881e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 1.0938844595844475e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 3.7565075386364267e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 1.5806008621222102e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 6.909531554730512e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 2.4985781650835567e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 8.745484144306132e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 1.8971101374355204e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 1.2261341641198581e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:D3:same_complete_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:D3:stored_dense_root",
+      "measured": 7.616129948928574e-14,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small:D3:all_original_R3_equations",
+      "measured": 2.8450160836809542e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.649931831474589e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 1.0066570490126852e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_idempotence",
+      "measured": 1.2158787719327476e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 1.6811265232200135e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 1.0933366308898278e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 6.44651596126631e-17,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.7478808358830277e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.5070373260828146e-17,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 4.4361461780464653e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 2.3628425011781923e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 5.985977498731892e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 2.457084507879642e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 6.928998924736217e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 1.4171958975056621e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 7.223535195792702e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:D5:same_complete_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "small:D5:stored_dense_root",
+      "measured": 6.240563621418005e-13,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "small:D5:all_original_R3_equations",
+      "measured": 3.686596568384243e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 3.894914549458454e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 4.0310327628209755e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:projector_idempotence",
+      "measured": 5.215670048818691e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 2.474262557813179e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 1.6736062364236195e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 4.825641217722195e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.408290532750585e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 3.8889804129928377e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.3759553588308125e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 4.2581057196036605e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.2825804898264716e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 3.7858765074426545e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.0781872713719527e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 4.06328637743861e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.2915987210392228e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 3.66119647526863e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 2.9925403640349114e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:projector_Jplus",
+      "measured": 3.8276177729943266e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:basis_J2",
+      "measured": 3.293911349127245e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:all_original_R3_equations",
+      "measured": 2.5634886991328333e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:M1:canonical_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S:M1:J2",
+      "measured": 2.3967330833874474e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:M1:all_R3_equations",
+      "measured": 2.5634886991328333e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S:M-1:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S:M-1:J2",
+      "measured": 1.9583945938801146e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:M-1:all_R3_equations",
+      "measured": 2.563489089615022e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 2.7687321337204644e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 4.0717632309875057e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_idempotence",
+      "measured": 3.980675211296799e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 2.4865301787140647e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 1.4811365895784858e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.750982971287792e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.8258466179808507e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 4.2770591702108146e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 3.170419793082037e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.101590917189617e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.4519264088482834e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.5882874539022936e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.950959191560624e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.826281209262396e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.835874378646919e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.947276978464089e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.7598871636307375e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:projector_Jplus",
+      "measured": 3.6988922362819107e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:basis_J2",
+      "measured": 2.7913683628354893e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:all_original_R3_equations",
+      "measured": 9.570083874671509e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:M3:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3:M3:J2",
+      "measured": 3.8889978603783275e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:M3:all_R3_equations",
+      "measured": 9.570083874671509e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:M1:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3:M1:J2",
+      "measured": 4.741713369875539e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:M1:all_R3_equations",
+      "measured": 8.948880661866778e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:M-1:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3:M-1:J2",
+      "measured": 6.692693933369233e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:M-1:all_R3_equations",
+      "measured": 8.948880531847221e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:M-3:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3:M-3:J2",
+      "measured": 3.3475387525863237e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3:M-3:all_R3_equations",
+      "measured": 9.570106122500088e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_bare_seed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:sparse_vs_signed_Jplus",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 1.8561208213588095e-15,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 3.8928185917028433e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_idempotence",
+      "measured": 3.0708243521246485e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 0.0,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 2.960895821738439e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 1.870157917826895e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 3.7141738227368927e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 3.001002159549246e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 3.715249271835395e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.5463481740990427e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 3.828439658819369e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.8088049841606174e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.1860735060249153e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.7455487218398966e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 3.9573999051989843e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.6699843857147116e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.0918347707450853e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.951157323275402e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.008473907147253e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 2.9341133268953465e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:finite_nonzero_preconditioner",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_SPD_solve",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:projector_Jplus",
+      "measured": 4.026640262582065e-16,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:independent_correction",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:basis_J2",
+      "measured": 3.2734464083525873e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:action_sector_leakage",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:unique_target_Ritz",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_target_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:real_residual_representation",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:all_original_R3_equations",
+      "measured": 2.193899532529353e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:M5:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M5:J2",
+      "measured": 4.2659090767183183e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M5:all_R3_equations",
+      "measured": 2.193899532529353e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:M3:canonical_norm",
+      "measured": 4.440892098500626e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M3:J2",
+      "measured": 1.7827773439010598e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M3:all_R3_equations",
+      "measured": 1.6993773901095854e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:M1:canonical_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M1:J2",
+      "measured": 1.8430106625843042e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M1:all_R3_equations",
+      "measured": 1.5091629226686443e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:M-1:canonical_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M-1:J2",
+      "measured": 1.572605358627213e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M-1:all_R3_equations",
+      "measured": 1.5091739490047384e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:M-3:canonical_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M-3:J2",
+      "measured": 5.718956789162539e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M-3:all_R3_equations",
+      "measured": 1.699366298721361e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:M-5:canonical_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5:M-5:J2",
+      "measured": 2.393741514377637e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5:M-5:all_R3_equations",
+      "measured": 2.19389957589744e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "source_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_inputs_unchanged",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    }
+  ],
+  "contract_sha256": "b6fddd081cbd94f648577c29dee8d5172f7e92f6a15b16f417eaf1ea79f1846b",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "core": {
+    "energy_relative_Ha": -0.006696914622722261,
+    "energy_absolute_Ha": -14067.083870400038,
+    "correlation_Ha": -0.006696914622722261,
+    "residual_Ha": 1.0001765041178778e-17,
+    "solver_evaluations": 57,
+    "measured_calls": 57,
+    "seconds": 293.18392283999856,
+    "rank_norms": {
+      "1": 8.672517304989598e-06,
+      "2": 0.05786766300544935,
+      "3": 0.0023923983125831313
+    },
+    "new4f_amplitude_norm": 0.05318291780971212,
+    "change_from_frozen4f_core_Ha": -0.004998305898009647,
+    "full_H_residual": "not computed; no full18-electron Fock-sector representation"
+  },
+  "small_qualification": {
+    "S": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.4136377479018467,
+        "residual_Ha": 0.007603295756915816,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 0.043908712003030814
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.4138239359060447,
+        "residual_Ha": 0.0002957348093324478,
+        "bare_R1_weight": 0.999944911797416,
+        "action_seconds": 0.025929294002708048
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.41382578365279454,
+        "residual_Ha": 2.9619771109997106e-06,
+        "bare_R1_weight": 0.999944826446806,
+        "action_seconds": 0.04163003900612239
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.4138257452266645,
+        "residual_Ha": 2.966078655804809e-07,
+        "bare_R1_weight": 0.9999448260452819,
+        "action_seconds": 0.02625230199919315
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.41382575191001525,
+        "residual_Ha": 3.5267935935152906e-09,
+        "bare_R1_weight": 0.999944826127126,
+        "action_seconds": 0.02621985099540325
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.41382575188455295,
+        "residual_Ha": 2.4202801731484115e-10,
+        "bare_R1_weight": 0.9999448261268842,
+        "action_seconds": 0.026381604999187402
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.41382575188609483,
+        "residual_Ha": 8.067829390667747e-12,
+        "bare_R1_weight": 0.9999448261268891,
+        "action_seconds": 0.02650734200142324
+      }
+    ],
+    "D3": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.30235823039285314,
+        "residual_Ha": 0.015624726642651111,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 0.025996090000262484
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.30277642552179906,
+        "residual_Ha": 0.000439680946234247,
+        "bare_R1_weight": 0.9998349905793757,
+        "action_seconds": 0.026090767001733184
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.3027781263970162,
+        "residual_Ha": 2.2819163755571338e-05,
+        "bare_R1_weight": 0.9998349143819748,
+        "action_seconds": 0.026095866996911354
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.30277802736932635,
+        "residual_Ha": 3.6376714210089797e-07,
+        "bare_R1_weight": 0.9998349122779101,
+        "action_seconds": 0.02611903000070015
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.302778034006423,
+        "residual_Ha": 2.0214961755687846e-08,
+        "bare_R1_weight": 0.9998349124970161,
+        "action_seconds": 0.027138030003698077
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.30277803399102243,
+        "residual_Ha": 9.107206470825523e-10,
+        "bare_R1_weight": 0.999834912492515,
+        "action_seconds": 0.02732332899904577
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.30277803400286807,
+        "residual_Ha": 2.8450161199339644e-11,
+        "bare_R1_weight": 0.9998349124923893,
+        "action_seconds": 0.02710763300274266
+      }
+    ],
+    "D5": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.3008089941150178,
+        "residual_Ha": 0.016367017228377655,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 0.02714496300177416
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.3012423220686018,
+        "residual_Ha": 0.00043501612410285325,
+        "bare_R1_weight": 0.9998435782911982,
+        "action_seconds": 0.027157827993505634
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.30124392747577233,
+        "residual_Ha": 2.276373925207681e-05,
+        "bare_R1_weight": 0.999843506937641,
+        "action_seconds": 0.02687749900360359
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.30124391703550835,
+        "residual_Ha": 5.356027829433725e-07,
+        "bare_R1_weight": 0.9998435061932399,
+        "action_seconds": 0.025985267995565664
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.3012439314733104,
+        "residual_Ha": 3.9783040705617745e-08,
+        "bare_R1_weight": 0.9998435064799076,
+        "action_seconds": 0.025657099999079946
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.30124393131894767,
+        "residual_Ha": 1.0927463196461207e-09,
+        "bare_R1_weight": 0.999843506473603,
+        "action_seconds": 0.026154497994866688
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.3012439313349029,
+        "residual_Ha": 3.6865973652728395e-11,
+        "bare_R1_weight": 0.9998435064734988,
+        "action_seconds": 0.026586760999634862
+      }
+    ]
+  },
+  "targets": {
+    "S": {
+      "EA_Ha": -0.4141764987013392,
+      "EA_cm1": -90901.23437175291,
+      "total69_relative_Ha": -0.4208734133240615,
+      "total69_absolute_Ha": -14067.49804689874,
+      "bare_R1_weight": 0.9999258124045889,
+      "magnetic_partners": 2,
+      "dimension": 3011,
+      "matvec_calls": 9,
+      "scope": "canonical projectedR norm only, not physical exp(T) norm"
+    },
+    "D3": {
+      "EA_Ha": -0.30216951759567223,
+      "EA_cm1": -66318.54348348835,
+      "total69_relative_Ha": -0.3088664322183945,
+      "total69_absolute_Ha": -14067.386039917634,
+      "bare_R1_weight": 0.9997777873258963,
+      "magnetic_partners": 4,
+      "dimension": 2790,
+      "matvec_calls": 9,
+      "scope": "canonical projectedR norm only, not physical exp(T) norm"
+    },
+    "D5": {
+      "EA_Ha": -0.30092461796135694,
+      "EA_cm1": -66045.31959516289,
+      "total69_relative_Ha": -0.3076215325840792,
+      "total69_absolute_Ha": -14067.384795017999,
+      "bare_R1_weight": 0.9997965366376492,
+      "magnetic_partners": 6,
+      "dimension": 2388,
+      "matvec_calls": 10,
+      "scope": "canonical projectedR norm only, not physical exp(T) norm"
+    }
+  },
+  "EA_history": {
+    "S": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.4136196999673132,
+        "residual_Ha": 0.007655966839581567,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 1.078428230001009
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.4142005764817662,
+        "residual_Ha": 0.00036547845425599277,
+        "bare_R1_weight": 0.9999250013513399,
+        "action_seconds": 1.054784160995041
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.4141747876201869,
+        "residual_Ha": 3.403257312361327e-05,
+        "bare_R1_weight": 0.999925841034266,
+        "action_seconds": 1.051258510997286
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.4141761721994841,
+        "residual_Ha": 2.795512129285052e-06,
+        "bare_R1_weight": 0.9999258285235754,
+        "action_seconds": 1.0330660010004067
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.41417650896694647,
+        "residual_Ha": 7.398549565968728e-07,
+        "bare_R1_weight": 0.9999258123740498,
+        "action_seconds": 1.0466213350009639
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.4141764990515251,
+        "residual_Ha": 1.469317387398951e-08,
+        "bare_R1_weight": 0.999925812370457,
+        "action_seconds": 1.0333076060051098
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.41417649865256867,
+        "residual_Ha": 6.2520862699217555e-09,
+        "bare_R1_weight": 0.999925812406797,
+        "action_seconds": 1.029812993001542
+      },
+      {
+        "iteration": 8,
+        "EA_Ha": -0.4141764986921357,
+        "residual_Ha": 7.438698557951304e-10,
+        "bare_R1_weight": 0.9999258124050194,
+        "action_seconds": 1.0335816630031331
+      },
+      {
+        "iteration": 9,
+        "EA_Ha": -0.4141764987013392,
+        "residual_Ha": 2.5634887865466334e-11,
+        "bare_R1_weight": 0.9999258124045889,
+        "action_seconds": 1.0309054109966382
+      }
+    ],
+    "D3": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.3011758364354762,
+        "residual_Ha": 0.0156468654301463,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 1.0334336429950781
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.3021918934060286,
+        "residual_Ha": 0.0004150475523754099,
+        "bare_R1_weight": 0.999776413225576,
+        "action_seconds": 1.0299203950053197
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.3021676618064526,
+        "residual_Ha": 3.910121478866211e-05,
+        "bare_R1_weight": 0.9997778108068287,
+        "action_seconds": 1.04555809199519
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.3021690517892246,
+        "residual_Ha": 1.1259339489322974e-05,
+        "bare_R1_weight": 0.9997778202835214,
+        "action_seconds": 1.0344876989984186
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.30216947906090086,
+        "residual_Ha": 1.1172988518796408e-06,
+        "bare_R1_weight": 0.999777791464498,
+        "action_seconds": 1.0304753809978138
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.3021695173485943,
+        "residual_Ha": 9.312021681008587e-08,
+        "bare_R1_weight": 0.999777787075127,
+        "action_seconds": 1.0271895519981626
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.3021695177097845,
+        "residual_Ha": 8.955888732436492e-09,
+        "bare_R1_weight": 0.9997777872818422,
+        "action_seconds": 1.0256499009992694
+      },
+      {
+        "iteration": 8,
+        "EA_Ha": -0.3021695175821366,
+        "residual_Ha": 2.220691533764106e-09,
+        "bare_R1_weight": 0.999777787327047,
+        "action_seconds": 1.0418157630047062
+      },
+      {
+        "iteration": 9,
+        "EA_Ha": -0.30216951759567223,
+        "residual_Ha": 9.570153480450982e-11,
+        "bare_R1_weight": 0.9997777873258963,
+        "action_seconds": 1.054541954996239
+      }
+    ],
+    "D5": [
+      {
+        "iteration": 1,
+        "EA_Ha": -0.29993289967939063,
+        "residual_Ha": 0.016399045587050434,
+        "bare_R1_weight": 1.0,
+        "action_seconds": 1.0292942149972077
+      },
+      {
+        "iteration": 2,
+        "EA_Ha": -0.30094780116005904,
+        "residual_Ha": 0.0004097296784830765,
+        "bare_R1_weight": 0.999795340342773,
+        "action_seconds": 1.0274613340006908
+      },
+      {
+        "iteration": 3,
+        "EA_Ha": -0.30092241160396016,
+        "residual_Ha": 4.337181096639357e-05,
+        "bare_R1_weight": 0.9997965788875529,
+        "action_seconds": 1.0270350709979539
+      },
+      {
+        "iteration": 4,
+        "EA_Ha": -0.30092411240830574,
+        "residual_Ha": 1.1268339050627608e-05,
+        "bare_R1_weight": 0.999796570158418,
+        "action_seconds": 1.0430291689990554
+      },
+      {
+        "iteration": 5,
+        "EA_Ha": -0.30092458087943164,
+        "residual_Ha": 1.057877240273983e-06,
+        "bare_R1_weight": 0.9997965411421073,
+        "action_seconds": 1.056872626002587
+      },
+      {
+        "iteration": 6,
+        "EA_Ha": -0.30092461849640895,
+        "residual_Ha": 1.0352818662281349e-07,
+        "bare_R1_weight": 0.9997965364978681,
+        "action_seconds": 1.0546617110012448
+      },
+      {
+        "iteration": 7,
+        "EA_Ha": -0.300924618159814,
+        "residual_Ha": 8.686654921524935e-09,
+        "bare_R1_weight": 0.9997965366062381,
+        "action_seconds": 1.0515827410054044
+      },
+      {
+        "iteration": 8,
+        "EA_Ha": -0.30092461794077807,
+        "residual_Ha": 2.1161581822796982e-09,
+        "bare_R1_weight": 0.9997965366386139,
+        "action_seconds": 1.0508496399997966
+      },
+      {
+        "iteration": 9,
+        "EA_Ha": -0.30092461795745007,
+        "residual_Ha": 1.331145230325302e-10,
+        "bare_R1_weight": 0.9997965366379868,
+        "action_seconds": 1.0540160849996028
+      },
+      {
+        "iteration": 10,
+        "EA_Ha": -0.30092461796135694,
+        "residual_Ha": 2.1939030345023702e-11,
+        "bare_R1_weight": 0.9997965366376492,
+        "action_seconds": 1.0569392910038005
+      }
+    ]
+  },
+  "lines_cm1": {
+    "D3": 24582.690888264573,
+    "D5": 24855.91477659003
+  },
+  "4f_opening_line_changes_cm1": {
+    "D3": 210.53394213236606,
+    "D5": 147.06121281249943
+  },
+  "elapsed_seconds": 55.81522614200367,
+  "peak_RSS_MiB": 490.828125
+}

@@ -1,0 +1,46 @@
+{
+  "project_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f",
+  "commit_sha": "d987d8e02b7395bb8c16afae7c10b7c5eb726dd6",
+  "version": {
+    "id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f~appgver_0e36a4f306f88191ae81050aa9095447",
+    "project_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f",
+    "version_number": 1,
+    "source": {
+      "commit_sha": "d987d8e02b7395bb8c16afae7c10b7c5eb726dd6"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_0000000061a881fba3953894e7a7257e",
+      "content_hash": "sha256:122e477ca07237cf411ffc788d4189c07509a6990b6427e227dca02aa6248836",
+      "size_bytes": 39997440,
+      "file_count": 6022
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6aca6ffea384819198c88bdc9a6bde72",
+    "project_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f",
+    "title": "Atomx 原子谱学验证图谱",
+    "version_id": "appgprj_6aca6d7b3a588191bcfa3af5b091801f~appgver_0e36a4f306f88191ae81050aa9095447",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6aca6d7b3a588191bcfa3af5b091801f",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-10T17:04:41.019322+00:00"
+  },
+  "audience": "owner-private; preserve owner-only access",
+  "scientific_data": "snapshot003.sqlite; all records retained; packaging004 lossless",
+  "local_source": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "static_config": {
+    "static": {
+      "directory": "dist"
+    }
+  },
+  "archive_limit_bytes": 268435456,
+  "credentials_persisted": false
+}

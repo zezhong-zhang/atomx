@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/atlas_update008/prepare.py", line 208, in <module>
+    main()
+    ~~~~^^
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/atlas_update008/prepare.py", line 164, in main
+    fixed_model('screened', screened['models']['complete5f'], template, c, amap,
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               load(ROOT / SCREENED / 'root_execution.json'),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               {'original_execution_passed': True, 'native_numeric_checks': 941,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                'independent_saved_array_replay_performed': False, 'scalar_signed_anchors': 32})]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/atlas_update008/prepare.py", line 103, in fixed_model
+    elapsed_uncontrolled_s=receipt['elapsed_uncontrolled_seconds'], original_execution_exit_code=receipt['exit_code'],
+                           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'elapsed_uncontrolled_seconds'

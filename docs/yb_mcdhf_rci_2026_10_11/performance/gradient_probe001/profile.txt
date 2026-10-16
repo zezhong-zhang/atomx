@@ -1,0 +1,43 @@
+         10286 function calls (10285 primitive calls) in 0.035 seconds
+
+   Ordered by: cumulative time
+   List reduced from 276 to 35 due to restriction <35>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.035    0.035 /data/code/atomx/src/atomx/methods/csf/variational.py:78(evaluate)
+        1    0.000    0.000    0.020    0.020 /data/code/atomx/src/atomx/methods/ci.py:58(ci_solve)
+        1    0.000    0.000    0.020    0.020 /data/code/atomx/src/atomx/physics/csf/matrix.py:485(build_ci_matrix)
+        1    0.000    0.000    0.019    0.019 /data/code/atomx/src/atomx/angular/csf_hamiltonian.py:1463(exact_block_matrix)
+        1    0.000    0.000    0.019    0.019 /data/code/atomx/src/atomx/angular/csf_hamiltonian.py:1312(evaluate_block)
+        1    0.000    0.000    0.019    0.019 {built-in method numpy.fromiter}
+      234    0.000    0.000    0.019    0.000 /data/code/atomx/src/atomx/angular/csf_hamiltonian.py:1324(values_iter)
+      233    0.001    0.000    0.018    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:750(evaluate)
+       31    0.000    0.000    0.017    0.001 /data/code/atomx/src/atomx/physics/csf/matrix.py:735(pair_potential)
+      124    0.016    0.000    0.016    0.000 /data/code/atomx/src/atomx/numerics/bspline/convol.py:963(_convol_case1_t)
+        1    0.004    0.004    0.014    0.014 /data/code/atomx/src/atomx/methods/csf/variational.py:100(gradient_from_weights)
+       31    0.000    0.000    0.010    0.000 /data/code/atomx/src/atomx/methods/csf/variational.py:190(_pair_potential)
+      124    0.009    0.000    0.009    0.000 /data/code/atomx/src/atomx/numerics/bspline/convol.py:1117(_convol_case1_semiseparable_t)
+      216    0.000    0.000    0.001    0.000 {built-in method builtins.sum}
+      648    0.000    0.000    0.001    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:779(<genexpr>)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/state_average.py:66(weights)
+        2    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:910(_workspace_fingerprint)
+      8/7    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/_compressed.py:29(__init__)
+      432    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/numerics/bspline/convol.py:1340(_sum_amb_banded)
+      101    0.000    0.000    0.000    0.000 {method 'update' of '_hashlib.HASH' objects}
+      180    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/numerics/bspline/convol.py:704(_density_sym)
+        4    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/_base.py:728(__matmul__)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:89(_reset_memo_for_ci_build)
+        4    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/_base.py:597(_matmul_dispatch)
+      236    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_type_check_impl.py:270(iscomplexobj)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:932(_orbital_metric_fingerprint)
+       28    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:726(density)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/radial_density.py:26(contract)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/levels.py:95(normalize_ci_weights)
+       13    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/numpy/_core/numeric.py:2243(allclose)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/levels.py:47(ci_level_blocks)
+        2    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/_compressed.py:546(_matmul_sparse)
+       84    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:732(<genexpr>)
+        1    0.000    0.000    0.000    0.000 /data/code/atomx/src/atomx/physics/csf/matrix.py:977(_check_orbital_metric)
+       13    0.000    0.000    0.000    0.000 /data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/_base.py:1356(_get_index_dtype)
+
+

@@ -1,0 +1,3 @@
+Stage033 root integration closed with exit0 in0.515296765 seconds. The saved result/panel/proof/registry identities agree, all old scientific rows and original stationarity/experimental failures remain unchanged, and no new scientific/NPZ/API/card calls occurred. This closure independently compares JSON metadata only.
+
+The report separates f043 native31 one-direction derivative qualification, private31 raw-gradient CPU/CUDA consistency, and current shared mixed-fixture failures. It records four hour28 automatic probes withYb0 and retains the original format failure. The actual04HKT card delivered stage032; stage033 integration is not another card delivery. Frozen prepared files are unchanged.

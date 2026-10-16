@@ -1,0 +1,213 @@
+{
+  "all_passed": true,
+  "checks_count": 49,
+  "checks": [
+    {
+      "name": "synthetic_actual_file_bindings_accepted",
+      "passed": true
+    },
+    {
+      "name": "tampered_manifest_rejected:accepted_complete_point",
+      "passed": true
+    },
+    {
+      "name": "tampered_manifest_rejected:source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "tampered_manifest_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "tampered_manifest_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "tampered_manifest_rejected:frozen_scientific_inputs_sha256",
+      "passed": true
+    },
+    {
+      "name": "truthy_nonboolean_accepted_flag_rejected",
+      "passed": true
+    },
+    {
+      "name": "missing_frozen_input_binding_rejected",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_file_change_rejected:source_sha256",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_file_change_rejected:contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_file_change_rejected:execution_sha256",
+      "passed": true
+    },
+    {
+      "name": "independent_objective_explicit_physics",
+      "passed": true
+    },
+    {
+      "name": "canonical_serialization_independently_checked",
+      "passed": true
+    },
+    {
+      "name": "canonical_mapping_order_invariant",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:CSFs",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:target_identity",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:Z",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:electrons",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:nucleus",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:operator",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:radial_archive_sha256",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:physical_reference_CI_sha256",
+      "passed": true
+    },
+    {
+      "name": "objective_identity_sensitive:physical_reference_binding_sha256",
+      "passed": true
+    },
+    {
+      "name": "signed_CSF_order_cannot_be_permuted",
+      "passed": true
+    },
+    {
+      "name": "signed_CSF_coupling_phase_cannot_change",
+      "passed": true
+    },
+    {
+      "name": "physical_target_identity_sensitive:label",
+      "passed": true
+    },
+    {
+      "name": "physical_target_identity_sensitive:twoJ",
+      "passed": true
+    },
+    {
+      "name": "physical_target_identity_sensitive:parity",
+      "passed": true
+    },
+    {
+      "name": "physical_target_identity_sensitive:root",
+      "passed": true
+    },
+    {
+      "name": "physical_target_identity_sensitive:weight",
+      "passed": true
+    },
+    {
+      "name": "complete_constructed_exact_eigenpairs_pass",
+      "passed": true
+    },
+    {
+      "name": "degenerate_subspace_rotation_passes_without_column_equality",
+      "passed": true
+    },
+    {
+      "name": "signed_column_phase_choice_passes",
+      "passed": true
+    },
+    {
+      "name": "consistent_full_eigenpair_order_passes",
+      "passed": true
+    },
+    {
+      "name": "degenerate_duplicate_vectors_residual_alone_can_pass",
+      "passed": true
+    },
+    {
+      "name": "degenerate_duplicate_vectors_rejected_by_Gram",
+      "passed": true
+    },
+    {
+      "name": "orthogonal_wrong_nondegenerate_eigenvectors_rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong_saved_energy_rejected",
+      "passed": true
+    },
+    {
+      "name": "nonhermitian_saved_H_rejected",
+      "passed": true
+    },
+    {
+      "name": "incomplete_saved_array_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "nonfinite_saved_array_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "changed_saved_array_precision_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "incomplete_saved_array_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "nonfinite_saved_array_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "changed_saved_array_precision_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "incomplete_saved_array_rejected:mixing",
+      "passed": true
+    },
+    {
+      "name": "nonfinite_saved_array_rejected:mixing",
+      "passed": true
+    },
+    {
+      "name": "changed_saved_array_precision_rejected:mixing",
+      "passed": true
+    }
+  ],
+  "verifier_sha256": "7b72b114aa3aa21ffd1e124ba9b144a29c66ecd6d324e419736aed839e8f264e",
+  "guard_runner_sha256": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+  "contract_sha256": "7bbc99f9b73c6ceb3a9a1262497bf1ec853e08e5c05d1d11528f4347b2d81958",
+  "scope": "Constructed four-dimensional linear-algebra arrays and temporary-file provenance only.",
+  "Atomx_imports": 0,
+  "physical_H_builds": 0,
+  "CI_solves": 0,
+  "full_gradients": 0,
+  "optimizer_calls": 0,
+  "actual_endpoint_verified": false,
+  "runtime_source_sealed": false
+}

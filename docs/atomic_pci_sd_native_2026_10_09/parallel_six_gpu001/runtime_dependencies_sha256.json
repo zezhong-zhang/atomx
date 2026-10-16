@@ -1,0 +1,1803 @@
+{
+  "role": "fixed CUDA implementation Python sources, actually mapped loader/driver/compiler shared libraries and CUDA libdevice bitcode; hash-check before import and after every GPU attempt, not claimed as copied full runtime archive",
+  "dependencies": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/__init__.py": {
+      "sha256": "0328d8c60ec408bcd9f92527f99de1f2f871fe6fc7962f8b88ce2fb53df28c21",
+      "bytes": 2231
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/_compat.py": {
+      "sha256": "43d1e78fa82bf4f6f7bc6ec85926d3b2f065ecd3224d950978435f1228b47d58",
+      "bytes": 371
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/_internal/cuda_bf16.py": {
+      "sha256": "acc6918329eafff1c9a710e954c859f27ec09b633c5163fc2fd93b13d8ba20d2",
+      "bytes": 508533
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/_internal/cuda_fp16.py": {
+      "sha256": "1b6b50a055c1da17c79012e721747cc0615870bdf1526db58d70a6e925d796e2",
+      "bytes": 239520
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/_internal/cuda_fp8.py": {
+      "sha256": "98b3c4227df8a86045db09741aafe5c9460a8826be18a87c7d51010c6d4eba69",
+      "bytes": 116564
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/api.py": {
+      "sha256": "e077fcdea5b64fd9fd6df027d81f3a653a8455121f779a93b0c09d9bfa42b056",
+      "bytes": 18048
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/api_util.py": {
+      "sha256": "9477eb4c8726fa8ca06060116f9f36eeec9f0950a2b282b9f7dc71e629523b6f",
+      "bytes": 2354
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/args.py": {
+      "sha256": "1176867a65fd50eb1d7b904b66a99597e1d30e52a42cbef58f87d9808275fe86",
+      "bytes": 2790
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/bf16.py": {
+      "sha256": "b267145b93d34c0156e9c0ecb1f652a5b4e12ecf31048f92a24f4391545991c8",
+      "bytes": 10677
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cache_hints.py": {
+      "sha256": "855b40bd2684869478f0116cbe918cffa76b5695ca28b324074b363f58fea16f",
+      "bytes": 8199
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cext/__init__.py": {
+      "sha256": "69e4e958b52fc57b89785ad0ef59957c7b875ff65ca8988fa7d7ff92314526d8",
+      "bytes": 139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cg.py": {
+      "sha256": "ee3f306d22a1e39797703418f2d3a442f954ed71f1f9467bbf92e665f5f9ec8d",
+      "bytes": 1752
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cgutils.py": {
+      "sha256": "a02555121cc892a7591f686005a82a7f15605acffc871ad52fedcfe3183bc42f",
+      "bytes": 39918
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cloudpickle/__init__.py": {
+      "sha256": "cff5fc196aad0654c9d2eec1c50c39b4f907f3af57c9708ddb1cb1a222d77b4f",
+      "bytes": 448
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cloudpickle/cloudpickle.py": {
+      "sha256": "a39ea8676cc643b2ee9672e456c67a3b05e812889d5a5bc25062b312f15d5a8c",
+      "bytes": 59591
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cloudpickle/cloudpickle_fast.py": {
+      "sha256": "a39322f3855fb1342c8b8f69ac2e96b7530f61bc6c6194f922c5fa98450b0e3c",
+      "bytes": 463
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/codegen.py": {
+      "sha256": "0dc2b5778d53e9e6795b54dfe8bffdfac94efc11763005bfc441227c8d83bb85",
+      "bytes": 18889
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/compiler.py": {
+      "sha256": "0efd2cd9121c2f1aa81738b36e421859f36d4bc4a24ed1320257f58f42e92f1d",
+      "bytes": 42514
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/analysis.py": {
+      "sha256": "26d7ea86d586473db0a9d29543b5ad86318b573e7e1bcfc7dfea250e1891a1bb",
+      "bytes": 29017
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/annotations/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/annotations/pretty_annotate.py": {
+      "sha256": "620fb49847cc61fc0badf328f3f9d35a1a60a43f51ea0fbea68ff69fa581d819",
+      "bytes": 9777
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/annotations/type_annotations.py": {
+      "sha256": "f41643bd74340eb0f44b186606c0af1b4165e22c6ec6e3e4f074504743d868a5",
+      "bytes": 11674
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/base.py": {
+      "sha256": "a0a1bc7c6425a90cfbe2c7f34325dbf34490a5b9ceda4df2a8b11833caaf0e89",
+      "bytes": 46252
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/boxing.py": {
+      "sha256": "8d9cbea9b22fde27e8e7285ba4bcffd02e5a89515522ca5e5df6a1365a68c0a1",
+      "bytes": 47242
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/bytecode.py": {
+      "sha256": "78d332bb868f462795e908e7e2a26cfca9e55533705d2a8ec3f30abd6594d8e5",
+      "bytes": 25025
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/byteflow.py": {
+      "sha256": "81266f6557a0f2b7b0fd9e51675a55ea63e6047e0d22f65037cc1275be75a1c7",
+      "bytes": 83457
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/caching.py": {
+      "sha256": "88a23bb493f4ef5d3df63d06b0e5133be7c482c2aab7faf62acc6c4576c02769",
+      "bytes": 24098
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/callconv.py": {
+      "sha256": "c829ac623ef47919532cc49ffdd3bd2e8514fa9b5c0748a524df7dfec377a803",
+      "bytes": 18806
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/codegen.py": {
+      "sha256": "c1050e8f53bbcb6cc63abd47c48255c7a072dfd9d10e6a06c15ee47839970aa8",
+      "bytes": 4938
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/compiler.py": {
+      "sha256": "21654755cf5eabd40f7c4b022c7aa04c7529f0733789036e4ca0dfeca75036d7",
+      "bytes": 6763
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/compiler_lock.py": {
+      "sha256": "21c1ef0a64c7878b0317d431ebb441c5532956494b9983105218885c54078630",
+      "bytes": 2237
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/compiler_machinery.py": {
+      "sha256": "8751c923e5ffddffa2be737e09c9154f0810eed3382cf7143fdddae8e52b1ba7",
+      "bytes": 15003
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/config.py": {
+      "sha256": "064e93f8c21c0b892275a1a7eb35b73ab810ee5ffa0370de7ebb376aa7f1d4a4",
+      "bytes": 22659
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/consts.py": {
+      "sha256": "1d6cc84b23e3acc39c8a65b3eab67313cf9ee7de65748c8992322008b96bb868",
+      "bytes": 4667
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/controlflow.py": {
+      "sha256": "17fbb8fb7bd8d16e32aefe1fa79f89887b85cd6bcdbf539f63c86e9c20c3acb1",
+      "bytes": 31531
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/entrypoints.py": {
+      "sha256": "2da66f9c0e3db2469186824c018cd90cc72d579bc6daf117b0d0da57194339e5",
+      "bytes": 1936
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/environment.py": {
+      "sha256": "a2f45310c22c02678777855dd182ea54f0095eb2acc64704a7f603a6f9fcd447",
+      "bytes": 1707
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/errors.py": {
+      "sha256": "81addd3205309f54dad3eeeeffc4f8ed1d5dcffbe6a5b1380958e539a035573c",
+      "bytes": 24896
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/event.py": {
+      "sha256": "c4dc70358812037bb1eb6529e0e83dae6290014f751d22c89a667e44901bfef6",
+      "bytes": 12555
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/funcdesc.py": {
+      "sha256": "f62a353fb33b8cbf0bc9231274563379d9decbff5755e4c4091f14c645dccacc",
+      "bytes": 10016
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/generators.py": {
+      "sha256": "b772a4e0eb0d4fa04b7b4bf6ab20695f84ad97c1fd94a4ceba7fcc22c94af3f3",
+      "bytes": 14099
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/imputils.py": {
+      "sha256": "6ae6bd608df986642f852134fb94fa89ae62d75704dd77c62abf34ceecb3d04c",
+      "bytes": 15159
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/inline_closurecall.py": {
+      "sha256": "75c2a06b6f8fbc3d3d6b24c856f0ad6f8fea3e15dd7e6d334103cb6f41539a8d",
+      "bytes": 70028
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/interpreter.py": {
+      "sha256": "1a15807cb9e7a907a692d63c7dc0f3b8924e57e4b8cf50dec5244428e9d2d1d0",
+      "bytes": 145568
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/ir.py": {
+      "sha256": "2fe4d552dcdf030bb5977b99af70574f31d55a6d9e57d0f8285ae225048a9f38",
+      "bytes": 56997
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/ir_utils.py": {
+      "sha256": "b14d3ff91757119909529af5c97ee93c2f31c986d2b1c1ce58c78e17c6a2d189",
+      "bytes": 97741
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/optional.py": {
+      "sha256": "448293a35c24c1d48b4874f4589cca4913ae74569c66e4c8dc8453f1d1f2d27f",
+      "bytes": 4403
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/options.py": {
+      "sha256": "ba5e6e11afde88c7f5df5f419bddbc952112350686111d0ae0e3e5141a3ca18d",
+      "bytes": 7463
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/postproc.py": {
+      "sha256": "7fa80730018e9e12dc0e2d050b6ee1460527d1a0e605aedba7b80defa67c4917",
+      "bytes": 9399
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/pythonapi.py": {
+      "sha256": "e040c51622b8e93a3d2c9b93c9da9110e746b8724b7e475101b0c53ede4e6556",
+      "bytes": 70079
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/registry.py": {
+      "sha256": "1608971e2e2d42813f14e03a6969b25f733596c332ee55fda541ad30ddf5ef67",
+      "bytes": 1494
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/removerefctpass.py": {
+      "sha256": "430168748c7d2d237f458217425ca5e1c4b2d2c87893f419e7d0d7e17afc5cdc",
+      "bytes": 3537
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/__init__.py": {
+      "sha256": "781f0a0792dc7560c1069e8a2146b0e3d0c9ef12d008cb422017997c4b13363d",
+      "bytes": 572
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/ir_print.py": {
+      "sha256": "13c6cadc5cf5136b6dffed5bfbb2aa64bee052cf3be5ee8c653755e71f15fcf2",
+      "bytes": 3265
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/registry.py": {
+      "sha256": "3f3ba3a60479c4649c3fdf9e08854177da114cead426134467a02de71f8a6d1f",
+      "bytes": 3788
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/static_binop.py": {
+      "sha256": "08f9dd924ef746214ef955152bedeff9f7c8d5689eefafcde7af04e1f81b9b83",
+      "bytes": 1378
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/static_getitem.py": {
+      "sha256": "0380ca594ca420be2956dd313aa61a3b0e92baf4ae67279f3dfe63dc01cb726d",
+      "bytes": 6730
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/rewrites/static_raise.py": {
+      "sha256": "08278de15ccfb762d884e15d9d4809c0c1f4f14122dc39d2db27730e973dd308",
+      "bytes": 3839
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/sigutils.py": {
+      "sha256": "aee6e7c05c2a8a45f7fc5d09994f2ab403a7efa99611394f6f2fcc2e7936bafd",
+      "bytes": 2061
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/ssa.py": {
+      "sha256": "e4ef931257e4dcdeed64ff81ffb8daf85518c03ce12003ef59d4829b2ec9ca9a",
+      "bytes": 16824
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/targetconfig.py": {
+      "sha256": "c6e45833892678d93f39037911a5d02a84ce4d287c2721179ae0c3b24cd8052c",
+      "bytes": 10125
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/tracing.py": {
+      "sha256": "27c7f25d3fa0746f799027759efc623beaf4e6512f00dd55bbb5c21df522d2e9",
+      "bytes": 7047
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/transforms.py": {
+      "sha256": "0c03c1006c2707a6862ed9899ec71d11a84ee42ed1fa01c52ebc8039f2007d4f",
+      "bytes": 32395
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/typed_passes.py": {
+      "sha256": "e0d19bccb4600a9df0d008640ee1cd20fe9a2d62850e2aafe6bcf777f8ccc433",
+      "bytes": 30679
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/typeinfer.py": {
+      "sha256": "ee5a7c47b852baeb744d08f18971e0d5ac1e87e13368d73e8a6778ac53278105",
+      "bytes": 72814
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/unsafe/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/unsafe/bytes.py": {
+      "sha256": "b4d584ffef63cd49662b9f32c3435fa970741b0876caba7583a5702faf3b697a",
+      "bytes": 1992
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/unsafe/eh.py": {
+      "sha256": "caefb1fa527962545871f1971314630e810cf07c43174e64611888721a0b1904",
+      "bytes": 1798
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/unsafe/refcount.py": {
+      "sha256": "57e11fea2bb16f4d24991438aa6a8eb671b1efd3dc5cb416605a4503b7fe70ce",
+      "bytes": 3060
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/core/untyped_passes.py": {
+      "sha256": "c58c34691be7d0df83264128715429ead01992cce166017a13caca3ffcf6ef47",
+      "bytes": 77880
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/builtins.py": {
+      "sha256": "7e0c919088d337d51a525b260b9cc1b46bdefa490c3b4c34adb9d87131ccabc5",
+      "bytes": 36182
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/charseq.py": {
+      "sha256": "4ba7214ef226556eb3ae0c7f1584cab117fffa7f1634a4f4cad2e984acb3a52a",
+      "bytes": 35166
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/cmathimpl.py": {
+      "sha256": "904d156f9a6f42cebf7418d93636452a0da0403ceb5ee371de8b3013070d9e29",
+      "bytes": 17585
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/enumimpl.py": {
+      "sha256": "198a9ad085eec042b09a7c79e2f582090dfd1e9d063f11e5a272c8a1fc495e42",
+      "bytes": 3024
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/iterators.py": {
+      "sha256": "be23a1c4bb4c1694f64c341d5d522a0f47888819481a23ccf2c4f39e9c3582b0",
+      "bytes": 5139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/listobj.py": {
+      "sha256": "3b6fb15340a12dae20343f47c9fef5d9ff3727ca576759d152b10ebe592acc77",
+      "bytes": 41841
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/mathimpl.py": {
+      "sha256": "3392a4a8f9c31b12f5cf71cda6d6e36e52a132d42dc0ca134f33862323e1261d",
+      "bytes": 16173
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/numbers.py": {
+      "sha256": "89b0099658f631b7fe4475b2f9e7fb8318b61d5a185029488f7f8b926ecf26f1",
+      "bytes": 50423
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/rangeobj.py": {
+      "sha256": "6d8c87fcbef11daacfd02fd2d3a5fde6e269a670b44ae2a9684a6434d7fb8f1c",
+      "bytes": 8951
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/slicing.py": {
+      "sha256": "ca81f98d1709ab991122a9177b011380eb6460423cd7f85f230ac33871f085b7",
+      "bytes": 9458
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/tupleobj.py": {
+      "sha256": "ba0b4d7e2eefc8e57dcd74b11aa689ef9d717a67e7bbc0acfbaa61e58f5cdf8b",
+      "bytes": 16903
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/unicode.py": {
+      "sha256": "3c359ca184764cd85d1f1488d6e83867508c92bd23957eba5b059b2c8595f15a",
+      "bytes": 89125
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/unicode_support.py": {
+      "sha256": "b8fdba5ec5ef07851881a468a159745608e3767c79bbdb5b9c2746942482f691",
+      "bytes": 34954
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/unsafe/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/unsafe/numbers.py": {
+      "sha256": "a10d542584979a4dd8867e198fe7da7dce926b7f130f1ce44e6d94dc4caf068f",
+      "bytes": 1924
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cpython/unsafe/tuple.py": {
+      "sha256": "601b342d4cb7e2f37fdbefd862ba8e74433b5b685724ef447164bbc82d3f7e91",
+      "bytes": 3072
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cuda_paths.py": {
+      "sha256": "7e691df05a88507ce56ffcd7fe307ab3e51e65996faf73264dfa6df1f65cfb2d",
+      "bytes": 17124
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadecl.py": {
+      "sha256": "6c1d920668bff378e56447848f397f47cbad4790b51958d0f88ef4303a6adf0c",
+      "bytes": 14673
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/__init__.py": {
+      "sha256": "2c36a36ed4dc10ba0e5ace731d0adfac8e263f44dc1f5f99970aa1c4683babc0",
+      "bytes": 346
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/devicearray.py": {
+      "sha256": "5854a48b2a3353dff2aebc53fa294ac139b105f7f389e4d40e680e7b91f146da",
+      "bytes": 36906
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/devices.py": {
+      "sha256": "0c1a585c45334bb676d0a92b95e2de729f149ce2e5a68c1d75f28647deb8e4f9",
+      "bytes": 7718
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/driver.py": {
+      "sha256": "cbb197df7840da415fa0b48f8df998960efb31b5c1d240bb28e865d96f844b64",
+      "bytes": 90512
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/drvapi.py": {
+      "sha256": "51eaf37848fb8e53f66b9af99ba5724894badee745d4974e8ca2b64aa7a0d4ac",
+      "bytes": 17070
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/dummyarray.py": {
+      "sha256": "788f1274b5f4a1748cf49bf31b3f4c13659c6395fdf9bd167990406fececf14a",
+      "bytes": 17184
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/error.py": {
+      "sha256": "02b3f01e530289c0491de890ffe60c15a1388b775934204238ae2c47c594862d",
+      "bytes": 771
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/libs.py": {
+      "sha256": "406c91daf64e5115ec3bd63b5b9165258ed7eb8cbbbdb0850ba826e45515c0d4",
+      "bytes": 7446
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/linkable_code.py": {
+      "sha256": "6db3bca3b3bda0e991724c55be3b4270de0cce4651805194f42d5766e5fccfe6",
+      "bytes": 5085
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/mappings.py": {
+      "sha256": "328f25c18425850dd8fd8289ab35171dca9bd3d7e961c6651604b32301bcea77",
+      "bytes": 545
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/ndarray.py": {
+      "sha256": "f9ac60d12228036f82297620b9b7e9524b4e5f4814d2dc52875fb0abb8d195af",
+      "bytes": 675
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/nvrtc.py": {
+      "sha256": "4fbd893a938e6dec188c4c106f63a3d5d3f32970316b1e3f9ea2444b82564af7",
+      "bytes": 8209
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/nvvm.py": {
+      "sha256": "664af2778b0e05bcc8366f0f01d1a597d811225bf22af8ffa0171514a2fd1911",
+      "bytes": 21198
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudadrv/runtime.py": {
+      "sha256": "f44ae840e34fd837b2a30cad07591d0a5c1274330b433f38936619e0dc29f664",
+      "bytes": 865
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudaimpl.py": {
+      "sha256": "e39c985dcc22dcec25d17b23a3d3dbd29bd089880243ac4a9213df163f86760a",
+      "bytes": 32577
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/cudamath.py": {
+      "sha256": "e33a11d0d4c012581a736cf44b194617c5342e9e95d67867807d056972cafc9e",
+      "bytes": 4267
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/__init__.py": {
+      "sha256": "83c1c4fb8ce3ed7116cdedb65d25e8597e55e2f75f5748bffeb6a3db4cb477e6",
+      "bytes": 366
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/cuda_manager.py": {
+      "sha256": "44b8962a8b3e43248a5e24ee32705830a890b5bf95171cbde22497b63220537e",
+      "bytes": 2254
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/cuda_models.py": {
+      "sha256": "c11cd77e7d597634a7f1d68a8dbfa1f89477b9718cac8fc33a3e3c40f616ff80",
+      "bytes": 43961
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/cuda_packer.py": {
+      "sha256": "b490ef6c5bf9623e2fa7499f3e60a157f2b96bd85dab9551d1b1fc4b5dce732d",
+      "bytes": 6802
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/cuda_registry.py": {
+      "sha256": "cacada55570cd30e94d59fbd085cf4b9435189948ec14da240b03fb65a637034",
+      "bytes": 557
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/cuda_testing.py": {
+      "sha256": "d04b07f2ad1ace4ed37b243f4e22058ff9e399e2637df5348f5d5730b0dc433c",
+      "bytes": 5278
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/manager.py": {
+      "sha256": "ac0b0ba6da4edf1bb91eaf9edcb070be458f4f6a1b99001b522deffce90750c6",
+      "bytes": 343
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/models.py": {
+      "sha256": "8d7a56fdbd288f65548e0442430d4659e81816eb162430a37d9dec3554890802",
+      "bytes": 332
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/packer.py": {
+      "sha256": "b9ef9e6076e1d3b7352948c124dd6f382dc7b43cedecab9fdb696e8a35d413c0",
+      "bytes": 332
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/registry.py": {
+      "sha256": "c5c2a893961e129149429edcbf9d4f15f5914fcf61cf76ed01b2ea6e38113b02",
+      "bytes": 345
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/datamodel/testing.py": {
+      "sha256": "933e890b0024bcb196cb994ef3cffc668024e7a06f66e51b9600bfa46b57eb2f",
+      "bytes": 343
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/debuginfo.py": {
+      "sha256": "ca45d4c06383cfb7f2636353d9b10c5d51695d092bd7efddd283b8b36f2da59c",
+      "bytes": 34573
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/decorators.py": {
+      "sha256": "e2cffb229c98970497189521d230587dec17ffc1798aec34667fd1ecde8a648e",
+      "bytes": 13401
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/descriptor.py": {
+      "sha256": "5bfc823dbe6396d7bc71042a202457fefb5d51dc4637ba6e6df5169d24069577",
+      "bytes": 1066
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/device_init.py": {
+      "sha256": "39a6b5f1dd493a277dbe426dae6e8a64d1c0ebeb32720690108b8035ae82b593",
+      "bytes": 3736
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/deviceufunc.py": {
+      "sha256": "0d6d4723707b175a577f5d6dc90da6339bd395b20106c330f2ec0d1e90c0770c",
+      "bytes": 32679
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/dispatcher.py": {
+      "sha256": "333f1da1e69a5a2a4e9231ec9a797a91c4b1a581489d1a1cff50d63c744e9deb",
+      "bytes": 98171
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/errors.py": {
+      "sha256": "db8d9e050eac56c4a87d914b716343a8254c491b1de8b35b621a2d237bb45979",
+      "bytes": 2022
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/extending.py": {
+      "sha256": "5b436559a92cdcd831b38ce3b11aea0816e836d88b6b28c140c5cf6f04a31684",
+      "bytes": 22387
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/flags.py": {
+      "sha256": "12747dedf7ac61582b35ffa496edae746e0034032222e8ad966278af3b1a7d2a",
+      "bytes": 4040
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/fp16.py": {
+      "sha256": "3f1423c4ab4a0b4231c2a8dcf8b627c4ce262f9b8c26dced139fcdf0270280e7",
+      "bytes": 6299
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/fp8.py": {
+      "sha256": "5349ca712be9caeeaf565a8fbb3e3f9199cf85caf993cd7d6be4f26d1d7ef92e",
+      "bytes": 289
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/initialize.py": {
+      "sha256": "caf7ef8054e139d97c2423fe2ab9ba70f19b55800d77dba5c3119fff01d973a7",
+      "bytes": 704
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/intrinsics.py": {
+      "sha256": "b786cec66e16ee372d5e02800dd1ba2cb958b922264dafcc7bc1d024260b4fef",
+      "bytes": 16791
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/itanium_mangler.py": {
+      "sha256": "b24d6a889866bf4f2ba9fadf1ae9bc16e4e23cb50d1980540fb6c48e41163b31",
+      "bytes": 6353
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/kernels/__init__.py": {
+      "sha256": "f9ee4ac6c647615401a3d4e9f14800ce09efef8058890bfe035cfd49fa9777d1",
+      "bytes": 139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/kernels/reduction.py": {
+      "sha256": "7770c37f98cf7fb24aebbe9e29ab7ea7754b551c909ff8770a0a187acf54e9ed",
+      "bytes": 9238
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/kernels/transpose.py": {
+      "sha256": "36ddc0ff379e27ebc9ee88871950acd017b383002caef3b622a7a0e3a8e906a6",
+      "bytes": 2178
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/launchconfig.py": {
+      "sha256": "f85d40ed71edd4976d59c3b496b9ffb457e20baf00e85057d461d643290f3cf3",
+      "bytes": 2036
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/libdevice.py": {
+      "sha256": "50dd76cb2cafb170758b3bde47702fa5b499419b266e4f6ef2912f67e8321cae",
+      "bytes": 61474
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/libdevicedecl.py": {
+      "sha256": "69abcf053988799f18308349fb09fd3062069e97c727fc787270424d1cbbe5f3",
+      "bytes": 672
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/libdevicefuncs.py": {
+      "sha256": "339701ebe9e20b87169f2c34d309357d30b2d1abee926e809b9b01a39e20ff1a",
+      "bytes": 37616
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/libdeviceimpl.py": {
+      "sha256": "86692b383e13cc8816a2a2af12a9d2ce719fed108bac5123b614305df26ca2fa",
+      "bytes": 2957
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/locks.py": {
+      "sha256": "3aa03d7b8fbdbb326210fa651163e7cdd7bd492a2ea382a72516c0666ea94042",
+      "bytes": 528
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/lowering.py": {
+      "sha256": "6754744a460e9b8321c44fab1df2c46d4b1f830594512f66d1e92d2877757ace",
+      "bytes": 77684
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/mathimpl.py": {
+      "sha256": "79167b342102d53f58e54699235f15017c2d1f2ba33e26ca3be18c0fe9f61cc3",
+      "bytes": 12406
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/memory_management/__init__.py": {
+      "sha256": "07b287515e5cb3d166e993042ab6be01b2298c342b49fad604aade203d221b98",
+      "bytes": 205
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/memory_management/nrt.py": {
+      "sha256": "19c2a2359ceb99d41a3d101b7da0be908c276d38d97305c580197adfe81ec3de",
+      "bytes": 11605
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/memory_management/nrt_context.py": {
+      "sha256": "4c5196834967d69740b4a3f7b2ff4370e0c0100413167a226225934e95fd369d",
+      "bytes": 15594
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/appdirs.py": {
+      "sha256": "d24d643f6c3b10262938beb11978cdef6b3b01703df5bfb6d56dba042bb44976",
+      "bytes": 22718
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/cffiimpl.py": {
+      "sha256": "17f16b556d9dd92bf3b83e4124f3e787121ff12ea544bda843819aebac7a019e",
+      "bytes": 729
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/coverage_support.py": {
+      "sha256": "25d5ce44bff4cfa3f358375f9f0ad2c440e8e97613b399b166031e7137ec7fbf",
+      "bytes": 1102
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/dump_style.py": {
+      "sha256": "196136ca67c800501489f36be0375e77553abd008646f010dee5b4267d251bc2",
+      "bytes": 1116
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/findlib.py": {
+      "sha256": "395dac2ef37ed8455e6d1cfda4ee2f12ad7ba7a779f7213acb818317a9c30aba",
+      "bytes": 2150
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/firstlinefinder.py": {
+      "sha256": "63b72da371db608562563e045562df94cb82351a73fe57ce955759566d6a8fcb",
+      "bytes": 4685
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/gdb_hook.py": {
+      "sha256": "c0f8e0436cde14cbeccb1515de5d25e2f7a0c01b668ae677297d2eb9cf5d850a",
+      "bytes": 8592
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/literal.py": {
+      "sha256": "f383443891ba2f0afdab0d9a1d6bb0f5e23edd9619f81dc77152227a1b5f6129",
+      "bytes": 886
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/llvm_pass_timings.py": {
+      "sha256": "4aabdaa20fb62c3ad3fe2cd4fd892ab896181808e4e21f7790e25b0efbf28258",
+      "bytes": 11872
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/misc/special.py": {
+      "sha256": "2e65172846878987b45ba1b02370849e805eb9450a8c450b0a6ae2abc1a9abbe",
+      "bytes": 3060
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/models.py": {
+      "sha256": "4c9ff6da5f9bc3290fb73df127244f67f8f16a5acc60051ad3fd0c228833516d",
+      "bytes": 1725
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/arraymath.py": {
+      "sha256": "e52114ecc7e65071034debfc7c59a418a3d362cbe1aa9a11af063193773c27cd",
+      "bytes": 152918
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/arrayobj.py": {
+      "sha256": "87fdc044b63225131a27132d3dcac595e89b0f1270550a8203810716ce00e55a",
+      "bytes": 249164
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/extensions.py": {
+      "sha256": "90aba3a82b1447dee0b831cdbc0007a0cad917cd7795b3ec4bb4e8aa0704b4ad",
+      "bytes": 235
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/linalg.py": {
+      "sha256": "d8bcdb3292ab782767003ee9e7e97ca30ac2768cd30546a9c63b4c0fc7b3e8a0",
+      "bytes": 91105
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/math/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/math/cmathimpl.py": {
+      "sha256": "1eaf3af1322a3a87c1329846a9438f645363f41df63fbe889c674089260bb701",
+      "bytes": 17582
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/math/mathimpl.py": {
+      "sha256": "885b761f0b52a884b9bfd83c1a421bafaf9f32ea5b81e2e4cbcda9359671e14c",
+      "bytes": 15723
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/math/numbers.py": {
+      "sha256": "40669f1e4e8f1ebc816ab293b63c0305d982829794eb14b4a71506688d465da7",
+      "bytes": 50533
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/npdatetime.py": {
+      "sha256": "56211413fc6048092788add9f90ebad0c716fe0b9d61102d2a37dd8d3317a4b9",
+      "bytes": 34149
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/npdatetime_helpers.py": {
+      "sha256": "c3c54c16aa27ef22a2558c946e8f8370df0e5d5856ed255b5ab1799c2d0962fb",
+      "bytes": 6757
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/npyfuncs.py": {
+      "sha256": "9e5d79a4b35eeab4158a61f7d626c12309797f0e2d9be7c1f94a33282f96ea3f",
+      "bytes": 62880
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/npyimpl.py": {
+      "sha256": "e683bebe89bb97fd31ec5e51ff3ad3d66c6c0e11c1b436d83c48a8949d8eb1b8",
+      "bytes": 36959
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/numpy_support.py": {
+      "sha256": "12fe8b76267858561b601804ce5527ad94ecb21f4d23bc4b312de738a92c5927",
+      "bytes": 29006
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/polynomial/__init__.py": {
+      "sha256": "6da270f28c49bbfa622cfe1e91d40710078174ff0e39b772b72af09d4b20d426",
+      "bytes": 192
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/polynomial/polynomial_core.py": {
+      "sha256": "c19dd7ad115db0aa45ddb88b2842b16cffa1ff8419f680e058d96bbab5155013",
+      "bytes": 8637
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/polynomial/polynomial_functions.py": {
+      "sha256": "49e9928600618262396dd067e47dab84beb5b5289b85cded87811e731238216e",
+      "bytes": 10983
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/ufunc/__init__.py": {
+      "sha256": "420b240dbc00e90fe8f6755de07601b2bce2932eebbcc18a8c8990032568814a",
+      "bytes": 220
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/ufunc/decorators.py": {
+      "sha256": "bb823ac22e324b2c1c9ff65b9c1ee93a834b6bd83cc44471271c1b1b73a943f5",
+      "bytes": 5728
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/ufunc/sigparse.py": {
+      "sha256": "26465b6813268947a977ffd0cb6f14297667e029c3abf0aecaceaa9b56f6fbfd",
+      "bytes": 1988
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/ufunc/ufuncbuilder.py": {
+      "sha256": "a1f962f08367b6a94b9897accc84c31d2fd85a2723f1eba1f6988f829e7c5f7e",
+      "bytes": 1810
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/ufunc_db.py": {
+      "sha256": "47fa3945ee08e9d2dbe9321ed05b72d9ec94e25c64b1f013a86908aa148e6050",
+      "bytes": 43724
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/unsafe/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/np/unsafe/ndarray.py": {
+      "sha256": "7a684e967b429c1420355a071e863db2304fc3082457960b6e0a6e76a7316c64",
+      "bytes": 2887
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/nvvmutils.py": {
+      "sha256": "a276faecec8957b5e434d1edc30a09233135aeb3e1e828b87ca7bc6e8c39bb96",
+      "bytes": 8152
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/printimpl.py": {
+      "sha256": "6e27e153109d690563ef2af36a67c429563d8a903575c2784ebaf4a0569c1f8b",
+      "bytes": 4694
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/random.py": {
+      "sha256": "0d93f4ed8f710acd5a17707f5d93c085ed135fa7c4e8064dbba42ebb600cf5e1",
+      "bytes": 10709
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/serialize.py": {
+      "sha256": "e02990b9a3d0e37a71f55639acd7f2414d91bce1572c8d8df30612eec395dfa6",
+      "bytes": 6918
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/__init__.py": {
+      "sha256": "890bf4b6a4ce46d94a4da461ee87d8c80ce806d255f5cf2c627141c15d0883e9",
+      "bytes": 2422
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/_internal/__init__.py": {
+      "sha256": "bbc45872bbd7140200aca9f791bb437049607639f86cdb56ecb05f100366ef36",
+      "bytes": 207
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/_internal/cuda_bf16.py": {
+      "sha256": "f9ee4ac6c647615401a3d4e9f14800ce09efef8058890bfe035cfd49fa9777d1",
+      "bytes": 139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/api.py": {
+      "sha256": "a83d714560c76a269da8fdd11f892afd38f483a3c16cf110a7982793172ddfed",
+      "bytes": 4060
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/args.py": {
+      "sha256": "42cec0fdaea360cb05f2521420c4d20f47a400bc9389f369dfd0cfd75e19539a",
+      "bytes": 1813
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/bf16.py": {
+      "sha256": "0486b90f267dea158e3f1c747553f64495466f5b9d5f53b371764b7290c5d257",
+      "bytes": 156
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/compiler.py": {
+      "sha256": "263e9a832e9bc41783a873e27484c8afaf5724e5941876d5fa5e8b5a2eb3acc6",
+      "bytes": 929
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/__init__.py": {
+      "sha256": "77508d418a8d074bc2ea88699bc3059d970091e9a770cc5df87265833cd9eba2",
+      "bytes": 260
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/devicearray.py": {
+      "sha256": "e6b2b757de9129f421b9c5a8e91107be7ad20e2a3a4a1a9c77649dd5fe8b249d",
+      "bytes": 14179
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/devices.py": {
+      "sha256": "8096a6a252f7da7b7883c5dfeae0c52f32fcb7749fcc824d39fe2e9f855e5226",
+      "bytes": 2831
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/driver.py": {
+      "sha256": "69722dcd5ac9f09ea66ac3c3b04e07426d3b2026fcadc32635f8eac1685e62e1",
+      "bytes": 1275
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/drvapi.py": {
+      "sha256": "7d999f2e76b9ac9a3eed6586f8bc0ea7acebcc67c7a8beb094d2af2328b5bed2",
+      "bytes": 251
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/dummyarray.py": {
+      "sha256": "dcbbab2d95f7c1ae76edeaabb520e16fd554e1bef27a34e00c79e272ac9cf106",
+      "bytes": 303
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/error.py": {
+      "sha256": "8405cdee3542ec373a027edef19f7efa704722ba9a4af8b7edd2f16360196e72",
+      "bytes": 228
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/libs.py": {
+      "sha256": "381bcd0bb754eb5b6e8becac95594c2f0a112f97a56d48516dbea2a0704979ad",
+      "bytes": 342
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/linkable_code.py": {
+      "sha256": "4d9a51c2b8ca294c3b54fc3f8b260b18ec6c195813da44ea62d82539317311ca",
+      "bytes": 1333
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/nvrtc.py": {
+      "sha256": "03fddc086e8efbcf6ca41271ef31aada161883e3577f4687cfc466b8154e68c7",
+      "bytes": 356
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/nvvm.py": {
+      "sha256": "c37f944ab50043dbadf07a83dd8f72319247c98d09431a8cc205e2b2cbc92edf",
+      "bytes": 696
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/cudadrv/runtime.py": {
+      "sha256": "be37d74ade00a11a8fc16807bd2bafb98512980c65690a0b287544b655409d96",
+      "bytes": 492
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/dispatcher.py": {
+      "sha256": "1e9591886bb95d0df897d912d39a782b8b3649b93a8e8d025a10a15e26362241",
+      "bytes": 331
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/kernel.py": {
+      "sha256": "2202a5fb0922cb217547976ae2afcfb36917c71492f64f81fae32d149b670175",
+      "bytes": 10531
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/kernelapi.py": {
+      "sha256": "09d9a88aba1a12ff4594a9b00d2a47972319e96cdc830227d553f789d89d057a",
+      "bytes": 13615
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/memory_management/__init__.py": {
+      "sha256": "8697e527616a4c949e5ed1cb26b1b638191112a3f65150f72cbbccb2d6af4574",
+      "bytes": 177
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/memory_management/nrt.py": {
+      "sha256": "472e43ad400ab6d0b1e935c111a92e9f2f00a7d9dfdf5d691f4785b91aa36f40",
+      "bytes": 418
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/reduction.py": {
+      "sha256": "5325b1d0b78a3afb39354f5127d8c8c4772305287039c116786373fdad76fcec",
+      "bytes": 441
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/tests/support.py": {
+      "sha256": "1ef5b6c5e327208308bb61748a5fb7b4082b8fe5f5e50d773c9f11890f21718d",
+      "bytes": 163
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator/vector_types.py": {
+      "sha256": "0a32b8a09df7c87855c76292f76bf2abfd3eae397767761da64e1e9389d47e48",
+      "bytes": 1837
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/simulator_init.py": {
+      "sha256": "153f4c6b1e56012e0cd092c6a26a19c4b2acb5778b8b422eabed69ab1510c82f",
+      "bytes": 590
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/stubs.py": {
+      "sha256": "5eff5cfdd2239dc03a6259950165575a85fe42f5212bb7bfd64c485777694cda",
+      "bytes": 16374
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/target.py": {
+      "sha256": "25b35e90446e8e4a1b0d24a9d0b7a622e7bd647ed1e68cdd8be49493d91a5a92",
+      "bytes": 14937
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/testing.py": {
+      "sha256": "8b7590eee60a83d344cabe140d0f7e16fba3ab70c85509e6642787e44ca915b3",
+      "bytes": 13167
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/__init__.py": {
+      "sha256": "2a973c49f5257e599be066620d79adf6d765338af15cb9f9c0be2757eccbe0b3",
+      "bytes": 2405
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/benchmarks/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/benchmarks/test_kernel_launch.py": {
+      "sha256": "9f6099232e671faf1f87638ee2061b51465f2ef05d37b329075de45b538ebb0f",
+      "bytes": 2736
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cloudpickle_main_class.py": {
+      "sha256": "988f9a66d28bd5ca5a3522a06eaba716a27287883af3cc30f7b22ac65ad56b89",
+      "bytes": 295
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/core/serialize_usecases.py": {
+      "sha256": "2dfe3b1d0aba3deaca75aac221e4ae476fd07d9c996583bfd47ef1dc85f518c3",
+      "bytes": 2171
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/core/test_itanium_mangler.py": {
+      "sha256": "b41ecaecdf145a23f2219d686394816454f884ab2abd102277b603f2ebf4e24b",
+      "bytes": 3393
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/core/test_serialize.py": {
+      "sha256": "37ec738a820135c8128b5e83693b4c0fc23813f117e800438fc9459519fa26ef",
+      "bytes": 11598
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_array_attr.py": {
+      "sha256": "9cc02baf5b3b02d82a2d9a93401a592387a4f051a16b27cdc06b3639772e6768",
+      "bytes": 5439
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_context_stack.py": {
+      "sha256": "a0286ff7acbb9a501f5ac87e888f94fff0674404f6a76bcbafca30ec138e4e49",
+      "bytes": 6781
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_array_slicing.py": {
+      "sha256": "9b9b6476188663e02b59fe3ebf1fa5fb8d7e37de1c3506c844972b7e59da8d36",
+      "bytes": 14073
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_auto_context.py": {
+      "sha256": "a2ed8967d93b87cc4adc3ced0262a3bb47f4d4fedb965bab91ac3ab0ba487102",
+      "bytes": 704
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_devicerecord.py": {
+      "sha256": "59efd98039c70502fff07c33d6c509c3732eb7ebf6a0a370c53d7222fffaeba6",
+      "bytes": 5799
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_driver.py": {
+      "sha256": "a270c2753fd35cabfd2c25a5bb80321e4ca0cc4336c9dec346206efbde9bd448",
+      "bytes": 15294
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_memory.py": {
+      "sha256": "9f1290c4ab23b0757464a9067945838b4d4eef5c62d2336b928aad022c7f6a51",
+      "bytes": 6336
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_cuda_ndarray.py": {
+      "sha256": "9fc18809344e3ea57ab46aeeafc2ab34f953e3831a9bc57c97a61f6204121861",
+      "bytes": 24369
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_deallocations.py": {
+      "sha256": "1e3391b17683564e8fa0c7d8386ae8359aaca5fd8011adae515ee240d86a0f57",
+      "bytes": 8437
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_detect.py": {
+      "sha256": "f35b0b763a95a3d999a63fad1da88caf855810294ba84377e8bf99c4cf5d73cf",
+      "bytes": 3416
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_emm_plugins.py": {
+      "sha256": "c92ab4873993315913a24faf5e19f35f362f48554870723a730a22063129e50d",
+      "bytes": 7311
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_events.py": {
+      "sha256": "99e63ad56c93e1a90611f6a7c4453bd2ab2e3037e2e60c369c1a6b3c6ff302d1",
+      "bytes": 1620
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_host_alloc.py": {
+      "sha256": "5f25ba2c11c792eb8d9a086ad326a72846d4f666e74ac1ec96c780d4bcf10ed0",
+      "bytes": 2349
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_init.py": {
+      "sha256": "2d95f7ae75a81af53b30fad15c0f4b1ee881c6b5114dba7e7c311b49b8dad861",
+      "bytes": 4531
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_inline_ptx.py": {
+      "sha256": "8287adb1b3715aa21301f2dc53128dfbaf463e64781a15e09e67746156f23a29",
+      "bytes": 1396
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_is_fp16.py": {
+      "sha256": "78ebf65448a384ab20ea6e40f839c0a7f6114d611de54d8089d9b132c479cc42",
+      "bytes": 563
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_linkable_code.py": {
+      "sha256": "9c3a56c90e9b6c479f41d3e993a1f1ebe400ad7332cd05f334a648164dcb7d5f",
+      "bytes": 2140
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_linker.py": {
+      "sha256": "30c6436ddcdf3c4992c90a508da9dd1a159968dc553c9323c9cd732db8363d41",
+      "bytes": 11507
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_managed_alloc.py": {
+      "sha256": "c4ca02e2743cd821387245026c34b439d8d29e24c67e3139fa4baa22e59510b5",
+      "bytes": 5045
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_module_callbacks.py": {
+      "sha256": "a57fc0ecfc16a370718839f5098705ddfbaf90cf97b1764d0b18fe64cc40ee6c",
+      "bytes": 8333
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_nvjitlink.py": {
+      "sha256": "3570d50e17437bce67dd53c68411f7d35bb59c08113629d87587d5f0fe64622b",
+      "bytes": 6956
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_nvrtc.py": {
+      "sha256": "7301248d78e53c203f1c5401438796e03009daed234c27b9cb07ff931bc526c3",
+      "bytes": 1055
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_nvvm_driver.py": {
+      "sha256": "e9cdaf6e460f1e9ba44e3af5c9ec43f7da86d242df8495934923a546fc8dea42",
+      "bytes": 6667
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_pinned.py": {
+      "sha256": "0d01e7a6e55e0ddb71bdffec428ae62c0970ae533cc6ea2501ecc8bcc057d074",
+      "bytes": 1059
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_profiler.py": {
+      "sha256": "ef4ef5926810f3f026961ea78779e4467d0cb5fe9af9e9dcf6bd9023ef18660b",
+      "bytes": 624
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_reset_device.py": {
+      "sha256": "74aa5a275da79dd5fd7a6ea51f9b2d32314d78f1f7d33a2d0d3893e229f9d49f",
+      "bytes": 1188
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_runtime.py": {
+      "sha256": "73fd7201fa6c149b09c5496c8f08cd56824dc32dbc2f4fb186fd8db2ee672fa3",
+      "bytes": 1667
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_select_device.py": {
+      "sha256": "3a256c8f0306084ce0d2f502512a5760e0437126c7d0191917c780efba4d4b6d",
+      "bytes": 1109
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudadrv/test_streams.py": {
+      "sha256": "cfcb92fd15e19634ed04177556b3e4f774c7cdf7661baa5af1152cc30eec8f78",
+      "bytes": 3172
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/cache_launch_config_insensitive_usecases.py": {
+      "sha256": "86f1de6c7a6eca778bfd38c4c4e8584efae50d1161b9bf0ab029af4b23276e35",
+      "bytes": 511
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/cache_launch_config_sensitive_usecases.py": {
+      "sha256": "5cd3b1c3d8a1022475585f05f1f843c797cfd327ac64c593790c205cf4f1c1a5",
+      "bytes": 1733
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/cache_usecases.py": {
+      "sha256": "5402c783137915ac8cd71e2959e8b83046b9f4d377c2101eed250484c80195be",
+      "bytes": 5798
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/cache_with_cpu_usecases.py": {
+      "sha256": "8c5a89b09450e789f214d6301e8d6e7e361081274adbe3e7a119df08f8267384",
+      "bytes": 1422
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/cg_cache_usecases.py": {
+      "sha256": "bde6c234f9e74efc707d03e132919e55ed2edad39069cf1487d98f228f1178b6",
+      "bytes": 822
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/complex_usecases.py": {
+      "sha256": "c5fb5cffa975eb9042e6e201ea6d61cafcb9aba4906662bb4b95a5ff002144f8",
+      "bytes": 1544
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/enum_usecases.py": {
+      "sha256": "a9bd8e1eb712d9d6015133335aefbf11f362f13dd766bee75fba3276886543d7",
+      "bytes": 1140
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/extensions_usecases.py": {
+      "sha256": "e869d73546e74212dec41a169758974ac2df38a2fcf33aca632f76ec9455e5bf",
+      "bytes": 1746
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/overload_usecases.py": {
+      "sha256": "9f6658871bd4566adf6d3e278deeda4b1d9bcc821f7a8be12e05409b35692013",
+      "bytes": 724
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/recursion_usecases.py": {
+      "sha256": "14f893ae10c1cdd9cc561d7f5c432798084b03f53fa582609b9ea506394cfff9",
+      "bytes": 1922
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_alignment.py": {
+      "sha256": "fd5f15a0fec80639f2e8b4e1b44478cc055340199b21a1a4af6124ea335eb820",
+      "bytes": 1398
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_analysis.py": {
+      "sha256": "46572062ae7f31fd07fd6579fa56e6e423841d7471e73359d41b438dd5355c7b",
+      "bytes": 35873
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_array.py": {
+      "sha256": "dde2d1ac3ef7bdd1fa89e9d0a1e594abeaec2f6e2b49828943bf8a74d4e61c0b",
+      "bytes": 13911
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_array_alignment.py": {
+      "sha256": "a4c257fd34628da2af229e51f4586f746860657c4d58235464c88c86cf239787",
+      "bytes": 9308
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_array_args.py": {
+      "sha256": "9ed1d6c81ead04dfceca003218a857923b162d920671741423217cfc4c178ada",
+      "bytes": 5122
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_array_methods.py": {
+      "sha256": "075c4184ebd0bf0791a28df7c38653fc9ea28a75f3ff32538cb68fd69ef313b6",
+      "bytes": 1773
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_array_reductions.py": {
+      "sha256": "9124ca9f5a487a13552895488e20c0c2e31b24dac4b3c3cb864e470c56b3ae4d",
+      "bytes": 15817
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_atomics.py": {
+      "sha256": "dbc3a3e4e62049030fa8625df58a4e26d465d4d2b4989f754c09bcd69aa28459",
+      "bytes": 58039
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_bfloat16.py": {
+      "sha256": "8822c8b7412949d9e435f6312ea26c20a1c7bcb576644fc0b3626f7e4aa1a9ad",
+      "bytes": 18932
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_bfloat16_bindings.py": {
+      "sha256": "8db77e2c793b432c381b24e2dd82297daecbab4eee5fe81c56dadcd9558a2163",
+      "bytes": 10469
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_blackscholes.py": {
+      "sha256": "d399b50550d0efe9f1bb610419f4f77a80a170f9b434704ea3d0c1664452432d",
+      "bytes": 4579
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_boolean.py": {
+      "sha256": "1e8f9aafbb5ff00616b80141868e9867c2e2ab71bbbb86b5e35c2d0557b29a72",
+      "bytes": 687
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_byteflow.py": {
+      "sha256": "bb6658dd7e8deb9dc8d35aff66f0781bf0ef4e4f339da0b853cf68a58180e031",
+      "bytes": 2573
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cache_hints.py": {
+      "sha256": "4b6512c128332d503b2b33f3383822be7ae9f4abf392af136f9a49c406a30ca5",
+      "bytes": 6696
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_caching.py": {
+      "sha256": "9cf2a9d37eed11910896d088a591b597a524d43c4eb23d39a1845c5cb550e77f",
+      "bytes": 32488
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_casting.py": {
+      "sha256": "c0a2654660116363a323b344512bc4f539de8212b34ba92a6ff4230feb9d382d",
+      "bytes": 8922
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cffi.py": {
+      "sha256": "05731157f0a63a21d14c31046d24f1138a2c5e7493dc86243f056df67a1ea48f",
+      "bytes": 1093
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_compiler.py": {
+      "sha256": "0e91d4f2283c1261dba6b927209d2e3ce6f88c381445c3ad0c55d36e424aa38e",
+      "bytes": 36104
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_complex.py": {
+      "sha256": "b1f44bf10e013aefe7f6494cf8d9dc990eb4db234463e8fb549ff5bef4830af8",
+      "bytes": 10705
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_complex_kernel.py": {
+      "sha256": "c2ea4438ebc69513ad237d9f2c4a77928e98e2e8fb51069e86cdacdba1e88ed8",
+      "bytes": 637
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_const_string.py": {
+      "sha256": "1ba2d65b665a7e25dbc0ba13444c66620756d021ec50abf668c643e3de1da66f",
+      "bytes": 4463
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_constmem.py": {
+      "sha256": "faa3e603b788e9dea5acc2f1cd68eb644f5542d13745c2c646e4ef596862b47f",
+      "bytes": 5353
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cooperative_groups.py": {
+      "sha256": "2a53ab8d0125e14963f1b64f519476f6e5305ad7a3cddd74814d53da7b1d6dfa",
+      "bytes": 6087
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_copy_propagate.py": {
+      "sha256": "64468ee0222df06d3c1605d85735d58a5597102c6670306597dcca66a210d48c",
+      "bytes": 3695
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cuda_array_interface.py": {
+      "sha256": "abf6945af0e30253ce50eff1ac33ee785dd9917c0dca75eca1f9e81f6bb6fdc2",
+      "bytes": 16845
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cuda_jit_no_types.py": {
+      "sha256": "f4648c029eef87e9544382c15b38fb5e2f0bdbec5eedd335c28fbcbd8712338b",
+      "bytes": 2283
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_cupy_bfloat16_interop.py": {
+      "sha256": "5e6ce74fd13ad7a327da503674e5889375a38fc20aa1301f502e2a235a2a0bc3",
+      "bytes": 1563
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_datetime.py": {
+      "sha256": "18ae9c4b208a80c7919b194d1edce2d3d9204c5755b292b42ecd3771ed95ccfd",
+      "bytes": 4506
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_debug.py": {
+      "sha256": "ab6558efcc5e26e625461331b83e19f42768b40bb615ea289263dc396e8f82f6",
+      "bytes": 3580
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_debuginfo.py": {
+      "sha256": "1fdc09283a0ce8ad63da7171a5cc2681aab5e15edb2ad5ffc39bce266a481594",
+      "bytes": 48230
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_debuginfo_types.py": {
+      "sha256": "0b40d2757bbd9e77cfae02fdc18e5a45a76f89953f5130447eacc7e5fceb2bca",
+      "bytes": 21702
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_device_array_capture.py": {
+      "sha256": "bfc3f2fd6132fbd0f73dca77dbe28df69b310ee03cea5a23eb1896dbd381c8b6",
+      "bytes": 8718
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_device_func.py": {
+      "sha256": "730bd3e9356c91cb5863dce93acc1b20d998afd0f11f49cce1eea5590a24f712",
+      "bytes": 17886
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_dispatcher.py": {
+      "sha256": "82f490ef3d1978c7bf28b4cbf3fa5e671ed76f462e6f548dc685c2b7ebbacb71",
+      "bytes": 36020
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_enums.py": {
+      "sha256": "1245dede9bcfc4a32770437b3e668233fadad1ebd714dc74fef1907d6caabff5",
+      "bytes": 4906
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_errors.py": {
+      "sha256": "c3b88b875dd1de6a6cb6d2ab113dc2b970c6e82ba2e1758576900c29b5411087",
+      "bytes": 4058
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_exception.py": {
+      "sha256": "9cad1d6fbc29ed312c14ef968549e5b7c389a34b703c2d8512c1d0df2ae25677",
+      "bytes": 5402
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_extending.py": {
+      "sha256": "990b7601202518040be8f4d303d7eb3e506a66ad22265e866cc713aa614f7b42",
+      "bytes": 34791
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_extending_types.py": {
+      "sha256": "8e209e4818a597aa6c798e430783b8741ef04c848e4085fa02ffa006ee106c98",
+      "bytes": 1994
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_fastmath.py": {
+      "sha256": "2aa72be154449a1de2940fef3f758b8ac523a220c9b5cdd7453e005fefdcd476",
+      "bytes": 8751
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_flow_control.py": {
+      "sha256": "b0f9d3e29f7d2efba8221415431057402e430b08505e79cf67f922e19fb69d12",
+      "bytes": 42780
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_forall.py": {
+      "sha256": "ec16cb6e93b89849977b125a418302c3dd1e34cea5cc459018483d3a37b04b72",
+      "bytes": 1610
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_fp8_bindings.py": {
+      "sha256": "d2aad2ab8a90bcd644adf2de11539f5d5243b3c5fa972a29063c909aa336b65d",
+      "bytes": 20400
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_freevar.py": {
+      "sha256": "f1760999eb4b347b68bc89c3cdc202762709521dcf00a1422c7871c9f3e1b033",
+      "bytes": 898
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_frexp_ldexp.py": {
+      "sha256": "484b2d09b9e0ba60b8c4aa65a07a8c26e52353489f09a3dff3a549a8447811c7",
+      "bytes": 2169
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_globals.py": {
+      "sha256": "6d69b86afac20b5639ce8f272310c6c53d1d8a2641905cce968de7e5e665e513",
+      "bytes": 1528
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_gufunc.py": {
+      "sha256": "4303f4e3a1082680d59d772eea88a5d620a1bbb9e04b77fb04beba800b6d603a",
+      "bytes": 15174
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_gufunc_scalar.py": {
+      "sha256": "a7cc63f9dbd9a9878007d0833bda266add968fe19e747138355fd47d84fe0b56",
+      "bytes": 5462
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_gufunc_scheduling.py": {
+      "sha256": "a0b3fc4549a0879dc9f424ca9f1d2cbd83eeeda8f4ba5f71ddef83af34648969",
+      "bytes": 2750
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_idiv.py": {
+      "sha256": "d25670b01705ca92f380539a8997613d8303d14efb15bf1486cc9ada19ddb7b6",
+      "bytes": 1216
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_inline.py": {
+      "sha256": "f4b4acfbac96fee96e09f448934670730ee45d8f3a7b59d6258ffdf22c08fff9",
+      "bytes": 5070
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_inspect.py": {
+      "sha256": "818b6da5f24787f48cee688c585b552a2c98c7eb6ffdb9a46a56416f5969500f",
+      "bytes": 7562
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_intrinsics.py": {
+      "sha256": "2a6fca2aebd6321fe72ae2162b19a9cb61ecc2142d351c5a396b57e15d5209ae",
+      "bytes": 38211
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_ipc.py": {
+      "sha256": "c4aee819974139299ff6ed00c9d9fb4ae74d44b351f3ca5541a8c33cb428e088",
+      "bytes": 8156
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_ir.py": {
+      "sha256": "97b4e7994c740ff5b6856c7f19b2e53b1493d1950252858457732f3c3c926347",
+      "bytes": 20932
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_ir_utils.py": {
+      "sha256": "12bb0db758f5e4300fbe71c9d294936028eba6d7a185511393cf9d21084fa50e",
+      "bytes": 9159
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_iterators.py": {
+      "sha256": "880175e4adb4db2966f4d75cb50141a7b2abe0d217a00f72e20609f0bd7d7455",
+      "bytes": 2483
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_lang.py": {
+      "sha256": "d5ead0a501e016e904764c05f36bbd3bfaa4553a7b7c0685b71ce7903644d15f",
+      "bytes": 1855
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_laplace.py": {
+      "sha256": "227d6102c1ddfe8a23d8729617539ff3445cb975c541541c35d39bf585bf7ff1",
+      "bytes": 3370
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_launch_config_sensitive.py": {
+      "sha256": "ef7e9ea67ed53b66558eb98d235fddadae3ed140b16e2fb3e4d8b3e2c232b7b6",
+      "bytes": 2785
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_libdevice.py": {
+      "sha256": "920d596a04b95cd6594205e3bfd41e1e86617506dbe1323d6e7df61185906dbc",
+      "bytes": 6671
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_lineinfo.py": {
+      "sha256": "70d52d7ef932b51033ff78cfc1b7facb94bc641b3ce947c53eec5281a6a65538",
+      "bytes": 7355
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_localmem.py": {
+      "sha256": "9623aa48015eab45b4125d546dd74a96f63bb3c57e881e3602e1af47570097c2",
+      "bytes": 5610
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_make_function_to_jit_function.py": {
+      "sha256": "f5fd8b6682210925125bff590666a1990d94d9fab88830b81fc79cdafa6d47b4",
+      "bytes": 9909
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_mandel.py": {
+      "sha256": "1e8e6dd786627fd8b99e276b0c31fc873b7716edafb4a46cfbf5be9614078c83",
+      "bytes": 1312
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_math.py": {
+      "sha256": "b08f23d88b7a7fa9774dc1a9c8a64c1d0231aec7548d1aed3e234e90876b1fbd",
+      "bytes": 29083
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_matmul.py": {
+      "sha256": "99f898b9e6066b8cf6bbf50301967bb75230d93e1543460af3dcd5c0842afc2e",
+      "bytes": 1953
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_minmax.py": {
+      "sha256": "8343b4a220aa2dafcad995207b4ec76b9268f54f8f5ba2fb8ce42bcc1147685b",
+      "bytes": 2062
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_montecarlo.py": {
+      "sha256": "3a35aa548fdc3fa7e8a3dbbd4f47f5b9b104af1ece76412c62a772137bfa1b9f",
+      "bytes": 743
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_multigpu.py": {
+      "sha256": "b810bade14dcd3c0d2b39327b5d150fc4241c7b2f121dc957fbc39c9b10a1104",
+      "bytes": 4269
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_multiprocessing.py": {
+      "sha256": "32e284de9f4466501e1ae09fd44c8bf38eff8e84fccc8f0a8ef81fd991c2af34",
+      "bytes": 1127
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_multithreads.py": {
+      "sha256": "5c9e957c239617f071266cec95c23f9d39b5d54b9f6124f86c1570b569943faf",
+      "bytes": 2337
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_nondet.py": {
+      "sha256": "32f5a68b53d1e6696f1924d232bd4451a034f1d071de6c17dfb59d321bb4a0c1",
+      "bytes": 1540
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_numba_interop.py": {
+      "sha256": "4d778c1cdcafba8c54d2eba762fe2b2bf1039141a975399c26d61319e5be94b4",
+      "bytes": 1809
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_operator.py": {
+      "sha256": "f6152dfdaccacda319fa597cb804e89ecc8e3324050b9b6df8b6d603c971aebe",
+      "bytes": 14909
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_optimization.py": {
+      "sha256": "f9777a1123e44b0440ad32e82d793a9bab6fec324a0d37dd2c422719fec0c13c",
+      "bytes": 3086
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_overload.py": {
+      "sha256": "1a2f085b35b1bd750ee72ef74fc74c34ac02a27797a083eb1261c500eaac499b",
+      "bytes": 9875
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_powi.py": {
+      "sha256": "dbde0109d24709bd697cdf40e1999cc838eb35d41d9a6c93a8d8eff6789f83c7",
+      "bytes": 3426
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_print.py": {
+      "sha256": "811e183b27101008da314dedf6d9d54a95ab05348364e51b7faa79aabcb08a17",
+      "bytes": 6488
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_py2_div_issue.py": {
+      "sha256": "6a5fca1d774cd1f2a37730f7f78130011fd57a9129dacfe40613ac01b1ddefff",
+      "bytes": 1148
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_random.py": {
+      "sha256": "c027bc3bb561a13cc321eaea46b66a53b8f682f735a2f1ddf1eae66882a30438",
+      "bytes": 3625
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_record_dtype.py": {
+      "sha256": "74ce76c7c2fa4cbf4c92bcc108eb8a98c727fa82791d9c334727ff7b94da71a8",
+      "bytes": 18805
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_recursion.py": {
+      "sha256": "2b6a8dc12968a3a01efa876286a1abab01656b157d838424116d3ad5d3c19fbd",
+      "bytes": 3787
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_reduction.py": {
+      "sha256": "d6c9f8a7212267b1c46560485a7b33d5b5ee7e867f2d27c5ca701b1214d50fe3",
+      "bytes": 2883
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_retrieve_autoconverted_arrays.py": {
+      "sha256": "27a47b2e54b0b44942ecf11d3e74be605ec572a303d91e0177d5214953ffe97f",
+      "bytes": 2526
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_serialize.py": {
+      "sha256": "d578933056a31ae63465ea06c0bdff84bfdadb43108d3be439939c019a393449",
+      "bytes": 2936
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_slicing.py": {
+      "sha256": "a968ee50101d73a8280b706e02882f97d64b1672b39f6d1e9ecdb3325fb319c5",
+      "bytes": 1043
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_sm.py": {
+      "sha256": "9c7cacbe7e3f56d0509b3f928fc9307d921d2d17b8b482d30e6840b6386dd66b",
+      "bytes": 14966
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_sm_creation.py": {
+      "sha256": "7c3ab8c262e6592d1de2d841f53e3503b3e6a419415265c35b32e9f1b6880647",
+      "bytes": 7384
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_ssa.py": {
+      "sha256": "408997815acaa00df5680ee549948c54719f54b653e2508c9cf94ce360833bb5",
+      "bytes": 13056
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_stream_api.py": {
+      "sha256": "e4a719761362aad3922a62544b0e55a03b019ff7ba59ff182e84d2b4775bbaf0",
+      "bytes": 1891
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_sync.py": {
+      "sha256": "4f64580ee7754e96ad132aaa7c599b314d78b4f644529caf913283ce30da9230",
+      "bytes": 7982
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_tracing.py": {
+      "sha256": "fd628e3f78958196137438f322d8e687cb814d25d511107ec10a2c4f3b7e3676",
+      "bytes": 5035
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_transpose.py": {
+      "sha256": "f2724e936fc00c725480025c1c954b7282e7909faf92f18e4f6da147d783d341",
+      "bytes": 3289
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_typeconv.py": {
+      "sha256": "5b2f1c3c8da593fc1bddf330e5fed45ad38f4d8ee49841f9d518e4d4bb773bf8",
+      "bytes": 11442
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_typeinfer.py": {
+      "sha256": "8f57251e6fc533464aa063180277ae90b4a4a576d51995898c184efa4bbba8f7",
+      "bytes": 19168
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_ufuncs.py": {
+      "sha256": "f46d4a2bf12ea5b7d31fa708ec41cdbd5efbc3a6efef8ad14467ecfeda39746e",
+      "bytes": 20144
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_userexc.py": {
+      "sha256": "7cc39d564393bf52c4c461585c06abb0051e20a10371856d395ce0ecd6d0737e",
+      "bytes": 1315
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vector_type.py": {
+      "sha256": "55b87ca02d9e67b4e6680cf96ee4ad228266397f433e392fa9c41b1aeb74a045",
+      "bytes": 14476
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vectorize.py": {
+      "sha256": "d66d27c082000c1366ec3e538d9d4a6001ce6de7590e24aefaa3dbcdb08705d5",
+      "bytes": 10523
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vectorize_complex.py": {
+      "sha256": "ae972eba998a3ee4018b610a76abae7cce4a73f79a72812d0ede2569a7a860c8",
+      "bytes": 695
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vectorize_decor.py": {
+      "sha256": "8106e5993a2649ca7108e29fe6f2593af21d6ad0a1845547527234f274af4176",
+      "bytes": 5404
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vectorize_device.py": {
+      "sha256": "2cf41723812ce9bbb44318a3224f5448822f6ff50e1082d805c1005e8cb3ef3b",
+      "bytes": 1154
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_vectorize_scalar_arg.py": {
+      "sha256": "8912d35268add84046704f1808c4e3d27ff2a742fc8b584219236c88089659cc",
+      "bytes": 1100
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_warning.py": {
+      "sha256": "2e91a32b85ebb0d49ed3717d9f87408a687a3bb6b6df16f32aa44d84f6442bf7",
+      "bytes": 6025
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudapy/test_warp_ops.py": {
+      "sha256": "6e260382681d397ea04648c121736153c23824046e9da810da1ceb71e299db77",
+      "bytes": 15365
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudasim/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudasim/support.py": {
+      "sha256": "a7619e7a7d48f6ae07e621e0a1badcb6d9f505ca110b6c92acbc35593dea395a",
+      "bytes": 254
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/cudasim/test_cudasim_issues.py": {
+      "sha256": "063cf2bf50cd173bb501dbabced1faf574ec952f09d412a23dbb659d3ff263b3",
+      "bytes": 3317
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/data/__init__.py": {
+      "sha256": "f9ee4ac6c647615401a3d4e9f14800ce09efef8058890bfe035cfd49fa9777d1",
+      "bytes": 139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/ffi/__init__.py": {
+      "sha256": "f9ee4ac6c647615401a3d4e9f14800ce09efef8058890bfe035cfd49fa9777d1",
+      "bytes": 139
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_cg.py": {
+      "sha256": "a5dbff5722c60a321fd6ff75ace2ed9d52aeb54e1e484b5ae0e212c66110db6c",
+      "bytes": 2983
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_cpointer.py": {
+      "sha256": "2bf7528ec3d2319c97c565a16ed75c28a49ae901e6eef85b4be8ad17d6713c81",
+      "bytes": 2096
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_cpu_gpu_compat.py": {
+      "sha256": "a9803a36ea72664eed3dac89cfc2ad35d2079d2705bb60a541753219c713c4ad",
+      "bytes": 2479
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_ffi.py": {
+      "sha256": "fe6bd90705cbdd3c8edbe9f4edcef74c6c536aed082338cd3f2582cedc548cc5",
+      "bytes": 4583
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_globals.py": {
+      "sha256": "ed2cc48d4090bc3b877c37b03d32b023470455cfeef287944ba200a86400b023",
+      "bytes": 3936
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_laplace.py": {
+      "sha256": "b42e1fa45ed43f7735c95aa4ce7b926b83adcd7ba5af44604baaf323384afc93",
+      "bytes": 5203
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_matmul.py": {
+      "sha256": "af79395380b14ed0e6c45634edfe9820bc2a8d08ec2e86cc25c599b3f079a857",
+      "bytes": 5776
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_montecarlo.py": {
+      "sha256": "28204a1ba362a0eb08bb4c9c5dfb90f8b93185924efcaea0051dcb2d70874cfe",
+      "bytes": 3721
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_random.py": {
+      "sha256": "8cf7e5e3564d41aa8aed30bcb26c031c9e54af3ebefe588bc819e49a5bb204ba",
+      "bytes": 2382
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_reduction.py": {
+      "sha256": "1d468fdea57110603f012b27722fb97482e32b8e6467f67925a8b72ee38d1a56",
+      "bytes": 2409
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_sessionize.py": {
+      "sha256": "bbbefe655fcfc81c493ed9afab454b4745bf0d98f19890a997709ae693bf96b8",
+      "bytes": 5575
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_ufunc.py": {
+      "sha256": "fe3c723c28acdef34049bcfd0d6ccf0e718fed8cc610cbbc08ac7a93c6d499c1",
+      "bytes": 1563
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/doc_examples/test_vecadd.py": {
+      "sha256": "461445c069faa395bcf456eb2f4f2d672dd517de58b9304e8fa79cb136494e09",
+      "bytes": 2177
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_cache_version.py": {
+      "sha256": "83b850f3bd76b3686920e95ec66ee8ce66f3b63d4e006eac28331d04b35a862b",
+      "bytes": 2117
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_dummyarray.py": {
+      "sha256": "d587c5728090602653351060f4f6bda38432bae3dbbe24b4989ae2adb9ad616a",
+      "bytes": 17995
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_function_resolution.py": {
+      "sha256": "fdedbdd2ada90bbe710a80e67223a6352aec7770ac4560a3af40475faf4f2368",
+      "bytes": 1636
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_import.py": {
+      "sha256": "e5cead4c367c888c6302cad5c01038082e91a7b89e064709d57b54d8efdecf9a",
+      "bytes": 2428
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_library_lookup.py": {
+      "sha256": "f06f70b0a88b1558e35ac35a33f955f2c82f029357145da37c288cac006c93ee",
+      "bytes": 7606
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nocuda/test_nvvm.py": {
+      "sha256": "b158301127dac40b7dec08690b1535063f8c32f72b7a0a6ffae94fe85990e8b1",
+      "bytes": 2108
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nrt/__init__.py": {
+      "sha256": "6a128f2e7a14d8d9f41ed37f4613673b45626844c726b6a7670c44e4cabec0ce",
+      "bytes": 297
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nrt/test_nrt.py": {
+      "sha256": "d1535298a9249bec43b32ac270439fb03adcfa5f460c5e7f8cf688db84f464ef",
+      "bytes": 14043
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/nrt/test_nrt_refct.py": {
+      "sha256": "1b110dc78e54ff28a9aa5991424b2c917ec54d8f0dd1c5e3706a63b292acefb0",
+      "bytes": 3441
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/tests/support.py": {
+      "sha256": "2fc3ba9d92346c20423756fd6e52badaad71c05f42a0e77646602558680a50ca",
+      "bytes": 30083
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typeconv/__init__.py": {
+      "sha256": "c88cc33e7239a02e1d7ed05c6f93497d1d7a536c5286314f4cd9d8f8bc9b9ff9",
+      "bytes": 187
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typeconv/castgraph.py": {
+      "sha256": "f6c0015bf057c3750fa3afa0f3dd2b796028731f3e4acfe90012eeffb7c4eed0",
+      "bytes": 4180
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typeconv/rules.py": {
+      "sha256": "b483f64cd9a54f36a71ee183e5b3d688723296ad2051c6d7af46358f59df7dfa",
+      "bytes": 2064
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typeconv/typeconv.py": {
+      "sha256": "79ee1110d10133d2c6744dbaa3892c3a97ea69ca51180595088434a69b93a3ea",
+      "bytes": 3627
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/__init__.py": {
+      "sha256": "3163a48db7ec3d8a493ce531c143a9902407c8d8d43b0ea3e02c9601776c7406",
+      "bytes": 5740
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/abstract.py": {
+      "sha256": "f5765b1cc629fd09b2d55f6e1291ca288362bbe130e24cca37046053848ab3ef",
+      "bytes": 328
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/common.py": {
+      "sha256": "ffb0cd759173821262517d7165786a3bdda588c629c2640e416715329a47c027",
+      "bytes": 324
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/containers.py": {
+      "sha256": "b9878aaba7e508f85441e4ef9755943db5978d4cbcb88d772ef12b2dc90a3123",
+      "bytes": 332
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_abstract.py": {
+      "sha256": "767729c02a08d73dc3ef87d0025f343f0893cd094366edecbdd316cc2951f36e",
+      "bytes": 15320
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_common.py": {
+      "sha256": "cffe57c31dd4fdb6b9ccbe244fd9a7370aad78da65874ad885060d41e6cc2ed0",
+      "bytes": 3123
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_containers.py": {
+      "sha256": "8f7c484d7997992890038f5bc0810edea6f11783ddc9dc7814b932b920f6fad3",
+      "bytes": 27777
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_function_type.py": {
+      "sha256": "0695f4bb46bdd99ac846bf5cc31c7e6d94ddaf9b300c096ca4a378e14d9cb9c3",
+      "bytes": 6777
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_functions.py": {
+      "sha256": "d2591e63d6e91b1945caff451e9b062dc9b9ad6db6d20774f8e370d06fa40e34",
+      "bytes": 26643
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_iterators.py": {
+      "sha256": "4338557d7e6cd5011a67b0a3d701d39f3977810bbb63ce04cd911031e1041314",
+      "bytes": 3660
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_misc.py": {
+      "sha256": "4ecc8a8e9917cda60593b6e6549b3729950613d4236de93eb9810aac1606ab5c",
+      "bytes": 14400
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_npytypes.py": {
+      "sha256": "da725ac231d25b1106c112520e6d29a30acfd5758537de6f4e802bc36a32477b",
+      "bytes": 20738
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/cuda_scalars.py": {
+      "sha256": "c0b231cdfaae2f8545652adbd7687016ef73a7fb12a35a4b9f6750da8e501b0d",
+      "bytes": 7308
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/ext_types.py": {
+      "sha256": "43ef9d7f52f1ec7d0e3b4d666f06d382fb57d808ff0308292837ab9ee619ad8b",
+      "bytes": 2955
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/function_type.py": {
+      "sha256": "1168ea2a7ee94cde39d4a8276b0f8b4ad04c9a0451c1a54b364e11175a5839d2",
+      "bytes": 347
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/functions.py": {
+      "sha256": "61f98896bd482eb9fbec4d980e52017a714bcf796fb09a135aa9d68223428ddf",
+      "bytes": 330
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/iterators.py": {
+      "sha256": "5d42239320a9c9de89813e02c32f4eca0700fb53a07f46dd6d0dcdb08e564597",
+      "bytes": 330
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/misc.py": {
+      "sha256": "5c98d2911bd0b4d8d72343cbbf0a4738e5a8806ad02c8f881f696999ff632ebd",
+      "bytes": 320
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/npytypes.py": {
+      "sha256": "68637921fa64d53b4c1cc9458e4950d13adf4f32c7ab2f9393c6d56489f0bd23",
+      "bytes": 328
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/types/scalars.py": {
+      "sha256": "44a3e25da58a0cc4fd0f18193df2184633b76c1644c74c1ee70fc0d2aa9eb61d",
+      "bytes": 326
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/__init__.py": {
+      "sha256": "9ad358d02d3d4e9c1348d01c66e828f070e73369d63932b32e68debbbd54e8b1",
+      "bytes": 422
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/arraydecl.py": {
+      "sha256": "c3a4607dfc2ae0d548b3bebda874a34dc92a6e5df864196975e4eab250b766b0",
+      "bytes": 31600
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/asnumbatype.py": {
+      "sha256": "d2a1baa9b322370d5099ec9de2f52e074ca96eb98b65130ead72a9f3120a0b43",
+      "bytes": 6043
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/bufproto.py": {
+      "sha256": "51f12608a015badb1fb833e462f7a93f922888c865fe652a5c085752e563818e",
+      "bytes": 1823
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/builtins.py": {
+      "sha256": "2e18ad884a4cfca1da62aee43ccd37beb0b798e3f524ec0ee5cde951bd6fea01",
+      "bytes": 33926
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/cffi_utils.py": {
+      "sha256": "c2d8c4fe30b15a534ff616d8ad8f6a422759da4541838d6fb1c6bbcc76090fe4",
+      "bytes": 7150
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/cmathdecl.py": {
+      "sha256": "2df1a17329d6024f0414247dea536862ed313de267b2947db44ebf281b0eeff2",
+      "bytes": 1280
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/collections.py": {
+      "sha256": "d7048457d4027c2c599737329a1a47a5e9ac0ef944f15ea8aab943e1a2a6e597",
+      "bytes": 4287
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/context.py": {
+      "sha256": "3529fd3da46ec77135f00b62f25de6143be35d185a5d0718bbc9d495f68d87c3",
+      "bytes": 26517
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/ctypes_utils.py": {
+      "sha256": "748126a41e273f9eef7e3e38b63763906a865beed864419e2066a8300c4ea2b2",
+      "bytes": 3639
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/dictdecl.py": {
+      "sha256": "3d7baf2864cd40e2f54db6cd36ae88123ec0b228f503ddbe1505b507fe59fd05",
+      "bytes": 2135
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/enumdecl.py": {
+      "sha256": "fdd68fc73a70201e1e58fc50bfd6704ace4eb19e5704327439736e56ab13c8e5",
+      "bytes": 1652
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/listdecl.py": {
+      "sha256": "27a12f2db68cad3640fc7a7b95d3ae5d8e3988fd44c50c9d874840746e8d42f2",
+      "bytes": 4496
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/mathdecl.py": {
+      "sha256": "0374f3970e429cd8788ccb090511f72d9764a1540fb6055d9bbb9cf78e3ed65e",
+      "bytes": 4563
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/npdatetime.py": {
+      "sha256": "7f6c51fc0e66199fd54a2116b58e53384579a7d3ccd7f2dfb12c9d0e1b91cb5b",
+      "bytes": 9165
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/npydecl.py": {
+      "sha256": "1e73a2f63db3fce1197ea84935d923ed106879338e22a74618952f89eaf262c8",
+      "bytes": 22959
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/setdecl.py": {
+      "sha256": "769239c0be64b6adcfe60596a54dcb052d48c2011c21772a342a65a9c9b3c8f3",
+      "bytes": 3264
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/templates.py": {
+      "sha256": "268cf576348a2233f3fdd831b12b89931e458e8672ca6244c86460c2e6ea1778",
+      "bytes": 50742
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/typing/typeof.py": {
+      "sha256": "bba86f10bd13f579c600e450f8f026ffd93c8366199a710bd19e33e3f8c1eead",
+      "bytes": 12292
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/ufuncs.py": {
+      "sha256": "1db2a50054bd9ade1531c162ed85342e0227e6b6a3b79f0be60b7c1129fbc319",
+      "bytes": 25986
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/utils.py": {
+      "sha256": "3a9c5309128b42654d6c4c85150f77955ca627822fbee241302b3fb228ddb78b",
+      "bytes": 20704
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/vector_types.py": {
+      "sha256": "e28ff1a25a93625accdea9aeea612f295851067546abbcb34f9f772bca73e6af",
+      "bytes": 6938
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/vectorizers.py": {
+      "sha256": "6893e7c3fc876e15db4aaa93a5d65a80e592364307c69078b6dd8f2c73bbddfe",
+      "bytes": 8519
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libcudart.so.13": {
+      "sha256": "862020da24ec4db58470c8dfad08e8753b417c459c115326edf15e9f574c92e3",
+      "bytes": 773920
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvJitLink.so.13": {
+      "sha256": "894565766691d5103a3e0337d977c0be7004073d1b2c5ee05b60116c30bdabd8",
+      "bytes": 100441296
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvrtc.so.13": {
+      "sha256": "3d646504d4595919a17884c4beaa9949a8ff12085387d8b4de2baa504d7fc023",
+      "bytes": 115333336
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvvm.so.4": {
+      "sha256": "ee67a8957fb25997ead7d18c1a746d13f1a675cc56948d11b9773a0f2f6850f5",
+      "bytes": 64632576
+    },
+    "/usr/lib/x86_64-linux-gnu/libcuda.so.595.91.07": {
+      "sha256": "4839b5da17cd8f58a8e9c57e97c9b61f3c41be7934479f48afc983416b2492c3",
+      "bytes": 91505672
+    },
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/nvvm/libdevice/libdevice.10.bc": {
+      "sha256": "0c6b4d4e4c033e2faffcc6f671c68fec5e813020845a5a08f1dbdd35c19629d6",
+      "bytes": 465428
+    }
+  },
+  "total_dependency_bytes": 379428384,
+  "manual_128GiB_executed": false
+}

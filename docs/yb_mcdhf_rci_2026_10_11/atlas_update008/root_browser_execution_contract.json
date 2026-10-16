@@ -1,0 +1,39 @@
+{
+  "scope": "atlas_update008_local_browser_once",
+  "execution_authorized_by_root": true,
+  "maximum_attempts": 1,
+  "launcher_sha256": "6096c28e46ebf05d2fee3976e479a33996cd23ebf04ca96c61a4d2f4060859f7",
+  "launcher_contract_sha256": "2bc8a2a708531375e76b7940620ea0c67ff9231255880626429c560620f4c2e1",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/contract.json": "217e0e874575678eb7fdc9ce4a05ea1438cbe7aeea0b84ec45393abd92ba75f4",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/data_verification.json": "62d0cf883d3f8f2da9ff6a8002af9738415c2c73aa7dd8f6611a66cd0ea69f07",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/prepared.json": "d9eaf00724faf3c8b6df77549a1928576cdca4fd9e59c247eeb1eb39528f962c",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/site_manifest.json": "957d1aaa46b8dcc3c49b0208fe319782120a772ebdad397d21a9ec3f7bbd647f",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/old_models.json": "489be1e6f9c15eb70e8ed589c8f0455e41416f879194a1a0584564f4a4778e12",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/build_execution.json": "5897d8592bb1d44195fa26e194de6070a81f23e9386e118b5eb48e9158ef3026",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/browser_test.js": "38ca3f53a4b3fd84998d2ea92a098d91933cd7f3a4edf2ad65f5e9ebd7b7a0a7",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/browser_contract.json": "8e9e8517d457a11b0e4bafe282e24b5487472fe1a5a33838917d969ec449d641",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/browser_preparation.json": "354207ad9d8049cbb19897598879d7bdf9ce6ab9f61e92b52e5ce49c7ab42bf0",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/handoff.json": "40fd30fe1768d0eb300bcd774a898febf894f31281edb3f569f6bb946ac3da44"
+  },
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "maximum_foreground_seconds": 90,
+    "cleanup_reserve_seconds": 3,
+    "aggregate_rss_stop_bytes": 2147483648,
+    "rss_sample_interval_seconds": 0.2,
+    "maximum_observed_sample_gap_seconds": 0.25,
+    "memory_limit_kind": "observed_aggregate_process_tree_RSS_stop_not_kernel_hard_bound",
+    "memory_sampling_may_overshoot": true,
+    "RLIMIT_AS_applied": false,
+    "systemd_or_cgroup_created": false,
+    "timing_scope": "uncontrolled_browser_QA_no_performance_claim"
+  },
+  "created_utc": "2026-10-11T18:45:57.218431+00:00",
+  "no_other_numeric_browser_work": true,
+  "root_reviewed_full_driver_contract_and_preservation": true,
+  "root_launcher_two_literal_scope_and_verdict_changes_only": true,
+  "no_publication_authorized_by_this_seal": true,
+  "parent_handoff_sha256": "40fd30fe1768d0eb300bcd774a898febf894f31281edb3f569f6bb946ac3da44"
+}

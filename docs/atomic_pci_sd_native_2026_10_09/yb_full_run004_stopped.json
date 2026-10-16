@@ -1,0 +1,11 @@
+{
+  "status": "incomplete performance baseline stopped; not an equation or accuracy failure",
+  "pid": 3347168,
+  "command": ".venv/bin/python -u docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py --run yb_full_run004 ",
+  "reason": "Original one-worker first full action remains incomplete after over 105 minutes. Matched native-node run007 preserves the required full reference; run008 tests exact polynomial coordinates with unchanged physical space. Avoid a redundant incomplete unprofiled action consuming resources.",
+  "source": "probe_yb_full.run004_source.py",
+  "log": "yb_full_run004.log",
+  "no_new_root_or_spectrum": true,
+  "signal": "SIGTERM",
+  "time_unix": 1791543719.841124
+}

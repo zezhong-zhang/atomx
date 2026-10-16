@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/run.py", line 600, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/run.py", line 590, in main
+    execute(args.binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/run.py", line 189, in execute
+    from atomx.numerics.bspline import dirac
+ImportError: cannot import name 'dirac' from 'atomx.numerics.bspline' (/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/__init__.py)

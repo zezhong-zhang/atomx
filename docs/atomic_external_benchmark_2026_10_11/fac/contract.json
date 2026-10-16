@@ -1,0 +1,88 @@
+{
+  "created_at_UTC": "2026-10-11T04:29:41.566598+00:00",
+  "user_request": "Include FAC in the actual accuracy, efficiency and parallel efficiency comparison.",
+  "hypothesis": "Common complete FAC inputs isolate numerical assembly; independently optimized complete workflows reveal declared model differences and actual fixed-work scaling. Parallelism helps only when actual retained workloads outweigh overhead.",
+  "fixed": {
+    "common_integrals_cases": [
+      "helium_like:10",
+      "carbon_like:6",
+      "neon_like:26",
+      "neon_like:82"
+    ],
+    "complete_expected_levels": [
+      98,
+      20,
+      37,
+      37
+    ],
+    "common_fac_points": 8000,
+    "common_fac_density": 4,
+    "common_atomx_points": [
+      2000,
+      4000
+    ],
+    "fac_compressed_Yk_cache": false,
+    "nucleus": "point",
+    "mass": "infinite",
+    "SE_VP_Breit": "off for DC structure; any transverse panel separate",
+    "configuration_energy_shifts": false,
+    "workflow_cases_Z": [
+      18,
+      26,
+      54,
+      82
+    ],
+    "workflow_configs": [
+      "ground 1s2 2s2 2p6",
+      "2p5 3s1",
+      "2p5 3d1"
+    ],
+    "workflow_expected_levels_per_Z": 17,
+    "workflow_E1_modes": [
+      "long_wavelength",
+      "finite_wavelength"
+    ],
+    "workflow_expected_lines_per_Z": 10,
+    "note": "Complete existing frozen-config runner space, not a full physical convergence claim. Separate seven-config 37-level common-integral cases."
+  },
+  "precision_gates": {
+    "same_H_Ha": 1e-11,
+    "same_H_relative": 1e-10,
+    "full_array_all_workers_Ha": 1e-11,
+    "experimental_relative": 0.01
+  },
+  "timing_contract": {
+    "cpu_workers": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "max_lane_threads": 8,
+    "max_parallel_prepare_lanes": 3,
+    "max_per_process_address_bytes": 8589934592,
+    "max_lane_seconds": 600,
+    "max_reserved_total_bytes": 25769803776,
+    "minimum_host_headroom_bytes": 8589934592,
+    "minimum_free_disk_bytes": 8589934592,
+    "cpu_load_before_plus_workers_le_affinity": true,
+    "cpu_load_change_maximum": 4.0,
+    "gpu_no_other_compute_processes": true,
+    "failed_guard_speedup": null,
+    "lock_file": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/timing.lock",
+    "scopes": [
+      "cold setup/build separate",
+      "warm full operator/action",
+      "reference executable I/O clearly included",
+      "same fixed work strong scaling S_p=T_1/T_p, E_p=S_p/p",
+      "independent fixed-work throughput separate from algorithmic scaling"
+    ]
+  },
+  "paired_rounds": 3,
+  "warmups_separate": true,
+  "actual_process_threads_observer": "Required for FAC OpenMP before accepting S/E; cap8 is process total, no env-only inference. Private child monotonic wait4 timing or blocking wait/watchdog, not timeout polling.",
+  "stopping": "Reject unmatched/truncated targets and resource excess before allocations. Failed scientific gates invalidate corresponding timing comparison. Failed environment guards retain observations, no controlled performance conclusion. No silently raised tolerance or resource budget.",
+  "source_policy": "Hash actual dirty source/frontend/build/library/config and loaded runtime before and after. Do not modify production sources or historical owners; root freezes evidence and adds a new FAC report version.",
+  "throughput_policy": "Independent process throughput may be measured only with fixed complete task count and total8threads,24GiB reservation/8GiB headroom; distinguish throughput from strong scaling.",
+  "highest_level_reached": false
+}

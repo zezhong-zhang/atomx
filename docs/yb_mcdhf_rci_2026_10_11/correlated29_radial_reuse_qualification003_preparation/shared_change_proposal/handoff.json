@@ -1,0 +1,17 @@
+{
+  "apply_instruction": "Root must verify every current destination matches before_sha256 before applying only changes.patch; archive the complete resulting source epoch before affected tests/consumers.",
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/README.md": "522790c8072d57f2ba99c3dbbb3875a5717e33e0a0ebf6397af552955edca4d2",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/changes.patch": "05a7024986135faff02275ab8aab51e20ae55168c8d6d37851c8d50d7f11edbb",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/contract.json": "7a33a212b39e196f3ce06971df494426341bafb3a09baa298d20ac1177865ba4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/documentation_impact.json": "a4e8d9f218d712481abb442c58af9f27160dd53669577e72d72d9aeb9aaacd46",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/prepare.py": "5fb12be27363836e654fac22e5ffb292fb8a94bd2432a1efa87dd75fb4e13871",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/source_boundary.json": "db9ad4dbbc176a73ce6e323f2bff95d751e68b65566dbd34a0eb60d89c3e65f9"
+  },
+  "pending": [
+    "root apply/review seal",
+    "affected tests",
+    "controlled warm benchmark"
+  ],
+  "status": "reviewable_source_only_shared_patch"
+}

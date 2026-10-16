@@ -1,0 +1,84 @@
+{
+  "all_passed": true,
+  "checks": 16,
+  "controls": [
+    {
+      "name": "stdlib_import_only",
+      "passed": true
+    },
+    {
+      "name": "bound_inputs_source_and_closed_scale_prerequisite",
+      "passed": true
+    },
+    {
+      "name": "no_pending_scientific_prerequisites",
+      "passed": true
+    },
+    {
+      "name": "AST_run.py",
+      "passed": true
+    },
+    {
+      "name": "AST_constraint_bookkeeping.py",
+      "passed": true
+    },
+    {
+      "name": "separate_corrected_source_epoch",
+      "passed": true
+    },
+    {
+      "name": "original_metric_retained",
+      "passed": true
+    },
+    {
+      "name": "complete_original_model",
+      "passed": true
+    },
+    {
+      "name": "explicit_budget",
+      "passed": true
+    },
+    {
+      "name": "no_sourcechange_optimizer",
+      "passed": true
+    },
+    {
+      "name": "no_optimizer_invocation",
+      "passed": true
+    },
+    {
+      "name": "shuffled_binding_original_UID",
+      "passed": true
+    },
+    {
+      "name": "duplicate_UID_refused",
+      "passed": true
+    },
+    {
+      "name": "absent_exact_root_execution_refused",
+      "passed": true
+    },
+    {
+      "name": "refusal_did_not_import_numerical_source",
+      "passed": true
+    },
+    {
+      "name": "no_actual_directory_created",
+      "passed": true
+    }
+  ],
+  "runner_sha256": "50de6d293a34ef6783114ca247af742fa921033ed7e5a7b64d1cdbc2cb083346",
+  "contract_sha256": "cd05d2c2e082c0a77448f251e7986ee11f950ba4174210f0bc785647bdf12365",
+  "consumer_math_helper_sha256": "43571c6232ff50ab1ab6d9415e5f7432ef5e375deede7e726aaebcc62366e4fb",
+  "verifier_sha256": "345437b5e2e97fc044e5a059d7c1adaee7c2afc4979d256f0c739ba142dd9e29",
+  "numerical_imports": 0,
+  "scientific_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "optimizer": 0
+  },
+  "scope": "source/JSON/AST/refusal/UID preparation; no numerical or derivative qualification",
+  "execution_authorized": false
+}

@@ -1,0 +1,192 @@
+{
+  "status": "SOURCE_JSON_only_conditional_discriminator_proposal",
+  "execution_authorized": false,
+  "executor_implemented": false,
+  "hypothesis": "Larger secant directions may enter a genuine high-gradient descent region; distinguish this from reconstruction/curvature implementation error or a derivative defect at the newly reached point.",
+  "fixed": {
+    "nucleus": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+    "electrons": 69,
+    "radial_orbitals": 31,
+    "radial_dimension": 123,
+    "coordinate_dimension": 3689,
+    "target_CSFS": 1595,
+    "full_parent_CSFS_enumerated": 3789,
+    "NR_configurations": 91,
+    "complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "native full Dirac-Coulomb only",
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "new_state_sha256": "2e4b926427f29adacf10529e371ec5a2bd591b63a5bc4fbd40f3dedc7a1d33d7",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "physical_point": "literal qualified recovered31 P@Y with exact savedx; no reprojection",
+    "all31_orbitals_relax": true,
+    "no_initial_polar_repair": true,
+    "seven_no_pair_P_and_original_inverse_byte_identity": true,
+    "reported_objective": "ordinary native equal5targetEOL",
+    "NIST_only_reporting": true
+  },
+  "source": {
+    "map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "all356_frozen_modules_only": true,
+    "not_current_shared_source": true,
+    "not_external_backend": true,
+    "current_owner_or_mixed_regressions_not_upgraded": true
+  },
+  "observations_sha256": "7158a0e18f228905358c4db6127c5e3ea827f31c2102c3220859612bcd483a12",
+  "stageA": {
+    "kind": "offline saved numerical direction/history replay; prospective only",
+    "inputs": "Accepted0..12 saved x/tangentg, original literal layout/P/inverse once; accepted13 coordinates for predicted polar endpoint. Declarations in observations, no arrays read in preparation.",
+    "data_access": "Decode only numerical x/g/metric fields, no H/roots/C or density contraction. All stages require future root exact bound script/caps.",
+    "reconstruction": "Use the frozen original tangent/vector-transport/curvature insertion/drop/two-loop and polar formulas; chronologicalhistory starts empty at0. No artificial last10 slice, no metric rebuild.",
+    "measurements": [
+      "Actual retained and dropped pairs, sTy/norms/rho and pair count.",
+      "Reproduced step13 slope, direction norm, original-metric steepest direction, their angle and action; all31/key partitions preserve cross terms.",
+      "Exact source-bound canonical step13 retraction endpoint and original Gram/no-pair/current stopping scalars."
+    ],
+    "gates": {
+      "slope_absolute": 1e-10,
+      "coordinate_endpoint_maximum": 1e-12,
+      "original_residual_scalar_reconstruction": 1e-10,
+      "original_energy_indicator_scalar_reconstruction": 1e-10
+    },
+    "resources_estimate": {
+      "CPU": 31,
+      "threads": 1,
+      "memory_GiB": 1,
+      "wall_seconds": 30,
+      "H_CI_gradient_Dirac_eigen_optimizer_calls": 0
+    },
+    "stop": "Any mismatch is a numerical representation/replay blocker; no stageB or optimizer continuation."
+  },
+  "stageB": {
+    "kind": "Separate fresh same-point directional qualification if stageA reproduces original direction",
+    "literal_point": 13,
+    "direction": "Fixed original step13 direction reconstructed at12, projected with original T at13 and Frobenius-normalized over all3689. Too-small norm is inconclusive, no replacement. Direction file SHA is pending stageA actual and may not be selected from spectra.",
+    "h": [
+      1e-05,
+      5e-06
+    ],
+    "energy_objective": "ordinary native reported equal5EOL at baseline and all4CI trials; centered complete mixed-Rayleigh finite response and signed Lambda quadratic Gram diagnostic separate, no energy callback.",
+    "prospective_calls": {
+      "H": 5,
+      "CI": 5,
+      "weighted_gradient_from_weights": 3,
+      "unfiltered_target_tables": 5,
+      "optimizer": 0,
+      "new_projector_or_inverse_construction": 0
+    },
+    "same_point_control": "Fresh H/E/signedC/owner/UID baseline to own accepted13; fullnorm/delta/direct gradient and original projected metric gates before FD. No forcing oldcanonical31 or current epoch bitwise matrices.",
+    "gates": {
+      "rawg": 1e-09,
+      "pg": 1e-10,
+      "CI_residual_Ha": 1e-08,
+      "CI_Gram": 1e-10,
+      "ordinary_derivative_absolute": 1e-08,
+      "ordinary_derivative_relative": 1e-05,
+      "derivative_rule": "max(abs1e-8,rel1e-5*absanalytic), both fixedh ordinary gates; separately named complete centered diagnostic.",
+      "original_stationarity_residual": 1e-07,
+      "original_stationarity_energy_indicator_Ha": 1e-08
+    },
+    "resources_estimate": {
+      "CPU": 31,
+      "threads": 1,
+      "AS_GiB": 3.95,
+      "inner_seconds": 300,
+      "outer_seconds": 315,
+      "requires_final_source_counter_chain_before_execution": true
+    },
+    "failure_disposition": "Do not relaxh/target/norm/CI gates or upgrade prior accepted/FD evidence. Failed derivative requires physical or numerical diagnosis; passed directional test is not a full-space or uniform bound."
+  },
+  "decision": "No addediterations, modelcutoff or automaticcontinuation. StageA first; only root may authorize fixed stageB, with actual direction binding and complete prospective counter chain.",
+  "preparation": {
+    "NumPy_Atomx_numeric_imports": 0,
+    "NPZ_reads_or_rehashes": 0,
+    "scientific_calls": 0,
+    "shared_source_or_frozen_science_edits": 0
+  }
+}

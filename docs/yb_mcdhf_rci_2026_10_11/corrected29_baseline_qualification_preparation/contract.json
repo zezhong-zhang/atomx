@@ -1,0 +1,359 @@
+{
+  "created_before_numerical_imports_utc": "2026-10-11T13:51:25.493496+00:00",
+  "status": "source_only_prepared_for_root_exactreview_not_executed",
+  "hypothesis": "The retained unnormalized/global-RDM seam may contribute to the corrected ambient radial gradient. Full normalized targetwise signed-table contractions can quantify its complete vector/tangent/original-metric contribution without a new point or production policy change.",
+  "input_roles": {
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_coordinates.npz",
+      "sha256": "3e5d56a271f4976469d82f602e186def00624f287606490018b82066e5a31739"
+    },
+    "direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_coordinates.npz",
+      "sha256": "a3ef4003826671691e967649662dc385af3b440564dea5f2ba7a6fbc53aadd72"
+    },
+    "iteration_trigger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage013/delivery_proof.json",
+      "sha256": "29145e3cdf50ea2cc400639e59f3c17f00beb4bee4c79bfb27bd5411d0c11664"
+    },
+    "old_fullnorm_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/result.json",
+      "sha256": "4d448b6deaca133ac7e7075d56a921605d55cd28a69ff4c09c0ff3aa11ea228c"
+    },
+    "old_fullnorm_tables": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/signed_tables.json",
+      "sha256": "490b8631dc74da22c76a6c116cfd625f286de6b2f78a1abd6e477efdc1c2c5ae"
+    },
+    "old_fullnorm_gradients": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_full_normalized_gradient_control/actual/all_gradients_metric.npz",
+      "sha256": "c1d06c41f25ce1ea1159f9fa26f98df01ce910757f20305181fb42401d9c9251"
+    },
+    "scale_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/contract.json",
+      "sha256": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254"
+    },
+    "scale_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/run.py",
+      "sha256": "b2a65ea76cb86e8ab83ae446af751dc75031934be6fbb19a97ebf5b7f7efa816"
+    },
+    "scale_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+      "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+    },
+    "scale_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/root_execution.json",
+      "sha256": "bfe64f5fdbe61bfe1169091ef85f87396a497fb7fdd8abab9f92b84d00302d72"
+    },
+    "scale_execution_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/execution_contract.json",
+      "sha256": "4977df0c46de97b964a7ef3008bb9e467ad20d63789d79e467cb63745e4225c8"
+    },
+    "consumer_math_helper": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/constraint_bookkeeping.py",
+      "sha256": "43571c6232ff50ab1ab6d9415e5f7432ef5e375deede7e726aaebcc62366e4fb"
+    }
+  },
+  "source": {
+    "map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "parent_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+    "only_parent_change": "two nonnegative-rank inner-Gauss orders; no semiseparable matrix change"
+  },
+  "fixed": {
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "native005 Fermi A175",
+    "ns": 123,
+    "keys29": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "target_CSFs": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "full_NR_parent_CSFs": 2163,
+    "full_model_not_computed": true,
+    "original_tracker": "balanced531 original DC eigenpairs/native005 original radial reference; never rebase",
+    "five_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "all29_allowed_to_relax": true,
+    "operator": "same original nuclear no-pair Dirac-Coulomb; no Breit QED recoil empirical or effective additions",
+    "physical_label_binding": "Every point maps singleton tracker reference_levels by original (twoJ,parity,local_root) UID; insertion order is forbidden for target labels, centroids or splittings. Assert complete unique5 and selected J/parity match."
+  },
+  "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "point": "exact saved authoritative3451 x, original seven P@x actual recovered physical waves, no canonical seed/reprojection/retraction/state construction",
+  "calls": {
+    "H": 5,
+    "CI": 5,
+    "gradient_from_weights": 3,
+    "initial_hS": 7,
+    "CI_hS": 35,
+    "mixed_hS": 28,
+    "Dirac": 0,
+    "tracker_resolve": 13,
+    "tracker_SVD": 65,
+    "tracker_overlap": 14,
+    "CI_eigh": 25,
+    "retained_RDM": 1,
+    "unfiltered_target_RDM": 25,
+    "gradient_pair_potential": 10000,
+    "polar_retraction": 28,
+    "polar_numpy_eigh": 28
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 300,
+    "outer_wall_seconds": 315,
+    "estimated_peak_MiB": 1800,
+    "expected_seconds_uncontrolled_range": [
+      60,
+      180
+    ],
+    "estimate_basis": "Full1046 H/signedC each8.35MiB; source500ac 1H1CI2weightedg24.95s. Here one native productiong plus2weightedg and4same-space CI-only trials. Seven initial hS plus at most35CI hS plus28mixed-radial hS. Three gradients have <=3*7*29*30/2=9135 unordered source-pair potentials before any exact-zero sparsity; cap10000. Pure complete signed Gram/ambient Fraction bookkeeping cap8m products within shared300s. No timing claim, cache/source isolated, no retries/shrink. Tracker captures the actual evaluate resolve output rather than resolving again:5evaluate+8mixed=13resolve/65SVD/14overlap incl initial tracker.",
+    "max_complete_CSFS": 1046,
+    "max_radial_keys": 29,
+    "max_coordinate_entries": 3451,
+    "max_target_tables": 5,
+    "no_model_shrink_no_retries": true,
+    "max_exact_scalar_products": 8000000,
+    "fresh_isolated_NUMBA_CACHE_DIR": "New empty directory underneath owned preparation; refuse nonempty/cross-epoch cache before numerical import."
+  },
+  "method": {
+    "fresh_baseline": "Public CSFOrbitalFunctional.evaluate(gradient=True,retain_hamiltonian=True): fresh corrected real H owner, all1046 eigenpairs and full29 radial/public gradient. Source500ac H/roots/signedC/publicg remain immutable comparison, not equality gates on corrected numerical values. Same original physical point P@archivedx/P/S/inverse/metric/basis/UID are exact gates. Physical original target oldenergy uses archived original UID/label-bound oldcolumn, never currentfresh column. Sourcechange basis-order wholearray comparison remains forensic.",
+    "tables": "Public retained contract once; exactly five contract_bilinear(c,c). Each selected CI norm=sum exact Fraction(binary64c)^2. Aggregate actual .2 target weights times bilinear value/norm as Fraction, retain all exact nonzeros, explicitly convert to finite nonzero float64; refuse underflow instead of omit. Preserve pertarget tables/norms and full/retained/delta global tables.",
+    "delta": "Full normalized signed table minus production retained table with stable full-then-retained-only key order; two public gradient_from_weights calls. All nonzero angular terms retained; no copied Coulomb kernel.",
+    "linearity": "Fresh corrected public rawg+delta versus direct fullnormalizedg under original1e-9 wholevector and1e-10 originalmetric pg gates. Old500ac g is independently projected and source-difference only.",
+    "ambient": "Replace complete normalized logical symmetric onebody contribution by raw nonsymmetric h quotient; bra hVb/n, ket h.TVa/n-2(Va.T hVb)SVb/n^2. Two-body comes wholly from public weighted gradient. Compare before/after complete vectors in original P and inverse metric.",
+    "directions": "Original archived d0 externalPCG64seed20261011 and d1 old/newrotationseed20261012, h1e-6, no new direction/hscan. Four actual retracted coordinate points P@candidate and P@(candidate-x); public mixed_ci_energy_difference retains explicit/reconstruction radial and finiteCI norm/residual/phase/response. Complete fixed-baseline Lambda=.25(C.T gA+gA.T C) and exact fullsamekappa DeltaGram linear+quadratic, including signed offdiagonals and rounded actual endpoints. Compare centered mixedRayleigh central to ideal ambient action minus same fixedLambda Gram derivative at max(abs1e-8,rel1e-5*abs(ideal)). This is diagnostic Q-Lagrange qualification only. Report ordinary/root-vs-Q offsets/directstoredQ/ULP; no production target or callback swap.",
+    "scope": "All finite controls belong to newcorrected source and same physical input; old derivativeFAIL remainsFAIL. Full normalized HFpartial excludes finiteCI eigenresponse, separately retained by finite diagnostic. No global/uniform errorbound or experiment qualification."
+  },
+  "gates": {
+    "CI_residual": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "P_leak_metric_norm_squared": 1e-12,
+    "raw_vector_linearity": 1e-09,
+    "pg_vector_linearity": 1e-10,
+    "orbital_stationarity_tolerance_unchanged": 1e-07,
+    "energy_indicator_tolerance_unchanged": 1e-08,
+    "old_derivative_abs": 1e-08,
+    "old_derivative_rel": 1e-05,
+    "coefficient_counts_are_bounds": false,
+    "old_derivative_gates_not_reexecuted_or_upgraded": true,
+    "corrected_values_equal_oldsource_required": false,
+    "original_geometry_keys_coordinate_metric_bytes": "exact",
+    "new_fixed_direction_centered_abs": 1e-08,
+    "new_fixed_direction_centered_rel": 1e-05
+  },
+  "stop": [
+    "Source/input/owner/UID/order/point/metric mismatch; preserve early archives and stop before more physical calls.",
+    "Call/wall/memory admission failure; no retry, replacement point, narrower model or hidden cutoff.",
+    "Nonpositive norm, coefficient representability or fullvector gate failure; preserve all available tables/gradients and actual counters.",
+    "Any directional gap is a measurement, not automatic optimizer admission or a relaxed original gate."
+  ],
+  "execution": "Preparation imports no NumPy/Atomx and executes no science. Refuse pending prerequisites and require root exact source/input/script/contract seal in a fresh source-isolated process. Max5H5CI3g; zero optimizer/Dirac. Baseline allproducer/physical/CI/gradient gates precede the four declared CI-only endpoints. No shrink, retries, hscan, productioncallback or targetchange.",
+  "not_claimed": [
+    "Original failed derivative gates repaired",
+    "fullMCDHF convergence or experiment-level spectrum",
+    "finite CI response included in HF partial",
+    "global angular/kernel/radial rounding bound",
+    "production objective/callback qualification",
+    "new inverse metric or nuclear no-pair projector",
+    "Corrected baseline or finite derivative gates passed before execution"
+  ],
+  "title": "Corrected positive-inner-order source: native1046 complete same-point baseline and fixed two-direction constrained derivative qualification",
+  "pending_prerequisites": []
+}

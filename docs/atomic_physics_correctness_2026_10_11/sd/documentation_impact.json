@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-11",
+  "logical_change": "Clarify existing physical direct-rho pair-exchange domain; no numeric or solver change.",
+  "changed_symbols": [
+    "CoreSD.__doc__",
+    "CoreSD.action.__doc__",
+    "CoreSD.solve.__doc__"
+  ],
+  "production_file": "src/atomx/methods/core_sd.py",
+  "non_docstring_AST_identical": true,
+  "disposition": [
+    {
+      "path": "src/atomx/methods/core_sd.py",
+      "action": "update",
+      "reason": "Physical commutator meaning requires simultaneous pair-exchange constraints; raw API still only validates shape/finite values."
+    },
+    {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/README.md",
+      "action": "new owner evidence account",
+      "reason": "Complete constrained finite proof, original raw failure and explicit completeness gaps."
+    },
+    {
+      "path": "docs/ATOMIC_LINEARIZED_SD.md",
+      "action": "parent integration",
+      "owner": "/root",
+      "reason": "Current SD guide needs explicit representation domain and source-bound finite audit link."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "action": "parent integration",
+      "owner": "/root",
+      "reason": "Disambiguate simultaneous pair-exchange constraint from general particle antisymmetry; reviewer supports existing convention-first rule."
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md and docs/README.md",
+      "action": "parent integration",
+      "owner": "/root",
+      "reason": "Link this owner evidence from current physics-first account; no independent duplicate public guide."
+    },
+    {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/four-core-run002",
+      "action": "retain unchanged",
+      "reason": "Unique negative evidence; no missing-diagram claim survives complete physical-domain control."
+    }
+  ],
+  "validation": [
+    "Published diagnostic scripts ruff passed",
+    "CoreSD ruff passed",
+    "Non-docstring AST identical against original frozen source",
+    "Final local links and evidence hashes verified by verify_report.py"
+  ],
+  "insight_disposition": "Refines existing constrained-space and convention-first principles; no new general AGENTS.md rule."
+}

@@ -1,0 +1,39 @@
+{
+  "created_before_numerical_execution_utc": "2026-10-11T12:27:00.531500+00:00",
+  "guard_qualification_execution_authorized": true,
+  "root_reviewed_complete_driver_test_and_contract": true,
+  "contract_sha256": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+  "runner_sha256": "29cd1a15993114a12d2fd053854770b01a6270fdae498e7033ff871eb761f675",
+  "test_sha256": "e5887850ddbe2627351876ac5f1720b58082c7b19819b8c28596577f587bc682",
+  "preparation_verification_sha256": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e",
+  "root_reviewed_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/contract.json": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/run.py": "29cd1a15993114a12d2fd053854770b01a6270fdae498e7033ff871eb761f675",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/test_saved_guards.py": "e5887850ddbe2627351876ac5f1720b58082c7b19819b8c28596577f587bc682",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/preparation_verification.json": "c1849e9004a40267f49dcdcceaa74823c42d8b9e7cc7dcf45a664b3b21deea7e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/root_launch.py": "492111eb83c30d25633a613dc727bc310115cc22b2126322a3071bd4e9087e98",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/prepared_handoff.json": "c8dbd9575dcf330f4fa517e23484d6c5799ffea6758786636a33e277e6068207"
+  },
+  "calls": {
+    "H_build": 1,
+    "CI_solve": 0,
+    "gradient": 0,
+    "one_body_assembly": 6,
+    "nuclear_Dirac_solve": 0,
+    "polar_retraction": 0,
+    "physical_overlap": 2,
+    "tracking_SVD": 0,
+    "SciPy_eigh": 0,
+    "NumPy_eigh": 0,
+    "optimizer": 0,
+    "radial_increment": 0
+  },
+  "resources": {
+    "CPU_affinity_count": 1,
+    "BLAS_NumPy_NumBa_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_time_seconds": 120,
+    "no_hidden_retry": true
+  },
+  "scope": "One genuine public saved-input baseline H, strict L(raw) and 6 actual raw h/S bitwise parity; saved two-direction h1e-6 derivative gates plus 17 guards. No new CI, gradient, finite radial increment or optimizer. Original failures immutable."
+}

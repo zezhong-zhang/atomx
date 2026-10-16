@@ -1,0 +1,106 @@
+{
+  "status": "prepared_not_executed",
+  "checks": [
+    {
+      "name": "bound_input/failed_contract",
+      "passed": true
+    },
+    {
+      "name": "bound_input/failed_driver",
+      "passed": true
+    },
+    {
+      "name": "bound_input/failed_result",
+      "passed": true
+    },
+    {
+      "name": "bound_input/failed_root_execution",
+      "passed": true
+    },
+    {
+      "name": "bound_input/saved_audit",
+      "passed": true
+    },
+    {
+      "name": "bound_input/saved_audit_contract",
+      "passed": true
+    },
+    {
+      "name": "bound_input/saved_audit_driver",
+      "passed": true
+    },
+    {
+      "name": "bound_input/saved_diagnostic_arrays",
+      "passed": true
+    },
+    {
+      "name": "bound_input/geometry",
+      "passed": true
+    },
+    {
+      "name": "bound_input/field",
+      "passed": true
+    },
+    {
+      "name": "bound_input/complement",
+      "passed": true
+    },
+    {
+      "name": "bound_input/raw_gvd",
+      "passed": true
+    },
+    {
+      "name": "bound_input/original_control",
+      "passed": true
+    },
+    {
+      "name": "bound_input/checkpoint_manifest",
+      "passed": true
+    },
+    {
+      "name": "bound_input/checkpoint_arrays",
+      "passed": true
+    },
+    {
+      "name": "bound_input/source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_input/original_layout",
+      "passed": true
+    },
+    {
+      "name": "bound_input/field_scalar_control",
+      "passed": true
+    },
+    {
+      "name": "bound_input/iteration_trigger",
+      "passed": true
+    },
+    {
+      "name": "complete116pairs_times12",
+      "passed": true
+    },
+    {
+      "name": "residual_budget13",
+      "passed": true
+    },
+    {
+      "name": "unchanged_gates",
+      "passed": true
+    },
+    {
+      "name": "no_physical_imports",
+      "passed": true
+    }
+  ],
+  "full_spectrum_size": 116,
+  "driver_sha256": "ea5287bcbbe316e1fd71096f020b3943b82b1367493cf12cf530c2f880b1f476",
+  "contract_sha256": "606de11b36c4b8f9f81d5bc0a425ab6b04015557a9562c647218d13ab1ab6cad",
+  "mathematical_derivation_sha256": "f7205910fb36227e3ac803926f463056c124fdf01a7474744c9fcd8d25befa3d",
+  "NumPy_imports": 0,
+  "Atomx_imports": 0,
+  "new_physical_calls": 0,
+  "new_eigensolves": 0,
+  "compile_and_Ruff_passed": true
+}

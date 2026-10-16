@@ -1,0 +1,16 @@
+--- a/src/rcc/models/sector01.c
++++ b/src/rcc/models/sector01.c
+@@ -396,10 +396,11 @@
+     //check_unique("s2_0");
+     //clear_non_unique("s2_0");
+ 
+-    // dgd2b_2
++    // dgd2b_2: open core-valence Fock contraction.
++    // ATOMX_FOV_T2_001: t2c already antisymmetric in outgoing particles.
++    // A second P(34) would double this contribution in noncanonical orbitals.
+     reorder("t2c", "r1", "2341");
+     mult("vh", "r1", "r2", 1);
+-    perm("r2", "(34)");
+     update("s2_0", -1.0, "r2");
+     restore_stack_pos(pos);
+ 

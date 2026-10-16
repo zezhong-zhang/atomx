@@ -1,0 +1,294 @@
+{
+  "status": "all six native mixed-width raw gates passed",
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.6371321766115348,
+      "count": 64,
+      "ordinary_signed_error_Ha": 1.7901641540668534e-14,
+      "condition_number": 20.013166779428357,
+      "max_prime": "91.28087746812136221",
+      "wide_raw_root_Ha": 7.806255641895632e-18,
+      "wide_raw_response_Ha": 1.0061396160665481e-16,
+      "wide_response_decomposition_Ha": 5.204170427930421e-18,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.552713678800501e-15,
+        "response": 3.552713678800501e-14
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 9.107298248878237e-18,
+      "signed_prime_reference_error_Ha": 4.996003610813204e-16,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 3.8444941674598e-14
+        },
+        {
+          "stage": 1,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 7.806255641895632e-18
+        },
+        {
+          "stage": 2,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 3.7935279917356013e-13
+        },
+        {
+          "stage": 3,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.0061396160665481e-16
+        }
+      ]
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "energy_Ha": -0.12697076931771356,
+      "count": 64,
+      "ordinary_signed_error_Ha": 2.436866355405576e-15,
+      "condition_number": 34.08364551325729,
+      "max_prime": "1.5324518959749267319",
+      "wide_raw_root_Ha": 2.1342152364836283e-15,
+      "wide_raw_response_Ha": 1.0842021724855044e-18,
+      "wide_response_decomposition_Ha": 5.421010862427522e-20,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.164135620181696e-15,
+        "response": 5.773159728050814e-15
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 2.934214455880147e-15,
+      "signed_prime_reference_error_Ha": 2.1552841434312187e-14,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 2.1342152364836283e-15
+        },
+        {
+          "stage": 1,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.3540600932171465e-14
+        },
+        {
+          "stage": 2,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.0842021724855044e-18
+        }
+      ]
+    },
+    {
+      "key": [
+        2,
+        1
+      ],
+      "energy_Ha": -0.7560969798214787,
+      "count": 48,
+      "ordinary_signed_error_Ha": 1.008763385323963e-14,
+      "condition_number": 819.7716460305121,
+      "max_prime": "100865.911705373984",
+      "wide_raw_root_Ha": 8.272462576064399e-17,
+      "wide_raw_response_Ha": 2.1038726316646716e-14,
+      "wide_response_decomposition_Ha": 1.7763568394002505e-14,
+      "public_double": {
+        "status": "failed",
+        "type": "RuntimeError",
+        "message": "full valence raw residual gate failed: info=0, max=1.7962520360015333e-11 Ha"
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 6.9111383282915995e-15,
+      "signed_prime_reference_error_Ha": 3.481659405224491e-13,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 100,
+          "actual_defect_Ha": 1.9485227233800861e-13
+        },
+        {
+          "stage": 1,
+          "iteration": 1,
+          "inner_info": 100,
+          "actual_defect_Ha": 8.272462576064399e-17
+        },
+        {
+          "stage": 2,
+          "iteration": 0,
+          "inner_info": 100,
+          "actual_defect_Ha": 8.332412537725986e-11
+        },
+        {
+          "stage": 3,
+          "iteration": 1,
+          "inner_info": 100,
+          "actual_defect_Ha": 3.524958103184872e-14
+        },
+        {
+          "stage": 4,
+          "iteration": 2,
+          "inner_info": 100,
+          "actual_defect_Ha": 1.2406742300186124e-14
+        },
+        {
+          "stage": 5,
+          "iteration": 3,
+          "inner_info": 100,
+          "actual_defect_Ha": 1.6014967130217883e-14
+        },
+        {
+          "stage": 6,
+          "iteration": 4,
+          "inner_info": 100,
+          "actual_defect_Ha": 1.2989609388114332e-14
+        }
+      ]
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "energy_Ha": -0.32949035322082393,
+      "count": 48,
+      "ordinary_signed_error_Ha": 3.0589680094506022e-15,
+      "condition_number": 622.1652902982523,
+      "max_prime": "311.65930906759228564",
+      "wide_raw_root_Ha": 3.776493007201509e-15,
+      "wide_raw_response_Ha": 2.3852447794681098e-17,
+      "wide_response_decomposition_Ha": 1.734723475976807e-18,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.858025010572419e-15,
+        "response": 8.526512829121202e-14
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 1.0833998628778652e-14,
+      "signed_prime_reference_error_Ha": 1.2252698855519384e-12,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 3.776493007201509e-15
+        },
+        {
+          "stage": 1,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 3.0503486021793424e-14
+        },
+        {
+          "stage": 2,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 2.3852447794681098e-17
+        }
+      ]
+    },
+    {
+      "key": [
+        2,
+        -2
+      ],
+      "energy_Ha": -0.7821716433418835,
+      "count": 48,
+      "ordinary_signed_error_Ha": 2.7617665099288757e-14,
+      "condition_number": 104.36184067882976,
+      "max_prime": "2609.0151126019124979",
+      "wide_raw_root_Ha": 6.938893903907228e-18,
+      "wide_raw_response_Ha": 2.2898349882893854e-16,
+      "wide_response_decomposition_Ha": 2.220446049250313e-16,
+      "public_double": {
+        "status": "passed",
+        "raw": 5.329070518200751e-15,
+        "response": 5.684341886080801e-13
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 4.85722573273506e-17,
+      "signed_prime_reference_error_Ha": 1.9984014443252818e-15,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.3382307414988581e-14
+        },
+        {
+          "stage": 1,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 5.5294310796760726e-18
+        },
+        {
+          "stage": 2,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.589034459570371e-12
+        },
+        {
+          "stage": 3,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 2.2898349882893854e-16
+        }
+      ]
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "energy_Ha": -0.30299324804060895,
+      "count": 48,
+      "ordinary_signed_error_Ha": 1.475490736535523e-15,
+      "condition_number": 402.9396253087614,
+      "max_prime": "5.6781290333468418673",
+      "wide_raw_root_Ha": 1.2192124480142619e-15,
+      "wide_raw_response_Ha": 6.505213034913027e-19,
+      "wide_response_decomposition_Ha": 2.168404344971009e-19,
+      "public_double": {
+        "status": "passed",
+        "raw": 1.5265566588595902e-15,
+        "response": 2.220446049250313e-15
+      },
+      "matrix_free": true,
+      "signed_root_reference_error_Ha": 9.109791913874954e-15,
+      "signed_prime_reference_error_Ha": 2.487038353038429e-13,
+      "refinement": [
+        {
+          "stage": 0,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.2192124480142619e-15
+        },
+        {
+          "stage": 1,
+          "iteration": 0,
+          "inner_info": 0,
+          "actual_defect_Ha": 1.6314532190475628e-14
+        },
+        {
+          "stage": 2,
+          "iteration": 1,
+          "inner_info": 0,
+          "actual_defect_Ha": 6.505213034913027e-19
+        }
+      ]
+    }
+  ],
+  "scope": "finite mixed-width native diagnosis; no scalable solver/public/fullYb/physical precision claim"
+}

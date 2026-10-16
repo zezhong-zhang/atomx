@@ -1,0 +1,19 @@
+{
+  "hypothesis": "Re-embedding all positive roots through a Euclidean complement loses metric Gram accuracy; one ordered Cholesky QR changes only representation in the same complete span.",
+  "fixed": "Saved ns180 kappa-3 Fock/metric/core constraints only; no SCF, Fock build, roots/band/model/gate change.",
+  "input_sha256": "02631172ee254843d64e61fd9bf9cbb4c3ff08bcd07c1a4a55042c25ac9efb83",
+  "columns": 174,
+  "coordinates": 351,
+  "raw_original_Gram": 3.374662771449266e-10,
+  "complement_Gram": 2.5368840361750244e-10,
+  "fixed_Gram": 5.748460667324617e-11,
+  "maximum_column_change_S_norm": 2.1479320206494605e-10,
+  "first_root_raw_dual_Ha": 3.573311221328731e-08,
+  "first_root_fixed_dual_Ha": 3.5732926925211934e-08,
+  "gates": {
+    "original_Gram": 1e-10,
+    "fixed_Gram": 1e-10,
+    "column_change_S_norm": 1e-08
+  },
+  "status": "DIAGNOSIS_ONLY"
+}

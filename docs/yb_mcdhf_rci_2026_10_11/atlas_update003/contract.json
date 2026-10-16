@@ -1,0 +1,78 @@
+{
+  "created_utc": "2026-10-11T10:56:34.606467+00:00",
+  "status": "prospective_before_local_site_edits",
+  "scope": "Website-only append two distinct DC models/8rows; ownerprivate local handoff only",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "initial_HEAD": "fe4fb81bff25179b48cc1f91c2dddb236ee283a2",
+  "prechange_manifest_sha256": "f61136437b76cab9a00ba7035ca4a2169c5a24d8230d429fed5b5c74c47c7156",
+  "original_page_sha256": "867bdcd9489b436b792c451c688a91b5c0ce180c6596751b59396edaeafca816",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/independent_endpoint_verification.json": "082d24ab57cada5c83101e7ac2a6930732838b1617724530d7ce5611303d65b4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/checkpoints/accepted_0160.json": "36425ccf66a7e6fb3ec9c3c3198cfbdbdab1d513234f3a9a3440fee8c8f6dabf",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/checkpoints/accepted_0160.npz": "6ab28bb519ef0a1f8f410e364d5c76f42a42a567f192f21da11a89a75bd85e03",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/source_identity.json": "fca94f25eb77205083697614b509714a7b0dea4358150ed94b246ecdf56a339b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/objective_identity.json": "9691e5863c508e7198ead6477b20b409c3bd175cd6341c19812ad1b455f9f9ab",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/completion.json": "66754125e3d9b223628aa3f6a3aa670edba00c01e232ce9e11a81993d906e733",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/verification.json": "9b49a7f68652d3681fb109da776274103f03f27a4f7ab581dc8976a2f430d9ce",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/contract.json": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/execution_contract.json": "6c7795a816b35dcacf331502ecc396d0afae4dda90fa5a3accd3d8be3ba4643c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/contract.json": "6b57e51639ebabb7415260d3aba1a1eb4b777708d82af738194326a75ed7ff21",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/execution_binding.json": "6de78799114951ebedc5d470d1bb701329b4fb5ec2b14308cf4c8c8301604a6c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/rank_5p_double_tracking.json": "b58b02ef165d207d1c731b307cf3a696ef316f46b25933c655e886e10ece1d45",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "tools/export_nist_atlas.py": "7276e18a2de03969d6d4f5501bc4a3fca2fa668c651ee0edb2df008013deec41"
+  },
+  "preparation_scripts_sha256": {
+    "prepare.py": "7006932c30a4014e1fabde7d1fd73effb3c9e3ebb07d019da84c745dd1f7496d",
+    "edit_page.py": "91188631251a7953c1aad52f41228db764f7ab7fe24230235a99aa93380bdbf2",
+    "iteration_renderer.js": "3cf7aa640d8ab3b024bfefa3de73444567bfd89fffe33cbeda6aff91acec21f4"
+  },
+  "original_site_files": 6044,
+  "fixed_conditions": {
+    "original_model_count": 12,
+    "original_rows": 48,
+    "new_models": 2,
+    "new_rows": 8,
+    "total_models": 14,
+    "total_rows": 56,
+    "original_elements": 118,
+    "original_species": 7021,
+    "original_gzip_payloads": 6019,
+    "owner_private_audience_unchanged": true,
+    "accepted320": "Full531 DC originalmetric originalphysicaltracker fiveequal0.2; stationarityFAIL",
+    "fixed160rank": "Declared2483 complete5pdouble, fivecomplete targetsectors1240; inherited531 residualFAIL/expandedgradientnotcalculated",
+    "source_epoch": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "labels": [
+      "5d_3/2",
+      "5d_5/2",
+      "6p_1/2",
+      "6p_3/2"
+    ],
+    "NIST": "unchanged localASD unique evaluated configuration/J/parity/same6s zero; null uncertainty retained",
+    "no_point_or_operator_splice": true,
+    "all_old_proofs_immutable": true
+  },
+  "acceptance": [
+    "Exact original site corpus and old48rows unchanged except page",
+    "Exact 1011 accepted320 replay and 3247 rank savedproof accepted",
+    "Complete model/source/point/metric/tracker identity and all original FAIL gates explicit",
+    "Independent rematch every newrow and moments",
+    "Desktop/mobile browser:14models56rows, downloads/sources/caching/fallback12models48rows, oldNISTpagination/filter/periodic interactions"
+  ],
+  "resources": {
+    "science_calls": 0,
+    "new_dependencies": 0,
+    "presentation_processes": "CPU affinity1; prepare/independentdata cap2GiB,180s each",
+    "browser": "Existing cached local Playwright Chromium; owned loopback server; outer90s timeout, no claimed address-space/browser memory cap",
+    "preview_teardown_required": true,
+    "no_timing_claim": true,
+    "data_work": "sha/JSON/rematch only; import frozen publicNIST utility, no physical evaluator"
+  },
+  "new_overlay": "dist/updates/yb-public531-endpoint320.json",
+  "new_evidence_dir": "dist/evidence/yb-public531-endpoint320",
+  "no_publication_here": true,
+  "no_scientific_source_edit": true
+}

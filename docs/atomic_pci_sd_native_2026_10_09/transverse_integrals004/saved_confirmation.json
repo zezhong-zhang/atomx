@@ -1,0 +1,45 @@
+{
+  "status": "pass",
+  "rows": [
+    {
+      "symmetry": "C1",
+      "determinants": 120,
+      "complete_model_roots": 8,
+      "FSCC_minus_FCI_max_Ha": 8.728999745244437e-10,
+      "raw_equation_residual_bound_Ha": 1.7857393616719448e-12
+    },
+    {
+      "symmetry": "axial",
+      "determinants": 120,
+      "complete_model_roots": 8,
+      "FSCC_minus_FCI_max_Ha": 8.728999745244437e-10,
+      "raw_equation_residual_bound_Ha": 1.7855623966428339e-12
+    }
+  ],
+  "complete_signed_FCI_C1_axial_max_Ha": 0.0,
+  "complete_directed_HEFF_C1_axial_max_Ha": 8.956861050847748e-21,
+  "input_sha256": {
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/cc.inp": "7a1e8dc1b59b02d8fdb8ddec2780761590b2bbab7c5720d4cf121ab2c9677ae8",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/result.json": "2b2a58ba095ea592226938f4d7c5d5578e4b9be7ca04307578aca5b81af9c987",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/integrals.json": "2299b015022fb5fc133243e561586d98f88bdf9582061ba436d79a2fdf3ffece",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/request.json": "3624dc0ef839723a8271bb37a8fda79cd83c06547794632bf0aef97f451a07ef",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/cc.log": "33f57b0169e120a829049edf169072db4f5a528c69cd3813658aece7b8565ebd",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788",
+    "test_tmp/test_live_finite_frequency_fsc0/fsccsdt/model_space_matrix.npz": "e18fe74779645f138eeb2f07cb4c1baff1025ad220e3a96d14951edf755179b2",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/cc.inp": "7a1e8dc1b59b02d8fdb8ddec2780761590b2bbab7c5720d4cf121ab2c9677ae8",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/result.json": "1831f55f693d3342e6a38af96da17004a07d17ceafb1f6867a11cac0543cf82d",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/integrals.json": "cf358dbbce6bfd2863376254bca63426ad1a6be13a901f2390c691857a0bd902",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/request.json": "6d68443f54e89cd22e4cc13413986a77a98b41fbe595492ac113b05e4a296c98",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/ATOMX_AXIAL": "3cc96d91386d39f91c47860547822cd8f02e5a577a6bc0ea8ae4c44c95b2ca6a",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/cc.log": "8cec5624460cbfea60094fcaa4f97b158edcac253597f20f0b3a8571ac533ebc",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788",
+    "test_tmp/test_live_finite_frequency_fsc1/fsccsdt/model_space_matrix.npz": "f4d68b19d10731373e0efb4a1a7bfdff4032c31b8befb7e2cf5c40efa85ae38d"
+  },
+  "source_unchanged": true,
+  "driver_sha256": "f542de22fd3b0c0be5f0b19633dd90c1b1b41469a4aaf3d8783258e9165217b6",
+  "contract_sha256": "3c7763b7e3639796de6f649493e86020375bc9d16fe67318af441825117d4ede",
+  "arrays_sha256": "4cbf57c302a6dcc6445bb9895ff68e9b7d9e50a29f6ff82abfde870eb3265f1b",
+  "scope": "Read-only finite Hamiltonian confirmation; no new solve or timing"
+}

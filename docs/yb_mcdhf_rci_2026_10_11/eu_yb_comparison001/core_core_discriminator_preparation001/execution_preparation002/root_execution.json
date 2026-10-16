@@ -1,0 +1,25 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 1,
+  "outer_wall_stop": false,
+  "elapsed_uncontrolled_s": 52.69729098099924,
+  "source_and_inputs_unchanged": true,
+  "frozen_guard_files": 405,
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py",
+    "--execution-binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/execution_binding.json"
+  ],
+  "binding_sha256": "40a62b570d1d79b008a872ff7fbfb46389d52289f486fc6313460e2db024ffeb",
+  "guardian_sha256": "1cecea2f02cb4ba69483779d68ce8db640b43cd3d2b2d0c3d96a723f34cc1a76",
+  "log_sha256": "c2920bc3517a85b6297042619c6c9336c9e38c25f14dd9f4019053d8f78fb9ef",
+  "result_sha256": null,
+  "failure_sha256": "62ec06b7c03af18b6b8ce5cd9b9d1739ea8148472e759dea5f33e4c3975c3f64",
+  "controlled_timing": false,
+  "baseline_H_rebuilt": false,
+  "stationarity_and_original_ordinary_FD_failures_preserved": true,
+  "model_pruned": false,
+  "automatic_retry": false
+}

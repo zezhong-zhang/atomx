@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_diagnosis_repair_2026_10_08/audit_baseline.py", line 84, in <module>
+    if __name__ == "__main__": main()
+  File "/data/code/atomx/docs/yb_diagnosis_repair_2026_10_08/audit_baseline.py", line 56, in main
+    pair = (levels[line.initial_index]["label"], levels[line.final_index]["label"])
+AttributeError: 'TransitionResult' object has no attribute 'initial_index'. Did you mean: 'initial_label'?

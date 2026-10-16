@@ -1,0 +1,282 @@
+{
+  "status": "PRIVATE_SOURCE_PREPARATION_ONLY_NUMERICAL_EXECUTION_NOT_AUTHORIZED",
+  "parent_authorization": "root task: private batch scalar scan/owned row preparation; no shared edits or numerical imports/arrays/science",
+  "hypothesis": "Use the existing exact semiseparable four-component Coulomb scalar loop with independent-job CPU/CUDA execution. Benefit and numerical qualification remain unmeasured.",
+  "one_primitive": {
+    "path": "src/atomx/numerics/bspline/convol.py",
+    "symbol": "_convol_case1_semiseparable_t",
+    "line": 1126,
+    "end_line": 1162,
+    "AST_sha256": "41c71d08d13f292597a2e921ab9c4e5b567c3f46c2667e89aed64e3f809cc20b"
+  },
+  "private_module": "batch_executor.py",
+  "public_implementation_unchanged": true,
+  "consumer_boundary": {
+    "actual_chain": "evaluate -> full signed CIRadialDensity -> gradient_from_weights -> _pair_potential -> selected primitive",
+    "first_adapter_not_yet_written": "Prepare all source jobs in original gradient_terms insertion order, create public factors and _density_sym bands, execute four bands, then existing _banded_to_full_add and actions/accumulation in original order. Public H remains CPU.",
+    "do_not_port": [
+      "angular coefficients",
+      "CI solver",
+      "density normalization",
+      "P/retraction/Lambda/native inverse metric"
+    ],
+    "completeness_obligation": "Compare jobs and signed_source_union_sha256 against the complete actual normalized signed RDM consumer. A numerical BatchPlan cannot infer this physics certificate."
+  },
+  "exact_algorithm": {
+    "scan": "per jp: zero scratch, end=ns-jp, prefix ascending j and suffix descending j",
+    "row": "first_near=i+ip-kl+1; per ascending jp: falling*prefix, rising*suffix, then ascending full near strip; exact before/after clamp",
+    "padding": "actual kl/kr govern all bounds; inactive padded rows/scans reset to zero every chunk; RKB density structural tails must be exactly zero",
+    "CPU": "njit fastmath=False; prange independent scan/row owners only; scoped mask restores prior threads",
+    "CUDA": "same scalar factory, explicit libdevice dadd_rn/dmul_rn, exclusive owned rows and stream, no atomic/reassociation/FMA; future generated-code check required",
+    "target_comparison": "CPU1 original order is the numerical anchor; compilation and FP64 equality NOT executed here"
+  },
+  "interfaces": [
+    "BatchPlan: immutable declared source/geometry/key/job identity and mechanical preflight",
+    "DensitySnapshot.from_public_bands: native real FP64 complete P/Q bands -> byte-owned readonly input",
+    "PrivateBatchExecutor(plan,public_factors,backend=cpu|cuda,threads=...): owned resident geometry",
+    "executor.chunks(snapshot): immutable four-band packets in source insertion order; downstream CPU operations unchanged"
+  ],
+  "identity_ownership": {
+    "geometry": "full current numerical source epoch + workspace + exact packed factor value SHA; geometry-only bank key insufficient",
+    "trial": "full plan identity + caller independent trial manifest SHA + exact complete packed P/Q band value SHA",
+    "cache": "new density snapshot and upload per trial; factors resident only inside same source/workspace owner",
+    "mutations": "producer arrays copied into bytes-backed readonly host owners; no setflags writeable; internal/device concurrent mutation unsupported",
+    "stream": "owner creates a dedicated stream; explicit synchronization before each downloaded result; changed device/context rejects; no caller-stream/zero-copy CuPy claim"
+  },
+  "supported": [
+    "real native contiguous float64",
+    "complete DC Coulomb nonnegative k0..6",
+    "ns96..123, orders<=9, <=31 native radial keys",
+    "ordinary or unequal-order RKB explicit P/Q extent and zero tails",
+    "all canonical pppp,pqpq,qpqp,qqqq generated"
+  ],
+  "unsupported_refused": [
+    "ns<96 no dense fallback",
+    "negative k, rank>6, unknown/missing/duplicate source keys or incomplete components",
+    "float32/complex/non-native endian/noncontiguous/implicit cast or clipping",
+    "increment/change/Breit/QED/recoil/effective or arbitrary angular adapter",
+    "stale trial/geometry/source epoch, concurrent execution, changed CUDA context/device",
+    "overbudget input no automatic rank/key/source reduction",
+    "CUDA unavailable no install or CPU fallback"
+  ],
+  "mechanical31_preflight": {
+    "factor_bytes": 38930976,
+    "unique_density_bytes": 8785152,
+    "chunk_prefix_suffix_bytes": 9142272,
+    "chunk_band_bytes": 4534272,
+    "chunk_index_bytes": 16384,
+    "CPU_dense_postprocess_bytes": 30984192,
+    "owned_device_bytes_upper": 61409056,
+    "owned_host_bytes_upper": 196894048,
+    "all_band_D2H_bytes_upper": 122992128,
+    "source_jobs": 3472,
+    "component_jobs": 13888,
+    "chunks": 28,
+    "scan_kernel_calls_per_trial": 28,
+    "row_kernel_calls_per_trial": 28,
+    "scan_owned_rows": 124992,
+    "result_owned_rows": 15374016,
+    "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+  },
+  "memory_delta_from_parent": {
+    "previous_right_scan_reuse_estimate_bytes": 4571136,
+    "current_independent_four_component_scan_bytes": 9142272,
+    "reason": "No right-component deduplication assumption in first executor; simpler exact per-component independent scan. Parent proposal is preserved."
+  },
+  "prospective_counters_per_trial_upper": {
+    "public_factor_requests": 28,
+    "actual_factor_producers": "record independently; request is not producer",
+    "unique_public_density_band_requests": 992,
+    "density_H2D_transactions": 1,
+    "density_H2D_bytes": 8785152,
+    "geometry_H2D_owner_construction_bytes": 38930976,
+    "component_jobs": 13888,
+    "source_chunks": 28,
+    "scan_entry_launches": 28,
+    "row_entry_launches": 28,
+    "job_H2D_transactions": 28,
+    "job_H2D_bytes_upper": 444416,
+    "band_D2H_transactions": 28,
+    "band_D2H_bytes_upper": 122992128,
+    "device_synchronizations": 29,
+    "backend_kernel_factory_dispatchers": 2,
+    "shared_inline_scalar_helpers": 4,
+    "actual_JIT_specializations": "pending bounded qualification; factory dispatcher count not reported as compilation count"
+  },
+  "preparation_budget": {
+    "stdlib_CPU": 1,
+    "wall_seconds": 30,
+    "address_space_MiB": 1024,
+    "allowed": "source/JSON/hash/AST/syntax/Ruff/descriptor mocks/pure-integer byte bounds",
+    "NumPy_Atomx_NumBa_CUDA_imports": 0,
+    "NPZ_arrays": 0,
+    "H_CI_g_Dirac_optimizer_GPU_compile_benchmark": 0
+  },
+  "future_qualification_NOT_AUTHORIZED": {
+    "prerequisites_pending": [
+      "Source-bound ordinary native31 full normalized signed gradient and point/UID/eigenpair proof",
+      "Qualified complete31 original-P constraint layout/inverse identity; never inherit the29 coordinate dimension as31 certification",
+      "Native31 constrained derivative proof or explicitly still-unsupported scope",
+      "Exact implementation source and primitive/radial/compile/transfer/call budgets followed by root execution seal"
+    ],
+    "native31_gradient_qualified": false,
+    "supported_first_scope": "independent signed four-component/origin/tail anchors then exact same native full31 point; no NIST selection",
+    "unchanged_gates": {
+      "wholeHentry_Ha": 1e-09,
+      "allroots_Ha": 1e-08,
+      "eigenpair_max_column2norm": 1e-08,
+      "CI_Gram": 1e-10,
+      "all_signed_span_projector": 1e-08,
+      "cluster_gap_Ha": 1e-07,
+      "raw_and_tangent_g": 1e-09,
+      "native_metric_pg": 1e-10,
+      "radial_Gram": 1e-10,
+      "original_nuclearP_leakage": 1e-12,
+      "complete_UID_weight_norm_owner_identity": "unchanged exact mappings",
+      "expectedCPU_CUDA_bandbitidentity": "aim only; actual original gates and no relaxation"
+    },
+    "physics_budget_provisional": {
+      "CPU": 30,
+      "threads": 1,
+      "address_space_GiB": 3.95,
+      "owned_device_MiB": 512,
+      "wall_seconds": 300,
+      "outer_seconds": 315,
+      "kill_seconds": 5,
+      "H": 2,
+      "CI": 2,
+      "fullgradient": 2,
+      "maximum_hS_producers": 28,
+      "maximum_complete_CI_and_replay_eigh": 20,
+      "Dirac": 0,
+      "optimizer": 0,
+      "GPU_CI": 0,
+      "implementation_specific_primitive_compile_transfer_counters_pending": true
+    },
+    "stops": "Root must review source implementation and exact full31 reference/adapter plus primitive/anchor counter contract before any numerical factory. Failure stops, no retry or tolerance/model reduction."
+  },
+  "future_timing_NOT_AUTHORIZED": [
+    "cold/setup/compile/factor transfers separate",
+    "explicit warmups plus5alternating fullfresh-H/g pairs",
+    "all packing/transfers/sync/postprocessing/CI/tracking/archive costs declared symmetrically",
+    "CPU1/CPUparallel separate pinned-mask efficiency; actual device-exclusive/load guards",
+    "every pair retained; any host/device guard fail=>no controlledspeed certificate",
+    "no totaloptimizer/GPU-CI/SD-to-MCDHF certificate"
+  ],
+  "actual_preparation_physical_calls": 0,
+  "inputs_sha256": {
+    "current_route": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/MCDHF_GPU_ROUTE.md",
+      "sha256": "3f05ed5c24295b4ec54f69fb9cb3ea3cccdd961759e2334e22deca806bf591db"
+    },
+    "variational": {
+      "path": "src/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "convol": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "sha256": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b"
+    },
+    "matrix": {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "sha256": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450"
+    },
+    "radial_density": {
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "radial_snapshot": {
+      "path": "src/atomx/physics/csf/radial_snapshot.py",
+      "sha256": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+    },
+    "CellPairContraction": {
+      "path": "src/atomx/numerics/bspline/pair_contraction.py",
+      "sha256": "ceba826b95b08a3a43e6f77d9648c2b3557ab9e3caf38ad058adeabc20cd0b64"
+    },
+    "CellCoulombFeatures": {
+      "path": "src/atomx/numerics/bspline/coulomb_features.py",
+      "sha256": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+    },
+    "old_CPU_CUDA_control": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/numba_density_control.py",
+      "sha256": "251316b17f9e924924398f567a42f0930b7e42e3c32a55ee7da69d049c95cc6c"
+    },
+    "old_zero_copy_adapter": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/numba_cupy_density_adapter.py",
+      "sha256": "b041e4f147173fdb2a98d7095885d33c081ddce035a90f51916b735b391e1f86"
+    },
+    "GPU_metadata_only": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_metadata_context.json",
+      "sha256": "56539b02c8e5806d7a2924e0cda7ad4eea167feb86939acccca49a7c45b92c79"
+    },
+    "shared_adoption": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/completion.json",
+      "sha256": "f5a1b7a7acec9c15cf607f908685ab351ba300292c809fd152dd824299555d6a"
+    },
+    "warm_observations": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/result.json",
+      "sha256": "836581b108c8a31eaa7d0072ebb834d030e26affb8eb97902c2c0dd7460c4533"
+    },
+    "warm_ordinary_example": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/ordinary/pair1/result.json",
+      "sha256": "6f24791079e2f298e61e77ae3feb99cf189abea21e5053bbae3eb961fc48bd72"
+    },
+    "warm_candidate_example": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/candidate/pair1/result.json",
+      "sha256": "44b7dd5848d1f5624735191c108aa93335c5deee4609aac280327578d5a521e4"
+    },
+    "literal208_derivative": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/actual/result.json",
+      "sha256": "6abd6a683a26287ade07d34d4d9feaa2bcfdcacc6298d797c8ac570c636cc2cc"
+    },
+    "latest31_fixed_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json",
+      "sha256": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d"
+    },
+    "latest31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json",
+      "sha256": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3"
+    },
+    "parent_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/PROPOSAL.md",
+      "sha256": "1de5773ac8ac6a96b306bcddd048a7a2c5c0ab96c4026abe0432e36d9c527984"
+    },
+    "parent_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/contract.json",
+      "sha256": "1942c50365bfc044190dfa4102126f48bc615e6c6a89b7979c2d279bed99ef5a"
+    },
+    "parent_source_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/source_review.json",
+      "sha256": "cbfa05b5dc02577404ae09728750ae7f2229d4c51ed939cde2c8fbfeeeec70fd"
+    },
+    "parent_handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/handoff.json",
+      "sha256": "b7353a261bfd1a6534fb06504111eedadbe35e0e7c32521af703cc318e9af181"
+    },
+    "f043_convol": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/convol.py",
+      "sha256": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe"
+    },
+    "f043_variational": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "implementation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/batch_executor.py",
+      "sha256": "37e30d4b02dddcc37ee35036b941b178de14e8f7d1fb8c5f448ea19920af67ae"
+    },
+    "descriptor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/descriptor_mocks.py",
+      "sha256": "6aa42307ae135af532ad9d16f105a6b1985e0e44b4fd0972e776e5d1c0ec8214"
+    },
+    "source_preparation_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/prepare.py",
+      "sha256": "f8810fe835e0f6bfbfbf4a296627055bb04e26ddc094396277a3782180c865fe"
+    },
+    "public_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/private_batch_preparation001/public_source_identity.json",
+      "sha256": "72153290694c48704e380feb661c3f0ad67434ea3f54928089453316e23362af"
+    }
+  },
+  "historical_failure_policy": "Old semiseparable route failures, coarse derivative failures, stationarity failures and failed warm load guard retain their original source/status. Private source preparation promotes none."
+}

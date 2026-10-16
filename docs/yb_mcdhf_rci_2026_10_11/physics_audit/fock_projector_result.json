@@ -1,0 +1,61 @@
+{
+  "contract_sha256": "31827bb999d09ada9a93c0e4c2b40c2a7d53cf70f202ac231e87f0b1dc278e85",
+  "source_checks": 14,
+  "groups": [
+    {
+      "kappa": -2,
+      "keys": [
+        [
+          2,
+          -2
+        ]
+      ],
+      "first_positive": 0,
+      "max_abs_actual_minus_full_average_Ha": 58545.67872860204,
+      "max_abs_excess_minus_nuclear_Ha": 7.275957614183426e-12,
+      "max_abs_positive_eigenvalue_difference_Ha": 243055656.95507795,
+      "min_positive_subspace_principal_cosine": 0.9999999999858433
+    },
+    {
+      "kappa": -1,
+      "keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ]
+      ],
+      "first_positive": 0,
+      "max_abs_actual_minus_full_average_Ha": 58545.67872860204,
+      "max_abs_excess_minus_nuclear_Ha": 7.275957614183426e-12,
+      "max_abs_positive_eigenvalue_difference_Ha": 134365309.6752817,
+      "min_positive_subspace_principal_cosine": 0.9999999999928952
+    },
+    {
+      "kappa": 1,
+      "keys": [
+        [
+          2,
+          1
+        ]
+      ],
+      "first_positive": 1,
+      "max_abs_actual_minus_full_average_Ha": 58545.67872860204,
+      "max_abs_excess_minus_nuclear_Ha": 7.275957614183426e-12,
+      "max_abs_positive_eigenvalue_difference_Ha": 134365309.48784736,
+      "min_positive_subspace_principal_cosine": 0.9999322111402562
+    }
+  ],
+  "public_initializer_captured": true,
+  "confirmed_one_body_double_addition": true,
+  "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "arrays_sha256": "07460f02497c0cc5d36c48756a67fa2269c4e08e1880fff60869bd48c4689219",
+  "scope": "Interface semantic and one-body spectral anchor; no Yb energies or physical-error estimate"
+}

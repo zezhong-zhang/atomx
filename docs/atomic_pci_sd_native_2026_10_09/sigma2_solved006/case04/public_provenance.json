@@ -1,0 +1,222 @@
+{
+  "hamiltonian": "Dirac-Coulomb",
+  "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '4b82ad03dbccacea1c318ff5f1eb873eb532f4718dcf5e2d4d42905719e85ffc', '017398ebb27288e7f0055a5c0e389e3f9f2f63492fa3f1bde0c7384af8ae3ae0', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '4b82ad03dbccacea1c318ff5f1eb873eb532f4718dcf5e2d4d42905719e85ffc')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+  "physical_source_sha256": {
+    "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+    "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+    "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+  },
+  "occupied_keys": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -1
+    ]
+  ],
+  "virtual_keys": [
+    [
+      3,
+      -1
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      3,
+      -2
+    ]
+  ],
+  "frozen_keys": [],
+  "metric_error": 1.5543122344752192e-15,
+  "hermitian_projection_max_Ha": 2.498001805406602e-16,
+  "integral_bytes": 12800,
+  "radial_pair_cache_size": 16384,
+  "representation": "native on-demand radial/angular DC",
+  "construction_scalar_radial_pairs": 24,
+  "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+  "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+  "backend_sha256": "96252173d4ba51e6fab85805424b2e21d162560327bbcda715090ba0fc76c152",
+  "initialization": "original pCI rhocore",
+  "blas": null,
+  "blas_runtime": null,
+  "term21": {
+    "mode": "original pCI term21",
+    "threads": 0
+  },
+  "core_singles": {
+    "mode": "original pCI terma4",
+    "workers": 0
+  },
+  "feature_identity": {
+    "representation": "native cell Coulomb polynomial density coordinates",
+    "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+    "coefficient_sizes": [
+      40,
+      40
+    ],
+    "component_orders": [
+      7,
+      7
+    ],
+    "auxiliary_nodes": 884,
+    "same_cell_edges": 11934,
+    "quadrature_nodes": [
+      34,
+      13
+    ],
+    "payload_estimate_bytes": 4478752,
+    "rank_cache_capacity": 8,
+    "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+    "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+    "density_polynomial_degree": 12,
+    "interpolation_nodes_per_component_cell": 13
+  },
+  "method": "fixed-energy CI+all-order reduced Sigma2",
+  "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+  "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+  "resources": {
+    "dimensions": {
+      "NHF": 884,
+      "NX": 4,
+      "NS": 2,
+      "KX1": 3,
+      "NXX": 4,
+      "NK": 3,
+      "NN": 2,
+      "KK": 3,
+      "NCH": 24,
+      "NXK": 15,
+      "NV": 34,
+      "NG": 13,
+      "NE": 11934
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ]
+    ],
+    "raw_amplitudes": 100,
+    "independent_scalar_amplitudes": 38,
+    "complete_payload_bound_bytes": 81912344,
+    "krylov_vector_bytes": 800,
+    "radial_pair_cache_size": 16384,
+    "radial_pair_cache_array_bound_bytes": 73400320,
+    "blas_initialization_scratch_bytes": 84864,
+    "term21_threads": 0,
+    "term21_mode": "original",
+    "term21_worker_scratch_bytes": 0,
+    "term21_parallel_scratch_bytes": 0,
+    "core_singles_blas": false,
+    "core_singles_worker_scratch_bytes": 0,
+    "core_singles_parallel_scratch_bytes": 0,
+    "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+  },
+  "direct_sd_source_sha256": {
+    "core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+    "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+    "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+  },
+  "core_identity_sha256": "17db098de9ddc4c80a56abb9a450875ee2d37140180cc7173758688b1eb035bf",
+  "core_amplitudes_sha256": "5f750273c11c77496cb74c116bae982b145e6c098c6a3cf5cb0735a90b74cf82",
+  "valence_source_sha256": {
+    "valence_sd.py": "dd30df7661dcdbbf4efdeea9170cabd53444b5eb94a72090b31385e948c21087",
+    "_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15"
+  },
+  "screening_source_sha256": {
+    "sigma2_sd.py": "399259ca4f1f3ef289a2e9a58c2ebdd218741987e137ec30fa261216e4cf10cd",
+    "_pci_sigma2.f90": "5502a0b6c989e329109044a9fff2fe682e15c6f0bc22e9c91236812f6cec1c2c"
+  },
+  "equation_coverage": {
+    "source_sha256": "828ea5d34c70e63bb21ceca5f6e6652da7dc3007ec9ba1021d0d6835c9726105",
+    "template_sha256": "5502a0b6c989e329109044a9fff2fe682e15c6f0bc22e9c91236812f6cec1c2c",
+    "sizes": {
+      "NZ": 6,
+      "NXV": 10,
+      "NVH": 16,
+      "NVH2": 80,
+      "NVWH": 273,
+      "NXCN": 89,
+      "NXV2": 53
+    },
+    "core_common_patches": 3,
+    "lookup_initializer_patches": 2,
+    "equation": "original complete noniterative Coulomb screening plus irreducible full scalar Fov contraction of valence doubles",
+    "derivative": "common shift of all valence energies; fixed core numerators; supplied full implicit responses; explicit denominator slope2",
+    "normalization": "original parity-free S1; multiply (-1)^k S1(m,v)S1(n,w) to recover direct rho_k",
+    "symmetry": "directed values retained; no approximate pCI Ksym swaps, Hermitian averaging or energy extrapolation",
+    "scope": "real native DC fixed-energy linearized SD; no physical eigenenergy/CI metric/Breit/QED/complex coverage"
+  },
+  "column_numerator_sha256": [
+    "a92e45435b872d7cce4b5a34cd2414aac859a64e49194fea1cceb16a9c69589f",
+    "5c9a1f2e5d7eaa5bd1cfc90703a7517893bb6a4ccbfa75bed47e6410cca0058b",
+    "2f2cc7d0948c08e42ca8fe49026b266d45c33aaeca81f34427013bba86617e43",
+    "4e69015c03268a03de9519f7474133a41ee28ee568438962543e79e4f30ea675",
+    "6ed500d26890d41fa3d0237568148f6fa519ed7fca2862bca39f9289efc7724f",
+    "57c3503803846d9d4333558a79d7d1c1e151bd5a8f62b6d3ba52bdcf7f30b3f1"
+  ],
+  "column_response_sha256": [
+    "eb4897f93a8149a525f6ac25b3a409eba9cc6fb22bae69c6ddb230add2119c99",
+    "a243993b8cd20b27d82532c1813e839f0efca00f0065ff1c711030ff23039762",
+    "1438b5adef06e09759ba8d34136913c7710fd2e02c39a9ed177f57eb7431447b",
+    "c1a71fb13fc009d209a1b0f7bb1594e70acc917706cc814525aa8fca72ea66dd",
+    "8d6a2ccf36bac59bc2fbc09330077d1eb08f55e635c818976c71bb413fc2a6a8",
+    "90fef4575f4ea25c48da47725fa95de084e58dc1efca4a56c19c7b7436b5c39d"
+  ],
+  "response": "all column energy slopes1, screening explicit slopes2, fixed core, full implicit valence response",
+  "complete_payload_bound_bytes": 93371160,
+  "energy_reference": "same native core Fock orbital zero; explicit column parameters",
+  "normalization": "original parity-free S1; direct element restores (-1)^k S1(m,v) S1(n,w)",
+  "symmetry": "directed values; no approximate index symmetry, Hermitian averaging or extrapolation",
+  "space_converged": false,
+  "forward_accuracy_certified": false,
+  "experiment_validated": false,
+  "ci_metric_constructed": false
+}

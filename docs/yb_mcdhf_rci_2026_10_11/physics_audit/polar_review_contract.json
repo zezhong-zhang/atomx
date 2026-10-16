@@ -1,0 +1,29 @@
+{
+  "hypothesis": "Near-unit binomial correction computes the same unique real polar map as an independent high-precision spectral construction, while avoiding reconstruction of identity from near-degenerate eigenvectors.",
+  "fixed_conditions": {
+    "seed": 147,
+    "matrix_shape": [64, 8],
+    "input": "dense QR isometry plus explicit same-space tangent or symmetric normal perturbations; float64 coordinates",
+    "oracle": "mpmath 75-decimal complete Gram eigenproblem/inverse square root",
+    "physics_scope": "no Hamiltonian, no-pair projector, core freezing, CI ensemble, residual metric or convergence threshold changes"
+  },
+  "controls": [
+    "dense near-unit baseline",
+    "tangent steps 1e-3, 1e-8, 1e-13, 1e-16",
+    "Gram infinity norm just below and above the 0.01 branch threshold",
+    "right orthogonal rotation and column phase flip",
+    "rank-deficient input rejection",
+    "the public optimizer seed still uses its original separate spectral polar construction"
+  ],
+  "gates": {
+    "same_map_max_abs": 1.5e-15,
+    "gram_max_abs": 4e-15,
+    "right_rotation_equivariance_max_abs": 1.5e-15,
+    "column_phase_flip_max_abs": 1.5e-15,
+    "rank_deficient": "ValueError",
+    "seed_initialization": "original gram eigensolve block remains; helper called only by trial retract"
+  },
+  "caps": {"threads": 1, "memory_soft_GiB": 1, "duration_seconds": 90},
+  "stopping_condition": "one fixed matrix panel; no scan or orbitals optimization rerun",
+  "limits": "Same mathematical map and floating-point arithmetic check, not evidence of Yb stationarity or of a physical-energy error bound. A speedup is not measured."
+}

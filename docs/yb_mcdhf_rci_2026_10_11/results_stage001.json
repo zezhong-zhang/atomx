@@ -1,0 +1,72 @@
+{
+  "created_at": "2026-10-11T07:20:03.988726+00:00",
+  "primary_route": "Atomx native MCDHF -> RCI",
+  "computed_run": "nuclear_eol004_stable_delta_trace",
+  "fitted_corrections": false,
+  "highest_level_reached": false,
+  "production_certified": false,
+  "inputs": {
+    "current_mcdhf": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stable_delta.json",
+      "sha256": "3960e699f54a1674fbb42865e3f90e57c64d4fe577f48c6b3cc42f700b5feb3d"
+    },
+    "actual_yb": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/result.json",
+      "sha256": "5948e45493178c86846a354441ab7c98af2c8a0ffff76a1de99b2a4a3111fa5a"
+    },
+    "projector_replay": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_replay.json",
+      "sha256": "b1cfbcf3e6f0902123ba0b7e6f0e07278c27cc22f02dc6a1572e989ff51285c2"
+    },
+    "stable_difference_oracle": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/stable_difference_review.json",
+      "sha256": "892cff0409e2c9fd3a3dda6f853ccc612d79be04f1a46b63425167e5614db605"
+    },
+    "polar_oracle": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/polar_review.json",
+      "sha256": "af13927372ef293a9bee9e7ef98f1938f4b7a5ede983497d49196ad3ab51097e"
+    },
+    "gradient_reuse": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/result.json",
+      "sha256": "549be2307c15c55288f08fc549cb525934f95f008e0bcc480997ce6be1c8261c"
+    }
+  },
+  "stationarity": {
+    "converged": false,
+    "orbital_residual": 2.670347390185656e-06,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 3.2140910014161694e-12,
+    "energy_tolerance": 1e-08,
+    "termination_reason": "line_search_failed",
+    "gradient_norm": 8.998030020212167e-06,
+    "residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "stable_energy_comparisons": 82,
+    "iterations": 56
+  },
+  "correlation_scope": "69 electrons, five one-CSF symmetry blocks, 24 simultaneously optimized radial orbitals. No dynamical core-valence mixing.",
+  "card_summary": "Yb⁺已实际采用原生共同轨道五态MCDHF→完整静态Breit RCI；原驻值门仍失败（2.67e−6 > 1e−7），当前谱仅作诊断。先定位实际S正交缺陷/normal项造成的微小下降噪声；闭合原门后在同24轨道池加入4f空穴的68-CSF平衡核价判别，跟踪同物理态，再补同态Breit/QED/反冲与性质。",
+  "selection_reason": "用户选择MCDHF→RCI为主线；同模型真实失败已定位为轨道驻值/微小能差障碍。五个裸参考没有核价相关，故其千cm−1差距不能用更大径向截断或新的容差宣称已解决。",
+  "next_execution_status": "agent正在同原坐标/metric作数值判别；小时服务仍执行已注册有限复验，新MCDHF核价生产executor未注册。",
+  "numerical_repairs": [
+    "Complete seed Fock nuclear term counted once",
+    "Declared determinant budget forwarded to Hamiltonian and RDM",
+    "Exact unchanged-density quadratic/quartic objective difference",
+    "Same polar trial map through wide Gram and convergent inverse-square-root correction"
+  ],
+  "performance": {
+    "component_matvecs_before": 1728,
+    "component_matvecs_after": 224,
+    "signed_full_gradient_bitwise_unchanged": true,
+    "end_to_end_speedup_claim": null,
+    "parallel_efficiency_claim": null,
+    "gpu_speedup_claim": null,
+    "timing_load_gate_failed": true
+  },
+  "remaining_physical_gates": [
+    "Original common-orbital stationarity",
+    "Balanced CV and multi-reference target-character tracking",
+    "CI-response-safe near-roundoff comparison for mixed blocks",
+    "Same-state correction coverage and isotope/reference uncertainty",
+    "Independent unfitted experiment/observable and parallel performance validation"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 1,
+  "started_utc": "2026-10-11T17:47:48.293500+00:00",
+  "finished_utc": "2026-10-11T17:47:49.435458+00:00",
+  "elapsed_uncontrolled_seconds": 1.1419665708672255,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "135s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/run.py",
+    "--execute",
+    "--binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/execution_binding.json"
+  ],
+  "binding_sha256": "026c2620ef51db16df8aae92a86be777eb8a94ef995862719ec30be4ad66f8da",
+  "driver_sha256": "62a95baebb97902fae6ac4931fd88627a01756d383bd7349dd232ea46a15f5c6",
+  "launcher_sha256": "7cc1d066e4140fd686447735cb2fe5d8cb806009c3211bf81f1086510e0064b0",
+  "contract_sha256": "693266d275d4d425e0c1312bbacd7186356ad08e0d93b677d3a7cbd7414586d3",
+  "log_sha256": "7424e89d01558f246c251b5d96501df168f5a51029e1578ade2eab9bb469315f",
+  "outer_wall_seconds": 135,
+  "kill_after_seconds": 5,
+  "no_retry": true,
+  "original_failed_execution_preserved": true,
+  "new_physical_producer_calls": 0,
+  "timing_claim_valid": false
+}

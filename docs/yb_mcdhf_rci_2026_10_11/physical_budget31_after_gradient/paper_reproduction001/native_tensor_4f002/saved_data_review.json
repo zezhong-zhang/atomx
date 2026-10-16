@@ -1,0 +1,588 @@
+{
+  "status": "PASS_SAVED_FULL4F_PROJECTED_REVIEW",
+  "controls": [
+    {
+      "name": "before:all_archive_members",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "before:all_source_archive_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "after:all_archive_members",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "after:all_source_archive_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_current_source_bytes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "solve_contract_binding",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_solve_inputs",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "actual_completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "all_live_controls",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "solve_contract.json:original_inputs_preserved",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "davidson_contract.json:original_inputs_preserved",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "original_SR_cap_failure_retained",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "unprojected_small_J_failure_retained",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "historical_reporting_result",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "historical_reporting_receipt",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "paired_input_bindings",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "A1:completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "A1:all_values:core_residual",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "A1:all_values:EA_action",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B1:completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "B1:all_values:core_residual",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B1:all_values:EA_action",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B2:completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "B2:all_values:core_residual",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B2:all_values:EA_action",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "A2:completed",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "A2:all_values:core_residual",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "A2:all_values:EA_action",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "all189834_SDT_equations",
+      "measured": 1.0001765041178778e-17,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "core_energy_ledger",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "new4f_amplitudes_nonzero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "exact_zero_forbidden_core_amplitudes",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "core_signed_Jplus",
+      "measured": 7.926608761163952e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S:complete_highest_M_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:recorded_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "S:all_original_R3_root_equations",
+      "measured": 2.5634886991328333e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:complete_highest_M_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3:recorded_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D3:all_original_R3_root_equations",
+      "measured": 9.570083874671509e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:complete_highest_M_coordinates",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5:recorded_energy",
+      "measured": 0.0,
+      "cap": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "D5:all_original_R3_root_equations",
+      "measured": 2.193899532529353e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "all12_target_partner_arrays",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M1:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S_M1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M1:signed_J2",
+      "measured": 2.3967330833874474e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M1:all_R3_equations",
+      "measured": 2.5634886991328333e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:signed_J2",
+      "measured": 1.9583945938801146e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "S_M-1:all_R3_equations",
+      "measured": 2.563489089615022e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:signed_J2",
+      "measured": 3.8889978603783275e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M3:all_R3_equations",
+      "measured": 9.570083874671509e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:signed_J2",
+      "measured": 4.741713369875539e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M1:all_R3_equations",
+      "measured": 8.948880661866778e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:signed_J2",
+      "measured": 6.692693933369233e-16,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-1:all_R3_equations",
+      "measured": 8.948880531847221e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:signed_J2",
+      "measured": 3.3475387525863237e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D3_M-3:all_R3_equations",
+      "measured": 9.570106122500088e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5:all_magnetic_partners",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:signed_J2",
+      "measured": 4.2659090767183183e-17,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M5:all_R3_equations",
+      "measured": 2.193899532529353e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:canonical_R_norm",
+      "measured": 4.440892098500626e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:signed_J2",
+      "measured": 1.7827773439010598e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M3:all_R3_equations",
+      "measured": 1.6993773901095854e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:canonical_R_norm",
+      "measured": 2.220446049250313e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:signed_J2",
+      "measured": 1.8430106625843042e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M1:all_R3_equations",
+      "measured": 1.5091629226686443e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:canonical_R_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:signed_J2",
+      "measured": 1.572605358627213e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-1:all_R3_equations",
+      "measured": 1.5091739490047384e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:canonical_R_norm",
+      "measured": 1.1102230246251565e-16,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:signed_J2",
+      "measured": 5.718956789162539e-15,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-3:all_R3_equations",
+      "measured": 1.699366298721361e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:canonical_R_norm",
+      "measured": 0.0,
+      "cap": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:exact_other_M_parity_zero",
+      "measured": true,
+      "cap": null,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:signed_J2",
+      "measured": 2.393741514377637e-14,
+      "cap": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "D5_M-5:all_R3_equations",
+      "measured": 2.19389957589744e-11,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_state_line:D3",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "same_state_line:D5",
+      "measured": 0.0,
+      "cap": 1e-09,
+      "passed": true
+    }
+  ],
+  "paired_all_vector_difference_Ha": 0.0,
+  "maximum_three_target_root_equation_Ha": 9.570083874671509e-11,
+  "lines_cm1": {
+    "D3": 24582.690888264573,
+    "D5": 24855.91477659003
+  },
+  "scope": "ProjectedSDT/R3 equations, exact M/parity, independent signed angular ladders and stored provenance. CanonicalR norms are not physical exp(T) norms; full-H residual and radial/virtual/experimental convergence remain uncomputed."
+}

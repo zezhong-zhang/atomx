@@ -1,0 +1,40 @@
+{
+  "version": "coverage-metadata-correction-001",
+  "original_contract_sha256": "cce973f6310e099508e330ace0e217395c168ef374f5eea97a73e2a539043c1d",
+  "original_result_sha256": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+  "correction_arrays_sha256": "d2d9ada95c932c8eccf5f2ef3eb48558b8fc409d74eb81021975cca48171498e",
+  "numerical_values_changed": false,
+  "correction": "Original prospective contract repeated an outdated ShabaevLocalBackend class docstring and incorrectly declared d-channel matrix elements absent. Actual frozen producer _reference_state_for_kappa includes +2 and -3 d references. The run already used this actual native function; all original numeric gates/results are retained, and only consumer coverage interpretation is corrected here.",
+  "component_coverage": {
+    "Dirac-Coulomb": "public ci_solve on fixed common spinors, replay saved energies/amplitudes",
+    "static_Breit": "public ci_solve include_breit=True, complete static Gaunt+retardation, replay saved RCI",
+    "dynamic_Breit": "public ci_solve include_breit=True plus complete 24-key orbital energy map; each orbital epsilon is diagonal EOL Lagrange multiplier/(2 objective occupation) from saved same-state gradient, or the existing public zero-occupation one-body convention; symmetric average of two vertex |epsilon_a-epsilon_c| frequencies, real one-photon model replaces static Breit",
+    "dynamic_zero_frequency_check": "same complete zero map must reproduce static Breit roots",
+    "Uehling": "public short_range_radial_matrix and scalar_one_body_expectations; point-source local VP on fixed Fermi orbitals, finite-charge convolution absent",
+    "WK": "public V_wichmann_kroll approximate local model and same full scalar CI expectation, not precision higher-loop VP",
+    "SE_default": "public self_energy_radial_matrix(method=indelicato): tabulated K/L/available SD rows plus warned leading analytic fallback, orbital-attraction overlap screening; diagonal radial model, screened many-body/nonlocal terms absent",
+    "SE_local_discriminator": "public shabaev_local full radial matrix on actual same spinors; source _reference_state_for_kappa supports -1,+1,-2,+2,-3 (s,p,d) using hydrogenic Dirac-reference calibration; |kappa|>=3 channels not in that exact supported set (including f +3,-4) are zero, and full nonlocal projector SE remains absent",
+    "SE_full_coverage": "public shabaev request records actual NotImplementedError; no missing term substituted",
+    "NMS": "public one-body point-Coulomb Breit recoil radial/CSF matrix divided by A175 mass proxy; finite-size/radiative/higher-order recoil absent",
+    "SMS": "public two-body point-Coulomb Breit recoil CSF matrix with Z=70, VINTI/SMS2/SMS3 divided by same mass; finite-size/radiative/higher-order recoil absent"
+  },
+  "numeric_gates_passed": true,
+  "original_coverage_description_passed": false,
+  "production_certified": false,
+  "stationarity_passed": false,
+  "SE_model_spread_is_not_uncertainty_bound": true,
+  "SE_model_differential_spread_cm1": {
+    "5d_3/2": 384.6299480001845,
+    "5d_5/2": 445.01313762982653,
+    "6p_1/2": 361.0080049337797,
+    "6p_3/2": 449.9410854279314
+  },
+  "supported_local_kappas": [
+    -1,
+    1,
+    -2,
+    2,
+    -3
+  ],
+  "full_SE": "Full non-local Shabaev operator is not yet implemented. The non-local projector term requires hydrogenic Dirac-Coulomb Green's functions on the B-spline basis and a port of  f/potgen/se_pot.f:nonlocal_se_pot  +  fse_dat.f tables.  Use backend 'shabaev_local' for the local-only approximation, 'mohr' (default) for tabulated F(Z\u03b1), or 'flambaum_ginges' for the electric radiative potential."
+}

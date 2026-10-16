@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "unit_conversion": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/contract.json",
+    "sha256": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254"
+  },
+  "experiments": [
+    {
+      "id": "rank_only_discriminator",
+      "family": "physics_contribution",
+      "physics_class": "core_5p_double_hole_space",
+      "adapter": "legacy_stages",
+      "point_group_anchor_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+      "proof_pass_field": "all_independent_saved_array_checks_passed",
+      "scope": "Complete5p double-hole versus baseline finite-space nonstationary-point scalarDC response only; no virtual, optimized, combined, or additive bound",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+          "sha256": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/contract.json",
+          "sha256": "6b57e51639ebabb7415260d3aba1a1eb4b777708d82af738194326a75ed7ff21"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/root_execution.json",
+          "sha256": "9cbf1295040dd4d7f0be988b7a8eb891f042238c15ab8021861e728750ea392e"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json",
+          "sha256": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541"
+        }
+      },
+      "after_model": "rank_5p_double"
+    },
+    {
+      "id": "virtual_only_discriminator",
+      "family": "physics_contribution",
+      "physics_class": "virtual_sdp_layer_nuclear_seed",
+      "adapter": "legacy_stages",
+      "point_group_anchor_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+      "proof_pass_field": "all_independent_saved_array_checks_passed",
+      "scope": "Balanced virtual layer versus baseline finite-space nonstationary-point scalarDC response only; no optimized, combined, or additive bound",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json",
+          "sha256": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/contract.json",
+          "sha256": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/root_execution.json",
+          "sha256": "4af68c620f41f5d42020641f746a379440c6216fb0116f24ca6240ae296cec4c"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json",
+          "sha256": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3"
+        }
+      },
+      "after_model": "balanced_virtual"
+    },
+    {
+      "id": "screened_core_virtual_discriminator002",
+      "family": "physics_contribution",
+      "physics_class": "virtual_sdp_layer_closed68_seed",
+      "adapter": "legacy_stages",
+      "point_group_anchor_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+      "proof_pass_field": "all_independent_saved_array_checks_passed",
+      "scope": "Screened auxiliary virtual construction inside original P versus baseline finite-space nonstationary-point scalarDC response; same1046 family as measured nuclear layer, no cross-family nesting or additive bound",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json",
+          "sha256": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json",
+          "sha256": "0d552b666b446e62f6804575f8b06ea8caaf1a62da1d155d60aed996986488de"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/root_execution.json",
+          "sha256": "a558b6878856a5fc1163892324abf9119de54d354f21378dc10d1f09b3f48a44"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+          "sha256": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b"
+        }
+      },
+      "after_model": "balanced_virtual"
+    },
+    {
+      "id": "static_Breit_fixed160",
+      "family": "physics_contribution",
+      "physics_class": "complete_static_Breit",
+      "adapter": "static531",
+      "point_group_anchor_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+      "proof_pass_field": "all_passed",
+      "scope": "Same exact accepted160 full531 all16-block static Gaunt+zero-frequency retardation versus DC; not reoptimized",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json",
+          "sha256": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json",
+          "sha256": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/root_execution.json",
+          "sha256": "872fa03a9b2f2f0d0855b7fd92b52c039e69783d07aad5f6a38e7d0d58278dd5"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json",
+          "sha256": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978"
+        }
+      }
+    },
+    {
+      "id": "screened_f_fixed208",
+      "family": "physics_contribution",
+      "physics_class": "virtual_f_layer_closed68_seed",
+      "adapter": "screened_f",
+      "point_group_anchor_sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c",
+      "proof_pass_field": "all_actual_live_controls_passed",
+      "scope": "Literal208 unchanged old29 plus two screened5f orbitals, full1046 versus1595 target space; no31 orbital optimization",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json",
+          "sha256": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json",
+          "sha256": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/root_execution.json",
+          "sha256": "241fa059f19e3807c565f9699ace4f28eff038eac744bfea72801bc89fb61ab5"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/completion.json",
+          "sha256": "a180f7fea8d18ac1c7d5549863944af048557054fa134b9fa05a86c826e40c49"
+        },
+        "before_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/baseline_same_point_evidence.json",
+          "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+        },
+        "after_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_same_point_evidence.json",
+          "sha256": "1081af357943708a5ede027746cd90785d45402756dde63b8661821bdd713d40"
+        },
+        "before_owner": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/baseline_real_owner.json",
+          "sha256": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc"
+        },
+        "after_owner": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_real_owner.json",
+          "sha256": "d6a3ff6361311f73cbe7005aea93d074af49254628baeaa8e492411ccdf54ef6"
+        }
+      }
+    },
+    {
+      "id": "nuclear_f_fixed208_failed_executor",
+      "family": "physics_contribution",
+      "physics_class": "virtual_f_layer_nuclear_seed",
+      "adapter": "failed_nuclear_f",
+      "point_group_anchor_sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c",
+      "proof_pass_field": "saved_array_qualification_passed",
+      "scope": "Literal208 old29 plus two unscreened nuclear5f orbitals; finite outputs retained but original final hS-count gate FAILED",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json",
+          "sha256": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json",
+          "sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json",
+          "sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json",
+          "sha256": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986"
+        },
+        "before_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json",
+          "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+        },
+        "after_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+          "sha256": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291"
+        },
+        "before_owner": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_real_owner.json",
+          "sha256": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc"
+        },
+        "after_owner": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_real_owner.json",
+          "sha256": "98acffece917c7cab77d3457ebd8406bf08354e8a372ac0ffa2991d28431f53e"
+        }
+      }
+    },
+    {
+      "id": "positive_inner_Gauss_order_fixed_CI",
+      "family": "physics_contribution",
+      "physics_class": "positive_inner_quadrature_operator_expectation",
+      "adapter": "kernel_expectation",
+      "point_group_anchor_sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87",
+      "proof_pass_field": "all_completion_metadata_checks_passed",
+      "scope": "Complete affected7398 radial keys, exact normalized five target signed tables at fixed recovered29 point; changed-operator expectation only, no new H/CI/g",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+          "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/contract.json",
+          "sha256": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/root_execution.json",
+          "sha256": "bfe64f5fdbe61bfe1169091ef85f87396a497fb7fdd8abab9f92b84d00302d72"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/completion.json",
+          "sha256": "e3632edad132eb4dd17607264d2a7ee218a1f73fc734373d1d4b27a6fc6b5915"
+        },
+        "point_owner": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+          "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+        }
+      },
+      "declared_source_change": true,
+      "interpretation": "Changed radial operator expectation on the SAME archived CI; not eigenenergy or a reoptimized/red diagonalized spectrum"
+    },
+    {
+      "id": "native31_16step_trajectory_aggregate",
+      "family": "optimization_trajectory",
+      "physics_class": "orbital_relaxation_trajectory",
+      "adapter": "trajectory",
+      "point_group_anchor_sha256": "9d318724e8fc233091a05e60efa1ce7c768df92f1a5edc963401384d839e5ada",
+      "proof_pass_field": "all_scalar_completion_controls_passed",
+      "scope": "One whole correlated16-step optimization trajectory; checkpoints are not independent physics examples",
+      "cost_scope": "Whole recorded discriminator, including baseline/control/setup/archive; not isolated increment timing",
+      "roles": {
+        "result": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+          "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739"
+        },
+        "contract": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json",
+          "sha256": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68"
+        },
+        "receipt": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+          "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532"
+        },
+        "proof": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json",
+          "sha256": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607"
+        },
+        "before_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json",
+          "sha256": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1"
+        },
+        "after_model": {
+          "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+          "sha256": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17"
+        }
+      }
+    }
+  ],
+  "selection_policy": "Explicit closed paired metadata catalog; signed bad/worse outcomes retained; no NIST outcome selection",
+  "excluded_future_or_incomplete_scopes": [
+    "Current mutable source and unclosed experiments",
+    "All individual correlated optimization checkpoints as independent training examples",
+    "Derivative/owner/performance qualification probes as independent physics increments",
+    "Historical CV ledger without a separately recorded foreground-closed receipt in its directory; no fabricated closure"
+  ]
+}

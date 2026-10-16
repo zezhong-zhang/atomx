@@ -1,0 +1,118 @@
+{
+  "status": "planned/unlaunched; no production executor registered",
+  "selected_first": "complete differential correlation screening at fixed DC/Fermi/V68 reference",
+  "fixed": {
+    "Z": 70,
+    "core_electrons": 68,
+    "nucleus": "Fermi, original empirical A175 radius",
+    "ns": 123,
+    "hamiltonian": "Dirac-Coulomb",
+    "potential_mode": "VN, occupied metric-orthogonal complement",
+    "states": [
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ],
+    "common_energy_zero": "own jointly computed6s attachment energy in each full space",
+    "space_panel": [
+      [
+        3,
+        5.0
+      ],
+      [
+        3,
+        10.0
+      ],
+      [
+        4,
+        5.0
+      ],
+      [
+        4,
+        10.0
+      ]
+    ]
+  },
+  "stages": [
+    {
+      "id": "same_space_MBPT2_loworder",
+      "hypothesis": "Same-input secondorder audit separates a lower-order diagram mismatch from missing physical high-order response.",
+      "action": "Compare full signed two-class MBPT2 at original414radial band with lowerorder coefficient of currentSD under sameH/core/energy prescription.",
+      "outputs": "all five attachments, four commonzero differences, two weightedcentroids/splittings, all required diagrams and state identities",
+      "acceptance": "original signed operator gate1e-11Ha; original solver/space/experimental gates untouched",
+      "stop": "mismatch stops attribution tomissingtriples; inspect equations/conventions first"
+    },
+    {
+      "id": "g_vs_energy_screen",
+      "hypothesis": "currentl3/E5 model misses significant differential angular or highenergy correlation",
+      "spaces": [
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      "action": "complete signed MBPT2 five-state responses; no weak-coordinate deletion or transfer of savedoldhighlroots",
+      "screening_thresholds_cm1": {
+        "5d3/2": 95.08665190086285,
+        "5d5/2": 82.2430331111129,
+        "6p1/2": 25.03191669647531,
+        "6p3/2": 35.51094133669613
+      },
+      "threshold_scope": "one tenth current absdefect, priorityscreen only, not errorbound/acceptance relaxation",
+      "stop": "identity/pole/invalid finite response rejectsperturbative ranking; no productionstates certified"
+    },
+    {
+      "id": "one_admitted_full_SD_increment",
+      "action": "choose one discriminatingdirection then jointlysolve newcore and allfivevalence roots with samefullmodel and metric",
+      "conditions": "source-bound executor, completeangular counts, realtimehost/device/CPU load and originalcaps; no simultaneous4spaceblindlaunch",
+      "acceptance": "report actualincrements/remainingNISTgates and keepoldfailedgates; fullnorm/postsource checks mandatory",
+      "stop": "resource/admission/equation failure retains evidence and defers withoutmodelshrink"
+    },
+    {
+      "id": "same_space_equation_rank_control",
+      "action": "LCCSD to nonlinearCCSD to fullCCSDT in one resourceadmitted completefive-state commonintegralspace; replicate insecondcompleteband",
+      "conditions": "no currentlargeSD versus historicalsmallCCSDT subtraction",
+      "stop": "unchangedH coverage/residual/source gatefailure"
+    }
+  ],
+  "parallel_work": "independent sourceanalysis, diagramcoverage and evidence arithmetic may proceed in parallel; samecore COMMON ownerstates retainexistingserialization",
+  "original_resources": {
+    "probe_address_space_bytes": 4294967296,
+    "probe_wall_seconds": 120,
+    "probe_threads": 1,
+    "future_task_host_cap_bytes": 34359738368,
+    "future_task_device_cap_bytes": 2147483648,
+    "future_solver_numeric_subspace": 64,
+    "future_core_krylov_vectors": 40,
+    "future_diagnostic_actions_per_state": 160
+  },
+  "original_1percent_accuracy_gate_preserved": true,
+  "no_experimental_fitting": true,
+  "no_published_correction_import": true,
+  "new_atomic_root_solves": 0
+}

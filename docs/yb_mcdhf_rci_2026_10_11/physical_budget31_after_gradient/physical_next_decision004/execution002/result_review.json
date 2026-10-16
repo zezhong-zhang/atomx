@@ -1,0 +1,252 @@
+{
+  "status": "INDEPENDENT_SAVED_JSON_SOURCE_REVIEW_PASS",
+  "created_utc": "2026-10-14T00:37:21.261921+00:00",
+  "access_scope": "JSON/text/source hashes and stdlib Decimal scalar arithmetic only; no NumPy/SciPy/atomx imports, NPZ access, matrix arithmetic, new experiment, or new scientific gates.",
+  "bindings": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/root_execution_seal.json": "601808f415dd4e9be2f51b8c949dff77875eb347460550f88cb52f44095d68b3",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/preparation_manifest.json": "e8aa43960827959406ef3d58affe3f0770d74de417dbb5c59d9054f7d7100675",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/preparation.json": "8e4929f43519f1523ef7bf3d3768d92ae70dd93a1c3ecf6584e9ae170f7d7025",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/header_preflight.json": "5cfce2494208bf8e067c5497fc8e85ead39de4cf23043fda33d38faaeb6b8fcf",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_Rdelta.json": "a57affbc340aa4315008d186cbbb0110fa95838955b6b92e1fce3b91863af382",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_Rdelta.json": "8021f094950c48ef23473843fb19151ce8d7579f7b959fc3c81e9d8ed5ad4a62",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution001/actual/result.json": "108a5fd97b54dc8f66b4b0ce1cb3c638d9c8c75def3f7e785d8f4b00c8d54adf"
+  },
+  "checks": {
+    "saved_status_PASS": true,
+    "all_four_predeclared_points": true,
+    "all260_recorded_controls_PASS": true,
+    "samefive_display_labels_UIDs_and_rankone_tracked_targets": true,
+    "native_five_UID_order_recorded_PASS_eachpoint": true,
+    "actual20_norms_and_original_majority_overlap": true,
+    "allfour_saved_point_JSONs_match_embedded_points": true,
+    "allfour_input_owner_hashes_recompute": true,
+    "allfour_complete_signed_owner_models_match_saved_maps": true,
+    "allfour_complete1595or2574_69electron_DC_31radial_owners": true,
+    "A_R0_owner_exact_checkpoint13": true,
+    "bothmodels_same_radialbinding_at_eachpoint": true,
+    "same31keys_geometry_Z70_ns123_A175nucleus": true,
+    "step_direction_alpha_original_metric_recorded_PASS": true,
+    "twenty_full_block_residuals_and_Grams_retained_PASS": true,
+    "A_R0_whole_H_replay_exact_and_ten_saved_full_column_residuals_PASS": true,
+    "all_recorded_capped_attempt_counts_within_original_caps": true,
+    "exact_complete_work_counts": true,
+    "all_table_and_cache_payloads_bounded": true,
+    "host_decoded_memory_and_wall_caps_respected": true,
+    "rootseal_authorization_hashes_resources_source_match": true,
+    "allfive_preparation_manifest_hashes_match": true,
+    "all_metadata_input_hashes_match": true,
+    "all_frozen_source_archive_file_hashes_match": true,
+    "all86_actual_loaded_source_hashes_match": true,
+    "source_constant_matches_actual_loaded_source": true,
+    "original001_failure_and_no_qualification_upgrade_preserved": true
+  },
+  "arithmetic_recomputation": {
+    "method": "Decimal precision80; Decimal.from_float on JSON-roundtripped binary64 energies and the independently reconstructed binary64 HARTREE_CM1 constant. Thus recover exact represented energy inputs before independent upper-minus-same-lower and four-point differences. Multiplets use original2J+1 weights4/6 and2/4. Report numerical discrepancies from saved longdouble/float output, without introducing a scientific tolerance.",
+    "conversion_cm1_per_Hartree_binary64": "219474.63136314112",
+    "conversion_exact_decimal_of_binary64": "219474.63136314111761748790740966796875",
+    "line_and_energy_recomputations": [
+      {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "correlation_R0_cm1": "0E-71",
+        "correlation_Rdelta_cm1": "0E-71",
+        "radial_shift_A_cm1": "0E-71",
+        "radial_shift_B_cm1": "0E-70",
+        "interaction_cm1": "0E-71",
+        "absolute_lower_upper_changes_Ha": {
+          "A": {
+            "lower": "-0.008917816987377591431140899658203125000",
+            "upper": "-0.008917816987377591431140899658203125000"
+          },
+          "B": {
+            "lower": "-0.00876580027761519886553287506103515625",
+            "upper": "-0.00876580027761519886553287506103515625"
+          }
+        }
+      },
+      {
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "correlation_R0_cm1": "468.06491860954870176499363271303659483901782323300722055137157440185546875",
+        "correlation_Rdelta_cm1": "469.51082294955468595195354728237188690620484976534498855471611022949218750",
+        "radial_shift_A_cm1": "-13.44239615896503440288829389300841177234957513064728118479251861572265625",
+        "radial_shift_B_cm1": "-11.99649181895905021592837932367311970516254859830951318144798278808593750",
+        "interaction_cm1": "1.44590434000598418695991456933529206718702653233776800334453582763671875",
+        "absolute_lower_upper_changes_Ha": {
+          "A": {
+            "lower": "-0.008917816987377591431140899658203125000",
+            "upper": "-0.008979065050880308263003826141357421875"
+          },
+          "B": {
+            "lower": "-0.00876580027761519886553287506103515625",
+            "upper": "-0.008820460316201206296682357788085937500"
+          }
+        }
+      },
+      {
+        "label": "5d_5/2",
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "correlation_R0_cm1": "673.70407944966240559809846948015506218343517730318126268684864044189453125",
+        "correlation_Rdelta_cm1": "674.47305493320015173604885141533243908540384836669545620679855346679687500",
+        "radial_shift_A_cm1": "-31.04085931484552887877618302411679429564372867389465682208538055419921875",
+        "radial_shift_B_cm1": "-30.27188383130778274082580108893941739367505761038046330213546752929687500",
+        "interaction_cm1": "0.76897548353774613795038193517737690196867106351419351994991302490234375",
+        "absolute_lower_upper_changes_Ha": {
+          "A": {
+            "lower": "-0.008917816987377591431140899658203125000",
+            "upper": "-0.009059249548954539932310581207275390625"
+          },
+          "B": {
+            "lower": "-0.00876580027761519886553287506103515625",
+            "upper": "-0.008903729129087878391146659851074218750"
+          }
+        }
+      },
+      {
+        "label": "6p_1/2",
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "correlation_R0_cm1": "149.14131401822453494667017329295723160331732515260227955877780914306640625",
+        "correlation_Rdelta_cm1": "150.57337293904982123918575505111712431460802008587052114307880401611328125",
+        "radial_shift_A_cm1": "-39.97535250602846795693141713590006147693856064506690017879009246826171875",
+        "radial_shift_B_cm1": "-38.54329358520318166441583537774016876564786571179865859448909759521484375",
+        "interaction_cm1": "1.43205892082528629251558175815989271129069493326824158430099487304687500",
+        "absolute_lower_upper_changes_Ha": {
+          "A": {
+            "lower": "-0.008917816987377591431140899658203125000",
+            "upper": "-0.009099958095248439349234104156494140625"
+          },
+          "B": {
+            "lower": "-0.00876580027761519886553287506103515625",
+            "upper": "-0.008941416444940841756761074066162109375"
+          }
+        }
+      },
+      {
+        "label": "6p_3/2",
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "correlation_R0_cm1": "160.82304122468898144917731380266340268647695666004437953233718872070312500",
+        "correlation_Rdelta_cm1": "163.53434366049067187599259408435463380993013515762868337333202362060546875",
+        "radial_shift_A_cm1": "-37.62408446467678154169818761486804303828535012144129723310470581054687500",
+        "radial_shift_B_cm1": "-34.91278202887509111488290733317681191483217162385699339210987091064453125",
+        "interaction_cm1": "2.71130243580169042681528028169123112345317849758430384099483489990234375",
+        "absolute_lower_upper_changes_Ha": {
+          "A": {
+            "lower": "-0.008917816987377591431140899658203125000",
+            "upper": "-0.009089244929782580584287643432617187500"
+          },
+          "B": {
+            "lower": "-0.00876580027761519886553287506103515625",
+            "upper": "-0.008924874617150635458528995513916015625"
+          }
+        }
+      }
+    ],
+    "multiplet_interactions_cm1": {
+      "D": {
+        "centroid_cm1": "1.03974702612504135755419498884054296805601325104362331330776214599609375",
+        "splitting_cm1": "-0.67692885646823804900953263415791516521835546882357448339462280273437500"
+      },
+      "P": {
+        "centroid_cm1": "2.28488793080955571538204744051411831939901730947894975543022155761718750",
+        "splitting_cm1": "1.27924351497640413429969852353133841216248356431606225669384002685546875"
+      }
+    },
+    "maximum_differences_from_saved_outputs": {
+      "all20_point_excitations_cm1": {
+        "count": 20,
+        "max_absolute_difference": "1.81769886626500219196922447650877074920572340488433837890625E-12"
+      },
+      "all10_correlation_shifts_cm1": {
+        "count": 10,
+        "max_absolute_difference": "5.290272639919889156867593982269681873731315135955810546875E-14"
+      },
+      "all5_line_interactions_cm1": {
+        "count": 5,
+        "max_absolute_difference": "1.8664413344395870686387439718600944615900516510009765625E-16"
+      },
+      "all20_absolute_lower_upper_changes_Ha": {
+        "count": 20,
+        "max_absolute_difference": "0E-39"
+      },
+      "all16_point_multiplet_values_cm1": {
+        "count": 16,
+        "max_absolute_difference": "4.43814109854178654064604803153315515373833477497100830078125E-12"
+      },
+      "all4_multiplet_interactions_cm1": {
+        "count": 4,
+        "max_absolute_difference": "5.59436200553968141988003814901730947894975543022155761718750E-12"
+      },
+      "four_EOL_values_Ha": {
+        "count": 4,
+        "max_absolute_difference": "1.401886625547527596709262709368712634516035420162438640545587986E-12"
+      }
+    },
+    "point_EOL_note": "Exact represented .2-weight sums are also compared; saved EOL uses ordinary binary64 dot accumulation, so its tiny reported difference is arithmetic scope, not an FD/stationarity qualification."
+  },
+  "source_count": 86,
+  "original_scientific_check_count": 260,
+  "work_counts": {
+    "CI": 4,
+    "CI_eigh": 20,
+    "H": 4,
+    "H_projection": 20,
+    "angular_nullspace": 43,
+    "angular_table": 10,
+    "banded_contraction": 523536,
+    "block_terms": 20,
+    "density": 3968,
+    "factor_getter": 11296,
+    "pair_convolution": 11296,
+    "pair_potential": 2824,
+    "polar_retraction": 7,
+    "radial_key": 277616,
+    "raw_hS": 7,
+    "tracking_overlap": 5,
+    "tracking_projection": 50,
+    "tracking_resolve": 4,
+    "forbidden_science": 0,
+    "NPZ_load": 6,
+    "radial_evaluator": 4,
+    "NPZ_save": 4
+  },
+  "complete_table_nnz": 26418669,
+  "peak_recorded_full_CI_residual_Ha": 3.2741809263825417e-11,
+  "minimum_recorded_principal_overlap_squared": 0.95841489479163,
+  "interpretation": "At this one predeclared common full31-radial displacement, the named expanded-correlation and radial changes are measurably nonadditive in the saved model: four finite interaction shifts about+1.4459,+0.7690,+1.4321,+2.7113cm−1. This is a conditional fixed-step response, not a completed joint optimization or an experimental-gap improvement.",
+  "scope_limits": [
+    "Original ordinary-FD, stationarity and cross-model nested-byte failures remain failed; no source/gradient/training qualification upgrade.",
+    "No fresh gradient, optimizer, cutoff scan, backend change, isotope/basis migration, Breit/QED or strict paper-RCCSDT reproduction was performed.",
+    "No NIST comparison or experimental-gap reduction was calculated in this four-point experiment.",
+    "The complete original1595 and expanded2574 CSF models, all31 radials, allfive signed tracked targets, actual norms, shared nuclear geometry/metric and fixed alpha1/16 are retained.",
+    "All numerical matrix validation is the recorded260-check evidence; this independent review recomputes observables from saved scalar energies and does not independently decode eigenvectors/H arrays.",
+    "Elapsed time and RSS remain uncontrolled observations, not performance speedup measurements."
+  ],
+  "ownership": "This review writes only execution002/result_review.json. Run, contract, seals, actual artifacts, source archive and preserved predecessor failure remain unchanged."
+}

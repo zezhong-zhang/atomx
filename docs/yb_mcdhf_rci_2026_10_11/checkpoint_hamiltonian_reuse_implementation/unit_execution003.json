@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--durations=10",
+    "tests/test_ci_hamiltonian_snapshot.py",
+    "tests/test_ci_dense_orthogonality.py",
+    "tests/test_ci_radial_snapshot.py",
+    "tests/test_ci_basis_tracking.py",
+    "tests/test_mcdhf_determinant_cap.py",
+    "tests/test_mcdhf_gradient_reuse.py"
+  ],
+  "contract_sha256": "0791e1bc6ad5186d00b052bb974c7290f3cce5fb2d2149449cced0aca6309cb1",
+  "runner_sha256": "3d42ce8f447dba7301b7cd9f5c702165c509d91820c4c6117e159348334b9eb4",
+  "exit_code": 0,
+  "stopping_condition": null,
+  "observed_elapsed_seconds": 2.718025519978255,
+  "child_max_rss_kib": 508064,
+  "log_sha256": "a796547f72f3219f66d71dbfccf5810d63cd8ec1790f542360a843c89c4b8b1d",
+  "source_unchanged": true,
+  "tests_unchanged": true,
+  "scope": "small native unit controls; no large531 solve or controlled timing claim",
+  "all_passed": true
+}

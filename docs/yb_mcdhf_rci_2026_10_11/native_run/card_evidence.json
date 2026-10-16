@@ -1,0 +1,216 @@
+{
+  "method": "MCDHF -> RCI",
+  "computed_run": "nuclear_eol002_trace",
+  "producer": "Atomx native MCDHFSolver and public ci_solve, frozen 353-file source epoch",
+  "stationarity": {
+    "converged": false,
+    "orbital_residual": 5.38729624987869e-06,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error": 3.2200135033192855e-11,
+    "energy_tolerance": 1e-08,
+    "termination_reason": "line_search_failed",
+    "gradient_norm": 3.1246733302659526e-05,
+    "residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe"
+  },
+  "inputs": {
+    "contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/contract.json",
+      "sha256": "03cb9af97ffa2b6b879dba6bc0216141338be9a395dee438929c43d7644af2c0"
+    },
+    "preflight": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/preflight.json",
+      "sha256": "2aebbaf280e0c22aad42a0d2ab561dcd44fec519daaf7ea275d414b7e8b23a72"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/source_identity.json",
+      "sha256": "637ce462ce960a6fcdb40b9ad9d975d8029df5a62844b0aeeeebd821bf097137"
+    },
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/result.json",
+      "sha256": "bf48aacacf278d1feaa39286d1ac11adeba9e230696e593203d197186a1c0389"
+    },
+    "diagnostics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/mcdhf_diagnostics.json",
+      "sha256": "ca31245213ed545855c3bbac4ec010a0b7ff933249c905c1693407c8d801d404"
+    },
+    "failed_trials": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/failed_line_search.json",
+      "sha256": "77f39fe2ac4e5ff6f37e308e921f70691f23bf847c8f23bfcd2a66d8be7683f6"
+    },
+    "failed_coordinates": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/failed_coordinates.npz",
+      "sha256": "57ea2f1597ac74a7508f03245e5e65215baa3df2b44f23e7526961eeef43f57c"
+    },
+    "failed_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "diagnosis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/line_search_diagnosis/result.json",
+      "sha256": "796aadb024dc4436046a351e7fdcebce08b5885e04ad37acda11b1fd9bbbbb93"
+    },
+    "diagnosis_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol002_trace/line_search_diagnosis/contract.json",
+      "sha256": "dd4c38be3c120c7576012f632b9e1de919eded58c06008e8747ca0a0b09a3fc9"
+    },
+    "trace_identity_chain": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/trace_identity_chain.json",
+      "sha256": "0a6230adb0e56eb0a6ec7c9b7062be4fdecb957a5c250c7033eb37cdb0519a36"
+    },
+    "environment": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/environment.json",
+      "sha256": "86e7184e3808409eb1fc10bd78066ac26b205e1a0fda3c09d38e1658e09e427d"
+    },
+    "experimental_reference": {
+      "path": "docs/rare_earth_yb_spectrum_2026_10_08/experimental_reference.json",
+      "sha256": "140af5746c837f40b607b9d2447ca57ce24d372dac527af19b160134006250c4"
+    }
+  },
+  "CSFs": 5,
+  "radial_orbitals": 24,
+  "electrons": 69,
+  "state_average": "equal fixed five J/parity resolved roots in common orthonormal orbitals",
+  "Hamiltonian": "Dirac-Coulomb optimized, complete static Breit in same-orbital RCI; Fermi nucleus default A=175 radius, nuclear fixed no-pair projector",
+  "correlation_scope": "Five CSFs in five different symmetry blocks: no within-block correlation mixing or core-hole excitations. The 69-electron core participates in common radial optimization but core-valence dynamical correlation is absent.",
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14053.335076928366,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": null,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14053.226830854246,
+      "computed_cm1": 23757.267213985717,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 796.4672139857175,
+      "relative_error": 0.034688129942585515,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14053.224697343052,
+      "computed_cm1": 24225.51879683927,
+      "experimental_cm1": 24332.69,
+      "error_cm1": -107.1712031607276,
+      "relative_error": -0.004404412465729338,
+      "gate_pass": true,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14053.221243217042,
+      "computed_cm1": 24983.611829606074,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -2078.2081703939257,
+      "relative_error": -0.07679484123366151,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14053.20841494134,
+      "computed_cm1": 27799.09291019446,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -2593.1370898055393,
+      "relative_error": -0.08532236988880182,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    }
+  ],
+  "rows_dc": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "energy_Ha": -14067.483362700877,
+      "computed_cm1": 0.0,
+      "experimental_cm1": 0.0,
+      "error_cm1": 0.0,
+      "relative_error": null,
+      "gate_pass": null,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "energy_Ha": -14067.375251287996,
+      "computed_cm1": 23727.712488215497,
+      "experimental_cm1": 22960.8,
+      "error_cm1": 766.9124882154974,
+      "relative_error": 0.033400948059976024,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "energy_Ha": -14067.372918355995,
+      "computed_cm1": 24239.731879148167,
+      "experimental_cm1": 24332.69,
+      "error_cm1": -92.95812085183206,
+      "relative_error": -0.0038202977497281258,
+      "gate_pass": true,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "energy_Ha": -14067.369366482557,
+      "computed_cm1": 25019.2779927076,
+      "experimental_cm1": 27061.82,
+      "error_cm1": -2042.542007292399,
+      "relative_error": -0.0754768898504387,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "energy_Ha": -14067.356402959846,
+      "computed_cm1": 27864.442360935358,
+      "experimental_cm1": 30392.23,
+      "error_cm1": -2527.7876390646416,
+      "relative_error": -0.08317216732910489,
+      "gate_pass": false,
+      "dominant_CSF_weight": 1.0,
+      "reference_type": "NIST handbook measured level, uncertainty unspecified"
+    }
+  ],
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "fitted_corrections": false,
+  "status": "numerical_stationarity_failed",
+  "next_action": "Repair cancellation-limited orbital line search with unchanged stationarity gates; then declare a 68-CSF explicit 4f-hole correlation discriminator before enlarging radial cutoffs",
+  "card_summary": "原生 Yb+ 五态 MCDHF 已实际重算，24 径向轨道共同优化后同轨道静态 Breit RCI。57步线搜索失败：原度量驻值残差5.3873e-6 > 1e-7，尚未合格；RCI能级仅诊断，D3/D5/P1/P3相对NIST偏差 +796.47/-107.17/-2078.21/-2593.14 cm^-1。已逐位重放原度量和梯度，定位近驻值处总能量相消；优先修复线搜索，再加入显式4f空穴相关。"
+}

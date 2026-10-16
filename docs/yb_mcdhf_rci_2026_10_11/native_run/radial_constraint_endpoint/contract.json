@@ -1,0 +1,26 @@
+{
+  "hypothesis": "Float64 projector-to-radial multiplication leaves order-1e-15 metric defects whose normal Lagrange contribution can exceed the final tangent descent; angular coefficient filtering is an independent possible discrepancy and needs a paired exact increment control.",
+  "fixed_conditions": "Saved final 004 endpoint, original coordinate gradient/projectors/inverse metric, identical five-state EOL and same complete cell integrals. No solver restart, modified objective acceptance or tolerance change.",
+  "inputs_sha256": {
+    "contract.json": "74c05cab82b21a3cb50910c7eb59ec88b0a600bfd36c79dbf4390985d7687df3",
+    "failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "orbitals_workspace.npz": "0e3523c41ae085914d5d938fac1ecb8734e50adde10ae2954f0b3560279c2ecc",
+    "failed_line_search.json": "a7f3456162aba36f3a8eaed807239ad96d0c2a7c45158445116e048dc24187bd"
+  },
+  "source_epoch_contract_sha256": "06653547598f7b4e47a02a18d9475ca23921dc36eed8c9261009b4567efeb5c4",
+  "steps": [
+    0.0,
+    0.1,
+    0.01,
+    7.450580596923828e-09
+  ],
+  "controls": [
+    "Actual old eig polar and new wide Gram polar",
+    "Actual radial float64 coefficients and longdouble S Gram using the same stored metric",
+    "Raw Euclidean gradient and normalized one-body quotient derivative for off-manifold diagnostic",
+    "Same candidate complete exact increment with retained angular RDM and unfiltered raw objective coefficients"
+  ],
+  "acceptance": "Original saved analytic gradient replay error below 1e-10; trial P/Q retained. Normal linear contribution is diagnostic and never replaces actual objective or stationarity tests.",
+  "stopping": "One unchanged endpoint, eight actual candidates, no iterative optimization, no certification of the failed solve."
+}

@@ -1,0 +1,185 @@
+{
+  "fields": {
+    "orbital_keys": {
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 384,
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616,
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616,
+      "fortran_order": false
+    },
+    "energies_dc_Ha": {
+      "shape": [
+        5
+      ],
+      "dtype": "<f8",
+      "bytes": 40,
+      "fortran_order": false
+    },
+    "mixing_dc": {
+      "shape": [
+        5,
+        5
+      ],
+      "dtype": "<f8",
+      "bytes": 200,
+      "fortran_order": true
+    },
+    "basis_nv": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_ks": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_ksp": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_ksq": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_nsp": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_nsq": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    },
+    "basis_gr": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 8280,
+      "fortran_order": false
+    },
+    "basis_grw": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 8280,
+      "fortran_order": false
+    },
+    "basis_bsp_p": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "bytes": 66240,
+      "fortran_order": false
+    },
+    "basis_bsp_q": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 74520,
+      "fortran_order": false
+    },
+    "basis_bsp_q_d": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "bytes": 74520,
+      "fortran_order": false
+    },
+    "basis_bsp_p_d": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "bytes": 66240,
+      "fortran_order": false
+    },
+    "basis_t": {
+      "shape": [
+        132
+      ],
+      "dtype": "<f8",
+      "bytes": 1056,
+      "fortran_order": false
+    },
+    "basis_tp": {
+      "shape": [
+        130
+      ],
+      "dtype": "<f8",
+      "bytes": 1040,
+      "fortran_order": false
+    },
+    "basis_ns": {
+      "shape": [],
+      "dtype": "<i8",
+      "bytes": 8,
+      "fortran_order": false
+    }
+  },
+  "selected_fields": [
+    "orbital_keys",
+    "P",
+    "Q",
+    "basis_nv",
+    "basis_ks",
+    "basis_ksp",
+    "basis_ksq",
+    "basis_nsp",
+    "basis_nsq",
+    "basis_ns",
+    "basis_gr",
+    "basis_grw",
+    "basis_bsp_p",
+    "basis_bsp_p_d",
+    "basis_bsp_q",
+    "basis_bsp_q_d",
+    "basis_t",
+    "basis_tp"
+  ],
+  "cumulative_decoded_bytes": 100033648
+}

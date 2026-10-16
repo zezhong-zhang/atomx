@@ -1,0 +1,55 @@
+{
+  "hypothesis": "Current exact streamed term2 preserves complete public fixed-energy affine map and total response versus preserved pCI-derived original diagrams",
+  "fixed": "Na+ Z11 point nucleus ns38 ks7; all 10 core electrons; all declared 3s4s3p4p3d radial virtuals with every magnetic partner; all five external s/p/d columns; fixed signed numerator and derivative seed7411041; same solved complete core amplitudes",
+  "gate_Ha": 1e-11,
+  "relative_gate": 1e-10,
+  "workers": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "rounds": 5,
+  "repeats": 10,
+  "orders": [
+    [
+      "original",
+      1,
+      2,
+      4,
+      8
+    ],
+    [
+      8,
+      4,
+      2,
+      1,
+      "original"
+    ],
+    [
+      2,
+      "original",
+      8,
+      1,
+      4
+    ],
+    [
+      4,
+      1,
+      8,
+      "original",
+      2
+    ],
+    [
+      "original",
+      8,
+      2,
+      4,
+      1
+    ]
+  ],
+  "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+  "oracle_lineage": "pCI-derived pinned original scalar DC diagram suite compiled by Atomx native adapter. Shared upstream formulas/radial service; not independent standalone pCI production software or MPI scaling.",
+  "end_to_end_solve_claim": false,
+  "original_source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b"
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "pure representation/memory arithmetic from current packed integral and rank-six storage; no large allocation, physical calculation, performance or truncation",
+  "backend_index": "complete sorted key/index pairs",
+  "models": [
+    {
+      "occupied_spinors": 2,
+      "virtual_spinors": 8,
+      "spinors": 10,
+      "packed_complex_eri_bytes": 18480,
+      "raw_complex_core_triples_one_tensor_bytes": 65536,
+      "thirtytwo_uncompressed_triples_bytes": 2097152,
+      "scope": "abstract spinor counts; radial orbital counts must be expanded into complete magnetic multiplets before resource matching"
+    },
+    {
+      "occupied_spinors": 10,
+      "virtual_spinors": 90,
+      "spinors": 100,
+      "packed_complex_eri_bytes": 198646800,
+      "raw_complex_core_triples_one_tensor_bytes": 11664000000,
+      "thirtytwo_uncompressed_triples_bytes": 373248000000,
+      "scope": "abstract spinor counts; radial orbital counts must be expanded into complete magnetic multiplets before resource matching"
+    },
+    {
+      "occupied_spinors": 68,
+      "virtual_spinors": 414,
+      "spinors": 482,
+      "packed_complex_eri_bytes": 107799111056,
+      "raw_complex_core_triples_one_tensor_bytes": 356983171964928,
+      "thirtytwo_uncompressed_triples_bytes": 11423461502877696,
+      "scope": "abstract spinor counts; radial orbital counts must be expanded into complete magnetic multiplets before resource matching"
+    },
+    {
+      "occupied_spinors": 68,
+      "virtual_spinors": 1888,
+      "spinors": 1956,
+      "packed_complex_eri_bytes": 29265586861840,
+      "raw_complex_core_triples_one_tensor_bytes": 33857328763633664,
+      "thirtytwo_uncompressed_triples_bytes": 1083434520436277248,
+      "scope": "abstract spinor counts; radial orbital counts must be expanded into complete magnetic multiplets before resource matching"
+    }
+  ],
+  "actual_full_yb_band_spinor_expansion": {
+    "input_resource_sha256": "0d72bcdd7415f92c97c2c79de56bd244400408d62e7246fccdf30a83712e8060",
+    "occupied_radial_keys": 19,
+    "virtual_radial_keys": 414,
+    "occupied_spinors": 68,
+    "virtual_spinors": 1894,
+    "total_spinors": 1962,
+    "resident_full_packed_complex_eri_bytes": 29626360376496,
+    "raw_core_complex_triples_one_tensor_bytes": 34181148002705408,
+    "scope": "same declared full physical band expanded into complete magnetic multiplets; generic uncompressed storage arithmetic only, no allocation/FSCC solve or peak-memory claim"
+  }
+}

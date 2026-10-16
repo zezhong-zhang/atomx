@@ -1,0 +1,64 @@
+{
+  "hypothesis": "Missing complete p virtual multiplets leave unsatisfied core/EA channels even at the converged complete4f solution. Adding6p1/2 and6p3/2 changes only virtual space, recovering every old integral/equation at exact zero new amplitudes and measuring larger contraction cost before a solve.",
+  "fixed": {
+    "core": "18correlated/50frozen;5s2,5p1/2^2,4f14",
+    "virtual": "previous complete6s,5d3,5d5 plus complete6p1/2,6p3/2;18magnetic virtual spinors",
+    "radial": "same owned ns180/order9/R500/RKB and empiricalA171 core; original saved p Fock/metric constrained electron roots, exactly2 bordered corrections",
+    "Hamiltonian": "DC only, same68e HF origin; no fitted level/borrowed correction/Breit/QED/recoil",
+    "equations": "complete689589 SDT and127620 R3 coordinates; no amplitude screening",
+    "source": "same362productionfiles",
+    "scope": "One off-shell residual and one embedded oldS action; no nonlinear/root solve in this probe"
+  },
+  "method": "Complete occupied complement of original p H/S, lower-triangle symmetric generalized eigensolve, all electron branch E>-c^2, lowest root constrained original-pencil refinement; no root/count/tolerance scan.",
+  "gates": {
+    "radial_dual_Ha": 1e-08,
+    "physical_Gram": 1e-10,
+    "core_overlap": 1e-10,
+    "same_old_operator_Ha": 1e-10,
+    "old_embedded_equations_Ha": 1e-10,
+    "same_energy_Ha": 1e-10,
+    "J2": 1e-07
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 25769803776,
+    "wall_seconds": 240,
+    "workspace_MiB": 8192,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368,
+    "scalar_plan": {
+      "core_amplitudes": 689589,
+      "attachment_coordinates": 127620,
+      "dense_core_coordinates": 34117524,
+      "dense_attachment_coordinates": 1895418,
+      "resident_integral_bytes": 13457664,
+      "numerical_upper_bytes": 6941275920,
+      "attachment_matrix_bytes": 130294915200,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "expected_core_calls": 1,
+    "expected_EA_calls": 1
+  },
+  "stopping": "First failed original-physics/source/resource gate stops, preserving evidence. No automatic retry, model reduction, changed residual threshold or experimental root selection.",
+  "reference": {
+    "url": "https://arxiv.org/html/2504.01438v1",
+    "scope": "Paper uses40GTO/symmetry s-i, RCCSDT throughg; this newp subset is a discriminator, not the paper basis."
+  },
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/prepare_virtuals.py": "769d87e77c7417344958dce80fb2c24dab802c0edc6adfb6ac8baeee91253dde",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/constrained_pair.py": "ee8181bed0b2191502e8c3ddd89d6c72cf5167c8f8305597c955beaa2d15af87",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/blocks_ns180.npz": "bf756c539eb1dda0aa9013082dcc4c46356892429ad98e0576eac7e368090c72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/operator.json": "9d35b5a431f513a594ed781bd779fe6283e21bcb72221b190785dd0b8444f73d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/integrals.npz": "9019e614d5fff4bcfff73e337ee930dc4ee2130df15e257badb9f3f9e4b4cb75",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual001/core.npz": "cde429fa0e88b7311a4cfdcd1ada59f76af98d623097b7e75ff40c89f63d0427",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual003/S_root.npz": "b1a3924f56d6b9305ff31012e200cd333c745565a52808d4c8df598aba6500d1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual003/result.json": "7842ee12951593f9972fd597bc718c4bc658c238a8e41fb198aaa11ec527bf70",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/increment_receipt.json": "94f5bb5c6843498caf3e82c483089d8152499c6c8902db1c3b01500ec9685775"
+  },
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373"
+}

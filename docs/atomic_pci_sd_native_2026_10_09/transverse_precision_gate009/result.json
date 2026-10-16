@@ -1,0 +1,23 @@
+{
+  "status": "Original cases pass; stricter noncanonical target remains a strict expected failure",
+  "pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "1",
+    "tests": "7",
+    "time": "5.740",
+    "timestamp": "2026-10-11T00:33:25.935218+08:00",
+    "hostname": "fermi"
+  },
+  "checks": {
+    "passed": 6,
+    "expected_failures": 1,
+    "skipped": 0,
+    "failures": 0
+  },
+  "source_unchanged": true,
+  "actual_executable_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "scope": "No fallback or skip. 1e-10Ha complete eight-root 0h1p FCI target with nonzero transverse Fov fails; original1e-9 target passes.",
+  "highest_level_achieved": false
+}

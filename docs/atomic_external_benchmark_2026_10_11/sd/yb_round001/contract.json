@@ -1,0 +1,29 @@
+{
+  "hypothesis": "Complete disjoint core-channel term2 action scales without signed-coordinate changes",
+  "fixed": "Yb 68 core electrons / all 414 virtual radial orbitals / ns123 / Fermi Z70 / lmax3 Emax5; original numerator and supplied response, all 1076 channels, all allocated output coordinates",
+  "workers": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "response": true,
+  "rounds": 1,
+  "global_round": 1,
+  "orders": [
+    [
+      8,
+      4,
+      2,
+      1
+    ]
+  ],
+  "warmup_worker": 8,
+  "precision_gate_Ha": 1e-11,
+  "relative_gate": 1e-10,
+  "timing_scope": "warm complete term2 value and analytic response with native C input/output copies; no setup, integral preparation, full action or solve",
+  "reference_scope": "preserved original pinned pCI diagram full output; not an independent pCI software production run",
+  "original_live_deferred": "original whole Yb term2 measured 602.4896 seconds per call, exceeding current 600-second lane limit; original sealed full arrays remain comparison anchor",
+  "end_to_end_claim": false,
+  "kernel_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a"
+}

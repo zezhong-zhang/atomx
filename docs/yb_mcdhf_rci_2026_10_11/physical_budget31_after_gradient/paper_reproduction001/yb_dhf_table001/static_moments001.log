@@ -1,0 +1,45 @@
+{
+  "status": "FAILED",
+  "arms": [],
+  "controls": [
+    {
+      "name": "180:decoded_bytes",
+      "measured": 28200440,
+      "cap": 268435456,
+      "passed": true
+    },
+    {
+      "name": "180:angular:(6, -1)",
+      "measured": -0.0,
+      "cap": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "180:radial:(6, -1)",
+      "measured": 0.0,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "180:norm:(6, -1)",
+      "measured": 6.661338147750939e-16,
+      "cap": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "180:angular:(5, 2)",
+      "measured": -0.4,
+      "cap": 1e-14,
+      "passed": false
+    }
+  ],
+  "exception": "AssertionError('180:angular:(5, 2): -0.4')"
+}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/static_moments001.py", line 110, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/static_moments001.py", line 73, in main
+    gate(f'{ns}:angular:{key}',angular-expected[k],acceptance['angular_absolute'])
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/static_moments001.py", line 50, in gate
+    raise AssertionError(name+': '+str(value))
+AssertionError: 180:angular:(5, 2): -0.4

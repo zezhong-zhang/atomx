@@ -1,0 +1,657 @@
+{
+  "result": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage021.json",
+    "sha256": "31755192cadf74415e8c921fa3288d32c90fcaab703a35f3e832d2f49a75407a"
+  },
+  "registry": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/progress.json",
+    "sha256": "813d537bb8af47bbd7d2eec29e6e2ade39455473fceffd8673919242d971a836"
+  },
+  "driver": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage021/integrate.py",
+    "sha256": "dc17f6e0575ac37df269f7181565f9f755c5564db9dcee40d1ff6b08146dc8e4"
+  },
+  "contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage021/contract.json",
+    "sha256": "ec06e244a0de18c1879acfa86ef48bc350e04ac8ec35b21af0015d1845e2c813"
+  },
+  "checks_count": 158,
+  "checks": [
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/completion.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/comparison_failed.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/delivery_stage020/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/delivery_hour23/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/root_publication.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/root_publication_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/root_push_and_archive.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/completion.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/data_verification.json",
+      "passed": true
+    },
+    {
+      "name": "evidence/docs/yb_mcdhf_rci_2026_10_11/atlas_update005/browser_result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_closed_same_source",
+      "passed": true
+    },
+    {
+      "name": "all_recorded_controls",
+      "passed": true
+    },
+    {
+      "name": "same_original_metric",
+      "passed": true
+    },
+    {
+      "name": "actual_producer_scope",
+      "passed": true
+    },
+    {
+      "name": "original_gates_fail_no_highest_claim",
+      "passed": true
+    },
+    {
+      "name": "actual64_global80",
+      "passed": true
+    },
+    {
+      "name": "point_identity_0",
+      "passed": true
+    },
+    {
+      "name": "point_gates_0",
+      "passed": true
+    },
+    {
+      "name": "point_identity_1",
+      "passed": true
+    },
+    {
+      "name": "point_gates_1",
+      "passed": true
+    },
+    {
+      "name": "point_identity_2",
+      "passed": true
+    },
+    {
+      "name": "point_gates_2",
+      "passed": true
+    },
+    {
+      "name": "point_identity_3",
+      "passed": true
+    },
+    {
+      "name": "point_gates_3",
+      "passed": true
+    },
+    {
+      "name": "point_identity_4",
+      "passed": true
+    },
+    {
+      "name": "point_gates_4",
+      "passed": true
+    },
+    {
+      "name": "point_identity_5",
+      "passed": true
+    },
+    {
+      "name": "point_gates_5",
+      "passed": true
+    },
+    {
+      "name": "point_identity_6",
+      "passed": true
+    },
+    {
+      "name": "point_gates_6",
+      "passed": true
+    },
+    {
+      "name": "point_identity_7",
+      "passed": true
+    },
+    {
+      "name": "point_gates_7",
+      "passed": true
+    },
+    {
+      "name": "point_identity_8",
+      "passed": true
+    },
+    {
+      "name": "point_gates_8",
+      "passed": true
+    },
+    {
+      "name": "point_identity_9",
+      "passed": true
+    },
+    {
+      "name": "point_gates_9",
+      "passed": true
+    },
+    {
+      "name": "point_identity_10",
+      "passed": true
+    },
+    {
+      "name": "point_gates_10",
+      "passed": true
+    },
+    {
+      "name": "point_identity_11",
+      "passed": true
+    },
+    {
+      "name": "point_gates_11",
+      "passed": true
+    },
+    {
+      "name": "point_identity_12",
+      "passed": true
+    },
+    {
+      "name": "point_gates_12",
+      "passed": true
+    },
+    {
+      "name": "point_identity_13",
+      "passed": true
+    },
+    {
+      "name": "point_gates_13",
+      "passed": true
+    },
+    {
+      "name": "point_identity_14",
+      "passed": true
+    },
+    {
+      "name": "point_gates_14",
+      "passed": true
+    },
+    {
+      "name": "point_identity_15",
+      "passed": true
+    },
+    {
+      "name": "point_gates_15",
+      "passed": true
+    },
+    {
+      "name": "point_identity_16",
+      "passed": true
+    },
+    {
+      "name": "point_gates_16",
+      "passed": true
+    },
+    {
+      "name": "point_identity_17",
+      "passed": true
+    },
+    {
+      "name": "point_gates_17",
+      "passed": true
+    },
+    {
+      "name": "point_identity_18",
+      "passed": true
+    },
+    {
+      "name": "point_gates_18",
+      "passed": true
+    },
+    {
+      "name": "point_identity_19",
+      "passed": true
+    },
+    {
+      "name": "point_gates_19",
+      "passed": true
+    },
+    {
+      "name": "point_identity_20",
+      "passed": true
+    },
+    {
+      "name": "point_gates_20",
+      "passed": true
+    },
+    {
+      "name": "point_identity_21",
+      "passed": true
+    },
+    {
+      "name": "point_gates_21",
+      "passed": true
+    },
+    {
+      "name": "point_identity_22",
+      "passed": true
+    },
+    {
+      "name": "point_gates_22",
+      "passed": true
+    },
+    {
+      "name": "point_identity_23",
+      "passed": true
+    },
+    {
+      "name": "point_gates_23",
+      "passed": true
+    },
+    {
+      "name": "point_identity_24",
+      "passed": true
+    },
+    {
+      "name": "point_gates_24",
+      "passed": true
+    },
+    {
+      "name": "point_identity_25",
+      "passed": true
+    },
+    {
+      "name": "point_gates_25",
+      "passed": true
+    },
+    {
+      "name": "point_identity_26",
+      "passed": true
+    },
+    {
+      "name": "point_gates_26",
+      "passed": true
+    },
+    {
+      "name": "point_identity_27",
+      "passed": true
+    },
+    {
+      "name": "point_gates_27",
+      "passed": true
+    },
+    {
+      "name": "point_identity_28",
+      "passed": true
+    },
+    {
+      "name": "point_gates_28",
+      "passed": true
+    },
+    {
+      "name": "point_identity_29",
+      "passed": true
+    },
+    {
+      "name": "point_gates_29",
+      "passed": true
+    },
+    {
+      "name": "point_identity_30",
+      "passed": true
+    },
+    {
+      "name": "point_gates_30",
+      "passed": true
+    },
+    {
+      "name": "point_identity_31",
+      "passed": true
+    },
+    {
+      "name": "point_gates_31",
+      "passed": true
+    },
+    {
+      "name": "point_identity_32",
+      "passed": true
+    },
+    {
+      "name": "point_gates_32",
+      "passed": true
+    },
+    {
+      "name": "point_identity_33",
+      "passed": true
+    },
+    {
+      "name": "point_gates_33",
+      "passed": true
+    },
+    {
+      "name": "point_identity_34",
+      "passed": true
+    },
+    {
+      "name": "point_gates_34",
+      "passed": true
+    },
+    {
+      "name": "point_identity_35",
+      "passed": true
+    },
+    {
+      "name": "point_gates_35",
+      "passed": true
+    },
+    {
+      "name": "point_identity_36",
+      "passed": true
+    },
+    {
+      "name": "point_gates_36",
+      "passed": true
+    },
+    {
+      "name": "point_identity_37",
+      "passed": true
+    },
+    {
+      "name": "point_gates_37",
+      "passed": true
+    },
+    {
+      "name": "point_identity_38",
+      "passed": true
+    },
+    {
+      "name": "point_gates_38",
+      "passed": true
+    },
+    {
+      "name": "point_identity_39",
+      "passed": true
+    },
+    {
+      "name": "point_gates_39",
+      "passed": true
+    },
+    {
+      "name": "point_identity_40",
+      "passed": true
+    },
+    {
+      "name": "point_gates_40",
+      "passed": true
+    },
+    {
+      "name": "point_identity_41",
+      "passed": true
+    },
+    {
+      "name": "point_gates_41",
+      "passed": true
+    },
+    {
+      "name": "point_identity_42",
+      "passed": true
+    },
+    {
+      "name": "point_gates_42",
+      "passed": true
+    },
+    {
+      "name": "point_identity_43",
+      "passed": true
+    },
+    {
+      "name": "point_gates_43",
+      "passed": true
+    },
+    {
+      "name": "point_identity_44",
+      "passed": true
+    },
+    {
+      "name": "point_gates_44",
+      "passed": true
+    },
+    {
+      "name": "point_identity_45",
+      "passed": true
+    },
+    {
+      "name": "point_gates_45",
+      "passed": true
+    },
+    {
+      "name": "point_identity_46",
+      "passed": true
+    },
+    {
+      "name": "point_gates_46",
+      "passed": true
+    },
+    {
+      "name": "point_identity_47",
+      "passed": true
+    },
+    {
+      "name": "point_gates_47",
+      "passed": true
+    },
+    {
+      "name": "point_identity_48",
+      "passed": true
+    },
+    {
+      "name": "point_gates_48",
+      "passed": true
+    },
+    {
+      "name": "point_identity_49",
+      "passed": true
+    },
+    {
+      "name": "point_gates_49",
+      "passed": true
+    },
+    {
+      "name": "point_identity_50",
+      "passed": true
+    },
+    {
+      "name": "point_gates_50",
+      "passed": true
+    },
+    {
+      "name": "point_identity_51",
+      "passed": true
+    },
+    {
+      "name": "point_gates_51",
+      "passed": true
+    },
+    {
+      "name": "point_identity_52",
+      "passed": true
+    },
+    {
+      "name": "point_gates_52",
+      "passed": true
+    },
+    {
+      "name": "point_identity_53",
+      "passed": true
+    },
+    {
+      "name": "point_gates_53",
+      "passed": true
+    },
+    {
+      "name": "point_identity_54",
+      "passed": true
+    },
+    {
+      "name": "point_gates_54",
+      "passed": true
+    },
+    {
+      "name": "point_identity_55",
+      "passed": true
+    },
+    {
+      "name": "point_gates_55",
+      "passed": true
+    },
+    {
+      "name": "point_identity_56",
+      "passed": true
+    },
+    {
+      "name": "point_gates_56",
+      "passed": true
+    },
+    {
+      "name": "point_identity_57",
+      "passed": true
+    },
+    {
+      "name": "point_gates_57",
+      "passed": true
+    },
+    {
+      "name": "point_identity_58",
+      "passed": true
+    },
+    {
+      "name": "point_gates_58",
+      "passed": true
+    },
+    {
+      "name": "point_identity_59",
+      "passed": true
+    },
+    {
+      "name": "point_gates_59",
+      "passed": true
+    },
+    {
+      "name": "point_identity_60",
+      "passed": true
+    },
+    {
+      "name": "point_gates_60",
+      "passed": true
+    },
+    {
+      "name": "point_identity_61",
+      "passed": true
+    },
+    {
+      "name": "point_gates_61",
+      "passed": true
+    },
+    {
+      "name": "point_identity_62",
+      "passed": true
+    },
+    {
+      "name": "point_gates_62",
+      "passed": true
+    },
+    {
+      "name": "point_identity_63",
+      "passed": true
+    },
+    {
+      "name": "point_gates_63",
+      "passed": true
+    },
+    {
+      "name": "point_identity_64",
+      "passed": true
+    },
+    {
+      "name": "point_gates_64",
+      "passed": true
+    },
+    {
+      "name": "terminal_not_selected_by_gap",
+      "passed": true
+    },
+    {
+      "name": "route_failure_unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual_card_native_iteration",
+      "passed": true
+    },
+    {
+      "name": "published_current_and_history",
+      "passed": true
+    },
+    {
+      "name": "historical_scientific_fields_unchanged",
+      "passed": true
+    },
+    {
+      "name": "original_failed_stationarity_preserved",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "new_science_calls": 0,
+  "cards_sent": 0,
+  "websites_changed": 0
+}

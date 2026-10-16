@@ -1,0 +1,54 @@
+{
+  "status": "prepared_patch_only_requires_root_source_edit_and_test_authorization",
+  "created_utc": "2026-10-11T14:41:09.073187+00:00",
+  "apply_or_run_authorized": false,
+  "files": {
+    "src/atomx/numerics/bspline/convol.py": {
+      "shared_before_sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "archived_before_sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "proposed_sha256": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b"
+    },
+    "tests/test_convol.py": {
+      "shared_before_sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+      "archived_before_sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+      "proposed_sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+    }
+  },
+  "patch_sha256": "652004d4ad70b64ff31d1d1e81c40a7b79ee62c95c793ffe2b3a8e296d8db501",
+  "parent_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "qualified_private_algorithm_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "prerequisites": {
+    "actual_discriminator_sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65",
+    "completion_sha256": "e3632edad132eb4dd17607264d2a7ee218a1f73fc734373d1d4b27a6fc6b5915",
+    "root_execution_sha256": "bfe64f5fdbe61bfe1169091ef85f87396a497fb7fdd8abab9f92b84d00302d72",
+    "root_execution_seal_sha256": "4977df0c46de97b964a7ef3008bb9e467ad20d63789d79e467cb63745e4225c8"
+  },
+  "implementation_scope": "Only two n_sub assignment changes plus module/affected-function docstrings/comments. No Gauss generator/numerical backend/matrix route/cache policy/outer quadrature/defaults/threshold/model/weights changes. k<0,k0,k1 keep originalorders/operation sequence.",
+  "test_scope": "Append3 parameterized independent monomial analytic cases,20rank/components \u00d72dense/factored scalar checks; no nativeHCI/g/Dirac/optimizer. Linear r/r ranks0,1,6 plus r4/r5 ordinary andRKB P5/Q6 rank6, allPP/QQ/PQ/QP; outer16, exactunusedPtailzero, same2e-13relative/0absolute gate.",
+  "prospective_resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "all_threads": 1,
+    "memory_GiB": 1,
+    "wall_seconds": 60,
+    "outer_seconds": 65,
+    "basis_setups": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac_solve": 0,
+    "optimizer": 0,
+    "GPU": 0,
+    "density_band": 12,
+    "full_convolutions": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40,
+    "bank_get": 20,
+    "factor_get": 20,
+    "qualification_test_command": "python -m pytest -q tests/test_convol.py -k positive_rank_origin_cell_signed_components",
+    "legacy_regression": "Root may separately authorize affected legacytests with a distinct bounded contract; do not execute full test_convol/He/Be or silently include extra calls in this3case budget."
+  },
+  "known_limits": "Exact inner polynomial degree rule and sourcebound signedanchors; unchangedouter/negative moment/radial/global errors unqualified. Actualfive frozenCI\u03b4E~1.64e-14Ha,maxtransition7.6781e-12cm^-1 doesnotcloseexperimentalgap or qualify an optimizer. Originalrank6FAILremainsimmutable.",
+  "actual_preparation_scientific_calls": 0
+}

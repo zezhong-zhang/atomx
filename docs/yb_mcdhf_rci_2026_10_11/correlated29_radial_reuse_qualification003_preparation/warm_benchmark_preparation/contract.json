@@ -1,0 +1,573 @@
+{
+  "status": "source_prepared_requires_exact_root_execution",
+  "root_execution_authorized": false,
+  "purpose": "controlled_warm_fresh_complete29_trial_gradient_scoped",
+  "working_directory": "/data/code/atomx",
+  "hypothesis": "Same qualified centered-CI epoch, new full1046 H energy trial followed by the same-trial retained-CI complete gradient. Measure semiseparable H reuse on the unchanged complete29 point; no optimizer/GPU/parallel certificate.",
+  "ordinary": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source",
+    "source_map_sha256": "756938d54b66a5caf5507707cb352e787cb8e1338bbb2b8c54a9a6e586e0d349",
+    "only_changed": [
+      "src/atomx/methods/ci.py"
+    ]
+  },
+  "candidate": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source",
+    "source_map_sha256": "8a4324e1758587125e1cd94bb34881356ef628961b3e1e8c0da8f4276e539d4d",
+    "only_changed": [
+      "src/atomx/methods/ci.py",
+      "src/atomx/physics/csf/matrix.py"
+    ]
+  },
+  "inputs": {
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/fresh_baseline.npz",
+      "sha256": "a6ba90f1e16e73d11eed6716f9a8317b16f3b35bc9d15874cb9769184ca4c72d"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/all_gradients_metric.npz",
+      "sha256": "1d08466f5dcb369f70ff20066c11d867090ce38d16f3e84d8f1e4fd927eb2d3a"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "sha256": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json",
+      "sha256": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json",
+      "sha256": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8"
+    },
+    "source_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate.patch",
+      "sha256": "390b0c404a22fdd28f46f208b81513fb33c7f37a4fff060d54ca1a0743477d5e"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "original_signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "original_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "conditional_direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "conditional_direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis002/actual/result.json",
+      "sha256": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3"
+    },
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    },
+    "corrected_baseline_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/result.json",
+      "sha256": "55f364277566c4d20e9460a7f95e31328b7604160916c7fa8ca12d01385caed0"
+    },
+    "corrected_baseline_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/completion.json",
+      "sha256": "a97b231a24d1704a77bf0a872be29b792838f9a09b4100f52860eea0ae9a6445"
+    },
+    "corrected_baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/actual/owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "corrected_baseline_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/corrected29_baseline_qualification_preparation/root_execution.json",
+      "sha256": "840ae02164e287a599924c23cb24f81aa802dce36e55cdf8b158ed7d3d1d67f2"
+    },
+    "inner_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json",
+      "sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65"
+    },
+    "shared_fix_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "shared_fix_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/actual/result.json",
+      "sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce"
+    },
+    "predecessor_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/actual/anchors/failure.json",
+      "sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b"
+    },
+    "predecessor_closed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/completion.json",
+      "sha256": "55b0136be88c013939d1e2f9d8cef28ea57947b0ed9ec49082f3dcc1d76bf9b8"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py",
+      "sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    },
+    "ordinary_centering_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary.patch",
+      "sha256": "aefce434382c5a87376acf39a5e91d724255d6a55b32673e5a43bac6cc437f79"
+    },
+    "prior002_closed_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+    },
+    "prior002_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+    },
+    "common_shift_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/result.json",
+      "sha256": "9e961e94f134fd859c89feb867cca3aad843fa4b3d5e027db9febce809c706c8"
+    },
+    "common_shift_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/root_execution.json",
+      "sha256": "52a10893049acd80e37b58191da3d82dd59ba2a04f6ed958ce2a02c971e06aa8"
+    },
+    "common_shift_shifted_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_common_shift_diagnosis_preparation/actual/shifted_arrays.npz",
+      "sha256": "948f4c213ca077df6ca358b3b83b710a0d14b919b9858a38ec00185ccf8b3384"
+    },
+    "qualified003_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/run.py",
+      "sha256": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61"
+    },
+    "qualified003_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/contract.json",
+      "sha256": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a"
+    },
+    "qualification003_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/result.json",
+      "sha256": "04592757c7ef05a22b181453d31d708c6d41d3fe6d433b372447c42369c73836"
+    },
+    "qualification003_comparison": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/comparison.json",
+      "sha256": "a4bda374b3246398e480ac1d21ac50a17c7e1e4c7824989908d71deb74b79f76"
+    },
+    "qualification003_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/completion.json",
+      "sha256": "b5b0cc9a5ab4a7b009058a197e9bde82043dfa068b5c064eba4a46458c2e98b0"
+    },
+    "qualification003_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/root_execution.json",
+      "sha256": "27fbab86c8be671bb0b390b96cf621e68444f70c5073e45fa61039e6d9649946"
+    },
+    "qualification003_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/preparation_verification.json",
+      "sha256": "97d597d4d8d63e31961a144a19ce3a9795437a879c5be7984e74a0635e572b86"
+    },
+    "shared_adoption_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/completion.json",
+      "sha256": "f5a1b7a7acec9c15cf607f908685ab351ba300292c809fd152dd824299555d6a"
+    },
+    "shared_adoption_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/root_test_execution.json",
+      "sha256": "af31c4dfa65e6e112c595578eb5b09f2a7c1cab6491b08718bc753a2634b1f23"
+    },
+    "warm_design_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/contract.json",
+      "sha256": "dc8b9584f4291385cf30c903ae32a58d3fc9f1901c590e3b28518973c7e16e38"
+    },
+    "literal_helper_boundaries": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/HELPER_BOUNDARIES.md",
+      "sha256": "bf4f94447f60f1b2f1e27d7628fac4eb514aa0c094c3f471357201c7b33881ee"
+    },
+    "literal_helper_refactor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_design/helper_refactor_proposal.json",
+      "sha256": "ea03828425236ea9c4da220e094b815663cf26d80c78bd0ed1ceb23f7e186e7c"
+    },
+    "history32_pilot10_closed": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json",
+      "sha256": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9"
+    },
+    "history32_pilot40_closed": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json",
+      "sha256": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78"
+    }
+  },
+  "fixed": {
+    "Z": 70,
+    "nucleus": "Fermi A175",
+    "electron_count": 69,
+    "operator": "native Dirac-Coulomb only",
+    "ns": 123,
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "reference_CSFS": 531,
+    "full_parent_CSFS": 2163,
+    "complete_selected_CSFS": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "equal_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "same_point": "Exactly original002 corrected29 recovered physical point/3451 metric/1046 complete CSFs. Only private numerical CI diagonalization epoch changes; no new orbitals, density cutoff, weights or operator.",
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "max_determinants": 2000,
+    "RDM_cutoff": 1e-15,
+    "no_new_projector_or_retraction": true
+  },
+  "gates": {
+    "ordinary_H_and_roots": "Ordinary H remains bitwise against corrected f043 saved a6ba90; historical unshifted all-root energies use unchanged1e-8 source-evolution gate. Closed qualification003 is the required prerequisite for its newordinary five-block same-source saved-H bitwise energy replay. Those extra five eigensolves are excluded symmetrically from every benchmark chain: benchmark totals remain70eigh. Owncold H/E byte equality, complete H residual/Gram and all1046 signed spans/gradient/metric/UID gates remain enforced on every repetition.",
+    "candidate_H_entry_Ha": 1e-09,
+    "candidate_all_roots_Ha": 1e-08,
+    "signed_cluster_span": 1e-08,
+    "cluster_gap_Ha": 1e-07,
+    "CI_max_Euclidean_column_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "no_pair_leakage_squared": 1e-12,
+    "complete_raw_radial_gradient": 1e-09,
+    "original_raw_and_tangent_g": 1e-09,
+    "original_metric_pg": 1e-10,
+    "stationarity": 1e-07,
+    "indicator_Ha": 1e-08,
+    "new_candidate_comparison_gates_require_review": false
+  },
+  "matching": "Canonical complete CSF signed order; all1046roots/five sectors. Cluster projector comparisons use both endpoint energy gaps<=1e-7 and preserve signed offdiagonals, no individual phase equality inside degenerate spans. Original five physical UIDs/equalweights bound by frozen-reference tracker; filter label rows before comparison. No state rebase.",
+  "retained_owner": "Two genuine ci_solve retain_hamiltonian=True producers; complete eigenpair/Gram checks BEFORE same-CI gradient completion; strict samepoint owner and stale point refusal. Owner identity not an eigenpair certificate.",
+  "worker_exact_calls": {
+    "H": 7,
+    "CI": 7,
+    "gradient": 7,
+    "scipy_eigh": 35,
+    "centered_dense_helper": 35,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "tracking_resolution": 14,
+    "tracking_SVD": 70,
+    "tracking_overlap": 15,
+    "CI_source_pair": 4151,
+    "gradient_source_pair": 4151,
+    "gradient_band_expand": 16604,
+    "density_band": 22694,
+    "band_scalar": 343378,
+    "Dirac_eigensolve": 0,
+    "eigvalsh": 0,
+    "numpy_eigh": 0
+  },
+  "variant_exact_calls": {
+    "ordinary": {
+      "direct_full_bank": 16604,
+      "direct_semiseparable": 16604,
+      "bank_get": 16604,
+      "factor_get": 16604,
+      "npz_load": 38
+    },
+    "candidate": {
+      "direct_full_bank": 0,
+      "direct_semiseparable": 33208,
+      "bank_get": 0,
+      "factor_get": 33208,
+      "npz_load": 24
+    }
+  },
+  "worker_caps": {
+    "ordinary": {
+      "H": 7,
+      "CI": 7,
+      "gradient": 7,
+      "scipy_eigh": 35,
+      "centered_dense_helper": 35,
+      "initial_hS": 7,
+      "CI_internal_hS": 7,
+      "tracking_resolution": 14,
+      "tracking_SVD": 70,
+      "tracking_overlap": 15,
+      "CI_source_pair": 4151,
+      "gradient_source_pair": 4151,
+      "gradient_band_expand": 16604,
+      "density_band": 22694,
+      "band_scalar": 343378,
+      "Dirac_eigensolve": 0,
+      "eigvalsh": 0,
+      "numpy_eigh": 0,
+      "direct_full_bank": 16604,
+      "direct_semiseparable": 16604,
+      "bank_get": 16604,
+      "factor_get": 16604,
+      "npz_load": 38
+    },
+    "candidate": {
+      "H": 7,
+      "CI": 7,
+      "gradient": 7,
+      "scipy_eigh": 35,
+      "centered_dense_helper": 35,
+      "initial_hS": 7,
+      "CI_internal_hS": 7,
+      "tracking_resolution": 14,
+      "tracking_SVD": 70,
+      "tracking_overlap": 15,
+      "CI_source_pair": 4151,
+      "gradient_source_pair": 4151,
+      "gradient_band_expand": 16604,
+      "density_band": 22694,
+      "band_scalar": 343378,
+      "Dirac_eigensolve": 0,
+      "eigvalsh": 0,
+      "numpy_eigh": 0,
+      "direct_full_bank": 0,
+      "direct_semiseparable": 33208,
+      "bank_get": 0,
+      "factor_get": 33208,
+      "npz_load": 24
+    }
+  },
+  "per_chain_exact_calls": {
+    "H": 1,
+    "CI": 1,
+    "gradient": 1,
+    "scipy_eigh": 5,
+    "centered_dense_helper": 5,
+    "tracking_resolution": 2,
+    "tracking_SVD": 10,
+    "CI_source_pair": 593,
+    "gradient_source_pair": 593,
+    "gradient_band_expand": 2372
+  },
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 30,
+    "controller_CPU": 0,
+    "thread_variables": [
+      "OMP_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMBA_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "threads_each": 1,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315,
+    "kill_after_seconds": 5,
+    "combined_worker_RSS_GiB": 3.95,
+    "each_worker_RLIMIT_AS_GiB": 3.95,
+    "RSS_sampling_seconds": 0.25,
+    "max_H": 14,
+    "max_CI": 14,
+    "max_gradient": 14,
+    "max_scipy_eigh": 70,
+    "max_total_hS": 28,
+    "max_tracking_resolution": 28,
+    "max_tracking_SVD": 140,
+    "max_tracking_overlap": 30,
+    "npz_load": 62,
+    "max_optimizer": 0,
+    "max_Dirac_eigensolve": 0,
+    "max_geometry_eigvalsh": 0,
+    "max_polar": 0,
+    "GPU_calls": 0,
+    "new_physical_points": 0,
+    "fresh_samepoint_trials": 14,
+    "source_only_wall_estimate_seconds": 250,
+    "estimate_is_not_measured": true,
+    "memory_estimate": "Two resident complete1046 H/C consumers; only one worker computes at a time. Actual combined RSS must satisfy cap, no automatic retry or enlargement.",
+    "concurrency": "Two persistent numerical workers share CPU30 sequentially; controller/monitor CPU0. Root reserves no other H/CI/gradient/browser. Both history32 pilots closed before launch.",
+    "affinity_admission": "Launcher/controller require CPU0 and CPU30 in actual sched_getaffinity before pinning; worker actual affinity must equal CPU30."
+  },
+  "schedule": {
+    "cold_first_chain": [
+      [
+        "ordinary",
+        "candidate"
+      ]
+    ],
+    "explicit_warmup": [
+      [
+        "ordinary",
+        "candidate"
+      ]
+    ],
+    "warm_pairs": [
+      [
+        "ordinary",
+        "candidate"
+      ],
+      [
+        "candidate",
+        "ordinary"
+      ],
+      [
+        "ordinary",
+        "candidate"
+      ],
+      [
+        "candidate",
+        "ordinary"
+      ],
+      [
+        "ordinary",
+        "candidate"
+      ]
+    ],
+    "total_chains": 14,
+    "chains_per_worker": 7,
+    "cold_chain_excludes_import_and_point_setup": true,
+    "unique_NUMBA_cache_directory_per_worker": true,
+    "no_hidden_warmup": true,
+    "no_scan": true
+  },
+  "npz_load_accounting": {
+    "each_setup": 5,
+    "each_archive_readback": 7,
+    "each_sameworker_repeat_comparison": 12,
+    "ordinary_crosspair_comparison": 14,
+    "ordinary_total": 38,
+    "candidate_total": 24,
+    "total": 62
+  },
+  "kernel_count_scope": "Forward-only existing native aliases; getters include cache hits, not actual new-factor production. Native bank/factor producer work is inside H/gradient timers, no inferred per-kernel timing or cache-miss claim.",
+  "physical_trial_cost": "14H14CI14g includes all fullnativeH/CI/tracking/ownedH construction and completegradient. Two once-only setup consumers have14initialhS; firstCI in each process has14CIinternalhS; later chains add0hS. No anchors/eigensolves/optimizer repeated.",
+  "timing": {
+    "primary": "Only public evaluate(waves,gradient=False,ci_result=None) wall plus public evaluate(waves,gradient=True,ci_result=same_trial_ci) wall; includes public H/CI/tracking/owner producer work.",
+    "separately_reported": [
+      "source/input admission",
+      "imports/instrumentation/thread admission",
+      "one-time point/angular/hS preparation",
+      "full trial eigenpair/Gram/owner/stale validation",
+      "original gradient metric/UID/density controls and metadata fsync",
+      "compressed NPZ/fsync/exact readback",
+      "full same-worker repeat validation",
+      "complete cross-worker cluster comparison",
+      "total controlled-window elapsed"
+    ],
+    "instrumentation": "Forward-only constant call counters; no per-kernel timer/fsync or cProfile. Primary timers wrap identical public calls only.",
+    "repeated_cache_control": "Every energy trial ci_result=None, genuine new H/CI/owned snapshot; owncold H/E dtype/shape/bytes and complete signed1046 spans/RDM/g/pg/metric/UID. Angular consumer, native factor cache and compiled code may warm.",
+    "archive_scope": "Identical complete compressedNPZ/fsync/readback outside primary timing, separately recorded.",
+    "pair_statistics": "Five alternating warm ordinary/candidate primary ratios; median >=1.05 and all host/science/resource gates required for scoped warm improvement. Cold/setup excluded from statistic.",
+    "host_guards": {
+      "idle_seconds": 1.0,
+      "max_CPU30_idle_busy_fraction": 0.05,
+      "max_CPU30_system_iowait_irq_softirq_steal_fraction": 0.05,
+      "max_load1_over_online_CPU": 0.5,
+      "frequency": "Record available CPU30 frequency; no governor change."
+    },
+    "host_failure": "Preserve correctness and timing within caps, observational only with no scoped speed certificate."
+  },
+  "literal_refactor": {
+    "helper_functions": [
+      "prepare_point",
+      "validate_trial",
+      "finish_checked_chain",
+      "compare_saved_chains"
+    ],
+    "no_exec_eval_AST_execution_or_text_stitching": true,
+    "inherited_extra5_saved_H_eigh_replay": "Excluded symmetrically from all14 chains. Closed003 already passed newordinary exact5block replay, signed analytic controls and full1046 gates. No new replay/eig capability implied.",
+    "static_preservation": "Original point setup, L(rawh), original3451 raw/tangent/inverse metric and fullsigned cluster loop operation order; numerical thresholds/UID/density unchanged.",
+    "declared_metadata_moves": [
+      "Reference targets JSON loaded once in prepare_point instead of everytrial.",
+      "Metadata paths are explicit arguments.",
+      "Freshness, repeated owncold, call/resource/host and separate timing controls added."
+    ]
+  },
+  "failure_policy": "Exclusive launch/controller markers, scientific/resource FAIL saves partial ledgers and stops without retry/gate/model change; outer hardtimeout retains separate foreground receipt. Host FAIL alone allows correctness work but no speed certificate.",
+  "not_claimed": [
+    "whole optimizer/time-to-convergence",
+    "parallel efficiency",
+    "GPU",
+    "experiment or stationarity PASS",
+    "retroactive route001/002 PASS",
+    "absolute global radial accuracy"
+  ]
+}

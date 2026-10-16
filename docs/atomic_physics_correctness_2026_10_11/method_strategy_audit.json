@@ -1,0 +1,41 @@
+{
+  "status": "read_only_actual_consumer_and_primary_reference_assessment",
+  "new_solvers_or_root_solves": 0,
+  "universal_best_method_claim": false,
+  "new_performance_measurements": 0,
+  "actual_consumer_source_sha256": {
+    "src/atomx/methods/csf/lanthanide_workspace.py": "d4d5567e823fcfaf43ee419d3c3d70eafbecae70438a369f6bff24aaf21c0ba6",
+    "src/atomx/methods/fscc.py": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de",
+    "src/atomx/methods/core_sd.py": "6a9938294c89ab4493a55b6e771c3545df2c0a70a8eb828a4e3148549d11846f",
+    "src/atomx/methods/reduced_monovalent_sd.py": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2",
+    "docs/ATOMIC_FSCC.md": "c103851328f01bfcf05264f7c6c52f9168640283ac1e651d137eae6307eff7f9",
+    "docs/ATOMIC_LINEARIZED_SD.md": "fe85151fb98e9de32dc9c7614754da73a92aa9030779fa5d756c93a9aead7cbb",
+    "docs/atomic_allorder_fscc_2026_10_09/README.md": "b45c56b11f0caa727f556810ca2bd0d395154b83ef27b8dd3caf0c3145c0fb14",
+    "docs/atomic_pci_sd_native_2026_10_09/README.md": "9434a6021e47507b24be780d3c6f45918054f529c7881e443bd54aeade2872ef",
+    "docs/atomic_pci_sd_native_2026_10_09/numba_density001/result.json": "6aeb54d61a8873099710f1a6609a1ce8fd2c3a12a5675398d9efdf8c7c49545b",
+    "docs/SLATER_SCALING_SPEC.md": "8540eecf5ebf01be067266d03630f563fd3941356cc8e2f74458b42b8c6d7f73",
+    "docs/xfel_ci_snapshot_2026_10_04/README.md": "5e706ce8c1c1f5ef8cc8e80602a677f94551d0e07b5fba1e606bb4b6d80db61f",
+    "docs/xfel_experimental_spectrum_2026_10_04/README.md": "6c9512bc9f16237ad2fd92ddcb99a28126a052b00b0fd819d7c48ebcb32a36a1",
+    "docs/xfel_experimental_spectrum_2026_10_04/comparison.json": "2203d86fde2bb52734812480bb6b01b4e8a7fa7d31be7ac61c6ddc784a824a2a",
+    "docs/atomic_physics_correctness_2026_10_11/coverage/README.md": "8217ccc0363413bdf0a952082a766b367baf31dc6281d3600f7c05b322d57501",
+    "docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md": "a3100abafea26b2afb7d8c0695c88c2d2d21c51e87f58682f73c72c6627f5bce"
+  },
+  "primary_references_checked": "2026-10-11",
+  "primary_reference_urls": [
+    "https://pci.readthedocs.io/en/latest/extensions/all-order.html",
+    "https://arxiv.org/abs/1805.11265",
+    "https://github.com/aoleynichenko/EXP-T",
+    "https://compas.github.io/grasp/",
+    "https://github.com/flexible-atomic-code/fac/blob/master/doc/manual.tex",
+    "https://physics.nist.gov/PhysRefData/Handbook/Tables/europiumtable1_a.htm",
+    "https://arxiv.org/abs/1611.00425"
+  ],
+  "classification": {
+    "production_yb": "native reduced DC linearized SD / pCI diagrams",
+    "fscc": "separate EXP-T closed/one-particle/one-hole nonlinear CC route",
+    "ne7plus": "complete finite n12 three-electron CI, not neutral Ne",
+    "neutral_ne": "all occupied electrons, declared bands, finite SD/CCSD rank",
+    "eu_example": "historical Eu3+, frozen Xe, complete single-configuration 4f6 manifold",
+    "open_f_route": "proposed balanced multireference CI / MCDHF plus core effective correlation; not implemented production certification"
+  }
+}

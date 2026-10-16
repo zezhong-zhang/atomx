@@ -1,0 +1,26 @@
+{
+  "status": "foreground_closed",
+  "diagnostic_label": "SAVED_MATRIX_CONDITIONAL_DIAGNOSTIC",
+  "exit_code": 1,
+  "outer_wall_stop": false,
+  "elapsed_uncontrolled_s": 6.399621076008771,
+  "source_and_inputs_unchanged": true,
+  "frozen_guard_files": 408,
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py",
+    "--execution-binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/execution_binding.json"
+  ],
+  "execution_binding_sha256": "18eeed4afe0f5b1690c200cf58d0b8d87c432f6ac2c11a35525a967e2dc3b3e4",
+  "guardian_sha256": "8029b8f83b8b2dee68f28be4e9d3f8e53daf865ca27144a865041796fc2af6f6",
+  "log_sha256": "d50454862b5d669c2825bb785860e93bbb85ced1fc0e8522a2e1d7d3abb3325c",
+  "result_sha256": null,
+  "failure_sha256": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+  "controlled_timing": false,
+  "original_parent_byte_gate_remains_failed": true,
+  "source_or_model_qualified": false,
+  "new_physics_producers": 0,
+  "automatic_retry": false
+}

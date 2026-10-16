@@ -1,0 +1,22 @@
+{
+  "hypothesis": "Native exact full CI may yield non-Hermitian Bloch H, while wave-operator metric, full reconstructed states and physical signed properties remain consistent",
+  "fixed": "Be+ Z4 DC/ns30/ks7, same closed1s2 DHF projector, two s and first p1/2,p3/2 virtual roots; full3electron J1/2 even space including all core holes",
+  "selected_roots": "full lowest two eigenvalues, fixed before calculation; reject singular P projection or split degeneracy",
+  "p_space": "exactly all closed1s2 core configurations within declared J/parity sector",
+  "gates_Ha": {
+    "intertwining": 1e-10,
+    "metric_adjoint": 1e-10,
+    "eigenenergy": 1e-11
+  },
+  "full_signed_property_gate": 1e-11,
+  "dimension_cap": 128,
+  "memory_bytes": 268435456,
+  "property": "1s number operator in complete native CSF order; physical Q contributions retained",
+  "scope": "finite native Bloch/metric anchor; does not infer a physical metric for fixed-energy SD Sigma1/2 or EXP-T output",
+  "stop": "any failed complete signed reconstruction/metric/property rejects reduction; no averaging or root replacement",
+  "load": [
+    23.5869140625,
+    18.63916015625,
+    19.9453125
+  ]
+}

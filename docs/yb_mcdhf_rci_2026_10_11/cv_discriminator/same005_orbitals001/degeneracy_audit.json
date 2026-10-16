@@ -1,0 +1,89 @@
+{
+  "energy_window_Ha": 1e-08,
+  "complete_symmetry_clusters": {
+    "DC": [],
+    "static_Breit": []
+  },
+  "targets": [
+    {
+      "model": "DC",
+      "label": "6s_1/2",
+      "selected_column": 0,
+      "minimum_same_symmetry_gap_Ha": 0.41520136955659837,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "DC",
+      "label": "5d_3/2",
+      "selected_column": 1,
+      "minimum_same_symmetry_gap_Ha": 0.25239325074835506,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "DC",
+      "label": "5d_5/2",
+      "selected_column": 2,
+      "minimum_same_symmetry_gap_Ha": 0.23637962157954462,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "DC",
+      "label": "6p_1/2",
+      "selected_column": 3,
+      "minimum_same_symmetry_gap_Ha": 0.16237989381806983,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "DC",
+      "label": "6p_3/2",
+      "selected_column": 4,
+      "minimum_same_symmetry_gap_Ha": 0.12903541768355353,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "static_Breit",
+      "label": "6s_1/2",
+      "selected_column": 0,
+      "minimum_same_symmetry_gap_Ha": 0.4050376266550302,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_3/2",
+      "selected_column": 1,
+      "minimum_same_symmetry_gap_Ha": 0.2446239018918277,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "static_Breit",
+      "label": "5d_5/2",
+      "selected_column": 2,
+      "minimum_same_symmetry_gap_Ha": 0.22890801498215296,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_1/2",
+      "selected_column": 3,
+      "minimum_same_symmetry_gap_Ha": 0.15488604873826262,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    },
+    {
+      "model": "static_Breit",
+      "label": "6p_3/2",
+      "selected_column": 4,
+      "minimum_same_symmetry_gap_Ha": 0.12211940796078125,
+      "near_degenerate": false,
+      "single_root_identity_allowed_by_energy_separation": true
+    }
+  ]
+}

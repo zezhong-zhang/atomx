@@ -1,0 +1,118 @@
+{
+  "timestamp_UTC": "2026-10-14T17:11:21.759718+00:00",
+  "trial_sessions": [
+    {
+      "folder": "actual001",
+      "session_id": 36982,
+      "exit_code": 1,
+      "reaped": true,
+      "status": "FAILED",
+      "elapsed_seconds": 621.0402763430029,
+      "peak_RSS_MiB": 532.26953125,
+      "result_sha256": "0fd5d61fcc5cbd92f914862f5fd9a55be5d5cfd89ce13ac12c65d0c7399ceaa2"
+    },
+    {
+      "folder": "actual002",
+      "session_id": 65826,
+      "exit_code": 1,
+      "reaped": true,
+      "status": "FAILED",
+      "elapsed_seconds": 6.440276038003503,
+      "peak_RSS_MiB": 488.9921875,
+      "result_sha256": "d60521c52bb3c62aa26dcde7e63d3ec3165929c8401c2f0a7ded82227169d664"
+    },
+    {
+      "folder": "actual003",
+      "session_id": 87391,
+      "exit_code": 0,
+      "reaped": true,
+      "status": "PASS_FULL4F_TARGETED_DAVIDSON",
+      "elapsed_seconds": 55.81522614200367,
+      "peak_RSS_MiB": 490.828125,
+      "result_sha256": "7842ee12951593f9972fd597bc718c4bc658c238a8e41fb198aaa11ec527bf70"
+    }
+  ],
+  "probe": {
+    "session_id": 51449,
+    "exit_code": 0,
+    "reaped": true,
+    "result": "probe_result.json"
+  },
+  "paired_cells": [
+    {
+      "label": "A1",
+      "session_id": 69446,
+      "exit_code": 0,
+      "reaped": true
+    },
+    {
+      "label": "B1",
+      "session_id": 15340,
+      "exit_code": 0,
+      "reaped": true
+    },
+    {
+      "label": "B2",
+      "session_id": 79591,
+      "exit_code": 0,
+      "reaped": true
+    },
+    {
+      "label": "A2",
+      "session_id": 63373,
+      "exit_code": 0,
+      "reaped": true
+    }
+  ],
+  "test_sessions": [
+    {
+      "name": "initial_tests",
+      "session_id": 91302,
+      "exit_code": 1,
+      "reaped": true
+    },
+    {
+      "name": "tests",
+      "session_id": 48736,
+      "exit_code": 0,
+      "reaped": true
+    },
+    {
+      "name": "final_tests",
+      "session_id": 71266,
+      "exit_code": 0,
+      "reaped": true
+    }
+  ],
+  "test_panels": {
+    "initial_tests": {
+      "tests": 12,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests": {
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2
+    },
+    "final_tests": {
+      "tests": 61,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 2
+    }
+  },
+  "saved_review": {
+    "session_id": 12224,
+    "exit_code": 0,
+    "reaped": true,
+    "controls": 96,
+    "result": "saved_data_review.json"
+  },
+  "external_electronic_structure_calls": 0,
+  "card_or_schedule_actions": 0,
+  "process_scope": "All known task sessions reaped; no unrelated process stopped.",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373"
+}

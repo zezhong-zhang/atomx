@@ -1,0 +1,507 @@
+{
+  "historical_model": {
+    "Z": 70,
+    "electrons": 68,
+    "charge": 2,
+    "configuration": "[Xe]4f14",
+    "state_subshells": [
+      [
+        1,
+        -1,
+        2.0
+      ],
+      [
+        2,
+        -1,
+        2.0
+      ],
+      [
+        2,
+        1,
+        2.0
+      ],
+      [
+        2,
+        -2,
+        4.0
+      ],
+      [
+        3,
+        -1,
+        2.0
+      ],
+      [
+        3,
+        1,
+        2.0
+      ],
+      [
+        3,
+        -2,
+        4.0
+      ],
+      [
+        3,
+        2,
+        4.0
+      ],
+      [
+        3,
+        -3,
+        6.0
+      ],
+      [
+        4,
+        -1,
+        2.0
+      ],
+      [
+        4,
+        1,
+        2.0
+      ],
+      [
+        4,
+        -2,
+        4.0
+      ],
+      [
+        4,
+        2,
+        4.0
+      ],
+      [
+        4,
+        -3,
+        6.0
+      ],
+      [
+        5,
+        -1,
+        2.0
+      ],
+      [
+        5,
+        1,
+        2.0
+      ],
+      [
+        5,
+        -2,
+        4.0
+      ],
+      [
+        4,
+        3,
+        6.0
+      ],
+      [
+        4,
+        -4,
+        8.0
+      ]
+    ],
+    "nucleus": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    },
+    "geometry": {
+      "ns": 123,
+      "ks": 9,
+      "r_min": 1.0865925223969749e-05,
+      "r_max": 60.53782210642609,
+      "kinetic_balance": true,
+      "core_hole_stationary": true,
+      "basis_knots": {
+        "shape": [
+          132
+        ],
+        "dtype": "float64",
+        "sha256": "c97b28f771aef9fb70ca5bb53297bc45fefe0662ee01d581913e27059ea8f66d"
+      },
+      "max_iter": 160,
+      "tolerance": 1e-08,
+      "damping": null,
+      "mode": "batch",
+      "damping_release_residual": 0.01,
+      "orbital_tolerance": null,
+      "eigenpair_tolerance": 1.0000000000000001e-11
+    },
+    "energy_Ha": -14067.058077561114,
+    "legacy_converged": true,
+    "legacy_residual": 1.3118389232855358e-09,
+    "iterations": 49,
+    "historical_method": "Historical metadata marks19nuclear orbitals asDHF; originaldriver archive gap remains. This run restoresownedfrozen bank for currentVN qualification, not fresh SCF/currentconverged atomicwaves.",
+    "current_stationarity_qualified": false,
+    "paper_match": false
+  },
+  "paper_difference": "Historical empiricalA175 Fermi/B-spline ns123/R60.5378; paper171Yb+/40GTO/R500 inputs unknown. No isotope/basis substitution or69e CC calculation.",
+  "inputs": {
+    "docs/rare_earth_yb_spectrum_2026_10_08/run_core_valence.py": {
+      "sha256": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+      "bytes": 13767,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/source_snapshots/run_core_valence_before_newton.py": {
+      "sha256": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5",
+      "bytes": 10741,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/core.json": {
+      "sha256": "90140056548501ff5d5bd8a6b73692f9c9633219c60bf52bd3c30e109cd0948c",
+      "bytes": 5942,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/inputs.json": {
+      "sha256": "027c1dec444585e318adafd8c239d7fb22061c4d1721986731d8a7f386766ac8",
+      "bytes": 2042,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/status.json": {
+      "sha256": "9b8af5ac3499adbdd093781850a96fbbd1ce40a685f4ac16e9830d9f59450d55",
+      "bytes": 131,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/structure.json": {
+      "sha256": "be79a353d48b89bbcf295cc14d602d55adf3a3f6a3f60c848ca03b9926fe963d",
+      "bytes": 5425,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/source_identity.json": {
+      "sha256": "0dc441759de5a05f9bc47fb150729a564edc250df54c02de17c10f63a3cc5189",
+      "bytes": 42428,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/orbitals_workspace.npz": {
+      "sha256": "2005bfd77f3d275108e0f49068cab5dd7280c7631a3d35425e3c8e89b9dfa857",
+      "bytes": 181514,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/source_archive_manifest.json": {
+      "sha256": "757fff504fabc8e9650359b5f89855c8635b95ae82ae48df20bcbf124494ab94",
+      "bytes": 36965,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/Atomx_source_replay.zip": {
+      "sha256": "a2fcdd5a3550f81b40d8031a00b587d2b398ff045fba3a833509d1ddf578db8b",
+      "bytes": 1547368,
+      "manifest_match": true
+    }
+  },
+  "workspace_whole_field_plan": {
+    "orbital_keys": {
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "energies": {
+      "shape": [
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        5,
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": true
+    },
+    "basis_nv": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 115,
+      "fortran_order": false
+    },
+    "basis_ks": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 9,
+      "fortran_order": false
+    },
+    "basis_ksp": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 8,
+      "fortran_order": false
+    },
+    "basis_ksq": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 9,
+      "fortran_order": false
+    },
+    "basis_nsp": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 122,
+      "fortran_order": false
+    },
+    "basis_nsq": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 123,
+      "fortran_order": false
+    },
+    "basis_ns": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 123,
+      "fortran_order": false
+    },
+    "basis_gr": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_grw": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p_d": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q_d": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_t": {
+      "shape": [
+        132
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_tp": {
+      "shape": [
+        130
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    }
+  },
+  "workspace_decoded_bytes_cap": 16777216,
+  "g_partners": [
+    4,
+    -5
+  ],
+  "energy_band_upper_Ha": 50.0,
+  "gates": {
+    "legacy_core_tolerance": 1e-08,
+    "full_S_Gram": 1e-10,
+    "band_dual_residual_Ha": 1e-08,
+    "electron_projector_idempotence_metric_frame": 1e-10,
+    "sampled_norm": 1e-10
+  },
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "inner_seconds": 600,
+    "outer_seconds": 615,
+    "maximum_load1": 16.0,
+    "minimum_available_bytes": 10737418240,
+    "thread_environment": [
+      "OPENBLAS_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMBA_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ]
+  },
+  "original_driver_archive_gap": {
+    "recorded_initial_driver_sha256": "81fd41dd686f7869a4d33a93776f5aedadfdfaecb8f45cd36bfc1d561215b58e",
+    "current_retained_driver_sha256": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+    "retained_before_newton_driver_sha256": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5",
+    "initial_driver_byte_replay_qualified": false,
+    "scope": "All original native library source files match336-entry source archive,0delta. Driver snapshots and structured input/core/log describe original closedDF/no-resume model but no exact initialdriver byteclaim. Current frozen-bank qualification keeps this gap; no newSCF claim."
+  },
+  "status": "SOURCE_PREPARATION_ONLY_KERNEL_AND_RESIDUAL_FLOOR_PENDING",
+  "automatic_dispatch": false,
+  "numerical_execution_performed": false,
+  "hypothesis": "Joint metric-orthogonal block solve in same fixed original electron span qualifies entire native g band only if the outside-span full-H Sdual residual floor permits the unchanged gate.",
+  "stop": "No execution before native block API, source-derived work caps and residual-floor diagnosis are bound. Preserve003; stop unchanged metric/projector/fullSdual/root/band/source/resource failure. No independent-root repair, root deletion, tolerance relaxation, refit or span enlargement.",
+  "frozen_predecessor": {
+    "contract": {
+      "path": "../yb_high_l003/contract.json",
+      "sha256": "3281a3caa30075b8dab45defda7109e2912e071489615d353364e0a19393f366"
+    },
+    "driver": {
+      "path": "../yb_high_l003/run.py",
+      "sha256": "8f382b40b191be90c0e90a2afd490a005846f35386478a7da004808daa6263ca"
+    },
+    "failure": {
+      "path": "../yb_high_l003/actual/failure.json",
+      "sha256": "f800802b80696ca9793aa35c01cedc7c691927a38551776d7c7fcb7f8cce1e0b"
+    },
+    "failed_arrays": {
+      "path": "../yb_high_l003/actual/failed_arrays.npz",
+      "sha256": "76148f5821e0fa2cf1ab9fbada2ff898aca95382f19382ee38d05def858275c9"
+    },
+    "source_epoch": {
+      "path": "../yb_high_l003/source_epoch.json",
+      "sha256": "cd3baaf368b547ba9dac0be0a1dfc7d6b9da55dac0567487286f5ee9a9a639a5"
+    },
+    "closure": {
+      "path": "../yb_high_l003/closure_receipt.json",
+      "sha256": "6d5dbfc509d6d0710fc04bc7fbdf9d7c2413b779183ac924c4dcc8ced25464b1"
+    }
+  },
+  "predecessor_header_metadata": {
+    "path": "predecessor_headers.json",
+    "sha256": "67111d008a4cf4519218d5251fd80df62f76ebc64c7e8d3a2254d0cd800d7724"
+  },
+  "source_chain": "Unchanged Fock/operator native source inherited from003; exact new numerical kernel source+tests must be bound before admission. No full source recopy or claim of historical driver byte replay.",
+  "reuse": {
+    "kappa4": "Exact003 original_full_electron_E_4/V_4 and Fock_raw_4/S_4; never failed refined full_electron_E/V_4.119electron columns,67fixed band indices.",
+    "kappa_minus5": "One new full native VN Fock/Dirac spectrum from exact same19owned frozen core; freeze complete original electron span before block refinement.",
+    "occupied": "Restore19owned frozen rows and full saved geometry; compare archived occupied keys/P/Q bitwise. Reuse00319occupied Fock diagnostics as historical under their source, not remeasured stationarity. No repeated7occupied Fock builds."
+  },
+  "entry_caps": {
+    "input_NPZ": 2,
+    "SCF": 0,
+    "CI": 0,
+    "optimizer": 0,
+    "Fock": 1,
+    "raw_hS": 1,
+    "Dirac_spectrum": 1,
+    "native_Dirac_LAPACK_attempts": 3,
+    "direct_frontend": 19,
+    "exchange_frontend_upper": 34,
+    "g_channels": 2,
+    "max_Dirac_order": 246,
+    "max_boundary_order": 239,
+    "max_full_electron_roots_each": 123,
+    "metric_linear_solves": 2,
+    "convol_cache_array_payload_bytes": 1073741824,
+    "block_kernel_calls": 2,
+    "block_kernel_eigh_or_linear_caps": null
+  },
+  "kernel": {
+    "status": "pending_parent_symbol_and_tests",
+    "symbol": null,
+    "signature": null,
+    "source_bindings": null,
+    "test_evidence": null,
+    "outside_original_span_residual_floor": null
+  },
+  "root_identity": {
+    "kappa4_original_columns": 119,
+    "kappa4_original_band_roots": 67,
+    "minimum_original_gap_Ha": 0.01091471675732442,
+    "whole_band": "Every original E<50Ha, exact original band membership/order; no count/amplitude pruning. Full electron SGram/projector gates apply jointly to all columns, not individual overlaps.",
+    "overlap_min": 0.99,
+    "maximum_original_gap_fraction_energy_shift": 0.25
+  },
+  "known_blockers": [
+    {
+      "evidence": "003 joint Gram9.705407424063166e-10 >1e-10;002 original full-band residual1.8192200019014654e-7Ha >1e-8",
+      "consequence": "No current qualified complete g band, and \u03ba\u22125 unmeasured."
+    },
+    {
+      "evidence": "Original full electron span held fixed",
+      "consequence": "Component of full-H residual outside that span cannot be repaired by a block Ritz rotation inside the span; root diagnosing actual floor before selecting kernel."
+    },
+    {
+      "evidence": "19current-source old-core residualmax4.760245587889422e-8Ha; original initialdriver byte absent",
+      "consequence": "Frozen-bank diagnostic physical response possible only with explicit reference scope; no new stationary reference or strict paper reproduction claim."
+    },
+    {
+      "evidence": "Existing atomic_space builder constructs bare native spectra internally; self-energy capture internally rebuilds requested virtuals",
+      "consequence": "Downstream consumer must bind and actually reuse the qualified full snapshot or independently requalify its regenerated bands; a nominal converged flag does not transfer004qualification."
+    }
+  ],
+  "minimal_physical_response_proposal": {
+    "method": "Native frozen-core Dirac-Coulomb MBPT2 attachment self-energy, declared finite partial-wave response; not RCCSDT or MCDHF production replacement.",
+    "quantity": "At fixed native6s reference energy, compare Sigma_6s(E) using complete l<=f versus same space plus both complete g bands; retain both signed diagram sums. Start one external6s state only; no shiftedNIST target or claim of transition gap reduction.",
+    "native_source_seam": "atomx.methods.mbpt_matrix.build_mbpt2_matrix_self_energy and underlying _capture_attachment_self_energy; current API regenerates bands so qualified snapshot consumption/requalification must be explicit.",
+    "prerequisites": [
+      "Both g bands pass all original gates and fixed-span residual floor acceptable",
+      "All lower-l bands and same-core external6s must satisfy common native S/projector/ordinary residual identity",
+      "Exact kernel-consumed virtual/canonical energies and frozen-reference identity, full amplitudes/offdiagonal exchange, both diagrams, no root/amplitude truncation",
+      "Predeclare pair/multipole/memory work from complete finite band sizes; exact zero selection only; preserve existing denominator pole rejection",
+      "Label result conditional to historicalA175/B-spline frozen bank and second order; paper GTO/nucleus/CC inputs still unresolved"
+    ],
+    "executed": false
+  },
+  "documentation_disposition": "Own isolated preparation only; root maintains shared source/guides/EARS. Frozen001/002/003 unchanged.",
+  "physical_response_proposal_source_bindings": {
+    "self_energy_consumer": {
+      "path": "src/atomx/methods/mbpt_matrix.py",
+      "sha256": "2686b60d67c85ac1d040d80b2471bcdeb7cfad8a3e1585c14f5937b1355e7aba"
+    },
+    "virtual_space_builder": {
+      "path": "src/atomx/methods/atomic_space.py",
+      "sha256": "705e6445fe35b35f018bdd11c37c3a75abac1cd92fea6967af8d4686072787e1"
+    },
+    "native_band_builder": {
+      "path": "src/atomx/methods/mbpt.py",
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    }
+  }
+}

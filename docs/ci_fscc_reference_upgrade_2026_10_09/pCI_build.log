@@ -1,0 +1,56 @@
+-- GNU Fortran compiler found: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran
+-- GNU Fortran compiler: GNU
+CMake Warning at CMakeLists.txt:16 (message):
+  Optional programs for QED and all-order are not compilable with gfortran
+
+
+-- Using double-precision integrals
+-- Checking for module 'mpi-fort'
+--   Package 'mpi-fort' not found
+-- Could NOT find MPI_Fortran (missing: MPI_Fortran_LIB_NAMES MPI_Fortran_F77_HEADER_DIR MPI_Fortran_MODULE_DIR MPI_Fortran_WORKS) 
+-- Could NOT find MPI (missing: MPI_Fortran_FOUND) 
+CMake Warning at CMakeLists.txt:48 (message):
+  MPI not found.  MPI-parallel programs (pbasc, pconf, conf_lsj, conf_pt,
+  pdtm, formy) will not be built.
+
+
+-- MKL library not detected. Falling back to BLAS and LAPACK.
+-- BLAS library detected: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- LAPACK library detected: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so;/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build
+[  2%] Building Fortran object src/CMakeFiles/pci_serial.dir/basc_variables.f90.o
+[  5%] Building Fortran object src/CMakeFiles/pci_serial.dir/breit.f90.o
+[  8%] Building Fortran object src/CMakeFiles/pci_serial.dir/conf_init.f90.o
+[ 11%] Building Fortran object src/CMakeFiles/pci_serial.dir/diff.f90.o
+[ 14%] Building Fortran object src/CMakeFiles/pci_serial.dir/integrals.f90.o
+[ 17%] Building Fortran object src/CMakeFiles/pci_serial.dir/sintg.f90.o
+[ 20%] Building Fortran object src/CMakeFiles/pci_serial.dir/pi_pk.f90.o
+[ 23%] Building Fortran object src/CMakeFiles/pci_serial.dir/test_ori.f90.o
+[ 26%] Linking Fortran static library libpci_serial.a
+[ 52%] Built target pci_serial
+[ 55%] Building Fortran object src/CMakeFiles/hfd.dir/hfd.f90.o
+[ 58%] Linking Fortran executable hfd
+[ 58%] Built target hfd
+[ 61%] Building Fortran object src/CMakeFiles/bass.dir/bass.f90.o
+[ 64%] Linking Fortran executable bass
+[ 64%] Built target bass
+[ 67%] Building Fortran object src/CMakeFiles/bas_info.dir/bas_info.f90.o
+[ 70%] Linking Fortran executable bas_info
+[ 70%] Built target bas_info
+[ 73%] Building Fortran object src/CMakeFiles/add.dir/add.f90.o
+[ 76%] Linking Fortran executable add
+[ 76%] Built target add
+[ 79%] Building Fortran object src/CMakeFiles/sort.dir/sort.f90.o
+[ 82%] Linking Fortran executable sort
+[ 82%] Built target sort
+[ 85%] Building Fortran object src/CMakeFiles/check_matrices.dir/check_matrices.f90.o
+[ 88%] Linking Fortran executable check_matrices
+[ 88%] Built target check_matrices
+[ 91%] Building Fortran object src/CMakeFiles/ine.dir/ine.f90.o
+[ 94%] Linking Fortran executable ine
+[ 94%] Built target ine
+[ 97%] Building Fortran object src/CMakeFiles/pol.dir/pol.f90.o
+[100%] Linking Fortran executable pol
+[100%] Built target pol

@@ -1,0 +1,363 @@
+{
+  "scope": "native31 matched finite responses and source/JSON physical priority inference; historical effects remain different epochs",
+  "bound_inputs_sha256": {
+    "native31_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0"
+    },
+    "native31_root_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f"
+    },
+    "native31_action_metrics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/action_metrics.json",
+      "sha256": "1f2eb420457c5db17094959ba79e9fc480c724edb8aed3fa20f163b7d4e11496"
+    },
+    "native31_accessibility": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/newf_accessible_actions.json",
+      "sha256": "6dc95ed83826ba0fa4ad0d8376b8aaeb618bdffcec0c2c494abac1d6753d5d22"
+    },
+    "native31_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce"
+    },
+    "fixed31_screened_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json",
+      "sha256": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d"
+    },
+    "historical5pdouble_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+      "sha256": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0"
+    },
+    "historical5pdouble_saved_qualification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json",
+      "sha256": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541"
+    },
+    "historical_static_samepoint": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/same_point_evidence.json",
+      "sha256": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89"
+    },
+    "historical_QED_coverage_correction": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/coverage_correction.json",
+      "sha256": "acdbbb347f339cca7705f39b93f6bb4798cf66686d3cad81a1e298504fb2d583"
+    },
+    "current_nonlocal_SE_source": {
+      "path": "src/atomx/corrections/qedmod/shabaev.py",
+      "sha256": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b"
+    },
+    "frozen_native_operator_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e"
+    },
+    "Atlas_v9_publication": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/publication_completion.json",
+      "sha256": "dafef23241d6fd6825304c581a50eb2ba7aef2a5bf34b91cf5254c53f36c54d2"
+    }
+  },
+  "native31": {
+    "metric": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "metric_residual": 0.005162180923375838,
+    "indicator_Ha": 9.089562518880953e-05,
+    "indicator_is_error_bound": false,
+    "full_vs_retained": {
+      "raw_coordinate": 1.4303861704845986e-11,
+      "tangent": 1.4143776437635348e-11,
+      "preconditioned_tangent": 5.970248758135636e-14
+    },
+    "corrected_vs_full": {
+      "raw_coordinate": 13400.41182005837,
+      "tangent": 1.560942245779377e-10,
+      "preconditioned_tangent": 5.098158854286499e-13
+    },
+    "complete_accessibility": [
+      {
+        "action": "retained",
+        "component": "newf_external",
+        "kappa": -4,
+        "Frobenius_norm": 0.009276608154595849,
+        "signed_HF_partial_action": -8.605545885391479e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": -4,
+        "Frobenius_norm": 0.03049276596710036,
+        "signed_HF_partial_action": -0.0009298087763243544,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained",
+        "component": "newf_external",
+        "kappa": 3,
+        "Frobenius_norm": 0.006105117272328911,
+        "signed_HF_partial_action": -3.7272456908888374e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": 3,
+        "Frobenius_norm": 0.021180279486042085,
+        "signed_HF_partial_action": -0.00044860423910685467,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained_plus_delta",
+        "component": "newf_external",
+        "kappa": -4,
+        "Frobenius_norm": 0.009276608154596388,
+        "signed_HF_partial_action": -8.605545885392465e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained_plus_delta",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": -4,
+        "Frobenius_norm": 0.03049276596709525,
+        "signed_HF_partial_action": -0.000929808776324042,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained_plus_delta",
+        "component": "newf_external",
+        "kappa": 3,
+        "Frobenius_norm": 0.0061051172723285314,
+        "signed_HF_partial_action": -3.7272456908883726e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "retained_plus_delta",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": 3,
+        "Frobenius_norm": 0.021180279486043133,
+        "signed_HF_partial_action": -0.0004486042391068996,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "full_normalized",
+        "component": "newf_external",
+        "kappa": -4,
+        "Frobenius_norm": 0.009276608154596347,
+        "signed_HF_partial_action": -8.605545885392488e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "full_normalized",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": -4,
+        "Frobenius_norm": 0.030492765967096037,
+        "signed_HF_partial_action": -0.0009298087763240918,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "full_normalized",
+        "component": "newf_external",
+        "kappa": 3,
+        "Frobenius_norm": 0.006105117272328613,
+        "signed_HF_partial_action": -3.727245690888424e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "full_normalized",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": 3,
+        "Frobenius_norm": 0.021180279486042352,
+        "signed_HF_partial_action": -0.00044860423910686605,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "raw_h_quotient_corrected",
+        "component": "newf_external",
+        "kappa": -4,
+        "Frobenius_norm": 0.009276608154594683,
+        "signed_HF_partial_action": -8.605545885390309e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "raw_h_quotient_corrected",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": -4,
+        "Frobenius_norm": 0.030492765967020746,
+        "signed_HF_partial_action": -0.0009298087763194988,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "raw_h_quotient_corrected",
+        "component": "newf_external",
+        "kappa": 3,
+        "Frobenius_norm": 0.0061051172723274455,
+        "signed_HF_partial_action": -3.7272456908872396e-05,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      },
+      {
+        "action": "raw_h_quotient_corrected",
+        "component": "old4f_newf_antisymmetric",
+        "kappa": 3,
+        "Frobenius_norm": 0.021180279486072005,
+        "signed_HF_partial_action": -0.0004486042391081227,
+        "no_auxiliary_Fock_Euler_claim": true,
+        "finite_CI_response_not_included": true
+      }
+    ],
+    "new3689_is_original3451_metric": false,
+    "FD_qualified": false,
+    "optimized": false,
+    "experiment_passed": false
+  },
+  "historical5pdouble": {
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "checkpoint_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "transfer_to_current31_as_bound": false,
+    "model_parent": 2483,
+    "target": 1240,
+    "upper_lower_differences": [
+      {
+        "label": "6s_1/2",
+        "absolute_delta_upper_Ha": -0.018811824495060137,
+        "absolute_delta_lower_Ha": -0.018811824495060137,
+        "transition_delta_upper_minus_lower_cm1": 0.0
+      },
+      {
+        "label": "5d_3/2",
+        "absolute_delta_upper_Ha": -0.01671023246672121,
+        "absolute_delta_lower_Ha": -0.018811824495060137,
+        "transition_delta_upper_minus_lower_cm1": 461.2461356954022
+      },
+      {
+        "label": "5d_5/2",
+        "absolute_delta_upper_Ha": -0.016093001802801155,
+        "absolute_delta_lower_Ha": -0.018811824495060137,
+        "transition_delta_upper_minus_lower_cm1": 596.7126081252829
+      },
+      {
+        "label": "6p_1/2",
+        "absolute_delta_upper_Ha": -0.017925682448549196,
+        "absolute_delta_lower_Ha": -0.018811824495060137,
+        "transition_delta_upper_minus_lower_cm1": 194.4856989933681
+      },
+      {
+        "label": "6p_3/2",
+        "absolute_delta_upper_Ha": -0.01813442640013818,
+        "absolute_delta_lower_Ha": -0.018811824495060137,
+        "transition_delta_upper_minus_lower_cm1": 148.67169716909012
+      }
+    ]
+  },
+  "historical_static": {
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "point": "accepted_0160 unchanged despite subsequent continuation",
+    "current31_bound": false,
+    "upper_lower_differences": [
+      {
+        "label": "6s_1/2",
+        "twoJ": 1,
+        "parity": 1,
+        "column": 0,
+        "local_root": 0,
+        "energy_Ha": -14053.345801784004,
+        "excitation_cm1": 0.0,
+        "excitation_from_actual_finite_ground_cm1": 0.0,
+        "NIST_nominal_cm1": 0.0,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 0.0,
+        "nominal_relative_gap": null,
+        "absolute_upper_static_minus_DC_Ha": 14.148346124558884,
+        "same_lower_static_minus_DC_Ha": 14.148346124558884,
+        "static_minus_DC_transition_cm1": 0.0,
+        "nominal_1percent_pass": null
+      },
+      {
+        "label": "5d_3/2",
+        "twoJ": 3,
+        "parity": 1,
+        "column": 2,
+        "local_root": 0,
+        "energy_Ha": -14053.230645248426,
+        "excitation_cm1": 25273.938194955826,
+        "excitation_from_actual_finite_ground_cm1": 25273.938194955826,
+        "NIST_nominal_cm1": 22960.8,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 2313.138194955827,
+        "nominal_relative_gap": 0.10074292685602537,
+        "absolute_upper_static_minus_DC_Ha": 14.148356987272564,
+        "same_lower_static_minus_DC_Ha": 14.148346124558884,
+        "static_minus_DC_transition_cm1": 2.3840900804498233,
+        "nominal_1percent_pass": false
+      },
+      {
+        "label": "5d_5/2",
+        "twoJ": 5,
+        "parity": 1,
+        "column": 3,
+        "local_root": 0,
+        "energy_Ha": -14053.227153153524,
+        "excitation_cm1": 26040.364436248143,
+        "excitation_from_actual_finite_ground_cm1": 26040.364436248143,
+        "NIST_nominal_cm1": 24332.69,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 1707.674436248144,
+        "nominal_relative_gap": 0.07018025694027852,
+        "absolute_upper_static_minus_DC_Ha": 14.148215123850605,
+        "same_lower_static_minus_DC_Ha": 14.148346124558884,
+        "static_minus_DC_transition_cm1": -28.751332157913566,
+        "nominal_1percent_pass": false
+      },
+      {
+        "label": "6p_1/2",
+        "twoJ": 1,
+        "parity": -1,
+        "column": 1,
+        "local_root": 0,
+        "energy_Ha": -14053.23208857919,
+        "excitation_cm1": 24957.16370754091,
+        "excitation_from_actual_finite_ground_cm1": 24957.16370754091,
+        "NIST_nominal_cm1": 27061.82,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -2104.6562924590908,
+        "nominal_relative_gap": -0.0777721636038925,
+        "absolute_upper_static_minus_DC_Ha": 14.148251822922248,
+        "same_lower_static_minus_DC_Ha": 14.148346124558884,
+        "static_minus_DC_transition_cm1": -20.696816937710537,
+        "nominal_1percent_pass": false
+      },
+      {
+        "label": "6p_3/2",
+        "twoJ": 3,
+        "parity": -1,
+        "column": 4,
+        "local_root": 0,
+        "energy_Ha": -14053.216254607849,
+        "excitation_cm1": 28432.318730760864,
+        "excitation_from_actual_finite_ground_cm1": 28432.318730760864,
+        "NIST_nominal_cm1": 30392.23,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -1959.9112692391354,
+        "nominal_relative_gap": -0.06448724786694282,
+        "absolute_upper_static_minus_DC_Ha": 14.148144454080466,
+        "same_lower_static_minus_DC_Ha": 14.148346124558884,
+        "static_minus_DC_transition_cm1": -44.26155390767235,
+        "nominal_1percent_pass": false
+      }
+    ]
+  },
+  "source_nonlocal_SE_unimplemented": true,
+  "SOURCE_JSON_only": true,
+  "NPZ_NumPy_Atomx_scientific_API_calls": 0,
+  "created_utc": "2026-10-11T18:57:16.099842+00:00"
+}

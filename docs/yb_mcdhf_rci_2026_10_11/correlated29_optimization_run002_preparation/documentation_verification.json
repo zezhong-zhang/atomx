@@ -1,0 +1,55 @@
+{
+  "all_document_links_passed": true,
+  "checks": [
+    {
+      "label": "new prospective contract",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "label": "driver",
+      "target": "run.py",
+      "exists": true
+    },
+    {
+      "label": "closed full-normalized baseline control",
+      "target": "../correlated29_full_normalized_gradient_control/RESULTS.md",
+      "exists": true
+    },
+    {
+      "label": "d0",
+      "target": "../correlated29_constraint_centering_diagnosis002/RESULTS.md",
+      "exists": true
+    },
+    {
+      "label": "d1",
+      "target": "../correlated29_constraint_centering_diagnosis/RESULTS.md",
+      "exists": true
+    },
+    {
+      "label": "old optimizer HOLD contract",
+      "target": "../correlated29_optimization_run_preparation/contract.json",
+      "exists": true
+    },
+    {
+      "label": "qualified exact stored-H guard",
+      "target": "../accepted_line_search_metadata_implementation/README.md",
+      "exists": true
+    },
+    {
+      "label": "461 source-only preparation controls",
+      "target": "preparation_verification.json",
+      "exists": true
+    },
+    {
+      "label": "handoff",
+      "target": "handoff.json",
+      "exists": true,
+      "prospective_handoff_written_same_finalize": true
+    }
+  ],
+  "readme_sha256": "b2f113568edfbb6aa06875dcaf242f0e39bb4eb500f6b6167f5ca08331049f48",
+  "new_physical_calls": 0,
+  "numerical_imports": 0,
+  "factual_scope": "461 preparation controls and existing immutable live measurements; no optimizer qualification or stationarity upgrade."
+}

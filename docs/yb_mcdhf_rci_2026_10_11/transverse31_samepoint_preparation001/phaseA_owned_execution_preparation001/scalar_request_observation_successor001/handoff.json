@@ -1,0 +1,113 @@
+{
+  "status": "frozen_SOURCE_only_execution_not_authorized",
+  "files": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py",
+      "sha256": "f915725fce0b4fbeeb179256270265c382619c2d2d5075497124c527a1e0efc8"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/contract.json",
+      "sha256": "5c668e3f38a97a60d77d42a33a5cbdacac410919506534aa8030116b570412dc"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/preparation.json",
+      "sha256": "d429c97c29594a8647289ccbdc914cec94efec975bbb269505631e079d3b84ee"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/README.md",
+      "sha256": "5b4309265f81d934bc0d42f3e641c206a49301216eef7a3b6f742df0f040981d"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/documentation_impact.json",
+      "sha256": "73161d52ca7d4e8fe9110822a08d351e42b7c9c7428ac65159862c891d26f956"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/EARS.md",
+      "sha256": "1d2484f9606f19e0ca94deee5fed4b40aa7e07e4fdd22a9bf81fb55c65195763"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source_identity.json",
+      "sha256": "5a79aad05db3da8c0e8e7aeb080a35bf40dec586030ece1bce1f7b527f9d043a"
+    }
+  ],
+  "source_map_sha256": "e7a664f26bcfc3ea8bddf2618db33a8c16f99f56f68a0c10609fdabed86a9ebf",
+  "complete_source_files": 365,
+  "deferred_array_inputs": {
+    "literal31_recovered_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff"
+    },
+    "literal31_DC_H_E_C": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda"
+    },
+    "original31_fullmetric": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    }
+  },
+  "prepared_predecessor": {
+    "driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/run.py",
+      "sha256": "dd9550eb874bdedf45d65eddd47a5f8dd82e68a3de3951556dc0772bc5bc4525"
+    },
+    "contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/contract.json",
+      "sha256": "e9dd890c52d6fb44e705b9e6d3deb9f0207bd1ed6027a78481cf0c1c489c8204"
+    },
+    "preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/preparation.json",
+      "sha256": "1e99a95bfb355077d43adb918b92b255dee99475513a07a7125289adb967333a"
+    },
+    "handoff": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/handoff.json",
+      "sha256": "5a266bdf36e6f555e4370c650952ce1d94864907d354d03fdb10ad4e0b26efe7"
+    },
+    "actual_executed": false,
+    "difference": "Only resource observation and exception-count semantics change. All physics, physical inputs, source archive, CPU/caps and scientific gates unchanged."
+  },
+  "review_command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py"
+  ],
+  "authorize_command_template": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py",
+    "--authorize",
+    "<new_exact_root_binding.json>"
+  ],
+  "execute_command_template": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py",
+    "--execute",
+    "<new_exact_root_binding.json>"
+  ],
+  "required_binding_fields": [
+    "execution_authorized_by_root",
+    "contract_sha256",
+    "driver_sha256",
+    "preparation_sha256",
+    "source_map_sha256",
+    "input_roles",
+    "resources"
+  ],
+  "budget": "CPU27/thread1/AS3.95GiB/1200inner1215outer; 3H3CI0g; 6NPZ/15completeeigh/2transversefactories/<=9zeroHelmholtz; prospective whole-run2m scalar requests including cache hits",
+  "scope": "same original full1595 fixed recovered31 nativeRCI DC/static/zero; resource observation-only successor; original mixed and stationarity failures preserved; no nonzero-frequency/optimizer qualification",
+  "preparation_checks": 533,
+  "no_executions_by_agent": true
+}

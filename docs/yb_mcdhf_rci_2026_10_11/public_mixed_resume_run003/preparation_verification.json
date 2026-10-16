@@ -1,0 +1,2392 @@
+{
+  "all_passed": true,
+  "checks_count": 573,
+  "checks": [
+    {
+      "name": "complete160_start_provenance_and_independent_replay",
+      "passed": true
+    },
+    {
+      "name": "known_nonstationary160_start_is_retained",
+      "passed": true
+    },
+    {
+      "name": "preflight_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "preflight_start_binding",
+      "passed": true
+    },
+    {
+      "name": "complete_count_caps",
+      "passed": true
+    },
+    {
+      "name": "sixteen_full_symmetry_blocks",
+      "passed": true
+    },
+    {
+      "name": "input_source_identity_checked",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/independent_verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/results_stage003.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/recovered_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/run.py",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/new_source_baseline_controls.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/execution_failure_pre_solve.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/diagnostic_source.py",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/result.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/matched_recovered_point_reference/verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/run.py",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/result_unverified.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_stable_increment_design/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_stable_increment_design/endpoint_annex.json",
+      "passed": true
+    },
+    {
+      "name": "actual_immutable_input:docs/yb_mcdhf_rci_2026_10_11/mixed_stable_increment_design/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/clebsch.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/csf.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/csf_recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/ls_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/mscheme.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/rcfp.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/sd_rho.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/spinor_harmonics.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/angular/wigner.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/atom.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/atom_inputs.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/calculation_spec.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/compare.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/config/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/config/jj_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/config/parsing.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/adapters.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/breit.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/dbsr_breit.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/orbital_shifts.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/protocol.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qed.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/base.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/indelicato.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/mohr.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/shabaev.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/qedmod/welton.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/radiative_mass.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/recoil.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/specific_recoil.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/corrections/stack.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/hyperfine_presets.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/mohr_se.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/nist_bethe_log.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/data/nuclear_structure.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/fitting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/fitting/slater.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/io/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/io/fac_writer.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/io/results.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/ladder.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/lineshapes/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/lineshapes/profiles.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/lineshapes/stark.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/log.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/_result_adapters.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/atomic_space.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/base.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/ci_mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/ci_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/concurrent_solve.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/core_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/coupled_cluster.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/charge_variational.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/complex_ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/crystal_field.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/direct_bspline.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/direct_shooting.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/grid_functional.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/grid_solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/lanthanide_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/slater_scaling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/csf/virtual_stability.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/edm.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/fscc.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/hamiltonian_df.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/hartree_fock_slater.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/hydrogenic.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/hydrogenic_cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/hydrogenic_reference.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/linearized_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mbpt_matrix.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mbpt_sigma2.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mbpt_transitions.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mcdhf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mcdhf/excitations.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/mcdhf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/pnc.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/reduced_monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/rpa.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/scf_observables.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/sd_pair_diagrams.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/sd_transverse.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/sigma2_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/methods/valence_sd.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/basis.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/complex_dirac.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/coulomb_features.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/evaluate.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/inhomogeneous.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/integrals.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/knots.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/local_potential.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/orbital_geometry.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/pair_contraction.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/shooting_seed.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/slater.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/bspline/slater_yk.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/complex_eigensolver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/density_tail.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/diis.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/extrapolation.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/fermion.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/helmholtz.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/hermitian_clusters.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/local_dfs/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/local_dfs/asymptotic.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/local_dfs/hxs_tables.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/orbital_rotations.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/radial_integration.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/radial_metric.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/radial_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/adaptive.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/box_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/constants.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_bound.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_green.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_orbital.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_response.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/dirac_sampling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/electron_space.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/energy.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/exponential_quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/grid.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/local.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/local_scf.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/operators.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/preconditioner.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/problem.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/scf.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/schrodinger_bound.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/shooting/spline.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/special.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/numerics/yk.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/base.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/breit_ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/complex_radial.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/effective_one_body.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/one_body.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/overlap_response.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/radial_fock.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/radial_symmetry.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/retardation.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/sparse_ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/spinor_integrals.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/state_average.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/csf/transverse.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/dirac.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/local_exchange.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/schrodinger.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/physics/slater.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/average_atom.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/crm.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/rates.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/plasma/screening.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/frozen_field.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/parametric.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/radial_nucleus.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/slater_seed.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/static_field.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/potentials/thomas_fermi.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/_sos_basis.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/edm/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/edm/scaling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/edm/sternheimer.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/g_factor/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/hyperfine/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/hyperfine/dipole.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/hyperfine/nuclear_moments.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/hyperfine/quadrupole.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/isotope_shift/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/isotope_shift/field_shift.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/isotope_shift/isotope_shift.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/isotope_shift/mass_shift.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/pnc/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/polarizability/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/stark.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/angular.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/calculator.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/ci_lines.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/fluorescence.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/fscc_effective.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/multipole.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/rates.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/transitions/two_photon.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/zeeman/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/zeeman/lande.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/properties/zeeman/shift.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/providers/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/providers/contract.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/providers/native_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/providers/pyscf_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/providers/pyscf_embedding.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/radial_state.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/annotations.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/bibliography.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/cowan.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/matching.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/nist.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/spectrum_notes.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/reference_data/structure_outputs.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/results.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/sampling.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/_jit_kernels.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/anomalous.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/autoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/autoionization/auger.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/autoionization/jj_level.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/autoionization/molecular.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/autoionization/mscheme_ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/charge_exchange/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/ci_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/dielectronic_recombination/solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/dielectronic_recombination/widths.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/distorted_wave/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/distorted_wave/born.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/distorted_wave/solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/electron_ionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/electron_ionization/beb.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/electron_ionization/dw.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/models.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/msub.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/multielectron_ci.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/photoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/photoionization/direct.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/photoionization/fano.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/photoionization/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/polarisation/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/angular_cc.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/cc_inner.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/cc_outer.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/cc_potentials.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/channel_table.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/coupled_channels.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/internal_region.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/solver.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/surface.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/r_matrix/target_states.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/radiative_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/two_electron/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/two_electron/angular.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/two_electron/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/two_electron/states.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/scattering/xray.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/spectrum/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/spectrum/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/spectrum/crm_synth.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/spectrum/spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/spectrum/uta.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/state_protocols.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/types.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/units.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/uta/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/uta/moments.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/manim.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/mpl.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/plotly.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/plotly3d.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/viz/scattering.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/workflows/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/workflows/nist_comparison.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/atomic_rates.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/coherent.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/coherent_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/double_ionization.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/imaging.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/kinetics.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/mcdhf_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/model.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/multielectron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/native_channels.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/observables.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/radiative_reservoir.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/reservoir_errors.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/table_mc.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_current_and_parent353_source:src/atomx/xfel/two_electron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "complete_scientific_source_epoch_unchanged",
+      "passed": true
+    },
+    {
+      "name": "original_metric_exact",
+      "passed": true
+    },
+    {
+      "name": "authoritative_coordinate_shape",
+      "passed": true
+    },
+    {
+      "name": "no_compute_in_preflight",
+      "passed": true
+    },
+    {
+      "name": "no_execution_epoch",
+      "passed": true
+    },
+    {
+      "name": "no_endpoint_or_trial_claim",
+      "passed": true
+    },
+    {
+      "name": "baseline_optimizer_total_gradient_budget_scope",
+      "passed": true
+    },
+    {
+      "name": "same_point_gradient_equality_gates",
+      "passed": true
+    },
+    {
+      "name": "unchanged_strict_stationarity_gates",
+      "passed": true
+    },
+    {
+      "name": "no_bare005_at_changed_start_gate",
+      "passed": true
+    },
+    {
+      "name": "single_CPU_bounded_resources",
+      "passed": true
+    },
+    {
+      "name": "separate_endpoint_one_gradient_only",
+      "passed": true
+    },
+    {
+      "name": "current_public_resume_API_available",
+      "passed": true
+    },
+    {
+      "name": "independent_plain_manifest_objective_payload",
+      "passed": true
+    },
+    {
+      "name": "same_full531_objective_SHA",
+      "passed": true
+    },
+    {
+      "name": "samepoint_parent_saved_and_independent_target_UIDs",
+      "passed": true
+    },
+    {
+      "name": "run.py/valid_AST",
+      "passed": true
+    },
+    {
+      "name": "one_actual_public_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "explicit_same_objective_and_original_strict_gates",
+      "passed": true
+    },
+    {
+      "name": "typed_resume_checkpoint_and_budget_explicit",
+      "passed": true
+    },
+    {
+      "name": "readonly_preflight_has_no_science_or_seal_call",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint.py/valid_AST",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint.py/no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "endpoint_identity_objective_saved_eigenpair_guards_present",
+      "passed": true
+    },
+    {
+      "name": "endpoint_identity_guards_precede_functional",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint_guards.py/valid_AST",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint_guards.py/no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "verify_start_checkpoint_guards.py/valid_AST",
+      "passed": true
+    },
+    {
+      "name": "verify_start_checkpoint_guards.py/no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_missing_root_execution_contract:solve",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_missing_root_execution_contract:/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard_runner_success:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard_proof_bound:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:synthetic_actual_file_bindings_accepted",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:tampered_manifest_rejected:accepted_complete_point",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:tampered_manifest_rejected:source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:tampered_manifest_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:tampered_manifest_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:tampered_manifest_rejected:frozen_scientific_inputs_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:truthy_nonboolean_accepted_flag_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:missing_frozen_input_binding_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_immutable_file_change_rejected:source_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_immutable_file_change_rejected:contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_immutable_file_change_rejected:execution_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_objective_explicit_physics",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:canonical_serialization_independently_checked",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:canonical_mapping_order_invariant",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:CSFs",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:target_identity",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:Z",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:electrons",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:nucleus",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:operator",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:radial_archive_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:physical_reference_CI_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:objective_identity_sensitive:physical_reference_binding_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:signed_CSF_order_cannot_be_permuted",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:signed_CSF_coupling_phase_cannot_change",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:physical_target_identity_sensitive:label",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:physical_target_identity_sensitive:twoJ",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:physical_target_identity_sensitive:parity",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:physical_target_identity_sensitive:root",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:physical_target_identity_sensitive:weight",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:complete_constructed_exact_eigenpairs_pass",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:degenerate_subspace_rotation_passes_without_column_equality",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:signed_column_phase_choice_passes",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:consistent_full_eigenpair_order_passes",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:degenerate_duplicate_vectors_residual_alone_can_pass",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:degenerate_duplicate_vectors_rejected_by_Gram",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:orthogonal_wrong_nondegenerate_eigenvectors_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:wrong_saved_energy_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:nonhermitian_saved_H_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:incomplete_saved_array_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:nonfinite_saved_array_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:changed_saved_array_precision_rejected:matrix_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:incomplete_saved_array_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:nonfinite_saved_array_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:changed_saved_array_precision_rejected:energies_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:incomplete_saved_array_rejected:mixing",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:nonfinite_saved_array_rejected:mixing",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:changed_saved_array_precision_rejected:mixing",
+      "passed": true
+    },
+    {
+      "name": "constructed_guards_no_Atomx_or_science:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_endpoint_guard_verifier_bound",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard_runner_success:verify_start_checkpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard_proof_bound:verify_start_checkpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:complete_constructed_nonstationary_start_is_permitted",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:start_status_retains_failed_stationarity",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:iteration",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:accepted_complete_point",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:array_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:frozen_scientific_inputs_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:original_metric_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:geometry_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:manifest_content_tampering_rejected:diagnostics",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:truthy_nonboolean_complete_point_is_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:all_identity_replay_checks_passed",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:checks_count",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:checks",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:new_source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:execution_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:objective_identity_file_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:accepted_checkpoint_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:accepted_arrays_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:independently_rebuilt_objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:independently_rebuilt_objective_payload",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:actual_original_metric_orbital_residual",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:actual_original_metric_energy_indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:independent_proof_tampering_rejected:original_stationarity_gates_passed",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:failed_independent_identity_check_rejected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:declared_start_point_tampering_rejected:reference_iteration",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:declared_start_point_tampering_rejected:same_objective_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:declared_start_point_tampering_rejected:starting_residual",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:declared_start_point_tampering_rejected:starting_energy_indicator_Ha",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:declared_start_point_tampering_rejected:starting_original_stationarity_passed",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:original_geometry_metric_tampering_rejected:original_projector_and_preconditioner_metric_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:original_geometry_metric_tampering_rejected:same_geometry_sha256",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_file_byte_change_rejected:arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_file_byte_change_rejected:source.json",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_file_byte_change_rejected:parent.json",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_file_byte_change_rejected:execution.json",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_file_byte_change_rejected:objective.json",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:runtime_tuple_and_JSON_list_targets_are_identical",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:target_group_order_is_not_physical_identity",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:mixed_runtime_JSON_target_containers_are_identical",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:measured_overlap_diagnostics_are_not_target_ID",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:reference_levels:0",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:reference_levels:1",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:reference_levels:2",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:selected_levels:0",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:selected_levels:1",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_UID_change_detected:selected_levels:2",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:actual_target_weight_change_detected",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:duplicate_group",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:rank_change",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:missing_UID",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:boolean_UID",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:noninteger_UID",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:negative_root",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:invalid_parity",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:nan_weight",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:boolean_weight",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:zero_weight",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:invalid_complete_target_metadata_rejected:empty_groups",
+      "passed": true
+    },
+    {
+      "name": "constructed_guard:complete_target_span_order_independent_without_column_pairing",
+      "passed": true
+    },
+    {
+      "name": "constructed_guards_no_Atomx_or_science:verify_start_checkpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "constructed_start_guard_driver_bound",
+      "passed": true
+    },
+    {
+      "name": "Ruff_all_prepared_scripts",
+      "passed": true
+    },
+    {
+      "name": "README_link:../public_mixed_resume_run002/result_unverified.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:../public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:../mixed_stable_increment_design/README.md",
+      "passed": true
+    },
+    {
+      "name": "README_link:contract.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:run.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:../public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:../public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "name": "README_link:starting_checkpoint_guard_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_explicit_no_scientific_execution",
+      "passed": true
+    },
+    {
+      "name": "README_fresh_secant_and_same_point_scope",
+      "passed": true
+    }
+  ],
+  "successor_run_number": 3,
+  "preparation_revision": 1,
+  "no_new_scientific_solves": true,
+  "source_epoch_sealed": false,
+  "frozen_owner_files_sha256": {
+    "contract.json": "4e9dddf5d5e51e71e078e54aad913f605eb796c640792da8d31d2c7c9db3595e",
+    "run.py": "ace1a91c1d02ce0da594d040806c3af389cb7ffc61ed0006f9b5dd70d5b547ff",
+    "verify_endpoint.py": "32d3c4fab78f43a4f54b0ff9fb39e1d8ce3165675e101028ca0a98ed37db05f2",
+    "verify_endpoint_guards.py": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+    "verify_start_checkpoint_guards.py": "831e32e65987cfb623059de03421f6527c4fe89df2b85227f0092059832c1dfd",
+    "verify_preparation.py": "b566cac17f7cc9a488e08d1cd82ed4b664f022a3a93a4e7203a2131bc9968bdc",
+    "README.md": "aa5a8356b357be74d5b28cf2dfc732b8f4b2727b7483ece3258e104106f84b84",
+    "preflight.json": "d23187d7064bd373b2d0cbe2ff7e869518e431a3c5593fee8421f4d83f7f30bb",
+    "preflight.log": "7cd4cf8ced8599fee8dfa5c9a923d64dd87588b590d8afbea4743bada752ebcb",
+    "endpoint_guard_verification.json": "e58e31d3f5828f8dd1b9fedb3aa8a6418c771e2a7b1c981584865d992307bb78",
+    "starting_checkpoint_guard_verification.json": "eab51dbf5fe5d8d32d09c0c89fbbc19a57c0213c1ff7886e8b860825148031db"
+  },
+  "starting_complete_checkpoint": {
+    "ready": true,
+    "iteration": 160,
+    "accepted_checkpoint_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "accepted_arrays_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "independent_verification_sha256": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "same_objective_sha256": "ae850ddc1fa246c062ef3c130173eb1c07de0106c363c4ce87120ca1d45fa199",
+    "original_stationarity_passed": false,
+    "starting_original_residual": 4.717047646600387e-05,
+    "starting_original_indicator_Ha": 6.8897239137767995e-09
+  },
+  "public_API_declaration_observed": {
+    "typed_state_declared": true,
+    "required_keywords": [
+      "allow_objective_change",
+      "checkpoint_callback",
+      "max_wall_time",
+      "objective_identity",
+      "resume_state",
+      "return_state"
+    ],
+    "missing_keywords": [],
+    "available": true
+  },
+  "resource_read_only_admission": {
+    "observed_at_utc": "2026-10-11T09:47:29Z",
+    "load_average": [
+      9.21533203125,
+      9.27392578125,
+      9.43359375
+    ],
+    "available_CPUs": 32,
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "load1_per_available_CPU": 0.2879791259765625,
+    "host_available_GiB": 112.29456329345703,
+    "admitted": true,
+    "purpose": "Resource feasibility; never a controlled timing certificate"
+  },
+  "Atomx_functional_evaluations": 0,
+  "physical_H_builds": 0,
+  "CI_solves": 0,
+  "gradients": 0,
+  "optimizer_calls": 0,
+  "scope": "Source/hash/JSON/AST/link and constructed array guards only; original160 unchanged. Preflight enumeration and exact archive P*x checks performed, no new physical endpoint certified."
+}

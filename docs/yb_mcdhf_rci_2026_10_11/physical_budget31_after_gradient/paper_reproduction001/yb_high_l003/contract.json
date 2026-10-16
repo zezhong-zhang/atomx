@@ -1,0 +1,479 @@
+{
+  "status": "manual_same_bank_same_band_native_electron_subspace_bordered_refinement003",
+  "created_utc": "2026-10-13T15:47:36.715961+00:00",
+  "hypothesis": "Restore genuine historical19closed-coreDF waves without mixed-EOL substitution; current native full68e V^N supplies complete g partners/electron projector and every root below50Ha under metric/residual gates.",
+  "historical_model": {
+    "Z": 70,
+    "electrons": 68,
+    "charge": 2,
+    "configuration": "[Xe]4f14",
+    "state_subshells": [
+      [
+        1,
+        -1,
+        2.0
+      ],
+      [
+        2,
+        -1,
+        2.0
+      ],
+      [
+        2,
+        1,
+        2.0
+      ],
+      [
+        2,
+        -2,
+        4.0
+      ],
+      [
+        3,
+        -1,
+        2.0
+      ],
+      [
+        3,
+        1,
+        2.0
+      ],
+      [
+        3,
+        -2,
+        4.0
+      ],
+      [
+        3,
+        2,
+        4.0
+      ],
+      [
+        3,
+        -3,
+        6.0
+      ],
+      [
+        4,
+        -1,
+        2.0
+      ],
+      [
+        4,
+        1,
+        2.0
+      ],
+      [
+        4,
+        -2,
+        4.0
+      ],
+      [
+        4,
+        2,
+        4.0
+      ],
+      [
+        4,
+        -3,
+        6.0
+      ],
+      [
+        5,
+        -1,
+        2.0
+      ],
+      [
+        5,
+        1,
+        2.0
+      ],
+      [
+        5,
+        -2,
+        4.0
+      ],
+      [
+        4,
+        3,
+        6.0
+      ],
+      [
+        4,
+        -4,
+        8.0
+      ]
+    ],
+    "nucleus": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    },
+    "geometry": {
+      "ns": 123,
+      "ks": 9,
+      "r_min": 1.0865925223969749e-05,
+      "r_max": 60.53782210642609,
+      "kinetic_balance": true,
+      "core_hole_stationary": true,
+      "basis_knots": {
+        "shape": [
+          132
+        ],
+        "dtype": "float64",
+        "sha256": "c97b28f771aef9fb70ca5bb53297bc45fefe0662ee01d581913e27059ea8f66d"
+      },
+      "max_iter": 160,
+      "tolerance": 1e-08,
+      "damping": null,
+      "mode": "batch",
+      "damping_release_residual": 0.01,
+      "orbital_tolerance": null,
+      "eigenpair_tolerance": 1.0000000000000001e-11
+    },
+    "energy_Ha": -14067.058077561114,
+    "legacy_converged": true,
+    "legacy_residual": 1.3118389232855358e-09,
+    "iterations": 49,
+    "historical_method": "Historical metadata marks19nuclear orbitals asDHF; originaldriver archive gap remains. This run restoresownedfrozen bank for currentVN qualification, not fresh SCF/currentconverged atomicwaves.",
+    "current_stationarity_qualified": false,
+    "paper_match": false
+  },
+  "paper_difference": "Historical empiricalA175 Fermi/B-spline ns123/R60.5378; paper171Yb+/40GTO/R500 inputs unknown. No isotope/basis substitution or69e CC calculation.",
+  "inputs": {
+    "docs/rare_earth_yb_spectrum_2026_10_08/run_core_valence.py": {
+      "sha256": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+      "bytes": 13767,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/source_snapshots/run_core_valence_before_newton.py": {
+      "sha256": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5",
+      "bytes": 10741,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/core.json": {
+      "sha256": "90140056548501ff5d5bd8a6b73692f9c9633219c60bf52bd3c30e109cd0948c",
+      "bytes": 5942,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/inputs.json": {
+      "sha256": "027c1dec444585e318adafd8c239d7fb22061c4d1721986731d8a7f386766ac8",
+      "bytes": 2042,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/status.json": {
+      "sha256": "9b8af5ac3499adbdd093781850a96fbbd1ce40a685f4ac16e9830d9f59450d55",
+      "bytes": 131,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/structure.json": {
+      "sha256": "be79a353d48b89bbcf295cc14d602d55adf3a3f6a3f60c848ca03b9926fe963d",
+      "bytes": 5425,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/source_identity.json": {
+      "sha256": "0dc441759de5a05f9bc47fb150729a564edc250df54c02de17c10f63a3cc5189",
+      "bytes": 42428,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/results/v68_default/orbitals_workspace.npz": {
+      "sha256": "2005bfd77f3d275108e0f49068cab5dd7280c7631a3d35425e3c8e89b9dfa857",
+      "bytes": 181514,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/source_archive_manifest.json": {
+      "sha256": "757fff504fabc8e9650359b5f89855c8635b95ae82ae48df20bcbf124494ab94",
+      "bytes": 36965,
+      "manifest_match": true
+    },
+    "docs/rare_earth_yb_spectrum_2026_10_08/Atomx_source_replay.zip": {
+      "sha256": "a2fcdd5a3550f81b40d8031a00b587d2b398ff045fba3a833509d1ddf578db8b",
+      "bytes": 1547368,
+      "manifest_match": true
+    }
+  },
+  "archive_source_files_verified": 336,
+  "seed_vs_delivered_source_delta": {},
+  "source_binding": {
+    "path": "source_epoch.json",
+    "sha256": "cd3baaf368b547ba9dac0be0a1dfc7d6b9da55dac0567487286f5ee9a9a639a5",
+    "scope": "current dirty available-source epoch; only actually imported modules guarded before/after producers; unused concurrentfiles not a scientificguard"
+  },
+  "workspace_whole_field_plan": {
+    "orbital_keys": {
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "energies": {
+      "shape": [
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        5,
+        5
+      ],
+      "dtype": "<f8",
+      "fortran_order": true
+    },
+    "basis_nv": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 115,
+      "fortran_order": false
+    },
+    "basis_ks": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 9,
+      "fortran_order": false
+    },
+    "basis_ksp": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 8,
+      "fortran_order": false
+    },
+    "basis_ksq": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 9,
+      "fortran_order": false
+    },
+    "basis_nsp": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 122,
+      "fortran_order": false
+    },
+    "basis_nsq": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 123,
+      "fortran_order": false
+    },
+    "basis_ns": {
+      "shape": [],
+      "dtype": "<i8",
+      "value": 123,
+      "fortran_order": false
+    },
+    "basis_gr": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_grw": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_p_d": {
+      "shape": [
+        115,
+        9,
+        8
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_bsp_q_d": {
+      "shape": [
+        115,
+        9,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_t": {
+      "shape": [
+        132
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "basis_tp": {
+      "shape": [
+        130
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    }
+  },
+  "workspace_decoded_bytes_cap": 16777216,
+  "restore": "Header census20fields; decode18keys/P/Q+full15basis, energies/mixing header-only. Restore19core rows as immutable owned arrays, savedcalculationSpec and native Fermi profile exact; preserve historical markers; no SCF/optimization.",
+  "g_partners": [
+    4,
+    -5
+  ],
+  "energy_band_upper_Ha": 50.0,
+  "projector": "whole native electron branch E>-c^2 before cutoff; all g bound/pseudocontinuum roots E<50Ha, no per-root count/amplitude pruning",
+  "gates": {
+    "legacy_core_tolerance": 1e-08,
+    "full_S_Gram": 1e-10,
+    "band_dual_residual_Ha": 1e-08,
+    "electron_projector_idempotence_metric_frame": 1e-10,
+    "sampled_norm": 1e-10
+  },
+  "occupied_current_Fock_diagnostic": "Build7current fullVN occupied-kappa fields; report each19old-energy/currentRayleigh boundary-restricted fullFock Sdual residual, finite-only diagnostic. No currentstationarity promotion or historicalmarkeredit.",
+  "entry_caps": {
+    "input_NPZ": 1,
+    "SCF": 0,
+    "CI": 0,
+    "optimizer": 0,
+    "Fock": 9,
+    "raw_hS": 9,
+    "Dirac_spectrum": 2,
+    "direct_frontend": 171,
+    "exchange_frontend_upper": 264,
+    "exchange_allowed_upper_by_kappa": {
+      "-4": 34,
+      "-3": 33,
+      "-2": 29,
+      "-1": 19,
+      "1": 19,
+      "2": 29,
+      "3": 33,
+      "4": 34,
+      "-5": 34
+    },
+    "metric_linear_solves": 11,
+    "max_Dirac_order": 246,
+    "max_band_roots_each": 123,
+    "convol_cache_array_payload_bytes": 1073741824,
+    "output_NPZ": 1,
+    "bordered_refinement_calls": 246,
+    "bordered_Newton_linear_solves": 492,
+    "maximum_bordered_dimension": 124
+  },
+  "memory_estimate": {
+    "nine_hS_dense_bytes": 8714304,
+    "two_full_electron_vector_bytes_upper": 484128,
+    "decoded_input_bytes_cap": 16777216,
+    "convolution_factors": "four components/ranks0..7; dense123^2*9^2 FP64 factor upper~0.32GiB before reuse. Actual unique array bytes retained. Python/Numba/SciPy extra.",
+    "anticipated_peak_RSS_bytes_upper": 2147483648,
+    "refinement_extra_payload_bytes_upper": 16777216
+  },
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "inner_seconds": 600,
+    "outer_seconds": 615,
+    "maximum_load1": 16.0,
+    "minimum_available_bytes": 10737418240,
+    "thread_environment": [
+      "OPENBLAS_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMBA_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ]
+  },
+  "observed_host_preparation": {
+    "loadavg": [
+      0.109375,
+      0.31884765625,
+      0.4501953125
+    ],
+    "available_bytes": 96564183040
+  },
+  "preparation_note": "Initial stdlib-only input-key probe assumed newer resume_core_from key; original no-resume input schema and original SOURCE confirm absence. Corrected before contract/numerical admission; no science executed by that probe.",
+  "stop": "Source/input/root-overlap/gap/order/band-membership/metric/projector/resource failures stop immediately. Accumulate unchanged complete-band dual-residual failures for both fixedg channels, preserveallarrays, then FAIL; no more strategies if refinement cannot pass. 19occupied residual remainsdiagnostic.",
+  "scope": "Actual historicalfrozenYb68 g-field/band capability; no high-l correlation/spectralresponse/currentDFstationarity/CCSDT/GTOpaper reproduction/controlledperformance.",
+  "original_driver_archive_gap": {
+    "recorded_initial_driver_sha256": "81fd41dd686f7869a4d33a93776f5aedadfdfaecb8f45cd36bfc1d561215b58e",
+    "current_retained_driver_sha256": "e26cce7d3a3cb647e8b9223632b0b02092d20449572ae7835ba4a1b9e470636d",
+    "retained_before_newton_driver_sha256": "0776410823aa07aae46ef5512f7245c57f3d55fc5257347ef816dab9462bcce5",
+    "initial_driver_byte_replay_qualified": false,
+    "scope": "All original native library source files match336-entry source archive,0delta. Driver snapshots and structured input/core/log describe original closedDF/no-resume model but no exact initialdriver byteclaim. Current frozen-bank qualification keeps this gap; no newSCF claim."
+  },
+  "manual_predecessor": {
+    "directory": "../yb_high_l002",
+    "status": "closed_band_dual_residual_failure",
+    "failure_sha256": "629b14b3f718499e7c634118ae04d6dbde90f4c515d96792b647df6220850501",
+    "failed_arrays_sha256": "8e32133bd4c917d51f12b9f286d53acc1cbcdb30afbd046ec43fb268c0adb37e",
+    "unchanged": [
+      "bank",
+      "nucleus",
+      "rawH/S/nativefield",
+      "complete50Ha band",
+      "allscientificgates",
+      "19historicalmarkers",
+      "time/AS/CPU"
+    ],
+    "change": "All selected roots numerically refined by existing native bordered_refine inside the complete original native electron subspace. Both fixed g partners are diagnosed before aggregate band-residual stop; failed gates remain failures. No automaticretry."
+  },
+  "header_metadata": {
+    "path": "header_metadata.json",
+    "sha256": "0a6bce157d34261f021304f0762cf008c3a035118c680150111357aafcc5dbe9"
+  },
+  "refinement": {
+    "native_function": "atomx.numerics.bspline.dirac_assembly._refine_eigenpair",
+    "source_sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "source_iterations_max_per_root": 2,
+    "basis": "Original full electron V_keep,119expected columns<=123, in unchanged239boundary-restricted layout. Project original lower-definedH/S into that complete electron span, call native border on every originalE<50Ha column, then lift back. No sea/boundary/orbital-bank replacement or root discard.",
+    "overlap_min": 0.99,
+    "energy_shift_vs_nearest_gap_fraction_max": 0.25,
+    "root_gap": "Each original complete-electron eigenvalue nearest other originalelectron eigenvalue; require strictly positive, no denominatorfloor.",
+    "band_indices_fixed": true,
+    "original_full_E_V_saved": true,
+    "joint_full_electron_Gram_projector_gates_unchanged": true,
+    "full_H_band_dual_gate_unchanged": 1e-08
+  }
+}

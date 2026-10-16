@@ -1,0 +1,163 @@
+{
+  "status": "prospective_saved_only_requires_root_exact_once_admission",
+  "hypotheses": [
+    "H bitwise failure may follow historical/current radial quadrature convention rather than the owner wrapper; inspect complete saved delta and source epochs, not infer from printed equality.",
+    "The declared h=1e-4 derivative error may be finite-step truncation or an analytic/increment defect; compare all three already executed scales for both original directions, without new h or points."
+  ],
+  "fixed": {
+    "model": "He Z2 ns35 ks9 29 complete CSFs; original two J0-even targets normalized weights .25/.75",
+    "directions": [
+      413711,
+      413712
+    ],
+    "scales": [
+      0.0001,
+      1e-06,
+      1e-08
+    ],
+    "points": 13,
+    "frozen_comparison_indices": [
+      0,
+      1,
+      2,
+      7,
+      8
+    ],
+    "original_gate": "np.array_equal for all five full H and full signed baseline gradient; derivative max(abs1e-8,rel1e-5); both failures remain failures",
+    "source_identity": "current365 bound by original mixed001 execution_binding; frozen354/source002 explicit distinct source; no producer/import of either source"
+  },
+  "inputs": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/root_execution.json",
+      "sha256": "1ac9729a6a256e4b1d976a8609c65c08a609ba46ad75177aca462dc6dda84d1b"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/execution_binding.json",
+      "sha256": "54bde45340b652c005eb19e951be77cd43c864c0186a8a0cd8e8d783997c0719"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/foreground.log",
+      "sha256": "e78233f3f617e3c341dd49d7bad81f1f8aa868c19355d090699b0cdaf0145f3a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/source_epoch_delta001/review.json",
+      "sha256": "71949b7362b2b28e446f969d391fce374de11429b972c3630dfb9f7e6d4c4a5b"
+    },
+    {
+      "path": "tests/test_mixed_ci_finite_increment.py",
+      "sha256": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/finite_diagnostics.json",
+      "sha256": "c87ed4d6cce6136ac453e7f172022cfd1cf5121dd35734e27247b0ad59cef81f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/candidate_calls.json",
+      "sha256": "08869bd076c78143139648f6a32a2ee2475a04d791f541fb6af2c20a86e4e259"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/frozen_calls.json",
+      "sha256": "f97f8b6dac7e3cd0ec462ea4a6ae3ae035d18da267fc7ac3ad5ac94388004a72"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/frozen_comparator_validation.json",
+      "sha256": "0fecc68947c047010c81064740ac9898f971809ec0b28ca8194c3fcce780c4e5"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/generated_input_identity.json",
+      "sha256": "6a1a04fd1b74494a470244586b03ef20dda5ab9c54ca4a9ff141cedfedf68b13"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/oracle_signed_tables.json",
+      "sha256": "0fb9e4213abdc6c82b01f2ab3a901df52ef37dfc55eca51fa3921cbd55e67823"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/geometry_inputs.npz",
+      "sha256": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/candidate_gradients.npz",
+      "sha256": "edb441b7f1298700762ab0233f0abb0d965968f2e147c19f98463d3a80a21554"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/frozen_comparators.npz",
+      "sha256": "c9d119791dd610c14af9100fd7cdd11e64b21273d704b1222e28585abde50af7"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_00.npz",
+      "sha256": "d3df9ddfd621b968d166d7c777ee406d4da37db64c4f6e7adb7a3a8ecd114e6c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_01.npz",
+      "sha256": "110e26f4288eb9d86f764801a71d7e69a69f4bfb433e20dabcb40e5aad906ef1"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_02.npz",
+      "sha256": "6c5830e133efeb107edda1593e8ebf7cbbf2c84eb7c7fbe7cea86b24edb39148"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_03.npz",
+      "sha256": "4c641413778d08b479715329b94e1bfb28adf77fdeb19fd917864704df8560e9"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_04.npz",
+      "sha256": "69e2a9587e91ad32ecde44142c0447aca46e61ff217101a486a221391e41c932"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_05.npz",
+      "sha256": "27b8c129412beb2abb049579ee246a303da7cef975b8ca040173bbffe8c6985e"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_06.npz",
+      "sha256": "313b4202fce36288b0872803791772fae2f66d12d08cc1fb6d26664d55c090da"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_07.npz",
+      "sha256": "15bd8bcd2c4d7a15b52da9badc1a58dae8a0cb44a7230cb128b477564ca1a36d"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_08.npz",
+      "sha256": "6c2a3126a028a2f59d92e2d67c4f00cbe914a5f2de4f421e22945b9a85df12a0"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_09.npz",
+      "sha256": "d886d071f782466ef276c437d0b37d151075dd7a0453e25956e64cd0c1af609f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_10.npz",
+      "sha256": "56a58541e17843af28ee0c77b0579cfa5f241eb0f4686f4c2d6bedb8eb278905"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_11.npz",
+      "sha256": "9ce4d8a7746255707b0c2cd7e5382994dfbf9d1c5d43466f078c5ac77f43f3e1"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed001/numeric_assets/CI_12.npz",
+      "sha256": "0377afe51bc1ce8721e70c75e9817ef278f61d3dfc10d1f819df0a3454872ca2"
+    }
+  ],
+  "resources": {
+    "CPU": 1,
+    "threads": 1,
+    "AS_bytes": 2147483648,
+    "inner_wall_s": 90,
+    "outer_wall_s": 105,
+    "NPZ_loads_exact": 16,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "eigh": 0,
+    "SVD": 0,
+    "Dirac": 0,
+    "radial_or_cell_producer": 0,
+    "Atomx_imports": 0
+  },
+  "measurements": [
+    "Full H symmetry, all root residuals and complete CI Gram for all13; current C/E against old H for all5.",
+    "Full H difference count, max absolute and ordered binary64 ULP, diagonal/offdiagonal and complete changed-index support; full signed g difference and both original directional contractions.",
+    "All six central derivatives: complete mixed Rayleigh/reported/explicit/reconstruction/radial oracle plus retained CI response; odd/even terms and original tolerances.",
+    "Original ideal g-dot direction and saved physical odd-motion g-dot per scale; normalized complete-H quotient only a separate operator-rounding diagnostic."
+  ],
+  "stop": "Malformed/hash/shape/nonfinite input fails and records failure, no retry. Original scientific failures are observations, not rejection of this diagnostic. No new point, amplitude pruning, thresholds, source change or acceptance adapter.",
+  "limits": "Allscale pattern alone is not a uniform error bound or causal source qualification; saved public response terms are consumed, not a newly independent CI response oracle; no pre-owner live replay."
+}

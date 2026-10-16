@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py", line 568, in <module>
+    main(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py", line 220, in main
+    core, orbitals, plan, rows, _, _, problem, fock = prepare(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/finite_valence_fixture.py", line 86, in prepare
+    backend_builder(
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py", line 217, in builder
+    manifest = install_terma4(directory)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/valence_terma4_blas_control.py", line 89, in install
+    source.write_text(specialize(original))
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/valence_terma4_blas_control.py", line 24, in specialize
+    body, tail = term.split("      subroutine pci_val_", 1)
+ValueError: not enough values to unpack (expected 2, got 1)

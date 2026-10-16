@@ -1,0 +1,1512 @@
+{
+  "status": "SOURCE_READY_FULL_4F12_NOT_EXECUTED_OR_ADMITTED",
+  "driver_sha256": "de8f2b6817dff69fbe5150ba4c3471df8634f3fca84846e9bbde6f12a74efdfa",
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "metadata_inputs": {
+    "basis_maps": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json",
+      "sha256": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742"
+    },
+    "checkpoint": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19"
+    },
+    "layout": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+    },
+    "models": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json",
+      "sha256": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d"
+    },
+    "source_identity": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "tracking_binding": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "A_R0_record": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json",
+      "sha256": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72"
+    },
+    "B_R0_record": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json",
+      "sha256": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80"
+    },
+    "preparation_driver": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py",
+      "sha256": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d"
+    },
+    "preparation_contract": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json",
+      "sha256": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e"
+    },
+    "preparation_result": {
+      "kind": "metadata",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json",
+      "sha256": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541"
+    },
+    "models_complete": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/complete_models.json",
+      "sha256": "1c05b5162d02ae89e619dc5ff08fda18e2b59f56b5f6e1fbf6cacffa1a17c38a"
+    },
+    "physical_plan": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/plan.json",
+      "sha256": "6efb832349d602436f3dccabffeaf5371ed655ce2bc083d854992ea7e0616413"
+    },
+    "matched_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/contract.json",
+      "sha256": "de7072e505bba4d52811574d35163fd6dec72917d4169ba9a4d5ce8cc40d83fa"
+    },
+    "current_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/current_source_identity.json",
+      "sha256": "4f0450bfaf160b1542d71850b3e346ddcaf35614d149a79fd97e69d4514c5966"
+    }
+  },
+  "arrays": {
+    "checkpoint_arrays": {
+      "fields": {
+        "full_normalized_pg": {
+          "dtype": "<f8",
+          "shape": [
+            3689
+          ]
+        },
+        "full_normalized_tangent": {
+          "dtype": "<f8",
+          "shape": [
+            3689
+          ]
+        },
+        "inverse_blocks_0": {
+          "dtype": "<f8",
+          "shape": [
+            2,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_1": {
+          "dtype": "<f8",
+          "shape": [
+            4,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_2": {
+          "dtype": "<f8",
+          "shape": [
+            6,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_3": {
+          "dtype": "<f8",
+          "shape": [
+            7,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_4": {
+          "dtype": "<f8",
+          "shape": [
+            6,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_5": {
+          "dtype": "<f8",
+          "shape": [
+            4,
+            119,
+            119
+          ]
+        },
+        "inverse_blocks_6": {
+          "dtype": "<f8",
+          "shape": [
+            2,
+            119,
+            119
+          ]
+        },
+        "inverse_diagonal": {
+          "dtype": "<f8",
+          "shape": [
+            3689
+          ]
+        },
+        "projector_0": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_1": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_2": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_3": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_4": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_5": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "projector_6": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            119
+          ]
+        },
+        "x": {
+          "dtype": "<f8",
+          "shape": [
+            3689
+          ]
+        }
+      },
+      "uncompressed_cap": 134217728,
+      "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+    },
+    "workspace": {
+      "fields": {
+        "P": {
+          "dtype": "<f8",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        "Q": {
+          "dtype": "<f8",
+          "shape": [
+            24,
+            123
+          ]
+        },
+        "basis_bsp_p": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9,
+              8
+            ],
+            [
+              115,
+              9,
+              9
+            ],
+            [
+              115,
+              12,
+              8
+            ],
+            [
+              115,
+              12,
+              9
+            ],
+            [
+              115,
+              16,
+              8
+            ],
+            [
+              115,
+              16,
+              9
+            ],
+            [
+              115,
+              18,
+              8
+            ],
+            [
+              115,
+              18,
+              9
+            ],
+            [
+              115,
+              24,
+              8
+            ],
+            [
+              115,
+              24,
+              9
+            ],
+            [
+              115,
+              32,
+              8
+            ],
+            [
+              115,
+              32,
+              9
+            ]
+          ]
+        },
+        "basis_bsp_p_d": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9,
+              8
+            ],
+            [
+              115,
+              9,
+              9
+            ],
+            [
+              115,
+              12,
+              8
+            ],
+            [
+              115,
+              12,
+              9
+            ],
+            [
+              115,
+              16,
+              8
+            ],
+            [
+              115,
+              16,
+              9
+            ],
+            [
+              115,
+              18,
+              8
+            ],
+            [
+              115,
+              18,
+              9
+            ],
+            [
+              115,
+              24,
+              8
+            ],
+            [
+              115,
+              24,
+              9
+            ],
+            [
+              115,
+              32,
+              8
+            ],
+            [
+              115,
+              32,
+              9
+            ]
+          ]
+        },
+        "basis_bsp_q": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9,
+              9
+            ],
+            [
+              115,
+              12,
+              9
+            ],
+            [
+              115,
+              16,
+              9
+            ],
+            [
+              115,
+              18,
+              9
+            ],
+            [
+              115,
+              24,
+              9
+            ],
+            [
+              115,
+              32,
+              9
+            ]
+          ]
+        },
+        "basis_bsp_q_d": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9,
+              9
+            ],
+            [
+              115,
+              12,
+              9
+            ],
+            [
+              115,
+              16,
+              9
+            ],
+            [
+              115,
+              18,
+              9
+            ],
+            [
+              115,
+              24,
+              9
+            ],
+            [
+              115,
+              32,
+              9
+            ]
+          ]
+        },
+        "basis_gr": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9
+            ],
+            [
+              115,
+              12
+            ],
+            [
+              115,
+              16
+            ],
+            [
+              115,
+              18
+            ],
+            [
+              115,
+              24
+            ],
+            [
+              115,
+              32
+            ]
+          ]
+        },
+        "basis_grw": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              115,
+              9
+            ],
+            [
+              115,
+              12
+            ],
+            [
+              115,
+              16
+            ],
+            [
+              115,
+              18
+            ],
+            [
+              115,
+              24
+            ],
+            [
+              115,
+              32
+            ]
+          ]
+        },
+        "basis_ks": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_ksp": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_ksq": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_ns": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_nsp": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_nsq": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_nv": {
+          "dtype": "<i8",
+          "shape": []
+        },
+        "basis_t": {
+          "dtype": "<f8",
+          "shape": [
+            132
+          ]
+        },
+        "basis_tp": {
+          "dtype": "<f8",
+          "shape_choices": [
+            [
+              130
+            ],
+            [
+              132
+            ]
+          ]
+        },
+        "orbital_keys": {
+          "dtype": "<i8",
+          "shape": [
+            24,
+            2
+          ]
+        }
+      },
+      "uncompressed_cap": 134217728,
+      "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+    },
+    "saved_S": {
+      "fields": {
+        "s_-1": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_-2": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_-3": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_-4": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_1": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_2": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        },
+        "s_3": {
+          "dtype": "<f8",
+          "shape": [
+            246,
+            246
+          ]
+        }
+      },
+      "uncompressed_cap": 134217728,
+      "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+    },
+    "A_R0": {
+      "fields": {
+        "H": {
+          "dtype": "<f8",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        "energies": {
+          "dtype": "<f8",
+          "shape": [
+            1595
+          ]
+        },
+        "mixing": {
+          "dtype": "<f8",
+          "shape": [
+            1595,
+            1595
+          ]
+        },
+        "keys": {
+          "dtype": "<i8",
+          "shape": [
+            31,
+            2
+          ]
+        },
+        "P": {
+          "dtype": "<f8",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        "Q": {
+          "dtype": "<f8",
+          "shape": [
+            31,
+            123
+          ]
+        }
+      },
+      "uncompressed_cap": 40780456
+    },
+    "B_R0": {
+      "fields": {
+        "H": {
+          "dtype": "<f8",
+          "shape": [
+            2574,
+            2574
+          ]
+        },
+        "energies": {
+          "dtype": "<f8",
+          "shape": [
+            2574
+          ]
+        },
+        "mixing": {
+          "dtype": "<f8",
+          "shape": [
+            2574,
+            2574
+          ]
+        },
+        "keys": {
+          "dtype": "<i8",
+          "shape": [
+            31,
+            2
+          ]
+        },
+        "P": {
+          "dtype": "<f8",
+          "shape": [
+            31,
+            123
+          ]
+        },
+        "Q": {
+          "dtype": "<f8",
+          "shape": [
+            31,
+            123
+          ]
+        }
+      },
+      "uncompressed_cap": 106091504
+    }
+  },
+  "array_inputs": {
+    "checkpoint_arrays": {
+      "kind": "array",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+      "sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee"
+    },
+    "saved_S": {
+      "kind": "array",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "workspace": {
+      "kind": "array",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "A_R0": {
+      "kind": "array",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz",
+      "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593"
+    },
+    "B_R0": {
+      "kind": "array",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz",
+      "sha256": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0"
+    }
+  },
+  "fixed": {
+    "A": 175,
+    "A_NR_CSF": [
+      91,
+      1595
+    ],
+    "B_NR_CSF": [
+      100,
+      2574
+    ],
+    "Z": 70,
+    "coordinates": 3689,
+    "electrons": 69,
+    "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "native_UID_order": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ]
+    ],
+    "ns": 123,
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "operator": "full native unshifted Dirac-Coulomb, frozen nuclear positive-energy P and original S/inverse",
+    "point": "literal accepted13 as already bound paired diagnostic, no terminal16correction splicing",
+    "radials": 31,
+    "same_direction": "negative checkpoint13 full_normalized_pg (A), not B full_preconditioned; every coordinate included",
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "UIDs": [
+    [
+      "6s_1/2",
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      "5d_3/2",
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    [
+      "5d_5/2",
+      [
+        5,
+        1,
+        0
+      ]
+    ],
+    [
+      "6p_1/2",
+      [
+        1,
+        -1,
+        0
+      ]
+    ],
+    [
+      "6p_3/2",
+      [
+        3,
+        -1,
+        0
+      ]
+    ]
+  ],
+  "angular_census": [
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 1,
+      "q": 1,
+      "twoj": 1
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 1,
+      "q": 2,
+      "twoj": 1
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 2,
+      "q": 1,
+      "twoj": 3
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 2,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 4,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 3,
+      "q": 2,
+      "twoj": 3
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 2,
+      "q": 3,
+      "twoj": 3
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 1,
+      "q": 4,
+      "twoj": 3
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 3,
+      "q": 1,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 2,
+          "nullity": 0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        {
+          "J2": 4,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 6,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 8,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 5,
+      "q": 2,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            3,
+            3
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 7,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 9,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 5,
+      "q": 3,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 2,
+          "nullity": 0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        {
+          "J2": 4,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 6,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 8,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 5,
+      "q": 4,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 3,
+      "q": 5,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 1,
+      "q": 6,
+      "twoj": 5
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 7,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 4,
+      "q": 1,
+      "twoj": 7
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            3,
+            4
+          ]
+        },
+        {
+          "J2": 2,
+          "nullity": 0,
+          "shape": [
+            3,
+            3
+          ]
+        },
+        {
+          "J2": 4,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 6,
+          "nullity": 0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        {
+          "J2": 8,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 10,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 12,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 7,
+      "q": 2,
+      "twoj": 7
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            6,
+            6
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 1,
+          "shape": [
+            5,
+            6
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 1,
+          "shape": [
+            4,
+            5
+          ]
+        },
+        {
+          "J2": 7,
+          "nullity": 1,
+          "shape": [
+            3,
+            4
+          ]
+        },
+        {
+          "J2": 9,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 11,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 13,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 15,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 8,
+      "q": 3,
+      "twoj": 7
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            3,
+            4
+          ]
+        },
+        {
+          "J2": 2,
+          "nullity": 0,
+          "shape": [
+            3,
+            3
+          ]
+        },
+        {
+          "J2": 4,
+          "nullity": 1,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        {
+          "J2": 6,
+          "nullity": 0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        {
+          "J2": 8,
+          "nullity": 1,
+          "shape": [
+            1,
+            2
+          ]
+        },
+        {
+          "J2": 10,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 12,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 7,
+      "q": 6,
+      "twoj": 7
+    },
+    {
+      "calls": [
+        {
+          "J2": 1,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 3,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 5,
+          "nullity": 0,
+          "shape": [
+            1,
+            1
+          ]
+        },
+        {
+          "J2": 7,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 4,
+      "q": 7,
+      "twoj": 7
+    },
+    {
+      "calls": [
+        {
+          "J2": 0,
+          "nullity": 1,
+          "shape": [
+            0,
+            1
+          ]
+        }
+      ],
+      "nullspace_calls": 1,
+      "q": 8,
+      "twoj": 7
+    }
+  ],
+  "resources": {
+    "AS_bytes": 8589934592,
+    "host_MemAvailable_GiB_min": 32,
+    "host_load1_max": 16,
+    "inner_seconds": 1200,
+    "max_simultaneous_workers": 3,
+    "outer_seconds": 1215,
+    "sector_CPUs": [
+      28,
+      29,
+      30
+    ],
+    "threads": 1
+  },
+  "solver": {
+    "final_direct_L2_residual_Ha_max": 1e-08,
+    "max_iter": 200,
+    "max_subspace": 22,
+    "native": "atomx.methods.ci.davidson_eigh",
+    "operator_matvec_columns_cap_per_arm": 1000,
+    "per_arm_sector_n_states": 2,
+    "selected_Gram_maxabs": 1e-10,
+    "tol_L2_Ha": 1e-09
+  },
+  "gates": {
+    "old_subspace_selected_action_maxabs_Ha": 1e-08,
+    "Gram_maxabs": 1e-10,
+    "radial_Gram_maxabs": 1e-10,
+    "no_pair_metric_norm2": 1e-12,
+    "coordinate_wave_maxabs": 1e-12,
+    "native_reference_binding_exact": true,
+    "same_symmetry_observed_two_root_gap_Ha_min": 1e-06,
+    "strict_signed_reference_overlap_squared_min": 0.5,
+    "finite_full_operator_L2_residual_Ha_max": 1e-08,
+    "signed_bilinear_symmetry_Ha_max": 1e-08
+  },
+  "decoded_input_bytes_cap": 268435456,
+  "caps": {
+    "H_build": 1,
+    "numerical_determinant_CSR": 1,
+    "angular_coefficient_table": 0,
+    "radial_evaluator": 1,
+    "radial_value_calls": 384706,
+    "raw_hS": 7,
+    "Davidson": 2,
+    "native_verify": 1,
+    "block_projection": 1,
+    "exact_block_matrix": 1,
+    "operator_columns_per_arm": 1000
+  },
+  "required_matched_status_prefix": "PASS",
+  "public_full_owner_qualified": false,
+  "control_reference": "Ownedaccepted13 signedC, original531physicalUID ancestry in004",
+  "stop": "First failure writes sharedSTOP and preserves partial; remaining workers reject. No retries/model/cap/gate changes."
+}

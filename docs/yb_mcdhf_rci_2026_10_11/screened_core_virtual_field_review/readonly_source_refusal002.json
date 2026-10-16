@@ -1,0 +1,15 @@
+{
+  "record_id": "readonly-changed-source-refusal002",
+  "no_physical_calls": true,
+  "tests_executed": 0,
+  "earlier_review_and_verification_preserved": true,
+  "driver_sha256": "078b8def7f15e17225d769fa5a516935c9c6660531209e07b81b3b7275ea45ac",
+  "changed_source": "src/atomx/physics/csf/matrix.py",
+  "reviewed_old_source_sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+  "current_source_sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+  "changed_top_level_AST_nodes": [
+    "_bspline_pair_potential",
+    "_radial_evaluator"
+  ],
+  "reason": "Scientific source changed after successful71-check metadata review. Current replay stopped before claiming epochidentity."
+}

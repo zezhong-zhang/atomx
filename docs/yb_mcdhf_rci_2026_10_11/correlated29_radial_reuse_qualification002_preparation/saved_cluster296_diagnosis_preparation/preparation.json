@@ -1,0 +1,84 @@
+{
+  "status": "source_and_metadata_preparation_only",
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "bound_ordinary_arrays",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_arrays",
+      "passed": true
+    },
+    {
+      "name": "bound_ordinary_targets",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_targets",
+      "passed": true
+    },
+    {
+      "name": "bound_ordinary_sectors",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_sectors",
+      "passed": true
+    },
+    {
+      "name": "bound_failed_comparison",
+      "passed": true
+    },
+    {
+      "name": "bound_root_foreground",
+      "passed": true
+    },
+    {
+      "name": "bound_failed_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_ordinary_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_original_driver",
+      "passed": true
+    },
+    {
+      "name": "bound_original_contract",
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_SciPy_NumBa_GPU_import",
+      "passed": true
+    },
+    {
+      "name": "array_import_in_calculate_only",
+      "passed": true
+    },
+    {
+      "name": "no_runner_import_or_array_load_preparation",
+      "passed": true
+    },
+    {
+      "name": "original_failure_not_reclassified",
+      "passed": true
+    },
+    {
+      "name": "no_actual_output",
+      "passed": true
+    }
+  ],
+  "identities": {
+    "run.py": "93bf00130f6cd8517d92bd5b97e5f8ad280e83f0daa83c02b3324e2319380fae",
+    "contract.json": "61a55b5aa0a278ae5047c32da49f4d0ce6985836ce76de7d1577108d4c4e3a13",
+    "README.md": "8820c6fb8843ef72489ec61964eb096b47a87dfa667c6383dd7f16595ec3572f"
+  },
+  "physics_and_array_execution_calls": 0
+}

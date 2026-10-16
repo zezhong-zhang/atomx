@@ -1,0 +1,7 @@
+{
+  "passed": 14,
+  "failed": 1,
+  "cause": "Compared entire DC/transverse physical-source maps; transverse correctly declares four extra operators.",
+  "fix": "Require identical common DC physical sources and the same radial binding; preserve explicitly added transverse sources and decoder/backend source checks.",
+  "gate_unchanged": true
+}

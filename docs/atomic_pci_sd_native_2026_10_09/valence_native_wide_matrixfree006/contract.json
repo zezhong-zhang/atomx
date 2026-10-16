@@ -1,0 +1,27 @@
+{
+  "hypothesis": "Double inner matrix-free Krylov corrections plus actual extended native residuals remove the same strong-reference floor without assembling a solver matrix",
+  "fixed": "all six C2+ radial columns/16magnetic states/ns40/point/DC, actual .37virtual and .61occupied-virtual rotation, same complete core result and energy eps_v+.075; original diagrams/no screening/no energy fit",
+  "scope": "private finite mixed-width native diagnosis; shared core fields/angular helpers and some wave-only products retain original double precision; not a uniformly extended-precision physical Hamiltonian",
+  "cap_bytes": 536870912,
+  "matrix_reference_cap_bytes": 67108864,
+  "gates_Ha": {
+    "normal_signed_map": 1e-11,
+    "native_root": 1e-11,
+    "native_response": 1e-11,
+    "full_vs_separated_response": 1e-11
+  },
+  "baseline": "fresh public double solve, failures retained; original006 source/input convention retained",
+  "inverse": "double public homogeneous GMRES with normalized RHS, extended-precision outer iterates and up to5actual-native correction steps; restart30/maxiter100/inneratol1e-14",
+  "stop": "any source/ABI/model/resource/nonfinite or unchanged gate failure rejects; no automatic public/full-scale adoption, no precision or performance claim",
+  "load": [
+    37.744140625,
+    20.6572265625,
+    14.26171875
+  ],
+  "reference": "same complete physical inputs asquad005; actual113-significant-bit contraction/coefficient reference replaces the numerically failed80-bit coefficient reference, without changing the1e-11signed gate or any archived failure",
+  "forward_gates_Ha": {
+    "root": 1e-11,
+    "prime": 1e-11
+  },
+  "reference_precision_scope": "same native equations/mixed base fields, not an independent magnetic or physical Hamiltonian oracle"
+}

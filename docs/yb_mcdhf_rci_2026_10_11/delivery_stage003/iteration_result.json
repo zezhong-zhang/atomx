@@ -1,0 +1,20 @@
+{
+  "message_id": "om_x100b638022c610a4c1180808be04364",
+  "status": "implementation_frontier",
+  "reason": "Actual mixed-CI EOL gradient shows the 531 fixed-orbital RCI is not stationary in the original metric. One accepted same-target DC orbital step lowers the EOL objective but worsens all four nominal transition gaps; complete original-gate orbital optimization and missing-channel differential estimates remain separate requirements.",
+  "receipt_backed_selection_executed": true,
+  "new_expanded_MCDHF_production_execution": false,
+  "automatic_scientific_jobs_executed": [],
+  "manual_successor_completed_diagnostic": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json",
+  "diagnostic_is_complete_MCDHF": false,
+  "artifacts": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage003/iteration_request_final.json",
+      "sha256": "9cdbf693f6293257759162623a32be3ee9ca4fdc18c93bd2198f5522853cc230"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage003/iteration_status_final.json",
+      "sha256": "9cdbf693f6293257759162623a32be3ee9ca4fdc18c93bd2198f5522853cc230"
+    }
+  ]
+}

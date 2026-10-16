@@ -1,0 +1,163 @@
+{
+  "status": "saved_JSON_SOURCE_only_physical_next_decision004_no_dispatch",
+  "created_utc": "2026-10-13T14:11:05.340011+00:00",
+  "input_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/actual/result.json": "36296ce9c12573269e9e0b0e9b58dfb5180b72145796f86d20fb43a1ac9727b5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/root_execution.json": "8e7f83b4a227a6eb23d6592bf712ed41963dbbedd275294ad95d40f77702479a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/contract.json": "0bd6ec3736e1c0c8b648dfad6feddcf72533334c2e3334c6bb9d811759551f23",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/run.py": "dfe0c9c1ff4d2c65ecea898c3664c4fcda7e1796ff78813603c60f52a2218568",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/partitioned_correlation_assessment001/source_assessment.json": "8ec92e313654f46e1558251d6efe40498f85899bed1181860e9eb38abc1f1b93",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/conditional_response_summary.json": "e5cc20b9ad180d188229b48be22fdfc4b6d7d84b78fc3952b23a77d36772e0ec",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/forward_linear_increment_preparation001/actual/result.json": "5b631503147217f3728dddb6e17dc8692abe66f2b50079339f968143c56d80af",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+  },
+  "decision": "Prepare one common-polar finite displacement along p=-pg_A in both original1595 and expanded2574 spaces at literal13. Four fresh complete native H/CI points; no independent-arm or joint optimization yet, no cutoff, fitted weight, backend or orbital-bank migration.",
+  "observations": {
+    "closed_complete_gradient_checks": 1355,
+    "new_H_CI": 0,
+    "complete_gradients": 3,
+    "same_original_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "g_cosine": 0.9994121299948738,
+    "pg_cosine": 0.6889806652977402,
+    "gB_minus_gA_norm": 0.08299817753141378,
+    "pgB_minus_pgA_norm": 0.16041244246113928,
+    "gA_dot_minus_pgA": -0.1681090493665408,
+    "gB_dot_minus_pgA": -0.1655969785811421,
+    "gB_dot_minus_pgB": -0.1692067116161973,
+    "baseline_metrics": {
+      "raw_norm": 9762.328569579662,
+      "tangent_norm": 2.198970464212474,
+      "residual": 0.15397840068601018,
+      "indicator_Ha": 0.0840545246832704,
+      "absolute_tangent_defect": 2.1917623448074782e-11,
+      "no_spectrum_error_bound": true
+    },
+    "expanded_metrics": {
+      "raw_norm": 9762.274111042298,
+      "tangent_norm": 2.162963036280745,
+      "residual": 0.22131616474213398,
+      "indicator_Ha": 0.08460335580809865,
+      "absolute_tangent_defect": 2.0391868564378688e-11,
+      "no_spectrum_error_bound": true
+    },
+    "full_minus_native_preconditioned_norm": 1.1872735757600027e-14,
+    "expanded_reported_EOL_Ha": -14067.446791017735,
+    "baseline_reported_EOL_Ha": -14067.43131550464,
+    "expanded_fixed_wave_transition_shifts_cm1": [
+      468.0649186095487,
+      673.7040794496625,
+      149.14131401822453,
+      160.82304122468898
+    ],
+    "gradient_work_actual": {
+      "gradients": [
+        {
+          "signed_keys": 17474,
+          "negative_coefficients": 8840,
+          "pair_sources": 706,
+          "term_references": 34834,
+          "target_P_Q_MVs": 12004,
+          "one_body_MVs": 31
+        },
+        {
+          "signed_keys": 19828,
+          "negative_coefficients": 9982,
+          "pair_sources": 706,
+          "term_references": 39542,
+          "target_P_Q_MVs": 15458,
+          "one_body_MVs": 31
+        },
+        {
+          "signed_keys": 17687,
+          "negative_coefficients": 8710,
+          "pair_sources": 687,
+          "term_references": 35268,
+          "target_P_Q_MVs": 14904,
+          "one_body_MVs": 31
+        }
+      ],
+      "geometry_cache_bytes_peak": 34181448
+    },
+    "no_spectrum_error_bound": true
+  },
+  "inference": [
+    "The same original baseline direction is descending in both aggregate EOL models; its B signed action is about98.5% of A. It is an economical common probe; this is not a finite-step descent guarantee.",
+    "Raw tangent gradients remain almost parallel, while the shared inverse metric emphasizes a changed direction enough to rotate pg. No Hessian/stiffness cause or superior optimizer has been measured. Same-metric B residual is about44%larger even though tangent norm is slightly smaller.",
+    "Filtering/actualnorm route differences (~1.19e-14 preconditioned norm) are negligible compared with measured pgB-pgA (~0.1604). This isolates these represented route effects at this point; it does not certify the general derivative or missing-physics budget.",
+    "Indicator changes0.0840545->0.0846034Ha are metric diagnostics, not predicted spectral errors. The EOL change and EOL directional actions cannot determine four individual upper-minus-lower responses."
+  ],
+  "experiment": {
+    "anchor": "Literal13 is chosen by the already bound A/B pair, not its lower NIST RMS. Terminal16 remains the production continuation endpoint; no rewind or spliced13 correction.",
+    "fixed": "Native f043,Z70,A175 Fermi,69electrons,31wholeP/Q,ns123, original nuclear no-pair projector/inverse metric, original531 signed tracker and equal five0.2UID weights; all91configs/1595CSFs in A and all100configs/2574CSFs in B.",
+    "direction": "Use the complete archived full-normalized baseline pg_A[3689]; p=-pg_A, including every same-kappa rotation and coordinate. No masking, refitting or newly rescaled metric.",
+    "predeclared_step": {
+      "alpha": 0.0625,
+      "first_order_coordinate_step_norm": 0.009623650042875636,
+      "units": "original S-orthonormal no-pair coordinates",
+      "basis": "This dyadic step keeps alpha*norm(p)<0.01 and is frozen before evaluating trial energy or NIST. It is a new diagnostic step, not a retuned old h or success-selected checkpoint.",
+      "linear_EOL_prediction_Ha_A": -0.0105068155854088,
+      "linear_EOL_prediction_Ha_B": -0.010349811161321382,
+      "prediction_scope": "First-order aggregate EOL only; not line derivative, finite response, uncertainty or acceptance proof."
+    },
+    "trial": "Apply the unchanged native polar retraction to Y+alpha*p in every complete same-kappa group. Both arms consume exactly the same reconstructed Rdelta[31P/Q].",
+    "points": [
+      "A(R0)",
+      "B(R0)",
+      "A(Rdelta)",
+      "B(Rdelta)"
+    ],
+    "measure": "All5 fresh eigenenergies/signed states at each point; every4 line X_C=E_upper,C-E_lower,C, D/P centroids/splittings; I_line=[X_B(Rdelta)-X_A(Rdelta)]-[X_B(R0)-X_A(R0)]. Report absolute lower and upper motions separately.",
+    "descent_diagnostic": "Report original1e-4 Armijo inequality for each EOL against measured baseline action, with ordinary/retained-quotient semantics separate. Neither passing inequality nor directional negativity certifies the old failed FD or optimizer.",
+    "stop": "One shared alpha, no backtracking/h/cutoff/seed/weight scan. Failure of representation, full residual/Gram/UID/resource gates stops and retains failure. Either sign or NIST-gap movement of a valid conditional response is a result.",
+    "after_result": "Only if shared finite controls/identity hold can a separate derivative-qualified bounded joint five-state MCDHF continuation be considered. Expanded model objective/source identity must be explicit; a same-point interaction is not an additive terminal16 correction."
+  },
+  "admission_prerequisites": [
+    "A and B need their own freshly generated native retained H/CI owners from ci_solve(retain_hamiltonian=True), complete canonical signed CSF order and common waves/nucleus/operator. The archived B spectrum owner:null is a valid conditional input here but cannot supply a new optimizer/mixed-increment owner.",
+    "Bind and compare fresh R0 matrices/eigenpairs to each model own stored reference. Preserve the original cross-model nested-byte FAIL and its tiny conditional arithmetic bound; do not redefine its criterion or mislabel a new model-local pass as upgrading it.",
+    "Keep all eigenpair residual1e-8Ha, complete CI/radial Gram1e-10, original S-squared projector leak1e-12 and full signed physical UID/subspace gates. No sorted-column substitution or reference reset.",
+    "Install angular primitive observers before any baseline/expanded/reference CSF enumeration, signature or cache warmup. The closed-gradient128 nullspace cap covered only a late observed window. Derive a complete SOURCE integer upper census over all retained subshell occupations/J channels and actual native cache/callee paths; freeze that whole-work cap before execution. No blind inheritance of128 or false whole-call zero.",
+    "Use standalone paired finite physics measurement; original ordinary StageB derivative gates remain failed. Existing mixed_ci_energy_difference is diagnostic-only, fixed-density increment rejects tracked mixed blocks; no automatic adapter or optimizer adoption. Any later derivative qualification must test actual direction/finite CI response using unchanged ordinary and separate centered gates.",
+    "Freeze input/header/source/owner/primitive/resource contract and host admission first; retain precise actual-vs-source-derived counter coverage. Current source migration and multi-bank PCFI are independent changes."
+  ],
+  "prospective_work": {
+    "complete_H_builds": 4,
+    "complete_CI_calls": 4,
+    "full_block_CI_eigh": 20,
+    "new_gradients": 0,
+    "optimizer_calls": 0,
+    "new_orbital_or_cutoff_generator": 0,
+    "complete_angular_structures_for_two_models": 10,
+    "A_structural_radial_keys": 19589,
+    "B_structural_key_union_upper": 70971,
+    "four_H_and_full_C_dense_bytes": 293424032,
+    "basis_hS_native_builds_cap": 28,
+    "CPU": 27,
+    "threads": 1,
+    "AS_GiB": 8,
+    "inner_seconds": 900,
+    "outer_seconds": 915,
+    "host_load1_max": 16,
+    "MemAvailable_GiB_min": 10,
+    "interpretation": "Whole cold/warm allocations and actual scalar radial/hS getters must be SOURCE-counted in the new contract. Wall/AS stops are not completion/timing promises. No fresh gradient is needed to measure I; poststep stationarity remains unmeasured. Full angular nullspace cap is not yet derived."
+  },
+  "PCFI_disposition": "Keep common-orbital MCDHF->RCI main route. The bound assessment finds cross-bank H/S ownership, generalized CI, partition/frozen-reference policy and joint-state consumers unimplemented; existing per-block statisticalDF is not PCFI. Keep its small N=2/sixCSF cofactor/exterior-power qualification as a separate optional development line. Current g/pg evidence does not establish a need, accuracy or speed benefit for Yb multi-bank migration.",
+  "unmeasured": [
+    "Four line-specific derivatives, finite paired responses and correlation-by-relaxation interaction.",
+    "Ordinary FD consistency/whole gradient certificate, poststep stationarity and full correlation/radial convergence.",
+    "Current-point complete Breit/QED/recoil shifts, PCFI Yb implementation/qualification, controlled performance."
+  ],
+  "performed": {
+    "NPZ_stat_hash_load_header_access": 0,
+    "numerical_imports": 0,
+    "H_CI_gradient_optimizer": 0,
+    "source_edits": 0,
+    "frozen003_edits": 0,
+    "cards_timers": 0,
+    "automatic_dispatch": false
+  },
+  "documentation": "New two-file decision only; root owns current guides/RESULTS/EARS. No new cross-task rule or certification."
+}

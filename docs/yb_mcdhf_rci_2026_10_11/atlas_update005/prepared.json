@@ -1,0 +1,1524 @@
+{
+  "all_data_preparation_checks_passed": true,
+  "checks_count": 375,
+  "checks": [
+    {
+      "name": "prospective_contract",
+      "passed": true
+    },
+    {
+      "name": "exact_preimage_manifest",
+      "passed": true
+    },
+    {
+      "name": "all_old_assets_and_hosting_exact",
+      "passed": true
+    },
+    {
+      "name": "all_closed_input_bytes_exact",
+      "passed": true
+    },
+    {
+      "name": "closed_successful_runtime",
+      "passed": true
+    },
+    {
+      "name": "closed_metadata_scope",
+      "passed": true
+    },
+    {
+      "name": "actual_source_f043",
+      "passed": true
+    },
+    {
+      "name": "complete1046_all29_same_five_weights",
+      "passed": true
+    },
+    {
+      "name": "ordinary_reported_EOL_no_callback",
+      "passed": true
+    },
+    {
+      "name": "FAIL_flags_preserved",
+      "passed": true
+    },
+    {
+      "name": "original_gates",
+      "passed": true
+    },
+    {
+      "name": "unique_same6s_ASD_zero",
+      "passed": true
+    },
+    {
+      "name": "unique_unchanged_ASD/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "unique_unchanged_ASD/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "unique_unchanged_ASD/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "unique_unchanged_ASD/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "all17_ordered_points",
+      "passed": true
+    },
+    {
+      "name": "point0/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point0/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point0/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point0/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point0/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point0/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point0/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point0/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point0/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point0/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point0/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point1/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point1/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point1/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point1/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point1/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point1/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point1/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point1/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point1/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point1/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point1/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point2/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point2/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point2/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point2/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point2/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point2/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point2/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point2/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point2/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point2/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point2/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point3/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point3/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point3/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point3/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point3/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point3/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point3/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point3/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point3/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point3/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point3/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point4/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point4/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point4/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point4/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point4/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point4/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point4/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point4/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point4/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point4/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point4/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point5/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point5/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point5/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point5/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point5/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point5/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point5/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point5/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point5/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point5/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point5/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point6/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point6/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point6/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point6/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point6/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point6/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point6/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point6/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point6/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point6/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point6/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point7/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point7/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point7/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point7/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point7/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point7/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point7/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point7/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point7/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point7/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point7/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point8/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point8/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point8/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point8/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point8/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point8/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point8/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point8/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point8/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point8/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point8/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point9/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point9/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point9/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point9/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point9/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point9/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point9/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point9/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point9/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point9/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point9/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point10/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point10/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point10/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point10/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point10/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point10/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point10/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point10/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point10/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point10/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point10/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point11/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point11/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point11/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point11/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point11/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point11/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point11/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point11/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point11/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point11/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point11/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point12/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point12/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point12/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point12/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point12/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point12/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point12/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point12/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point12/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point12/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point12/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point13/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point13/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point13/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point13/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point13/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point13/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point13/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point13/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point13/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point13/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point13/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point14/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point14/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point14/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point14/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point14/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point14/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point14/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point14/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point14/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point14/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point14/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point15/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point15/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point15/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point15/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point15/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point15/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point15/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point15/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point15/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point15/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point15/original_failures",
+      "passed": true
+    },
+    {
+      "name": "point16/manifest_array_identity",
+      "passed": true
+    },
+    {
+      "name": "point16/metric_geometry_objective_source",
+      "passed": true
+    },
+    {
+      "name": "point16/five_UIDs",
+      "passed": true
+    },
+    {
+      "name": "point16/signed_tracker/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_lower_gap/6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "point16/signed_tracker/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_lower_gap/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_ASD_UID/5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/signed_tracker/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_lower_gap/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_ASD_UID/5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "point16/signed_tracker/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_lower_gap/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_ASD_UID/6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "point16/signed_tracker/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_lower_gap/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/same_ASD_UID/6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "point16/moments/5d",
+      "passed": true
+    },
+    {
+      "name": "point16/moments/6p",
+      "passed": true
+    },
+    {
+      "name": "point16/RMS_and_reported_EOL",
+      "passed": true
+    },
+    {
+      "name": "point16/original_failures",
+      "passed": true
+    },
+    {
+      "name": "terminal_only_no_best_gap_selection",
+      "passed": true
+    }
+  ],
+  "new_models": 1,
+  "total_models": 17,
+  "total_rows": 68,
+  "trajectory_points": 17,
+  "contract_sha256": "447db4d1032d7478f50a80ede99f269fc8ce95fe59fa9be01331a05fed5e4ebc",
+  "builder_sha256": "887de8a19e8ad6b441de11d74850fa127115143f73babc2a4f0cca46d8d7a9d0",
+  "overlay_sha256": "5dbce86488046470b691292491434b7a5c03dbd29ddaa0572b3c0562dafb769f",
+  "assets_sha256": {
+    "dist/evidence/yb-correlated29-run003-endpoint16/RESULTS.md": "853845d6f6b999289c05c76184c68e0a950c40647e04cf3ede52ef9d9e17663b",
+    "dist/evidence/yb-correlated29-run003-endpoint16/actual-result.json": "d73ce5d790786a719a31d08a87c84a13194c7dc358cb060faced9b6008e12f6d",
+    "dist/evidence/yb-correlated29-run003-endpoint16/completion.json": "277586b6e4161a54cd135aebd6cbcc7bd6e414554af01d48c7910df87d8d6727",
+    "dist/evidence/yb-correlated29-run003-endpoint16/contract.json": "97744a8356c10d09381efc2d1e791657ac47a4274759149df05e77d2d4a7f83a",
+    "dist/evidence/yb-correlated29-run003-endpoint16/execution_contract.json": "71347989fe8a495c0211307585c5a21b7e49d32a5d49c81b5d6fe53a01d53e6c",
+    "dist/evidence/yb-correlated29-run003-endpoint16/root_execution.json": "87db434fb353c5356f18fe08817148ca8c00a4de6261b8d3a728b53a8f713d1f"
+  },
+  "completion_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/completion.json",
+  "science_calls": 0,
+  "publication_performed": false
+}

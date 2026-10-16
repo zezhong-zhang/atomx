@@ -1,0 +1,72 @@
+{
+  "status": "actual_live_control_closed_pass",
+  "closed_utc": "2026-10-11T14:05:51.653128+00:00",
+  "all_completion_metadata_checks_passed": true,
+  "checks": [
+    {
+      "name": "closedexit0",
+      "passed": true
+    },
+    {
+      "name": "all104livegates",
+      "passed": true
+    },
+    {
+      "name": "no_retries_and_frozen_preparation",
+      "passed": true
+    },
+    {
+      "name": "exactlivecalls",
+      "passed": true
+    },
+    {
+      "name": "allattemptscompleted",
+      "passed": true
+    },
+    {
+      "name": "historical_failures_and_nooptimizer",
+      "passed": true
+    }
+  ],
+  "manifest_sha256": {
+    "actual/all_gradients_metric.npz": "c1d06c41f25ce1ea1159f9fa26f98df01ce910757f20305181fb42401d9c9251",
+    "actual/captured_CI_hS_01.npz": "ba07f98c34afd6f220ac8c66f5fafce369804bb0ecc05007f60ecf08385038f8",
+    "actual/captured_CI_hS_02.npz": "a5d2ef5af96cf94621dd56b27c6736e050ae3a8d13cf95625a9080a0e6266e03",
+    "actual/captured_CI_hS_03.npz": "18f17fb61bdbc461eee0236ee661d646a6e6a09a42110d258c496fbad3bcb3e4",
+    "actual/captured_CI_hS_04.npz": "66c9974c080cf88d1fe1477d59220c35a5e4598837fea276a2738482f7041532",
+    "actual/captured_CI_hS_05.npz": "b6033d65f5a5bcf7dc5df125f1e286ac20c6346ac626dd95561b3ab623325d4f",
+    "actual/captured_CI_hS_06.npz": "162e42ee0141f3507c277f1714b69e173a4ca6ce09e97e2c7299559dca920e0a",
+    "actual/captured_CI_hS_07.npz": "26c6ff5d634701db6acbb2dbb0bb474d01d28fd027f43ebba8aa59e2e12f424d",
+    "actual/captured_initial_hS_01.npz": "18f17fb61bdbc461eee0236ee661d646a6e6a09a42110d258c496fbad3bcb3e4",
+    "actual/captured_initial_hS_02.npz": "b6033d65f5a5bcf7dc5df125f1e286ac20c6346ac626dd95561b3ab623325d4f",
+    "actual/captured_initial_hS_03.npz": "26c6ff5d634701db6acbb2dbb0bb474d01d28fd027f43ebba8aa59e2e12f424d",
+    "actual/captured_initial_hS_04.npz": "a5d2ef5af96cf94621dd56b27c6736e050ae3a8d13cf95625a9080a0e6266e03",
+    "actual/captured_initial_hS_05.npz": "162e42ee0141f3507c277f1714b69e173a4ca6ce09e97e2c7299559dca920e0a",
+    "actual/captured_initial_hS_06.npz": "66c9974c080cf88d1fe1477d59220c35a5e4598837fea276a2738482f7041532",
+    "actual/captured_initial_hS_07.npz": "ba07f98c34afd6f220ac8c66f5fafce369804bb0ecc05007f60ecf08385038f8",
+    "actual/delta_gradient.npz": "cb586e4e84d2a2e4eb0529d2c218efc8133e3a4ecc778062fda520c57b165bf9",
+    "actual/fresh_baseline.npz": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87",
+    "actual/logical_gradients.npz": "b23216b3bb2ad4901bed38e411dbe5136cab8adb3ad7be84a59f41cb41ba8c7f",
+    "actual/owner.json": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01",
+    "actual/progress.json": "714295d1a54fff6190b9a6acd521c13358d3f0accd089ffad8ff6d46aad7e9e6",
+    "actual/result.json": "4d448b6deaca133ac7e7075d56a921605d55cd28a69ff4c09c0ff3aa11ea228c",
+    "actual/signed_tables.json": "490b8631dc74da22c76a6c116cfd625f286de6b2f78a1abd6e477efdc1c2c5ae",
+    "run.py": "2fbfbbfa978a8812eca8b9b5bd683cc7dba53f016fc0306a775f85bded2f1df3",
+    "contract.json": "cf786edf46ae694cbc1c93554f768084bb15c12fb537a662d2a48b259fb8a7aa",
+    "preparation_verification.json": "ab9221af92609d9328399c5a5486e26a5c2388a4d3036a06ee37a506894e3990",
+    "handoff.json": "aaea82a68c11aca1c396362f0eab996af858f7ad192f48658f8d7003fadafda2",
+    "execution_contract.json": "40ce4a39274b03406a86978d955fb3ad18be33e5a56468ab47788f1f27f53c0e",
+    "root_authorization_message.json": "15d47cb1071c997d88db33d26ad3b457c92e269f6f8a0766b6c2dcf855d80f8f",
+    "root_launch.py": "8e2a2aaf85079d85d844e0df161fc0989e016d538b0dce516aab63f94bfcfd5b",
+    "root_execution.json": "188c3dda6701ac80f6d1e144cbb043f1f802433a853b5cdc4804566c1c39b9bd",
+    "root_execution.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "RESULTS.md": "90a4e29156298c06570cfd6590d4087e0d9af40e158209292a617c71222a1aa0"
+  },
+  "numeric_proof_origin": "104 actual scientific controls in the sole frozen live consumer; completion checks read JSON/hashes only, no independent second gradient or saved numerical replay",
+  "additional_physical_calls": 0,
+  "additional_numerical_imports": 0,
+  "stationarity_passed": false,
+  "historical_failures_unchanged": true,
+  "new_optimizer_authorized": false,
+  "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794"
+}

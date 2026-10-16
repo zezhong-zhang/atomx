@@ -1,0 +1,65 @@
+{
+  "fields": {
+    "energies": {
+      "shape": [
+        2574
+      ],
+      "dtype": "<f8",
+      "bytes": 20592,
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        2574,
+        2574
+      ],
+      "dtype": "<f8",
+      "bytes": 53003808,
+      "fortran_order": true
+    },
+    "keys": {
+      "shape": [
+        31,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 496,
+      "fortran_order": false
+    },
+    "P": {
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504,
+      "fortran_order": false
+    },
+    "Q": {
+      "shape": [
+        31,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 30504,
+      "fortran_order": false
+    },
+    "old_to_expanded": {
+      "shape": [
+        1595
+      ],
+      "dtype": "<i8",
+      "bytes": 12760,
+      "fortran_order": false
+    }
+  },
+  "selected_fields": [
+    "energies",
+    "mixing",
+    "keys",
+    "P",
+    "Q",
+    "old_to_expanded"
+  ],
+  "cumulative_decoded_bytes": 93877328
+}

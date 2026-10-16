@@ -1,0 +1,35 @@
+{
+  "execution_authorized_by_root": true,
+  "driver_sha256": "39a24a498e0cdb9217d8b91d3e60611827c1d8fbce9c2133ff61664b7e74dd69",
+  "helper_sha256": "a5270e1701746135676beb976644b5f993ec92e05019f89d87163690c947ab43",
+  "launcher_sha256": "52624d0c648f05cd20ac7307fdaac88ce10f2b62cbb312be3567481888e1e4b2",
+  "contract_sha256": "1c7541074eeb3e824c8348decc1534819c2b2e7b9fedc186e701839e2842a97d",
+  "preparation_sha256": "bae4ac0868e442eb2e96cbfea32c43127b2ee08d4773148ce3f619094fb3a980",
+  "CPU": 30,
+  "controller_CPU": 0,
+  "max_H": 14,
+  "max_CI": 14,
+  "max_gradient": 14,
+  "max_scipy_eigh": 70,
+  "wall_seconds": 300,
+  "combined_RSS_GiB": 3.95,
+  "root_reserves_no_other_H_CI_gradient": true,
+  "both_history32_pilots_foreground_closed": true,
+  "purpose": "controlled_warm_fresh_complete29_trial_gradient_scoped",
+  "history32_pilot_receipts_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history10/root_execution.json": "b8187375c53677320e41a5e668409050d6d3f1507abea1dd6353b39d99ea70c9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/history40/root_execution.json": "779b187afe22a8a45ac7fbf47b34a9b4945f402d6275e7821a0eb46b3e9d0c78"
+  },
+  "created_utc": "2026-10-11T17:09:29.704643+00:00",
+  "handoff_sha256": "87d38ed0d710bd5167c3251149b08b93ef162fad55d251d38915aba20b4f0d47",
+  "root_read_literal_helper_and_timer_boundary": true,
+  "root_reserves_no_browser_Dirac_optimizer_GPU": true,
+  "actual_card_message": "om_x100b638847e328a0c3481985e0c6222",
+  "actual_card_proof_sha256": "1fdca9428d73bd08d76f989c8e588f80ea44c7c69bde6a6310835078a0014b80",
+  "hourly_service_actual_status": "waiting_for_evidence_repair_no_scientific_jobs",
+  "host_load": [
+    9.1103515625,
+    9.14208984375,
+    9.22216796875
+  ]
+}

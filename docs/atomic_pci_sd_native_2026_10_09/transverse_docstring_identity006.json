@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "transition": "Two docstrings updated after numerical panels; all executable Python AST remains identical.",
+  "file": "src/atomx/physics/csf/spinor_integrals.py",
+  "before_sha256": "70b52e3705e59a3bad3219b4c17808242ef3061f393886824921296499168b97",
+  "after_sha256": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+  "executable_AST_sha256": "6f33b22177f05c819033525c08d13b97fdd7d3bd64af14b8df5f67512917858d",
+  "numerical_evidence": "transverse_integrals004/result.json and transverse_native_dc005/result.json; historical exact source preserved.",
+  "no_new_numerical_test_claim": true
+}

@@ -1,0 +1,74 @@
+{
+  "status": "source-only prospective; root source-edit seal and separate no-physics validation seal required",
+  "shared_test_current_sha256": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+  "archived_original_sha256": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+  "archive_repo_path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/test_source_archive/045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8/test_mixed_ci_finite_increment.py",
+  "candidate_new_test_sha256": "7b3a2eed70005b359e3b403ee2c14c76001f49fb6532f727f14593e04113608c",
+  "physical_source_map_unchanged": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "allowed_source_edit": [
+    "tests/test_mixed_ci_finite_increment.py"
+  ],
+  "exact_allowed_changes": [
+    "pytest.fail->pytest.skip only absent resource-driver outputenv",
+    "central point slice [1+6d:3+6d]->[3+6d:5+6d] selects±1e−6",
+    "central denominator2e−4->2e−6"
+  ],
+  "preserved": {
+    "derivative_relative": 1e-05,
+    "derivative_absolute": 1e-08,
+    "physical_source": true,
+    "old_coarse_failed_result": true,
+    "all_old_contracts_proofs_results": true,
+    "thirteen_point_fixture": true,
+    "all_other_tests": true
+  },
+  "replay_disposition": {
+    "old_direct_working_tree_checks": "Historical exact oldepoch checks remain unchanged; aftertesteditcurrentepochdiff mustnot be called historical scientificfailure or overwritten.",
+    "new_historical_content_consumer": "Declared exact originalpath+045ee maps only to immutablearchive; all otherbindings unchanged.",
+    "executable_metadata_replay": "Isolated rootrealcopies at originalpaths, exactoldtests plus frozen356source/354comparator/scripts/boundassets; never temporarilyreplace newworkingtree or execute archivepathdirectly.",
+    "physics_rerun": false
+  },
+  "proposed_validation": {
+    "scope": "ordinary sharedpanel without resource outputenv; no13pointfixture execution",
+    "expected_synthetic_response_cases": 12,
+    "expected_resource_fixture_skipped_cases": 32,
+    "expectation_not_yet_measured": true,
+    "CPU": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 30,
+    "BLAS_threads": 1,
+    "maximum_native_H_CI_gradient_radial_optimizer_calls": 0,
+    "NumPy_imports_allowed": true,
+    "physical_constructors_allowed": false
+  },
+  "prerequisites": {
+    "guard003_actual_result_sha256": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a",
+    "guard003_completion_sha256": "a11a9060213cb7de0681989421d8172ddce5888dcb2689a3a0bf5b2297a853ae",
+    "genuine_owner_sha256": "c69c023265f4d633ad57edeea2038932141b1b648ee0031dffd3629bfb2da019",
+    "Yb_qualification": false
+  },
+  "authorization": {
+    "shared_test_source_edit": false,
+    "test_execution": false,
+    "oldscientificfile_mutation": false
+  },
+  "inputs_sha256": {
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/test_source_archive/045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/test_source_archive/045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8/archive_identity.json": "125f98a28deab60f3c521f120fc4a12692d39a5484d7e48423fafe7c9125b89c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_test_hygiene_proposal/candidate_test_mixed_ci_finite_increment.py": "7b3a2eed70005b359e3b403ee2c14c76001f49fb6532f727f14593e04113608c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_test_hygiene_proposal/historical_binding_inventory.json": "69e690aa6b354f1418b988e28426d4602aa00360cff83a7abf44908283d0ed11",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_test_hygiene_proposal/historical_test_identity.py": "5d066250bd31ab7f02807586b7b353fd7162e430c90d489d2bb6f5b33d45484f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_test_hygiene_proposal/README.md": "6fe27378cff436313a5f214d2d3050651ede8958577ee8a9676645d9f7564f24",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/contract.json": "34ff16dc46ea6eddd3e8b2facce8d08f3d08249f0721d63270fccd1c6bb896ab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/execution_contract.json": "e4965fd16172d16e3e4bd6085777e32088bcd6cfb2dda46b4955204ace1672d7",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/baseline_owner_validation.json": "c69c023265f4d633ad57edeea2038932141b1b648ee0031dffd3629bfb2da019",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/calls.json": "d985a7f75e180355e088eea0d233d0821c8444cf89559ba414a76bb3adacfae3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/completion.json": "a11a9060213cb7de0681989421d8172ddce5888dcb2689a3a0bf5b2297a853ae",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/RESULTS.md": "a14488043811625b7fafa81afdb34de321ef3be1de211b2ec528783378938baa",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3"
+  }
+}

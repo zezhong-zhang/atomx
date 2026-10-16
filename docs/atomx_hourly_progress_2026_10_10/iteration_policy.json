@@ -1,0 +1,31 @@
+{
+  "version": "gap-policy-001",
+  "scope": "Atomic accuracy first; evidence-guided bounded actions, never a highest-level certificate",
+  "backend_strict_Ha": 1e-10,
+  "oracle_Ha": 1e-11,
+  "plateau_min_cases": 3,
+  "plateau_relative_spread": 0.02,
+  "whole_transverse_scales": [0.5, 1.5],
+  "caps": {
+    "timeout_s": 600,
+    "process_address_bytes": 4294967296,
+    "service_memory_bytes": 6442450944,
+    "threads": 1,
+    "minimum_available_bytes": 1073741824,
+    "minimum_free_disk_bytes": 134217728
+  },
+  "selection_order": [
+    "Reject invalid evidence, unchanged-source failures and incomplete oracle gates",
+    "Stop radial scans when three distinct ns cases establish a stable unresolved operator defect",
+    "Partition the complete signed effective operator by retained core-hole count",
+    "Compare two explicitly changed whole-transverse Hamiltonians to their own complete FCI",
+    "Emit the unresolved implementation frontier when available distinguishing experiments are exhausted"
+  ],
+  "invariants": [
+    "Keep original gates and complete physical spaces",
+    "Reuse immutable source-bound integrals instead of rebuilding radial data",
+    "Use public integral ABI and Bloch oracle; scheduling never owns physics",
+    "Record estimates separately from measured timing; finite diagnostics use one CPU",
+    "No repeated identical source/input/action job, no arbitrary generated commands, no automatic scientific-pass promotion"
+  ]
+}

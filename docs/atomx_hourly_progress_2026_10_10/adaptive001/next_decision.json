@@ -1,0 +1,279 @@
+{
+  "version": "gap-policy-001",
+  "highest_level_reached": false,
+  "requirements": [
+    "Keep original gates and complete physical spaces",
+    "Reuse immutable source-bound integrals instead of rebuilding radial data",
+    "Use public integral ABI and Bloch oracle; scheduling never owns physics",
+    "Record estimates separately from measured timing; finite diagnostics use one CPU",
+    "No repeated identical source/input/action job, no arbitrary generated commands, no automatic scientific-pass promotion"
+  ],
+  "frontier": [
+    {
+      "gap": "noncanonical_fscc_operator",
+      "direction": "优先审计非 canonical 核—价 Fock 耦合的线性依赖图项，推导完整 0h1p 方程并验证候选后端。",
+      "runnable": false,
+      "dependency": "完整图项候选实现尚未注册；诊断不等于已修复方程。"
+    },
+    {
+      "gap": "yb_physical_space_and_experiment",
+      "direction": "五态共同空间 lmax=3/4 × Emax=5/10 Ha 的尾部收敛，随后核响应与 dressed E1/E2/M1。",
+      "runnable": false,
+      "observed_max_relative_error": 0.041412604047273115,
+      "dependency": "需先完成完整空间的资源预估和有结果契约的生产任务接入。"
+    },
+    {
+      "gap": "native_sd_transverse",
+      "direction": "复用 signed 横向积分与约化角代数，补齐原生 SD 横向图项；不把冻结核能移拼入旧 SD。",
+      "runnable": false,
+      "dependency": "现有原生 J 约化 SD 消费器仍只覆盖 DC。"
+    },
+    {
+      "gap": "performance_certification",
+      "direction": "保持同 H／空间／门限，测主耗时与数据搬运，做冷热 CPU/GPU 成对端到端计时。",
+      "runnable": false,
+      "dependency": "当前有限诊断不支持大规模 GPU 性能认证；不得由小矩阵计时外推。"
+    }
+  ],
+  "job": null,
+  "deferred": [
+    {
+      "direction": "继续径向细化扫描",
+      "reason": "同模型多点误差平台已确认，先转向完整算符诊断。"
+    }
+  ],
+  "gap": {
+    "kind": "stable_operator_defect",
+    "mode": "dynamic",
+    "ns": [
+      42,
+      60,
+      80,
+      100
+    ],
+    "maximum_Ha": 8.749847513200848e-10,
+    "relative_spread": 7.35932087171917e-06,
+    "strict_gate_Ha": 1e-10,
+    "whole_transverse_response": [
+      {
+        "scale": 0.5,
+        "defect_Ha": 4.402015418847327e-10,
+        "ratio": 0.503099946403448
+      },
+      {
+        "scale": 1.5,
+        "defect_Ha": 1.3043351954067361e-09,
+        "ratio": 1.4907057437638178
+      }
+    ],
+    "relative_linear_response_deviation": 0.006199892806896035
+  },
+  "status": "implementation_frontier",
+  "direction": "优先审计非 canonical 核—价 Fock 耦合的线性依赖图项，推导完整 0h1p 方程并验证候选后端。",
+  "reason": "此平台的可执行区分实验已完成；下一步需要新图项实现，继续旧网格扫描不能代替修复。 实测全横向响应：λ=0.5，差 4.402e-10 Ha，相对原差 0.5031；λ=1.5，差 1.304e-09 Ha，相对原差 1.4907。这些变化只支持审计方向，尚未确定缺失图项。",
+  "evidence": [
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/result.json",
+      "sha256": "be073983cb9b3f44027182f0c9bfdeee7e84a34de2617c88b1b16bdd786cd164"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/fscc/integrals.json",
+      "sha256": "6755dec19b9ae93f335c9e32a425e6fd77c2e900660ebbb3a62b182e33120ed7"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/contract.json",
+      "sha256": "4eed932dfb85d3187b66d5c112f5d1ad0465be643de2749de910d9863c27bb66"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic/full_arrays.npz",
+      "sha256": "e91839b74f7bafafe72db8860312781a2d142c010e3f5cfb37eea8684e296458"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_DC/result.json",
+      "sha256": "c94201b8962e1f855e3fb035278b725e1864c737df341fb009d70643df340da5"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_DC/fscc/integrals.json",
+      "sha256": "6bd2b2c198e3835862f6bc4677827938f21c916ace5717482a1044d1c48595c5"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_DC/contract.json",
+      "sha256": "98d4d4a6f827300c2b65c3d1934a3df1763b6c6b295ad013bcf203d9077870a5"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_DC/full_arrays.npz",
+      "sha256": "3f2b21bdac28e3f25d86a7ab289000227f3f3d59727aa959026c8990bae863d3"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_dynamic/result.json",
+      "sha256": "6e3ba335578a5b689960241c75b428345589ec67d6d041ebd8bc24bb95d25996"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_dynamic/fscc/integrals.json",
+      "sha256": "7026203441d9914c142da70a1608a53214f85283a71e39396491fe77cee22ca4"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_dynamic/contract.json",
+      "sha256": "db5138655ac075a4263f9477ca01c202f7bcb3dfd2946782cee12373381d0aba"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_dynamic/full_arrays.npz",
+      "sha256": "8bc95a450304eb9e47912ab2064e5e76be4eeb187eb4c91acf40e16764fb9e5a"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_static/result.json",
+      "sha256": "347f0f2bf30e3344fdf173374ea562324b2600baa7a25f85d20324aed55b448e"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_static/fscc/integrals.json",
+      "sha256": "191da59f635378a6085bcf69b70d439e1207c325cdfe51a5b9bcf4b4291320e9"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_static/contract.json",
+      "sha256": "06f5259930ddc9f220dba9f39a9322922e079e4d00be6237956cf3dbdb4332c3"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns42_static/full_arrays.npz",
+      "sha256": "f7f3da091013e7065a310a8e87a976b93239dfabf0f313004f7714f02b6695c3"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_DC/result.json",
+      "sha256": "6634aa8b4e687d8b77d9b6282afac781607a1bd837ad3462c790d68cb21632ef"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_DC/fscc/integrals.json",
+      "sha256": "d15ccacf99e18c258ece2cfc0b0b3c79fcabcf12e892b5c7df4e4c44c5873094"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_DC/contract.json",
+      "sha256": "756756c95e80184ff7f7a4b600fb0d9c62088ac6aef23dbe021c7602bfd65af7"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_DC/full_arrays.npz",
+      "sha256": "249c021a2e23801d7d7f8a12f90527bad7503ba6c020311828a3125f804483dc"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_dynamic/result.json",
+      "sha256": "71e4730b0975f795e13f317583d118ac9f64baabfeaeaae12745c2b617155397"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_dynamic/fscc/integrals.json",
+      "sha256": "275bbd0bd92d8d315e9866961ab1b88737426e3be3cab84a1cd469afa2a61876"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_dynamic/contract.json",
+      "sha256": "3f967b838f1935f231ccb9802227423b0e03f0f2eaec1f6261ae50fed1d051a9"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_dynamic/full_arrays.npz",
+      "sha256": "230a187da5b2e63a7e2e1ccac449de3900533ec8eb54bb9e76a8d4aae110a9b5"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_static/result.json",
+      "sha256": "9c335980ba0d50d4c1f7548bb1382f21d9d9b11963a5e317d204640dab8ef803"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_static/fscc/integrals.json",
+      "sha256": "78dc52aae32155a54ce78839d716278d57939196bbdd50607e4b2afdf75d776f"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_static/contract.json",
+      "sha256": "1c95a256c12e50657c062fd0e33a0d6940fb08dfa9f3e61bde4348e0af5c67a3"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns60_static/full_arrays.npz",
+      "sha256": "a1816914bf7ce5fedf0e1994504149d578a92d008da408a386d13aa5c0f903ad"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_DC/result.json",
+      "sha256": "3989e206d6378d46b40ad2d4fa4cd36c272491290670ab18aaaac3a3bcadaedf"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_DC/fscc/integrals.json",
+      "sha256": "7bcfc801f5464e61d2f36c1dec3b24266bf8ab585dbb706cd3e988a75c78e32e"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_DC/contract.json",
+      "sha256": "d1584fef82441387a3e4e26f1c003b43052efc62ab133c5295c00d76e57d58e2"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_DC/full_arrays.npz",
+      "sha256": "87931f259fd54505e4108769269db83f45963b380cc4ddaf24f6d03265924561"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_dynamic/result.json",
+      "sha256": "e400e38151b706bcd34d5be8f55d2e3673e3de59af2990a29085aa035d279cf5"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_dynamic/fscc/integrals.json",
+      "sha256": "cbc6ec72bf5c080dd2a1576063f88e8baff6c49d473fb6ef55b4732eae940f93"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_dynamic/contract.json",
+      "sha256": "e0e0f4142847ad1f9bfb73e11d1bd01d131d17a16c53943fa27384237beee508"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_dynamic/full_arrays.npz",
+      "sha256": "f688851a38f08045e37cd27f3ef9a11013fcf6baa203273118bc2b6ba108a48c"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_static/result.json",
+      "sha256": "6440484cce2610e15de5685b34768c8c35c3e26f428c74aebc005cfcc2610328"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_static/fscc/integrals.json",
+      "sha256": "e75a6f0a6443ce8713e39b52a0be360325cf962e265aaa483cbce24f4561cce4"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_static/contract.json",
+      "sha256": "f6c1576fb1929d834ecea64c079d92125495567f346eee7909b3ed64b3799733"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns80_static/full_arrays.npz",
+      "sha256": "45ba83d2bcfa530fdfef335c71168fadc703738bd255ac06e3b6d766e49b6e20"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_305bc66990493034e3d7/result.json",
+      "sha256": "cf24e9ae98f1d7b276ee93710a4200e9a9cd463b2dff9f2d30c125f55708de4d"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_305bc66990493034e3d7/full_arrays.npz",
+      "sha256": "9c76fa78d6fb98123eadb7821a9e6c3a4b4e718a96a2cabbc6546e1760d8d499"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_bloch_partition_c8e4c816342e38460b57/result.json",
+      "sha256": "a16d38d87c72f8dafdbc56371d303a60b20868559d1ad218124204444a78f577"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_bloch_partition_c8e4c816342e38460b57/full_arrays.npz",
+      "sha256": "8883e3256739024723e596dee9f857e8730e10c09afc1e870214c4f7d199760b"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_8cdb1d19d577277ade5c/result.json",
+      "sha256": "a0238d005be263517080d3a796efcbb134f8401c38ecf5d2101c212812799679"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_8cdb1d19d577277ade5c/full_arrays.npz",
+      "sha256": "20775ba40175c9747df869c1d572baedfaf1d8c5a0ae10f00debae891c611725"
+    },
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/progress.json",
+      "sha256": "03e78d5154ac903cee1729987f3916ed3346bc556b841539b98553fb32a35db8"
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    }
+  ],
+  "policy_sha256": "eb0a96aa68cb3bcf39e8053306b4b6f37df506b603f5b1621fe18fe39a03173f",
+  "planner_sha256": "5e09eac91541f795c2ad311e8b96d08b94ccb2640c2358b1193e7914b39d61b8",
+  "runner_sha256": "6ba5603092cdee16a941015f7f99e5b45f56a0167d84776e2abf76f89c53842d",
+  "caps": {
+    "timeout_s": 600,
+    "process_address_bytes": 4294967296,
+    "service_memory_bytes": 6442450944,
+    "threads": 1,
+    "minimum_available_bytes": 1073741824,
+    "minimum_free_disk_bytes": 134217728
+  }
+}

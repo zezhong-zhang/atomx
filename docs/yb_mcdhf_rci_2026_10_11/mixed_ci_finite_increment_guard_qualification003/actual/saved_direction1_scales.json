@@ -1,0 +1,29 @@
+{
+  "gradient_derivative": 0.012938447545994816,
+  "scales": [
+    {
+      "h": 0.0001,
+      "derivative": 0.012940561696127383,
+      "error": 2.1141501325670775e-06,
+      "unchanged_gate": 1.2938447545994817e-07,
+      "gate_passed": false
+    },
+    {
+      "h": 1e-06,
+      "derivative": 0.012938447771187463,
+      "error": 2.2519264751552637e-10,
+      "unchanged_gate": 1.2938447545994817e-07,
+      "gate_passed": true
+    },
+    {
+      "h": 1e-08,
+      "derivative": 0.012938451539146278,
+      "error": 3.993151462267086e-09,
+      "unchanged_gate": 1.2938447545994817e-07,
+      "gate_passed": true
+    }
+  ],
+  "selected_h": 1e-06,
+  "original_coarse_failure_preserved": true,
+  "new_radial_evaluation": false
+}

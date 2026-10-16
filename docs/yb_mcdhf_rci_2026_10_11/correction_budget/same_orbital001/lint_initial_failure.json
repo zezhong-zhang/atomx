@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "scope": "script imports/style only; numerical run already complete",
+  "errors": [
+    "I001 unsorted import block",
+    "F401 unused recoil_provenance",
+    "F401 unused specific_recoil_provenance"
+  ],
+  "action": "preserve original run_source.py and fix imports only; no scientific recomputation or altered numerical values"
+}

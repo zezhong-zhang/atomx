@@ -1,0 +1,447 @@
+{
+  "status": "saved_JSON_scalar_analysis_only_no_new_physical_execution",
+  "scope": "Only the closed same baseline/h0-plus1595CI,31wave fiveUID producer arithmetic pair; not stationarity or experimental gap attribution.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/actual/result.json": "c2178765aff7afb0a2a2897eeb0d26332b6f0b77cb04dcd6fd6b7be0f54673dd",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/actual/complete_ordered_radial_keys.json": "ffe9db158a3fadfa196685257ab46b8be967ef37f885c272f43ebef49b5f6106",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/root_execution.json": "57ba133937e5aa4bf20deaf188e572b15967b349b2f0a53221cbb07b16033b52",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/run.py": "dc0a7579c9982f2f1cd68d4b07469714eedce41afd07dc05bf4fb8ec6cbbb20b",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/contract.json": "22f0277174d5efcf6c64395057849babb50032f0e08c1df6a4d8dafdee299586",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/convol.py": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe"
+  },
+  "closed_run": {
+    "exit_code": 0,
+    "checks": 191,
+    "all_passed": true,
+    "guards_unchanged": true,
+    "guard_count": 400,
+    "original_001_failure_preserved": true,
+    "original_StageB_FD_failures_preserved": true
+  },
+  "weighted_decomposition_Ha": {
+    "ordinary_endpoint_minus_stored_matrix": 2.667330234705807e-11,
+    "polynomial_minus_ordinary_endpoint": 2.280905297616245e-12,
+    "polynomial_minus_stored_matrix": 2.8954207644674315e-11,
+    "ordinary_minus_stored_fraction_of_total": 0.9212237017290376,
+    "polynomial_minus_ordinary_fraction_of_total": 0.07877629827096246,
+    "h_polynomial_minus_ordinary": 1.8458958921785643e-12,
+    "r_polynomial_minus_ordinary": 4.35009405666563e-13,
+    "right_associated_minus_ordinary_h": 2.0519081496851027e-12,
+    "polynomial_minus_right_associated_h": -2.0601225961882695e-13,
+    "forward_sparse_signed_pair_delta_minus_stored": -1.9987864896212358e-14,
+    "ordinary_endpoint_minus_forward_sparse_signed_pair_delta": 2.669329021195428e-11
+  },
+  "full_key_categories": {
+    "h": {
+      "all_raw_keys": 57,
+      "positive": 30,
+      "negative": 27,
+      "zero": 0,
+      "signed_sum_raw_Ha": 8.957353530369358e-13,
+      "absolute_sum_raw_Ha": 1.2886262819576177e-12,
+      "absolute_over_abs_signed_sum": 1.438623894422174,
+      "largest_positive_raw_errors": [
+        {
+          "key": [
+            "h",
+            1,
+            -1,
+            1
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 5.417748308265935e-13
+        },
+        {
+          "key": [
+            "h",
+            2,
+            -1,
+            2
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 1.625422875051935e-13
+        },
+        {
+          "key": [
+            "h",
+            3,
+            -1,
+            3
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 1.1616064171743023e-13
+        }
+      ],
+      "largest_negative_raw_errors": [
+        {
+          "key": [
+            "h",
+            2,
+            1,
+            2
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -4.489762310634854e-14
+        },
+        {
+          "key": [
+            "h",
+            4,
+            -3,
+            4
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -3.110761662814283e-14
+        },
+        {
+          "key": [
+            "h",
+            3,
+            1,
+            3
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -2.182438811861211e-14
+        }
+      ],
+      "complete_signed_CI_weighted_polynomial_minus_ordinary_Ha": 1.8458958921785643e-12
+    },
+    "r": {
+      "all_raw_keys": 19532,
+      "positive": 9670,
+      "negative": 9862,
+      "zero": 0,
+      "signed_sum_raw_Ha": 7.040251724316046e-14,
+      "absolute_sum_raw_Ha": 1.091703466742979e-12,
+      "absolute_over_abs_signed_sum": 15.506597057778315,
+      "largest_positive_raw_errors": [
+        {
+          "key": [
+            "r",
+            0,
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 2.8100795297383746e-14
+        },
+        {
+          "key": [
+            "r",
+            0,
+            [
+              2,
+              -2
+            ],
+            [
+              2,
+              -2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 1.7334325149278236e-14
+        },
+        {
+          "key": [
+            "r",
+            0,
+            [
+              2,
+              -1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": 1.1540895260198276e-14
+        }
+      ],
+      "largest_negative_raw_errors": [
+        {
+          "key": [
+            "r",
+            0,
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              3,
+              -3
+            ],
+            [
+              3,
+              -3
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -1.0934145252544662e-14
+        },
+        {
+          "key": [
+            "r",
+            0,
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -7.780697309904565e-15
+        },
+        {
+          "key": [
+            "r",
+            0,
+            [
+              2,
+              -1
+            ],
+            [
+              2,
+              -1
+            ],
+            [
+              3,
+              -2
+            ],
+            [
+              3,
+              -2
+            ]
+          ],
+          "polynomial_minus_ordinary_raw_Ha": -7.330314830627738e-15
+        }
+      ],
+      "complete_signed_CI_weighted_polynomial_minus_ordinary_Ha": 4.35009405666563e-13,
+      "raw_rank_census": [
+        {
+          "rank": 0,
+          "all_keys": 1687,
+          "absolute_sum_raw_Ha": 5.461863230221277e-13
+        },
+        {
+          "rank": 1,
+          "all_keys": 4483,
+          "absolute_sum_raw_Ha": 1.88340573337215e-13
+        },
+        {
+          "rank": 2,
+          "all_keys": 7475,
+          "absolute_sum_raw_Ha": 2.4942171889695087e-13
+        },
+        {
+          "rank": 3,
+          "all_keys": 3828,
+          "absolute_sum_raw_Ha": 7.042208609414022e-14
+        },
+        {
+          "rank": 4,
+          "all_keys": 1780,
+          "absolute_sum_raw_Ha": 3.1788381924042594e-14
+        },
+        {
+          "rank": 5,
+          "all_keys": 235,
+          "absolute_sum_raw_Ha": 3.629912811736148e-15
+        },
+        {
+          "rank": 6,
+          "all_keys": 44,
+          "absolute_sum_raw_Ha": 1.9144706567665104e-15
+        }
+      ]
+    }
+  },
+  "per_UID_routes": [
+    {
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "label": "6s_1/2",
+      "stored_matrix_radial_Ha": 4.2317781077091285e-07,
+      "ordinary_minus_stored_Ha": 2.72019021239672e-11,
+      "polynomial_minus_ordinary_Ha": 2.289920081358388e-12,
+      "h_polynomial_minus_ordinary_Ha": 1.851992542964755e-12,
+      "r_polynomial_minus_ordinary_Ha": 4.3792753821210176e-13,
+      "forward_sparse_signed_pair_delta_Ha": 4.2317782473604564e-07,
+      "forward_sparse_minus_stored_Ha": 1.3965132786544136e-14,
+      "forward_dense_minus_sparse_Ha": 0.0,
+      "dense_sparse_amplitude_max": 0.0,
+      "right_associated_h_delta_Ha": 0.00019729851972557106,
+      "right_associated_minus_ordinary_h_Ha": 2.0515642678610446e-12,
+      "polynomial_minus_right_associated_h_Ha": -1.995717245654175e-13,
+      "h_r_delta_cancellation_ratio": 931.4016104054858,
+      "all_signed_key_delta_abs_over_abs_total": 1575.2000225355762
+    },
+    {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "label": "5d_5/2",
+      "stored_matrix_radial_Ha": 2.743646284717307e-07,
+      "ordinary_minus_stored_Ha": 3.3341162627348404e-11,
+      "polynomial_minus_ordinary_Ha": 2.277179296525093e-12,
+      "h_polynomial_minus_ordinary_Ha": 1.843341700521195e-12,
+      "r_polynomial_minus_ordinary_Ha": 4.3383759656527824e-13,
+      "forward_sparse_signed_pair_delta_Ha": 2.7436464974219505e-07,
+      "forward_sparse_minus_stored_Ha": 2.1270464366620126e-14,
+      "forward_dense_minus_sparse_Ha": -5.293955920339377e-23,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "right_associated_h_delta_Ha": 0.0002045809190410118,
+      "right_associated_minus_ordinary_h_Ha": 2.051873780476235e-12,
+      "polynomial_minus_right_associated_h_Ha": -2.0853208020650258e-13,
+      "h_r_delta_cancellation_ratio": 1490.1255885876055,
+      "all_signed_key_delta_abs_over_abs_total": 2518.4253344892822
+    },
+    {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "label": "5d_3/2",
+      "stored_matrix_radial_Ha": 2.714504363131097e-07,
+      "ordinary_minus_stored_Ha": 2.3301409789980354e-11,
+      "polynomial_minus_ordinary_Ha": 2.2797531377886934e-12,
+      "h_polynomial_minus_ordinary_Ha": 1.845391800318801e-12,
+      "r_polynomial_minus_ordinary_Ha": 4.3436133776288197e-13,
+      "forward_sparse_signed_pair_delta_Ha": 2.7145019919021225e-07,
+      "forward_sparse_minus_stored_Ha": -2.371228974523683e-13,
+      "forward_dense_minus_sparse_Ha": 5.293955920339377e-23,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "right_associated_h_delta_Ha": 0.00020428772325250098,
+      "right_associated_minus_ordinary_h_Ha": 2.052095581135671e-12,
+      "polynomial_minus_right_associated_h_Ha": -2.0670378904897186e-13,
+      "h_r_delta_cancellation_ratio": 1504.0275058939746,
+      "all_signed_key_delta_abs_over_abs_total": 2519.9046410436486
+    },
+    {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "label": "6p_3/2",
+      "stored_matrix_radial_Ha": 4.811600724246326e-07,
+      "ordinary_minus_stored_Ha": 2.5064010680504523e-11,
+      "polynomial_minus_ordinary_Ha": 2.2756629818394578e-12,
+      "h_polynomial_minus_ordinary_Ha": 1.8437099270517e-12,
+      "r_polynomial_minus_ordinary_Ha": 4.3195305552174703e-13,
+      "forward_sparse_signed_pair_delta_Ha": 4.811599840391641e-07,
+      "forward_sparse_minus_stored_Ha": -8.838546849637241e-14,
+      "forward_dense_minus_sparse_Ha": -1.0587911840678754e-22,
+      "dense_sparse_amplitude_max": 1.3877787807814457e-17,
+      "right_associated_h_delta_Ha": 0.0001931559809159956,
+      "right_associated_minus_ordinary_h_Ha": 2.052080375200202e-12,
+      "polynomial_minus_right_associated_h_Ha": -2.0837044502506802e-13,
+      "h_r_delta_cancellation_ratio": 801.8343530926238,
+      "all_signed_key_delta_abs_over_abs_total": 1362.4935099197414
+    },
+    {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "label": "6p_1/2",
+      "stored_matrix_radial_Ha": 4.659262129232183e-07,
+      "ordinary_minus_stored_Ha": 2.4458026513489862e-11,
+      "polynomial_minus_ordinary_Ha": 2.2820109905695934e-12,
+      "h_polynomial_minus_ordinary_Ha": 1.84504349003637e-12,
+      "r_polynomial_minus_ordinary_Ha": 4.3696750027080595e-13,
+      "forward_sparse_signed_pair_delta_Ha": 4.659264032566626e-07,
+      "forward_sparse_minus_stored_Ha": 1.9033344431451465e-13,
+      "forward_dense_minus_sparse_Ha": 0.0,
+      "dense_sparse_amplitude_max": 0.0,
+      "right_associated_h_delta_Ha": 0.00019537273154741943,
+      "right_associated_minus_ordinary_h_Ha": 2.051926743752361e-12,
+      "polynomial_minus_right_associated_h_Ha": -2.0688325924817478e-13,
+      "h_r_delta_cancellation_ratio": 837.5983395936353,
+      "all_signed_key_delta_abs_over_abs_total": 1399.1898437111809
+    }
+  ],
+  "exact_native_saved_polynomial_replay": {
+    "explicit": 3.832433996448262e-07,
+    "reconstruction": 1.3867435346158634e-12,
+    "explicit_minus_saved": 0.0,
+    "reconstruction_minus_saved": 0.0
+  },
+  "represented_reconstruction_residual": {
+    "max_abs": 0.0,
+    "signed_sum": 0.0,
+    "absolute_sum": 0.0,
+    "all_components": 7626,
+    "units": "native represented coefficient"
+  },
+  "observations": [
+    "The dominant measured discrepancy is ordinary transpose-table radial-weight contraction versus forward table/stored-H route: about92.1% of the2.8954e-11Ha weighted mismatch. Forward signed-pair delta and full stored-DeltaH agree within2.38e-13Ha perUID; their weighted difference is about-2.00e-14Ha.",
+    "Dense versus genuine sparse projected amplitudes differ at most1.39e-17; corresponding forward signed-pair deltas differ at most1.06e-22Ha. These specific projection representations do not reproduce the dominant2.67e-11Ha mismatch.",
+    "The smaller polynomial-minus-ordinary mismatch splits into h1.846e-12Ha and Coulomb4.350e-13Ha. Right-associated one-body endpoints shift h by2.052e-12Ha; polynomial-minus-right leaves about-2.060e-13Ha. This measured association change substantially reduces the one-body discrepancy, but is not complete causal attribution.",
+    "Native float-normalized/fSum explicit and reconstruction aggregate exactly reproduce saved StageB exported scalars. All7626 represented waveform r+d+e residual components are zero in the recorded longdouble diagnostic; this is not an exact real-arithmetic theorem.",
+    "Ordinary h and Coulomb radial deltas of order2e-4Ha largely cancel to2.7e-7..4.8e-7Ha. All signed absolute key delta sums exceed the net total by about1.4e3..2.6e3. Raw radial-key errors are also signed and cancel; raw key totals are not CI energy contributions."
+  ],
+  "source_hypotheses": [
+    "Forward angular table actions are rounded independently at two endpoints before subtraction, whereas the transpose-density route contracts wide radial-key endpoint differences. Non-associative floating-point reductions and cancellation are source-supported candidates; the current results do not prove the transpose route or the forward route physically wrong.",
+    "One-body left versus right association demonstrably changes this finite difference. Coulomb source uses fastmath _convol_case1_t and separately rounded full versus increment/reconstruction densities and potentials; this is a remaining plausible source, not an isolated measured cause."
+  ],
+  "limitations": [
+    "The key JSON stores raw radial values/errors but omits trial signed angular coefficients. Consequently exact CI-weighted per-key ranking cannot be reconstructed from these saved JSONs. The displayed top positive/negative entries are unweighted raw-integral discrepancies; baseline coefficients have not been substituted.",
+    "Summary arithmetic uses stdlib Decimal at80digits on exact binary64 values parsed from saved JSON. It aggregates exported scalars and does not redo original longdouble vector, norm, angular, radial or Hamiltonian contractions; last-bit distinctions at subreporting precision are not certified.",
+    "No certified arithmetic bound, general derivative pass, missing-physics diagnosis, source repair, optimizer admission or performance claim follows. Frozen preparations and every prior failure remain unchanged."
+  ],
+  "smallest_next_discriminator": {
+    "fixed": "The same closed baseline/h0-plus full signed five trial columns and all19589 saved radial-key endpoints, complete angular tables and original actual norms; no new h, model/cutoff change or eigensolve.",
+    "measure": "Compare complete table@wide(endpoint1-endpoint0) against wide(table@endpoint1-table@endpoint0), then the same complete signed pair products and transpose table contraction. Retain genuine FP64 endpoint/table operands and separately declared wide or compensated angular reduction; save all trial per-key coefficients and signed per-key contributions for exact attribution. Keep h/r and dense/sparse controls separate.",
+    "reason": "This directly separates endpoint angular-action rounding/subtraction from table-transpose reduction, targeting the dominant observed term using existing radial data. It needs a separately reviewed bounded source/input contract; it is not executed or automatically scheduled by this summary."
+  },
+  "new_NPZ_access": 0,
+  "new_numerical_imports": 0,
+  "new_scientific_calls": 0,
+  "shared_source_edits": 0
+}

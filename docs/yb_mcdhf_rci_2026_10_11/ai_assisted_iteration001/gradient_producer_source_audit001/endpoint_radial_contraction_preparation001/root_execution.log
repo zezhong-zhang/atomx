@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/run.py", line 845, in <module>
+    execute(args.execute)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/run.py", line 414, in execute
+    check(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation001/run.py", line 125, in check
+    raise ValueError(name)
+ValueError: original_native_target_accumulation_order

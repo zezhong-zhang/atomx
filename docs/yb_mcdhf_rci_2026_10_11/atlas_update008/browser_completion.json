@@ -1,0 +1,124 @@
+{
+  "status": "browser_metadata_closed_pass_publication_pending_root",
+  "all_browser_closure_metadata_checks_passed": true,
+  "metadata_checks_count": 18,
+  "metadata_checks": [
+    {
+      "name": "original20_handoff_files_unchanged",
+      "passed": true
+    },
+    {
+      "name": "retained61static_source_JSON_proof",
+      "passed": true
+    },
+    {
+      "name": "root_exact_scope_once_seal",
+      "passed": true
+    },
+    {
+      "name": "root_launcher_contract_inputs_exact",
+      "passed": true
+    },
+    {
+      "name": "root_launcher_and_seal_bound_in_receipt",
+      "passed": true
+    },
+    {
+      "name": "actual_foreground_browser_once_exit0_cleanup",
+      "passed": true
+    },
+    {
+      "name": "original_CPU30_90s_resources",
+      "passed": true
+    },
+    {
+      "name": "actual54_browser_checks_allPASS",
+      "passed": true
+    },
+    {
+      "name": "actual23models92rows277trajectory",
+      "passed": true
+    },
+    {
+      "name": "actual_browser_source_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "desktop_mobile_download_FD_failure_scope_coverage",
+      "passed": true
+    },
+    {
+      "name": "all21_old_models_literal_rows_checked",
+      "passed": true
+    },
+    {
+      "name": "all14_new_assets_actual_HTTP_SHA_checked",
+      "passed": true
+    },
+    {
+      "name": "both_fixedmodels_no_optimization_original1percentFAIL_unknown_sigma",
+      "passed": true
+    },
+    {
+      "name": "actual_bound_browser_artifacts_and_sample_log",
+      "passed": true
+    },
+    {
+      "name": "actual_download_matches_frozen_overlay_SHA",
+      "passed": true
+    },
+    {
+      "name": "no_scientific_array_publication_or_credentials_calls",
+      "passed": true
+    },
+    {
+      "name": "root_source_newscope_and_correct_static_verdict",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "handoff.json": "40fd30fe1768d0eb300bcd774a898febf894f31281edb3f569f6bb946ac3da44",
+    "data_verification.json": "62d0cf883d3f8f2da9ff6a8002af9738415c2c73aa7dd8f6611a66cd0ea69f07",
+    "browser_result.json": "992a31f528028c53786668bec84a97a3535aae7d8e96e58313ea61648f0c9ed5",
+    "browser_execution.json": "9657e191f4f2a7183659ab1c166cde98c7b59ffe7dc55aa09dfa8abdcd3eb0da",
+    "root_browser_execution_contract.json": "888d433ac86399378b3cec12b9ee4fe7b26c17d474c8bdee55b735b3e5a5337f",
+    "browser_launcher_contract.json": "2bc8a2a708531375e76b7940620ea0c67ff9231255880626429c560620f4c2e1",
+    "launch_browser.py": "6096c28e46ebf05d2fee3976e479a33996cd23ebf04ca96c61a4d2f4060859f7",
+    "browser_test.js": "38ca3f53a4b3fd84998d2ea92a098d91933cd7f3a4edf2ad65f5e9ebd7b7a0a7",
+    "browser_contract.json": "8e9e8517d457a11b0e4bafe282e24b5487472fe1a5a33838917d969ec449d641",
+    "browser_once_marker.json": "93dd118a6883375342515cc5cc02e96a526fafdbfa0b453eadb34988f46f2303",
+    "browser.stdout.log": "4698db8b7fa2525819dcd9cdd6bae7b760fdb86789607fd5611ed8d1e31530ed",
+    "browser.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "actual_browser_controls": 54,
+  "retained_static_controls": 61,
+  "models": 23,
+  "rows": 92,
+  "unchanged_old_trajectory_records": 277,
+  "root_browser_start_utc": "2026-10-11T18:46:01.307216+00:00",
+  "root_browser_finish_utc": "2026-10-11T18:46:04.117399+00:00",
+  "root_elapsed_uncontrolled_s": 2.8101950408890843,
+  "root_peak_observed_RSS_MiB": 1392.78515625,
+  "root_resource_scope": "CPU30/threads1/90seconds, observed aggregate RSS stop below2GiB; not kernel-hard memory or controlled timing",
+  "original20_handoff_files_modified": false,
+  "site_modified_by_this_closure": false,
+  "new_browser_API_NumPy_NPZ_Atomx_scientific_calls": 0,
+  "publication_performed_by_this_closure": false,
+  "original_nuclear14_expected_gate_passed": false,
+  "expanded31_MCDHF_stationarity_evaluated": false,
+  "original29_stationarity_passed": false,
+  "experimental_gate_passed": false,
+  "FD_direction_count": 1,
+  "FD_step_sizes": [
+    1e-05,
+    5e-06
+  ],
+  "FD_uniform_error_bound": false,
+  "limitations": [
+    "Browser54PASS is display/download/provenance qualification, not a new physics replay.",
+    "Nuclear original latecounterFAIL and independent serializationFAIL remain frozen;389finite qualification is separate.",
+    "Screened941controls are original runtime controls; expanded31 is fixed RCI, not optimized MCDHF.",
+    "FD7053 is one tangent/twoh coverage only; original29 stationary and all experiment gatesFAIL.",
+    "Frozen preparation README stays historical pending snapshot; this separate closure supplies actual browser status. Root owns publication."
+  ]
+}

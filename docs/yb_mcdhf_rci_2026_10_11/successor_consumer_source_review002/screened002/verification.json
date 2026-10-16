@@ -1,0 +1,2618 @@
+{
+  "all_passed": true,
+  "passed_count": 626,
+  "checks": [
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/models.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/same_point_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/execution_source.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/lint_successor.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/screened_operator.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/results_stage009.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_field_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/run.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/result.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/final_complete_spectrum.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_1_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_2_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_3_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_4_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/delivery_hour2000/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/refine_spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/run.py",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/README.md",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "passed": true
+    },
+    {
+      "name": "input:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "preparation_metadata_passed",
+      "passed": true
+    },
+    {
+      "name": "original_source_epoch",
+      "passed": true
+    },
+    {
+      "name": "complete353source",
+      "passed": true
+    },
+    {
+      "name": "complete_archive_names",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/clebsch.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/csf.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/csf_recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/ls_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/mscheme.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/rcfp.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/sd_rho.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/spinor_harmonics.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/angular/wigner.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/atom.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/atom_inputs.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/calculation_spec.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/compare.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/config/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/config/jj_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/config/parsing.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/adapters.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/breit.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/dbsr_breit.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/orbital_shifts.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/protocol.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qed.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/base.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/indelicato.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/mohr.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/shabaev.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/qedmod/welton.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/radiative_mass.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/recoil.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/specific_recoil.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/corrections/stack.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/hyperfine_presets.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/mohr_se.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/nist_bethe_log.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/data/nuclear_structure.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/fitting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/fitting/slater.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/io/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/io/fac_writer.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/io/results.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/ladder.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/lineshapes/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/lineshapes/profiles.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/lineshapes/stark.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/log.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/_result_adapters.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/atomic_space.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/base.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/ci_mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/ci_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/concurrent_solve.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/core_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/coupled_cluster.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/charge_variational.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/complex_ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/crystal_field.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/direct_bspline.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/direct_shooting.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/grid_functional.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/grid_solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/lanthanide_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/slater_scaling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/csf/virtual_stability.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/edm.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/fscc.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/hamiltonian_df.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/hartree_fock_slater.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/hydrogenic.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/hydrogenic_cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/hydrogenic_reference.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/linearized_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mbpt_matrix.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mbpt_sigma2.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mbpt_transitions.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mcdhf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mcdhf/excitations.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/mcdhf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/pnc.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/reduced_monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/rpa.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/scf_observables.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/sd_pair_diagrams.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/sd_transverse.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/sigma2_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/methods/valence_sd.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/basis.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/complex_dirac.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/coulomb_features.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/evaluate.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/inhomogeneous.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/integrals.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/knots.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/local_potential.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/orbital_geometry.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/pair_contraction.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/shooting_seed.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/slater.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/bspline/slater_yk.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/complex_eigensolver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/density_tail.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/diis.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/extrapolation.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/fermion.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/helmholtz.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/hermitian_clusters.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/local_dfs/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/local_dfs/asymptotic.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/local_dfs/hxs_tables.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/orbital_rotations.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/radial_integration.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/radial_metric.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/radial_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/adaptive.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/box_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/constants.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_bound.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_green.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_orbital.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_response.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/dirac_sampling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/electron_space.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/energy.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/exponential_quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/grid.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/local.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/local_scf.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/operators.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/preconditioner.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/problem.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/scf.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/schrodinger_bound.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/shooting/spline.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/special.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/numerics/yk.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/base.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/breit_ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/complex_radial.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/effective_one_body.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/one_body.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/overlap_response.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/radial_fock.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/radial_symmetry.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/retardation.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/sparse_ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/spinor_integrals.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/state_average.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/csf/transverse.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/dirac.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/local_exchange.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/schrodinger.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/physics/slater.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/average_atom.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/crm.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/rates.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/plasma/screening.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/frozen_field.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/parametric.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/radial_nucleus.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/slater_seed.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/static_field.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/potentials/thomas_fermi.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/_sos_basis.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/edm/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/edm/scaling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/edm/sternheimer.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/g_factor/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/hyperfine/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/hyperfine/dipole.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/hyperfine/nuclear_moments.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/hyperfine/quadrupole.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/isotope_shift/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/isotope_shift/field_shift.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/isotope_shift/isotope_shift.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/isotope_shift/mass_shift.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/pnc/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/polarizability/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/stark.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/angular.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/calculator.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/ci_lines.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/fluorescence.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/fscc_effective.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/multipole.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/rates.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/transitions/two_photon.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/zeeman/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/zeeman/lande.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/properties/zeeman/shift.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/providers/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/providers/contract.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/providers/native_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/providers/pyscf_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/providers/pyscf_embedding.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/radial_state.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/annotations.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/bibliography.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/cowan.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/matching.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/nist.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/spectrum_notes.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/reference_data/structure_outputs.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/results.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/sampling.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/_jit_kernels.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/anomalous.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/autoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/autoionization/auger.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/autoionization/jj_level.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/autoionization/molecular.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/autoionization/mscheme_ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/charge_exchange/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/ci_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/dielectronic_recombination/solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/dielectronic_recombination/widths.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/distorted_wave/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/distorted_wave/born.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/distorted_wave/solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/electron_ionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/electron_ionization/beb.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/electron_ionization/dw.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/models.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/msub.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/multielectron_ci.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/photoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/photoionization/direct.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/photoionization/fano.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/photoionization/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/polarisation/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/angular_cc.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/cc_inner.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/cc_outer.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/cc_potentials.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/channel_table.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/coupled_channels.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/internal_region.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/solver.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/surface.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/r_matrix/target_states.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/radiative_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/two_electron/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/two_electron/angular.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/two_electron/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/two_electron/states.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/scattering/xray.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/spectrum/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/spectrum/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/spectrum/crm_synth.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/spectrum/spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/spectrum/uta.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/state_protocols.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/types.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/units.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/uta/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/uta/moments.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/manim.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/mpl.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/plotly.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/plotly3d.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/viz/scattering.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/workflows/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/workflows/nist_comparison.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/atomic_rates.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/coherent.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/coherent_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/double_ionization.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/imaging.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/kinetics.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/mcdhf_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/model.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/multielectron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/native_channels.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/observables.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/radiative_reservoir.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/reservoir_errors.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/table_mc.py",
+      "passed": true
+    },
+    {
+      "name": "frozen353:src/atomx/xfel/two_electron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source:src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:native_geometry",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:screened_failed_contract",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:screened_failed_result",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:screened_failed_root_execution",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:screened_saved_audit",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:scalar_anchor_control",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_contract",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_driver",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_result",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_root_execution",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_arrays",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_saved_audit",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:field_0",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:field_1",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:field_2",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:field_3",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:field_4",
+      "passed": true
+    },
+    {
+      "name": "saved_operator_role:qualified_first_original_control",
+      "passed": true
+    },
+    {
+      "name": "qualified_first116",
+      "passed": true
+    },
+    {
+      "name": "prior_saved_field_scalar_anchor",
+      "passed": true
+    },
+    {
+      "name": "sameaccepted160",
+      "passed": true
+    },
+    {
+      "name": "original_metric",
+      "passed": true
+    },
+    {
+      "name": "original_nonstationarity_preserved",
+      "passed": true
+    },
+    {
+      "name": "complete_remaining_sizes",
+      "passed": true
+    },
+    {
+      "name": "complete_pair_budget",
+      "passed": true
+    },
+    {
+      "name": "complete_residual_budget",
+      "passed": true
+    },
+    {
+      "name": "four_remaining:screened_complement_SVD_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "four_remaining:screened_original_P_full_gvd_spectral_controls",
+      "passed": true
+    },
+    {
+      "name": "four_remaining:full_spectrum_refinement_attempts",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:screened_JK_builder_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:initial_one_body_matrix_kappa_count",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:external_geometry_hS_build_calls",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:additional_virtual_control_hS_builds",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:closed_core_one_body_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:scalar_radial_callback_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:scalar_Slater_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:nuclear_Dirac_spectral_calls",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:orbital_gradients_budget",
+      "passed": true
+    },
+    {
+      "name": "zero_external_work:optimizer_calls_budget",
+      "passed": true
+    },
+    {
+      "name": "two_completeCI",
+      "passed": true
+    },
+    {
+      "name": "four_completeH",
+      "passed": true
+    },
+    {
+      "name": "internal_hS_budget",
+      "passed": true
+    },
+    {
+      "name": "original_spectral_gates",
+      "passed": true
+    },
+    {
+      "name": "authorization_before_physical_import",
+      "passed": true
+    },
+    {
+      "name": "metadata_only:metadata",
+      "passed": true
+    },
+    {
+      "name": "metadata_only:authorize",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:6",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:8",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:9",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:10",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:11",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:12",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:13",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:14",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:15",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:16",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:17",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:18",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:19",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:20",
+      "passed": true
+    },
+    {
+      "name": "top_level_stdlib:21",
+      "passed": true
+    },
+    {
+      "name": "helper_stdlib_only:6",
+      "passed": true
+    },
+    {
+      "name": "helper_stdlib_only:8",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:first[\"normalized_physical_vectors\"]",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:first[\"full_coefficients\"]",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:qualified_first_original_control",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:norms = np.sum(mapped * (metric.astype(np.longdouble) @ mapped), axis=0)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:complement = null_space(frozen.T @ metric @ projector)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:eigh(projected_h, projected_s, eigvals_only=False, driver=\"gvd\")",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:refined = refine(np, h=h, s=metric, b=basis, initial=coefficients_initial",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:np.array_equal(first[\"original_P\"], projector)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:np.array_equal(first[\"frozen\"], frozen)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:\"build_dirac_matrices\", \"internal_CI_onebody_attempts\"",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:ci_solve(space, current, keys, data, 70, 123, solver=\"dense\", n_states=None",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:include_breit=False, max_determinants=2000",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:h = build_ci_matrix(space, current, keys, data, 70, 123",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:tracker.resolve(space, ci, current, geometry.metric)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:np.repeat(.2, 5)",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:original_stationarity_passed=False",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:expanded_stationarity_evaluated=False",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:full_spectrum_or_globalground_certified=False",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:original_nuclear_projector_bytes_preserved=True",
+      "passed": true
+    },
+    {
+      "name": "execution_invariant:result.json",
+      "passed": true
+    },
+    {
+      "name": "no_external_physical_builders",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:n = b.shape[1]",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:calls['complete_spectrum_refinement_attempts'] += 1",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:defect / 2 + 3 * d2 / 8 - 5 * d3 / 16 + 35 * d4 / 128",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:for i in range(n - 1):",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:for j in range(i + 1, n):",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:if cross == 0:",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:np.copysign(np.longdouble(1), cross) if difference == 0",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:np.hypot(difference, cross)",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:vectors = np.asarray(b @ coeff, dtype=float)",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:vectors /= np.asarray(np.sqrt(norms), dtype=float)",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:constrained = b.T @ (hv - sv * rayleigh)",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:row[\"original_full_physical_residual_relative_max\"] <= gates[\"screened_full_spectrum_constrained_residual_relative\"]",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:row[\"full_Gram_error\"] <= gates[\"screened_full_spectrum_SGram_error\"]",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:np.argsort(final[\"actual_Rayleigh_Ha\"], kind=\"stable\")",
+      "passed": true
+    },
+    {
+      "name": "complete_method_invariant:save(\"failed_partial_iteration\"",
+      "passed": true
+    },
+    {
+      "name": "attempt_recorded_before_numeric_work",
+      "passed": true
+    },
+    {
+      "name": "no_subset_or_spectral_fallback",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/models.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/same_point_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/execution_source.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/lint_successor.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/screened_operator.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/results_stage009.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_field_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/result.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/final_complete_spectrum.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_1_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_2_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_3_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_4_auxiliary_Fock.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/delivery_hour2000/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/refine_spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/README.md",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_after:docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "contract_sha256": "9c9eb9d5f3d521f944f16de02154c50b549610beebf44272873ab7af5d99d8d9",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py": "eeca1a408462cf01a3bb09fa9a2189546f4bc39126bdab6d8eb4f3e4437f5963",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json": "2ba3c405204958a5c9e56ac4b353b79cf08c80c710b730933027640b56e85c1f",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json": "4f61df585d1da202f2d4cefd114f5570b3cba53b1830cae52a3d56b1d6b620b8",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json": "b4270213674272d5eb28c79670bdf872a0d9d7e4721e03c33220dcf8d2b4e8a4",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json": "56363aee43e70800df3144a3690630eeda40790e56ebe48cfee8d3a7a5999b92",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json": "46d9d890a121ad6fe468ea3b1d1d8c3bdfa09e2e74a6ce38ea16ee66c1a9ac32",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py": "2db118cc9acbad942b648581390ff2a66864606408c1c144830c90ee817595ec",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json": "d9a1e75a92f6cb4e676b75758baf68e5225656ba55659d399a324f44ce13afd8",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json": "7ef7e2153d26f1df94cba68393bc1256f618c1794dc6286e20e8eebcb3289c73",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json": "fbc3ef9d273f7d5a459f041a97056856e3448fdb69dc976c18e12ab4d158da7f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json": "27bd626176ec3afdd07da41f72e811e4f38ada5f82efe632fcda1f7c7f83cce8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz": "79dfc13ff26e43f754a86d399ace9b544dd21e06b0382b076b81e459354fcf5f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json": "61b5bf820b327341a31d8dacc6573f8326a23df0716f9fa76a975db226e7e5f8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json": "fe6ca6bd94f39bed4434b9ef42e979a5d270c186dfab16bd8414f744aa629691",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/result.json": "cf3251b11198654c6d766f9241502770b70a5dc4bd0e651d930a00ab63b0cf85",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/execution_binding.json": "0e7195afca47b9a995f0b8e7e861495336a8c581f6da5e69e50a02f48947fe65",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json": "4472690c7cc57fdc96415144d3bc20c898a95f0dcbe2e329e80a618ad55dbb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/same_point_evidence.json": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/result.json": "bc639869deab4b250a7b4475601235c9bccf5d3f7326bebf83378a50cefa9eaf",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/contract.json": "7c8424e2788e6fc12a62acaa514f84dcccceeb244c503489e275bc7388c0716d",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/execution_source.py": "6c1dba6cfc5b32741c156ce2ec8c35c433796602fa859d47792d8b452a0610d4",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/lint_successor.json": "8392779c0e216a9e6f535926b54b5cf0342a40807b9f352aa858fd55959421a4",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json": "92fc119c64798dffb3d5a9e2d99676365824ec60700a4218f1b21fa6491ddc82",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/screened_operator.py": "4b50850d1f78d2ec8793a6bd02a25fcac36613cd7f3d61981bd7b42fdd976742",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py": "b30f9cb3fcc825b4f6f1419752e658c4f519c2e3f298aad3f5487fa070104506",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage009/delivery_proof.json": "7fdecbd8ac6c13b61545ce1f582f7aad4e66ab43f27843a2548453514ceb775c",
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage009.json": "8f88fc6c0909fd01838447b29f11eaf064d76a2fc73c1d73f7e40a7da806ae9e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_field_review/verification.json": "911427c045f03be03f4995e7cd13e149527a25bb888b03fa3838059b078fd561",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json": "7056e3893c0c301a151b00a1f1935f93299c303e6298c1931da534cc7557cf33",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json": "1bd1873506710576beb32cbb3fc4e6fdd1fb1756f36a4274c6c9251428f12c19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json": "a88c4b9b5d1bf7f5014fef075437c49a18f9c4c9c0ec3181f8cbd4d9130ba6c9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json": "ce38b2a8d487bc325d0861f4241c0b71f0b0fede67d980ba4b4efb8132b539a0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/contract.json": "606de11b36c4b8f9f81d5bc0a425ab6b04015557a9562c647218d13ab1ab6cad",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/run.py": "ea5287bcbbe316e1fd71096f020b3943b82b1367493cf12cf530c2f880b1f476",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/result.json": "6ff54fc187397ec0279e5d6609c81ee2b92af9ffb8fc11d3031def2d65016656",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/root_execution.json": "81c4635381f2b0ac680ab8b075eaae5f6edfe0c61816981632e87a0d9df72472",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/final_complete_spectrum.npz": "4e1f7cc12ce2374d3eccb70cd165d9e0ef50d792fdc8673830fc7a700e96fcea",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_refinement001/saved_array_audit/verification.json": "a53b7a9858bbf40024a387b6eeee62029e0cdb9a4ea35aa98aaef6463f06c591",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_1_auxiliary_Fock.npz": "ad907e07b4baf841085e2fa687e92e28ebd44d58005411bd9e5a306e33b11284",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_2_auxiliary_Fock.npz": "48a1c4f9608d80407135fda4b1c354bc03206522b65a63ef562400801910f0c8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_3_auxiliary_Fock.npz": "aa21c3fe41bde734a8332b9906c78703609be140d132eede908dcce18fe048ea",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_4_auxiliary_Fock.npz": "ba8a4409f2b4c28bddb7fcfebd59095c7d2b7fbd20fff6e2d3579e1cdf6baf9e",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour2000/delivery_proof.json": "3829fa593ebbe279f8da47bd02250c2052f2a2122b943420653250a66d7664ed",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/refine_spectrum.py": "1126ac7d8c6c6a3d04642de2b7fcadcb5abe6022b67de955aa271d8d8d8f5fbb",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json": "0d552b666b446e62f6804575f8b06ea8caaf1a62da1d155d60aed996986488de",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/run.py": "42fc5171d6b73470284cb2efedac9361015b5f4824f40723339313a6d5fc1296",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/preparation_verification.json": "d0ee321b43360b0ff8bce7b04f53bdba324bf2b4dd344896c83d350981414aac",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/README.md": "344ae5d4985f286f96c048deddb79d64a3d635d589ebafac391c0f491c25514c",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89"
+  },
+  "verdict": "No unresolved material source finding; bounded root-only execution may proceed.",
+  "corrected_draft_findings": [
+    "InheritedbuildJK/norefinement/all116prose corrected to savedfieldandremainingfullsizes.",
+    "Refinementattempt now recorded atentry.",
+    "First\u03ba archive normalizationfactors now follow originalLDmap-to-float normalization without changing reusedphysicalvectors."
+  ],
+  "reviewer_calls": {
+    "Atomx_imports": 0,
+    "NumPy_imports": 0,
+    "consumer_imports": 0,
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "optimizer": 0
+  },
+  "actual_resources": {
+    "affinity": [
+      0
+    ],
+    "AS_bytes": 1073741824,
+    "elapsed_seconds": 0.07120271981693804,
+    "max_RSS_KiB": 26464
+  },
+  "live_consumer_run_by_reviewer": false,
+  "numerical_qualification_passed": null,
+  "original_stationarity_passed": false,
+  "scope": "Source/AST/hash readiness only; all numericalspectral,CI,physicaltracking and budget outcomes require the authorized actual execution and separate saved-evidence audit."
+}

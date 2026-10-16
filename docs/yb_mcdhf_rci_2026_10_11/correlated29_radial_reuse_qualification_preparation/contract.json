@@ -1,0 +1,341 @@
+{
+  "status": "prepared_requires_exact_root_execution",
+  "root_execution_authorized": false,
+  "created_utc": "2026-10-11T14:00:11.359015+00:00",
+  "hypothesis": "Route complete B-spline CI pair potentials through the existing semiseparable kernel for ns>=96, with the same four signed components/all near and far cells. Test numerical equivalence independently of unresolved physical/stationarity failures.",
+  "ordinary": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source",
+    "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794"
+  },
+  "candidate": {
+    "identity": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/candidate_source_identity.json",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/candidate_source",
+    "source_map_sha256": "64acb69f79da66922ead9f5589c1df344f024748d6ee3d37968e39d947bfab87",
+    "only_changed": "src/atomx/physics/csf/matrix.py imports + _bspline_pair_potential"
+  },
+  "inputs": {
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "sha256": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+      "sha256": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/candidate_source_identity.json",
+      "sha256": "9eca49f43694b1feb292415b2c30c26b4500cb8e6586f1a08d0ab536023cfe04"
+    },
+    "source_proposal": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    "candidate_patch": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/candidate.patch",
+      "sha256": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482"
+    },
+    "anchor_bank_tests": {
+      "path": "tests/test_convol.py",
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4"
+    },
+    "anchor_analytic_tests": {
+      "path": "tests/test_cell_coulomb_features.py",
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123"
+    },
+    "original_signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "original_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "original_rotation_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "sha256": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680"
+    },
+    "conditional_direction1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "conditional_direction0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis002/actual/result.json",
+      "sha256": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3"
+    },
+    "NumPy_Gauss_source": {
+      "path": ".venv/lib/python3.10/site-packages/numpy/polynomial/legendre.py",
+      "sha256": "c685c1a15193a129650ec5875379c140948140b84964184ca40fdb7a66170c74"
+    }
+  },
+  "fixed": {
+    "Z": 70,
+    "nucleus": "Fermi A175",
+    "electron_count": 69,
+    "operator": "native Dirac-Coulomb only",
+    "ns": 123,
+    "radial_keys": 29,
+    "coordinates": 3451,
+    "reference_CSFS": 531,
+    "full_parent_CSFS": 2163,
+    "complete_selected_CSFS": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "equal_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "same_point": "original actual recovered_coordinate_point.npz; not canonical seed/accepted320",
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "max_determinants": 2000,
+    "RDM_cutoff": 1e-15,
+    "no_new_projector_or_retraction": true
+  },
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "thread_variables": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS"
+    ],
+    "memory_GiB": 3.95,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "max_optimizer": 0,
+    "max_total_hS": 28,
+    "max_tracking_resolutions": 4,
+    "max_tracking_SVD": 20,
+    "max_tracking_overlap": 6,
+    "max_scipy_eigh": 10,
+    "new_Dirac_eigensolves": 0,
+    "new_geometry_eigvalsh": 0,
+    "new_polar_retractions": 0,
+    "max_new_physical_points": 1,
+    "GPU_calls": 0,
+    "concurrency": "Root must schedule separately from active CPU31 physical controls. No controlled timing admission/certificate.",
+    "Gauss_setup_eigvalsh": 5
+  },
+  "anchor_setup": {
+    "cases": [
+      {
+        "ns": 95,
+        "ks": 9,
+        "kinetic_balance": false,
+        "n_gauss": "default9"
+      },
+      {
+        "ns": 96,
+        "ks": 9,
+        "kinetic_balance": false,
+        "n_gauss": "default9"
+      },
+      {
+        "ns": 95,
+        "ks": 9,
+        "kinetic_balance": true,
+        "n_gauss": "default9"
+      },
+      {
+        "ns": 96,
+        "ks": 9,
+        "kinetic_balance": true,
+        "n_gauss": "default9"
+      },
+      {
+        "ns": 4,
+        "ks": 4,
+        "kinetic_balance": false,
+        "n_gauss": 16,
+        "knots": "0x4,0.7x4",
+        "analytic": "P=Q=scale*r,scales1,-2,3,4"
+      }
+    ],
+    "ranks": [
+      0,
+      1,
+      6
+    ],
+    "components": [
+      "pppp",
+      "qqqq",
+      "pqpq",
+      "qpqp"
+    ],
+    "random_seed": "PCG64(19011+case_index),four distinct signed P/Q vectors",
+    "total_basis_setups": 5,
+    "no_H_CI_Dirac_or_gradient": true,
+    "tolerances": "Existing test_convol: near rtol2e-12 atol1e-14; potential rtol2e-12 atol1e-12; signed scalar rtol2e-12 atol1e-10. Existing analytic-cell rtol2e-13. Candidate sum of two components atol2e-12/rtol2e-12.",
+    "Gauss_eigensolves": "Five NumPy leggauss companion eigvalsh calls, counted separately; no Dirac eigensolve."
+  },
+  "anchor_calls": {
+    "basis_setup": 5,
+    "density_band": 20,
+    "direct_full_bank": 96,
+    "direct_semiseparable": 84,
+    "band_scalar": 150,
+    "CI_source_pair": 15,
+    "bank_get": 96,
+    "factor_get": 84,
+    "Gauss_setup_eigvalsh": 5
+  },
+  "chain_exact_calls": {
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "H": 1,
+    "CI": 1,
+    "gradient": 1,
+    "tracking_resolution": 2,
+    "tracking_overlap": 3,
+    "tracking_SVD": 10,
+    "scipy_eigh": 5,
+    "Dirac_eigensolve": 0,
+    "eigvalsh": 0,
+    "numpy_eigh": 0
+  },
+  "counters": "Forward-only public build/CI/gradient/setup and ConvolCache/kernel aliases. Kernel counts are recorded, not guessed from signed coefficients. Capture all raw h/S; strict L(raw) and unchanged raw-CI comparison. No hidden duplicate H/CI/g.",
+  "gates": {
+    "ordinary_H_and_roots": "bitwise/numeric exact against original same-point saved baseline",
+    "candidate_H_entry_Ha": 1e-09,
+    "candidate_all_roots_Ha": 1e-08,
+    "signed_cluster_span": 1e-08,
+    "cluster_gap_Ha": 1e-07,
+    "CI_max_Euclidean_column_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "no_pair_leakage_squared": 1e-12,
+    "complete_raw_radial_gradient": 1e-09,
+    "original_raw_and_tangent_g": 1e-09,
+    "original_metric_pg": 1e-10,
+    "stationarity": 1e-07,
+    "indicator_Ha": 1e-08,
+    "new_candidate_comparison_gates_require_review": true
+  },
+  "matching": "Canonical complete CSF signed order; all1046roots/five sectors. Cluster projector comparisons use both endpoint energy gaps<=1e-7 and preserve signed offdiagonals, no individual phase equality inside degenerate spans. Original five physical UIDs/equalweights bound by frozen-reference tracker; filter label rows before comparison. No state rebase.",
+  "retained_owner": "Two genuine ci_solve retain_hamiltonian=True producers; complete eigenpair/Gram checks BEFORE same-CI gradient completion; strict samepoint owner and stale point refusal. Owner identity not an eigenpair certificate.",
+  "profiling": "Each fresh process has own NumPy/Numba imports, cache directory and cProfile; input/source hashing, setup, public energy/tracking/owner, full eigenpair checks, gradient/tracking, compressed NPZ fsync/readback and process elapsed recorded. Stage times are uncontrolled observations; no speedup ratio, cold/warm pairing, GPU or parallel certification.",
+  "known_status": {
+    "original_probe_reported_derivative": "FAIL retained",
+    "original_rotation_unconstrained_Rayleigh_derivative": "FAIL retained",
+    "conditional_saved_constraint_centering_d0_d1": "same_saved_point_conditional_gate_passed true; not a new public gradient or uniform bound",
+    "original3451_stationarity": "FAIL retained",
+    "normalized_full_gradient_control": "Separate pending native work; not prerequisite PASS invented here",
+    "production_or_optimizer_admission": false
+  },
+  "stop": "Stop on first anchor/identity/numerical/call/resource failure, preserve partial logs/counters/files, no retry or gate/model shrink. Equivalence PASS never relabels original physical failures. Shared source remains unchanged; merge/optimizer needs root successor review.",
+  "forbidden": [
+    "shared source/test or old evidence edits",
+    "another physical backend",
+    "changing weights/model/threshold/metric",
+    "small signed term screening",
+    "matrix_override/forged retained owner",
+    "extra optimizer or finite-difference scan",
+    "GPU calls or GPU/parallel/speedup claims"
+  ],
+  "execution_order": [
+    "root exact seal and CPU31 window admission",
+    "anchors fresh privatecandidate process",
+    "ordinary fresh500ac process",
+    "candidate freshprivate64ac process",
+    "saved-array-only comparison"
+  ],
+  "actual_preparation_scientific_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "basis_setup": 0,
+    "kernel": 0,
+    "eigen": 0,
+    "optimizer": 0,
+    "NumPy_import": 0,
+    "GPU": 0
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "original": {
+    "representation": "native cell Coulomb auxiliary nodes",
+    "geometry_sha256": "5ae8cdaaace91f0ac613778e2fc0aea7d3e73415775e6abcab846fcc60f52084",
+    "coefficient_sizes": [
+      122,
+      123
+    ],
+    "component_orders": [
+      8,
+      9
+    ],
+    "auxiliary_nodes": 28980,
+    "same_cell_edges": 36225,
+    "quadrature_nodes": [
+      115,
+      9
+    ],
+    "payload_estimate_bytes": 5812560,
+    "rank_cache_capacity": 8,
+    "contraction": "weighted bilinear c-product; no new quadrature or screening"
+  },
+  "compressed": {
+    "representation": "native cell Coulomb polynomial density coordinates",
+    "geometry_sha256": "b85d9c47b68d06f7a1a17ecedb556fad1af665b8e35d297c9338aca70d4847fd",
+    "coefficient_sizes": [
+      122,
+      123
+    ],
+    "component_orders": [
+      8,
+      9
+    ],
+    "auxiliary_nodes": 3910,
+    "same_cell_edges": 68425,
+    "quadrature_nodes": [
+      115,
+      17
+    ],
+    "payload_estimate_bytes": 21530760,
+    "rank_cache_capacity": 8,
+    "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+    "native_geometry_sha256": "5ae8cdaaace91f0ac613778e2fc0aea7d3e73415775e6abcab846fcc60f52084",
+    "density_polynomial_degree": 16,
+    "interpolation_nodes_per_component_cell": 17
+  }
+}

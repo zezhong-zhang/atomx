@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/run_array_qualification.py"
+  ],
+  "started_utc": "2026-10-11T13:18:46.816840+00:00",
+  "ended_utc": "2026-10-11T13:18:46.930515+00:00",
+  "elapsed_wall_seconds": 0.11367983184754848,
+  "exit_code": 1,
+  "timeout": false,
+  "thread_environment_overrides": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "contract_sha256": "571a5b6c89a305159c8781804668e2b575453df485dd049406664db94ebc4182",
+  "driver_sha256": "5654ebe6913315089ec2aba91d1070d645f4cf8f17632ea99bc8f9c569c5aa02",
+  "helper_sha256": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+  "log_sha256": "c8983f4bc08fa307d93c7177c97efc641e2cb87c5a68a024ee66471810583fa1",
+  "authorization": "Root-approved one foreground array-only arithmetic qualification",
+  "actual_scientific_producers": 0
+}

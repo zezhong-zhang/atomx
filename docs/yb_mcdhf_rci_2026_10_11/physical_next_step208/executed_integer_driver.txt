@@ -1,0 +1,194 @@
+"""Integer magnetic counting only; no Atomx/numeric producer imports."""
+
+from collections import Counter
+from functools import lru_cache
+from hashlib import sha256
+from itertools import combinations_with_replacement
+from math import comb
+from pathlib import Path
+import json
+import re
+
+
+OWN = Path(__file__).resolve().parent
+BASE = OWN.parent
+LETTERS = "spdfg"
+CHECKS = {}
+
+
+def check(name, condition, detail=None):
+    record = CHECKS.setdefault(name, {"name": name, "passed": True, "instances": 0})
+    record["passed"] = record["passed"] and bool(condition)
+    record["instances"] += 1
+    if detail is not None:
+        record["last_detail"] = detail
+    if not condition:
+        raise AssertionError(name)
+
+
+def digest(path):
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def parse(config):
+    shells = {}
+    for token in config.split():
+        match = re.fullmatch(r"(\d+)([spdfg])(\d+)", token)
+        check("valid_NR_token/" + token, match is not None)
+        n, letter, q = match.groups()
+        key = int(n), LETTERS.index(letter)
+        check("distinct_NR_shell/" + token, key not in shells)
+        shells[key] = int(q)
+    return shells
+
+
+@lru_cache(maxsize=None)
+def shell_magnetic(ell, occupation):
+    capacity = 4 * ell + 2
+    check("shell_capacity", 0 <= occupation <= capacity, [ell, occupation])
+    # Particle-hole reflection gives the same symmetric M distribution.
+    q = min(occupation, capacity - occupation)
+    twojs = [1] if ell == 0 else [2 * ell - 1, 2 * ell + 1]
+    m_values = [m for j in twojs for m in range(-j, j + 1, 2)]
+    polys = [Counter() for _ in range(q + 1)]
+    polys[0][0] = 1
+    for magnetic in m_values:
+        for count in range(q, 0, -1):
+            for m, number in list(polys[count - 1].items()):
+                polys[count][m + magnetic] += number
+    check("shell_magnetic_binomial", sum(polys[q].values()) == comb(capacity, q))
+    return dict(polys[q])
+
+
+def convolve(left, right):
+    out = Counter()
+    for lm, lc in left.items():
+        for rm, rc in right.items():
+            out[lm + rm] += lc * rc
+    return out
+
+
+def count_model(configs, sectors):
+    all_blocks = Counter()
+    magnetic_dimensions = 0
+    selected_all_patterns_magnetic = Counter()
+    unique = set()
+    radial_keys = set()
+    for shells in configs:
+        token = tuple(sorted(shells.items()))
+        check("unique_configuration", token not in unique)
+        unique.add(token)
+        check("electron_count69", sum(shells.values()) == 69)
+        distribution = {0: 1}
+        parity = (-1) ** sum(ell * q for (_, ell), q in shells.items())
+        dimension = 1
+        for (n, ell), q in shells.items():
+            distribution = convolve(distribution, shell_magnetic(ell, q))
+            dimension *= comb(4 * ell + 2, q)
+            radial_keys.add((n, -(ell + 1)))
+            if ell:
+                radial_keys.add((n, ell))
+        multiplicities = {}
+        for j in range(max(distribution) + 1):
+            number = distribution.get(j, 0) - distribution.get(j + 2, 0)
+            check("nonnegative_J_multiplicity", number >= 0)
+            if number:
+                multiplicities[j] = number
+                all_blocks[j, parity] += number
+        check("complete_magnetic_dimension",
+              sum((j + 1) * number for j, number in multiplicities.items()) == dimension)
+        magnetic_dimensions += dimension
+        for j, p in sectors:
+            if p == parity:
+                selected_all_patterns_magnetic[j, p] += distribution.get(j, 0)
+    blocks = [{"twoJ": j, "parity": p, "CSFs_integer_multiplicity": all_blocks[j, p],
+               "all_NR_patterns_M_equals_J_magnetic_dimension": selected_all_patterns_magnetic[j, p]}
+              for j, p in sectors]
+    target = sum(row["CSFs_integer_multiplicity"] for row in blocks)
+    return {"valid_NR_configs": len(configs), "full_CSF_integer_multiplicity": sum(all_blocks.values()),
+            "full_magnetic_dimension": magnetic_dimensions, "full_J_parity_sectors": len(all_blocks),
+            "complete_target_CSF_integer_multiplicity": target, "complete_target_blocks": blocks,
+            "radial_keys": [list(k) for k in sorted(radial_keys)], "radial_key_count": len(radial_keys),
+            "one_dense_block_diagonal_H_or_C_bytes": 8 * sum(row["CSFs_integer_multiplicity"] ** 2 for row in blocks),
+            "one_dense_unblocked_target_H_or_C_bytes": 8 * target ** 2,
+            "count_scope": "Exact kinematic multiplicities only; no public coupling-tree enumeration, signed determinant transform or H/CI execution."}
+
+
+def family(core, pool, holes, particles):
+    formal = list(combinations_with_replacement(pool, particles))
+    valid, invalid = [], []
+    for particle_tuple in formal:
+        cfg = dict(core)
+        for shell, holes_q in holes.items():
+            cfg[shell] -= holes_q
+        for shell in particle_tuple:
+            cfg[shell] = cfg.get(shell, 0) + 1
+        cfg = {shell: q for shell, q in cfg.items() if q}
+        violations = [[n, ell, q] for (n, ell), q in cfg.items() if q > 4 * ell + 2]
+        if violations:
+            invalid.append({"particles": [f"{n}{LETTERS[ell]}" for n, ell in particle_tuple],
+                            "reason": "exact Pauli shell-capacity exclusion", "violations": violations})
+        else:
+            valid.append(cfg)
+    return valid, {"formal_unordered_particle_multisets": len(formal), "valid_NR_configs": len(valid),
+                   "invalid_Pauli_multisets": invalid}
+
+
+def main():
+    contract = json.loads((OWN / "contract.json").read_text())
+    for relative, expected in contract["inputs_sha256"].items():
+        check("input_SHA/" + relative, digest(BASE / relative) == expected)
+    archive = json.loads((BASE / "screened_core_virtual_discriminator002/models.json").read_text())
+    core = parse(archive["core_NR"])
+    pool = [(int(s[:-1]), LETTERS.index(s[-1]))
+            for s in archive["base_particle_shells"] + archive["new_particle_shells"]]
+    sectors = [tuple(s) for s in contract["fixed_target_sectors"]]
+    current = [parse(row["config"]) for row in archive["models"]["balanced_virtual"]["configs"]]
+    candidate_counts = {}
+    model_specs = {"current": current}
+    expanded_pool = pool + [(5, 3)]
+    for name, particle_pool in [("current", pool), ("balanced5f", expanded_pool)]:
+        configs = []
+        bare, bare_counts = family(core, particle_pool, {}, 1)
+        configs += bare
+        family_counts = {"bare": bare_counts}
+        for shell in [(4, 3), (5, 1), (5, 0)]:
+            rows, counts = family(core, particle_pool, {shell: 1}, 2)
+            configs += rows
+            family_counts[f"single_{shell[0]}{LETTERS[shell[1]]}"] = counts
+        if name == "current":
+            check("complete_current_family_identity",
+                  {tuple(sorted(c.items())) for c in configs} == {tuple(sorted(c.items())) for c in current})
+        model_specs[name] = configs
+        candidate_counts[name] = family_counts
+    for name, hole in [("single4d", {(4, 2): 1}), ("double5p", {(5, 1): 2})]:
+        rows, counts = family(core, pool, hole, 1 + sum(hole.values()))
+        model_specs[name] = current + rows
+        candidate_counts[name] = {"additional_family": counts}
+    models = {name: count_model(rows, sectors) for name, rows in model_specs.items()}
+    old = archive["models"]["balanced_virtual"]
+    check("current_full2163", models["current"]["full_CSF_integer_multiplicity"] == old["full_CSFs"])
+    check("current_target1046", models["current"]["complete_target_CSF_integer_multiplicity"] == old["complete_target_CSFs"])
+    check("current_target_all5_blocks", [b["CSFs_integer_multiplicity"] for b in models["current"]["complete_target_blocks"]]
+          == [b["CSFs"] for b in old["complete_target_blocks"]])
+    check("current_target_all_pattern_M_dimensions", [b["all_NR_patterns_M_equals_J_magnetic_dimension"] for b in models["current"]["complete_target_blocks"]]
+          == [b["all_patterns_M_equals_J"] for b in old["complete_target_blocks"]])
+    layout = json.loads((BASE / "correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json").read_text())
+    coordinate_by_kappa = {row["keys"][0][1]: row["shape"][0] for row in layout}
+    models["current"]["coordinate_layout_size"] = 3451
+    models["balanced5f"]["coordinate_layout_size_if_same_original_P_retained"] = 3451 + coordinate_by_kappa[3] + coordinate_by_kappa[-4]
+    for name in ["single4d", "double5p"]:
+        models[name]["coordinate_layout_size_if_same_original_P_retained"] = 3451
+    result = {"scope": contract["scope"], "source_map_sha256": contract["source_map_sha256"],
+              "contract_sha256": digest(OWN / "contract.json"), "driver_sha256": digest(Path(__file__)),
+              "inputs_sha256": contract["inputs_sha256"], "models": models,
+              "family_multiset_counts": candidate_counts, "all_integer_controls_passed": all(row["passed"] for row in CHECKS.values()),
+              "scientific_calls": contract["limits"], "controls": list(CHECKS.values()),
+              "memory_runtime_and_overlap_qualification": False}
+    (OWN / "integer_space_estimates.json").write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
+    print(json.dumps({"all_integer_controls_passed": result["all_integer_controls_passed"],
+                      "models": {name: {key: value for key, value in m.items() if key in ["valid_NR_configs", "full_CSF_integer_multiplicity", "complete_target_CSF_integer_multiplicity", "radial_key_count"]} for name, m in models.items()}}))
+
+
+if __name__ == "__main__":
+    main()

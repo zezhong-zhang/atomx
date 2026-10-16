@@ -1,0 +1,465 @@
+{
+  "status": "independent_saved_JSON_result_review_complete",
+  "reviewer": "/root/radial_rounding_source_review",
+  "result_directory": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002",
+  "evidence_actual_SHA256": {
+    "root_execution.json": "8e7f83b4a227a6eb23d6592bf712ed41963dbbedd275294ad95d40f77702479a",
+    "execution_binding.json": "16740baddfced92535a7c066ed4188f32b6f0528e2c30e0618c0677148d4e1dd",
+    "root_review_seal.json": "3304ab2a95efe820a5cdbe73b0702f6b90a1e7b14581d60f037767ee37a62948",
+    "diagnostic_summary001.json": "53990f4f76bbdf7492e1bb43b1de90c61e213d4c2ffd1a52df3104bb7cf3663f",
+    "actual/result.json": "36296ce9c12573269e9e0b0e9b58dfb5180b72145796f86d20fb43a1ac9727b5",
+    "actual/complete_signed_weights.json": "690cc54fcba429e2126223455976d33e91e7be774e08144722a53a829af19ac8",
+    "actual/complete_angular_tables.json": "abcef063f1ffb440ad95bbc510b2cff9009f2a0b92419eb846444982947e967e",
+    "actual/imported_module_origins.json": "03f964403fab54a77eccd7441c3e8533a67c1202bda0a8eeb4aebfb5c9bcc773",
+    "actual/resource_admission.json": "709a9148f21941c29264bd26669ae9da076272f8683ef76a3d6b2ae207d1a4af",
+    "actual/progress.json": "b1ead9321359627ba54416da49c252e419a6cb24a78ded7893a86fc7d2a2221f"
+  },
+  "all_review_checks_passed": true,
+  "checks": [
+    {
+      "name": "exact_expected_result_SHA",
+      "passed": true
+    },
+    {
+      "name": "closed0_400guards_unchanged",
+      "passed": true
+    },
+    {
+      "name": "result_receipt_link",
+      "passed": true
+    },
+    {
+      "name": "1355_declared_live_checks_PASS",
+      "passed": true
+    },
+    {
+      "name": "six_sealed_preparation_unchanged",
+      "passed": true
+    },
+    {
+      "name": "root_seal_exact_six_and_review",
+      "passed": true
+    },
+    {
+      "name": "actual_driver_contract_source_binding",
+      "passed": true
+    },
+    {
+      "name": "binding_receipt_link",
+      "passed": true
+    },
+    {
+      "name": "all_declared_input_identity_strings",
+      "passed": true
+    },
+    {
+      "name": "progress_final_counts_exact",
+      "passed": true
+    },
+    {
+      "name": "all_recorded_calls_within_caps",
+      "passed": true
+    },
+    {
+      "name": "all_completed_recorded_entries_returned",
+      "passed": true
+    },
+    {
+      "name": "exact3grad6input1save",
+      "passed": true
+    },
+    {
+      "name": "exact1native5bilinear7hS5structures",
+      "passed": true
+    },
+    {
+      "name": "zero_installed_forbidden_attempts_returns",
+      "passed": true
+    },
+    {
+      "name": "tracker_original_resolve_and_overlap",
+      "passed": true
+    },
+    {
+      "name": "pair_components_and_misses",
+      "passed": true
+    },
+    {
+      "name": "targets_and_weights_ledger_identity",
+      "passed": true
+    },
+    {
+      "name": "five_fixed_UIDs_columns_weights",
+      "passed": true
+    },
+    {
+      "name": "all_target_original_tracking_exact",
+      "passed": true
+    },
+    {
+      "name": "five_actual_dyadic_norms_positive_and_display_exact",
+      "passed": true
+    },
+    {
+      "name": "actual_norms_not_forced_unit",
+      "passed": true
+    },
+    {
+      "name": "literal_native_filter_and_exact_zero_rule",
+      "passed": true
+    },
+    {
+      "name": "native_filtered_unique_finite_nonzero_signed",
+      "passed": true
+    },
+    {
+      "name": "native_filtered_key_shapes",
+      "passed": true
+    },
+    {
+      "name": "full_actualnorm_unique_finite_nonzero_signed",
+      "passed": true
+    },
+    {
+      "name": "full_actualnorm_key_shapes",
+      "passed": true
+    },
+    {
+      "name": "full_minus_native_unique_finite_nonzero_signed",
+      "passed": true
+    },
+    {
+      "name": "full_minus_native_key_shapes",
+      "passed": true
+    },
+    {
+      "name": "all3_source_derived_action_ledgers_exact",
+      "passed": true
+    },
+    {
+      "name": "represented_signed_full_minus_native_identity_order",
+      "passed": true
+    },
+    {
+      "name": "source_derived_target_and_onebody_counts",
+      "passed": true
+    },
+    {
+      "name": "separate_raw_h_correction5MVper_h",
+      "passed": true
+    },
+    {
+      "name": "geometry_cache_cap",
+      "passed": true
+    },
+    {
+      "name": "5_exact_saved_complete_angular_tables",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "baseline_arrays_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "expanded_arrays_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_arrays_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "workspace_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "workspace_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "reference_arrays_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "saved_S_complete_saved_schema",
+      "passed": true
+    },
+    {
+      "name": "saved_S_decoded_byte_ledger",
+      "passed": true
+    },
+    {
+      "name": "6selected_decode105682480_under256MiB",
+      "passed": true
+    },
+    {
+      "name": "84_exact_frozen_module_origins",
+      "passed": true
+    },
+    {
+      "name": "two84module_origin_pass_windows",
+      "passed": true
+    },
+    {
+      "name": "host_admission_pass",
+      "passed": true
+    },
+    {
+      "name": "uncontrolled_duration_within_caps",
+      "passed": true
+    },
+    {
+      "name": "same_original_metric_A_B",
+      "passed": true
+    },
+    {
+      "name": "baseline_full_metrics_same_archived_values",
+      "passed": true
+    },
+    {
+      "name": "directional_actions_indicator_identity",
+      "passed": true
+    },
+    {
+      "name": "finite_same_point_negative_A_and_B_actions",
+      "passed": true
+    },
+    {
+      "name": "combined_filter_norm_delta_negligible_to_BA",
+      "passed": true
+    },
+    {
+      "name": "result_not_stationary_at_original_gates",
+      "passed": true
+    },
+    {
+      "name": "root_summary_same_saved_measurements",
+      "passed": true
+    },
+    {
+      "name": "reported_EOL_same_archived_spectrum",
+      "passed": true
+    },
+    {
+      "name": "no_source_FD_stationarity_training_upgrade",
+      "passed": true
+    },
+    {
+      "name": "original001_failed_receipt_preserved",
+      "passed": true
+    },
+    {
+      "name": "late_angular_observer_window_identified",
+      "passed": true
+    }
+  ],
+  "live_check_count": 1355,
+  "closed_exit_code": 0,
+  "unchanged_guard_files": 400,
+  "complete_scientific_scope": "Conditional saved2574 spectrum at literal accepted13,100NR/31radials/5original UID equal0.2; three complete native gradients and original complete3689 inverse metric/tangent projections; owner remains null, no fresh CI finite response or orbital optimization.",
+  "signed_ledger_counts": [
+    {
+      "signed_keys": 17474,
+      "negative_coefficients": 8840,
+      "pair_sources": 706,
+      "term_references": 34834,
+      "target_P_Q_MVs": 12004,
+      "one_body_MVs": 31
+    },
+    {
+      "signed_keys": 19828,
+      "negative_coefficients": 9982,
+      "pair_sources": 706,
+      "term_references": 39542,
+      "target_P_Q_MVs": 15458,
+      "one_body_MVs": 31
+    },
+    {
+      "signed_keys": 17687,
+      "negative_coefficients": 8710,
+      "pair_sources": 687,
+      "term_references": 35268,
+      "target_P_Q_MVs": 14904,
+      "one_body_MVs": 31
+    }
+  ],
+  "key_kind_counts": {
+    "native_filtered": {
+      "h": 57,
+      "r": 17417
+    },
+    "full_actualnorm": {
+      "h": 57,
+      "r": 19771
+    },
+    "full_minus_native": {
+      "h": 53,
+      "r": 17634
+    }
+  },
+  "five_actual_norm_offsets_from1": [
+    {
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "offset": 2.684064146301568e-16
+    },
+    {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "offset": 4.282544073828112e-16
+    },
+    {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "offset": -2.0595576637156691e-16
+    },
+    {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "offset": 2.6193653982555914e-16
+    },
+    {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "offset": 1.5598830618679166e-16
+    }
+  ],
+  "measured_comparison": {
+    "same_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "gB_minus_gA_norm": 0.08299817753141378,
+    "pgB_minus_pgA_norm": 0.16041244246113928,
+    "g_cosine": 0.9994121299948738,
+    "pg_cosine": 0.6889806652977402,
+    "gB_dot_minus_pgA": -0.1655969785811421,
+    "gA_dot_minus_pgA": -0.1681090493665408,
+    "gB_dot_minus_pgB": -0.1692067116161973,
+    "baseline_full_metrics": {
+      "raw_norm": 9762.328569579662,
+      "tangent_norm": 2.198970464212474,
+      "residual": 0.15397840068601018,
+      "indicator_Ha": 0.0840545246832704,
+      "absolute_tangent_defect": 2.1917623448074782e-11,
+      "no_spectrum_error_bound": true
+    },
+    "expanded_full_metrics": {
+      "raw_norm": 9762.274111042298,
+      "tangent_norm": 2.162963036280745,
+      "residual": 0.22131616474213398,
+      "indicator_Ha": 0.08460335580809865,
+      "absolute_tangent_defect": 2.0391868564378688e-11,
+      "no_spectrum_error_bound": true
+    },
+    "scope": "aggregate EOL only; no individual line derivatives or finite response"
+  },
+  "derived_from_saved_scalars": {
+    "residual_B_over_A": 1.4373195445342861,
+    "g_delta_route_over_B_minus_A": 2.1318150113891926e-12,
+    "pg_delta_route_over_B_minus_A": 7.401380825228851e-14,
+    "g_angle_degrees": 1.9647149921843192,
+    "pg_angle_degrees": 46.45052623732417,
+    "relative_g_B_minus_A": 0.037744107473102535,
+    "relative_pg_B_minus_A": 1.0417853526628664
+  },
+  "interpretation": [
+    "At the same literal orbitals and same original metric, expanded-model tangent change norm0.0829982 is3.7744% of baseline tangent; preconditioned change norm0.160412 is104.18% of baseline residual, with46.4505degree direction angle. Expanded residual increases0.1539784\u21920.2213162.",
+    "Combined native filtering plus actualnorm-route delta is negligible against model A/B change: tangent ratio2.1318e-12 and preconditioned ratio7.4014e-14. This is not a separate isolation of filtering versus norm correction.",
+    "Expanded conditional gradient still has a negative action along baseline descent (-0.16559698Ha per declared coordinate step); this is a local aggregate EOL slope, not a finite energy decrease or individual line prediction.",
+    "Anisotropic inverse-metric action as a reason for the larger relative preconditioned change is an inference; no mode decomposition or physical-deficiency diagnosis was measured.",
+    "Both residual and indicator remain far above unchanged stationarity gates. No ordinary derivative, physical completeness, experimental accuracy, source/optimizer or training qualification follows."
+  ],
+  "counter_interpretation": {
+    "entry_return_observers": "Recorded density/gradient/kernel/tracker counters are entry/completed wrappers and within caps; zero forbidden attempts/returns apply to installed sentry functions in the declared execution path, not arbitrary unwrapped aliases.",
+    "onebody_target_MVs": "93one-body and42366target P/Q actions are source-derived plans recomputed exactly from saved signed dictionaries, credited completed after each native gradient returned. They are not independent per-MV instrumentation/timing.",
+    "raw_h_quotient": "285wide actions are separately counted as5 per57 complete one-body terms; not a fourth Coulomb-gradient call.",
+    "angular_nullspace_coverage_limitation": "Observer installed at driver625 after baseline/expanded and original-reference CSF enumeration. Frozen config/csf.py371/384 invokes subshell_j_counts_mscheme, whose mscheme.py217\u2013221 highest_weight_states call may execute null_space187 and warm cache before observer. Recorded post-install count0 does not certify whole-run zero, nor enforcement of128entry cap over enumeration. AS/wall/CPU guards were already active. No rerun or sealed-source modification performed.",
+    "forbidden_sentry_installation": "H/CI/energy-eigh/eigvalsh/Dirac/optimizer/from_arrays blockers are installed at462\u2013474 before archive/model processing; explicit legacy CIResult makes evaluate skip fresh CI. Source call chain and closed result support the stated conditional zero-producer path; imported modules are provenance evidence, not producer-evaluation counts."
+  },
+  "uncontrolled_resource_observation": {
+    "decoded_selected_bytes": 105682480,
+    "geometry_cache_bytes_peak_source_array_accounting": 34181448,
+    "child_elapsed_s": 50.363779880004586,
+    "guardian_elapsed_s": 50.719402495989925,
+    "peak_RSS_MiB": 977.2734375,
+    "controlled_timing": false,
+    "software_parallel_speed_or_accuracy_comparison": "not measured"
+  },
+  "source_line_bindings": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/run.py",
+      "start": 462,
+      "stop": 477,
+      "sha256": "066b1ea068503cf11d30bd6c58155357a8a35f2db13bd0af7f374469406098f3"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/run.py",
+      "start": 530,
+      "stop": 626,
+      "sha256": "fe90c329f282b1e78916a5735123e2771a624803db307dd9a89c8ca324500188"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision003/expanded_gradient_execution_preparation002/run.py",
+      "start": 700,
+      "stop": 746,
+      "sha256": "ecb89b5d2ff92e0f48cf25ea104b6952e8191260a8c897918f98b6db887d57af"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py",
+      "start": 365,
+      "stop": 384,
+      "sha256": "b3103ed287005f114b15b119f43156dab8703b60edd672c904f593e04a686394"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py",
+      "start": 174,
+      "stop": 222,
+      "sha256": "f3b863f645be5c7844e90e7c740c65612cf36ae0e506ee7bd82b709523a7ba5f"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py",
+      "start": 88,
+      "stop": 187,
+      "sha256": "7722de603a2c6515172760d6d9b39bd1c2c3b7fd6220b96d344d360ecb103f07"
+    }
+  ],
+  "review_access": {
+    "saved_JSON_and_SOURCE_only": true,
+    "NPZ_stat_hash_header_body_access": 0,
+    "numerical_imports": 0,
+    "native_or_new_scientific_computations": 0,
+    "saved_gradient_archive_SHA": "Copied from bound result only; NPZ was not accessed.",
+    "CI_norm_or_gradient_vectors_recomputed": false
+  },
+  "principal_next_minimal_action": "Before any expanded optimizer or learned direction, qualify one declared complete tangent direction with same-state actualnorm finite-response controls at the original ordinary and reference-centered tolerances; admit complete owned snapshots separately if needed. On the next independently authorized execution install angular work observers before any CSF enumeration. Aggregate EOL evidence does not determine individual spectral-line shifts.",
+  "documentation_impact": "Root owns RESULTS/current guides;001 failures, frozen six files and both historical SOURCE reviews remain untouched."
+}

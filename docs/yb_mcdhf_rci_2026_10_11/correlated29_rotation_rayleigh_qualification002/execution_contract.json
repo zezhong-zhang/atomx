@@ -1,0 +1,33 @@
+{
+  "execution_authorized_by_root": true,
+  "created_utc": "2026-10-11T13:10:56.419384+00:00",
+  "driver_sha256": "856c021a68d467a8abe38fae7439b5756fcf27bddde1ddf7ea89b6f28525b8fc",
+  "contract_sha256": "eb890d11e49d0e28e5f2612d736993207996fabc04b2a2ddf6cd15d6620a9cd1",
+  "preparation_sha256": "c5bb0e19568e40a216b8d9ddb3c3b284bcfeee04c486c1631ce419fd0bbc3e0f",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "new_scientific_target": "EOL_Rayleigh",
+  "CPU": 31,
+  "max_H": 3,
+  "max_CI": 3,
+  "max_full_gradient": 0,
+  "max_optimizer": 0,
+  "max_validation_Dirac": 7,
+  "max_total_hS": 42,
+  "wall_seconds": 120,
+  "outer_wall_seconds": 135,
+  "address_space_GiB": 3.95,
+  "maximum_system_load1": 32,
+  "root_reviewed_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/run.py": "856c021a68d467a8abe38fae7439b5756fcf27bddde1ddf7ea89b6f28525b8fc",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/contract.json": "eb890d11e49d0e28e5f2612d736993207996fabc04b2a2ddf6cd15d6620a9cd1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/preparation_verification.json": "c5bb0e19568e40a216b8d9ddb3c3b284bcfeee04c486c1631ce419fd0bbc3e0f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/handoff.json": "c9c356aa293fa9a7c2c09879913b48015252a6eeb7664b4f5b43d4fb4dcac187",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/root_launch.py": "aff5f104bca9c97b209f50cfad04fdc04596468be952faba4ab4751f5202f3b7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/failure_identity_review.json": "7e5d52e38f0c1cc2fc3dce396aec7f5d258c202a2f30177e3f465069b7c979b0",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour21/delivery_proof.json": "36d42803f616e704b189b4d0e54412fd77c96f27f6d1abca60eba9580be77ed2"
+  },
+  "actual_iteration_trigger": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour21/delivery_proof.json",
+  "original_failure_preserved": true,
+  "uniform_optimizer_adapter_authorized": false,
+  "review_scope": "One explicit002 successor. Root checked full predecessor driver plus EXACTLY one canonical tuple/list comparison change. All scientific and resource fields identical; zero-tolerance owner gate remains. Predecessor142pass/1fail and real H/C bitwise match preserved. One foreground attempt; no automated repeat."
+}

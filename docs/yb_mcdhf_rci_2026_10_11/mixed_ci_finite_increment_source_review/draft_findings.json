@@ -1,0 +1,49 @@
+{
+  "status": "draft_read_only_findings_not_final_acceptance",
+  "created_at": "2026-10-11T11:39:17.242493+00:00",
+  "physical_calls": 0,
+  "findings": [
+    {
+      "id": "F01",
+      "finding": "Complete CI residual used an entrywise maximum, weakening the original column 2-norm gate.",
+      "disposition": "Owner changed to max column Euclidean norm; read in current draft.",
+      "qualification": "source review only"
+    },
+    {
+      "id": "F02",
+      "finding": "Radial factory silently cast bound endpoint arrays to float64.",
+      "disposition": "Owner now rejects non-float64 reference, trial and increment arrays before radial assembly.",
+      "qualification": "source review only"
+    },
+    {
+      "id": "F03",
+      "finding": "Mutable ordered CSFs could leave the constructor angular table stale while new valid owners matched the current CSFs.",
+      "disposition": "Owner added exact captured signatures, orbital keys and determinant cap admission.",
+      "qualification": "source review only"
+    },
+    {
+      "id": "F04",
+      "finding": "A changed functional target declaration could silently retain the old tracker objective.",
+      "disposition": "Owner added tracker.state_average == functional.state_average.",
+      "qualification": "source review only"
+    },
+    {
+      "id": "F05",
+      "finding": "CSFSignature omits explicit parity while captured angular blocks use parity.",
+      "disposition": "Owner added physical parity and single electron-count admission; signature then fixes the same physical block model.",
+      "qualification": "source review only"
+    },
+    {
+      "id": "F06",
+      "finding": "Decimal oracle add_point rounded binary64 assets at ambient default precision28 before the precision80 matrix oracle.",
+      "disposition": "Owner and root notified; final corrected oracle not yet frozen.",
+      "qualification": "unresolved until final candidate read"
+    },
+    {
+      "id": "C01",
+      "finding": "Final H-owner revalidation verifies physical inputs, not concurrently mutable CI eigenpair arrays.",
+      "disposition": "Clarify unsupported concurrent eigenpair mutation; no new concurrency mechanism requested.",
+      "qualification": "documentation boundary, not numerical rejection proof"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-09",
+  "implementation": {
+    "signed_two_diagram_matrix": true,
+    "complete_ten_state_capture": true,
+    "five_state_independent_extracted_regeneration": true,
+    "scope": "finite three-function same-kappa frozen-core Sigma2; no all-order SD/hole CI/Coulomb-Breit cross terms"
+  },
+  "tests": {
+    "unique_affected_passed": 99,
+    "panels": [
+      {
+        "passed": 76,
+        "log": "final_tests.log"
+      },
+      {
+        "passed": 23,
+        "log": "pair_kernel_tests.log"
+      }
+    ],
+    "retained_QED_coverage_warnings": 25,
+    "independent_bundle_passed": 99,
+    "input_conversion_recheck_passed": 1,
+    "full_suite_claimed": false
+  },
+  "numerical_gates": {
+    "passed": true,
+    "old_diagonal_error_Ha": 2.7755575615628914e-16,
+    "matrix_eigen_residual_Ha": 2.0620025396116595e-15,
+    "saved_vector_residual_Ha": 1.1102230246251565e-14,
+    "saved_residue_error": 6.106226635438361e-15,
+    "metric_error": 8.881784197001252e-16,
+    "core_overlap": 1.1102230246251565e-16,
+    "independent_five_state_max_root_error_Ha": 0.0
+  },
+  "source": {
+    "production_stable_during_capture": true,
+    "final_identity_chain": "final_source_chain.json",
+    "final_source_input_conversions_identity_for_all_30_spinors": true,
+    "final_saved_matrix_replay": true,
+    "final_full_coarse_regeneration": true
+  },
+  "scientific_gates": {
+    "experimental_5percent_passed": false,
+    "fine_max_relative_percent": 5.868493203684374,
+    "external_1cm1_passed": false,
+    "external_P2_P3_max_increment_cm1": 32.27367460653477,
+    "radial_1cm1_passed": false,
+    "radial_max_increment_cm1": 2.5099077799677616
+  },
+  "archives": {
+    "yb_diagnosis_repair_2026_10_08": {
+      "count": 93,
+      "unchanged": true
+    },
+    "yb_energy_dependent_sigma_2026_10_08": {
+      "count": 52,
+      "unchanged": true
+    },
+    "yb_correlation_tail_2026_10_08": {
+      "count": 127,
+      "unchanged": true
+    },
+    "yb_literature_repair_strategy_2026_10_08": {
+      "count": 21,
+      "unchanged": true
+    }
+  },
+  "lint_passed": true,
+  "numerical_accuracy_does_not_certify_model_accuracy": true,
+  "spatial_increments_are_not_infinite_tail_bounds": true
+}

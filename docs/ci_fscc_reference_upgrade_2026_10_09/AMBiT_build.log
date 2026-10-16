@@ -1,0 +1,39 @@
+CMake Warning (dev) at src/CMakeLists.txt:15 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP_Fortran: -fopenmp (found version "4.5")
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP_Fortran: -fopenmp (found version "4.5")
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build
+[  0%] Built target generate_gitinfo
+[  1%] Linking CXX static library libuniversal.a
+[ 14%] Built target universal
+[ 15%] Linking CXX static library libhartreefock.a
+[ 36%] Built target hartreefock
+[ 37%] Linking CXX static library libbasis.a
+[ 43%] Built target basis
+[ 45%] Linking CXX static library libmbpt.a
+[ 56%] Built target mbpt
+[ 57%] Linking CXX static library libconfiguration.a
+[ 69%] Built target configuration
+[ 70%] Linking CXX static library libexternalfield.a
+[ 91%] Built target externalfield
+[ 92%] Linking CXX static library libatom.a
+[ 97%] Built target atom
+[ 98%] Building CXX object src/CMakeFiles/ambit.dir/ambit.cpp.o
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp: In function ‘void signal_handler(int)’:
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp:616:14: warning: ignoring return value of ‘ssize_t write(int, const void*, size_t)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  616 |         write(STDERR_FILENO, errmsg, strlen(errmsg));
+      |         ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT/src/ambit.cpp:630:14: warning: ignoring return value of ‘ssize_t write(int, const void*, size_t)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  630 |         write(STDERR_FILENO, errmsg, strlen(errmsg));
+      |         ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[100%] Linking CXX executable ambit
+[100%] Built target ambit

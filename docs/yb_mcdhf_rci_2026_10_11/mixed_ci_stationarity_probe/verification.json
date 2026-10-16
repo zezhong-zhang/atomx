@@ -1,0 +1,435 @@
+{
+  "scientific_identity_and_derivative_gates_passed": true,
+  "checks": [
+    {
+      "name": "same_baseline_all_CI_energies_Ha",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "baseline/CI_residual_Ha",
+      "error": 2.456422529646966e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "baseline/CI_orthogonality",
+      "error": 2.7755575615628914e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/radial_Gram",
+      "error": 1.7763568394002505e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/same_projector_leakage_norm",
+      "error": 2.158282305287809e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "same_baseline_matrix_Ha",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "actual005_coordinate_reconstruction_max",
+      "error": 2.986638714119749e-13,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "zero_coordinate_objective_replay_Ha",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/CI_residual_Ha",
+      "error": 3.068396775126824e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/CI_orthogonality",
+      "error": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/radial_Gram",
+      "error": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus/same_projector_leakage_norm",
+      "error": 2.2036740750586946e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/CI_residual_Ha",
+      "error": 2.2024037625357845e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/CI_orthogonality",
+      "error": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/radial_Gram",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus/same_projector_leakage_norm",
+      "error": 1.9548701404623633e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "mixed_HF_vs_resolved_CI_derivative/normalized_original_metric_descent/0.0001",
+      "error": 6.365403551478188e-09,
+      "limit": 1.6201063667261024e-06,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/CI_residual_Ha",
+      "error": 2.0647416059567097e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/CI_orthogonality",
+      "error": 2.6645352591003757e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/radial_Gram",
+      "error": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus/same_projector_leakage_norm",
+      "error": 2.4970721751825978e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/CI_residual_Ha",
+      "error": 2.978619009003455e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/CI_orthogonality",
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/radial_Gram",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus/same_projector_leakage_norm",
+      "error": 2.225410180158129e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "mixed_HF_vs_resolved_CI_derivative/normalized_original_metric_descent/5e-05",
+      "error": 1.1186890767900248e-07,
+      "limit": 1.6201063667261024e-06,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/CI_residual_Ha",
+      "error": 2.3481172288895928e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/CI_orthogonality",
+      "error": 2.6645352591003757e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/radial_Gram",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus/same_projector_leakage_norm",
+      "error": 2.1508934543994306e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/CI_residual_Ha",
+      "error": 2.674097249789211e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/CI_orthogonality",
+      "error": 2.3314683517128287e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/radial_Gram",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus/same_projector_leakage_norm",
+      "error": 2.1889589137663353e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "mixed_HF_vs_resolved_CI_derivative/normalized_valence_focused_tangent/0.0001",
+      "error": 1.0276170749404234e-08,
+      "limit": 1.343775346149162e-06,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/CI_residual_Ha",
+      "error": 2.3302725351905583e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/CI_orthogonality",
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/radial_Gram",
+      "error": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus/same_projector_leakage_norm",
+      "error": 2.5830367202789003e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/CI_residual_Ha",
+      "error": 2.261885675009419e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/CI_orthogonality",
+      "error": 4.551914400963142e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/radial_Gram",
+      "error": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus/same_projector_leakage_norm",
+      "error": 2.420247803552696e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "mixed_HF_vs_resolved_CI_derivative/normalized_valence_focused_tangent/5e-05",
+      "error": 8.303574689123849e-08,
+      "limit": 1.343775346149162e-06,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/CI_residual_Ha",
+      "error": 2.4557820808591233e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/CI_orthogonality",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/cross_symmetry_zero_Ha",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/radial_Gram",
+      "error": 2.4424906541753444e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0/same_projector_leakage_norm",
+      "error": 2.234208162990121e-15,
+      "limit": 1e-10,
+      "passed": true
+    }
+  ],
+  "result_sha256": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+  "artifacts_sha256": {
+    "FD_normalized_original_metric_descent_0.0001_minus.npz": "4e7d59d5506701dd63b76765153920c6441541782dfdcc34e0e6965de6d3da80",
+    "FD_normalized_original_metric_descent_0.0001_plus.npz": "3324218682f503560aeddec50c4eefbcda8ee3423b01717e16c486870c562ecc",
+    "FD_normalized_original_metric_descent_5e-05_minus.npz": "214b595d8552755525f9b83da3f8008c729a7d03174ed28f5b2d65c22e72235e",
+    "FD_normalized_original_metric_descent_5e-05_plus.npz": "ebd05620af2ba41272aeb85012819671bdb20f6e3f33efe3ab4356c2a5549bda",
+    "FD_normalized_valence_focused_tangent_0.0001_minus.npz": "7fe645bf8f21a88dba2bc73e56c45bb8c6f6f83c9de173b760b349037859e036",
+    "FD_normalized_valence_focused_tangent_0.0001_plus.npz": "7cfda831da535252e776bc294cad1e80f7c1422e7fbb2a066f39d0373a9fafe6",
+    "FD_normalized_valence_focused_tangent_5e-05_minus.npz": "2beb7312a9d183f65ee5c8f9105610bdf36f3faae0f99268067db3d279f98311",
+    "FD_normalized_valence_focused_tangent_5e-05_plus.npz": "b540096a81a89476a359cdab9eb0ca1b07b23fe2e1fe27d739a6ec54fe63965b",
+    "accepted_gradient.npz": "6ec3035e4023f2ba2729069d09077bc9ba8b5266ecbc98af2c6ab3d1afa26c37",
+    "baseline_arrays.npz": "b52dbb9e8452b3081028c43061f4c9a8e031544c1935b26d20c315915f252750",
+    "contract.json": "ec5264861d406e24ea4a0bfdad55901f716a829af5ca194df3b6b83840646a4d",
+    "derivative_directions.npz": "93dab7b774c9d83619a317744ee2e57e632d579d7c72b3fb7294111be1c33d25",
+    "line_trial_0.npz": "7a12a32a127a1280d5034a1e0adad8146f1087e3ef097bc00197396608a08521",
+    "preflight.json": "f4c4d485ba209efe9ea8db96fc0dad05db1c2cb06a3cf767df0fe66ddf38ce01",
+    "result_partial.json": "dafce704cfe59d23e7d4f1022335f40d537b4cfc2915521481bc2c9aa5a42abc",
+    "run.py": "df5e1f8d58b2ec42f35ea71fd7d9479afd6bd791ba18b69566c6e225154be9c5",
+    "trials_partial.json": "e495c9b2b18b600cdeef837fe738aae5612e8668d9edc2a6987353710c62c907"
+  },
+  "expanded_MCDHF_converged": false,
+  "production_certified": false
+}

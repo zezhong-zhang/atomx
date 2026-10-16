@@ -1,0 +1,217 @@
+{
+  "execution_authorized_by_root": true,
+  "pending_exact_root_execution_contract": false,
+  "once_only": true,
+  "diagnostic_label": "SAVED_MATRIX_CONDITIONAL_DIAGNOSTIC",
+  "driver_sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+  "contract_sha256": "5cab2c6eebe9e030aaf76f9f62679a33f9f9188704217cac6dcfdce008e97c6e",
+  "preparation_manifest_sha256": "c5eaea9793c2f2e1c1e6faffe66d54b543b71668eca45d4f3fb1f46a0969d192",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "input_roles": {
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_owner.json",
+      "sha256": "c7f8ec39209c65a9317232a5d82ea03c1c5503dd8b5f7651149245ea1fbd9653",
+      "deferred_numerical": false
+    },
+    "baseline_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/basis_identity.json",
+      "sha256": "4cfe20d173de2d4994af0e8971c7b342cd845350693dbdc34b59d8592de33372",
+      "deferred_numerical": false
+    },
+    "baseline_state": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/state_identity.json",
+      "sha256": "1841a49f68cec8d8baf868e1a9b460bda613ac03cf17d68b004da5d98ae55d6c",
+      "deferred_numerical": false
+    },
+    "stageB_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json",
+      "sha256": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+      "deferred_numerical": false
+    },
+    "stageB_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/result.json",
+      "sha256": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+      "deferred_numerical": false
+    },
+    "stageB_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/root_execution.json",
+      "sha256": "06f62b9d1aa63fb44514403ba560476dbb58315c11b221b2f484db026290b2bd",
+      "deferred_numerical": false
+    },
+    "literal13_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+      "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+      "deferred_numerical": false
+    },
+    "native_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+      "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+      "deferred_numerical": false
+    },
+    "native_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+      "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+      "deferred_numerical": false
+    },
+    "prepared_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json",
+      "sha256": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d",
+      "deferred_numerical": false
+    },
+    "baseline_whole_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/baseline_whole_CI.npz",
+      "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+      "deferred_numerical": true
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "parent_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/contract.json",
+      "sha256": "aebbe1c3526152623b9669393362946af8e0c16d94d3956fb088e0723a4cced2",
+      "deferred_numerical": false
+    },
+    "parent_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/run.py",
+      "sha256": "7cce05dfe0e1347337f62639638ae1d2dc8ca808ce1b2f2525bf97e3f738ff41",
+      "deferred_numerical": false
+    },
+    "parent_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/preparation_manifest.json",
+      "sha256": "d5b55ed4eb90a0865b140d903ebc8322de1fdd4a976cdf0edd1bb24e35d3da1b",
+      "deferred_numerical": false
+    },
+    "parent_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/root_execution.json",
+      "sha256": "43c9dc87a18e2cb69f782e936782b0b963454aa61f1aff1b794af22ecb83ffe9",
+      "deferred_numerical": false
+    },
+    "parent_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/failure.json",
+      "sha256": "62ec06b7c03af18b6b8ce5cd9b9d1739ea8148472e759dea5f33e4c3975c3f64",
+      "deferred_numerical": false
+    },
+    "parent_nested_H_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/nested_H_control.json",
+      "sha256": "a3123647c85109eea6a8385c42f9d1a1faf42364f27522270484657816327946",
+      "deferred_numerical": false
+    },
+    "parent_basis_maps": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json",
+      "sha256": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742",
+      "deferred_numerical": false
+    },
+    "parent_nested_embedding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/nested_embedding.json",
+      "sha256": "fad4d8c55239ee95437a742c5d304c1fb28aad8e512b255da093baa2c88e0b7e",
+      "deferred_numerical": false
+    },
+    "parent_baseline_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/baseline_conditional_point.json",
+      "sha256": "29139eb232ca0413803902923e39be9ec4aba6640cdae86c6dabafa3c0920110",
+      "deferred_numerical": false
+    },
+    "parent_baseline_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/baseline_tracking.json",
+      "sha256": "13fcea0d59c733fb9ea49b369131e27abe325363746fec8d9286c740112b5ac7",
+      "deferred_numerical": false
+    },
+    "parent_signed_admission": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/full_signed_overlap_admission.json",
+      "sha256": "df6361c0fe1ecb1f4e2dfc813987392e878ba129df8aa9119718deaa90bcb5d8",
+      "deferred_numerical": false
+    },
+    "parent_representation_controls": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/source_representation_controls.json",
+      "sha256": "3ffd462c976cc3e81c998f0155610295c8ef38ca66357525ca294dda7ffdfcb0",
+      "deferred_numerical": false
+    },
+    "saved_expanded_H": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/expanded_complete_H.npz",
+      "sha256": "d585a0e9c052f57f601de9d814fbcc6d311b910289e99d22da9b732dd58d8721",
+      "deferred_numerical": true
+    }
+  },
+  "resources": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_GiB": 2.5,
+    "inner_seconds": 180,
+    "outer_seconds": 195,
+    "minimum_host_available_GiB": 3,
+    "max_input_archive_loads": 5,
+    "max_input_decoded_bytes": 134217728,
+    "max_complete_block_eigh": 5,
+    "max_tracker_signed_overlaps": 2,
+    "max_tracker_resolve": 1,
+    "max_tracking_SVD": 5,
+    "max_public_projections": 20,
+    "max_angular_null_space": 1024,
+    "max_signed_overlap_pairs": 1000000,
+    "expected_reference_self_pairs": 1525,
+    "expected_reference_expanded_pairs": 10132,
+    "exact_difference_entry_capacity": 2544025,
+    "new_H": 0,
+    "new_hS": 0,
+    "radial_key_evaluations": 0,
+    "gradients": 0,
+    "Dirac_spectra": 0,
+    "optimizer": 0,
+    "timing_claim_valid": false,
+    "caps_are_stops_not_completion_guarantees": true
+  },
+  "acceptance_sha256": "8e554607714113e3f69d05dbd4c8cd6466c81e8d5ebda10fdad1dfdbfc31a56c",
+  "original_byte_gate_remains_failed": true,
+  "new_H_authorized": false,
+  "retained_owner_fabrication": false,
+  "literal_interpreter": "/data/code/atomx/.venv/bin/python",
+  "guardian_sha256": "8029b8f83b8b2dee68f28be4e9d3f8e53daf865ca27144a865041796fc2af6f6",
+  "root_review": "Complete frozen source/contract/handoff review; unmodified saved2574 H, exactly five complete evd blocks, full E/C residual/Gram and original531 signed UID tracker; exact operand Fraction row sums with ordered-root-only theorem; zero new physics producers and no parent gate upgrade."
+}

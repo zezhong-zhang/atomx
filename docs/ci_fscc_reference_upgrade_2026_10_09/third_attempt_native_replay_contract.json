@@ -1,0 +1,14 @@
+{
+  "hypothesis": "Full signed Sigma1 is consumed exactly by native CI in the same frozen core",
+  "fixed": "Saved ten canonical 3-function matrices; DC Fermi nucleus; same core/spinor phases/metric/zero",
+  "gates": {
+    "bare_Fock_matrix_Ha": 1e-08,
+    "CI_Dyson_energy_Ha": 1e-08,
+    "added_operator_matrix_Ha": 1e-10,
+    "eigen_residual_Ha": 1e-08,
+    "wave_projector": 1e-07,
+    "seconds_per_state": 180,
+    "RSS_MiB": 6144
+  },
+  "scope": "consumer/representation regression, no new Yb accuracy or all-order physics"
+}

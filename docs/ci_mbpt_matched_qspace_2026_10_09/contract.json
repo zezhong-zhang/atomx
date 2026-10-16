@@ -1,0 +1,25 @@
+{
+  "record": "2026-10-09-matched-sigma-and-finite-Q",
+  "hypothesis": "The current signed closed-core attachment Sigma(2) agrees with AMBiT at identical Coulomb integrals, orbital energies, intermediate spaces and fixed external energy; higher-order Q propagation is a separate missing operation.",
+  "fixed": {
+    "reference": "Native Ne closed core, Z=10, point nucleus, Dirac-Coulomb, ns=40 ks=7",
+    "core": "1s2 2s2 2p6, every occupied relativistic subshell included",
+    "virtual": "First three VN metric-core-orthogonal roots in each kappa=-1,1,-2,2,-3; no amplitude threshold",
+    "external": "Three same-kappa roots per block, kappa=-1,-2,-3",
+    "denominator": "One fixed argument per block, first external DF energy; delta=0 and floor=1e-8 Ha; reject reference runs with skipped diagrams",
+    "reference_source": "AMBiT fe1115aaed97b340e1f4d625d451b165c5bcd7a5, existing unmodified compiled MBPT library",
+    "matched_scope": "AMBiT consumes Atomx's signed radial integral tables, so this isolates independent angular recoupling and diagram sums, not radial-solver accuracy",
+    "units_metric": "Hartree, real orthonormal radial spinors, signed scalar matrix elements"
+  },
+  "gates": {
+    "sigma_matrix_absolute_Ha": 1e-11,
+    "sigma_matrix_relative": 1e-10,
+    "nonzero_offdiagonal_required": true,
+    "both_2p1h_and_2h1p_checked": true,
+    "reference_warnings_or_missing_integrals": "fail",
+    "finite_Q_anchor_if_implemented": "Schur/Dyson full-state energies and normalized eigenvectors match independent full diagonalization to 1e-10 Ha; signed phase and non-diagonal Q mixing covered",
+    "scientific_claim": "No Yb experimental-accuracy pass follows from an implementation or finite-space gate"
+  },
+  "resources": {"workers": 1, "blas_threads": 1, "per_stage_seconds": 300, "memory_MiB": 4096, "finite_CI_dimension_cap": 256},
+  "stop": "Stop before a production Yb scan if the matched Sigma gate fails, the finite-space anchor fails, or the declared dimensions exceed the resource cap; preserve negative evidence and revise the implementation, never the gate."
+}

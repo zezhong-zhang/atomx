@@ -1,0 +1,262 @@
+
+		**********************************************************************************
+		**                                                                              **
+		**                                   E X P - T                                  **
+		**        Relativistic Fock-Space Multireference Coupled Cluster Program        **
+		**                                                                              **
+		**                         version 1.8.5 (10 June 2025)                         **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** EXP-T is free software: you can redistribute it and/or modify                **
+		** it under the terms of the GNU Lesser General Public License as published by  **
+		** the Free Software Foundation, either version 3 of the License, or            **
+		** (at your option) any later version.                                          **
+		**                                                                              **
+		** EXP-T is distributed in the hope that it will be useful,                     **
+		** but WITHOUT ANY WARRANTY; without even the implied warranty of               **
+		** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                **
+		** GNU Lesser General Public License for more details.                          **
+		**                                                                              **
+		** You should have received a copy of the GNU Lesser General Public License     **
+		** along with EXP-T.  If not, see <http://www.gnu.org/licenses/>.               **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** For more information about the EXP-T program system see                      **
+		** http://www.qchem.pnpi.spb.ru/expt                                            **
+		**                                                                              **
+		** This is an experimental code. The authors accept no responsibility           **
+		** for the performance of the code or for the correctness of the results.       **
+		**                                                                              **
+		** If results obtained with this code are published, an                         **
+		** appropriate citation would be:                                               **
+		**                                                                              **
+		** [1] A. Oleynichenko, A. Zaitsevskii, E. Eliav.                               **
+		**     EXP-T, An Extensible Code for Fock Space Relativistic Coupled Cluster    **
+		**     Calculations. See http://www.qchem.pnpi.spb.ru/expt.                     **
+		** [2] A. V. Oleynichenko, A. Zaitsevskii, E. Eliav.                            **
+		**     Towards high performance relativistic electronic structure modelling:    **
+		**     the EXP-T program package. Commun. Comput. Inf. Sci. 1331, 375 (2020).   **
+		**     doi: 10.1007/978-3-030-64616-5_33                                        **
+		**                                                                              **
+		**********************************************************************************
+
+Authors:
+  Alexander Oleynichenko [alexvoleynichenko@gmail.com]
+  Andrei Zaitsevskii
+  Artem Rumyantsev
+  Ephraim Eliav
+Compiler: GNU C Compiler 15.2.0
+BLAS/LAPACK implementation: OpenBLAS
+Build date: Oct  9 2026 22:46:44
+Run date: Sat Oct 10 15:36:10 2026
+Hostname: fermi
+CUDA disabled
+Tensor trains (TT) disabled
+Reading input file: cc.inp
+
+
+				****************
+				** Input file **
+				****************
+
+ -----
+ title "Atomx exact axial proof"
+ interface pyscf
+ integrals ATOMX_ONE ATOMX_TWO
+ model ccsdt
+ sector 0h1p
+ active 0 0 1 1 1 1 1 1 1 1
+ maxiter 200
+ conv 1e-12
+ diis 8
+ diis triples
+ memory 1024 mb
+ tilesize 4
+ nthreads 2
+ disk_usage 0
+ reuse 0h0p 0h1p
+ -----
+
+
+
+				*************
+				** Options **
+				*************
+
+ title            title string - comment                    Atomx exact axial proof
+ scratch_dir      scratch directory for tmp files           scratch
+ --no-clean       retain scratch directory on exit          yes
+ print            print level                               medium
+ flush_amplitude  write formatted files with cluser ampl-s  no
+ arith            recommended arithmetic                    real
+ memory           max allowed RAM usage                     1024.0 Mb
+ compress         compression of integrals on disk          disabled
+ compress_triples compression of triples tensors in RAM     disabled
+ disk_usage       disk usage level                          0 (all data in RAM)
+ tilesize         max dimension of formal blocks (tiles)    4
+ nthreads         number of OpenMP parallel threads         2
+ openmp_algorithm  parallelization algorithm for mult        external
+ cuda             calculations on GPU (CUDA)                disabled
+ maxiter          maximum number of CC iterations           200
+ conv_thresh      convergence threshold (by amplitudes)     1e-12
+ div_thresh       divergence threshold (by amplitudes)      1000
+ reuse            reuse amplitudes and/or integrals         0h0p 0h1p 
+ skip             skip computations in sectors:             
+ flush            flush amplitudes                          no
+ interface        source of transformed molecular integrals  PySCF
+ integrals        one-electron Hamiltonian integrals file   ATOMX_ONE
+                  two-electron (Coulomb) integrals file     ATOMX_TWO
+                  one-electron property integrals file      MDPROP
+ x2cmmf           X2Cmmf Hamiltonian                        no
+ new_sorting      new implementation of integral sorting    no
+ gaunt            two-electron (Gaunt) integrals file       not used
+ sector           target Fock space sector                  0h1p
+ model            coupled cluster model (level of theory)   CCSDT
+ goldstone        use Goldstone formalism                   no
+ shift_type       formula for denominator shifts            shifts are disabled
+ nroots           number of roots to be processed           all
+ roots_cutoff     energy cutoff for roots to be processed   all
+ degen_thresh     degeneracy threshold (a.u.)               1.00000e-08
+ occ_irreps       occupation numbers of spinors             default (from integral interface)
+ occ              occupation numbers of spinors             default
+ diis             DIIS technique for convergence            enabled
+ diis <n>         DIIS subspace dimension                   8
+ diis triples     DIIS for triples amplitudes               enabled
+ diis             DIIS technique for convergence            disabled
+ oneprop          interface to OneProp (by L.V.Skripnikov)  disabled
+ twoprop          interface to TwoProp (by D.E.Maison)      disabled
+ oneprop          interface to the MDPROP file              disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h1p     construct density matrix in 0h1p          disabled
+ density 0h2p     construct density matrix in 0h2p          disabled
+ density 0h3p     construct density matrix in 0h3p          disabled
+ density 1h0p     construct density matrix in 1h0p          disabled
+ density 1h1p     construct density matrix in 1h1p          disabled
+ density 1h2p     construct density matrix in 1h2p          disabled
+ density 1h3p     construct density matrix in 1h3p          disabled
+ density 2h0p     construct density matrix in 2h0p          disabled
+ density 2h1p     construct density matrix in 2h1p          disabled
+ density 2h2p     construct density matrix in 2h2p          disabled
+ density 2h3p     construct density matrix in 2h3p          disabled
+ density 3h0p     construct density matrix in 3h0p          disabled
+ density 3h1p     construct density matrix in 3h1p          disabled
+ density 3h2p     construct density matrix in 3h2p          disabled
+ density 3h3p     construct density matrix in 3h3p          disabled
+ lambda 0h1p      solve lambda equations in the 0h1p sector  disabled
+ overlap          calculate overlap int-s for target wfns   disabled
+ nohermit         hermitization of effective Hamiltonians   disabled
+ dltdm            model-space estimates of tran dipoles     disabled
+ natorb           model-space natural orbitals              disabled
+ prop             model-space estimates of properties       disabled
+ select           selection of cluster amplitudes           disabled
+ restrict_t3      restriction of triples                    disabled
+ use_oe           use orbital energies from DIRAC           disabled
+ ih_imms          simple intermediate Hamiltonian           disabled
+
+
+ Scratch directory 'scratch' exists
+ Current working directory:
+ /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection
+ Full path to one-electron integrals:
+ /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection/ATOMX_ONE
+ Full path to Coulomb integrals:
+ /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection/ATOMX_TWO
+ Full path to properties integrals:
+ /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection/MDPROP
+ Changing working directory to scratch ...
+ Current working directory:
+ /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection/scratch
+
+ ATOMX_INTEGRALS_V1 signed-antisymmetric complex Fock+ERI
+ file with molecular integrals: /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/old_format_rejection/ATOMX_ONE
+begin reading two electron part
+ number of spinors = 10
+ number of occupied spinors = 2
+ nuclear repulsion energy = 0.0000000000000000
+ scf energy = -13.6139433307935427
+ end interface to pyscf
+
+ retained requested tile size 4
+ switching openmp parallalization algorithm to 'internal'
+ Blocks of molecular spinors:
+ --------------------------------------------------------------------------------
+   #  size  irrep  spinor indices
+ --------------------------------------------------------------------------------
+ [ 0]    4      A  1-4
+ [ 1]    4      A  5-8
+ [ 2]    2      A  9-10
+ --------------------------------------------------------------------------------
+
+
+		Symmetry & irreducible representations
+		--------------------------------------
+
+ Point group: C1
+ Group type: quaternion
+ Arithmetic: complex
+ Is abelian: yes
+ Number of irreps: 2
+ Totally symmetric irrep: a
+ Representation names:
+   0 A    1 a 
+multiplication table (for abelian only):
+
+ ||A|a|
+=++=+=+
+A||a|A|
+-++-+-+
+a||A|a|
+-++-+-+
+
+
+				Spinors info
+				------------
+
+     no    rep         occ    active        one-el energy
+    -------------------------------------------------------
+       1   0 "A     "   1       -          -5.668077023125
+       2   0 "A     "   1       -          -5.668077023125
+       3   0 "A     "   0       a          -0.666076890993
+       4   0 "A     "   0       a          -0.666076890993
+       5   0 "A     "   0       a          -0.519436145728
+       6   0 "A     "   0       a          -0.519436145728
+       7   0 "A     "   0       a          -0.519390030226
+       8   0 "A     "   0       a          -0.519390030226
+       9   0 "A     "   0       a          -0.519390030226
+      10   0 "A     "   0       a          -0.519390030226
+    -------------------------------------------------------
+
+    irreps                 A
+    occupied inactive      2
+    occupied active        0
+    virtual active         8
+    virtual inactive       0
+
+
+
+				*****************
+				** Sector 0h0p **
+				*****************
+
+
+
+ Integral sorting for the 0h0p sector
+ started at Sat Oct 10 15:36:10 2026
+ number of spinors                              10
+ number of spinor blocks                        3
+ tile size                                      4
+ max spinor block size                          4
+ size of the buffer for two-elec integrals      0.019 MB
+ time for 2-e integrals sorting, sec: 0.00
+ time for PySCF interface (reading integrals), sec: 0.00
+ total time for sorting operations, sec: 0.00
+ finished at at Sat Oct 10 15:36:10 2026
+
+ Initial guess
+ -------------
+ Trying to read amplitudes from disk ...
+
+error: Atomx compact backend requires its explicit ATXDG002 diagram format

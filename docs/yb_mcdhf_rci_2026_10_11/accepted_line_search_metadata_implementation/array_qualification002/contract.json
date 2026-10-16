@@ -1,0 +1,153 @@
+{
+  "created_before_array_execution_utc": "2026-10-11T13:20:51.795919+00:00",
+  "authorization": "Pending root review/seal for ONE bounded successor array invocation; original001 closed failed and immutable.",
+  "fixed_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "old_saved_Yb_source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/exact_reported_guard.py": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/run_array_qualification.py": "5654ebe6913315089ec2aba91d1070d645f4cf8f17632ea99bc8f9c569c5aa02",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_verification.json": "feb63a8f82136798be4cedc2f475547e5bc99ed18eb7505c7f30a007b314521f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/decomposition.json": "2c527b35b364af0b31bde4c2947f04db07e82c9f5286c02c2edd4d3c3683915c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/array_qualification002/run.py": "a179b2b390295a0fe365e68a07358fe4494d35832d4363e4d91f5ab859a12a11",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+  },
+  "resources": {
+    "CPU": 31,
+    "BLAS_threads": 1,
+    "address_space_GiB": 1,
+    "wall_seconds": 30,
+    "max_exact_points": 10,
+    "max_exact_target_quotients": 20,
+    "max_examined_signed_pairs": 150000,
+    "max_saved_Yb_points_loaded": 1,
+    "H_CI_gradient_optimizer_Dirac_hS_eigen_SVD_radial_increment": 0,
+    "no_retries": true
+  },
+  "hypothesis": "Exact dyadic upper-triangle accumulation preserves every signed pair and actual per-state norm; exact acceptance margin refuses a rounded reported decrease without changing the optimizer comparison.",
+  "analytical_gates": [
+    "Independent full i,j Fraction reference exact equality",
+    "Whole-column phase and normalization scale invariance",
+    "Relative-phase interference differs",
+    "Unequal-weight normalized signed ensemble exact equality",
+    "Sufficient margin implies exact expectation Armijo",
+    "Reported accepted but unchanged exact expectation is unqualified",
+    "Display-only float margin rounds upward"
+  ],
+  "saved_point_gate": {
+    "original_complete_saved_point": "recovered_coordinate_point",
+    "target_matching": "actual progress UID/column/weight mapping, never an old row-order assumption",
+    "exact_quotient_vs_independent_Decimal80_absolute_Ha": 1e-65,
+    "scope": "Arithmetic representation of same stored binary64 H and c; no new full residual/Gram/gradient replay"
+  },
+  "runtime_guard_limits": {
+    "max_points_including_zero": 17,
+    "max_targets_per_point": 5,
+    "max_target_quotients": 85,
+    "max_examined_signed_pairs": 3000000,
+    "nonzero_H_pair_count_also_recorded": true,
+    "exact_zero_only": true
+  },
+  "stopping": "Any contract/input/arithmetic/resource failure is preserved; no rerun or source/gate mutation. Scientific/physical gates remain pending and separate.",
+  "driver_disposition": "Only scientific selection change: filter records.targets to rows containing label. Other diffs are successor output/contract paths and import of SAME frozen helper; arithmetic/gates/budget unchanged.",
+  "original_failure": {
+    "execution_sha256": "4db1780d84512fbe43abaf5765a69fec153c98133a6bd51a146f97e6884a6c44",
+    "failure_sha256": "155c045a34b7b2702c6483ec4417548b0f1a04b113b112eeff63a1ebbb380945",
+    "log_sha256": "c8983f4bc08fa307d93c7177c97efc641e2cb87c5a68a024ee66471810583fa1",
+    "original_contract_sha256": "571a5b6c89a305159c8781804668e2b575453df485dd049406664db94ebc4182",
+    "original_driver_sha256": "5654ebe6913315089ec2aba91d1070d645f4cf8f17632ea99bc8f9c569c5aa02",
+    "helper_sha256_unchanged": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed"
+  },
+  "target_selector": {
+    "before_rows": 7,
+    "after_state_rows": 5,
+    "filtered_rows": [
+      "5d",
+      "6p"
+    ],
+    "selected_targets": [
+      {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "weight": 0.2
+      },
+      {
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "column": 2,
+        "weight": 0.2
+      },
+      {
+        "label": "5d_5/2",
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "column": 3,
+        "weight": 0.2
+      },
+      {
+        "label": "6p_1/2",
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "column": 1,
+        "weight": 0.2
+      },
+      {
+        "label": "6p_3/2",
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "column": 4,
+        "weight": 0.2
+      }
+    ],
+    "expected_UIDs_from_frozen_bare_tracking": {
+      "6s_1/2": [
+        1,
+        1,
+        0
+      ],
+      "5d_3/2": [
+        3,
+        1,
+        0
+      ],
+      "5d_5/2": [
+        5,
+        1,
+        0
+      ],
+      "6p_1/2": [
+        1,
+        -1,
+        0
+      ],
+      "6p_3/2": [
+        3,
+        -1,
+        0
+      ]
+    },
+    "reference_path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "driver",
+      "passed": true
+    },
+    {
+      "name": "registry_before",
+      "passed": true
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/results_stage029.json",
+      "passed": true
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/reporting_stage029/current_card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "input/docs/yb_mcdhf_rci_2026_10_11/reporting_stage029/integration_proof.json",
+      "passed": true
+    },
+    {
+      "name": "input/docs/atomx_hourly_progress_2026_10_10/sync_card.py",
+      "passed": true
+    },
+    {
+      "name": "input/docs/atomx_hourly_progress_2026_10_10/parallel_planner.py",
+      "passed": true
+    },
+    {
+      "name": "all_scientific_fields_preserved",
+      "passed": true
+    },
+    {
+      "name": "card_schema",
+      "passed": true
+    },
+    {
+      "name": "current_metadata_visible",
+      "passed": true
+    },
+    {
+      "name": "registry_atomic_before",
+      "passed": true
+    },
+    {
+      "name": "actual_live_planner",
+      "passed": true
+    }
+  ],
+  "check_count": 12,
+  "result": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage030.json",
+    "sha256": "b5ff3e86d7b9b83fb87d9650c8481f300ceb6363e4c4d3782e7d7c543fcc968a"
+  },
+  "panel": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage030/current_card_evidence.json",
+    "sha256": "475056d1c906a94112b14fa75f3d0222df1222882f50aabc6f236d8cb2cfe88b"
+  },
+  "registry": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/progress.json",
+    "sha256": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b"
+  },
+  "new_science_arrays_API_cards": 0,
+  "historical_manifest_preserved_without_array_rehash": true
+}

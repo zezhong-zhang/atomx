@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_fock_allorder007.py", line 405, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_fock_allorder007.py", line 388, in main
+    raise AssertionError(
+AssertionError: complete signed noncanonical action/root/response gate failed; evidence retained
+ lin =           3
+CHANNEL     5  j1=  1  j2=  3  km= -2  kn= -2  k=  2    0.015704
+CHANNEL    15  j1=  2  j2=  3  km= -2  kn= -2  k=  2    0.296348
+          15
+          15           9
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000028
+CHANNEL    16  j1=  2  j2=  1  km= -2  kn= -2  k=  3    0.000116
+CHANNEL    24  j1=  2  j2=  2  km= -2  kn= -2  k=  3    0.103811
+ Number of channels =           24

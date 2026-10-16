@@ -1,0 +1,155 @@
+{
+  "verified_at": "2026-10-11T01:38:22.518793+00:00",
+  "first_batch": {
+    "historical_proof": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/delivery_proof.json",
+      "sha256": "535c176a48a3467316b3d81cf56dd79ee74a23dcf3bf251dfb5f345f4718857b"
+    },
+    "receipt_schema_correction": "Historical proof extracted top-level status fields from raw Lark receipt and stored null metadata. Actual nested data and durable request reverified here; scientific results unchanged.",
+    "receipt": {
+      "cycle": "parallel-gap-lanes-001",
+      "key": "5c4358b2-804f-5a09-9c6d-78a85a9df38c",
+      "message_id": "om_x100b639a7bbab4a4dd804de90c5e942",
+      "ok": true,
+      "identity": "bot",
+      "lark_create_time": "2026-10-11 09:16:07",
+      "preview_sha256": "204144777a63c31c5ff44676fe683b984a094ac44f2c650eb323cc97ae28531d"
+    },
+    "raw_receipt_sha256": "2bbb70f89cd24f7f9c5225e402f56ae77483d5e2bfd5a1e9d42585ba5f80c496",
+    "request_sha256": "8fdc63f80212b5fd728ede154e0e59089a5f1cedc2d804838ca322fc830b5548",
+    "lanes": [
+      {
+        "job_id": "parallel_fscc_equation_audit_9bb62202a08a0c780019",
+        "result": {
+          "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_equation_audit_9bb62202a08a0c780019/result.json",
+          "sha256": "b866bb9f3207371235ffc88c89cc561d72e6e9a470c95968117f4a507cf856f5"
+        },
+        "artifacts_verified": 4,
+        "pid": 1609705,
+        "spawned_at": "2026-10-11T01:16:08.100580+00:00",
+        "finished_at": "2026-10-11T01:16:09.365276+00:00"
+      },
+      {
+        "job_id": "parallel_native_sd_transverse_29913fd23dd02076fb47",
+        "result": {
+          "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_native_sd_transverse_29913fd23dd02076fb47/result.json",
+          "sha256": "4b9a36791b5ad610da81bb8f95da7e4df9215e9efd56609727ac890d67887525"
+        },
+        "artifacts_verified": 3,
+        "pid": 1609707,
+        "spawned_at": "2026-10-11T01:16:08.100821+00:00",
+        "finished_at": "2026-10-11T01:16:10.266662+00:00"
+      },
+      {
+        "job_id": "parallel_yb_complete_tail_preflight_9b67e1c60373623211e8",
+        "result": {
+          "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_yb_complete_tail_preflight_9b67e1c60373623211e8/result.json",
+          "sha256": "c7988f245ae1e3533e79265ca5a2b0f9c912b10ed1553da05beb3e515041925d"
+        },
+        "artifacts_verified": 381,
+        "pid": 1609708,
+        "spawned_at": "2026-10-11T01:16:08.100943+00:00",
+        "finished_at": "2026-10-11T01:16:15.523706+00:00"
+      }
+    ],
+    "actual_overlap_seconds": 1.264333,
+    "scope": "Historical frozen source epoch; saved outputs reverified, not current live-source equality."
+  },
+  "latest_receipt": {
+    "cycle": "parallel-gap-results-001",
+    "idempotency_key": "0e8a1f2f-a8ce-5f7f-8616-ebf151389533",
+    "message_id": "om_x100b639acea3b0a0c112ade748240eb",
+    "passed": true,
+    "started_at": "2026-10-11T01:36:06.065344+00:00",
+    "finished_at": "2026-10-11T01:36:07.415365+00:00",
+    "iteration_dispatch_ok": true,
+    "renderer_sha256": "10df8ccd118791717d4dbb549f80407feecd9cc484e291571ae72c7bad86dc91",
+    "registry_sha256": "98ca8bab962416e4d0dc1d731ef0c99799ebb84de640d10b905a3440405ee177",
+    "iteration_preview_sha256": "3880756e2182e0ab2dc2155a21780d39018af890801eec4739b4542eb42f0768"
+  },
+  "latest_raw_receipt_sha256": "15373bf51b29a32c6dd84091b610694f956f83799dd300962d51d87d526dbed7",
+  "latest_request_sha256": "002e881f3893f0fd293d755a7185148046dfcb0dcbef1f7dbf53fa38525e892c",
+  "sent_card": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/results_sent_card.json",
+    "sha256": "72f5096ec73af6c5034c9cef4d4079f7681c53288560d7447320ec1769f1fda0"
+  },
+  "actual_new_job": {
+    "job_id": "parallel_yb_complete_tail_preflight_720f0db52bb7a65e693d",
+    "status": "completed",
+    "pid": 1690286,
+    "spawned_at": "2026-10-11T01:36:07.631299+00:00",
+    "finished_at": "2026-10-11T01:36:13.304861+00:00",
+    "result": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_yb_complete_tail_preflight_720f0db52bb7a65e693d/result.json",
+      "sha256": "0eceef02cabda8ab5ec36554d33f45e4463d3555384cfe52b6130f3830d56406"
+    },
+    "artifacts_verified": 376,
+    "current_sources_and_inputs_match": true,
+    "all_scientific_gates": {
+      "adopted_source_matches_verified_candidate": true,
+      "actual_finite_multicore_replays": true,
+      "all_four_complete_bands": true,
+      "all_five_states": true,
+      "original_coordinate_and_numeric64_counts": true,
+      "original_64MiB_norm_cap": true,
+      "sources_and_inputs_unchanged": true
+    },
+    "four_band_scratch_bytes": [
+      14148096,
+      14363648,
+      18273472,
+      18538304
+    ],
+    "production_statuses": [
+      "deferred",
+      "deferred",
+      "deferred",
+      "deferred"
+    ]
+  },
+  "controller_archive_sha256": "0274bdff82718587663a2a9f0924fa263b0117207749c54e12f197b82b344042",
+  "current_controller_sources_match": true,
+  "completed_same_tasks_not_reselected": true,
+  "public_builder": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/public_builder_proof.json",
+    "sha256": "2d81f054c6674e7fd78f2b1bc1a4aa227d9c6067338eac2e9bbb4c86541a9ff4"
+  },
+  "public_compiled_controls": [
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/public_candidate_C1/result.json",
+      "sha256": "232595cc2f4773cd74b209f2150f1280b2a2016f6da3e3e725b7581c50e86c57"
+    },
+    {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/public_candidate_axial/result.json",
+      "sha256": "1ed1e0181adc540c1e9b5007c63443de8d3804cd2463b3663dc845a47f125f0c"
+    }
+  ],
+  "norm_adoption": {
+    "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/adoption_identity.json",
+    "sha256": "8c8f581b752f356e8a3a1ab6a38f4592d90b7c72741be203f9c790c56ac9e0df"
+  },
+  "actual_finite_replay": {
+    "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/finite004/result.json",
+    "sha256": "a8a078270f6dbefa1685f2a1d45627bb9501cb51038591eebdf92e6ea5fab68f"
+  },
+  "actual_multicore_replay": {
+    "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/multicore002/result.json",
+    "sha256": "5a4b163a7ea11988615e8914774065d5db321860375e98d64fb8e57fb42b1816"
+  },
+  "tests": {
+    "artifact": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/final-checks.xml",
+      "sha256": "e62395da5168dc7ac9dcb99023e4808b3e8fb1d98ce6b93ea79ab01ec5ccd6bc"
+    },
+    "tests": 80,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "local_links": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/parallel001/local_links.json",
+    "sha256": "4844492b193b3f1ae8a9978d797302c4ad85ffeabc339a2b4537a4bad82319fb"
+  },
+  "scope": "Actual parallel execution, finite FSCC fix/public build, finite norm correctness and full-coordinate scratch counts; no new full-Yb norm/root, experimental accuracy or GPU speedup certificate.",
+  "highest_level_reached": false
+}

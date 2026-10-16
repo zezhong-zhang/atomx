@@ -1,0 +1,39 @@
+{
+  "status": "PASS_MATCHED_ABBA",
+  "sequence": [
+    "A1",
+    "B1",
+    "B2",
+    "A2"
+  ],
+  "warm_samples_per_case": 4,
+  "statistics": {
+    "A": {
+      "core_seconds": 8.87186212074812,
+      "EA_seconds": 1.092303049252223,
+      "combined_seconds": 9.964165170000342,
+      "peak_RSS_MiB_range": [
+        572.8671875,
+        574.02734375
+      ]
+    },
+    "B": {
+      "core_seconds": 5.100588797498858,
+      "EA_seconds": 1.0553039064980112,
+      "combined_seconds": 6.155892703996869,
+      "peak_RSS_MiB_range": [
+        495.94140625,
+        496.16015625
+      ]
+    }
+  },
+  "speedups": {
+    "core_seconds": 1.739379995717074,
+    "EA_seconds": 1.0350601779510058,
+    "combined_seconds": 1.618638538571482
+  },
+  "maximum_core_difference_Ha": 0.0,
+  "maximum_EA_difference_Ha": 0.0,
+  "maximum_load1": 1.08935546875,
+  "scope": "fixed off-shell complete full4f core residual/EA action; not whole solver/spectrum speedup"
+}

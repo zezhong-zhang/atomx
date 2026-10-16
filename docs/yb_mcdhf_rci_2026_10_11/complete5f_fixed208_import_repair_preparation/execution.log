@@ -1,0 +1,11 @@
+{"elapsed_s": 30.00658142194152, "attempted": {"H": 2, "CI": 2, "CI_internal_hS": 7, "full_scipy_eigh": 7, "complement_SVD": 2, "angular_highest_weight_nullspace": 38, "tracking_principal_SVD": 5, "tracking_overlap": 2, "tracking_resolution": 1, "ConvolCache": 1, "Dirac": 0, "external_hS": 0, "Fock": 0, "Slater_scalar_anchor": 0, "gradient": 0, "optimizer": 0, "new_RDM": 0}, "completed": {"H": 1, "CI": 1, "CI_internal_hS": 7, "full_scipy_eigh": 7, "complement_SVD": 2, "angular_highest_weight_nullspace": 38, "tracking_principal_SVD": 5, "tracking_overlap": 2, "tracking_resolution": 1, "ConvolCache": 1, "Dirac": 0, "external_hS": 0, "Fock": 0, "Slater_scalar_anchor": 0, "gradient": 0, "optimizer": 0, "new_RDM": 0}, "peak_RSS_MiB": 1239.59375}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py", line 600, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py", line 590, in main
+    execute(args.binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py", line 551, in execute
+    check("expected_completed_" + counter, completed[counter] != expected)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py", line 208, in check
+    raise ValueError("Unchanged scientific/numeric gate failed: " + name)
+ValueError: Unchanged scientific/numeric gate failed: expected_completed_CI_internal_hS

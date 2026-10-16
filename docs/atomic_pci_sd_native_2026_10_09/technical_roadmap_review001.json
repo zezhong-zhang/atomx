@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-10",
+  "status": "documentation and factual checks pass; proposed roadmap, not a numerical implementation",
+  "scientific_runs_this_increment": [],
+  "public_capability_changed": false,
+  "highest_level_achieved": false,
+  "checks": {
+    "git_diff_check": 0,
+    "python_runtime": "Python 3.10.21"
+  },
+  "existing_evidence": {
+    "phase_verification028.json": {
+      "sha256": "510b25bcd5099699b14dbcf4079f7c0b3becccf0386a58642876a54417231166",
+      "scope": "Existing archived evidence reread; no reexecution"
+    },
+    "fscc_growth_memory004.json": {
+      "sha256": "e39b9127225a8a5277168baa50d4187d47aa076ddc2098e706a214b9d32c8d75",
+      "scope": "Existing archived evidence reread; no reexecution"
+    },
+    "yb_full_public_screening005_012.json": {
+      "sha256": "8aaa1b317418c2bc9d98d920c0f52bc63981070e233b3a7a4d9c5366965d854c",
+      "scope": "Existing archived evidence reread; no reexecution"
+    },
+    "expt_compact_public002/result.json": {
+      "sha256": "cdf071538ab6e82daa316c48896cff2764eb2746c52e540591e33de690fe5c0b",
+      "scope": "Existing archived evidence reread; no reexecution"
+    },
+    "numba_full_fields002/result.json": {
+      "sha256": "750bc5397e20582ad960777dd10e4db0400e5d1b9db14edce49a34ee53d8b309",
+      "scope": "Existing archived evidence reread; no reexecution"
+    }
+  },
+  "representation_counts": {
+    "input_resource_sha256": "0d72bcdd7415f92c97c2c79de56bd244400408d62e7246fccdf30a83712e8060",
+    "occupied_radial_keys": 19,
+    "virtual_radial_keys": 414,
+    "occupied_spinors": 68,
+    "virtual_spinors": 1894,
+    "total_spinors": 1962,
+    "resident_full_packed_complex_eri_bytes": 29626360376496,
+    "raw_core_complex_triples_one_tensor_bytes": 34181148002705408,
+    "scope": "same declared full physical band expanded into complete magnetic multiplets; generic uncompressed storage arithmetic only, no allocation/FSCC solve or peak-memory claim"
+  },
+  "primary_sources_read": [
+    "https://arxiv.org/abs/2410.06680",
+    "https://arxiv.org/abs/1805.11265",
+    "https://arxiv.org/html/0905.2578",
+    "https://arxiv.org/html/2004.03682",
+    "https://arxiv.org/abs/1605.08111",
+    "https://arxiv.org/abs/1607.05843",
+    "https://arxiv.org/abs/2106.04308",
+    "https://nvidia.github.io/numba-cuda/",
+    "https://github.com/NVIDIA/numba-cuda-mlir",
+    "https://www.nist.gov/pml/atomic-spectra-database"
+  ],
+  "source_access_limit": "MDPI properties page unavailable; not used as new support",
+  "new_empirical_insight": false,
+  "documentation_impact": "documentation_impact.json technical_roadmap_increment",
+  "local_link_scope": "Filesystem target existence only; Markdown fragments and availability in a clean Git checkout are not certified",
+  "reviewed_document_sha256": {
+    "README.md": "f0c0c8426816412479c61bac44db454c196c7a3b7c6ba13c8d2d4d90df479369",
+    "technical_roadmap.md": "bbd1794c301f14c1a1c43dc00661e68751d26ae58d77907a6577b8e5f718aeda"
+  },
+  "local_link_results": {
+    "technical_roadmap.md": {
+      "targets": 15,
+      "missing": []
+    },
+    "README.md": {
+      "targets": 315,
+      "missing": []
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "isolated_unpacked_checkout": "/tmp/atomx_ybtail_build_nniuac9r",
+  "metadata_input_files_present": true,
+  "wheel_build_passed": true,
+  "build_command": "uv run --offline --no-project --with hatchling>=1.27 python -m hatchling build -t wheel",
+  "hatchling_version": "1.32.4",
+  "wheel_sha256": "a4a4298ee70e831d0931bb398b8e541993435c06825fe7b1b466a9b50843d462",
+  "wheel_name": "atomx-0.2.0-py3-none-any.whl",
+  "source_identity_matches_capture": true,
+  "package_import_from_unpacked_src_passed": true,
+  "both_DF_references_loaded": {
+    "v68_default": {
+      "ns": 123,
+      "states": 5,
+      "closed_core_electrons": 68
+    },
+    "v68_refined_newton": {
+      "ns": 230,
+      "states": 5,
+      "closed_core_electrons": 68
+    }
+  }
+}

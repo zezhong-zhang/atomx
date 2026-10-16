@@ -1,0 +1,202 @@
+{
+  "status": "source_and_saved_evidence_audit_complete",
+  "inputs": {
+    "production_core": {
+      "path": "src/atomx/methods/core_sd.py",
+      "sha256": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3"
+    },
+    "production_valence": {
+      "path": "src/atomx/methods/reduced_monovalent_sd.py",
+      "sha256": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2"
+    },
+    "native_diagrams": {
+      "path": "src/atomx/methods/_pci_monovalent.f90",
+      "sha256": "5601f3953af3a2021eea8d0b050de105999f77189ca8fba32afb2bbf77727ea3"
+    },
+    "finite_monovalent": {
+      "path": "src/atomx/methods/monovalent_sd.py",
+      "sha256": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751"
+    },
+    "finite_linearized": {
+      "path": "src/atomx/methods/linearized_sd.py",
+      "sha256": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548"
+    },
+    "transverse_bridge": {
+      "path": "src/atomx/methods/sd_transverse.py",
+      "sha256": "1a0523c24dfa8bd27668b393744f2531cb379fd4b76bae03af36f3ed8f92ae40"
+    },
+    "pair_subset": {
+      "path": "src/atomx/methods/sd_pair_diagrams.py",
+      "sha256": "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2"
+    },
+    "fscc_consumer": {
+      "path": "src/atomx/methods/fscc.py",
+      "sha256": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e"
+    },
+    "fscc_builder": {
+      "path": "tools/build_expt_backend.py",
+      "sha256": "54f1ea65b7dbcf495187bd1e6beaaed502b567f2b171c97475dbfbe2c28c425b"
+    },
+    "fscc_patch": {
+      "path": "tools/expt_noncanonical_patch.py",
+      "sha256": "938cccc14c7f28999090f1405e0d004dce6f25c4b658d961b13e41df47260785"
+    },
+    "fscc_properties": {
+      "path": "src/atomx/properties/transitions/fscc_effective.py",
+      "sha256": "82a4b6e4c7949ea15b28940f7bab4cf915fc2bd091cd806bc54fa116c858df21"
+    },
+    "yb_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/probe_yb_full_monovalent.py",
+      "sha256": "3e24d9091379dbab45833e8bb44c2bffeef037f134eab588bbd1e3d2153391b3"
+    },
+    "yb_cuda_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/probe_yb_monovalent_cuda.py",
+      "sha256": "370b22af0f0e3fdc4e06d57268845acd9400fa85da4112bfe1ad64ba916a4107"
+    },
+    "yb_comparison_driver": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/compare_yb_monovalent_experiment.py",
+      "sha256": "4c862d47143915722818b651bec2c5a26649f5972a8f784f3b2a96485fed236f"
+    },
+    "yb_comparison": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "yb_roots": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/result.json",
+      "sha256": "3d68e8c4d34c7bd251a18dc1449d13f2dcd6fa6dda68404757a5a74c6ff92d4d"
+    },
+    "finite_primary_sd": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/monovalent_sd008/comparison.json",
+      "sha256": "e05f8a18044633a121f772bf8bf446db75f3b2d445c98c8cabf71e6adae23216"
+    },
+    "finite_reduced_sd": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/reduced_monovalent008/result.json",
+      "sha256": "014518bb9ae3266b7056f813a0e9c3a7758735186bcaecaab2d97b9977a578a8"
+    },
+    "yb_norm": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/result.json",
+      "sha256": "8e5e4264be3898a921aa91e0405864147040ae9cf5c08375d8850b8a2e325257"
+    },
+    "finite_fscc": {
+      "path": "docs/atomic_external_benchmark_2026_10_11/fscc/run003/result.json",
+      "sha256": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e"
+    }
+  },
+  "current_yb_declared_omissions": [
+    "Breit",
+    "QED",
+    "recoil",
+    "nonlinear cluster products",
+    "full triples",
+    "l>3/energy>5Ha radial correlation tails",
+    "full multi-configuration core-hole mixing"
+  ],
+  "current_yb_state_scope": "Nominal reference-connected branches matched by J/parity; no physical configuration weight or normalized large SD state certified",
+  "current_yb_raw_residual_max_Ha": 2.3202233537245043e-11,
+  "current_yb_excitation_gate_pass": false,
+  "current_yb_splitting_gate_pass": false,
+  "finite_primary_equation_max_Ha": 2.8021770222170784e-15,
+  "finite_primary_full_H_residual_max_Ha": 0.0025514458096448436,
+  "finite_reduced_cases": 40,
+  "finite_reduced_random_map_max_Ha": 3.95516952522712e-16,
+  "finite_reduced_full_H_residual_max_Ha": 0.05932001825707084,
+  "current_yb_norm_scope": "New full saved-wavefunction metric contractions plus fresh finite anchor; no new CoreSD replay or new eigenstate/property/experimental certificate",
+  "finite_fscc_rows": [
+    {
+      "case": "two_core",
+      "backend": "default",
+      "noccupied": 2,
+      "nspinors": 10,
+      "core_retained_residual_Ha": 2.948776516834933e-17,
+      "attachment_retained_residual_Ha": 4.1639109324767554e-07,
+      "attachment_full_residual_Ha": 4.1639109324767554e-07,
+      "unretained_core_rank4_residual_Ha": 0.0,
+      "unretained_attachment_rank34_residual_Ha": 0.0,
+      "core_fci_method_error_Ha": 1.7763568394002505e-15,
+      "attachment_fci_method_error_max_Ha": 8.728964218107649e-10,
+      "retained_attachment_gate": false,
+      "fock_occupied_virtual_max_Ha": 0.000127231825498883
+    },
+    {
+      "case": "two_core",
+      "backend": "corrected",
+      "noccupied": 2,
+      "nspinors": 10,
+      "core_retained_residual_Ha": 2.948776516834933e-17,
+      "attachment_retained_residual_Ha": 1.7763568394002505e-15,
+      "attachment_full_residual_Ha": 1.7763568394002505e-15,
+      "unretained_core_rank4_residual_Ha": 0.0,
+      "unretained_attachment_rank34_residual_Ha": 0.0,
+      "core_fci_method_error_Ha": 1.7763568394002505e-15,
+      "attachment_fci_method_error_max_Ha": 1.2434497875801753e-14,
+      "retained_attachment_gate": true,
+      "fock_occupied_virtual_max_Ha": 0.000127231825498883
+    },
+    {
+      "case": "four_core",
+      "backend": "default",
+      "noccupied": 4,
+      "nspinors": 12,
+      "core_retained_residual_Ha": 5.62007072010904e-14,
+      "attachment_retained_residual_Ha": 0.010312570731558557,
+      "attachment_full_residual_Ha": 0.010312570731558557,
+      "unretained_core_rank4_residual_Ha": 0.002116726338513911,
+      "unretained_attachment_rank34_residual_Ha": 0.002296709945969974,
+      "core_fci_method_error_Ha": 3.1700014773150542e-06,
+      "attachment_fci_method_error_max_Ha": 0.003515325850365514,
+      "retained_attachment_gate": false,
+      "fock_occupied_virtual_max_Ha": 0.054697657625909654
+    },
+    {
+      "case": "four_core",
+      "backend": "corrected",
+      "noccupied": 4,
+      "nspinors": 12,
+      "core_retained_residual_Ha": 5.62007072010904e-14,
+      "attachment_retained_residual_Ha": 6.483789199984713e-14,
+      "attachment_full_residual_Ha": 0.0022838708058473354,
+      "unretained_core_rank4_residual_Ha": 0.002116726338513911,
+      "unretained_attachment_rank34_residual_Ha": 0.0022838708058473354,
+      "core_fci_method_error_Ha": 3.1700014773150542e-06,
+      "attachment_fci_method_error_max_Ha": 9.093014787353582e-06,
+      "retained_attachment_gate": true,
+      "fock_occupied_virtual_max_Ha": 0.054697657625909654
+    }
+  ],
+  "highest_impact_demonstrated_implementation_gap": "Public 0h1p FSCC accepts the known-failing original noncanonical equation using only backend update convergence; no equation capability guard.",
+  "highest_impact_current_yb_model_gap": "Linearized singles/doubles omit nonlinear products and connected triples, while one-reference core-hole treatment lacks balanced multi-configuration mixing. Which dominates the current spectrum remains unmeasured.",
+  "first_fixed_space_discriminators": [
+    "Reject uncertified original noncanonical 0h1p before launch; retain corrected retained-equation and omitted-rank gates separately.",
+    "Same native frozen space: weak-coupling coefficient versus independently contracted two-class MBPT2 for core and each of the five attached states.",
+    "Same complete finite H: linearized SD, nonlinear CCSD, corrected CCSDT and complete FCI; inspect signed residuals by rank and all roots, not only energies.",
+    "Balanced 4f-hole model and complement with signed couplings/state weights before attributing near-degenerate mixing or adding a self-energy."
+  ],
+  "scientific_solves_launched": 0,
+  "production_modified": false,
+  "cutoff_convergence_is_physical_completeness": false,
+  "all_order_sd_is_all_excitations": false,
+  "numerical_residual_is_spectrum_error_bound": false,
+  "highest_level_reached": false,
+  "input_hashes_unchanged_during_audit": {
+    "production_core": true,
+    "production_valence": true,
+    "native_diagrams": true,
+    "finite_monovalent": true,
+    "finite_linearized": true,
+    "transverse_bridge": true,
+    "pair_subset": true,
+    "fscc_consumer": true,
+    "fscc_builder": true,
+    "fscc_patch": true,
+    "fscc_properties": true,
+    "yb_driver": true,
+    "yb_cuda_driver": true,
+    "yb_comparison_driver": true,
+    "yb_comparison": true,
+    "yb_roots": true,
+    "finite_primary_sd": true,
+    "finite_reduced_sd": true,
+    "yb_norm": true,
+    "finite_fscc": true
+  }
+}

@@ -1,0 +1,156 @@
+--- docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run_preparation/run.py
++++ docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run002_preparation/run.py
+@@ -1,7 +1,7 @@
+ """Source-only preparation for one bounded native reported-EOL MCDHF call.
+ 
+-No numerical imports precede exact root admission. Failed derivative evidence
+-remains a prerequisite refusal, never an inherited qualification. The stored-H
++No numerical imports precede exact root admission. Historical derivative failures remain unchanged. Narrow new same-point
++controls admit only a separately sealed bounded early experiment. The stored-H
+ guard qualifies checkpoints; it never changes the optimizer's objective.
+ """
+ import argparse
+@@ -70,28 +70,88 @@
+     return matched
+ 
+ 
++def physical_rows_by_label(rows):
++    """Select physical lower/upper states independently of input row order."""
++    expected = {"6s_1/2": (1, 1, 0), "5d_3/2": (3, 1, 0),
++                "5d_5/2": (5, 1, 0), "6p_1/2": (1, -1, 0), "6p_3/2": (3, -1, 0)}
++    by_label = {row["label"]: row for row in rows}
++    if len(rows) != 5 or set(by_label) != set(expected):
++        raise QualificationStop("Physical five-state labels incomplete or duplicated")
++    if any(tuple(by_label[label]["UID"]) != uid for label, uid in expected.items()):
++        raise QualificationStop("Physical label and original UID disagree")
++    return by_label
++
++
++def nominal_four_gap_rms(rows):
++    physical_rows_by_label(rows)
++    upper = [row for row in rows if row["label"] != "6s_1/2"]
++    if len(upper) != 4:
++        raise QualificationStop("Expected exactly four physical upper states")
++    return math.sqrt(math.fsum(row["nominal_gap_cm1"]**2 for row in upper) / 4)
++
++
++def prerequisite_controls(contract, evidence):
++    """Closed narrow baseline controls; historical failures are never upgraded."""
++    baseline = evidence["full_normalized_gradient_control"]
++    receipt = evidence["full_normalized_gradient_receipt"]
++    completion = evidence["full_normalized_gradient_completion"]
++    if not (baseline.get("samepoint_full_normalized_gradient_control_completed") is True
++            and baseline.get("all_numeric_controls_passed") is True
++            and baseline.get("historical_derivative_failures_unchanged") is True
++            and baseline.get("optimizer_authorized") is False
++            and baseline.get("source_map_sha256") == contract["source"]["candidate356_map_sha256"]
++            and baseline.get("original_metric_sha256") == contract["metric"]["residual_metric_sha256"]):
++        raise ValueError("Complete same-point normalized gradient control unavailable")
++    if not (receipt.get("returncode") == 0 and receipt.get("retry_count") == 0
++            and receipt.get("frozen_files_unchanged") is True
++            and receipt.get("result_sha256") == contract["pending_prerequisites"]["full_normalized_gradient_control"]["sha256"]
++            and completion.get("all_completion_metadata_checks_passed") is True):
++        raise ValueError("Same-point control is not closed")
++    expected = {"H": 1, "CI": 1, "gradient_from_weights": 2, "Dirac": 0}
++    if any(baseline.get("completed", {}).get(key) != value for key, value in expected.items()):
++        raise ValueError("Wrong baseline physical scope")
++    controls = {row["name"]: row for row in baseline["controls"]}
++    for name in ("fresh_bitwise_H", "fresh_bitwise_energies", "fresh_bitwise_mixing",
++                 "fresh_owner_payload", "whole_vector_signed_linearity", "fullvector_pg_linearity",
++                 "d0_NEW_full_partial_centered_control", "d1_NEW_full_partial_centered_control"):
++        row = controls.get(name, {})
++        if (row.get("passed") is not True or not math.isfinite(row.get("error", math.inf))
++                or row["error"] > row["tolerance"]):
++            raise ValueError("Same-point admission gate failed: " + name)
++    for direction in (0, 1):
++        name = f"centering_d{direction}"
++        centered, closed = evidence[name + "_result"], evidence[name + "_receipt"]
++        if not (centered.get("saved_only_diagnosis_completed") is True
++                and centered.get("same_saved_point_conditional_gate_passed") is True
++                and centered.get("original_rotation002_passed") is False
++                and centered.get("optimizer_authorized") is False
++                and closed.get("exit_code") == 0):
++            raise ValueError("Conditional centering control unavailable: " + name)
++    guard = evidence["exact_guard_qualification"]
++    if guard.get("all_passed") is not True or guard.get("no_Yb_gradient_or_optimizer_qualification") is not True:
++        raise ValueError("Exact finite stored-H arithmetic guard unqualified")
++    if evidence["metadata_source_proof"].get("all_passed") is not True:
++        raise ValueError("Numerical metadata source proof unavailable")
++
++
+ def metadata(contract):
+-    """Pure standard-library admission, also used by the preparation checker."""
++    """Pure standard-library readiness; execution still needs an exact root seal."""
+     if contract.get("execution_ready") is not True:
+-        raise ValueError("Original rotation qualification failed: optimizer HOLD")
++        raise ValueError("Bounded optimizer prerequisites are pending")
+     if contract["status"] != "prepared_requires_exact_root_execution":
+         raise ValueError("Preparation pending; no scientific execution admission")
+     if any(v is None for v in contract["pending_prerequisites"].values()):
+         raise ValueError("Missing qualified prerequisite")
+-    for role in (*contract["input_roles"].values(), *contract["pending_prerequisites"].values()):
++    for role in (*contract["input_roles"].values(), *contract["pending_prerequisites"].values(),
++                 *contract["hold_evidence"].values(), *contract["prospective_successor_of"].values()):
+         if sha(REPO / role["path"]) != role["sha256"]:
+-            raise ValueError("Changed input or prerequisite")
+-    rotation = load(REPO / contract["pending_prerequisites"]["rotation_qualified_result"]["path"])
+-    if rotation.get("new_rotation_Rayleigh_qualification_passed") is not True:
+-        raise ValueError("Rotation derivative qualification unavailable or failed")
+-    guard = load(REPO / contract["pending_prerequisites"]["exact_guard_qualification"]["path"])
+-    if guard.get("all_passed") is not True:
+-        raise ValueError("Exact finite stored-H guard unqualified")
+-    for name in ("rotation_independent_saved_proof", "metadata_source_proof"):
+-        role = contract["pending_prerequisites"][name]
+-        proof = load(REPO / role["path"])
+-        if proof.get(role["required_success_key"]) is not True:
+-            raise ValueError("Independent prerequisite proof failed: " + name)
++            raise ValueError("Changed input, prerequisite or historical evidence")
++    evidence = {name: load(REPO / role["path"]) for name, role in
++                contract["pending_prerequisites"].items() if role["path"].endswith(".json")}
++    prerequisite_controls(contract, evidence)
++    failure = load(REPO / contract["hold_evidence"]["rotation002_failure"]["path"])
++    if failure.get("error") != "Scientific gate failed: direction1_NEW_Rayleigh_derivative":
++        raise ValueError("Historical failed gate was changed")
+     identity = load(REPO / contract["input_roles"]["candidate_source_identity"]["path"])
+     if identity["source_map_sha256"] != contract["source"]["candidate356_map_sha256"]:
+         raise ValueError("Wrong complete source epoch")
+@@ -103,6 +163,8 @@
+ 
+ 
+ def admit(contract, execution):
++    if execution.get("execution_authorized_by_root") is not True:
++        raise ValueError("Wrong exact root execution binding")
+     source = metadata(contract)
+     resources = contract["resources"]
+     expected = {"execution_authorized_by_root": True, "driver_sha256": sha(__file__),
+@@ -476,24 +538,25 @@
+         write(point_path.with_suffix(".json"), manifest)
+         if decision is not None and decision["qualified"] is not True:
+             raise QualificationStop("Unresolved accepted-point finite stored-H Armijo margin")
+-        lower = rows[0]["energy_Ha"]
++        by_label = physical_rows_by_label(rows)
++        lower = by_label["6s_1/2"]["energy_Ha"]
+         old_rows = previous["rows"] if previous else None
++        old_by_label = physical_rows_by_label(old_rows) if old_rows else None
+         for row in rows:
+             row.update(excitation_cm1=(row["energy_Ha"] - lower) * HARTREE_CM1,
+                        NIST_nominal_cm1=nominal[row["label"]], NIST_uncertainty_cm1=None)
+             row["nominal_gap_cm1"] = row["excitation_cm1"] - row["NIST_nominal_cm1"]
+             if old_rows:
+-                old = next(r for r in old_rows if r["label"] == row["label"])
+-                du, dl = row["energy_Ha"] - old["energy_Ha"], lower - old_rows[0]["energy_Ha"]
++                old = old_by_label[row["label"]]
++                du, dl = row["energy_Ha"] - old["energy_Ha"], lower - old_by_label["6s_1/2"]["energy_Ha"]
+                 row.update(delta_upper_Ha=du, delta_lower_Ha=dl, transition_shift_cm1=(du - dl) * HARTREE_CM1)
+         multiplets = []
+-        by_label = {r["label"]: r for r in rows}
+         for prefix, a, b, w in (("5d", "5d_3/2", "5d_5/2", (4, 6)), ("6p", "6p_1/2", "6p_3/2", (2, 4))):
+             multiplets.append({"label": prefix, "degeneracy_weights": w,
+                 "centroid_cm1": (w[0] * by_label[a]["excitation_cm1"] + w[1] * by_label[b]["excitation_cm1"]) / sum(w),
+                 "splitting_cm1": by_label[b]["excitation_cm1"] - by_label[a]["excitation_cm1"]})
+         manifest.update(checkpoint_qualified=True, targets=rows, multiplets=multiplets,
+-            nominal_four_gap_RMS_cm1=math.sqrt(math.fsum(r["nominal_gap_cm1"]**2 for r in rows[1:]) / 4),
++            nominal_four_gap_RMS_cm1=nominal_four_gap_rms(rows),
+             stationarity_passed=(diagnostics["orbital_residual"] < 1e-7
+                                  and diagnostics["estimated_energy_error"] < 1e-8),
+             experimental_certification=False, physical_completeness_certification=False)

@@ -1,0 +1,46 @@
+{
+  "status": "complete original affine valence entry returned successfully; stack repair gate passed",
+  "channel_count": 576,
+  "channel_order_exact": true,
+  "outputs": {
+    "singles": {
+      "shape": [
+        64
+      ],
+      "finite": true,
+      "max_abs": 0.0006189153877810137,
+      "nonzero": 59
+    },
+    "doubles": {
+      "shape": [
+        64,
+        64,
+        1076
+      ],
+      "finite": true,
+      "max_abs": 0.11568014358396848,
+      "nonzero": 2016402
+    },
+    "prime_singles": {
+      "shape": [
+        64
+      ],
+      "finite": true,
+      "max_abs": 0.0016684553053887595,
+      "nonzero": 59
+    },
+    "prime_doubles": {
+      "shape": [
+        64,
+        64,
+        1076
+      ],
+      "finite": true,
+      "max_abs": 0.0063205447952518435,
+      "nonzero": 2016402
+    }
+  },
+  "affine_map_sha256": "02c0f70c2346a2a87aef600bf148817fed11d26ac70f9d62cfa411aecde3d781",
+  "backend_manifest_sha256": "58b79dcec3f005e93b361ff20b524ae1104dca3cbf158f1609fed3cbc642562d",
+  "limitations": "single complete source map with original retained core seed; no solved valence/response/CI/spectrum/convergence claim"
+}

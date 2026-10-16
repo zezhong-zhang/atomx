@@ -1,0 +1,1150 @@
+{
+  "hypothesis": "The measured O(h^2) finite CI-response component follows the independent analytic 2n+1 coefficient, rather than a missing first-derivative factor.",
+  "formula": "Q(H0-E0)Q c1=-Q H1 c0, c0.T c1=0; B_CI=c1.T H2 c0+c1.T(H1-E1)c1; finite coefficient-response FD=h^2 B_CI+O(h^4). H1/H2 are derivatives, not Taylor coefficients.",
+  "fixed": {
+    "A": 175,
+    "A_NR_CSF": [
+      91,
+      1595
+    ],
+    "B_NR_CSF": [
+      100,
+      2574
+    ],
+    "Z": 70,
+    "coordinates": 3689,
+    "electrons": 69,
+    "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "native_UID_order": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ]
+    ],
+    "ns": 123,
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "operator": "full native unshifted Dirac-Coulomb, frozen nuclear positive-energy P and original S/inverse",
+    "point": "literal accepted13 as already bound paired diagnostic, no terminal16correction splicing",
+    "radials": 31,
+    "same_direction": "negative checkpoint13 full_normalized_pg (A), not B full_preconditioned; every coordinate included",
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "original": {
+    "status": "SOURCE_ready_native_sparse_fixed_basis_qualification",
+    "hypothesis": "Existing sparse determinant Hamiltonian and exact CSF projection retain the same complete full-CSF Dirac-Coulomb operator and lowest2 per-sector roots as owned dense point13 controls; no larger correlation model is calculated here.",
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "source_archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "fixed": {
+      "A": 175,
+      "A_NR_CSF": [
+        91,
+        1595
+      ],
+      "B_NR_CSF": [
+        100,
+        2574
+      ],
+      "Z": 70,
+      "coordinates": 3689,
+      "electrons": 69,
+      "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+      "kappas": [
+        -4,
+        -3,
+        -2,
+        -1,
+        1,
+        2,
+        3
+      ],
+      "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+      "native_UID_order": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          5,
+          1,
+          0
+        ],
+        [
+          3,
+          1,
+          0
+        ],
+        [
+          3,
+          -1,
+          0
+        ],
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      "ns": 123,
+      "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+      "operator": "full native unshifted Dirac-Coulomb, frozen nuclear positive-energy P and original S/inverse",
+      "point": "literal accepted13 as already bound paired diagnostic, no terminal16correction splicing",
+      "radials": 31,
+      "same_direction": "negative checkpoint13 full_normalized_pg (A), not B full_preconditioned; every coordinate included",
+      "weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "inputs": {
+      "basis_maps": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json",
+        "sha256": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742"
+      },
+      "checkpoint": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json",
+        "sha256": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19"
+      },
+      "checkpoint_arrays": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+        "sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee"
+      },
+      "layout": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+        "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b"
+      },
+      "models": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json",
+        "sha256": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d"
+      },
+      "saved_S": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+        "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+      },
+      "source_identity": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+        "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+      },
+      "tracking_binding": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+        "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+      },
+      "workspace": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+        "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+      },
+      "A_R0": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz",
+        "sha256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593"
+      },
+      "A_R0_record": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json",
+        "sha256": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72"
+      },
+      "B_R0": {
+        "kind": "array",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz",
+        "sha256": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0"
+      },
+      "B_R0_record": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json",
+        "sha256": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80"
+      },
+      "preparation_driver": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py",
+        "sha256": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d"
+      },
+      "preparation_contract": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json",
+        "sha256": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e"
+      },
+      "preparation_result": {
+        "kind": "metadata",
+        "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json",
+        "sha256": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541"
+      }
+    },
+    "arrays": {
+      "checkpoint_arrays": {
+        "fields": {
+          "full_normalized_pg": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "full_normalized_tangent": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "inverse_blocks_0": {
+            "dtype": "<f8",
+            "shape": [
+              2,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_1": {
+            "dtype": "<f8",
+            "shape": [
+              4,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_2": {
+            "dtype": "<f8",
+            "shape": [
+              6,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_3": {
+            "dtype": "<f8",
+            "shape": [
+              7,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_4": {
+            "dtype": "<f8",
+            "shape": [
+              6,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_5": {
+            "dtype": "<f8",
+            "shape": [
+              4,
+              119,
+              119
+            ]
+          },
+          "inverse_blocks_6": {
+            "dtype": "<f8",
+            "shape": [
+              2,
+              119,
+              119
+            ]
+          },
+          "inverse_diagonal": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          },
+          "projector_0": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_4": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_5": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "projector_6": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              119
+            ]
+          },
+          "x": {
+            "dtype": "<f8",
+            "shape": [
+              3689
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "workspace": {
+        "fields": {
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              24,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              24,
+              123
+            ]
+          },
+          "basis_bsp_p": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                8
+              ],
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                8
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                8
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                8
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                8
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                8
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_p_d": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                8
+              ],
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                8
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                8
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                8
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                8
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                8
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_q": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_bsp_q_d": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9,
+                9
+              ],
+              [
+                115,
+                12,
+                9
+              ],
+              [
+                115,
+                16,
+                9
+              ],
+              [
+                115,
+                18,
+                9
+              ],
+              [
+                115,
+                24,
+                9
+              ],
+              [
+                115,
+                32,
+                9
+              ]
+            ]
+          },
+          "basis_gr": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9
+              ],
+              [
+                115,
+                12
+              ],
+              [
+                115,
+                16
+              ],
+              [
+                115,
+                18
+              ],
+              [
+                115,
+                24
+              ],
+              [
+                115,
+                32
+              ]
+            ]
+          },
+          "basis_grw": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                115,
+                9
+              ],
+              [
+                115,
+                12
+              ],
+              [
+                115,
+                16
+              ],
+              [
+                115,
+                18
+              ],
+              [
+                115,
+                24
+              ],
+              [
+                115,
+                32
+              ]
+            ]
+          },
+          "basis_ks": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ksp": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ksq": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_ns": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nsp": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nsq": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_nv": {
+            "dtype": "<i8",
+            "shape": []
+          },
+          "basis_t": {
+            "dtype": "<f8",
+            "shape": [
+              132
+            ]
+          },
+          "basis_tp": {
+            "dtype": "<f8",
+            "shape_choices": [
+              [
+                130
+              ],
+              [
+                132
+              ]
+            ]
+          },
+          "orbital_keys": {
+            "dtype": "<i8",
+            "shape": [
+              24,
+              2
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "saved_S": {
+        "fields": {
+          "s_-1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_-4": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_1": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_2": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          },
+          "s_3": {
+            "dtype": "<f8",
+            "shape": [
+              246,
+              246
+            ]
+          }
+        },
+        "uncompressed_cap": 134217728,
+        "undeclared_members": "header-accounted but not decoded; all declared fields loaded in full; maximum100members"
+      },
+      "A_R0": {
+        "fields": {
+          "H": {
+            "dtype": "<f8",
+            "shape": [
+              1595,
+              1595
+            ]
+          },
+          "energies": {
+            "dtype": "<f8",
+            "shape": [
+              1595
+            ]
+          },
+          "mixing": {
+            "dtype": "<f8",
+            "shape": [
+              1595,
+              1595
+            ]
+          },
+          "keys": {
+            "dtype": "<i8",
+            "shape": [
+              31,
+              2
+            ]
+          },
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          }
+        },
+        "uncompressed_cap": 40780456
+      },
+      "B_R0": {
+        "fields": {
+          "H": {
+            "dtype": "<f8",
+            "shape": [
+              2574,
+              2574
+            ]
+          },
+          "energies": {
+            "dtype": "<f8",
+            "shape": [
+              2574
+            ]
+          },
+          "mixing": {
+            "dtype": "<f8",
+            "shape": [
+              2574,
+              2574
+            ]
+          },
+          "keys": {
+            "dtype": "<i8",
+            "shape": [
+              31,
+              2
+            ]
+          },
+          "P": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          },
+          "Q": {
+            "dtype": "<f8",
+            "shape": [
+              31,
+              123
+            ]
+          }
+        },
+        "uncompressed_cap": 106091504
+      }
+    },
+    "angular_census": [
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1
+        ],
+        "nullspace_calls": 1,
+        "q": 1,
+        "twoj": 1
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 2,
+        "twoj": 1
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3
+        ],
+        "nullspace_calls": 2,
+        "q": 1,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 2,
+        "nonnegative_M2": [
+          0,
+          2,
+          4
+        ],
+        "nullspace_calls": 3,
+        "q": 2,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3
+        ],
+        "nullspace_calls": 2,
+        "q": 3,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 4,
+        "twoj": 3
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5
+        ],
+        "nullspace_calls": 3,
+        "q": 1,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 3,
+        "nonnegative_M2": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "nullspace_calls": 5,
+        "q": 2,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 3,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7,
+          9
+        ],
+        "nullspace_calls": 5,
+        "q": 3,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5
+        ],
+        "nullspace_calls": 3,
+        "q": 5,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 6,
+        "twoj": 5
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "nullspace_calls": 4,
+        "q": 1,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 4,
+        "nonnegative_M2": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "nullspace_calls": 7,
+        "q": 2,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "nullspace_calls": 4,
+        "q": 7,
+        "twoj": 7
+      },
+      {
+        "maximum_M_basis": 1,
+        "nonnegative_M2": [
+          0
+        ],
+        "nullspace_calls": 1,
+        "q": 8,
+        "twoj": 7
+      }
+    ],
+    "resources": {
+      "CPU": 27,
+      "threads": 1,
+      "AS_bytes": 8589934592,
+      "inner_seconds": 900,
+      "outer_seconds": 915,
+      "decoded_input_bytes": 268435456,
+      "host_load1_max": 16,
+      "host_MemAvailable_GiB_min": 10,
+      "calls": {
+        "H": 2,
+        "H_projection": 10,
+        "block_terms": 10,
+        "angular_table": 10,
+        "angular_nullspace": 43,
+        "raw_hS": 14,
+        "radial_evaluator": 2,
+        "radial_key": 168916,
+        "pair_potential": 168916,
+        "density": 1984,
+        "pair_convolution": 675664,
+        "factor_getter": 675664,
+        "banded_contraction": 337832,
+        "Davidson": 10,
+        "operator_action": 2500
+      }
+    },
+    "gates": {
+      "whole_action_max_abs_Ha": 1e-08,
+      "full_reference_eigenpair_max_abs_Ha": 1e-08,
+      "sparse_diagonal_max_abs_Ha": 1e-08,
+      "bilinear_symmetry_Ha": 1e-10,
+      "cross_symmetry_Ha": 0.0,
+      "Davidson_tol_L2_Ha": 1e-09,
+      "Davidson_max_iter": 200,
+      "Davidson_selected_eigenpair_max_abs_Ha": 1e-08,
+      "selected_energy_max_abs_Ha": 1e-08,
+      "selected_signed_wave_max_abs": 1e-08,
+      "selected_projector_max_abs": 1e-08,
+      "selected_Gram": 1e-10,
+      "batch_columns": 32,
+      "selected_roots_per_sector": 2,
+      "Davidson_selected_eigenpair_L2_Ha": 1e-08
+    },
+    "memory_work": "Complete A1595/B2574 H/E/C oracle146,712,016bytes; all5symmetryblocks retained. Existing native sparse determinant H and sparse exact CSF projection, no new dense H or dense determinant H, action on every full dense reference eigenvector in32-column batches.10 angular tables capped4mNNZ each/40m total and600MB CSR payload;8GiB hardstop. Existing full dense controls are read only. No public iterative snapshot/tracker qualification, no larger4f12energy, no timingclaim.",
+    "stop": "First source/header/geometry/nucleus/basis/action/eigenpair/phase/UID/resource failure closes once-only evidence; no automatic retry, tolerance or solver/model changes.",
+    "documentation": "Own execution001 only. Root owns parent status/currentguides. No shared source edits or new API/default."
+  },
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/complete_basis_and_configuration_maps.json": "e9916f80575db4eb48b69b86e3a0064fb14a637607e2c1b397466a1efaf54742",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/models.json": "73b811765981bb13b62271137f85ca2e87667bb90a72c8562b3b129fbc3d449d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.npz": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.npz": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/run.py": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/contract.json": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision004/execution002/actual/result.json": "59ee5f5ea7118549baa3792d617ca00365bc8b8ba6c6ff5203e6e06d98add541",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/run.py": "4934835c98637a0c86c990d38601f6b429713efa629025049353ed89fa882e8a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/test_receipt.json": "92b93c01dc765f71fbf96cd43de62ac732e946cd8d20edb1758a4c80bdce42e2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/grasp_source_reference.json": "ffa9d57c2fe754f95601b48b91c27852e971831ce6709d373e4bd076429a0128",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision011/actual001/result.json": "afb11e7cc9441c5db077c3de8014db29c3c5e616a3b9b812c50468d886fcafcd",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.json": "72a4908e2e823601c1043c637d75930c124f3ce5808b827797935289954e1d72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0.npz": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/A_R0_state_gradients.json": "f202df655c0843197d48561c479abc8d05307b0eff0bc7fc7f88525281ec8856",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.json": "bc3ab06e42610c41be2d1b509893cebcbc74a7eb0335bada5ff3621a64c1fb80",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0.npz": "8297342ee9d56612b79d04096d282d9f75252858e44757fa3ee97ea373e472e0",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/B_R0_state_gradients.json": "23fcc0b2c3526af9183dd7b2d5e2103af55017c0801db765f7644fca9599a72c"
+  },
+  "scope": "Complete original A1595/B2574, five sectors each, all31 waves and3689 original direction coordinates. No full4f12 trial, new displaced H, optimizer, NIST fit or original gate supersession.",
+  "zero_point": "Differentiate the actual mathematical polar path at t=0 including its finite input Gram and nonzero tangency defect. Use its polar0 bank in fresh H0/H1/H2; measure its rounded difference from literal accepted13 separately, never silently equate the two.",
+  "acceptance": {
+    "polar0_minus_saved_wave": 1e-12,
+    "polar0_native_map": 1e-12,
+    "radial_constraint_derivatives": 1e-10,
+    "fresh_H0_minus_saved_H0_Ha": 1e-07,
+    "complete_eigensystem_residual_Ha": 1e-08,
+    "complete_eigensystem_Gram": 1e-10,
+    "target_overlap_squared_min": 0.999999,
+    "first_action_minus_original_Ha": 1e-09,
+    "curvature_prediction_abs_Ha": 2e-12,
+    "curvature_prediction_relative": 0.005,
+    "ordinary_FD_gate": "Original two failed large-step gates remain failed; curvature comparison cannot replace them."
+  },
+  "stopping": "First identity, scientific-control or resource failure stops, preserving result. No automatic retry or change of h, weights, model, gate or resource cap.",
+  "limits": {
+    "CPU": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "seconds": 600,
+    "load_max": 24,
+    "available_min_bytes": 17179869184,
+    "radial_keys": 70971,
+    "raw_determinants": 2659,
+    "exact_block_matrix_calls": 30,
+    "complete_eigh_calls": 10,
+    "response_calls": 10,
+    "decoded_input_bytes": 268435456,
+    "array_output_bytes": 134217728
+  }
+}

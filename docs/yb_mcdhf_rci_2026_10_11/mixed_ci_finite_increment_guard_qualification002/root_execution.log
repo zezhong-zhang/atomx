@@ -1,0 +1,12 @@
+E
+==================================== ERRORS ====================================
+_____ ERROR at setup of test_saved_medium_step_original_derivative_gate[0] _____
+docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py:126: in saved_problem
+    assert np.array_equal(f.one_body[k], geometry[f'h_{k}'])
+E   assert False
+E    +  where False = <function array_equal at 0x70131b590730>(array([[-4.55441503e+00, -1.07222306e+00, -2.11139430e-01, ...,\n         0.00000000e+00,  0.00000000e+00,  0.00000000e....00000000e+00,  0.00000000e+00, ...,\n        -4.00357979e+03, -1.16471162e+04, -1.88478313e+04]],\n      shape=(70, 70)), array([[-4.55441503e+00, -1.07222306e+00, -2.11139430e-01, ...,\n        -0.00000000e+00, -0.00000000e+00, -0.00000000e....00000000e+00,  0.00000000e+00, ...,\n        -4.00357979e+03, -1.16471162e+04, -1.88478313e+04]],\n      shape=(70, 70)))
+E    +    where <function array_equal at 0x70131b590730> = np.array_equal
+=========================== short test summary info ============================
+ERROR docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py::test_saved_medium_step_original_derivative_gate[0]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 error in 0.43s

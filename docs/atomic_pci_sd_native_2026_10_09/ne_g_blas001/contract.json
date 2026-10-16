@@ -1,0 +1,25 @@
+{
+  "source_run": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/ne_complete_s_p_d_f_g_50",
+  "Z": 10,
+  "fixed": "all saved core and virtual orbitals; exact same native metric, nucleus and DC quadrature",
+  "hypothesis": "BLAS constructs identical signed complete X1/X2 matrices with less repeated grid work",
+  "gate_Ha": 1e-11,
+  "seed": 31917,
+  "sampled_elements_per_kind": 50,
+  "baseline": "docs/atomic_pci_sd_native_2026_10_09/ne_complete_s_p_d_f_g_50/backend",
+  "memory_bytes": 2147483648,
+  "initialization_extra_bound_bytes": 709632,
+  "repetitions": 3,
+  "load": [
+    10.22412109375,
+    10.44140625,
+    10.4736328125
+  ],
+  "load_guard_max": 24,
+  "thread_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "timing_scope": "construction and repeated complete SD initialization only; no equation-solve or experiment claim",
+  "stopping": "reject failed signed radial/control matrices or whole-model resource cap; no pruning"
+}

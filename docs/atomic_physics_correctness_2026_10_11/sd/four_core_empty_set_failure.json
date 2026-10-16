@@ -1,0 +1,10 @@
+{
+  "reason": "diagnostic np.max on empty non-reference degeneracy set",
+  "physics_verdict": "none; fixture/core solved but no retained scientific gate result",
+  "repair": "define max norm of empty set as zero; acceptance gate unchanged",
+  "retained": [
+    "four-core-run001/probe_identity.json",
+    "four_core_empty_set_failure.log",
+    "four_core_probe_initial_rejected.py"
+  ]
+}

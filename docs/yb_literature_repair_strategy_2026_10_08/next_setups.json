@@ -1,0 +1,49 @@
+{
+  "status": "proposed physics contracts, not implemented API or completed resource preflight",
+  "baseline": "fine_l6_e200; all 19 occupied radial orbitals, Z70 empirical Fermi nucleus, DC no-pair model with declared projector",
+  "unchanged_old_gates": {"spatial_increment_cm1": 1, "four_excitation_relative_error": 0.05},
+  "new_design_goal_not_current_pass": {"four_excitation_relative_error": 0.01},
+  "stages": [
+    {
+      "id": "matrix_sigma2",
+      "question": "Can off-diagonal self-energy and orbital response materially change the retained scalar-Dyson spectrum?",
+      "P_orbitals": {"s": [6,7,8], "p": [6,7,8], "d": [5,6,7]},
+      "coverage": "All same-kappa external matrix elements, two native second-order diagram classes, all occupied orbitals and complete declared virtual manifolds; no sign reconstruction from squared weights",
+      "control": "Native diagonal scalar replay in exactly the same metric and reference; independent small-space m-scheme anchor, phase covariance and Hermiticity",
+      "gates": {"diagonal_replay_Ha": 1e-10, "root_residual_Ha": 1e-10, "metric_error": 1e-7},
+      "outcome": "Report every attachment, excitation and splitting shift. If response is small relative to retained 857-1636 cm-1 discrepancies, move to higher-order coverage rather than extending iterations. A large response still requires independent verification and full-space controls.",
+      "stop": "Any phase, metric, branch, denominator or resource-preflight failure; no automatic truncation or relaxed gate"
+    },
+    {
+      "id": "linearized_sd",
+      "question": "Do complete declared core and valence SD amplitudes improve all five attached states?",
+      "implementation_options": "Native atomic angular-coupled SD, or independently verified external implementation with a documented Hamiltonian/basis map",
+      "model": "68-electron reference; valence attachment sectors; full declared core correlation and virtual range; no experimental rescaling",
+      "controls": "Separate matched second order, third order and all-order contributions; diagonal/matrix self-energy anchors; independent-method comparison and iterative amplitude residuals",
+      "stop": "Failed amplitude convergence, intruder-state identification, or memory/work estimate. Do not turn a scaffold call into a science result.",
+      "resources": "Estimate angular-coupled amplitude and integral storage before choosing a cap; none allocated in this review"
+    },
+    {
+      "id": "balanced_holes",
+      "question": "Does a balanced full/one-hole model improve energies and state properties together?",
+      "initial_P_configurations": ["[Xe]4f14 6s", "[Xe]4f14 5d", "[Xe]4f14 6p", "[Xe]4f13 6s2", "[Xe]4f13 5d6s"],
+      "first_audit": "All roots of the retained 46-CSF frozen model, complete declared J/parity blocks, signed matrix couplings, diagonal root locations and continuous state weights; no old shifts pasted onto current Sigma",
+      "routes": ["54-electron core + 15-valence-electron CI with complementary deep-core effective operators and subtraction diagrams if orbitals use a different potential", "68-electron reference particle-hole CI+MBPT with explicit complementary P/Q partition"],
+      "coverage": "5s/5p response and g channels tested under successive explicit models; same nucleus/reference zero across lower and upper states",
+      "anchor": "P3 and its odd J=3/2 partner proximity, gap/order and properties, without experimental denominator/coupling fitting",
+      "stop": "Any P/Q overlap, unstable state identity, invalid orbital metric, or unbounded state-space allocation"
+    },
+    {
+      "id": "breit_correlation",
+      "question": "How large are native Coulomb-Breit cross terms after balanced correlation?",
+      "control": "Same orbitals, same states, same space, verified static Breit kernel, independent order/derivative anchor",
+      "coverage": "B1 separated from B2 and higher correlated response; frequency dependence separately declared",
+      "stop": "Mismatch of Gaunt/full-Breit or order conventions, double counting or failed derivative/integral anchor"
+    }
+  ],
+  "external_sector_notes": {
+    "EA": "Yb2+ [Xe]4f14, 68-electron reference -> Yb+ full-shell roots",
+    "IP": "neutral Yb [Xe]4f14 6s2, 70-electron reference -> Yb+ hole roots",
+    "limits": "EA/IP use different core references; common ground and absolute energy alignment must be checked. EOM-EA-CCSD has 1p/2p1h coverage; high hole-character roots may require higher excitations or different P spaces. No direct stitching is authorized by numerical proximity."
+  }
+}

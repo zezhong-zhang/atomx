@@ -1,0 +1,43 @@
+{
+  "status": "PASS008_source_scoped_qualification",
+  "logical_change": "Compact first-row spectator values, list promotion and singleton pruning with explicitdiagonals; no other007 equations/storage change",
+  "source_before_sha256": "82a1ff35bbcdfbe54498b24958de59f349ee75b0c3017a69d89567ad8e938e61",
+  "source_after_sha256": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+  "test_sha256": "eb74119f3641aac94ec1de0e244213b638069a2ce72f36d4031d643815833039",
+  "validation": {
+    "private_graph_storage_projection_tests_passed": 80,
+    "seconds": 0.65,
+    "public_affected_tests_passed": 152,
+    "public_seconds": 5.42,
+    "total_distinct_current_tests_passed": 232,
+    "ABBA_records": 40,
+    "cross_process_block_comparisons": 30,
+    "ABBA_receipt_review_passed": 19,
+    "large_graph_receipt_review_passed": 27,
+    "current_source_hashes_verified": 358,
+    "local_report_links_verified": 34
+  },
+  "public_panel_command": "env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 NUMBA_CACHE_DIR=/tmp/atomx-stream-csr-20261014 taskset -c 25 .venv/bin/python -m pytest -q tests/test_csf_core_contractions.py tests/test_static_radial_symmetry.py tests/test_ci_complete_trace.py tests/test_mcdhf_state_resolved_derivative.py tests/test_mcdhf_gradient_reuse.py tests/test_mcdhf_determinant_cap.py tests/test_ci_state_average.py tests/test_ci_charge_state_average.py tests/test_ci_overlap_response.py tests/test_ci_hamiltonian_snapshot.py",
+  "evidence": {
+    "test_receipt.json": "75a6abc7048d94ab89d1c89e46e2fbd671a7275b116534f85b74a1502bd76d42",
+    "source_review.json": "af20628b6568162b79e3bfebcf4891d93db91fee942fd7ca2d9467d8ab1fe64b",
+    "benchmark001/actual/result.json": "4f2b03589837b5cb657f1b91dde004a67aa1116f16d51f48265ca45fad32587e",
+    "benchmark001/closure.json": "348341c98d1d1fe234a1145416cff192f31fee2e697b8e62aa6ee2a7adc9ccc1",
+    "full_f12_connections001/actual/result.json": "728c4970653e99373f444c4d075303c79e181e33f921c13fab168156e7acfe6b",
+    "full_f12_connections001/receipt.json": "d4621275d55eebc67ee47b0025763dc0f776b8948ec2e26c85c27162f8eda01e",
+    "documentation_impact.json": "e80b81768fd49aebb5a8b040c679f4c2ed1a850447dfa916604a5ef6f17629e5",
+    "angular_before.py": "82a1ff35bbcdfbe54498b24958de59f349ee75b0c3017a69d89567ad8e938e61",
+    "angular_after.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+    "test_ci_connection_streaming_after.py": "eb74119f3641aac94ec1de0e244213b638069a2ce72f36d4031d643815833039",
+    "validation_sequence_failure001.json": "1a900feee72c68d3ed49f7020a5fa11923701caf11c387888e29481fb1b7a36e"
+  },
+  "limits": {
+    "full4f12_H_CI_calculated": false,
+    "experimental_accuracy_qualified": false,
+    "stationarity_qualified": false,
+    "prior_failures_preserved": true,
+    "whole_solver_or_parallel_speedup_qualified": false,
+    "frozen_f043_all356files_unchanged": true
+  },
+  "no_commit_stage_or_card": true
+}

@@ -1,0 +1,19 @@
+{
+  "scope": "Root observedhardware/query andpackage distributionmetadata only, no GPUcontext/scientific launch",
+  "observed_UTC": "2026-10-11T17:32:38Z",
+  "gpu_query_command": "nvidia-smi --query-gpu=name,driver_version,memory.total,memory.used,utilization.gpu --format=csv,noheader",
+  "gpu_query_stdout": "NVIDIA GeForce RTX 4090, 595.91.07, 49140 MiB, 1296 MiB, 0 %",
+  "main_interpreter": "/data/code/atomx/.venv/bin/python",
+  "main_distribution_metadata": {
+    "numba": "0.65.0",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "numba-cuda": null,
+    "cupy": null,
+    "cupy-cuda12x": null,
+    "cupy-cuda13x": null
+  },
+  "isolatedruntime_exists_from_existing_authoritative_docs": true,
+  "device_exclusive_timing_certification": false,
+  "source_or_environment_mutated": false
+}

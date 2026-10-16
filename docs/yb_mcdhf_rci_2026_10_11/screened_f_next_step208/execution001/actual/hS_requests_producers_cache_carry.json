@@ -1,0 +1,77 @@
+{
+  "attempted": 74,
+  "completed": 74,
+  "cache_hits": 67,
+  "cache_misses": 7,
+  "per_kappa": {
+    "-1": 16,
+    "-2": 14,
+    "1": 14,
+    "-3": 10,
+    "2": 10,
+    "-4": 5,
+    "3": 5
+  },
+  "by_CI": [
+    {
+      "name": "baseline",
+      "delta": {
+        "attempted": 36,
+        "completed": 36,
+        "cache_hits": 29,
+        "cache_misses": 7
+      },
+      "completed_native_hS_producers": 7,
+      "native_hS_producers_this_CI": 7,
+      "covered_kappas": [
+        -4,
+        -3,
+        -2,
+        -1,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "complete5f",
+      "delta": {
+        "attempted": 38,
+        "completed": 38,
+        "cache_hits": 38,
+        "cache_misses": 0
+      },
+      "completed_native_hS_producers": 7,
+      "native_hS_producers_this_CI": 0,
+      "covered_kappas": [
+        -4,
+        -3,
+        -2,
+        -1,
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "carry_events": [
+    {
+      "CI": "baseline",
+      "same_workspace_before": false,
+      "same_nucleus_before": false,
+      "same_geometry_before_after": false,
+      "previous_h0_blocks": 0,
+      "carried_h0_blocks": 0,
+      "carried_tuple_identity": true
+    },
+    {
+      "CI": "complete5f",
+      "same_workspace_before": true,
+      "same_nucleus_before": true,
+      "same_geometry_before_after": true,
+      "previous_h0_blocks": 7,
+      "carried_h0_blocks": 7,
+      "carried_tuple_identity": true
+    }
+  ]
+}

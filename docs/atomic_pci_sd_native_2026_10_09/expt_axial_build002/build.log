@@ -1,0 +1,24 @@
+[  0%] Built target genlapacke
+[  2%] Built target lapack
+[  3%] Built target driver_others
+[  8%] Built target driver_level3
+[ 14%] Built target driver_level2
+[ 14%] Built target expt_transform_natorb.x
+[ 14%] Built target expt_read_dfcoef.x
+[ 14%] Built target expt_read_mdprop.x
+[ 22%] Built target interface
+[ 29%] Built target kernel
+[ 97%] Built target openblas
+[ 97%] Built target heffman.x
+[ 97%] Built target expt_diatomic.x
+[ 97%] Built target expt2pam.x
+[ 98%] Built target openblas_utest
+[ 98%] Building C object CMakeFiles/expt.x.dir/src/rcc/interfaces/pyscf_interface.c.o
+In file included from /home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_axial_source001/src/rcc/include/engine.h:36,
+                 from /home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_axial_source001/src/rcc/interfaces/pyscf_interface.c:32:
+/home/zzhang/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_axial_source001/src/rcc/include/platform.h:38:9: warning: ‘COMPILER_GNU’ redefined
+   38 | #define COMPILER_GNU
+      |         ^~~~~~~~~~~~
+<command-line>: note: this is the location of the previous definition
+[ 98%] Linking Fortran executable expt.x
+[100%] Built target expt.x

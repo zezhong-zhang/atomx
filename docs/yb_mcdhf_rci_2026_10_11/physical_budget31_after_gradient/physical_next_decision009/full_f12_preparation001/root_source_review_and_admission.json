@@ -1,0 +1,38 @@
+{
+  "status": "SOURCE_REVIEW_PASS_ADMIT_BOUNDED_PHYSICAL_RUN",
+  "worker_sha256": "de8f2b6817dff69fbe5150ba4c3471df8634f3fca84846e9bbde6f12a74efdfa",
+  "contract_sha256": "cd023eb21656db46a0a00a954a341562a3d11c889de5b0703955f4aaee08ee4c",
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "source_only_guard_patch": {
+    "before_sha256": "90aa9e188b1258f69eddc8a263039093c7fd35ab2a1fdbbacfe715f7095157f5",
+    "change": "Guard the imported angular highest_weight_states alias as well as the mscheme global; no mathematical function or underlying cached function changed.",
+    "scientific_execution_before_patch": false
+  },
+  "hypothesis": "The complete 82 missing 4f12 NR configurations produce finite fixed-orbital state shifts and differential excitation shifts. Their sign and size distinguish missing-class effects from radial cutoff effects at the bound accepted13 point.",
+  "fixed": "Same 69e Z70 A175 Fermi 31 radials, P/S and accepted13. Complete A173/B182 NR spaces; one full B operator and exact A restriction per sector.",
+  "gates": {
+    "old_subspace_selected_action_maxabs_Ha": 1e-08,
+    "Gram_maxabs": 1e-10,
+    "radial_Gram_maxabs": 1e-10,
+    "no_pair_metric_norm2": 1e-12,
+    "coordinate_wave_maxabs": 1e-12,
+    "native_reference_binding_exact": true,
+    "same_symmetry_observed_two_root_gap_Ha_min": 1e-06,
+    "strict_signed_reference_overlap_squared_min": 0.5,
+    "finite_full_operator_L2_residual_Ha_max": 1e-08,
+    "signed_bilinear_symmetry_Ha_max": 1e-08
+  },
+  "stop": "First failure writes sharedSTOP and preserves partial; remaining workers reject. No retries/model/cap/gate changes.",
+  "source_review_notes": [
+    "Complete parent enumeration populates all 18 cached subshell cases and 63 nullspaces before projection; both aliases now guarded.",
+    "Old-reference action comparison takes only old rows, retaining genuine coupling to new rows.",
+    "A index restriction follows bound NR ownership; signed basis signatures map the old reference in the same orbitals.",
+    "Davidson has its unchanged native 22-vector maximum subspace at 2 roots; direct full-operator residual and matching gates are independent of iterative convergence.",
+    "No root matching based on NIST. No omitted-spectrum rigorous isolation claim.",
+    "One run per sector. First failure stops siblings and prevents remaining dispatch."
+  ],
+  "scientific_limits": [
+    "Fixed-orbital RCI only.",
+    "No terminal16 splicing, MCDHF stationarity, Breit/QED, full spectra or NIST accuracy claim."
+  ]
+}

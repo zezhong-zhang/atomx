@@ -1,0 +1,7 @@
+Prospective independent algebra qualification of the failed5f successor. Root has not executed this driver. It consumes18 unique immutable NPZ archives once each plus byte-bound source/JSON; no Atomx/SciPy import, eigensolve, SVD, H/CI/gradient/Fock/Dirac or optimizer.
+
+The complete1046/1595 H/roots/signedGram, all original symmetry blocks, signed1046 principal embedding/Ritz, exact literal208 H/E/C/old29waves/P/x/metric, all118 vectors for both5f complementary spectra, seven actual rawh/S and fixed geometry/owner identities, five UID/selectors/weights, upper−lower/centroid/splitting/RMS arithmetic are checked under unchanged gates. Original tracker principal/ambiguity runtime proofs and nuclear callable identity are consumed; no new signed determinant overlaps or potential samples are generated.
+
+CPU31/thread1/AS3.95GiB, inner120s/outer135s; maximum512 numerical ledger rows. The known input map lists exactly18 loads. Failure retains all reached checks and counters without retry. This qualification is separate from the original14-assembly counterFAIL; it cannot reclassify that execution, certify expanded MCDHF, a suitable unscreened radial seed, whole-parent spectrum or physical completeness.
+
+Default invocation is metadata-only. Root must separately seal exactcontract/driver/preparation/inputmap plus originalfailedreceipt and fullinputroles before --execute --binding. Do not run science or import archived Atomx.

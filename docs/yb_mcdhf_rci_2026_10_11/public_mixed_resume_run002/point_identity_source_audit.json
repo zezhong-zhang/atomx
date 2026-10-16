@@ -1,0 +1,51 @@
+{
+  "all_passed": true,
+  "checks_count": 7,
+  "checks": [
+    {
+      "name": "old_gradient_evaluated_on_workspace_orbitals",
+      "passed": true
+    },
+    {
+      "name": "old_gradient_evaluation_precedes_coordinate_recovery",
+      "passed": true
+    },
+    {
+      "name": "old_saved_g_is_projected_existing_physical_wave_gradient",
+      "passed": true
+    },
+    {
+      "name": "direct_unpacked_x_and_original_physical_waves_differ",
+      "passed": true
+    },
+    {
+      "name": "independent_reconstruction_matches_first_launch_difference",
+      "passed": true
+    },
+    {
+      "name": "original_metric_byte_identity_unchanged",
+      "passed": true
+    },
+    {
+      "name": "failed_original_different_point_assertion_preserved",
+      "passed": true
+    }
+  ],
+  "source_read_sha256": "dced7d5d010924ca74bc6e2ba9ec3d1a7f0898eb1d8f3a2b048417c64900a668",
+  "source_evaluate_line": 86,
+  "original005_workspace_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+  "recovered_coordinate_archive_sha256": "fa3b24adca61cc827b924b70a89734543472268835942800ca641f2ab513c693",
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "direct_P_times_x_minus_original_physical_wave_max": 2.986638714119749e-13,
+  "predecessor_failed_gradient_difference": 2.6310068574076167e-08,
+  "predecessor_failed_gradient_limit": 1e-09,
+  "predecessor_baseline_controls_sha256": "a04383f3f4a38d67d7bfad3b83bafd4f4d2509a54f0793d6a6a3fed06e322a83",
+  "predecessor_failure_sha256": "41775f0416e665f10076ff30aaa1e92254561689d7392facbc5489eccd6f3037",
+  "conclusion": "The old saved g/pg uses original physical-wave gradient projected at recovered y; it is not a gradient evaluation on direct P*x. A same-point old-source reference is required for a source-equality gate.",
+  "not_proven": "No spectral-stiffness explanation or absence of a source derivative defect is certified before the independently frozen matched reference.",
+  "physics_H_builds": 0,
+  "CI_solves": 0,
+  "full_gradients": 0,
+  "optimizer_calls": 0,
+  "script_sha256": "8baf60b10f9142f411e23e69370b181232fbbb05a894fa2d1bf56781709de9c9"
+}

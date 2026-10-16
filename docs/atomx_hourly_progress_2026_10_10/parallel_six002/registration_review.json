@@ -1,0 +1,65 @@
+{
+  "lanes": {
+    "fscc_scope": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_fscc_scope001/handoff.json",
+      "handoff_sha256": "b75744e0928761e64f767806e51c5c0bf4f1fcb7cf30ae521c0ee460546f5dda",
+      "registered_file_count": 625,
+      "registered_payload_bytes": 15318854,
+      "expected_manifest_files_verified": 623,
+      "explicit_AST_equal_epoch_transitions": {
+        "src/atomx/methods/sd_pair_diagrams.py": [
+          "170115a474afabd4488bcacf4db50179b17e2a85101f3abad20375e3f6860983",
+          "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2"
+        ]
+      }
+    },
+    "properties": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_properties001/handoff.json",
+      "handoff_sha256": "5faf83bb8fa37665f757b9b0c6a8b5c5ad8c5d1b53d1d37ffbf7a2be7d941b27",
+      "registered_file_count": 623,
+      "registered_payload_bytes": 11113244,
+      "expected_manifest_files_verified": 621,
+      "explicit_AST_equal_epoch_transitions": {
+        "src/atomx/methods/sd_pair_diagrams.py": [
+          "170115a474afabd4488bcacf4db50179b17e2a85101f3abad20375e3f6860983",
+          "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2"
+        ]
+      }
+    },
+    "sd_diagrams": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/handoff.json",
+      "handoff_sha256": "9ee929ea0dc4bd55ea13053357f6af455a2dcc9d6a89d46775ed343f81d73a7c",
+      "registered_file_count": 88,
+      "registered_payload_bytes": 2597431,
+      "expected_manifest_files_verified": 88,
+      "explicit_AST_equal_epoch_transitions": {}
+    },
+    "gpu": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_gpu001/handoff.json",
+      "handoff_sha256": "0033f4eede2340ffaa847aa225d35fcda3e54165af3ae3fa521099b9867238fc",
+      "registered_file_count": 95,
+      "registered_payload_bytes": 2651495,
+      "expected_manifest_files_verified": 95,
+      "explicit_AST_equal_epoch_transitions": {}
+    },
+    "norm": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/handoff.json",
+      "handoff_sha256": "bcd11ac0139ef0241ce092f8c4ed0c2dbb6df56dc2102e5f100cee9571a5a50c",
+      "registered_file_count": 56,
+      "registered_payload_bytes": 653787452,
+      "expected_manifest_files_verified": 56,
+      "explicit_AST_equal_epoch_transitions": {}
+    },
+    "nist": {
+      "handoff_path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/handoff.json",
+      "handoff_sha256": "ca31377740e8d3f12448fee38c30aed2224726e638cf8463b4e9c061af9718e1",
+      "registered_file_count": 66,
+      "registered_payload_bytes": 1041632978,
+      "expected_manifest_files_verified": 66,
+      "explicit_AST_equal_epoch_transitions": {}
+    }
+  },
+  "actual_reserved_bytes": 21474836480,
+  "maximum_reserved_bytes": 25769803776,
+  "highest_level_reached": false
+}

@@ -1,0 +1,119 @@
+{
+  "status": "SOURCE_only_validation_passed",
+  "default_result": {
+    "status": "SOURCE_ONLY_once_executor_ready_for_root_review",
+    "source_only": true,
+    "science_imports": 0,
+    "NPZ_reads": 0,
+    "NPZ_hashes": 0,
+    "physical_calls": 0,
+    "exact_root_seal_required": true,
+    "contract_sha256": "aebbe1c3526152623b9669393362946af8e0c16d94d3956fb088e0723a4cced2",
+    "driver_sha256": "7cce05dfe0e1347337f62639638ae1d2dc8ca808ce1b2f2525bf97e3f738ff41"
+  },
+  "driver_AST_compiles": true,
+  "top_level_imports_stdlib_only": [
+    "from __future__ import annotations",
+    "import argparse",
+    "from collections import Counter",
+    "from dataclasses import asdict",
+    "import hashlib",
+    "import json",
+    "import math",
+    "import os",
+    "from pathlib import Path",
+    "import resource",
+    "import signal",
+    "import sys",
+    "import threading",
+    "import time",
+    "import traceback",
+    "import zipfile"
+  ],
+  "whole_frozen_source_files_checked": 356,
+  "all_SOURCE_JSON_input_roles_checked": true,
+  "numerical_archive_reads": 0,
+  "numerical_archive_rehashes": 0,
+  "numerical_ZIP_header_reads": 0,
+  "science_imports": 0,
+  "physical_calls": 0,
+  "actual_directory_absent": true,
+  "critical_source_identity": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py",
+      "sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py",
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py",
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/overlap.py",
+      "sha256": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py",
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py",
+      "sha256": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/effective_one_body.py",
+      "sha256": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013"
+    }
+  ],
+  "local_document_links_verified": 7,
+  "ruff_F": "all_checks_passed",
+  "complete_NR_counts": [
+    91,
+    100
+  ],
+  "parent_CSF_counts": [
+    3789,
+    5741
+  ],
+  "complete_target_CSF_counts": [
+    1595,
+    2574
+  ],
+  "exact_nested_H_still_requires_runtime_byte_control": true,
+  "final_SOURCE_review": "Native tuple-valued selectors normalized to JSON lists for exact StageB selector comparison; source-only type-path review.",
+  "ruff_full": "all_checks_passed",
+  "formatting_successor": {
+    "status": "SOURCE_only_semantic_equivalence_passed",
+    "checks": [
+      {
+        "file": "run.py",
+        "original_sha256": "7159c1079dbaaf75f7244bcfbc3df404bd065feb6a0507a7ee651c4d37704bbd",
+        "successor_sha256": "7cce05dfe0e1347337f62639638ae1d2dc8ca808ce1b2f2525bf97e3f738ff41",
+        "whole_AST_equivalent_except_import_order": true,
+        "AST_dump_sha256": "f8654ec04a2bfd92d1ceb11a3fc772e0d5eaf7c7c987c00c9fa1f1660d6f64e0"
+      },
+      {
+        "file": "prepare.py",
+        "original_sha256": "36878968f5a85b1a3ef72e5b15b4c609d5e659176bd31f5051d1d546d728a325",
+        "successor_sha256": "ee5a719896eff093f9226beaae955ab3e51b21090a93d6fb7c493f3e1fdcb0e8",
+        "whole_AST_equivalent_except_import_order": true,
+        "AST_dump_sha256": "f4a379542cf63f87f47ad6a801f276c4c83696fd78d42513da463a3cda502ac5"
+      }
+    ],
+    "physical_code_and_gates_unchanged": true,
+    "contract_changed_only_in_successor_prepared_models_path": true,
+    "model_file_bytes_equal": true,
+    "final_selector_check": "check('baseline_exact_StageB_UID_weights', plain(weights) != oldtrack['weights'] or plain([r['selected_level'] for r in rows]) != [r['selected_level'] for r in expected])",
+    "selector_plain_normalization_present": true,
+    "original001_actual_directory_absent": true,
+    "source_numpy_Atomx_imports": 0,
+    "numerical_archive_access": 0
+  }
+}

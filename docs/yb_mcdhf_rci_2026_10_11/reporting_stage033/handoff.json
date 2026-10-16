@@ -1,0 +1,72 @@
+{
+  "status": "FROZEN_SOURCE_JSON_READY_FOR_ROOT_REVIEW_NO_INTEGRATION",
+  "files": {
+    "refresh.py": "34d14fccce053072f96381af364c0405bf17dd365c7e1811baf40c578925d993",
+    "prepare.py": "39bee0a37778fa07baf1ab51f17b25b1e8e731cc67caff9c9feab9a57272f419",
+    "contract.json": "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30",
+    "preparation.json": "7a9ca25213b43692f517829fb5b79f79f1bb2294feaa13aea2cb2e531cd9338e",
+    "README.md": "59190a7d10054d172a2d4a39bf4c36b091477f8b99d3dcf0c1112d5ac8bb5894",
+    "EARS.md": "9dc777e5b04b3cfcdf905b5714c0ae0d188d3130f92483f0ade33db29f546a99",
+    "documentation_impact.json": "e581e3b8569323526d7f42f969283a99bdad47722c6915f8e2fdef02de9e6929"
+  },
+  "driver": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/refresh.py",
+    "sha256": "34d14fccce053072f96381af364c0405bf17dd365c7e1811baf40c578925d993"
+  },
+  "contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/contract.json",
+    "sha256": "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30"
+  },
+  "preparation": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/preparation.json",
+    "sha256": "7a9ca25213b43692f517829fb5b79f79f1bb2294feaa13aea2cb2e531cd9338e"
+  },
+  "closed_GPU_successor": {
+    "result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+      "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+    },
+    "receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+      "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+    },
+    "closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+      "sha256": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758"
+    }
+  },
+  "registry_before_sha256": "061cba14e68681b17d102114386df08c239f695af62a968121e35390074a752a",
+  "execution_authorized": false,
+  "command": [
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/refresh.py",
+    "--execute",
+    "--contract-sha256",
+    "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30",
+    "--completion-binding",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/root_completion_binding.json"
+  ],
+  "root_binding_required": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "34d14fccce053072f96381af364c0405bf17dd365c7e1811baf40c578925d993",
+    "contract_sha256": "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30",
+    "registry_before_sha256": "061cba14e68681b17d102114386df08c239f695af62a968121e35390074a752a",
+    "closed_GPU_successor": {
+      "result": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+        "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+      },
+      "receipt": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+        "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+      },
+      "closure": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/closure001/completion.json",
+        "sha256": "e20858b200bd0e00da74ebd65ac7c6d6534a07da821e41f983ef802219703758"
+      }
+    }
+  },
+  "new_science_NPZ_GPU_API_card_calls_in_this_metadata_routine": 0,
+  "actual_hour28_four_other_registered_probes_not_zero_global_science": true
+}

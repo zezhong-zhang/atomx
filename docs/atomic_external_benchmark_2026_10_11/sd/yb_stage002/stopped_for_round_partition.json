@@ -1,0 +1,32 @@
+{
+  "time": "2026-10-11T04:00:22.473619+00:00",
+  "pid": 1948738,
+  "reason": "Full cold preparation observed about112 seconds, historical expected3-round stages510 seconds; proactively partition before exceeding original600-wall limit.",
+  "retained_observations": [
+    {
+      "ordinal": 0,
+      "round": null,
+      "warmup": true,
+      "workers": 8,
+      "seconds": 17.58502836804837,
+      "load_before": [
+        15.375,
+        11.54638671875,
+        12.75244140625
+      ],
+      "load_after": [
+        14.96630859375,
+        11.705078125,
+        12.779296875
+      ],
+      "timing_guard_pass": true,
+      "maximum_signed_error_Ha": 3.1170812458958252e-19,
+      "maximum_relative_error": 4.898035365302726e-15,
+      "bitwise_equal_to_prior_serial": true,
+      "finite": true
+    }
+  ],
+  "accepted_timing_rounds": 0,
+  "currently_incomplete_call": "first measured serial call interrupted; no output accepted for it",
+  "new_protocol": "3 independent complete round processes, each original600-wall/8GiB/8-worker caps and full414virtual response unchanged; all source/input output bytes retained"
+}

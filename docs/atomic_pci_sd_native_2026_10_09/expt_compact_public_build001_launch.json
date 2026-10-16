@@ -1,0 +1,17 @@
+{
+  "status": "launch",
+  "hypothesis": "explicit optional public builder reproduces source-bound private003 exact block storage without changing equations or default dense backend",
+  "reference_source_bytes": 128462294,
+  "source_cap_bytes": 1073741824,
+  "planned_build_workers": 4,
+  "load": [
+    9.9619140625,
+    10.27978515625,
+    12.2587890625
+  ],
+  "load_guard": 27,
+  "helper_sha256": "faf161c27c77cc92a0ff740a9b5f42dc57f896a1fc85b20799f20010a43aebb3",
+  "validated_helper_sha256": "faf161c27c77cc92a0ff740a9b5f42dc57f896a1fc85b20799f20010a43aebb3",
+  "builder_sha256": "4c41fa4f9a5fb774779546ba18e1602a53118a5ca44613a197370cb67c37229a",
+  "scope": "full fresh CLI build, then original public FSCC live gates; no production-space/timing claim"
+}

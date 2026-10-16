@@ -1,0 +1,62 @@
+{
+  "status": "shared_two_file_fix_applied_and_single_three_case_test_passed",
+  "closed_utc": "2026-10-11T14:56:32.199635+00:00",
+  "source_map_sha256": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+  "source_identity_sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac",
+  "applied_files": {
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "tests/test_convol.py": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+  },
+  "application_sha256": "122d0eac163639ec634e73dbfe51b5bf5468dd9ee52f091cfe75313174ef696e",
+  "actual_result_sha256": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce",
+  "execution_record_sha256": "64b32e18205aba03ddb3b99e2922e5d613cec0a6691b404c5644c0c9e342c698",
+  "execution_contract_sha256": "2643ac76ffd8c5ca38611ba9e74fc5c0eb24e7e7563ac72787531d92fdb886b5",
+  "replay_lineage_sha256": "08a84418cdcd1dbccb372f2cd57d52de1043fafd26511d3c1e41acd3f55b38ca",
+  "tests_passed": 3,
+  "calls_started": {
+    "basis_setup": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "calls_completed": {
+    "Gauss_setup_eigvalsh": 3,
+    "basis_setup": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "H_CI_gradient_hS_Dirac_optimizer_GPU": 0,
+  "numeric_AST_matches_private_f043_ignoring_docs": true,
+  "all_other355_source_files_preserved": true,
+  "legacy_contracts_results_flags_unchanged": true,
+  "broader_suite_or_numerical_replay": false,
+  "additional_science_for_completion": 0,
+  "source_test_driver_Ruff": "passed",
+  "executed_launcher_Ruff": "3 formatting findings preserved separately",
+  "manifest_sha256": {
+    "replay_lineage.json": "08a84418cdcd1dbccb372f2cd57d52de1043fafd26511d3c1e41acd3f55b38ca",
+    "application.json": "122d0eac163639ec634e73dbfe51b5bf5468dd9ee52f091cfe75313174ef696e",
+    "test_driver.py": "323db38b1bfdc823398baf85c97428c7948bfc62c35d097caba983d0b8f7007e",
+    "execution_record.json": "64b32e18205aba03ddb3b99e2922e5d613cec0a6691b404c5644c0c9e342c698",
+    "host_admission.json": "d6e1e3520cae19ca8d04b062c071bb3f6ecaa7790232e1811c1e992399907f7f",
+    "execution_contract.json": "2643ac76ffd8c5ca38611ba9e74fc5c0eb24e7e7563ac72787531d92fdb886b5",
+    "source_identity.json": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac",
+    "once_marker.json": "ca58d3b208c827630c0acf3571445c10d7661fd49e733c25754c89f81e2c6f6c",
+    "documentation_impact.json": "8e74bc8b1ec90aae116eeba2fd4dce069822b1f054e423b94e18000b52a00921",
+    "RESULTS.md": "3c030fee5b7dedaf63057c84b6697aeabcfd77dbc2ddc41efd23072001719134",
+    "launch_once.py": "5b75408e51da193749eb2d4b47bda93abde78a5fb984457663182f1299af6756",
+    "root_authorization_message.txt": "66aa29163ca6f2d888b60b32c3491275c89dc108b2bc2b445b55988dcfced5c5",
+    "execution.log": "7567149d541367006322d5a0affd624e4f819f7fe362db0c68357bc9506429bc",
+    "actual/result.json": "9f9569999ad4c32b7fc9cee868bd76b8c1368ab241c39a9bc4e60c5fe09717ce",
+    "actual/progress.json": "84017c5be7b7996077d7d59084f1d96a6947e14c2d99d3bf87d2304734c855b5"
+  },
+  "limits": "Only new3analyticcases and source-equivalent private closed341gate discriminator; no extraHCIg/negative/outer/globalstationarity/performance/experimentalcertificate."
+}

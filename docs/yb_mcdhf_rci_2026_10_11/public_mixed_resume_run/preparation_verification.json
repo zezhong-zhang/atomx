@@ -1,0 +1,249 @@
+{
+  "all_passed": true,
+  "checks_count": 41,
+  "checks": [
+    {
+      "name": "preflight_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "complete_count_caps",
+      "passed": true
+    },
+    {
+      "name": "input_source_identity_checked",
+      "passed": true
+    },
+    {
+      "name": "old_metric_exact",
+      "passed": true
+    },
+    {
+      "name": "no_compute_in_preflight",
+      "passed": true
+    },
+    {
+      "name": "no_execution_epoch",
+      "passed": true
+    },
+    {
+      "name": "no_endpoint_claim",
+      "passed": true
+    },
+    {
+      "name": "baseline_optimizer_total_gradient_budget_scope",
+      "passed": true
+    },
+    {
+      "name": "run.py/syntax",
+      "passed": true
+    },
+    {
+      "name": "one_actual_public_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "original_strict_gates",
+      "passed": true
+    },
+    {
+      "name": "typed_resume_explicit_target_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "verify_endpoint.py/syntax",
+      "passed": true
+    },
+    {
+      "name": "verifier_no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "verifier_checkpoint_objective_saved_eigenpair_checks_called",
+      "passed": true
+    },
+    {
+      "name": "verifier_identity_and_saved_eigenpairs_before_functional",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_entrance:solve",
+      "passed": true
+    },
+    {
+      "name": "fail_closed_entrance:/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "Ruff_prepared_scripts",
+      "passed": true
+    },
+    {
+      "name": "synthetic_endpoint_guard_runner_passed",
+      "passed": true
+    },
+    {
+      "name": "synthetic_endpoint_guards_bound",
+      "passed": true
+    },
+    {
+      "name": "synthetic_guards_no_physics_or_endpoint_claim",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:contract.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:planning_contract001.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:run.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:README.md",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:preflight.log",
+      "passed": true
+    },
+    {
+      "name": "unchanged_revision001_archive:verify_preparation.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:contract.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:planning_contract001.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:run.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:preflight.log",
+      "passed": true
+    },
+    {
+      "name": "README_link:preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:preparation_verification_revision001.json",
+      "passed": true
+    },
+    {
+      "name": "README_link:verify_endpoint_guards.py",
+      "passed": true
+    },
+    {
+      "name": "README_link:endpoint_guard_verification.json",
+      "passed": true
+    },
+    {
+      "name": "README_no_execution_claim",
+      "passed": true
+    }
+  ],
+  "preparation_revision": 2,
+  "previous_preparation_proof_sha256": "8b70993076db5e407b0c160c422d90e6e7a8728640f096c844ab6a6706784de7",
+  "no_new_scientific_solves": true,
+  "source_epoch_sealed": false,
+  "frozen_owner_files_sha256": {
+    "contract.json": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+    "planning_contract001.json": "bb691935b26cc849910b0885776890b1efb149d31c514cceff5701ea580901ee",
+    "run.py": "52b045f3d71c17d55080dc8b9a6a40c760bd289bcb080cb6fb8b0c887d42654d",
+    "verify_endpoint.py": "9fb44a1b956adf6d42fcdd7481014fb0d7d8b80d1fe2d916364973165b54d407",
+    "README.md": "e900ea6b429f170aa9ed3c26f48eab3aece83ba7d8e55c9811e7c7183b6f3e2a",
+    "preflight.json": "6667855b89a9f32fa760a7644d4c1ccbcf0d7630e6da54094f93568d82984025",
+    "preflight.log": "500f677aa905b218106c200ab0d7aa3b33b4b26819d2445bffda2f338eec9055",
+    "verify_preparation.py": "e3fa62558cd298f7baed9a616afb45997c7cafeed77993c199a8d9556cd6848e",
+    "verify_endpoint_guards.py": "2480d7e08bc09cbd8928b0cea42cfb78204c770f267c39013af394cb981d7439",
+    "endpoint_guard_verification.json": "0508d5971897b704ca71a52b4bf7816cc60333842cb2de086cd31f3cfa776886",
+    "preparation_verification_revision001.json": "8b70993076db5e407b0c160c422d90e6e7a8728640f096c844ab6a6706784de7"
+  },
+  "synthetic_endpoint_guard_checks_count": 49,
+  "public_API_declaration_observed": {
+    "typed_state_declared": true,
+    "required_keywords": [
+      "allow_objective_change",
+      "checkpoint_callback",
+      "max_wall_time",
+      "objective_identity",
+      "resume_state",
+      "return_state"
+    ],
+    "missing_keywords": [],
+    "available": true
+  },
+  "resource_read_only_admission": {
+    "observed_at_utc": "2026-10-11T09:00:00Z",
+    "load_average": [
+      9.1953125,
+      9.302734375,
+      9.26171875
+    ],
+    "available_CPUs": 32,
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "load1_per_available_CPU": 0.287353515625,
+    "host_available_GiB": 112.48030471801758,
+    "admitted": true,
+    "purpose": "Resource feasibility; never a controlled timing certificate"
+  },
+  "scope": "Structural/read-only preparation only; no resume invariant/physics/endpoint gate exercised here."
+}

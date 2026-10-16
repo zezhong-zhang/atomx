@@ -1,0 +1,51 @@
+{
+  "NIST_ionization": {
+    "value_eV": 12.179185,
+    "listed_uncertainty_eV": 2.5e-05,
+    "ion_charge": 1,
+    "terminal_state": "YbIII [Xe]4f14 1S0",
+    "version": "ASD5.12",
+    "reference": "L12907",
+    "verified_date": "2026-10-11",
+    "url": "https://physics.nist.gov/cgi-bin/ASD/ie.pl?at_num_out=1&biblio=1&e_out=0&el_name_out=1&ion_charge_out=1&spectra=ytterbium&unc_out=1&units=1",
+    "scope": "Threshold reference; isotope/hyperfine definitions and individual level uncertainties remain separate, no full experimental uncertainty bound."
+  },
+  "SI": {
+    "h_J_s": 6.62607015e-34,
+    "c_m_s": 299792458.0,
+    "e_C": 1.602176634e-19,
+    "m_e_kg": 9.1093837139e-31,
+    "u_kg": 1.66053906892e-27,
+    "source": "CODATA2022 src/atomx/constants.py"
+  },
+  "mass_proxy": {
+    "A": 175,
+    "scope": "Approximate nuclear mass A*u for a normal-mass-shift scaling proxy only, not a certified isotope or total relativistic/specific-mass correction."
+  },
+  "primary_read": [
+    {
+      "title": "Safronova and Safronova2009 TableI",
+      "url": "https://mariannasafronova.com/wp-content/uploads/2022/12/YbII-2009.pdf",
+      "scope": "E3,B1(includesfrequency),B2(static),oneelectronLamb. Used as transition differences for ranking only."
+    },
+    {
+      "title": "Porsev etal2012 TableI and15electronCI SectionsIII/TableV",
+      "url": "https://mariannasafronova.com/wp-content/uploads/2022/12/PorSafKoz12c.pdf",
+      "scope": "LinearizedSD already sums higher-order Coulomb terms; SD-minus-MBPT is not the current missing nonlinear/triples correction."
+    },
+    {
+      "title": "Berengut2016 particle-holeCI+MBPT",
+      "url": "https://arxiv.org/abs/1605.08111",
+      "scope": "Complementary P/Q and double-counting formalism; Hg+ application does not certify Yb+."
+    }
+  ],
+  "two_level_proxy": {
+    "assumed_bare_gap_cm1": 1600.0,
+    "assumed_couplings_cm1": [
+      200.0,
+      600.0,
+      1200.0
+    ],
+    "scope": "Illustrative assumed bare Hamiltonians only. Observed mixed-level separation1634.25cm^-1 is not inserted as a bare denominator or used to infer V."
+  }
+}

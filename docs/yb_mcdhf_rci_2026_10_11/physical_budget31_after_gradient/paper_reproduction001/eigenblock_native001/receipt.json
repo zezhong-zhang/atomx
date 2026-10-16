@@ -1,0 +1,69 @@
+{
+  "status": "closed_native_eigenblock_source_tests_and_complete_g_application",
+  "UTC": "2026-10-14T00:30:29.253514+00:00",
+  "files": {
+    "src/atomx/numerics/bspline/dirac_assembly.py": "926f68ea7cec251c322a9eeb8af41cb79643d20b6266af09843267a989963661",
+    "tests/test_generalized_eigenblock.py": "5e4fde581ccca8181ce6bf1cc86e8cc3a4bc0ccdb0237bfdce7497a01fc1267c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/eigenblock_native001/README.md": "c784ec3f3a4051ba6a82ceab46ea905d862028de18dca06522b1b16fff47a493",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/eigenblock_native001/trace.md": "10179b447d08a0c695b12ca943271099332700b20e96f67d2d60e58be6863e76",
+    "docs/DF_SOLVER_CONTROLS.md": "eedf66fbf48e436c0706a59a6576787204646f951ec9afdecd71381fec74265b",
+    "docs/TESTING.md": "2ee7c30f041f1e655d92b56ffc885e2f7952b0b6b994b392c7e48a3b6b996e38",
+    "docs/MIGRATION.md": "8a95d30793de69f35a0ce1abfa195068018ce71ac62abb4205d7bd22257d7c38",
+    "docs/ARCHITECTURE_CAPABILITIES.md": "020e7451328cbe56c876a8082928128aa72a7fbcc8f9613aafe4d34671a45b70",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md": "6faf49cddff2cdf580ba99323b0a14a0db729e9422a6b578095e2e88cc417ec1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_high_l005/actual/result.json": "8caec2b76c813de7b36388af4cff9633d41d0f6f7a2e5af8ba1b269280fe5542",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_high_l005/closure_receipt.json": "a3ee1c0f49c00445018ee07f522a6444c2e136d41277fe8d4ad719e90c7d849b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/block_diagnosis001/result_review005.json": "0e819aa4ec8466a66797363491627fa97404180cfbe1e48d8ac788c0939c77cd",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/block_diagnosis001/kernel_source_review001.json": "9a2ce68495d0e3c16fdbeb54a2e600aae611a15b8788c76d4d9b435d89e4d9e6"
+  },
+  "validation": {
+    "pytest_passed": 86,
+    "pytest_skipped": 0,
+    "elapsed_s_uncontrolled": 32.49,
+    "test_files": [
+      "tests/test_generalized_eigenblock.py",
+      "tests/test_rydberg_eigenvector_refinement.py",
+      "tests/test_orbital_accuracy_controls.py",
+      "tests/test_dirac_hydrogenic.py",
+      "tests/test_complex_scaled_dirac.py",
+      "tests/test_architecture_boundaries.py",
+      "tests/test_architecture_scientific_fidelity.py"
+    ],
+    "CPU": 26,
+    "threads": 1,
+    "Ruff": "passed two native implementation/test files"
+  },
+  "actual_application": {
+    "run": "yb_high_l005",
+    "original_controls_passed": 802,
+    "leading_roots_per_kappa": 67,
+    "retained_columns_per_kappa": 119,
+    "band_gate_Ha": 1e-08,
+    "max_S_dual_Ha": [
+      1.8554793668e-11,
+      3.5595588276e-11
+    ],
+    "independent_review_checks": 25,
+    "explicit_kernel_Cholesky": 4,
+    "extra_driver_projector_Cholesky": 2,
+    "implicit_solver_factors": "outside explicit census"
+  },
+  "scope": {
+    "native_numerical_engine": true,
+    "production_defaults_changed": false,
+    "stationarity_qualified": false,
+    "paper_inputs_reproduced": false,
+    "correlation_or_NIST_improvement_measured": false,
+    "high_unselected_roots_retained_but_not_residual_certified": true,
+    "old_failures_and_sealed_evidence_preserved": true
+  },
+  "documentation_disposition": [
+    "DF controls",
+    "capabilities",
+    "testing",
+    "migration",
+    "paper navigation",
+    "topic EARS"
+  ],
+  "insights_disposition": "existing native metric / residual invariants apply; no new general rule"
+}

@@ -1,0 +1,116 @@
+{
+  "status": "fixed_H_method_rank_discriminator_pass",
+  "contract": {
+    "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/contract.json",
+    "sha256": "2099cafb0b27bb3d7248b622cf1b4bcac4b2d3c2aa099a026c8619cdfd51e097"
+  },
+  "replay": {
+    "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/replay.json",
+    "sha256": "d3aaeadb83c4d6c0f956cb212895d9bc93c02baa0069bec0eb3dd0caef97ee88"
+  },
+  "performance_claim": false,
+  "highest_level_reached": false,
+  "production_source_modified": false,
+  "fixed_H_error_vs_historical_max_Ha": 0.0,
+  "gates": {
+    "source_inputs_unchanged": true,
+    "saved_receipts_pass": true,
+    "same_frozen_H": true,
+    "all_FCI_vectors_residual": true,
+    "all_complete_operator_replays": true,
+    "all_retained_equations": true,
+    "arrays_hashes": true,
+    "serializer_only_scientific_AST": true,
+    "failed_receipt_attempt_same_science": true
+  },
+  "scope": "Actual frozen Z4 4-core/12-spinor signed DC plus finite-frequency transverse H; complete 495/792 determinant oracle; no production Yb extrapolation",
+  "core_signed_method_errors_Ha": {
+    "lccsd": -0.013187159741676169,
+    "ccsd": 2.2787471545271387e-05,
+    "ccsdt": 3.170001489749552e-06
+  },
+  "core_signed_method_errors_cm1": {
+    "lccsd": -2894.2470230312324,
+    "ccsd": 5.001271917096505,
+    "ccsdt": 0.6957349083833911
+  },
+  "attachment_total_root_abs_errors_cm1": {
+    "ccsd": 770.0686412058039,
+    "ccsdt": 1.9956860645353658
+  },
+  "attachment_minus_own_core_abs_errors_cm1": {
+    "ccsd": 775.0699131229004,
+    "ccsdt": 1.2999511561519745
+  },
+  "missing_discriminator": "No same-H LCCSD attachment solve was run. Dense finite LCCSD core is not the native pCI CoreSD HPC consumer; production heavy-shell method-rank response remains unmeasured.",
+  "whole_method_responses_do_not_add": true,
+  "first_driver_failure_preserved": {
+    "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run001/persistence_failure.json",
+    "sha256": "ef5bf2520db3ce4c7558bb93c2817b6ace1365333aaf387c4713572fe4b4ba08"
+  },
+  "resource_receipts": {
+    "fci": {
+      "stage_wall_seconds": 3.0531719570280984,
+      "peak_self_RSS_bytes": 382615552,
+      "peak_child_RSS_bytes": 0,
+      "RLIMIT_AS_bytes": [
+        4294967296,
+        4294967296
+      ],
+      "thread_environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMBA_NUM_THREADS": "1"
+      }
+    },
+    "lccsd": {
+      "stage_wall_seconds": 0.19306006794795394,
+      "peak_self_RSS_bytes": 382615552,
+      "peak_child_RSS_bytes": 0,
+      "RLIMIT_AS_bytes": [
+        4294967296,
+        4294967296
+      ],
+      "thread_environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMBA_NUM_THREADS": "1"
+      }
+    },
+    "ccsd": {
+      "stage_wall_seconds": 1.0346229030983523,
+      "peak_self_RSS_bytes": 382615552,
+      "peak_child_RSS_bytes": 161087488,
+      "RLIMIT_AS_bytes": [
+        4294967296,
+        4294967296
+      ],
+      "thread_environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMBA_NUM_THREADS": "1"
+      }
+    },
+    "ccsdt": {
+      "stage_wall_seconds": 3.9361569770844653,
+      "peak_self_RSS_bytes": 382615552,
+      "peak_child_RSS_bytes": 161177600,
+      "RLIMIT_AS_bytes": [
+        4294967296,
+        4294967296
+      ],
+      "thread_environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMBA_NUM_THREADS": "1"
+      }
+    }
+  },
+  "scientific_outputs_archive_sha256": "6f17aa33784f8e1781f36e41b10ab85750d83ed99bfba8872f53a1f465b8230a",
+  "source_inputs_archive_sha256": "98acfc5446ae0f2bbeae47fa735569532e68fa107e39d9e6283c07354094d6e6",
+  "owned_report_sha256": "0bcf9e3a5d4e3e8dde3e62aedabb5408a1268d0e8115677c4a0dc2a8859a763f"
+}

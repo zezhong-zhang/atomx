@@ -1,0 +1,137 @@
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+___ test_complete_valence_plan_rejects_unbound_columns_and_counts_full_pool ____
+
+    def test_complete_valence_plan_rejects_unbound_columns_and_counts_full_pool():
+        # Resource planning needs only the bound feature dimensions, no orbitals.
+        geometry = dict(auxiliary_nodes=32, quadrature_nodes=(3, 4), same_cell_edges=30)
+>       core = plan_core_sd([(1, -1)], [(2, -1), (2, 1), (2, -2)], geometry)
+
+tests/test_valence_sd.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+occupied_keys = [(1, -1)], virtual_keys = [(2, -1), (2, 1), (2, -2)]
+feature_identity = {'auxiliary_nodes': 32, 'quadrature_nodes': (3, 4), 'same_cell_edges': 30}
+
+    def plan_core_sd(
+        occupied_keys,
+        virtual_keys,
+        feature_identity,
+        *,
+        radial_pair_cache_size=16384,
+        term21_threads=0,
+        term21_mode="compact",
+        core_singles_blas=False,
+    ):
+        """Complete redundant rho storage and conservative payload preflight.
+    
+        Unlike the independent SU(2) amplitude count, pCI rho_k contains direct
+        particle-hole exchange redundancy. Only core/padding slots are omitted
+        from the Krylov vector; all requested virtuals and multipoles remain.
+        Estimates exclude interpreter/JIT/runtime RSS and are not timing claims.
+        """
+        if (
+            isinstance(radial_pair_cache_size, bool)
+            or not isinstance(radial_pair_cache_size, (int, np.integer))
+            or radial_pair_cache_size < 1
+        ):
+            raise ValueError("positive integer radial pair cache size required")
+        if (
+            isinstance(term21_threads, bool)
+            or not isinstance(term21_threads, (int, np.integer))
+            or term21_threads < 0
+        ):
+            raise ValueError("nonnegative integer term21 worker count required")
+        if term21_mode not in ("compact", "streamed"):
+            raise ValueError("term21 mode must be compact or streamed")
+        if not isinstance(core_singles_blas, bool) or (
+            core_singles_blas and not term21_threads
+        ):
+            raise ValueError(
+                "BLAS core singles requires a boolean and positive worker count"
+            )
+        scalar = plan_scalar_sd(occupied_keys, virtual_keys)
+        occupied, virtual = scalar.occupied_keys, scalar.virtual_keys
+        keys = occupied + virtual
+        lmax = max(l_of_kappa(k) for _, k in keys)
+        groups = tuple(
+            tuple(a for a in keys if a[1] == kappa_from_partial(index))
+            for index in range(1, 2 * lmax + 2)
+        )
+        counts = tuple(sum(a in virtual for a in g) for g in groups)
+        nxx, nk, nn = max(map(len, groups)), 2 * lmax + 1, len(occupied)
+        nhf = feature_identity["auxiliary_nodes"]
+        nv, ng = feature_identity["quadrature_nodes"]
+        kk = max(nk, 2 * max(abs(k) for _, k in keys) - 1)
+        rows = _channels(occupied, lmax, "rho")
+        nch, nxk = (
+            len(rows),
+            max(len(_channels(occupied, lmax, "x1")), len(_channels(occupied, lmax, "x2"))),
+        )
+        dims = dict(
+            NHF=nhf,
+            NX=max(nxx, nk),
+            NS=nn,
+            KX1=nk,
+            NXX=nxx,
+            NK=nk,
+            NN=nn,
+            KK=kk,
+            NCH=nch,
+            NXK=nxk,
+            NV=nv,
+            NG=ng,
+            NE=feature_identity["same_cell_edges"],
+        )
+        raw = sum(counts[partial_index(int(k)) - 1] for _, k in occupied)
+        raw += sum(counts[im] * counts[inn] for _, _, im, inn, _ in rows)
+        nx = dims["NX"]
+        commons = 8 * (
+            2 * nhf * nx * nk
+            + 2 * nhf * nn
+            + 3 * nhf
+            + nx * nk
+            + 3 * nxx * nxx * nch
+            + 2 * nxx * nxx * nxk
+            + 4 * nxx * nn
+            + (2 * nv * ng + dims["NE"]) * (kk + 1)
+            + 2 * nx * nx * nk
+            + 2 * nk * nk * (kk + 1)
+        )
+        lookup = 4 * (3 * nn * nn * nk * nk * (kk + 1) + 5 * nch + nx + 5 * nn) + 8 * (
+            2 * nv * ng + 2 * dims["NE"]
+        )
+        # Bound all retained original scratch routines, including term21 and
+        # term2 (compiled as an alternative anchor), rather than just one vector.
+        scratch = 8 * (
+            2 * (nhf * nx * nx + 8 * nhf * nx + 2 * nhf * nxx * (kk + 1) * kk)
+            + 64 * nhf
+            + 32 * nx * nx
+            + 16 * nxx * nn
+        )
+        initialization = 8 * (2 * nhf * nx * nk + (2 * nv * ng + dims["NE"]) * (kk + 1))
+        nmag = sum(2 * abs(k) for _, k in keys)
+        pair_cache = (
+            int(radial_pair_cache_size)
+            * 16
+>           * max(feature_identity["coefficient_sizes"])
+            * max(feature_identity["component_orders"])
+        )
+E       KeyError: 'coefficient_sizes'
+
+src/atomx/methods/core_sd.py:180: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_valence_sd.py::test_complete_valence_plan_rejects_unbound_columns_and_counts_full_pool
+1 failed, 2 passed in 11.86s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

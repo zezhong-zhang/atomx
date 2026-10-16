@@ -1,0 +1,324 @@
+{
+  "fields": {
+    "kappas": {
+      "shape": [
+        7
+      ],
+      "dtype": "<i8",
+      "bytes": 56,
+      "fortran_order": false
+    },
+    "original_x": {
+      "shape": [
+        2856
+      ],
+      "dtype": "<f8",
+      "bytes": 22848,
+      "fortran_order": false
+    },
+    "inverse_diagonal": {
+      "shape": [
+        2856
+      ],
+      "dtype": "<f8",
+      "bytes": 22848,
+      "fortran_order": false
+    },
+    "old24_P": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616,
+      "fortran_order": false
+    },
+    "old24_Q": {
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616,
+      "fortran_order": false
+    },
+    "old24_keys": {
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 384,
+      "fortran_order": false
+    },
+    "h_-4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_-4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_-3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_-3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_-2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_-2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_-1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_-1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "h_3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "s_3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "bytes": 484128,
+      "fortran_order": false
+    },
+    "projector_0": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_0": {
+      "shape": [
+        1,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 113288,
+      "fortran_order": false
+    },
+    "projector_1": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_1": {
+      "shape": [
+        3,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 339864,
+      "fortran_order": false
+    },
+    "projector_2": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_2": {
+      "shape": [
+        5,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 566440,
+      "fortran_order": false
+    },
+    "projector_3": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_3": {
+      "shape": [
+        6,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 679728,
+      "fortran_order": false
+    },
+    "projector_4": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_4": {
+      "shape": [
+        5,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 566440,
+      "fortran_order": false
+    },
+    "projector_5": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_5": {
+      "shape": [
+        3,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 339864,
+      "fortran_order": false
+    },
+    "projector_6": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 234192,
+      "fortran_order": false
+    },
+    "inverse_blocks_6": {
+      "shape": [
+        1,
+        119,
+        119
+      ],
+      "dtype": "<f8",
+      "bytes": 113288,
+      "fortran_order": false
+    }
+  },
+  "selected_fields": [
+    "s_-4",
+    "s_-3",
+    "s_-2",
+    "s_-1",
+    "s_1",
+    "s_2",
+    "s_3"
+  ],
+  "cumulative_decoded_bytes": 105682480
+}

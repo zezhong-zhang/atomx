@@ -1,0 +1,3640 @@
+{
+  "status": "PASS_complete_fixed_R0_f12_saved_review",
+  "checks": [
+    {
+      "name": "bound metadata basis_maps",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata checkpoint",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata layout",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata models",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata source_identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata tracking_binding",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata A_R0_record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata B_R0_record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata preparation_driver",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata preparation_contract",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata preparation_result",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata models_complete",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata physical_plan",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata matched_contract",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound metadata current_source_identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound original arrays checkpoint_arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound original arrays saved_S",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound original arrays workspace",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound original arrays A_R0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound original arrays B_R0",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "bound worker",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/clebsch.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/coefficients.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/csf.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/csf_hamiltonian.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/csf_recoupling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/ls_coupling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/mscheme.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/rcfp.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/recoupling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/sd_rho.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/spinor_harmonics.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/angular/wigner.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/atom.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/atom_inputs.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/calculation_spec.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/compare.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/config/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/config/csf.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/config/jj_coupling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/config/parsing.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/config/subshell.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/constants.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/adapters.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/breit.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/dbsr_breit.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/orbital_shifts.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/protocol.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qed.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/base.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/indelicato.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/mohr.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/shabaev.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/qedmod/welton.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/radiative_mass.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/recoil.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/specific_recoil.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/corrections/stack.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/flambaum_ginges.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/hyperfine_presets.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/mohr_se.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/nist_bethe_log.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/data/nuclear_structure.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/fitting/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/fitting/slater.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/io/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/io/fac_writer.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/io/results.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/ladder.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/lineshapes/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/lineshapes/profiles.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/lineshapes/stark.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/log.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/_result_adapters.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/atomic_space.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/base.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/breit_pauli.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/ci_effective.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/ci_mbpt.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/ci_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/concurrent_solve.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/core_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/coupled_cluster.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/charge_variational.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/complex_ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/crystal_field.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/direct_bspline.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/direct_shooting.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/grid_functional.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/grid_solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/lanthanide_workspace.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/slater_scaling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/variational.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/csf/virtual_stability.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/dirac_fock.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/edm.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/eom_attachment.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/fscc.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/hamiltonian_df.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/hartree_fock_slater.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/hydrogenic.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/hydrogenic_cross_sections.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/hydrogenic_reference.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/linearized_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mbpt.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mbpt_matrix.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mbpt_sigma2.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mbpt_transitions.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mcdhf/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mcdhf/excitations.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/mcdhf/solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/monovalent_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/pnc.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/reduced_monovalent_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/rpa.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/scf_observables.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/sd_pair_diagrams.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/sd_transverse.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/sigma2_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/methods/valence_sd.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/basis.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/complex_dirac.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/continuum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/convol.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/coulomb_features.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/dirac_assembly.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/evaluate.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/inhomogeneous.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/integrals.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/knots.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/local_potential.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/orbital_geometry.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/orbital_optimization.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/orbital_subspace.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/pair_contraction.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/shooting_seed.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/slater.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/bspline/slater_yk.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/ci_energy_increment.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/cluster_actions.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/complex_eigensolver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/density_tail.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/diis.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/extrapolation.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/fermion.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/helmholtz.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/hermitian_clusters.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/local_dfs/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/local_dfs/asymptotic.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/local_dfs/hxs_tables.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/orbital_rotations.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/quadrature.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/radial_integration.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/radial_metric.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/radial_workspace.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/adaptive.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/box_continuum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/constants.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/coulomb.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_bound.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_continuum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_coulomb.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_green.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_integrator.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_orbital.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_power_series.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_response.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/dirac_sampling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/electron_space.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/energy.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/exponential_quadrature.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/grid.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/hartree_fock.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/local.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/local_scf.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/operators.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/orbital_optimization.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/preconditioner.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/problem.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/quadrature.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/scf.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/schrodinger_bound.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/shooting/spline.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/special.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/numerics/yk.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/base.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/breit_pauli.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/breit_ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/complex_radial.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/effective_one_body.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/frozen_core.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/hamiltonian_snapshot.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/levels.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/matrix.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/one_body.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/overlap.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/overlap_response.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/radial_density.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/radial_fock.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/radial_increment.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/radial_snapshot.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/radial_symmetry.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/retardation.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/sparse_ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/spinor_integrals.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/state_average.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/tracking.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/csf/transverse.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/dirac.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/hartree_fock.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/local_exchange.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/schrodinger.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/physics/slater.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/average_atom.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/cascade.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/crm.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/rates.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/plasma/screening.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/frozen_field.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/nuclear.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/parametric.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/radial_nucleus.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/slater_seed.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/static_field.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/potentials/thomas_fermi.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/_sos_basis.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/edm/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/edm/scaling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/edm/sternheimer.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/g_factor/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/hyperfine/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/hyperfine/dipole.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/hyperfine/nuclear_moments.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/hyperfine/quadrupole.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/isotope_shift/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/isotope_shift/field_shift.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/isotope_shift/isotope_shift.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/isotope_shift/mass_shift.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/pnc/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/polarizability/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/stark.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/angular.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/calculator.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/ci_effective.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/ci_lines.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/fluorescence.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/fscc_effective.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/multipole.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/rates.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/transitions/two_photon.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/zeeman/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/zeeman/lande.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/properties/zeeman/shift.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/providers/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/providers/contract.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/providers/native_adapter.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/providers/pyscf_adapter.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/providers/pyscf_embedding.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/radial_state.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/annotations.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/bibliography.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/cowan.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/matching.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/nist.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/spectrum_notes.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/reference_data/structure_outputs.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/results.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/sampling.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/_jit_kernels.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/anomalous.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/autoionization/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/autoionization/auger.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/autoionization/jj_level.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/autoionization/molecular.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/autoionization/mscheme_ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/charge_exchange/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/ci_continuum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/dielectronic_recombination/solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/dielectronic_recombination/widths.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/distorted_wave/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/distorted_wave/born.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/distorted_wave/solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/electron_ionization/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/electron_ionization/beb.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/electron_ionization/dw.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/models.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/msub.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/multielectron_ci.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/photoionization/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/photoionization/direct.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/photoionization/fano.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/photoionization/subshell.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/polarisation/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/angular_cc.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/cc_inner.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/cc_outer.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/cc_potentials.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/channel_table.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/coupled_channels.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/internal_region.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/resonance.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/solver.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/surface.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/r_matrix/target_states.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/radiative_recombination/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/two_electron/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/two_electron/angular.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/two_electron/coulomb.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/two_electron/states.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/scattering/xray.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/spectrum/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/spectrum/continuum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/spectrum/crm_synth.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/spectrum/spectrum.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/spectrum/uta.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/state_protocols.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/types.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/units.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/uta/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/uta/moments.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/manim.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/mpl.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/plotly.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/plotly3d.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/viz/scattering.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/workflows/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/workflows/nist_comparison.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/__init__.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/atomic_rates.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/cascade.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/coherent.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/coherent_subspace.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/cross_sections.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/double_ionization.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/imaging.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/kinetics.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/mcdhf_coherent.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/model.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/multielectron_coherent.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/native_channels.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/observables.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/radiative_reservoir.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/reservoir_errors.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/resonance.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/table_mc.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "current source src/atomx/xfel/two_electron_coherent.py",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 all live checks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 zero angular tables",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 one full B H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 two native solves",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 unique B signatures",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2 unique A restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A saved selected Gram",
+      "observed": 1.3322676295501878e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A saved direct residual record",
+      "observed": 9.207508023821103e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2A complete 4f-occupation weights",
+      "observed": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B saved selected Gram",
+      "observed": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B saved ref norm",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B saved direct residual record",
+      "observed": 8.968221831891801e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6s1/2B complete 4f-occupation weights",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 all live checks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 zero angular tables",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 one full B H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 two native solves",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 unique B signatures",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2 unique A restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A saved selected Gram",
+      "observed": 1.9984014443252818e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A saved ref norm",
+      "observed": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A actual signed owned004 embedding",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A saved direct residual record",
+      "observed": 6.792736060045484e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2A complete 4f-occupation weights",
+      "observed": 9.992007221626409e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B saved selected Gram",
+      "observed": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B saved direct residual record",
+      "observed": 6.269410455469345e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d3/2B complete 4f-occupation weights",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 all live checks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 zero angular tables",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 one full B H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 two native solves",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 unique B signatures",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2 unique A restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A saved selected Gram",
+      "observed": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A saved ref norm",
+      "observed": 0.0,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A saved direct residual record",
+      "observed": 6.4280023745459e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2A complete 4f-occupation weights",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B saved selected Gram",
+      "observed": 6.661338147750939e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B saved direct residual record",
+      "observed": 5.23635588675874e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "5d5/2B complete 4f-occupation weights",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 all live checks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 zero angular tables",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 one full B H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 two native solves",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 unique B signatures",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2 unique A restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A saved selected Gram",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A saved direct residual record",
+      "observed": 7.635412258772563e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2A complete 4f-occupation weights",
+      "observed": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B saved selected Gram",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B actual signed owned004 embedding",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B saved direct residual record",
+      "observed": 7.24506319891226e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p1/2B complete 4f-occupation weights",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 all live checks",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 same source",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 zero angular tables",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 one full B H",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 two native solves",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 unique B signatures",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2 unique A restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A saved selected Gram",
+      "observed": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A saved ref norm",
+      "observed": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A actual signed owned004 embedding",
+      "observed": 1.1102230246251565e-16,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A saved direct residual record",
+      "observed": 6.016193001022747e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2A complete 4f-occupation weights",
+      "observed": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B selected-file identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B finite arrays",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B complete rows",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B exact signed restriction",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B saved selected Gram",
+      "observed": 2.220446049250313e-15,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B saved ref norm",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B actual signed owned004 embedding",
+      "observed": 2.220446049250313e-16,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B saved signed overlap",
+      "observed": 0.0,
+      "limit": 1e-14,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B selected transport",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B strict majority",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B saved direct residual record",
+      "observed": 9.46485954347845e-10,
+      "limit": 1e-08,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B energy record",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B original energy identity",
+      "observed": true,
+      "limit": null,
+      "PASS": true
+    },
+    {
+      "name": "6p3/2B complete 4f-occupation weights",
+      "observed": 3.4416913763379853e-15,
+      "limit": 1e-10,
+      "PASS": true
+    }
+  ],
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/result.json": "beeaab96288b64d9da6844332c3c874b059e26635b1a4f5ec66f0488e5c35041",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/result.json": "b5663cf84acee8eb783dc0d1d36b6b8b90912787e35d920b619b9c2f6b362398",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/result.json": "d8f25c2590306154af2c71b05113d9c73ac509ae5c72ba034f800a02ad9ae420",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/result.json": "67792f5f3be36ce67e31f5e1f4345479145f188c89f29815f2641f79eb9c0487",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/result.json": "43d78d45021ba38afcfc1d01ffcec8f239c4eaf5ec831cc03cc076de38dd69ff"
+  },
+  "rows": [
+    {
+      "label": "6s1/2",
+      "sector": [
+        1,
+        1
+      ],
+      "status": "PASS_full_4f12_fixed_R0_sector_numerical_selected_roots",
+      "seconds": 427.14144241599934,
+      "RSS_MiB": 2326.0234375,
+      "structural_pairs": 43720175,
+      "Hdet": {
+        "shape": [
+          92715,
+          92715
+        ],
+        "nnz": 42396635,
+        "bytes": 509130484
+      },
+      "arms": {
+        "A": {
+          "energy_Ha": -14067.561064946516,
+          "original_energy_Ha": -14067.52623146285,
+          "state_shift_Ha": -0.034833483665352105,
+          "four_f_occupation_projector_weights": {
+            "12": 0.02619231075889142,
+            "13": 0.09768731450384609,
+            "14": 0.8761203747372631
+          },
+          "reference_weight": 0.9734409155551975,
+          "full_operator_residual_L2_Ha": 9.207508023821103e-10,
+          "state_shift_cm1": -7645.065986547151,
+          "excitation_cm1": 0.0,
+          "original_excitation_cm1": 0.0,
+          "transition_shift_cm1": 0.0
+        },
+        "B": {
+          "energy_Ha": -14067.576950594812,
+          "original_energy_Ha": -14067.543029892717,
+          "state_shift_Ha": -0.033920702095201705,
+          "four_f_occupation_projector_weights": {
+            "12": 0.025073978583163813,
+            "13": 0.09304531594367352,
+            "14": 0.8818807054731629
+          },
+          "reference_weight": 0.9746066836319706,
+          "full_operator_residual_L2_Ha": 8.968221831891801e-10,
+          "state_shift_cm1": -7444.733587923322,
+          "excitation_cm1": 0.0,
+          "original_excitation_cm1": 0.0,
+          "transition_shift_cm1": 0.0
+        }
+      },
+      "B_minus_A_excitation_cm1": 0.0,
+      "correlation_interaction_cm1": 0.0
+    },
+    {
+      "label": "5d3/2",
+      "sector": [
+        3,
+        1
+      ],
+      "status": "PASS_full_4f12_fixed_R0_sector_numerical_selected_roots",
+      "seconds": 453.89005207899936,
+      "RSS_MiB": 2310.45703125,
+      "structural_pairs": 40882406,
+      "Hdet": {
+        "shape": [
+          87182,
+          87182
+        ],
+        "nnz": 39627831,
+        "bytes": 475882704
+      },
+      "arms": {
+        "A": {
+          "energy_Ha": -14067.450528596779,
+          "original_energy_Ha": -14067.41704066896,
+          "state_shift_Ha": -0.03348792781798693,
+          "four_f_occupation_projector_weights": {
+            "12": 0.02590795106284901,
+            "13": 0.10565092480705925,
+            "14": 0.8684411241300908
+          },
+          "reference_weight": 0.9738458648809509,
+          "full_operator_residual_L2_Ha": 6.792736060045484e-10,
+          "state_shift_cm1": -7349.75061296816,
+          "excitation_cm1": 24259.924610805996,
+          "original_excitation_cm1": 23964.609237227007,
+          "transition_shift_cm1": 295.31537357898924
+        },
+        "B": {
+          "energy_Ha": -14067.46438340285,
+          "original_energy_Ha": -14067.431706438138,
+          "state_shift_Ha": -0.0326769647126639,
+          "four_f_occupation_projector_weights": {
+            "12": 0.024856268500725875,
+            "13": 0.10084915023974123,
+            "14": 0.874294581259532
+          },
+          "reference_weight": 0.9749296681615565,
+          "full_operator_residual_L2_Ha": 6.269410455469345e-10,
+          "state_shift_cm1": -7171.764784378281,
+          "excitation_cm1": 24705.642959381596,
+          "original_excitation_cm1": 24432.674155836554,
+          "transition_shift_cm1": 272.96880354504174
+        }
+      },
+      "B_minus_A_excitation_cm1": 445.7183485755995,
+      "correlation_interaction_cm1": -22.3465700339475
+    },
+    {
+      "label": "5d5/2",
+      "sector": [
+        5,
+        1
+      ],
+      "status": "PASS_full_4f12_fixed_R0_sector_numerical_selected_roots",
+      "seconds": 468.76136792799844,
+      "RSS_MiB": 2220.82421875,
+      "structural_pairs": 35054314,
+      "Hdet": {
+        "shape": [
+          76800,
+          76800
+        ],
+        "nnz": 33983268,
+        "bytes": 408106420
+      },
+      "arms": {
+        "A": {
+          "energy_Ha": -14067.446779142374,
+          "original_energy_Ha": -14067.413297705267,
+          "state_shift_Ha": -0.03348143710718432,
+          "four_f_occupation_projector_weights": {
+            "12": 0.025636003227690704,
+            "13": 0.10485579533207529,
+            "14": 0.8695082014402329
+          },
+          "reference_weight": 0.9741568503505573,
+          "full_operator_residual_L2_Ha": 6.4280023745459e-10,
+          "state_shift_cm1": -7348.326066607473,
+          "excitation_cm1": 25082.834734133634,
+          "original_excitation_cm1": 24786.094814193955,
+          "transition_shift_cm1": 296.73991993967866
+        },
+        "B": {
+          "energy_Ha": -14067.459740483184,
+          "original_energy_Ha": -14067.427026513486,
+          "state_shift_Ha": -0.032713969698306755,
+          "four_f_occupation_projector_weights": {
+            "12": 0.024667025131258877,
+            "13": 0.10046812806048092,
+            "14": 0.8748648468082613
+          },
+          "reference_weight": 0.9751476946111479,
+          "full_operator_residual_L2_Ha": 5.23635588675874e-10,
+          "state_shift_cm1": -7179.886439960844,
+          "excitation_cm1": 25724.646041606095,
+          "original_excitation_cm1": 25459.798893643616,
+          "transition_shift_cm1": 264.84714796247863
+        }
+      },
+      "B_minus_A_excitation_cm1": 641.8113074724606,
+      "correlation_interaction_cm1": -31.892771977200027
+    },
+    {
+      "label": "6p1/2",
+      "sector": [
+        1,
+        -1
+      ],
+      "status": "PASS_full_4f12_fixed_R0_sector_numerical_selected_roots",
+      "seconds": 405.8434782959994,
+      "RSS_MiB": 2328.546875,
+      "structural_pairs": 43261341,
+      "Hdet": {
+        "shape": [
+          92377,
+          92377
+        ],
+        "nnz": 41970635,
+        "bytes": 504017132
+      },
+      "arms": {
+        "A": {
+          "energy_Ha": -14067.441623182996,
+          "original_energy_Ha": -14067.407917382181,
+          "state_shift_Ha": -0.033705800815369,
+          "four_f_occupation_projector_weights": {
+            "12": 0.025329279763754473,
+            "13": 0.1127277951451254,
+            "14": 0.8619429250911197
+          },
+          "reference_weight": 0.9715628841906593,
+          "full_operator_residual_L2_Ha": 7.635412258772563e-10,
+          "state_shift_cm1": -7397.568208752573,
+          "excitation_cm1": 26214.437017853346,
+          "original_excitation_cm1": 25966.939240058768,
+          "transition_shift_cm1": 247.49777779457872
+        },
+        "B": {
+          "energy_Ha": -14067.457108508546,
+          "original_energy_Ha": -14067.42403627422,
+          "state_shift_Ha": -0.03307223432602768,
+          "four_f_occupation_projector_weights": {
+            "12": 0.024408950935107115,
+            "13": 0.104826019355892,
+            "14": 0.8707650297089998
+          },
+          "reference_weight": 0.9736073764040196,
+          "full_operator_residual_L2_Ha": 7.24506319891226e-10,
+          "state_shift_cm1": -7258.516437060348,
+          "excitation_cm1": 26302.297704939967,
+          "original_excitation_cm1": 26116.080554076994,
+          "transition_shift_cm1": 186.21715086297263
+        }
+      },
+      "B_minus_A_excitation_cm1": 87.8606870866206,
+      "correlation_interaction_cm1": -61.28062693160609
+    },
+    {
+      "label": "6p3/2",
+      "sector": [
+        3,
+        -1
+      ],
+      "status": "PASS_full_4f12_fixed_R0_sector_numerical_selected_roots",
+      "seconds": 432.33774104700024,
+      "RSS_MiB": 2332.0703125,
+      "structural_pairs": 40517908,
+      "Hdet": {
+        "shape": [
+          86878,
+          86878
+        ],
+        "nnz": 39294707,
+        "bytes": 471884000
+      },
+      "arms": {
+        "A": {
+          "energy_Ha": -14067.426019998606,
+          "original_energy_Ha": -14067.392090303934,
+          "state_shift_Ha": -0.03392969467131479,
+          "four_f_occupation_projector_weights": {
+            "12": 0.025554778669796305,
+            "13": 0.1128084246905373,
+            "14": 0.8616367966396674
+          },
+          "reference_weight": 0.9701093651883281,
+          "full_operator_residual_L2_Ha": 6.016193001022747e-10,
+          "state_shift_cm1": -7446.707230250748,
+          "excitation_cm1": 29638.940160111786,
+          "original_excitation_cm1": 29440.58140381538,
+          "transition_shift_cm1": 198.35875629640577
+        },
+        "B": {
+          "energy_Ha": -14067.441477853035,
+          "original_energy_Ha": -14067.408155970108,
+          "state_shift_Ha": -0.033321882927339175,
+          "four_f_occupation_projector_weights": {
+            "12": 0.024629797229926403,
+            "13": 0.10419377099898336,
+            "14": 0.8711764317710868
+          },
+          "reference_weight": 0.9730665309300238,
+          "full_operator_residual_L2_Ha": 9.46485954347845e-10,
+          "state_shift_cm1": -7313.307971803511,
+          "excitation_cm1": 29732.830061159882,
+          "original_excitation_cm1": 29601.40444504007,
+          "transition_shift_cm1": 131.42561611981364
+        }
+      },
+      "B_minus_A_excitation_cm1": 93.88990104809636,
+      "correlation_interaction_cm1": -66.93314017659213
+    }
+  ],
+  "evaluator": "Offline NumPy/algebra only; no Atomx import, H build or eigensolve.",
+  "live_residual_scope": "Full-operator residuals are source-bound live gates, not independently reconstructed here.",
+  "source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "complete_spectral_comparison": true,
+  "HARTREE_CM1": 219474.63136314112,
+  "A_term_shifts": {
+    "D": {
+      "centroid_shift_cm1": 296.17010139540287,
+      "splitting_shift_cm1": 1.424546360689419
+    },
+    "P": {
+      "centroid_shift_cm1": 214.73843012913008,
+      "splitting_shift_cm1": -49.13902149817295
+    }
+  },
+  "B_term_shifts": {
+    "D": {
+      "centroid_shift_cm1": 268.0958101955039,
+      "splitting_shift_cm1": -8.121655582563108
+    },
+    "P": {
+      "centroid_shift_cm1": 149.68946103419998,
+      "splitting_shift_cm1": -54.79153474315899
+    }
+  },
+  "checks_passed": 554,
+  "checks_total": 554
+}

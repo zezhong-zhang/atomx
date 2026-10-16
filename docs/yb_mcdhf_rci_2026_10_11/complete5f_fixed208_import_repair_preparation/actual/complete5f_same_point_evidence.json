@@ -1,0 +1,169 @@
+{
+  "name": "complete5f",
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "reference_UID": [
+        1,
+        1,
+        0
+      ],
+      "selected_level": [
+        1,
+        1,
+        0
+      ],
+      "column": 0,
+      "energy_Ha": -14067.522136927037,
+      "principal_overlap_squared": [
+        0.9895463001540337
+      ],
+      "excitation_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 0.0,
+      "nominal_relative_gap": null,
+      "absolute_delta_upper_Ha": -0.0003543308102962328,
+      "absolute_delta_lower_Ha": -0.0003543308102962328,
+      "transition_delta_upper_minus_lower_cm1": 0.0
+    },
+    {
+      "label": "5d_5/2",
+      "reference_UID": [
+        5,
+        1,
+        0
+      ],
+      "selected_level": [
+        5,
+        1,
+        0
+      ],
+      "column": 3,
+      "energy_Ha": -14067.40017106361,
+      "principal_overlap_squared": [
+        0.9928721234457155
+      ],
+      "excitation_cm1": 26768.412914582717,
+      "NIST_nominal_cm1": 24332.69,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2435.7229145827187,
+      "nominal_relative_gap": 0.10010084847103706,
+      "absolute_delta_upper_Ha": -0.0003688416963996133,
+      "absolute_delta_lower_Ha": -0.0003543308102962328,
+      "transition_delta_upper_minus_lower_cm1": -3.1847713782919564
+    },
+    {
+      "label": "5d_3/2",
+      "reference_UID": [
+        3,
+        1,
+        0
+      ],
+      "selected_level": [
+        3,
+        1,
+        0
+      ],
+      "column": 1,
+      "energy_Ha": -14067.404167115248,
+      "principal_overlap_squared": [
+        0.9923911372520853
+      ],
+      "excitation_cm1": 25891.38095425978,
+      "NIST_nominal_cm1": 22960.8,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2930.5809542597817,
+      "nominal_relative_gap": 0.12763409612294788,
+      "absolute_delta_upper_Ha": -0.0003834747440123465,
+      "absolute_delta_lower_Ha": -0.0003543308102962328,
+      "transition_delta_upper_minus_lower_cm1": -6.396354108815869
+    },
+    {
+      "label": "6p_3/2",
+      "reference_UID": [
+        3,
+        -1,
+        0
+      ],
+      "selected_level": [
+        3,
+        -1,
+        0
+      ],
+      "column": 4,
+      "energy_Ha": -14067.388408176996,
+      "principal_overlap_squared": [
+        0.9818524376029302
+      ],
+      "excitation_cm1": 29350.068117896182,
+      "NIST_nominal_cm1": 30392.23,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1042.1618821038173,
+      "nominal_relative_gap": -0.03429040521553757,
+      "absolute_delta_upper_Ha": -0.00031285921795642935,
+      "absolute_delta_lower_Ha": -0.0003543308102962328,
+      "transition_delta_upper_minus_lower_cm1": 9.101962440820833
+    },
+    {
+      "label": "6p_1/2",
+      "reference_UID": [
+        1,
+        -1,
+        0
+      ],
+      "selected_level": [
+        1,
+        -1,
+        0
+      ],
+      "column": 2,
+      "energy_Ha": -14067.403791477744,
+      "principal_overlap_squared": [
+        0.9838580088396692
+      ],
+      "excitation_cm1": 25973.823857080795,
+      "NIST_nominal_cm1": 27061.82,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1087.9961429192044,
+      "nominal_relative_gap": -0.040204100940705555,
+      "absolute_delta_upper_Ha": -0.00031705943911219947,
+      "absolute_delta_lower_Ha": -0.0003543308102962328,
+      "transition_delta_upper_minus_lower_cm1": 8.180120451014519
+    }
+  ],
+  "multiplets": [
+    {
+      "label": "5d",
+      "degeneracy_weights": [
+        4,
+        6
+      ],
+      "centroid_cm1": 26417.600130453542,
+      "splitting_cm1": 877.0319603229364,
+      "delta_centroid_cm1": -4.469404470502923,
+      "delta_splitting_cm1": 3.211582730524242
+    },
+    {
+      "label": "6p",
+      "degeneracy_weights": [
+        2,
+        4
+      ],
+      "centroid_cm1": 28224.653364291054,
+      "splitting_cm1": 3376.244260815387,
+      "delta_centroid_cm1": 8.794681777555525,
+      "delta_splitting_cm1": 0.9218419898097636
+    }
+  ],
+  "EOL_reported_Ha": -14067.423734952126,
+  "nominal_four_gap_RMS_cm1": 2048.8342930560993,
+  "nominal_four_1percent_goal_passed": false,
+  "fixed_literal208": true,
+  "full_parent_CSFs": 3789,
+  "complete_target_CSFs": 1595,
+  "radial_orbitals": 31,
+  "original_stationarity_passed": false,
+  "expanded_stationarity_evaluated": false,
+  "full_spectrum_certified": false
+}

@@ -1,0 +1,24 @@
+{
+  "trigger": "User requests physical order-of-magnitude estimates before selecting further atomic work",
+  "production_physics_code_changed": false,
+  "updated": {
+    "docs/THEORY_NIST_COMPARISON.md": "Common-state centroid/splitting and signed physical response precede generic numerical scans.",
+    "docs/AGENT_REFERENCE.md": "Register new physics estimate owner.",
+    "docs/atomx_hourly_progress_2026_10_10/README.md": "Document optional bound estimate and priority annotation; no new executor.",
+    "docs/atomx_hourly_progress_2026_10_10/progress.json": "Order planned work by physical estimate; retain all old results and failures.",
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "Read optional estimate and reject fitted/certified promotion.",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py": "Annotate unlaunched physical priority only at empty implementation frontier; preserve all existing job admission/gates."
+  },
+  "merged": {
+    "docs/AGENT_INSIGHTS.md": "Existing transition-feedback-priority insight: current ground direction reverses old model diagnosis; response selection uses common five-state model."
+  },
+  "retained": {
+    "AGENTS.md": "Existing principles already require distinguishing estimates, model, and measured performance. No new lasting rule.",
+    "docs/atomic_external_benchmark_2026_10_11/fac": "Sealed results and delivery proof unchanged.",
+    "docs/atomic_pci_sd_native_2026_10_09": "Saved scientific roots unchanged; no new calculation claimed."
+  },
+  "prior_documents": "previous_document_snapshot/manifest.json",
+  "new_owner": "docs/atomic_physics_budget_2026_10_11",
+  "validation": "verification.json",
+  "no_commit_stage_or_push": true
+}

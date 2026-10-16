@@ -1,0 +1,355 @@
+{
+  "status": "COMPLETE_VERIFIED_NATIVE_NUMERIC_CI_AND_FULL_FIXED_R0_4F12",
+  "date": "2026-10-14",
+  "scientific_retries": 0,
+  "resource_cap_changes": 0,
+  "physical_model_cuts": 0,
+  "new_native_backend": "Explicit numeric streaming in existing native CI only; no external backend.",
+  "existing_failures_retained": [
+    "Original MCDHF stationarity",
+    "005 three ordinary D3/2 line-FD gates",
+    "Original production experimental gates"
+  ],
+  "documentation_edit_note": "One multi-file text patch was rejected atomically because of a computed/calculated wording mismatch; reread actual text and corrected the patch before final validation. No scientific input, driver, gate or run changed.",
+  "source_before": {
+    "src/atomx/angular/csf_hamiltonian.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450"
+  },
+  "source_after": {
+    "src/atomx/angular/csf_hamiltonian.py": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55",
+    "src/atomx/physics/csf/matrix.py": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0"
+  },
+  "current_source_map_sha256": "4b39195f35c7b2affa5a4841180b2fc2eaa82dbb833694905909e33e13ff77f1",
+  "tests_distinct": 262,
+  "matched_qualification": {
+    "live_pass": 523,
+    "offline_pass": 222,
+    "report": "matched001/RESULTS.md"
+  },
+  "physical_qualification": {
+    "live_pass": 265,
+    "offline_pass": 554,
+    "sectors_complete": 5,
+    "scientific_attempts": 5,
+    "roots": 20,
+    "target_CSFs": {
+      "A": 44707,
+      "B": 45686
+    },
+    "report": "full_f12_preparation001/aggregate001/RESULTS.md",
+    "maximum_direct_L2_residual_Ha": 9.46485954347845e-10
+  },
+  "documentation_and_knowledge": {
+    "impact": "documentation_impact.json",
+    "validation": "validation_receipt.json",
+    "insight": "No new general insight; existing rules cover this increment.",
+    "EARS": "Ignored root trace.md"
+  },
+  "Ruff": "PASS for both changed implementations, new test and scientific/review drivers; no additional tests after source freeze because no implementation changes occurred.",
+  "artifacts": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/README.md": {
+      "sha256": "0c338830f6ff996e2c0f4d35222e6c65be1dd48e8599078fbb498a6b69a6cfd0",
+      "bytes": 6773
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/csf_hamiltonian_after.py": {
+      "sha256": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55",
+      "bytes": 74549
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/csf_hamiltonian_before.py": {
+      "sha256": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+      "bytes": 69648
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/documentation_impact.json": {
+      "sha256": "4998468d811ee5c2f78973e4d0d311626dbc62e3860ec3b23f56d400baba5f63",
+      "bytes": 2828
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/README.md": {
+      "sha256": "5993e77e34e2e85577cdf9cc29c446f5ea6a6cfeafddf86e4f4846cfc74b16ce",
+      "bytes": 4957
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/A_selected.npz": {
+      "sha256": "cb13e1843fb1d7968a35c9bcdc2f9334c8660711fb61629d6e09e39cca4af8a8",
+      "bytes": 98115
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/B_selected.npz": {
+      "sha256": "f7a954dff9b4c29c390d068fa792128c52b5976c5835c213144e742171ad28fe",
+      "bytes": 101633
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/basis.json": {
+      "sha256": "3913fa3689aa987d13c86b8040f69cc18a8062b87d8820a9c2b7e46e0e4a0e39",
+      "bytes": 2217689
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/partial.json": {
+      "sha256": "beeaab96288b64d9da6844332c3c874b059e26635b1a4f5ec66f0488e5c35041",
+      "bytes": 14891
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_even/result.json": {
+      "sha256": "beeaab96288b64d9da6844332c3c874b059e26635b1a4f5ec66f0488e5c35041",
+      "bytes": 14891
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/A_selected.npz": {
+      "sha256": "749bf72e6637ae3ce8d3a80704d364d261151c21ffc370913a230bff33567ea8",
+      "bytes": 97766
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/B_selected.npz": {
+      "sha256": "38554d339f3c093700a5ef7e1209dd39159fdf88685b9fbb03f086f22e7db1f5",
+      "bytes": 101330
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/basis.json": {
+      "sha256": "ec8b54ac65efad57003ee11fe5856c85b556daefe5508a4e4e3c03ac379f44df",
+      "bytes": 2218390
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/partial.json": {
+      "sha256": "67792f5f3be36ce67e31f5e1f4345479145f188c89f29815f2641f79eb9c0487",
+      "bytes": 14884
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J1_odd/result.json": {
+      "sha256": "67792f5f3be36ce67e31f5e1f4345479145f188c89f29815f2641f79eb9c0487",
+      "bytes": 14884
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/A_selected.npz": {
+      "sha256": "9841331f12f31db55cd222a2e68f383c74b4c5c251edb89c6835540e01e9e7ea",
+      "bytes": 178172
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/B_selected.npz": {
+      "sha256": "4e23420f246e3814f7f5a4d8751c32808d89fc7400c89a3d0792dde318026c00",
+      "bytes": 183783
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/basis.json": {
+      "sha256": "8a108bc0445b6ef0582382cc63cee56dcf04c8bd7562f6fb8e67225ff37d61ba",
+      "bytes": 4044677
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/partial.json": {
+      "sha256": "b5663cf84acee8eb783dc0d1d36b6b8b90912787e35d920b619b9c2f6b362398",
+      "bytes": 14897
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_even/result.json": {
+      "sha256": "b5663cf84acee8eb783dc0d1d36b6b8b90912787e35d920b619b9c2f6b362398",
+      "bytes": 14897
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/A_selected.npz": {
+      "sha256": "b5d35706080437ac2ef0a42b2a643c38b7e9367c39ab97056d26d52326b0b69b",
+      "bytes": 177775
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/B_selected.npz": {
+      "sha256": "ff268196dc9e3bb4252b1e5720675338bd733f9796b3216f3f94d56ddef98f3d",
+      "bytes": 183572
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/basis.json": {
+      "sha256": "a4d97bc100502edef8c569aa9b6dddf68312263f6af56996dad0eac390dd50f1",
+      "bytes": 4053398
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/partial.json": {
+      "sha256": "43d78d45021ba38afcfc1d01ffcec8f239c4eaf5ec831cc03cc076de38dd69ff",
+      "bytes": 14900
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J3_odd/result.json": {
+      "sha256": "43d78d45021ba38afcfc1d01ffcec8f239c4eaf5ec831cc03cc076de38dd69ff",
+      "bytes": 14900
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/A_selected.npz": {
+      "sha256": "ce6b68828499eeb23a8a3eaf2e77b6f0516459adb46f978fb050a1df2c24c84f",
+      "bytes": 229746
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/B_selected.npz": {
+      "sha256": "aab42be73f4eb3436d79ef7b283794ac11f3c35b4422aef2ef2b8e62e71353cc",
+      "bytes": 235634
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/basis.json": {
+      "sha256": "ea521d22a8e6cf9e5ea67dc8c250dcb68146a0db8f7eaff0d0cb87f813ed5146",
+      "bytes": 5221786
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/partial.json": {
+      "sha256": "d8f25c2590306154af2c71b05113d9c73ac509ae5c72ba034f800a02ad9ae420",
+      "bytes": 14875
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/actual_J5_even/result.json": {
+      "sha256": "d8f25c2590306154af2c71b05113d9c73ac509ae5c72ba034f800a02ad9ae420",
+      "bytes": 14875
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/aggregate001/RESULTS.md": {
+      "sha256": "d7b74358801456552bf392889d42bff460dc16b1cb5b96adbbd7d2e696b4ecdf",
+      "bytes": 6495
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/aggregate001/result.json": {
+      "sha256": "3c9d222c6e1a07eebc11ab6791118c94f31691f2eb9e99483e1b78dcf097598f",
+      "bytes": 88373
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/complete_models.json": {
+      "sha256": "1c05b5162d02ae89e619dc5ff08fda18e2b59f56b5f6e1fbf6cacffa1a17c38a",
+      "bytes": 14344432
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/plan.json": {
+      "sha256": "6efb832349d602436f3dccabffeaf5371ed655ce2bc083d854992ea7e0616413",
+      "bytes": 22373
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/prepare.py": {
+      "sha256": "86fe062621bc22bfb0b0b32c37e38f1ff97b174a677a9d150711066e032c825c",
+      "bytes": 14774
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/review_results.py": {
+      "sha256": "ffe5929e019e549ac2f5b2d64671fdf6b61973a318d313c7d17da063acc6c9f4",
+      "bytes": 10872
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_seal_J1_even.json": {
+      "sha256": "4232f69a453d365dd31235402f3b786cabb7f10a3f06131637f58d84677a01bf",
+      "bytes": 747
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_seal_J1_odd.json": {
+      "sha256": "2f94c9a3074f3d6b1e6ebe30ad7fc51b46424221341b36485c66712d09e8c03c",
+      "bytes": 748
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_seal_J3_even.json": {
+      "sha256": "28d3a62895d6c4f59a337db5b1639e0649ce793aa9641ae2922239ebf7e18407",
+      "bytes": 747
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_seal_J3_odd.json": {
+      "sha256": "0c8340ba3525e698c1137d755a5f3df4eb13a61e0354eef02fcca2c5c3a1791c",
+      "bytes": 748
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_seal_J5_even.json": {
+      "sha256": "f4c47563ab9ad7937094dd832ba2762d0ccb5955f89f911436c8b4d31f18f557",
+      "bytes": 747
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/root_source_review_and_admission.json": {
+      "sha256": "ffdea96c9cd361992728daea0cc090cc5a5eaa8d8caf85a9af209412260d6268",
+      "bytes": 2564
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/source_review.json": {
+      "sha256": "d4d1418ac65937e5d3ffa9860f924022fba500e3a4d6b065a1f39de3bdd465da",
+      "bytes": 3614
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/worker.py": {
+      "sha256": "de8f2b6817dff69fbe5150ba4c3471df8634f3fca84846e9bbde6f12a74efdfa",
+      "bytes": 26610
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/worker_contract.json": {
+      "sha256": "cd023eb21656db46a0a00a954a341562a3d11c889de5b0703955f4aaee08ee4c",
+      "bytes": 29747
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/full_f12_preparation001/worker_source_review_before.py": {
+      "sha256": "90aa9e188b1258f69eddc8a263039093c7fd35ab2a1fdbbacfe715f7095157f5",
+      "bytes": 26402
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/README.md": {
+      "sha256": "2bbe56335c41b84b0565777ded14f03d7b526634500684a0e44de46abab000ff",
+      "bytes": 2208
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/RESULTS.md": {
+      "sha256": "b803ae4796a55656c06023b179d9a136c324d13b69269aba5cb9b8488fb010d5",
+      "bytes": 4289
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/A_cached.json": {
+      "sha256": "9f1885ab34879668827841e8dcbd5b11e3177007618b443a101a798019d70e33",
+      "bytes": 7610
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/A_cached_selected.npz": {
+      "sha256": "8da6f951f61005cdd52e832b9843bb9dcd3416d2894573724c5f4e9b6ecbb0a2",
+      "bytes": 86451
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/A_streamed.json": {
+      "sha256": "70e3b1f61184c6b67ce4df16cd4e67580b5e9b447c88941f235b31a2a2eb0b9a",
+      "bytes": 8325
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/A_streamed_selected.npz": {
+      "sha256": "65ef3997552cdc614bfaaa597847778e522cc3325f6b833a36e6f53b7ab2f416",
+      "bytes": 86455
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/B_cached.json": {
+      "sha256": "32a0844d1d4c7f502ed97f8dee4aadb37ce711ea2af31d3c1b5aa8af6a637f36",
+      "bytes": 7641
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/B_cached_selected.npz": {
+      "sha256": "c573720cddf7abcd0485d725ca89ae18e7479ac9229cbc4afd324d28071891a9",
+      "bytes": 103222
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/B_streamed.json": {
+      "sha256": "211490ca82b0123e520f7565fc37108d97d7a718b781618d8954378866d216a3",
+      "bytes": 8291
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/B_streamed_selected.npz": {
+      "sha256": "c6c0535e349334a34f8d4a37c80302a592c12876313bec7dddbcedfd16bfdda6",
+      "bytes": 103214
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/partial.json": {
+      "sha256": "72e38eb3b8f31dadc17ada104b88b361c3d556b6d13a81849d1cc5982c82a2a4",
+      "bytes": 133498
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/actual/result.json": {
+      "sha256": "72e38eb3b8f31dadc17ada104b88b361c3d556b6d13a81849d1cc5982c82a2a4",
+      "bytes": 133498
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/closure_receipt.json": {
+      "sha256": "021267b50524306da8eef4639fb0353161bee026faa2a6250895c9584474ed8b",
+      "bytes": 2570
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/contract.json": {
+      "sha256": "de7072e505bba4d52811574d35163fd6dec72917d4169ba9a4d5ce8cc40d83fa",
+      "bytes": 23376
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/current_source_identity.json": {
+      "sha256": "4f0450bfaf160b1542d71850b3e346ddcaf35614d149a79fd97e69d4514c5966",
+      "bytes": 40395
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/freeze_source.py": {
+      "sha256": "fa12bb1cd28d217f39a103af5c531f27ed7842dbb95263be76e19375264ff806",
+      "bytes": 1270
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/preparation_receipt.json": {
+      "sha256": "1898745349fdd5d51bc947100f084b7399ef6733e1c9fb8609de604f6d826fa6",
+      "bytes": 891
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/result_review.json": {
+      "sha256": "73acee3346347e94c75835d577f5bd4580712303987464dbc1268faa1fcf8457",
+      "bytes": 32634
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/review.py": {
+      "sha256": "3e51803e30ec43cdbe97813ed10c2c0b08ef476070a5fc74b4200db1d9254d6c",
+      "bytes": 8590
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/root_execution_seal.json": {
+      "sha256": "d1d0d7748d229a7b59e9e9d2e835fe4da8b399670de2f9b3082b3823287c2303",
+      "bytes": 1119
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matched001/run.py": {
+      "sha256": "7f789273301b93b4ab1e44a5c7460b4baa72e3895dc27f9c12e7eb3110f75137",
+      "bytes": 34439
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matrix_after.py": {
+      "sha256": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0",
+      "bytes": 46787
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/matrix_before.py": {
+      "sha256": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+      "bytes": 46199
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/physical_run_execution_record.json": {
+      "sha256": "542f4ae01ca0b274a50aa9239cb03714eb8cb3e8d1cd924c9349fb2fc0ff8dbb",
+      "bytes": 1790
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/regression_receipt.json": {
+      "sha256": "edcbef07fe156da3fadf8d6caaab0f03c599edb203dce1a2c8d58ed5fe9083fe",
+      "bytes": 1340
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/source_before.json": {
+      "sha256": "6863eaa0632a0a6e4d5e91fc0dfd9599886a49724076c06dfda153f2599a9b95",
+      "bytes": 218
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/test_receipt.json": {
+      "sha256": "8f513458d544ca9eda36c0a2c8b85f549d1ef7b4fe49dccdd45a53a9ed30eb3c",
+      "bytes": 2819
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/unit_identity.json": {
+      "sha256": "2ae4af01d476b0fdc6fd8ec891b1cf278c517dee86fdfb2a7f52094ba86f54b9",
+      "bytes": 231
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/validation_receipt.json": {
+      "sha256": "387cf435ef7693431a7720ebd38d300b8e8ced2de044bbd23b2b517f2ae26598",
+      "bytes": 3941
+    },
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/working_tree_link_precheck.json": {
+      "sha256": "339ee5359f14c9f50936e8ca7e2a2c0d595ea9bb186741a1a6d4cfbeef7ecd6e",
+      "bytes": 906
+    }
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "status": "actual_four_service_jobs_completed",
+  "request": {
+    "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_requests/e9f57af9-a8c4-5092-97b7-ccba601cc6e6.json",
+    "sha256": "bfedded65fd1c085f7c2afad0e7237d9d809d844e5d610069e9fe98461dcf122",
+    "bytes": 2735214
+  },
+  "preview": {
+    "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_previews/e9f57af9-a8c4-5092-97b7-ccba601cc6e6.json",
+    "sha256": "ef7f1f3e87247f10ff5319c01a29a518a90f34458d853880cf0cad84f6e10322"
+  },
+  "decision": {
+    "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_decisions/e9f57af9-a8c4-5092-97b7-ccba601cc6e6.json",
+    "sha256": "05bb99110c955f705b36ac3403349de2a7db5980da0655248e388daf04d95aaa"
+  },
+  "requested_at": "2026-10-11T15:00:04.746454+00:00",
+  "started_at": "2026-10-11T15:00:06.567119+00:00",
+  "finished_at": "2026-10-11T15:00:21.638635+00:00",
+  "jobs": [
+    {
+      "job_id": "parallel_fscc_scope_c008912593f3b5c5434c",
+      "lane": "fscc_scope",
+      "status": "completed",
+      "started_at": "2026-10-11T15:00:06.587417+00:00",
+      "finished_at": "2026-10-11T15:00:21.620999+00:00",
+      "observed_probe_subprocess_wall_seconds": 14.129839461995289,
+      "timing_scope": "Reviewed probe subprocess after controller archive; not end-to-end/GPU performance certification",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "highest_level_reached": false,
+      "finite_scope": "Finite12 spinors/4 core electrons,495 core/792 attachment determinants,8 model columns; unretained full attachment Bloch residual~0.00228Ha is not full-equation convergence.",
+      "selected_scientific_scalars": {
+        "nspinors": 12,
+        "noccupied": 4,
+        "core_determinants": 495,
+        "attachment_determinants": 792,
+        "model_dimension": 8,
+        "core_unretained_rank4_max_Ha": 0.002116726338513908,
+        "attachment_unretained_rank34_max_Ha": 0.00228387080584737,
+        "full_attachment_bloch_max_Ha": 0.00228387080584737,
+        "highest_level_reached": false
+      },
+      "whole_immutable_job_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_ledger/parallel_fscc_scope_c008912593f3b5c5434c.json",
+        "sha256": "0c744589709b535ed6215e0c104a75bcb7a54555cbb1cd00df3cd56e1ca46607",
+        "bytes": 663503
+      },
+      "whole_input_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_inputs/parallel_fscc_scope_c008912593f3b5c5434c.json",
+        "sha256": "b83fa57b1d6e1a3c8b18a22f62bf1d92b97b57a67899ceac7a979510b23bfacf"
+      },
+      "controller_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_c008912593f3b5c5434c/result.json",
+        "sha256": "709682ae9d393330a63a9561a8ee3f59b313364cf14530779e9714885c9a4722"
+      },
+      "probe_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_c008912593f3b5c5434c/probe/result.json",
+        "sha256": "6952aecb5d9043ef1c8cefcfb09e58190f810a64fa6c3b472501393c9d36028b"
+      },
+      "probe_contract": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_c008912593f3b5c5434c/contract.json",
+        "sha256": "082cbfd5ba3d356e46b9b9b9fab7e8cdd40e66aaf0d1b0cbdf9d756807446ace"
+      },
+      "entry_point_current_file": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_fscc_scope001/probe.py",
+        "sha256": "2868be065baa3f24ed40cf31b73e096f42f506f249b30d92148aa66035cf93ef"
+      },
+      "declared_source_map": {
+        "entries": 578,
+        "canonical_sorted_JSON_sha256": "1957829662c30c0084fac3b46e594524087ad41079e7e89238e2816c42ab05b4",
+        "semantics": "Recorded source dictionary only; no new all-source numerical replay."
+      },
+      "copied_whole_job_payload": false,
+      "independent_scientific_replay_executed": false
+    },
+    {
+      "job_id": "parallel_properties_5b42181126c897a907ac",
+      "lane": "properties",
+      "status": "completed",
+      "started_at": "2026-10-11T15:00:06.587685+00:00",
+      "finished_at": "2026-10-11T15:00:15.863466+00:00",
+      "observed_probe_subprocess_wall_seconds": 8.420393422013149,
+      "timing_scope": "Reviewed probe subprocess after controller archive; not end-to-end/GPU performance certification",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "highest_level_reached": false,
+      "finite_scope": "Finite8x8,11 signed property matrices, fixed finite orbitals/long-wavelength scope.",
+      "selected_scientific_scalars": {
+        "highest_level_reached": false,
+        "full_signed_property_max_au": 2.6645352591003757e-15,
+        "actual_wave_full_H_residual_Ha": 5.243999678938849e-13
+      },
+      "whole_immutable_job_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_ledger/parallel_properties_5b42181126c897a907ac.json",
+        "sha256": "c57c239fa7028fda0631f88d0d32c464bfae23fa0bf7380658e44ba828f6784a",
+        "bytes": 661194
+      },
+      "whole_input_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_inputs/parallel_properties_5b42181126c897a907ac.json",
+        "sha256": "9e4b6a88d7714d539e15a8aced2b360853f95259a0018cb1937b1e4b3e6fef95"
+      },
+      "controller_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_5b42181126c897a907ac/result.json",
+        "sha256": "85f40a2982bd090c595b588e718517d7b7b6acc7188d018e57f5c7aa2154205d"
+      },
+      "probe_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_5b42181126c897a907ac/probe/result.json",
+        "sha256": "c1ac169cda804a516276cfeb2b80bee808fb1db0543964c937960856be3f4db4"
+      },
+      "probe_contract": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_5b42181126c897a907ac/contract.json",
+        "sha256": "3ad699ebdaeb964b4ed6bf8dba450d38c9740e4a1c60d360fecf0fd6c4b4e637"
+      },
+      "entry_point_current_file": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_properties001/probe.py",
+        "sha256": "98aa7edf414c5f0cf6f10d2cf52fec262421bf996a7ebc6fbb7b671239b968e2"
+      },
+      "declared_source_map": {
+        "entries": 579,
+        "canonical_sorted_JSON_sha256": "cc649e2732bbbd094bfbd5be9748219579d6aafe84ff9b2b13bc41f2642cb868",
+        "semantics": "Recorded source dictionary only; no new all-source numerical replay."
+      },
+      "copied_whole_job_payload": false,
+      "independent_scientific_replay_executed": false
+    },
+    {
+      "job_id": "parallel_sd_diagrams_3fe9067377fda19ae935",
+      "lane": "sd_diagrams",
+      "status": "completed",
+      "started_at": "2026-10-11T15:00:06.587955+00:00",
+      "finished_at": "2026-10-11T15:00:07.402421+00:00",
+      "observed_probe_subprocess_wall_seconds": 0.6457264518830925,
+      "timing_scope": "Reviewed probe subprocess after controller archive; not end-to-end/GPU performance certification",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "highest_level_reached": false,
+      "finite_scope": "Finite10 doubles/495 four-electron determinants; signed DC/static/dynamic/phase anchors; full native scalable SD transverse remains incomplete.",
+      "selected_scientific_scalars": {
+        "highest_level_reached": false,
+        "native_scalable_sd_transverse_complete": false,
+        "source_unchanged": true
+      },
+      "whole_immutable_job_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_ledger/parallel_sd_diagrams_3fe9067377fda19ae935.json",
+        "sha256": "c503210b7352b87e39c5a3f10de9d7d86409c33b235c45e43d8320b76ecdeddf",
+        "bytes": 467614
+      },
+      "whole_input_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_inputs/parallel_sd_diagrams_3fe9067377fda19ae935.json",
+        "sha256": "8be8033cfa2f2d9beeaa07818da83d620fc5eda53730f18d5b4bb0908f949f8a"
+      },
+      "controller_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_3fe9067377fda19ae935/result.json",
+        "sha256": "fcf9246e73f499a8aaa89c7d2d525e2ee6b40ae7c16152066552f71722d3d97d"
+      },
+      "probe_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_3fe9067377fda19ae935/probe/result.json",
+        "sha256": "aaf198a29d92c71fd601097d87d65df29813e92a8d7f76af59873149dfba2af6"
+      },
+      "probe_contract": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_3fe9067377fda19ae935/contract.json",
+        "sha256": "a5ab0d03b9f9a61a14b1844397c6715639e97da7f13c25aa2ac75293d4834d70"
+      },
+      "entry_point_current_file": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/probe.py",
+        "sha256": "eed76157283b0655bd53d938e93ea954ac9aabe3ed028cde0bf1736dbe2d24a2"
+      },
+      "declared_source_map": {
+        "entries": 87,
+        "canonical_sorted_JSON_sha256": "54dcd6f70d3b1de3812d90f69c601e0f773d572004b62833693cde1c1b38f9ce",
+        "semantics": "Recorded source dictionary only; no new all-source numerical replay."
+      },
+      "copied_whole_job_payload": false,
+      "independent_scientific_replay_executed": false
+    },
+    {
+      "job_id": "parallel_gpu_a9c77a3f9ceb3e96eb0f",
+      "lane": "gpu",
+      "status": "completed",
+      "started_at": "2026-10-11T15:00:06.588172+00:00",
+      "finished_at": "2026-10-11T15:00:11.407964+00:00",
+      "observed_probe_subprocess_wall_seconds": 4.674505674047396,
+      "timing_scope": "Reviewed probe subprocess after controller archive; not end-to-end/GPU performance certification",
+      "execution_gate_pass": true,
+      "sources_and_inputs_unchanged": true,
+      "highest_level_reached": false,
+      "finite_scope": "Actual ordered FP64 CPU/CUDA finite PP/HH and2688x25 density/rank0..3 kernel controls. Not MCDHF GPU or end-to-end speedup certification.",
+      "selected_scientific_scalars": {
+        "highest_level_reached": false,
+        "native_scalable_sd_transverse_complete": false,
+        "realized_owned_device_bytes": 1361840,
+        "source_unchanged": true
+      },
+      "whole_immutable_job_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_ledger/parallel_gpu_a9c77a3f9ceb3e96eb0f.json",
+        "sha256": "f0be4edf8c1e7d222d964121fa7861e87965b7107b130f744e01a699a7079604",
+        "bytes": 448854
+      },
+      "whole_input_ledger": {
+        "path": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_inputs/parallel_gpu_a9c77a3f9ceb3e96eb0f.json",
+        "sha256": "876ea68d1c97ef504c04249008cf3f8230c7e5ec25cb42eec461f9d13800f530"
+      },
+      "controller_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_a9c77a3f9ceb3e96eb0f/result.json",
+        "sha256": "036d43b1fe926e144b90945cca9a0fc69341028959c3d601f990ccdf9d2a2c12"
+      },
+      "probe_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_a9c77a3f9ceb3e96eb0f/probe/result.json",
+        "sha256": "81e514e3064720df13d17de00b62e46ee0aaedb3bff3ac964ccfcca0fd37075c"
+      },
+      "probe_contract": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_a9c77a3f9ceb3e96eb0f/contract.json",
+        "sha256": "37a2ea38d4c7766f6871e94c164b00a538593ed3866eaae19720c2ce705b2d80"
+      },
+      "entry_point_current_file": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_gpu001/probe.py",
+        "sha256": "be0b01d5c9cbfe0f3ead989cd262c9d6fe3dae058f92e22f936cb8655042a541"
+      },
+      "declared_source_map": {
+        "entries": 94,
+        "canonical_sorted_JSON_sha256": "0657db9c180ef76c3e1d927717931c48218c009104c150dba157b651fdb79bef",
+        "semantics": "Recorded source dictionary only; no new all-source numerical replay."
+      },
+      "copied_whole_job_payload": false,
+      "independent_scientific_replay_executed": false
+    }
+  ],
+  "highest_level_reached": false,
+  "main_native_MCDHF_optimization_separate": true,
+  "new_science_calls_by_delivery_audit": 0,
+  "no_MCDHF_GPU_speedup_claim": true
+}

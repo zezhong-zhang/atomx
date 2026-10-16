@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-10-11T03:40:27.052456+00:00",
+  "observation": "Prior whole-six admission returned these exact resource values before final test collection; no card or job was started by that attempt.",
+  "available_bytes": 78598221824,
+  "free_disk_bytes": 2644644319232,
+  "load": [
+    29.19287109375,
+    25.8974609375,
+    17.91845703125
+  ],
+  "cpus": 32,
+  "total_threads": 6,
+  "reserved_bytes": 21474836480,
+  "host_headroom_bytes": 8589934592,
+  "service_memory_bytes": 27917287424,
+  "passed": false,
+  "timing_claim": false,
+  "reason": "One-minute CPU load + 6 exceeds 32 CPUs; original gate preserved."
+}

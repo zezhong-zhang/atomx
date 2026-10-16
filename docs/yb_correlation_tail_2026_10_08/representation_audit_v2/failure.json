@@ -1,0 +1,6 @@
+{
+  "kind": "diagnostic harness manifest path error after metric checks",
+  "reason": "Earlier-stage manifest is relative to its own evidence folder; later-stage manifest uses repository-relative paths. Preserve both conventions explicitly. No physical input or tolerance change.",
+  "log": "../representation_audit_v2.log",
+  "archived_script": "../audit_representation_v2_failed.py"
+}

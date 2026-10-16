@@ -1,0 +1,69 @@
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c: In function ‘diagram_debug_print’:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:590:30: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘size_t’ {aka ‘long unsigned int’} [-Wformat=]
+  590 |         printf("number = %d/%d\n", i + 1, dg->n_blocks);
+      |                             ~^            ~~~~~~~~~~~~
+      |                              |              |
+      |                              int            size_t {aka long unsigned int}
+      |                             %ld
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c: In function ‘diagram_summary’:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:624:52: warning: format ‘%d’ expects argument of type ‘int’, but argument 9 has type ‘size_t’ {aka ‘long unsigned int’} [-Wformat=]
+  624 |     printf(" diagram %s: irrep=%d(%s) %s %s %s %s %d/%d\n", diag->name, diag->symmetry,
+      |                                                   ~^
+      |                                                    |
+      |                                                    int
+      |                                                   %ld
+  625 |            get_irrep_name(diag->symmetry), str_qparts, str_valence, str_t3space, str_order, n_unique, diag->n_blocks);
+      |                                                                                             ~~~~~~~~
+      |                                                                                             |
+      |                                                                                             size_t {aka long unsigned int}
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:624:55: warning: format ‘%d’ expects argument of type ‘int’, but argument 10 has type ‘size_t’ {aka ‘long unsigned int’} [-Wformat=]
+  624 |     printf(" diagram %s: irrep=%d(%s) %s %s %s %s %d/%d\n", diag->name, diag->symmetry,
+      |                                                      ~^
+      |                                                       |
+      |                                                       int
+      |                                                      %ld
+  625 |            get_irrep_name(diag->symmetry), str_qparts, str_valence, str_t3space, str_order, n_unique, diag->n_blocks);
+      |                                                                                                       ~~~~~~~~~~~~~~
+      |                                                                                                           |
+      |                                                                                                           size_t {aka long unsigned int}
+In function ‘diagram_get_quasiparticles’,
+    inlined from ‘diagram_copy’ at /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:419:5:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:325:24: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  325 |     qparts[diag->rank] = '\0';
+      |     ~~~~~~~~~~~~~~~~~~~^~~~~~
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c: In function ‘diagram_copy’:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:414:10: note: at offset 16 into destination object ‘qparts’ of size 16
+  414 |     char qparts[CC_DIAGRAM_MAX_RANK];
+      |          ^~~~~~
+In function ‘diagram_get_valence’,
+    inlined from ‘diagram_copy’ at /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:420:5:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:299:25: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  299 |     valence[diag->rank] = '\0';
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c: In function ‘diagram_copy’:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:415:10: note: at offset 16 into destination object ‘valence’ of size 16
+  415 |     char valence[CC_DIAGRAM_MAX_RANK];
+      |          ^~~~~~~
+In function ‘diagram_get_t3space’,
+    inlined from ‘diagram_copy’ at /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:421:5:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:312:25: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  312 |     t3space[diag->rank] = '\0';
+      |     ~~~~~~~~~~~~~~~~~~~~^~~~~~
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c: In function ‘diagram_copy’:
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:416:10: note: at offset 16 into destination object ‘t3space’ of size 16
+  416 |     char t3space[CC_DIAGRAM_MAX_RANK];
+      |          ^~~~~~~
+/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:427:29: warning: ‘_copy’ directive writing 5 bytes into a region of size between 1 and 64 [-Wformat-overflow=]
+  427 |     sprintf(clone->name, "%s_copy", dg->name);//, clone->dg_id);
+      |                             ^~~~~
+In file included from /usr/include/stdio.h:974,
+                 from /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:47:
+In function ‘sprintf’,
+    inlined from ‘diagram_copy’ at /data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_index002/diagram.c:427:5:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:10: note: ‘__builtin___sprintf_chk’ output between 6 and 69 bytes into a destination of size 64
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~

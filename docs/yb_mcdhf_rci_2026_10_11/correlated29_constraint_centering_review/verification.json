@@ -1,0 +1,195 @@
+{
+  "domain": "standard-library SHA/JSON/AST only; source/math review; no arrays opened",
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "frozen_peer_contract.json",
+      "passed": true,
+      "actual_sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1"
+    },
+    {
+      "name": "frozen_peer_diagnose_saved.py",
+      "passed": true,
+      "actual_sha256": "0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d"
+    },
+    {
+      "name": "inherited_input_failed_contract",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_failed_root",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_failed_ledger",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_failed_diagnostics",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_base_waves",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_direction",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_plus_coordinates",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_minus_coordinates",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_plus_waves",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_minus_waves",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_saved_gradient",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_signed_density",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_saved_layout",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_saved_gradient_proof",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_0",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_1",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_2",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_3",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_4",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_5",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_raw_hS_6",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_logical_geometry",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_source_functional",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_source_radial_increment",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_source_density",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_previous_onebody_contract",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_previous_onebody_result",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_previous_onebody_execution",
+      "passed": true
+    },
+    {
+      "name": "inherited_input_previous_onebody_completion",
+      "passed": true
+    },
+    {
+      "name": "primary_source_AST_functional",
+      "passed": true
+    },
+    {
+      "name": "primary_source_AST_ci_response",
+      "passed": true
+    },
+    {
+      "name": "primary_source_AST_radial_increment",
+      "passed": true
+    },
+    {
+      "name": "primary_source_AST_density",
+      "passed": true
+    },
+    {
+      "name": "peer_import_boundary",
+      "passed": true,
+      "imports": [
+        "fractions",
+        "pathlib",
+        "argparse",
+        "hashlib",
+        "json",
+        "os",
+        "resource",
+        "signal",
+        "sys",
+        "time",
+        "numpy",
+        "traceback"
+      ]
+    },
+    {
+      "name": "historical_failure_policy",
+      "passed": true
+    }
+  ],
+  "primary_source_function_lines": {
+    "functional": {
+      "evaluate": 89,
+      "gradient_from_weights": 117,
+      "constrained_energy_difference": 296,
+      "mixed_ci_energy_difference": 399
+    },
+    "ci_response": {
+      "real_rank_one_response": 32
+    },
+    "radial_increment": {
+      "bspline_dc_radial_increment": 181
+    },
+    "density": {
+      "contract": 35,
+      "contract_bilinear": 60
+    }
+  },
+  "contract_sha256": "6a67d8c86887220f45025bd595a3142d6819b90e9fab7df6787183ca69e38b37",
+  "math_sha256": "06946442d1a170d6bab6fcd780a4f9501bf7eb1791fad66e18145a470035ef2d",
+  "physical_calls": 0,
+  "numerical_array_imports": 0,
+  "numerical_saved_replay_calls": 0,
+  "source_changed": false,
+  "peer_diagnostic_numerical_status_not_claimed": true
+}

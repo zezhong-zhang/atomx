@@ -1,0 +1,46 @@
+{
+  "tests_passed": true,
+  "exact_call_budget_passed": true,
+  "started": {
+    "basis_setup": 3,
+    "Gauss_setup_eigvalsh": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "completed": {
+    "Gauss_setup_eigvalsh": 3,
+    "basis_setup": 3,
+    "density_band": 12,
+    "bank_get": 20,
+    "full_convolutions": 20,
+    "factor_get": 20,
+    "factor_convolutions": 20,
+    "band_scalars": 40
+  },
+  "reports": [
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[4-False-1-1-ranks0]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[6-False-4-5-ranks1]",
+      "outcome": "passed"
+    },
+    {
+      "nodeid": "tests/test_convol.py::test_positive_rank_origin_cell_signed_components[6-True-4-5-ranks2]",
+      "outcome": "passed"
+    }
+  ],
+  "pytest_exit_code": 0,
+  "source_map_sha256": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+  "driver_sha256": "323db38b1bfdc823398baf85c97428c7948bfc62c35d097caba983d0b8f7007e",
+  "test_file_sha256": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97",
+  "GPU_calls": 0,
+  "H_CI_gradient_Dirac_optimizer": 0,
+  "elapsed_uncontrolled_seconds": 7.16418195492588,
+  "peak_RSS_KiB": 310748
+}

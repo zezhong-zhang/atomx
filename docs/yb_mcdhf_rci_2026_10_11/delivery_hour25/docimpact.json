@@ -1,0 +1,54 @@
+{
+  "increment": "delivery_hour25",
+  "new_scientific_calls": 0,
+  "new_API_calls_this_doc": 0,
+  "links": [
+    {
+      "path": "receipt.json",
+      "exists": true
+    },
+    {
+      "path": "send_status.json",
+      "exists": true
+    },
+    {
+      "path": "readback_execution.json",
+      "exists": true
+    },
+    {
+      "path": "capture_failure.json",
+      "exists": true
+    },
+    {
+      "path": "delivery_proof.json",
+      "exists": true
+    },
+    {
+      "path": "delivery_authorization_proof.json",
+      "exists": true
+    },
+    {
+      "path": "service_iteration_status.json",
+      "exists": true
+    },
+    {
+      "path": "../reporting_stage025/README.md",
+      "exists": true
+    }
+  ],
+  "all_documentation_links_passed": true,
+  "dispositions": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "action": "retain; primarymethod nativeMCDHF/RCI unchanged; correctiondetailsownedsuccessor"
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "action": "retain; no newphysicsinsight; sourceidentitymustcarrydependentconsumersalreadyrequired"
+    },
+    {
+      "path": "AGENTS.md",
+      "action": "retain; existing identity/provenance rulesapply; no newrule"
+    }
+  ]
+}

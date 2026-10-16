@@ -1,0 +1,28 @@
+--- run002/monovalent_norm_control.py
++++ run004/monovalent_norm_control.py
+@@ -5,8 +5,6 @@
+ blocks. No magnetic quartic amplitude tensor, determinant expansion, amplitude
+ cutoff, inferred Euclidean metric or normalized property is supplied here.
+ """
+-
+-from functools import lru_cache
+ 
+ import numpy as np
+ 
+@@ -129,7 +127,6 @@
+     return range(-2 * abs(kappa) + 1, 2 * abs(kappa), 2)
+ 
+ 
+-@lru_cache(maxsize=4096)
+ def grams(km, kn, ki, kj, left, right, fixed_role, fixed_m):
+     """Complete angular sums; role is unrestricted, first hole, first particle."""
+     ff, rr = [], []
+@@ -231,7 +228,7 @@
+         raise ValueError("actual valence magnetic projection required")
+     resource_plan = plan_scratch(core_plan, valence_plan, key)
+     extra = resource_plan['required_bytes']
+-    angular_grams = BoundGrams(grams.__wrapped__)
++    angular_grams = BoundGrams(grams)
+     if (
+         isinstance(memory_bytes, bool)
+         or not isinstance(memory_bytes, int)

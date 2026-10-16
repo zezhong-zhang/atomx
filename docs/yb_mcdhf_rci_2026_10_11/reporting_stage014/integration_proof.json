@@ -1,0 +1,1136 @@
+{
+  "result": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage014.json",
+    "sha256": "53fb6f13e08302246bd9a4d9bf1ce91c6e40f87a72ee53ad79a74eafb39bb7b7"
+  },
+  "progress": {
+    "path": "docs/atomx_hourly_progress_2026_10_10/progress.json",
+    "sha256": "df9382c4ee215d9f09d165575b5530208ce67b1651c2249e0f9a9684c48b67fd"
+  },
+  "previous": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage013.json",
+    "sha256": "de48b8f060e0f1e8ea3f2fad778ded57d219483b26924a42be8d68a4a188a954"
+  },
+  "before_progress": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage014/before_progress.json",
+    "sha256": "a9ae1d26367290daf963384c477b32b49e7b73618f50610553db8dac396e468b"
+  },
+  "driver": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage014/integrate.py",
+    "sha256": "3ca41e5106326e3b9b134b5d1ed42cddc81f1e3ee2dd57dbcf1416587c79515e"
+  },
+  "contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/reporting_stage014/contract.json",
+    "sha256": "209a7a3085dbd91756be8e60eb383f500c701e3c4a40b139538b65f3e8f17174"
+  },
+  "checks_count": 275,
+  "checks": [
+    {
+      "name": "old_stage013_input/current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/actual_yb",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/original_metric_replay",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/cv_discriminator",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/cv_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/balanced_frontier",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/balanced_frontier_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/balanced_cv_result",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/balanced_cv_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/physics_independent_audit",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/same003_correction_ledger",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/correction_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/gradient_reuse",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage002",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_CI_probe",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_CI_probe_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_CI_independent_replay",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/new_source_baseline_controls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public531/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage003",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/actual_public531_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/actual_public531_arrays",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/matched_point_reference",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/matched_point_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/physical_frontier004",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/physical_frontier004_verification",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage004",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/samepoint_static/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/historical_current_mcdhf_stage005",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_delivered_stage005",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/result_unverified.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/accepted_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/public320/accepted_arrays",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage005b",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/historical_point160_current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage006",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/exact_target_sector/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/exact_target_sector/completion.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/exact_target_sector/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/exact_target_sector/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_version3/handoff_manifest.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_version3/root_publication_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_version3/root_push_and_archive.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_version3/deployment.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_version3/access_after_deploy.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage006b",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/run003_completion/completion.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/run003_completion/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/run003_completion/trajectory_report.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/run003_completion/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/retained_H_small_controls/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/retained_H_small_controls/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/retained_H_small_controls/unit_contract003.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/retained_H_small_controls/unit_execution003.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/retained_H_small_controls/source_identity002.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage007",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/qualification/completion_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/qualification/completion.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/qualification/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/qualification/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/qualification/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/rank/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/rank/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/rank/decision.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/rank/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/minimum_control/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/minimum_control/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/minimum_control/causal_summary.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/minimum_control/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage008",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage008b",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/virtual_construction_controls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/decision.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/virtual/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance_audit/verification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance_audit/actual_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/performance_audit/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_v4/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/website_v4/root_publication.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage009",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/failure.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/virtual_construction_controls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/auxiliary_scalar_control.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/saved_failure_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/saved_failure_audit/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_failure/saved_failure_audit/diagnostic_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_increment_preparation/root_source_edit_authorization002.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_increment_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_increment_preparation/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/final_complete_spectrum.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/qualification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/prepared_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/root_execution.log",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/actual/candidate_calls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/actual/frozen_calls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage010",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/actual_stage010_card",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_independent_source_review",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage011",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_refinement001/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_saved_scale_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_saved_scale_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_saved_scale_audit/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/root_execution.log",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/basis_rows.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/canonical29_orbitals.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/baseline_H.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/baseline_CI.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/baseline_tracking.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/balanced_virtual_H.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/balanced_virtual_CI.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/balanced_virtual_tracking.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/completed_input_binding.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/root_review_authorization.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/actual_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/root_execution.log",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification002/actual/calls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_implementation/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/successor_consumer_source_review002/screened002/verification.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/execution_record.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/launcher_successor001/execution_record.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_one_body_mapping_audit/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/run.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/test_saved_guards.py",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/root_execution.log",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/actual/calls.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/actual/baseline_owner_validation.json",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/mixed_ci_finite_increment_guard_qualification003/actual/captured_native_raw_hS.npz",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/previous_stage012",
+      "passed": true
+    },
+    {
+      "name": "old_stage013_input/actual_hour2000_card",
+      "passed": true
+    },
+    {
+      "name": "reviewed_failure_proposal",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/canonical_anchor.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/canonical_anchor_owner.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/correlated_Euler_parts.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/correlated_Euler_parts.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_central.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_diagnostics.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_minus.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_minus_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_minus_owner.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_plus.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_plus_coordinates.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_plus_owner.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_point_identity.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_000.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_001.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_002.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_003.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_004.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_005.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_006.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_007.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_008.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_009.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_010.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_011.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_012.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_013.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_014.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_015.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_016.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_017.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_018.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_019.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_020.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_021.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_022.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_023.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_024.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_025.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_026.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/native_raw_hS_027.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_raw_radial_gradient.npz",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/root_execution.log",
+      "passed": true
+    },
+    {
+      "name": "actual_probe_input/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_source_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_v5_publication_SHA",
+      "passed": true
+    },
+    {
+      "name": "actual_v5_16models64rows",
+      "passed": true
+    },
+    {
+      "name": "actual_failure_not_success",
+      "passed": true
+    },
+    {
+      "name": "279passed_one_failed",
+      "passed": true
+    },
+    {
+      "name": "exact_failed_gate",
+      "passed": true
+    },
+    {
+      "name": "actual_4H4CI1g28hS",
+      "passed": true
+    },
+    {
+      "name": "actual_started_completed_equal",
+      "passed": true
+    },
+    {
+      "name": "Rayleigh_gate_unexecuted",
+      "passed": true
+    },
+    {
+      "name": "direction1_unexecuted",
+      "passed": true
+    },
+    {
+      "name": "stationarity_unavailable",
+      "passed": true
+    },
+    {
+      "name": "zero_optimizer",
+      "passed": true
+    },
+    {
+      "name": "no_final_probe_result",
+      "passed": true
+    },
+    {
+      "name": "current320_originalmetric_result_unchanged",
+      "passed": true
+    },
+    {
+      "name": "all_previous_inputs_preserved",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "old_input_count": 201,
+  "actual_probe_inputs_added": 59,
+  "new_science_calls": 0,
+  "cards_sent": 0,
+  "independent29_saved_qualification_claimed": false,
+  "scope": "Authorized reporting integration only; FAILED/PARTIAL actual status, pending saved audit."
+}

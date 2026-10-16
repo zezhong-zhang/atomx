@@ -1,0 +1,162 @@
+{
+  "checks": [
+    {
+      "PASS": true,
+      "name": "all127_high_l_controls_PASS"
+    },
+    {
+      "PASS": true,
+      "name": "all78_actual_loaded_high_l_source_hashes_still_match"
+    },
+    {
+      "PASS": true,
+      "name": "complete_proof_NPZ_sha_match"
+    },
+    {
+      "PASS": true,
+      "name": "final_JUnit39_tests_zero_failures_errors_skips"
+    },
+    {
+      "PASS": true,
+      "name": "independent_EA_source_and_test_review_sha_match"
+    },
+    {
+      "PASS": true,
+      "name": "initial_paper_contract_unchanged"
+    },
+    {
+      "PASS": true,
+      "name": "explicit_three_input_source_epoch_changes"
+    }
+  ],
+  "created_UTC": "2026-10-13T15:22:04.849363+00:00",
+  "current_source_and_test_sha256": {
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/methods/coupled_cluster.py": "7601b301ab238b87d8daae8d0d2b5c493e05064923b309692eac7ba8314f030b",
+    "src/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "src/atomx/methods/eom_attachment.py": "54fabcaec25c2c33673e19ed12e0e87484ad2c9e1d93a6c8d519b6adb6f24e1b",
+    "src/atomx/methods/fscc.py": "d578dc2f81e92c7d828dde017e90e012c64fc3ecbef0ea96b1f276d0821edee7",
+    "src/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "src/atomx/physics/csf/sparse_ci.py": "f098f2ec0cb792501b7afe12bb0c8ee0d632c0f300f224f3576dd2d08b2f7abb",
+    "src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "tests/test_architecture_boundaries.py": "0731b497c40c3909e2e9688e8bf696e895cdfa408969a0574474510e110382e0",
+    "tests/test_architecture_scientific_fidelity.py": "370159e6b2da4d44ec6622671970ec4aa7a8db3f6007af06c1357e6ad8e2343a",
+    "tests/test_eom_attachment.py": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2",
+    "tests/test_finite_ccsd.py": "fc810af1a49e3c5a473e8600c704abf80ce1902af685c91381afd0a135211063",
+    "tests/test_finite_ccsdt.py": "3a760b967ca69fca844b4c16e075cb89dc4e0695e9fd6af5052d08ab7db12555",
+    "tests/test_scaffolds.py": "c1cfa6cea6153060937f62c347baa481de8855c06ce0606e7f7b68aacb362895"
+  },
+  "final_pytest": {
+    "command": "NUMBA_CACHE_DIR=/tmp/atomx-paper-reproduction-20261013-architecture-clean taskset -c 28 .venv/bin/python -m pytest -q tests/test_finite_ccsd.py tests/test_finite_ccsdt.py tests/test_eom_attachment.py tests/test_scaffolds.py tests/test_architecture_boundaries.py tests/test_architecture_scientific_fidelity.py --junitxml=docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/development_tests.xml",
+    "errors": 0,
+    "failures": 0,
+    "files": [
+      "tests/test_finite_ccsd.py",
+      "tests/test_finite_ccsdt.py",
+      "tests/test_eom_attachment.py",
+      "tests/test_scaffolds.py",
+      "tests/test_architecture_boundaries.py",
+      "tests/test_architecture_scientific_fidelity.py"
+    ],
+    "report": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/development_tests.xml",
+    "reported_seconds": 12.633,
+    "sha256": "93d5131ed9a23f0ae417d13716f091689c3bcb0d118ea0b9f9dad0a3929f3ad4",
+    "skipped": 0,
+    "tests": 39
+  },
+  "high_l": {
+    "actual_loaded_source_files": 78,
+    "checks": 127,
+    "complete_proof": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/high_l_native003/actual/complete_proof.npz",
+    "complete_proof_sha256": "d49263260fabbc0f35f601957e61a3f85b2827ec260b3f14d09145552b55d888",
+    "counts": {
+      "angular_nullspace_entries": 38,
+      "complete_native_CI_entries": 3,
+      "complete_signed_radial_key_requests": 466,
+      "native_Dirac_spectrum_entries": 6,
+      "native_hS_entries": 26,
+      "native_radial_evaluator_entries": 2
+    },
+    "elapsed_seconds": 0.6214087390108034,
+    "max_point_Dirac_energy_error_Ha": 1.110112002322694e-10,
+    "receipt": "high_l_native003/actual/result.json",
+    "scope": "native point-Dirac six g/h/i partners and complete frozen g2; not Yb correlation response or experimental accuracy",
+    "sha256": "83922c50b2c38a9f39adff6f5e122bce46f24341a8963d398bd20a8ab63f5374",
+    "timing_qualification": "warm-cache correctness only, no controlled performance/parallel-speedup claim"
+  },
+  "independent_read_only_EA_review": {
+    "closure": "all4 findings closed by source/AST review; root ran actual numerical tests",
+    "first_review": "4 findings: inactive lifted T3, two-rank method label, producer identity, resource scope",
+    "source_sha256": "54fabcaec25c2c33673e19ed12e0e87484ad2c9e1d93a6c8d519b6adb6f24e1b",
+    "tests_sha256": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2"
+  },
+  "initial_contract_sha256": "8fc3f09620b7da9b0fc71c30dc294afb2c84674af5a450d85dc7c654c7db6fd8",
+  "initial_contract_source_epoch_changes": {
+    "docs/ATOMIC_FSCC.md": {
+      "development_sha256": "472294d91abf14327b09d84f5ced25f5ce797b7b6aa4565334c71edf1628e4b1",
+      "initial_sha256": "10c59c20891a2428308547c3e3f55b94f5c061ce9fcd27cf590c5d29e0dbcb83"
+    },
+    "src/atomx/methods/coupled_cluster.py": {
+      "development_sha256": "7601b301ab238b87d8daae8d0d2b5c493e05064923b309692eac7ba8314f030b",
+      "initial_sha256": "47813a7a35ca918f91cd23726f97b6d82a1293ef5a557e69532c8d072191a3ba"
+    },
+    "src/atomx/methods/fscc.py": {
+      "development_sha256": "d578dc2f81e92c7d828dde017e90e012c64fc3ecbef0ea96b1f276d0821edee7",
+      "initial_sha256": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de"
+    }
+  },
+  "limitations": [
+    "Finite complete determinant core and attachment engines, no scalable 68e core/69e FS-RCCSDT",
+    "Finite EOM-EA is not valence-universal FSCC qualification",
+    "Paper nucleus/GTO/active-space/solver input is incomplete",
+    "High-l capability is not an optimized Yb wave bank",
+    "No new production Yb spectral gaps, stationary optimization or self-consistent Breit response",
+    "No cards/timers/publication/staging/commits"
+  ],
+  "main_route": "native MCDHF to RCI, unchanged production spectrum/gates",
+  "native_triples_note_sha256": "21a512179e8ad4e38b0643aae1c5658e9608d50f5986736588d59862523d3b1d",
+  "paper_reproduction": "69-electron Yb numerical reproduction NOT completed",
+  "retained_failures": [
+    {
+      "correction": "exact independently validated Jacobian; same equations/model/gates",
+      "observed": "1 failed/7 passed; unchanged noninteracting fragment stalled at continuation0.5",
+      "retained_in": "native_triples.md",
+      "scope": "first finite triples test panel"
+    },
+    {
+      "correction": "np.max(np.abs(triples)); no physics change",
+      "observed": "1 failed/3 passed; abs(list) TypeError in test assertion",
+      "scope": "first root EA test panel"
+    },
+    {
+      "correction": "exact failing tests2/2 passed with isolated cache; final expanded panel39/39; no shooting source/gate/test edits",
+      "observed": "36 passed/2 failed in shooting Numba cache serialization; ReferenceError underlying object has vanished",
+      "scope": "first root broader panel"
+    },
+    {
+      "path": "high_l_native001/preexecution_failure.json",
+      "scope": "high-l001",
+      "sha256": "9f42ca32eeb1c45254e0ea1f0c14c12673c01ae2f27eb05edaa87584a6361b3a"
+    },
+    {
+      "path": "high_l_native002/actual/failure_receipt.json",
+      "scope": "high-l002",
+      "sha256": "079e042439aeb6f1875037508fb008bb23756ffb7ef8c82c35d20cf0b03f831d"
+    }
+  ],
+  "ruff": {
+    "files": [
+      "src/atomx/methods/coupled_cluster.py",
+      "src/atomx/methods/eom_attachment.py",
+      "tests/test_finite_ccsdt.py",
+      "tests/test_eom_attachment.py",
+      "tests/test_scaffolds.py"
+    ],
+    "status": "PASS"
+  },
+  "schema": "atomx.native-paper-method-development.v1",
+  "status": "PASS_finite_native_milestones_only"
+}

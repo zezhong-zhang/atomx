@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/benchmark.py", line 286, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/benchmark.py", line 271, in main
+    comparison = matched(inputs)
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/benchmark.py", line 168, in matched
+    records[software] = execute(command, directory, software)
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/benchmark.py", line 102, in execute
+    raise RuntimeError(f"preserved execution failure: {directory}/{tag}")
+RuntimeError: preserved execution failure: /data/code/atomx/docs/atomic_external_benchmark_2026_10_11/ambit/matched_round00/atomx

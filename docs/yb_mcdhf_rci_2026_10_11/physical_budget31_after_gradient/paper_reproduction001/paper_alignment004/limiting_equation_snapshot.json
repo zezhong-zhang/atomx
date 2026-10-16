@@ -1,0 +1,94 @@
+{
+  "scope": "Off-shell iteration snapshot only; no amplitude/coordinate truncation or convergence claim.",
+  "checkpoint_sha256": "b26d69643682b3e05d17b5d0beb6f16632a010fca5c5207a4acf1718cab7d482",
+  "ranks": [
+    {
+      "rank": 1,
+      "maximum_Ha": 1.087186642569614e-09,
+      "signed_residual_Ha": 1.087186642569614e-09,
+      "holes": [
+        [
+          5,
+          -1,
+          -1
+        ]
+      ],
+      "particles": [
+        [
+          6,
+          -1,
+          -1
+        ]
+      ]
+    },
+    {
+      "rank": 2,
+      "maximum_Ha": 1.317284114052075e-09,
+      "signed_residual_Ha": -1.317284114052075e-09,
+      "holes": [
+        [
+          4,
+          3,
+          -5
+        ],
+        [
+          5,
+          -2,
+          1
+        ]
+      ],
+      "particles": [
+        [
+          5,
+          2,
+          -3
+        ],
+        [
+          5,
+          2,
+          -1
+        ]
+      ]
+    },
+    {
+      "rank": 3,
+      "maximum_Ha": 7.154542702674408e-09,
+      "signed_residual_Ha": -7.154542702674408e-09,
+      "holes": [
+        [
+          4,
+          3,
+          5
+        ],
+        [
+          4,
+          -4,
+          -7
+        ],
+        [
+          4,
+          -4,
+          7
+        ]
+      ],
+      "particles": [
+        [
+          6,
+          1,
+          1
+        ],
+        [
+          6,
+          -2,
+          1
+        ],
+        [
+          6,
+          -2,
+          3
+        ]
+      ]
+    }
+  ],
+  "checkpoint": "iteration12_core.npz"
+}

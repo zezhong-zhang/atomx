@@ -1,0 +1,423 @@
+{
+  "status": "Physics audit and independent operator/polar/energy-difference/constraint-centered API anchors completed",
+  "primary_route_user_decision": "Native Atomx common-orbital MCDHF followed by RCI; external software supplies independent references only",
+  "new_Yb_roots_calculated_by_this_audit": 0,
+  "experimental_improvement_measured_by_this_audit": false,
+  "inputs": {
+    "current_sd_comparison": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "frozen_ci_transverse": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+    },
+    "finite_ci_core_holes": {
+      "path": "docs/yb_sd_breit_completion_2026_10_09/results.json",
+      "sha256": "0a167ccb89c9c4970fe96f02f37d637d08f1ae2adc0a4d3817c38cb4caf2ba84"
+    },
+    "default_se_coverage": {
+      "path": "docs/yb_diagnosis_repair_2026_10_08/qed_coverage_after.json",
+      "sha256": "c791da75e6755900da906f3f30e71607f56851ec4a13dcf62c84592a0d091f30"
+    },
+    "previous_budget": {
+      "path": "docs/atomic_physics_budget_2026_10_11/results.json",
+      "sha256": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32"
+    },
+    "old_projector_anchor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_result.json",
+      "sha256": "9bfa371fe306ef13d32a94fe5e91be73caeaec9d977752f8aa68b1ffb342efee"
+    },
+    "corrected_projector_replay": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_replay.json",
+      "sha256": "b1cfbcf3e6f0902123ba0b7e6f0e07278c27cc22f02dc6a1572e989ff51285c2"
+    },
+    "stable_difference_oracle": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/stable_difference_review.json",
+      "sha256": "892cff0409e2c9fd3a3dda6f853ccc612d79be04f1a46b63425167e5614db605"
+    },
+    "polar_oracle": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/polar_review.json",
+      "sha256": "af13927372ef293a9bee9e7ef98f1938f4b7a5ede983497d49196ad3ab51097e"
+    },
+    "native_Yb_angular_filter": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/stable_polar_endpoint/result.json",
+      "sha256": "98b1a43dbdc0fae6f954a78864529dcfd6388c615f4a8110060cb8f4e73e28aa"
+    },
+    "constraint_center_oracle": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/constraint_center_review.json",
+      "sha256": "3a2b5dcde71fb28694d92a96ceb710f0d767e2931a280d4fd8455e182091a9ef"
+    },
+    "native_Yb_radial_constraint": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/radial_constraint_endpoint002/result.json",
+      "sha256": "409ec7d265a1e56fcc14eacac88149c2e1450badb90738af4172357c91c440d1"
+    }
+  },
+  "current_SD_doublets": [
+    {
+      "term": "5d",
+      "centroid_gap_cm1": 873.8048062701288,
+      "splitting_gap_cm1": -128.43618789749962
+    },
+    {
+      "term": "6p",
+      "centroid_gap_cm1": 320.17933123289185,
+      "splitting_gap_cm1": 104.79024640220814
+    }
+  ],
+  "historical_frozen_CI_transverse_differentials": [
+    {
+      "label": "5d_3/2",
+      "static_minus_DC_transition_cm1": 27.587152016851178,
+      "dynamic_minus_static_transition_cm1": -0.623222714599251
+    },
+    {
+      "label": "6p_1/2",
+      "static_minus_DC_transition_cm1": -37.22962395702052,
+      "dynamic_minus_static_transition_cm1": -0.3769566178052628
+    },
+    {
+      "label": "5d_5/2",
+      "static_minus_DC_transition_cm1": -14.241037033018074,
+      "dynamic_minus_static_transition_cm1": -1.5619577845573076
+    },
+    {
+      "label": "6p_3/2",
+      "static_minus_DC_transition_cm1": -65.5418961191026,
+      "dynamic_minus_static_transition_cm1": -3.887288370697206
+    }
+  ],
+  "historical_finite_CI_differentials": [
+    {
+      "label": "5d_3/2",
+      "two_hole_increment_transition_cm1": 41.453512389070966,
+      "full_static_breit_transition_increment_cm1": 35.104500423763966
+    },
+    {
+      "label": "5d_5/2",
+      "two_hole_increment_transition_cm1": 44.75162529667068,
+      "full_static_breit_transition_increment_cm1": -4.980649717621418
+    },
+    {
+      "label": "6p_1/2",
+      "two_hole_increment_transition_cm1": 43.27175235190225,
+      "full_static_breit_transition_increment_cm1": -59.25836215562231
+    },
+    {
+      "label": "6p_3/2",
+      "two_hole_increment_transition_cm1": 31.661049538914085,
+      "full_static_breit_transition_increment_cm1": -82.64227030997426
+    }
+  ],
+  "historical_default_SE_differentials": [
+    {
+      "label": "5d_3/2",
+      "model_SE_upper_minus_6s_cm1": 326.82256391254566,
+      "upper_warnings": [],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "6p_1/2",
+      "model_SE_upper_minus_6s_cm1": 306.91986923645294,
+      "upper_warnings": [
+        "self-energy n=6, kappa=1, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied."
+      ],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "5d_5/2",
+      "model_SE_upper_minus_6s_cm1": 389.7283616070698,
+      "upper_warnings": [],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "6p_3/2",
+      "model_SE_upper_minus_6s_cm1": 397.69013795170684,
+      "upper_warnings": [
+        "self-energy n=6, kappa=-2, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied."
+      ],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    }
+  ],
+  "historical_core_and_triples_differentials": [
+    {
+      "control": "open5s5p:14to22core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 403.0497260970478,
+        "6p3/2": 586.0876123119306,
+        "5d3/2": 1333.1231712243316,
+        "5d5/2": 1453.1785636136883
+      },
+      "absolute_range_cm1": [
+        403.0497260970478,
+        1453.1785636136883
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "18to36virtuals,22core",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 329.2016215057556,
+        "6p3/2": 382.9517195798544,
+        "5d3/2": 530.7814219033717,
+        "5d5/2": 580.3323406939999
+      },
+      "absolute_range_cm1": [
+        329.2016215057556,
+        580.3323406939999
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "openall68core,36virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": -2.2515454674357898,
+        "6p3/2": -3.002784243773931,
+        "5d3/2": 1.7660696417042345,
+        "5d5/2": 1.484759973587643
+      },
+      "absolute_range_cm1": [
+        1.484759973587643,
+        3.002784243773931
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "CCSDtoCCSDT:14core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 26.95813104062472,
+        "6p3/2": 24.220386684377445,
+        "5d3/2": -50.79398544021751,
+        "5d5/2": -46.821552191067894
+      },
+      "absolute_range_cm1": [
+        24.220386684377445,
+        50.79398544021751
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    }
+  ],
+  "normal_mass_shift_proxy": [
+    {
+      "key": [
+        6,
+        1
+      ],
+      "estimated_shift_cm1": -0.08483183288074395
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "estimated_shift_cm1": -0.09527181010860071
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "estimated_shift_cm1": -0.07197619186027347
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "estimated_shift_cm1": -0.0762767135255112
+    }
+  ],
+  "total_physical_error_bound_cm1": null,
+  "add_historical_controls_to_current_or_new_roots": false,
+  "independent_projector_bug_confirmed": true,
+  "independent_projector_repair_replay_passed": true,
+  "native_Yb_angular_filter": {
+    "counts": {
+      "blocks": [
+        {
+          "columns": [
+            0
+          ],
+          "coefficient_count": 531,
+          "nonzero_count": 531,
+          "nonzero_le_1e15_count": 46,
+          "max_small_abs": 1.110223024625157e-17
+        },
+        {
+          "columns": [
+            4
+          ],
+          "coefficient_count": 531,
+          "nonzero_count": 531,
+          "nonzero_le_1e15_count": 46,
+          "max_small_abs": 1.110223024625157e-17
+        },
+        {
+          "columns": [
+            2
+          ],
+          "coefficient_count": 551,
+          "nonzero_count": 551,
+          "nonzero_le_1e15_count": 56,
+          "max_small_abs": 3.053113317719182e-17
+        },
+        {
+          "columns": [
+            3
+          ],
+          "coefficient_count": 551,
+          "nonzero_count": 551,
+          "nonzero_le_1e15_count": 56,
+          "max_small_abs": 3.053113317719182e-17
+        },
+        {
+          "columns": [
+            1
+          ],
+          "coefficient_count": 559,
+          "nonzero_count": 559,
+          "nonzero_le_1e15_count": 60,
+          "max_small_abs": 3.0531133177191795e-17
+        }
+      ],
+      "raw_nonzero_count": 2723,
+      "nonzero_le_1e15_count": 264,
+      "max_dropped_abs": 3.053113317719182e-17,
+      "min_nonzero_abs": 5.204170427930419e-19
+    },
+    "scope": "Real native five-state block coefficient count; paired unfiltered-versus-retained diagnostic now available for the saved eight radial increments only",
+    "maximum_paired_increment_effect_Ha": 3.2594470426283854e-25,
+    "certifies_original_solve": false
+  },
+  "native_Yb_roundoff_constraint_diagnostic": {
+    "rows": [
+      {
+        "step": 0.0,
+        "retraction": "eigh_original",
+        "retained_exact_difference_Ha": 2.794303615628027e-12,
+        "quotient_normal_metric_defect_Ha": 2.7949510673175646e-12,
+        "exact_minus_quotient_metric_defect_Ha": -6.474516895375496e-16,
+        "coordinate_tangent_linear_Ha": 4.6467094360181784e-23
+      },
+      {
+        "step": 0.0,
+        "retraction": "wide_gram_correction",
+        "retained_exact_difference_Ha": 4.4855500690784915e-12,
+        "quotient_normal_metric_defect_Ha": 4.487046545148331e-12,
+        "exact_minus_quotient_metric_defect_Ha": -1.4964760698397083e-15,
+        "coordinate_tangent_linear_Ha": 8.165462455890034e-23
+      },
+      {
+        "step": 0.1,
+        "retraction": "eigh_original",
+        "retained_exact_difference_Ha": 2.057048482317746e-12,
+        "quotient_normal_metric_defect_Ha": 2.506082245782413e-12,
+        "exact_minus_quotient_metric_defect_Ha": -4.49033763464667e-13,
+        "coordinate_tangent_linear_Ha": -6.428182004512866e-13
+      },
+      {
+        "step": 0.1,
+        "retraction": "wide_gram_correction",
+        "retained_exact_difference_Ha": 3.3858472651233526e-12,
+        "quotient_normal_metric_defect_Ha": 3.835589768415921e-12,
+        "exact_minus_quotient_metric_defect_Ha": -4.497425032925685e-13,
+        "coordinate_tangent_linear_Ha": -6.42818200488076e-13
+      },
+      {
+        "step": 0.01,
+        "retraction": "eigh_original",
+        "retained_exact_difference_Ha": 3.9206916334676965e-12,
+        "quotient_normal_metric_defect_Ha": 3.9827803350739196e-12,
+        "exact_minus_quotient_metric_defect_Ha": -6.208870160622304e-14,
+        "coordinate_tangent_linear_Ha": -6.428181983138989e-14
+      },
+      {
+        "step": 0.01,
+        "retraction": "wide_gram_correction",
+        "retained_exact_difference_Ha": 2.9725175337597592e-12,
+        "quotient_normal_metric_defect_Ha": 3.0343443965841717e-12,
+        "exact_minus_quotient_metric_defect_Ha": -6.182686282441248e-14,
+        "coordinate_tangent_linear_Ha": -6.428182001703137e-14
+      },
+      {
+        "step": 7.450580596923828e-09,
+        "retraction": "eigh_original",
+        "retained_exact_difference_Ha": 4.472997570232787e-12,
+        "quotient_normal_metric_defect_Ha": 4.473970482715417e-12,
+        "exact_minus_quotient_metric_defect_Ha": -9.72912482629823e-16,
+        "coordinate_tangent_linear_Ha": -4.810921758976568e-20
+      },
+      {
+        "step": 7.450580596923828e-09,
+        "retraction": "wide_gram_correction",
+        "retained_exact_difference_Ha": 4.1047085409075335e-12,
+        "quotient_normal_metric_defect_Ha": 4.1061979173917616e-12,
+        "exact_minus_quotient_metric_defect_Ha": -1.489376484228055e-15,
+        "coordinate_tangent_linear_Ha": -4.7766007661389147e-20
+      }
+    ],
+    "scope": "Saved original final candidate at fixed model/gradient/metric; no solver acceptance or stationarity certification",
+    "maximum_base_Gram_defect": 2.3838353166438786e-15,
+    "certifies_original_solve": false
+  },
+  "post_audit_shared_repairs": {
+    "complete_Fock_double_addition": "parent repaired; independent saved arrays and old-fail/new-pass regressions",
+    "determinant_cap_propagation": "parent implemented CSF solver -> functional -> radial density and CI propagation; original missing consumer retained in source archive",
+    "stable_energy_difference": "parent implemented restricted one-CSF-block unchanged-RDM finite-polynomial difference; independent long-double full-energy oracle passed",
+    "near_unit_trial_polar": "parent implemented binomial inverse-square-root correction; independent 75-decimal dense/threshold/equivariance oracle passed with original seed spectral path retained",
+    "stable_difference_source_epoch": {
+      "src/atomx/methods/csf/variational.py": "875c642f9d697f218c5db12670c639083124b9e7ad2f5d1bfbe1293899ba89ef",
+      "src/atomx/numerics/bspline/orbital_optimization.py": "f8a06ae04df4fbc0cc1812f997d42769e046ec1bca6e9ad9d0d6d15db1078aaa",
+      "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "polar_optimizer_source_epoch": "e5262bd480033f6816ae03061f036bd48d42a8c0cf8274d60a0a628f11cdf133",
+    "constraint_centered_energy": "Separate unchanged-RDM one-CSF API with actual h/n normal multiplier, full same-kappa Gram curvature, both-endpoint roundoff guards and declared linear increments; independent complete normalized-energy oracle passed",
+    "constraint_centered_source_epoch": {
+      "src/atomx/methods/csf/variational.py": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "src/atomx/numerics/bspline/orbital_optimization.py": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192"
+    },
+    "original_report_before_repair_dispositions": "results_before_post_audit_repairs.json"
+  },
+  "priority_order": [
+    "Correct no-pair operator identity; retain nuclear and seed-Fock spaces as explicit distinct physical models",
+    "Stationary native five-state common-orbital Dirac-Coulomb EOL, same physical reference and energy zero",
+    "Separate fixed-orbital CI and same-space radial relaxation; use both upper-minus-lower changes to select mechanism",
+    "Outer-core 4f/5s/5p CV and relevant 4f-hole multireference mixing with identity tracking; measure full five-state responses",
+    "Same-snapshot full static Breit RCI, declared model-QED matrix and recoil differential ledger; no leading-Zalpha precision claim",
+    "Dynamic-minus-static and remaining correlation refinements after leading discrepancies are isolated; exact angular reuse and roots-only CI propagation"
+  ],
+  "unresolved": [
+    "No measured fixed-space MCDHF radial-relaxation shift yet in this audit",
+    "No complete radial/correlation/no-pair model physical-error upper bound",
+    "No complete general production large-CV MCDHF certification",
+    "Current EOL scalar objective is Dirac-Coulomb only; no transverse/QED orbital gradient",
+    "No implicit physical root-character tracking in public Atom",
+    "No frozen/active-orbital public EOL partition observed",
+    "Full-spectrum dense CI remains default within orbital functional; root-limited Davidson contract not propagated",
+    "QED post-CI expectation does not diagonalize corrections within degenerate manifolds; nonlocal precision SE coverage not universal"
+  ],
+  "verification": {
+    "arithmetic_rederived": true,
+    "upper_lower_energy_reference_respected": true,
+    "historical_model_scopes_preserved": true,
+    "original_experimental_1percent_gates_preserved": true,
+    "passed": true
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "key": [
+    6,
+    1
+  ],
+  "energy_Ha": -0.22611293052522113,
+  "complete_numerators": 2023012,
+  "variants": {
+    "cpu": {
+      "seconds": 107.04286462801974,
+      "complete_mode_recovery": true
+    },
+    "cuda": {
+      "seconds": 62.89584858994931,
+      "complete_mode_recovery": true
+    }
+  },
+  "map_signed_errors_Ha": {
+    "affine": [
+      0.0,
+      3.469446951953614e-18,
+      0.0,
+      4.336808689942018e-19
+    ],
+    "homogeneous": [
+      0.0,
+      5.421010862427522e-20,
+      0.0,
+      2.439454888092385e-19
+    ],
+    "value": [
+      0.0,
+      5.421010862427522e-20
+    ]
+  },
+  "retained_original_signed_errors_Ha": {
+    "cpu_affine_0": 1.0842021724855044e-19,
+    "cpu_affine_1": 4.85722573273506e-17,
+    "cpu_affine_2": 1.0842021724855044e-19,
+    "cpu_affine_3": 7.112366251504909e-17,
+    "cpu_homogeneous_0": 3.1763735522036263e-21,
+    "cpu_homogeneous_1": 5.319366908757006e-19,
+    "cpu_homogeneous_2": 4.0234064994579266e-21,
+    "cpu_homogeneous_3": 5.55653613398821e-19,
+    "cpu_value_0": 3.1763735522036263e-21,
+    "cpu_value_1": 5.319366908757006e-19,
+    "cpu_restored_0": 3.1763735522036263e-21,
+    "cpu_restored_1": 5.319366908757006e-19,
+    "cpu_restored_2": 4.0234064994579266e-21,
+    "cpu_restored_3": 5.55653613398821e-19,
+    "cuda_affine_0": 1.0842021724855044e-19,
+    "cuda_affine_1": 4.85722573273506e-17,
+    "cuda_affine_2": 1.0842021724855044e-19,
+    "cuda_affine_3": 7.112366251504909e-17,
+    "cuda_homogeneous_0": 3.1763735522036263e-21,
+    "cuda_homogeneous_1": 5.319366908757006e-19,
+    "cuda_homogeneous_2": 4.0234064994579266e-21,
+    "cuda_homogeneous_3": 5.692061405548898e-19,
+    "cuda_value_0": 3.1763735522036263e-21,
+    "cuda_value_1": 5.319366908757006e-19,
+    "cuda_restored_0": 3.1763735522036263e-21,
+    "cuda_restored_1": 5.319366908757006e-19,
+    "cuda_restored_2": 4.0234064994579266e-21,
+    "cuda_restored_3": 5.692061405548898e-19
+  },
+  "retained_original_outputs_sha256": "75bc582634a7dba34b174520d7610884193e45a3f182255cb7e38e8912a7983f"
+}

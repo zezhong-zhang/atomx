@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "created_utc": "2026-10-11T17:03:04.672023+00:00",
+  "message_id": "om_x100b638847e328a0c3481985e0c6222",
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1618",
+  "position": 1618,
+  "cycle": "2026-10-11T17",
+  "source_stage": 24,
+  "source_stage_sha256": "7d160c91e76beb7dfc97c1222bf85d519edea772c6547f630021f0ae214f4e34",
+  "registry_sha256": "4d1859ced2ff74646fd68a7b91b713f5bf3a9554298d202842f6d28d4d5144ec",
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "raw_visible_string_equal": false,
+    "all_nonformatting_text_and_table_cells_match": true,
+    "observed_exact_formatting_differences": [
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|||||"
+      }
+    ]
+  },
+  "actual_send": {
+    "started_at": "2026-10-11T17:00:00.634655+00:00",
+    "finished_at": "2026-10-11T17:00:03.407349+00:00",
+    "passed": true
+  },
+  "service_iteration": {
+    "status": "waiting_for_evidence_repair",
+    "reason": "ValueError: physics priority uses a different current MCDHF result",
+    "automatic_jobs": 0,
+    "scientific_iteration_started": false
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_calls_by_this_verifier": 0,
+  "new_scientific_calls": 0,
+  "verifier_sha256": "1e71758e185faa260dce8eca29cc93a17e9339385bc89ca1ead8580b212b1392",
+  "files_sha256": {
+    "capture_failure.json": "d960ba2e55c24461e919ba4f4602d12c4defacd98fcfc69ad9b07f8e8c3767e2",
+    "card.json": "05e0b5016ba2957e98069f9ea50e830b23090849f2b06ab376cf7369f1d5a3cb",
+    "contract.json": "8c84ced167341af2338e349b45bb794b355185962bcf621cdce8c0dda89e39af",
+    "contract_before_service_observation.json": "fd9f0be5e1b2a6f57514a34a3d884b26a3643e3533f3005f83eaf9fea74080ac",
+    "iteration_request.json": "5de36a2a999e4817bb6e0d911d800585a833375772180cb65b5414f1a0f71e17",
+    "once_marker.json": "ba240a23741bc10cd5b00482b7d0115a3168fc57ab2e6d2bc3139e034c2daadf",
+    "readback.json": "d47637eb58a58906021c20603670e0ecf9ea1700bc827439ff15a19623169644",
+    "readback_execution.json": "0fd2c9518b0f2268623200264e13f93bee6cd87965699dadfc0b45da37832fae",
+    "receipt.json": "a5571c5c7c9f820012291dcc8cb18f323e332ad27c7fd818256d5001bd929890",
+    "registry_stage024.json": "4d1859ced2ff74646fd68a7b91b713f5bf3a9554298d202842f6d28d4d5144ec",
+    "saved_verification_contract.json": "8d4070070ab76893970ac23ba5a3c4db1dc01859410dd7cdb314fad2814c6c12",
+    "send_status.json": "714432acb6b97eff5cc0cd6c2649e11542c3cf21e18339a3307b7cb41251af0c",
+    "service_iteration_status.json": "5de36a2a999e4817bb6e0d911d800585a833375772180cb65b5414f1a0f71e17"
+  },
+  "scope": "Existing hourly card. Original render gate refusal retained; exact table-format differences documented; root native iteration separately launched.",
+  "parent_delivery_proof_sha256": "532ed6cd180a82ff872e3067481689d8ebe27425ae5ac35a1ab585079034932f",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "authorization_scope": "Actual verifiedcard; service science explicitlyrefused0jobs. Rootmaylaunchseparatelysealednativeboundediteration fromthisreceipt, no reclassificationofservice."
+}

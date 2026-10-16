@@ -1,0 +1,16 @@
+{
+  "pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+  "source_sha256": {
+    "src/integrals.f90": "a1b967fc0079b603ea133d04aba566cfb31741d5d44320c8855ac4427c56c42f",
+    "lib/all-order/second-ci.f": "622d70ffecea417f2755803fa52039671b7c3870218d9c91b2ad43611322b4e6",
+    "lib/all-order/valsd-ci.f": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+    "LICENSE.md": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "observations": [
+    "second-ci merge_sigma1 replaces one chosen triangular orientation using its column energy; not a full raw adjoint proof",
+    "integrals GintS explicitly labels Ksym0 additional swaps approximate",
+    "HintS/GintS energy derivative consumption caps positive dd at.5 and chooses nonlinear/one-sided branches; not exact re-solving or metric construction",
+    "valsd-ci kval0 uses each orbital energy, kval1 partial-wave reference root andkval2 supplied ecorr; energy convention must be explicit"
+  ],
+  "scope": "actual pinned local reference source audit; no empirical convention adopted in public directed backend"
+}

@@ -1,0 +1,155 @@
+{
+  "core_energy_Ha": -13.61411105177,
+  "sector_energies_Ha": [
+    -14.2802991503243,
+    -14.2802991503243,
+    -14.1337465724245,
+    -14.1337465724245,
+    -14.133700476846299,
+    -14.133700476846299,
+    -14.133700476846299,
+    -14.133700476846299
+  ],
+  "amplitude_update_max": 9.994717727057623e-13,
+  "equation_residual_bound_Ha": 3.399049794081502e-11,
+  "provenance": {
+    "backend": "EXP-T Atomx interface",
+    "executable_sha256": "947824045c7ad49ab7a8fa4162a15eab307ea00f3a5100c2f56973fbf70e0843",
+    "atomx_solver_sha256": "bb569040a96d8b613ead95d569bc39903217a7fab50b18364bd4dc07f6c82b89",
+    "model": "CCSDT",
+    "sector": "0h1p",
+    "active_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "resources": {
+      "occupied": 2,
+      "virtual": 8,
+      "core_independent_amplitudes": 44,
+      "raw_tensor_coordinates": 21840,
+      "estimated_working_bytes": 11200560,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays plus packed ERI; backend cap also enforced"
+    },
+    "tolerance": 1e-12,
+    "residual_bound_tolerance_Ha": 1e-09,
+    "memory_bytes": 8589934592,
+    "tile_size": 32,
+    "threads": 2,
+    "integral_manifest_sha256": "19af402b131c3f116b52377be64adb980e4ae061e92ce3e5d27e6ea3e5e17fde",
+    "input_sha256": "a9c111743752498644d5403ce6b74f3572a9452a2f4c12ec3a07f3135cebc93a",
+    "integrals": {
+      "abi": "ATXCC001",
+      "labels": [
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          -1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          2,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          -2,
+          -3
+        ],
+        [
+          2,
+          -2,
+          -1
+        ],
+        [
+          2,
+          -2,
+          1
+        ],
+        [
+          2,
+          -2,
+          3
+        ]
+      ],
+      "noccupied": 2,
+      "reference_energy_Ha": -13.613943330793543,
+      "frozen_energy_Ha": 0.0,
+      "identity": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'),), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 2.220446049250313e-15,
+        "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+        "integral_bytes": 21680
+      },
+      "files": {
+        "ATOMX_ONE": "8952d51042374285b6d587639aebb6e41019d330c42de0a65a0747b0752dd55c",
+        "ATOMX_TWO": "0879b5c7759eb344f605302c5cc66e8d583c45ab4fc8782ffd46a0d9b84050ad"
+      }
+    },
+    "statuses": {
+      "0h0p": [
+        1,
+        5,
+        3.4337086667925176e-13,
+        9.994717727057623e-13,
+        9.505092400170516e-22
+      ],
+      "0h1p": [
+        1,
+        9,
+        0.0,
+        1.0723800319967225e-13,
+        4.559232765627419e-13
+      ]
+    },
+    "log_sha256": "5d50042cad5e84752420e93b2a6b65623529f4f4e7038787850711c3e314c8c0",
+    "heff_sha256": "4e324d0272f214886a76a43de002ba841ea58887132680bddd02315f993bb9e7"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "archive_bytes": 220689103,
+  "archive_sha256": "75e019e68dca1dd584b82e5accd5b7aa7366800c33e62fe8f6ba0eb6b100272b",
+  "wheel_bytes": 1418721,
+  "manifest_sha256": "3835893ded84df77802ac7c24c813bed9088ba5f0eb1f7520dda983c0b1ec1d8",
+  "archive_crc": "passed",
+  "unique_safe_archive_paths": "passed",
+  "file_hashes_verified": 14526,
+  "current_guides_verified": 38,
+  "broken_current_guide_links": 0,
+  "source_test_tool_identity_sha256": "adbfacd586768b1aa562aaee5cb744e41c16a9363ba5b8c4580e40d8384b56d7",
+  "candidate_identity_matches": true,
+  "wheel_source_files_verified": 354,
+  "regenerated_navigation": "passed",
+  "essential_suite": {
+    "passed": 452,
+    "warnings": 25,
+    "seconds": 63.79,
+    "python": "3.10.21",
+    "log": "extracted-tests.log"
+  },
+  "source_kind": "ZIP extracted into a separate directory, without Git metadata",
+  "test_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 PYTHONPATH=src:. /data/code/atomx/.venv/bin/python -m pytest -q --durations=15"
+}

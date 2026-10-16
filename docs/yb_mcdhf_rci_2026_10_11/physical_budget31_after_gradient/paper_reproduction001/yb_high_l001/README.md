@@ -1,0 +1,13 @@
+# Frozen Yb68 g-channel qualification 001
+
+Restore the19 occupied waves of the historical closed68-electron `[Xe]4f14` DF calculation, and evaluate the current native full68-electron V^N field. This is not a fresh SCF solve, mixed-MCDHF bank substitution or high-l spectral correction. The [contract](contract.json) precedes numerical admission; [execution binding](execution_binding.json) seals the driver/source/input identities.
+
+The historical core records49 iterations and1.311838923×10⁻⁹ residual against1×10⁻⁸, energy−14067.058077561114Ha, nonlocalHF/DC, empiricalFermi defaultA175, ns123/ks9/R60.5378221a₀. Its24-wave archive contains the copied19 core waves plus5 independently generated frozen-valence waves. Only the19 occupied rows are restored; all15 saved radial geometry fields and the nuclear profile remain bound. These inputs differ from the171Yb⁺/40GTO/R500 paper.
+
+All336 entries of the retained native source archive match its manifest, and its native library hashes match the original run source map with zero differences. The recorded initial **driver** hash differs from both retained script snapshots; exact initial-driver byte replay is not qualified. The structured core/input records and retained producer identify the historical model. This gap is preserved; the old `converged` field does not certify current stationarity.
+
+The experiment keeps both g partners κ=4/−5, the complete native electron branch E>−c² for each projector, and **every** bound/pseudocontinuum root below50Ha. No first-root selection or amplitude mask is used. Gates require whole-electron S-Gram/projector idempotence and Gauss norms≤1×10⁻¹⁰, complete50Ha-band S-dual residual≤1×10⁻⁸, and unchanged historical core bytes/markers. Seven additional occupied-κ fields report current old-energy/Rayleigh residuals for all19 waves as diagnostics; those values never promote the historical flag.
+
+Nine Fock/hS builds,171 direct and≤264 exchange frontend actions, two complete Dirac spectra and≤11 metric solves are capped. Dense h/S payload is8,714,592bytes; basis/cache/Python overhead is separate. Resource admission fixes CPU27, one numerical thread,8GiB AS,600s inner/615s outer, load1≤16 and≥10GiB available. Input headers have a whole20-field plan and≤16MiB decode. Source/preparation checks and Ruff pass without scientific producers. Failed full fields/spectra and partial counters are saved before stopping; no automatic retry or gate relaxation.
+
+The result will establish or reject this frozen-field g-band capability only. No69-electron correlation, new spectrum, GTO/RCCSDT reproduction, complete physical convergence or controlled performance claim follows. Root owns current guidance/EARS; all new execution artifacts stay here.

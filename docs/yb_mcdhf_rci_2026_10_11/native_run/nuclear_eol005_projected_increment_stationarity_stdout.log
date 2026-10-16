@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/replay_converged_stationarity.py", line 134, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/native_run/replay_converged_stationarity.py", line 81, in main
+    raise ValueError("retained original metric does not match final optimizer metric")
+ValueError: retained original metric does not match final optimizer metric

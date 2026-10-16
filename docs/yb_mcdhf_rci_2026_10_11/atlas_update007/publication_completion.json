@@ -1,0 +1,80 @@
+{
+  "status": "saved_metadata_publication_closed",
+  "all_passed": true,
+  "checks_count": 12,
+  "checks": [
+    {
+      "name": "local_data_preservation",
+      "passed": true
+    },
+    {
+      "name": "desktop_mobile57_saved_gates",
+      "passed": true
+    },
+    {
+      "name": "browser_once_closed_and_owned_cleanup",
+      "passed": true
+    },
+    {
+      "name": "actual_observed_browser_resources",
+      "passed": true
+    },
+    {
+      "name": "saved_browser_result_source_identity",
+      "passed": true
+    },
+    {
+      "name": "counts_and_preserved_fork_identity",
+      "passed": true
+    },
+    {
+      "name": "website_only17_source_files",
+      "passed": true
+    },
+    {
+      "name": "pushed_source_to_saved_version",
+      "passed": true
+    },
+    {
+      "name": "local_tar_size_saved_version_size",
+      "passed": true
+    },
+    {
+      "name": "deployment_success_exact_version",
+      "passed": true
+    },
+    {
+      "name": "root_owner_private_audience_evidence",
+      "passed": true
+    },
+    {
+      "name": "zero_new_science_api_browser_calls",
+      "passed": true
+    }
+  ],
+  "contract_sha256": "bd3f22ee2746ab056a2c55a533893728e982bf434e52d8a86507fb88ed692b4a",
+  "script_sha256": "6879068669517d91a10ba1804834e7c7772f15338a05e745d23f56b7050930bc",
+  "inputs_sha256": {
+    "data_verification.json": "aac6dff43b8007b7c109150c980f9067861adf7ea6cb0cf83d4fd466f7419751",
+    "browser_result.json": "acb4525bee595cfcd8b53d307b4e43423e4c9d1157fc31b5cad24720bccec92b",
+    "browser_execution.json": "2d2f4c470ff1206de2a999c708b790f019695a27bcd9e2ee6bb33c64a98aacd2",
+    "root_browser_execution_contract.json": "1790fe7b7d60ea559753bd9ce051b641122eb1c68758264b3fa092edb59bf19a",
+    "root_publication_preflight.json": "5bd0f36ec53fc2d7db2a17a94898495e30ad1bfeb6dd774bb1f2af5779f1f23c",
+    "root_push_and_archive.json": "428c92144daecb846b76efceee116842f656f89d0fefa8bef665b5cd8892a35f",
+    "root_source_commit.json": "acfd33eab7bb7734a09770bb8a9f198b59dde8d04587f4264a2ef86ba4b11fc6",
+    "saved_site_version.json": "5035563be2c858a07219f0ce5af01b6da70af4756bc2fe0fa875a9ebe31d8c73",
+    "deployment_result.json": "317c6d1fbbc76d91efd3ccc3ad0dd6c93da17afb9d8d6d3fad9b8b5e3a9d1f83",
+    "root_owner_audience.json": "2a06a5ce280c37781c882bf5d612fd68eaf7ca8a2b312905e0582c889bfc4728",
+    "README.md": "0acb478bde22399946b1a3d02f64f6bae15f00b6105ee4ed19ece2e5ce8a4855",
+    "docimpact.json": "f3fb18ed19cab6de080d5ffb20a2e0de7705c385275a19dd537c5508cf461a0e"
+  },
+  "outputs_sha256": {
+    "publication_manifest.json": "5c3492f94ce5ab5c23ff36414b1d263d724b36de996bc3c80e6f7b00708569ef",
+    "RESULTS.md": "c07ad2782c6780c24403a0e0bc585cef263a723330e303748f313f644b561aef",
+    "README.md": "64cf031f35bc73374abf693bc32c5d5ffc6272fb8086d4b1cc8afdcf5e908591",
+    "docimpact.json": "bdac18928f0ae0280b84cc5808ac8fa63b8c0a208f8b78fc8ef51b1a34a79f70"
+  },
+  "finished_utc": "2026-10-11T17:25:46.084330+00:00",
+  "new_science_arrays_API_browser_calls": 0,
+  "commits": 0
+}

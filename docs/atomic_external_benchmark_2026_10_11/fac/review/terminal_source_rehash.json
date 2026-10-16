@@ -1,0 +1,24 @@
+{
+  "schema": "fac-review-terminal-source-rehash-v1",
+  "frozen_final_audit_sha256": "c34b1e19cfa0e4e1d2bc22a7fcdbaf36aa55a2a9097178ca06868674ae1ed77f",
+  "frozen_artifact_manifest_sha256": "f19cf86bf52c7fc8fccd6fc77bfef17c0c9e35c23de0cddd47ac50c5bd3f84ad",
+  "guards": {
+    "precision_actual005": {
+      "current_files_independently_rehashed": 868,
+      "mismatches": [],
+      "passed": true
+    },
+    "performance_initial": {
+      "current_files_independently_rehashed": 1084,
+      "mismatches": [],
+      "passed": true
+    },
+    "performance_fresh_cache002": {
+      "current_files_independently_rehashed": 1086,
+      "mismatches": [],
+      "passed": true
+    }
+  },
+  "passed": true,
+  "scope": "Independent terminal current source rehash only; no scientific run, owner artifact, gate, or cap change."
+}

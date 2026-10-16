@@ -1,0 +1,855 @@
+{
+  "all_passed": true,
+  "checks_count": 211,
+  "checks": [
+    {
+      "name": "stage010_input/current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/actual_yb",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/original_metric_replay",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/cv_discriminator",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/cv_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/balanced_frontier",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/balanced_frontier_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/balanced_cv_result",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/balanced_cv_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/physics_independent_audit",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/same003_correction_ledger",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/correction_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/gradient_reuse",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage002",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_CI_probe",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_CI_probe_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_CI_independent_replay",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/new_source_baseline_controls.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public531/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage003",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/actual_public531_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/actual_public531_arrays",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/matched_point_reference",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/matched_point_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/physical_frontier004",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/physical_frontier004_verification",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage004",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/run.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/samepoint_static/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/historical_current_mcdhf_stage005",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_delivered_stage005",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/run.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/result_unverified.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/accepted_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/public320/accepted_arrays",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage005b",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/historical_point160_current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage006",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/exact_target_sector/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/exact_target_sector/completion.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/exact_target_sector/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/exact_target_sector/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_version3/handoff_manifest.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_version3/root_publication_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_version3/root_push_and_archive.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_version3/deployment.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_version3/access_after_deploy.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage006b",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/run003_completion/completion.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/run003_completion/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/run003_completion/trajectory_report.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/run003_completion/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/retained_H_small_controls/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/retained_H_small_controls/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/retained_H_small_controls/unit_contract003.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/retained_H_small_controls/unit_execution003.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/retained_H_small_controls/source_identity002.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage007",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/qualification/completion_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/qualification/completion.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/qualification/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/qualification/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/qualification/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/rank/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/rank/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/rank/decision.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/rank/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/minimum_control/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/minimum_control/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/minimum_control/causal_summary.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/minimum_control/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage008",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage008b",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/virtual_construction_controls.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/decision.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/virtual/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance_audit/verification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance_audit/actual_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/performance_audit/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_v4/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/website_v4/root_publication.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/previous_stage009",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/run.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/failure.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/virtual_construction_controls.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/auxiliary_scalar_control.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/saved_failure_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/saved_failure_audit/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/screened_failure/saved_failure_audit/diagnostic_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_increment_preparation/root_source_edit_authorization002.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_increment_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_input/mixed_increment_preparation/verification.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/card.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/iteration_preview.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/iteration_request.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/iteration_decision.json",
+      "passed": true
+    },
+    {
+      "name": "actual_delivery/readback.json",
+      "passed": true
+    },
+    {
+      "name": "stage010_delivery_binding",
+      "passed": true
+    },
+    {
+      "name": "actual_stage010_sender_chat",
+      "passed": true
+    },
+    {
+      "name": "guide_link/../atomic_native_roadmap_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/contract.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/previous_sources/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run003/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage010.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/reporting_stage006/current_card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run003/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run003/completion/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/checkpoint_hamiltonian_reuse_implementation/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/hamiltonian_snapshot_qualification002/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/hamiltonian_snapshot_qualification002/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/hamiltonian_snapshot_qualification002/old_saved_array_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/retained_hamiltonian_performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/retained_hamiltonian_performance/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage007.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage008/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage010/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_hour1900/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/rank_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/rank_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/virtual_only_discriminator/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/virtual_only_discriminator/decision.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/screened_core_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/screened_core_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/screened_core_virtual_refinement001/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_finite_increment_proposal/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_finite_increment_proposal/root_source_edit_authorization002.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_finite_increment_implementation/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_finite_increment_source_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_finite_increment_implementation/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/native_run/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/native_run/card_evidence_stationary_baseline.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/cv_discriminator/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/balanced_cv_replay/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/balanced_cv_frontier/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/test_attempts.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage002.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage002/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage002/iteration_result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage003.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_stationarity_probe/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_optimizer_resume/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_resume_integration/contract.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run/execution_failure_pre_solve.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/matched_recovered_point_reference/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run002/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage004.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/public531_endpoint_static_rci/README_result.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage003/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/delivery_stage003/iteration_result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/atlas_update003/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/atlas_update002/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/atlas_update/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/verification_stage003.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/results_stage005b.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/physical_frontier004/decision_and_prospective_experiment.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/stable_polar/contract.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/native_run/linear_map_increment_endpoint/result.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/centered_increment_contract.json",
+      "passed": true
+    },
+    {
+      "name": "guide_link/correction_budget/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_link/native_run/",
+      "passed": true
+    },
+    {
+      "name": "guide_link/physics_audit/",
+      "passed": true
+    },
+    {
+      "name": "guide_link/performance/",
+      "passed": true
+    },
+    {
+      "name": "current_guidance/3.113086e−8",
+      "passed": true
+    },
+    {
+      "name": "current_guidance/2.046064e−14",
+      "passed": true
+    },
+    {
+      "name": "current_guidance/资格整体未通过",
+      "passed": true
+    },
+    {
+      "name": "current_guidance/后续拒绝非法输入的测试",
+      "passed": true
+    },
+    {
+      "name": "current_guidance/MCDHF→RCI",
+      "passed": true
+    },
+    {
+      "name": "no_screened_CI_claim",
+      "passed": true
+    }
+  ],
+  "created_at": "2026-10-11T11:55:09.383020+00:00",
+  "guide_sha256": "c3bf560df17e7fe0579f4c1af073c239252ddafcdece82bf5021ad2cd156c921",
+  "stage010_sha256": "38975f160d911b98add56121aaf04df6191a00748343760f8a6570609b887dc5",
+  "delivery_sha256": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed",
+  "scope": "Metadata/document links and immutable stage010 actual evidence only. Guide adds subsequent bounded executions with independent qualification pending; no new physics or timings."
+}

@@ -1,0 +1,57 @@
+{
+  "hypothesis": "The unprojected correction basis amplified roundoff into otherJ at small D3 iteration7, before a large solve. An orthogonal highest-weight projector ker(Jplus) removes only otherJ irreps and stabilizes Davidson without changing the original R3 equations or target states.",
+  "previous": "actual001 SR resource failure and actual002 small-qualification J2 failure are preserved; neither provided an accepted large spectrum",
+  "fixed": {
+    "source": "same after_source epoch",
+    "core": "exact saved converged18e amplitudes, independently reapply allSDT equations",
+    "Hamiltonian": "unchanged30spinor DC / common68e origin",
+    "spaces": "complete target-J irrep inside each highest-M/even R3 sector via P=I-A.T(AA.T)^-1 A, A=Jplus; no amplitude screening",
+    "targets": "unique normalized bareR1 weight >=0.5 for prescribed6s/5d3/5d5; no experimental energies",
+    "algorithm": "real nonsymmetric Davidson, one bareR1 seed per target, twice modified Gram-Schmidt, complete Fock-energy denominators, no clipping/shift, unrestarted subspace max48; signed sparse highest-weight projection with SPD CG rtol1e-14, atol0, maxiter100 and unchanged J2 gate",
+    "output": "all12 magnetic partners by signedJ ladders; complete original equations reapplied"
+  },
+  "distinguishing": "Small old16spinor target energies must equal the independently qualified stored dense eigenvalues. Large trial passes only if all original SDT/R3 equations and J2 gates pass; cap or root-identity failure remains failure.",
+  "gates": {
+    "core_residual_Ha": 1e-10,
+    "EA_residual_Ha": 1e-10,
+    "small_dense_energy_Ha": 1e-09,
+    "J2": 1e-07,
+    "canonical_R_norm": 1e-08,
+    "target_bare_R1_weight_min": 0.5
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 12884901888,
+    "wall_seconds": 600,
+    "workspace_MiB": 4096,
+    "subspace_max": 48,
+    "large_solver_actions_max": 144,
+    "direct_large_verification_actions": 15,
+    "small_solver_actions_max": 144,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368
+  },
+  "stopping": "First failed identity/equation/resource gate stops. No automatic retry or altered rank, tolerance, target, ncv or denominator regularization. This new numerical contract replaces no archived failure.",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson_J.py": "a7b61aa35b2cc0fdceaafe36437e95b8acdea9b25a4e5692572f84499cced5c6",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson.py": "0eef9d51917ade79c7d6cd1eafd1e39a26b328ed1bb224e9e3092504f3242e50",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/davidson_contract.json": "902b9046dbe755c5737dafb4a5edd6f240271ba88f0c28de1c7401e67100c6ba",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual002/result.json": "d60521c52bb3c62aa26dcde7e63d3ec3165929c8401c2f0a7ded82227169d664",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/solve_and_attach.py": "0edbf1b212e63004704caac80032e6ae22fb84ffb39249f58a2252ed6ad34146",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/after_source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/operator.json": "9d35b5a431f513a594ed781bd779fe6283e21bcb72221b190785dd0b8444f73d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/integrals.npz": "9019e614d5fff4bcfff73e337ee930dc4ee2130df15e257badb9f3f9e4b4cb75",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual001/core.npz": "cde429fa0e88b7311a4cfdcd1ada59f76af98d623097b7e75ff40c89f63d0427",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual001/result.json": "0fd5d61fcc5cbd92f914862f5fd9a55be5d5cfd89ce13ac12c65d0c7399ceaa2",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/operator.json": "bc536185175197a938d6e28ac35bbb862e50affaf82915dc97155cd16249cae9",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/integrals.npz": "aaf14e8d8187ab4895c40b073132f8654fa0c84364efd73d513bccb5617069be",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/CCSDT_core.npz": "ad8e076439e7a4a7d49630ec250445f641c447cba780d06d452653110c0f6f43",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/result.json": "3746358ad0c8fb43940f46abc559f3a0acc00bb1d560e2d8509452ad02d2e4cc",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M1_CCSDT_R3.npz": "fd32812bcb731d4772322efe0edcdfb461b8207a6762b64980a0ced138dd4d6a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M3_CCSDT_R3.npz": "8778e501c470d69ef8023738f2f2e0a3e6a92a582ef5b50c6ae31a089ef53111",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/actual001/M5_CCSDT_R3.npz": "ab7ed55161a9e495ec669958ca681afdadaf461ab5e730bd86ddb8b03be32b61"
+  }
+}

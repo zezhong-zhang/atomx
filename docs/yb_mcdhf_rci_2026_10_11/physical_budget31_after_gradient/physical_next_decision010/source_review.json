@@ -1,0 +1,26 @@
+{
+  "status": "ADMITTED_MATCHED_ONLY",
+  "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf",
+  "manifest_inputs": 42,
+  "small_tests": 113,
+  "matched_model": {
+    "A_target_CSFS": 1595,
+    "B_target_CSFS": 2574,
+    "state_vectors": 10,
+    "one_streamed_B_traversal_per_symmetry": true
+  },
+  "preserved": "No ordinary FD005 retry/supersession or optimizer. Full cases require successful matched result. Full selected009 arrays use exact nested signed basis and original R0 radial/nuclear/metric binding.",
+  "preparation_error": {
+    "science_calls": 0,
+    "reason": "Aggregate metadata path corrected to existing full_f12_preparation001/aggregate001 before any execution; no contract gates altered."
+  },
+  "reviewed": [
+    "complete basis order and A/B embedding",
+    "no full-spectrum result fabrication",
+    "actual CI norm Fraction normalization",
+    "unfiltered signed key contraction",
+    "independent four-slot derivative vs native gradient",
+    "CPU1 BLAS1 memory/time/work caps",
+    "exact source and input hashes; once-only output directory"
+  ]
+}

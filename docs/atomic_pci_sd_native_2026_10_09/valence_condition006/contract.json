@@ -1,0 +1,14 @@
+{
+  "hypothesis": "Strong .61rad changed occupied projector causes near-singular fixed-energy response or a floating-point residual floor; compare original matrix-free map, its complete basis matrix and 70digit solve of that matrix",
+  "fixed": "complete same C2+16magnetic/ns40/point/DC/source/.37virtual and .61occupied-virtual rotation as failed public004, all six valence columns, E=eps_v+.075",
+  "acceptance_Ha": 1e-11,
+  "stop": "keep actual raw native defect; no relaxed gate or altered model/energy; diagnostic dense matrix stays finite-only",
+  "cap_bytes": 536870912,
+  "reference_bytes": 67108864,
+  "load": [
+    11.25146484375,
+    10.73974609375,
+    10.80908203125
+  ],
+  "limit": "high precision inversion of double matrix coefficients is diagnostic, not a high precision physical native operator"
+}

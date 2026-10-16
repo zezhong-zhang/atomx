@@ -1,0 +1,515 @@
+{
+  "scope": "actual public fixture backend source/build/images retained; physics inputs defined by archived tests; independent vector archives stored separately",
+  "cases": [
+    {
+      "path": "pytest-tmp/test_live_complete_valence_api0/native/manifest.json",
+      "sha256": "c5e0dec294d95ae02a5cf322b06fbbd7b79f9a1008a3c6b492565b4c854023ae",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_complete_valence_api1/native/manifest.json",
+      "sha256": "084482ff3f03ff01d303523c02409f7f96057887973876cc4d7d9bc7e619e2d3",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_complete_valence_api2/native/manifest.json",
+      "sha256": "8360090c6ca28ede78db88786ab831f58a99cab1b6a201c7d284bdd2f08e6d41",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 1,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 114944,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_complete_valence_api3/native/manifest.json",
+      "sha256": "d6b88e66e35392765baf34f6d71d4f79e5472e054c79868db3953facf7674e65",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 8,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 465280,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_homogeneous_value_ac0/native/manifest.json",
+      "sha256": "c5e0dec294d95ae02a5cf322b06fbbd7b79f9a1008a3c6b492565b4c854023ae",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_homogeneous_value_ac1/native/manifest.json",
+      "sha256": "084482ff3f03ff01d303523c02409f7f96057887973876cc4d7d9bc7e619e2d3",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_homogeneous_value_ac2/native/manifest.json",
+      "sha256": "8360090c6ca28ede78db88786ab831f58a99cab1b6a201c7d284bdd2f08e6d41",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 1,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 114944,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_homogeneous_value_ac3/native/manifest.json",
+      "sha256": "d6b88e66e35392765baf34f6d71d4f79e5472e054c79868db3953facf7674e65",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 8,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 465280,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_common_res0/backend/manifest.json",
+      "sha256": "92ea21b072c3a079e07671e53adb4921fdae2799c0db6e814f6ef605d4bba878",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_common_res1/backend/manifest.json",
+      "sha256": "f51d927bbf249ea2d05759f6c1cecd2602439c2310b553c8f41c8d85101d786f",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_common_res2/backend/manifest.json",
+      "sha256": "06c911863071387260f4cb06db7b400f57db468206c9df7529eaf8009b9dda75",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 1,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 114944,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_common_res3/backend/manifest.json",
+      "sha256": "7f708c74a69254e193921935d060827cf28d66c0b85ae119b13c1fd4d804a1b7",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 8,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 465280,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_rejects_wr0/backend/manifest.json",
+      "sha256": "92ea21b072c3a079e07671e53adb4921fdae2799c0db6e814f6ef605d4bba878",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_rejects_wr1/backend/manifest.json",
+      "sha256": "f51d927bbf249ea2d05759f6c1cecd2602439c2310b553c8f41c8d85101d786f",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_rejects_wr2/backend/manifest.json",
+      "sha256": "06c911863071387260f4cb06db7b400f57db468206c9df7529eaf8009b9dda75",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 1,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 114944,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_screening_rejects_wr3/backend/manifest.json",
+      "sha256": "7f708c74a69254e193921935d060827cf28d66c0b85ae119b13c1fd4d804a1b7",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 8,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 465280,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_valence_result_ident0/native/manifest.json",
+      "sha256": "c5e0dec294d95ae02a5cf322b06fbbd7b79f9a1008a3c6b492565b4c854023ae",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_valence_result_ident1/native/manifest.json",
+      "sha256": "084482ff3f03ff01d303523c02409f7f96057887973876cc4d7d9bc7e619e2d3",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "original",
+          "threads": 1,
+          "scratch_bytes": 0
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_valence_result_ident2/native/manifest.json",
+      "sha256": "8360090c6ca28ede78db88786ab831f58a99cab1b6a201c7d284bdd2f08e6d41",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 1,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 114944,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    },
+    {
+      "path": "pytest-tmp/test_live_valence_result_ident3/native/manifest.json",
+      "sha256": "d6b88e66e35392765baf34f6d71d4f79e5472e054c79868db3953facf7674e65",
+      "valence_sd": {
+        "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+        "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+        "nxv": 5,
+        "nvh": 8,
+        "core_common_patches": 8,
+        "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+        "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+        "term2": {
+          "mode": "streamed_blas",
+          "threads": 8,
+          "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+          "scratch_bytes": 465280,
+          "replaced_calls": 3,
+          "value_only_calls": 1,
+          "response_policy": "explicit requested derivative; one shared value kernel",
+          "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+        },
+        "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+        "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+        "linear_action": "source separated from exact original homogeneous diagrams",
+        "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+        "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+      }
+    }
+  ]
+}

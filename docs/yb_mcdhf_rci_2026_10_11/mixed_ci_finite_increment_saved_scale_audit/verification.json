@@ -1,0 +1,460 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_00.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_01.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_02.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_03.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_04.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_05.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_06.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_07.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_08.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_09.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_10.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_11.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_12.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_gradients.npz",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_calls.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_calls.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/oracle_signed_tables.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "entry_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "entry_tests/test_mixed_ci_finite_increment.py",
+      "passed": true
+    },
+    {
+      "name": "exact13savedpoints",
+      "passed": true
+    },
+    {
+      "name": "point0_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point0_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point0_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point0_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point1_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point1_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point1_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point1_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point2_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point2_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point2_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point2_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point3_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point3_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point3_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point3_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point4_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point4_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point4_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point4_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point5_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point5_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point5_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point5_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point6_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point6_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point6_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point6_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point7_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point7_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point7_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point7_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point8_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point8_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point8_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point8_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point9_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point9_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point9_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point9_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point10_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point10_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point10_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point10_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point11_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point11_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point11_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point11_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "point12_fullsquare",
+      "passed": true
+    },
+    {
+      "name": "point12_complete_column_residual",
+      "passed": true
+    },
+    {
+      "name": "point12_complete_Gram",
+      "passed": true
+    },
+    {
+      "name": "point12_target_weights_id",
+      "passed": true
+    },
+    {
+      "name": "d0_k-2_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d0_k-1_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d0_k1_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d0_normalized_coordinate_tangent",
+      "passed": true
+    },
+    {
+      "name": "d1_k-2_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d1_k-1_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d1_k1_exact_tangent",
+      "passed": true
+    },
+    {
+      "name": "d1_normalized_coordinate_tangent",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_00.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_01.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_02.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_03.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_04.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_05.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_06.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_07.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_08.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_09.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_10.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_11.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_12.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_gradients.npz",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_calls.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_calls.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/oracle_signed_tables.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "exit_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "exit_tests/test_mixed_ci_finite_increment.py",
+      "passed": true
+    }
+  ],
+  "checks_count": 113,
+  "result_sha256": "b26787051ce05c1f47c28cc645df41ddcb92861291fd176734988bc8bc85cbfe",
+  "actual_H_CI_gradient_optimizer_calls": 0
+}

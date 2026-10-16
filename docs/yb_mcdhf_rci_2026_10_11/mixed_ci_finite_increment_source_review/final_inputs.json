@@ -1,0 +1,30 @@
+{
+  "created_before_read_only_verification_utc": "2026-10-11T11:48:56.427258+00:00",
+  "status": "exact_frozen_candidate_binding_for_source_audit_only",
+  "candidate_source_identity": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+  "candidate_source_directory": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source",
+  "oracle": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/preparation_verification.json": "ebd71f1365c980c5d7514cb3539297a797dde874e8be52f59304a30add02a477",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/README.md": "5def5f494aa29a891c087e3da7a09b322f3b32b83d27e081ce169a50aa6496f9",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/run.py": "f065d8be47439bd2affafdc863926198d235b19f5efafd019a6cb86a54b4fe52",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/frozen_comparator.py": "e6c043a32af51f42088ab87661d0bc2b4039cdf98d621d4d7cc0337dfcc7d05c",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions.npz": "874079c342694329255244596caacc45c00e13151c025974803d6496bd264bd4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/raw_directions_identity.json": "de8379fc9819b540ae9bcc353f7c8350210b45425ec11495f4defb4b1bccc9db",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/verify_preparation.py": "472b0aaf29cf64cc0fe106f2b7969a1e4abf238d34783081e3a03175c1f342fc",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "src/atomx/numerics/ci_energy_increment.py": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367",
+    "src/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "src/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json": "1ef6cab59eac700bc8cfe7f3fd1ca441a18a452972fe4e0d5bc61aad1d3c94cc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_source_review/contract.json": "650a77af2426a4c58435fe759840abbb296973663fe198655f323a285e563776",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_source_review/verify_readonly.py": "d4f6a473c1f7caf6e99744892703a09c55510dc7c2bc287fa20930788856bba4"
+  },
+  "final_gate_changes": false,
+  "physical_execution_authorized": false
+}

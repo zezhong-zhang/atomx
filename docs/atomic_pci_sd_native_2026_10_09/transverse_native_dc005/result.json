@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "110",
+    "time": "63.885",
+    "timestamp": "2026-10-11T00:13:28.205351+08:00",
+    "hostname": "fermi"
+  },
+  "source_identity_anchor": "../transverse_integrals004/contract.json",
+  "package_hashes_unchanged_against_preceding_panel": true,
+  "scope": "Native reduced closed-core SD and finite reduced monovalent DC equations across original and optimized modes. Does not certify transverse operators in native reduced SD or rerun full Yb roots.",
+  "recording": "The native regression used the preceding package source freeze; this result is written after completion. No separate pre-run contract or frozen native Fortran-source archive was created for 005.",
+  "test_sources_sha256": {
+    "tests/test_core_sd.py": "c37fc46c9bc9cb5488519754c7e3d58e289e3e0c263a743fbbacf22ad3c71d45",
+    "tests/test_reduced_monovalent_sd.py": "5ebd9e49a0823e22ebaba5f9f9388efc3c46ec91c3b897e5013dbad233856e47"
+  },
+  "tests_log_sha256": "38924c8cbc74806addd045caf984fde5b7fd43928093c5e726d749a0e89299ad"
+}

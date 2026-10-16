@@ -1,0 +1,62 @@
+{
+  "actual_loaded_cuda_libraries_sha256": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libcudart.so.13": "862020da24ec4db58470c8dfad08e8753b417c459c115326edf15e9f574c92e3",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvJitLink.so.13": "894565766691d5103a3e0337d977c0be7004073d1b2c5ee05b60116c30bdabd8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvrtc.so.13": "3d646504d4595919a17884c4beaa9949a8ff12085387d8b4de2baa504d7fc023",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13/lib/libnvvm.so.4": "ee67a8957fb25997ead7d18c1a746d13f1a675cc56948d11b9773a0f2f6850f5",
+    "/usr/lib/x86_64-linux-gnu/libcuda.so.595.91.07": "4839b5da17cd8f58a8e9c57e97c9b61f3c41be7934479f48afc983416b2492c3"
+  },
+  "cuda_runtime": {
+    "module_path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/numba_cuda/numba/cuda/__init__.py",
+    "module_sha256": "0328d8c60ec408bcd9f92527f99de1f2f871fe6fc7962f8b88ce2fb53df28c21",
+    "numba": "0.65.0",
+    "numpy": "2.2.6",
+    "numba_cuda": "0.30.4"
+  },
+  "ptx_audit": [
+    {
+      "name": "density",
+      "kernel": 0,
+      "signature": "(Array(float64, 2, 'C', False, aligned=True), Array(int64, 3, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True))",
+      "sha256": "3e2557851714703c3541daa2b4b3173e08cb60dd8325f1ccd9396ae0ac509626",
+      "forbidden": []
+    },
+    {
+      "name": "density",
+      "kernel": 1,
+      "signature": "(Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True))",
+      "sha256": "615c8e33e0bf6f0d05477894bb935769ddfe02a4797e280e1ad28c07c4f49ac9",
+      "forbidden": []
+    },
+    {
+      "name": "density",
+      "kernel": 2,
+      "signature": "(Array(float64, 2, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True))",
+      "sha256": "601529319aa7d81d9023efc5dee042e913cf97f3c71da4d8d4d8d90265a2e8b8",
+      "forbidden": []
+    },
+    {
+      "name": "ladder",
+      "kernel": 0,
+      "signature": "(Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 2, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True), Array(float64, 2, 'C', False, aligned=True))",
+      "sha256": "fa896ebf1683b9fe14889ee92238a967cfc5ee3aab798807a1dcd4f4edf3afe5",
+      "forbidden": []
+    }
+  ],
+  "fixed_runtime_dependency_manifest": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_gpu001/runtime_dependencies_sha256.json",
+  "fixed_runtime_manifest_sha256": "3264b669ac09e2fbb06e141af0e0f7c931228b661d0500d55f1f594ae696dc1b",
+  "runtime_before": {
+    "manifest_sha256": "3264b669ac09e2fbb06e141af0e0f7c931228b661d0500d55f1f594ae696dc1b",
+    "complete_dependency_count": 449,
+    "matched": true
+  },
+  "runtime_after": {
+    "manifest_sha256": "3264b669ac09e2fbb06e141af0e0f7c931228b661d0500d55f1f594ae696dc1b",
+    "complete_dependency_count": 449,
+    "matched": true
+  },
+  "cuda_path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/numba_cuda_runtime/nvidia/cu13",
+  "loader_reexec": true,
+  "hard_address_bytes": 4294967296,
+  "manual_128GiB_executed": false
+}

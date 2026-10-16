@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_high_l001/run.py", line 508, in <module>
+    execute(contract, epoch)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_high_l001/run.py", line 177, in execute
+    gate(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_high_l001/run.py", line 104, in gate
+    raise RuntimeError("gate failed: " + name)
+RuntimeError: gate failed: field_header:mixing

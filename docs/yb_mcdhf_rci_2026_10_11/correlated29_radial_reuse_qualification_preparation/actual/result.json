@@ -1,0 +1,55 @@
+{
+  "status": "FAILED_closed_no_retry",
+  "all_equivalence_gates_passed": false,
+  "anchor_gates_passed": 225,
+  "anchor_gate_failure": [
+    {
+      "name": "analytic_6_pppp",
+      "passed": false,
+      "error": 3.6586666666948986e-05,
+      "limit": 3.585493333333332e-14
+    }
+  ],
+  "actual_started": {
+    "basis_setup": 5,
+    "Gauss_setup_eigvalsh": 5,
+    "density_band": 20,
+    "factor_get": 81,
+    "bank_get": 89,
+    "direct_full_bank": 89,
+    "direct_semiseparable": 81,
+    "band_scalar": 142,
+    "CI_source_pair": 14
+  },
+  "actual_completed": {
+    "Gauss_setup_eigvalsh": 5,
+    "basis_setup": 5,
+    "density_band": 20,
+    "factor_get": 81,
+    "bank_get": 89,
+    "direct_full_bank": 89,
+    "direct_semiseparable": 81,
+    "band_scalar": 142,
+    "CI_source_pair": 14
+  },
+  "actual_H": 0,
+  "actual_CI": 0,
+  "actual_gradient": 0,
+  "actual_Dirac": 0,
+  "actual_optimizer": 0,
+  "actual_GPU": 0,
+  "ordinary_and_candidate_chains_executed": false,
+  "remaining_anchor_exact_count_gates_executed": false,
+  "source_identity_final_comparison_executed": false,
+  "outer_elapsed_uncontrolled_seconds": 11.90246881917119,
+  "controlled_performance_certified": false,
+  "original_physical_stationarity_failures_retained": true,
+  "root_execution_sha256": "0bdae00cd8517dd8c34aa242fab4e7b3c4f9d410636dfb618ff8700f39ff588e",
+  "execution_contract_sha256": "c72c67d35a77894dc1b7bf1591a9e982b09fbb58cb0c636c72c3d300a9371b72",
+  "driver_sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7",
+  "contract_sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171",
+  "failure_sha256": "7f1fc883bdd91ee6e4d21f577deb7619d863dabb0a4fcd7d139641fa6361942b",
+  "progress_sha256": "de3003d306bed198327d828bf8a16b6efb804593030a96b6e78107c67e27b372",
+  "numerical_failure_domain": "integrable mathematical origin-cell r-linear quartet k6 under fixed4-point inner quadrature, not a Yb energy measurement",
+  "source_causal_inference": "inner n_sub=ks4, source density r2 *r6 gives degree8; GL4 exactness degree<=7. GL4 x8 integral error1/44100, relative1/4900 predicts observed3.6586666666948986e-5Ha. Outer nGauss16 cannot repair inner underintegration."
+}

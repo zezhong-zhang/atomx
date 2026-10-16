@@ -1,0 +1,70 @@
+{
+  "hypothesis": "The complete noncanonical core and fixed-energy valence SD roots preserve all signed magnetic components under an explicitly declared scalar Fock perturbation.",
+  "fixed": "C2+ 1s2 2s2, Z6/ns40/ks7, two radial virtual roots each s/p1/2/p3/2 and every magnetic multiplet; same native DC Coulomb, complete Fock plus predefined +.031/-.023 off-diagonal scalar operator; bare F_mv remains in H1",
+  "energy_parameter_Ha": "eps_v+.075 for each declared column; core numerator fixed for energy response",
+  "reference": "pinned original pCI valsd-ci plus full commutator extension already checked by complete signed magnetic and independent fermion gates",
+  "gates_Ha": {
+    "random_signed_action": 1e-11,
+    "full_signed_root": 1e-11,
+    "core_raw_residual": 1e-10,
+    "valence_raw_residual": 1e-10,
+    "oracle_raw_residual": 1e-10
+  },
+  "derivative": "solve full numerator response then compare Sigma1 diagonal and off-diagonal to independent re-solves at steps1e-3,3e-4,1e-4; abs1e-9+rel1e-6",
+  "memory_cap_bytes": 536870912,
+  "workers": 1,
+  "iteration_cap": 100,
+  "stop": "any nonfinite, incomplete coordinate, source, full action, root or derivative mismatch rejects promotion and retains failed evidence",
+  "scope": "finite noncanonical equation anchor, not experimental precision or production-space convergence",
+  "response_refinement": {
+    "reason": "run004 full signed actions/roots pass, but coarse second-order re-solves have measured O(h^2) truncation and fail unchanged tolerance",
+    "new_primary_gates": "full signed independent implicit numerator response and Sigma1 derivative <=1e-11; independent raw response residual<=1e-10",
+    "difference_stencil": "centered fourth-order (4*D(h/2)-D(h))/3 at the same declared h; retain all second-order failures, exact same Hamiltonian/space/energy/tolerance",
+    "load_at_launch": [
+      13.9130859375,
+      14.376953125,
+      14.38671875
+    ]
+  },
+  "direct_refinement": {
+    "fixed": "same source diagrams, Hamiltonian/space/energies/signed gates",
+    "numerical_solver": "bounded finite LU with actual-operator refinement; complete reduced coordinates and complete strict magnetic sector; full1600 magnetic output coordinates retained, every excluded coordinate verified exactly zero by source and action",
+    "difference_stencil": "four-level centered Richardson at h,h/2,h/4,h/8, order8, same predeclared base h and tolerance; preserve lower-order failed vectors",
+    "additional_peak_bytes_cap": 67108864,
+    "load_at_launch": [
+      14.396484375,
+      14.41357421875,
+      14.4140625
+    ],
+    "performance": "diagnostic only, not production dense implementation"
+  },
+  "affine_refinement": {
+    "fixed": "same physical inputs, original diagrams, energies, full signed outputs and all acceptance gates",
+    "hypothesis": "subtracting two affine maps adds cancellation error to homogeneous action; split core-only and valence-linear diagrams explicitly",
+    "validation": "complete native and independent magnetic affine map equals source plus homogeneous map, gate1e-11; derivative oracle omits zero-derivative bare source rather than subtracting it",
+    "solver": "same bounded finite LU and full actual residual checks; no production dense promotion"
+  },
+  "matched_radial_refinement": {
+    "fixed": "same orbitals, Fock, source core, energies, full signed coordinate/gate/solver contracts",
+    "hypothesis": "small native polynomial versus original cell integral differences amplified by shallow valence conditioning; independent magnetic equations must share the bound weighted radial representation for a matched-equation test",
+    "new": "shared public features.integral, independent angular and magnetic diagrams; compare full antisymmetrized integral tensor to original-cell integrals and retain original-cell failures",
+    "additional": "full source/action/response defects saved; no experimental accuracy or approximation claim",
+    "load_at_launch": [
+      46.47705078125,
+      36.9501953125,
+      24.71337890625
+    ]
+  },
+  "precision_refinement": {
+    "hypothesis": "finite double LU and contraction rounding must be resolved independently of native field/representation errors before claiming forward response accuracy",
+    "fixed": "all float64 physical input arrays retained unchanged and native original backend unchanged; independent arithmetic extended to np.longdouble, not new physics or fitted terms",
+    "algorithm": "float64 bounded LU preconditioner with actual extended-precision matrix/action refinement, full output coordinates retained",
+    "gate": "same full absolute1e-11 response and all other gates; fail remains fail",
+    "memory": "5 full finite-sector matrix payloads use actual dtype itemsize and original64MiB cap",
+    "load_at_launch": [
+      19.41943359375,
+      29.10693359375,
+      23.3359375
+    ]
+  }
+}

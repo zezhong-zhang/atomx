@@ -1,0 +1,21 @@
+{
+  "closed_array001_qualified": false,
+  "exception": "KeyError: column on derived multiplet summary row",
+  "failure_stage": "after analytical gates and saved NPZ load, before saved-Yb point/quotient helper call",
+  "recorded_execution_sha256": "4db1780d84512fbe43abaf5765a69fec153c98133a6bd51a146f97e6884a6c44",
+  "recorded_failure_sha256": "155c045a34b7b2702c6483ec4417548b0f1a04b113b112eeff63a1ebbb380945",
+  "recorded_log_sha256": "c8983f4bc08fa307d93c7177c97efc641e2cb87c5a68a024ee66471810583fa1",
+  "counters_reconstructed_from_immutable_driver_control_flow": {
+    "analytical_completed_points": 7,
+    "analytical_completed_quotients": 8,
+    "examined_pairs": 30,
+    "nonzero_H_pairs": 28,
+    "analytical_assertions_before_failure": 12,
+    "saved_NPZ_points_loaded": 1,
+    "saved_Yb_integer_quotients": 0,
+    "H_CI_gradient_optimizer_eigen_calls": 0
+  },
+  "counter_evidence_limit": "Counters were not serialized live by closed001; reconstructed from exact source literals and traceback reach, not a newly executed arithmetic replay. SavedYb quotient comparisons/final resource assertions/finalresult were unexecuted.",
+  "successor_pending": "array_qualification002/contract.json",
+  "source728_passes_remain_separate": true
+}

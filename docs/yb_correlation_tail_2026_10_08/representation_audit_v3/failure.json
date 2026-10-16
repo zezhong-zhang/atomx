@@ -1,0 +1,6 @@
+{
+  "kind": "diagnostic harness manifest value schema error",
+  "reason": "Earlier-stage manifest stores hash strings; later-stage manifest stores sha256/bytes objects. Explicit format handling added without editing old manifests or physical inputs.",
+  "log": "../representation_audit_v3.log",
+  "archived_script": "../audit_representation_v3_failed.py"
+}

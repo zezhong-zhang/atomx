@@ -1,0 +1,9 @@
+{
+  "stage": "prelaunch import, no scientific directory or calculation created",
+  "cause": "ConvolCache and compute_slater_rk_cell belong to bspline.convol, not integrals",
+  "source_sha256": {
+    "probe_valence_fock_allorder004.py": "fdbb81212099ddd5686fcdf347450084933725246f4e66f4c33007a60cde7b28",
+    "finite_valence_fixture.py": "10ca0b76f59e97c32abdece3d6ba051d0efb3b207fd9a3532c9e3a703cc84b01",
+    "finite_direct_coulomb.py": "685a9f3ad247c70c3ea0a5589198351976c6e1b391c807bc815528fa421cbca4"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "scope": "Frozen metadata/source-only physical route review at global80, no extra model preparation or science execution",
+  "files_sha256": {
+    "result.json": "01169f99bde98364edbd0d7b5480d3ce651d2017806f5d7b2bb36d1537f03f6a",
+    "docimpact.json": "c1fb4a59ef75c26227bf944c9b7b90be3fa9db97099ede0d67c24e3d7b85f55f",
+    "trace.md": "70efa03267d3b7438ce25a7510d9a2f642cb466ae5d7cbf32ed424ed0105d7d9",
+    "README.md": "86104d19596cb4d042e47167389ff97cace5f328a4835cc58af8b0e125d255aa",
+    "verification.json": "b52f2778f052b12a191065a3b791b6f0ba61b48b11235ced434c89232fd7561d",
+    "review_saved.py": "1575c6baf00b77822d65c8ae712df411d827aae31ac9bcff93bc15593f19faaa",
+    "contract.json": "3fda7993f0c9882b1766edfbb6d05c2e363eecd3337cb1f9ee6a7e164949490d"
+  },
+  "local_links_passed": true,
+  "Ruff_passed": true,
+  "metadata_source_controls": 11,
+  "scientific_calls": 0,
+  "array_reads": 0,
+  "run005_no_changes": true,
+  "card_summary": "当前80步原驻值仍FAIL；D重心gap+2750/P重心−975cm−1，需先收敛。原生路线最接近GRASP EOL MCDHF→RCI但全部Atomx实现。已测核hole/辅助虚轨道响应数百cm−1、static Breit数十，均保留原点不可补到80。收敛后同空间EOL折衷、一个缺失相关类别、同点RCI算符差分；若005仍不驻值先saved-only分κ/轨道gpg定位。"
+}

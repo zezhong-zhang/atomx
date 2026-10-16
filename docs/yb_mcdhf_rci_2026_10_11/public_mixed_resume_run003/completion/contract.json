@@ -1,0 +1,90 @@
+{
+  "acceptance": {
+    "coordinate_reconstruction_max": 1e-12,
+    "full_preconditioned_gradient_replay_max": 1e-10,
+    "full_projected_gradient_replay_max": 1e-09,
+    "inverse_tangent_saved_pg_max": 1e-10,
+    "no_gate_changes": true,
+    "original_energy_tolerance_Ha": 1e-08,
+    "original_orbital_tolerance": 1e-07,
+    "roundoff_diagnostic_threshold_ULP": 128,
+    "saved_CI_target_support_leakage_norm": 1e-10,
+    "saved_matrix_hermiticity_Ha": 1e-10,
+    "selected_saved_CI_residual_Ha": 1e-08,
+    "target_tracking_majority_squared_overlap_strict": 0.5
+  },
+  "created_before_numeric_audit_utc": "2026-10-11T10:04:23.093913+00:00",
+  "documentation_impact": "New completion/ proof and ../RESULTS.md only; root owns current navigation/website. Preserve README/preparation/unverified records and all old scientific arrays.",
+  "fixed_conditions": {
+    "CSFs": 531,
+    "Z": 70,
+    "additional_accepted_steps": 160,
+    "electrons": 69,
+    "geometry_sha256": "0bfaa7e7b6d0fd39da60c871beb095ecbdfe1904600a870ebb4b9617acb2f2f5",
+    "nucleus": "Fermi A175",
+    "objective_sha256": "ae850ddc1fa246c062ef3c130173eb1c07de0106c363c4ce87120ca1d45fa199",
+    "operator": "declared no-pair Dirac-Coulomb",
+    "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "parent_accepted_steps": 160,
+    "radial_orbitals": 24,
+    "retained_secant_pairs_from_parent": 0,
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "states": [
+      "6s_1/2",
+      "5d_3/2",
+      "5d_5/2",
+      "6p_1/2",
+      "6p_3/2"
+    ],
+    "symmetry_blocks": 16,
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "hypothesis": "The same-objective second 160-step segment genuinely accepts coordinate and responding-CI changes yet remains nonstationary; near-roundoff recorded energy changes alone cannot prove an optimizer defect.",
+  "input_file_manifest_sha256": "71aa9e60fe4aa790a04f95e95530d202d7ec66f80bc8db92ebb047d42d1e906a",
+  "input_files_count": 759,
+  "not_claimed": [
+    "new spectrum solve",
+    "converged531 MCDHF",
+    "highest level",
+    "experimental validation",
+    "controlled efficiency",
+    "proof that rounding caused optimizer failure",
+    "static Breit spectrum at320 endpoint"
+  ],
+  "procedure": [
+    "Verify every frozen input/source byte hash before and after audit.",
+    "Read161 checkpoint manifests in order and sequentially load only saved arrays.",
+    "Replay original inverse block action and Stiefel tangent at each exact saved x; derive norm(pg) and .5abs(g.pg).",
+    "Bind parent accepted160 and final1011 replay; retain original1e-9/1e-10 all-vector equality and failed1e-7 stationarity as separate gates.",
+    "Select responding CI columns by full CSF signed J/parity support and local-root energies, never global first-five assumption.",
+    "Observe phase-aligned adjacent CI coefficients, frozen-reference tracking overlaps and saved selected eigenpair residuals without physical recomputation.",
+    "Report float64 energy decrements and absolute spacing; no Armijo/line-search/roundoff-causality certification from accepted-only records."
+  ],
+  "record_id": "yb-public531-run003-saved-trajectory-completion-2026-10-11",
+  "resource_admission_sha256": "da14ac56791684f3059f61668c2c544e474793800536c7c92e7ea97a214e1366",
+  "resources": {
+    "address_space_cap_bytes": 1073741824,
+    "cpu_affinity": [
+      29
+    ],
+    "estimated_peak_resident_MiB": 180,
+    "expected_npz_count": 161,
+    "external_backup_timeout_s": 35,
+    "forbidden_import": "atomx",
+    "max_CI_solves": 0,
+    "max_gradients": 0,
+    "max_optimizer_calls": 0,
+    "max_scientific_H_builds": 0,
+    "sequential_checkpoint_loading": true,
+    "threads": 1,
+    "wall_cap_s": 30
+  },
+  "scope": "Read-only saved-array trajectory audit; append completion proof without rewriting immutable pending records",
+  "stopping_condition": "Abort on any identity/numeric failure or resource cap; preserve failure record and never reinterpret stationarity as passed."
+}

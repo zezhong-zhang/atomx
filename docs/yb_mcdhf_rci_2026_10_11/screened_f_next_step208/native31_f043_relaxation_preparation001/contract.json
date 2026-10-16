@@ -1,0 +1,395 @@
+{
+  "status": "prepared_f043_native31_requires_exact_root_execution",
+  "execution_authorized": false,
+  "executor_implemented": true,
+  "hypothesis": "After own f043 full-normalized baseline and singlecombineddirection/twoh qualification, a bounded native31 ordinary reported-EOL optimization can measure actual correlated orbital relaxation in this fixedcomplete space. EOL descent does not imply gap reduction or convergence.",
+  "source": {
+    "map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "archive": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source",
+    "all356_frozen_modules_only": true,
+    "not_current_shared_source": true,
+    "not_external_backend": true,
+    "current_owner_or_mixed_regressions_not_upgraded": true
+  },
+  "input_roles": {
+    "recovered_coordinates_and_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered3689_point.npz",
+      "sha256": "e63ac0fc7c794763af896744cd77e17af3cb7cf11feab7b7b65fe10e2e1a15ff",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "recovered_full_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_whole_CI.npz",
+      "sha256": "2ae7eacd0b12d78bf6330cd66f5186fbebe86b861ba25f0d5703bd0cdad23fda",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "qualified_full31_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/full31_gradient_metric.npz",
+      "sha256": "459f5c5b28c069d8a9fdcf5226ffedf54e0fa852a21c424080ee13677051bb9d",
+      "deferred_numerical": true,
+      "identity_source": "closed actual runtime archive declaration; no file read or rehash in this proposal"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+      "deferred_numerical": true
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+      "deferred_numerical": true
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+      "deferred_numerical": false
+    },
+    "canonical_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/basis_rows.json",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a",
+      "deferred_numerical": false
+    },
+    "reference_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "deferred_numerical": false
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+      "deferred_numerical": true
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "deferred_numerical": false
+    },
+    "new_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_layout.json",
+      "sha256": "d95a2d91374a935394b88f8f6bb111e0765dc8c990477958cd673b57a7a79c5b",
+      "deferred_numerical": false
+    },
+    "new_objective": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/new_objective_identity.json",
+      "sha256": "a0667041065f02918fd65395b1f47317bab10b1b55f234f1f20a198721000205",
+      "deferred_numerical": false
+    },
+    "recovered_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_owner.json",
+      "sha256": "6af0ca545160b306e7826e7eb115c2f4f678c20e00b0694012b1d01380f7aab2",
+      "deferred_numerical": false
+    },
+    "recovered_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/recovered_tracking.json",
+      "sha256": "24627a29f7e563cc703a28d3ed6ef6252e1f6a2ec53463cd3e9c594deb31c41f",
+      "deferred_numerical": false
+    },
+    "gradient_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/actual/result.json",
+      "sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0",
+      "deferred_numerical": false
+    },
+    "gradient_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/root_execution.json",
+      "sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f",
+      "deferred_numerical": false
+    },
+    "gradient_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/completion.json",
+      "sha256": "ab502a0c206eac89051960a1764dc02a035bd295bcca6cf27d0e3ac0088693ce",
+      "deferred_numerical": false
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "deferred_numerical": false
+    },
+    "FD_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31",
+      "deferred_numerical": false
+    },
+    "FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f",
+      "deferred_numerical": false
+    },
+    "FD_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/completion.json",
+      "sha256": "cb8786578e848cd5ad2bba8c5f1d1a31691c6cc478b2bd674359f5c582e49b9e",
+      "deferred_numerical": false
+    },
+    "FD_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/closure_handoff.json",
+      "sha256": "710356baa255379cdc9880e69db890ec63659d5f2290d6f761b65714221c2404",
+      "deferred_numerical": false
+    },
+    "exact_guard": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_relaxation_proposal001/exact_reported_guard1595.py",
+      "sha256": "686f983370f14fd406a76ee58fffe79396fbb4dffcaedc4f3241ea34d4397067",
+      "deferred_numerical": false
+    },
+    "exact_guard_source_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_relaxation_proposal001/guard_dimension_review.json",
+      "sha256": "1c9c94254a127123f4e177e65279188385207ce865ea727650c90c478e57220b",
+      "deferred_numerical": false
+    },
+    "nominal_NIST": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "sha256": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89",
+      "deferred_numerical": false
+    }
+  },
+  "fixed": {
+    "nucleus": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+    "electrons": 69,
+    "radial_orbitals": 31,
+    "radial_dimension": 123,
+    "coordinate_dimension": 3689,
+    "target_CSFS": 1595,
+    "full_parent_CSFS_enumerated": 3789,
+    "NR_configurations": 91,
+    "complete_target_blocks": [
+      {
+        "twoJ": 1,
+        "parity": -1,
+        "CSFs": 219
+      },
+      {
+        "twoJ": 1,
+        "parity": 1,
+        "CSFs": 223
+      },
+      {
+        "twoJ": 3,
+        "parity": -1,
+        "CSFs": 367
+      },
+      {
+        "twoJ": 3,
+        "parity": 1,
+        "CSFs": 370
+      },
+      {
+        "twoJ": 5,
+        "parity": 1,
+        "CSFs": 416
+      }
+    ],
+    "original_UIDs": [
+      [
+        "6s_1/2",
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_3/2",
+        [
+          3,
+          1,
+          0
+        ]
+      ],
+      [
+        "5d_5/2",
+        [
+          5,
+          1,
+          0
+        ]
+      ],
+      [
+        "6p_1/2",
+        [
+          1,
+          -1,
+          0
+        ]
+      ],
+      [
+        "6p_3/2",
+        [
+          3,
+          -1,
+          0
+        ]
+      ]
+    ],
+    "weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "native full Dirac-Coulomb only",
+    "new_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+    "new_geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+    "new_state_sha256": "2e4b926427f29adacf10529e371ec5a2bd591b63a5bc4fbd40f3dedc7a1d33d7",
+    "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e",
+    "kappas": [
+      -4,
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "physical_point": "literal qualified recovered31 P@Y with exact savedx; no reprojection",
+    "all31_orbitals_relax": true,
+    "no_initial_polar_repair": true,
+    "seven_no_pair_P_and_original_inverse_byte_identity": true,
+    "reported_objective": "ordinary native equal5targetEOL",
+    "NIST_only_reporting": true
+  },
+  "gates": {
+    "CI_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "cross_sector_H_Ha": 1e-14,
+    "radial_Gram": 1e-10,
+    "P_leak_S_squared": 1e-12,
+    "scaled_tangent_identity": 1e-10,
+    "whole_signed_gradient_linearity": 1e-09,
+    "whole_tangent_linearity": 1e-10,
+    "whole_pg_linearity": 1e-10,
+    "full_vs_retained_tangent": 1e-09,
+    "full_vs_retained_pg": 1e-10,
+    "own_baseline_rawg": 1e-09,
+    "own_baseline_pg": 1e-10,
+    "orbital_residual": 1e-07,
+    "energy_indicator_Ha": 1e-08,
+    "own_baseline_H_E_C_PQ_and_owner_bitwise": true,
+    "full1595states_complete": true
+  },
+  "resources": {
+    "interpreter": "/data/code/atomx/.venv/bin/python",
+    "CPU": 31,
+    "threads": 1,
+    "AS_GiB": 3.95,
+    "inner_seconds": 600,
+    "outer_seconds": 615,
+    "optimizer_soft_seconds": 570,
+    "max_new_accepted": 16,
+    "max_points": 17,
+    "max_energy_trials": 64,
+    "calls": {
+      "H": 65,
+      "CI": 65,
+      "gradient_from_weights": 51,
+      "initial_hS": 7,
+      "CI_hS": 455,
+      "validation_Dirac": 7,
+      "geometry_SPD": 38,
+      "SciPy_eigh": 346,
+      "tracker_resolve": 146,
+      "tracking_SVD": 730,
+      "tracker_overlap": 147,
+      "polar": 448,
+      "polar_numpy_eigh": 448,
+      "unfiltered_target_RDM": 85,
+      "retained_RDM": 17,
+      "gradient_pair_source": 177072,
+      "optimizer": 1
+    },
+    "thread_environment": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "maximum_system_load1": 32,
+    "maximum_signed_overlap_pairs": 30000,
+    "exact_guard_points": 17,
+    "exact_guard_target_quotients": 85,
+    "exact_guard_examined_pairs": 5000000,
+    "full_sector_support_pair_upper_per_point": 271965,
+    "full17points_support_pair_upper": 4623405,
+    "gradient_pair_census": "51weightedg x7ranks(k0..6) x496 unordered31radialsourcepairs =177072 ceiling; actual allsigned source groups forwarded without pruning",
+    "H_C_one_pair_bytes": 40704400,
+    "17accepted_HC_bytes_beforecompression": 691974800,
+    "65trial_HC_bytes_beforecompression": 2645786000,
+    "memory_and_wall_estimate": "Previous source-matched full31 baseline2H2CI3g peak1588MiB. Stream source potentials, keep baseline/previous/current owned arrays, archive completepoints. Actual17checkpoint3g plus<=64energytrials coldwall/RSS not measured;600s cap may stop before16. No speed claim."
+  },
+  "public_optimizer": {
+    "single_call": true,
+    "max_iter": 16,
+    "tolerance": 1e-07,
+    "energy_tolerance": 1e-08,
+    "history_size": 10,
+    "initial_history_empty": true,
+    "history_40_not_selected": true,
+    "projector_source": "nuclear",
+    "orbital_preconditioner": "spectral",
+    "occupation_floor": 0.05,
+    "energy_difference": null,
+    "allow_objective_change": false,
+    "return_state": false,
+    "metric_not_rebuilt_or_refit": true
+  },
+  "fullsigned_controls": {
+    "per_point": "unchanged production retained gradient +full-minus-retained weightedgradient +directfull weightedgradient =3calls; exactbinary64 targetc\u00b2 norms, unfiltered contract_bilinear(c,c) and original .2aggregate; includeeveryexactnonzero signedentry",
+    "max_five_target_tables": 85,
+    "max_production_public_gradients": 17,
+    "max_extra_weighted_gradients": 34,
+    "normalized_order": "fullfirst originalorder then retained-only originalorder fordelta; no setunion",
+    "raw_h_quotient_ambient_correction": "same independently measured full31 scheme: nonsymmetric rawh bra/transposeket and radialketnorm derivative, full same-kappa signed coefficients. Preserve absolute/relative normal/tangent metrics. Public production gradient is not swapped.",
+    "gradient_values_representation": "31x246 contiguousP+Q; save baseline/successor raw/tangent/pg forretained/fullnorm/corrected",
+    "record_diagnostics_false_on_extra_gradients": true,
+    "HF_partial_not_finite_CI_response_or_global_bound": true,
+    "uniform_path_bound_inherited": false
+  },
+  "exact_finite_H_guard": {
+    "shape_resource_only_private_successor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_relaxation_proposal001/exact_reported_guard1595.py",
+      "sha256": "686f983370f14fd406a76ee58fffe79396fbb4dffcaedc4f3241ea34d4397067",
+      "deferred_numerical": false
+    },
+    "arithmetic_and_original_Armijo_inequality_unchanged": true,
+    "support": "selected complete whole signed columns must haveexactzero outsidephysicalJ/parity; rejectnonzero, neverclip",
+    "cumulative_budget_never_reset": true,
+    "beforeloop_resource_census": "Pure Python integers before numerical imports: exact five complete sectors, 271965 pairs/point, 17 points=4623405<=5000000, 85 quotients<=85, 51 weighted gradients; reject inconsistent budget before loops.",
+    "acceptance": "recordedchange +|Dprev|+|Dnew|+|exactEchange-recordedchange|+|exact(1e-4*step*slope)-recordedRHS| <=recordedRHS usingexactFraction; D=exactweightednormalizedcTHc/ctc -actualreportedEO",
+    "not_optimizer_energy_callback": true,
+    "domain": "finite actual storedH expectation descent only, no radial/Cprime/uniformbound"
+  },
+  "source_dependency_isolation": {
+    "CI": "privatef043 variational.ci_solve ->privatef043 methods.ci ->privatef043 boundownerfactory ->privatef043 build_ci_matrix; no currentowner recovery or handcraftedH",
+    "gradient": "privatef043 public gradient_from_weights; extras contract native signed angular tables; no privateGPUadapter or source switch",
+    "optimization": "privatef043 public optimize_orbitals and immutablevalidated state; only independent NumPyexactconsumer forcheckpoint accounting",
+    "import_admission": "freshprocess before anyAtomx/NumPy import, full356archivehash match, sys.path frozenarchivefirst; everyloadedAtomxmodule must residewithinarchive andmatch recordedhash",
+    "current_source_contract_comparison": "currentepoch proposal waits itsregressionresolution/own5pointqualification; this independent f043run insteadusesown438+730qualification. Doesnot adoptcurrentcode or reinterpretitsFAIL."
+  },
+  "counter_call_chain": {
+    "H_CI": "<=1baseline +64energytrials; acceptedgradientrealowner reuse and0checkpointH",
+    "g": "<=17publicretainedg +34additional weightedg =51; <=85fullunfiltered targetbilinear",
+    "hS": "7initial +<=65CI x7 <=462cap; actualcachecarrymaylowerproducerwork, no terminalexactgetter equality",
+    "spectral": "7validationDirac with<=3finiteeigh retries each +65CI x5fullsector=346;7activeS+31inverse SPD=38; retractioncap448groups",
+    "tracking": "<=65CIexplicitUIDresolve +<=65reported trial/baseline resolve +<=16acceptedgradient resolve =146;5SVD each=730;constructor1overlap =>147",
+    "trial_forensics": "eachcompleteCI archivedbefore physicalgate; acceptedCI pointer recordedbeforegradient; eachcheckpointretained arrays beforefullsigned gates and finalcompletearrays beforeexactguard",
+    "observer": "Strict radial pair attempted/completed counters remain per forward call; progress flush only at full gradient boundaries, other top-level operators, resource cap or final failure. No per-pair disk write."
+  },
+  "stop": "Firstidentity/physical/fullsigned/finiteacceptance/resource failure aborts viaRuntimeError toescape public ValueError backtracking; preservefirstcandidate andlastqualifiedcheckpoint. No userdriver retries, budgetreset, modelpruning, fittedweights, alternatebranch or automaticcontinuation. Nativeordinary inequality backtracking/fallback retainedwithin recordedcaps.",
+  "outputs": [
+    "full1595H/roots/signedC/owner and originalfiveUID/.2 at alltrialCI;31radials/3689x/layout/P/inverses and fullsignedg/pg at allacceptedpoints",
+    "fullCIGram/residual/crosssector, allsamekappaGram/no-pair, scaledandabsolute tangentdefect/inputnorm; originalmetricstationarityforeachgradientdomain",
+    "actualArmijo step/slope/parent/trial/RHS/attempt/backtrack andexactpoint/decision/cumulativebudget",
+    "5lower/upper changes,fourlabelledlines,D/Pcentroids/splittings and RMSreport at everyactualacceptedpoint; no gap-basedselection",
+    "attempted/completednativecalls, sourceimports/caps/firstfailure/priorqualifiedpoint/rootclosureidentity and uncontrolledtiming"
+  ],
+  "completion": "Successful16accepts is notconvergence. Originalretained/fullnormal/corrected projectedstationarity1e-7 andindicator1e-8 mustallclose; reportoptimizertermination separately. Experimentalaccuracy andphysicalcompleteness remainunqualified.",
+  "source_preparation_only": {
+    "numerical_imports": 0,
+    "NPZ_reads_or_rehashes": 0,
+    "physical_calls": 0,
+    "shared_source_edits": 0,
+    "mainREADME_registry_timer_card_site_edits": 0
+  },
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/execution_binding.json"
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py", line 726, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py", line 722, in main
+    execute(args.execute)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py", line 439, in execute
+    check("saved_actual_owner_header", ci.hamiltonian_snapshot.identity_payload() != load(roles["recovered_owner"]))
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py", line 209, in check
+    raise AssertionError(name)
+AssertionError: saved_actual_owner_header

@@ -1,0 +1,33 @@
+{
+  "hypothesis": "Rank1 Coulomb multipoles connect s to p and d to both p/f; an only-p virtual addition is angularly uneven. Check allowed channels, not a predicted energy correction.",
+  "fixed": {
+    "target_kappa": {
+      "S": -1,
+      "D3": 2,
+      "D5": -3
+    },
+    "candidate_kappa": {
+      "p1": 1,
+      "p3": -2,
+      "f5": 3,
+      "f7": -4
+    },
+    "rank": 1
+  },
+  "gates": "Native reduced_C nonzero census must equal independent triangle+orbital-parity condition. No spectrum, integral construction or amplitude solve.",
+  "inputs": {
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+  },
+  "future_only_resource_plan": {
+    "core_amplitudes": 4123824,
+    "attachment_coordinates": 767840,
+    "dense_core_coordinates": 191435328,
+    "dense_attachment_coordinates": 10635296,
+    "resident_integral_bytes": 50040000,
+    "numerical_upper_bytes": 38972589248,
+    "attachment_matrix_bytes": 4716626124800,
+    "full_particle_sectors_enumerated": false,
+    "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+  },
+  "scope": "Structural angular admission only. Does not establish a missing-f numerical correction or justify a fitted channel choice."
+}

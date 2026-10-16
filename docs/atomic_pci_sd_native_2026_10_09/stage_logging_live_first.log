@@ -1,0 +1,436 @@
+...FFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+____ test_live_direct_core_sd_vs_independent_native_csf[0-original-compact] ____
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in0')
+initialization = 'original', term21_threads = 0, term21_mode = 'compact'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c04537f0d0>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-shared', 'native_bridge.f90', 'core_diagrams.f', '-o', 'native_core_sd.so', '-L/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+______ test_live_direct_core_sd_vs_independent_native_csf[0-blas-compact] ______
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in1')
+initialization = 'blas', term21_threads = 0, term21_mode = 'compact'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c0451212d0>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-shared', 'native_bridge.f90', 'core_diagrams.f', '-o', 'native_core_sd.so', '-L/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas-r0.3.32.so', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+_____ test_live_direct_core_sd_vs_independent_native_csf[0-blas-streamed] ______
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in2')
+initialization = 'blas', term21_threads = 0, term21_mode = 'streamed'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c04537f6a0>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-shared', 'native_bridge.f90', 'core_diagrams.f', '-o', 'native_core_sd.so', '-L/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu', '/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas-r0.3.32.so', '-Wl,-rpath,/data/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+____ test_live_direct_core_sd_vs_independent_native_csf[1-original-compact] ____
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in3')
+initialization = 'original', term21_threads = 1, term21_mode = 'compact'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c044f2bc40>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-c', 'native_bridge.f90']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+______ test_live_direct_core_sd_vs_independent_native_csf[1-blas-compact] ______
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in4')
+initialization = 'blas', term21_threads = 1, term21_mode = 'compact'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c0453c7520>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-c', 'native_bridge.f90']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+_____ test_live_direct_core_sd_vs_independent_native_csf[1-blas-streamed] ______
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/tmp/pytest-of-zzhang/pytest-281/test_live_direct_core_sd_vs_in5')
+initialization = 'blas', term21_threads = 1, term21_mode = 'streamed'
+capfd = <_pytest.capture.CaptureFixture object at 0x78c05deea5c0>
+
+    @pytest.mark.parametrize(
+        "initialization,term21_mode",
+        [
+            ("original", "compact"),
+            ("blas", "compact"),
+            ("blas", "streamed"),
+        ],
+    )
+    @pytest.mark.parametrize("term21_threads", [0, 1])
+    def test_live_direct_core_sd_vs_independent_native_csf(
+        native, tmp_path, initialization, term21_threads, term21_mode, capfd
+    ):
+        source = os.environ.get("ATOMX_PCI_SOURCE")
+        compiler = os.environ.get("ATOMX_PCI_COMPILER")
+        if not source or not compiler:
+            pytest.skip(
+                "set pinned ATOMX_PCI_SOURCE and ATOMX_PCI_COMPILER for the live equation backend gate"
+            )
+        blas = os.environ.get("ATOMX_PCI_BLAS") if initialization == "blas" else None
+        if initialization == "blas" and not blas:
+            pytest.skip("set ATOMX_PCI_BLAS for live LP64 BLAS initialization")
+        script = Path(__file__).resolve().parents[1] / "tools/build_pci_sd_backend.py"
+        spec = importlib.util.spec_from_file_location("build_pci_sd_backend", script)
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        core, orbitals = native
+        occupied, virtual = [(1, -1)], [(2, -1), (2, 1), (2, -2)]
+        features = CellCoulombFeatures(core._bsp_data)
+        plan = plan_core_sd(
+            occupied,
+            virtual,
+            features.identity,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+        directory = tmp_path / "backend"
+>       builder.build(
+            source,
+            directory,
+            plan["dimensions"],
+            compiler,
+            runtime_directory=os.environ.get("ATOMX_PCI_RUNTIME"),
+            blas_library=blas,
+            term21_threads=term21_threads,
+            term21_mode=term21_mode,
+        )
+
+tests/test_core_sd.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/build_pci_sd_backend.py:675: in build
+    completed.check_returncode()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CompletedProcess(args=['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy'...nnot open module file ‘native_sd_bridge.mod’ for reading at (1): No such file or directory\ncompilation terminated.\n')
+
+    def check_returncode(self):
+        """Raise CalledProcessError if the exit code is non-zero."""
+        if self.returncode:
+>           raise CalledProcessError(self.returncode, self.args, self.stdout,
+                                     self.stderr)
+E           subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-c', 'native_bridge.f90']' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:457: CalledProcessError
+=========================== short test summary info ============================
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[0-original-compact]
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[0-blas-compact]
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[0-blas-streamed]
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[1-original-compact]
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[1-blas-compact]
+FAILED tests/test_core_sd.py::test_live_direct_core_sd_vs_independent_native_csf[1-blas-streamed]
+6 failed, 3 passed in 5.04s

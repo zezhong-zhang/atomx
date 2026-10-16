@@ -1,0 +1,33 @@
+.F...                                                                    [100%]
+=================================== FAILURES ===================================
+____________________ test_phase_covariance_and_owned_arrays ____________________
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+
+    def test_phase_covariance_and_owned_arrays(native):
+        core, od = native
+        a = integrals(native)
+        changed = dict(od)
+        changed[2, -1] = tuple(-x for x in od[2, -1])
+        b = build_spinor_integrals(changed, core._bsp_data, 4, 30,
+            occupied_keys=[(1, -1)], virtual_keys=[(2, -1), (2, 1), (2, -2)],
+            nuclear_potential=core._nuclear_potential)
+        phases = np.array([-1 if label[:2] == (2, -1) else 1 for label in a.labels])
+        assert np.max(abs(b.fock_Ha-phases[:, None]*a.fock_Ha*phases)) < 1e-12
+>       assert np.max(abs(a.fock_Ha-np.diag(np.diag(a.fock_Ha)))) > 1e-8
+E       AssertionError: assert np.float64(1.0803274247406236e-09) > 1e-08
+E        +  where np.float64(1.0803274247406236e-09) = <function max at 0x7500fcf29770>(array([[0.00000000e+00, 0.00000000e+00, 1.08032742e-09, 0.00000000e+00,\n        0.00000000e+00, 0.00000000e+00, 0.0000...e+00,\n        0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,\n        0.00000000e+00, 0.00000000e+00]]))
+E        +    where <function max at 0x7500fcf29770> = np.max
+E        +    and   array([[0.00000000e+00, 0.00000000e+00, 1.08032742e-09, 0.00000000e+00,\n        0.00000000e+00, 0.00000000e+00, 0.0000...e+00,\n        0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,\n        0.00000000e+00, 0.00000000e+00]]) = abs((array([[-5.66807702e+00+0.j,  0.00000000e+00+0.j, -1.08032742e-09+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n        -5.19390030e-01+0.j]]) - array([[-5.66807702+0.j,  0.        +0.j,  0.        +0.j,\n         0.        +0.j,  0.        +0.j,  0.        +0.j,\n... 0.        +0.j,  0.        +0.j,\n         0.        +0.j,  0.        +0.j,  0.        +0.j,\n        -0.51939003+0.j]])))
+E        +      where array([[-5.66807702e+00+0.j,  0.00000000e+00+0.j, -1.08032742e-09+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n        -5.19390030e-01+0.j]]) = SpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), (2, -2, ...metric_error': 2.220446049250313e-15, 'hermitian_projection_max_Ha': 4.0245584642661925e-16, 'integral_bytes': 21680})).fock_Ha
+E        +      and   array([[-5.66807702+0.j,  0.        +0.j,  0.        +0.j,\n         0.        +0.j,  0.        +0.j,  0.        +0.j,\n... 0.        +0.j,  0.        +0.j,\n         0.        +0.j,  0.        +0.j,  0.        +0.j,\n        -0.51939003+0.j]]) = <function diag at 0x7500fa77b2f0>(array([-5.66807702+0.j, -5.66807702+0.j, -0.66607689+0.j, -0.66607689+0.j,\n       -0.51943615+0.j, -0.51943615+0.j, -0.51939003+0.j, -0.51939003+0.j,\n       -0.51939003+0.j, -0.51939003+0.j]))
+E        +        where <function diag at 0x7500fa77b2f0> = np.diag
+E        +        and   array([-5.66807702+0.j, -5.66807702+0.j, -0.66607689+0.j, -0.66607689+0.j,\n       -0.51943615+0.j, -0.51943615+0.j, -0.51939003+0.j, -0.51939003+0.j,\n       -0.51939003+0.j, -0.51939003+0.j]) = <function diag at 0x7500fa77b2f0>(array([[-5.66807702e+00+0.j,  0.00000000e+00+0.j, -1.08032742e-09+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n        -5.19390030e-01+0.j]]))
+E        +          where <function diag at 0x7500fa77b2f0> = np.diag
+E        +          and   array([[-5.66807702e+00+0.j,  0.00000000e+00+0.j, -1.08032742e-09+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0....00000000e+00+0.j,\n         0.00000000e+00+0.j,  0.00000000e+00+0.j,  0.00000000e+00+0.j,\n        -5.19390030e-01+0.j]]) = SpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), (2, -2, ...metric_error': 2.220446049250313e-15, 'hermitian_projection_max_Ha': 4.0245584642661925e-16, 'integral_bytes': 21680})).fock_Ha
+
+tests/test_spinor_integrals_fscc.py:76: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_spinor_integrals_fscc.py::test_phase_covariance_and_owned_arrays
+1 failed, 4 passed in 5.55s

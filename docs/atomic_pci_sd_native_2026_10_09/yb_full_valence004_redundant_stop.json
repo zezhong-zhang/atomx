@@ -1,0 +1,22 @@
+{
+  "pid": 421096,
+  "command": ".venv/bin/python -u docs/atomic_pci_sd_native_2026_10_09/probe_yb_full_valence.py --run-name yb_full_valence004 --resume-from yb_full_valence003 --screening --valence-term2-blas --valence-term2-threads 8 ",
+  "reason": "Current certifiedGMRES CUDA005 freshly passed every already completed004 column; stop own redundantCPU004 to release eight workers and preserve retained completed scientific checkpoints. Its unfinishedp3/2 iterate is uncertified and no mid-iteration checkpoint exists; neither completed nor recoverable claim.",
+  "completed_binding": {
+    "6_-1": {
+      "parent_sha256": "c92c7c58b04778535a02705ada7085b5290e5e643bd02bf7c1101d7e2260b780",
+      "current_sha256": "efb58a63f5b92ab9ef95eb4a9e8232513add7f187c231a4e1703a45d00e521c9"
+    },
+    "6_1": {
+      "parent_sha256": "83a8ef2e1f5b732a9523a7a8dee3ae9d6d6eb5f9dcb07f44df806ab3a3d41d80",
+      "current_sha256": "b55a1b80e2537f685d1147f788e622755bbca0b8b6a6679abe3417d1e4b65db7"
+    }
+  },
+  "load": [
+    17.4921875,
+    19.08447265625,
+    21.1904296875
+  ],
+  "signal": "SIGINT",
+  "public_source_or_unrelated_jobs_changed": false
+}

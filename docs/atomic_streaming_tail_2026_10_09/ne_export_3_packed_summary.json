@@ -1,0 +1,29 @@
+{
+  "representation": "packed",
+  "spinors": 154,
+  "virtual": 144,
+  "construction_seconds": 21.778909185901284,
+  "export_or_solve_seconds": 0.60299137304537,
+  "end_to_end_seconds": 22.381900558946654,
+  "peak_RSS_bytes": 2534162432,
+  "load_before": [
+    13.1640625,
+    11.73046875,
+    10.5146484375
+  ],
+  "load_after": [
+    12.56103515625,
+    11.68310546875,
+    10.52587890625
+  ],
+  "producer": {
+    "representation": "packed",
+    "resident_matrix_bytes": 758912,
+    "resident_eri_bytes": 1119980400,
+    "dense_eri_bytes": 1119980400
+  },
+  "eri_sha_matches_old": true,
+  "fock_error_Ha": 0.0,
+  "solved": null,
+  "timing_scope": "Core/complete-band construction and integral export; backend included only when solved is present"
+}

@@ -1,0 +1,1670 @@
+{
+  "status": "pure_kinematic_preflight_no_physics_evaluation",
+  "method": "Pauli-complete magnetic determinants grouped by jj occupation pattern; CSF multiplicity D(J)-D(J+1); raw angular count includes only patterns with nonzero CSF multiplicity at that J.",
+  "failed_first_control_preserved": {
+    "mistake": "Using aggregate D(M=J) as implementation raw angular count retains zero-J-multiplicity patterns.",
+    "baseline_aggregate_max": 275,
+    "archived_and_pattern_resolved_max": 232,
+    "consequence": "First max-raw equality assertion failed (275 vs232); no physics computation occurred; corrected counting matches all88 archived scalar/block controls."
+  },
+  "controls": [
+    {
+      "name": "CSFs",
+      "actual": 531,
+      "archive": 531,
+      "pass": true
+    },
+    {
+      "name": "symmetry_blocks",
+      "actual": 16,
+      "archive": 16,
+      "pass": true
+    },
+    {
+      "name": "max_block_CSFs",
+      "actual": 64,
+      "archive": 64,
+      "pass": true
+    },
+    {
+      "name": "max_block_raw_M_equals_J",
+      "actual": 232,
+      "archive": 232,
+      "pass": true
+    },
+    {
+      "name": "raw_pair_work_upper",
+      "actual": 284992,
+      "archive": 284992,
+      "pass": true
+    },
+    {
+      "name": "dense_CSF_matrix_bytes_all_blocks",
+      "actual": 205944,
+      "archive": 205944,
+      "pass": true
+    },
+    {
+      "name": "dense_raw_matrix_bytes_all_blocks",
+      "actual": 2279936,
+      "archive": 2279936,
+      "pass": true
+    },
+    {
+      "name": "full_magnetic_dimension",
+      "actual": 3384,
+      "archive": 3384,
+      "pass": true
+    },
+    {
+      "name": "J1/parity-1/twoJ",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J1/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J1/parity-1/CSFs",
+      "actual": 39,
+      "archive": 39,
+      "pass": true
+    },
+    {
+      "name": "J1/parity-1/unique_patterns",
+      "actual": 31,
+      "archive": 31,
+      "pass": true
+    },
+    {
+      "name": "J1/parity-1/raw_M_equals_J_determinants",
+      "actual": 232,
+      "archive": 232,
+      "pass": true
+    },
+    {
+      "name": "J1/parity1/twoJ",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J1/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J1/parity1/CSFs",
+      "actual": 38,
+      "archive": 38,
+      "pass": true
+    },
+    {
+      "name": "J1/parity1/unique_patterns",
+      "actual": 28,
+      "archive": 28,
+      "pass": true
+    },
+    {
+      "name": "J1/parity1/raw_M_equals_J_determinants",
+      "actual": 222,
+      "archive": 222,
+      "pass": true
+    },
+    {
+      "name": "J3/parity-1/twoJ",
+      "actual": 3,
+      "archive": 3,
+      "pass": true
+    },
+    {
+      "name": "J3/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J3/parity-1/CSFs",
+      "actual": 63,
+      "archive": 63,
+      "pass": true
+    },
+    {
+      "name": "J3/parity-1/unique_patterns",
+      "actual": 37,
+      "archive": 37,
+      "pass": true
+    },
+    {
+      "name": "J3/parity-1/raw_M_equals_J_determinants",
+      "actual": 232,
+      "archive": 232,
+      "pass": true
+    },
+    {
+      "name": "J3/parity1/twoJ",
+      "actual": 3,
+      "archive": 3,
+      "pass": true
+    },
+    {
+      "name": "J3/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J3/parity1/CSFs",
+      "actual": 59,
+      "archive": 59,
+      "pass": true
+    },
+    {
+      "name": "J3/parity1/unique_patterns",
+      "actual": 31,
+      "archive": 31,
+      "pass": true
+    },
+    {
+      "name": "J3/parity1/raw_M_equals_J_determinants",
+      "actual": 213,
+      "archive": 213,
+      "pass": true
+    },
+    {
+      "name": "J5/parity-1/twoJ",
+      "actual": 5,
+      "archive": 5,
+      "pass": true
+    },
+    {
+      "name": "J5/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J5/parity-1/CSFs",
+      "actual": 64,
+      "archive": 64,
+      "pass": true
+    },
+    {
+      "name": "J5/parity-1/unique_patterns",
+      "actual": 35,
+      "archive": 35,
+      "pass": true
+    },
+    {
+      "name": "J5/parity-1/raw_M_equals_J_determinants",
+      "actual": 171,
+      "archive": 171,
+      "pass": true
+    },
+    {
+      "name": "J5/parity1/twoJ",
+      "actual": 5,
+      "archive": 5,
+      "pass": true
+    },
+    {
+      "name": "J5/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J5/parity1/CSFs",
+      "actual": 62,
+      "archive": 62,
+      "pass": true
+    },
+    {
+      "name": "J5/parity1/unique_patterns",
+      "actual": 31,
+      "archive": 31,
+      "pass": true
+    },
+    {
+      "name": "J5/parity1/raw_M_equals_J_determinants",
+      "actual": 159,
+      "archive": 159,
+      "pass": true
+    },
+    {
+      "name": "J7/parity-1/twoJ",
+      "actual": 7,
+      "archive": 7,
+      "pass": true
+    },
+    {
+      "name": "J7/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J7/parity-1/CSFs",
+      "actual": 52,
+      "archive": 52,
+      "pass": true
+    },
+    {
+      "name": "J7/parity-1/unique_patterns",
+      "actual": 29,
+      "archive": 29,
+      "pass": true
+    },
+    {
+      "name": "J7/parity-1/raw_M_equals_J_determinants",
+      "actual": 109,
+      "archive": 109,
+      "pass": true
+    },
+    {
+      "name": "J7/parity1/twoJ",
+      "actual": 7,
+      "archive": 7,
+      "pass": true
+    },
+    {
+      "name": "J7/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J7/parity1/CSFs",
+      "actual": 47,
+      "archive": 47,
+      "pass": true
+    },
+    {
+      "name": "J7/parity1/unique_patterns",
+      "actual": 23,
+      "archive": 23,
+      "pass": true
+    },
+    {
+      "name": "J7/parity1/raw_M_equals_J_determinants",
+      "actual": 97,
+      "archive": 97,
+      "pass": true
+    },
+    {
+      "name": "J9/parity-1/twoJ",
+      "actual": 9,
+      "archive": 9,
+      "pass": true
+    },
+    {
+      "name": "J9/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J9/parity-1/CSFs",
+      "actual": 32,
+      "archive": 32,
+      "pass": true
+    },
+    {
+      "name": "J9/parity-1/unique_patterns",
+      "actual": 20,
+      "archive": 20,
+      "pass": true
+    },
+    {
+      "name": "J9/parity-1/raw_M_equals_J_determinants",
+      "actual": 57,
+      "archive": 57,
+      "pass": true
+    },
+    {
+      "name": "J9/parity1/twoJ",
+      "actual": 9,
+      "archive": 9,
+      "pass": true
+    },
+    {
+      "name": "J9/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J9/parity1/CSFs",
+      "actual": 30,
+      "archive": 30,
+      "pass": true
+    },
+    {
+      "name": "J9/parity1/unique_patterns",
+      "actual": 17,
+      "archive": 17,
+      "pass": true
+    },
+    {
+      "name": "J9/parity1/raw_M_equals_J_determinants",
+      "actual": 50,
+      "archive": 50,
+      "pass": true
+    },
+    {
+      "name": "J11/parity-1/twoJ",
+      "actual": 11,
+      "archive": 11,
+      "pass": true
+    },
+    {
+      "name": "J11/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J11/parity-1/CSFs",
+      "actual": 17,
+      "archive": 17,
+      "pass": true
+    },
+    {
+      "name": "J11/parity-1/unique_patterns",
+      "actual": 12,
+      "archive": 12,
+      "pass": true
+    },
+    {
+      "name": "J11/parity-1/raw_M_equals_J_determinants",
+      "actual": 25,
+      "archive": 25,
+      "pass": true
+    },
+    {
+      "name": "J11/parity1/twoJ",
+      "actual": 11,
+      "archive": 11,
+      "pass": true
+    },
+    {
+      "name": "J11/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J11/parity1/CSFs",
+      "actual": 14,
+      "archive": 14,
+      "pass": true
+    },
+    {
+      "name": "J11/parity1/unique_patterns",
+      "actual": 9,
+      "archive": 9,
+      "pass": true
+    },
+    {
+      "name": "J11/parity1/raw_M_equals_J_determinants",
+      "actual": 20,
+      "archive": 20,
+      "pass": true
+    },
+    {
+      "name": "J13/parity-1/twoJ",
+      "actual": 13,
+      "archive": 13,
+      "pass": true
+    },
+    {
+      "name": "J13/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J13/parity-1/CSFs",
+      "actual": 6,
+      "archive": 6,
+      "pass": true
+    },
+    {
+      "name": "J13/parity-1/unique_patterns",
+      "actual": 5,
+      "archive": 5,
+      "pass": true
+    },
+    {
+      "name": "J13/parity-1/raw_M_equals_J_determinants",
+      "actual": 8,
+      "archive": 8,
+      "pass": true
+    },
+    {
+      "name": "J13/parity1/twoJ",
+      "actual": 13,
+      "archive": 13,
+      "pass": true
+    },
+    {
+      "name": "J13/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J13/parity1/CSFs",
+      "actual": 5,
+      "archive": 5,
+      "pass": true
+    },
+    {
+      "name": "J13/parity1/unique_patterns",
+      "actual": 4,
+      "archive": 4,
+      "pass": true
+    },
+    {
+      "name": "J13/parity1/raw_M_equals_J_determinants",
+      "actual": 6,
+      "archive": 6,
+      "pass": true
+    },
+    {
+      "name": "J15/parity-1/twoJ",
+      "actual": 15,
+      "archive": 15,
+      "pass": true
+    },
+    {
+      "name": "J15/parity-1/parity",
+      "actual": -1,
+      "archive": -1,
+      "pass": true
+    },
+    {
+      "name": "J15/parity-1/CSFs",
+      "actual": 2,
+      "archive": 2,
+      "pass": true
+    },
+    {
+      "name": "J15/parity-1/unique_patterns",
+      "actual": 2,
+      "archive": 2,
+      "pass": true
+    },
+    {
+      "name": "J15/parity-1/raw_M_equals_J_determinants",
+      "actual": 2,
+      "archive": 2,
+      "pass": true
+    },
+    {
+      "name": "J15/parity1/twoJ",
+      "actual": 15,
+      "archive": 15,
+      "pass": true
+    },
+    {
+      "name": "J15/parity1/parity",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J15/parity1/CSFs",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J15/parity1/unique_patterns",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    },
+    {
+      "name": "J15/parity1/raw_M_equals_J_determinants",
+      "actual": 1,
+      "archive": 1,
+      "pass": true
+    }
+  ],
+  "all_controls_pass": true,
+  "models": {
+    "baseline531": {
+      "NR_configuration_count": 21,
+      "radial_spinor_count": 24,
+      "full_magnetic_dimension": 3384,
+      "CSFs": 531,
+      "symmetry_blocks": 16,
+      "max_block_CSFs": 64,
+      "max_block_raw_M_equals_J": 232,
+      "max_all_patterns_M_equals_J": 275,
+      "raw_pair_work_upper": 284992,
+      "dense_CSF_matrix_bytes_all_blocks": 205944,
+      "dense_raw_matrix_bytes_all_blocks": 2279936,
+      "target_symmetry_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 39,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 232,
+          "all_patterns_M_equals_J": 275
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 38,
+          "unique_patterns": 28,
+          "raw_M_equals_J_determinants": 222,
+          "all_patterns_M_equals_J": 256
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 63,
+          "unique_patterns": 37,
+          "raw_M_equals_J_determinants": 232,
+          "all_patterns_M_equals_J": 236
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 59,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 213,
+          "all_patterns_M_equals_J": 218
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 62,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 159,
+          "all_patterns_M_equals_J": 159
+        }
+      ],
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 39,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 232,
+          "all_patterns_M_equals_J": 275
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 38,
+          "unique_patterns": 28,
+          "raw_M_equals_J_determinants": 222,
+          "all_patterns_M_equals_J": 256
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 63,
+          "unique_patterns": 37,
+          "raw_M_equals_J_determinants": 232,
+          "all_patterns_M_equals_J": 236
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 59,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 213,
+          "all_patterns_M_equals_J": 218
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 64,
+          "unique_patterns": 35,
+          "raw_M_equals_J_determinants": 171,
+          "all_patterns_M_equals_J": 173
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 62,
+          "unique_patterns": 31,
+          "raw_M_equals_J_determinants": 159,
+          "all_patterns_M_equals_J": 159
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 52,
+          "unique_patterns": 29,
+          "raw_M_equals_J_determinants": 109,
+          "all_patterns_M_equals_J": 109
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 47,
+          "unique_patterns": 23,
+          "raw_M_equals_J_determinants": 97,
+          "all_patterns_M_equals_J": 97
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 32,
+          "unique_patterns": 20,
+          "raw_M_equals_J_determinants": 57,
+          "all_patterns_M_equals_J": 57
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 30,
+          "unique_patterns": 17,
+          "raw_M_equals_J_determinants": 50,
+          "all_patterns_M_equals_J": 50
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 17,
+          "unique_patterns": 12,
+          "raw_M_equals_J_determinants": 25,
+          "all_patterns_M_equals_J": 25
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 14,
+          "unique_patterns": 9,
+          "raw_M_equals_J_determinants": 20,
+          "all_patterns_M_equals_J": 20
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 6,
+          "unique_patterns": 5,
+          "raw_M_equals_J_determinants": 8,
+          "all_patterns_M_equals_J": 8
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 5,
+          "unique_patterns": 4,
+          "raw_M_equals_J_determinants": 6,
+          "all_patterns_M_equals_J": 6
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 2,
+          "unique_patterns": 2,
+          "raw_M_equals_J_determinants": 2,
+          "all_patterns_M_equals_J": 2
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 1,
+          "unique_patterns": 1,
+          "raw_M_equals_J_determinants": 1,
+          "all_patterns_M_equals_J": 1
+        }
+      ],
+      "five_complete_target_sectors": {
+        "CSFs": 261,
+        "sector_count": 5,
+        "raw_M_equals_J_determinants_sum_across_sectors": 1058,
+        "raw_pair_work_upper": 227582,
+        "dense_CSF_matrix_bytes": 114072,
+        "dense_raw_matrix_bytes": 1820656,
+        "exact_symmetry_bound": "For scalar DC/static Breit and five specified J/parity target states, omitted sectors have exactly zero state amplitude and Hamiltonian coupling by symmetry. Each selected sector is complete: no occupation, configuration or amplitude pruning. Original embedded target norm is one; expanded target overlap is unmeasured and must satisfy unchanged signed-overlap matching rules.",
+        "claim_limit": "This subset supports five-state EOL/target RCI only. It does not certify all-spectrum roots, global finite-H ground identity, or omitted-sector experiments. Baseline full-versus-sector CI energies, signed vectors and complete EOL gradients must match before this route is used."
+      },
+      "all_block_raw_pair_work_ratio_to531": 1.0,
+      "five_target_raw_pair_work_ratio_to531": 1.0,
+      "within_original_raw_per_block_cap_2000": true
+    },
+    "baseline_plus_complete_5p_double_holes": {
+      "NR_configuration_count": 30,
+      "radial_spinor_count": 24,
+      "full_magnetic_dimension": 15624,
+      "CSFs": 2483,
+      "symmetry_blocks": 16,
+      "max_block_CSFs": 302,
+      "max_block_raw_M_equals_J": 1215,
+      "max_all_patterns_M_equals_J": 1265,
+      "raw_pair_work_upper": 6845360,
+      "dense_CSF_matrix_bytes_all_blocks": 4590456,
+      "dense_raw_matrix_bytes_all_blocks": 54762880,
+      "target_symmetry_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 182,
+          "unique_patterns": 72,
+          "raw_M_equals_J_determinants": 1215,
+          "all_patterns_M_equals_J": 1265
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 180,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 1176,
+          "all_patterns_M_equals_J": 1218
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 295,
+          "unique_patterns": 81,
+          "raw_M_equals_J_determinants": 1079,
+          "all_patterns_M_equals_J": 1083
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 285,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 1031,
+          "all_patterns_M_equals_J": 1038
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 298,
+          "unique_patterns": 81,
+          "raw_M_equals_J_determinants": 753,
+          "all_patterns_M_equals_J": 753
+        }
+      ],
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 182,
+          "unique_patterns": 72,
+          "raw_M_equals_J_determinants": 1215,
+          "all_patterns_M_equals_J": 1265
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 180,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 1176,
+          "all_patterns_M_equals_J": 1218
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 295,
+          "unique_patterns": 81,
+          "raw_M_equals_J_determinants": 1079,
+          "all_patterns_M_equals_J": 1083
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 285,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 1031,
+          "all_patterns_M_equals_J": 1038
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 302,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 786,
+          "all_patterns_M_equals_J": 788
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 298,
+          "unique_patterns": 81,
+          "raw_M_equals_J_determinants": 753,
+          "all_patterns_M_equals_J": 753
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 240,
+          "unique_patterns": 65,
+          "raw_M_equals_J_determinants": 486,
+          "all_patterns_M_equals_J": 486
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 227,
+          "unique_patterns": 65,
+          "raw_M_equals_J_determinants": 454,
+          "all_patterns_M_equals_J": 455
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 145,
+          "unique_patterns": 47,
+          "raw_M_equals_J_determinants": 246,
+          "all_patterns_M_equals_J": 246
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 141,
+          "unique_patterns": 52,
+          "raw_M_equals_J_determinants": 228,
+          "all_patterns_M_equals_J": 228
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 71,
+          "unique_patterns": 30,
+          "raw_M_equals_J_determinants": 101,
+          "all_patterns_M_equals_J": 101
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 62,
+          "unique_patterns": 28,
+          "raw_M_equals_J_determinants": 87,
+          "all_patterns_M_equals_J": 87
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 24,
+          "unique_patterns": 15,
+          "raw_M_equals_J_determinants": 30,
+          "all_patterns_M_equals_J": 30
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 22,
+          "unique_patterns": 18,
+          "raw_M_equals_J_determinants": 25,
+          "all_patterns_M_equals_J": 25
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 6,
+          "unique_patterns": 6,
+          "raw_M_equals_J_determinants": 6,
+          "all_patterns_M_equals_J": 6
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 3,
+          "unique_patterns": 3,
+          "raw_M_equals_J_determinants": 3,
+          "all_patterns_M_equals_J": 3
+        }
+      ],
+      "five_complete_target_sectors": {
+        "CSFs": 1240,
+        "sector_count": 5,
+        "raw_M_equals_J_determinants_sum_across_sectors": 5254,
+        "raw_pair_work_upper": 5653412,
+        "dense_CSF_matrix_bytes": 2580624,
+        "dense_raw_matrix_bytes": 45227296,
+        "exact_symmetry_bound": "For scalar DC/static Breit and five specified J/parity target states, omitted sectors have exactly zero state amplitude and Hamiltonian coupling by symmetry. Each selected sector is complete: no occupation, configuration or amplitude pruning. Original embedded target norm is one; expanded target overlap is unmeasured and must satisfy unchanged signed-overlap matching rules.",
+        "claim_limit": "This subset supports five-state EOL/target RCI only. It does not certify all-spectrum roots, global finite-H ground identity, or omitted-sector experiments. Baseline full-versus-sector CI energies, signed vectors and complete EOL gradients must match before this route is used."
+      },
+      "all_block_raw_pair_work_ratio_to531": 24.019481248596453,
+      "five_target_raw_pair_work_ratio_to531": 24.841208882952078,
+      "within_original_raw_per_block_cap_2000": true
+    },
+    "baseline_plus_complete_4f_double_holes": {
+      "NR_configuration_count": 30,
+      "radial_spinor_count": 24,
+      "full_magnetic_dimension": 77640,
+      "CSFs": 8667,
+      "symmetry_blocks": 24,
+      "max_block_CSFs": 744,
+      "max_block_raw_M_equals_J": 4369,
+      "max_all_patterns_M_equals_J": 4412,
+      "raw_pair_work_upper": 121157414,
+      "dense_CSF_matrix_bytes_all_blocks": 38418584,
+      "dense_raw_matrix_bytes_all_blocks": 969259312,
+      "target_symmetry_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 324,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 4369,
+          "all_patterns_M_equals_J": 4412
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 316,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 4221,
+          "all_patterns_M_equals_J": 4255
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 579,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 4084,
+          "all_patterns_M_equals_J": 4088
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 561,
+          "unique_patterns": 85,
+          "raw_M_equals_J_determinants": 3934,
+          "all_patterns_M_equals_J": 3939
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 700,
+          "unique_patterns": 85,
+          "raw_M_equals_J_determinants": 3378,
+          "all_patterns_M_equals_J": 3378
+        }
+      ],
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 324,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 4369,
+          "all_patterns_M_equals_J": 4412
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 316,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 4221,
+          "all_patterns_M_equals_J": 4255
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 579,
+          "unique_patterns": 82,
+          "raw_M_equals_J_determinants": 4084,
+          "all_patterns_M_equals_J": 4088
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 561,
+          "unique_patterns": 85,
+          "raw_M_equals_J_determinants": 3934,
+          "all_patterns_M_equals_J": 3939
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 718,
+          "unique_patterns": 80,
+          "raw_M_equals_J_determinants": 3507,
+          "all_patterns_M_equals_J": 3509
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 700,
+          "unique_patterns": 85,
+          "raw_M_equals_J_determinants": 3378,
+          "all_patterns_M_equals_J": 3378
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 744,
+          "unique_patterns": 74,
+          "raw_M_equals_J_determinants": 2791,
+          "all_patterns_M_equals_J": 2791
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 717,
+          "unique_patterns": 77,
+          "raw_M_equals_J_determinants": 2678,
+          "all_patterns_M_equals_J": 2678
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 671,
+          "unique_patterns": 65,
+          "raw_M_equals_J_determinants": 2047,
+          "all_patterns_M_equals_J": 2047
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 652,
+          "unique_patterns": 71,
+          "raw_M_equals_J_determinants": 1961,
+          "all_patterns_M_equals_J": 1961
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 543,
+          "unique_patterns": 56,
+          "raw_M_equals_J_determinants": 1376,
+          "all_patterns_M_equals_J": 1376
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 519,
+          "unique_patterns": 62,
+          "raw_M_equals_J_determinants": 1309,
+          "all_patterns_M_equals_J": 1309
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 385,
+          "unique_patterns": 46,
+          "raw_M_equals_J_determinants": 833,
+          "all_patterns_M_equals_J": 833
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 372,
+          "unique_patterns": 54,
+          "raw_M_equals_J_determinants": 790,
+          "all_patterns_M_equals_J": 790
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 243,
+          "unique_patterns": 38,
+          "raw_M_equals_J_determinants": 448,
+          "all_patterns_M_equals_J": 448
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 228,
+          "unique_patterns": 44,
+          "raw_M_equals_J_determinants": 418,
+          "all_patterns_M_equals_J": 418
+        },
+        {
+          "twoJ": 17,
+          "parity": -1,
+          "CSFs": 127,
+          "unique_patterns": 27,
+          "raw_M_equals_J_determinants": 205,
+          "all_patterns_M_equals_J": 205
+        },
+        {
+          "twoJ": 17,
+          "parity": 1,
+          "CSFs": 122,
+          "unique_patterns": 35,
+          "raw_M_equals_J_determinants": 190,
+          "all_patterns_M_equals_J": 190
+        },
+        {
+          "twoJ": 19,
+          "parity": -1,
+          "CSFs": 56,
+          "unique_patterns": 18,
+          "raw_M_equals_J_determinants": 78,
+          "all_patterns_M_equals_J": 78
+        },
+        {
+          "twoJ": 19,
+          "parity": 1,
+          "CSFs": 49,
+          "unique_patterns": 19,
+          "raw_M_equals_J_determinants": 68,
+          "all_patterns_M_equals_J": 68
+        },
+        {
+          "twoJ": 21,
+          "parity": -1,
+          "CSFs": 18,
+          "unique_patterns": 10,
+          "raw_M_equals_J_determinants": 22,
+          "all_patterns_M_equals_J": 22
+        },
+        {
+          "twoJ": 21,
+          "parity": 1,
+          "CSFs": 17,
+          "unique_patterns": 14,
+          "raw_M_equals_J_determinants": 19,
+          "all_patterns_M_equals_J": 19
+        },
+        {
+          "twoJ": 23,
+          "parity": -1,
+          "CSFs": 4,
+          "unique_patterns": 4,
+          "raw_M_equals_J_determinants": 4,
+          "all_patterns_M_equals_J": 4
+        },
+        {
+          "twoJ": 23,
+          "parity": 1,
+          "CSFs": 2,
+          "unique_patterns": 2,
+          "raw_M_equals_J_determinants": 2,
+          "all_patterns_M_equals_J": 2
+        }
+      ],
+      "five_complete_target_sectors": {
+        "CSFs": 2480,
+        "sector_count": 5,
+        "raw_M_equals_J_determinants_sum_across_sectors": 19986,
+        "raw_pair_work_upper": 80471298,
+        "dense_CSF_matrix_bytes": 10758352,
+        "dense_raw_matrix_bytes": 643770384,
+        "exact_symmetry_bound": "For scalar DC/static Breit and five specified J/parity target states, omitted sectors have exactly zero state amplitude and Hamiltonian coupling by symmetry. Each selected sector is complete: no occupation, configuration or amplitude pruning. Original embedded target norm is one; expanded target overlap is unmeasured and must satisfy unchanged signed-overlap matching rules.",
+        "claim_limit": "This subset supports five-state EOL/target RCI only. It does not certify all-spectrum roots, global finite-H ground identity, or omitted-sector experiments. Baseline full-versus-sector CI energies, signed vectors and complete EOL gradients must match before this route is used."
+      },
+      "all_block_raw_pair_work_ratio_to531": 425.1256666853806,
+      "five_target_raw_pair_work_ratio_to531": 353.5925424682093,
+      "within_original_raw_per_block_cap_2000": false
+    },
+    "baseline_plus_all_complete_core_double_holes": {
+      "NR_configuration_count": 75,
+      "radial_spinor_count": 24,
+      "full_magnetic_dimension": 191880,
+      "CSFs": 23681,
+      "symmetry_blocks": 24,
+      "max_block_CSFs": 2248,
+      "max_block_raw_M_equals_J": 11831,
+      "max_all_patterns_M_equals_J": 11968,
+      "raw_pair_work_upper": 814359122,
+      "dense_CSF_matrix_bytes_all_blocks": 317912232,
+      "dense_raw_matrix_bytes_all_blocks": 6514872976,
+      "target_symmetry_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 1074,
+          "unique_patterns": 247,
+          "raw_M_equals_J_determinants": 11831,
+          "all_patterns_M_equals_J": 11968
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 1062,
+          "unique_patterns": 263,
+          "raw_M_equals_J_determinants": 11591,
+          "all_patterns_M_equals_J": 11713
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 1885,
+          "unique_patterns": 270,
+          "raw_M_equals_J_determinants": 10882,
+          "all_patterns_M_equals_J": 10894
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 1853,
+          "unique_patterns": 281,
+          "raw_M_equals_J_determinants": 10634,
+          "all_patterns_M_equals_J": 10651
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 2220,
+          "unique_patterns": 280,
+          "raw_M_equals_J_determinants": 8798,
+          "all_patterns_M_equals_J": 8798
+        }
+      ],
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 1074,
+          "unique_patterns": 247,
+          "raw_M_equals_J_determinants": 11831,
+          "all_patterns_M_equals_J": 11968
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 1062,
+          "unique_patterns": 263,
+          "raw_M_equals_J_determinants": 11591,
+          "all_patterns_M_equals_J": 11713
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 1885,
+          "unique_patterns": 270,
+          "raw_M_equals_J_determinants": 10882,
+          "all_patterns_M_equals_J": 10894
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 1853,
+          "unique_patterns": 281,
+          "raw_M_equals_J_determinants": 10634,
+          "all_patterns_M_equals_J": 10651
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 2248,
+          "unique_patterns": 263,
+          "raw_M_equals_J_determinants": 9007,
+          "all_patterns_M_equals_J": 9009
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 2220,
+          "unique_patterns": 280,
+          "raw_M_equals_J_determinants": 8798,
+          "all_patterns_M_equals_J": 8798
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 2182,
+          "unique_patterns": 245,
+          "raw_M_equals_J_determinants": 6761,
+          "all_patterns_M_equals_J": 6761
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 2135,
+          "unique_patterns": 254,
+          "raw_M_equals_J_determinants": 6576,
+          "all_patterns_M_equals_J": 6578
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 1795,
+          "unique_patterns": 214,
+          "raw_M_equals_J_determinants": 4579,
+          "all_patterns_M_equals_J": 4579
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 1765,
+          "unique_patterns": 232,
+          "raw_M_equals_J_determinants": 4443,
+          "all_patterns_M_equals_J": 4443
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 1284,
+          "unique_patterns": 177,
+          "raw_M_equals_J_determinants": 2784,
+          "all_patterns_M_equals_J": 2784
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 1244,
+          "unique_patterns": 186,
+          "raw_M_equals_J_determinants": 2678,
+          "all_patterns_M_equals_J": 2678
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 790,
+          "unique_patterns": 131,
+          "raw_M_equals_J_determinants": 1500,
+          "all_patterns_M_equals_J": 1500
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 769,
+          "unique_patterns": 148,
+          "raw_M_equals_J_determinants": 1434,
+          "all_patterns_M_equals_J": 1434
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 425,
+          "unique_patterns": 91,
+          "raw_M_equals_J_determinants": 710,
+          "all_patterns_M_equals_J": 710
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 402,
+          "unique_patterns": 100,
+          "raw_M_equals_J_determinants": 665,
+          "all_patterns_M_equals_J": 665
+        },
+        {
+          "twoJ": 17,
+          "parity": -1,
+          "CSFs": 190,
+          "unique_patterns": 55,
+          "raw_M_equals_J_determinants": 285,
+          "all_patterns_M_equals_J": 285
+        },
+        {
+          "twoJ": 17,
+          "parity": 1,
+          "CSFs": 181,
+          "unique_patterns": 66,
+          "raw_M_equals_J_determinants": 263,
+          "all_patterns_M_equals_J": 263
+        },
+        {
+          "twoJ": 19,
+          "parity": -1,
+          "CSFs": 71,
+          "unique_patterns": 28,
+          "raw_M_equals_J_determinants": 95,
+          "all_patterns_M_equals_J": 95
+        },
+        {
+          "twoJ": 19,
+          "parity": 1,
+          "CSFs": 62,
+          "unique_patterns": 30,
+          "raw_M_equals_J_determinants": 82,
+          "all_patterns_M_equals_J": 82
+        },
+        {
+          "twoJ": 21,
+          "parity": -1,
+          "CSFs": 20,
+          "unique_patterns": 12,
+          "raw_M_equals_J_determinants": 24,
+          "all_patterns_M_equals_J": 24
+        },
+        {
+          "twoJ": 21,
+          "parity": 1,
+          "CSFs": 18,
+          "unique_patterns": 15,
+          "raw_M_equals_J_determinants": 20,
+          "all_patterns_M_equals_J": 20
+        },
+        {
+          "twoJ": 23,
+          "parity": -1,
+          "CSFs": 4,
+          "unique_patterns": 4,
+          "raw_M_equals_J_determinants": 4,
+          "all_patterns_M_equals_J": 4
+        },
+        {
+          "twoJ": 23,
+          "parity": 1,
+          "CSFs": 2,
+          "unique_patterns": 2,
+          "raw_M_equals_J_determinants": 2,
+          "all_patterns_M_equals_J": 2
+        }
+      ],
+      "five_complete_target_sectors": {
+        "CSFs": 8094,
+        "sector_count": 5,
+        "raw_M_equals_J_determinants_sum_across_sectors": 53736,
+        "raw_pair_work_upper": 583228526,
+        "dense_CSF_matrix_bytes": 113572432,
+        "dense_raw_matrix_bytes": 4665828208,
+        "exact_symmetry_bound": "For scalar DC/static Breit and five specified J/parity target states, omitted sectors have exactly zero state amplitude and Hamiltonian coupling by symmetry. Each selected sector is complete: no occupation, configuration or amplitude pruning. Original embedded target norm is one; expanded target overlap is unmeasured and must satisfy unchanged signed-overlap matching rules.",
+        "claim_limit": "This subset supports five-state EOL/target RCI only. It does not certify all-spectrum roots, global finite-H ground identity, or omitted-sector experiments. Baseline full-versus-sector CI energies, signed vectors and complete EOL gradients must match before this route is used."
+      },
+      "all_block_raw_pair_work_ratio_to531": 2857.480638052998,
+      "five_target_raw_pair_work_ratio_to531": 2562.718167517642,
+      "within_original_raw_per_block_cap_2000": false
+    },
+    "baseline_plus_one_balanced_sdp_virtual_layer": {
+      "NR_configuration_count": 69,
+      "radial_spinor_count": 29,
+      "full_magnetic_dimension": 13896,
+      "CSFs": 2163,
+      "symmetry_blocks": 17,
+      "max_block_CSFs": 265,
+      "max_block_raw_M_equals_J": 990,
+      "max_all_patterns_M_equals_J": 1140,
+      "raw_pair_work_upper": 4852332,
+      "dense_CSF_matrix_bytes_all_blocks": 3394984,
+      "dense_raw_matrix_bytes_all_blocks": 38818656,
+      "target_symmetry_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 158,
+          "unique_patterns": 114,
+          "raw_M_equals_J_determinants": 990,
+          "all_patterns_M_equals_J": 1140
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 150,
+          "unique_patterns": 105,
+          "raw_M_equals_J_determinants": 891,
+          "all_patterns_M_equals_J": 1023
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 256,
+          "unique_patterns": 136,
+          "raw_M_equals_J_determinants": 966,
+          "all_patterns_M_equals_J": 982
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 236,
+          "unique_patterns": 121,
+          "raw_M_equals_J_determinants": 855,
+          "all_patterns_M_equals_J": 873
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 246,
+          "unique_patterns": 119,
+          "raw_M_equals_J_determinants": 637,
+          "all_patterns_M_equals_J": 637
+        }
+      ],
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs": 158,
+          "unique_patterns": 114,
+          "raw_M_equals_J_determinants": 990,
+          "all_patterns_M_equals_J": 1140
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs": 150,
+          "unique_patterns": 105,
+          "raw_M_equals_J_determinants": 891,
+          "all_patterns_M_equals_J": 1023
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs": 256,
+          "unique_patterns": 136,
+          "raw_M_equals_J_determinants": 966,
+          "all_patterns_M_equals_J": 982
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs": 236,
+          "unique_patterns": 121,
+          "raw_M_equals_J_determinants": 855,
+          "all_patterns_M_equals_J": 873
+        },
+        {
+          "twoJ": 5,
+          "parity": -1,
+          "CSFs": 265,
+          "unique_patterns": 130,
+          "raw_M_equals_J_determinants": 722,
+          "all_patterns_M_equals_J": 726
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs": 246,
+          "unique_patterns": 119,
+          "raw_M_equals_J_determinants": 637,
+          "all_patterns_M_equals_J": 637
+        },
+        {
+          "twoJ": 7,
+          "parity": -1,
+          "CSFs": 215,
+          "unique_patterns": 108,
+          "raw_M_equals_J_determinants": 461,
+          "all_patterns_M_equals_J": 461
+        },
+        {
+          "twoJ": 7,
+          "parity": 1,
+          "CSFs": 190,
+          "unique_patterns": 93,
+          "raw_M_equals_J_determinants": 391,
+          "all_patterns_M_equals_J": 391
+        },
+        {
+          "twoJ": 9,
+          "parity": -1,
+          "CSFs": 136,
+          "unique_patterns": 76,
+          "raw_M_equals_J_determinants": 246,
+          "all_patterns_M_equals_J": 246
+        },
+        {
+          "twoJ": 9,
+          "parity": 1,
+          "CSFs": 120,
+          "unique_patterns": 67,
+          "raw_M_equals_J_determinants": 201,
+          "all_patterns_M_equals_J": 201
+        },
+        {
+          "twoJ": 11,
+          "parity": -1,
+          "CSFs": 72,
+          "unique_patterns": 46,
+          "raw_M_equals_J_determinants": 110,
+          "all_patterns_M_equals_J": 110
+        },
+        {
+          "twoJ": 11,
+          "parity": 1,
+          "CSFs": 57,
+          "unique_patterns": 37,
+          "raw_M_equals_J_determinants": 81,
+          "all_patterns_M_equals_J": 81
+        },
+        {
+          "twoJ": 13,
+          "parity": -1,
+          "CSFs": 28,
+          "unique_patterns": 21,
+          "raw_M_equals_J_determinants": 38,
+          "all_patterns_M_equals_J": 38
+        },
+        {
+          "twoJ": 13,
+          "parity": 1,
+          "CSFs": 20,
+          "unique_patterns": 16,
+          "raw_M_equals_J_determinants": 24,
+          "all_patterns_M_equals_J": 24
+        },
+        {
+          "twoJ": 15,
+          "parity": -1,
+          "CSFs": 9,
+          "unique_patterns": 8,
+          "raw_M_equals_J_determinants": 10,
+          "all_patterns_M_equals_J": 10
+        },
+        {
+          "twoJ": 15,
+          "parity": 1,
+          "CSFs": 4,
+          "unique_patterns": 4,
+          "raw_M_equals_J_determinants": 4,
+          "all_patterns_M_equals_J": 4
+        },
+        {
+          "twoJ": 17,
+          "parity": -1,
+          "CSFs": 1,
+          "unique_patterns": 1,
+          "raw_M_equals_J_determinants": 1,
+          "all_patterns_M_equals_J": 1
+        }
+      ],
+      "five_complete_target_sectors": {
+        "CSFs": 1046,
+        "sector_count": 5,
+        "raw_M_equals_J_determinants_sum_across_sectors": 4339,
+        "raw_pair_work_upper": 3843931,
+        "dense_CSF_matrix_bytes": 1833696,
+        "dense_raw_matrix_bytes": 30751448,
+        "exact_symmetry_bound": "For scalar DC/static Breit and five specified J/parity target states, omitted sectors have exactly zero state amplitude and Hamiltonian coupling by symmetry. Each selected sector is complete: no occupation, configuration or amplitude pruning. Original embedded target norm is one; expanded target overlap is unmeasured and must satisfy unchanged signed-overlap matching rules.",
+        "claim_limit": "This subset supports five-state EOL/target RCI only. It does not certify all-spectrum roots, global finite-H ground identity, or omitted-sector experiments. Baseline full-versus-sector CI energies, signed vectors and complete EOL gradients must match before this route is used."
+      },
+      "all_block_raw_pair_work_ratio_to531": 17.026204244329666,
+      "five_target_raw_pair_work_ratio_to531": 16.8903120633442,
+      "within_original_raw_per_block_cap_2000": true
+    }
+  },
+  "resource_limits": "Dense matrix bytes and raw pair ratios are algebraic counts, not peak RSS, operation FLOPs, runtime or parallel-efficiency bounds; radial/angular caches and coefficient tables also consume memory. All prospective models require actual public CSF/raw-support preflight before any Hamiltonian allocation. No source, CSF solver or gradient imported."
+}

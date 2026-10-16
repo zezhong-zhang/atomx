@@ -1,0 +1,30 @@
+{
+  "status": "pass_documentation_source_and_arithmetic_audit",
+  "local_links": 20,
+  "missing_links": [],
+  "input_and_frozen_source_hashes_match": {
+    "production_core": true,
+    "production_valence": true,
+    "native_diagrams": true,
+    "finite_monovalent": true,
+    "finite_linearized": true,
+    "transverse_bridge": true,
+    "pair_subset": true,
+    "fscc_consumer": true,
+    "fscc_builder": true,
+    "fscc_patch": true,
+    "fscc_properties": true,
+    "yb_driver": true,
+    "yb_cuda_driver": true,
+    "yb_comparison_driver": true,
+    "yb_comparison": true,
+    "yb_roots": true,
+    "finite_primary_sd": true,
+    "finite_reduced_sd": true,
+    "yb_norm": true,
+    "finite_fscc": true
+  },
+  "scientific_root_reruns": 0,
+  "ruff_check": "passed",
+  "scope": "Saved JSON arithmetic and consumer source tracing only; no new numerical or physical accuracy certificate. Current fscc.py was changed by parent after the captured epoch."
+}

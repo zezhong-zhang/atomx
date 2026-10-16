@@ -1,0 +1,106 @@
+{
+  "status": "SOURCE_JSON_observation_not_new_profile",
+  "qualification_elapsed_uncontrolled_s": 49.84562708088197,
+  "cold_context_admission_s": 0.13128639198839664,
+  "existing_first_invocations": {
+    "NumBa_CPU1": {
+      "gradient_with_first_JIT_and_observers_s": 1.7243489720858634,
+      "owner_construction_s": 0.30729696503840387,
+      "adapter_calls": {
+        "gradient": 1,
+        "density_band_requests": 992,
+        "factor_requests": 28,
+        "band_expansions": 2824,
+        "signed_term_incidence": 39064,
+        "pair_actions": 7727,
+        "one_body_actions": 31,
+        "H_owner_validation": 2
+      },
+      "engine_calls": {
+        "trials": 1,
+        "scan_kernel": 6,
+        "row_kernel": 6,
+        "factor_H2D_bytes": 0,
+        "density_H2D_bytes": 0,
+        "job_H2D_bytes": 0,
+        "band_D2H_bytes": 0,
+        "stream_sync": 0
+      }
+    },
+    "NumBa_CPU4": {
+      "gradient_with_first_JIT_and_observers_s": 0.6468065350782126,
+      "owner_construction_s": 0.3158751449082047,
+      "adapter_calls": {
+        "gradient": 1,
+        "density_band_requests": 992,
+        "factor_requests": 28,
+        "band_expansions": 2824,
+        "signed_term_incidence": 39064,
+        "pair_actions": 7727,
+        "one_body_actions": 31,
+        "H_owner_validation": 2
+      },
+      "engine_calls": {
+        "trials": 1,
+        "scan_kernel": 6,
+        "row_kernel": 6,
+        "factor_H2D_bytes": 0,
+        "density_H2D_bytes": 0,
+        "job_H2D_bytes": 0,
+        "band_D2H_bytes": 0,
+        "stream_sync": 0
+      }
+    },
+    "CUDA": {
+      "gradient_with_first_JIT_and_observers_s": 1.2438245909288526,
+      "owner_construction_s": 0.3112155518028885,
+      "adapter_calls": {
+        "gradient": 1,
+        "density_band_requests": 992,
+        "factor_requests": 28,
+        "band_expansions": 2824,
+        "signed_term_incidence": 39064,
+        "pair_actions": 7727,
+        "one_body_actions": 31,
+        "H_owner_validation": 2
+      },
+      "engine_calls": {
+        "trials": 1,
+        "scan_kernel": 6,
+        "row_kernel": 6,
+        "factor_H2D_bytes": 38930976,
+        "density_H2D_bytes": 8785152,
+        "job_H2D_bytes": 90368,
+        "band_D2H_bytes": 25009344,
+        "stream_sync": 7
+      }
+    }
+  },
+  "per_existing_private_full_gradient": {
+    "source_jobs": 706,
+    "component_bands": 2824,
+    "density_bands": 992,
+    "band_expansions": 2824,
+    "signed_incidences": 39064,
+    "pair_actions_two_components": 7727,
+    "one_body_actions": 31,
+    "CUDA_density_H2D_bytes": 8785152,
+    "CUDA_job_H2D_bytes": 90368,
+    "CUDA_complete_band_D2H_bytes": 25009344
+  },
+  "one_time_CUDA_factor_H2D_bytes": 38930976,
+  "CPU_action_source_estimate": {
+    "scalar_multiplications_for_7727_two_dense123_matvecs": 233803566,
+    "one_body_31_dense246_matvec_multiplications": 1875996,
+    "scope": "Mechanical multiplication count using actual action counters and full dense loops; not operation timing or achieved FLOPs."
+  },
+  "known_fraction": {
+    "H_CI_fraction": null,
+    "band_kernel_fraction": null,
+    "CPU_action_fraction": null,
+    "reason": "The qualification persists total duration and first private gradients only; no public H/CI or action/band subphase stopwatch. Residual wall cannot be assigned to HCI: includes imports/setup, ordinary g, complete eigenpair/RDM/metric checks, owner hashing and compressed archives."
+  },
+  "inference": "Potential substantial serial CPU work remains after the band executor; importance requires direct partition measurement. Existing cold CPU1/CPU4-reused-dispatcher/CUDA-first times are not paired comparable speed data.",
+  "no_NPZ_reads_or_rehashes": true,
+  "no_timing_or_gpu_query": true
+}

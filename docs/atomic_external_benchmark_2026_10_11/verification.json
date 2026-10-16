@@ -1,0 +1,24 @@
+{
+  "documentation_scope": "Actual current dirty worktree targets; no clean-checkout/publication claim.",
+  "documents": [
+    "docs/BENCHMARKS_EXTERNAL.md",
+    "docs/VERIFICATION.md",
+    "docs/CORRELATED_METHOD_TESTING.md",
+    "docs/AGENT_REFERENCE.md",
+    "docs/AGENT_INSIGHTS.md",
+    "docs/atomic_external_benchmark_2026_10_11/README.md",
+    "docs/atomic_external_benchmark_2026_10_11/ambit/README.md",
+    "docs/atomic_external_benchmark_2026_10_11/sd/README.md",
+    "docs/atomic_external_benchmark_2026_10_11/fscc/README.md",
+    "docs/atomic_external_benchmark_2026_10_11/gpu/README.md"
+  ],
+  "broken_links": [],
+  "actual_render": true,
+  "benchmark_section": "**软件精度与并行效率 · 实测**\n完整 Ne Σ₁ 对 AMBiT 差 1.429e-21 Ha；Na⁺ 完整 SD action 差 8.674e-19 Ha。\n固定能量 Σ₁ warm：Atomx 41.16 / AMBiT 18.63 ms；Atomx 额外构造 poles/binding，非全程序排名。\n• Atomx Na+ full SD action · 2线程：S=1.195× / E=59.8%\n• Atomx Na+ full SD action · 4线程：S=1.292× / E=32.3%\n• Atomx Na+ full SD action · 8线程：S=1.159× / E=14.5%\n• Atomx Yb term2 stress stage · 2线程：S=1.868× / E=93.4%\n• Atomx Yb term2 stress stage · 4线程：S=3.408× / E=85.2%\n• Atomx Yb term2 stress stage · 8线程：S=4.790× / E=59.9%\n• AMBiT BeII full CLI · 2线程：S=1.239× / E=62.0%\n• AMBiT BeII full CLI · 4线程：S=1.379× / E=34.5%\n• AMBiT BeII full CLI · 8线程：S=1.390× / E=17.4%\n• EXP-T finite CCSDT backend · 2线程：S=0.559× / E=28.0%\nS 为逐轮配对中位数，E=S/请求线程数；各行是不同的固定工作量。Yb 仅完整 term2 数值及响应阶段，采用封存 signed stress 输入，非已收敛 SD 波函数；AMBiT 是完整 BeII 程序；SD 是 pCI-derived 图式对照，FSCC 继承 EXP-T，并采用私有低开销等待器计时。EXP-T 请求4/8线程超过资源上限，效率不报告。该轮 GPU 有其他计算进程，仅保留观察计时；实验1%门仍未通过。\n本次重新读取 benchmark SHA256：df5e32aa3368d06b。",
+  "card_preview_sha256": "a292e46e3b2ebfae560cdd28188c5370462a652ff30423d6ef3ee1977dd5adfd",
+  "renderer_sha256": "247b7a1b646a70cce0a4ef8abb0c62aedca0e4f35f9385cfdc75e8d6ffa62c1a",
+  "affected_test_command": ".venv/bin/python -m pytest -q tests/test_atomic_parallel_iteration.py",
+  "affected_tests_result": "15 passed in0.72s; exit0",
+  "root_scripts_ruff": "passed",
+  "git_diff_check": "passed"
+}

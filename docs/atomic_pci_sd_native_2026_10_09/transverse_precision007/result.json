@@ -1,0 +1,32 @@
+{
+  "status": "Original finite gate passes; stricter diagnostic target evaluated separately",
+  "original_root_defects_Ha": [
+    8.728999745244437e-10,
+    8.728910927402467e-10,
+    1.5987211554602254e-14,
+    1.0658141036401503e-14,
+    1.7763568394002505e-14,
+    1.4210854715202004e-14,
+    1.0658141036401503e-14,
+    8.881784197001252e-15
+  ],
+  "tighter_root_defects_Ha": [
+    8.728999745244437e-10,
+    8.728910927402467e-10,
+    1.5987211554602254e-14,
+    1.0658141036401503e-14,
+    1.5987211554602254e-14,
+    1.2434497875801753e-14,
+    8.881784197001252e-15,
+    7.105427357601002e-15
+  ],
+  "core_minus_complete_FCI_Ha": 1.7763568394002505e-15,
+  "tighter_raw_update": 5.984795992119984e-17,
+  "tighter_equation_residual_bound_Ha": 2.035097834774908e-15,
+  "original_FCI_gate_pass": true,
+  "stricter_diagnostic_FCI_gate_pass": false,
+  "source_and_inputs_unchanged": true,
+  "arrays_sha256": "315466798f8852bca602e0c90d9bc687645f1097bf11a9598a49e32511642011",
+  "highest_level_achieved": false,
+  "scope": "Finite unchanged-H stopping-condition intervention; no physical root shift or production precision bound"
+}

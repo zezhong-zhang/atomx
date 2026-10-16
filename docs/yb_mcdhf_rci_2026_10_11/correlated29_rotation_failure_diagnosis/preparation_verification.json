@@ -1,0 +1,51 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "all_bound_saved_inputs",
+      "passed": true
+    },
+    {
+      "name": "source_ast_parses",
+      "passed": true
+    },
+    {
+      "name": "runtime_unexecuted",
+      "passed": true
+    },
+    {
+      "name": "zero_producers_solvers_imports",
+      "passed": true
+    },
+    {
+      "name": "Fraction_exact_saved_binary64",
+      "passed": true
+    },
+    {
+      "name": "absolute_product_resource_cap",
+      "passed": true
+    },
+    {
+      "name": "declared_point_only",
+      "passed": true
+    },
+    {
+      "name": "partial_failure_evidence",
+      "passed": true
+    },
+    {
+      "name": "root_authority_before_numeric_imports",
+      "passed": true
+    },
+    {
+      "name": "prior_gate_not_upgraded",
+      "passed": true
+    }
+  ],
+  "checks_count": 10,
+  "source_only": true,
+  "physical_calls": 0,
+  "numeric_imports": 0,
+  "contract_sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+  "driver_sha256": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d"
+}

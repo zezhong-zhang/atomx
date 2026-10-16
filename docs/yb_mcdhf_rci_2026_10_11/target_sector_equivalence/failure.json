@@ -1,0 +1,129 @@
+{
+  "status": "failed_or_resource_stopped_unqualified",
+  "error": "Frozen physical target assignment changed",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence/run.py\", line 356, in execute\n    raise ValueError(\"Frozen physical target assignment changed\")\nValueError: Frozen physical target assignment changed\n",
+  "checks": [
+    {
+      "name": "actualSGram/-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/1",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full531/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full531/CIresidual",
+      "error": 2.4405279718322734e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full531/CIGram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/CIresidual",
+      "error": 2.1454932394709393e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/CIGram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved_full_H_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "saved_complete_full_spectrum_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "frozen_point_EOL_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "principal_whole_sector_H",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "retained_to_omitted_sector_H",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "equal_EOL_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    }
+  ],
+  "completed_CI_calls": 2,
+  "completed_gradient_calls": 2,
+  "attempted_CI_calls": 2,
+  "attempted_gradient_calls": 2,
+  "explicit_H_builds": 2,
+  "optimizer_calls": 0,
+  "equivalence_passed": false,
+  "experimental_gate_passed": false
+}

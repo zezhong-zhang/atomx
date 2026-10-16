@@ -1,0 +1,55 @@
+{
+  "status": "frozen_preparation_requires_exact_root_seal_no_science_executed",
+  "created_utc": "2026-10-11T14:05:57.212060+00:00",
+  "source_maps": {
+    "ordinary": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+    "private_candidate": "64acb69f79da66922ead9f5589c1df344f024748d6ee3d37968e39d947bfab87"
+  },
+  "files_sha256": {
+    "run.py": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7",
+    "contract.json": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171",
+    "candidate_source_identity.json": "9eca49f43694b1feb292415b2c30c26b4500cb8e6586f1a08d0ab536023cfe04",
+    "preparation_verification.json": "1d556fb789340f42b5c295fe03e207e7608afb26a2c71d24014979cc99da2e03",
+    "verify_preparation.py": "034ea80d5ecf63a094a1e1a9584e69f880990b54cae49cad446eed792cb769b2",
+    "candidate.patch": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482",
+    "README.md": "bf4db72a9d231393aa2a6be7ef2ff044b85d6ab11fb947170e73d64e10eb7a36",
+    "documentation_impact.json": "6d73de5be80ae29ae3f81c38a38212ba5bf7488454a15a044f2febcf299f5310",
+    "documentation_verification.json": "e49c1ce7c433edb566a28188750c3c43841b8774a197f928c7a52afc3fc57289"
+  },
+  "checks_count": 1151,
+  "budget": {
+    "CPU": 31,
+    "threads": 1,
+    "memory_GiB": 3.95,
+    "inner_seconds": 300,
+    "outer_seconds": 315,
+    "H": 2,
+    "CI": 2,
+    "g": 2,
+    "native_hS": 28,
+    "Gauss_setup_eigvalsh": 5,
+    "CI_eigh": 10,
+    "tracker_resolves": 4,
+    "tracker_SVD": 20,
+    "tracker_overlap": 6,
+    "optimizer": 0,
+    "GPU": 0
+  },
+  "root_execution_expected": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "27a5b83697d22c34b1191b6bf999a8fbd4af8522ce1e21c0e31a21a91f300db7",
+    "contract_sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171",
+    "preparation_sha256": "1d556fb789340f42b5c295fe03e207e7608afb26a2c71d24014979cc99da2e03",
+    "ordinary_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+    "candidate_source_map_sha256": "64acb69f79da66922ead9f5589c1df344f024748d6ee3d37968e39d947bfab87",
+    "CPU": 31,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "wall_seconds": 300,
+    "address_space_GiB": 3.95,
+    "purpose": "same_operator_complete29_equivalence_uncontrolled_profile"
+  },
+  "CLI": "OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 timeout --signal=TERM --kill-after=5s 315s /data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/run.py --execution docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/execution_contract.json",
+  "scope": "Private-source numerical equivalence and uncontrolled coldstage profile only. Original physical/stationarity failures remain failed; no speedup/GPU/parallel/optimizer certificate."
+}

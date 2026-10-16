@@ -1,0 +1,964 @@
+{
+  "status": "stage009_current_documentation_and_delivery_verified",
+  "all_passed": true,
+  "checks_count": 235,
+  "checks": [
+    {
+      "name": "input_SHA/current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/actual_yb",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/original_metric_replay",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/cv_discriminator",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/cv_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/balanced_frontier",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/balanced_frontier_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/balanced_cv_result",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/balanced_cv_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/physics_independent_audit",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/same003_correction_ledger",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/correction_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/gradient_reuse",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage002",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/mixed_CI_probe",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/mixed_CI_probe_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/mixed_CI_independent_replay",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/new_source_baseline_controls.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public531/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage003",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/actual_public531_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/actual_public531_arrays",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/matched_point_reference",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/matched_point_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/physical_frontier004",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/physical_frontier004_verification",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage004",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/run.py",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/samepoint_static/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/historical_current_mcdhf_stage005",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_delivered_stage005",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/run.py",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/verify_endpoint.py",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/result_unverified.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/root_endpoint_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/accepted_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/public320/accepted_arrays",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage005b",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/historical_point160_current_mcdhf",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage006",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/exact_target_sector/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/exact_target_sector/completion.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/exact_target_sector/saved_array_audit/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/exact_target_sector/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_version3/handoff_manifest.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_version3/root_publication_preflight.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_version3/root_push_and_archive.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_version3/deployment.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_version3/access_after_deploy.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage006b",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/run003_completion/completion.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/run003_completion/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/run003_completion/trajectory_report.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/run003_completion/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/retained_H_small_controls/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/retained_H_small_controls/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/retained_H_small_controls/unit_contract003.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/retained_H_small_controls/unit_execution003.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/retained_H_small_controls/source_identity002.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage007",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/qualification/completion_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/qualification/completion.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/qualification/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/qualification/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/qualification/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/rank/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/rank/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/rank/decision.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/rank/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/minimum_control/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/minimum_control/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/minimum_control/causal_summary.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/minimum_control/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance/execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage008",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/previous_stage008b",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/virtual_construction_controls.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/decision.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/virtual/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance_audit/verification_contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance_audit/actual_handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/performance_audit/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_v4/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "input_SHA/website_v4/root_publication.json",
+      "passed": true
+    },
+    {
+      "name": "actual_card_readback",
+      "passed": true
+    },
+    {
+      "name": "card_current_result",
+      "passed": true
+    },
+    {
+      "name": "actual_dispatch",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/iteration_preview.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/readback.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/capture_failure001.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/iteration_decision.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/card.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "card_SHA/iteration_request.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/result.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/radial_support/execution_source.py",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/radial_support/analyze.py",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/radial_support/lint_successor.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "virtual_decision_SHA/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "original_stationarity_fail",
+      "passed": true
+    },
+    {
+      "name": "original_experiment_fail",
+      "passed": true
+    },
+    {
+      "name": "virtual_independent3112",
+      "passed": true
+    },
+    {
+      "name": "performance_independent10041",
+      "passed": true
+    },
+    {
+      "name": "v4_published",
+      "passed": true
+    },
+    {
+      "name": "audience_preserved",
+      "passed": true
+    },
+    {
+      "name": "v4_models_rows",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/1.94348e−6",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/19.52%",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/10,041",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/3,112",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/0.287–0.348",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/完整1046目标块",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/尚未执行数值资格",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/results_stage009.json",
+      "passed": true
+    },
+    {
+      "name": "current_guide_claim/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/../atomic_native_roadmap_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/previous_sources/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run003/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage009.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/reporting_stage006/current_card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run003/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run003/completion/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/checkpoint_hamiltonian_reuse_implementation/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/hamiltonian_snapshot_qualification002/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/hamiltonian_snapshot_qualification002/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/hamiltonian_snapshot_qualification002/old_saved_array_review/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/retained_hamiltonian_performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/retained_hamiltonian_performance/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage007.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage008/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_hour1900/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/rank_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/rank_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/virtual_only_discriminator/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/virtual_only_discriminator/decision.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/mixed_ci_finite_increment_proposal/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/mixed_ci_finite_increment_proposal/root_source_edit_authorization002.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/native_run/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/native_run/card_evidence_stationary_baseline.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/cv_discriminator/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/balanced_cv_replay/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/balanced_cv_frontier/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/test_attempts.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage002.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage002/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage002/iteration_result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage003.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/mixed_ci_stationarity_probe/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_optimizer_resume/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_resume_integration/contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run/execution_failure_pre_solve.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/matched_recovered_point_reference/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run002/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage004.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/public531_endpoint_static_rci/README_result.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage003/receipt.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/delivery_stage003/iteration_result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/atlas_update003/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/atlas_update002/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/atlas_update/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/verification_stage003.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/results_stage005b.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/physical_frontier004/decision_and_prospective_experiment.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/stable_polar/contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/native_run/linear_map_increment_endpoint/result.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/centered_increment_contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/correction_budget/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/native_run/",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/physics_audit/",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/yb_mcdhf_rci_2026_10_11/README.md/performance/",
+      "passed": true
+    },
+    {
+      "name": "guide_whitespace/docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/THEORY_NIST_COMPARISON.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/atomic_nist_atlas_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/atomx_hourly_progress_2026_10_10/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/yb_mcdhf_rci_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/yb_mcdhf_rci_2026_10_11/atlas_update003/PUBLICATION.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/archive/2026-09/ATLAS_BUILD_HISTORY_2026-09-29.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/archive/2026-09/retired_script_tests/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/NIST_SPECTRUM_ATLAS.md/atomx_hourly_progress_2026_10_10/parallel_six002/README.md",
+      "passed": true
+    },
+    {
+      "name": "guide_whitespace/docs/NIST_SPECTRUM_ATLAS.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/previous_sources/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../xfel_tail_breit_pole_2026_10_06/e3200/analysis.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../xfel_tail_breit_pole_2026_10_06/experimental_nominals.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../xfel_tail_breit_pole_2026_10_06/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../review_2026_10_02/codex_fix_validation/eu-tier-a.log",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../review_2026_10_02/codex_fix_validation/eu-cf.log",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../../scripts/eu3_tierA_anchor.py",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/eu_baseline/evidence.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../yb_mcdhf_rci_2026_10_11/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/sd_linked001/contract.json",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/sd_linked001/",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/sd_ph_review001/README.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../CI_MBPT_SIGMA2_SPEC.md",
+      "passed": true
+    },
+    {
+      "name": "local_link/docs/atomic_native_roadmap_2026_10_11/README.md/../atomx_hourly_progress_2026_10_10/progress.json",
+      "passed": true
+    },
+    {
+      "name": "guide_whitespace/docs/atomic_native_roadmap_2026_10_11/README.md",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "0500a16495417c403f16cd7f42c50911599af5f680fc541c5fb3b1df4b6ed85b",
+  "guide_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/README.md": "7229d24865ad1d88b9f5cb913f2890673823ed36825e0c26c9e859da67ea8d80",
+    "docs/NIST_SPECTRUM_ATLAS.md": "412d45e93bc14f0639465f8147416812d751ee2ba34d5b23790e1239b641ce69",
+    "docs/atomic_native_roadmap_2026_10_11/README.md": "bf9f85fc16438e3a52f5b49bd619fcb5f66bd29747447c09964ed69916e72199"
+  },
+  "new_scientific_calls": 0,
+  "documentation_impact": {
+    "updated": [
+      "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "docs/NIST_SPECTRUM_ATLAS.md",
+      "docs/atomic_native_roadmap_2026_10_11/README.md"
+    ],
+    "retained": "All frozen scientific results, failures, source epochs and prior cards",
+    "proposal": "Mixed-CI source edit authorized only; no finite numerical pass or optimizer adoption",
+    "distillation": "Radial-quality inference remains topic-scoped; no new cross-task rule"
+  }
+}

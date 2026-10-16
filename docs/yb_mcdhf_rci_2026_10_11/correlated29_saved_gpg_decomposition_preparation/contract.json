@@ -1,0 +1,108 @@
+{
+  "status": "prepared_requires_exact_root_execution",
+  "execution_ready": true,
+  "hypothesis": "The original preconditioned residual may be localized in certain orbital coordinate columns, but projected group driving forces may interfere. Two saved points can distinguish measured column concentration and cross coupling from assumed core dominance without new physics.",
+  "fixed_scope": {
+    "points": [
+      "global80",
+      "run005_declared_last_global208"
+    ],
+    "terminal_selection": "literal producer trajectory[-1] and last_qualified_checkpoint; no gap-based selection",
+    "Z": 70,
+    "electrons": 69,
+    "radial_orbitals": 29,
+    "coordinates": 3451,
+    "positive_projector_groups": 7,
+    "target_CSFS": 1046,
+    "objective": "ordinary reported DC five singleton physical tracked UIDs, equal0.2",
+    "no_pair": "unchanged saved original nuclear positive P; no newly computed spectrum or S validation",
+    "orbital_tolerance": 1e-07,
+    "energy_tolerance_Ha": 1e-08
+  },
+  "identity": {
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+    "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90"
+  },
+  "terminal_point": {
+    "global_accepted_step": 208,
+    "local_accepted_step": 128
+  },
+  "terminal_producer_exit_code": 0,
+  "inputs": {
+    "global80_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.json",
+      "sha256": "e59884335d38863b6adbed52abe0bb0a5fe4e0da3eab635a259fc45e4a33bdcd"
+    },
+    "global80_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.npz",
+      "sha256": "7af1e39cec8b031013afb849e79ebc5f19a8d47fd968b22f06e7dabf1b2f5504"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "run005_closed_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/root_execution.json",
+      "sha256": "5878daf7524c421b826923cee63487d46e533c2137cfb8a03bd6821399909295"
+    },
+    "run005_closed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/result.json",
+      "sha256": "9487855b439ebf4fdc5530535348fc4e8c4ede1652aff4a9faf7d3d3b0ad8358"
+    },
+    "terminal_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "sha256": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c"
+    },
+    "terminal_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c"
+    },
+    "run005_frozen_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/run.py",
+      "sha256": "0e0186662e2daafe39b4be2f486d44826a5019a05b7186e801d768da2087e02c"
+    },
+    "run005_frozen_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/contract.json",
+      "sha256": "2bc0a06209a39b6197a1da03ffa56c1649536cf97d5a583e1f2cf9a3b2fed739"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    }
+  },
+  "resources": {
+    "CPU": 30,
+    "all_thread_variables": "1",
+    "address_space_bytes": 1073741824,
+    "inner_wall_seconds": 30,
+    "outer_wall_seconds": 35,
+    "max_array_archives": 2,
+    "max_H": 0,
+    "max_CI": 0,
+    "max_gradient_recontraction": 0,
+    "max_Dirac": 0,
+    "max_optimizer": 0,
+    "max_eigensolver": 0,
+    "timing": "uncontrolled saved-algebra correctness only"
+  },
+  "prospective_algebra": {
+    "original_map": "T_y(v)=v-y*sym(y.T*v); M original saved per-column inverse blocks; g=T(raw), pg=T*M*T(raw)",
+    "coordinate_partitions": "seven complete same-kappa groups and all29 orbital columns; report ||pg_j||^2 and signed g_j dot pg_j then sum",
+    "driving_force_partitions": "core19, bare valence5, newvirtual5 mask raw coordinate gradient only before full same-kappa T M T",
+    "cross_terms": "all signed3x3 g_a dot pg_b and pg_a dot pg_b, including offdiagonal, aggregate to whole vectors",
+    "source_order": "saved radial keys n/kappa order and layout kappa grouping are distinct, both preserved",
+    "gate_scope": "whole raw/tangent g1e-9, original pg1e-10, direct P*x bitwise, legacy metric SHA exact, coordinate Gram1e-10, tangent and metric closure1e-10",
+    "not_error_bound": "residual/indicator/group shares are numerical coordinate diagnostics, not strict energy or spectral-gap bounds"
+  },
+  "stopping": "fail closed on first identity, geometry, reconstruction or cap failure; preserve partial; no retries or additional points",
+  "prohibited": [
+    "Atomx imports or geometry instantiation",
+    "H/CI/gradient contraction/eigen/Dirac/optimizer calls",
+    "reading saved H or CI arrays",
+    "selecting minimum-gap endpoint",
+    "changing frozen producer flags, objective, metric or gates",
+    "assuming core dominance before measurement"
+  ]
+}

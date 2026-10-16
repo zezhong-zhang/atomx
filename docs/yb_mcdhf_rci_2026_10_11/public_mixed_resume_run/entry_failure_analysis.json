@@ -1,0 +1,32 @@
+{
+  "status": "stopped_before_optimizer_on_invalid_different_radial_point_equality_control",
+  "observed_bare_original_residual": 5.143010780099849e-08,
+  "observed_bare_original_energy_indicator_Ha": 3.447852482353608e-15,
+  "bare_original_stationarity_gates_passed": true,
+  "mixed_original_residual": 0.0367607184072483,
+  "Hamiltonian_and_CI_baseline_replay_passed": true,
+  "failed_control": {
+    "raw_projected_gradient_max_difference": 2.6310068574076167e-08,
+    "unchanged_matched_point_gate": 1e-09,
+    "preconditioned_gradient_max_difference": 9.185507287403148e-15,
+    "original_wave_vs_authoritative_x_unpack_max": 2.986638714119749e-13
+  },
+  "baseline_full_gradient_evaluations": 2,
+  "public_optimizer_calls": 0,
+  "accepted_checkpoints": 0,
+  "source_operator_change": false,
+  "finding_from_readonly_source": "Original stationarity_replay002 evaluates saved physical005 P/Q at diagnostic_source.py86, then projects that gradient using recovered coordinates at98-103; its g is not a fresh gradient evaluated at direct unpack(P*x).",
+  "required_fix": "Generate separately input/source-bound original005-source reference at identical authoritative recovered x; apply unchanged1e-9 rawg and1e-10 preconditionedg replay gates to that matched point. Preserve this failure and original1e-7/1e-8Ha scientific gates.",
+  "no_error_bound_claim_from_preconditioned_difference": true,
+  "new_solve_or_stationarity_not_certified": true,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "inputs_sha256": {
+    "contract.json": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+    "execution_contract.json": "071201a15ac7ef4f07dfb225428bc01bde716132d498d8f40b4b6704190aba80",
+    "source_identity.json": "13b43b3ec35f8e1ee42912fc213f53fc905b282ca168bf158598bd81af32978e",
+    "new_source_baseline_controls.json": "a04383f3f4a38d67d7bfad3b83bafd4f4d2509a54f0793d6a6a3fed06e322a83",
+    "execution_failure_pre_solve.json": "41775f0416e665f10076ff30aaa1e92254561689d7392facbc5489eccd6f3037"
+  },
+  "reference_diagnostic_source_sha256": "dced7d5d010924ca74bc6e2ba9ec3d1a7f0898eb1d8f3a2b048417c64900a668"
+}

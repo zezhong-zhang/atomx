@@ -1,0 +1,3400 @@
+{
+  "checks": [
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "all_loaded_Atomx_source_is_bound_before_producers",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "excluded_EOM_not_imported_before_first_producer",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "prospective_ns",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "prospective_outer_radius",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "RKB_dimensions",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "5,4:point_Dirac_energy_Ha",
+      "observed": 1.1547651723731178e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "5,4:constrained_generalized_residual",
+      "observed": 1.2677323265418863e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "5,4:S_norm",
+      "observed": 1.3322676295501878e-15
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "5,4:native_metric_norm",
+      "observed": 2.220446049250313e-16
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "5,4:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "5,4:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "5,-5:point_Dirac_energy_Ha",
+      "observed": 1.110112002322694e-10
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "5,-5:constrained_generalized_residual",
+      "observed": 1.4094271654120206e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "5,-5:S_norm",
+      "observed": 1.9984014443252818e-15
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "5,-5:native_metric_norm",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "5,-5:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "5,-5:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "6,5:point_Dirac_energy_Ha",
+      "observed": 1.8640200494246528e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "6,5:constrained_generalized_residual",
+      "observed": 1.1907983003966531e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "6,5:S_norm",
+      "observed": 6.661338147750939e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "6,5:native_metric_norm",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "6,5:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "6,5:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "6,-6:point_Dirac_energy_Ha",
+      "observed": 2.272515509105233e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "6,-6:constrained_generalized_residual",
+      "observed": 1.3426224255941463e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "6,-6:S_norm",
+      "observed": 4.440892098500626e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "6,-6:native_metric_norm",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "6,-6:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "6,-6:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "7,6:point_Dirac_energy_Ha",
+      "observed": 2.805067289557428e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "7,6:constrained_generalized_residual",
+      "observed": 1.7931728454714727e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "7,6:S_norm",
+      "observed": 1.4432899320127035e-15
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "7,6:native_metric_norm",
+      "observed": 1.1102230246251565e-16
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "7,6:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "7,6:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "7,-7:point_Dirac_energy_Ha",
+      "observed": 1.6366907829024058e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-08,
+      "name": "7,-7:constrained_generalized_residual",
+      "observed": 1.0617844076957817e-11
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "7,-7:S_norm",
+      "observed": 4.440892098500626e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "7,-7:native_metric_norm",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "7,-7:electron_bound_branch",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "7,-7:exact_removed_boundary",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 2e-09,
+      "name": "l=4:paired_split_Ha",
+      "observed": 9.946354850853822e-11
+    },
+    {
+      "PASS": true,
+      "limit": 2e-09,
+      "name": "l=5:paired_split_Ha",
+      "observed": 4.136535558529886e-11
+    },
+    {
+      "PASS": true,
+      "limit": 2e-09,
+      "name": "l=6:paired_split_Ha",
+      "observed": 4.441758072459834e-11
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "RadialState_all_six_partners",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "RadialState_readonly_waves",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "RadialState_native_metric",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "one_electron_ghi:complete_CSF_count",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "one_electron_ghi:complete_multiplet_dimension",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=11:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=11:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=13:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=13:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=9:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=9:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=11:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=11:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=7:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=7:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "one_electron_ghi:J2=9:raw_determinant_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "one_electron_ghi:J2=9:angular_nnz_cap",
+      "observed": 1
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "one_electron_ghi:whole_spectrum_shape",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "one_electron_ghi:whole_H_residual",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "one_electron_ghi:whole_Gram",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "one_electron_ghi:complete_trace",
+      "observed": 0.0
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "one_electron_ghi:immutable_H",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "one_electron_ghi:operator_binding",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-09,
+      "name": "N1_complete_sorted_analytic_energies",
+      "observed": 1.2150502826102638e-10
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g:complete_CSF_count",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g:complete_multiplet_dimension",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=0:raw_determinant_cap",
+      "observed": 9
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=0:angular_nnz_cap",
+      "observed": 310
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=4:raw_determinant_cap",
+      "observed": 14
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=4:angular_nnz_cap",
+      "observed": 923
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=8:raw_determinant_cap",
+      "observed": 10
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=8:angular_nnz_cap",
+      "observed": 521
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=12:raw_determinant_cap",
+      "observed": 6
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=12:angular_nnz_cap",
+      "observed": 210
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=2:raw_determinant_cap",
+      "observed": 8
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=2:angular_nnz_cap",
+      "observed": 357
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=6:raw_determinant_cap",
+      "observed": 6
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=6:angular_nnz_cap",
+      "observed": 224
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=10:raw_determinant_cap",
+      "observed": 4
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=10:angular_nnz_cap",
+      "observed": 119
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=14:raw_determinant_cap",
+      "observed": 2
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=14:angular_nnz_cap",
+      "observed": 34
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g:J2=16:raw_determinant_cap",
+      "observed": 2
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g:J2=16:angular_nnz_cap",
+      "observed": 28
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g:whole_spectrum_shape",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g:whole_H_residual",
+      "observed": 4.440892098500626e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g:whole_Gram",
+      "observed": 5.551115123125783e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g:complete_trace",
+      "observed": 7.105427357601002e-15
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g:immutable_H",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g:operator_binding",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "g_Coulomb_nonzero_offdiagonal",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g_phase:complete_CSF_count",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g_phase:complete_multiplet_dimension",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=0:raw_determinant_cap",
+      "observed": 9
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=0:angular_nnz_cap",
+      "observed": 310
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=4:raw_determinant_cap",
+      "observed": 14
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=4:angular_nnz_cap",
+      "observed": 923
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=8:raw_determinant_cap",
+      "observed": 10
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=8:angular_nnz_cap",
+      "observed": 521
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=12:raw_determinant_cap",
+      "observed": 6
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=12:angular_nnz_cap",
+      "observed": 210
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=2:raw_determinant_cap",
+      "observed": 8
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=2:angular_nnz_cap",
+      "observed": 357
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=6:raw_determinant_cap",
+      "observed": 6
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=6:angular_nnz_cap",
+      "observed": 224
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=10:raw_determinant_cap",
+      "observed": 4
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=10:angular_nnz_cap",
+      "observed": 119
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=14:raw_determinant_cap",
+      "observed": 2
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=14:angular_nnz_cap",
+      "observed": 34
+    },
+    {
+      "PASS": true,
+      "limit": 153,
+      "name": "two_electron_g_phase:J2=16:raw_determinant_cap",
+      "observed": 2
+    },
+    {
+      "PASS": true,
+      "limit": 100000,
+      "name": "two_electron_g_phase:J2=16:angular_nnz_cap",
+      "observed": 28
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g_phase:whole_spectrum_shape",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g_phase:whole_H_residual",
+      "observed": 4.440892098500626e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g_phase:whole_Gram",
+      "observed": 5.551115123125783e-16
+    },
+    {
+      "PASS": true,
+      "limit": 1e-10,
+      "name": "two_electron_g_phase:complete_trace",
+      "observed": 7.105427357601002e-15
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g_phase:immutable_H",
+      "observed": true
+    },
+    {
+      "PASS": true,
+      "limit": null,
+      "name": "two_electron_g_phase:operator_binding",
+      "observed": true
+    }
+  ],
+  "counts": {
+    "angular_nullspace_entries": 38,
+    "complete_native_CI_entries": 3,
+    "complete_signed_radial_key_requests": 466,
+    "native_Dirac_spectrum_entries": 6,
+    "native_hS_entries": 26,
+    "native_radial_evaluator_entries": 2
+  },
+  "elapsed_seconds": 0.6011298200173769,
+  "host": {
+    "affinity": [
+      28
+    ],
+    "available_bytes": 96477847552,
+    "load": [
+      0.59228515625,
+      0.66259765625,
+      0.72314453125
+    ]
+  },
+  "loaded_source_before_producers": {
+    "src/atomx/__init__.py": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3",
+    "src/atomx/angular/__init__.py": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+    "src/atomx/angular/clebsch.py": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd",
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/angular/csf_recoupling.py": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035",
+    "src/atomx/angular/ls_coupling.py": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+    "src/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+    "src/atomx/angular/rcfp.py": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/angular/wigner.py": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+    "src/atomx/compare.py": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c",
+    "src/atomx/config/__init__.py": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3",
+    "src/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "src/atomx/config/parsing.py": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+    "src/atomx/config/subshell.py": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+    "src/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+    "src/atomx/corrections/__init__.py": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081",
+    "src/atomx/corrections/adapters.py": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d",
+    "src/atomx/corrections/breit.py": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596",
+    "src/atomx/corrections/protocol.py": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce",
+    "src/atomx/corrections/qed.py": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+    "src/atomx/corrections/qedmod/__init__.py": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951",
+    "src/atomx/corrections/qedmod/base.py": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30",
+    "src/atomx/corrections/qedmod/flambaum_ginges.py": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280",
+    "src/atomx/corrections/qedmod/indelicato.py": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d",
+    "src/atomx/corrections/qedmod/mohr.py": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7",
+    "src/atomx/corrections/qedmod/shabaev.py": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+    "src/atomx/corrections/qedmod/welton.py": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a",
+    "src/atomx/corrections/stack.py": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+    "src/atomx/data/__init__.py": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d",
+    "src/atomx/data/flambaum_ginges.py": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839",
+    "src/atomx/data/hyperfine_presets.py": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc",
+    "src/atomx/data/mohr_se.py": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c",
+    "src/atomx/methods/__init__.py": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+    "src/atomx/methods/base.py": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95",
+    "src/atomx/methods/breit_pauli.py": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208",
+    "src/atomx/methods/ci.py": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e",
+    "src/atomx/methods/csf/__init__.py": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0",
+    "src/atomx/methods/csf/solver.py": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+    "src/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "src/atomx/methods/hartree_fock_slater.py": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4",
+    "src/atomx/methods/hydrogenic.py": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942",
+    "src/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "src/atomx/methods/mcdhf/__init__.py": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+    "src/atomx/methods/mcdhf/solver.py": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c",
+    "src/atomx/methods/scf_observables.py": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739",
+    "src/atomx/numerics/__init__.py": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125",
+    "src/atomx/numerics/bspline/__init__.py": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9",
+    "src/atomx/numerics/bspline/basis.py": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb",
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "src/atomx/numerics/bspline/dirac_assembly.py": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "src/atomx/numerics/bspline/evaluate.py": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059",
+    "src/atomx/numerics/bspline/integrals.py": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c",
+    "src/atomx/numerics/bspline/knots.py": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a",
+    "src/atomx/numerics/diis.py": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37",
+    "src/atomx/numerics/quadrature.py": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021",
+    "src/atomx/numerics/radial_metric.py": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4",
+    "src/atomx/numerics/radial_workspace.py": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21",
+    "src/atomx/numerics/shooting/__init__.py": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01",
+    "src/atomx/numerics/shooting/constants.py": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643",
+    "src/atomx/numerics/shooting/coulomb.py": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158",
+    "src/atomx/numerics/shooting/electron_space.py": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2",
+    "src/atomx/numerics/shooting/operators.py": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d",
+    "src/atomx/numerics/shooting/quadrature.py": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a",
+    "src/atomx/numerics/shooting/spline.py": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e",
+    "src/atomx/numerics/yk.py": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8",
+    "src/atomx/physics/__init__.py": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c",
+    "src/atomx/physics/base.py": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be",
+    "src/atomx/physics/csf/__init__.py": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7",
+    "src/atomx/physics/csf/effective_one_body.py": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "e4a19ab263cf487b41656bca05317e0f72ae7652bd336289d6dd0cf069166395",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "src/atomx/physics/dirac.py": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c",
+    "src/atomx/physics/schrodinger.py": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d",
+    "src/atomx/radial_state.py": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de",
+    "src/atomx/types.py": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d"
+  },
+  "orbitals": [
+    {
+      "J2": 7,
+      "analytic_Ha": -2.000213042644336,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -2.0002130426558837,
+      "error_Ha": -1.1547651723731178e-11,
+      "kappa": 4,
+      "l": 4,
+      "n": 5,
+      "norm": 1.0000000000000013,
+      "quadrature_norm": 1.000000000000001,
+      "radial_root_index": 0,
+      "residual": 1.2677323265418863e-11
+    },
+    {
+      "J2": 9,
+      "analytic_Ha": -2.0001065140532326,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -2.000106514164244,
+      "error_Ha": -1.110112002322694e-10,
+      "kappa": -5,
+      "l": 4,
+      "n": 5,
+      "norm": 0.999999999999998,
+      "quadrature_norm": 0.999999999999998,
+      "radial_root_index": 0,
+      "residual": 1.4094271654120206e-11
+    },
+    {
+      "J2": 9,
+      "analytic_Ha": -1.388981349399679,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -1.3889813493810388,
+      "error_Ha": 1.8640200494246528e-11,
+      "kappa": 5,
+      "l": 5,
+      "n": 6,
+      "norm": 0.9999999999999993,
+      "quadrature_norm": 0.9999999999999993,
+      "radial_root_index": 0,
+      "residual": 1.1907983003966531e-11
+    },
+    {
+      "J2": 11,
+      "analytic_Ha": -1.3889402539480065,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -1.3889402539707316,
+      "error_Ha": -2.272515509105233e-11,
+      "kappa": -6,
+      "l": 5,
+      "n": 6,
+      "norm": 1.0000000000000004,
+      "quadrature_norm": 1.0000000000000004,
+      "radial_root_index": 0,
+      "residual": 1.3426224255941463e-11
+    },
+    {
+      "J2": 11,
+      "analytic_Ha": -1.0204543726762398,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -1.0204543726481892,
+      "error_Ha": 2.805067289557428e-11,
+      "kappa": 6,
+      "l": 6,
+      "n": 7,
+      "norm": 0.9999999999999986,
+      "quadrature_norm": 0.9999999999999987,
+      "radial_root_index": 0,
+      "residual": 1.7931728454714727e-11
+    },
+    {
+      "J2": 13,
+      "analytic_Ha": -1.0204358883008235,
+      "complete_electron_branch_states": 99,
+      "energy_Ha": -1.0204358883171905,
+      "error_Ha": -1.6366907829024058e-11,
+      "kappa": -7,
+      "l": 6,
+      "n": 7,
+      "norm": 1.0000000000000004,
+      "quadrature_norm": 1.0000000000000004,
+      "radial_root_index": 0,
+      "residual": 1.0617844076957817e-11
+    }
+  ],
+  "owners": [
+    {
+      "angular": [
+        {
+          "J2": 11,
+          "nnz": 1,
+          "parity": 1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        },
+        {
+          "J2": 13,
+          "nnz": 1,
+          "parity": 1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        },
+        {
+          "J2": 9,
+          "nnz": 1,
+          "parity": -1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        },
+        {
+          "J2": 11,
+          "nnz": 1,
+          "parity": -1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        },
+        {
+          "J2": 7,
+          "nnz": 1,
+          "parity": 1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        },
+        {
+          "J2": 9,
+          "nnz": 1,
+          "parity": 1,
+          "radial_keys": 1,
+          "raw_determinants": 1,
+          "signed_pairs": 1
+        }
+      ],
+      "input_sha256": "3b2b94b69669c332e1cf79118737a1b5a4f9c1f63dbac9f6f91b028179ecae7f",
+      "matrix_sha256": "e92eebc83b0ccb9823d7886282ee3676a31e49338eaad428ef0b46364272df58",
+      "name": "one_electron_ghi",
+      "ordered_CSFs": [
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                7,
+                6,
+                1
+              ]
+            ],
+            11,
+            [
+              [
+                11,
+                11,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                7,
+                -7,
+                1
+              ]
+            ],
+            13,
+            [
+              [
+                13,
+                13,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": -1,
+          "signature": [
+            [
+              [
+                6,
+                5,
+                1
+              ]
+            ],
+            9,
+            [
+              [
+                9,
+                9,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": -1,
+          "signature": [
+            [
+              [
+                6,
+                -6,
+                1
+              ]
+            ],
+            11,
+            [
+              [
+                11,
+                11,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            7,
+            [
+              [
+                7,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ]
+            ],
+            9,
+            [
+              [
+                9,
+                9,
+                0
+              ]
+            ]
+          ]
+        }
+      ],
+      "owner": {
+        "CSFs": [
+          [
+            1,
+            1,
+            [
+              [
+                [
+                  7,
+                  6,
+                  1
+                ]
+              ],
+              11,
+              [
+                [
+                  11,
+                  11,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            1,
+            1,
+            [
+              [
+                [
+                  7,
+                  -7,
+                  1
+                ]
+              ],
+              13,
+              [
+                [
+                  13,
+                  13,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            1,
+            -1,
+            [
+              [
+                [
+                  6,
+                  5,
+                  1
+                ]
+              ],
+              9,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            1,
+            -1,
+            [
+              [
+                [
+                  6,
+                  -6,
+                  1
+                ]
+              ],
+              11,
+              [
+                [
+                  11,
+                  11,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            1,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              7,
+              [
+                [
+                  7,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            1,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ]
+              ],
+              9,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ]
+              ]
+            ]
+          ]
+        ],
+        "hamiltonian_terms": [
+          "dirac-coulomb"
+        ],
+        "max_determinants": 153,
+        "orbital_basis_keys": [
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            -5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            -6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            -7
+          ]
+        ],
+        "orbital_keys": [
+          [
+            5,
+            -5
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            -6
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            -7
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "radial_binding": {
+          "Z": 10,
+          "core": [],
+          "external": [
+            "2f8f7d485de8555cfe21754b03696a897cf68e9f11c94c515c2d9639a4467439",
+            "65e6e0cdf5c4eee0dd95f2f9f9ca59fe0e44efdb5c4e1c166d89526ecc823514",
+            "58ad22b3aaa5905a2ba6582395c083dee24afe8f3c225b088c07bf4676e9b9ab",
+            "da24855c570a76b7b94f66a58114b0c000e71dd4f050e116338e570cc71c5dd1",
+            "abc321186dec2a25b69e111ddd8a1aaa1b7096fa2d597b9e9f97368ab1fd8548",
+            "3c16150fa004cf268a79fd208c9569c7714042454904cccafe2c01597adbaeb6"
+          ],
+          "geometry": "16284af3460fcf8bb94009ed7e88bc161232589ab420f5ea56c994f6998f0c00",
+          "ns": 103,
+          "nuclear": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+        },
+        "representation": "dense-real-full-CSF",
+        "schema_version": 1,
+        "units": "Hartree"
+      },
+      "provenance": {
+        "block_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "dense_centering_shifts_Ha": [
+          -2.0,
+          -2.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "matrix_free": false,
+        "n_blocks": 6,
+        "n_csf": 6,
+        "n_orbitals": 6,
+        "solver": "dense-blocked"
+      }
+    },
+    {
+      "angular": [
+        {
+          "J2": 0,
+          "nnz": 310,
+          "parity": 1,
+          "radial_keys": 19,
+          "raw_determinants": 9,
+          "signed_pairs": 81
+        },
+        {
+          "J2": 4,
+          "nnz": 923,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 14,
+          "signed_pairs": 196
+        },
+        {
+          "J2": 8,
+          "nnz": 521,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 10,
+          "signed_pairs": 100
+        },
+        {
+          "J2": 12,
+          "nnz": 210,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 6,
+          "signed_pairs": 36
+        },
+        {
+          "J2": 2,
+          "nnz": 357,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 8,
+          "signed_pairs": 64
+        },
+        {
+          "J2": 6,
+          "nnz": 224,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 6,
+          "signed_pairs": 36
+        },
+        {
+          "J2": 10,
+          "nnz": 119,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 4,
+          "signed_pairs": 16
+        },
+        {
+          "J2": 14,
+          "nnz": 34,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 2,
+          "signed_pairs": 4
+        },
+        {
+          "J2": 16,
+          "nnz": 28,
+          "parity": 1,
+          "radial_keys": 27,
+          "raw_determinants": 2,
+          "signed_pairs": 4
+        }
+      ],
+      "input_sha256": "bad9e4eac858ded6ffe3830aac33702a908d6002bcc49514c01739c28ba109d7",
+      "matrix_sha256": "0c725014502e826be24d0068ee71aebba1e5aa724a43ff1a8051babcb5222659",
+      "name": "two_electron_g",
+      "ordered_CSFs": [
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            4,
+            [
+              [
+                4,
+                4,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            8,
+            [
+              [
+                8,
+                8,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            12,
+            [
+              [
+                12,
+                12,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            2,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                2,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            4,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                4,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            6,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                6,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            8,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                8,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            10,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                10,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            12,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                12,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            14,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                14,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            16,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                16,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            4,
+            [
+              [
+                4,
+                4,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            8,
+            [
+              [
+                8,
+                8,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            12,
+            [
+              [
+                12,
+                12,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            16,
+            [
+              [
+                16,
+                16,
+                0
+              ]
+            ]
+          ]
+        }
+      ],
+      "owner": {
+        "CSFs": [
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              0,
+              [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              4,
+              [
+                [
+                  4,
+                  4,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              8,
+              [
+                [
+                  8,
+                  8,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              12,
+              [
+                [
+                  12,
+                  12,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              2,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  2,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              4,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  4,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              6,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  6,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              8,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  8,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              10,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  10,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              12,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  12,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              14,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  14,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              16,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  16,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              0,
+              [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              4,
+              [
+                [
+                  4,
+                  4,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              8,
+              [
+                [
+                  8,
+                  8,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              12,
+              [
+                [
+                  12,
+                  12,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              16,
+              [
+                [
+                  16,
+                  16,
+                  0
+                ]
+              ]
+            ]
+          ]
+        ],
+        "hamiltonian_terms": [
+          "dirac-coulomb"
+        ],
+        "max_determinants": 153,
+        "orbital_basis_keys": [
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            -5
+          ]
+        ],
+        "orbital_keys": [
+          [
+            5,
+            -5
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            -6
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            -7
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "radial_binding": {
+          "Z": 10,
+          "core": [],
+          "external": [
+            "2f8f7d485de8555cfe21754b03696a897cf68e9f11c94c515c2d9639a4467439",
+            "65e6e0cdf5c4eee0dd95f2f9f9ca59fe0e44efdb5c4e1c166d89526ecc823514",
+            "58ad22b3aaa5905a2ba6582395c083dee24afe8f3c225b088c07bf4676e9b9ab",
+            "da24855c570a76b7b94f66a58114b0c000e71dd4f050e116338e570cc71c5dd1",
+            "abc321186dec2a25b69e111ddd8a1aaa1b7096fa2d597b9e9f97368ab1fd8548",
+            "3c16150fa004cf268a79fd208c9569c7714042454904cccafe2c01597adbaeb6"
+          ],
+          "geometry": "16284af3460fcf8bb94009ed7e88bc161232589ab420f5ea56c994f6998f0c00",
+          "ns": 103,
+          "nuclear": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+        },
+        "representation": "dense-real-full-CSF",
+        "schema_version": 1,
+        "units": "Hartree"
+      },
+      "provenance": {
+        "block_sizes": [
+          2,
+          1,
+          3,
+          1,
+          3,
+          1,
+          3,
+          1,
+          2
+        ],
+        "dense_centering_shifts_Ha": [
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0
+        ],
+        "matrix_free": false,
+        "n_blocks": 9,
+        "n_csf": 17,
+        "n_orbitals": 6,
+        "solver": "dense-blocked"
+      }
+    },
+    {
+      "angular": [
+        {
+          "J2": 0,
+          "nnz": 310,
+          "parity": 1,
+          "radial_keys": 19,
+          "raw_determinants": 9,
+          "signed_pairs": 81
+        },
+        {
+          "J2": 4,
+          "nnz": 923,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 14,
+          "signed_pairs": 196
+        },
+        {
+          "J2": 8,
+          "nnz": 521,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 10,
+          "signed_pairs": 100
+        },
+        {
+          "J2": 12,
+          "nnz": 210,
+          "parity": 1,
+          "radial_keys": 48,
+          "raw_determinants": 6,
+          "signed_pairs": 36
+        },
+        {
+          "J2": 2,
+          "nnz": 357,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 8,
+          "signed_pairs": 64
+        },
+        {
+          "J2": 6,
+          "nnz": 224,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 6,
+          "signed_pairs": 36
+        },
+        {
+          "J2": 10,
+          "nnz": 119,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 4,
+          "signed_pairs": 16
+        },
+        {
+          "J2": 14,
+          "nnz": 34,
+          "parity": 1,
+          "radial_keys": 10,
+          "raw_determinants": 2,
+          "signed_pairs": 4
+        },
+        {
+          "J2": 16,
+          "nnz": 28,
+          "parity": 1,
+          "radial_keys": 27,
+          "raw_determinants": 2,
+          "signed_pairs": 4
+        }
+      ],
+      "input_sha256": "09f3dc295faef10046e373b4496f447e20e257a64a0dd162f8fbf3530c9ca28d",
+      "matrix_sha256": "15b63a2c4639225a0478fa20401c54dc70aab00e18d6704e604ee51bad2debd5",
+      "name": "two_electron_g_phase",
+      "ordered_CSFs": [
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            4,
+            [
+              [
+                4,
+                4,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            8,
+            [
+              [
+                8,
+                8,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                4,
+                2
+              ]
+            ],
+            12,
+            [
+              [
+                12,
+                12,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            2,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                2,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            4,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                4,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            6,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                6,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            8,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                8,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            10,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                10,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            12,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                12,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            14,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                14,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                1
+              ],
+              [
+                5,
+                4,
+                1
+              ]
+            ],
+            16,
+            [
+              [
+                9,
+                9,
+                0
+              ],
+              [
+                16,
+                7,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            4,
+            [
+              [
+                4,
+                4,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            8,
+            [
+              [
+                8,
+                8,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            12,
+            [
+              [
+                12,
+                12,
+                0
+              ]
+            ]
+          ]
+        },
+        {
+          "parity": 1,
+          "signature": [
+            [
+              [
+                5,
+                -5,
+                2
+              ]
+            ],
+            16,
+            [
+              [
+                16,
+                16,
+                0
+              ]
+            ]
+          ]
+        }
+      ],
+      "owner": {
+        "CSFs": [
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              0,
+              [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              4,
+              [
+                [
+                  4,
+                  4,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              8,
+              [
+                [
+                  8,
+                  8,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  4,
+                  2
+                ]
+              ],
+              12,
+              [
+                [
+                  12,
+                  12,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              2,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  2,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              4,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  4,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              6,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  6,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              8,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  8,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              10,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  10,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              12,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  12,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              14,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  14,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  1
+                ],
+                [
+                  5,
+                  4,
+                  1
+                ]
+              ],
+              16,
+              [
+                [
+                  9,
+                  9,
+                  0
+                ],
+                [
+                  16,
+                  7,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              0,
+              [
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              4,
+              [
+                [
+                  4,
+                  4,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              8,
+              [
+                [
+                  8,
+                  8,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              12,
+              [
+                [
+                  12,
+                  12,
+                  0
+                ]
+              ]
+            ]
+          ],
+          [
+            2,
+            1,
+            [
+              [
+                [
+                  5,
+                  -5,
+                  2
+                ]
+              ],
+              16,
+              [
+                [
+                  16,
+                  16,
+                  0
+                ]
+              ]
+            ]
+          ]
+        ],
+        "hamiltonian_terms": [
+          "dirac-coulomb"
+        ],
+        "max_determinants": 153,
+        "orbital_basis_keys": [
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            -5
+          ]
+        ],
+        "orbital_keys": [
+          [
+            5,
+            -5
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            -6
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            -7
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "radial_binding": {
+          "Z": 10,
+          "core": [],
+          "external": [
+            "271b077ac9524b7ee7f93779b7799be68b26152d14fc57603049ca9abbd490c0",
+            "65e6e0cdf5c4eee0dd95f2f9f9ca59fe0e44efdb5c4e1c166d89526ecc823514",
+            "58ad22b3aaa5905a2ba6582395c083dee24afe8f3c225b088c07bf4676e9b9ab",
+            "da24855c570a76b7b94f66a58114b0c000e71dd4f050e116338e570cc71c5dd1",
+            "abc321186dec2a25b69e111ddd8a1aaa1b7096fa2d597b9e9f97368ab1fd8548",
+            "3c16150fa004cf268a79fd208c9569c7714042454904cccafe2c01597adbaeb6"
+          ],
+          "geometry": "16284af3460fcf8bb94009ed7e88bc161232589ab420f5ea56c994f6998f0c00",
+          "ns": 103,
+          "nuclear": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
+        },
+        "representation": "dense-real-full-CSF",
+        "schema_version": 1,
+        "units": "Hartree"
+      },
+      "provenance": {
+        "block_sizes": [
+          2,
+          1,
+          3,
+          1,
+          3,
+          1,
+          3,
+          1,
+          2
+        ],
+        "dense_centering_shifts_Ha": [
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0,
+          -4.0
+        ],
+        "matrix_free": false,
+        "n_blocks": 9,
+        "n_csf": 17,
+        "n_orbitals": 6,
+        "solver": "dense-blocked"
+      }
+    }
+  ],
+  "scope": "Native current-source complete declared high-l orbital/CI capability; not Sahoo2025 EA, CCSD(T), all-spectrum, production Yb or convergence certification.",
+  "splittings": [
+    {
+      "analytic_Ha": 0.00010652859110349411,
+      "l": 4,
+      "numerical_Ha": 0.0001065284916399456
+    },
+    {
+      "analytic_Ha": 4.109545167252371e-05,
+      "l": 5,
+      "numerical_Ha": 4.109541030716812e-05
+    },
+    {
+      "analytic_Ha": 1.848437541629444e-05,
+      "l": 6,
+      "numerical_Ha": 1.8484330998713716e-05
+    }
+  ],
+  "started_UTC": "2026-10-13T15:11:21Z",
+  "status": "RUNNING"
+}

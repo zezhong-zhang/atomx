@@ -1,0 +1,23 @@
+{
+  "audit_scope": "Post-run read-only source audit; original scientific NPZ and every frozen round input remain unchanged.",
+  "source": {
+    "docs/atomic_pci_sd_native_2026_10_09/valence_term2_full003/driver.py": {
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/input_semantics/driver.py",
+      "sha256": "49084aa633a8fb8c123a535584d009c44b3ad0485723455574fbb21cf2778012"
+    },
+    "docs/atomic_pci_sd_native_2026_10_09/valence_term2_full003/contract.json": {
+      "archive": "docs/atomic_external_benchmark_2026_10_11/sd/input_semantics/contract.json",
+      "sha256": "c89fc0f8f6f6c028c875c35716bb5b639ebea3d958784b841b871809c11ce2da"
+    }
+  },
+  "seed": 314521,
+  "yb_numerator": "Complete allowed signed Gaussian stress numerator and independently supplied response with scale1e-4; all forbidden coordinates explicitly zero; no amplitude screening.",
+  "core_wave_seed": "Zero raw core seed for this term2 operator control, not a converged Yb core wave.",
+  "observable": "Complete linear operator value and analytic denominator plus supplied numerator response for declared6s column at fixed energy; not a physical solved valence wave or experimental spectrum.",
+  "finite_control": "All five current full-action interface columns on a complete declared Na+ finite virtual space, with the same core wave solved/certified in every backend; supplied signed stress numerator/response, not a physical converged valence SD solve.",
+  "limitations": [
+    "No NIST precision improvement",
+    "No full SD solve throughput",
+    "No production pCI software ranking"
+  ]
+}

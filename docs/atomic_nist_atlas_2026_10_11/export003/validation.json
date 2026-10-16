@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "exported_records": {
+    "levels": 119394,
+    "lines": 296998,
+    "ionization": 6019,
+    "history": 119394
+  },
+  "spectra_with_assets": 6019,
+  "all_species": 7021,
+  "all_ionization_rows": 6019,
+  "site_bytes": 402016873,
+  "source_count_discrepancies": [
+    {
+      "kind": "levels",
+      "z": 35,
+      "charge": 3,
+      "declared_rows": 43,
+      "parsed_rows": 41
+    },
+    {
+      "kind": "levels",
+      "z": 60,
+      "charge": 1,
+      "declared_rows": 840,
+      "parsed_rows": 752
+    },
+    {
+      "kind": "levels",
+      "z": 79,
+      "charge": 0,
+      "declared_rows": 75,
+      "parsed_rows": 62
+    },
+    {
+      "kind": "levels",
+      "z": 79,
+      "charge": 1,
+      "declared_rows": 48,
+      "parsed_rows": 38
+    }
+  ]
+}

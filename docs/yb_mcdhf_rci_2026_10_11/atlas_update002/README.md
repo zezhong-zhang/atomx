@@ -1,0 +1,36 @@
+# Accepted160 public531 atlas update — local preparation
+
+The existing periodic-table site now has two separately prepared endpoint models: public531 accepted160 DC and same-point full static Breit RCI. Eight new four-label excitation rows are appended; the prior eight current models/32 rows and two SD/dynamic historical models/eight rows remain byte-identical. The rendered total is12 models/48 rows. This is local preparation only; root owns website-only publication. No credentials, remote calls, commit, push, scientific evaluation or deployment occurred here.
+
+The new first panel explicitly displays the original DC orbital residual4.717047646600387e−5 failing1e−7, while the energy indicator6.8897239137767995e−9 Ha passes1e−8 Ha. The point is not a converged expanded-space MCDHF result. Same69 electrons,24 radial orbitals,531 signedCSFs and16 J/parity blocks are declared. Full static RCI and saved-array numerical integrity do not substitute for orbital stationarity, complete correlation or experimental certification. The five original physical targets retain equalweight0.2 and their original tracker; overlap² is labelled as physical-reference overlap, never bare-CSF weight. Labels remain D3/2,D5/2,P1/2,P3/2 even though global energy columns reorder.
+
+| Target | Endpoint DC (cm⁻¹) | Same-point static (cm⁻¹) | Static−DC (cm⁻¹) | Static−NIST nominal (cm⁻¹) |
+|---|---:|---:|---:|---:|
+| 5d_3/2 | 25271.554105 | 25273.938195 | +2.384090 | +2313.138195 |
+| 5d_5/2 | 26069.115768 | 26040.364436 | -28.751332 | +1707.674436 |
+| 6p_1/2 | 24977.860524 | 24957.163708 | -20.696817 | -2104.656292 |
+| 6p_3/2 | 28476.580285 | 28432.318731 | -44.261554 | -1959.911269 |
+
+The same lower-state shift+14.148346124558884 Ha is shown separately from each upper shift and their difference. Static shifts2–44 cm⁻¹ do not resolve the remaining1708–2313 cm⁻¹ gaps at this point. D/P centroid shifts are−16.297163/−36.406642 cm⁻¹ and splitting shifts−31.135422/−23.564737 cm⁻¹. D splitting gap worsens and P splitting gap improves. The summary and per-model cards show all four actual energies, gaps, physical overlaps, centroids and splittings, alongside source links. This point is not spliced into the older fixed005 or one-step stage003 spectra.
+
+## Evidence and preserved inputs
+
+The [prospective contract](contract.json) preceded every site mutation and binds14 immutable inputs. [prechange_manifest.json](prechange_manifest.json) binds site HEAD b228bef8dd2dcfd7a170771e991056f7b0e8639d and all6,033 tracked files plus30 previous atlas-update evidence files. Only dist/index.html changes among those tracked files. All6,019 gzip assets, hosting manifest, index.json,118 elements,7021 species,119394 levels,296998 lines and6019 ionization records retain their exact bytes. Original stage002 overlay and all existing evidence copies are unchanged.
+
+[prepare.py](prepare.py) imports the frozen10d481… NIST matcher convention and existing exporter record helper only for data rematching, without a physical operator invocation. Unique evaluated, finite, unflagged, unbracketed branches are matched by normalized configuration,2J and parity rather than cached row positions. The same6s zero is ASD070002.000001; upper IDs are070002.000009/.000010/.000012/.000015. Missing upper uncertainties remain null. Ten exact new scientific JSON copies and one separate endpoint overlay are added; there is no NIST recompression or re-export. [edit_page.py](edit_page.py) applies checked single preimage substitutions and [endpoint_renderer.js](endpoint_renderer.js) preserves the existing styling and renderer. The loader requests the extra overlay only forYb II; explicit failure preserves the previous10 models, and failure of both overlays retains the original two historical models. Cached revisits avoid duplicates.
+
+The source chain reaches the [actual static result](../public531_endpoint_static_rci/result.json), [independent3,710-check saved-array proof](../public531_endpoint_static_rci/saved_array_verification.json) and [original988-check DC endpoint replay](../public_mixed_resume_run002/independent_endpoint_verification.json), including accepted checkpoint/source/objective identities. A saved-array verifier is not a second radial Hamiltonian construction; the website only presents those recorded scientific results.
+
+## Actual validation
+
+- [data_verification.json](data_verification.json): **6,611 checks, all passed**. Includes all unchanged original assets, previous archive hashes, full353 matcher-source epoch, immutable science inputs/copies, physical ASD rematching, exact energies and state bindings, original failed gate, independent centroid/splitting arithmetic and same-point delta ledgers.
+- [browser_result.json](browser_result.json): **50 checks, all passed**, using existing cached Playwright Chromium and a temporary owned loopback server. Desktop and390px mobile,12models/48rows, every prior model's four actual energies, current negative status, delta/multiplet values, exact download and10evidence URL hashes, cache revisit, old Yb349-level pagination, Ne observed-line filter, search, missing species and both failure fallbacks were exercised. No JavaScript errors. [desktop.png](desktop.png) and [mobile.png](mobile.png) were visually inspected; mobile tables remain horizontally scrollable within the page.
+- Node syntax checks for generated renderer/browser script and Ruff for the three new Python scripts passed. Site git diff --check passed. These are presentation/data checks; no new physics, end-to-end performance or parallel efficiency measurement is claimed.
+
+The retained [data_failure001.json](data_failure001.json) and [checker source](verify_data_failure001.py) record an initial read-only verifier schema assumption: accepted_iteration did not exist. The actual checkpoint key iteration was inspected and checked with accepted_complete_point, then the unchanged data/scientific model passed. No spectrum, threshold or old proof was changed.
+
+## Publication handoff and documentation disposition
+
+Site checkout: /home/zzhang/.local/share/atomx-nist-atlas/site. [handoff_manifest.json](handoff_manifest.json) binds changed/new assets and local proofs for root publication. Static source is46,106,292 uncompressed bytes, below the Sites256MiB package limit. Preserve the existing hosting project/access, package the existing dist, and do not re-export NIST. This child has not produced a new live version. The [Sites skill](</home/zzhang/.codex/plugins/cache/openai-curated-remote/sites/1.0.0/skills/sites/SKILL.md>) local-only branch was used; source synchronization, credentials and deployment remain root-owned.
+
+New local presentation → this current preparation account and endpoint overlay added. Previous atlas_update README/proofs and all scientific source/evidence remain frozen. Root owns consolidated parent/site/live-status navigation. EARS is in [trace.md](trace.md). No new global insight: this increment applies existing matchedstate, failedgate, immutable-reference and same-point difference rules. Trigger→action→reason→scope: append later endpoint models separately with their own checkpoint/failed-gate identities so a real optimization history cannot silently certify or rewrite earlier spectra.

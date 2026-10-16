@@ -1,0 +1,254 @@
+{
+  "operator_build_seconds": 33.89863158699973,
+  "blocks": [
+    {
+      "sector": [
+        1,
+        1
+      ],
+      "CSFs": 223,
+      "full_columns": 223,
+      "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+      "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+      "Davidson_seconds": 0.01594575199942483,
+      "iterations": 35,
+      "energies_Ha": [
+        -14067.526231462864,
+        -14067.22556150355
+      ],
+      "energy_difference_Ha": [
+        -1.2732925824820995e-11,
+        -2.1827872842550278e-11
+      ],
+      "direct_residual_L2_Ha": [
+        4.110942765359453e-10,
+        7.644871747154203e-10
+      ],
+      "direct_residual_max_abs_Ha": 2.398792275926098e-10
+    },
+    {
+      "sector": [
+        1,
+        -1
+      ],
+      "CSFs": 219,
+      "full_columns": 219,
+      "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+      "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+      "Davidson_seconds": 0.015372522999314242,
+      "iterations": 22,
+      "energies_Ha": [
+        -14067.40791738217,
+        -14067.338995421493
+      ],
+      "energy_difference_Ha": [
+        1.0913936421275139e-11,
+        1.8189894035458565e-12
+      ],
+      "direct_residual_L2_Ha": [
+        4.919786704583659e-10,
+        6.057708775156089e-10
+      ],
+      "direct_residual_max_abs_Ha": 1.9158674646746476e-10
+    },
+    {
+      "sector": [
+        3,
+        1
+      ],
+      "CSFs": 370,
+      "full_columns": 370,
+      "whole_reference_action_max_abs_Ha": 1.6370904631912708e-11,
+      "full_reference_residual_max_abs_Ha": 1.8189894035458565e-11,
+      "Davidson_seconds": 0.021999593999680656,
+      "iterations": 38,
+      "energies_Ha": [
+        -14067.417040668974,
+        -14067.257458505206
+      ],
+      "energy_difference_Ha": [
+        -1.2732925824820995e-11,
+        -2.000888343900442e-11
+      ],
+      "direct_residual_L2_Ha": [
+        1.3943409746434558e-10,
+        6.180901561554209e-10
+      ],
+      "direct_residual_max_abs_Ha": 1.4844658835500013e-10
+    },
+    {
+      "sector": [
+        3,
+        -1
+      ],
+      "CSFs": 367,
+      "full_columns": 367,
+      "whole_reference_action_max_abs_Ha": 1.4551915228366852e-11,
+      "full_reference_residual_max_abs_Ha": 1.2732925824820995e-11,
+      "Davidson_seconds": 0.019124779999401653,
+      "iterations": 25,
+      "energies_Ha": [
+        -14067.392090303932,
+        -14067.360549332701
+      ],
+      "energy_difference_Ha": [
+        1.8189894035458565e-12,
+        -1.4551915228366852e-11
+      ],
+      "direct_residual_L2_Ha": [
+        2.591656063067837e-10,
+        9.088796343005227e-10
+      ],
+      "direct_residual_max_abs_Ha": 2.5283952709287405e-10
+    },
+    {
+      "sector": [
+        5,
+        1
+      ],
+      "CSFs": 416,
+      "full_columns": 416,
+      "whole_reference_action_max_abs_Ha": 1.2732925824820995e-11,
+      "full_reference_residual_max_abs_Ha": 1.6370904631912708e-11,
+      "Davidson_seconds": 0.016469799999867973,
+      "iterations": 34,
+      "energies_Ha": [
+        -14067.413297705269,
+        -14067.272112232082
+      ],
+      "energy_difference_Ha": [
+        -1.8189894035458565e-12,
+        -2.1827872842550278e-11
+      ],
+      "direct_residual_L2_Ha": [
+        8.23227543578786e-10,
+        7.358688483856951e-10
+      ],
+      "direct_residual_max_abs_Ha": 1.858850851021998e-10
+    }
+  ],
+  "UIDs": [
+    {
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "label": "6s_1/2",
+      "selected_level": [
+        1,
+        1,
+        0
+      ],
+      "energy_Ha": -14067.526231462864,
+      "dense_energy_Ha": -14067.52623146285,
+      "signed_overlap": 1.000000000000002
+    },
+    {
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "label": "5d_3/2",
+      "selected_level": [
+        3,
+        1,
+        0
+      ],
+      "energy_Ha": -14067.417040668974,
+      "dense_energy_Ha": -14067.41704066896,
+      "signed_overlap": 1.0000000000000016
+    },
+    {
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "label": "5d_5/2",
+      "selected_level": [
+        5,
+        1,
+        0
+      ],
+      "energy_Ha": -14067.413297705269,
+      "dense_energy_Ha": -14067.413297705267,
+      "signed_overlap": 0.9999999999999986
+    },
+    {
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "label": "6p_1/2",
+      "selected_level": [
+        1,
+        -1,
+        0
+      ],
+      "energy_Ha": -14067.40791738217,
+      "dense_energy_Ha": -14067.407917382181,
+      "signed_overlap": 1.0000000000000004
+    },
+    {
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "label": "6p_3/2",
+      "selected_level": [
+        3,
+        -1,
+        0
+      ],
+      "energy_Ha": -14067.392090303932,
+      "dense_energy_Ha": -14067.392090303934,
+      "signed_overlap": 1.0000000000000002
+    }
+  ],
+  "input_binding": {
+    "external": [
+      "d83c6d51ca06dd9c57538848b6b604e9a4886f69b5847b37ea417a5ae6b66e9f",
+      "58f1db43129d0f39e694dc050c7c350ed29c384270bc7adbce9918fb5c148494",
+      "1754cefb1763ef7e72df084d7f91dc75ffb39ba0f45ed27d6a55da4857898cef",
+      "4516875c17d30daad3fb1468a92b05f530f730daea14d806d34be4315dd99889",
+      "92f9da0d2172b5a868d3e73dbfed602cbca746b2d424efd03b37579abfe775c9",
+      "874687df1d61716f125d755854da863cf392c9e7a85a8f3b389440fa393948e9",
+      "ac38de5fcd810fca3cdabc549761469be03776accbd6d0b89d7f8ee587fab533",
+      "6718c45b272e61eac25f3a847fe26176fe5947d8be194fb74d5a1a959d109091",
+      "8a3f68822b760e910291f0762b08576c333551b0ee4ce1d88fd27f8111f10d97",
+      "d5895be36673eae5d915fafe3215bff07eaf8b9d0dc5e63caa83df8046ffe3be",
+      "96b4637a2d7bb227d7bfab0051601f576bd896d1fb2e429ea8c0557c69f7bd91",
+      "cdb0db11bc63464828512c70c38cdcba3fe3ca31557bc950f509c69ca3adf545",
+      "7a9878d960517f549087cd280beae6274a5b6ecabbea3d25daadc93d4b031527",
+      "695a5e4906f600899e0f5b3815d104f623d389523507a783521f8d033767f635",
+      "6d952241771abad61ebf017bdcc4b10665e247b3ed8703ca882a84270379be55",
+      "db869226a3bfccbf09bc32a10fb0ffb43549322dcfe118a8135cb3bd0412ebf2",
+      "89b2b2c5e09955fde9dd895e68f9b9fab707d3280f754312796ff5335cf78772",
+      "b65bb44c4983402a28dc2cdf849630177eeb5bc4f17c24123c4c9bcd3fee4728",
+      "233c56e710f03a1699f05ac5ce4f11280d645c53889d05544481124721522923",
+      "5443370f7b53cc1a61224d63f1e9aadbbce4a1be173c765445cdfc5a100d2d5d",
+      "1d534e43245f4b32ec670448b7eec68a63345b94b31d3c90bc8214fb446e2907",
+      "6022b307f5607b4c137432ea2ecdb1d1fc3b113f8067904e2a121dd0935b96ec",
+      "ee70b58c269cf9444911fea820595a5dd599330ba976be4dc57522d35bef8885",
+      "ab9fa5abda8993bc0cf6f121cded38ec914c62edfeea9900737600bd62f0d8bd",
+      "90973c77c8729e7cfcffa972b3eba00aa40af67d7cbc13baa52bde99cdd39510",
+      "8fd71a8cb93d098d4c3f4a2990d80782520d32a30157d346c3b307baf2905fc6",
+      "e8766b11cf6b0b795bda371bf7accd2037219cc5c224cdf6ff4c1bd23bdc5907",
+      "d2e92ceae4f90549caf4c72f18dd6f472e996b6a96bb845056d0ce6cf6e57ae2",
+      "90cf6559eb8a8adba2f2c10d0079740cd0c631492795e6e16abaff69f19f9c9c",
+      "a188dac3b0a29c564530a0247e105ad27ff60151da2f7c6d872111fe23801d0b",
+      "79e5cdf79246681c008d0f722f63c2bb11ea5d564fe7ee19f7c9dfe6c0fb10ac"
+    ],
+    "core": [],
+    "geometry": "d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76",
+    "Z": 70,
+    "ns": 123,
+    "nuclear": "f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b"
+  },
+  "oracle_SHA256": "03ae85c9ac8181c94e831d5608aaf3c88738cf3a6686e4284adee28d73aa0593",
+  "ownership_scope": "new local native LinearOperator bound here; no CIHamiltonianSnapshot fabricated"
+}

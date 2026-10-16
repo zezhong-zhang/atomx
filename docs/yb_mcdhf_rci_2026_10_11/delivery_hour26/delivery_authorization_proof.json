@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "scope": "Single archived actual send; original strict-format gate failure preserved. Exact nine table-separator/padding differences only; all remaining characters and full table data/headers exact. No general minus/sign normalization.",
+  "parent_proof_sha256": "1f37bc9058e46d0a5214c4a3eb9d92e9545fcb387e8cd0fbb89e9f5b85f792ce",
+  "parent_format_gate_passed": false,
+  "actual_send": {
+    "passed": true,
+    "started_at": "2026-10-11T18:00:01.144803+00:00",
+    "finished_at": "2026-10-11T18:00:04.208506+00:00"
+  },
+  "message_id": "om_x100b6388a4f608a0c11b6c64647646b",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "cycle": "2026-10-11T18",
+  "source_stage": 28,
+  "source_stage_sha256": "16ee7d164892df7cba3995009125408174290064519636ea5d1ad06c2b809e05",
+  "registry_sha256": "42520518cd75d1eba84d6e1762b019f06337677f45b53d2bb2ac3af92f3991f0",
+  "position": 1620,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1620",
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "raw_visible_string_equal": false,
+    "all_nonformatting_text_and_table_cells_match": true,
+    "exact_format_operations": [
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|||||"
+      }
+    ]
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "automatic_jobs": 0,
+    "scientific_iteration_started": false,
+    "highest_level_reached": false
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_science_calls": 0,
+  "request_key": "b808873d-d4b3-51c6-8c11-8c7aff879377"
+}

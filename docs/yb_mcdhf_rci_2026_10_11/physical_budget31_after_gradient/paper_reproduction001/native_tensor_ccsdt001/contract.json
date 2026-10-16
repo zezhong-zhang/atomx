@@ -1,0 +1,104 @@
+{
+  "hypothesis": "A complete native CCSDT/EA tensor realization reproduces the prior directed Yb finite pencil and permits adding the entire5d5/2 multiplet without full-Fock production enumeration. Independent sector FCI/expm quantifies same-model omitted ranks; experiment improvement is measured, not an admission gate.",
+  "fixed": {
+    "Z": 70,
+    "nucleus": "same empiricalA171 Fermi",
+    "radial": "same owned ns180/ks9/R500/RKB bank",
+    "correlated_core": "5s2+5p1/2^2,4electrons",
+    "frozen": "64electrons including4f14 and5p3/2^4",
+    "virtual": "complete6s1/2+5d3/2+5d5/2,12magneticspinors",
+    "operator": "same native DC with full frozen contractions; noBreit/QED/recoil",
+    "origin": "subtract exactly common68e HF reference from both sectors; retain original origin",
+    "comparisons": [
+      "CCSD/R2",
+      "CCSD/R3",
+      "CCSDT/R2",
+      "CCSDT/R3",
+      "independent full sector FCI"
+    ],
+    "sectors_m2": [
+      -5,
+      -3,
+      -1,
+      1,
+      3,
+      5
+    ],
+    "parity": 0,
+    "matching": "unique normalized physical bare6s/5d radial projector weight>=0.5, target imag<1e-10Ha andJ2; all2/4/6 partners, no experimental root matching",
+    "solver": "simultaneous Krylov nonlinear SD or SDT; four fixed coupling continuation points; no postfailure retry",
+    "scope": "EA-CCSDT/R3, not valence-universal FS-RCCSDT or full paper model"
+  },
+  "acceptance": {
+    "replay_core_residual_Ha": 1e-10,
+    "replay_directed_pencil_Ha": 1e-09,
+    "native_integral_restriction_Ha": 1e-10,
+    "amplitude_Ha": 1e-10,
+    "complete_directed_sector_Hbar_Ha": 1e-09,
+    "symmetry_Ha": 1e-10,
+    "eigen_Ha": 1e-10,
+    "J2_defect": 1e-07,
+    "multiplet_spread_Ha": 1e-08,
+    "nonzero_T3_min": 1e-12,
+    "full_H": "diagnostic; never force omitted-rank residual to zero"
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "wall_seconds": 1200,
+    "load1_max": 24,
+    "available_min_bytes": 17179869184,
+    "tensor_memory_MiB": 512,
+    "batch_size": 4,
+    "full_core_count": 1820,
+    "full_attachment_count": 4368,
+    "independent_core_M0_even": 190,
+    "independent_attachment_sector_counts": {
+      "-5": 237,
+      "-3": 322,
+      "-1": 374,
+      "1": 374,
+      "3": 322,
+      "5": 237
+    },
+    "tensor_plan": {
+      "core_amplitudes": 1324,
+      "attachment_coordinates": 1596,
+      "dense_core_coordinates": 112944,
+      "dense_attachment_coordinates": 28236,
+      "resident_integral_bytes": 528384,
+      "numerical_upper_bytes": 37375904,
+      "attachment_matrix_bytes": 20377728,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "scalar_only_all68_plan": {
+      "core_amplitudes": 11176684,
+      "attachment_coordinates": 505660,
+      "dense_core_coordinates": 544005168,
+      "dense_attachment_coordinates": 8000076,
+      "resident_integral_bytes": 327782400,
+      "numerical_upper_bytes": 110989585312,
+      "attachment_matrix_bytes": 2045536284800,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    }
+  },
+  "stopping": "First failed source/input/operator/equation/multiplet/resource gate stops; preserve evidence. No altered shell, rank, tolerance, experimental fit, automatic retry or borrowed correction.",
+  "source_map_sha256": "a5d63536ef61f08f2a2bbfae676f9e3b037aef18abba2cf38421616930bf596b",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/run.py": "33ff7b9cd8242706e96b0bab697c07b95ebf4ab5c5d5601c79c77a9a327b8bd4",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/audit.py": "36c1a1a997aef67505a0c59d272022ec137103f519dd621cef8169aeb30e68f1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/equation_reference.json": "61765eaa8d30eedfc0f9d4fa9663f0f808aa7251d398f4210e5cc5785980f41b",
+    "src/atomx/physics/csf/CCSDT_EQUATIONS_LICENSE.txt": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "tests/test_tensor_coupled_cluster.py": "a9627c4def98d6ab16deca7096108c86398a5fe027e339a740fcee5d1d990c2a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/source.json": "df77843aa536cfce428422eab78ec1fee4e206a4bf3657aa998e0cbd793bd720",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/actual001/integrals.npz": "7423e1a31887338a3a3265aee1a9a35619658cc0df92bf7f54918d8c0c3425e4",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/actual001/operator.json": "6ec1e0e59c2e601353ee731a171b480e5fddf68815001f1139a830074d752815",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/actual001/CCSDT_R3.npz": "4f32933ae88a516db8425949dda10b046e25d4b21e0e678b15987188cc2e8885",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/actual001/CCSDT_R3.json": "17e598eae6dc415c970549f0ab0d6c91eb796613d916260d32f0aaf940ef964d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/blocks_ns180.npz": "bf756c539eb1dda0aa9013082dcc4c46356892429ad98e0576eac7e368090c72"
+  }
+}

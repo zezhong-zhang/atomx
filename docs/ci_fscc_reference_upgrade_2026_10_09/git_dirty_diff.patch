@@ -1,0 +1,1165 @@
+diff --git a/docs/AGENT_INSIGHTS.md b/docs/AGENT_INSIGHTS.md
+index 986235d..7da1113 100644
+--- a/docs/AGENT_INSIGHTS.md
++++ b/docs/AGENT_INSIGHTS.md
+@@ -24,7 +24,24 @@
+   DR/Burgess fixture 的 `a_radiative` 与 TR 级总率相差精确 2J+1。
+ - 边界：这是特定输出约定；不能给所有 FAC 表机械乘除 2J+1。
+   fixture/脚本/量定义变化时重新核对。核对约定通过也不排除代码缺陷。
++- 补充证据：[Yb⁺ 非局域 Fock 与独立 DF 对照](yb_diagnosis_repair_2026_10_08/README.md)。
++  非局域交换模型的裸长度/速度值不一致时，先核对共同局域哈密顿量
++  假设及相互作用对易子，再改归一化或符号；本次闭合只验证冻结核
++  表示，不代替相关波函数和 RPA/辐射顶角验证。并入现有约定规则，不新增根规则。
++- 补充证据：[Yb⁺ 独立绝对阈值锚](yb_correlation_tail_2026_10_08/README.md)：
++  定位上下态绝对偏差时另核对电离阈值、离子终态和数据版本，不能因都标作 NIST
++  就混用 Handbook、论文和当前 ASD 的零点。旧激发能及纯增量对照保持，新的
++  绝对锚单独冻结；本次区分基态与上态系统偏差，但不把模型−实验差直接解释
++  为单个遗漏物理项。并入现有约定规则，不新增根规则。
++- 2026-10-09 消费边界补充：[pCI/AMBiT/EXP-T 原生升级](ci_fscc_reference_upgrade_2026_10_09/README.md)
++  把完整带符号 Σ₁ 接入 CI，同时绑定生产者的芯层、外部轨道相位、度量与核模型；
++  CI 打开已积分消去的芯层空穴时必须拒绝并重建互补 P/Q，不能沿用全芯层自能。
++  原生重放通过仅证明消费闭合，不改变此前实验失败。并入既有约定规则。
+ - 去向：根 §3 的先核约定规则；具体系数保留在专题参考。
++- 2026-10-08 文献核查补充：[Yb⁺ 文献修复策略](yb_literature_repair_strategy_2026_10_08/README.md)
++  将束缚能精度与跃迁精度、一阶 Breit 与 Coulomb–Breit 交叉项分开；实算覆盖决定
++  能排查哪一项，方法名称和文献百分比不能替代匹配量。空穴进入 CI 时重建互补
++  P/Q，避免与已有核–价自能重复计数；修复效果仍待原生计算。并入约定规则，不新增根规则。
+ 
+ ## measure-end-to-end
+ 
+@@ -49,6 +66,11 @@
+   加QED后已重求CI；旧n4/5额外跃迁响应约+0.018meV，含QED轨道SCF未测。
+   这个数值不界定缺失轨道方向，也不能再加到已有谱位。
+   [直接单电子QED轨道探针](xfel_qed_orbital_probe_2026_10_05/README.md)在全221原轨道与冻结Fock势/无对投影内重求轨道，参考占据组合额外响应约+0.01785meV；这是有范围的轨道混合量级，仍非密度反馈SCF、相关三态谱位或完整轨道SCF上界。
++- 2026-10-09 矩阵阶段补充：[Yb⁺ 完整五态非对角响应](yb_matrix_self_energy_2026_10_08/README.md)
++  表明“重求轨道后本征残差通过”不能认证谱位改善。固定 Hermitian Σ₂、同一核/投影、
++  嵌套正交外部空间、共同无极点能区与最低分支时，Rayleigh–Ritz 加 Σ′≤0 约束根只会下降；
++  已过束缚的绝对基态不能由继续扩大该外部空间修正。应同时测独立阈值、上下态响应与
++  劈裂，再决定改变相关核；该结论不推广到改变核场、高阶图或复共振区间。
+ - 去向：根 §3 的原生度量/驻值区分及 §5 的重放身份要求；
+   旧失败数据保留，[历史快照](archive/AGENTS_2026_10_05.md) §16、§22 连同阅读。
+ 
+@@ -78,6 +100,16 @@
+ 
+ - 触发 → 行动 → 原因：精密跃迁的空间自适应先比较Σ上−Σ下，保留候选Q内完整耦合；
+   单态能移可能相互抵消，纯对角分母也可能错过meV级组内响应。
++- 补充证据：[Yb⁺ 冻结轨道 Dyson 能量反馈](yb_energy_dependent_sigma_2026_10_08/README.md)：
++  同一闭核与 ℓ≤6/50 Ha 空间内，单态自洽响应为 36–220 cm⁻¹，跃迁响应最高
++  110 cm⁻¹；ℓ≤4→6 的跃迁增量仍达 558 cm⁻¹。判断自洽是否为主因须测上下态
++  响应之差，并保留独立空间门；本例不能推广为完整轨道 SCF 或高阶相关的上界。
++- 补充证据：[Yb⁺ 完整相关尾部与径向表示](yb_correlation_tail_2026_10_08/README.md)：
++  扫能量窗时同时核对实际虚谱及完整上下态响应，避免把有限表示容量当作尾界。
++  本例共同 ℓ6/50 Ha 的粗/细虚轨道为 861/1616，但共同 ℓ6/200 Ha 的实际径向
++  跃迁响应最高 2.300 cm⁻¹；最后分波增量仍 39.156 cm⁻¹，细基最后正能
++  增量仍 17.577 cm⁻¹。容量增加不等于误差增加；有限局部增量也不认证无限尾部。
++  并入现有规则，不新增根规则。
+ - 证据：同一有限Fermi/frozen DF-DKB全修正H，15→10、10→5Ha的四个跃迁
+   预测误差0.004–0.008meV；独立新n4三态的两线预测误差约0.006/0.007meV。
+   原窗口的对角反馈误差1.6–2.2meV，未过预声明1meV预测门。
+diff --git a/docs/AGENT_REFERENCE.md b/docs/AGENT_REFERENCE.md
+index a5bb5dc..68822d1 100644
+--- a/docs/AGENT_REFERENCE.md
++++ b/docs/AGENT_REFERENCE.md
+@@ -20,7 +20,8 @@
+ 
+ | 当前任务 | 建议先读 | 旧 § |
+ |---|---|---|
+-| 稀土自由离子谱线、寿命与实验对照 | [Yb⁺ 实算](rare_earth_yb_spectrum_2026_10_08/README.md)：V68 冻结核、5 能级、7 谱线、2 寿命；数值与实验门限分开，含完整声明的 4f 空穴空间、静态 Breit 和近似 QED 敏感性 | — |
++| pCI / AMBiT / EXP-T 源码、构建与有效哈密顿量消费 | [当前下载、原生升级和重放](ci_fscc_reference_upgrade_2026_10_09/README.md)：带符号全矩阵 Σ₁、生产者身份/芯层守卫及十态 CI 重放；全阶 SD、Σ₂ 和 FS-CCSDT 未实现 | 新专题 |
++| 稀土自由离子谱线、寿命与实验对照 | [当前带符号矩阵 Σ₂ 实现与轨道响应](yb_matrix_self_energy_2026_10_08/README.md)：99 项相关测试及两套完整五态计算/保存矩阵重放；最大谱位偏差 5.868%，物理门未通过；有限外部空间与完整高阶理论分开。[文献支持的下一阶段策略](yb_literature_repair_strategy_2026_10_08/README.md)：全阶 SD、互补 P/Q 空穴模型和二阶 Coulomb–Breit 交叉项，尚未实算新谱线。[前序 Yb⁺ 完整尾部与径向控制](yb_correlation_tail_2026_10_08/README.md)仍是测量依据：粗 ℓ8/200、细 ℓ6/200 两组完整五态及 ASD 绝对能量锚；数值/身份门通过，空间及实验目标未通过。[能量依赖阶段](yb_energy_dependent_sigma_2026_10_08/README.md)保留离壳极点、DF 分支 Dyson 及 137 项测试；[在壳与约定阶段](yb_diagnosis_repair_2026_10_08/README.md)保留独立 DF/偶极/电流/Breit 与 QED 告警；[原始基线](rare_earth_yb_spectrum_2026_10_08/README.md)保留七谱线、寿命及失败 | 新专题 |
+ | 原子/分子/晶体谱学、QED/XAS 与北京光源未来产业故事线 | [当前研究体系与 12 个案例 setup](spectroscopy_science_story_2026_10_06/README.md)；三个已测接口与完整科学计划分开。[此前 Ne 专题项目书](agentic_science_beijing_light_source_2026_10_06/README.md)保留作支持材料；当期赛题契约须另核 | — |
+ | 公共态选择、占率、态平均 | [态选择](atomic_state_selection_2026_10_04/README.md)、[联合电荷优化](xfel_charge_average_2026_10_04/README.md)、[磁态统计目标](xfel_dc_audit_2026_10_04/README.md) | 0.1, 6, 10, 13 |
+ | 轨道梯度、近根、驻值和残差度量 | [局部梯度与度量勘误](xfel_local_gradient_2026_10_04/README.md)、[身份响应](xfel_subspace_response_2026_10_04/README.md)、[边界曲率](xfel_feasible_curvature_2026_10_04/README.md) | 14–16, 22, 28–30 |
+diff --git a/docs/ARCHITECTURE_CAPABILITIES.md b/docs/ARCHITECTURE_CAPABILITIES.md
+index ef449bf..8ae9d54 100644
+--- a/docs/ARCHITECTURE_CAPABILITIES.md
++++ b/docs/ARCHITECTURE_CAPABILITIES.md
+@@ -16,6 +16,8 @@ implemented interface does not establish experimental accuracy for every atom.
+ | Complex scaling and target spectra | Point-nuclear complex Dirac/DKB, Coulomb/static-Breit CI, and target eigensolvers in lower-level modules using the c-product | No QED in this CI entry point or automatic `Atom.solve()` width mode; physical-pole and representation convergence require separate validation |
+ | Transition resolution | Explicit CI reference and explicit UTA fallback policy | Configuration averages cannot resolve individual multiplet lines |
+ | Correction inclusion | Explicit operator stages; duplicate addition rejected before evaluation; diagnostic reevaluation allowed | Historical results without inclusion records cannot be reconstructed from guesses |
++| Monovalent core–valence self-energy | Lower-level diagonal and signed same-κ matrix second-order attachment self-energy; immutable pole/residue snapshots, scalar and finite-external-space Dyson roots, coefficients and quasiparticle residues; external metric/core orthogonality checks; bound full signed scalar one-body CI injection at a frozen energy argument, with producer spinor/core/metric/nuclear identity and a filled-core P/Q guard | Scalar defaults remain on-shell. Matrix Dyson mixes the declared external functions with frozen core/intermediates; no complete radial Brueckner, self-consistent GF2, all-order SD, general particle-hole complementary Q operators, two-valence screening or dressed transition operator. Virtual/radial/partial-wave convergence remains separate |
++| Tabulated self-energy coverage | Mohr/Indelicato warn when untabulated orbitals use the leading Zα analytic fallback, including through scalar and diagonal-matrix entry points | Warning preserves the estimate; it supplies neither a finite-Z remainder nor a screened-QED precision bound |
+ | Result conversion | Conversion requires an explicitly solved, converged result | The PNC/EDM entry points still require their B-spline payload |
+ | Native radial access | Shared state contracts below scattering; native quadrature workspace exposed | Complete result immutability and correlated-state serialization remain unfinished |
+ | Persistence | Versioned SCF and native shooting metadata, orbitals, calculation specification and correction accounting | Native checkpoints do not imply complete correlated-state archival |
+@@ -28,6 +30,18 @@ implemented interface does not establish experimental accuracy for every atom.
+ 
+ ## Verification map
+ 
++- Attachment self-energy and coverage: `test_mbpt_matrix.py`, `test_mbpt_transitions.py`,
++  `test_ci_mbpt_sigma1.py`, `test_ci_effective_one_body.py`, `test_qed_approximation_coverage.py`;
++  [signed matrix implementation and live Yb controls](yb_matrix_self_energy_2026_10_08/README.md),
++  [preceding Yb complete tail/radial controls](yb_correlation_tail_2026_10_08/README.md),
++  [energy-dependence evidence](yb_energy_dependent_sigma_2026_10_08/README.md)
++  and [previous on-shell/convention controls](yb_diagnosis_repair_2026_10_08/README.md).
++- Proposed Yb correlation repairs and code coverage are separated in the
++  [literature review](yb_literature_repair_strategy_2026_10_08/README.md):
++  native CC remains a scaffold, closed-shell pp-ladders are not an all-order
++  valence self-energy, and explicit hole CI requires a complementary Q space.
++- Bound CI operator consumer and reference builds: [pCI/AMBiT/EXP-T upgrade](ci_fscc_reference_upgrade_2026_10_09/README.md);
++  frozen-energy matrix injection is implemented, all-order SD/FS-CCSDT remain unfinished.
+ - API model fidelity: `test_architecture_scientific_fidelity.py`.
+ - Import and state boundaries: `test_architecture_boundaries.py`,
+   `test_numerical_design_contracts.py`, `test_protocols.py`.
+diff --git a/docs/README.md b/docs/README.md
+index a3824d2..a844cbd 100644
+--- a/docs/README.md
++++ b/docs/README.md
+@@ -14,6 +14,13 @@
+ 
+ ## Design records and evidence
+ 
++- [pCI、AMBiT、EXP-T 源码与 Atomx 有效算符升级](ci_fscc_reference_upgrade_2026_10_09/README.md)：固定版本下载与构建、源码方法覆盖、带符号矩阵 Σ₁ 原生 CI 注入、冻结芯层/P–Q 身份守卫、Davidson 小空间修复；十个旧 Yb 矩阵的消费重放通过，未新增高阶或实验精度结果。
++
++- [Yb⁺ 非对角二阶自能与轨道响应](yb_matrix_self_energy_2026_10_08/README.md)：当前实现与实验专题；完整带符号矩阵 Σ₂、有限外部空间 Dyson 系数/残重及独立非对角锚，99 项相关测试通过。两套完整五态及矩阵重放完成；细基最大谱位偏差 5.868%，实验及空间门未通过。全阶 SD、平衡空穴与 Breit 交叉项仍是后续模型。
++- [Yb⁺ 文献诊断与修复路径](yb_literature_repair_strategy_2026_10_08/README.md)：当前下一阶段策略；原始论文对照支持全阶 SD 与平衡空穴模型，识别百 cm⁻¹ 的二阶 Coulomb–Breit 交叉项；区分 Brueckner/CCSD 的束缚能和谱位误差，核对 Atomx scaffold 与实际消费覆盖。仅文献算术与实现核查，尚无新的高阶谱线。
++- [Yb⁺ 相关尾部与径向表示](yb_correlation_tail_2026_10_08/README.md)：前序标量诊断；两组完整五态（粗基 ℓ≤8/200 Ha、细基 ℓ≤6/200 Ha）及共同空间控制，最后分波/细基正能增量 39.16/17.58 cm⁻¹，共同 ℓ6/200 的径向响应 2.30 cm⁻¹；数值门通过，相关收敛与 5% 实验目标仍未通过；独立 ASD 电离阈值锚分辨基态和上态的绝对偏差。
++- [Yb⁺ 能量自洽与相关尾部](yb_energy_dependent_sigma_2026_10_08/README.md)：上一阶段封存证据；离壳自能、DF 连续分支 Dyson 根与 CI 注入，137 项测试通过，能量反馈和空间收敛分别检验。
++- [Yb⁺ 谱线偏差定位与修复续报](yb_diagnosis_repair_2026_10_08/README.md)：前一阶段封存证据；独立 DF/偶极/电流/Breit 对照、外部单价电子在壳二阶自能、完整 ℓ≤6/50 Ha 窗口与 CI 注入、QED 解析回退告警。
+ - [稀土 Yb⁺ 谱线实算与实验对照](rare_earth_yb_spectrum_2026_10_08/README.md)：5 个能级、7 条目标线和 2 个直接寿命对照；冻结核数值控制通过、实验精度目标未通过，保存 Breit、4f 空穴与 QED 后端敏感性及失败证据。
+ - [原子、分子、晶体谱学与未来产业研究体系](spectroscopy_science_story_2026_10_06/README.md)：当前宏观故事线、12 个案例 setup、QED/XAS/材料模型选择、Atomx 能力边界与三个已运行接口例子；完整科学案例仍为计划。此前 [Ne 精密谱学参赛项目书](agentic_science_beijing_light_source_2026_10_06/README.md)保留为专题支持材料。
+ - [Electronic-structure provider contract](adr/ADR-0001-electronic-structure-provider.md).
+diff --git a/docs/TESTING.md b/docs/TESTING.md
+index 1af54cc..34aedc3 100644
+--- a/docs/TESTING.md
++++ b/docs/TESTING.md
+@@ -26,6 +26,8 @@ exist; removed campaigns do not leave skipped or failing test placeholders.
+ | Radial branch identity | `test_dhf_radial_identity.py`, `test_shooting_core_hole_stationarity.py` |
+ | Dirac radial operator accuracy | `test_shooting_radial_operators.py`: analytic moments, boundary stencils, symmetry and refinement |
+ | Electron projector and correlated gradient | `test_shooting_electron_reference.py`, `test_shooting_correlated_grid.py` |
++| Closed-core attachment self-energy, Dyson roots and one-body CI injection | `test_mbpt_matrix.py`: independent nonzero off-diagonal magnetic-state contractions, signed phase covariance, analytic derivative and auxiliary-Hamiltonian eigenvectors/residues; `test_mbpt_transitions.py`: occupied/external on/off-shell diagonal anchors, immutable snapshots and pole/branch rejection; `test_ci_mbpt_sigma1.py` supplies the legacy diagonal CI consumer; `test_ci_effective_one_body.py` anchors signed full-matrix injection, sqrt(2) two-electron weights, phase covariance, core-hole/producer identity rejection and finite nuclear binding |
++| Analytic QED fallback coverage | `test_qed_approximation_coverage.py`: warnings reach scalar/default entry points; `test_qed_self_energy_table.py` supplies the separate numerical anchors |
+ | Projection between radial representations | `test_shooting_seed.py` |
+ | Checkpoints and correction replay | `test_shooting_result_persistence.py`, `test_scfresult_save_load.py`, `test_correction_application_contract.py` |
+ | NIST matching and uncertainty semantics | `test_nist_comparison_workflow.py`, `test_shooting_ionization_comparison.py` |
+@@ -47,6 +49,23 @@ still available. CLI schemas and options follow the retained command versions.
+ - Keep benchmark experiment setup in its owning test when no reusable production
+   service needs it. A physics regression must not depend on a retired CLI.
+ 
++The [preceding Yb tail/radial campaign](yb_correlation_tail_2026_10_08/README.md)
++uses complete native five-state captures, metric/coverage checks and CI injection
++with predeclared resource caps. It adds live convergence evidence; its numerical
++passes do not replace the separate spatial or experimental gates. The production
++source and preceding 137-test panel were unchanged in that historical increment,
++so those unaffected unit tests were not repeated then. The subsequent
++[signed matrix stage](yb_matrix_self_energy_2026_10_08/README.md) changes the shared
++capture kernel and adds a native matrix API; its 99-test affected panel has passed.
++Complete ten-state results, saved-matrix replay and the separate failed
++experimental/spatial gates are recorded in that topic.
++
++The [2026-10-09 full matrix CI consumer](ci_fscc_reference_upgrade_2026_10_09/README.md)
++has a separate affected panel and ten archived Yb matrices replayed through native CI.
++The three-dimensional/two-root Davidson case also checks partial final subspace
++expansion before restart. Reference compilation, small external executions and
++experimental convergence have separate status entries.
++
+ `slow`, `external_fac`, `snapshot` and `book` markers are defined in
+ `pyproject.toml`. In particular, `external_fac` uses stored reference data;
+ regenerating it requires the external code. See [verification](VERIFICATION.md)
+diff --git a/docs/VERIFICATION.md b/docs/VERIFICATION.md
+index 2053437..813d523 100644
+--- a/docs/VERIFICATION.md
++++ b/docs/VERIFICATION.md
+@@ -5,6 +5,64 @@ accuracy and performance across structure, spectra, properties and collision
+ calculations. The current live panel below covers only a subset. Neither a
+ converged SCF flag nor a small total-energy difference validates every output.
+ 
++The [2026-10-09 pCI/AMBiT/EXP-T reference and CI-consumer upgrade](ci_fscc_reference_upgrade_2026_10_09/README.md)
++adds the bound full signed scalar one-body matrix to exact CI, preserving producer
++phases/core/metric/nuclear identity and rejecting correlated-core holes. All ten
++archived Yb snapshots pass native CI replay: maximum energy mismatch is
++1.394e-11 Ha. An explicit legacy Hermitian roundoff projection changes Sigma by
++at most 1.735e-18 Ha; the strict native consumer does not silently symmetrize.
++This is operator/representation closure, not a new Yb accuracy result. General
++two-body screening, all-order SD, particle-hole complementary operators, FS-CCSDT
++and dressed radiative observables remain unfinished. Pinned external builds and
++their local compiler adaptations are recorded separately from physical benchmarks.
++
++The [2026-10-08 signed matrix attachment stage](yb_matrix_self_energy_2026_10_08/README.md)
++implements both complete second-order diagram classes for an explicit same-κ
++external block. Its affected panel has 99 passing tests, including independent
++signed magnetic-state off-diagonals and auxiliary-Hamiltonian eigenvector/residue
++anchors. Complete matched ten-state capture and final-source saved-matrix replay
++pass numerical/identity gates. Refined maximum excitation deviation increases
++from scalar 5.384% to matrix 5.868%; the experimental 5% target and external/radial
++1-cm⁻¹ gates remain failed. The ground attachment becomes more overbound relative
++to the independent ASD threshold (-865.740 cm⁻¹). Further enlargement of the
++external space cannot raise the lowest root for this fixed self-energy in the
++same pole-free interval; this is a conditional model result, not a bound on
++changed high-order kernels or core self-consistency. The post-capture restoration
++of old scalar input coercions has a separate source identity and is verified
++to leave all 30 actual capture inputs unchanged. The finite matrix does not implement
++all-order SD, complete radial Brueckner or a dressed radiative operator.
++
++The [preceding 2026-10-08 Yb⁺ complete tail/radial controls](yb_correlation_tail_2026_10_08/README.md)
++retain full five-state coarse l8/200-Ha and refined l6/200-Ha captures,
++exact shared-space subsets, complete virtual metric/count/identity checks,
++DF-connected scalar Dyson roots and native CI injection. Numerical gates pass.
++The last coarse l7→l8 excitation increment is 39.156 cm⁻¹, the refined
++100→200-Ha increment is 17.577 cm⁻¹, and the shared l6/200-Ha radial response
++is 2.300 cm⁻¹. Finite increments are not infinite-tail error bounds.
++Maximum experimental deviations are 5.485% and
++5.384%; the 1-cm⁻¹ spatial and four-level 5% targets
++remain failed. That measurement's production source and affected test/dependency hashes match the
++[preceding 137-test validated stage](yb_energy_dependent_sigma_2026_10_08/README.md);
++unaffected unit tests were not repeated in that measurement-only increment.
++The subsequent matrix stage has a separate changed-source identity and test panel.
++The independently checked ASD 5.12 ionization threshold adds an absolute
++attachment comparison: refined ground residual -600.31 cm⁻¹,
++upper-state residuals 257.32, 313.32,
++838.52, 1036.08 cm⁻¹. These pure-DC versus
++physical-experiment residuals do not isolate missing correlation or QED. Legacy
++Handbook/paper thresholds differ and are not mixed into the new absolute zero.
++Frozen-orbital scalar Dyson is not off-diagonal Brueckner response, self-consistent
++GF2 or a correlated-rate gate. The [earlier convention controls](yb_diagnosis_repair_2026_10_08/README.md)
++preserve independent DF/dipole/current/Breit checks and analytic-QED warnings.
++These dated controls do not refresh the older structure panel below.
++
++The [Yb literature-backed next-step review](yb_literature_repair_strategy_2026_10_08/README.md)
++replays primary-table comparisons and audits actual consumer coverage; it is not
++a new atomic accuracy gate. A verified first-order static-Breit shift does not
++bound second-order Coulomb–Breit correlation. Monovalent all-order SD, balanced
++particle-hole P/Q operators and those cross terms remain proposed work; adding
++explicit hole CI to the unchanged full-core self-energy can double count channels.
++
+ ## Current live structure evidence
+ 
+ [`benchmarks/bench_reference_structure.py`](../benchmarks/bench_reference_structure.py)
+diff --git a/src/atomx/corrections/qed.py b/src/atomx/corrections/qed.py
+index a651eb0..bef62f6 100644
+--- a/src/atomx/corrections/qed.py
++++ b/src/atomx/corrections/qed.py
+@@ -300,7 +300,11 @@ def resolve_se_method(method: str, Z: int) -> str:
+ 
+ 
+ def self_energy_radial_matrix(orbitals, Z, bsp_data, *, method=DEFAULT_SE_METHOD):
+-    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models."""
++    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models.
++
++    Untabulated Mohr/Indelicato orbitals warn when a leading Zα estimate
++    replaces tabulated F(Zα). A finite matrix is not a QED accuracy bound.
++    """
+     backend = get_backend(resolve_se_method(method, Z))
+     matrix_builder = getattr(backend, "radial_matrix", None)
+     if callable(matrix_builder):
+@@ -322,7 +326,9 @@ def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
+         on the radial grid (mohr overlap ratio, welton, ...).
+     method : str
+         Backend name.  One of :func:`atomx.corrections.qedmod.available_backends`.
+-        Default ``"mohr"`` reproduces the behaviour of atomx ≤ 0.2.
++        Default ``"auto"`` chooses Mohr for Z<=36 and Indelicato otherwise;
++        these share the same tables and analytic fallback. Untabulated
++        orbitals emit a warning rather than implying precision QED.
+ 
+     Returns
+     -------
+diff --git a/src/atomx/corrections/qedmod/indelicato.py b/src/atomx/corrections/qedmod/indelicato.py
+index 012c778..7869125 100644
+--- a/src/atomx/corrections/qedmod/indelicato.py
++++ b/src/atomx/corrections/qedmod/indelicato.py
+@@ -27,9 +27,8 @@ from atomx.data.mohr_se import Z_GRID
+ 
+ # ``TABLE[(n, kappa)][Z] -> F(alpha Z)``.
+ # Rows are FAC ``faclib/coulomb.c:_qed_se0`` + ``_qed_se1`` at the
+-# tabulated Fermi nuclear radius.  Grid values are every 10 charge units;
+-# the backend uses a shape-preserving cubic spline when SciPy is present
+-# and linear interpolation otherwise.
++# tabulated Fermi nuclear radius. The interpolation is shape-preserving
++# PCHIP with SciPy as a required dependency, not a linear fallback.
+ # ``TABLE[(n, kappa)][Z] -> F(alpha Z)`` for the K/L shells, derived from
+ # the single tabulated source (:mod:`atomx.data.mohr_se`).  Kept as a
+ # public name for callers that introspect the coverage.
+diff --git a/src/atomx/corrections/qedmod/mohr.py b/src/atomx/corrections/qedmod/mohr.py
+index c382441..21cff64 100644
+--- a/src/atomx/corrections/qedmod/mohr.py
++++ b/src/atomx/corrections/qedmod/mohr.py
+@@ -27,6 +27,7 @@ for high-``l`` states.  See
+ from __future__ import annotations
+ 
+ import re
++import warnings
+ 
+ import numpy as np
+ 
+@@ -86,6 +87,9 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
+     ``Z`` is allowed to be a float so that interpolation on a screened or
+     effective charge remains continuous.  The selection mirrors FAC's
+     ``HydrogenicSelfEnergy`` (see the module docstring).
++    Untabulated orbitals emit a RuntimeWarning: their leading Zα estimate
++    has no supplied finite-Z remainder or precision error bound. The
++    warning also reaches scalar energies and diagonal operator builders.
+     """
+     key = (n, kappa)
+     if key in _SE_TABLE:
+@@ -100,6 +104,13 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
+         # This restores the leading terms, not an all-order QED result.
+         from atomx.data.nist_bethe_log import BETHE_LOG_NIST
+         value = (4.0/3.0)*np.log((ALPHA*Z)**-2) + 10.0/9.0 - (4.0/3.0)*BETHE_LOG_NIST[n][0]
++    warnings.warn(
++        f"self-energy n={n}, kappa={kappa}, Z={Z:g} is outside tabulated orbital "
++        "coverage; using a leading Z*alpha analytic estimate, not precision QED. "
++        "Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
++        RuntimeWarning,
++        stacklevel=2,
++    )
+     return value
+ 
+ 
+diff --git a/src/atomx/methods/ci.py b/src/atomx/methods/ci.py
+index 64251e3..bb776c0 100644
+--- a/src/atomx/methods/ci.py
++++ b/src/atomx/methods/ci.py
+@@ -73,6 +73,7 @@ def ci_solve(
+     breit_orbital_energies=None,
+     max_determinants: int | None = None,
+     one_body_shifts: dict | None = None,
++    one_body_operator=None,
+     radial_snapshot=None,
+     dense_cluster_gap=None,
+ ) -> CIResult:
+@@ -127,6 +128,10 @@ def ci_solve(
+         Optional immutable common B-spline ``CIRadialSnapshot`` sharing
+         signed Coulomb integral values across charge/CSF spaces. Exact
+         orbital, geometry and nuclear Hamiltonian matches are required.
++    one_body_operator
++        Bound ``CIEffectiveOneBody`` scalar matrix, including signed
++        off-diagonals, at a frozen energy argument. The core ledger prevents
++        opening holes in orbitals already integrated out by its producer.
+     dense_cluster_gap
+         Optional positive absolute Hartree gap for extended-precision
+         Rayleigh--Ritz refinement of complete dense real symmetry blocks.
+@@ -181,6 +186,7 @@ def ci_solve(
+                            breit_orbital_energies=breit_orbital_energies,
+                            max_determinants=max_determinants,
+                            one_body_shifts=one_body_shifts,
++                           one_body_operator=one_body_operator,
+                            radial_snapshot=radial_snapshot,
+                            as_operator=(solver == "davidson"))
+     groups = _group_csfs_by_J_parity(csfs) or [((0, 1), list(range(n)))]
+@@ -223,6 +229,8 @@ def ci_solve(
+     }
+     if iterations:
+         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
++    if one_body_operator is not None:
++        provenance['effective_one_body'] = one_body_operator.provenance()
+     if refinement:
+         provenance['dense_cluster_refinement'] = refinement
+     if include_breit:
+@@ -387,7 +395,8 @@ def davidson_eigh(
+             return eigvals, ritz_vec, it
+ 
+         # Davidson preconditioner: t_i = -r_i / (D - λ_i)
+-        if V.shape[1] + block_size > max_subspace:
++        available = max_subspace - V.shape[1]
++        if available == 0:
+             # Restart: shrink subspace to current Ritz vectors
+             V = ritz_vec.copy()
+             HV = ritz_HV.copy()
+@@ -415,6 +424,8 @@ def davidson_eigh(
+                 t /= nrm
+             if nrm > 1e-14:
+                 new_dirs.append(t)
++                if len(new_dirs) == available:
++                    break
+ 
+         if not new_dirs:
+             raise RuntimeError(
+diff --git a/src/atomx/methods/ci_mbpt.py b/src/atomx/methods/ci_mbpt.py
+index 3bd74ea..ded57f1 100644
+--- a/src/atomx/methods/ci_mbpt.py
++++ b/src/atomx/methods/ci_mbpt.py
+@@ -23,13 +23,22 @@ applied to a compact CI space.
+ 
+ Status
+ ------
+-* **Σ⁽¹⁾ (implemented)** — diagonal second-order self-energy
++* **Σ⁽¹⁾ (implemented)** — diagonal or full signed scalar self-energy.
++  ``sigma1_operator`` consumes a bound ``CIEffectiveOneBody`` at a frozen
++  energy argument. ``MatrixSelfEnergy.as_ci_operator`` exports the complete
++  second-order attachment matrix into its producer's core, spinors (including
++  phases), B-spline metric and nuclear reference. Opening a correlated-core
++  hole raises to prevent duplicated P/Q contributions. Matrix Dyson iteration
++  remains separate from frozen-energy CI. The legacy ``sigma1`` mapping is a
++  diagonal second-order self-energy:
+   ``Δε_a = <a|Σ⁽¹⁾|a>`` of each valence orbital, supplied as a plain
+   ``{(n, kappa): shift_in_hartree}`` mapping.  Compute the shifts from
+   a solved closed-shell core reference with
+   :mod:`atomx.methods.mbpt_transitions`
+-  (:func:`mbpt2_orbital_energy_shift`) for occupied valence orbitals,
+-  or extend that helper for virtual-valence sums.  Injection is exact
++  (:func:`mbpt2_orbital_energy_shift`), supplying external valence
++  spinors through ``valence_orbital=(P,Q,kappa,energy)`` without adding
++  them to the core density. ``virtual_kappas`` declares the complete
++  angular space. Injection is exact
+   at the one-body level: the shift rides the ``("h", n, κ, n)`` radial
+   key, so the determinant→CSF projection weights it by the true
+   one-body density of every CSF pair, on- and off-diagonal.
+@@ -38,17 +47,18 @@ Status
+   screening of the Coulomb integrals ``R^k``.  This is the term that
+   moves multiplet splittings (e.g. the Eu³⁺ ⁵D−⁷F gap, which sits
+   ~3000 cm⁻¹ high without it), so until it lands, CI+Σ⁽¹⁾ alone must
+-  not be sold as CI+MBPT.  Requesting it raises.  Planned shape: wrap
+-  the ``("r", k, ...)`` radial key with the second-order bubble sum
+-  over core orbitals built on :mod:`atomx.methods.mbpt`'s J-coupled
+-  ``V_J`` machinery, mirroring the ``one_body_shifts`` hook.
++  not be sold as full CI+MBPT. Requesting it raises. General screened
++  two-body operators can have channels absent from Coulomb radial keys;
++  a future implementation needs explicit signed angular coverage and
++  complementary P/Q diagrams, not just replacements of radial values.
+ 
+ Notes
+ -----
+-* Σ⁽¹⁾ is largely common-mode within a single configuration (all CSFs
++* Diagonal Σ⁽¹⁾ is largely common-mode within a single configuration (all CSFs
+   share the valence orbitals): expect it to matter for term
+   *positions* between configurations, not for intra-term splittings.
+   This is a property of the physics, not a bug in the injection.
++  Full off-diagonal Σ⁽¹⁾ also mixes different radial configurations.
+ * Orbital shifts are energy-like quantities in Hartree; they must come
+   from the same nuclear model and radial grid as the CI reference.
+ """
+@@ -70,6 +80,7 @@ def ci_mbpt_solve(
+     ns: int,
+     *,
+     sigma1: Optional[Dict[Tuple[int, int], float]] = None,
++    sigma1_operator=None,
+     sigma2: Optional[dict] = None,
+     **ci_kwargs,
+ ):
+@@ -85,6 +96,9 @@ def ci_mbpt_solve(
+         Two-body screening operators.  Not implemented; passing any
+         non-``None`` value raises instead of silently degrading to a
+         Σ⁽¹⁾-only result.
++    sigma1_operator
++        Bound ``CIEffectiveOneBody`` with a full signed matrix at a frozen
++        energy argument. Mutually exclusive with diagonal ``sigma1``.
+     **ci_kwargs
+         Forwarded verbatim to :func:`atomx.methods.ci.ci_solve`
+         (``n_states``, ``solver``, ``max_determinants``,
+@@ -103,10 +117,16 @@ def ci_mbpt_solve(
+             "Until it is, CI+Σ⁽¹⁾ alone must not be reported as CI+MBPT: "
+             "multiplet splittings (e.g. Eu³⁺ ⁵D−⁷F) are dominated by the "
+             "two-body screening term.")
++    if sigma1_operator is not None and sigma1 is not None:
++        raise ValueError("choose diagonal sigma1 or bound sigma1_operator, not both")
++    if 'one_body_shifts' in ci_kwargs or 'one_body_operator' in ci_kwargs:
++        raise ValueError("CI+Sigma1 corrections must use sigma1/sigma1_operator to avoid duplication")
+     result = ci_solve(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+-                      one_body_shifts=sigma1, **ci_kwargs)
++                      one_body_shifts=sigma1, one_body_operator=sigma1_operator, **ci_kwargs)
+     result.mbpt_provenance = {
+         "sigma1": dict(sigma1 or {}),
+         "sigma2": "not_implemented",
+     }
++    if sigma1_operator is not None:
++        result.mbpt_provenance['sigma1_operator'] = sigma1_operator.provenance()
+     return result
+diff --git a/src/atomx/methods/mbpt.py b/src/atomx/methods/mbpt.py
+index e899eab..544292a 100644
+--- a/src/atomx/methods/mbpt.py
++++ b/src/atomx/methods/mbpt.py
+@@ -804,7 +804,7 @@ def _mbpt2_pair_contribution(
+ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
+               Pr, Qr, kappa_r, Ps, Qs, kappa_s,
+               tJ, bsp_data, cache, multipole_max=None,
+-              rk_bilinear=None):
++              rk_bilinear=None, rk_evaluator=None):
+     """Antisymmetrised J-coupled pair matrix element <ab;J|v|rs;J>_A.
+ 
+     Exactly the V_J combination used by :func:`_mbpt2_pair_contribution`
+@@ -818,10 +818,17 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
+     :func:`build_slater_rk_bilinear` matrices and reused across every
+     (r, s) sharing the bra pair (direct and exchange use the same M).
+     One M build costs ≈ one scalar R^k; each reuse is O(ns²).
++
++    ``rk_evaluator(k, P2, Q2, P4, Q4)`` can supply the same signed radial
++    integral from a caller-owned batch table. Angular/antisymmetry factors
++    remain in this shared kernel. The evaluator must bind the complete bra,
++    radial basis and ket snapshots; no cache is transferable between trials.
+     """
+ 
+     def _rk(k, P2, Q2, P4, Q4):
+         # R^k(a ·, b ·) with slot-2/slot-4 orbitals (·) varying
++        if rk_evaluator is not None:
++            return rk_evaluator(k, P2, Q2, P4, Q4)
+         if rk_bilinear is None:
+             return compute_slater_rk_cell(Pa, Qa, P2, Q2, Pb, Qb, P4, Q4,
+                                           bsp_data, k, cache=cache)
+diff --git a/src/atomx/methods/mbpt_transitions.py b/src/atomx/methods/mbpt_transitions.py
+index 13760e4..7de3635 100644
+--- a/src/atomx/methods/mbpt_transitions.py
++++ b/src/atomx/methods/mbpt_transitions.py
+@@ -1,4 +1,4 @@
+-"""On-shell diagonal second-order self-energy for a closed-shell DHF reference.
++"""Diagonal second-order self-energy for a closed-shell DHF reference.
+ 
+ Both 2p1h and 2h1p diagrams are included, with antisymmetrized Coulomb
+ matrix elements and all allowed multipoles::
+@@ -7,7 +7,7 @@ matrix elements and all allowed multipoles::
+                + 1/2 sum_bcr |<ar||bc>|^2 / (w + er - eb - ec)
+ 
+ Here b,c are occupied spin orbitals and r,s virtual spin orbitals. The
+-result averages over the magnetic states of a and evaluates w = ea.
++result averages over the magnetic states of a; the default evaluates w = ea.
+ This is an orbital quasiparticle estimate, not a correlated neutral
+ excitation or a correction to transition matrix elements. Virtual,
+ partial-wave and radial cutoffs need convergence checks. See also
+@@ -16,16 +16,117 @@ https://pyscf.org/user/agf2.html for the second-order self-energy.
+ 
+ from __future__ import annotations
+ 
++from collections.abc import Callable, Sequence
++from dataclasses import dataclass
+ from itertools import combinations_with_replacement
+ 
+ import numpy as np
+ 
+ from atomx.constants import HARTREE_EV
+ 
+-__all__ = ["mbpt2_orbital_energy_shift", "mbpt2_transition_energy"]
++__all__ = [
++    "DiagonalSelfEnergy", "DysonRoot", "build_mbpt2_self_energy",
++    "mbpt2_orbital_energy_shift", "mbpt2_transition_energy",
++]
+ 
+ 
+-def mbpt2_orbital_energy_shift(
++@dataclass(frozen=True)
++class DysonRoot:
++    """DF-connected scalar root in an unchanged frozen-orbital reference."""
++
++    energy_Ha: float
++    shift_Ha: float
++    residue: float
++    residual_Ha: float
++    bracket_Ha: tuple[float, float]
++    reference_identity: str
++
++
++@dataclass(frozen=True)
++class DiagonalSelfEnergy:
++    """Immutable real pole expansion Sigma(w)=sum W/(w-pole), W>=0.
++
++    ``reference_identity`` must identify the caller's resolved nucleus,
++    Hamiltonian, state, radial metric and retained virtual space. This is
++    a snapshot, not a cache transferable to another SCF reference. Energies
++    are in Ha and weights in Ha**2. Only exact zero weights are discarded.
++    Scalar Dyson solving changes the energy argument, not the spinors or
++    core field; it is not a full Brueckner or self-consistent GF2 method.
++    """
++
++    reference_energy_Ha: float
++    poles_Ha: np.ndarray
++    weights_Ha2: np.ndarray
++    reference_identity: str
++    denominator_floor_Ha: float = 1e-8
++
++    def __post_init__(self):
++        poles = np.asarray(self.poles_Ha)
++        weights = np.asarray(self.weights_Ha2)
++        if (poles.ndim != 1 or weights.shape != poles.shape
++                or not np.isrealobj(poles) or not np.isrealobj(weights)
++                or not np.all(np.isfinite(poles)) or not np.all(np.isfinite(weights))
++                or np.any(weights < 0) or np.ndim(self.reference_energy_Ha) != 0
++                or not np.isrealobj(self.reference_energy_Ha) or not np.isfinite(self.reference_energy_Ha)
++                or not np.isfinite(self.denominator_floor_Ha) or self.denominator_floor_Ha <= 0
++                or not isinstance(self.reference_identity, str) or not self.reference_identity.strip()):
++            raise ValueError("invalid real self-energy snapshot or missing reference identity")
++        keep = weights != 0
++        # Immutable byte buffers prevent callers from re-enabling writes.
++        for name, values in (("poles_Ha", poles[keep]), ("weights_Ha2", weights[keep])):
++            values = np.frombuffer(np.asarray(values, dtype=float).tobytes(), dtype=float)
++            object.__setattr__(self, name, values)
++
++    def _denominators(self, energy_Ha):
++        if np.ndim(energy_Ha) != 0 or not np.isrealobj(energy_Ha) or not np.isfinite(energy_Ha):
++            raise ValueError("self-energy energy must be a finite real scalar")
++        denominators = energy_Ha - self.poles_Ha
++        if np.any(abs(denominators) < self.denominator_floor_Ha):
++            raise ValueError("resonant second-order self-energy denominator")
++        return denominators
++
++    def evaluate(self, energy_Ha: float) -> float:
++        """Evaluate the unchanged pole expansion at an explicit energy."""
++        return float(np.sum(self.weights_Ha2 / self._denominators(energy_Ha)))
++
++    def derivative(self, energy_Ha: float) -> float:
++        """Return the analytic derivative -sum W/(w-pole)**2."""
++        return float(-np.sum(self.weights_Ha2 / self._denominators(energy_Ha)**2))
++
++    def solve_dyson(self, bracket_Ha: tuple[float, float]) -> DysonRoot:
++        """Solve the DF-connected branch; reject any intervening weighted pole.
++
++        The bracket must contain the DF energy and lie inside its pole-free
++        interval. Since 1-Sigma'(w)>0 there is at most one root in that
++        interval; these conditions select its connection to the DF state.
++        The quasiparticle residue is 1/(1-Sigma'(E)).
++        """
++        from scipy.optimize import brentq
++
++        lo, hi = bracket_Ha
++        if (np.ndim(lo) != 0 or np.ndim(hi) != 0
++                or not np.isrealobj(lo) or not np.isrealobj(hi)
++                or not np.isfinite(lo) or not np.isfinite(hi) or lo >= hi
++                or not lo <= self.reference_energy_Ha <= hi):
++            raise ValueError("Dyson bracket must contain the DF reference energy")
++        if np.any((self.poles_Ha >= lo - self.denominator_floor_Ha)
++                  & (self.poles_Ha <= hi + self.denominator_floor_Ha)):
++            raise ValueError("Dyson bracket crosses a nonzero-weight self-energy pole")
++
++        def residual(energy):
++            return energy - self.reference_energy_Ha - self.evaluate(energy)
++
++        energy = brentq(residual, lo, hi, xtol=1e-13, rtol=4*np.finfo(float).eps)
++        error = residual(energy)
++        residue = 1.0 / (1.0 - self.derivative(energy))
++        if abs(error) > 1e-10 or not 0 < residue <= 1:
++            raise RuntimeError("Dyson root failed residual or residue gate")
++        return DysonRoot(float(energy), float(energy-self.reference_energy_Ha),
++                         float(residue), float(error), (float(lo), float(hi)),
++                         self.reference_identity)
++
++
++def _capture_attachment_self_energy(
+     scf_result,
+     orbital_label: str,
+     *,
+@@ -33,28 +134,57 @@ def mbpt2_orbital_energy_shift(
+     energy_window_au: float = 50.0,
+     n_virt_max: int | None = None,
+     denom_floor: float = 1e-8,
++    valence_orbital: tuple[np.ndarray, np.ndarray, int, float] | None = None,
++    virtual_kappas: Sequence[int] | None = None,
++    term_recorder: Callable[[dict], None] | None = None,
++    evaluation_energy_au: float | None = None,
++    _matrix_orbitals=None,
++    _matrix_recorder=None,
++    _matrix_radial_factory=None,
+ ) -> float:
+-    """Return Sigma_aa(ea) in hartree, including same-subshell partners.
++    """Return diagonal Sigma in hartree, including same-subshell partners.
+ 
+     Each virtual kappa block is solved once in the reference V^N Fock
+     field, projected against occupied orbitals in the overlap metric.
+     Bound virtuals are retained. ``n_virt_max`` caps roots per kappa;
+     ``energy_window_au`` is an upper energy ceiling. A near-zero
+     denominator raises rather than silently omitting a resonant term.
++
++    ``valence_orbital=(P,Q,kappa,ea)`` supplies an external, normalized
++    orbital orthogonal to the closed core. It does not add that orbital
++    to the reference density or exclude it from the virtual sum. This
++    computes a monovalent attachment self-energy in the unchanged core
++    field. Without it, ``orbital_label`` selects a reference orbital.
++
++    ``virtual_kappas`` explicitly selects the virtual angular blocks.
++    A complete l<=2 space is (-1,1,-2,2,-3); ``kappa_max=2`` alone omits
++    d5/2. With ``term_recorder``, each evaluated diagram is reported with
++    its numerator, denominator and contribution in atomic units.
++    ``evaluation_energy_au`` replaces only the denominator energy argument;
++    the reference energies, occupied field and all orbitals remain unchanged.
++    The default returns Sigma_aa(ea). Records also retain the physical pole
++    energy so the same expansion can be evaluated without rebuilding integrals.
+     """
+     from atomx.methods.mbpt import _pair_v_J, build_virtual_basis
+     from atomx.numerics.bspline.convol import ConvolCache
+ 
+     subshells = scf_result.subshells
+     sh_a = next((s for s in subshells if s.label == orbital_label), None)
+-    if sh_a is None:
++    if sh_a is None and valence_orbital is None:
+         raise ValueError(f"orbital {orbital_label!r} not found")
+     if not scf_result.converged:
+         raise ValueError("SCFResult must be converged")
+     if kappa_max < 1 or (n_virt_max is not None and n_virt_max < 1):
+         raise ValueError("partial-wave and virtual-state limits must be positive")
+-    if denom_floor <= 0 or not np.isfinite(energy_window_au):
++    if not np.isfinite(denom_floor) or denom_floor <= 0 or not np.isfinite(energy_window_au):
+         raise ValueError("require positive denominator floor and finite energy ceiling")
++    kappas = (
++        tuple(k for k in range(-kappa_max, kappa_max + 1) if k)
++        if virtual_kappas is None else tuple(virtual_kappas)
++    )
++    if (not kappas or len(set(kappas)) != len(kappas)
++            or any(not isinstance(k, (int, np.integer)) or k == 0 for k in kappas)):
++        raise ValueError("virtual_kappas must contain distinct nonzero integers")
+     occupied = []
+     a = None
+     for sh in subshells:
+@@ -68,16 +198,46 @@ def mbpt2_orbital_energy_shift(
+         occupied.append(state)
+         if sh is sh_a:
+             a = state
+-    if a is None:
++    external = ([valence_orbital] if _matrix_orbitals is None
++                else list(_matrix_orbitals))
++    if valence_orbital is not None:
++        for target in external:
++            P, Q, kap, energy = target
++            data = scf_result._bsp_data
++            if (not isinstance(kap, (int, np.integer)) or kap == 0
++                    or np.shape(P) != (data["ns"],) or np.shape(Q) != (data["ns"],)
++                    or not np.isrealobj(P) or not np.isrealobj(Q)
++                    or not np.all(np.isfinite(P)) or not np.all(np.isfinite(Q))
++                    or np.ndim(energy) != 0 or not np.isrealobj(energy)
++                    or not np.isfinite(energy)):
++                raise ValueError("invalid external valence orbital")
++            from atomx.numerics.radial_workspace import (
++                eval_orbital_pair,
++                workspace_arrays,
++            )
++
++            _, weights = workspace_arrays(data)
++            p, q = eval_orbital_pair(P, Q, data)
++            if abs(float(np.sum(weights * (p*p + q*q))) - 1.0) > 1e-7:
++                raise ValueError("external valence orbital must be normalized in the radial metric")
++            for Pb, Qb, kb, _ in occupied:
++                if kb == kap:
++                    pb, qb = eval_orbital_pair(Pb, Qb, data)
++                    if abs(float(np.sum(weights * (p*pb + q*qb)))) > 1e-7:
++                        raise ValueError("external valence orbital must be orthogonal to the core")
++        P, Q, kap, reference_energy = valence_orbital
++        a = (np.asarray(P), np.asarray(Q), int(kap), float(reference_energy))
++    elif a is None:
+         same = [s for s in subshells if s.kappa == sh_a.kappa]
+         P, Q, _ = scf_result.orbitals_raw[sh_a.kappa][same.index(sh_a)]
+         a = (P, Q, sh_a.kappa, scf_result.orbital_energies[orbital_label])
+     data = scf_result._bsp_data
++    energy = a[3] if evaluation_energy_au is None else evaluation_energy_au
++    if np.ndim(energy) != 0 or not np.isrealobj(energy) or not np.isfinite(energy):
++        raise ValueError("self-energy energy must be a finite real scalar")
+     cache = ConvolCache(data)
+     virtuals = []
+-    for kap in range(-kappa_max, kappa_max + 1):
+-        if kap == 0:
+-            continue
++    for kap in kappas:
+         _, states = build_virtual_basis(
+             scf_result,
+             kap,
+@@ -92,23 +252,34 @@ def mbpt2_orbital_energy_shift(
+             states = states[:n_virt_max]
+         virtuals.extend((P, Q, kap, e) for P, Q, e in states)
+ 
+-    def numerator(bra1, bra2, ket1, ket2, bilinear):
++    def numerator(bra1, bra2, ket1, ket2, bilinear, radial_evaluators=None):
+         j1, j2, j3, j4 = [2 * abs(s[2]) - 1 for s in (bra1, bra2, ket1, ket2)]
+-        total = 0.0
++        total = 0.0 if _matrix_orbitals is None else np.zeros((len(external), len(external)))
+         for twoJ in range(
+             max(abs(j1 - j2), abs(j3 - j4)), min(j1 + j2, j3 + j4) + 1, 2
+         ):
+-            v = _pair_v_J(
+-                *bra1[:3],
+-                *bra2[:3],
+-                *ket1[:3],
+-                *ket2[:3],
+-                twoJ,
+-                data,
+-                cache,
+-                rk_bilinear=bilinear,
+-            )
+-            total += (twoJ + 1) * v * v
++            if _matrix_orbitals is None:
++                v = _pair_v_J(
++                    *bra1[:3],
++                    *bra2[:3],
++                    *ket1[:3],
++                    *ket2[:3],
++                    twoJ,
++                    data,
++                    cache,
++                    rk_bilinear=bilinear,
++                )
++                total += (twoJ + 1) * v * v
++            else:
++                # Preserve signed amplitudes before contraction. Squared diagonal
++                # weights cannot determine interference between external orbitals.
++                values = np.array([
++                    _pair_v_J(*target[:3], *bra2[:3], *ket1[:3], *ket2[:3],
++                              twoJ, data, cache, rk_bilinear=bilinear[i],
++                              rk_evaluator=None if radial_evaluators is None else radial_evaluators[i])
++                    for i, target in enumerate(external)
++                ])
++                total += (twoJ + 1) * np.outer(values, values)
+         return total / (2 * abs(a[2]))
+ 
+     def contribution(value, denom):
+@@ -119,23 +290,117 @@ def mbpt2_orbital_energy_shift(
+         return value / denom
+ 
+     shift = 0.0
+-    virtual_pairs = list(combinations_with_replacement(range(len(virtuals)), 2))
+     for b in occupied:
+-        bilinear = {}
+-        for ir, is_ in virtual_pairs:
++        bilinear = {} if _matrix_orbitals is None else [{} for _ in external]
++        evaluators = (None if _matrix_radial_factory is None
++                      else _matrix_radial_factory(external, b, virtuals, data, cache))
++        for ir, is_ in combinations_with_replacement(range(len(virtuals)), 2):
+             r, s = virtuals[ir], virtuals[is_]
+-            v2 = numerator(a, b, r, s, bilinear) / (1 + (ir == is_))
+-            shift += contribution(v2, a[3] + b[3] - r[3] - s[3])
++            v2 = numerator(a, b, r, s, bilinear, evaluators) / (1 + (ir == is_))
++            pole = r[3] + s[3] - b[3]
++            denom = energy - pole
++            value = contribution(v2 if _matrix_orbitals is None else v2[0, 0], denom)
++            shift += value
++            if term_recorder is not None:
++                term_recorder(dict(diagram="2p1h", core=((b[2], b[3]),),
++                                   virtual_indices=(ir, is_),
++                                   virtual=((r[2], r[3]), (s[2], s[3])), numerator=v2,
++                                   denominator_Ha=denom, contribution_Ha=value,
++                                   pole_energy_Ha=pole))
++            if _matrix_recorder is not None:
++                _matrix_recorder(pole, v2, "2p1h")
+     occupied_pairs = list(combinations_with_replacement(range(len(occupied)), 2))
+-    for r in virtuals:
+-        bilinear = {}
++    for ir, r in enumerate(virtuals):
++        bilinear = {} if _matrix_orbitals is None else [{} for _ in external]
++        evaluators = (None if _matrix_radial_factory is None
++                      else _matrix_radial_factory(external, r, occupied, data, cache))
+         for ib, ic in occupied_pairs:
+             b, c = occupied[ib], occupied[ic]
+-            v2 = numerator(a, r, b, c, bilinear) / (1 + (ib == ic))
+-            shift += contribution(v2, a[3] + r[3] - b[3] - c[3])
++            v2 = numerator(a, r, b, c, bilinear, evaluators) / (1 + (ib == ic))
++            pole = b[3] + c[3] - r[3]
++            denom = energy - pole
++            value = contribution(v2 if _matrix_orbitals is None else v2[0, 0], denom)
++            shift += value
++            if term_recorder is not None:
++                term_recorder(dict(diagram="2h1p", core=((b[2], b[3]), (c[2], c[3])),
++                                   virtual_indices=(ir,), virtual=((r[2], r[3]),), numerator=v2,
++                                   denominator_Ha=denom, contribution_Ha=value,
++                                   pole_energy_Ha=pole))
++            if _matrix_recorder is not None:
++                _matrix_recorder(pole, v2, "2h1p")
+     return float(shift)
+ 
+ 
++def mbpt2_orbital_energy_shift(
++    scf_result, orbital_label: str, *, kappa_max: int = 2,
++    energy_window_au: float = 50.0, n_virt_max: int | None = None,
++    denom_floor: float = 1e-8,
++    valence_orbital: tuple[np.ndarray, np.ndarray, int, float] | None = None,
++    virtual_kappas: Sequence[int] | None = None,
++    term_recorder: Callable[[dict], None] | None = None,
++    evaluation_energy_au: float | None = None,
++) -> float:
++    """Diagonal closed-core attachment Sigma, in Ha, from both diagrams.
++
++    External ``(P,Q,kappa,energy)`` spinors must be normalized and core
++    orthogonal. Virtuals include bound states, use the complete reference VN
++    field and declare angular/energy/root cutoffs explicitly. An off-shell
++    energy changes only denominators, not spinors or the core field.
++    Near resonant weighted denominators raise. The shared signed pair kernel
++    also supplies :func:`atomx.methods.mbpt_matrix.build_mbpt2_matrix_self_energy`.
++    """
++    return _capture_attachment_self_energy(
++        scf_result, orbital_label, kappa_max=kappa_max,
++        energy_window_au=energy_window_au, n_virt_max=n_virt_max,
++        denom_floor=denom_floor, valence_orbital=valence_orbital,
++        virtual_kappas=virtual_kappas, term_recorder=term_recorder,
++        evaluation_energy_au=evaluation_energy_au,
++    )
++
++
++def build_mbpt2_self_energy(
++    scf_result,
++    orbital_label: str,
++    *,
++    reference_identity: str,
++    kappa_max: int = 2,
++    energy_window_au: float = 50.0,
++    n_virt_max: int | None = None,
++    denom_floor: float = 1e-8,
++    valence_orbital: tuple[np.ndarray, np.ndarray, int, float] | None = None,
++    virtual_kappas: Sequence[int] | None = None,
++    term_recorder: Callable[[dict], None] | None = None,
++) -> DiagonalSelfEnergy:
++    """Capture both native diagrams once for off-shell or scalar Dyson use.
++
++    Reference identity is the caller's explicit snapshot identity; it must
++    include the target spinor and declared virtual-space controls. The shared
++    native coupling kernel and all its metric/denominator checks are reused.
++    """
++    from array import array
++
++    if not isinstance(reference_identity, str) or not reference_identity.strip():
++        raise ValueError("missing reference identity")
++    poles, weights = array("d"), array("d")
++
++    def capture(term):
++        if term["numerator"] != 0:
++            poles.append(term["pole_energy_Ha"])
++            weights.append(term["numerator"])
++        if term_recorder is not None:
++            term_recorder(term)
++
++    mbpt2_orbital_energy_shift(
++        scf_result, orbital_label, kappa_max=kappa_max, energy_window_au=energy_window_au,
++        n_virt_max=n_virt_max, denom_floor=denom_floor, valence_orbital=valence_orbital,
++        virtual_kappas=virtual_kappas, term_recorder=capture,
++    )
++    reference_energy = (scf_result.orbital_energies[orbital_label]
++                        if valence_orbital is None else valence_orbital[3])
++    return DiagonalSelfEnergy(reference_energy, np.asarray(poles), np.asarray(weights),
++                              reference_identity, denom_floor)
++
++
+ def mbpt2_transition_energy(
+     scf_result,
+     alpha_label: str,
+diff --git a/src/atomx/physics/csf/matrix.py b/src/atomx/physics/csf/matrix.py
+index 2f4a24d..844802f 100644
+--- a/src/atomx/physics/csf/matrix.py
++++ b/src/atomx/physics/csf/matrix.py
+@@ -486,7 +486,7 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                     nuclear_potential=None, convol_cache=None,
+                     max_determinants=None, include_breit=False, as_operator=False,
+                     *, breit_orbital_energies=None, one_body_shifts=None,
+-                    radial_snapshot=None):
++                    radial_snapshot=None, one_body_operator=None):
+     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
+ 
+     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
+@@ -546,9 +546,22 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+         Reuse Dirac-Coulomb radial values across CI spaces on exactly the same
+         B-spline orbital/Hamiltonian snapshot. Mismatches raise. One-body
+         shifts and Breit remain independently applied per matrix build.
++    one_body_operator : CIEffectiveOneBody or None
++        Bound signed scalar matrix added to the one-body radial keys. Requires
++        the producer's orbital/core/nuclear reference and filled correlated
++        core in every CSF. Cannot be combined with legacy one_body_shifts.
+     """
+     if breit_orbital_energies is not None and not include_breit:
+         raise ValueError("breit_orbital_energies requires include_breit=True")
++    effective_evaluate = None
++    if one_body_operator is not None:
++        from atomx.physics.csf.effective_one_body import CIEffectiveOneBody
++        if not isinstance(one_body_operator, CIEffectiveOneBody):
++            raise TypeError("one_body_operator must be CIEffectiveOneBody")
++        if one_body_shifts is not None:
++            raise ValueError("cannot combine effective operator and legacy one-body shifts")
++        effective_evaluate = one_body_operator.evaluator_for(
++            csfs, orbitals_dict, bsp_data, Z, ns, nuclear_potential=nuclear_potential)
+     # ``_reset_memo`` drops every memoised integral, including the CI's
+     # stashed rkb cache and the orbital-independent h0 blocks.  The
+     # entry-point reset carries the rkb cache (as before) and, when the
+@@ -618,6 +631,12 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                     value = value + one_body_shifts[(n_a, kappa)]
+             return value
+ 
++    if effective_evaluate is not None:
++        base_with_effective = evaluate
++
++        def evaluate(key):
++            return base_with_effective(key) + effective_evaluate(key)
++
+     breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns,
+                                            orbital_energies=breit_orbital_energies)
+                       if include_breit else None)
+diff --git a/tests/test_mbpt_transitions.py b/tests/test_mbpt_transitions.py
+index 1a665bd..9c0d44b 100644
+--- a/tests/test_mbpt_transitions.py
++++ b/tests/test_mbpt_transitions.py
+@@ -9,6 +9,8 @@ from test_review_regressions import _coulomb
+ from atomx.constants import HARTREE_EV
+ from atomx.methods.dirac_fock import DFSolver, Subshell
+ from atomx.methods.mbpt_transitions import (
++    DiagonalSelfEnergy,
++    build_mbpt2_self_energy,
+     mbpt2_orbital_energy_shift,
+     mbpt2_transition_energy,
+ )
+@@ -21,7 +23,9 @@ def helium():
+     ).solve()
+ 
+ 
+-def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
++@pytest.mark.parametrize("external_kappa", [None, -1, -2, -3])
++@pytest.mark.parametrize("energy_offset", [0.0, 0.071])
++def test_self_energy_matches_spin_orbital_sum(helium, external_kappa, energy_offset):
+     from atomx.angular.csf_hamiltonian import _m2_values, twoj
+     from atomx.methods.mbpt import build_virtual_basis
+ 
+@@ -29,7 +33,8 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+     od = {key: (P, Q) for key, (P, Q, q) in helium.orbitals_by_subshell().items()}
+     eps = {(1, -1): helium.orbital_energies["1s1/2"]}
+     blocks = {}
+-    for k in (-1, 1):
++    kappas = (-1, 1) if external_kappa in (None, -1) else (-1, 1, -2, 2, -3)
++    for k in kappas:
+         _, states = build_virtual_basis(
+             helium, k, e_max=50.0, orthogonal_to_occupied=True
+         )
+@@ -43,24 +48,38 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+         return [(*key, m) for key in keys for m in _m2_values(twoj(key[1]))]
+ 
+     core, vspin = spin(occupied), spin(virt)
++    target_key = (1, -1)
++    options = dict(kappa_max=1, n_virt_max=2)
++    label = "1s1/2"
++    if external_kappa is not None:
++        # The external target is already one of the virtuals, but is never
++        # inserted into the occupied reference or excluded from that sum.
++        target_key = (100, external_kappa)
++        P, Q, e = blocks[external_kappa][0]
++        options.update(valence_orbital=(P, Q, external_kappa, e), virtual_kappas=kappas)
++        label = "external"
++        assert label not in helium.orbital_energies
++    aspin = spin([target_key])
+     g = _coulomb(od, helium._bsp_data)
++    energy = eps[target_key] + energy_offset
++    options["evaluation_energy_au"] = energy
+     reference = 0.0
+-    for a in core:
++    for a in aspin:
+         for b, r, s in product(core, vspin, vspin):
+             anti = g(a, b, r, s) - g(a, b, s, r)
+             reference += (
+                 0.5
+                 * anti**2
+-                / (eps[a[:2]] + eps[b[:2]] - eps[r[:2]] - eps[s[:2]])
+-                / len(core)
++                / (energy + eps[b[:2]] - eps[r[:2]] - eps[s[:2]])
++                / len(aspin)
+             )
+         for b, c, r in product(core, core, vspin):
+             anti = g(a, r, b, c) - g(a, r, c, b)
+             reference += (
+                 0.5
+                 * anti**2
+-                / (eps[a[:2]] + eps[r[:2]] - eps[b[:2]] - eps[c[:2]])
+-                / len(core)
++                / (energy + eps[r[:2]] - eps[b[:2]] - eps[c[:2]])
++                / len(aspin)
+             )
+ 
+     def basis(scf, kappa, **kwargs):
+@@ -68,12 +87,109 @@ def test_same_subshell_self_energy_matches_spin_orbital_sum(helium):
+         assert kwargs["orthogonal_to_occupied"]
+         return [], blocks[kappa]
+ 
++    terms = []
+     with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis) as build:
+-        actual = mbpt2_orbital_energy_shift(helium, "1s1/2", kappa_max=1, n_virt_max=2)
++        actual = mbpt2_orbital_energy_shift(
++            helium, label, term_recorder=terms.append, **options
++        )
+     assert abs(reference) > 1e-6
+     assert actual == pytest.approx(reference, rel=1e-11, abs=1e-13)
+-    assert build.call_count == 2  # One eigensystem per kappa, independent of r/s loops.
++    assert sum(t["contribution_Ha"] for t in terms) == pytest.approx(actual, abs=1e-13)
++    assert {t["diagram"] for t in terms} == {"2p1h", "2h1p"}
++    assert build.call_count == len(kappas)  # One eigensystem per kappa, independent of r/s loops.
+     assert any(e < 0 for _, _, e in blocks[-1])  # Bound virtuals contribute.
++    # The reusable off-shell expansion is checked against the independent
++    # spin-orbital observable above, not just a duplicate native call.
++    options.pop("evaluation_energy_au")
++    with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis):
++        snapshot = build_mbpt2_self_energy(
++            helium, label, reference_identity=f"test:Z4:{target_key}", **options
++        )
++    assert snapshot.evaluate(energy) == pytest.approx(reference, rel=1e-11, abs=1e-13)
++    step = 1e-5
++    finite_difference = (snapshot.evaluate(energy+step)-snapshot.evaluate(energy-step))/(2*step)
++    assert snapshot.derivative(energy) == pytest.approx(finite_difference, rel=1e-7, abs=1e-11)
++
++
++@pytest.mark.parametrize("pole", [-3.0, 2.0])
++def test_dyson_root_and_residue_match_hermitian_eigenproblem(pole):
++    """Feshbach elimination of one auxiliary state provides an independent control."""
++    import numpy as np
++
++    epsilon, coupling = -0.5, 0.3
++    hamiltonian = np.array([[epsilon, coupling], [coupling, pole]])
++    energies, vectors = np.linalg.eigh(hamiltonian)
++    selected = np.argmax(abs(vectors[0])**2)
++    snapshot = DiagonalSelfEnergy(epsilon, np.array([pole]), np.array([coupling**2]),
++                                  "test:two-state-Hermitian")
++    bracket = (epsilon-0.1, epsilon) if pole > epsilon else (epsilon, epsilon+0.1)
++    root = snapshot.solve_dyson(bracket)
++    assert root.energy_Ha == pytest.approx(energies[selected], abs=1e-13)
++    assert root.residue == pytest.approx(abs(vectors[0, selected])**2, abs=1e-13)
++    assert abs(root.residual_Ha) < 1e-13
++    assert root.reference_identity == snapshot.reference_identity
++
++
++def test_dyson_pole_branch_and_snapshot_contract():
++    import numpy as np
++
++    # A zero coupling is not a pole, and input arrays cannot mutate a snapshot.
++    poles, weights = np.array([0.0, 0.01]), np.array([0.2, 0.0])
++    snapshot = DiagonalSelfEnergy(-0.5, poles, weights, "test:identity")
++    poles[0] = 9.0
++    weights[0] = 7.0
++    assert snapshot.evaluate(-0.5) == pytest.approx(-0.4)
++    with pytest.raises(ValueError, match="WRITEABLE"):
++        snapshot.poles_Ha.setflags(write=True)
++    with pytest.raises(ValueError, match="crosses"):
++        snapshot.solve_dyson((-1.0, 0.1))
++    with pytest.raises(ValueError, match="contain the DF"):
++        snapshot.solve_dyson((-0.3, -0.1))
++    with pytest.raises(ValueError, match="resonant"):
++        snapshot.evaluate(1e-9)
++    with pytest.raises(ValueError, match="finite"):
++        snapshot.evaluate(float("nan"))
++    with pytest.raises(ValueError, match="real scalar"):
++        snapshot.evaluate(-0.5 + 0.01j)
++    with pytest.raises(ValueError, match="real scalar"):
++        snapshot.evaluate(np.array([-0.5]))
++    with pytest.raises(ValueError, match="invalid"):
++        DiagonalSelfEnergy(-0.5, np.array([0.0]), np.array([-1.0]), "test")
++    with pytest.raises(ValueError, match="invalid"):
++        DiagonalSelfEnergy(-0.5, np.array([0.0]), np.array([1.0]), "")
++    # No weighted poles gives exactly the reference energy and unit residue.
++    empty = DiagonalSelfEnergy(-0.5, np.array([0.0]), np.array([0.0]), "test:empty")
++    root = empty.solve_dyson((-1.0, 0.0))
++    assert root.energy_Ha == -0.5 and root.residue == 1.0
++
++
++def test_external_float32_reference_keeps_legacy_double_denominators(helium):
++    import numpy as np
++
++    from atomx.methods.mbpt import build_virtual_basis
++
++    _, states = build_virtual_basis(helium, -1, e_max=50., potential_mode="VN",
++                                    orthogonal_to_occupied=True)
++    P, Q, e = states[0]
++    low_precision = np.float32(e)
++    options = dict(virtual_kappas=(-1, 1), n_virt_max=2)
++    actual = mbpt2_orbital_energy_shift(helium, "external",
++                                      valence_orbital=(P, Q, -1, low_precision), **options)
++    expected = mbpt2_orbital_energy_shift(helium, "external",
++                                        valence_orbital=(P, Q, -1, float(low_precision)), **options)
++    assert actual == expected
++
++
++def test_external_orbital_metric_and_occupation_contract(helium):
++    P, Q, _ = helium.orbitals_raw[-1][0]
++    e = helium.orbital_energies["1s1/2"]
++    with pytest.raises(ValueError, match="orthogonal to the core"):
++        mbpt2_orbital_energy_shift(helium, "external", valence_orbital=(P, Q, -1, e))
++    with pytest.raises(ValueError, match="normalized"):
++        mbpt2_orbital_energy_shift(helium, "external", valence_orbital=(2*P, Q, -1, e))
++    with pytest.raises(ValueError, match="distinct nonzero"):
++        mbpt2_orbital_energy_shift(helium, "1s1/2", virtual_kappas=(-1, -1))
++    assert helium.subshells[0].occupation == 2.0
+ 
+ 
+ def test_invalid_orbital_label(helium):
+@@ -81,6 +197,11 @@ def test_invalid_orbital_label(helium):
+         mbpt2_orbital_energy_shift(helium, "9z9/2")
+ 
+ 
++def test_off_shell_complex_energy_is_explicitly_rejected(helium):
++    with pytest.raises(ValueError, match="real scalar"):
++        mbpt2_orbital_energy_shift(helium, "1s1/2", evaluation_energy_au=-0.5+0.01j)
++
++
+ def test_virtual_basis_errors_propagate(helium):
+     with (
+         patch(

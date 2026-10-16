@@ -1,0 +1,11 @@
+{
+  "original_source_sha256": "216af20622219a8b2b5c2947221b2e1ef3dfd27a01f51a0918c8ee8bfe3bcd7d",
+  "change": "only original per-row multiply/add replaced with disjoint complete angular subgroup CUDA kernel; input/projection/density/denominator/output layout/response remain identical",
+  "status": "private frozen6s originalCPU003, all5frozenfields001 originalGPU, independent024 all6/16 PASS; no public adoption or controlled timing",
+  "actual_source_sha256": "c66dd8f35d4d1ba47d46e97e9c837c741752e902b6572afecab5c4721449f08e",
+  "validated_records": {
+    "batched_projection003": "0dd2f20adafca6ae994a6576c1f624fe96970f697ff38cbd0aefd5a751b85f77",
+    "fused_full_fields001": "c0320035ad782f0584116659fac17ec6849e30a7622876f5a5682c164e805252",
+    "public_valence024": "b41de4ed4b3c5d16e327be9a7373e82b60cf4b9b6a99d464893ea31937b62335"
+  }
+}

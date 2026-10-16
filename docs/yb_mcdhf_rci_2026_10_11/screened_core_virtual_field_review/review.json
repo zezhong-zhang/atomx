@@ -1,0 +1,319 @@
+{
+  "actual_calls": {
+    "CI_solves": 0,
+    "Dirac_solves": 0,
+    "Fock_builds": 0,
+    "H_builds": 0,
+    "Slater_integrals": 0,
+    "address_space_bytes": 1073741824,
+    "cpu_affinity_count": 1,
+    "optimizers": 0,
+    "radial_or_orbital_gradients": 0,
+    "tests_executed": 0,
+    "wall_timeout_seconds": 30
+  },
+  "adapter_external_attributes": [
+    "bsp_data",
+    "mean_field_coeffs",
+    "mean_field_normalization",
+    "subshells"
+  ],
+  "closed_core_keys_and_capacity": [
+    {
+      "key": [
+        1,
+        -1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        2,
+        -2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        2,
+        -1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        2,
+        1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        3,
+        -3
+      ],
+      "occupation": 6
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        3,
+        2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        4,
+        -4
+      ],
+      "occupation": 8
+    },
+    {
+      "key": [
+        4,
+        -3
+      ],
+      "occupation": 6
+    },
+    {
+      "key": [
+        4,
+        -2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        4,
+        1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        4,
+        2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        4,
+        3
+      ],
+      "occupation": 6
+    },
+    {
+      "key": [
+        5,
+        -2
+      ],
+      "occupation": 4
+    },
+    {
+      "key": [
+        5,
+        -1
+      ],
+      "occupation": 2
+    },
+    {
+      "key": [
+        5,
+        1
+      ],
+      "occupation": 2
+    }
+  ],
+  "consumer_prebound_matching_cache_required": true,
+  "existing_anchor_definitions_not_executed": [
+    {
+      "executed_by_this_review": false,
+      "function": "test_full_core_self_interaction_and_fractional_rejection",
+      "line": 74,
+      "path": "tests/test_closed_shell_fock.py"
+    },
+    {
+      "executed_by_this_review": false,
+      "function": "test_overlapping_core_and_rotated_signed_fock",
+      "line": 16,
+      "path": "tests/test_closed_shell_fock.py"
+    },
+    {
+      "executed_by_this_review": false,
+      "function": "test_same_spinor_final_fock_expectations",
+      "line": 47,
+      "path": "tests/test_dbsr_common_spinors.py"
+    },
+    {
+      "executed_by_this_review": false,
+      "function": "test_mixed_basis_fock_is_derivative_of_hf_energy",
+      "line": 255,
+      "path": "tests/test_review_structure_numerics.py"
+    },
+    {
+      "executed_by_this_review": false,
+      "function": "test_statistical_p2_fock_field_agrees_between_solver_modes",
+      "line": 30,
+      "path": "tests/test_configuration_spectroscopy.py"
+    },
+    {
+      "executed_by_this_review": false,
+      "function": "test_ckm_obeys_the_wigner_eckart_sum_rule",
+      "line": 199,
+      "path": "tests/test_angular.py"
+    }
+  ],
+  "input_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/source_identity.json": "fca94f25eb77205083697614b509714a7b0dea4358150ed94b246ecdf56a339b",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/contract.json": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512",
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/config/subshell.py": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+    "src/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "src/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "src/atomx/physics/csf/frozen_core.py": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "src/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "tests/test_angular.py": "14770f852e50579b391f5b8b690c9aca17db3af74f4a54c19964c7355587e32d",
+    "tests/test_closed_shell_fock.py": "b30f9cb3fcc825b4f6f1419752e658c4f519c2e3f298aad3f5487fa070104506",
+    "tests/test_configuration_spectroscopy.py": "b2bb17833a315648ff3974aa801e851fd82da5c108fe37ce2c40e2cad8061ce6",
+    "tests/test_dbsr_common_spinors.py": "a7d7f96903382ca0dd1d13eb2a529827ff195b1670918d4c7633833180cfde1f",
+    "tests/test_review_structure_numerics.py": "89888386913029341cc9f5cb28df5e52e5dd5c7c5893b6b8a13b9e646de15413"
+  },
+  "limitations": [
+    "No Fock, Slater, H, CI, gradient, Dirac or optimizer invocation and no tests executed in this audit.",
+    "Only source/test algebra and identities reviewed; final future driver is not frozen or numerically accepted here.",
+    "Closed68 auxiliary field omits valence/mixed-CI offdiagonal conditional density, Breit/QED/recoil; its fixed core is not independently self-consistent closed68 DHF."
+  ],
+  "new_zero_population_keys": [
+    [
+      6,
+      -3
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      -1
+    ],
+    [
+      7,
+      -2
+    ],
+    [
+      7,
+      1
+    ]
+  ],
+  "no_direct_seam_test_keyword_matches": true,
+  "physical_or_driver_qualification": false,
+  "record_id": "screened-closed68-core-field-readonly-review",
+  "reviewed_source": [
+    {
+      "path": "src/atomx/methods/dirac_fock.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52"
+    },
+    {
+      "path": "src/atomx/angular/coefficients.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710"
+    },
+    {
+      "path": "src/atomx/angular/recoupling.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    {
+      "path": "src/atomx/physics/csf/frozen_core.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_snapshot.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+    },
+    {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180"
+    },
+    {
+      "path": "src/atomx/methods/mbpt.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7"
+    },
+    {
+      "path": "src/atomx/config/subshell.py",
+      "same_original005": true,
+      "same_run003_archive": true,
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce"
+    }
+  ],
+  "runtime_conditions": [
+    "Finite C/D exact shapes, explicit C new-target/core-source rows only; D1 or declared finite scaled D exceeds division threshold.",
+    "Every ordered core radial source and every old24 remains exact; no silent missing-source zero fill, floor, self-density, or renormalization.",
+    "ConvolCache and workspace exact content match; C/D do not mutate after angular precompute.",
+    "Save all PP/QQ/PQ/QP; compare 80 scalar signed entries and measured nonzero cross anchors; row scaling alone is insufficient.",
+    "Add saved nuclear Dirac matrix once; no second field/one-body matrix and no auxiliary field inserted into CI.",
+    "Choose new roots in original nuclear P complement orthogonal to all old same-kappa orbitals, not just 19 core sources.",
+    "No MCDHF stationarity or experimental accuracy certification from auxiliary eigen-residuals; accepted160 original stationarity remains failed."
+  ],
+  "source_epochs": [
+    {
+      "source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f"
+    },
+    {
+      "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f"
+    }
+  ],
+  "verdict": "source_algebra_supported_conditional_on_separate_runtime_qualification"
+}

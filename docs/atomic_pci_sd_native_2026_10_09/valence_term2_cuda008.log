@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 639, in <module>
+    main(args)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_valence_term2.py", line 246, in main
+    subprocess.run(
+  File "/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran', '-fPIC', '-O3', '-std=legacy', '-ffixed-line-length-none', '-ffree-line-length-none', '-fno-align-commons', '-mcmodel=medium', '-static-libgcc', '-fopenmp', '-c', 'cuda_term2_plan.f90', 'valence_term2_streamed.f90', 'valence_term2_cpu.f90']' returned non-zero exit status 1.

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "version": 1,
+    "JSON_bytes_max": 67108864,
+    "minimum_independent_groups": 6,
+    "maximum_rows": 256,
+    "maximum_groups": 32,
+    "feature_names": [
+      "n_radial_before",
+      "n_radial_after",
+      "n_target_CSF_before",
+      "n_target_CSF_after"
+    ],
+    "kernel_length_scale": 1.0,
+    "kernel_noise": 1e-05,
+    "required_group_cv_MAE_ratio": 0.9,
+    "scope": "Prototype admission policy, not physical tolerances or a precision certificate"
+  },
+  "assessments": [
+    {
+      "candidate_id": "producer_radial_H_closure",
+      "status": "abstain",
+      "matching_rows": 0,
+      "independent_groups": 0,
+      "rejected_rows": [],
+      "learned_prediction": null,
+      "automatic_execution": false,
+      "physical_gates_changed": false,
+      "reason": "insufficient_independent_comparable_experiments"
+    },
+    {
+      "candidate_id": "saved_native_core_pair_diagnostic",
+      "status": "abstain",
+      "matching_rows": 0,
+      "independent_groups": 0,
+      "rejected_rows": [
+        {
+          "id": "rank_only_discriminator",
+          "reason": "different_physical_context"
+        }
+      ],
+      "learned_prediction": null,
+      "automatic_execution": false,
+      "physical_gates_changed": false,
+      "reason": "insufficient_independent_comparable_experiments"
+    },
+    {
+      "candidate_id": "failed_core002_preserved",
+      "status": "ineligible",
+      "reason": "preserve_prior_outcome_no_automatic_retry",
+      "learned_prediction": null,
+      "automatic_execution": false
+    },
+    {
+      "candidate_id": "whole31_exact_Gaunt_reuse",
+      "status": "abstain",
+      "matching_rows": 0,
+      "independent_groups": 0,
+      "rejected_rows": [],
+      "learned_prediction": null,
+      "automatic_execution": false,
+      "physical_gates_changed": false,
+      "reason": "insufficient_independent_comparable_experiments"
+    }
+  ],
+  "advisory_order": [
+    "producer_radial_H_closure",
+    "saved_native_core_pair_diagnostic",
+    "whole31_exact_Gaunt_reuse"
+  ],
+  "order_basis": "declared physical priorities; within fully admitted tiers, model variance / declared wall cap; otherwise id order",
+  "NIST_used_for_training_or_features": false,
+  "automatic_execution": false,
+  "cards_or_timers": false,
+  "AI_acceleration_measured": false,
+  "bound_JSON_evidence_bytes_checked": 33296799,
+  "input_bindings": {
+    "ledger_sha256": "a8e1d04685a6c5570cf7d9c46547e2b6eed36671b30eed6a57529c05b8a40b84",
+    "candidates_sha256": "b2e45c3e6cd9214dbc9f743b8af68a794406f81e259a5b3f8ff398d1622d538c"
+  }
+}

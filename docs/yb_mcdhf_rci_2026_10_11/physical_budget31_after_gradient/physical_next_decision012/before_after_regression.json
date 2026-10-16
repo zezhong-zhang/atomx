@@ -1,0 +1,246 @@
+{
+  "status": "MATCHED_PREEXISTING_FAILURES",
+  "before": "42 passed,2 failed in75.48s",
+  "after": "67 passed,2 failed in65.12s (25 additional new/polar/state derivative tests pass)",
+  "failures": [
+    "test_frozen_default_H_and_complete_signed_gradient_parity",
+    "test_signed_central_directional_derivative_in_same_constrained_space"
+  ],
+  "checks": [
+    {
+      "file": "CI_00.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_00.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_00.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_01.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_01.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_01.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_02.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_02.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_02.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_03.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_03.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_03.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_04.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_04.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_04.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_05.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_05.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_05.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_06.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_06.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_06.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_07.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_07.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_07.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_08.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_08.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_08.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_09.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_09.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_09.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_10.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_10.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_10.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_11.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_11.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_11.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_12.npz",
+      "field": "H",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_12.npz",
+      "field": "energies",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    },
+    {
+      "file": "CI_12.npz",
+      "field": "mixing",
+      "bitwise_equal": true,
+      "max_abs": 0.0
+    }
+  ],
+  "claim": "All13 complete H/eigensystem archives (39 arrays) match before source bitwise; same two failures predate this additive increment and remain failed. No gate/test change."
+}

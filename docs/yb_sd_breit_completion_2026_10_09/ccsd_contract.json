@@ -1,0 +1,8 @@
+{
+  "hypothesis": "A finite determinant CCSD engine can genuinely solve exp(-T) H exp(T) singles/doubles equations and supply a validated replacement for the previous scaffold, without claiming production all-order atomic SD/FSCC.",
+  "fixed": {"theory":"nonlinear CCSD T=T1+T2", "representation":"complete fixed-N determinant basis over explicit spin orbitals", "exponential":"exact nilpotent series, includes disconnected higher-rank excitations", "reference":"explicit occupied determinant, not chosen by closeness to experiment", "branch":"predeclared off-diagonal Hamiltonian continuation [0.25,0.5,0.75,1]"},
+  "gates": {"SD_projected_residual_Ha":1e-10,"two_electron_FCI_energy_Ha":1e-10,"two_electron_projector":1e-8,"orbital_phase_covariance":1e-9,"disconnected_four_electron_product_energy_Ha":1e-10},
+  "caps": {"complete_determinants":256,"SD_amplitudes":128,"generator_storage_MiB":128,"nonlinear_function_evaluations_per_stage":2000},
+  "stopping":"Raise on cap, resonance, nonlinear solver failure or residual failure. No amplitudes discarded by magnitude. No adaptive gates or production Yb claim.",
+  "limitations":["Finite determinant proof/anchor algorithm, exponential Hilbert-space scaling","No angular-compressed or integral-direct atomic SD implementation","No triples, FSCC, Lambda/left-state or dressed property solver","Production Yb does not fit these caps"]
+}

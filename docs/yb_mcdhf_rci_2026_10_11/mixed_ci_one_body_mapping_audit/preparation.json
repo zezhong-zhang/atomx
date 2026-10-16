@@ -1,0 +1,16 @@
+{
+  "status": "source-only prospective preparation",
+  "NumPy_imports": 0,
+  "Atomx_imports": 0,
+  "numerical_calls": 0,
+  "lower_completion_AST": "np.tril(h) + np.tril(h, -1).T",
+  "lower_completion_line": 82,
+  "old_raw_save_source": "tests/test_mixed_ci_finite_increment.py:122 direct build; :138 assets[h_k]=raw return",
+  "old_guard_failure": "3hS;0H/CI/g; no tests passed",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "files_sha256": {
+    "run.py": "781d312fe4ac221b96410c52bd71b0d147f0745619de196a7c9ec6351d1d3e97",
+    "contract.json": "727971280dfb52ffe93d6eedabfee9a1ec1d249658a60d104d7e18ab8953a294",
+    "README.md": "6e882f272f723cdab988780e4a27dbc9d8635a030a7918ea4da516023feda861"
+  }
+}

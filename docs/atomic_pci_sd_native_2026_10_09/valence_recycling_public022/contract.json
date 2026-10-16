@@ -1,0 +1,12 @@
+{
+  "hypothesis": "Same-column GCROT(m,k) recycling can reduce expensive complete root/refinement/response maps without changing operator, physical space, signed solution or acceptance gates",
+  "fixed": "default restartedGMRES unchanged; optional explicitgcrotmk, one initialized energy/column/operator only, no cross-solve CU persistence or physics truncation",
+  "gate_Ha": 1e-11,
+  "panel": "original/optimized4live modes and current affected core/valence/Sigma2; complete signed root/response/Sigma1, interleaved COMMON/newenergy, callback/cap/invalid-policy gates",
+  "resources": "both V/Z inner m+k bases plus CU/QR/refinement/response/callback/initial-guess buffers preflight; 2*(min(m+k,count)+1)+6*(k+1)+24 fullvectors before optional2callback/seed vectors",
+  "budget": "maxiter100 outerGCROTcycles, restart30 m; originalGMRESrestartbudget unchanged; no forced countgate or measured speed claim",
+  "stop": "reject any finite/root/response/identity/cap difference; no gate lowering or orbital screening",
+  "scipy_version": "1.15.3",
+  "primary_documentation": "https://docs.scipy.org/doc/scipy-1.15.3/reference/generated/scipy.sparse.linalg.gcrotmk.html",
+  "scope": "numerical same-operator solve only; no full-space performance or physical spectrum accuracy claim"
+}

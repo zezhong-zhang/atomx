@@ -1,0 +1,161 @@
+{
+  "recorded_at_UTC": "2026-10-11T04:56:56.193843+00:00",
+  "status": "bounded_FAC_extension_complete_delivered_and_server_readback_verified",
+  "highest_level_reached": false,
+  "aggregation_inputs_final_rehash": {
+    "passed": true,
+    "count": 27,
+    "sha256": {
+      "fac/contract.json": "a52b958b0ed552de9afaad919d0e12666f7c84dd0f28c1294d9aeff2af648a26",
+      "aggregation_provenance.json": "9cab481c4407f77a58fca48ec500abda630590d8047b547e44df11404129d72d",
+      "contract.json": "eb26d4b98848c9cfd3292d51162902b38a1eed2174176bf846552fba5e1d77a6",
+      "sd/finite_action001/result.corrected.json": "e58ba8fee7df5695f91d3b161a158f787f346b288b7a1f60d96dfdeece16cdff",
+      "sd/finite_action001/observations.json": "abaf7668e8854efad876351a4ff7744328329b30965606d1c14122f788e38ba5",
+      "sd/yb_round000/result.json": "d2ce1e85823a12c7a53d3e2324352fcf01c7b802f0e83ec63fcbd295d93cded4",
+      "sd/yb_round001/result.json": "fcdb717007b33eed06f11ded6a0dd98fbdbaf36af9e89d879af9453f0cacd8b8",
+      "sd/yb_round002/result.json": "96ddf9ee60604d1886456b73c94b02ad7e0eead5ac0f7e3477401720d9fbf0ed",
+      "sd/yb_round000/full_output_verification.json": "e38e3736e78812e76c42ec97e348f62eb0a09f98b47f91df2d0a3a739cfd317d",
+      "sd/yb_round000/observations.json": "0882e1543d13c7657a5d2dd6db5416d62fb7591fb14cb9656f3f1be7555f0f14",
+      "sd/yb_round001/full_output_verification.json": "a530bca6493d27a1661ff513470275ffa33a44ea4d0a6518ed59284d0b39086d",
+      "sd/yb_round001/observations.json": "c0dcb5e13a63beec486bbbd99ecded2353d251cd34b6e4ae7c6186098ae228f8",
+      "sd/yb_round002/full_output_verification.json": "27f4bab89345469e9772fff788a8230f1e66b7eba21e3405b636c3727a8725bc",
+      "sd/yb_round002/observations.json": "cd0397de7aaf043747235c60e1212fc00db284297490868e2db2d64a79077cd5",
+      "ambit/result.corrected.json": "2dbc38042f42325ac3266057df13fb4e4fe44e10f2397f41bedd8a427e4be759",
+      "fscc/run003/result.json": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e",
+      "fscc/run003/raw_samples.json": "0501c7a7ca029d7a86a6454243dddc6cc4cad22cb941be8464dcdc3acb86710a",
+      "gpu/summary.json": "80ec6098d5b26a6b0c710811abe63d71345633564aa8d0d65c343893c4338b78",
+      "experimental_precision_context.json": "8539b3c640264486748c394748e9fb8e4564427c76131bd2c5329eae7a1b585a",
+      "fscc/thread_preflight002/p4/runtime_thread_cap_rejection.json": "f94bb04f2f8962ade451e0de7d489fcb79bbe66aabcc82785fbd43aca760ce64",
+      "metrics.json": "df5e32aa3368d06b347d315ab351a2a48f5dfe11e205c8f316dca5ad0693219d",
+      "fac/precision/result.json": "6481e4eb397c3d68d80f2ba8002a1183d9d0554f2c98ba0b350393a55d5504b5",
+      "fac/performance/result.json": "3c23b992a8e5fe62de71b6705ce317695519d18ff892600f5c782c077714325e",
+      "fac/performance/model_spread.json": "d63caf5658ea47eb1e844230a2f825516cc81ac637749f8945f1a03163e49734",
+      "fac/performance/stages.json": "3cf7bc95748fd9794a0356a824e387cb3ec2fc7dea5e309d150a34152cb424f5",
+      "fac/gaps.json": "78b6229a33229a874bb8c11dde8a7f17ba23d4daf4a558d3c5d835bf40ba5368",
+      "fac/review/final_audit.json": "c34b1e19cfa0e4e1d2bc22a7fcdbaf36aa55a2a9097178ca06868674ae1ed77f"
+    }
+  },
+  "root_owned_artifacts_sha256": {
+    "metrics.json": "4d26dbe8cc4df1a0b67aa65273bef1aa7a4840d6cc0164f360c5440a9feda813",
+    "delivery_iteration_preview.json": "a79f109b31273ef7fcc4130d1213948d8c84409acfd79575086c4e01384a29df",
+    "ears.json": "12dce100c9d418a41bae3bf947927daf9e8e951b5597238144a1416324aadb87",
+    "render_only_metadata.json": "2aa612d6a0c80bb0b41c6e72e8a736430904a3fe9066040aef0021f762287e44",
+    "gaps.json": "78b6229a33229a874bb8c11dde8a7f17ba23d4daf4a558d3c5d835bf40ba5368",
+    "documentation_links_verification.json": "cf9320e04d0d1124bfbe9e37654d08445838bbf5f54026b54e060aec9e5f57b6",
+    "hourly_verification.json": "2168bbd4c86240d30904ea99563340992d5666473125c89b45f6cde766a15e3a",
+    "aggregate.py": "bb4641a9f722d53e0bd1a11f7b0934dfe476788d1790a2472e6ddff800cc3583",
+    "parallel_efficiency.pdf": "60460b066ceb50298f93fb7cea1bd5738dc5f4951411c5c26ef812b96eca4d27",
+    "lark_chart_send.json": "e86e85d87260b8f157848dedfa24391a8ef4bfcb291f66b7f83fecf10251d270",
+    "lark_card_send.log": "13b44f09fe025cef771213ce5bd5980d6e9b677746a207ecf784febdc72ec8da",
+    "card_render_verification.json": "4cf5dce43ecc054369d4599370c6119ebc2d5156bcfe887aa8b8be0fba906c94",
+    "delivery_iteration_request.json": "e903f867233f4b60b56c8d99c3a78c7c90e509b5fb356dee56deb3ae989744ae",
+    "lark_delivery_verification.json": "2d70650c84a52047c089376c83e4e270f334069438b2928aa63618b78b28d715",
+    "parallel_efficiency.svg": "c353ef2f65763abf26cd385db0804eec6bd1ea267649ccd0a7a60db5b2541fcc",
+    "aggregation_provenance.json": "af5186ac0bf22dcfd396093b4b3f0fc8cae364e8c2c7155a3b7b3e509bc95e6c",
+    "lark_delivery_readback.json": "3b6635365dec2579488c967af75b2edc133b786ee35171f4692d1ea5d8371347",
+    "hourly_tests.log": "df0b0ca49696a80d3eee26b2f0dad34a7a3d022a455da9bba970f217054e74f2",
+    "documentation_impact.json": "23331729c611b13332d9d1ec4b3aa552102951d15cb82eb42696260bde5e4bb4",
+    "parallel_efficiency.png": "36e5c235fe03f9ccc16a1d81c52fcf91e6e18d8385a5cc18c90da3008c3e8e07",
+    "hourly_timer_status.txt": "1c637dd3200d04f4fd379978238a4a594fc28bd1cb2c954ef4461e23e3b70a19",
+    "plot_provenance.json": "022cbf5417b489ba9b066715c8b1bebd2cd3a33b984556ba05ad10dc6190b0bf",
+    "README.md": "4ffdcacdb4d8440e5fde1634a2d48d8e38ff39489ac8a9d886f8071d1cba0ca0",
+    "delivery_receipt.json": "b62ebab9f43c23f7b190002897c4f14558dd09027253a219b360e8528605d707",
+    "verification.json": "24dd829898b15a04790353f5174e15f8f2ffca6dd72df0a679d2e2e7201aaea6",
+    "performance.csv": "fd58cd2b16d34d2a7cb9fd82594f791b4ac725862abcd8eebac891073e81265d",
+    "card_preview.json": "8c0bb9a350cf88b196139737ebe949d531a775e1773827c091a07c21c3cdb9c1",
+    "contract.json": "a52b958b0ed552de9afaad919d0e12666f7c84dd0f28c1294d9aeff2af648a26"
+  },
+  "frozen_owner_and_history_indices_sha256": {
+    "precision/result.json": "6481e4eb397c3d68d80f2ba8002a1183d9d0554f2c98ba0b350393a55d5504b5",
+    "precision/artifact_manifest.json": "5033add3108fb0bcbdf795c12e70adb778922901f7144c25c0467740ad4133c6",
+    "precision/selected_tests.json": "ff8d663968b202f3159cbc4b4376e213a6ea4daa611fae9ddd7d69601b49587a",
+    "performance/result.json": "3c23b992a8e5fe62de71b6705ce317695519d18ff892600f5c782c077714325e",
+    "performance/artifact_manifest.json": "f6f1c21e18056ab62cf06e04e40854cc3381028bbc1b3a31787630e97a690380",
+    "performance/model_spread.json": "d63caf5658ea47eb1e844230a2f825516cc81ac637749f8945f1a03163e49734",
+    "performance/stages.json": "3cf7bc95748fd9794a0356a824e387cb3ec2fc7dea5e309d150a34152cb424f5",
+    "performance/test_results.json": "e249aa25df2af7d2f0d59d99e9068b9932cc63421b256f43606d591326a6eea1",
+    "review/final_audit.json": "c34b1e19cfa0e4e1d2bc22a7fcdbaf36aa55a2a9097178ca06868674ae1ed77f",
+    "review/artifact_manifest.json": "f19cf86bf52c7fc8fccd6fc77bfef17c0c9e35c23de0cddd47ac50c5bd3f84ad",
+    "review/terminal_source_rehash.json": "6da24d0f7af92688820d90d653b7f3dfd809c52db933e85955b1f5f7b1df4cd8",
+    "review/supplemental_manifest.json": "281dae4e2741ec38cb94632bccda0f261b9d633ca47e2bf2a1ef2f9749923434",
+    "prior_campaign_snapshot/manifest.json": "d5ddce922c0370e8f0ea1afe3611c783b7b2a4f0c16c913f1dd599748f18840c"
+  },
+  "current_dirty_worktree_documents_sha256": {
+    "docs/BENCHMARKS_EXTERNAL.md": "c7edb6a4bbe36f64ba280a5be1840a778c2f45ec901fa21d949c64c146fdc236",
+    "docs/VERIFICATION.md": "ebbc094bad8b62d658d6dccaae9d03979f451da70cc1ceed422dd39f3b82c457",
+    "docs/CORRELATED_METHOD_TESTING.md": "0c0de5b4516648a67450f7a9efa087c943678347e8a36a30af0553e465e112d9",
+    "docs/AGENT_REFERENCE.md": "0e234134860668495bbe4f2ef90b006ec3c6279091b74b535d1709c3585389f1",
+    "docs/AGENT_INSIGHTS.md": "612d7db671610e5483a63b60f3814123f56de300b9d98823ae9356ea8674f0e6",
+    "docs/atomic_external_benchmark_2026_10_11/README.md": "f3e1f5747bf83d21755564216a5ef09c5c3b678527db1577bf851a5500812bef",
+    "docs/atomic_external_benchmark_2026_10_11/plot_scaling.py": "221b085d96cbdaff816aafa70a385510cf865e6945fbc99875ac81d60cd3099c",
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "5dde4e8fac3b61daf570ed46c68f4bda556e6e248646ef59e41c046e48a6876b",
+    "docs/atomx_hourly_progress_2026_10_10/progress.json": "f662c62201dfbd1f30955472e8e1bcdc537a5f678c719af0429dcee9288a111e"
+  },
+  "independent_audit": {
+    "passed": true,
+    "manifest_files_rehashed": 3042,
+    "native_arrays_independently_decoded": 6784,
+    "source_current_inventories": {
+      "precision_actual005": {
+        "current_files_independently_rehashed": 868,
+        "mismatches": [],
+        "passed": true
+      },
+      "performance_initial": {
+        "current_files_independently_rehashed": 1084,
+        "mismatches": [],
+        "passed": true
+      },
+      "performance_fresh_cache002": {
+        "current_files_independently_rehashed": 1086,
+        "mismatches": [],
+        "passed": true
+      }
+    },
+    "frozen_review_manifest_rechecked_by_root": true,
+    "historical_snapshot_files": 8
+  },
+  "verification": {
+    "passed": true,
+    "selected_checks": {
+      "precision": 30,
+      "performance": 9,
+      "hourly": 15,
+      "total": 54
+    },
+    "full_repository_suite_rerun": false,
+    "initial_cache_failures_retained": true,
+    "precision_fixture_source_unchanged": true,
+    "Ruff_root_helpers": "passed",
+    "git_diff_check": "passed",
+    "public_actual_FAC_render": "card_render_verification.json",
+    "current_document_links": "documentation_links_verification.json",
+    "independent_source_array_statistic_audit": "review/final_audit.json",
+    "supplementary_current_source_rehash": "review/terminal_source_rehash.json",
+    "scientific_failed_comparison_gates_preserved": true
+  },
+  "lark_delivery": {
+    "passed": true,
+    "card_message_id": "om_x100b63852ca548a8c4cb00992214e7f",
+    "chart_message_id": "om_x100b63852c9b24a0c3fd2a04f2fa7bd",
+    "same_chat_and_own_sender": true,
+    "server_content_has_final_metrics_sha": true,
+    "failed_scientific_gate_visible": true,
+    "model_and_mode_scopes_visible": true,
+    "metrics_sha256": "4d26dbe8cc4df1a0b67aa65273bef1aa7a4840d6cc0164f360c5440a9feda813",
+    "next_hourly_update": "13:00 Asia/Hong_Kong",
+    "iteration_dispatch_ok": true,
+    "iteration_preview_status": "implementation_frontier",
+    "new_production_jobs_registered": false,
+    "hourly_timer_status": "hourly_timer_status.txt"
+  },
+  "limitations": [
+    "Pb same-integral absolute1e-11Ha and all common-spinor joint gates failed; unchanged tolerances.",
+    "Independent optimized orbital models and asymmetric diagnostic export costs; no equal-accuracy production speed rank.",
+    "Frozen CI groups do not include3s/3dintergroupcoupling;20physicalE1transitions with2modes produce40records.",
+    "Original incomplete Num ba cache epoch and actual15-thread p8rejection retained; no invalid speedups.",
+    "No new experimental NIST rank or improvedYb spectrum; prior1%failures remain.",
+    "Independent-ion throughput unmeasured; no highest-level certificate."
+  ],
+  "stage_commit_push": false
+}

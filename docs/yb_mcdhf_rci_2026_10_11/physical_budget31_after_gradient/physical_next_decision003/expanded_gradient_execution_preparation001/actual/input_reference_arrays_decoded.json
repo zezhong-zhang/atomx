@@ -1,0 +1,35 @@
+{
+  "fields": {
+    "matrix_Ha": {
+      "shape": [
+        531,
+        531
+      ],
+      "dtype": "<f8",
+      "bytes": 2255688,
+      "fortran_order": false
+    },
+    "energies_Ha": {
+      "shape": [
+        531
+      ],
+      "dtype": "<f8",
+      "bytes": 4248,
+      "fortran_order": false
+    },
+    "mixing": {
+      "shape": [
+        531,
+        531
+      ],
+      "dtype": "<f8",
+      "bytes": 2255688,
+      "fortran_order": true
+    }
+  },
+  "selected_fields": [
+    "energies_Ha",
+    "mixing"
+  ],
+  "cumulative_decoded_bytes": 102293584
+}

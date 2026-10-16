@@ -1,0 +1,17 @@
+{
+  "hypothesis": "Converged canonical core and full fixed-energy valence numerator equations match independent all-magnetic equations and solved roots; analytical energy derivative must include amplitude response.",
+  "fixed": "same complete declared Be2+ s/p control, pinned source native integral Hamiltonian and canonical Fock substitution explicit; all virtual and symmetry coordinates retained; 512 magnetic vs 32 reduced valence redundant coordinates",
+  "reference": "same-gauge pCI original SD and paper physical antisymmetry proved in valence_gauge_contract.json",
+  "gates_Ha": {
+    "full_signed_action": 1e-11,
+    "core_raw_residual": 1e-10,
+    "valence_raw_residual": 1e-10,
+    "magnetic_root": 1e-11,
+    "magnetic_raw_residual": 1e-10
+  },
+  "response_derivative_gate": "centered independently re-solved roots at 1e-3,3e-4,1e-4 Ha; abs1e-9+rel1e-6, no fixed-amplitude shortcut",
+  "memory_cap_bytes": 536870912,
+  "iteration_cap": 100,
+  "stop": "reject on any nonfinite, singular denominator, signed action/root, raw residual or response derivative mismatch",
+  "scope": "finite canonical convention oracle, no production valence precision claim"
+}

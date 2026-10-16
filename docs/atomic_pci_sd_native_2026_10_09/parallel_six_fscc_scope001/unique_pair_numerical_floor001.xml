@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.474" timestamp="2026-10-11T11:22:15.579324+08:00" hostname="fermi"><testcase classname="tests.test_fscc_scope_projection" name="test_full_signed_unique_pair_cluster_and_attachment_lift" time="0.291"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=1e-14&#10;&#10;Mismatched elements: 1 / 6336 (0.0158%)&#10;Max absolute difference among violations: 1.06795117e-14&#10;Max relative difference among violations: 20.35970579&#10; ACTUAL: array([[1.+0.j, 0.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],&#10;       [0.+0.j, 1.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],&#10;       [0.+0.j, 0.+0.j, 1.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],...&#10; DESIRED: array([[1.+0.j, 0.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],&#10;       [0.+0.j, 1.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],&#10;       [0.+0.j, 0.+0.j, 1.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],...">def test_full_signed_unique_pair_cluster_and_attachment_lift():
+        arrays, _ = evidence()
+        t = [arrays[name] for name in ("t1c", "t2c", "t3c")]
+        core = unique_cluster(t, arrays["core_masks"], 4)
+        attached = unique_cluster(t, arrays["attachment_masks"], 4)
+        np.testing.assert_allclose(core, arrays["core_cluster"], atol=1e-14, rtol=0)
+        np.testing.assert_allclose(
+            attached, arrays["attachment_cluster"], atol=1e-14, rtol=0
+        )
+        s = unique_cluster(
+            [arrays[name] for name in ("s1c", "s2c", "s3c")],
+            arrays["attachment_masks"],
+            4,
+            attachment=True,
+        )
+        expected = (np.eye(len(s)) + s)[:, arrays["model_indices"]]
+&gt;       np.testing.assert_allclose(expected, arrays["omega"], atol=1e-14, rtol=0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-14
+E       
+E       Mismatched elements: 1 / 6336 (0.0158%)
+E       Max absolute difference among violations: 1.06795117e-14
+E       Max relative difference among violations: 20.35970579
+E        ACTUAL: array([[1.+0.j, 0.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],
+E              [0.+0.j, 1.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],
+E              [0.+0.j, 0.+0.j, 1.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],...
+E        DESIRED: array([[1.+0.j, 0.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],
+E              [0.+0.j, 1.+0.j, 0.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],
+E              [0.+0.j, 0.+0.j, 1.+0.j, ..., 0.+0.j, 0.+0.j, 0.+0.j],...
+
+tests/test_fscc_scope_projection.py:95: AssertionError</failure></testcase><testcase classname="tests.test_fscc_scope_projection" name="test_retained_projection_pass_does_not_hide_true_connected_quadruples" time="0.122" /></testsuite></testsuites>

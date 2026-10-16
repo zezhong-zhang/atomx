@@ -1,0 +1,182 @@
+{
+  "status": "PASS",
+  "pytest_exit_code": 0,
+  "outcomes": [
+    {
+      "test": "tests/test_mcdhf_state_resolved_derivative.py::test_each_UID_one_and_two_body_derivatives_match_forward_exact_CSF",
+      "outcome": "passed"
+    },
+    {
+      "test": "tests/test_mcdhf_state_resolved_derivative.py::test_full_actualnorm_retains_signed_rescaling_invariance",
+      "outcome": "passed"
+    },
+    {
+      "test": "tests/test_mcdhf_state_resolved_derivative.py::test_five_level_derivative_matches_rediagonalized_polar_step",
+      "outcome": "passed"
+    },
+    {
+      "test": "tests/test_mcdhf_state_resolved_derivative.py::test_absolute_amplitudes_fail_the_signed_interference_control",
+      "outcome": "passed"
+    }
+  ],
+  "measurement": {
+    "scope": "Z4/3electron/ns35 RKB/8CSF/7wave single point; no Yb or optimization",
+    "UIDs": [
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        5,
+        1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    "csf_count": 8,
+    "radial_wave_count": 7,
+    "nsp": 34,
+    "nsq": 35,
+    "state_rows": [
+      {
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "CIcolumn": 0,
+        "scale": 2.0,
+        "actualnorm": 4.000000000000001,
+        "forward": {
+          "onebody": 0.006553796221422286,
+          "twobody": -0.08786065779601346
+        },
+        "gradient": {
+          "onebody": 0.006553796221442654,
+          "twobody": -0.08786065779601233
+        }
+      },
+      {
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "CIcolumn": 4,
+        "scale": 0.5,
+        "actualnorm": 0.25,
+        "forward": {
+          "onebody": -1.0066411608566985e-11,
+          "twobody": -0.057649738947283015
+        },
+        "gradient": {
+          "onebody": -1.0037175886537267e-11,
+          "twobody": -0.057649738947282564
+        }
+      },
+      {
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "CIcolumn": 3,
+        "scale": -1.7,
+        "actualnorm": 2.8899999999999997,
+        "forward": {
+          "onebody": -7.423293446366582e-12,
+          "twobody": -0.08875040812730982
+        },
+        "gradient": {
+          "onebody": -7.396047821606276e-12,
+          "twobody": -0.08875040812730943
+        }
+      },
+      {
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "CIcolumn": 2,
+        "scale": 3.1,
+        "actualnorm": 9.610000000000001,
+        "forward": {
+          "onebody": -6.398207857488549e-12,
+          "twobody": -0.10586055318423315
+        },
+        "gradient": {
+          "onebody": -6.369036686271242e-12,
+          "twobody": -0.10586055318423268
+        }
+      },
+      {
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "CIcolumn": 1,
+        "scale": -0.3,
+        "actualnorm": 0.08999999999999997,
+        "forward": {
+          "onebody": -8.787339929669628e-12,
+          "twobody": -0.027674258647149657
+        },
+        "gradient": {
+          "onebody": -8.760326172911646e-12,
+          "twobody": -0.027674258647149324
+        }
+      }
+    ],
+    "forward_components": {
+      "onebody": 0.0065537961887470325,
+      "twobody": -0.3677956167019891
+    },
+    "forward_total": -0.3612418205132421,
+    "native_total": -0.3612418205131071,
+    "fullnorm_total": -0.36124182051310916,
+    "fullnorm_signed_scaling_max_gradient_error": 4.163336342344337e-17,
+    "FD_step": 2e-05,
+    "central_FD": -0.3612418437271003,
+    "FD_minus_forward": -2.3213858169057744e-08,
+    "unsigned_negative_control_error": -0.0008775427389091095,
+    "radial_derivative_keys": 33
+  },
+  "source_sha256": {
+    "tests/test_mcdhf_state_resolved_derivative.py": "ec99b5f65817e83d1738bafb9ad38becd62a2a564e385ecf2124e1d1ae9e5369",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "src/atomx/numerics/bspline/dirac_assembly.py": "926f68ea7cec251c322a9eeb8af41cb79643d20b6266af09843267a989963661"
+  },
+  "source_unchanged": true,
+  "peakRSS_MiB": 264.8515625,
+  "resources": {
+    "CPU": 26,
+    "threads": 1,
+    "AS_GiB": 6,
+    "inner_seconds": 180,
+    "outer_seconds": 195
+  },
+  "prior_existing_targeted_tests": "30 PASS in1.23s, CPU26/thread1/6GiB:polar+gradient_reuse+stable_energy",
+  "prototype_scope": "Earlier symmetric-basis prototype passed; this independent RKB point is freshly measured, no predicted output copied"
+}

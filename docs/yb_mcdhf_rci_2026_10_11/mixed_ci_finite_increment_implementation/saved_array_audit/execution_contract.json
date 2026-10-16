@@ -1,0 +1,28 @@
+{
+  "created_at_utc": "2026-10-11T12:01:41.992128+00:00",
+  "contract_sha256": "852e9382f579f4ab1ad358e5e8fbf4818c55f73e00105fc640fddfe2b8aaad45",
+  "driver_sha256": "346d17b17c1e257630dbcb30fe678216b1666811aabf251653683ab3acf49de9",
+  "actual_resource_caps": {
+    "threads": 1,
+    "CPU_affinity": [
+      0
+    ],
+    "AS_bytes": 1073741824,
+    "SIGALRM_seconds": 30,
+    "outer_timeout_seconds": 35
+  },
+  "authorized_scope": "One independent saved-array audit,0H/CI/g/Atomx imports, no live test rerun",
+  "AST_imports": [
+    "pathlib",
+    "decimal",
+    "ast",
+    "hashlib",
+    "json",
+    "math",
+    "os",
+    "resource",
+    "signal",
+    "time",
+    "numpy"
+  ]
+}

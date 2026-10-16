@@ -1,0 +1,35 @@
+{
+  "hypothesis": "Public complete fixed-energy noncanonical SD reproduces independent long-double magnetic roots/actions/implicit responses with matched native DC integrals. Optional same-input comparison requires bitwise equality.",
+  "fixed": "C2+ all1s2/2s2 core, six declared s/p radial virtuals and all16magnetic states, Z6/ns40/ks7; complete native physicalFock, .37rad rotation of each two-virtual partial-wave pair; no synthetic operator or fitted energy",
+  "energy": "each actual Fock diagonal eps_v+.075, core numerators fixed for derivative",
+  "core_virtual_rotation_rad": 0.07,
+  "occupied_projector": "rotated 2s/3s before full native integral construction; explicit changed reference",
+  "bitwise_comparison_case": null,
+  "valence_term2_blas": true,
+  "valence_term2_threads": 8,
+  "private_cuda_term2": true,
+  "private_recycled_control": false,
+  "fresh_public_seed_certification": false,
+  "private_resident_cuda_krylov": false,
+  "complete_homogeneous_stage_profile": true,
+  "private_projection_policy": "reachable",
+  "private_term41_blas": true,
+  "resident_device_policy": "original diagram2GiB pool only when CUDA selected",
+  "inverse": "certified public GMRES",
+  "numerical_scope": "current public numerical path",
+  "gates_Ha": {
+    "action": 1e-11,
+    "signed_root": 1e-11,
+    "signed_prime": 1e-11,
+    "sigma1_prime": 1e-11,
+    "actual_core_and_valence_residual": 1e-10
+  },
+  "resource": "512MiB complete core/valence/Krylov preflight plus bounded64MiB finite reference; two heap core workers and explicitly declared heap term2 workers when streamed, otherwise original one worker",
+  "load": [
+    12.27099609375,
+    12.77294921875,
+    14.1923828125
+  ],
+  "stop": "failure retains full arrays/source; no gate or space reduction",
+  "scope": "private complete CUDA candidate against independent magnetic equations; public CUDA not adopted"
+}

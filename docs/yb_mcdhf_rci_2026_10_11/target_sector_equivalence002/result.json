@@ -1,0 +1,704 @@
+{
+  "equivalence_gates_passed": true,
+  "checks": [
+    {
+      "name": "actualSGram/-4",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-3",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/1",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/2",
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actualSGram/3",
+      "error": 2.220446049250313e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full531/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "full531/CIresidual",
+      "error": 2.4405279718322734e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full531/CIGram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/Hermiticity",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/CIresidual",
+      "error": 2.1454932394709393e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "five_sectors261/CIGram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved_full_H_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "saved_complete_full_spectrum_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "frozen_point_EOL_replay",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "principal_whole_sector_H",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "retained_to_omitted_sector_H",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "equal_EOL_energy",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "whole_sector_spectrum/(1, -1)",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "whole_sector_spectrum/(1, 1)",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "whole_sector_spectrum/(3, -1)",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "whole_sector_spectrum/(3, 1)",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "whole_sector_spectrum/(5, 1)",
+      "error": 0.0,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "physical_signed_span/(1, 1)",
+      "error": 2.4868995751603507e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_span_projector/(1, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "signed_target_vector/(1, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "physical_signed_span/(5, 1)",
+      "error": 2.042810365310288e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_span_projector/(5, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "signed_target_vector/(5, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "physical_signed_span/(3, 1)",
+      "error": 2.9753977059954195e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_span_projector/(3, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "signed_target_vector/(3, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "physical_signed_span/(3, -1)",
+      "error": 2.3092638912203256e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_span_projector/(3, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "signed_target_vector/(3, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "physical_signed_span/(1, -1)",
+      "error": 2.398081733190338e-14,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_span_projector/(1, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "signed_target_vector/(1, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full24_Euclidean_gradient_absolute",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "full24_Euclidean_gradient_relative",
+      "error": 0.0,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "original_tangent_gradient",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "original_preconditioned_gradient",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "original_residual_absolute",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "original_residual_relative",
+      "error": 0.0,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "checkpoint_original_residual_replay",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "original_energy_indicator_absolute",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "original_energy_indicator_relative",
+      "error": 0.0,
+      "limit": 1e-07,
+      "passed": true
+    },
+    {
+      "name": "checkpoint_original_energy_indicator_replay",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "coherent_RDM_union",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "contract_sha256": "2ba3c405204958a5c9e56ac4b353b79cf08c80c710b730933027640b56e85c1f",
+  "execution_binding_sha256": "4f61df585d1da202f2d4cefd114f5570b3cba53b1830cae52a3d56b1d6b620b8",
+  "accepted_checkpoint_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "accepted_arrays_sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+  "full24_radial_keys": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      -3
+    ],
+    [
+      3,
+      -2
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      4,
+      -4
+    ],
+    [
+      4,
+      -3
+    ],
+    [
+      4,
+      -2
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      5,
+      -3
+    ],
+    [
+      5,
+      -2
+    ],
+    [
+      5,
+      -1
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ]
+  ],
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "target_signed_spans": [
+    {
+      "twoJ": 1,
+      "parity": 1,
+      "local_roots_in_complete_comparison_span": [
+        0
+      ],
+      "signed_overlap": [
+        [
+          1.0000000000000124
+        ]
+      ],
+      "squared_principal_overlaps": [
+        1.0000000000000249
+      ],
+      "target_full_energy_Ha": -14067.494147908563,
+      "target_sector_energy_Ha": -14067.494147908563,
+      "comparison_span_does_not_change_EOL_weights": true
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "local_roots_in_complete_comparison_span": [
+        0
+      ],
+      "signed_overlap": [
+        [
+          1.0000000000000102
+        ]
+      ],
+      "squared_principal_overlaps": [
+        1.0000000000000204
+      ],
+      "target_full_energy_Ha": -14067.375368277375,
+      "target_sector_energy_Ha": -14067.375368277375,
+      "comparison_span_does_not_change_EOL_weights": true
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "local_roots_in_complete_comparison_span": [
+        0
+      ],
+      "signed_overlap": [
+        [
+          1.0000000000000149
+        ]
+      ],
+      "squared_principal_overlaps": [
+        1.0000000000000298
+      ],
+      "target_full_energy_Ha": -14067.379002235699,
+      "target_sector_energy_Ha": -14067.379002235699,
+      "comparison_span_does_not_change_EOL_weights": true
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "local_roots_in_complete_comparison_span": [
+        0
+      ],
+      "signed_overlap": [
+        [
+          1.0000000000000115
+        ]
+      ],
+      "squared_principal_overlaps": [
+        1.000000000000023
+      ],
+      "target_full_energy_Ha": -14067.36439906193,
+      "target_sector_energy_Ha": -14067.36439906193,
+      "comparison_span_does_not_change_EOL_weights": true
+    },
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "local_roots_in_complete_comparison_span": [
+        0
+      ],
+      "signed_overlap": [
+        [
+          1.000000000000012
+        ]
+      ],
+      "squared_principal_overlaps": [
+        1.000000000000024
+      ],
+      "target_full_energy_Ha": -14067.380340402113,
+      "target_sector_energy_Ha": -14067.380340402113,
+      "comparison_span_does_not_change_EOL_weights": true
+    }
+  ],
+  "full_EOL_Ha": -14067.398651577136,
+  "sector_EOL_Ha": -14067.398651577136,
+  "original_full_residual": 4.717047646600387e-05,
+  "original_sector_residual": 4.717047646600387e-05,
+  "original_full_energy_indicator_Ha": 6.8897239137767995e-09,
+  "original_sector_energy_indicator_Ha": 6.8897239137767995e-09,
+  "original_stationarity_already_passed": false,
+  "scope": "Exact complete scalar-H target-sector/EOL equivalence at one frozen accepted point only; no new physics, no all-spectrum/globalground or experimental certificate.",
+  "completed_CI_calls": 2,
+  "completed_gradient_calls": 2,
+  "attempted_CI_calls": 2,
+  "attempted_gradient_calls": 2,
+  "explicit_H_builds": 2,
+  "optimizer_calls": 0,
+  "resource_admission": {
+    "available_CPUs_before_pinning": 32,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "load_average": [
+      9.14453125,
+      9.26904296875,
+      9.44189453125
+    ],
+    "load1_per_original_available_CPU": 0.2857666015625,
+    "host_available_GiB": 112.45381546020508,
+    "affinity_policy": "original sorted affinity[-2]; fail if fewer than3cores",
+    "admitted": true,
+    "purpose": "Resource feasibility only; no controlled timing certificate",
+    "pinned_CPU": 30,
+    "actual_pinned_affinity": [
+      30
+    ]
+  },
+  "completed_model_evidence": [
+    {
+      "label": "full531",
+      "CI_gradient_path": "full531_CI_gradient.npz",
+      "CI_gradient_sha256": "95dc8ffe1823a1ad4a50bf5db01435fa04780d269ec284d3128065d3c9e50289",
+      "target_diagnostics_path": "full531_target_diagnostics.json",
+      "target_diagnostics_sha256": "f35bb0b293f1653df4bb020eb52a11cf376b4a9fe13c43afcc1ecac842e13d54",
+      "explicit_H_saved": true,
+      "H_path": "full531_H.npz",
+      "H_sha256": "5ee6696d3cb833056799df508cf753b596c623c578cb48a126c5ca61322cb3d7"
+    },
+    {
+      "label": "five_sectors261",
+      "CI_gradient_path": "five_sectors261_CI_gradient.npz",
+      "CI_gradient_sha256": "a3a064de240e094b38f9d54b741614d51e3b7585e5fc3762e060784391249e52",
+      "target_diagnostics_path": "five_sectors261_target_diagnostics.json",
+      "target_diagnostics_sha256": "258f0ef44e47a257afcc1900eed7646170575ec9c4346cecd42d14a249bee7b0",
+      "explicit_H_saved": true,
+      "H_path": "five_sectors261_H.npz",
+      "H_sha256": "17e248502472443b24dd62417169bb9e2179f6fab5c29535740f609bb4698f40"
+    }
+  ],
+  "canonical_full_target_assignments": [
+    [
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        5,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    [
+      [
+        1,
+        -1,
+        0
+      ]
+    ]
+  ],
+  "canonical_sector_target_assignments": [
+    [
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        5,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    [
+      [
+        1,
+        -1,
+        0
+      ]
+    ]
+  ],
+  "canonical_checkpoint_target_assignments": [
+    [
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        5,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    [
+      [
+        3,
+        -1,
+        0
+      ]
+    ],
+    [
+      [
+        1,
+        -1,
+        0
+      ]
+    ]
+  ],
+  "seconds_uncontrolled": 7.825643926858902,
+  "peak_RSS_MiB": 836.97265625,
+  "parallel_or_end_to_end_speedup_claim": false,
+  "experimental_gate_passed": false,
+  "arrays_sha256": "48281f3515e535aac4993f3ed4395107cb1c4816fffed75cc5ba809798a4a927"
+}

@@ -1,0 +1,171 @@
+{
+  "created_before_saved_numeric_audit_utc": "2026-10-11T13:36:22.563411+00:00",
+  "status": "prospective_requires_root_review",
+  "hypothesis": "The same-saved-point rotation failure contains full same-kappa finite Gram-normal sensitivity. A fixed baseline multiplier built from archived full retained radial g with exact known raw-h/ket-normalized ambient correction can test this without new producers; it is not a fully normalized/unfiltered mixed-CI gradient.",
+  "inputs": {
+    "failed_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/contract.json",
+      "sha256": "eb890d11e49d0e28e5f2612d736993207996fabc04b2a2ddf6cd15d6620a9cd1"
+    },
+    "failed_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/root_execution.json",
+      "sha256": "bb62b0c12164b6cf16b800bf2c1754bb01c70abf306f29420cecc26192192e22"
+    },
+    "failed_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_central.json",
+      "sha256": "faa8e969f1527352aeac79559dafc58cd332789b961b30aa14ed7d1f2b245c00"
+    },
+    "failed_diagnostics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_diagnostics.json",
+      "sha256": "2e7bc594b5f16c797cbb4ae663d9848b43e3ec821682667ac8b4c9ca8efbbc23"
+    },
+    "base_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/fresh_recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "direction": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_coordinates.npz",
+      "sha256": "a3ef4003826671691e967649662dc385af3b440564dea5f2ba7a6fbc53aadd72"
+    },
+    "plus_coordinates": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_plus_coordinates.npz",
+      "sha256": "0f06b3c0d6438f2c383cfdec6092acc68d9b2cdfaf601f22d19fca9e9fbc3afc"
+    },
+    "minus_coordinates": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_minus_coordinates.npz",
+      "sha256": "f87d5c3099c266cb281ac876a942755cefe7351d3139e7d67b01ed974885a8a0"
+    },
+    "plus_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_plus.npz",
+      "sha256": "6384665b488182aa7280f7267dfecd0e33bb006a74d40f0f54a93ecbe95697df"
+    },
+    "minus_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_minus.npz",
+      "sha256": "49d568767924c2c88caea18ba507e91ef6ece91e66162db0877005aedeafaab4"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_gradient_proof": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "raw_hS_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_000.npz",
+      "sha256": "18f17fb61bdbc461eee0236ee661d646a6e6a09a42110d258c496fbad3bcb3e4"
+    },
+    "raw_hS_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_001.npz",
+      "sha256": "b6033d65f5a5bcf7dc5df125f1e286ac20c6346ac626dd95561b3ab623325d4f"
+    },
+    "raw_hS_2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_002.npz",
+      "sha256": "26c6ff5d634701db6acbb2dbb0bb474d01d28fd027f43ebba8aa59e2e12f424d"
+    },
+    "raw_hS_3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_003.npz",
+      "sha256": "a5d2ef5af96cf94621dd56b27c6736e050ae3a8d13cf95625a9080a0e6266e03"
+    },
+    "raw_hS_4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_004.npz",
+      "sha256": "162e42ee0141f3507c277f1714b69e173a4ca6ce09e97e2c7299559dca920e0a"
+    },
+    "raw_hS_5": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_005.npz",
+      "sha256": "66c9974c080cf88d1fe1477d59220c35a5e4598837fea276a2738482f7041532"
+    },
+    "raw_hS_6": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_006.npz",
+      "sha256": "ba07f98c34afd6f220ac8c66f5fafce369804bb0ecc05007f60ecf08385038f8"
+    },
+    "logical_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "source_functional": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "source_radial_increment": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_increment.py",
+      "sha256": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f"
+    },
+    "source_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "previous_onebody_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/contract.json",
+      "sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e"
+    },
+    "previous_onebody_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/actual/result.json",
+      "sha256": "846453e8d8750ae360681e9d72e2b6794ae31d9b99419d99997e7b79805509ce"
+    },
+    "previous_onebody_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/root_execution.json",
+      "sha256": "cf454661ce2d200762aeeddfbfb86bd262607ad8705afa395fd3522b74e6f16e"
+    },
+    "previous_onebody_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/completion.json",
+      "sha256": "c298bb218926c71cd8ef257e5a3243ed53e8c4ef84759b5e220a18192d46d177"
+    }
+  },
+  "fixed": {
+    "original_source356_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "complete_model": "same1046 target-sector CSFs, all29 radial keys, original7 nuclear P, original five-target531 tracker and new3451 metric",
+    "original_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "PCG64_seed": 20261012,
+    "h": 1e-06,
+    "unchanged_derivative_gate": 1.494376612201439e-08,
+    "gate_origin": "Original002 max(abs1e-8, rel1e-5*abs(originalanalytic)) unchanged; require against both original and conditional-centered analytic.",
+    "actual_Gram_gate": 1e-10,
+    "no_new_points_or_steps": true,
+    "original_reported_production_objective_unchanged": true,
+    "original_qualification002_stays_failed": true,
+    "no_production_callback_or_optimizer_authorization": true
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 2,
+    "wall_seconds": 90,
+    "outer_wall_seconds": 105,
+    "max_exact_scalar_products": 8000000,
+    "max_physical_H_CI_gradient_Dirac_optimizer_calls": 0,
+    "max_eigen_SVD_calls": 0,
+    "max_two_body_cells_or_potentials": 0,
+    "max_new_public_RDM_contracts": 0,
+    "no_retries": true,
+    "cost_estimate": "Below4million counted Fraction products from 29 dense original-P actions, sparse archived h/S actions and every pair in7 complete Gram blocks; rational correction denominators retained. No full-cell or full-CI contraction."
+  },
+  "method": {
+    "arithmetic": "Fraction.from_float archived binary64 values. Exact dyadic products and exact rational ket-norm divisions. Only NumPy saved-array loading/element inspection; no Atomx/Scipy imports.",
+    "actual_conditional_gradient": "gA = archived full retained raw radial g - retained logical symmetric onebody gradient + retained raw h_ab/n_b onebody gradient. For raw nonsymmetric h, bra derivative=hVb/n_b and ket derivative=h.T Va/n_b -2(Va.T h Vb)S Vb/n_b^2. All51 signed h keys including offdiagonal retained. Two-body unfiltered/normalized response remains unmeasured.",
+    "fixed_multiplier": "For each complete same-kappa C block, Lambda=.25*(C.T gA+gA.T C). Baseline only, never fitted to observed failure/normal error. All signed offdiagonal entries. Report raw-g multiplier separately, never use it for primary centering.",
+    "finite_Gram": "For actual archived delta=Ctrial-Cbase, exact DeltaG=C.T S delta+delta.T S C+delta.T S delta. Verify against exact direct full trial-minus-base Gram and exact explicit-plus-reconstruction split. Retain full quadratic curvature; report diagonal/offdiagonal and linear/quadratic normal contributions separately.",
+    "finite_energy": "Consume original explicit_radial+reconstruction_radial+Rayleigh_response for each saved sign; retain full finite CI response/norm/residual diagnostics and separately report reported response/root offsets. Do not substitute noisy directstoredH q difference.",
+    "centered_target": "Diagnostic DeltaL_Q=archived complete finite Rayleigh increment-Tr(Lambda DeltaG). Compare central difference with original analytic and with gA dot exact P*seed -Tr(Lambda idealGramDerivative), under the unchanged original threshold. This is only conditional fixed-Lambda finite same-point constrained-gradient control.",
+    "no_certification": "Original production lambda target, failed original lambda/Q gates, stationarity and experimental gaps unchanged. No universal finite remainder/sign bound. A pass neither qualifies a callback nor supplies omitted two-body or normalized full-CI response."
+  },
+  "expected_outcomes": [
+    "Within original threshold: measured samepoint full-Gram normal sensitivity explains this conditional finite diagnostic; retain unresolved gradient/RDM/CI/cell error bounds before production use.",
+    "Outside original threshold: preserve failed result and report residual; no h scan, new gradient or gate relaxation."
+  ],
+  "stop": [
+    "Changed source/input/key/order/target/weight or exact Gram identity: save failure and stop.",
+    "Any original actualGram gate or resources/forbidden import fails: save failure/partial evidence, no point repair.",
+    "Conditional derivative comparison failure remains visible; no upgrade of original002."
+  ],
+  "existing_insight": "docs/AGENT_INSIGHTS.md#preserve-metric: finite Gram defect centering retains a remainder; a roundoff guard alone provides no universal descent-sign bound.",
+  "execution": "Only a separate exact root authorization matching contract/driver SHA may perform this saved-only numerical consumption once."
+}

@@ -1,0 +1,86 @@
+{
+  "phase": "fresh_DC_exact_whole_saved_H",
+  "entered": {
+    "NPZ_load": 6,
+    "nucleus_factory": 1,
+    "convol_cache": 1,
+    "CI": 1,
+    "H": 1,
+    "complete_eigh": 5,
+    "CI_internal_hS": 7,
+    "owner_build": 1,
+    "owner_matrix_read": 2,
+    "tracker_resolve": 0,
+    "tracker_overlap": 1,
+    "tracking_SVD": 0,
+    "transverse_factory": 0,
+    "transverse_uncached_evaluations": 0,
+    "zero_Helmholtz_kernels": 0,
+    "Dirac": 0,
+    "gradient": 0,
+    "optimizer": 0,
+    "polar": 0,
+    "Fock": 0
+  },
+  "returned": {
+    "NPZ_load": 6,
+    "nucleus_factory": 1,
+    "convol_cache": 1,
+    "CI": 1,
+    "H": 1,
+    "complete_eigh": 5,
+    "CI_internal_hS": 7,
+    "owner_build": 1,
+    "owner_matrix_read": 2,
+    "tracker_resolve": 0,
+    "tracker_overlap": 1,
+    "tracking_SVD": 0,
+    "transverse_factory": 0,
+    "transverse_uncached_evaluations": 0,
+    "zero_Helmholtz_kernels": 0,
+    "Dirac": 0,
+    "gradient": 0,
+    "optimizer": 0,
+    "polar": 0,
+    "Fock": 0
+  },
+  "checks": 66,
+  "last_check": {
+    "name": "fresh_DC_exact_whole_saved_H",
+    "error": 1.0,
+    "limit": 0.0,
+    "passed": false
+  },
+  "model": "DC",
+  "completed_models": [],
+  "hS": {
+    "requests": 38,
+    "hits": 31,
+    "misses": 7,
+    "by_model": {
+      "DC": {
+        "requests": 38,
+        "hits": 31,
+        "misses": 7
+      }
+    },
+    "carry_events": [
+      {
+        "model": "DC",
+        "same_workspace": false,
+        "same_nucleus": false,
+        "previous": 0,
+        "carried": 0,
+        "same_tuple_objects": true,
+        "nuclear_geometry_fingerprint": "036e1c7acf5baefa75f14ef2d1db0b71b5f125b1a055e12c6e2119dc3185a4e82b7a01157aa2977aef450497b6f44dc76b8d8ce2d86a6d83ffe0eb5c4f5b362f"
+      }
+    ]
+  },
+  "scalar_requests": {
+    "reserved": 0,
+    "returned_complete_blocks": 0,
+    "by_model": {},
+    "refusal": null
+  },
+  "elapsed_uncontrolled_s": 291.4676456090019
+}

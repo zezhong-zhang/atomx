@@ -1,0 +1,51 @@
+{
+  "CSFs": 531,
+  "call_counts": {
+    "CI": 2,
+    "H": 3,
+    "gradient": 2,
+    "optimizer": 0
+  },
+  "experimental_certified": false,
+  "full2856_g_pg_original_replay_passed": true,
+  "highest_level_reached": false,
+  "independent_saved_checks": 3217,
+  "inputs_sha256": {
+    "RESULTS.md": "d0b6df91f8186cb8893162013180275aecadafea804fbdd94d4a9eb0551efe34",
+    "arrays.npz": "d0b3af27ce4b51f08bd17fc6c2165cd4019e880a3b9ee3a43b7903da42b271df",
+    "contract.json": "0c40968bcb55c38fc9c486657ba67c858a67460919acdea3ad06fc3a2fb7ea1d",
+    "controls.json": "d5198855579ba5cf884a6e32b46e582677d5d94dd69dd4682b944000d97c2292",
+    "execution_contract.json": "9d2d847564e35b49ed3fcd642cc0982764f57d95acd3bb6296a26106c1dcd487",
+    "objective_epoch_identity.json": "d24f7b9ee84353b11d912c3e69b38f2c4b5f766465a931917bd8cfd0565fc863",
+    "owner_header.json": "51bc6e540b18ebdffbd29990a553d717ebe8a01c031d7c124454b456196d5239",
+    "result.json": "aa9fcee094905e8529a69b4643004600ba408f0d73e59fae8fbbadad25f22473",
+    "root_execution.json": "c1d709e55715baf8de6d612027b4314ec28b898af57d91431b96163c0edd10d3",
+    "root_execution.log": "8b44805a32820ed5125a4fc60e18e185d4871a14cbf12f6a5c029780046483c1",
+    "run.py": "d5b3b2fbf5090d7e59c6473b393cb2f36c152ec7dbd2710ffc1bc91980c1275e",
+    "signed_public_RDM.json": "62e6ee9b6c10cee54ceba57d6c27d006d1d404dcd12a0dbf948e8a4386f3697a",
+    "verification.json": "0339843a67c70371e74cb7ee4511bd807ac4868b0b08a6222c16d9b0ea684a97",
+    "verification_contract.json": "ec52ecca976a19303689d746be5996330ede7391774f9cf5d74388fb0fe643dc",
+    "verify_arrays.py": "cca2fa95ebf425c858fa715f688c06df2d5fd7a3819a6bc720715ce45efec136"
+  },
+  "method": "Native denseDC retained-H samepoint qualification",
+  "native_total_accepted_steps_point": 320,
+  "negative_density_terms": 1219,
+  "next": "Separate paired warm actual end-to-end timing with complete unchanged H/CI/signed density/gradient/point/source gates",
+  "performance_speedup_measured": false,
+  "producer_checks": 1491,
+  "production_certified": false,
+  "qualification_passed": true,
+  "radial_orbitals": 24,
+  "retained_gradient_completion_added_CI": 0,
+  "retained_gradient_completion_added_H": 0,
+  "scope": "No new spectrum or orbital solve; retainedH equivalence at exact failed-stationarity point.",
+  "signed_density_terms": 2173,
+  "stationarity": {
+    "converged": false,
+    "energy_tolerance_Ha": 1e-08,
+    "estimated_energy_indicator_Ha": 9.225371955806855e-12,
+    "orbital_residual": 1.9434848235489216e-06,
+    "orbital_tolerance": 1e-07
+  },
+  "title": "531-CSF Hamiltonian reuse correctness passed; orbital stationarity remains failed"
+}

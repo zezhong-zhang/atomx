@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="12" time="13.790" timestamp="2026-10-15T00:33:55.804897+08:00" hostname="fermi"><testcase classname="tests.test_tensor_coupled_cluster" name="test_all_core_and_attachment_coordinates_against_full_exponentials[dense-6]" time="0.184" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_all_core_and_attachment_coordinates_against_full_exponentials[dense-7]" time="0.390" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_all_core_and_attachment_coordinates_against_full_exponentials[canonical-6]" time="0.141" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_all_core_and_attachment_coordinates_against_full_exponentials[canonical-7]" time="0.358" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_complete_three_electron_tensor_core_and_ea_match_fci" time="3.920" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_four_electron_t3_equations_preserve_omitted_quadruple_defect" time="0.242" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_tensor_radial_phase_covariance_and_energy_zero" time="3.997" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_admission_before_eri_or_coordinate_allocation" time="0.001" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_input_and_complete_rank_contracts" time="0.002" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_canonical_projection_composes_overlapping_signed_permutations" time="0.001"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-15, atol=0&#10;&#10;Mismatched elements: 1 / 17 (5.88%)&#10;Max absolute difference among violations: 9.065111e-218&#10;Max relative difference among violations: inf&#10; ACTUAL: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,&#10;        4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,&#10;       -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...&#10; DESIRED: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,&#10;        4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,&#10;       -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...">def test_canonical_projection_composes_overlapping_signed_permutations():
+        from atomx.numerics.tensor_recipes import contract
+        rng = np.random.default_rng(7301)
+        arrays = {'t3': (rng.normal(size=(3, 3, 3, 2, 2, 2))
+                         +1j*rng.normal(size=(3, 3, 3, 2, 2, 2)))*1e-200}
+        before = arrays['t3'].copy()
+        terms = (('-0.250', 'P(a,b)', 'P(b,c)', 't3(a,b,c,i,j,k)'),)
+        indices = tuple(rng.integers(dim, size=17) for dim in arrays['t3'].shape)
+        dense = contract(terms, 'abcijk', arrays, 2, intermediate_bytes=1024**2)
+        selected = contract(terms, 'abcijk', arrays, 2, intermediate_bytes=1024**2,
+                             output_indices=indices)
+&gt;       np.testing.assert_allclose(selected, dense[indices], atol=0, rtol=3e-15)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-15, atol=0
+E       
+E       Mismatched elements: 1 / 17 (5.88%)
+E       Max absolute difference among violations: 9.065111e-218
+E       Max relative difference among violations: inf
+E        ACTUAL: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,
+E               4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,
+E              -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...
+E        DESIRED: array([ 3.820477e-201-6.289992e-201j, -3.192653e-201+2.980458e-201j,
+E               4.336715e-201+2.471298e-201j, -5.012850e-201-7.893788e-201j,
+E              -2.405420e-201+3.035227e-201j, -2.652741e-201-4.223195e-201j,...
+
+tests/test_tensor_coupled_cluster.py:197: AssertionError</failure></testcase><testcase classname="tests.test_tensor_coupled_cluster" name="test_preconditioned_core_and_explicit_warm_start_preserve_equations" time="3.630" /><testcase classname="tests.test_tensor_coupled_cluster" name="test_exact_scalar_sector_preserves_complete_spherical_core_solution" time="0.646" /></testsuite></testsuites>

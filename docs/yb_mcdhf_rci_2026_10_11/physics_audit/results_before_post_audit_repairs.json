@@ -1,0 +1,252 @@
+{
+  "status": "Read-only physics audit and independent full-Fock repair oracle completed",
+  "primary_route_user_decision": "Native Atomx common-orbital MCDHF followed by RCI; external software supplies independent references only",
+  "new_Yb_roots_calculated_by_this_audit": 0,
+  "experimental_improvement_measured_by_this_audit": false,
+  "inputs": {
+    "current_sd_comparison": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "frozen_ci_transverse": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+      "sha256": "a12104a46d567a7a22450383ec9a58f9e965185b9bab5f01732da183a1eabdd5"
+    },
+    "finite_ci_core_holes": {
+      "path": "docs/yb_sd_breit_completion_2026_10_09/results.json",
+      "sha256": "0a167ccb89c9c4970fe96f02f37d637d08f1ae2adc0a4d3817c38cb4caf2ba84"
+    },
+    "default_se_coverage": {
+      "path": "docs/yb_diagnosis_repair_2026_10_08/qed_coverage_after.json",
+      "sha256": "c791da75e6755900da906f3f30e71607f56851ec4a13dcf62c84592a0d091f30"
+    },
+    "previous_budget": {
+      "path": "docs/atomic_physics_budget_2026_10_11/results.json",
+      "sha256": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32"
+    },
+    "old_projector_anchor": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_result.json",
+      "sha256": "9bfa371fe306ef13d32a94fe5e91be73caeaec9d977752f8aa68b1ffb342efee"
+    },
+    "corrected_projector_replay": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/fock_projector_replay.json",
+      "sha256": "b1cfbcf3e6f0902123ba0b7e6f0e07278c27cc22f02dc6a1572e989ff51285c2"
+    }
+  },
+  "current_SD_doublets": [
+    {
+      "term": "5d",
+      "centroid_gap_cm1": 873.8048062701288,
+      "splitting_gap_cm1": -128.43618789749962
+    },
+    {
+      "term": "6p",
+      "centroid_gap_cm1": 320.17933123289185,
+      "splitting_gap_cm1": 104.79024640220814
+    }
+  ],
+  "historical_frozen_CI_transverse_differentials": [
+    {
+      "label": "5d_3/2",
+      "static_minus_DC_transition_cm1": 27.587152016851178,
+      "dynamic_minus_static_transition_cm1": -0.623222714599251
+    },
+    {
+      "label": "6p_1/2",
+      "static_minus_DC_transition_cm1": -37.22962395702052,
+      "dynamic_minus_static_transition_cm1": -0.3769566178052628
+    },
+    {
+      "label": "5d_5/2",
+      "static_minus_DC_transition_cm1": -14.241037033018074,
+      "dynamic_minus_static_transition_cm1": -1.5619577845573076
+    },
+    {
+      "label": "6p_3/2",
+      "static_minus_DC_transition_cm1": -65.5418961191026,
+      "dynamic_minus_static_transition_cm1": -3.887288370697206
+    }
+  ],
+  "historical_finite_CI_differentials": [
+    {
+      "label": "5d_3/2",
+      "two_hole_increment_transition_cm1": 41.453512389070966,
+      "full_static_breit_transition_increment_cm1": 35.104500423763966
+    },
+    {
+      "label": "5d_5/2",
+      "two_hole_increment_transition_cm1": 44.75162529667068,
+      "full_static_breit_transition_increment_cm1": -4.980649717621418
+    },
+    {
+      "label": "6p_1/2",
+      "two_hole_increment_transition_cm1": 43.27175235190225,
+      "full_static_breit_transition_increment_cm1": -59.25836215562231
+    },
+    {
+      "label": "6p_3/2",
+      "two_hole_increment_transition_cm1": 31.661049538914085,
+      "full_static_breit_transition_increment_cm1": -82.64227030997426
+    }
+  ],
+  "historical_default_SE_differentials": [
+    {
+      "label": "5d_3/2",
+      "model_SE_upper_minus_6s_cm1": 326.82256391254566,
+      "upper_warnings": [],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "6p_1/2",
+      "model_SE_upper_minus_6s_cm1": 306.91986923645294,
+      "upper_warnings": [
+        "self-energy n=6, kappa=1, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied."
+      ],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "5d_5/2",
+      "model_SE_upper_minus_6s_cm1": 389.7283616070698,
+      "upper_warnings": [],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    },
+    {
+      "label": "6p_3/2",
+      "model_SE_upper_minus_6s_cm1": 397.69013795170684,
+      "upper_warnings": [
+        "self-energy n=6, kappa=-2, Z=70 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied."
+      ],
+      "ground_has_leading_analytic_fallback": true,
+      "uncertainty_bound_cm1": null
+    }
+  ],
+  "historical_core_and_triples_differentials": [
+    {
+      "control": "open5s5p:14to22core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 403.0497260970478,
+        "6p3/2": 586.0876123119306,
+        "5d3/2": 1333.1231712243316,
+        "5d5/2": 1453.1785636136883
+      },
+      "absolute_range_cm1": [
+        403.0497260970478,
+        1453.1785636136883
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "18to36virtuals,22core",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 329.2016215057556,
+        "6p3/2": 382.9517195798544,
+        "5d3/2": 530.7814219033717,
+        "5d5/2": 580.3323406939999
+      },
+      "absolute_range_cm1": [
+        329.2016215057556,
+        580.3323406939999
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "openall68core,36virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": -2.2515454674357898,
+        "6p3/2": -3.002784243773931,
+        "5d3/2": 1.7660696417042345,
+        "5d5/2": 1.484759973587643
+      },
+      "absolute_range_cm1": [
+        1.484759973587643,
+        3.002784243773931
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    },
+    {
+      "control": "CCSDtoCCSDT:14core,18virtuals",
+      "complete_five_state": true,
+      "signed_transition_shift_cm1": {
+        "6s1/2": 0.0,
+        "6p1/2": 26.95813104062472,
+        "6p3/2": 24.220386684377445,
+        "5d3/2": -50.79398544021751,
+        "5d5/2": -46.821552191067894
+      },
+      "absolute_range_cm1": [
+        24.220386684377445,
+        50.79398544021751
+      ],
+      "scope": "Historical bounded nonlinear CC/DC model; not a current LCCSD correction or tail bound."
+    }
+  ],
+  "normal_mass_shift_proxy": [
+    {
+      "key": [
+        6,
+        1
+      ],
+      "estimated_shift_cm1": -0.08483183288074395
+    },
+    {
+      "key": [
+        6,
+        -2
+      ],
+      "estimated_shift_cm1": -0.09527181010860071
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "estimated_shift_cm1": -0.07197619186027347
+    },
+    {
+      "key": [
+        5,
+        -3
+      ],
+      "estimated_shift_cm1": -0.0762767135255112
+    }
+  ],
+  "total_physical_error_bound_cm1": null,
+  "add_historical_controls_to_current_or_new_roots": false,
+  "independent_projector_bug_confirmed": true,
+  "independent_projector_repair_replay_passed": true,
+  "priority_order": [
+    "Correct no-pair operator identity; retain nuclear and seed-Fock spaces as explicit distinct physical models",
+    "Stationary native five-state common-orbital Dirac-Coulomb EOL, same physical reference and energy zero",
+    "Separate fixed-orbital CI and same-space radial relaxation; use both upper-minus-lower changes to select mechanism",
+    "Outer-core 4f/5s/5p CV and relevant 4f-hole multireference mixing with identity tracking; measure full five-state responses",
+    "Same-snapshot full static Breit RCI, declared model-QED matrix and recoil differential ledger; no leading-Zalpha precision claim",
+    "Dynamic-minus-static and remaining correlation refinements after leading discrepancies are isolated; exact angular reuse and roots-only CI propagation"
+  ],
+  "unresolved": [
+    "No measured fixed-space MCDHF radial-relaxation shift yet in this audit",
+    "No complete radial/correlation/no-pair model physical-error upper bound",
+    "No complete general production large-CV MCDHF certification",
+    "Current EOL scalar objective is Dirac-Coulomb only; no transverse/QED orbital gradient",
+    "No implicit physical root-character tracking in public Atom",
+    "No frozen/active-orbital public EOL partition observed",
+    "Gradient/RDM consumers do not yet propagate public max_determinants",
+    "Full-spectrum dense CI remains default within orbital functional; root-limited Davidson contract not propagated",
+    "QED post-CI expectation does not diagonalize corrections within degenerate manifolds; nonlocal precision SE coverage not universal"
+  ],
+  "verification": {
+    "arithmetic_rederived": true,
+    "upper_lower_energy_reference_respected": true,
+    "historical_model_scopes_preserved": true,
+    "original_experimental_1percent_gates_preserved": true,
+    "passed": true
+  }
+}

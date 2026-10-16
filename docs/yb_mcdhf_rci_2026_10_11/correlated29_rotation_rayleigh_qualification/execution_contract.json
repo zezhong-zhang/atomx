@@ -1,0 +1,31 @@
+{
+  "execution_authorized_by_root": true,
+  "created_utc": "2026-10-11T13:06:39.847083+00:00",
+  "driver_sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe",
+  "contract_sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba",
+  "preparation_sha256": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "new_scientific_target": "EOL_Rayleigh",
+  "CPU": 31,
+  "max_H": 3,
+  "max_CI": 3,
+  "max_full_gradient": 0,
+  "max_optimizer": 0,
+  "max_validation_Dirac": 7,
+  "max_total_hS": 42,
+  "wall_seconds": 120,
+  "outer_wall_seconds": 135,
+  "address_space_GiB": 3.95,
+  "maximum_system_load1": 32,
+  "root_reviewed_files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/contract.json": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/preparation_verification.json": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/root_launch.py": "aff5f104bca9c97b209f50cfad04fdc04596468be952faba4ab4751f5202f3b7",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour21/delivery_proof.json": "36d42803f616e704b189b4d0e54412fd77c96f27f6d1abca60eba9580be77ed2"
+  },
+  "actual_iteration_trigger": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour21/delivery_proof.json",
+  "original_failure_preserved": true,
+  "uniform_optimizer_adapter_authorized": false,
+  "review_scope": "Root read complete driver and scientific contract; exact original PCG64 20261012/h1e-6 rotation, saved341 g/metric proof, fresh baseline fullH/CI/owner bitwise required; no baseline repair/gradient/optimizer. One foreground attempt, no repeats."
+}

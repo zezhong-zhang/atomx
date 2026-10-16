@@ -1,0 +1,59 @@
+{
+  "status": "pass-local",
+  "source_matches_current_native_archive": true,
+  "source_sha256": {
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/methods/ci_effective.py": "0db806b7ca86ba23a3b26d7c6a3988da13c8b7551e0832aa023ac1b4d13a6c36",
+    "src/atomx/properties/transitions/ci_effective.py": "a0b32c57b7b1f2e15a7c174a9d2bbcd1effc8e645e4a2c6dc170286fb640f8d0",
+    "tests/test_ci_effective_transitions.py": "5716b6f31c89889782a8e7f4e9454985fa60a6f799ede6d060bd749dc9c14c82",
+    "docs/atomic_pci_sd_native_2026_10_09/probe_native_bloch_transitions.py": "f7fef2d9f6b717b01f4eddea81dc669e874da68f94a6c7999cb3c6e1f14f9127"
+  },
+  "primary_tests": {
+    "files": 14,
+    "passed": 240,
+    "skipped": 0,
+    "log": "validation004-tests.log"
+  },
+  "additional_scalar_CI_and_finite_CC_consumers": {
+    "files": 3,
+    "passed": 13,
+    "skipped": 0,
+    "log": "validation004-consumers.log"
+  },
+  "ruff": "five modified/added Python files pass",
+  "git_diff_check": "affected tracked files pass",
+  "local_link_check": {
+    "files": 9,
+    "targets": 545,
+    "missing": [],
+    "heading_anchors_checked": false
+  },
+  "initial_to_current_complete_array_comparison": {
+    "arrays": 205,
+    "changed_arrays": 32,
+    "full_H": {
+      "array_count": 3,
+      "max_absolute_difference": 0.0
+    },
+    "full_operator": {
+      "array_count": 16,
+      "max_absolute_difference": 3.887268194244892e-16
+    },
+    "physical_signed_amplitudes": {
+      "array_count": 16,
+      "max_absolute_difference": 0.0
+    },
+    "normalized_selected_states": {
+      "array_count": 3,
+      "max_absolute_difference": 0.0
+    }
+  },
+  "retained_validation_failure": {
+    "record": "native_transition_review004.json",
+    "diagnosis": "Comparing the entire dirty working tree with HEAD includes earlier session changes and missing tracked targets. It cannot attribute those links to this increment. The clean tracked-checkout check remains failed; this record certifies current local path existence only."
+  },
+  "native_comparison": "native_bloch_transitions004/comparison.json",
+  "clean_published_checkout_certified": false,
+  "world_class_or_experimental_accuracy_certified": false,
+  "performance_certified": false
+}

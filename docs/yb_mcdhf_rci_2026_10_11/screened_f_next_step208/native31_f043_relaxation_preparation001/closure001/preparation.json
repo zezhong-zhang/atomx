@@ -1,0 +1,39 @@
+{
+  "all_source_only_checks_passed": true,
+  "checks": [
+    {
+      "name": "stdlib_only_imports",
+      "passed": true
+    },
+    {
+      "name": "mandatory_root_closed_exact_hash_arguments",
+      "passed": true
+    },
+    {
+      "name": "NPZ_read_rehash_explicit_rejection",
+      "passed": true
+    },
+    {
+      "name": "single_immutable_output_only_after_closure",
+      "passed": true
+    },
+    {
+      "name": "accepted_exact_fraction_ledger_and_failed_candidate_separation",
+      "passed": true
+    },
+    {
+      "name": "all_three_metric_and_explicit_lower_UID_scope",
+      "passed": true
+    },
+    {
+      "name": "no_actual_metadata_read_or_array_operations_in_preparation",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "1433d7c1191e0a7a3822560eea839e6b8d3c2f44117148d0f9c96bfcc9f90d9c",
+  "contract_sha256": "a9da3cd45a94a5ad2db494e2511f7b42117ec77f62fb3ee71d8126e4ba474b11",
+  "Ruff_passed": true,
+  "science_calls": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "actual_metadata_consumed": false
+}

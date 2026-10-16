@@ -1,0 +1,14 @@
+{
+  "hypothesis": "full Yb stage logging identifies terma4 radial-pair repeated pointwise contraction; exact component-tagged U times rho transpose and final projection use BLAS and disjoint core-single output workers",
+  "fixed": "same full native H, source, rho and every angular exchange rank; original terma4 preserved; no amplitude or integral cutoff",
+  "action_gate_Ha": 1e-11,
+  "residual_gate_Ha": 1e-10,
+  "stopping": "any signed complete action/root mismatch rejects new path; missing compatible OpenMP BLAS rejects before preparation",
+  "timing": "alternating whole action plus separately original/profile stage; no reduced-model production substitute",
+  "resources": "additional complete shared and per-worker work bounds including original static scratch and requested Krylov",
+  "source_before": {
+    "tools/build_pci_sd_backend.py": "8197e4a78446ca090f168a8ed56bbde5f8fae68e9493a6bdc3a48b2fd231984a",
+    "src/atomx/methods/core_sd.py": "7e13aeedea7379eaec3ca144a96b2b76ce1b57d69fc057086c882438e046b433",
+    "tools/benchmark_core_sd_term21.py": "2466812de9a1367ea1b29d99877d5047c55e4496cc7a93070b61b3e3d72e2f06"
+  }
+}

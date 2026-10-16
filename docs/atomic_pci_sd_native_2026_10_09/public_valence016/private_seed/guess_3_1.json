@@ -1,0 +1,270 @@
+{
+  "key": [
+    3,
+    1
+  ],
+  "energy_Ha": -0.28960578979764934,
+  "raw_root_Ha": 3.0779415474690985e-15,
+  "raw_prime_Ha": 3.157196726277789e-15,
+  "matrix_vector_products": 58,
+  "seconds": 6.947940556099638,
+  "provenance": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '91f05057da679781faaf6fbd5ba2b8146c1f98b9c8e2a3cefd2ce6fc69d0b3a6', 'c049503eede1a28b9f1cd9d216d09f56df02d7135b596dfe035a85b267b19ab0', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '91f05057da679781faaf6fbd5ba2b8146c1f98b9c8e2a3cefd2ce6fc69d0b3a6')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.5543122344752192e-15,
+    "hermitian_projection_max_Ha": 2.220446049250313e-16,
+    "integral_bytes": 12800,
+    "radial_pair_cache_size": 16384,
+    "representation": "native on-demand radial/angular DC",
+    "construction_scalar_radial_pairs": 24,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+    "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+    "backend_sha256": "70679b567cee08708497a67cc3c70dde43fc86f9b13972c8b105ff2275226560",
+    "initialization": "exact native X1/X2 BLAS contractions",
+    "blas": {
+      "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+      "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+      "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+      "abi": "Fortran LP64 dgemm",
+      "runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      }
+    },
+    "core_single_to_doubles": {
+      "mode": "exact native weighted BLAS term31/32",
+      "workers": 2,
+      "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+      "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+    },
+    "blas_runtime": {
+      "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+      "parallel": 2,
+      "threads": 1
+    },
+    "term21": {
+      "mode": "exact shared virtual-pair streamed term21",
+      "threads": 2,
+      "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+      "writes": "disjoint complete core-pair channels; no reduction"
+    },
+    "core_singles": {
+      "mode": "exact component-tagged BLAS terma4",
+      "workers": 2,
+      "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+    },
+    "feature_identity": {
+      "representation": "native cell Coulomb polynomial density coordinates",
+      "geometry_sha256": "7494ea64af4705ab8914011475e9ddd5b1f40b0a55946eb5937c4573a62a7f0f",
+      "coefficient_sizes": [
+        40,
+        40
+      ],
+      "component_orders": [
+        7,
+        7
+      ],
+      "auxiliary_nodes": 884,
+      "same_cell_edges": 11934,
+      "quadrature_nodes": [
+        34,
+        13
+      ],
+      "payload_estimate_bytes": 4478752,
+      "rank_cache_capacity": 8,
+      "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+      "native_geometry_sha256": "4acb047a9717c94b515e94aa7b2d5e46e06521751471b160d21c8c1046afee0d",
+      "density_polynomial_degree": 12,
+      "interpolation_nodes_per_component_cell": 13
+    },
+    "method": "fixed-energy CI+all-order monovalent linearized SD, full scalar Fock",
+    "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+    "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+    "resources": {
+      "dimensions": {
+        "NHF": 884,
+        "NX": 4,
+        "NS": 2,
+        "KX1": 3,
+        "NXX": 4,
+        "NK": 3,
+        "NN": 2,
+        "KK": 3,
+        "NCH": 24,
+        "NXK": 15,
+        "NV": 34,
+        "NG": 13,
+        "NE": 11934
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -2
+        ]
+      ],
+      "raw_amplitudes": 100,
+      "independent_scalar_amplitudes": 38,
+      "complete_payload_bound_bytes": 82664688,
+      "krylov_vector_bytes": 800,
+      "radial_pair_cache_size": 16384,
+      "radial_pair_cache_array_bound_bytes": 73400320,
+      "blas_initialization_scratch_bytes": 84864,
+      "term21_threads": 2,
+      "term21_mode": "streamed",
+      "term21_worker_scratch_bytes": 71392,
+      "term21_parallel_scratch_bytes": 340824,
+      "core_singles_blas": true,
+      "core_singles_worker_scratch_bytes": 42560,
+      "core_singles_parallel_scratch_bytes": 198272,
+      "core_single_to_doubles_blas": true,
+      "core_single_to_doubles_scratch_bytes": 213248,
+      "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+    },
+    "direct_sd_source_sha256": {
+      "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+      "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+      "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+    },
+    "valence_source_sha256": {
+      "valence_sd.py": "24f934e9b4f44bf3c1c420211146df84296909a5b7ddb81a6e6a33373ffe061e",
+      "_pci_valence.f90": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+      "_pci_valence_term2_streamed.f90": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+      "private_recycling_control": "395fcb43d2f4c403c15bce53b9495588e8c739a41da16fd0dd9874705a48f42e",
+      "private_reorthogonal_gcrot": "4e9c18fcc7f62be582987e765a7ee5b068d98bc774ceafedd71fb9a87553a8b9"
+    },
+    "core_identity_sha256": "4c184d5b2c17c50a32ed23965e5faadb26a4aaadc2167d19b0ee75a66d405efa",
+    "core_amplitudes_sha256": "67d020cfce31b4af26c53f32c6124a465e44f1a9201e7eebc82c448a629b9ab4",
+    "equation_coverage": {
+      "source_sha256": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+      "template_sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+      "nxv": 10,
+      "nvh": 16,
+      "core_common_patches": 8,
+      "dimension_binding": "owned complete NXV/NVH include; independent of precompiled core placeholders",
+      "local_storage": "serial static original arrays and wrapper; external per-backend CoreSD lock; optional heap-only term2 unit compiled with OpenMP",
+      "term2": {
+        "mode": "streamed_blas",
+        "threads": 8,
+        "template_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+        "scratch_bytes": 1220480,
+        "replaced_calls": 3,
+        "value_only_calls": 1,
+        "response_policy": "explicit requested derivative; one shared value kernel",
+        "scope": "exact shared complete virtual-pair potential, disjoint core-channel heap workers, inner-one BLAS projections; full analytic response when requested, values always retained; no screening"
+      },
+      "approximation": "CI+all-order fixed-energy numerator equations; original main-loop diagrams without term31; no valence-singles feedback or energy self-consistency",
+      "fock": "full scalar core-core, core-virtual, virtual-virtual commutator; bare F_mv remains H1",
+      "linear_action": "source separated from exact original homogeneous diagrams",
+      "value_action": "same homogeneous diagrams and full scalar Fock; no derivative output; optional streamed term2 skips unconsumed response arithmetic",
+      "scope": "real native DC, complete declared closed core and virtual pool; no Sigma2/Breit/QED/complex coverage"
+    },
+    "solver": "matrix-free gcrotmk and actual homogeneous-operator refinement",
+    "inverse_method": "gcrotmk",
+    "recycle_vectors_capacity": 10,
+    "recycling_scope": "one initialized column, same root/refinement/response operator; no cross-solve subspace",
+    "recycled_image_policy": "discard_C=True: recompute actual C=A U before each inverse; retained012 negative case not erased",
+    "arnoldi_policy": "two complete MGS passes against all C and V; complete coefficients retained, original budgets and native gates",
+    "private_candidate": true,
+    "numerical_engine": {
+      "source_sha256": "9d791b80ac8fbc266fb5e552ead8a4971b9ef3427ed98277a246098276b39ff4",
+      "cpu_algorithm_sha256": "4e9c18fcc7f62be582987e765a7ee5b068d98bc774ceafedd71fb9a87553a8b9",
+      "cupy_version": "14.2.0",
+      "cuda_runtime": 13020,
+      "own_pool_cap_bytes": 8589934592,
+      "operator_device_bound_bytes": 3624448,
+      "dtype": "float64 only",
+      "physical_actions": "complete native operator through explicit full-vector copies",
+      "coefficient_scope": "small Hessenberg/QR/least-squares CPU only; complete vectors and recycled image QR remain on-device",
+      "public_adopted": false
+    },
+    "homogeneous_action": "complete values only; full root/implicit-rhs response retained separately",
+    "energy_reference": "same native core Fock orbital zero; explicit E-column parameter",
+    "response": "core numerators fixed, column energy varied, implicit numerator response",
+    "estimated_krylov_bytes": 66048,
+    "initial_guess_sha256": [
+      null,
+      null
+    ],
+    "iteration_snapshots": 0,
+    "requested_residual_tolerance_Ha": 1e-11,
+    "space_converged": false,
+    "forward_accuracy_certified": false,
+    "experiment_validated": false
+  },
+  "public_certified": false,
+  "role": "full native private solve; complete arrays are numerical guesses for a fresh public solve only"
+}

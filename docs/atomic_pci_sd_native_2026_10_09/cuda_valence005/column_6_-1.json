@@ -1,0 +1,67 @@
+{
+  "key": [
+    6,
+    -1
+  ],
+  "energy_Ha": -0.3386654527300543,
+  "complete_numerators": 2016402,
+  "variants": {
+    "cpu": {
+      "seconds": 112.30311530898325,
+      "complete_mode_recovery": true
+    },
+    "cuda": {
+      "seconds": 75.67719481000677,
+      "complete_mode_recovery": true
+    }
+  },
+  "map_signed_errors_Ha": {
+    "affine": [
+      0.0,
+      3.469446951953614e-18,
+      0.0,
+      1.734723475976807e-18
+    ],
+    "homogeneous": [
+      0.0,
+      6.776263578034403e-20,
+      0.0,
+      1.2197274440461925e-19
+    ],
+    "value": [
+      0.0,
+      6.776263578034403e-20
+    ]
+  },
+  "retained_original_signed_errors_Ha": {
+    "cpu_affine_0": 1.0842021724855044e-19,
+    "cpu_affine_1": 3.469446951953614e-17,
+    "cpu_affine_2": 0.0,
+    "cpu_affine_3": 2.7755575615628914e-17,
+    "cpu_homogeneous_0": 2.541098841762901e-21,
+    "cpu_homogeneous_1": 2.439454888092385e-19,
+    "cpu_homogeneous_2": 4.658681209898652e-21,
+    "cpu_homogeneous_3": 4.87890977618477e-19,
+    "cpu_value_0": 2.541098841762901e-21,
+    "cpu_value_1": 2.439454888092385e-19,
+    "cpu_restored_0": 2.541098841762901e-21,
+    "cpu_restored_1": 2.439454888092385e-19,
+    "cpu_restored_2": 4.658681209898652e-21,
+    "cpu_restored_3": 4.87890977618477e-19,
+    "cuda_affine_0": 1.0842021724855044e-19,
+    "cuda_affine_1": 3.469446951953614e-17,
+    "cuda_affine_2": 0.0,
+    "cuda_affine_3": 2.7755575615628914e-17,
+    "cuda_homogeneous_0": 2.541098841762901e-21,
+    "cuda_homogeneous_1": 2.168404344971009e-19,
+    "cuda_homogeneous_2": 4.658681209898652e-21,
+    "cuda_homogeneous_3": 4.336808689942018e-19,
+    "cuda_value_0": 2.541098841762901e-21,
+    "cuda_value_1": 2.168404344971009e-19,
+    "cuda_restored_0": 2.541098841762901e-21,
+    "cuda_restored_1": 2.168404344971009e-19,
+    "cuda_restored_2": 4.658681209898652e-21,
+    "cuda_restored_3": 4.336808689942018e-19
+  },
+  "retained_original_outputs_sha256": "deaec11ebde503d1f86e7fd2faab47e12f69dbb96d7b9c658b9898d24e35cdbe"
+}

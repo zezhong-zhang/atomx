@@ -1,0 +1,25 @@
+{
+  "hypothesis": "Original complete Coulomb screening plus irreducible Fov contribution, on solved noncanonical public valence columns, matches independent full magnetic values and total joint energy response.",
+  "fixed": "C2+ all1s2/2s2 core, all6declared s/p radial virtuals/16magnetic states, Z6/ns40/ks7, actual nativeDC Fock, .37rad paired virtual rotations, no synthetic operator, no fitted energy; solved core fixed for energy response.",
+  "energy": "Each column eps_v+.075+delta; all valence energies shift by same delta; Sigma2 explicit denominators slope2, complete implicit column response.",
+  "gates": {
+    "signed_values_Ha": 1e-11,
+    "signed_joint_response_Ha": 1e-11,
+    "raw_core_and_valence_residual_Ha": 1e-10,
+    "difference_abs_Ha": 1e-09,
+    "difference_rel": 1e-06
+  },
+  "difference_steps": [
+    0.001,
+    0.0003,
+    0.0001
+  ],
+  "preflight": "512MiB complete core/valence/screening/Krylov and bounded finite reference; one worker, no timing claim.",
+  "stopping": "On any failure preserve full vectors, actual sources and unchanged gates; no truncation/fit/tolerance relaxation.",
+  "status": "active; finite solved screening equation proof, no public Sigma2/CI metric or physical spectrum claim",
+  "load": [
+    24.3291015625,
+    30.72265625,
+    31.6748046875
+  ]
+}

@@ -1,0 +1,13 @@
+{"stage": "complete space and plan", "coordinates": 28218500, "payload": 8349472220, "seconds": 2.161257516941987}
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py", line 186, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_yb_full.py", line 93, in main
+    np.savez_compressed(HERE / "yb_full_inputs.npz", **arrays)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 763, in savez_compressed
+    _savez(file, args, kwds, True, allow_pickle=allow_pickle)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 796, in _savez
+    format.write_array(fid, val,
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/format.py", line 743, in write_array
+    pickle.dump(array, fp, protocol=4, **pickle_kwargs)
+AttributeError: Can't pickle local object '_make_fermi_potential.<locals>.V_func'

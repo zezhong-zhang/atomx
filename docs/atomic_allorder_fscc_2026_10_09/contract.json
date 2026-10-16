@@ -1,0 +1,26 @@
+{
+  "hypothesis": "Native signed integrals plus polynomial tensor CCSD/FS-CCSDT can replace the finite determinant proof engine without physical truncation.",
+  "fixed": [
+    "common orthonormal spinors",
+    "shared DC radial/angular operators",
+    "explicit frozen-core normal ordering",
+    "no experimental alignment",
+    "complete declared virtual band"
+  ],
+  "gates": {
+    "two_electron_CCSD_FCI_Ha": 1e-09,
+    "three_electron_FS_CCSDT_FCI_Ha": 1e-08,
+    "amplitude_update": 1e-10,
+    "raw_equation_residual_bound_Ha": 1e-08
+  },
+  "stops": [
+    "resource cap failure rejects entire requested space",
+    "nonconvergence or ABI mismatch fails explicitly",
+    "no automatic level shifts or partial triples"
+  ],
+  "resources": {
+    "available_GiB": 109.91924667358398,
+    "cpu": 32
+  },
+  "status": "predeclared; no success claimed"
+}

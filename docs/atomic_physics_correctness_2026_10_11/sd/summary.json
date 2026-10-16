@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-10-11",
+  "status": "pass_declared_finite_DC_linearized_SD_domain_only",
+  "pass": true,
+  "physical_completeness_pass": false,
+  "highest_level_reached": false,
+  "source_scope": "Actual frozen dirty source; current CoreSD is docstring-only numerically identical, not the same raw SHA.",
+  "gate_Ha": 1e-11,
+  "gate_dimensionless_amplitude": 1e-11,
+  "counts": {
+    "distinct_fixed_model_variants": 3,
+    "two_core_complete_signed_reduced_map_magnetic_columns": 20,
+    "distinct_two_class_MBPT2_magnetic_columns": 28,
+    "extra_four_core_MBPT2_columns_in_admissible_repeat": 8,
+    "distinct_fixed_model_core_first_Born_checks": 3,
+    "four_core_projected_coordinate_columns": 34,
+    "four_core_auxiliary_pair_domain_dimension": 30,
+    "four_core_complete_physical_image_dimension": 17,
+    "four_core_constrained_physical_null_dimension": 13,
+    "primary_canonical_and_noncanonical_existing_tests_passed": 3,
+    "skip_count": 0
+  },
+  "two_core": {
+    "pass": true,
+    "variants": [
+      "original",
+      "occupied_rotated"
+    ],
+    "occupied_core": "1s2, j1/2",
+    "spinors": 12,
+    "max_first_order_valence_signed_error": 2.7782672398134926e-16,
+    "max_class_A_error_Ha": 5.908901840045999e-18,
+    "max_class_B_error_Ha": 1.0408340855860843e-17,
+    "max_closure_error_Ha": 2.4340338772299575e-17
+  },
+  "four_core": {
+    "pass": true,
+    "occupied_core": "1s2 2s2; both j1/2",
+    "virtual_keys": [
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        2,
+        -2
+      ]
+    ],
+    "spinors": 12,
+    "core_determinants": 495,
+    "attached_determinants": 792,
+    "max_physical_random_QSD_action_error_Ha": 4.3021142204224816e-16,
+    "core_MBPT2_error_Ha": 5.551115123125783e-17,
+    "max_class_A_error_Ha": 1.3877787807814457e-17,
+    "max_class_B_error_Ha": 3.122502256758253e-17,
+    "max_closure_error_Ha": 2.949029909160572e-17,
+    "source_pair_domain_error_Ha": 6.938893903907228e-18,
+    "solved_pair_domain_error": 1.734723475976807e-18,
+    "K_pair_domain_invariance_error_Ha": 1.1102230246251565e-16,
+    "complete_projected_signed_linear_error_Ha": 1.5987211554602254e-14,
+    "constrained_null_action_error_Ha": 3.837854843118127e-14,
+    "independent_reviewer_constrained_null_action_error_Ha": 7.706203352158563e-15,
+    "P_idempotence_error": 0.0,
+    "P_symmetry_error": 0.0,
+    "B_P_minus_B_error": 0.0
+  },
+  "retained_negative_control": {
+    "result": "four-core-run002/result.json",
+    "executed_script": "four-core-run002/executed_probe.py",
+    "raw_invalid_random_QSD_action_error_Ha": 0.0014510700700586772,
+    "initial_failure_unchanged": true,
+    "cause": "Unrestricted redundant rho violates simultaneous pair exchange for identical hole radial subshell and identical virtual angular group. Complete physically constrained domain passes.",
+    "missing_diagram_inference": false,
+    "no_minimum_norm_gauge_projection": true
+  },
+  "perturbation_scope": {
+    "fixed_H0": "Diagonal core Fock normal ordering; off-diagonal Fock belongs to residual. Same H/core reference used for attachment-minus-core RSPT2.",
+    "occupied_rotation_parameter": 0.08,
+    "Coulomb_lambda_scan_performed": false,
+    "source_direction_control_performed": true,
+    "class_A": "Independent valence first-order response energy",
+    "class_B": "Independent attached core first-order response minus core second-order spectator energy",
+    "raw_native_context_restored": true,
+    "fake_solution_or_certificate_created": false
+  },
+  "independent_oracle": {
+    "full_fixed_N_Slater_Condon_fermion_action": true,
+    "native_SD_RHS_used_as_expected": false,
+    "shared_radial_angular_ERI_services": true,
+    "independent_radial_operator_certificate": false,
+    "reviewer_rebuilt_B_P_L_and_physical_dimension": true,
+    "review_path": "../review/evidence.json",
+    "review_sha256": "b276e43b380723762465d72d0cd969de5072f2e60d81e9761855382b8fcd6224"
+  },
+  "doc_only_identity_chain": {
+    "non_docstring_AST_identical": true,
+    "before_sha256": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+    "current_sha256": "6a9938294c89ab4493a55b6e771c3545df2c0a70a8eb828a4e3148549d11846f",
+    "non_docstring_ast_sha256": "4a5a0cf564e680279bff7a640f4a77b91bdc67ba084adaeb5fa7b9a2de1156f7",
+    "current_source": "src/atomx/methods/core_sd.py",
+    "actual_experiment_source": "sd/source/src/atomx/methods/core_sd.py",
+    "changed_symbols": [
+      "CoreSD.__doc__",
+      "CoreSD.action.__doc__",
+      "CoreSD.solve.__doc__"
+    ],
+    "physics_numeric_change": false
+  },
+  "physical_gaps_retained": [
+    "Occupied p/d/f and multi-j core recoupling coverage",
+    "Complete constrained map of current full Yb model",
+    "Nonlinear CCSD products, connected triples and higher rank omissions",
+    "Full FS-CCSDT equation and rank completeness",
+    "Scalable correlated static/dynamic Breit, QED and recoil consumption",
+    "Balanced core-hole multireference/intruder and physical branch control",
+    "Normalized scalable SD physical-state and transition-property consumption",
+    "Independent radial/metric/ERI physics validation",
+    "Matched software/experiment precision, end-to-end CPU/GPU and parallel efficiency",
+    "Runtime physical pair-domain validation for arbitrary public raw seeds"
+  ],
+  "next_discriminating_controls": [
+    "Fixed occupied-p finite reference with complete constrained quotient, before broadening production space",
+    "Matched same-H same-space same-state LCCSD -> CCSD -> CCSDT -> FCI rank ladder"
+  ],
+  "production_numeric_change": false,
+  "production_certificate": false,
+  "new_Yb_root_or_experimental_precision_claim": false,
+  "controlled_performance_claim": false,
+  "resource_scope": {
+    "threads": 1,
+    "native_payload_cap_bytes": 268435456,
+    "process_address_space_cap_bytes": 4294967296,
+    "individual_timeout_seconds": 120,
+    "timing_lock": "docs/atomic_external_benchmark_2026_10_11/timing.lock",
+    "two_core_seconds": 15.443078126991168,
+    "two_core_peak_RSS_KiB": 284884,
+    "four_core_admissible_repeat_seconds": 9.098983092000708,
+    "four_core_admissible_repeat_peak_RSS_KiB": 259456
+  },
+  "evidence_sha256": {
+    "contract.json": "482ce3d0162534b515a01352ad1d806c26a0eff065ca88554a0e55263ccee065",
+    "four_core_contract.json": "3346c9080385e1c7c08831d754c5ea8bd8eb9fbd4bc31c2c523049b096eeadc9",
+    "localization_contract.json": "43dabbde289dfdc5c6955689b26b4a369b898b173a431283adc220f31a0594da",
+    "quotient_contract.json": "23184842da26b55a1f3729b1f6177f5d7714fc683a1a1f5e833be022136c8112",
+    "probe.py": "02f7fac772d2ef7e67f3764d31a1949628f1626fb4395f5d9bbefb2b72453d2a",
+    "probe_identity.json": "8ec8e2a50ce08b060d8d79ef038716262d24cf1f1330e0efd8ead8c2d0b3384c",
+    "result.json": "01d62c3e4a55fa056b65a4aeb7e2e5d158daa7fd608a4dfd4605ca9cb26e825d",
+    "verification.json": "0d5e0e5ed142a3235d66a3bf55574f6164c5123e5d95d37bdaa15b44f874d3dc",
+    "arrays.npz": "a7f99ce8f34b142311aeeb92b2a4036064df353cc93daef68bed2bd490bef28a",
+    "probe.log": "ecb2be90790e703da2adcf34ee88b6179332856cbffe62859976ff9942ce9242",
+    "primary_tests.log": "50f9ee8bd31a699ca969b706b8184ee0dd4bf7deb81b169598d1933bea4bafde",
+    "four-core-run002/result.json": "06d1b89717cfe04563b94697b10fb692a3707d9f796e3e5fca37c80e1152f10a",
+    "four-core-run002/executed_probe.py": "b6911140d7311f0d16b99b7d768c484e454b97e894f75c07cac1cc11a6d2ff35",
+    "four-core-run003/result.json": "0f5b5493be953837d76c42eb455e0a2063f5b8d0d06f85c939f2463ba844f34d",
+    "four-core-run003/probe_identity.json": "2ae9867188d6698c772cec2e91e644964d832aeb9755205f304c139ee65ea3e8",
+    "four-core-run003/admission.json": "cf65ac2af802b510e2dd646391c4a7e5c5d381e050f388d5885dd0b66003be2a",
+    "four-core-run003/signed_seed_control.npz": "fc873ad2e3036d88a35d162ad2f333b3fb2353ed3b11a6689599e347e1cc872e",
+    "four_core_probe.py": "a1ba0310ab219d0473485e313fb255c497f687fa995ba0f3a7d6d09e8d3e7162",
+    "four_core_admissible_probe.log": "c2859aab0acea695dff71649f622dfc147e132f72c8d5da03e78317ba10526f4",
+    "localize_core.py": "8a3c16d6b9b219c0f4d0b8a919e7b272ae9f4be3b4c603525b9d3d1c5d88bf10",
+    "localization.json": "47277082789d23e4f0a9e35a46268842cb1401a1973d4839e32643c81fd85126",
+    "localization_arrays.npz": "e3d9142e59c596c81e602945e2f9b38c57c3e5ec849f313e72ca6fb1437d1962",
+    "quotient_probe.py": "82361453690e55e6818ae253e476155b0675d7c89ffbba4fb698210dd862ebb2",
+    "quotient.json": "0663869f826671525c89edce55265570b371ecf22bcc9b987dd0055ed35cd0d1",
+    "quotient_arrays.npz": "329332ca931c29d1a6c76cd906d55a048e90497887d2c7778d90f6c1b99c37ab",
+    "quotient_metadata.json": "0884d839b2c3441caacee8fc392f8ffc25aea4d902516f4815da1c6e05ec5c8e",
+    "quotient_derived_verification.json": "9801b4bd5aec2a23824d66cf40a3e7cf68e128eca5c1446a763f11fb23228e9d",
+    "core_sd_before_docstring.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+    "docstring_identity_chain.json": "82a4244719767545279086a43731bf628fd70f3d801663a77e4933fc0d935083"
+  },
+  "setup_and_bookkeeping_failures_retained": {
+    "initial_contract_rejected.json": "678ed1a40b602b098a9de54adfcb137d349369cc540df5d11e281d7c92793587",
+    "preflight_rejection.json": "5cc45d8c9ebc290c100fae137717205c61c1d8de17d137f0c556885ef30a58d0",
+    "preflight_rejection.log": "1de0047aff65fe7a586c5bb7ddea2e08db20dcb09b9663d5d66390abd9b00aa5",
+    "compiler_path_failure.log": "d8b7e8e0647ad1c2e6ab99ae2eb54d514d8c74f2e3d8477bae2df39c3e83c161",
+    "compiler_path_failure_probe_identity.json": "956d00b56a280932b9aff2612a75947e4f34d7d8f886c8c6d3ea51126d3eb0da",
+    "four_core_empty_set_failure.json": "5d29b0af3194e2338e8c5bb888eed68f94f78c6660315b1b67bc8b80ff21f19f",
+    "four_core_empty_set_failure.log": "0430400e701ce8ecfc8712b4963ebb83722f6f4026839efdeb7dddb951d95a3f",
+    "four_core_probe_initial_rejected.py": "4657cd62d69f8320f856516551c3b4dfc64181e1f99b59b9c1bd582a8c4f7d3b",
+    "quotient_rank_bookkeeping_failure.log": "54fb92511fdfa5f2d149ac2fafe47d1f23c6862d445a916c9102829c3dc8ea3a",
+    "quotient_probe_rank_bookkeeping_failure.py": "7510f82a54c148783d77727200f71f7b2d780208a47755360225815989179a56"
+  },
+  "owner_documentation_sha256": {
+    "README.md": "b5e2007eaff6b146e8ba9730788700da8a6deb18e0b34d1c8bb3479fceb57e9d",
+    "documentation_impact.json": "6b6c02c6cdf834bf03f1e1236ea7db038e6e6bc561977a2e8d8ca7b010e41829"
+  }
+}

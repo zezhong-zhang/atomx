@@ -1,0 +1,11 @@
+--- docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/run.py
++++ docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/run.py
+@@ -395,7 +395,7 @@
+             check("virtual_record_energy_gap/"+str(i),max(abs(float(rayleigh[0])-row["actual_nuclear_minimum_Ha"]),
+                   abs(float(gap)-row["actual_lowest_gap_Ha"])),1e-12)
+             spectra.append(dict(key=key,lowest_actual_Rayleigh_Ha=float(rayleigh[0]),gap_Ha=float(gap),
+-                                all118_absres_Ha=absres.tolist(),all118_relative_residual=relres.tolist()))
++                                all118_absres_Ha=[float(v) for v in absres],all118_relative_residual=[float(v) for v in relres]))
+ 
+         check("exact_18_once_NPZloads",len(loaded)!=18)
+         check("original14_expectedfailure_unchanged",load(ROOT/inputs["original_failure"]["path"])["completed"]["CI_internal_hS"]!=7

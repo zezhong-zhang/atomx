@@ -1,0 +1,2764 @@
+{
+  "actual_physical_qualification": false,
+  "all_passed": true,
+  "atomx_imports": 0,
+  "checks": [
+    {
+      "detail": null,
+      "name": "frozen_preparation/run.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_preparation/screened_operator.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_exact_consumed_root",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_exact_epoch",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_complete353",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "source_identity_epoch",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/clebsch.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/csf.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/csf_recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/ls_coupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/mscheme.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/rcfp.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/sd_rho.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/spinor_harmonics.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/angular/wigner.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/atom.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/atom_inputs.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/calculation_spec.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/compare.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/config/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/config/jj_coupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/config/parsing.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/adapters.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/breit.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/dbsr_breit.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/orbital_shifts.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/protocol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qed.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/base.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/indelicato.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/mohr.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/shabaev.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/qedmod/welton.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/radiative_mass.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/recoil.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/specific_recoil.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/corrections/stack.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/hyperfine_presets.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/mohr_se.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/nist_bethe_log.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/data/nuclear_structure.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/fitting/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/fitting/slater.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/io/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/io/fac_writer.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/io/results.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/ladder.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/lineshapes/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/lineshapes/profiles.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/lineshapes/stark.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/log.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/_result_adapters.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/atomic_space.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/base.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/ci_effective.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/ci_mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/ci_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/concurrent_solve.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/core_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/coupled_cluster.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/charge_variational.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/complex_ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/crystal_field.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/direct_bspline.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/direct_shooting.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/grid_functional.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/grid_solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/lanthanide_workspace.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/slater_scaling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/csf/virtual_stability.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/edm.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/fscc.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/hamiltonian_df.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/hartree_fock_slater.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/hydrogenic.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/hydrogenic_cross_sections.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/hydrogenic_reference.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/linearized_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mbpt_matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mbpt_sigma2.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mbpt_transitions.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mcdhf/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mcdhf/excitations.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/mcdhf/solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/pnc.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/reduced_monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/rpa.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/scf_observables.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/sd_pair_diagrams.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/sd_transverse.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/sigma2_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/methods/valence_sd.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/basis.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/complex_dirac.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/continuum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/coulomb_features.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/evaluate.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/inhomogeneous.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/integrals.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/knots.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/local_potential.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/orbital_geometry.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/pair_contraction.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/shooting_seed.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/slater.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/bspline/slater_yk.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/complex_eigensolver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/density_tail.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/diis.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/extrapolation.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/fermion.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/helmholtz.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/hermitian_clusters.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/local_dfs/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/local_dfs/asymptotic.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/local_dfs/hxs_tables.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/orbital_rotations.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/quadrature.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/radial_integration.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/radial_metric.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/radial_workspace.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/adaptive.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/box_continuum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/constants.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/coulomb.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_bound.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_continuum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_coulomb.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_green.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_integrator.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_orbital.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_power_series.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_response.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/dirac_sampling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/electron_space.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/energy.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/exponential_quadrature.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/grid.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/local.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/local_scf.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/operators.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/preconditioner.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/problem.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/quadrature.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/scf.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/schrodinger_bound.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/shooting/spline.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/special.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/numerics/yk.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/base.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/breit_ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/complex_radial.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/effective_one_body.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/one_body.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/overlap_response.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/radial_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/radial_symmetry.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/retardation.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/sparse_ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/spinor_integrals.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/state_average.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/csf/transverse.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/dirac.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/local_exchange.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/schrodinger.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/physics/slater.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/average_atom.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/cascade.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/crm.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/rates.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/plasma/screening.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/frozen_field.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/parametric.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/radial_nucleus.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/slater_seed.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/static_field.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/potentials/thomas_fermi.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/_sos_basis.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/edm/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/edm/scaling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/edm/sternheimer.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/g_factor/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/hyperfine/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/hyperfine/dipole.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/hyperfine/nuclear_moments.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/hyperfine/quadrupole.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/isotope_shift/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/isotope_shift/field_shift.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/isotope_shift/isotope_shift.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/isotope_shift/mass_shift.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/pnc/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/polarizability/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/stark.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/angular.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/calculator.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/ci_effective.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/ci_lines.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/fluorescence.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/fscc_effective.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/multipole.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/rates.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/transitions/two_photon.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/zeeman/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/zeeman/lande.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/properties/zeeman/shift.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/providers/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/providers/contract.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/providers/native_adapter.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/providers/pyscf_adapter.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/providers/pyscf_embedding.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/radial_state.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/annotations.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/bibliography.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/cowan.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/matching.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/nist.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/spectrum_notes.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/reference_data/structure_outputs.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/results.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/sampling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/_jit_kernels.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/anomalous.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/autoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/autoionization/auger.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/autoionization/jj_level.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/autoionization/molecular.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/autoionization/mscheme_ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/charge_exchange/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/ci_continuum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/dielectronic_recombination/solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/dielectronic_recombination/widths.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/distorted_wave/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/distorted_wave/born.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/distorted_wave/solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/electron_ionization/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/electron_ionization/beb.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/electron_ionization/dw.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/models.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/msub.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/multielectron_ci.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/photoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/photoionization/direct.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/photoionization/fano.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/photoionization/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/polarisation/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/angular_cc.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/cc_inner.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/cc_outer.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/cc_potentials.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/channel_table.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/coupled_channels.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/internal_region.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/resonance.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/solver.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/surface.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/r_matrix/target_states.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/radiative_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/two_electron/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/two_electron/angular.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/two_electron/coulomb.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/two_electron/states.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/scattering/xray.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/spectrum/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/spectrum/continuum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/spectrum/crm_synth.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/spectrum/spectrum.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/spectrum/uta.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/state_protocols.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/types.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/units.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/uta/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/uta/moments.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/manim.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/mpl.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/plotly.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/plotly3d.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/viz/scattering.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/workflows/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/workflows/nist_comparison.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/__init__.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/atomic_rates.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/cascade.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/coherent.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/coherent_subspace.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/cross_sections.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/double_ionization.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/imaging.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/kinetics.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/mcdhf_coherent.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/model.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/multielectron_coherent.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/native_channels.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/observables.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/radiative_reservoir.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/reservoir_errors.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/resonance.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/table_mc.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "frozen_source/src/atomx/xfel/two_electron_coherent.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "matrix_exact_old_consumed_epoch",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_review_consumed_source/src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/execution_binding.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/models.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/same_point_evidence.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/result.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/contract.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/execution_source.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/lint_successor.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/screened_operator.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/results_stage009.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_scientific_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_field_review/verification.json",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "point_160_exact_identity",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "original_metric_exact",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "original_stationarity_failure_retained",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "full19_closed68_sources",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "integer_scalar_callback_upper_within_budget",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "no_toplevel_atomx_import/helper",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "no_toplevel_atomx_import/driver",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/zero_target_explicit_DFS_adapter",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/core_source_only_coefficient_row",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/normalization_primary1_scaled3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/workspace_cache_exact_match",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/all_source_samekappa_complete_shape_guards",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/full_quad_no_skip",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/h_nuclear_added_once",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/public_scalar_core_and_cell_oracle",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/all80_signed_quadrants_guard",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/frozen_source_insert_import_boundary",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/original_P_metric_and_inverse_byte_guards",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/all_old_samekappa_complement",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/aux_field_not_retained_CI",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/original_tracker_equalweights",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/failed_stationarity_no_expanded_claim",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/new_exact_root_authorization_required",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "consumer_structure/counter_initial_plus_CI_onebody_separate",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "cap_exact10JK_1scalar_2CI_4H_zeroopt",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "cap_distinct_initial7_CIinternal28",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "cross_anchor_prospective_nonzero_gates",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_proof_preserved",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_exact_driver_copy",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "prior71_exact_readme_copy",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "mutable_source_drift_refusal_preserved",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "before_after_bound_inputs_identical",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "no_atomx_imported",
+      "passed": true
+    }
+  ],
+  "checks_passed": 453,
+  "consumer_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage009/delivery_proof.json": "7fdecbd8ac6c13b61545ce1f582f7aad4e66ab43f27843a2548453514ceb775c",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/count_spaces.py": "2db118cc9acbad942b648581390ff2a66864606408c1c144830c90ee817595ec",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/kinematic_preflight.json": "46d9d890a121ad6fe468ea3b1d1d8c3bdfa09e2e74a6ce38ea16ee66c1a9ac32",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_frontier004/verification.json": "d9a1e75a92f6cb4e676b75758baf68e5225656ba55659d399a324f44ce13afd8",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/__init__.py": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/__init__.py": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/clebsch.py": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/csf.py": "815ef80ae6d211be7d0a8103f298044f9acc0ca25a1390699046a5886fc4afb2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/csf_recoupling.py": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/ls_coupling.py": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/rcfp.py": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/spinor_harmonics.py": "9d35900460870c3c298eecf0dd00a76f4b437cfca783b0bd9b866bb5cfe0c0af",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/angular/wigner.py": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/atom.py": "d7ff417f5b8b689083287bcb2975138d94a0cc0505d43aba7f7f9a23b06447d6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/atom_inputs.py": "efbc114328891f1ab14a4781744efdd424908856dd4f9fbc38d1a2a52d86a9fa",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/calculation_spec.py": "c5672b13ac257a5f93033ed20f3a5a321d84bbebb7f2c0d871445886f7ae5536",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/compare.py": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/__init__.py": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/jj_coupling.py": "56a300b28f527d04b153e4fb2b36e14fddd73fb5c7b9c8cf63d5214aadf527cb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/parsing.py": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/config/subshell.py": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/__init__.py": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/adapters.py": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/breit.py": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/dbsr_breit.py": "91a0f70da3fec49a5baa1a270908b8fab193d0bf6061ff52b12fa603d6a63c09",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/orbital_shifts.py": "937729b40da56e5cabc34094d5032222b1f5de39b2643f7d2722b99842ebf656",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/protocol.py": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qed.py": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/__init__.py": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/base.py": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/flambaum_ginges.py": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/indelicato.py": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/mohr.py": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/shabaev.py": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/qedmod/welton.py": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/radiative_mass.py": "7242e91baf8a2f215c45b75b7d68975e502d480da5f492e1158cfa401ec49248",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/recoil.py": "62761ae5ded8913f3d7c33590021687f67a6cd6efe0c595e58860fafe2c6dda7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/specific_recoil.py": "31d5b7e6df6d4c690196cbbb8cb88a6697cf453b94c65501db80ea8c3c2916c1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/corrections/stack.py": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/__init__.py": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/flambaum_ginges.py": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/hyperfine_presets.py": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/mohr_se.py": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/nist_bethe_log.py": "4b467181d1da31cd34e3660fdf4b5c5d82a11878d2894695eaa69c8fa1da35f2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/data/nuclear_structure.py": "8237f9490b279e2a93335d3b7ac2ee369364ff62e459989e83975f346ea0ff8f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/fitting/__init__.py": "6b6865489ff8aaf04ca221a964a2769bab524402ab1cb3b0e9597182aae7ccff",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/fitting/slater.py": "15856585f0a6b7fc567a7d1819d1ee403a724eeab76932120fb9d0ebdc72719a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/io/__init__.py": "ba89a6e25733fa87b6be7d5bd33ff60c5e87b2d40be137f0dbdfb8caceff7acb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/io/fac_writer.py": "3bb2ae4e35a7a6aa7c851a2ad53132fa37e4839855d677c84343310f0dae4875",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/io/results.py": "a9e276b6ec148c2db8bbac82bbec5e7bf8554651987636fc53eb9356bae432f2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/ladder.py": "fc58829e7a97d798d6710e598381fe0f463d2831559aa9afa084c004a5884303",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/lineshapes/__init__.py": "32c4b3165501247d0666e9c8d732d72e3a1bcd7aa491c1a0cea7104ff85e44cf",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/lineshapes/profiles.py": "921a9f058dab84b82075c23156f7fd0527d1f42b0eabc7f055997db151b409f2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/lineshapes/stark.py": "8eda7d41d8ef40eef4856a27936930893ffc37560211aac5161cc3816b85ae9d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/log.py": "ec8fff58ed333cfea09eed5feab438fe98b52c404cc9046f098b2cb32b6c40fc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/__init__.py": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/_result_adapters.py": "16376db419b9b9b4aba100b04f78e650ade01900e3d2b8dd28f8a6655b5fa5a8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/atomic_space.py": "705e6445fe35b35f018bdd11c37c3a75abac1cd92fea6967af8d4686072787e1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/base.py": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/breit_pauli.py": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/ci.py": "0514fc2bd5110fe7a8284f0d448d3d9ee984665a1f9e028142d8c35d6c12549b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/ci_effective.py": "0db806b7ca86ba23a3b26d7c6a3988da13c8b7551e0832aa023ac1b4d13a6c36",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/ci_mbpt.py": "aa878ba1341f2250875d5a95cf3b5bfb9a195b5b1464ee1d38578c8a719d9ebf",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/ci_sd.py": "a49bac8ee475901315cc96e54e5580ea9db28d788e9ca11c028ba0e86b99c0d5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/concurrent_solve.py": "365775ffd82f30ae2bc0919279f4bf8c964c193da2f7a83af9d3e7507ecc912a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/core_sd.py": "6a9938294c89ab4493a55b6e771c3545df2c0a70a8eb828a4e3148549d11846f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/coupled_cluster.py": "9116734e3f523521e00cf94fb700fa88402acffccef8a21e543b90cdb7f32ee8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/__init__.py": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/charge_variational.py": "160ef5305854273948940d05bfcabfcd1e382ae9d46f3b8887e258f696fdcacb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/complex_ci.py": "d3e33468419ca8a263d0bb2a52db89feaf44ab1417c629df863323b111d81e55",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/crystal_field.py": "9c47bb6c742f32b074121c7388c1b9168c479023f2681baf9d567bfdc02669d3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/direct_bspline.py": "742b754a00416de1566f236ecfe62ff92fd405418a53026e55e6d3f1a3a851ee",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/direct_shooting.py": "1024819f886af552ebd75c1833440765e8ee2cf86f2252d13c74ac289eb2d06c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/grid_functional.py": "fb363fe9f2524f3bcb694a04bd6c134dbc528d1758a788cd5a4a4436e2e42e83",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/grid_solver.py": "4a3c11bc8ee7e7c6c13f8af0a643b8f1c32b94b82bbdba07e15fa83f1f55232c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/lanthanide_workspace.py": "d4d5567e823fcfaf43ee419d3c3d70eafbecae70438a369f6bff24aaf21c0ba6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/slater_scaling.py": "4d165148ffa8a059fd748bcbe93f23e3ad6564a23283ce2129238c886fb33d52",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/solver.py": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/variational.py": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/csf/virtual_stability.py": "b00b1cc1c037a0b941ef6420da7059d8acf9621a34f7a1b79d42e3f7287f43b2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/edm.py": "2d0ebcf3e82af6b442a8989a3e477d785d7e8fef801b154b2879d03f93fae3a9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/fscc.py": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hamiltonian_df.py": "c45a0d707d16f48e1dea796fa06ad2c29be5f6e7d0104e17eb5b95683f827478",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hartree_fock_slater.py": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hydrogenic.py": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hydrogenic_cross_sections.py": "4920dbc1171c7def0c99f013a77e40734e79df4fdd41d36883e8e1e359938ec9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/hydrogenic_reference.py": "e401c4a29f00c31b9cdadb451559e0772f548df049a2c7c0e0dea19c389a251f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/linearized_sd.py": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mbpt_matrix.py": "2686b60d67c85ac1d040d80b2471bcdeb7cfad8a3e1585c14f5937b1355e7aba",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mbpt_sigma2.py": "fe671a8a4808b42ed9b9a57ee28ac854744390050293f5d0e32cd62f70dcd8d1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mbpt_transitions.py": "c3d3143dc158860eb77491b3741fbca5d4f08d24b44ef813124098b1b54146d8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mcdhf/__init__.py": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mcdhf/excitations.py": "264679be4318273fa533ffd70d41af6ed3df0183437db5f60f97ba2612b00386",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/mcdhf/solver.py": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/monovalent_sd.py": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/pnc.py": "57da5e9eee632de339d4b8fc2fb20e2b5411467ba30a9e3f64d7a0e3fc545f39",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/reduced_monovalent_sd.py": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/rpa.py": "386313334fcb43d239ae68dfe211d9724ba3b3fe1a984003e54ed44cc1f18051",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/scf_observables.py": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/sd_pair_diagrams.py": "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/sd_transverse.py": "1a0523c24dfa8bd27668b393744f2531cb379fd4b76bae03af36f3ed8f92ae40",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/sigma2_sd.py": "6decb48827655993735bcaaaedeba15ac0d8b6a7fe66101edd5d9dab8753d366",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/methods/valence_sd.py": "24f934e9b4f44bf3c1c420211146df84296909a5b7ddb81a6e6a33373ffe061e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/__init__.py": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/__init__.py": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/basis.py": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/complex_dirac.py": "cf70325cec5a52a01a803b1cb33ed43d3fc9166ae14a7e690504ad0150235369",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/continuum.py": "a0449cd6c275b46adcdd80733448c7d60fbd74ec98017341b94fcf2404704903",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/dirac_assembly.py": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/evaluate.py": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/inhomogeneous.py": "c4f1a9a35c306c5b4acf30b928c641b7c3a91f4f40bdf06eb400fb18933fdbc8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/integrals.py": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/knots.py": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/local_potential.py": "74eba6341ad8b3d6959b90338c8413dfedab4aba18e054389df76119a2dc6730",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/orbital_geometry.py": "b1c6af5206b2099b51797928535b1d9aabf7623d30c1886b7421d80dfed24233",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/orbital_optimization.py": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/orbital_subspace.py": "d272864d46278e4c94990f3523b46b9f5e3350dee95c82a0ab431222f6b999ed",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/pair_contraction.py": "ceba826b95b08a3a43e6f77d9648c2b3557ab9e3caf38ad058adeabc20cd0b64",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/shooting_seed.py": "4550b34eb780b692e0abf0746b388dde3eca9c407a7704557a67adde3d911a97",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/slater.py": "cc2ab74c7f7fd79b4a8f88a3c1c478c5ae1e4c780517b7f94f7471283a0d1f73",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/bspline/slater_yk.py": "76df7faf9d40ed919be382c1b140ecd784bc86762d8e7cd4c77fbcbd49914841",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/complex_eigensolver.py": "345f11cc00c79b9db3fb8e9dc793ef23933ac6a4a915a8d8caf3251cee785d07",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/density_tail.py": "c6b82e69a5630d89aa2589346cf6b43d40b376b6611a9413a80eddd2a090e4bd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/diis.py": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/extrapolation.py": "26416a50962f79224227d771c0c9d6416c571671a5a57552cdb1cc6cee1227fb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/hermitian_clusters.py": "03302082a993ec2767495247f27e8bdf38aa877e07c94290c2d941c289e4e732",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/local_dfs/__init__.py": "f622cf911e11240e7b816d5567b65c38e3b360525a1ddbb31a9eee90109c6b9d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/local_dfs/asymptotic.py": "4210f8897d961c797b0d5cc0333a859be183c52261ee67121bcb6b0a1016bed0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/local_dfs/hxs_tables.py": "8341bf101d6695b28fae8921013b9c00fe02caac13510fe7b454036be2aca703",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/orbital_rotations.py": "9af97daa09de200def2f6267943523889cd6bfdba9faf337606793de9e4333ad",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/quadrature.py": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/radial_integration.py": "a8892b0befdf710dd0e75ca6abf88bfbf19a3e33c432641bbd695cca32851a20",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/radial_metric.py": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/radial_workspace.py": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/__init__.py": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/adaptive.py": "c74f9affee9769a1848958627cc03b178aad6513493ad30efd2c25aaed2734f8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/box_continuum.py": "c0c4ad7aa8aa0682818a1554d3662ae0b5ede0b53f7f4c59c57c585894387f2f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/constants.py": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/coulomb.py": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_bound.py": "ee5d4c61f62f9cd57652db4bd3492a289a38252edce9ab7f20b328d230b69139",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_continuum.py": "63e4596a04a8e8504b6cd327272d49c0396029cc4f250e5c21140ba174a3d520",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_coulomb.py": "3d019f60f96533a03a481978ebb52ec7e1fe36ec29c53399604e77574e8c04fc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_green.py": "ae6cccfed933f099cc8af2b3f306a28a5d385bcce6755ccab1f3697d9ddb364b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_integrator.py": "075f7cd5ca198ef13246e874c9dc0d9b76f418509fd86a70585e5b00d18ab037",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_orbital.py": "00d5a052221f0712406fb6834d0676eff8f849c531db982933afb91f07c328a0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_power_series.py": "adad12edb5608f9b6937060a6f77e0dfc4b82cd6b566d322253d6a214d43d354",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_response.py": "710c3277b1ede7d542788c4801aff610d366147dc004e63ff00217dcfac8eb96",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/dirac_sampling.py": "03bdd74bbcc9bff0775d64e43713f155efbf79408182e7a182aebba7fbb6f373",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/electron_space.py": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/energy.py": "b4ae425e3bf05e3a55142be933d191a1372e428f98be425004ae8f81720d0338",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/exponential_quadrature.py": "1da38d4134f98eaaab2b178392e1fcdec193377ed796aa0e6cfa77e9fe8273b7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/grid.py": "bcad8272938ca99b49340d2a31e019a33df55e1f3941ecb2abe4af6cfe4d6d49",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/hartree_fock.py": "5a8fcd69ba00995ca225cfb2c5bd180dcb92794eaf9de509b19e235c082221b4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/local.py": "ea7dfbec24d7c2b6ae95b981c68866ea05af87615e388277399ce8ea00053ff1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/local_scf.py": "984a80b9a864f89bb68c24cac48e52d961b6d92ec4bc6cefb9e35bf5bf6e0228",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/nonlocal_eigen.py": "766db1923b42bd9ddbf291d9028285a1fa340168cf37cde5978205ea5c4bfd3f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/operators.py": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/orbital_optimization.py": "03da872e82a56ebc19ee70f6e3b5ec9208550fb9d608c351698ad124dd4659ea",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/preconditioner.py": "e2d82b6ed353e8e934b216a80fd364a79d6237486bcac057a6c014cfd2b4c51b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/problem.py": "b38361f6ef278f5a3a3eb5ff8dcb72c89d04c618d103f425589f2a4040f8ba92",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/quadrature.py": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/scf.py": "0243a6e2a192136e66887fc2d5c164352aecffee9d1a7ec532ec583cc22b6fa6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/schrodinger_bound.py": "ad67ee48782bf74d8eae7772cf7ef4c8a20e02635df83dc199ebe19c33d18993",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/schrodinger_integrator.py": "25f49ad5b5c36a404bba70fe7f7db837c4fe041d3111f5f7df700e9c66cccae5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/schrodinger_power_series.py": "e00117b1de5c4ef7523a0c4e70561d022a50db6d3721624f47634320330afd21",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/shooting/spline.py": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/special.py": "4dc3401d174f23d96de9e004868c068e2361ca199140f364d8246dd7832fd99a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/numerics/yk.py": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/__init__.py": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/base.py": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/breit_pauli.py": "9f9666522767584ff71cc488adb6e5e417b6723675b912b9664ef57ec9959f5e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/__init__.py": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/complex_radial.py": "0f90a57bfbfc23db1681d0cdc9396cfad6199c9f8e36aaba22d9c0cfa3cdc55c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/effective_one_body.py": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/frozen_core.py": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/levels.py": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/one_body.py": "77efa760226bfce57d21effb9185501b87e2cf9e0c022008eea1ba7dc882fd25",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/overlap.py": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/overlap_response.py": "4887b03e77c7b093fe510c6d7d8b2a6d8fa2f0123af7d616241cac8034b54302",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/radial_fock.py": "f42afeff8880ac0b4c332f5dc4edd5a22ccdf0cf1737bf0d7dd137d586da09b6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/radial_symmetry.py": "ec22bdb76a48b3be09d653d371b99fbc1a79ab921c7c7199747a06d095b25fa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/sparse_ci.py": "f098f2ec0cb792501b7afe12bb0c8ee0d632c0f300f224f3576dd2d08b2f7abb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/state_average.py": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/csf/transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/dirac.py": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/hartree_fock.py": "b2de2fcb942b46a02fe13a650c29807c7aeab8c676679656fba571a02fbcc079",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/local_exchange.py": "20afbb4a8287393317a4c0a20e8774daaa34831d8ea7a802bc81b42c77f64aa5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/schrodinger.py": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/physics/slater.py": "570bc61973c32ae36dd6b6e1d01f55fd464d2304012210823ec0d467b14bd635",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/__init__.py": "e91ac52742e935938d8e7b9cc00b8373e2e446f651b32360dcaf0a24980c4b52",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/average_atom.py": "c44f928ace9b1a77227b40b2b3eec70faa9b779cc4cf72111b70f99f3fd80409",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/cascade.py": "a5b571d697ce25a66c3f91d8789f93552ea14969d037c8b2b851857efc6bc208",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/crm.py": "a250baaeb095e68adfdce9b2452c9323ea92857e8c8a1f63108de5c5a57d1974",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/rates.py": "fd98fccc78df742fee28152d14a60390529d3affddd011e27de2c9d77496cddd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/plasma/screening.py": "b3fe905b664c200ab010389b78d6a9c01667c112eb3b8f679e5494b618e56ffc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/__init__.py": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/frozen_field.py": "d934e9f016887e78281a801bbd0d0f3f0ec35b0fe16e24749fc3ac574ba88287",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/nuclear.py": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/parametric.py": "49a7d2f668313a5d070f729a9102611624ed8deeea495d43bc3494ea39beb34e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/radial_nucleus.py": "72f41ed9d84931d6c53e1917d3904a884422135d10a12646ff18eff3e4997388",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/slater_seed.py": "ebc25eaf2f507c0419ca844518bf5a144bb7b7fa04cfe10a1dc7e77c14c679e5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/static_field.py": "b451b0eca6933093d4504e7c9627801edeb4f1b515ba9774c89bcb8e26239e61",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/potentials/thomas_fermi.py": "2eb371cea5c2f87e1b50f2f603122e25d963738198a56dc0519e0415b0742918",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/__init__.py": "25fee6252d8bea657d7ef0a373696f370c866fb6039399574bc2ba9226363607",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/_sos_basis.py": "37d004cac37690f542b0beee6fb220ebcf5a23c417316c637274f37da34b3925",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/edm/__init__.py": "0f63407af939e15613216db451d30a7e3828e6bcba9f663c994de7fb9d5f81e3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/edm/scaling.py": "68c684cbe14852da4f119430445e7b0206bce950453a480d8ac41a30118de4a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/edm/sternheimer.py": "98b5923e341c1814ac93e1cbd79a0ad07466af8a3e6b47bf3cf291fe0f3dd319",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/g_factor/__init__.py": "da74dc1f9123cf75d8aaeca64ffb8b1d538d6ea3bbf34a118b831e710fbb2ae7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/hyperfine/__init__.py": "4d9466386dfd2c62d9f7658df906fa589a4f97e7a1615e1433763fc7eb86924b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/hyperfine/dipole.py": "14eba9b6ca83e918a23b26b4ecee15423de722e074f0daef20f86e9d286dff01",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/hyperfine/nuclear_moments.py": "55e0955579ad611361031ad8adf3a15753a61ca1f11ca7693332e6a5f31baa5c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/hyperfine/quadrupole.py": "3785445f187970eccb673712f424ce5d506ad125c45f084011a2c2e8703a3277",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/isotope_shift/__init__.py": "415964ba36119e1fbd730be344d0ca784454ed5d70beb44bb430e1784f8b72f8",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/isotope_shift/field_shift.py": "67fa33e43a0c89cb908067fcb47a6ed90cc0e3120eaa8b89c411ea6075da27a0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/isotope_shift/isotope_shift.py": "58070006c8bdad3d56edcf91a19612f28c0a815e9ee9d59e5147a73de6946bfe",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/isotope_shift/mass_shift.py": "b010551f76b649c1a2777feecd096f7107e3d3d076ea67fa739f25002df66562",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/isotope_shift/sms_abinitio.py": "5474536a3156620b397fa2464e1ad2d5db409a648304d7232a96b8ddaa26d24a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/pnc/__init__.py": "190ebcbdde4e3f28527cd809a04be1178da5c0777dd9d59ab2d754e1b1e7d277",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/polarizability/__init__.py": "07efbc0e99cee4f9a7305d145b98847c933e0af4c56a1279dd8f1d18025adbb4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/stark.py": "e32e3c84ccfa620ee9ea2bc865a6dc333b07411b4da3e78e94126612b8cc42ad",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/__init__.py": "f61c779daabdcb56a8c72ae5a7812b96851454afba0c60ee2c0f2c4ef57b6d65",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/angular.py": "8c63cfad3d69316a58fddd4d6ef04a0078121a453df17e33ea7f3623871de802",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/calculator.py": "31284fb260e95ade61808d072f7868c0086fa8350ad2b210b696d389a1797790",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/ci_effective.py": "a0b32c57b7b1f2e15a7c174a9d2bbcd1effc8e645e4a2c6dc170286fb640f8d0",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/ci_lines.py": "c6e7d3e15444f951af3374f923342fa1bd2354f200aca0df2c465c852d8e1701",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/fluorescence.py": "973d86924943ec5ab5da7f72aa8303c31d7cbe8016789fcefebfa89d97fafb52",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/fscc_effective.py": "82a4b6e4c7949ea15b28940f7bab4cf915fc2bd091cd806bc54fa116c858df21",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/multipole.py": "261c16fd6f607c1dbfe6047a5950a32f45e8b7ab9aff5b98a41c0eefd4059609",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/rates.py": "12e312a4ac3d76b17a0f3a86c5ac42a93d442eda646b0fc9eee97208b50df97e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/transitions/two_photon.py": "5d54cd4cea8dd6707f338e445f6cf646a2a98f999c1d1f4a79e0f52327b971c4",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/zeeman/__init__.py": "72da62af0a44384836a650c5cb37a7d5013af3e819719a4b6d754b985393ac94",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/zeeman/lande.py": "f1cab7c0fc6b4ded0156ffb1d7a6792795086b5405066f08f135c187ff0ae72d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/properties/zeeman/shift.py": "ac1c89f6308e31591eacc806d66d5df737b1487b311f268e993ec8ed62a89083",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/providers/__init__.py": "e4642d6c590170098b4eb798f9b86d3af1bdf0f889f3c8d85ba09d146cc22ec6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/providers/contract.py": "faeef57853b4603aa756b6b5eab621bb0c424529ae4656a18bbc330aca326f2f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/providers/native_adapter.py": "e966f5c2e610f54d4bf098edda54ac85e921a066b924d0e8e5451ee167f4ae78",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/providers/pyscf_adapter.py": "95365bd5839b54183d2b3c3ed09d2e233a6db6b4b7cc4e34745a359c8d21f179",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/providers/pyscf_embedding.py": "afdfb8afc76cdf5d75eedf9feab4d765c592b9471ea1eb04ecc7e6bc3a2d00a3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/radial_state.py": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/__init__.py": "9e9f4a75155d3940c8f035c5f56e824c42383bbadb3b1f25b17b47e64b557dcd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/annotations.py": "2c900fc7e49bb3fcbd4bb5cc5dea0f8dc48bec06d3657235857add204a7863b9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/bibliography.py": "9405a2966b65ee492776cd620571c8a331a1847ee5da3b58242a5b3086ecc1a9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/cowan.py": "3e467807ddabe6c261c7077a6d9532564e38a34ff9019875a9ca8b2efadd95fe",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/matching.py": "5ff30138bc4fed0b1b6ef0f94a41c71953099669166e59fe45fa8f39f7fd11ae",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/nist.py": "5197635c01eea7245b0b19684d3e42d6de25c66d9285b116a42f12aadbd3bbba",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/spectrum_notes.py": "4f347c382912b053ef94b74556625b7eca0336b202824fa8b8dc1ae8140ac7ae",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/reference_data/structure_outputs.py": "01978b9a3d10fe8b8a46a2d3ca187ec8de7abcc9da5926dc3a41acb94bc8d76c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/results.py": "41664c21643848eeef11e5225b5d0ce33a67fefba22628091df6716e4c9e2dd7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/sampling.py": "f72e5d3bf10d59baa6c82603d72ca4932a73ec97cb653b3b84c5c3720e9e3301",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/__init__.py": "5f59aaa3923fc721d99fdd72a6567a5b3af255988f6df6447599dd01fbaffbea",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/_jit_kernels.py": "43775e0e4143a10c497fa15e32351abc411a0567eb3cbad9b9754299efdb4d10",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/anomalous.py": "31e5fad201c5308a50f27dafc00fd61956c82c129ee90e4237336a67ff3291da",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/autoionization/__init__.py": "fb1743c800d920803f10c8b49b37f1197b5426381d9031460c41806caad821bc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/autoionization/auger.py": "10535488bea6c71926487b121049d0f6432973d43acc22bf2a3eef57cd3b4c39",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/autoionization/jj_level.py": "1ffb451bc6c6ac81e3bd7db6cbebc5f868062654a970fe3fe24691d18f1385ba",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/autoionization/molecular.py": "ba7c0993e4dda80afd52f8a4b4a2c7fd98e9652e9daa5f047aafc496353d1c9a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/autoionization/mscheme_ci.py": "2c0ec37cc241d7721dc399e4b8761e4833d9e9b49f6ed72bd637c78b0bcd0e50",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/charge_exchange/__init__.py": "527f0a9ee6eb370100050110e1f881581ba812400e3352435991c9a9ad0eec32",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/ci_continuum.py": "fc8edc89298ce2323c6b44de6269c52752f32546a9a3682c56442971a339faf2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/dielectronic_recombination/__init__.py": "a0489df86c1340603ff5ab0a26b929dc2eac795dd3e61a09d4bf5319fcc9cd3c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/dielectronic_recombination/enumerate.py": "99890f693dfacff295d7aa906b6c81cda215cb53c385c57484c9f7ecbd65f013",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/dielectronic_recombination/fac_reference.py": "5787f89cc34cce6440021e6d357dfdaa0d267673d7d67e7676e27e1c58f3e799",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/dielectronic_recombination/solver.py": "625ac453c4ae66d3821444acda1e1d7c5b38547fb90da6ffd4418bfad343cd2b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/dielectronic_recombination/widths.py": "0225b15e008dd7d7fc3599e415a292ab36fddf5cab3f3f9ffe7ced5a6b2d672e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/distorted_wave/__init__.py": "c33436c5c5b3b57fd2a3ecd3947c34c6d8b69a9c15df8cb2acfde7b158366cdd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/distorted_wave/born.py": "b7e876048732cb9513d17bf39813fe094ff39968ef656bd9a594b0b17e23eef6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/distorted_wave/solver.py": "5953547ba272adfd80c3c5ab8bcdf745f4780f3c622304368ea27808fb1c0f7e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/electron_ionization/__init__.py": "fffc2843b36875a2b68a1492e8f35611050ce68cc4672317444da954b38b4bb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/electron_ionization/beb.py": "b063a154844383213c6e0edcc6ef137be52849d92103207c74f2a5915eb6dd61",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/electron_ionization/coulomb_born.py": "f07ca66f228f29fb450d1f37ec8c887647a3d590ea2d78c8505f27a582f81f5e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/electron_ionization/dw.py": "53a859d5180700f2b95237b091c195ea3584303cda1a15deeaaec9405cc16fd5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/models.py": "5d4de2bf7bc7ccac480f873efa7b80cd76d16a6b24a5cb184a34f396838d0238",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/msub.py": "e920d505764419cb9febf3d238a69f54db2f0235c653ef6fae484d9498576e82",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/multielectron_ci.py": "8f2156a5c9f3885842f05d5320df629fc10534e1983362991df279b74d97b5cc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/photoionization/__init__.py": "071b85c20286ce444777a07db8d75244a911acbb8f27326c26a2f4fec6a8de4b",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/photoionization/direct.py": "8ecc3a8d51d2ea4839c67eb6eed1dee63880640cc61ba9127467989bf591c231",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/photoionization/fano.py": "0ddbee48c2e6d4fdb2065cda29d607aa403eec68abc16609e488800b73e990ff",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/photoionization/subshell.py": "fa46ae984d4c92c5123ea7b6317325eaf13f6756f7532f2f2ad6ff599d15675f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/polarisation/__init__.py": "19ec2e738ce886810ecd7a3dd6bc86c8204242c269c02eb5ecf69afa5e671856",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/__init__.py": "3603380c47b95633cd440c02022588ddafcc26fc89567aee1fb7276e71cec053",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/angular_cc.py": "46c206d2d2e4cde9c27e494c451d9b81d219ce58de98e83a2d1f1ec6caed5dcc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/cc_inner.py": "86ee6eaaa3afb886a15dadbbfd4bbd1c2fe52ce3b86932b966633b8e21aac84e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/cc_outer.py": "a8692106724332000b431982b7b05b6eb4bd6ba4db8629f67036e023cd5181f6",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/cc_potentials.py": "f6998a7a1aa84991d92aece97cb5995e14339fa6d76b5f30d3a8c1a61698fe90",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/channel_table.py": "fee2de1be2c899fa09563cd0ec3df9170775b32717d0c302054b9df60098c47a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/coulomb_fn.py": "82a81017e855fbe7ed82c6fcad3d9a65136a876d80193a887439e8dd8618a4bd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/coupled_channels.py": "59f45a451dcb49ab9a6c5b62616b4baef225a93189797d6da39e4d07ccfc6f79",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/internal_region.py": "02cee4751812084c35ef54f1b906af75a7522b59f5cd1be3fc5fdf93f838e750",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/l2_pseudostates.py": "c12b0e8d0098dcc79505de58edec4b59ad47d3b261686a7e6bc53e187706c3da",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/resonance.py": "cf8ee645e8ee7d2e2225c8afc09484bb6a2f5c393f2624a8dbe323d2b6370a15",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/solver.py": "dcbcd0c8e57034439ad3f7f2c2244079a67c15744759274bb63e45a60cf86b2d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/surface.py": "7c72d0a8afdf9603d76899c04d4d9abadd256ad48ee313ff7b3a77d663338329",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/r_matrix/target_states.py": "48806be642c8ada9a9d3b723ee64605a54342f8a9620496f80768b4fd0273f47",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/radiative_recombination/__init__.py": "df0a4fa4d85bc23b766b67533ba0c71149fd6c22f4cbf49063562a07834e6c5d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/two_electron/__init__.py": "26ae9bf82789723ac3004dba5e499be7b3a30831d870616df6e43baf960298c9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/two_electron/angular.py": "b855abb2d4c10b3ef79749b350b046f2fa7076fc632228c900b4060a8a0b9430",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/two_electron/coulomb.py": "edd8b701f08bc9318b384229d9d9251807c9a6544739eb06560566d26aef84e5",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/two_electron/states.py": "74edff8293f15a02289acb05800c21d5750e8d6bec9cabcba9cccc5cd10d4c5a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/scattering/xray.py": "246040174cc88db82cd606acb86e09cc4a88a9f5640e73907e44f9d4c4e34312",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/spectrum/__init__.py": "7783c8859139bab4202b12d04c5be84d630bdbcfaca39551eb8f71485ae1c980",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/spectrum/continuum.py": "5e1e4148a5d82207015f53bc7ae56bb9ab1cdb72f9c1523ecc23bc9e09505095",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/spectrum/crm_synth.py": "c2d1aed0aa0b602ad17194d94958bbb25d048e81a04e4f90a7076acbfb8ec7ce",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/spectrum/spectrum.py": "e4ba4ab5b37113b20b2f0156797efd5236277f4f3e8a57ec5d31347809223513",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/spectrum/uta.py": "0d31d150df7cc3fe1fdd0f431dc77717e8a4f9582ed3235373c285007c14338e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/state_protocols.py": "d045c6e77cc9b5efd2a9ec9beda2cbca6e2125680680553756405bcc26fa54e2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/types.py": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/units.py": "2f6256fd5115d74ecb33174e65c6337cdee635c51c9086bc246768c157298424",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/uta/__init__.py": "4e8b7bc45cb1add7b3df8ba0ff5074c1ead2711ee570e6696948d4da5ed1bd61",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/uta/moments.py": "92aacbb8864dcb9dbee226ba7b3846cd15248a7d6e300ea09db4fd36923766c1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/__init__.py": "a6813c867c9efe335f4955dd928a1f5fdb44a3a64362986f94fe4913d3a73abd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/manim.py": "4b8a1b832bfa923929dcdfbbb6a142ab51981ca30546131f915b4d2217c8bace",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/mpl.py": "0ad4c06ac21e61708a177c12df4e82e4fd09ebbac04787e98692a2bd6e94f3cd",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/plotly.py": "cfc23ca692015b442c4c9b4455c95fd3746a2bd507ef1b5cd1f4a94a662e2783",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/plotly3d.py": "7c91071c94fb05bd35560a2068bcf9fd3b9e4697b37d36d23e5172995f9af19c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/viz/scattering.py": "70c5c0435ee490447d768373452cf5d411502444f91e62a99eef0391de1d29f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/workflows/__init__.py": "a0ea2e48f8ba0b4ab24018c31aae7a92f05a6b7d29a4024ddc307a282344007e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/workflows/nist_comparison.py": "2f1c60f2014e691a22420fc08e0ddd87d7c3eae4b47b753b90f424722aa4b9dc",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/__init__.py": "309014e6f4f2491a9798b6496bb92d11dc289fd25b0e4a15baf88be4fb810c7c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/atomic_rates.py": "c8bbcd797e6d0cd962daabc7504b84d620090960ecef82b81efd8a0ad405292f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/cascade.py": "76c3f6472b2be020293850589ac37806a4f26ecb5140e23b63cb5226ef60fa3d",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/coherent.py": "1555ff859ead1e18f588c5ffafef27d2a64ed28f6916f92fa0f0d897e07884a2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/coherent_subspace.py": "7d936d67da53965d7d75a8fde65086b7af7d1d0bf3f1444add567c6c2199198f",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/cross_sections.py": "6191bb68aa2389bc5767117b968196a51ef50cce7226de0489009363853603c9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/double_ionization.py": "fb445b673441a955e47e7bb65f470053fe8c0673937f311ed59c537e0621ef30",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/imaging.py": "c7861511737dc4069eef11b7e282ec91160192e80e490e653a296227e6c0edb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/kinetics.py": "ba0e6ac3abd7ed456dbb30af1c20d3cc529c6ef679c67e420c42b690c126688a",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/mcdhf_coherent.py": "acaaa26e2233b8835a778bb6d0807fbe5fb8cef23f93f051c51e9181b2177fed",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/model.py": "a712651a7e39ae38991efb4b847af63639cf4cda62f9a32c0e1e9001b4743a68",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/multielectron_coherent.py": "0ee70b2b437c0964a0ef2bc926ac0a5c792b510dab5ebd388a23364461d32ded",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/native_channels.py": "23e06bbe16a3fde5e4197769e034110bb6e6618d96310d9ef3a1cdab6678a93e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/observables.py": "166f14bf2b6610f8df3785c2c4bb9142731e5240747526b003af91e91c9f2674",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/radiative_reservoir.py": "47e318d07e76dba48bf131832abcd5c5a7b2c49d632c466dab7c39c914d9d831",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/reservoir_errors.py": "ae2dfff651d284ee71c09139b5058b65f322235a2921742c34e3ace53ed95173",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/resonance.py": "5b90df9c9cf94d241fe9c5f0a5aea49851fde16fbeb41c5160aae75706458dc7",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/table_mc.py": "09e723d3487379dae5904e1667f37ec4416883c0e25d7f1b6beae0f9b4e184d2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source/atomx/xfel/two_electron_coherent.py": "ed6e44ea11438510359efb1f29f9fb85ab9cb09726e5537aff5fc6dfebc60159",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/contract.json": "7ef7e2153d26f1df94cba68393bc1256f618c1794dc6286e20e8eebcb3289c73",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/execution_binding.json": "fbc3ef9d273f7d5a459f041a97056856e3448fdb69dc976c18e12ab4d158da7f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json": "27bd626176ec3afdd07da41f72e811e4f38ada5f82efe632fcda1f7c7f83cce8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/execution_binding.json": "0e7195afca47b9a995f0b8e7e861495336a8c581f6da5e69e50a02f48947fe65",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/result.json": "cf3251b11198654c6d766f9241502770b70a5dc4bd0e651d930a00ab63b0cf85",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/minimum_root_diagnostic/saved_array_audit/verification.json": "4472690c7cc57fdc96415144d3bc20c898a95f0dcbe2e329e80a618ad55dbb17",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/raw_native_virtuals.npz": "79dfc13ff26e43f754a86d399ace9b544dd21e06b0382b076b81e459354fcf5f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/root_execution.json": "61b5bf820b327341a31d8dacc6573f8326a23df0716f9fa76a975db226e7e5f8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/run.py": "1fd610219330c125d614b42621ba7ca9806632a87e378743c3e45de4530b093f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/saved_failure_audit/verification.json": "fe6ca6bd94f39bed4434b9ef42e979a5d270c186dfab16bd8414f744aa629691",
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage009.json": "8f88fc6c0909fd01838447b29f11eaf064d76a2fc73c1d73f7e40a7da806ae9e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/anchors/test_closed_shell_fock.py": "b30f9cb3fcc825b4f6f1419752e658c4f519c2e3f298aad3f5487fa070104506",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/same_point_evidence.json": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/screened_operator.py": "4b50850d1f78d2ec8793a6bd02a25fcac36613cd7f3d61981bd7b42fdd976742",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_field_review/verification.json": "911427c045f03be03f4995e7cd13e149527a25bb888b03fa3838059b078fd561",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/contract.json": "2ba3c405204958a5c9e56ac4b353b79cf08c80c710b730933027640b56e85c1f",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/execution_binding.json": "4f61df585d1da202f2d4cefd114f5570b3cba53b1830cae52a3d56b1d6b620b8",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/result.json": "b4270213674272d5eb28c79670bdf872a0d9d7e4721e03c33220dcf8d2b4e8a4",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/run.py": "eeca1a408462cf01a3bb09fa9a2189546f4bc39126bdab6d8eb4f3e4437f5963",
+    "docs/yb_mcdhf_rci_2026_10_11/target_sector_equivalence002/saved_array_audit/verification.json": "56363aee43e70800df3144a3690630eeda40790e56ebe48cfee8d3a7a5999b92",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json": "92fc119c64798dffb3d5a9e2d99676365824ec60700a4218f1b21fa6491ddc82",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/native_hS_original_geometry.npz": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/contract.json": "7c8424e2788e6fc12a62acaa514f84dcccceeb244c503489e275bc7388c0716d",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/execution_source.py": "6c1dba6cfc5b32741c156ce2ec8c35c433796602fa859d47792d8b452a0610d4",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/lint_successor.json": "8392779c0e216a9e6f535926b54b5cf0342a40807b9f352aa858fd55959421a4",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/radial_support/result.json": "bc639869deab4b250a7b4475601235c9bccf5d3f7326bebf83378a50cefa9eaf",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3"
+  },
+  "freeze_receipt_sha256": {
+    "contract.json": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+    "run.py": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996",
+    "screened_operator.py": "4b50850d1f78d2ec8793a6bd02a25fcac36613cd7f3d61981bd7b42fdd976742"
+  },
+  "integer_selection_callback_upper": [
+    {
+      "kappa": -3,
+      "ordered_16pairs_callback_upper": 832
+    },
+    {
+      "kappa": -2,
+      "ordered_16pairs_callback_upper": 768
+    },
+    {
+      "kappa": -1,
+      "ordered_16pairs_callback_upper": 608
+    },
+    {
+      "kappa": 1,
+      "ordered_16pairs_callback_upper": 608
+    },
+    {
+      "kappa": 2,
+      "ordered_16pairs_callback_upper": 768
+    }
+  ],
+  "original_stationarity_passed": false,
+  "own_inputs_sha256": {
+    "frozen_consumer_contract.json": "595fc809c820394302b844f9436ccbf7e2df6a1e538bc48ca9d20fff3d17474b",
+    "readonly_source_refusal002.json": "cd4528b8e9f53f844631462c152e557d4c3bae44502fcb54dc183b80c73f37e2",
+    "review.json": "5c2a7bbb43b975d3facc9d20e3f9055bd65eeb17905d8dd16b34420dbe522724",
+    "verification.json": "911427c045f03be03f4995e7cd13e149527a25bb888b03fa3838059b078fd561",
+    "verify_frozen_consumer.py": "f17abf5a7bcf19d07ccb4ea93c60ccca5cf764af7ac6b74ccb9210442fa0ef12"
+  },
+  "read_only_consumer_review_passed": true,
+  "resources": {
+    "address_space_cap_bytes": 1073741824,
+    "chosen_CPU": 0,
+    "elapsed_seconds": 0.036080908961594105,
+    "max_RSS_KiB": 25992,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "outer_timeout_seconds": 30
+  },
+  "science_calls": 0,
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "source_mutable_successor_excluded": true,
+  "source_root": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source",
+  "tests_executed": 0,
+  "total_callback_upper": 3584,
+  "verdict": "No blocking algebra/source-identity/consumer issue found. Actual all-quadrant scalar and original-space numerical gates remain prospective for root's separately authorized execution."
+}

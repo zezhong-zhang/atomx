@@ -1,0 +1,112 @@
+{
+  "rows": [
+    {
+      "direction": "random_redundant",
+      "complete_signed_action_error_Ha": 0.0014510700700586772,
+      "independent_QSD_residual_Ha": 0.3027899854014405,
+      "native_raw_residual_Ha": 0.7100807187638585,
+      "single_error_Ha": 0.0014510700700586772,
+      "double_error_Ha": 0.00035945570963835747,
+      "energy_error_Ha": 5.854691731421724e-18,
+      "worst_determinant": 75,
+      "worst_labels": [
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          4,
+          -1,
+          -1
+        ]
+      ],
+      "worst_expected_Ha": -0.0079752161618174,
+      "worst_encoded_native_residual_Ha": 0.006524146091758723
+    },
+    {
+      "direction": "physical_first_Born",
+      "complete_signed_action_error_Ha": 4.200199216208844e-16,
+      "independent_QSD_residual_Ha": 0.07390750424317272,
+      "native_raw_residual_Ha": 0.48936229428963146,
+      "single_error_Ha": 4.200199216208844e-16,
+      "double_error_Ha": 9.280770596475918e-17,
+      "energy_error_Ha": 4.163336342344337e-17,
+      "worst_determinant": 27,
+      "worst_labels": [
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          3,
+          -1,
+          -1
+        ]
+      ],
+      "worst_expected_Ha": -0.0011646071810686217,
+      "worst_encoded_native_residual_Ha": 0.0011646071810682017
+    },
+    {
+      "direction": "actual_solved",
+      "complete_signed_action_error_Ha": 4.344974631424802e-16,
+      "independent_QSD_residual_Ha": 5.336009412104659e-15,
+      "native_raw_residual_Ha": 4.416458883165566e-14,
+      "single_error_Ha": 4.344974631424802e-16,
+      "double_error_Ha": 1.0838692561359803e-16,
+      "energy_error_Ha": 7.632783294297951e-17,
+      "worst_determinant": 39,
+      "worst_labels": [
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          -1
+        ],
+        [
+          3,
+          -1,
+          1
+        ]
+      ],
+      "worst_expected_Ha": -5.689893001203927e-16,
+      "worst_encoded_native_residual_Ha": 1.003486763262873e-15
+    }
+  ],
+  "source_sha256": "8a3c16d6b9b219c0f4d0b8a919e7b272ae9f4be3b4c603525b9d3d1c5d88bf10",
+  "original_backend_sha256": "a9c0b5db7e0e05f8695a5480c1d7b344ef241c0aeeea022c62da9eea5c1040ee",
+  "wall_seconds": 0.316584506072104,
+  "peak_RSS_KiB": 246048,
+  "source_unchanged": true,
+  "operator_scope": "same complete12spinor DC linearized core projected commutator; no physical-space expansion, no production patch"
+}

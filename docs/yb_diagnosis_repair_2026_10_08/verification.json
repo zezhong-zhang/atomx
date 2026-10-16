@@ -1,0 +1,33 @@
+{
+  "affected_physics_tests": 129,
+  "failed_tests": 0,
+  "coverage_warnings": 27,
+  "test_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_mbpt_transitions.py tests/test_ci_mbpt_sigma1.py tests/test_mbpt2.py tests/test_mbpt_sigma2.py tests/test_qed_self_energy_table.py tests/test_qed_backend_auto.py tests/test_qed_indelicato_vs_fac.py tests/test_qed_orbital_shifts.py tests/test_qed_approximation_coverage.py tests/test_velocity_gauge_full_order.py tests/test_finite_frequency_electric.py -q",
+  "baseline_replay": true,
+  "independent_DF_and_dipole": true,
+  "Fock_commutator_closure": true,
+  "native_Yb_CI_injection": true,
+  "unchanged_QED_value_replay": true,
+  "measurement_source_archive_verified": true,
+  "local_links_checked": true,
+  "PDF_numbers_checked": true,
+  "PDF_pages_visually_checked": [
+    1,
+    3
+  ],
+  "source_lint": "ruff check passed for all five changed production modules and two affected test files",
+  "preserved_failures": [
+    "baseline_audit adapter initial_state_index error",
+    "baseline_audit_v2 omitted required kappas in finite-frequency operator",
+    "gauge_audit_v2 raw signed publication comparison: different phases and small-denominator printed-energy mismatch",
+    "qed_coverage_before: 3 failed, 1 passed"
+  ],
+  "physical_limits": {
+    "final_control": "l6_e50_all",
+    "experimental_5_percent_goal_passed": false,
+    "radial_or_correlation_converged": false,
+    "largest_l4_to_l6_transition_increment_cm1": 578.1352534597063,
+    "old_lifetimes_repaired": false,
+    "fitted_parameters": 0
+  }
+}

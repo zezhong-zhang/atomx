@@ -1,0 +1,12 @@
+{
+  "hypothesis": "Native B-spline pair densities on each cell have degree <=2*(max_component_order-1). Exact interpolation at degree+1 tagged nodes permits A^T K_native A and reduces diagram node traffic without a new quadrature.",
+  "fixed": "native P/Q orders, all outer and triangular integration weights, all component cross terms, core/virtual/rank/amplitude space and DC Hamiltonian",
+  "acceptance": {
+    "signed_native_integral_max_Ha": 1e-11,
+    "complete_SD_action_max_Ha": 1e-11,
+    "raw_SD_residual_Ha": 1e-10
+  },
+  "stop": "Any signed native integral or full-action disagreement rejects compression. No tolerance or physical-space changes.",
+  "scope": "Exact polynomial subspace coordinate transform of the original quadrature; not a quadrature approximation. Resources before construction; no performance conclusion before paired same-space measurements.",
+  "stage": "unimplemented hypothesis"
+}

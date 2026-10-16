@@ -1,0 +1,51 @@
+{
+  "status": "SCALAR_ONLY_NO_ATOMIC_EXECUTION",
+  "spaces": {
+    "pilot4core12virtual": {
+      "core_amplitudes": 1324,
+      "attachment_coordinates": 1596,
+      "dense_core_coordinates": 112944,
+      "dense_attachment_coordinates": 28236,
+      "resident_integral_bytes": 528384,
+      "numerical_upper_bytes": 37375904,
+      "attachment_matrix_bytes": 20377728,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "add_full4f14_to_pilot_core": {
+      "core_amplitudes": 189834,
+      "attachment_coordinates": 34860,
+      "dense_core_coordinates": 10124568,
+      "dense_attachment_coordinates": 562476,
+      "resident_integral_bytes": 6494400,
+      "numerical_upper_bytes": 2282128512,
+      "attachment_matrix_bytes": 9721756800,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "include_full5s5p4f_core": {
+      "core_amplitudes": 354310,
+      "attachment_coordinates": 52284,
+      "dense_core_coordinates": 18469704,
+      "dense_attachment_coordinates": 839532,
+      "resident_integral_bytes": 10709184,
+      "numerical_upper_bytes": 4064567360,
+      "attachment_matrix_bytes": 21868933248,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "all68core12virtual": {
+      "core_amplitudes": 11176684,
+      "attachment_coordinates": 505660,
+      "dense_core_coordinates": 544005168,
+      "dense_attachment_coordinates": 8000076,
+      "resident_integral_bytes": 327782400,
+      "numerical_upper_bytes": 110989585312,
+      "attachment_matrix_bytes": 2045536284800,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    }
+  },
+  "prior_finite_full_generator_bytes_for_current16spinors": 237174199808,
+  "limits": "These are scalar tensor NumPy admission estimates, not timings, convergence or a high-l/paper basis; current default512MiB rejects larger three examples. Next needs measured contraction/intermediate memory and J/symmetry blocking before full-core production."
+}

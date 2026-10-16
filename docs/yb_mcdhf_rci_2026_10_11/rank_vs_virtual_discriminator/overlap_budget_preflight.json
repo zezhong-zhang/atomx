@@ -1,0 +1,221 @@
+{
+  "status": "independent_kinematic_upper_bound_only",
+  "Atomx_imports": 0,
+  "NumPy_imports": 0,
+  "new_H_builds": 0,
+  "new_CI_solves": 0,
+  "gradients": 0,
+  "optimizer_calls": 0,
+  "inputs_sha256": {
+    "physical_frontier004/count_spaces.py": "2db118cc9acbad942b648581390ff2a66864606408c1c144830c90ee817595ec",
+    "models.json": "d22b2ddc79ba886c00092e82b6a194905e89b4f30e65e1be20519593d4920b20"
+  },
+  "controls": [
+    {
+      "name": "baseline/Jparity(1, -1)/raw",
+      "actual": 232,
+      "expected": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/Jparity(1, 1)/raw",
+      "actual": 222,
+      "expected": 222,
+      "passed": true
+    },
+    {
+      "name": "baseline/Jparity(3, -1)/raw",
+      "actual": 232,
+      "expected": 232,
+      "passed": true
+    },
+    {
+      "name": "baseline/Jparity(3, 1)/raw",
+      "actual": 213,
+      "expected": 213,
+      "passed": true
+    },
+    {
+      "name": "baseline/Jparity(5, 1)/raw",
+      "actual": 159,
+      "expected": 159,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/Jparity(1, -1)/raw",
+      "actual": 1215,
+      "expected": 1215,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/Jparity(1, 1)/raw",
+      "actual": 1176,
+      "expected": 1176,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/Jparity(3, -1)/raw",
+      "actual": 1079,
+      "expected": 1079,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/Jparity(3, 1)/raw",
+      "actual": 1031,
+      "expected": 1031,
+      "passed": true
+    },
+    {
+      "name": "rank_5p_double/Jparity(5, 1)/raw",
+      "actual": 753,
+      "expected": 753,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/Jparity(1, -1)/raw",
+      "actual": 990,
+      "expected": 990,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/Jparity(1, 1)/raw",
+      "actual": 891,
+      "expected": 891,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/Jparity(3, -1)/raw",
+      "actual": 966,
+      "expected": 966,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/Jparity(3, 1)/raw",
+      "actual": 855,
+      "expected": 855,
+      "passed": true
+    },
+    {
+      "name": "balanced_virtual/Jparity(5, 1)/raw",
+      "actual": 637,
+      "expected": 637,
+      "passed": true
+    }
+  ],
+  "all_controls_passed": true,
+  "models": {
+    "baseline": {
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "raw_determinants": 232,
+          "compatible_kappa_m_pairs_upper": 330
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "raw_determinants": 222,
+          "compatible_kappa_m_pairs_upper": 346
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "raw_determinants": 232,
+          "compatible_kappa_m_pairs_upper": 288
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "raw_determinants": 213,
+          "compatible_kappa_m_pairs_upper": 341
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "raw_determinants": 159,
+          "compatible_kappa_m_pairs_upper": 231
+        }
+      ],
+      "total_compatible_pairs_upper": 1536,
+      "original_pair_cap": 1000000,
+      "upper_bound_within_cap": true
+    },
+    "rank_5p_double": {
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "raw_determinants": 1215,
+          "compatible_kappa_m_pairs_upper": 828
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "raw_determinants": 1176,
+          "compatible_kappa_m_pairs_upper": 886
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "raw_determinants": 1079,
+          "compatible_kappa_m_pairs_upper": 688
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "raw_determinants": 1031,
+          "compatible_kappa_m_pairs_upper": 804
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "raw_determinants": 753,
+          "compatible_kappa_m_pairs_upper": 506
+        }
+      ],
+      "total_compatible_pairs_upper": 3712,
+      "original_pair_cap": 1000000,
+      "upper_bound_within_cap": true
+    },
+    "balanced_virtual": {
+      "blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "raw_determinants": 990,
+          "compatible_kappa_m_pairs_upper": 1319
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "raw_determinants": 891,
+          "compatible_kappa_m_pairs_upper": 1376
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "raw_determinants": 966,
+          "compatible_kappa_m_pairs_upper": 1144
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "raw_determinants": 855,
+          "compatible_kappa_m_pairs_upper": 1346
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "raw_determinants": 637,
+          "compatible_kappa_m_pairs_upper": 906
+        }
+      ],
+      "total_compatible_pairs_upper": 6091,
+      "original_pair_cap": 1000000,
+      "upper_bound_within_cap": true
+    }
+  },
+  "method": "Complete Pauli magnetic rows at M=J for patterns with N(J)>0; scalar radial overlap pairs only equal occupied(kappa,m) multisets. Common deeper closed shells cancel in the group key. Raw archive counts match each selected sector. This is not a measured public angular support/minor count.",
+  "execution_requirement": "Recompute actual public support/group count before physical H/CI/virtual; use unchanged1million cap and reject rather than prune or relax."
+}

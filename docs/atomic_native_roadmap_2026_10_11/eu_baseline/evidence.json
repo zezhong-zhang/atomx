@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "status": "completed_historical_evidence_audit",
+  "solver_rerun": false,
+  "atom": {
+    "Z": 63,
+    "charge": 3,
+    "spectrum": "Eu IV",
+    "configuration": "[Xe]4f6"
+  },
+  "native_execution": {
+    "description": "Atomx DFSolver -> jj-CSF/full-M sparse CI -> per-k Slater delta -> native crystal-field operator",
+    "external_physics_backend": false,
+    "historical_full_M_determinants": 3003,
+    "scope": "Frozen statistical Xe-core 4f6 manifold; success is calibration, not an all-core ab-initio closure certificate"
+  },
+  "calibration": {
+    "s2_fixed_prior": -0.2726,
+    "scales_rounded_log": [
+      -0.2726,
+      -0.1424,
+      -0.1669
+    ],
+    "fitted_parameters": [
+      "s4",
+      "s6"
+    ],
+    "target_count": 3,
+    "reference_kind": "Historical Carnall aquo-ion anchors as declared by the driver; not independently verified free-ion experimental targets",
+    "reference_annotation": "# References are AQUO-ION (Carnall IV) values used for the free\n    # ion within their uncertainty — flagged, not hidden.",
+    "script_docstring": "Eu3+ Tier-A anchor calibration (F^k-class gaps only).\n\nFit (s2,s4,s6) on the 5D0/5D1/5D2 inter-multiplet gaps (vs 7F0):\nF^k-class observables only — fine-structure (zeta-class) residuals\nmust stay OUT of the fit (measured: mixing them takes s6=-0.64 and\ndoubles the RMS).  Series-consistency gate: the fitted s must land\nwithin scatter of the Pr source fit (-0.273, -0.080, -0.119).\n\nReferences: 5D0 = 17270 (free ion), 5D1 = 19025 +- 20, 5D2 = 21500 +- 50\n(Carnall aquo-ion series IV; free-ion within the uncertainty).",
+    "logged_rms_cm1": 8.2,
+    "rms_vs_historical_fit_targets_cm1_rounded_log": 8.197967227713587,
+    "rms_vs_cached_nist_cm1_rounded_log": 9.029950165974604,
+    "nist_comparison_kind": "comparison to cached NIST semiempirical bracketed levels; not independent experimental validation",
+    "fitted_levels": [
+      {
+        "historical_label": "5D0",
+        "J": 0,
+        "calculated_cm1_rounded_log": 17275.5,
+        "historical_fit_target_cm1": 17270.0,
+        "historical_logged_residual_cm1": 5.5,
+        "residual_vs_historical_fit_target_cm1_rounded_log": 5.5,
+        "nist_level_id": "063004.000008",
+        "nist_term": "5D3",
+        "nist_cm1": 17270.0,
+        "nist_energy_raw": "[17270]",
+        "nist_energy_kind": "semiempirical",
+        "nist_bracketed": true,
+        "nist_uncertainty_cm1": null,
+        "nist_reference": "",
+        "residual_vs_cached_nist_cm1_rounded_log": 5.5,
+        "independent_experimental_validation": false
+      },
+      {
+        "historical_label": "5D1",
+        "J": 1,
+        "calculated_cm1_rounded_log": 19015.4,
+        "historical_fit_target_cm1": 19025.0,
+        "historical_logged_residual_cm1": -9.6,
+        "residual_vs_historical_fit_target_cm1_rounded_log": -9.599999999998545,
+        "nist_level_id": "063004.000009",
+        "nist_term": "5D3",
+        "nist_cm1": 19030.0,
+        "nist_energy_raw": "[19030]",
+        "nist_energy_kind": "semiempirical",
+        "nist_bracketed": true,
+        "nist_uncertainty_cm1": null,
+        "nist_reference": "",
+        "residual_vs_cached_nist_cm1_rounded_log": -14.599999999998545,
+        "independent_experimental_validation": false
+      },
+      {
+        "historical_label": "5D2",
+        "J": 2,
+        "calculated_cm1_rounded_log": 21508.9,
+        "historical_fit_target_cm1": 21500.0,
+        "historical_logged_residual_cm1": 8.9,
+        "residual_vs_historical_fit_target_cm1_rounded_log": 8.900000000001455,
+        "nist_level_id": "063004.000010",
+        "nist_term": "5D3",
+        "nist_cm1": 21510.0,
+        "nist_energy_raw": "[21510]",
+        "nist_energy_kind": "semiempirical",
+        "nist_bracketed": true,
+        "nist_uncertainty_cm1": null,
+        "nist_reference": "",
+        "residual_vs_cached_nist_cm1_rounded_log": -1.0999999999985448,
+        "independent_experimental_validation": false
+      }
+    ],
+    "independent_experimental_validation": false
+  },
+  "unfitted_7F_holdout": [
+    {
+      "historical_label": "7F1",
+      "J": 1,
+      "calculated_cm1_rounded_log": 389.7,
+      "historical_unfitted_target_cm1": 370.0,
+      "historical_logged_error_percent": 5.3,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 19.69999999999999,
+      "nist_level_id": "063004.000002",
+      "nist_cm1": 370.0,
+      "nist_energy_raw": "[370]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": 0.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 19.69999999999999,
+      "error_vs_cached_nist_percent_rounded_log": 5.3243243243243255,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    },
+    {
+      "historical_label": "7F2",
+      "J": 2,
+      "calculated_cm1_rounded_log": 1076.6,
+      "historical_unfitted_target_cm1": 1041.0,
+      "historical_logged_error_percent": 3.4,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 35.59999999999991,
+      "nist_level_id": "063004.000003",
+      "nist_cm1": 1040.0,
+      "nist_energy_raw": "[1040]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": 1.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 36.59999999999991,
+      "error_vs_cached_nist_percent_rounded_log": 3.5192307692307523,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    },
+    {
+      "historical_label": "7F3",
+      "J": 3,
+      "calculated_cm1_rounded_log": 1967.0,
+      "historical_unfitted_target_cm1": 1890.0,
+      "historical_logged_error_percent": 4.1,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 77.0,
+      "nist_level_id": "063004.000004",
+      "nist_cm1": 1890.0,
+      "nist_energy_raw": "[1890]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": 0.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 77.0,
+      "error_vs_cached_nist_percent_rounded_log": 4.074074074074074,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    },
+    {
+      "historical_label": "7F4",
+      "J": 4,
+      "calculated_cm1_rounded_log": 2991.3,
+      "historical_unfitted_target_cm1": 2862.0,
+      "historical_logged_error_percent": 4.5,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 129.30000000000018,
+      "nist_level_id": "063004.000005",
+      "nist_cm1": 2860.0,
+      "nist_energy_raw": "[2860]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": 2.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 131.30000000000018,
+      "error_vs_cached_nist_percent_rounded_log": 4.59090909090909,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    },
+    {
+      "historical_label": "7F5",
+      "J": 5,
+      "calculated_cm1_rounded_log": 4100.9,
+      "historical_unfitted_target_cm1": 3807.0,
+      "historical_logged_error_percent": 7.7,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 293.89999999999964,
+      "nist_level_id": "063004.000006",
+      "nist_cm1": 3910.0,
+      "nist_energy_raw": "[3910]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": -103.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 190.89999999999964,
+      "error_vs_cached_nist_percent_rounded_log": 4.882352941176471,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    },
+    {
+      "historical_label": "7F6",
+      "J": 6,
+      "calculated_cm1_rounded_log": 5262.0,
+      "historical_unfitted_target_cm1": 4940.0,
+      "historical_logged_error_percent": 6.5,
+      "historical_reference_kind": "legacy driver constants labeled NIST; not this live NIST query",
+      "residual_vs_historical_target_cm1_rounded_log": 322.0,
+      "nist_level_id": "063004.000007",
+      "nist_cm1": 4940.0,
+      "nist_energy_raw": "[4940]",
+      "nist_energy_kind": "semiempirical",
+      "nist_bracketed": true,
+      "nist_uncertainty_cm1": null,
+      "nist_reference": "",
+      "historical_target_minus_cached_nist_cm1": 0.0,
+      "residual_vs_cached_nist_cm1_rounded_log": 322.0,
+      "error_vs_cached_nist_percent_rounded_log": 6.518218623481786,
+      "fit_on_this_observable": false,
+      "independent_experimental_validation": false
+    }
+  ],
+  "cf_saved_control": {
+    "full_M_determinants": 3003,
+    "anchor_cm1_rounded_log": 17275.5,
+    "assembled_trace_shift_cm1_logged": 0.000352,
+    "interpretation": "historical full-M native assembly and calibrated anchor control; not an experimental crystal-spectrum validation"
+  },
+  "precision_limit": {
+    "calculated_energy_display_decimals": 1,
+    "calculated_energy_rounding_half_width_cm1": 0.05,
+    "derived_rms_from_displayed_energies": true,
+    "uncertainty_rule": "NIST unknown uncertainty remains null; printed RMS is not propagated physical uncertainty",
+    "state_assignment_rule": "Historical 5D J labels selected lowest level above 15000 cm-1 in each J; no fresh wavefunction/parentage certification"
+  },
+  "inputs": {
+    "tier_a_script": {
+      "path": "scripts/eu3_tierA_anchor.py",
+      "sha256": "e342c22161d13bc5a9ffd57487d71da940473563c71cc504b9527bf8bddd1ddc"
+    },
+    "tier_a_log": {
+      "path": "docs/review_2026_10_02/codex_fix_validation/eu-tier-a.log",
+      "sha256": "ee91f2a9ba7d497a208c0bba36fc6d0477c0dc6223ad7cc467718918c87cec0b"
+    },
+    "cf_log": {
+      "path": "docs/review_2026_10_02/codex_fix_validation/eu-cf.log",
+      "sha256": "e012da59d9053587e44470d91c06f4cdb504c17944d247bd3ac4770ede516e8f"
+    },
+    "query_snapshot": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/query_snapshot.json",
+      "sha256": "8378fa6797dc78d5e5a15a614c4e842a69f497f68a948b45c6359ff1150ec153"
+    }
+  },
+  "nist_query_payload_sha256": "fd3251812fa548eb80b48a84227fe200522f06458c447fca8eff084560f2e751",
+  "audit_identity": {
+    "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/audit.py",
+    "sha256": "bca19449bc486f27e1a8d6fe01785843e0ab77433e720f817e3fa1a03b1c6e9b"
+  },
+  "card_summary": "Eu³⁺ Atomx原生4f⁶/3003行列式：历史三目标标定RMS 8.2 cm⁻¹；对本地NIST括号半经验⁵D₀/₁/₂ RMS 9.03 cm⁻¹。s₂先验固定、s₄/s₆拟合；此列为标定成功与参考对比，独立实验认证未建立；未拟合⁷F单列保留。"
+}

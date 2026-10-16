@@ -1,0 +1,231 @@
+{
+  "status": "source_JSON_only_proposal_consumer_chain_verified",
+  "checks": [
+    {
+      "name": "evaluate_contracts_shared_RDM",
+      "passed": true
+    },
+    {
+      "name": "full_weight_gradient_consumes_pair_potential",
+      "passed": true
+    },
+    {
+      "name": "gradient_same_semiseparable_primitive",
+      "passed": true
+    },
+    {
+      "name": "H_same_semiseparable_primitive",
+      "passed": true
+    },
+    {
+      "name": "density_owned_by_existing_shared_kernel",
+      "passed": true
+    },
+    {
+      "name": "no_CellPair_features_on_actual_gradient_chain",
+      "passed": true
+    },
+    {
+      "name": "same_f043_numerical_consumer_AST_gradient_from_weights",
+      "passed": true
+    },
+    {
+      "name": "same_f043_numerical_consumer_AST__pair_potential",
+      "passed": true
+    },
+    {
+      "name": "same_f043_numerical_consumer_AST__convol_case1_semiseparable_t",
+      "passed": true
+    },
+    {
+      "name": "prefix_suffix_and_full_local_strip_present",
+      "passed": true
+    },
+    {
+      "name": "serial_local_reduction_reference",
+      "passed": true
+    },
+    {
+      "name": "existing_explicit_IEEE_arithmetic_template",
+      "passed": true
+    },
+    {
+      "name": "existing_target_specific_shared_scalar_compiler",
+      "passed": true
+    },
+    {
+      "name": "warm_host_failure_not_GPU_evidence",
+      "passed": true
+    },
+    {
+      "name": "31_case_fixed_RCI_no_gradient",
+      "passed": true
+    },
+    {
+      "name": "actual208_one_direction_two_scales_stationarity_false",
+      "passed": true
+    },
+    {
+      "name": "no_arrays_imports_execution_or_shared_changes",
+      "passed": true
+    }
+  ],
+  "checks_count": 17,
+  "all_passed": true,
+  "source_locations": {
+    "evaluate": {
+      "path": "src/atomx/methods/csf/variational.py",
+      "symbol": "CSFOrbitalFunctional.evaluate",
+      "line": 89,
+      "end_line": 115,
+      "AST_sha256": "6efc2a360f1d77589638b4b280b89af832e8801dec07b08f73ac25b5eef4cda5"
+    },
+    "gradient_from_weights": {
+      "path": "src/atomx/methods/csf/variational.py",
+      "symbol": "CSFOrbitalFunctional.gradient_from_weights",
+      "line": 117,
+      "end_line": 187,
+      "AST_sha256": "c8f0bbc35c0c7a647e776f03bb534e9f410fd97fe64e66bf989ee19a41d69eef"
+    },
+    "pair_potential": {
+      "path": "src/atomx/methods/csf/variational.py",
+      "symbol": "CSFOrbitalFunctional._pair_potential",
+      "line": 370,
+      "end_line": 397,
+      "AST_sha256": "40fecd04e745960763f6002dd9600cf593f760dc136ea5332771ae5cea9a123b"
+    },
+    "matrix_pair": {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "symbol": "_bspline_pair_potential",
+      "line": 694,
+      "end_line": 711,
+      "AST_sha256": "4dbd947d1f84d39da73b47c970e00b1671d4a464d3d37e89c5ffecceb3a50834"
+    },
+    "numerical_primitive": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "_convol_case1_semiseparable_t",
+      "line": 1126,
+      "end_line": 1162,
+      "AST_sha256": "41c71d08d13f292597a2e921ab9c4e5b567c3f46c2667e89aed64e3f809cc20b"
+    },
+    "factors": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "ConvolCache.get_coulomb_factors",
+      "line": 1613,
+      "end_line": 1658,
+      "AST_sha256": "a14e67675ff3dfed8aac70311a08a64ccfde93c2714819e3372fc3fb7399c9cb"
+    },
+    "density": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "symbol": "_density_sym",
+      "line": 713,
+      "end_line": 753,
+      "AST_sha256": "6f59396ba140e8c4361ea002a2e9909df880f2baea4e29686ee4b1c39c9c8872"
+    }
+  },
+  "inputs_sha256": {
+    "current_route": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/MCDHF_GPU_ROUTE.md",
+      "sha256": "3f05ed5c24295b4ec54f69fb9cb3ea3cccdd961759e2334e22deca806bf591db"
+    },
+    "variational": {
+      "path": "src/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "convol": {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "sha256": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b"
+    },
+    "matrix": {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "sha256": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450"
+    },
+    "radial_density": {
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "radial_snapshot": {
+      "path": "src/atomx/physics/csf/radial_snapshot.py",
+      "sha256": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+    },
+    "CellPairContraction": {
+      "path": "src/atomx/numerics/bspline/pair_contraction.py",
+      "sha256": "ceba826b95b08a3a43e6f77d9648c2b3557ab9e3caf38ad058adeabc20cd0b64"
+    },
+    "CellCoulombFeatures": {
+      "path": "src/atomx/numerics/bspline/coulomb_features.py",
+      "sha256": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+    },
+    "old_CPU_CUDA_control": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/numba_density_control.py",
+      "sha256": "251316b17f9e924924398f567a42f0930b7e42e3c32a55ee7da69d049c95cc6c"
+    },
+    "old_zero_copy_adapter": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/numba_cupy_density_adapter.py",
+      "sha256": "b041e4f147173fdb2a98d7095885d33c081ddce035a90f51916b735b391e1f86"
+    },
+    "GPU_metadata_only": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_metadata_context.json",
+      "sha256": "56539b02c8e5806d7a2924e0cda7ad4eea167feb86939acccca49a7c45b92c79"
+    },
+    "shared_adoption": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_implementation/completion.json",
+      "sha256": "f5a1b7a7acec9c15cf607f908685ab351ba300292c809fd152dd824299555d6a"
+    },
+    "warm_observations": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/result.json",
+      "sha256": "836581b108c8a31eaa7d0072ebb834d030e26affb8eb97902c2c0dd7460c4533"
+    },
+    "warm_ordinary_example": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/ordinary/pair1/result.json",
+      "sha256": "6f24791079e2f298e61e77ae3feb99cf189abea21e5053bbae3eb961fc48bd72"
+    },
+    "warm_candidate_example": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/candidate/pair1/result.json",
+      "sha256": "44b7dd5848d1f5624735191c108aa93335c5deee4609aac280327578d5a521e4"
+    },
+    "literal208_derivative": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/instrumentation_repair001/actual/result.json",
+      "sha256": "6abd6a683a26287ade07d34d4d9feaa2bcfdcacc6298d797c8ac570c636cc2cc"
+    },
+    "latest31_fixed_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json",
+      "sha256": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d"
+    },
+    "latest31_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json",
+      "sha256": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3"
+    }
+  },
+  "work_memory_transfer_estimate": {
+    "mechanical_N_radial_keys": 31,
+    "maximum_ns": 123,
+    "maximum_basis_orders": [
+      9,
+      9
+    ],
+    "complete_unique_unordered_pairs_upper": 496,
+    "rank_domain": [
+      0,
+      6
+    ],
+    "rank_source_pair_jobs_upper": 3472,
+    "four_component_jobs_upper": 13888,
+    "source_pair_chunk_cap": 128,
+    "resident_geometry_factor_bytes_upper": 38930976,
+    "unique_P_Q_density_bytes_upper": 8785152,
+    "wave_bytes": 61008,
+    "chunk_prefix_suffix_bytes_upper": 4571136,
+    "chunk_four_band_output_bytes_upper": 4534272,
+    "CPU_dense_pair_temporary_bytes_upper": 30984192,
+    "all_component_band_D2H_bytes_per_trial_upper": 122992128,
+    "unique_density_H2D_bytes_per_trial_upper": 8785152,
+    "scope": "Geometric worst-case count for declared ranks/orders; actual31 complete signed source union pending native fullgradient. Includes all source pairs without amplitude pruning; packetized output is streamed, not retained all at once."
+  },
+  "NumPy_Atomx_NumBa_CUDA_imports": 0,
+  "NPZ_bytes_or_arrays_read": 0,
+  "physical_calls": 0,
+  "GPU_context_or_kernel_calls": 0,
+  "new_source_or_dependency_changes": 0,
+  "executor_written": false
+}

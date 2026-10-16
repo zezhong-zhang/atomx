@@ -1,0 +1,62 @@
+{
+  "created_utc": "2026-10-11T09:48:32.882628+00:00",
+  "status": "prospective_before_local_site_edits",
+  "scope": "Local-only additive existing static atlas preparation; root owns website-only publication. No credentials, commit,push,remote access or scientific calls.",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "initial_HEAD": "b228bef8dd2dcfd7a170771e991056f7b0e8639d",
+  "prechange_manifest_sha256": "48d4fa1bb0f6d16bad16bfc9e361dfec750a817f583e6366d83b9e550de7f38a",
+  "original_page_sha256": "40f9004a14e54311b62a0b333ddecc75074c10cf2c2e3a8d626b9e510883c25f",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/execution_contract.json": "59a62bccafb453d6d0b89fa8c9b98e95612c10ddb3e6a6ceaaf9cbf1b67681a3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/completion.json": "2964421142d8132a73ea3096010ed3d81cba7faf77510a765e2128428ff30d62",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/card_evidence_verified.json": "2fcd3bd0cad49c30c5885aed426ab182479080f610898ac0e8946239d4f08d29",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/contract.json": "7bbc99f9b73c6ceb3a9a1262497bf1ec853e08e5c05d1d11528f4347b2d81958",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/execution_contract.json": "9b219c1a2481e70010dabf497ebacf7ea1ab879514a69fbd78e1862becbd3aa2",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "tools/export_nist_atlas.py": "7276e18a2de03969d6d4f5501bc4a3fca2fa668c651ee0edb2df008013deec41",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update/handoff_manifest.json": "3cda94e20fd6581216a950f7df2271d0b1c45d3240dfeff5c6bd282864802c8a"
+  },
+  "original_site_files": 6033,
+  "fixed_conditions": [
+    "Original 118 elements/7021 species/index,NIST records and every 6019 gzip bytes unchanged",
+    "Prior stage002 overlay and all8 current models/32 rows plus2 historical models/8 rows retained exact",
+    "Separate public531 accepted160 overlay: DC + same-point static Breit RCI, four rows each in D3,D5,P1,P3 label order",
+    "Original69e/24radials/531signedCSF/full16blocks originalsource10d481 tracker; no stage003 spectrum splice",
+    "Original residual4.717047646600387e-5 fails1e-7; energyindicator6.8897239137767995e-9Ha passes1e-8; no numerical/experiment/highest promotion",
+    "Independent unique physical ASD configuration/2J/parity evaluated unflagged unbracketed finite matching; common6s zero; null upper uncertainties staynull",
+    "All exact new JSON evidence asset copies SHA-bound; originalmetric and source remain declared",
+    "New overlay optional only70/+1 and failure preserves previous models with visible warning; revisit neverduplicates"
+  ],
+  "acceptance": [
+    "2 new models/8 new rows; total12models/48rows; every prior row unchanged",
+    "Data independently verifies old6022+ assets SHA and all scientific values against frozen source and ASD",
+    "Desktop/mobile118elements; newfailstationarity/residual/operators/table/deltas/moments visible; exactdownload/source access/cache/errorfallback",
+    "No JS errors; no viewport overflow; old navigation/pagination/Ne filters/history retained",
+    "All oldatlas_update proof/fileSHA unchanged; hosting manifest unchanged"
+  ],
+  "model_flags": {
+    "stationarity_certified": false,
+    "production_certified": false,
+    "experimental_gate_passed": false,
+    "highest_level_reached": false,
+    "performance_comparison_valid": false
+  },
+  "resources": {
+    "science_calls": 0,
+    "new_dependencies": 0,
+    "browser": "Existing cached local Playwright Chromium only",
+    "preview": "temporary owned loopback static HTTP server; teardown after QA",
+    "data_work": "hash/rematch/JSON/presentation, no source import of physical operators or new scientific evaluation",
+    "timing_claim": false
+  },
+  "new_overlay": "dist/updates/yb-public531-endpoint160.json",
+  "new_evidence_dir": "dist/evidence/yb-public531-endpoint160",
+  "no_publication_here": true,
+  "no_scientific_source_edit": true
+}

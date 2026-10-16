@@ -1,0 +1,58 @@
+{
+  "scope": "arithmetic preflight only; original complete 68-core/414-radial-virtual input, no new initialization, native action, solve or timing",
+  "input_plan_sha256": "55bc0cc12afed50eb4a5ba951ce5d2766c4c4c50c4b3ab797c3c3062abcc0ebf",
+  "production_source_sha256": "9f013c27e62f9beb3e05a7755f95e75d939149ea9b0bef217bbfe92ab14406b2",
+  "core_count": 68,
+  "virtual_radial_count": 414,
+  "dimensions": {
+    "NHF": 3910,
+    "NX": 64,
+    "NS": 19,
+    "KX1": 7,
+    "NXX": 64,
+    "NK": 7,
+    "NN": 19,
+    "KK": 7,
+    "NCH": 8060,
+    "NXK": 4075,
+    "NV": 115,
+    "NG": 17,
+    "NE": 68425
+  },
+  "complete_payload_bound_bytes": 8544820844,
+  "standalone_static_bytes": 70518784,
+  "columns": {
+    "(6, -1)": {
+      "singles": 58,
+      "all_direct_rho_doubles": 2016402,
+      "amplitudes": 2016460,
+      "total_with_40_Krylov_and_restart20_bytes": 9190102156
+    },
+    "(6, 1)": {
+      "singles": 58,
+      "all_direct_rho_doubles": 2023012,
+      "amplitudes": 2023070,
+      "total_with_40_Krylov_and_restart20_bytes": 9192217356
+    },
+    "(6, -2)": {
+      "singles": 58,
+      "all_direct_rho_doubles": 3395718,
+      "amplitudes": 3395776,
+      "total_with_40_Krylov_and_restart20_bytes": 9631483276
+    },
+    "(5, 2)": {
+      "singles": 58,
+      "all_direct_rho_doubles": 3375298,
+      "amplitudes": 3375356,
+      "total_with_40_Krylov_and_restart20_bytes": 9624948876
+    },
+    "(5, -3)": {
+      "singles": 59,
+      "all_direct_rho_doubles": 3768714,
+      "amplitudes": 3768773,
+      "total_with_40_Krylov_and_restart20_bytes": 9750842316
+    }
+  },
+  "gate": "fit within existing32GiB host cap as estimated payload, excluding interpreter/JIT/runtime RSS; no physical coordinate cuts",
+  "passed": true
+}

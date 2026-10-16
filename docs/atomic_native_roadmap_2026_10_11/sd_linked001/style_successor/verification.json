@@ -1,0 +1,42 @@
+{
+  "actual_original_and_archived_input_verified": true,
+  "arrays_sha256": "27fb2937c6701c7771d27910f0fc09364699e6e7ac8010ba0125c6da7aa96aba",
+  "cases": {
+    "dc": {
+      "actual_missing_offdiagonal_after_Fock_PP_HH_Ha": 0.0793530494149022,
+      "actual_nonzero_Fov_T2_max_Ha": 0.07733393470696126,
+      "fresh_native_amplitudes_vs_actual_max": 0.0,
+      "fresh_native_root_raw_Ha": 4.163336342344337e-17,
+      "mask_derived_K_vs_actual_native_Ha": 1.432187701766452e-14,
+      "mask_derived_K_vs_saved_oracle_Ha": 5.329070518200751e-15,
+      "replay_root_raw_Ha": 3.6637359812630166e-15,
+      "replay_source_vs_actual_source_Ha": 0.0
+    },
+    "dynamic": {
+      "actual_missing_offdiagonal_after_Fock_PP_HH_Ha": 0.07937382878793325,
+      "actual_nonzero_Fov_T2_max_Ha": 0.07735416902183422,
+      "fresh_native_amplitudes_vs_actual_max": 0.0,
+      "fresh_native_root_raw_Ha": 1.734723475976807e-17,
+      "mask_derived_K_vs_actual_native_Ha": 1.432187701766452e-14,
+      "mask_derived_K_vs_saved_oracle_Ha": 3.552713678800501e-15,
+      "replay_root_raw_Ha": 3.70536934468646e-15,
+      "replay_source_vs_actual_source_Ha": 1.6940658945086007e-21
+    },
+    "static": {
+      "actual_missing_offdiagonal_after_Fock_PP_HH_Ha": 0.07937383408117535,
+      "actual_nonzero_Fov_T2_max_Ha": 0.07735416830847307,
+      "fresh_native_amplitudes_vs_actual_max": 0.0,
+      "fresh_native_root_raw_Ha": 4.163336342344337e-17,
+      "mask_derived_K_vs_actual_native_Ha": 1.432187701766452e-14,
+      "mask_derived_K_vs_saved_oracle_Ha": 3.774758283725532e-15,
+      "replay_root_raw_Ha": 3.191891195797325e-15,
+      "replay_source_vs_actual_source_Ha": 1.3877787807814457e-17
+    }
+  },
+  "result_sha256": "0ccdcd1903642a129ce7ce2704f2768b9026d2eb3f3ab99a6cb935c060dee3a8",
+  "scope": "Independent mask-derived generator replay and fresh public finite native solve; no external production solver.",
+  "source_files": 354,
+  "source_snapshots_verified": true,
+  "status": "passed",
+  "verifier_sha256": "40c207405e9845d37bd2218c4681abe2012d6db185696e048308c1d9e334ddda"
+}

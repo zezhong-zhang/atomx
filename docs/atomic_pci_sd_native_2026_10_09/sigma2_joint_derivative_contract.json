@@ -1,0 +1,28 @@
+{
+  "hypothesis": "Original single dxvw includes one explicit denominator derivative, whereas a common shift of both valence energies has slope2. Sum original full-response derivative and zero-response fixed derivative to recover the joint derivative without changing values.",
+  "fixed": "sigma2_contract.json finite canonical model and full columns; core numerator fixed; all valence roots re-solved for perturbed energy parameters",
+  "gates": {
+    "signed_joint_derivative": 1e-11,
+    "value_wrapper": "bitwise identical",
+    "independent_resolved_difference": "abs1e-9+rel1e-6 at step1e-4,3e-4,1e-3"
+  },
+  "memory_cap_bytes": 536870912,
+  "stop": "reject any value, signed derivative, source or re-solved mismatch; no new production claim",
+  "resolved_run_offsets_Ha": [
+    0.074,
+    0.076,
+    0.0747,
+    0.0753,
+    0.0749,
+    0.0751
+  ],
+  "parallel_batch_cap": 3,
+  "per_child_workers": 1,
+  "aggregate_additional_payload_cap_bytes": 1610612736,
+  "load_at_launch": [
+    14.47705078125,
+    13.873046875,
+    15.060546875
+  ],
+  "timing_scope": "correctness only; no performance claim for perturbed replay"
+}

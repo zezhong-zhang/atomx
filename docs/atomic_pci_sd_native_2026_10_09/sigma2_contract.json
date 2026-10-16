@@ -1,0 +1,20 @@
+{
+  "hypothesis": "Original pCI sdvw-ci noniterative two-valence screening can consume complete native converged core and valence sigmas with correct radial normalization and energy shifts, matching independent Eq.38 magnetic contractions.",
+  "fixed": "same explicit finite canonical Be2+ control, full two core electrons, six radial s/p virtuals; every retained virtual also a valence column, all magnetic multiplets; no empirical scale or energy shift fitted to experiment",
+  "sources": {
+    "valence": "6bf791841f1d9f6c0e0c2fd176d4517007ac622d2aea69fd1278107a414ab07b",
+    "sigma2": "828ea5d34c70e63bb21ceca5f6e6652da7dc3007ec9ba1021d0d6835c9726105"
+  },
+  "gates_Ha": {
+    "valence_signed_action": 1e-11,
+    "valence_signed_root": 1e-11,
+    "valence_raw_residual": 1e-10,
+    "sigma2_complete_signed": 1e-11
+  },
+  "source_adapter": "namespace incompatible val/xcore1/xcore2/irhov COMMON only; two original lookup initializer loops hardcode0..10 despite declaredKK, replace with0..KK, retain original source and manifest patches",
+  "derivative_coverage": "value gate first; upstream single derivative is not presumed joint d/d(Ev,Ew); independently validate partial and total derivatives before production use",
+  "memory_cap_bytes": 536870912,
+  "iteration_cap": 100,
+  "stop": "source/complete channel/nonfinite/singular/action/root/Sigma2 mismatch rejects promotion",
+  "scope": "isolated canonical convention control, not experimental validation or large production API"
+}

@@ -1,0 +1,221 @@
+{
+  "all_source_and_JSON_checks_passed": true,
+  "checks": [
+    {
+      "name": "top_level_imports_standard_library_only",
+      "passed": true
+    },
+    {
+      "name": "source_JSON_admission_passed",
+      "passed": true
+    },
+    {
+      "name": "no_numerical_imports",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_screened_models",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_screened_basis",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_saved_layout",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_literal208_manifest",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_literal208_signed_density",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_campaign_result",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_campaign_receipt",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_campaign_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_campaign_objective",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_corrected_baseline_result",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_corrected_baseline_runner",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_constraint_bookkeeping",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_fullnormalized_control",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_d0_centering_control",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_d1_centering_control",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_saved_gpg_result",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_saved_gpg_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_history_comparison_completion",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_history_comparison_report",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_historical_d1_failure",
+      "passed": true
+    },
+    {
+      "name": "bound_source_JSON_exact_guard_helper",
+      "passed": true
+    },
+    {
+      "name": "literal208_archive_hash_from_closed_manifest_only",
+      "passed": true
+    },
+    {
+      "name": "no_scientific_output_or_attempt",
+      "passed": true
+    },
+    {
+      "name": "native_producer_caps_frozen",
+      "passed": true
+    },
+    {
+      "name": "hS_producer_caps_upper_bound_not_CI_equality",
+      "passed": true
+    },
+    {
+      "name": "complete_replay_and_polar_caps",
+      "passed": true
+    },
+    {
+      "name": "separate_request_producer_caps",
+      "passed": true
+    },
+    {
+      "name": "complete_signed_counter_caps",
+      "passed": true
+    },
+    {
+      "name": "original_directional_tolerances",
+      "passed": true
+    },
+    {
+      "name": "fixed_two_scales",
+      "passed": true
+    },
+    {
+      "name": "original_stationarity_failure_preserved",
+      "passed": true
+    },
+    {
+      "name": "main_campaign_frozen_source_not_new_shared_epoch",
+      "passed": true
+    },
+    {
+      "name": "Ruff_passed",
+      "passed": true
+    }
+  ],
+  "driver_sha256": "637b40efc68b6b6085e5a5045b9e6bfc5afde344fb48b4d0c27d6b4137b0f996",
+  "contract_sha256": "a756379a809a8f236a7cca661f267665a1a7f6032542a513cd972bd7815feb82",
+  "preparation_driver_sha256": "bf4c01b062df0ce91823dff7127dfcba681a78352ea15e73288d085468555d16",
+  "findings_sha256": "5b194cc31de6b696b7593b5a5ff505c92b58b9807824e6298f10bdbc3ac7f2ae",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_archive_files_checked": 356,
+  "source_JSON_roles_sha256": {
+    "tracking_binding": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "screened_models": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "screened_basis": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832",
+    "saved_layout": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925",
+    "candidate_source_identity": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+    "literal208_manifest": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c",
+    "literal208_signed_density": "f8d530c861245de8676f785741cd2103a9aa787fe58903ec36d9a6dee2b9b259",
+    "campaign_result": "9487855b439ebf4fdc5530535348fc4e8c4ede1652aff4a9faf7d3d3b0ad8358",
+    "campaign_receipt": "5878daf7524c421b826923cee63487d46e533c2137cfb8a03bd6821399909295",
+    "campaign_completion": "ad155b2b9d5ecb2d3b942939664e2712a2ed0e63b053c424ed49e55b0ea55332",
+    "campaign_objective": "f97b9f0e678c258f41a31aab02cd6ab3a1aaf8a5ab09b5362e683831bdd9e43f",
+    "corrected_baseline_result": "55f364277566c4d20e9460a7f95e31328b7604160916c7fa8ca12d01385caed0",
+    "corrected_baseline_runner": "50de6d293a34ef6783114ca247af742fa921033ed7e5a7b64d1cdbc2cb083346",
+    "constraint_bookkeeping": "43571c6232ff50ab1ab6d9415e5f7432ef5e375deede7e726aaebcc62366e4fb",
+    "fullnormalized_control": "4d448b6deaca133ac7e7075d56a921605d55cd28a69ff4c09c0ff3aa11ea228c",
+    "d0_centering_control": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3",
+    "d1_centering_control": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3",
+    "saved_gpg_result": "9beeb420010dbcb3ff6f0c7de58dae5a01499b4f0a3b6b08aea1fab84b8ec168",
+    "saved_gpg_completion": "fcb6fa6d549db9f3cdf797a9c3e35790b5b0cf9707ebab4a2cd79b65d2033e3d",
+    "history_comparison_completion": "9e8b81c6faf1842b158510ec4bc9f812bfb8f9e7798abc6c6fe1a7c71934f576",
+    "history_comparison_report": "cf4b36f0ab97361d82a9488e6145d0618075a1079904af6e3610bf252211fbb8",
+    "historical_d1_failure": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680",
+    "exact_guard_helper": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed"
+  },
+  "inherited_NPZ_hash_declarations_not_recomputed": {
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_orbitals": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "literal208_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c",
+      "identity_origin": "closed checkpoint manifest; not opened during source-only preparation"
+    }
+  },
+  "NPZ_bytes_read": 0,
+  "NumPy_Atomx_imports": 0,
+  "scientific_calls": 0,
+  "syntax_AST_and_bound_literal_caps_only": true,
+  "ruff": {
+    "exit_code": 0,
+    "stdout": "All checks passed!\n",
+    "stderr": ""
+  },
+  "source_only_readiness_is_not_scientific_qualification": true
+}

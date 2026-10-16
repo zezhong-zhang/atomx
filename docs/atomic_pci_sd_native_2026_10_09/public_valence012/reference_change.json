@@ -1,0 +1,59 @@
+{
+  "core_virtual_rotation_rad": 0.37,
+  "actual_fov_max_Ha": 0.36590066416769096,
+  "physical_identity": {
+    "hamiltonian": "Dirac-Coulomb",
+    "binding": "CIReferenceBinding(external=('5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4', '91f05057da679781faaf6fbd5ba2b8146c1f98b9c8e2a3cefd2ce6fc69d0b3a6', 'c049503eede1a28b9f1cd9d216d09f56df02d7135b596dfe035a85b267b19ab0', '7c73a16721fad02ce164e2653dcb8dbee58364449417c4aa3cd382f2076f735c', 'ac1bc91a520bab9743c0a7fb235047cf18b38fd5b6237cf4ae69232372ce092a', 'e8bd41e7e72e968aea19e01a7905f0827b81d28c39ecee749347df6af0507bc6', '9054396cb661138f446bd52d2d5bf14fa182edb239ce72648b76ee8a476d24c7', '80b96689aa6151662f57eefea407403d80877f4801f5558ea2d87ea0f42b0cf6'), core=(((1, -1), '5c2328c8fcc64382be2f5094e74a78231ea5152c5e022816eabc7e55f161f6f4'), ((2, -1), '91f05057da679781faaf6fbd5ba2b8146c1f98b9c8e2a3cefd2ce6fc69d0b3a6')), geometry='91dbf9b2a2479d27fb56f746e47ca590833e65e61b68929718cbb2df12cf3dde', Z=6, ns=40, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 1.5543122344752192e-15,
+    "hermitian_projection_max_Ha": 2.220446049250313e-16,
+    "integral_bytes": 12800,
+    "radial_pair_cache_size": 16384,
+    "representation": "native on-demand radial/angular DC",
+    "construction_scalar_radial_pairs": 24,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation"
+  },
+  "meaning": "changed occupied reference projector; no basis-invariance or orbital-optimization claim"
+}

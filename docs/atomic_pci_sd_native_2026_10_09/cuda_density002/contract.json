@@ -1,0 +1,12 @@
+{
+  "hypothesis": "Resident batched float64 cell Coulomb actions and GEMM can use available GPU without dropping tagged nodes, incident edges or signed interference",
+  "fixed": "Actual fullYb008 V68/ns123/Fermi/radial workspace and all59s virtuals from original414 pool; full3910 tagged coordinates, all3481 directed s-pair densities and ranks0..7",
+  "scope": "one complete term2 radial subblock/control, not full414all-partial term2/SD or spectra; no FP32/TF32/quad GPU claim",
+  "kernel": "shared immutable CPU feature geometry/weights, exact ordered per-node incident edge sums, original two orientations including diagonal; explicit --fmad=false",
+  "raw_signed_gate_Ha": 1e-11,
+  "device_cap_bytes": 536870912,
+  "host_cap_bytes": 2147483648,
+  "timing": "three alternating warm complete CPU/GPU density pairs at rank0 after full0..7correctness; both GPU-resident synchronized kernel and host-to-device/action/device-to-host timings retained; includes complete C copies, no end-to-end SD claim",
+  "load_guard": 24,
+  "stop": "Any actual driver/precision/model/count/cap/finite/raw gate failure rejects; failed load guards invalidate timing only; no automatic public adoption"
+}

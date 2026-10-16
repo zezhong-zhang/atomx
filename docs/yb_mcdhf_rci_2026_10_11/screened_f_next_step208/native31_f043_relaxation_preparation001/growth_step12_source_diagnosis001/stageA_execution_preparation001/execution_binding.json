@@ -1,0 +1,23 @@
+{
+  "execution_authorized_by_root": true,
+  "driver_sha256": "80540c01c0709b1a4cdfe6cd9292e6ccad3f7373e3e2fd29fdd0560833663967",
+  "contract_sha256": "4a40f8ad3037a1ff5663ff43723b93cde4af5d5c9871e4d9cde538a655ff9de6",
+  "preparation_sha256": "9904da0597e6cea9da18aa8cf64e3a251bf6836f77163eb3feb2d1d2a6895613",
+  "CPU": 31,
+  "threads": 1,
+  "AS_GiB": 1,
+  "inner_seconds": 30,
+  "outer_seconds": 45,
+  "max_small_Gram_eigh": 7,
+  "max_NPZ_loads": 14,
+  "max_H": 0,
+  "max_CI": 0,
+  "max_gradient": 0,
+  "max_Dirac": 0,
+  "max_optimizer": 0,
+  "guardian_sha256": "736c4816df46f906663d0750442b75dd4b3e5d6f5f41354b387f3f42afd257ff",
+  "scope": "offline chronological history and endpoint only",
+  "expected_controls": "unchanged native metric, gradients, slopes and literal point13",
+  "no_cards": true,
+  "no_stageB": true
+}

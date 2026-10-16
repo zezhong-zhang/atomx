@@ -1,0 +1,15 @@
+{
+  "status": "phase checks pass within declared scopes",
+  "source_binding": "numba_source_binding003.json",
+  "numerical": "numba_density001 all8bitwise;numba_full_fields002 all5fullsignedvalues/energy-response/modes pass",
+  "independent": "numba_native_anchor00122pass/no skips",
+  "correctness_max_full_Ha": 5.421010862427522e-20,
+  "controlled_cpu_stage_ratio": 4.613096119100613,
+  "controlled_gpu_stage_ratio": null,
+  "local_links": "current_link_paths013.json;557local targets/0missing; original tracked snapshot disposition011 retained",
+  "checks": "Ruff4source files,format4sourcefiles,gitdiff--check pass",
+  "highest_level_achieved": false,
+  "public_backend_adopted": false,
+  "own_live_runs": [],
+  "remaining": "new full operator/solve workload gate before adopting new backend; complete J-reduced/blocked/streamed full triples; effective states/metric/operators; physicalspace/spectra/experiment; controlled end-to-end performance"
+}

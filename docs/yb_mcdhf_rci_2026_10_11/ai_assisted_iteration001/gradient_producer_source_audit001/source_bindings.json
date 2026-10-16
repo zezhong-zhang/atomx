@@ -1,0 +1,56 @@
+{
+  "status": "SOURCE_and_saved_JSON_only",
+  "source_epoch": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/run.py": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/execution_source.py": "662248e7e0a3a2e6d39516533c9cd743adef825eedce4376a1ff884bd7cdd041",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/result.json": "ff4ad89476cbe6136b3f2cea48b0c4dc5dc0912a61ca96d24d1ce32208469255",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/reporting_difference_diagnosis001/analyze_saved.py": "d619c2c565dbb3512ced98e1de55c9f4502d74a0849def26c20f021924285256",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/reporting_difference_diagnosis001/result.json": "d4724a9ba15593bbe54e813dd28e41cd6ba746b8666ed1835fc94e2542a10177",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/ci_energy_increment.py": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/dirac_assembly.py": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/convol.py": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe"
+  },
+  "saved_observations": {
+    "1e-05": {
+      "ordinary_passed": false,
+      "ordinary_error_Ha": -1.4095569014493936e-06,
+      "ordinary_limit_Ha": 3.832315071504414e-07,
+      "ordinary_minus_centered_terms_Ha": {
+        "signed_Lambda_DeltaGram": -1.5047263338025713e-08,
+        "negative_mixed_Q_vs_stored_Q_closure": -1.2630593786582755e-06,
+        "reported_minus_retained_quotient": -1.315981641496532e-07,
+        "EO_averaging": -2.646977960169688e-18
+      },
+      "centered_errors_Ha": [
+        1.4790580628139467e-10,
+        1.4790469929178293e-10
+      ]
+    },
+    "5e-06": {
+      "ordinary_passed": false,
+      "ordinary_error_Ha": -1.773354782158565e-06,
+      "ordinary_limit_Ha": 3.832315071504414e-07,
+      "ordinary_minus_centered_terms_Ha": {
+        "signed_Lambda_DeltaGram": -1.0715758001784751e-07,
+        "negative_mixed_Q_vs_stored_Q_closure": -2.0542839664267086e-06,
+        "reported_minus_retained_quotient": 1.7000241234446787e-07,
+        "EO_averaging": 2.1827872842232638e-07
+      },
+      "centered_errors_Ha": [
+        -1.9437537372953077e-10,
+        -1.9437648071914252e-10
+      ]
+    }
+  },
+  "new_NPZ_reads_hashes": 0,
+  "new_physical_calls": 0,
+  "shared_source_changes": 0,
+  "cause_resolved": false
+}

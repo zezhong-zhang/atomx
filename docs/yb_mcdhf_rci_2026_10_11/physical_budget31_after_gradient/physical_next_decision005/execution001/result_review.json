@@ -1,0 +1,136 @@
+{
+  "status": "INDEPENDENT_JSON_REVIEW_CONFIRMS_COMPLETED_SCIENTIFIC_FAILURE",
+  "created_utc": "2026-10-14T01:00:01.797544+00:00",
+  "bindings": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/actual/result.json": "ff8ab7892c620b6c1ed1b175c580a53d6865529528a18f473831ce956c3f1b82",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/root_execution_seal.json": "3b112340eef135189e94f889959458cde3c9abba1e166aaad96f81910feb82b5",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/run.py": "bba8234d35e9f025a6f89925026348fef8990eb36037e1d0e74abf99981cda38",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/contract.json": "6b8a0dd102220e688ed12f99795d1ae763e3c1d9af14ceeaf02357bd7e1e34c1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/header_preflight.json": "0af5abc1766d3c10b8931a25641e4007055c476c73a3f1a4fa922eac7b050efb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision005/execution001/closure_receipt.json": "aa73e3eae854e6d51db95b1efe9691722ad189524903d172e840f5ab3f471d41"
+  },
+  "access_scope": "Saved JSON/source hashes and stdlib Decimal80 scalar recomputation only; no NPZ/stat/header/hash/body access, NumPy/SciPy/atomx import, matrix arithmetic, new science, changed h/gate, or retry.",
+  "checks": {
+    "complete_scientific_failure_recorded_after_all10points10gradients": true,
+    "677_controls_only_three_declared_D3_2_line_failures_all_integrity_controls_PASS": true,
+    "all40_FD_rows_recompute_original_max_gate_and_decisions_without_Richardson_substitution": true,
+    "ten_full5state_UID_norm_weight_signed_tracking_identities": true,
+    "all_fresh_complete_owners_and_shared_geometry_units_DC_identity": true,
+    "all10_actualnorm_full_signed_stategradients_and_all31_contributions_preserved": true,
+    "aggregate_saved_gradient_and_action_closures_PASS_original_limits": true,
+    "all_observed_work_counters_attempts_within_original_caps": true,
+    "source_and_exact_root_seal_and_metadata_hashes_match": true,
+    "recorded_host_payload_memory_time_caps_respected": true,
+    "historical_failures_and_no_stationarity_optimizer_or_performance_upgrade": true
+  },
+  "scientific_outcome": {
+    "original_check_count": 677,
+    "failed_original_checks": 3,
+    "FD_passed_by_kind": {
+      "state": 20,
+      "line": 13,
+      "EOL": 4
+    },
+    "FD_total_by_kind": {
+      "state": 20,
+      "line": 16,
+      "EOL": 4
+    },
+    "failed_rows": [
+      {
+        "arm": "A",
+        "step": 0.002,
+        "kind": "line",
+        "label": "5d_3/2",
+        "central_Decimal_Ha": "-0.00088648721430217845382678013769667700965978742531892872067332353499545415084791",
+        "error_Decimal_Ha": "1.303535909770905569268003115325133226274557950877932667646500454584915209E-8",
+        "original_tolerance_Ha": 1e-08,
+        "recorded_PASS": false,
+        "independent_original_gate_PASS": false
+      },
+      {
+        "arm": "B",
+        "step": 0.002,
+        "kind": "line",
+        "label": "5d_3/2",
+        "central_Decimal_Ha": "-0.00075946763899992218522781080997259176232743994929153481128259012365302714592401",
+        "error_Decimal_Ha": "1.587190265330189477913785782822511266930363815268871740987634697285407599E-8",
+        "original_tolerance_Ha": 1e-08,
+        "recorded_PASS": false,
+        "independent_original_gate_PASS": false
+      },
+      {
+        "arm": "B",
+        "step": 0.001,
+        "kind": "line",
+        "label": "5d_3/2",
+        "central_Decimal_Ha": "-0.00075947264122078193633301521304794633877129323468291993486173546667489378119427",
+        "error_Decimal_Ha": "1.086968179355078957473478247364866881601824676756513826453332510621880573E-8",
+        "original_tolerance_Ha": 1e-08,
+        "recorded_PASS": false,
+        "independent_original_gate_PASS": false
+      }
+    ],
+    "ordinary_FD_passed": false,
+    "all10points10stategradients_complete": true,
+    "aggregate_gradient_closure_passed": true
+  },
+  "scalar_recomputation": {
+    "method": "Exact Decimal.from_float on JSON-roundtripped binary64 endpoint eigenvalues and callback EOL_Ha; divide by2*exact represented binary64 step. State/line FD and primary ordinary EOL FD retain distinct routes. Each original max gate and all40 decisions independently checked. No new acceptance criterion.",
+    "rows_recomputed": 40,
+    "max_central_value_difference_Ha": "3.52864965093272413467960490849651616880034761890607901135106477E-18",
+    "max_error_field_difference_Ha": "9.79359080630326127943008100007116601270926773758516459270774E-21",
+    "max_weighted_state_EOL_diagnostic_difference_Ha": "5.83245317492758852377802530338039100250793818249491618274777846E-18"
+  },
+  "Richardson_diagnostic_only": {
+    "A": {
+      "state_error_Ha": {
+        "6s_1/2": "3.11141217766297145576845803164525239281255577654385321116283745168031745E-9",
+        "5d_3/2": "5.23283485409688852065996113854797988475364499050809811597033974305251623E-9",
+        "5d_5/2": "7.43467166885110709049976609946029964683251429917110093896764898502315191E-9",
+        "6p_1/2": "1.103881200690085052756208817888638835448426456796641363267669893877791985E-8",
+        "6p_3/2": "1.88998051820567712386059368997788731102294606098544390784573785477957760E-9"
+      },
+      "line_error_Ha": {
+        "5d_3/2": "2.12142267643391706489150310690272749194108921396424490480750229137219878E-9",
+        "5d_5/2": "4.32325949118813563473130806781504725401995852262724772780481153334283446E-9",
+        "6p_1/2": "7.92739982923787907179363014724113596167170879142256042151386148709760240E-9",
+        "6p_3/2": "-1.22143165945729433190786434166736508178960971555840930331709959690073985E-9"
+      },
+      "ordinary_callback_EOL_error_Ha": "4.71078138884515098608775120474620692928942859035800201622366627062876213E-9",
+      "weighted_state_EOL_error_Ha": "5.74154204152254309025779712532529875075238674744169673112557900889550565E-9",
+      "scope": "Diagnostic only; no ordinary-gate failure is rescued."
+    },
+    "B": {
+      "state_error_Ha": {
+        "6s_1/2": "1.03916835663058954151342740682109935207735209662902632831420506931133009E-9",
+        "5d_3/2": "1.024144319693101071478051809561095355033380173581963821106652288665171240E-8",
+        "5d_5/2": "1.355399566077114442695799299465269602319254619555295943555288859637724554E-8",
+        "6p_1/2": "9.00458479424437037928955045811195619969547283592906291806606097330083145E-9",
+        "6p_3/2": "1.470300515943923473478016004128358600386348890983124298489545638226886056E-8"
+      },
+      "line_error_Ha": {
+        "5d_3/2": "9.20227484030042117326709068878985419825644963919061188275231781734038231E-9",
+        "5d_5/2": "1.251482730414055488544456558783159667111519409892393310723868352706591545E-8",
+        "6p_1/2": "7.96541643761378083777612305129085684761812073930003658975185590398950136E-9",
+        "6p_3/2": "1.366383680280864519326673263446248665178613681320221665658125131295753047E-8"
+      },
+      "ordinary_callback_EOL_error_Ha": "1.043603520612384278090179707328894855812770149940672476035619359854712622E-8",
+      "weighted_state_EOL_error_Ha": "9.70843943551302182318524683882528376545814920041269004070162203069667332E-9",
+      "scope": "Diagnostic only; no ordinary-gate failure is rescued."
+    }
+  },
+  "gradient_scope": {
+    "normalization": "Complete signed contract_bilinear, exact actualnorm fraction normalization then represented once; native gradient and raw-h/ket-quotient correction reported separately.",
+    "raw_h_quotient_max_action_change_Ha": 5.22109482384292e-14,
+    "orbital_action_scope": "All31 signed contributions per state/line retained. Components are in this fixed basis/direction; they do not alone identify an invariant physical error budget.",
+    "MV_count_scope": "target_MV/one_body_MV are source-derived work counts from the complete gradient terms; native kernel aliases separately count actual entered/completed calls, not every BLAS or scalar operation."
+  },
+  "scope_limits": [
+    "Richardson does not rescue any of the three failed primary D3/2 line tests. No complete ordinary FD or stationarity qualification is earned.",
+    "All20 absolute-state and4 ordinary EOL tests pass, while13of16 line tests pass; small relative errors on large state slopes do not imply the stricter small-line absolute floor is met.",
+    "No omitted physics term, universal error bound, experimental-gap improvement, new optimization, or controlled speedup is established.",
+    "No rerun, h scan, gate relaxation or source repair was performed by this review. Root proceeds to separately authorized physical-priority work; the numerical failure remains archived."
+  ],
+  "ownership": "Only this result_review.json is written; frozen run/contract/seal/actual arrays and historical failures remain unchanged."
+}

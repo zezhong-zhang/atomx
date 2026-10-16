@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-11",
+  "production_code_changes": 0,
+  "owner_paths": "docs/atomic_physics_correctness_2026_10_11/sd_pcore",
+  "disposition": [
+    {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/README.md",
+      "action": "new bounded evidence",
+      "reason": "Occupied-p and mixed-j genuine source/Born controls; preserves weak-coupling and incomplete-domain scope."
+    },
+    {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/",
+      "action": "retain unchanged",
+      "reason": "Completed source-bound evidence and invalid-input failure remain distinct."
+    },
+    {
+      "path": "Current guides/results/registries",
+      "action": "read-only; parent owns integration",
+      "reason": "This delegated increment changes no current consumer or production contract."
+    }
+  ],
+  "checks": [
+    "741 frozen/current source bindings matched",
+    "Complete magnetic multiplets and full1001 fixed-N basis verified",
+    "Saved first-Born reconstruction agrees exactly",
+    "All owner published scripts ruff pass",
+    "Local report links pass"
+  ],
+  "distillation": "No new general rule; reinforces same-H topology and constrained-space principles."
+}

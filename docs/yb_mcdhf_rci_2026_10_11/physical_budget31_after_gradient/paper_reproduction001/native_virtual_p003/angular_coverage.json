@@ -1,0 +1,65 @@
+{
+  "status": "PASS_STRUCTURAL_ANGULAR_CENSUS",
+  "rows": [
+    {
+      "target": "S",
+      "allowed_rank1": [
+        "p1",
+        "p3"
+      ],
+      "reduced_values": {
+        "p1": -0.816496580927726,
+        "p3": 1.154700538379252,
+        "f5": 0.0,
+        "f7": 0.0
+      },
+      "p_present": true,
+      "f_present": false
+    },
+    {
+      "target": "D3",
+      "allowed_rank1": [
+        "p1",
+        "p3",
+        "f5"
+      ],
+      "reduced_values": {
+        "p1": -1.154700538379252,
+        "p3": -0.5163977794943225,
+        "f5": 1.5491933384829664,
+        "f7": 0.0
+      },
+      "p_present": true,
+      "f_present": false
+    },
+    {
+      "target": "D5",
+      "allowed_rank1": [
+        "p3",
+        "f5",
+        "f7"
+      ],
+      "reduced_values": {
+        "p1": 0.0,
+        "p3": -1.5491933384829664,
+        "f5": -0.41403933560541245,
+        "f7": 1.851640199545101
+      },
+      "p_present": true,
+      "f_present": false
+    }
+  ],
+  "contract_sha256": "2b474a4957de077077cb3c73d2b580a300fc6fd40840919d89f9daf7cc1ffae0",
+  "scope": "Structural angular admission only. Does not establish a missing-f numerical correction or justify a fitted channel choice.",
+  "future_only_resource_plan": {
+    "core_amplitudes": 4123824,
+    "attachment_coordinates": 767840,
+    "dense_core_coordinates": 191435328,
+    "dense_attachment_coordinates": 10635296,
+    "resident_integral_bytes": 50040000,
+    "numerical_upper_bytes": 38972589248,
+    "attachment_matrix_bytes": 4716626124800,
+    "full_particle_sectors_enumerated": false,
+    "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+  }
+}

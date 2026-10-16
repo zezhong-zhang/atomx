@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "status": "prospective; root numerical seal required",
+  "hypothesis": "Saved medium-step derivatives pass unchanged original gate; unsupported and legacy consumers refuse before physical work.",
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "input_policy": "All thirteen saved complete endpoints immutable; one genuine baseline owner must match native baseline bitwise and complete input/H hashes. No accepted arbitrary-H owner or public restore.",
+  "hourly_iteration_trigger": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour2000/delivery_proof.json",
+    "sha256": "3829fa593ebbe279f8da47bd02250c2052f2a2122b943420653250a66d7664ed",
+    "message_id": "om_x100b6383eae7d4a8c003c0c8155970e"
+  },
+  "fixed_model": {
+    "Z": 2,
+    "nucleus": "point nuclear −2/r",
+    "ns": 35,
+    "ks": 9,
+    "knot_min": 0.005,
+    "knot_max": 30,
+    "configs": [
+      "1s2",
+      "1s1 2s1",
+      "1s1 3s1",
+      "2s2",
+      "2s1 3s1",
+      "3s2",
+      "2p2",
+      "2p1 3p1",
+      "3p2"
+    ],
+    "CSFs": 29,
+    "radial_keys": 7,
+    "NumPy": "2.2.6",
+    "operator": "complete unshifted Dirac-Coulomb",
+    "target_states": [
+      [
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        3
+      ]
+    ],
+    "same_original_coordinate_projector": true
+  },
+  "derivative_gate": {
+    "selected_h": 1e-06,
+    "relative": 1e-05,
+    "absolute": 1e-08
+  },
+  "report_saved_scales": [
+    0.0001,
+    1e-06,
+    1e-08
+  ],
+  "original_coarse_failure_status": "failed; never relabelled",
+  "eigenpair_gate": {
+    "max_column_Euclidean_residual": 1e-08,
+    "Gram": 1e-10
+  },
+  "pytest_cases": 19,
+  "guard_cases": [
+    "float32",
+    "float128",
+    "complex",
+    "missing",
+    "basis_reorder",
+    "parity",
+    "keys",
+    "target",
+    "rank",
+    "subclass",
+    "no_owner",
+    "subset",
+    "operator",
+    "eigen_residual",
+    "ci_float32",
+    "ci_float128",
+    "legacy_fixed_and_constrained_mixed"
+  ],
+  "fixture_changes": {
+    "rank": "Legitimate equal-weight target/tracker with rank2; second initial overlap counted.",
+    "operator": "Root-authorized malformed-descriptor shell ONLY negative early refusal; not used as accepted fixture. Additional genuine public coverage and unsupported-keyword refusal.",
+    "legacy": "Actual saved point1 CI without retained owner suffices for unchanged legacy early mixed guard; no point1 H owner restoration."
+  },
+  "calls": {
+    "H_build": 1,
+    "CI_solve": 0,
+    "gradient": 0,
+    "one_body_assembly": 6,
+    "nuclear_Dirac_solve": 0,
+    "polar_retraction": 0,
+    "physical_overlap": 2,
+    "tracking_SVD": 0,
+    "SciPy_eigh": 0,
+    "NumPy_eigh": 0,
+    "optimizer": 0,
+    "radial_increment": 0
+  },
+  "setup_work": {
+    "B_spline_workspace_constructions": 1,
+    "CSF_configuration_enumerations": 9,
+    "ordinary_functional_constructions": 1,
+    "public_snapshot_productions": 1,
+    "initial_tracker_constructions": 2,
+    "CIResult_metadata_constructions": 2,
+    "initial_hS": 3,
+    "baseline_H_memo_hS": 3,
+    "determinant_cap": "unchanged normalized default",
+    "full_angular_table_and_convolution_work": "ordinary constructor/H; inside wall cap",
+    "all13saved_Gram_and_residual": "array-only controls; no eigensolve"
+  },
+  "resources": {
+    "CPU_affinity_count": 1,
+    "BLAS_NumPy_NumBa_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_time_seconds": 120,
+    "no_hidden_retry": true
+  },
+  "host_admission": {
+    "maximum_system_load1": 64
+  },
+  "stopping": "First failed pytest/identity/resource/call assertion stops and preserves partial ledgers; no automatic retry or cap change.",
+  "not_claimed": [
+    "original qualification passed",
+    "new radial finite increment evaluation",
+    "CI or gradient rerun",
+    "optimizer integration",
+    "Yb production spectrum",
+    "performance certification",
+    "shared test hygiene completed"
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/run.py": "a37adaf3bee32fd1792622266c8c09ec737f8962d95e9a69097de71a5121007d",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/test_saved_guards.py": "642eca2015bb6a9530dd40346bbff8103f789c69fcf366a188fdf9ac1e485f8b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/README.md": "25503dc8fe30add88767086baaa17ad4f404a6da82507d110c89975becf612e3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification002/verify_preparation.py": "a25fcf0ec35405f62dd8d1ffcd0d317188d5e54bdcf600fffd15a74f58b96c32",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_hour2000/delivery_proof.json": "3829fa593ebbe279f8da47bd02250c2052f2a2122b943420653250a66d7664ed",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json": "aac39a895035151da17bfdb1570d6358ea4ef0891850fb5d3b60caff88abbdfb",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_00.npz": "335b12710fd48e736e85efcd2bde225648af633b46a0b20c6449475b89f02156",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_01.npz": "4a58cbf2739df72ed320473d34b8561ebdf099f072301eeffe0870693036b397",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_02.npz": "7893da6d4f86b2cddc56d8a6598c4ae75854d65323e3502faca4ca5af1a78eab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_03.npz": "1743dd2e73249208df1a1759b71040180be7798a58cd0d4072a189146eed18a8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_04.npz": "f6f00d3c2bc20a6793b253092851c437d0c1c981dbfe0d1e906320b820af509b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_05.npz": "99b385796110c4b5a6055e7f3210c5a95798960462964be68a74a6f6a95ef22e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_06.npz": "c704db7584b8d0e494cd4edadeb7599a2ac34f10d7440614b0df36daca0e7a68",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_07.npz": "74074926da038989731a760c0bdc5bcca60c9b7c60ae3d0662bc746e5f1a2a5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_08.npz": "1b03b90d32bc940ea3779c7631993be92c8f5de283c5a5f7155c2e217c271460",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_09.npz": "7fd72c49640a958b5228593f7e602f00e03af616b2910362855168e5384dca02",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_10.npz": "c9399f6e302f9a071e4bd77302dbdc915de327273c345be98523990dd277adea",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_11.npz": "9566b8a5f866354b6061a0928be9e533c321dee934be9dfd170b866b845f1438",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_12.npz": "8d3ce9d335316e6daae52f784ec9babd236c5dcb8ccd3703dabad6a93764c1e8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_gradients.npz": "682be3fde73241248a75fd097dd100161463e0d6f8bfcb5a84625430e34c0c47",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json": "46fc04b7dfc381e873b9181184abe887be3659ecd7838abfb231f04ebd24da2f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json": "6a1a04fd1b74494a470244586b03ef20dda5ab9c54ca4a9ff141cedfedf68b13",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_calls.json": "08869bd076c78143139648f6a32a2ee2475a04d791f541fb6af2c20a86e4e259",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_calls.json": "f97f8b6dac7e3cd0ec462ea4a6ae3ae035d18da267fc7ac3ad5ac94388004a72",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/saved_array_audit/verification.json": "6b11864fa42a63b69275eac7666e807a2aae3a8a9ae5fe0849985d375c00f1a6",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/saved_array_audit/README.md": "e3d0876d8859d145d3d69df61594ae5c050970326a7b6b45a4606d8b9de92a9a",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/contract.json": "ba29c2e19e104019eef6d21600675cd2f8c0be5b74a84b6c2797a4a4b5338cdc",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/run.py": "b2a00f4b8c2b917666075e2c4375bb0da9e603100e41ffc3f6fdf8b79ea71628",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/result.json": "b26787051ce05c1f47c28cc645df41ddcb92861291fd176734988bc8bc85cbfe",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/verification.json": "746638a81fdbdd93b2fb276390c9198938a1b78317891f40ad74471279aba682",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/README.md": "981883c9af787c004dc83c98c109671544c7dd5ed73e089b54f9f1f1967b6649",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_saved_scale_audit/RESULTS.md": "eaa501827c599dbb74e6346dc7281440257be2f367e82f033340f75545561ca1"
+  }
+}

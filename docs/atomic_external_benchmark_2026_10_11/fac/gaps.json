@@ -1,0 +1,44 @@
+{
+  "measured_campaign": "FAC extension 2026-10-11",
+  "highest_level_reached": false,
+  "directions": [
+    {
+      "direction": "共同轨道径向积分诊断",
+      "evidence": "precision/result.json",
+      "status": "open",
+      "fixed": "same signed spinors, all2003integrals, original c/grid/nucleus/mass and strict gates",
+      "observed": "All4case common-spinor joint gates fail; doubling2000to4000points does not close gaps",
+      "next": "Decompose one-body/two-body quadrature, interpolation and boundaries without fitting to FAC or changing the state space"
+    },
+    {
+      "direction": "SCF与重复初始化性能",
+      "evidence": "performance/stages.json",
+      "status": "open",
+      "observed": "Atomx serial median groundSCF7.0576s/import1.1961s dominates8.9289s full four-ion lifetime",
+      "next": "Profile complete SCF iterations and reuse initialization under same physics and converged residual; validate batching separately before GPU or manycore speed claims"
+    },
+    {
+      "direction": "实际线程池治理",
+      "evidence": "performance/result.json",
+      "status": "open",
+      "observed": "Atomx requested8created15actualthreads and was stopped; requested4created7",
+      "next": "Bind loaded BLAS runtimes and test total process threads at allocation boundary; keep original cap8"
+    },
+    {
+      "direction": "独立离子进程吞吐",
+      "evidence": "contract.json",
+      "status": "unmeasured",
+      "fixed": "same fourcompleteions and original totalresource envelope; PFAC uses separate processes",
+      "next": "Measure fixed task count separately from algorithmic strong scaling"
+    },
+    {
+      "direction": "完整物理空间和实验精度",
+      "evidence": "../experimental_precision_context.json",
+      "status": "open",
+      "observed": "FAC workflow groups independent,no3s/3dintergroupmixing; no freshNISTrank; originalYb1%failures unchanged",
+      "next": "Common full CI/correlation space plus observed NIST identities and uncertainty provenance; do not infer experiment from cross-code agreement"
+    }
+  ],
+  "new_production_executors_registered": false,
+  "card_receipt_policy": "Existing evidence-guided resource admission remains; implementation frontier is not a launched calculation"
+}

@@ -1,0 +1,65 @@
+{
+  "task": "Implement and measure signed off-diagonal second-order attachment self-energy in Yb II",
+  "authorization": "User: 加入并继续; preceding literature strategy selects matrix Sigma before higher-order SD",
+  "hypothesis": "Same-kappa orbital response may change the scalar-Dyson excitation residuals; its magnitude and direction must be measured, not inferred from squared diagonal weights",
+  "fixed": "Z70 empirical Fermi nucleus, all 19 occupied radial orbitals of the retained 68-electron closed core, complete VN positive-energy virtual manifolds, native radial quadrature, antisymmetrized Coulomb, both 2p1h and 2h1p classes, frozen core; no experimental fitting, Breit/QED or explicit-hole additions",
+  "captures": [
+    {
+      "name": "coarse_l6_e200",
+      "reference": "v68_default",
+      "lmax": 6,
+      "emax_Ha": 200,
+      "external_per_kappa": 3
+    },
+    {
+      "name": "fine_l6_e200",
+      "reference": "v68_refined_newton",
+      "lmax": 6,
+      "emax_Ha": 200,
+      "external_per_kappa": 3
+    }
+  ],
+  "external_blocks": {
+    "s": [
+      6,
+      7,
+      8
+    ],
+    "p": [
+      6,
+      7,
+      8
+    ],
+    "d": [
+      5,
+      6,
+      7
+    ]
+  },
+  "comparison": "Five matched attached ground branches, excitation relative to each model's own 6s ground, individual attachment energies and splittings; 1/2/3 external functions are nested matrix-model controls, not convergence of a full Brueckner radial space",
+  "gates": {
+    "independent_mscheme_Ha": 1e-11,
+    "diagonal_replay_Ha": 1e-10,
+    "matrix_eigen_residual_Ha": 1e-10,
+    "radial_metric": 1e-07,
+    "spatial_increment_cm1": 1,
+    "four_excitation_relative_error": 0.05
+  },
+  "branch": "Ordered eigenvalue of diagonal DF Hamiltonian plus frozen matrix Sigma within one declared pole-free bracket containing the matching DF energy; derivative negative semidefinite implies monotonic residual, so root is unique and DF-connected for that order. Reject exact DF degeneracy rather than invent individual labels.",
+  "resource_caps": {
+    "workers": 5,
+    "seconds_per_state": 5400,
+    "RSS_MiB_per_state": 16384,
+    "disk_GiB": 20,
+    "BLAS_threads_per_worker": 1
+  },
+  "preflight": "Estimate physical-pair counts and full residue storage before captures. Validate all external spinors and virtual manifolds. A failed cap never silently reduces the physical model.",
+  "stopping": "Stop a capture for metric, phase, denominator, branch, identity or cap failure; retain evidence. Finish matched five-state controls and quantify whether orbital response explains retained discrepancies. Higher-order SD, complementary particle-hole models and Coulomb-Breit cross terms remain separate unimplemented stages until independently anchored.",
+  "numerical_path_revision": {
+    "previous_attempt": "scalar_path_stopped_attempt/status.json",
+    "default_backend": "existing shared full Slater GEMM tables; angular and physical sums unchanged",
+    "anchor": "radial_batch_check.json; 4225 ordered pairs, error 1.39e-17 Ha",
+    "resource_caps_unchanged": true,
+    "additional_conservative_table_storage_MiB_per_fine_state": 640
+  }
+}

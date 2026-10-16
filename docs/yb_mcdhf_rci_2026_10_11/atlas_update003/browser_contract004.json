@@ -1,0 +1,24 @@
+{
+  "status": "prospective_before_browser_QA",
+  "driver_sha256": "0d2f20c2241d4a078ac120709edda0a9f2aaed077f7869022dd4e224e3df24e7",
+  "contract_sha256": "4dca55bb0900ba0130026f6c567b1898ca7a1f11f8fc7914e4bc3be812d3bf2f",
+  "data_proof_sha256": "4270a95c2a7a4ed4dbd149a3fcadeade49597f2c841022866a450d6c20fa8b5d",
+  "page_sha256": "4dc3ac714cd9c0e5796cb448a07df8c36d7ee505a6fa9ccbd5316182c946d47b",
+  "browser": "Existing cached Chromium1243 exact explicit executable",
+  "viewports": [
+    [
+      1440,
+      1080
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "outer_timeout_s": 90,
+  "browser_memory_cap_applied": false,
+  "scientific_calls": 0,
+  "publication_performed": false,
+  "predecessor_contract_sha256": "910ebfb2114595cfbe74c6e0ead5dceacb9e82a7d79b5652af294a34af8fc731",
+  "change": "Correct QA-only attempt to click original hidden model table download; explicit overlay link and exact source downloads retained. No site change; same model/data/status/browser gates."
+}

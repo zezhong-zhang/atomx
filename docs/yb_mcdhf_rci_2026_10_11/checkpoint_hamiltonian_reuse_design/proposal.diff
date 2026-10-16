@@ -1,0 +1,114 @@
+NONEXECUTABLE IMPLEMENTATION SKETCH — NOT APPLIED OR QUALIFIED
+
+New file: src/atomx/physics/csf/hamiltonian_snapshot.py
+
+  @dataclass(frozen=True, init=False, eq=False)
+  class CIHamiltonianSnapshot:
+      # Fields are set only by this module's public physical producer.
+      # No public constructor from arbitrary arrays/matrix_override.
+      matrix_Ha: np.ndarray          # float64, owned immutable bytes
+      radial_binding: CIReferenceBinding
+      orbital_keys: tuple           # every provided key, canonical integer tuples
+      orbital_basis_keys: tuple
+      csf_identities: tuple          # complete ordered (N, parity, signature.key)
+      hamiltonian_terms: tuple       # first increment ('dirac-coulomb',)
+      max_determinants: int          # normalize None to existing default2000
+      representation: str           # 'dense-real-full-CSF'
+      units: str                    # 'Hartree'
+      schema_version: int
+      input_sha256: str             # canonical typed immutable header
+      matrix_sha256: str            # shape/dtype/raw original entry bytes
+
+      def matrix_for(self, csfs, orbitals, orbital_basis, workspace, Z, ns,
+                     *, nuclear_potential=None, max_determinants=None,
+                     include_breit=False, breit_orbital_energies=None,
+                     one_body_shifts=None, one_body_operator=None):
+          reject_unsupported_operator_coverage(...)
+          reject_different_order_keys_CSFS_or_cap(...)
+          self.radial_binding.validate(self.orbital_keys, orbitals,
+                                       workspace, Z, ns, nuclear_potential)
+          return self.matrix_Ha      # no copy/build/cache fallback
+
+  def build_ci_hamiltonian_snapshot(csfs, orbitals, orbital_basis, workspace,
+                                    Z, ns, *, nuclear_potential=None,
+                                    convol_cache=None, max_determinants=None,
+                                    radial_snapshot=None):
+      # B-spline DC input checks and exact finite full signed identities.
+      # CIReferenceBinding is already public and used by full FiniteCIModel.
+      keys = tuple(sorted(orbitals))
+      before = CIReferenceBinding.capture(
+          [(*orbitals[k], k[1]) for k in keys], {}, workspace, Z, ns,
+          nuclear_potential)
+      ids_before = tuple((c.n_electrons, c.parity, csf_signature(c).key)
+                         for c in csfs)
+      h = build_ci_matrix(csfs, orbitals, orbital_basis, workspace, Z, ns,
+                          nuclear_potential=nuclear_potential,
+                          convol_cache=convol_cache,
+                          max_determinants=max_determinants,
+                          radial_snapshot=radial_snapshot)
+      before.validate(keys, orbitals, workspace, Z, ns, nuclear_potential)
+      # Also recheck all keys/orbital basis/signed IDs after this public build.
+      # Require original finite float64 square shape, never symmetrize/cast.
+      owned = np.frombuffer(h.tobytes(order='C'), dtype=np.float64).reshape(h.shape)
+      return _seal_private_owner(owned, before, keys, ids_before, ...)
+
+src/atomx/methods/ci.py
+
+  class CIResult:
+      # Preserve existing positional constructor and behavior; field appended.
+      hamiltonian_snapshot: CIHamiltonianSnapshot | None = field(
+          default=None, repr=False, compare=False)
+
+      def hamiltonian_for(self, *args, **kwargs):
+          if self.hamiltonian_snapshot is None:
+              raise ValueError('CI result has no retained bound Hamiltonian')
+          return self.hamiltonian_snapshot.matrix_for(*args, **kwargs)
+
+  def ci_solve(..., retain_hamiltonian=False):
+      # Existing solver/coverage validation first. Flag must be a real bool.
+      # DefaultFalse takes EXACT previous build/solve path, all existing options.
+      retained = None
+      if retain_hamiltonian:
+          # First explicit supported route only: solver='dense',n_states=None,
+          # B-spline DC, no Breit/energy map/effective operator/one-body shifts.
+          # Unsupported retention rejects before any matrix build.
+          retained = build_ci_hamiltonian_snapshot(*same_public_inputs, ...)
+          H_ci = retained.matrix_for(*same_public_inputs, ...)
+      else:
+          H_ci = build_ci_matrix(*unchanged_existing_inputs, ...)
+      # All existing full symmetry blocks/eigh/drivers/order/refinement unchanged.
+      return CIResult(..., hamiltonian_snapshot=retained)
+
+src/atomx/methods/csf/variational.py
+
+  def __init__(..., retain_hamiltonian=False):
+      # strictbool validation; defaultFalse, no new orbital/target/metric state.
+      self.retain_hamiltonian = retain_hamiltonian
+
+  def evaluate(..., ci_result=None):
+      result = ci_result
+      if result is None:
+          result = ci_solve(..., retain_hamiltonian=self.retain_hamiltonian)
+      elif result.hamiltonian_snapshot is not None:
+          result.hamiltonian_for(self.csfs, orbitals, self.keys, self.data,
+                                 self.Z, self.ns,
+                                 nuclear_potential=self.nuclear_potential,
+                                 max_determinants=self.max_determinants)
+      # Existing tracked energy, complete signed RDM and gradient unchanged.
+      # A legacy result without owner remains a gradient-only explicit control;
+      # consumers may not claim/reuse its nonexistent H snapshot.
+
+NEW SOURCE-BOUND CONSUMER ONLY; DO NOT MODIFY LIVE/FROZEN RUN003
+
+  functional = CSFOrbitalFunctional(..., retain_hamiltonian=True)
+  def accepted_checkpoint(..., current_ci, ...):
+-     h = build_ci_matrix(...samepoint inputs...)
++     h = current_ci.hamiltonian_for(...samepoint inputs...)
+      # Existing full eigenpair/Gram/Herm/S/no-pair/target gates unchanged.
+      # Missing owner or stale physical binding FAILS; do not silently rebuild.
+      # Save complete fullH and snapshot header/H SHA beside source/x/P/metric.
+
+The independent fresh endpoint replay continues to call the original public
+build/CI/full-gradient path with retention disabled. No optimizer source change
+is required: its accepted trial_ci already propagates into gradient and callback.
+No CIRadialSnapshot implementation change is required: solve forwards options.

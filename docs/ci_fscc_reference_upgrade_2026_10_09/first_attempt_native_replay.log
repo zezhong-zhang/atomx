@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09/replay_native_ci.py", line 74, in <module>
+    binding = CIReferenceBinding.capture(targets, core_od, workspace, 70, ns, potential)
+  File "/data/code/atomx/src/atomx/physics/csf/effective_one_body.py", line 44, in capture
+    _digest(_potential_contents(nuclear_potential, workspace)))
+  File "/data/code/atomx/src/atomx/physics/csf/effective_one_body.py", line 17, in _digest
+    return hashlib.sha256(repr(_contents(value)).encode()).hexdigest()
+  File "/data/code/atomx/src/atomx/physics/csf/radial_snapshot.py", line 19, in _contents
+    raise TypeError(f"unsupported CI snapshot workspace entry {type(value).__name__}")
+TypeError: unsupported CI snapshot workspace entry bytes

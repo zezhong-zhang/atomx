@@ -1,0 +1,145 @@
+{
+  "abi": "ATXCC001",
+  "labels": [
+    [
+      1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1
+    ],
+    [
+      2,
+      -1,
+      -1
+    ],
+    [
+      2,
+      -1,
+      1
+    ],
+    [
+      2,
+      1,
+      -1
+    ],
+    [
+      2,
+      1,
+      1
+    ],
+    [
+      2,
+      -2,
+      -3
+    ],
+    [
+      2,
+      -2,
+      -1
+    ],
+    [
+      2,
+      -2,
+      1
+    ],
+    [
+      2,
+      -2,
+      3
+    ]
+  ],
+  "noccupied": 2,
+  "reference_energy_Ha": -13.613277075037388,
+  "frozen_energy_Ha": 0.0,
+  "identity": {
+    "hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+    "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'),), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+    "physical_source_sha256": {
+      "spinor_integrals.py": "70b52e3705e59a3bad3219b4c17808242ef3061f393886824921296499168b97",
+      "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+      "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+      "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+      "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+      "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d"
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ]
+    ],
+    "frozen_keys": [],
+    "metric_error": 2.220446049250313e-15,
+    "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+    "integral_bytes": 3200,
+    "radial_pair_cache_size": 1024,
+    "breit_frequency": "orbital_differences",
+    "transverse_cache_size": 2,
+    "transverse_retained_array_bound_bytes": 32256,
+    "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+    "orbital_relaxation": false,
+    "frequency_prescription": "symmetric-two-vertex-orbital-differences",
+    "orbital_energies_Ha": [
+      {
+        "n": 1,
+        "kappa": -1,
+        "energy": -5.668077023125293
+      },
+      {
+        "n": 2,
+        "kappa": -2,
+        "energy": -0.51939003022594
+      },
+      {
+        "n": 2,
+        "kappa": -1,
+        "energy": -0.6660768909929702
+      },
+      {
+        "n": 2,
+        "kappa": 1,
+        "energy": -0.5194361457283752
+      }
+    ],
+    "note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms.",
+    "representation": "native on-demand radial/angular Dirac-Coulomb + real finite-frequency transverse exchange",
+    "construction_scalar_radial_pairs": 6,
+    "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+    "diagnosis_only_Fov_scale": 0.0
+  },
+  "export": {
+    "logical_bytes": 20228,
+    "max_integral_file_bytes": 2147483648,
+    "max_chunk_bytes": 4194304,
+    "producer": {
+      "representation": "packed",
+      "resident_matrix_bytes": 3200,
+      "resident_eri_bytes": 18480,
+      "dense_eri_bytes": 18480
+    }
+  },
+  "files": {
+    "ATOMX_ONE": "6cfdcaa4c959308ee656a4238e8a3598849da953fed353ebd2ba5238a4dd72bf",
+    "ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "versioned SOURCE-only fixed-RCI proposal; no sharedsrc mutation",
+  "dispositions": [
+    {
+      "path": "../run.py + ../contract.json + ../actual/failure.json + ../root_execution.json",
+      "action": "retain immutable",
+      "reason": "Preserve exact old/current H failed gate and completed current DC artifact"
+    },
+    {
+      "path": "../saved_DC_failure_diagnosis001",
+      "action": "retain immutable",
+      "reason": "Independent offline full saved-array evidence, not a Breit value or repaired byte gate"
+    },
+    {
+      "path": "README.md",
+      "action": "add",
+      "reason": "Describe changed baseline identities and unchanged physics/caps/failed boundaries"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "action": "root integration pending",
+      "reason": "Root owns current topic status and parallel integration"
+    },
+    {
+      "path": "docs/TRANSVERSE_INTERACTION.md + docs/ARCHITECTURE_DESIGN.md",
+      "action": "retain",
+      "reason": "No shared implementation/API/operator coverage change"
+    }
+  ],
+  "insight": "No new general insight: source-only experiment proposal; numerical result still unmeasured."
+}

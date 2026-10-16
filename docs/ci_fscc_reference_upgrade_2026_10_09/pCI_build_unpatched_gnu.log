@@ -1,0 +1,65 @@
+-- The Fortran compiler identification is GNU 15.2.0
+x86_64-linux-gnu-gfortran-15: fatal error: cannot execute ‘cc1’: posix_spawnp: No such file or directory
+compilation terminated.
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran - skipped
+-- GNU Fortran compiler found: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran
+-- GNU Fortran compiler: GNU
+CMake Warning at CMakeLists.txt:16 (message):
+  Optional programs for QED and all-order are not compilable with gfortran
+
+
+-- Using double-precision integrals
+-- Checking for module 'mpi-fort'
+--   Package 'mpi-fort' not found
+-- Could NOT find MPI_Fortran (missing: MPI_Fortran_LIB_NAMES MPI_Fortran_F77_HEADER_DIR MPI_Fortran_MODULE_DIR MPI_Fortran_WORKS) 
+-- Could NOT find MPI (missing: MPI_Fortran_FOUND) 
+CMake Warning at CMakeLists.txt:48 (message):
+  MPI not found.  MPI-parallel programs (pbasc, pconf, conf_lsj, conf_pt,
+  pdtm, formy) will not be built.
+
+
+-- MKL library not detected. Falling back to BLAS and LAPACK.
+-- Looking for Fortran sgemm
+-- Looking for Fortran sgemm - not found
+-- Looking for Fortran sgemm
+-- Looking for Fortran sgemm - found
+-- Found BLAS: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- Looking for Fortran cheev
+-- Looking for Fortran cheev - found
+-- Found LAPACK: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so;/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- BLAS library detected: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- LAPACK library detected: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so;/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial/libopenblas.so
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build
+[  2%] Building Fortran object src/CMakeFiles/pci_serial.dir/params.f90.o
+[  5%] Building Fortran object src/CMakeFiles/pci_serial.dir/wigner.f90.o
+[  8%] Building Fortran object src/CMakeFiles/pci_serial.dir/utils.f90.o
+[ 11%] Building Fortran object src/CMakeFiles/pci_serial.dir/solvers.f90.o
+[ 14%] Building Fortran object src/CMakeFiles/pci_serial.dir/str_fmt.f90.o
+[ 17%] Building Fortran object src/CMakeFiles/pci_serial.dir/conf_variables.F90.o
+[ 20%] Building Fortran object src/CMakeFiles/pci_serial.dir/readfff.f90.o
+[ 23%] Building Fortran object src/CMakeFiles/pci_serial.dir/bspl.f90.o
+[ 26%] Building Fortran object src/CMakeFiles/pci_serial.dir/conf_init.f90.o
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/src/conf_init.f90:146:87:
+
+  146 |             'Kl=0      # 0=new, 1=continue (CONF.HIJ+JJJ), 2=new+MBPT, 4=memory check', &
+      |                                                                                       1
+Error: Different CHARACTER lengths (72/53) in array constructor at (1)
+[ 29%] Building Fortran object src/CMakeFiles/pci_serial.dir/determinants.f90.o
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/src/conf_init.f90:159:63:
+
+  159 |         If (err_stat /= 0) Call WriteSkeleton('ci.in', skeleton)
+      |                                                               1
+Error: Symbol ‘skeleton’ at (1) has no IMPLICIT type
+/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI/src/conf_init.f90:159:63:
+
+  159 |         If (err_stat /= 0) Call WriteSkeleton('ci.in', skeleton)
+      |                                                               1
+Error: Symbol ‘skeleton’ at (1) has no IMPLICIT type
+gmake[2]: *** [src/CMakeFiles/pci_serial.dir/build.make:195: src/CMakeFiles/pci_serial.dir/conf_init.f90.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:130: src/CMakeFiles/pci_serial.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2

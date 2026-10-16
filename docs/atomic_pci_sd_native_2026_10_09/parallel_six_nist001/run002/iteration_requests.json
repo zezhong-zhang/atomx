@@ -1,0 +1,91 @@
+[
+  {
+    "task": "diagnose_complete_same_space_panel",
+    "priority_targets": [
+      {
+        "observable": "splitting",
+        "keys": [
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            -3
+          ]
+        ],
+        "relative_error": -0.09361988781717402
+      },
+      {
+        "observable": "excitation",
+        "key": [
+          5,
+          2
+        ],
+        "relative_error": 0.041412604047273115
+      },
+      {
+        "observable": "excitation",
+        "key": [
+          5,
+          -3
+        ],
+        "relative_error": 0.033799400358576426
+      },
+      {
+        "observable": "splitting",
+        "keys": [
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            -2
+          ]
+        ],
+        "relative_error": 0.031464668434879696
+      },
+      {
+        "observable": "excitation",
+        "key": [
+          6,
+          -2
+        ],
+        "relative_error": 0.011684217096506615
+      }
+    ],
+    "all_required_state_keys": [
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        -3
+      ]
+    ],
+    "physical_identity_sha256": "1a924a42bb3c2aaa7e3ff3781f3602732925c9d30f0febf306b11eb74874a2f5",
+    "hypotheses": [
+      "complete common core/valence virtual-space convergence",
+      "nonlinear and triple correlation",
+      "common Breit/QED/recoil operator coverage",
+      "nominal state mixing/character"
+    ],
+    "diagnostic_causes_proven": false,
+    "accuracy_goal_unchanged": 0.01,
+    "admission": "requires prospective complete-space source/resource contract; no solver dispatched"
+  }
+]

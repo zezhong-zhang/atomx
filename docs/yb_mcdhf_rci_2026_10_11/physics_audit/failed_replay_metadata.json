@@ -1,0 +1,12 @@
+{
+  "status": "historical diagnostic failure retained from the tool transcript",
+  "script": "replay_fock_projector.py",
+  "failure": "KeyError: 'ks'",
+  "cause": "The fake semantic replay functional used data={} and omitted the existing radial_projector_start workspace basis-order contract.",
+  "stage": "before any physics acceptance comparison",
+  "correction": "data={\"ks\": 9}, restoring the declared original unbalanced basis order",
+  "scientific_gate_changed": false,
+  "original_failed_script_frozen": false,
+  "limitation": "The exact initial failed replay script was not frozen; this is a faithful failure disposition, not a claim of full byte-for-byte failed-script replay.",
+  "successful_replay": "fock_projector_replay.json"
+}

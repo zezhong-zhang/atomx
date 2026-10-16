@@ -1,0 +1,115 @@
+{
+  "status": "prospective_before_local_site_edits",
+  "purpose": "Append exactly two qualified fixed160 virtual-construction DC controls; never claim expanded MCDHF stationarity or improved experimental aggregate gap.",
+  "site": "/home/zzhang/.local/share/atomx-nist-atlas/site",
+  "site_HEAD": "953bc52604e4720902754664db0aadfb278deebb",
+  "original_page_sha256": "4dc3ac714cd9c0e5796cb448a07df8c36d7ee505a6fa9ccbd5316182c946d47b",
+  "prechange_manifest_sha256": "0bc6202125dfcf68df7eeee6942814eb005e37b71384cf82998159ffe261b9f2",
+  "new_overlay": "dist/updates/yb-fixed160-virtual-fields.json",
+  "new_evidence_dir": "dist/evidence/yb-fixed160-virtual-fields",
+  "old_models": 14,
+  "old_rows": 56,
+  "new_models": 2,
+  "new_rows": 8,
+  "expected_total_models": 16,
+  "expected_total_rows": 64,
+  "old_gzip_payloads": 6019,
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/balanced_virtual_tracking.json": "be1c0f9b4cce77affc9c4530defb8385d1c67b99511b560756e003467f9fc1ae",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/contract.json": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/root_execution.json": "4af68c620f41f5d42020641f746a379440c6216fb0116f24ca6240ae296cec4c",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/decision.json": "92fc119c64798dffb3d5a9e2d99676365824ec60700a4218f1b21fa6491ddc82",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/virtual_construction_controls.json": "3fbdcb818f4cd959204c1092094ae98ab6529d38b085514ea3de1b4a0946ccba",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/balanced_virtual_tracking.json": "4c8f7ae6fdf352eadcdf3c6c865de705dc9d7f28fd91fc6b78b592d47d2ed40f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json": "0d552b666b446e62f6804575f8b06ea8caaf1a62da1d155d60aed996986488de",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/root_execution.json": "a558b6878856a5fc1163892324abf9119de54d354f21378dc10d1f09b3f48a44",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/decision.json": "1708a7796473ab6a9937bd88380b22f17a93fb03d253b6d2f1a8a9a88be63489",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/virtual_construction_controls.json": "ec016b5c5fb34e21d28c32d2b5be4bfb15de9ad5c6d67198a18e729c0d2b5183"
+  },
+  "frozen_source": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source",
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "fixed_conditions": {
+    "Z": 70,
+    "electrons": 69,
+    "point": "public_mixed_resume_run002/accepted_0160",
+    "old_radials": 24,
+    "expanded_radials": 29,
+    "full_declared_CSFs": 2163,
+    "complete_target_sector_CSFs": 1046,
+    "target_sectors": [
+      [
+        1,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        5,
+        1
+      ]
+    ],
+    "state_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "operator": "DC",
+    "auxiliary_screened_field": "closed68 hN+J/K; constructor only, retained many-electron Hamiltonian remains DC",
+    "original_tracker_rebased": false,
+    "no_pair_projector_changed": false,
+    "new_gradient_or_optimizer_calls": 0,
+    "expanded_stationarity_evaluated": false,
+    "original_stationarity_passed": false,
+    "inherited_residual": 4.717047646600387e-05,
+    "original_residual_gate": 1e-07,
+    "experimental_relative_goal": 0.01,
+    "Breit_QED_recoil_added": false,
+    "no_cross_point_or_correction_splice": true
+  },
+  "acceptance": [
+    "Every preexisting asset byte-identical except index.html",
+    "All14oldmodels56rows retained unchanged",
+    "Exactly2newmodels8rows with unique localNIST levelIDs and same6szero",
+    "Same-model lower/upper differences, fullphysicaltracker,centroid,splitting,RMS independently recomputed",
+    "Original1%goals and nonstationarity remain failures",
+    "Local desktop/mobile interaction,source downloads,oldfallback and NISTnavigation pass; noJS errors",
+    "Hosting identity/audience/config byte-preserved; no publication/push/deploy"
+  ],
+  "resources": {
+    "preparation_and_data_validation": {
+      "CPU": 1,
+      "memory_GiB": 2,
+      "elapsed_cap_s": 180
+    },
+    "browser": {
+      "existing_cached_Playwright_only": true,
+      "no_install": true,
+      "elapsed_cap_s": 90,
+      "local_loopback": true
+    }
+  },
+  "scientific_calls": 0,
+  "external_backend_calls": 0,
+  "publication_performed": false,
+  "root_publication_review_required": true
+}

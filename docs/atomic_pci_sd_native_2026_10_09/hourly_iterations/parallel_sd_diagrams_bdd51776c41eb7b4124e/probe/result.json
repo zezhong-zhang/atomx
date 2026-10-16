@@ -1,0 +1,915 @@
+{
+  "status": "passed",
+  "gates": {
+    "dc": {
+      "scalar_metric_max": 8.881784197001252e-16,
+      "source_full_signed_max_Ha": 1.3877787807814457e-17,
+      "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+      "hh_all_directions_max_Ha": 1.3322676295501878e-15,
+      "hh_normal_ordered_reference_max_Ha": 0.0,
+      "signed_pp_max_Ha": 3.1031676915590914e-17,
+      "signed_hh_max_Ha": 2.618455766672135e-16,
+      "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+      "preserved_fock_max_Ha": 0.0,
+      "preserved_one_body_max_Ha": 0.0,
+      "preserved_reference_error_Ha": 0.0,
+      "preserved_frozen_scalar_error_Ha": 0.0
+    },
+    "static": {
+      "scalar_metric_max": 8.881784197001252e-16,
+      "source_full_signed_max_Ha": 1.3877787807814457e-17,
+      "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+      "hh_all_directions_max_Ha": 8.326672684688674e-16,
+      "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+      "signed_pp_max_Ha": 3.1031676915590914e-17,
+      "signed_hh_max_Ha": 1.3877787807814457e-16,
+      "linked_doubles_energy_error_Ha": 0.0,
+      "preserved_fock_max_Ha": 0.0,
+      "preserved_one_body_max_Ha": 0.0,
+      "preserved_reference_error_Ha": 0.0,
+      "preserved_frozen_scalar_error_Ha": 0.0
+    },
+    "dynamic": {
+      "scalar_metric_max": 8.881784197001252e-16,
+      "source_full_signed_max_Ha": 1.3877787807814457e-17,
+      "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+      "hh_all_directions_max_Ha": 9.43689570931383e-16,
+      "hh_normal_ordered_reference_max_Ha": 0.0,
+      "signed_pp_max_Ha": 2.501853776554201e-17,
+      "signed_hh_max_Ha": 1.8619006149354548e-16,
+      "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+      "preserved_fock_max_Ha": 0.0,
+      "preserved_one_body_max_Ha": 0.0,
+      "preserved_reference_error_Ha": 0.0,
+      "preserved_frozen_scalar_error_Ha": 0.0
+    },
+    "complex_phase": {
+      "scalar_metric_max": 8.881784197001252e-16,
+      "source_full_signed_max_Ha": 1.3877787807814457e-17,
+      "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+      "hh_all_directions_max_Ha": 8.881784197001252e-16,
+      "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+      "signed_pp_max_Ha": 3.1031676915590914e-17,
+      "signed_hh_max_Ha": 2.0014830212433607e-16,
+      "linked_doubles_energy_error_Ha": 3.878959614448864e-18,
+      "preserved_fock_max_Ha": 0.0,
+      "preserved_one_body_max_Ha": 0.0,
+      "preserved_reference_error_Ha": 0.0,
+      "preserved_frozen_scalar_error_Ha": 0.0
+    }
+  },
+  "highest_level_reached": false,
+  "native_scalable_sd_transverse_complete": false,
+  "card_summary": "\u539f\u751f signed J/parity SD \u5df2\u5b9e\u9645\u6d88\u8d39\u5b8c\u6574 doubles source\uff0bPP\uff0bnormal-ordered HH \u56fe\u96c6\uff1bDC/static/dynamic/\u590d\u76f8\u4f4d\u5728\u5168\u90e8 10 doubles\u3001495 \u4e2a\u56db\u7535\u5b50\u884c\u5217\u5f0f\u72ec\u7acb Fermi action \u4e0b\u901a\u8fc7 1e-11 Ha \u95e8\u3002\u4fdd\u7559 noncanonical Fock/reference\uff0cnative_scalable_sd_transverse_complete=false\uff1b\u5269\u4f59 core/Fock/singles/ring\u3001valence\u3001Sigma2 \u56fe\u9879\u672a\u5b8c\u6210\u3002",
+  "cases": {
+    "dc": {
+      "gates": {
+        "scalar_metric_max": 8.881784197001252e-16,
+        "source_full_signed_max_Ha": 1.3877787807814457e-17,
+        "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+        "hh_all_directions_max_Ha": 1.3322676295501878e-15,
+        "hh_normal_ordered_reference_max_Ha": 0.0,
+        "signed_pp_max_Ha": 3.1031676915590914e-17,
+        "signed_hh_max_Ha": 2.618455766672135e-16,
+        "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+        "preserved_fock_max_Ha": 0.0,
+        "preserved_one_body_max_Ha": 0.0,
+        "preserved_reference_error_Ha": 0.0,
+        "preserved_frozen_scalar_error_Ha": 0.0
+      },
+      "bridge_gates": {
+        "complete_magnetic_eri_max_Ha": 1.7763568394002505e-15,
+        "scalar_one_body_max_Ha": 8.881784197001252e-16,
+        "fock_contraction_max_Ha": 2.220446049250313e-15,
+        "reference_energy_error_Ha": 5.329070518200751e-15,
+        "pair_norm_error": 4.440892098500626e-16,
+        "hermitian_max_Ha": 1.3877787807814457e-17,
+        "tolerance_Ha": 1e-11
+      },
+      "interaction_identity": {
+        "representation": "normalized antisymmetric J-pair blocks",
+        "spinor_integral_identity": {
+          "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+          "frozen_keys": [],
+          "hamiltonian": "Dirac-Coulomb",
+          "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+          "integral_bytes": 43504,
+          "metric_error": 2.220446049250313e-15,
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "physical_source_sha256": {
+            "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+            "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+            "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+            "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046"
+          },
+          "radial_pair_cache_size": 1024,
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              -2
+            ]
+          ]
+        },
+        "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+        "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+        "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+        "input_sha256": "9c30a6e4e40d99d0dc33adec7a9bd97d28c6f089a77ac408b8e88949e402a419"
+      },
+      "full_four_electron_dimension": 495,
+      "scalar_doubles": 10,
+      "noncanonical_fov_max_Ha": 0.054683349647129995,
+      "complete_subgraph_plan": {
+        "scalar_doubles": 10,
+        "pp_entries": 10,
+        "hh_entries": 10,
+        "batch": 1,
+        "working_numeric_payload_bound_bytes": 1600,
+        "multiply_add_bound": 56,
+        "scope": "complete source and PP/HH diagrams only; excludes owned J integral payload and interpreter RSS"
+      },
+      "provenance": {
+        "interaction_identity": {
+          "representation": "normalized antisymmetric J-pair blocks",
+          "spinor_integral_identity": {
+            "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+            "frozen_keys": [],
+            "hamiltonian": "Dirac-Coulomb",
+            "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+            "integral_bytes": 43504,
+            "metric_error": 2.220446049250313e-15,
+            "occupied_keys": [
+              [
+                1,
+                -1
+              ],
+              [
+                2,
+                -1
+              ]
+            ],
+            "physical_source_sha256": {
+              "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+              "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+              "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+              "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046"
+            },
+            "radial_pair_cache_size": 1024,
+            "virtual_keys": [
+              [
+                3,
+                -1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                -2
+              ]
+            ]
+          },
+          "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+          "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+          "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+          "input_sha256": "9c30a6e4e40d99d0dc33adec7a9bd97d28c6f089a77ac408b8e88949e402a419"
+        },
+        "normal_ordering": "all-occupied HH uses core normal-ordered V; all-virtual PP has no occupied contraction",
+        "coordinate_metric": "orthonormal scalar paired T2 excitation states",
+        "implemented_diagrams": [
+          "complete scalar doubles source",
+          "complete particle-particle ladder",
+          "complete hole-hole ladder",
+          "linked doubles energy contraction"
+        ],
+        "remaining": "Fock/singles/mixed-rank/ring and remaining core terms; valence and Sigma2; no complete SD solve",
+        "highest_level_reached": false
+      }
+    },
+    "static": {
+      "gates": {
+        "scalar_metric_max": 8.881784197001252e-16,
+        "source_full_signed_max_Ha": 1.3877787807814457e-17,
+        "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+        "hh_all_directions_max_Ha": 8.326672684688674e-16,
+        "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+        "signed_pp_max_Ha": 3.1031676915590914e-17,
+        "signed_hh_max_Ha": 1.3877787807814457e-16,
+        "linked_doubles_energy_error_Ha": 0.0,
+        "preserved_fock_max_Ha": 0.0,
+        "preserved_one_body_max_Ha": 0.0,
+        "preserved_reference_error_Ha": 0.0,
+        "preserved_frozen_scalar_error_Ha": 0.0
+      },
+      "bridge_gates": {
+        "complete_magnetic_eri_max_Ha": 1.7763568394002505e-15,
+        "scalar_one_body_max_Ha": 8.881784197001252e-16,
+        "fock_contraction_max_Ha": 2.6645352591003757e-15,
+        "reference_energy_error_Ha": 5.329070518200751e-15,
+        "pair_norm_error": 4.440892098500626e-16,
+        "hermitian_max_Ha": 2.7755575615628914e-17,
+        "tolerance_Ha": 1e-11
+      },
+      "interaction_identity": {
+        "representation": "normalized antisymmetric J-pair blocks",
+        "spinor_integral_identity": {
+          "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+          "breit_frequency": "static",
+          "frozen_keys": [],
+          "hamiltonian": "Dirac-Coulomb-Breit",
+          "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+          "integral_bytes": 43504,
+          "metric_error": 2.220446049250313e-15,
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "orbital_relaxation": false,
+          "physical_source_sha256": {
+            "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+            "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+            "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+            "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+            "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+            "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+            "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+            "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41"
+          },
+          "radial_pair_cache_size": 1024,
+          "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+          "transverse_cache_size": 128,
+          "transverse_retained_array_bound_bytes": 2064384,
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              -2
+            ]
+          ]
+        },
+        "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+        "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+        "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+        "input_sha256": "011d450ebaae54512855dd90798b5fdafdb9e14e340582b5df6b880f5a234b74"
+      },
+      "full_four_electron_dimension": 495,
+      "scalar_doubles": 10,
+      "noncanonical_fov_max_Ha": 0.05469765696396682,
+      "complete_subgraph_plan": {
+        "scalar_doubles": 10,
+        "pp_entries": 10,
+        "hh_entries": 10,
+        "batch": 1,
+        "working_numeric_payload_bound_bytes": 1600,
+        "multiply_add_bound": 56,
+        "scope": "complete source and PP/HH diagrams only; excludes owned J integral payload and interpreter RSS"
+      },
+      "provenance": {
+        "interaction_identity": {
+          "representation": "normalized antisymmetric J-pair blocks",
+          "spinor_integral_identity": {
+            "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+            "breit_frequency": "static",
+            "frozen_keys": [],
+            "hamiltonian": "Dirac-Coulomb-Breit",
+            "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+            "integral_bytes": 43504,
+            "metric_error": 2.220446049250313e-15,
+            "occupied_keys": [
+              [
+                1,
+                -1
+              ],
+              [
+                2,
+                -1
+              ]
+            ],
+            "orbital_relaxation": false,
+            "physical_source_sha256": {
+              "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+              "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+              "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+              "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+              "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+              "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+              "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+              "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41"
+            },
+            "radial_pair_cache_size": 1024,
+            "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+            "transverse_cache_size": 128,
+            "transverse_retained_array_bound_bytes": 2064384,
+            "virtual_keys": [
+              [
+                3,
+                -1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                -2
+              ]
+            ]
+          },
+          "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+          "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+          "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+          "input_sha256": "011d450ebaae54512855dd90798b5fdafdb9e14e340582b5df6b880f5a234b74"
+        },
+        "normal_ordering": "all-occupied HH uses core normal-ordered V; all-virtual PP has no occupied contraction",
+        "coordinate_metric": "orthonormal scalar paired T2 excitation states",
+        "implemented_diagrams": [
+          "complete scalar doubles source",
+          "complete particle-particle ladder",
+          "complete hole-hole ladder",
+          "linked doubles energy contraction"
+        ],
+        "remaining": "Fock/singles/mixed-rank/ring and remaining core terms; valence and Sigma2; no complete SD solve",
+        "highest_level_reached": false
+      }
+    },
+    "dynamic": {
+      "gates": {
+        "scalar_metric_max": 8.881784197001252e-16,
+        "source_full_signed_max_Ha": 1.3877787807814457e-17,
+        "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+        "hh_all_directions_max_Ha": 9.43689570931383e-16,
+        "hh_normal_ordered_reference_max_Ha": 0.0,
+        "signed_pp_max_Ha": 2.501853776554201e-17,
+        "signed_hh_max_Ha": 1.8619006149354548e-16,
+        "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+        "preserved_fock_max_Ha": 0.0,
+        "preserved_one_body_max_Ha": 0.0,
+        "preserved_reference_error_Ha": 0.0,
+        "preserved_frozen_scalar_error_Ha": 0.0
+      },
+      "bridge_gates": {
+        "complete_magnetic_eri_max_Ha": 1.7763568394002505e-15,
+        "scalar_one_body_max_Ha": 0.0,
+        "fock_contraction_max_Ha": 2.6645352591003757e-15,
+        "reference_energy_error_Ha": 3.552713678800501e-15,
+        "pair_norm_error": 4.440892098500626e-16,
+        "hermitian_max_Ha": 1.3877787807814457e-17,
+        "tolerance_Ha": 1e-11
+      },
+      "interaction_identity": {
+        "representation": "normalized antisymmetric J-pair blocks",
+        "spinor_integral_identity": {
+          "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+          "breit_frequency": "orbital_differences",
+          "frequency_prescription": "symmetric-two-vertex-orbital-differences",
+          "frozen_keys": [],
+          "hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+          "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+          "integral_bytes": 43504,
+          "metric_error": 2.220446049250313e-15,
+          "note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms.",
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "orbital_energies_Ha": [
+            {
+              "energy": -4.607806076663838,
+              "kappa": -1,
+              "n": 1
+            },
+            {
+              "energy": 0.17546413670028715,
+              "kappa": -2,
+              "n": 2
+            },
+            {
+              "energy": -0.2699981900584121,
+              "kappa": -1,
+              "n": 2
+            },
+            {
+              "energy": 0.17532894983766534,
+              "kappa": 1,
+              "n": 2
+            },
+            {
+              "energy": 0.12295405152960925,
+              "kappa": -1,
+              "n": 3
+            }
+          ],
+          "orbital_relaxation": false,
+          "physical_source_sha256": {
+            "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+            "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+            "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+            "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+            "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+            "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+            "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+            "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41"
+          },
+          "radial_pair_cache_size": 1024,
+          "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+          "transverse_cache_size": 128,
+          "transverse_retained_array_bound_bytes": 2064384,
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              -2
+            ]
+          ]
+        },
+        "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+        "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+        "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+        "input_sha256": "10fe562d6150caebed0d585c046e28c9f35a09253f08e1cfbcb0e92b142605da"
+      },
+      "full_four_electron_dimension": 495,
+      "scalar_doubles": 10,
+      "noncanonical_fov_max_Ha": 0.054697657468389324,
+      "complete_subgraph_plan": {
+        "scalar_doubles": 10,
+        "pp_entries": 10,
+        "hh_entries": 10,
+        "batch": 1,
+        "working_numeric_payload_bound_bytes": 1600,
+        "multiply_add_bound": 56,
+        "scope": "complete source and PP/HH diagrams only; excludes owned J integral payload and interpreter RSS"
+      },
+      "provenance": {
+        "interaction_identity": {
+          "representation": "normalized antisymmetric J-pair blocks",
+          "spinor_integral_identity": {
+            "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+            "breit_frequency": "orbital_differences",
+            "frequency_prescription": "symmetric-two-vertex-orbital-differences",
+            "frozen_keys": [],
+            "hamiltonian": "Dirac-Coulomb + real finite-frequency transverse exchange",
+            "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+            "integral_bytes": 43504,
+            "metric_error": 2.220446049250313e-15,
+            "note": "Real Coulomb-gauge one-photon exchange on fixed spinors; replaces static Breit. No finite-frequency orbital relaxation, absorptive interaction or higher-order QED terms.",
+            "occupied_keys": [
+              [
+                1,
+                -1
+              ],
+              [
+                2,
+                -1
+              ]
+            ],
+            "orbital_energies_Ha": [
+              {
+                "energy": -4.607806076663838,
+                "kappa": -1,
+                "n": 1
+              },
+              {
+                "energy": 0.17546413670028715,
+                "kappa": -2,
+                "n": 2
+              },
+              {
+                "energy": -0.2699981900584121,
+                "kappa": -1,
+                "n": 2
+              },
+              {
+                "energy": 0.17532894983766534,
+                "kappa": 1,
+                "n": 2
+              },
+              {
+                "energy": 0.12295405152960925,
+                "kappa": -1,
+                "n": 3
+              }
+            ],
+            "orbital_relaxation": false,
+            "physical_source_sha256": {
+              "breit_ci.py": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+              "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+              "helmholtz.py": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+              "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+              "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+              "retardation.py": "1ae18b4d2caee02924338128e6f8c2520158118944340996a74d78c7d27888d3",
+              "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+              "transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41"
+            },
+            "radial_pair_cache_size": 1024,
+            "transverse_application": "signed ERI, frozen/core ledger and Fock; no scalar addition",
+            "transverse_cache_size": 128,
+            "transverse_retained_array_bound_bytes": 2064384,
+            "virtual_keys": [
+              [
+                3,
+                -1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                -2
+              ]
+            ]
+          },
+          "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+          "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+          "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+          "input_sha256": "10fe562d6150caebed0d585c046e28c9f35a09253f08e1cfbcb0e92b142605da"
+        },
+        "normal_ordering": "all-occupied HH uses core normal-ordered V; all-virtual PP has no occupied contraction",
+        "coordinate_metric": "orthonormal scalar paired T2 excitation states",
+        "implemented_diagrams": [
+          "complete scalar doubles source",
+          "complete particle-particle ladder",
+          "complete hole-hole ladder",
+          "linked doubles energy contraction"
+        ],
+        "remaining": "Fock/singles/mixed-rank/ring and remaining core terms; valence and Sigma2; no complete SD solve",
+        "highest_level_reached": false
+      }
+    },
+    "complex_phase": {
+      "gates": {
+        "scalar_metric_max": 8.881784197001252e-16,
+        "source_full_signed_max_Ha": 1.3877787807814457e-17,
+        "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+        "hh_all_directions_max_Ha": 8.881784197001252e-16,
+        "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+        "signed_pp_max_Ha": 3.1031676915590914e-17,
+        "signed_hh_max_Ha": 2.0014830212433607e-16,
+        "linked_doubles_energy_error_Ha": 3.878959614448864e-18,
+        "preserved_fock_max_Ha": 0.0,
+        "preserved_one_body_max_Ha": 0.0,
+        "preserved_reference_error_Ha": 0.0,
+        "preserved_frozen_scalar_error_Ha": 0.0
+      },
+      "bridge_gates": {
+        "complete_magnetic_eri_max_Ha": 1.7763568394002505e-15,
+        "scalar_one_body_max_Ha": 8.881784197001252e-16,
+        "fock_contraction_max_Ha": 2.6645713989277045e-15,
+        "reference_energy_error_Ha": 7.105427357601002e-15,
+        "pair_norm_error": 4.440892098500626e-16,
+        "hermitian_max_Ha": 5.551115123125785e-17,
+        "tolerance_Ha": 1e-11
+      },
+      "interaction_identity": {
+        "representation": "normalized antisymmetric J-pair blocks",
+        "spinor_integral_identity": {
+          "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+          "frozen_keys": [],
+          "hamiltonian": "Dirac-Coulomb",
+          "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+          "integral_bytes": 43504,
+          "metric_error": 2.220446049250313e-15,
+          "occupied_keys": [
+            [
+              1,
+              -1
+            ],
+            [
+              2,
+              -1
+            ]
+          ],
+          "physical_source_sha256": {
+            "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+            "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+            "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+            "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046"
+          },
+          "radial_pair_cache_size": 1024,
+          "virtual_keys": [
+            [
+              3,
+              -1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              -2
+            ]
+          ]
+        },
+        "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+        "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+        "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+        "input_sha256": "0327a74031ca6ab7869ca3fd6dad6dbabd58a27c5e00c2071f0bb22d19503231"
+      },
+      "full_four_electron_dimension": 495,
+      "scalar_doubles": 10,
+      "noncanonical_fov_max_Ha": 0.05468334964713,
+      "complete_subgraph_plan": {
+        "scalar_doubles": 10,
+        "pp_entries": 10,
+        "hh_entries": 10,
+        "batch": 1,
+        "working_numeric_payload_bound_bytes": 1600,
+        "multiply_add_bound": 56,
+        "scope": "complete source and PP/HH diagrams only; excludes owned J integral payload and interpreter RSS"
+      },
+      "provenance": {
+        "interaction_identity": {
+          "representation": "normalized antisymmetric J-pair blocks",
+          "spinor_integral_identity": {
+            "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'd9f8511af4ff89bde30e5d2c49bf5f3468a8bc2e8feda3169926e16790c0b860', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'), ((2, -1), '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf')), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+            "frozen_keys": [],
+            "hamiltonian": "Dirac-Coulomb",
+            "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+            "integral_bytes": 43504,
+            "metric_error": 2.220446049250313e-15,
+            "occupied_keys": [
+              [
+                1,
+                -1
+              ],
+              [
+                2,
+                -1
+              ]
+            ],
+            "physical_source_sha256": {
+              "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+              "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+              "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+              "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046"
+            },
+            "radial_pair_cache_size": 1024,
+            "virtual_keys": [
+              [
+                3,
+                -1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                -2
+              ]
+            ]
+          },
+          "pair_phase": "Condon--Shortley CG; input spinor creation order; equal-radial 1/sqrt(2)",
+          "normal_ordering": "h_eff=F-sum_occupied g; frozen constant retained exactly once",
+          "operator_coverage": "same complete signed spinor Hamiltonian; existing pCI SD diagrams remain DC-only",
+          "input_sha256": "0327a74031ca6ab7869ca3fd6dad6dbabd58a27c5e00c2071f0bb22d19503231"
+        },
+        "normal_ordering": "all-occupied HH uses core normal-ordered V; all-virtual PP has no occupied contraction",
+        "coordinate_metric": "orthonormal scalar paired T2 excitation states",
+        "implemented_diagrams": [
+          "complete scalar doubles source",
+          "complete particle-particle ladder",
+          "complete hole-hole ladder",
+          "linked doubles energy contraction"
+        ],
+        "remaining": "Fock/singles/mixed-rank/ring and remaining core terms; valence and Sigma2; no complete SD solve",
+        "highest_level_reached": false
+      }
+    }
+  },
+  "resource_refusal_passed": true,
+  "source_unchanged": true,
+  "source_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/contract.json": "ffe4ffb4205cb702dfbe17a122a834245601395037effe475a06b3563d6f9236",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/payload.py": "df270d64833a9d5f2ec16a2a9890edb5ce598ecf28701d7bc1a4ffa488ae7ee8",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/probe.py": "eed76157283b0655bd53d938e93ea954ac9aabe3ed028cde0bf1736dbe2d24a2",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/reference/allcore-ci.f": "c39f88b2228ef213eb4a1e860d1bdeadaffe9bceea2537426e312ddf3642c213",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/reference/identity.json": "80465c38575d414b04db148594a1e4a7b148902afdb0212fb9862d480df422da",
+    "src/atomx/__init__.py": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3",
+    "src/atomx/angular/__init__.py": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+    "src/atomx/angular/clebsch.py": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd",
+    "src/atomx/angular/coefficients.py": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+    "src/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/angular/csf_recoupling.py": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035",
+    "src/atomx/angular/ls_coupling.py": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+    "src/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+    "src/atomx/angular/rcfp.py": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd",
+    "src/atomx/angular/recoupling.py": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+    "src/atomx/angular/wigner.py": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+    "src/atomx/compare.py": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c",
+    "src/atomx/config/__init__.py": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3",
+    "src/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "src/atomx/config/parsing.py": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+    "src/atomx/config/subshell.py": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+    "src/atomx/constants.py": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+    "src/atomx/corrections/__init__.py": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081",
+    "src/atomx/corrections/adapters.py": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d",
+    "src/atomx/corrections/breit.py": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596",
+    "src/atomx/corrections/protocol.py": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce",
+    "src/atomx/corrections/qed.py": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+    "src/atomx/corrections/qedmod/__init__.py": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951",
+    "src/atomx/corrections/qedmod/base.py": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30",
+    "src/atomx/corrections/qedmod/flambaum_ginges.py": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280",
+    "src/atomx/corrections/qedmod/indelicato.py": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d",
+    "src/atomx/corrections/qedmod/mohr.py": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7",
+    "src/atomx/corrections/qedmod/shabaev.py": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+    "src/atomx/corrections/qedmod/welton.py": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a",
+    "src/atomx/corrections/stack.py": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+    "src/atomx/data/__init__.py": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d",
+    "src/atomx/data/flambaum_ginges.py": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839",
+    "src/atomx/data/hyperfine_presets.py": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc",
+    "src/atomx/data/mohr_se.py": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c",
+    "src/atomx/methods/__init__.py": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+    "src/atomx/methods/base.py": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95",
+    "src/atomx/methods/breit_pauli.py": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208",
+    "src/atomx/methods/ci.py": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e",
+    "src/atomx/methods/csf/__init__.py": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0",
+    "src/atomx/methods/csf/solver.py": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82",
+    "src/atomx/methods/dirac_fock.py": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+    "src/atomx/methods/hartree_fock_slater.py": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4",
+    "src/atomx/methods/hydrogenic.py": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942",
+    "src/atomx/methods/linearized_sd.py": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548",
+    "src/atomx/methods/mbpt.py": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+    "src/atomx/methods/mcdhf/__init__.py": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+    "src/atomx/methods/mcdhf/solver.py": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c",
+    "src/atomx/methods/scf_observables.py": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739",
+    "src/atomx/methods/sd_pair_diagrams.py": "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2",
+    "src/atomx/methods/sd_transverse.py": "1a0523c24dfa8bd27668b393744f2531cb379fd4b76bae03af36f3ed8f92ae40",
+    "src/atomx/numerics/__init__.py": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125",
+    "src/atomx/numerics/bspline/__init__.py": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9",
+    "src/atomx/numerics/bspline/basis.py": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb",
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "src/atomx/numerics/bspline/coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43",
+    "src/atomx/numerics/bspline/dirac_assembly.py": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+    "src/atomx/numerics/bspline/evaluate.py": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059",
+    "src/atomx/numerics/bspline/integrals.py": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c",
+    "src/atomx/numerics/bspline/knots.py": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a",
+    "src/atomx/numerics/diis.py": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37",
+    "src/atomx/numerics/quadrature.py": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021",
+    "src/atomx/numerics/radial_metric.py": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4",
+    "src/atomx/numerics/radial_workspace.py": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21",
+    "src/atomx/numerics/shooting/__init__.py": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01",
+    "src/atomx/numerics/shooting/constants.py": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643",
+    "src/atomx/numerics/shooting/coulomb.py": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158",
+    "src/atomx/numerics/shooting/electron_space.py": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2",
+    "src/atomx/numerics/shooting/operators.py": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d",
+    "src/atomx/numerics/shooting/quadrature.py": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a",
+    "src/atomx/numerics/shooting/spline.py": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e",
+    "src/atomx/numerics/yk.py": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8",
+    "src/atomx/physics/__init__.py": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c",
+    "src/atomx/physics/base.py": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be",
+    "src/atomx/physics/csf/__init__.py": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450",
+    "src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "src/atomx/physics/dirac.py": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c",
+    "src/atomx/physics/schrodinger.py": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d",
+    "src/atomx/radial_state.py": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de",
+    "src/atomx/types.py": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d",
+    "tests/test_sd_pair_diagrams.py": "7ae258a137cd4bef2f9383ff7679a6f0368f9a6511abfafac1746d6c4428faa6"
+  },
+  "source_files": [
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/contract.json",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/payload.py",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/probe.py",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/reference/allcore-ci.f",
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/reference/identity.json",
+    "src/atomx/__init__.py",
+    "src/atomx/angular/__init__.py",
+    "src/atomx/angular/clebsch.py",
+    "src/atomx/angular/coefficients.py",
+    "src/atomx/angular/csf_hamiltonian.py",
+    "src/atomx/angular/csf_recoupling.py",
+    "src/atomx/angular/ls_coupling.py",
+    "src/atomx/angular/mscheme.py",
+    "src/atomx/angular/rcfp.py",
+    "src/atomx/angular/recoupling.py",
+    "src/atomx/angular/wigner.py",
+    "src/atomx/compare.py",
+    "src/atomx/config/__init__.py",
+    "src/atomx/config/csf.py",
+    "src/atomx/config/parsing.py",
+    "src/atomx/config/subshell.py",
+    "src/atomx/constants.py",
+    "src/atomx/corrections/__init__.py",
+    "src/atomx/corrections/adapters.py",
+    "src/atomx/corrections/breit.py",
+    "src/atomx/corrections/protocol.py",
+    "src/atomx/corrections/qed.py",
+    "src/atomx/corrections/qedmod/__init__.py",
+    "src/atomx/corrections/qedmod/base.py",
+    "src/atomx/corrections/qedmod/flambaum_ginges.py",
+    "src/atomx/corrections/qedmod/indelicato.py",
+    "src/atomx/corrections/qedmod/mohr.py",
+    "src/atomx/corrections/qedmod/shabaev.py",
+    "src/atomx/corrections/qedmod/welton.py",
+    "src/atomx/corrections/stack.py",
+    "src/atomx/data/__init__.py",
+    "src/atomx/data/flambaum_ginges.py",
+    "src/atomx/data/hyperfine_presets.py",
+    "src/atomx/data/mohr_se.py",
+    "src/atomx/methods/__init__.py",
+    "src/atomx/methods/base.py",
+    "src/atomx/methods/breit_pauli.py",
+    "src/atomx/methods/ci.py",
+    "src/atomx/methods/csf/__init__.py",
+    "src/atomx/methods/csf/solver.py",
+    "src/atomx/methods/dirac_fock.py",
+    "src/atomx/methods/hartree_fock_slater.py",
+    "src/atomx/methods/hydrogenic.py",
+    "src/atomx/methods/linearized_sd.py",
+    "src/atomx/methods/mbpt.py",
+    "src/atomx/methods/mcdhf/__init__.py",
+    "src/atomx/methods/mcdhf/solver.py",
+    "src/atomx/methods/scf_observables.py",
+    "src/atomx/methods/sd_pair_diagrams.py",
+    "src/atomx/methods/sd_transverse.py",
+    "src/atomx/numerics/__init__.py",
+    "src/atomx/numerics/bspline/__init__.py",
+    "src/atomx/numerics/bspline/basis.py",
+    "src/atomx/numerics/bspline/convol.py",
+    "src/atomx/numerics/bspline/coulomb_features.py",
+    "src/atomx/numerics/bspline/dirac_assembly.py",
+    "src/atomx/numerics/bspline/evaluate.py",
+    "src/atomx/numerics/bspline/integrals.py",
+    "src/atomx/numerics/bspline/knots.py",
+    "src/atomx/numerics/diis.py",
+    "src/atomx/numerics/quadrature.py",
+    "src/atomx/numerics/radial_metric.py",
+    "src/atomx/numerics/radial_workspace.py",
+    "src/atomx/numerics/shooting/__init__.py",
+    "src/atomx/numerics/shooting/constants.py",
+    "src/atomx/numerics/shooting/coulomb.py",
+    "src/atomx/numerics/shooting/electron_space.py",
+    "src/atomx/numerics/shooting/operators.py",
+    "src/atomx/numerics/shooting/quadrature.py",
+    "src/atomx/numerics/shooting/spline.py",
+    "src/atomx/numerics/yk.py",
+    "src/atomx/physics/__init__.py",
+    "src/atomx/physics/base.py",
+    "src/atomx/physics/csf/__init__.py",
+    "src/atomx/physics/csf/matrix.py",
+    "src/atomx/physics/csf/spinor_integrals.py",
+    "src/atomx/physics/dirac.py",
+    "src/atomx/physics/schrodinger.py",
+    "src/atomx/radial_state.py",
+    "src/atomx/types.py",
+    "tests/test_sd_pair_diagrams.py"
+  ],
+  "input_files": [
+    "docs/atomic_pci_sd_native_2026_10_09/parallel_six_sd_diagrams001/inputs.npz"
+  ],
+  "input_sha256": "bb83f71005f99d4662554822c648c1c0658fd101cd019e1119ceae4fccc48667",
+  "arrays_sha256": "da9a37a0857b3a5d2374e6474c0f2873da816cffc2932d524a2aec4ec92ec8bf",
+  "caps": {
+    "address_bytes": 4294967296,
+    "cpu_seconds": 120,
+    "threads": 1
+  },
+  "observed_wall_seconds": 0.5716321209911257,
+  "process_peak_rss_bytes": 218509312,
+  "performance_claim": "uncontrolled bounded observation; no large-scale all-SD, speedup or accuracy extrapolation"
+}

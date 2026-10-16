@@ -1,0 +1,82 @@
+[
+  {
+    "case": "coarse_l6_e200",
+    "virtual_spin_orbitals": 6780,
+    "core_singles_dimension": 1299,
+    "core_J0_doubles_dimension": 49889232,
+    "one_core_SD_real_vector_GiB": 0.37171342223882675,
+    "unadapted_mscheme_doubles_upper_count": 52350285180,
+    "EA_sector": {
+      "6s_1/2": {
+        "one_particle_dimension": 68,
+        "two_particle_one_hole_dimension": 3318593,
+        "one_real_vector_GiB": 0.02472595125436783,
+        "dense_QQ_real_GiB": 82053.68742085248
+      },
+      "5d_3/2": {
+        "one_particle_dimension": 69,
+        "two_particle_one_hole_dimension": 6158378,
+        "one_real_vector_GiB": 0.04588400572538376,
+        "dense_QQ_real_GiB": 282567.88545015454
+      },
+      "5d_5/2": {
+        "one_particle_dimension": 69,
+        "two_particle_one_hole_dimension": 8218717,
+        "one_real_vector_GiB": 0.0612347275018692,
+        "dense_QQ_real_GiB": 503266.6707492545
+      },
+      "6p_1/2": {
+        "one_particle_dimension": 68,
+        "two_particle_one_hole_dimension": 3323290,
+        "one_real_vector_GiB": 0.02476094663143158,
+        "dense_QQ_real_GiB": 82286.1226208508
+      },
+      "6p_3/2": {
+        "one_particle_dimension": 68,
+        "two_particle_one_hole_dimension": 6173219,
+        "one_real_vector_GiB": 0.04599457234144211,
+        "dense_QQ_real_GiB": 283931.4402785972
+      }
+    }
+  },
+  {
+    "case": "fine_l6_e200",
+    "virtual_spin_orbitals": 12738,
+    "core_singles_dimension": 2457,
+    "core_J0_doubles_dimension": 176297642,
+    "one_core_SD_real_vector_GiB": 1.31353809684515,
+    "unadapted_mscheme_doubles_upper_count": 184795808934,
+    "EA_sector": {
+      "6s_1/2": {
+        "one_particle_dimension": 129,
+        "two_particle_one_hole_dimension": 11733474,
+        "one_real_vector_GiB": 0.08742215484380722,
+        "dense_QQ_real_GiB": 1025754.3035497963
+      },
+      "5d_3/2": {
+        "one_particle_dimension": 130,
+        "two_particle_one_hole_dimension": 21766872,
+        "one_real_vector_GiB": 0.16217680275440216,
+        "dense_QQ_real_GiB": 3530060.624065876
+      },
+      "5d_5/2": {
+        "one_particle_dimension": 130,
+        "two_particle_one_hole_dimension": 29036932,
+        "one_real_vector_GiB": 0.2163429707288742,
+        "dense_QQ_real_GiB": 6281908.005272031
+      },
+      "6p_1/2": {
+        "one_particle_dimension": 129,
+        "two_particle_one_hole_dimension": 11749990,
+        "one_real_vector_GiB": 0.08754520863294601,
+        "dense_QQ_real_GiB": 1028644.0327771008
+      },
+      "6p_3/2": {
+        "one_particle_dimension": 129,
+        "two_particle_one_hole_dimension": 21818493,
+        "one_real_vector_GiB": 0.16256140172481537,
+        "dense_QQ_real_GiB": 3546823.8353062347
+      }
+    }
+  }
+]

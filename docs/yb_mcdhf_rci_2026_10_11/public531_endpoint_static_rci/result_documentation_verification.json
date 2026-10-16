@@ -1,0 +1,120 @@
+{
+  "all_passed": true,
+  "scope": "New result documentation factual/link/immutable-preparation review; no physical calls",
+  "checks_count": 24,
+  "checks": [
+    {
+      "name": "frozen_preparation:run.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:verify_arrays.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:contract.json",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:preflight.json",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:documentation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:README.md",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:verify_preparation.py",
+      "passed": true
+    },
+    {
+      "name": "frozen_preparation:trace.md",
+      "passed": true
+    },
+    {
+      "name": "link:README.md",
+      "passed": true
+    },
+    {
+      "name": "link:saved_array_verification.json",
+      "passed": true
+    },
+    {
+      "name": "link:../public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "link:arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "link:execution_contract.json",
+      "passed": true
+    },
+    {
+      "name": "link:result.json",
+      "passed": true
+    },
+    {
+      "name": "link:card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "link:completion.json",
+      "passed": true
+    },
+    {
+      "name": "link:card_evidence_verified.json",
+      "passed": true
+    },
+    {
+      "name": "link:../../rare_earth_yb_spectrum_2026_10_08/experimental_reference.json",
+      "passed": true
+    },
+    {
+      "name": "documented_row:5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "documented_row:5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "documented_row:6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "documented_row:6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "stationarity_failure_explicit",
+      "passed": true
+    }
+  ],
+  "evidence_sha256": {
+    "result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "arrays.npz": "a5d3f3f5c3f27cee1c8f70531c247e8deb9ed7a77a3f75034754a9c30c88691e",
+    "card_evidence.json": "28ebe43c9e3504cc5041aab7000b267c0d3ac4d11600ef16296c8f02eb4669dd",
+    "saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "execution_contract.json": "59a62bccafb453d6d0b89fa8c9b98e95612c10ddb3e6a6ceaaf9cbf1b67681a3",
+    "run.py": "e2e99a8ad16a8101f0fbd2fb457377ab24ad01ad6a08b4caf405d5c2497abfb2",
+    "verify_arrays.py": "c372cf2c83b4138f8b0f818c4217ef5797ff4859dd9097e273d51ad8d181c9e4",
+    "contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "README_result.md": "8d44b901e74bfc70c78c0986d0d4bf73a2592640f03f318af411d6f1c05079e2",
+    "trace_result.md": "67a7fd43dbdc5382459f5c22bc4a363c29e1a9385011d04d438ea49210e0acb7",
+    "completion.json": "2964421142d8132a73ea3096010ed3d81cba7faf77510a765e2128428ff30d62",
+    "card_evidence_verified.json": "2fcd3bd0cad49c30c5885aed426ab182479080f610898ac0e8946239d4f08d29"
+  },
+  "documentation_disposition": "Append current result account; retain frozen prospective preparation and all old evidence; root owns current parent/site navigation",
+  "source_changed": false,
+  "new_physical_calls": 0
+}

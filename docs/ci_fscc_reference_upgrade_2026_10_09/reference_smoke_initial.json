@@ -1,0 +1,51 @@
+[
+  {
+    "name": "AMBiT_BeII",
+    "command": [
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+      "BeII.input"
+    ],
+    "cwd": "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09/ambit_be_smoke",
+    "seconds_cap": 120,
+    "address_space_MiB": 4096,
+    "returncode": 0,
+    "seconds": 0.36437805800233036
+  },
+  {
+    "name": "AMBiT_MgI_sizes",
+    "command": [
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/AMBiT-build/src/ambit",
+      "--check-sizes",
+      "mg.input"
+    ],
+    "cwd": "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09/ambit_mg_sizes",
+    "seconds_cap": 120,
+    "address_space_MiB": 4096,
+    "returncode": 0,
+    "seconds": 12.086604407988489
+  },
+  {
+    "name": "EXPT_help",
+    "command": [
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/EXP-T-build/expt.x",
+      "--help"
+    ],
+    "cwd": "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09",
+    "seconds_cap": 120,
+    "address_space_MiB": 4096,
+    "returncode": 0,
+    "seconds": 0.11516477400436997
+  },
+  {
+    "name": "EXPT_vibrot",
+    "command": [
+      "/home/zzhang/code/atomx/.venv/bin/python",
+      "test.py"
+    ],
+    "cwd": "/data/code/atomx/docs/ci_fscc_reference_upgrade_2026_10_09/expt_vibrot",
+    "seconds_cap": 120,
+    "address_space_MiB": 4096,
+    "returncode": 0,
+    "seconds": 1.4667743239551783
+  }
+]

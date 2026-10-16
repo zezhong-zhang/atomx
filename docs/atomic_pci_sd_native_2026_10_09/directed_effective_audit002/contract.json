@@ -1,0 +1,37 @@
+{
+  "hypothesis": "Directed fixed-column-energy SD screening must not be treated as Hermitian CI input without measuring complete physical matrix identities.",
+  "fixed": "Same source-bound C2+ nativeDC .37virtual-rotation fixed-energy case00, all6s-p radial columns/16magnetic states and120antisymmetric pairs; all Sigma1/Sigma2 outputs from sigma2_solved006. No symmetrization or energy extrapolation.",
+  "source_contract": {
+    "hypothesis": "Original complete Coulomb screening plus irreducible Fov contribution, on solved noncanonical public valence columns, matches independent full magnetic values and total joint energy response.",
+    "fixed": "C2+ all1s2/2s2 core, all6declared s/p radial virtuals/16magnetic states, Z6/ns40/ks7, actual nativeDC Fock, .37rad paired virtual rotations, no synthetic operator, no fitted energy; solved core fixed for energy response.",
+    "energy_mode": "partial_wave_reference",
+    "energy": "Each partial wave uses its lowest declared Fock-diagonal virtual energy+.075+delta",
+    "derivative": "all valence energies shift by same delta; Sigma2 explicit denominators slope2, complete implicit column response",
+    "gates": {
+      "signed_values_Ha": 1e-11,
+      "signed_joint_response_Ha": 1e-11,
+      "raw_core_and_valence_residual_Ha": 1e-10,
+      "difference_abs_Ha": 1e-09,
+      "difference_rel": 1e-06
+    },
+    "difference_steps": [
+      0.001,
+      0.0003,
+      0.0001
+    ],
+    "public_screening": true,
+    "difference_order": 8,
+    "difference_refinement": "order8 Richardson from h,h/2,h/4,h/8, retaining original steps/gate; order2 failures kept",
+    "preflight": "512MiB complete core/valence/screening/Krylov and bounded finite reference; one worker, no timing claim.",
+    "stopping": "On any failure preserve full vectors, actual sources and unchanged gates; no truncation/fit/tolerance relaxation.",
+    "status": "finite directed fixed-energy solved screening equation proof; no Hermitian CI metric or physical spectrum claim",
+    "load": [
+      15.08154296875,
+      19.93701171875,
+      28.98974609375
+    ]
+  },
+  "criterion_Ha": 1e-11,
+  "distinguishing": "Particle-swap covariance is a scalar two-body identity. Measure adjoint defects of Sigma1, irreducible pairSigma2 and combined frozen-energy valenceH; a nonzero defect is recorded, not averaged away.",
+  "scope": "finite directed operator consumer audit, not physical energy/metric/experimental validation"
+}

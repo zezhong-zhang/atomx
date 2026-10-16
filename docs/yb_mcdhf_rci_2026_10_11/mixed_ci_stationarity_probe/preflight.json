@@ -1,0 +1,139 @@
+{
+  "CSFs": 531,
+  "electrons": 69,
+  "radial_orbitals": 24,
+  "blocks": [
+    {
+      "twoJ": 1,
+      "parity": -1,
+      "CSFs": 39,
+      "raw_M_equals_J": 232
+    },
+    {
+      "twoJ": 1,
+      "parity": 1,
+      "CSFs": 38,
+      "raw_M_equals_J": 222
+    },
+    {
+      "twoJ": 3,
+      "parity": -1,
+      "CSFs": 63,
+      "raw_M_equals_J": 232
+    },
+    {
+      "twoJ": 3,
+      "parity": 1,
+      "CSFs": 59,
+      "raw_M_equals_J": 213
+    },
+    {
+      "twoJ": 5,
+      "parity": -1,
+      "CSFs": 64,
+      "raw_M_equals_J": 171
+    },
+    {
+      "twoJ": 5,
+      "parity": 1,
+      "CSFs": 62,
+      "raw_M_equals_J": 159
+    },
+    {
+      "twoJ": 7,
+      "parity": -1,
+      "CSFs": 52,
+      "raw_M_equals_J": 109
+    },
+    {
+      "twoJ": 7,
+      "parity": 1,
+      "CSFs": 47,
+      "raw_M_equals_J": 97
+    },
+    {
+      "twoJ": 9,
+      "parity": -1,
+      "CSFs": 32,
+      "raw_M_equals_J": 57
+    },
+    {
+      "twoJ": 9,
+      "parity": 1,
+      "CSFs": 30,
+      "raw_M_equals_J": 50
+    },
+    {
+      "twoJ": 11,
+      "parity": -1,
+      "CSFs": 17,
+      "raw_M_equals_J": 25
+    },
+    {
+      "twoJ": 11,
+      "parity": 1,
+      "CSFs": 14,
+      "raw_M_equals_J": 20
+    },
+    {
+      "twoJ": 13,
+      "parity": -1,
+      "CSFs": 6,
+      "raw_M_equals_J": 8
+    },
+    {
+      "twoJ": 13,
+      "parity": 1,
+      "CSFs": 5,
+      "raw_M_equals_J": 6
+    },
+    {
+      "twoJ": 15,
+      "parity": -1,
+      "CSFs": 2,
+      "raw_M_equals_J": 2
+    },
+    {
+      "twoJ": 15,
+      "parity": 1,
+      "CSFs": 1,
+      "raw_M_equals_J": 1
+    }
+  ],
+  "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "max_raw_M_equals_J": 232,
+  "selected_overlap_pair_work_upper": 227582,
+  "resource_caps": {
+    "threads": 1,
+    "address_space_cap_GiB": 3.95,
+    "wall_cap_s": 890,
+    "max_raw_determinants_per_J_parity": 2000,
+    "max_determinant_overlap_pairs": 1000000,
+    "max_gradient_evaluations": 2,
+    "central_energy_CI_re_solves_max": 8,
+    "line_search_CI_re_solves_max": 8,
+    "no_unbounded_optimization": true,
+    "estimated_resident_GiB": 2.5,
+    "estimate_basis": "prior complete531 DC/static RCI peaked1.22GiB; signed angular tables retained, one radial source gradient streamed; no Hessian/all69 unrestricted magnetic determinant expansion. Actual cap enforcement supersedes estimate."
+  },
+  "source_files_verified": 353,
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/result.json": "438fe049c5c82da3d7d10e839f8f3500edb7f4d8f63d503f6679cd21aa59a0c8",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de"
+  },
+  "load_average": [
+    9.42041015625,
+    9.58837890625,
+    9.68115234375
+  ]
+}

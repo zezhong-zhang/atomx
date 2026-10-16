@@ -1,0 +1,14 @@
+{
+  "fixed": "Fine DF reference, target 5d5/2 and core 4f7/2, rank 2, same 65 mixed-kappa virtual spinors, all 4225 ordered pairs",
+  "hypothesis": "The existing shared GEMM table agrees with scalar bilinear contractions and reduces radial-stage work",
+  "gates": {
+    "absolute_Ha": 1e-11,
+    "relative": 1e-11
+  },
+  "repeats": "warm then two alternating pairs; no end-to-end speed claim",
+  "caps": {
+    "seconds": 60,
+    "memory_MiB": 64
+  },
+  "source_mutations": false
+}

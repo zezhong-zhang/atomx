@@ -1,0 +1,110 @@
+{
+  "status": "frozen_source_JSON_preparation_requires_root_exact_execution_review",
+  "files_sha256": {
+    "run.py": "637b40efc68b6b6085e5a5045b9e6bfc5afde344fb48b4d0c27d6b4137b0f996",
+    "contract.json": "a756379a809a8f236a7cca661f267665a1a7f6032542a513cd972bd7815feb82",
+    "prepare.py": "bf4c01b062df0ce91823dff7127dfcba681a78352ea15e73288d085468555d16",
+    "preparation_verification.json": "44073aa9844ef241e1c60b0a91bdeb5b1959e492b37dee0867a43b4ae8d81f56",
+    "findings.json": "5b194cc31de6b696b7593b5a5ff505c92b58b9807824e6298f10bdbc3ac7f2ae",
+    "README.md": "3bb4cdc5ee85190e8ab2fcf12de0f72d26c4c780acc0cd82d68fa14ae5c7a5e4",
+    "documentation_impact.json": "80005480b5c665364d91fe22e125f1864f2cc29edac2c600a26d3a9d0a0d7884"
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "source_identity": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+    "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+  },
+  "literal208_arrays": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+    "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c",
+    "identity_origin": "closed checkpoint manifest; not opened during source-only preparation"
+  },
+  "literal208_manifest": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+    "sha256": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c"
+  },
+  "original_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+  "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+  "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+  "state_sha256": "effc6c6b13981c6cfb68271eb8c24ad319393f835ec53e2d5409e3ea533166eb",
+  "source_JSON_preparation_controls": 38,
+  "complete_source_files_checked": 356,
+  "NumPy_Atomx_imports": 0,
+  "NPZ_bytes_or_arrays_read": 0,
+  "scientific_calls": 0,
+  "numerical_qualification": false,
+  "execution_contract_expected": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "637b40efc68b6b6085e5a5045b9e6bfc5afde344fb48b4d0c27d6b4137b0f996",
+    "contract_sha256": "a756379a809a8f236a7cca661f267665a1a7f6032542a513cd972bd7815feb82",
+    "preparation_sha256": "44073aa9844ef241e1c60b0a91bdeb5b1959e492b37dee0867a43b4ae8d81f56",
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "CPU": 30,
+    "wall_seconds": 300,
+    "address_space_GiB": 3.95,
+    "max_H": 5,
+    "max_CI": 5,
+    "max_gradient_from_weights": 2,
+    "max_optimizer": 0,
+    "max_Dirac": 0,
+    "maximum_system_load1": "root must declare actual isolated-host admission limit"
+  },
+  "root_actions_before_execute": [
+    "Review exact run/contract/proof and bind immutable execution_contract.json; preparation is not execution authorization.",
+    "Confirm no other numerical job overlaps, permitted CPU30 and actual host-load limit.",
+    "Create empty owned numba_cache; retain all stdout/stderr and root elapsed/exit/peak-memory receipt independently.",
+    "Execute the single foreground CLI with outer315s plus5s kill; marker survives and prohibits automatic retry."
+  ],
+  "prospective_foreground_cli": "env OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 PYTHONHASHSEED=0 NUMBA_CACHE_DIR=/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/numba_cache timeout --signal=TERM --kill-after=5s 315s taskset -c 30 /data/code/atomx/.venv/bin/python /data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/stationarity_next_step208/run.py --execute",
+  "decision": "One actual208 full-original-pg constrained directional finite check, two fixed h. Firstorder HF prerequisite and explicit finite CI response are different scopes. No cutoff/history/iteration increase or NIST selection.",
+  "old_failures_preserved": [
+    "original208 stationarity/indicator FAIL",
+    "initial reported and uncentered rotation derivative failures",
+    "history10/40 stationary FAIL",
+    "warmbenchmark hostguardFAIL and no controlled speed certificate"
+  ],
+  "counts": {
+    "CPU": 30,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 300,
+    "outer_wall_seconds": 315,
+    "kill_grace_seconds": 5,
+    "max_H": 5,
+    "max_CI": 5,
+    "max_gradient_from_weights": 2,
+    "max_optimizer": 0,
+    "max_Dirac": 0,
+    "GPU_calls": 0,
+    "max_initial_hS": 7,
+    "max_CI_internal_hS": 35,
+    "max_mixed_increment_hS": 28,
+    "max_total_hS": 70,
+    "hS_counts_semantics": "These are new producer-call upper bounds, not getter/request equality requirements. Capture actual initial/CI/mixed aliases; caches may reduce CI_internal_hS. CI=5 is not evidence of 35 hS producers.",
+    "max_scipy_eigh": 50,
+    "scipy_eigh_split": {
+      "public_full_CI": 25,
+      "same_H_full_replay": 25
+    },
+    "max_polar_retraction": 28,
+    "max_polar_numpy_eigh": 28,
+    "max_geometry_eigvalsh": 0,
+    "max_tracking_resolve": 13,
+    "max_tracking_SVD": 65,
+    "max_tracking_overlap": 14,
+    "max_unfiltered_bilinear_RDM": 25,
+    "max_exact_constraint_products": 8000000,
+    "max_exact_point_certificates": 5,
+    "max_exact_point_quotients": 25,
+    "max_exact_examined_H_pairs": 1500000,
+    "performance_claim": false,
+    "estimated_peak_basis": "Prior complete29 native CPU processes approximately1.2GiB; exact Fraction ledgers and five 1046-H/C archives conservatively within3.95GiB, cap checked at runtime; no guaranteed time claim.",
+    "admission": "No other numerical campaign, browser or benchmark overlaps this isolated bounded diagnostic; CPU30 must be permitted, all BLAS/Numba thread env1, fresh NUMBA cache; root supplies actual host-load cap in exact seal.",
+    "max_retained_H_getter_requests": 21,
+    "retained_H_getter_semantics": "21 explicit samepoint ownership/freshness requests (five point consumers + four requests in each of four mixed diagnostics) add no H producer; H producer independently capped5. Getter count is not a cache-miss proxy.",
+    "max_numerical_NPZ_input_loads": 4,
+    "planned_NPZ_outputs": 7,
+    "nuclear_potential_sampling": "One actual physical-geometry fingerprint samples the unchanged nuclear function on stored workspace grid, as the original public optimizer did; no new nucleus/operator/spinor/eigenspace solve."
+  },
+  "no_new_insight_registry_or_mainREADME_edit": true
+}

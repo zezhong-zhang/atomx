@@ -1,0 +1,27 @@
+{
+  "status": "optimization_remains_contingent_and_not_authorized",
+  "original_contract_sha256": "4e2d5533d65631f4a55121e76b8519e8e85f02f478ec387911e034c6d5db3812",
+  "failed_probe_json_sha256": {
+    "actual/failure.json": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb",
+    "actual/direction0_central.json": "3f19958aacbf70b6527889466dbe53c944ce4d4becc531471c41ef20916254d5",
+    "actual/correlated_Euler_parts.json": "79dab69cd7112b65b49356c1ee44c1cf927ac657a4f9af6b6c4e363ae3d8cdee",
+    "actual/point_identity.json": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+  },
+  "exact_saved_direction0_ledger": {
+    "analytic": -8.728707560749522e-06,
+    "ordinary_central": -7.275957614183426e-06,
+    "reported_central": -7.463868907920965e-06,
+    "Rayleigh_central": -8.728250189363864e-06,
+    "ordinary_one_ULP_derivative_scale": 1.8189894035458565e-06,
+    "gate": 1e-08
+  },
+  "failure_reason": "Scientific gate failed: direction0_reported_derivative",
+  "old_reported_failure_preserved": true,
+  "Rayleigh_gate_executed_by_original_runner": false,
+  "second_original_rotation_pair_executed": false,
+  "optimizer_authorized": false,
+  "source_only_review_sha256": "aab05b955157335d4b65403a9461659842776517e466730dddeccd3be0243896",
+  "Atomx_imports": 0,
+  "NPZ_arrays_loaded": 0,
+  "new_H_CI_gradient_or_numerical_calls": 0
+}

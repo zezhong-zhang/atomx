@@ -1,0 +1,145 @@
+{
+  "case": "be2",
+  "virtual_count_per_kappa": 2,
+  "requested_lmax": 3,
+  "kinetic_balance": false,
+  "rotation": true,
+  "determinants": 189,
+  "dimensions": {
+    "NHF": 2688,
+    "NX": 7,
+    "NS": 1,
+    "KX1": 7,
+    "NXX": 3,
+    "NK": 7,
+    "NN": 1,
+    "KK": 7,
+    "NCH": 24,
+    "NXK": 13,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4704
+  },
+  "counts": [
+    24,
+    13,
+    7
+  ],
+  "workspace_bytes": 11359440,
+  "canonical_commutator_max_Ha": 1.1102230246251565e-16,
+  "energy_pci_Ha": -5.3308183285169206e-05,
+  "energy_independent_Ha": -5.3308183285169186e-05,
+  "native_noncanonical_commutator_max_Ha": 1.5265566588595902e-16,
+  "native_energy_pci_Ha": -5.330820130957359e-05,
+  "native_energy_independent_Ha": -5.330820130957613e-05,
+  "native_fock_fortran_vs_python_Ha": 0.0,
+  "native_energy_fortran_Ha": -5.330820130957359e-05,
+  "vector_action_error_Ha": 5.551115123125783e-17,
+  "solved_physical_amplitudes_error": 2.42486152685073e-14,
+  "native_core_correlation_Ha": -0.0002668857092674383,
+  "independent_correlation_Ha": -0.0002668857092675286,
+  "solve_residual_max_Ha": 4.0783616582626067e-13,
+  "solve_matvecs": 12,
+  "solve_wall_seconds": 0.06652978097554296,
+  "resources": {
+    "dimensions": {
+      "NHF": 2688,
+      "NX": 7,
+      "NS": 1,
+      "KX1": 7,
+      "NXX": 3,
+      "NK": 7,
+      "NN": 1,
+      "KK": 7,
+      "NCH": 24,
+      "NXK": 13,
+      "NV": 24,
+      "NG": 7,
+      "NE": 4704
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        5,
+        -4
+      ]
+    ],
+    "raw_amplitudes": 98,
+    "independent_scalar_amplitudes": 23,
+    "complete_payload_bound_bytes": 26358824,
+    "krylov_vector_bytes": 784,
+    "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+  },
+  "wall_seconds": 750.7779725280125,
+  "approximation": "canonical calibration and complete native noncanonical DC Hamiltonian",
+  "independent_projection": "complete fixed-M0/even SD determinants; exact linked SD residual"
+}
+ lin =           7
+CHANNEL    13  j1=  1  j2=  2  km= -4  kn= -4  k=  2    0.000000
+          13
+          13           7
+CHANNEL    24  j1=  1  j2=  1  km= -4  kn= -4  k=  5    0.000000
+ Number of channels =           24
+ lin =           7
+CHANNEL    13  j1=  1  j2=  2  km= -4  kn= -4  k=  2    0.000000
+          13
+          13           7
+CHANNEL    24  j1=  1  j2=  1  km= -4  kn= -4  k=  5    0.000000
+ Number of channels =           24

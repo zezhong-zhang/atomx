@@ -1,0 +1,32 @@
+{
+  "record_id": "screened-closed68-core-field-readonly-review",
+  "created_before_readonly_verification": true,
+  "authorization": "Root assigned independent read-only source/test review of the proposed screened closed68-core field in original nuclear P, with accepted160 old24 fixed. Physics audit owns all physical preparation and execution.",
+  "scope": "Read source, existing test bodies and input metadata; hash and AST-compare relevant source against frozen original005 and run003. No atomx imports, no numerical physical invocation, no source/site/old-evidence edits.",
+  "hypothesis": "For a core-disjoint zero-occupation target, explicit raw coefficients C_ij=q_j and D_i=1 implement the scalar closed-shell J/K field; the shared builder returns J/K only, so the saved nuclear Dirac matrix must be added exactly once.",
+  "fixed_conditions": {
+    "Z": 70,
+    "electron_count_of_auxiliary_sources": 68,
+    "core": "[Xe]4f14, 19 complete relativistic subshells with q_j=2|kappa_j|",
+    "old_radial_point": "exact accepted160 old24, nonstationary in its original metric",
+    "new_zero_population_labels": [[6, -3], [6, 2], [7, -1], [7, -2], [7, 1]],
+    "boundary": "Original nuclear no-pair P; no new Fock no-pair projector; complement orthogonal to every old same-kappa radial orbital",
+    "no_scientific_gate_change": true
+  },
+  "acceptance": "Source algebra and required adapter attributes agree; identify rather than hide missing runtime qualification. Existing test bodies are evidence of anchor design, not newly passed tests. Final frozen physical driver is outside this source-only review unless separately bound in an addendum.",
+  "resources": {
+    "cpu_affinity_count": 1,
+    "address_space_bytes": 1073741824,
+    "wall_timeout_seconds": 30,
+    "H_builds": 0,
+    "CI_solves": 0,
+    "radial_or_orbital_gradients": 0,
+    "Dirac_solves": 0,
+    "optimizers": 0,
+    "Fock_builds": 0,
+    "Slater_integrals": 0,
+    "tests_executed": 0
+  },
+  "stopping_condition": "Stop on changed relevant source, unsupported metadata, failed AST/source identity, resource limit, or material algebraic issue; never invoke a physical fallback.",
+  "outputs": ["review.json", "verification.json", "README.md", "docimpact.json"]
+}

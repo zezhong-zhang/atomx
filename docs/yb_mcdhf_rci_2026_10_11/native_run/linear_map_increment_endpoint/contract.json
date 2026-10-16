@@ -1,0 +1,29 @@
+{
+  "hypothesis": "Computing trial-base from separately rounded projector products introduces positive-space-external radial increments. Direct projector@(trial_y-base_y) preserves the same linear map and permits a more accurate finite-polynomial constrained difference without altering the stored CI trials or original residual metric.",
+  "fixed_conditions": "Original accepted 004 coordinates, exact same projectors/gradients, five fixed one-CSF RDMs, same complete cell integral kernels and actual old/new polar candidates. No optimizer acceptance change or endpoint certification.",
+  "source_epoch_contract_sha256": "06653547598f7b4e47a02a18d9475ca23921dc36eed8c9261009b4567efeb5c4",
+  "inputs_sha256": {
+    "contract.json": "74c05cab82b21a3cb50910c7eb59ec88b0a600bfd36c79dbf4390985d7687df3",
+    "failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7",
+    "failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "orbitals_workspace.npz": "0e3523c41ae085914d5d938fac1ecb8734e50adde10ae2954f0b3560279c2ecc"
+  },
+  "steps": [
+    0.0,
+    0.1,
+    0.01,
+    7.450580596923828e-09
+  ],
+  "controls": [
+    "Current API with rounded trial-base increments",
+    "Independent complete polynomial with those same rounded increments",
+    "Independent complete polynomial with explicit projector@coordinate_increment",
+    "Actual h/n quotient normal multipliers and full quadratic delta S Gram",
+    "Exact identity candidate with zero increments"
+  ],
+  "acceptance": {
+    "rounded_increment_polynomial_vs_API_absolute_error_lt_Ha": 1e-19,
+    "exact_zero_increment_difference_Ha": 0.0
+  },
+  "stopping": "One endpoint diagnostic only; no reoptimization, experimental fitting or numerical gate change."
+}

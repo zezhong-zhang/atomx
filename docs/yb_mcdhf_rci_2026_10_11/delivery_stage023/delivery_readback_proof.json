@@ -1,0 +1,135 @@
+{
+  "created_utc": "2026-10-11T16:38:25.875191+00:00",
+  "passed": true,
+  "message_id": "om_x100b638fe573bca0c4b8f84994a0f31",
+  "position": 1617,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1617",
+  "source_stage": {
+    "number": 23,
+    "path": "docs/yb_mcdhf_rci_2026_10_11/results_stage023.json",
+    "sha256": "969c11b63755d275ed5824ef30396aaf97649d1482345cabf07a74f5b63785fb",
+    "global_accepted_step": 208
+  },
+  "registry_source": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage023/registry_stage023.json",
+    "sha256": "f0feab13bb351a47715bfa2a16fcd7a1e54d126dabfbc7602fc2b46ba1ad2ddb"
+  },
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "full_visible_content_matches": true,
+    "readback_characters": 8506,
+    "readback_is_raw_DSL": false,
+    "rendering_differences": [
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "delete",
+        "payload": "\n",
+        "readback": ""
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "["
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "](https://doi.org/10.1103/PhysRevA.110.L030802)"
+      }
+    ]
+  },
+  "actual_send": {
+    "started_at": "2026-10-11T16:35:05.505232+00:00",
+    "finished_at": "2026-10-11T16:35:08.387232+00:00",
+    "passed": true
+  },
+  "service_iteration": {
+    "status": "completed",
+    "decision_status": "implementation_frontier",
+    "job": null,
+    "jobs": [
+      {
+        "job_id": "parallel_fscc_scope_eccfcc6fc3d8309d45f6",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_eccfcc6fc3d8309d45f6",
+        "result_sha256": "73d89cba25e7d2b0deab8e25237771d74f8a5f430bfc98fe625f97a3eb7f2ee3",
+        "process_started_at": "2026-10-11T16:35:10.269285+00:00",
+        "process_finished_at": "2026-10-11T16:35:18.843663+00:00"
+      },
+      {
+        "job_id": "parallel_properties_a0cad8887bb7349ab2c5",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_a0cad8887bb7349ab2c5",
+        "result_sha256": "2079f49cfb7357c5a41fbc56a7404e9c40651c83ae80f66aaf392f3152aff4f4",
+        "process_started_at": "2026-10-11T16:35:10.269558+00:00",
+        "process_finished_at": "2026-10-11T16:35:13.087052+00:00"
+      },
+      {
+        "job_id": "parallel_sd_diagrams_ebc3b23e33ff999acc6d",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_ebc3b23e33ff999acc6d",
+        "result_sha256": "6096c9d2b798c13a2d90dd52921802514ab8217c2803682f5fbd7769729a66a9",
+        "process_started_at": "2026-10-11T16:35:10.269775+00:00",
+        "process_finished_at": "2026-10-11T16:35:11.084414+00:00"
+      },
+      {
+        "job_id": "parallel_gpu_d38ebaab7ce7a908ef36",
+        "status": "completed",
+        "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_d38ebaab7ce7a908ef36",
+        "result_sha256": "f7ea481bebcf2de56f445b3918e4da99372c920ec25912df8b7df0c20c67305e",
+        "process_started_at": "2026-10-11T16:35:10.269893+00:00",
+        "process_finished_at": "2026-10-11T16:35:15.089724+00:00"
+      }
+    ],
+    "automatic_reference_probe_jobs": 4,
+    "automatic_native_Yb_optimizer_jobs": 0,
+    "scope": "Shared-source epoch triggered four small registered reference/property/SD/GPU probes; separate from root two native Yb pilots."
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_API_calls_by_this_audit": 0,
+  "new_scientific_calls_by_this_audit": 0,
+  "verifier_sha256": "18ac925f6466f29eedfadf68b4d3f4904b9742f7b93f7f7a2aa51609f97e8155",
+  "shared_utilities_sha256": "f8bf88f8caae2285620273f449c6f3b3d705364cc8115b2699284dd7c0bba093",
+  "files_sha256": {
+    "capture.json": "d7dbd047a50b834c61a85170c4d70ea00b083ca9afdc218841fec18f35d71fe0",
+    "card.json": "9297ba9f4f5d695c29a7df42284f27932d19794709d139f784cf09f56cebb28b",
+    "iteration_request.json": "cb506eb2cd28505a622c1535759434ca6ff7447e9de63f1112ad5de6c9c7f323",
+    "iteration_request_at_send.json": "30bf5264587adcfe43e7318aeeb4919379f9e66bd0f6d49df553449db1d2ce14",
+    "readback.json": "4089aeaa4728f9b3b009a6af7ddcd30aefac53523ad5d73c116947092824ece5",
+    "readback_execution.json": "0fc32d2e9e265b93241f51498ce50a5a3f9119caae293e8d2dc5405f154a8b6f",
+    "receipt.json": "4818bf62535ad8ea65a852ce9073f84cbeb02bc12076f9f7083f116f98b98dfc",
+    "registry_stage023.json": "f0feab13bb351a47715bfa2a16fcd7a1e54d126dabfbc7602fc2b46ba1ad2ddb",
+    "root_send_execution.json": "3fcf354b234e6f3f123a29c7fdbbe96f7a5214bf048947d7714bff41f5bd69df",
+    "root_send_stdout.json": "a0fed6abde561ae4aac1088ba6546cd2493d2249f5b76b6e405673fd90328df1",
+    "send_status.json": "1301ff6e09f7e5449a9889a02770aa968b47fe8f52dd580195fd0136375f5334",
+    "service_capture_closed.json": "63bfc731483af65a7485074fbb29df8f4dbf62a6d7c288918fd0c73d68539ae8",
+    "service_iteration_status.json": "cb506eb2cd28505a622c1535759434ca6ff7447e9de63f1112ad5de6c9c7f323",
+    "service_iteration_status_at_send.json": "b6073ebc2e3fecf5fc162a78ae706076a6da6ccadf137cc7d662f070b58b66dd"
+  },
+  "scope": "Receipt and rendered-text binding; native pair independently root-launched, no service auto-launch or physical/experimental promotion."
+}

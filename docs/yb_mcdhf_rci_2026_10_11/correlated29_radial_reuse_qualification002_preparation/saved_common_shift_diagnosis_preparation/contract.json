@@ -1,0 +1,156 @@
+{
+  "status": "prospective_requires_exact_root_seal",
+  "execution_authorized": false,
+  "created_utc": "2026-10-11T15:44:00.061845+00:00",
+  "purpose": "One fixed common-scalar-shift saved-H discriminator of unshifted-eigenvector precision; never reclassify original route FAIL",
+  "inputs": {
+    "ordinary_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/arrays.npz",
+      "sha256": "335082085c8e589a8dfb505a803efeb190ea045a748c74849ef2e28a776f2f7f"
+    },
+    "candidate_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/arrays.npz",
+      "sha256": "41ad69ba29b5111981b0297b523318690a11c6effef0655e08b1c2e6d2579135"
+    },
+    "ordinary_targets": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/targets_metric.json",
+      "sha256": "6307d6993b342e36a03251c070f5456dc88c8adce4e98bebd3ba25cd61ab9e5a"
+    },
+    "candidate_targets": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/targets_metric.json",
+      "sha256": "976b6f2310a3eb77123b51170392ad46544a52839188e2db70edd52aa0760070"
+    },
+    "ordinary_sectors": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/sector_columns.json",
+      "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+    },
+    "candidate_sectors": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/sector_columns.json",
+      "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+    },
+    "failed_comparison": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/comparison_failed.json",
+      "sha256": "38ef55405711c0ab888935175544f7ef644fdc0e1304449491719d9bc06f4c82"
+    },
+    "root_foreground": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+    },
+    "failed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source_identity.json",
+      "sha256": "be26c536c4365b9d4f8c11c9e1700d6883b567b6ff693e1e89ad9a1e45ec4938"
+    },
+    "original_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py",
+      "sha256": "8c050f9ebbcab77301b36fe200457601a235d78b178344c05b50b6b89df4cd8e"
+    },
+    "original_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/contract.json",
+      "sha256": "265041933da6985de5bd22737d66faa47c6971b422216656d57fc04b93259c9e"
+    },
+    "cluster296_diagnosis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/actual/result.json",
+      "sha256": "b22706cb9a6d1efa457456ff53019b81909143a96c2744d2d4ed3a47ee51577a"
+    },
+    "cluster296_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/saved_cluster296_diagnosis_preparation/root_execution.json",
+      "sha256": "3b3cfe70d82f49c369b4bdca37901406453a017d8508cb0b80c4b4914aa59745"
+    }
+  },
+  "fixed": {
+    "n_csf": 1046,
+    "complete_blocks": [
+      {
+        "sector": [
+          1,
+          1
+        ],
+        "roots": 150,
+        "alpha_Ha": -14067.496517967646,
+        "alpha_source_column": 0
+      },
+      {
+        "sector": [
+          5,
+          1
+        ],
+        "roots": 246,
+        "alpha_Ha": -14067.376658179728,
+        "alpha_source_column": 3
+      },
+      {
+        "sector": [
+          3,
+          1
+        ],
+        "roots": 236,
+        "alpha_Ha": -14067.380121658784,
+        "alpha_source_column": 2
+      },
+      {
+        "sector": [
+          3,
+          -1
+        ],
+        "roots": 256,
+        "alpha_Ha": -14067.365672303622,
+        "alpha_source_column": 4
+      },
+      {
+        "sector": [
+          1,
+          -1
+        ],
+        "roots": 158,
+        "alpha_Ha": -14067.381616326365,
+        "alpha_source_column": 1
+      }
+    ],
+    "alpha_rule": "ordinary saved first local root energy, predeclared exactly and identical for both endpoints of each block; no adaptation",
+    "solver": "scipy.linalg.eigh(driver=evd, subset_by_index=None), default lower=True",
+    "restored_origin": "lambda_reported=shifted_lambda+alpha; residuals evaluated against original stored unshifted H",
+    "correspondence": "original complete sector/local-root indices; no new root truncation or CSF rephasing",
+    "cluster_gap_Ha": 1e-07,
+    "projector_gate": 1e-08,
+    "column_residual_2norm_Ha": 1e-08,
+    "Gram_max_abs": 1e-10,
+    "complete_endpoint_energy_max_Ha": 1e-08,
+    "first_failed_global_column": 296,
+    "full_route_qualification_after_diagnostic": false,
+    "unshifted_vs_shifted_vector_differences": "phase-aligned full-column differences and original1e-7 cluster/projector differences, reported as diagnosis only; original archived failure unchanged",
+    "cluster_membership": "Original saved unshifted endpoint energies determine the complete declared1e-7 partition. Shifted partition must match exactly; no new cluster merging to evade original singleton gate."
+  },
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 30,
+    "threads": 1,
+    "memory_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 35,
+    "kill_grace_seconds": 5,
+    "NumPy_version": "2.2.6",
+    "SciPy_version": "1.15.3",
+    "NPZ_loads": 2,
+    "scipy_eigh_calls": 10,
+    "max_complete_roots_per_endpoint": 1046,
+    "H_CI_construction_gradient_Dirac_optimizer_GPU_calls": 0,
+    "other_eigen_SVD_QR_calls": 0
+  },
+  "operations": [
+    "Load exactly two immutable NPZs; solve each of five complete blocks once per endpoint, using predeclared same alpha",
+    "Record all started/completed10 eigcalls; reconstruct all1046 columns and restore all energies",
+    "Original full H column2norm residual and complete Gram gates; exact support and sector/UID binding",
+    "Complete endpoint energies and all original1e-7-cluster spans under1e-8; no target-only exemption",
+    "All-root original-unshifted versus shifted phase-aligned vector2norm differences, old cluster/projector differences; singleton296 detail",
+    "Complete saved shifted eigenpair arrays and full numerical gate ledger even if projector parity fails"
+  ],
+  "failure_policy": "No retry, alpha change or gate relaxation. Unexpected/resource errors preserve partial counts/checks. All array-only gate observations recorded; any failed gate makes diagnostic_failed. Original route remains FAIL regardless of this outcome. No shared code or source application."
+}

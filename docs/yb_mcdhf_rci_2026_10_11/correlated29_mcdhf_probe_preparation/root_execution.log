@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py", line 572, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py", line 559, in main
+    probe(contract, execution)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py", line 518, in probe
+    check(f"direction{number}_reported_derivative", abs(reported - analytical), ledger["gate"])
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py", line 162, in check
+    raise ValueError("Scientific gate failed: " + name)
+ValueError: Scientific gate failed: direction0_reported_derivative

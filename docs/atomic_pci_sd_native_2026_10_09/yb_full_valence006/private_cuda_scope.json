@@ -1,0 +1,16 @@
+{
+  "manifest": {
+    "original_wrapper_sha256": "63ad2bc3cfd579e6d1dc57c4c0107b6750b47743311989bf82cea86cc1cdf526",
+    "derived_wrapper_sha256": "6233aabf2943842f1d056ecfe0118cc1b19f34beaa805d1c98a5621b01a87239",
+    "bridge_sha256": "3bd6069ad7c465ad2e4156cee122935ecd34d0dd190a54107da719afc9efdf4b",
+    "native_plan_sha256": "f730584f9ee0d9cdde3487ff8b041e0cde784eac4eafa21ced0f644d52c44afe",
+    "additive": true,
+    "host_additional_payload_bytes": 70516736,
+    "selection": "explicit paired CPU/CUDA control, never automatic fallback",
+    "scope": "private same-diagram additive FP64 GPU term2, full source/root/response gates still required; public CUDA capability not adopted"
+  },
+  "device_cap_bytes": 2147483648,
+  "numerical_role": "same complete additive native FP64 term2; fresh source/raw/signed/response gates required",
+  "timing_role": "production diagnostic under recorded load; no controlled gain claim",
+  "public_cuda_adopted": false
+}

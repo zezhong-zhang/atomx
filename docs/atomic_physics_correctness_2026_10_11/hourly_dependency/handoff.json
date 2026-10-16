@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "source_count": 30,
+  "input_count": 36,
+  "registry_inputs_exact_actual_bound_inputs": true,
+  "registry_sources_exact_actual_bound_sources": true,
+  "current_norm_proof_source_sha256": "24c6166c8e49efcc7c156ae623ddc0d12b6cd2ae0fbc685ba6d119e42f5960f4",
+  "current_norm_proof_result_sha256": "2890e388bbb3714c7148827db0459f2fd35268f5f17e27365278714cc74b0349",
+  "actual_nist_result_sha256": "113c4996353099b6ef8d77fd2e7eed5b638f827bc6c99d76dcd0d8ffd475ac59",
+  "actual_nist_audit_sha256": "015a533e0a37637e8453a874792596c115fa5db66113d4b277e5a3a9ddb51fd3",
+  "source_and_input_postcheck_sha256": "40bd12f70ef63607ff76d311025317f39c3a25e8bcd7a9c4b8109a190b858b70",
+  "nist_probe_sha256": "9a258fa4a4504ca4030b4842cb04a2f41691357f89ebc4bbef2f5ff444c8586c",
+  "parallel_registry_sha256": "4666fda2dbf3458b3d1f418b9e7c4c03de47d7d1ff6b1c15e79f36b048a1df0a",
+  "scientific_accuracy_gates_preserved": {
+    "excitation": false,
+    "splitting": false,
+    "observed_wavelength": false
+  },
+  "source_match_and_fullstate_gates": {
+    "actual_full_theory_same_H_core_space_zero": true,
+    "current_whole_array_norm_consumed": true,
+    "strict_unique_state_matching": true,
+    "observed_not_Ritz_or_level_derived": true,
+    "multipole_species_medium_coverage_preserved": true,
+    "missing_uncertainty_never_zero": true,
+    "original1percent_accuracy_failures_preserved": true,
+    "whole_state_gap_requests_emitted": true,
+    "source_and_input_unchanged": true
+  },
+  "historical_failed_jobs_preserved": [
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_1faf6de375b668bd44f5/probe/result.json",
+      "sha256": "1a7602d34c155b8c1ae4d6781e37e10318ee9e6bf4d4ce735a0d856a01ec2738",
+      "summary": "current norm consumer/finite anchor/helper sources differ from actual whole-array norm audit"
+    }
+  ],
+  "new_atomic_roots": 0
+}

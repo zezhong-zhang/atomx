@@ -1,0 +1,107 @@
+{
+  "status": "prospective_requires_exact_root_authorization",
+  "execution_authorized": false,
+  "created_utc": "2026-10-11T15:27:03.312720+00:00",
+  "purpose": "Diagnose the immutable failed signed_cluster_[296] from stored matrices/eigenpairs only; never reclassify route qualification or relax1e-8",
+  "inputs": {
+    "ordinary_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/arrays.npz",
+      "sha256": "335082085c8e589a8dfb505a803efeb190ea045a748c74849ef2e28a776f2f7f"
+    },
+    "candidate_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/arrays.npz",
+      "sha256": "41ad69ba29b5111981b0297b523318690a11c6effef0655e08b1c2e6d2579135"
+    },
+    "ordinary_targets": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/targets_metric.json",
+      "sha256": "6307d6993b342e36a03251c070f5456dc88c8adce4e98bebd3ba25cd61ab9e5a"
+    },
+    "candidate_targets": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/targets_metric.json",
+      "sha256": "976b6f2310a3eb77123b51170392ad46544a52839188e2db70edd52aa0760070"
+    },
+    "ordinary_sectors": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/ordinary/sector_columns.json",
+      "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+    },
+    "candidate_sectors": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/candidate/sector_columns.json",
+      "sha256": "996df5ce0f9b6f68414ec6836c6110f5a397b167d3174176974a1374a701c856"
+    },
+    "failed_comparison": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/actual/comparison_failed.json",
+      "sha256": "38ef55405711c0ab888935175544f7ef644fdc0e1304449491719d9bc06f4c82"
+    },
+    "root_foreground": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/root_execution.json",
+      "sha256": "a826db2db9d6ba000f4cabbc4e6cd9aa3a1e6ddab773b3a37531d31ef9da469c"
+    },
+    "failed_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/completion.json",
+      "sha256": "30be7dde0cfc804811d436672a818c821e96f4b35705a46353d339d1c5b69ca1"
+    },
+    "ordinary_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/source_identity.json",
+      "sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/candidate_source_identity.json",
+      "sha256": "be26c536c4365b9d4f8c11c9e1700d6883b567b6ff693e1e89ad9a1e45ec4938"
+    },
+    "original_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py",
+      "sha256": "8c050f9ebbcab77301b36fe200457601a235d78b178344c05b50b6b89df4cd8e"
+    },
+    "original_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/contract.json",
+      "sha256": "265041933da6985de5bd22737d66faa47c6971b422216656d57fc04b93259c9e"
+    }
+  },
+  "fixed": {
+    "n_csf": 1046,
+    "failed_global_column": 296,
+    "failed_sector": [
+      3,
+      1
+    ],
+    "failed_sector_local_root": 64,
+    "original_cluster_gap_Ha": 1e-07,
+    "original_projector_gate": 1e-08,
+    "five_target_global_columns": [
+      0,
+      2,
+      3,
+      1,
+      4
+    ],
+    "same_source_point_keys_waves_and_metric": "source-bound original002; no changed numerical state",
+    "ordinary_source_map": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+    "candidate_source_map": "608f8f9db0ba10476775d0d833c6eb0fcd186928f119131e44900ad640546917",
+    "expected_failure_error": 1.0443566289541906e-08,
+    "report_domain": "stored binary64 H/E/C algebra only; no new radial operator/eigenpairs/physics oracle"
+  },
+  "resources": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 30,
+    "threads": 1,
+    "memory_GiB": 1,
+    "inner_seconds": 30,
+    "outer_seconds": 35,
+    "kill_grace_seconds": 5,
+    "NumPy_version": "2.2.6",
+    "NPZ_loads": 2,
+    "max_unique_root_columns": 8,
+    "failed_root_neighbors": 2,
+    "max_target_clusters": 5,
+    "max_cluster_rank": 256,
+    "new_H_CI_gradient_optimizer_eig_SVD_QR_Dirac_GPU_calls": 0
+  },
+  "operations": [
+    "whole stored H difference: max/Frobenius, diagonal/offdiagonal maxima and largest-entry signed indices",
+    "failed root296 plus same-sector immediate neighbors: exact stored energies/gaps/norms; own and cross H residual2norm; phase-aligned stored-vector and projector differences",
+    "failed root first-order neighbor projection scale from c_neighbor^T \u0394H c296 divided by stored same-sector gap; report heuristic not uniform bound",
+    "five original UID targets: original declared1e-7 complete cluster spans via stored energies/sector metadata; no eig/SVD or root selection",
+    "preserve original FAILURE; target-only observations cannot qualify all1046 eigenvectors"
+  ],
+  "stop": "Any identity/resource/unsupported call error saves failure and stops without retry; this diagnostic cannot produce route PASS. Original478-check comparison remains immutable."
+}

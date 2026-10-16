@@ -1,0 +1,836 @@
+{
+  "status": "failed",
+  "phase": "complete bound arrays loaded; rebuild angular density only",
+  "error": "ValueError('original_native_target_accumulation_order')",
+  "checks": [
+    {
+      "name": "before_numerical_host_resource_admission",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "no_prior_Atomx_import",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "wide_fraction_bits63",
+      "passed": true,
+      "observed": 63
+    },
+    {
+      "name": "baseline_arrays/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/H",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/energies",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/mixing",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/keys",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/P",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline_arrays/finite_real/Q",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/H",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/energies",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/mixing",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/keys",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/P",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "trial_arrays/finite_real/Q",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/complete1595_31_shapes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/bitwise_symmetric_H",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/original_owner_input_binding",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/original_owner_H_binding",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "baseline/DC_real_Ha",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/complete1595_31_shapes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/binary64",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/bitwise_symmetric_H",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/original_owner_input_binding",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/original_owner_H_binding",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "h0_plus/DC_real_Ha",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "same31_ordered_keys",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "increments/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "increments/finite_real/keys",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "increments/finite_real/coordinate_delta",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "increments/finite_real/P",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "increments/finite_real/Q",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "same31_increment_keys_shapes",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/required_fields_and_complete_basis_prefix",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/orbital_keys",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/P",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/Q",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_nv",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_ks",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_ksp",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_ksq",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_nsp",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_nsq",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_gr",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_grw",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_bsp_p",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_bsp_q",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_bsp_q_d",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_bsp_p_d",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_t",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_tp",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "geometry_workspace/finite_real/basis_ns",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "original_ns123_geometry",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-4/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-4/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-4/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-4/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/-4",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-3/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-3/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-3/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-3/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/-3",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-2/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-2/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-2/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-2/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/-2",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-1/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-1/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-1/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_-1/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/-1",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_1/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_1/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_1/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_1/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/1",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_2/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_2/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_2/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_2/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/2",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_3/complete_declared_fields",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_3/finite_real/kappa",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_3/finite_real/raw_h",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "decoded_bytes_cap",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_3/finite_real/S",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "raw_operator_shape/3",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "complete_parent3789_selected1595",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "all69electrons",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "complete_original_signed_basis",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "same_complete_owner_CSF_basis",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "genuine_sparse_dense_same_represented_projection/1",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "genuine_sparse_dense_same_represented_projection/1",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "genuine_sparse_dense_same_represented_projection/3",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "genuine_sparse_dense_same_represented_projection/3",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "genuine_sparse_dense_same_represented_projection/5",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "complete19589_angular_capacity",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "five_complete_density_blocks",
+      "passed": true,
+      "observed": null
+    },
+    {
+      "name": "complete_angular_nnz_budget",
+      "passed": true,
+      "observed": 11120112
+    },
+    {
+      "name": "complete_angular_pairs_budget",
+      "passed": true,
+      "observed": 1654843
+    },
+    {
+      "name": "original_native_target_accumulation_order",
+      "passed": false,
+      "observed": null
+    }
+  ],
+  "counts": {
+    "NPZ_load": 11,
+    "angular_nullspace": 38,
+    "angular_block_terms": 5,
+    "angular_projection": 10,
+    "signed_target_density": 0,
+    "density_kernel": 0,
+    "banded_contraction": 0,
+    "pair_potential": 0,
+    "bank_getter": 0,
+    "bank_transpose_miss": 0,
+    "polynomial_cache_miss": 0,
+    "ordinary_radial_evaluation": 0,
+    "polynomial_key_request": 0,
+    "right_associated_onebody_endpoint": 0,
+    "saved_raw_operator_requests": 0,
+    "stored_H_MV": 0,
+    "dense_projected_target": 0,
+    "sparse_projected_target": 0,
+    "angular_forward_table": 0,
+    "H": 0,
+    "native_hS_assembly": 0,
+    "CI_eigh": 0
+  },
+  "completed_targets": [],
+  "completed_radial_keys": 0,
+  "original_two_failures_preserved": true,
+  "no_retry": true,
+  "elapsed_uncontrolled_s": 28.07971439800167
+}

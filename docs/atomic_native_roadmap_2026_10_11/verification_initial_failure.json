@@ -1,0 +1,9 @@
+{
+  "status": "failed_test_fixture",
+  "counts": {
+    "failed": 2,
+    "passed": 35
+  },
+  "reason": "New renderer regression fixture omitted the existing required comparison.computed_run field. Production render reached that existing field; new numeric/input-identity logic did not fail.",
+  "fix": "Add the required fixture field. Inline the real numeric Ne fixture so tracked tests do not depend on ignored local evidence. No renderer defaults, physical gates or data changed."
+}

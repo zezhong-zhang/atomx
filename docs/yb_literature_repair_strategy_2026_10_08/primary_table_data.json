@@ -1,0 +1,95 @@
+{
+  "label_order": [
+    "5d_3/2",
+    "5d_5/2",
+    "6p_1/2",
+    "6p_3/2"
+  ],
+  "printed": {
+    "porsev2012_mbpt": {
+      "values": [
+        24450,
+        25952,
+        28636,
+        32242
+      ],
+      "source": "porsev2012",
+      "table": "I",
+      "order": "second order"
+    },
+    "porsev2012_linearized_sd": {
+      "values": [
+        22820,
+        24261,
+        27945,
+        31481
+      ],
+      "source": "porsev2012",
+      "table": "I",
+      "order": "linearized SD all order"
+    },
+    "pototschnig2021_eom_ea_extrap": {
+      "values": [
+        23951,
+        25257,
+        27913,
+        31380
+      ],
+      "source": "pototschnig2021",
+      "table": "2, atomic Yb+",
+      "order": "EOM-EA-CCSD complete-basis extrapolation"
+    },
+    "pototschnig2021_ihfs_extrap": {
+      "values": [
+        23938,
+        25246,
+        27907,
+        31371
+      ],
+      "source": "pototschnig2021",
+      "table": "3, atomic Yb+",
+      "order": "IHFS-CCSD complete-basis extrapolation"
+    },
+    "dzuba2011_unscaled_brueckner": {
+      "values": [
+        23926,
+        null,
+        28749,
+        32376
+      ],
+      "source": "dzuba2011",
+      "table": "I binding energies, excitation differences reconstructed",
+      "order": "full orbital Brueckner with second-order correlation potential, unscaled"
+    }
+  },
+  "dzuba2011_printed_binding_cm1": {
+    "6s_1/2": 99477,
+    "5d_3/2": 75551,
+    "6p_1/2": 70728,
+    "6p_3/2": 67101
+  },
+  "porsev2012_printed_experiment_cm1": [
+    22961,
+    24333,
+    27062,
+    30392
+  ],
+  "pototschnig2021_printed_experiment_cm1": [
+    22961,
+    24333,
+    27062,
+    30392
+  ],
+  "porsev2012_15e_ci_largest_cm1": [
+    24615,
+    25464,
+    24289,
+    27324
+  ],
+  "pototschnig2021_hole_F7_2_cm1": {
+    "experiment_printed": 21419,
+    "EOM_IP_extrap": 17966,
+    "IHFS_extrap": 14514
+  },
+  "notes": "Own comparisons use the retained, independently verified four experimental excitations. Do not confuse the historical absolute thresholds or combine different methods into a prediction."
+}

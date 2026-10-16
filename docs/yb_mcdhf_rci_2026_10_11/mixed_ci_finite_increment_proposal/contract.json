@@ -1,0 +1,247 @@
+{
+  "status": "prepared_pending_root_source_edit_and_qualification_seal",
+  "scope": "native real rank-one complete dense B-spline DC mixed-CI finite increment diagnostic only",
+  "source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "source_identity_sha256": "4fa787498d0ddc8cd9448957652d8f96899df614fc07b1bca586b247d0a54250",
+  "proposal_sha256": "918a207ff04afc2d7fb1328c4e2a5d8c4af16da63ecb27c856cd5630f6174acd",
+  "authorization": {
+    "source_edit": false,
+    "finite_qualification_execution": false,
+    "optimizer_execution": false,
+    "armijo_adoption": false
+  },
+  "preparation_budget": {
+    "CPU_threads": 1,
+    "maximum_H_builds": 0,
+    "maximum_CI_solves": 0,
+    "maximum_full_gradients": 0,
+    "maximum_optimizer_calls": 0
+  },
+  "future_finite_qualification_budget": {
+    "CPU_threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_time_seconds": 300,
+    "maximum_H_builds": 18,
+    "maximum_complete_CI_solves": 13,
+    "maximum_full_gradients": 3,
+    "maximum_optimizer_calls": 0,
+    "ordinary_frozen_H_comparators": 5,
+    "hidden_warmups": 0,
+    "on_budget_failure": "preserve failed qualification; no smaller space or changed gates"
+  },
+  "allowed_source_scope": [
+    "src/atomx/numerics/ci_energy_increment.py",
+    "src/atomx/physics/csf/radial_increment.py",
+    "src/atomx/physics/csf/matrix.py:extract existing pair-band loop only",
+    "src/atomx/methods/csf/variational.py:new diagnostic method only",
+    "tests/test_mixed_ci_finite_increment.py:new finite tests"
+  ],
+  "unchanged": [
+    "all existing fixed_density and constrained guards/numerical implementations",
+    "ci_solve implementation and defaults",
+    "CIRadialDensity.contract filtering and original gradient yardstick",
+    "optimizer and original metric/projector",
+    "public solve defaults and correction consumers",
+    "all frozen scientific qualification/performance/checkpoint archives"
+  ],
+  "same_model": {
+    "atomic_number": 2,
+    "nuclear": "point -2/r",
+    "ns": 35,
+    "ks": 9,
+    "r_min": 0.005,
+    "r_max": 30,
+    "configs": [
+      "1s2",
+      "1s1 2s1",
+      "1s1 3s1",
+      "2s2",
+      "2s1 3s1",
+      "3s2",
+      "2p2",
+      "2p1 3p1",
+      "3p2"
+    ],
+    "complete_j_resolved_enumeration": true,
+    "selected_targets": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ]
+    ],
+    "weights": [
+      0.25,
+      0.75
+    ],
+    "frozen_physical_reference_tracking": true,
+    "directions": {
+      "seeds": [
+        413711,
+        413712
+      ],
+      "rng": "NumPy PCG64 standard_normal in canonical kappa/key order",
+      "coordinate": "original nuclear positive-space selector x0; z-x0*sym(x0.T*z); combined Euclidean norm; existing polar retraction",
+      "explicit_radial_increment": "P*(retracted_x-x0); preserve rounded P*x endpoints and reconstruction defect separately",
+      "test_source_and_generated_input_SHA_sealed_before_evaluation": true
+    },
+    "signed_scales": [
+      0.0001,
+      -0.0001,
+      1e-06,
+      -1e-06,
+      1e-08,
+      -1e-08
+    ],
+    "endpoint_count": 13,
+    "zero_step_uses_saved_baseline": true
+  },
+  "finite_response": {
+    "phase": "x0=sigma*c0; r0bar=sigma*r0; d=c1-x0; original vectors preserved",
+    "reported_root": "[c1.T deltaH c1 + d.T(H0-lambda0 I)d + 2d.T r0bar + x0.T r0bar - c1.T r1]/n1",
+    "rayleigh": "[c1.T deltaH c1 + d.T A0q d + 2d.T r0qbar + x0.T r0qbar]/n1; A0q centered before restoring common offset",
+    "trial_density": "complete unfiltered contract_bilinear(c1,c1)/n1; sum unchanged target weights before radial streaming",
+    "semantic_claim": "finite retained matrices/vectors only; reported eigenvalue rounding cannot be recovered",
+    "phase_record": "one whole-column sign after physical matching; no CSF rephasing or reference rebase",
+    "legacy_guard_preservation": true,
+    "production_adapter": false
+  },
+  "normalization": {
+    "orbital_one_body": "ordered h_ab=N_ab/s_b; exact quadratic deltaN/deltas and division by s_b+deltas",
+    "CI_amplitude": "explicit finite n0 and n1; response and trial term divided by n1",
+    "ensemble": "fixed nonnegative normalized per-target weights; no occupation/statistical replacement"
+  },
+  "radial_representation": "public native CI bank/banded ordered source/target all P/Q; no semiseparable substitution or new fastmath",
+  "unsupported_before_expensive_work": [
+    "charge/subclass",
+    "complex",
+    "Breit/frequency/QED-shift/effective",
+    "changed complete basis/model/nucleus/workspace/radial keys",
+    "missing/subset H owners",
+    "nonfinite/nonpositive norms",
+    "ambiguous physical matching",
+    "target/weight change",
+    "rank>1/degenerate spans"
+  ],
+  "oracle": {
+    "implementation": "independent stdlib Decimal80 complete signed native angular/cell/one-body float64 assets",
+    "binary_input_conversion": "Decimal.from_float exact for all native assets; no electronic structure backend",
+    "independent_scopes": [
+      "ordered one-body ket norm",
+      "all P/Q Coulomb pair components",
+      "canonical signed angular projection/permutation",
+      "final real symmetrization",
+      "full complete endpoint H",
+      "reported-root finite residual identity",
+      "quotient finite norm identity",
+      "phase/common-offset/reverse/tiny/zero controls"
+    ],
+    "full_finite_total_absolute_Ha": 1e-12,
+    "radial_absolute_Ha": 1e-13,
+    "nonzero_decrement_relative_error": 0.1,
+    "relative_gate_applies_above_Ha": 1e-13,
+    "small_offset_response_absolute_Ha": 1e-13,
+    "large_offset_response_absolute_Ha": 1e-11,
+    "no_general_certified_error_interval": true,
+    "pure_array_fixture": {
+      "H0": [
+        [
+          2,
+          0.3
+        ],
+        [
+          0.3,
+          3
+        ]
+      ],
+      "H1": [
+        [
+          2.00000004,
+          0.30000008
+        ],
+        [
+          0.30000008,
+          2.99999997
+        ]
+      ],
+      "c0": [
+        0.6,
+        0.8
+      ],
+      "c1": [
+        0.61,
+        0.795
+      ],
+      "lambda0": 2.75,
+      "lambda1": 2.74999998,
+      "common_offsets": [
+        0,
+        100000000.0
+      ],
+      "amplitude_scales": [
+        1,
+        2.3,
+        0.71
+      ],
+      "original_column_signs": [
+        -1,
+        1
+      ],
+      "interpretation": "actual stored binary64 assets, finite residual algebra, not solved atomic eigenstates"
+    }
+  },
+  "original_yb_gates_unchanged": {
+    "residual": 1e-07,
+    "indicator_Ha": 1e-08,
+    "g_replay": 1e-09,
+    "pg_replay": 1e-10,
+    "Armijo": 0.0001
+  },
+  "not_claimed": [
+    "implementation or qualification passed",
+    "full531 continuation/stationarity",
+    "experimental gap improvement",
+    "roundoff is current dominant obstacle",
+    "whole-public-MCDHF speedup",
+    "GPU or parallel scaling",
+    "rigorous general decrement bound"
+  ],
+  "root_runtime_seal_must_bind": [
+    "actual changed candidate source map and old354 comparator",
+    "exact test vectors and isolated targets",
+    "test driver and operation/call counters",
+    "readonly source/preparation proof",
+    "full unsupported/default-bitwise controls",
+    "finite qualification cap and exact gates"
+  ],
+  "documentation_impact": {
+    "written": [
+      "README.md",
+      "contract.json",
+      "source_identity.json",
+      "verify_preparation.py",
+      "verification.json"
+    ],
+    "historical_evidence": "unchanged; new source identity is an explicit successor only",
+    "current_shared_navigation": "root owner after review"
+  },
+  "radial_endpoint_semantics": {
+    "exact_matrix_identity": "deltaH=actual retained H1-H0",
+    "polynomial_domain": "declared reference plus explicit P*delta-x",
+    "rounded_trial_domain": "actual trial P*x; strictly validated endpoint H owner",
+    "complete_reconstruction_contribution": "Decimal evaluates both domains and complete finite difference; report separately, no silently exact closure",
+    "unresolved_reconstruction_or_oracle_error": "fail finite qualification, no Armijo adapter"
+  },
+  "affected_legacy_tests": [
+    "five complete ordinary H comparator points bitwise frozen354",
+    "default CI implementation/defaults byte unchanged",
+    "baseline full signed gradient bitwise frozen354",
+    "fixed_density/constrained guards remain explicitly unsupported for mixed/tracked",
+    "unsupported consumer calls zero additional H/CI/gradient"
+  ]
+}

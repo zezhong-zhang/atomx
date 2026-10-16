@@ -1,0 +1,143 @@
+{
+  "samples_sha256": "986fa1eef52ca20cdf3301bdeaafbd2e3faed7c26826d21970a99ad3ad4f51c6",
+  "sampler_sha256": "b33056c4e7f26f5b0c7fce014e66b22cefdf5c1c495438a812a21e36d05a3051",
+  "total_intervals": 335,
+  "stable_intervals": 322,
+  "transition_intervals_rejected": 13,
+  "records": [
+    {
+      "round": 0,
+      "compiled_outer_requested_workers": 1,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9e18f071a62621b66e1c9d04e51b07d33d8d43b1b7cb046774b4fdc5f5c11138",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 0,
+      "maximum_observed_active_CPU_threads": null,
+      "observed_matching_requested": null,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 0,
+      "compiled_outer_requested_workers": 2,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "48e3dc2449ad851934626787049f0bf19657e2bcf4a512d0df32a6802ba14142",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 3,
+      "maximum_observed_active_CPU_threads": 2,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 0,
+      "compiled_outer_requested_workers": 4,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9c7b748fe83231114d4aaaea74533d980e56f1fc538c5c3d52b3cc2f1fce6850",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 12,
+      "maximum_observed_active_CPU_threads": 4,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 0,
+      "compiled_outer_requested_workers": 8,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "e7cb4cb3befb04872b9fb5b12d25f085cbb7c368bc4a4b42ae2c67100326f5ec",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 8,
+      "maximum_observed_active_CPU_threads": 8,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 1,
+      "compiled_outer_requested_workers": 1,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9e18f071a62621b66e1c9d04e51b07d33d8d43b1b7cb046774b4fdc5f5c11138",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 41,
+      "maximum_observed_active_CPU_threads": 1,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 1,
+      "compiled_outer_requested_workers": 2,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "48e3dc2449ad851934626787049f0bf19657e2bcf4a512d0df32a6802ba14142",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 22,
+      "maximum_observed_active_CPU_threads": 2,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 1,
+      "compiled_outer_requested_workers": 4,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9c7b748fe83231114d4aaaea74533d980e56f1fc538c5c3d52b3cc2f1fce6850",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 11,
+      "maximum_observed_active_CPU_threads": 4,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 1,
+      "compiled_outer_requested_workers": 8,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "e7cb4cb3befb04872b9fb5b12d25f085cbb7c368bc4a4b42ae2c67100326f5ec",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 8,
+      "maximum_observed_active_CPU_threads": 8,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 2,
+      "compiled_outer_requested_workers": 1,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9e18f071a62621b66e1c9d04e51b07d33d8d43b1b7cb046774b4fdc5f5c11138",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 40,
+      "maximum_observed_active_CPU_threads": 1,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 2,
+      "compiled_outer_requested_workers": 2,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "48e3dc2449ad851934626787049f0bf19657e2bcf4a512d0df32a6802ba14142",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 21,
+      "maximum_observed_active_CPU_threads": 2,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 2,
+      "compiled_outer_requested_workers": 4,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "9c7b748fe83231114d4aaaea74533d980e56f1fc538c5c3d52b3cc2f1fce6850",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 12,
+      "maximum_observed_active_CPU_threads": 4,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    },
+    {
+      "round": 2,
+      "compiled_outer_requested_workers": 8,
+      "compiled_body_exact_public_template": true,
+      "compiled_source_sha256": "e7cb4cb3befb04872b9fb5b12d25f085cbb7c368bc4a4b42ae2c67100326f5ec",
+      "actual_bound_inner_BLAS_threads": 1,
+      "stable_cpu_sample_intervals": 8,
+      "maximum_observed_active_CPU_threads": 8,
+      "observed_matching_requested": true,
+      "scope": "Read-only proc thread CPU deltas above25% of a2-second interval; transition intervals, cold preparation and warmup excluded. Whole-call lock wait/output compression may lower counts. No missing samples are invented."
+    }
+  ],
+  "round0_p1_sample_not_collected": true,
+  "note": "Round0 serial ran before sampler start. Its explicit compiled num_threads(1) and bound BLAS=1 are verified, while OS sample is null. Later complete rounds sample p1 directly."
+}

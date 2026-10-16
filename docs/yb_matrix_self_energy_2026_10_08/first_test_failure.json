@@ -1,0 +1,6 @@
+{
+  "failed": 2,
+  "passed": 22,
+  "cause": "Bitwise equality used for scalar sum vs matrix einsum; difference 5.42e-20 Ha at one representative coordinate, independent mscheme and physical gates had passed",
+  "disposition": "Use unchanged 1e-13 Ha scalar replay gate for summation roundoff. Contract 1e-11 independent gate unchanged"
+}

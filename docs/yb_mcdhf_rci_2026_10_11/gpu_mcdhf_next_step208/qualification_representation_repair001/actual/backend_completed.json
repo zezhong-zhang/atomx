@@ -1,0 +1,179 @@
+{
+  "NumBa_CPU1": {
+    "uncontrolled_construction_s": 0.30729696503840387,
+    "uncontrolled_first_gradient_including_JIT_and_archive_observers_s": 1.7243489720858634,
+    "bitwise_bands": 2824,
+    "all_bands": 2824,
+    "max_scaled_band_error": 0.0,
+    "adapter_calls": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 28,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 2
+    },
+    "engine_calls": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "before_and_restored_NumBa_mask": 1,
+    "actual_NumBa_mask_during_gradient": 1,
+    "factor_value_sha256": "db7daf1acbdb0c6b766fa83cbafb79f2595a936e69b5ccc90d9463706f753bdd",
+    "resident_identity": "284ddcc863a4c264d90efd71130a1f394c0fb108b5ac286a2805c48008ad9a9b",
+    "preflight": {
+      "factor_bytes": 38930976,
+      "unique_density_bytes": 8785152,
+      "chunk_prefix_suffix_bytes": 9142272,
+      "chunk_band_bytes": 4534272,
+      "chunk_index_bytes": 16384,
+      "CPU_dense_postprocess_bytes": 30984192,
+      "owned_device_bytes_upper": 61409056,
+      "owned_host_bytes_upper": 196894048,
+      "all_band_D2H_bytes_upper": 25009344,
+      "source_jobs": 706,
+      "component_jobs": 2824,
+      "chunks": 6,
+      "scan_kernel_calls_per_trial": 6,
+      "row_kernel_calls_per_trial": 6,
+      "scan_owned_rows": 25416,
+      "result_owned_rows": 3126168,
+      "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+    },
+    "PTX": {},
+    "cold_GPU": null,
+    "timing_speed_certificate": false
+  },
+  "NumBa_CPU4": {
+    "uncontrolled_construction_s": 0.3158751449082047,
+    "uncontrolled_first_gradient_including_JIT_and_archive_observers_s": 0.6468065350782126,
+    "bitwise_bands": 2824,
+    "all_bands": 2824,
+    "max_scaled_band_error": 0.0,
+    "adapter_calls": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 28,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 2
+    },
+    "engine_calls": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 0,
+      "density_H2D_bytes": 0,
+      "job_H2D_bytes": 0,
+      "band_D2H_bytes": 0,
+      "stream_sync": 0
+    },
+    "before_and_restored_NumBa_mask": 1,
+    "actual_NumBa_mask_during_gradient": 4,
+    "factor_value_sha256": "db7daf1acbdb0c6b766fa83cbafb79f2595a936e69b5ccc90d9463706f753bdd",
+    "resident_identity": "284ddcc863a4c264d90efd71130a1f394c0fb108b5ac286a2805c48008ad9a9b",
+    "preflight": {
+      "factor_bytes": 38930976,
+      "unique_density_bytes": 8785152,
+      "chunk_prefix_suffix_bytes": 9142272,
+      "chunk_band_bytes": 4534272,
+      "chunk_index_bytes": 16384,
+      "CPU_dense_postprocess_bytes": 30984192,
+      "owned_device_bytes_upper": 61409056,
+      "owned_host_bytes_upper": 196894048,
+      "all_band_D2H_bytes_upper": 25009344,
+      "source_jobs": 706,
+      "component_jobs": 2824,
+      "chunks": 6,
+      "scan_kernel_calls_per_trial": 6,
+      "row_kernel_calls_per_trial": 6,
+      "scan_owned_rows": 25416,
+      "result_owned_rows": 3126168,
+      "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+    },
+    "PTX": {},
+    "cold_GPU": null,
+    "timing_speed_certificate": false
+  },
+  "CUDA": {
+    "uncontrolled_construction_s": 0.3112155518028885,
+    "uncontrolled_first_gradient_including_JIT_and_archive_observers_s": 1.2438245909288526,
+    "bitwise_bands": 2824,
+    "all_bands": 2824,
+    "max_scaled_band_error": 0.0,
+    "adapter_calls": {
+      "gradient": 1,
+      "density_band_requests": 992,
+      "factor_requests": 28,
+      "band_expansions": 2824,
+      "signed_term_incidence": 39064,
+      "pair_actions": 7727,
+      "one_body_actions": 31,
+      "H_owner_validation": 2
+    },
+    "engine_calls": {
+      "trials": 1,
+      "scan_kernel": 6,
+      "row_kernel": 6,
+      "factor_H2D_bytes": 38930976,
+      "density_H2D_bytes": 8785152,
+      "job_H2D_bytes": 90368,
+      "band_D2H_bytes": 25009344,
+      "stream_sync": 7
+    },
+    "before_and_restored_NumBa_mask": 1,
+    "actual_NumBa_mask_during_gradient": 1,
+    "factor_value_sha256": "db7daf1acbdb0c6b766fa83cbafb79f2595a936e69b5ccc90d9463706f753bdd",
+    "resident_identity": "284ddcc863a4c264d90efd71130a1f394c0fb108b5ac286a2805c48008ad9a9b",
+    "preflight": {
+      "factor_bytes": 38930976,
+      "unique_density_bytes": 8785152,
+      "chunk_prefix_suffix_bytes": 9142272,
+      "chunk_band_bytes": 4534272,
+      "chunk_index_bytes": 16384,
+      "CPU_dense_postprocess_bytes": 30984192,
+      "owned_device_bytes_upper": 61409056,
+      "owned_host_bytes_upper": 196894048,
+      "all_band_D2H_bytes_upper": 25009344,
+      "source_jobs": 706,
+      "component_jobs": 2824,
+      "chunks": 6,
+      "scan_kernel_calls_per_trial": 6,
+      "row_kernel_calls_per_trial": 6,
+      "scan_owned_rows": 25416,
+      "result_owned_rows": 3126168,
+      "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+    },
+    "PTX": {
+      "0": {
+        "sha256": "dbb68bbfdd09f91737c594a35cd2f370543e2568771b515014aa3909892ac453",
+        "signatures": 1
+      },
+      "1": {
+        "sha256": "bffa066361255bd72232a55231f12107a34512d8281588f86b093272bf61a689",
+        "signatures": 1
+      }
+    },
+    "cold_GPU": {
+      "uncontrolled_context_admission_s": 0.13128639198839664,
+      "free_bytes": 49091575808,
+      "total_bytes": 50863341568,
+      "device_name": "NVIDIA GeForce RTX 4090",
+      "compute_capability": [
+        8,
+        9
+      ]
+    },
+    "timing_speed_certificate": false
+  }
+}

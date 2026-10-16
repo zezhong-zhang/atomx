@@ -1,0 +1,1522 @@
+--- before/docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md
++++ after/docs/atomic_physics_correctness_2026_10_11/METHOD_STRATEGY.md
+@@ -2,8 +2,10 @@
+ 
+ 2026-10-11 用户明确裁定：原子物理和求解器在 Atomx 内实现；其他软件用于
+ 参考方程、比较物理、精度与效率，不能以外部后端接入作为完成目标。
+-当前权威路线、Ne/Eu 成功基线与六方向合同见
+-[Atomx 原生原子物理路线](../atomic_native_roadmap_2026_10_11/README.md)。
++当前主线按用户随后裁定为
++[Atomx 原生 MCDHF→RCI 与 Yb⁺ 实算](../yb_mcdhf_rci_2026_10_11/README.md)。
++Ne/Eu 成功基线和此前独立方法证据见
++[原生原子物理路线](../atomic_native_roadmap_2026_10_11/README.md)。
+ 
+ 本页上一版漏掉 Ne 后期完整 3200 Ha 原生 CI 和 Eu 原生标定多重态成功记录，
+ 仅列早期有限实例不足以判断 Atomx 水平。修订前原文与源审计保存在
+@@ -14,8 +16,10 @@
+ fscc.compute 仍实际执行 EXP-T。既有比较与缺陷修复证据保留；这描述当前依赖，
+ 不是未来目标，也不把依赖重新标为全链原生实现。
+ 
+-原生方法按目标电子结构选择：Ne 核激发保留成功的 RCI；开放 f 壳优先原生
+-MCDHF/多参考 CI 与平衡核空穴；近闭壳核/价关联推进原生约化 SD 和非线性
+-CCSDT/FSCC。共享径向、角代数、signed 积分、态身份与有效算符；CPU/GPU
+-实现遵守相同物理合同。原方法阶数、p 核低阶和非正则方程证据仍限定其
+-已记录模型，不能转移成新的 Yb/Eu 谱或普适最优方法证明。
++MCDHF→RCI 为原子结构开发主线，Yb⁺ 五态示例采用真实共同态轨道与 CI 优化；
++先解决驻值、投影与平衡核价/空穴物理，再按谱线差分的重要性推进空间。
++Ne 成功 RCI 与 Eu 多参考 CI 基础继续复用。约化 SD、非线性 CCSDT/FSCC
++保留为独立方法对照及后续补充，不强制所有元素采用同一 CC 方案。共享径向、
++角代数、signed 积分、态身份与有效算符；CPU/GPU 实现遵守相同物理合同。
++原方法阶数、p 核低阶和非正则方程证据仍限定已记录模型，不能转移为新谱
++或普适最优方法证明。
+--- before/docs/AGENT_REFERENCE.md
++++ after/docs/AGENT_REFERENCE.md
+@@ -8,6 +8,7 @@
+ 
+ ## 当前指南
+ 
++- [原生 MCDHF→RCI 与 Yb⁺ 实算](yb_mcdhf_rci_2026_10_11/README.md)：当前主线；真实共同五态梯度驻值、平衡核价/空穴、同态 RCI/实验差分与精确复用性能。SD/CC 为独立对照，首个裸参考不作关联空间认证。
+ - [Atomx原生原子物理路线](atomic_native_roadmap_2026_10_11/README.md)：恢复Ne后期约9/14meV原生谱位与Eu标定RMS8.2cm⁻¹成功实践；原生六方向并行，其他软件用于物理/精度/效率参考和独立对照，当前pCI/EXP-T依赖如实记录。
+ - [物理正确性与覆盖审计](atomic_physics_correctness_2026_10_11/README.md)：固定空间完整signed方程与两类二阶极限，公共非正则FSCC入口拒绝已知错误后端；保留秩正确与遗漏秩误差分开，优先物理补全再扫截断。旧方法定位的早期Ne/Eu实例不代表最佳实践，勘误见上一项。
+ - [物理量级与推进优先级](atomic_physics_budget_2026_10_11/README.md)：当前完整五态的绝对束缚偏差、重心与分裂，历史／文献／条件代理量级分开；先判别重要相关通道，再选完整同模型求根，未宣称已修好谱线。
+--- before/docs/AGENT_INSIGHTS.md
++++ after/docs/AGENT_INSIGHTS.md
+@@ -17,7 +17,11 @@
+ ## 当前登记
+ 
+ 2026-10-11 用户裁定：[Atomx原生原子物理路线](atomic_native_roadmap_2026_10_11/README.md)
+-是开发主线；参考软件用于方程、物理、精度和效率对照，接入后端不等于原生
++保留成功基线；随后用户指定
++[原生 MCDHF→RCI](yb_mcdhf_rci_2026_10_11/README.md)为原子结构主线，并要求
++Yb⁺ 示例真实采用 MCDHF。先验共同态梯度驻值与平衡核价物理，再按实验谱线
++差分推进；SD/CC 用作独立方法对照和补充。参考软件用于方程、物理、精度和
++效率对照，接入后端不等于原生
+ 能力完成。当前依赖与未来目标分开。恢复Ne后期谱位和Eu标定多重态基线，
+ 禁止仅用早期裸模型概括项目水平；模型/参考类型/拟合状态与成功数字同时保存。
+ 这是用户决定与有界证据，不是全部原子第一性精度认证。
+@@ -124,6 +128,13 @@
+ - 去向：根 §4 的配对计时、范围声明和失败保留规则。
+ 
+ ## preserve-metric
++
++- 2026-10-11 [Yb⁺ 原生 MCDHF 驻值修复](yb_mcdhf_rci_2026_10_11/README.md)：
++  深束缚总能量的直接差分淹没受约束下降时，先用独立完整能量锚区分真实切向
++  改变、实际 S-Gram normal 项及两次轨道重建的舍入，再使用原投影的显式增量。
++  保留原初始化、残差 metric 与门限；此次五参考原门闭合不能转为扩展混合 CI
++  的驻值或实验认证。有限约束缺陷的 centering 仍有余项，roundoff guard 单独
++  不提供普适下降符号界。合并到既有度量规则，不新增根级规则。
+ 
+ - 触发 → 行动 → 原因：比较优化终点与重启残差时保存原始度量，
+   防止预条件器改变导致残差数值不可直接比较。
+--- before/docs/THEORY_NIST_COMPARISON.md
++++ after/docs/THEORY_NIST_COMPARISON.md
+@@ -69,6 +69,11 @@
+ 
+ ## Supported entry points
+ 
++The current [native MCDHF→RCI Yb⁺ example](yb_mcdhf_rci_2026_10_11/README.md)
++keeps the correlated orbital-stationarity gate beside each reported comparison.
++An unconverged optimization can supply diagnostic energies, but cannot replace
++the previous model's certified numerical status or become an accepted spectrum.
++
+ Shared parsing and matching live in `atomx.reference_data`; native-result
+ comparison services live in `atomx.workflows.nist_comparison`. Their tests call
+ those packages directly. The archive builder, viewer and campaign comparison
+--- before/docs/ARCHITECTURE_CAPABILITIES.md
++++ after/docs/ARCHITECTURE_CAPABILITIES.md
+@@ -5,6 +5,9 @@
+ 
+ The [native atomic roadmap](atomic_native_roadmap_2026_10_11/README.md) records
+ recovered Ne/Eu successes and the user decision to implement solvers in Atomx.
++The current [MCDHF→RCI route](yb_mcdhf_rci_2026_10_11/README.md) is the primary
++native atomic-structure direction, including a real five-target Yb⁺ example.
++Finite-space stationarity and experimental accuracy remain distinct gates.
+ Existing pCI-derived/EXP-T dependencies below describe current execution;
+ they are reference/comparison paths, not completed native replacements.
+ 
+--- before/docs/DF_SOLVER_CONTROLS.md
++++ after/docs/DF_SOLVER_CONTROLS.md
+@@ -54,6 +54,35 @@
+ 
+ ## Design assessment
+ 
++The current atomic development route is native correlated MCDHF followed by
++RCI; see the [Yb five-state contract](yb_mcdhf_rci_2026_10_11/README.md).
++Its shared `CIStateAverage` uses the full signed CI density and retains the
++original constrained orbital residual and energy-error gates. Population-only
++per-block orbital sets do not establish this correlated EOL stationarity.
++
++`max_determinants` is propagated to the optimized CI Hamiltonian and its RDM
++consumer in both radial engines and the shared charge-state objective. Exceeding
++the cap is an explicit failure, not a reduced physical state space. A screened
++no-pair projector uses the occupation-weighted complete seed Fock operator,
++including the nuclear term once; this projector remains fixed during a run.
++
++For the B-spline optimizer, a stable full quadratic/quartic objective difference
++is available only for unchanged densities in one-CSF symmetry blocks. Mixed CI,
++level tracking and charge-state response explicitly retain the ordinary CI
++energy comparison. Near-unit polar trial retractions evaluate the same map
++through a wide-precision Gram and an inverse-square-root correction series;
++the initial seed and run-initial residual metric are unchanged. These numerical
++paths neither certify physical correlation coverage nor relax the original gates.
++
++For roundoff-scale constraint defects, the fixed-density comparison can use a
++separate constrained objective extension. It subtracts the complete quadratic
++change in each same-κ metric Gram matrix using the actual CI ket-normalized
++one-body gradient multipliers. This equals the same physical energy on the
++orthogonal manifold; larger endpoint defects return unsupported. Explicit
++`projector @ (trial_coordinates - reference_coordinates)` increments preserve
++tiny physical changes that would be lost by subtracting two separately rebuilt
++orbitals. The complete uncentered difference API retains its original meaning.
++
+ The DF/MCDHF dispatch and coherent operator contracts are separated. Both direct
+ DF engines follow the same physical stationary equations. Numerical rotations
+ are shared, and fixed-ensemble averaging remains an explicit physical choice.
+--- before/docs/README.md
++++ after/docs/README.md
+@@ -15,7 +15,8 @@
+ - [Testing](TESTING.md): test organization and commands.
+ - [NIST reference data and periodic atlas](NIST_SPECTRUM_ATLAS.md): read-only export, state matching, remote snapshot and historical coverage limits.
+ - [Theory–NIST comparison](THEORY_NIST_COMPARISON.md): state matching, uncertainty and interpretation.
+-- [Native atomic roadmap](atomic_native_roadmap_2026_10_11/README.md): recovered Ne/Eu precision, six native directions, reference-only external programs and fixed-space physics controls.
++- [Native MCDHF→RCI and Yb⁺](yb_mcdhf_rci_2026_10_11/README.md): current atomic-structure direction, five-target stationarity, balanced core–valence physics and exact radial action reuse.
++- [Native atomic roadmap](atomic_native_roadmap_2026_10_11/README.md): preserved Ne/Eu precision and earlier independent fixed-space controls.
+ 
+ ## Atomic solvers and operators
+ 
+--- before/docs/atomx_hourly_progress_2026_10_10/README.md
++++ after/docs/atomx_hourly_progress_2026_10_10/README.md
+@@ -1,4 +1,18 @@
+ # 飞书每小时任务与谱学对照
++
++当前主线为[原生 MCDHF→RCI 与 Yb 实算](../yb_mcdhf_rci_2026_10_11/README.md)。
++卡片从 `yb_mcdhf_result` 的独立输入链读取共同轨道五态驻值、模型与 RCI/NIST
++各行；未通过原驻值门时显式标为诊断。历史 SD 另列保留。六方向调整为驻值
++正确性、平衡核价/多参考、同态 RCI 修正、性质、实验/软件比较与性能。
++选择器对当前 MCDHF proof 独立核对 SHA，旧 SD 路径继续兼容。原先注册的
++有限复验服务仍按源变化运行，新 MCDHF 核价生产执行器尚未注册；卡片如实
++区分 agent 正在进行的物理判别和服务已经准入的有限实验。
++
++当前 Yb⁺ 五参考共同轨道 MCDHF 已从原初始化在原驻值门下收敛，残差
++5.143e−8；主表明确显示五参考基线。另列同轨道平衡单核空穴家族
++294→468→531-CSF 的实际 RCI 差能和 NIST gap，四条目标谱线仍未过原 1% 门。
++扩展模型未完成 MCDHF 轨道优化，不能继承五参考驻值认证。独立同 003 轨道
++Breit/QED 量级账保留为另一个诊断模型，不拼入 005/531 预测。
+ 
+ 2026-10-11 最新用户裁定与[原生路线](../atomic_native_roadmap_2026_10_11/README.md)
+ 将待办改为Atomx原生六方向；其他软件仅作方程、物理、精度和效率独立对照。
+@@ -39,6 +53,11 @@
+ 
+ ## 已验证的实际发送
+ 
++- 原生 Yb⁺ 五参考 MCDHF 驻值及平衡 531-CSF RCI 最新结果已发送并读回，
++  [第二阶段回执](../yb_mcdhf_rci_2026_10_11/delivery_stage002/receipt.json)记录
++  `om_x100b63807e496ca0dfa2a1789aa5dd8`。发卡后选择器实际运行，状态为
++  实现前沿，没有将待实现的扩展 MCDHF 标为生产计算已启动。
++
+ - 手动服务启动：香港时间 2026-10-10 23:57，消息
+   `om_x100b639246d34ca4c4fd515e6ad693c`。
+ - 实际整点自动触发：香港时间 2026-10-11 00:00，消息
+--- before/docs/atomx_hourly_progress_2026_10_10/progress.json
++++ after/docs/atomx_hourly_progress_2026_10_10/progress.json
+@@ -1,44 +1,44 @@
+ {
+-  "updated_at": "2026-10-11T06:41:38.672357+00:00",
++  "updated_at": "2026-10-11T08:04:08.728384+00:00",
+   "yb_comparison": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+   "dynamic_breit_result": "docs/atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json",
+   "tasks": [
+     {
+-      "title": "方向1：Atomx完整原生J约化全阶SD",
+-      "status": "有限完整方程锚已实跑；生产图集待补齐",
+-      "detail": "DC/static/dynamic完整12方向source/K/energy及原门通过；独立PH作用重现300个signed DD漏项，优先补原生PH、混合图及Fock/singles/核/价/Σ₂与生产分块缩并，pCI仅对照，现有依赖如实记录。"
++      "title": "方向1：原生共同轨道MCDHF驻值与数值正确性",
++      "status": "68步闭合原驻值门；仅五参考数值基线合格",
++      "detail": "原初始化/metric不变，24径向轨道共同优化，残差5.143e−8 <1e−7，独立完整能量/梯度/原metric重放通过。混合CI响应与更大模型不能继承此认证。"
+     },
+     {
+-      "title": "方向2：Atomx原生非线性CCSDT / FSCC",
+-      "status": "有限原生CCSD存在；原生T3/S3与生产缩并待实现",
+-      "detail": "固定H保留方程和FCI锚检验真正非线性与三激发；复用signed积分/状态/数值合同，分块计算。EXP-T作为交叉验证，不以接入作为原生完成。"
++      "title": "方向2：平衡核价、多参考与态身份",
++      "status": "同005轨道平衡294→468→531-CSF RCI已完成",
++      "detail": "最终D3/D5/P1/P3 gap +2082.9/+1302.9/-2027.3/-2129.1 cm⁻¹；完整4f补回基态通道，P改善而D变差，四条仍未过1%。下一步混合CI响应轨道优化与核双激发量级估算；未认证扩展MCDHF或完整CV。"
+     },
+     {
+-      "title": "方向3：原生开放f壳、平衡核空穴与轨道松弛",
+-      "status": "复用Eu多重态与Ne RCI成功基础",
+-      "detail": "Eu原生4f⁶全M3003行列式及标定RMS8.2cm⁻¹已找到；原生MCDHF/CI、态跟踪、互补P/Q与核有效关联用于新缺项辨别，平衡4f-hole与上下态，避免重复计数。"
++      "title": "方向3：同态完整RCI、动态Breit、QED与反冲",
++      "status": "静态RCI及独立同003轨道修正账已实算",
++      "detail": "动态−静态Breit0.37–4.23 cm⁻¹；现SE模型差361–450 cm⁻¹。非局域/屏蔽多体QED与有限核覆盖待补；不拼到不同轨道/态、不按NIST拟合模型。"
+     },
+     {
+-      "title": "方向4：完整静态/动态Breit、QED与反冲物理",
+-      "status": "原生通用横向J块及有限三模式锚通过；生产全链未完成",
+-      "detail": "完整核/价/Σ₂通道与同态算符账，修正进入后重解上下态，比较重心/分裂/强度；有限实频动态Breit不是完整束缚态QED。"
++      "title": "方向4：同态E1/E2/M1、寿命与响应",
++      "status": "五参考驻值已过；扩展相关态性质仍待计算",
++      "detail": "原驻值与态身份通过后复用共同波函数，检查长度/速度约定、非正交/相关范数与响应；历史冻结核寿命失败不能代表新MCDHF。"
+     },
+     {
+-      "title": "方向5：同态性质、NIST与周期表精度账",
+-      "status": "Ne/Eu成功基线来源已复核；Yb精度失败保留",
+-      "detail": "相关范数/左右态/密度/E1/E2/M1/寿命继续原生实现；Ne实验非NIST，Eu标定及NIST半经验分列。远程页面仍是已发布快照，新增比较先由来源绑定卡片同步。"
++      "title": "方向5：NIST/实验与软件独立比较",
++      "status": "新Yb诊断谱已绑定；Ne/Eu成功基线保留",
++      "detail": "新MCDHF与历史SD分表；Ne独立实验非NIST，Eu标定与半经验记录分列。FAC/GRASP/AMBiT等仅参考/对照；周期表网页仍为发布快照。"
+     },
+     {
+-      "title": "方向6：Numba CPU/GPU与可复用高性能架构",
+-      "status": "共享数值核已有私有控制；公共生产加速需验收",
+-      "detail": "共同物理/数组合同、精确分块/批积分/矩阵自由作用和驻留数据优先。固定模型及原门测端到端加速、真实并行效率；FAC/AMBiT/pCI/EXP-T只作参考对照，不以worker数推断效率。"
++      "title": "方向6：高复用CPU/GPU与性能",
++      "status": "相同source-pair矩阵作用1728→224；端到端性能未认证",
++      "detail": "signed完整梯度逐位相同；当前计时负载门失败，不能报加速比。共享物理与数组合同、批积分/分块/驻留优先；GPU CUDA编译依赖缺失，不能推断GPU或并行效率。"
+     }
+   ],
+   "spectra": [
+     {
+       "title": "原子可见/紫外与光钟 E1/E2",
+-      "comparison": "Yb⁺ 相关能级位置见上表；强度、寿命尚未取得同等级相关计算。",
+-      "status": "能量来自源绑定的已保存 SD；其源码快照保留，不与本次冻结轨道动态修正或旧速率混成最终谱。"
++      "comparison": "Yb⁺原生五态MCDHF原驻值门通过；主表明确列五参考静态RCI/NIST基线。平衡294→468→531固定轨道RCI另列实际gap；强度/寿命未在扩展模型完成。",
++      "status": "数值驻值、有限关联与实验精度分开；历史SD保留。005五参考通过不代表531-CSF轨道已优化或最高水平。"
+     },
+     {
+       "title": "稀土寿命（历史冻结核模型）",
+@@ -92,7 +92,7 @@
+   ],
+   "fscc_precision_result": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json",
+   "fscc_strict_target": "docs/atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json",
+-  "priority": "Atomx原生原子物理实现；成功基线→固定空间物理判别→重要缺项→生产缩并→完整共同空间及CPU/GPU效率；参考软件只作独立对照",
++  "priority": "Atomx原生MCDHF→RCI主线：真实驻值正确性→平衡核价与多参考→同态算符/性质→实验gap→共享收缩与端到端并行性能；SD/CC与外部软件作为对照",
+   "atlas": {
+     "url": "https://atomx-atomic-spectrum-atlas.black-fairy-6027.chatgpt.site",
+     "scope": "私有站点：需登录对应 ChatGPT 账号。118 元素、119394 能级、296998 谱线、6019 电离能；295 历史唯一能级比较保留原模型，未认证为当前最高水平。网页是已发布快照；小时卡片显示随后新增的实际计算。"
+@@ -107,16 +107,17 @@
+   "external_benchmark_report": "docs/atomic_external_benchmark_2026_10_11/fac/README.md",
+   "external_benchmark_metrics": "docs/atomic_external_benchmark_2026_10_11/fac/metrics.json",
+   "fac_benchmark_gaps": "docs/atomic_external_benchmark_2026_10_11/fac/gaps.json",
+-  "physics_budget_result": "docs/atomic_native_roadmap_2026_10_11/results.json",
++  "physics_budget_result": "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json",
+   "physics_priority_report": "docs/atomic_native_roadmap_2026_10_11/README.md",
+   "physics_next_setups": [
+-    "Implement native normal-ordered PH and mixed-rank/Fock/singles linked SD contractions on the validated shared J blocks; independent300-element PH anchor closes the DD gap. Then complete core/valence/Sigma2 and allowed amplitude domain, without claiming the finite matrix projection scalable.",
+-    "Native nonlinear CCSDT/FSCC from finite same-H oracle to real block contractions; reference EXP-T only independently.",
+-    "Reuse native Eu CI/MCDHF and Ne RCI/state tracking; balanced open-f and core-hole P/Q without double counting.",
+-    "Complete same-wavefunction transverse/QED/recoil/property chain with differential upper-minus-lower physics scales.",
+-    "Validated observed/semiempirical/calibrated NIST/reference atlas and native same-state properties.",
+-    "CPU/GPU share physical/array identity; optimize contraction representation, then controlled end-to-end/parallel benchmarks."
++    "Native common-orbital MCDHF/RCI: retain original stationarity metric and independent constrained objective gates; extend CI-response-safe comparison before mixed-target production certification.",
++    "Balanced 294/468/531 fixed-orbital RCI is computed with matched lower/upper states. Next compare mixed-CI orbital relaxation and missing core-double/higher-rank differential contributions; no dominant mechanism is established by these finite increments.",
++    "Complete same-state RCI Breit/QED/recoil coverage; SE model differences and unsupported nonlocal/screened terms remain explicit, never fitted to NIST.",
++    "Native same-wavefunction E1/E2/M1 and response after matching/expanded-model stationarity; retain Ne/Eu successful baselines and historical lifetime failures.",
++    "NIST/reference-aware atlas and independent FAC/GRASP/AMBiT comparisons; external programs remain comparators, not Atomx production backends.",
++    "Exact shared contractions and immutable identities first; then controlled same-model end-to-end CPU/GPU/parallel benchmarks. No timing claim under failed load gates."
+   ],
+   "historical_physics_budget_result": "docs/atomic_physics_budget_2026_10_11/results.json",
+-  "historical_correctness_result": "docs/atomic_physics_correctness_2026_10_11/results.json"
++  "historical_correctness_result": "docs/atomic_physics_correctness_2026_10_11/results.json",
++  "yb_mcdhf_result": "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stationary_baseline.json"
+ }
+--- before/docs/atomx_hourly_progress_2026_10_10/sync_card.py
++++ after/docs/atomx_hourly_progress_2026_10_10/sync_card.py
+@@ -46,6 +46,60 @@
+         "path": relative,
+         "sha256": hashlib.sha256(raw).hexdigest(),
+     }
++
++
++def mcdhf_summary(data, citations):
++    """Keep genuine orbital stationarity beside the new Yb model's energies."""
++    if (data["method"] != "MCDHF -> RCI" or data["fitted_corrections"]
++            or data["highest_level_reached"]):
++        raise ValueError("MCDHF panel has an unsupported method or certification")
++    for binding in data["inputs"].values():
++        path = (REPO / binding["path"]).resolve()
++        if (not path.is_relative_to(REPO.resolve()) or
++                hashlib.sha256(path.read_bytes()).hexdigest() != binding["sha256"]):
++            raise ValueError("MCDHF input identity changed")
++        citations.append(dict(path=binding["path"], sha256=binding["sha256"]))
++    gate = data["stationarity"]
++    values = [gate[key] for key in ("orbital_residual", "orbital_tolerance",
++                                  "estimated_energy_error", "energy_tolerance")]
++    if (not all(math.isfinite(value) and value >= 0 for value in values)
++            or gate["orbital_tolerance"] <= 0 or gate["energy_tolerance"] <= 0):
++        raise ValueError("MCDHF stationarity metrics require finite residuals and positive gates")
++    passed = (gate["orbital_residual"] < gate["orbital_tolerance"]
++              and gate["estimated_energy_error"] < gate["energy_tolerance"])
++    if ((gate["converged"] and not passed) or
++            (data["production_certified"] and not gate["converged"])):
++        raise ValueError("MCDHF stationarity certification contradicts its original gates")
++    expected = {("6s_1/2", 1, 1), ("5d_3/2", 3, 1), ("5d_5/2", 5, 1),
++                ("6p_1/2", 1, -1), ("6p_3/2", 3, -1)}
++    rows = data["rows"]
++    if len(rows) != 5 or {(r["label"], r["twoJ"], r["parity"]) for r in rows} != expected:
++        raise ValueError("MCDHF five-target state identity changed")
++    lines, experiment_gates = [], []
++    for row in rows:
++        error = row["computed_cm1"] - row["experimental_cm1"]
++        if not math.isclose(error, row["error_cm1"], rel_tol=0, abs_tol=1e-6):
++            raise ValueError("MCDHF position/reference arithmetic mismatch")
++        if row["experimental_cm1"]:
++            relative = error / row["experimental_cm1"]
++            if (not math.isclose(relative, row["relative_error"], rel_tol=0, abs_tol=1e-12)
++                    or row["gate_pass"] != (abs(relative) <= .01)):
++                raise ValueError("MCDHF experimental gate changed")
++            lines.append(f"• {row['label']}：{row['computed_cm1']:.2f} / "
++                         f"{row['experimental_cm1']:.2f} cm⁻¹；差 {error:+.2f}")
++            experiment_gates.append(row["gate_pass"])
++    if data["experimental_gate_passed"] != all(experiment_gates):
++        raise ValueError("MCDHF overall experimental gate contradicts its rows")
++    status = "原驻值门通过" if gate["converged"] else "驻值未通过，能级仅用于诊断"
++    return (
++        f"Atomx 原生 {data['computed_run']}；{data['CSFs']} CSF / "
++        f"{data['radial_orbitals']} 径向轨道 / {data['electrons']} 电子。\n"
++        f"{status}：残差 {gate['orbital_residual']:.3e} / 门 "
++        f"{gate['orbital_tolerance']:.1e}；估计能量误差 "
++        f"{gate['estimated_energy_error']:.3e} Ha / 门 {gate['energy_tolerance']:.1e}。\n"
++        + "\n".join(lines)
++        + f"\n{data['card_summary']}\n实验门整体通过={data['experimental_gate_passed']}。"
++    )
+ 
+ 
+ def render(registry, now):
+@@ -62,7 +116,7 @@
+                 f"差 {row['error_cm1']:+.2f}；{100 * row['relative_error']:+.3f}% · "
+                 + ("通过" if row["gate_pass"] else "未通过")
+             )
+-    # These are energies from a shared SD calculation, not dressed line rates.
++    # The saved SD comparator remains distinct from the new MCDHF example.
+     sections = [
+         "**当前判断**\n尚未达到最高水准。数值、物理空间收敛和实验精度分别判断。"
+         "当前优先原子级。每次成功发卡触发按 gap 选择任务；可执行任务有资源上限，"
+@@ -82,8 +136,15 @@
+         sections.insert(1, "**物理量级与推进顺序**\n" + physics["card_summary"])
+     # Names of archived comparator fields are read explicitly below; schema
+     # drift fails the report rather than silently displaying old cached values.
++    mcdhf_path = registry.get("yb_mcdhf_result")
++    if mcdhf_path:
++        mcdhf, citation = evidence(mcdhf_path)
++        citations.append(citation)
++        sections.append("**Yb⁺ 主线：原生 MCDHF→RCI 五参考驻值基线**\n"
++                        + mcdhf_summary(mcdhf, citations))
+     sections.append(
+-        "**Yb⁺ 相关能级与实验 · 共同 6s 零点**\n"
++        ("**Yb⁺ 历史 SD 对照 · 共同 6s 零点**\n" if mcdhf_path else
++         "**Yb⁺ 相关能级与实验 · 共同 6s 零点**\n")
+         + "\n".join(excitation)
+         + "\n"
+         + "\n".join(
+--- before/src/atomx/numerics/bspline/orbital_optimization.py
++++ after/src/atomx/numerics/bspline/orbital_optimization.py
+@@ -2,6 +2,38 @@
+ import hashlib
+ 
+ import numpy as np
++
++
++def _polar_retraction(y):
++    """Evaluate the polar map without reconstructing a nearly unit matrix.
++
++    A convergent binomial series for ``(I + D)**(-1/2) - I`` avoids
++    roundoff from arbitrary eigenvectors of a nearly degenerate Gram matrix.
++    Wide precision is used only for these small Gram/correction matrices;
++    the stored coordinates and physical objective retain their usual dtype.
++    """
++    gram = y.T @ y
++    if np.linalg.norm(gram - np.eye(gram.shape[0]), ord=np.inf) < .01:
++        wide = y.astype(np.longdouble)
++        defect = wide.T @ wide - np.eye(gram.shape[0], dtype=np.longdouble)
++        power = defect.copy()
++        coefficient = -.5
++        correction = coefficient * power
++        # With ||D||_inf < .01, 24 terms give a remainder below 1e-48.
++        # Stop earlier when the next term is below wide relative precision.
++        for order in range(2, 25):
++            power = power @ defect
++            coefficient *= -(order - .5) / order
++            term = coefficient * power
++            correction += term
++            if np.max(np.abs(term)) <= np.finfo(np.longdouble).eps * max(
++                    np.max(np.abs(correction)), np.finfo(np.longdouble).tiny):
++                break
++        return np.asarray(wide + wide @ correction, dtype=y.dtype)
++    values, vectors = np.linalg.eigh(gram)
++    if values.min() <= 1e-14:
++        raise ValueError("rank-deficient orbital trial")
++    return y @ ((vectors / np.sqrt(values)) @ vectors.T)
+ 
+ 
+ def optimize_orbitals(functional, orbitals, *, max_iter=160, tolerance=1e-6,
+@@ -10,7 +42,8 @@
+                       refresh_min_ratio=0.25, max_refreshes=4,
+                       projector_source="nuclear", occupation_floor=0.05,
+                       progress_callback=None, orbital_preconditioner="spectral",
+-                      history_size=10):
++                      history_size=10, energy_difference=None,
++                      linear_energy_increments=False):
+     """Minimize the correlated energy in a fixed positive-energy subspace.
+ 
+     A nuclear Dirac projector fixes the finite-basis no-pair Hamiltonian.
+@@ -61,9 +94,10 @@
+     mixing differ from the nuclear eigenbasis, and the SCF can carry
+     small negative-energy leakage the nuclear projector never removes
+     (critical review F3).  ``"fock"`` rebuilds the projector from the
+-    SCF-averaged Fock fields (``preconditioner_matrices``) at the
+-    current orbitals — the same construction GRASP-style no-pair
+-    Hamiltonians use — and requires ``preconditioner_matrices``.
++    occupation average of complete seed Fock matrices
++    (``preconditioner_matrices``, including the nuclear one-body term).
++    This screened boundary stays fixed throughout the optimization;
++    it requires ``preconditioner_matrices``.
+     Either way the returned diagnostics carry
+     ``no_pair_projector_leakage``, the worst S-norm weight any active
+     orbital carries outside the *alternative* projector (nuclear vs
+@@ -133,7 +167,10 @@
+                     fock_k += w * preconditioner_matrices[key]
+                     total += w
+             if total > 0.0:
+-                fock_k = functional.one_body[kappa] + fock_k / total
++                # These are complete Fock matrices, also used unchanged
++                # by build_blocks below. Adding one_body again would
++                # double the nuclear Dirac term in the no-pair model.
++                fock_k = fock_k / total
+                 alt = solve_dirac(fock_k, metric, functional.ns, kappa,
+                                   nsp=functional.data.get("nsp"),
+                                   nsq=functional.data.get("nsq"))
+@@ -221,10 +258,7 @@
+         result = point.copy()
+         for _, _, shape, where in layout:
+             y = point[where].reshape(shape)
+-            values, vectors = np.linalg.eigh(y.T @ y)
+-            if values.min() <= 1e-14:
+-                raise ValueError("rank-deficient orbital trial")
+-            result[where] = (y @ ((vectors / np.sqrt(values)) @ vectors.T)).ravel()
++            result[where] = _polar_retraction(y).ravel()
+         return result
+ 
+     def tangent(point, vector):
+@@ -299,6 +333,7 @@
+     converged = False
+     termination_reason = "maximum_iterations"
+     line_search_fallbacks = 0
++    stable_energy_comparisons = 0
+     shooting_active = orbital_preconditioner == "shooting"
+     shooting_iterations = 0
+     shooting_fallback_reason = None
+@@ -368,7 +403,22 @@
+                 except (ValueError, FloatingPointError):
+                     step *= 0.5
+                     continue
+-                if np.isfinite(trial_energy) and trial_energy <= energy + 1e-4 * step * derivative:
++                change = trial_energy - energy
++                if (energy_difference is not None and np.isfinite(trial_energy)
++                        and abs(change) <= 128 * np.spacing(max(abs(energy), 1.0))):
++                    # A declared finite-polynomial or constraint-centered
++                    # difference can resolve a physical decrease hidden by
++                    # the large core constant and roundoff normal motion.
++                    # The callback owns its scope/constraint guards; an
++                    # unsupported density response returns None explicitly.
++                    difference_kwargs = ({"increments": unpack(candidate - x)}
++                                         if linear_energy_increments else {})
++                    stable_change = energy_difference(unpack(x), unpack(candidate), ci, trial_ci,
++                                                      **difference_kwargs)
++                    if stable_change is not None:
++                        change = stable_change
++                        stable_energy_comparisons += 1
++                if np.isfinite(change) and change <= 1e-4 * step * derivative:
+                     accepted = True
+                     break
+                 step *= 0.5
+@@ -403,6 +453,7 @@
+         "converged": converged, "iterations": iteration,
+         "termination_reason": termination_reason,
+         "line_search_fallbacks": line_search_fallbacks,
++        "stable_energy_comparisons": stable_energy_comparisons,
+         "occupation_floor": occupation_floor,
+         "gradient_norm": float(np.linalg.norm(g)),
+         "orbital_residual": residual, "orbital_tolerance": tolerance,
+--- before/src/atomx/methods/csf/variational.py
++++ after/src/atomx/methods/csf/variational.py
+@@ -6,6 +6,8 @@
+ including configuration interference absent from occupation-only SCF.
+ """
+ from __future__ import annotations
++
++import math
+ 
+ import numpy as np
+ 
+@@ -37,7 +39,8 @@
+     """
+ 
+     def __init__(self, csfs, bsp_data, Z, nuclear_potential=None, cache=None,
+-                 *, state_average=None, level_tracking=None, dense_cluster_gap=None):
++                 *, state_average=None, level_tracking=None, dense_cluster_gap=None,
++                 max_determinants=None):
+         from atomx.physics.csf.state_average import CIStateAverage
+         if state_average is not None and not isinstance(state_average, CIStateAverage):
+             raise TypeError('state_average must be CIStateAverage or None')
+@@ -72,7 +75,8 @@
+             self.one_body[kappa] = np.tril(h) + np.tril(h, -1).T
+             self.metric[kappa] = s
+         from atomx.physics.csf.radial_density import CIRadialDensity
+-        self.radial_density = CIRadialDensity(csfs)
++        self.radial_density = CIRadialDensity(csfs, max_determinants=max_determinants)
++        self.max_determinants = self.radial_density.max_determinants
+         self.blocks = self.radial_density.blocks
+ 
+     def evaluate(self, orbitals, *, gradient=True, ci_result=None, gradient_keys=None):
+@@ -80,7 +84,8 @@
+         if result is None:
+             result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
+                               nuclear_potential=self.nuclear_potential, convol_cache=self.cache,
+-                              dense_cluster_gap=self.dense_cluster_gap)
++                              dense_cluster_gap=self.dense_cluster_gap,
++                              max_determinants=self.max_determinants)
+         if self.level_tracking is not None:
+             state_weights, tracking = self.level_tracking.resolve(self.csfs, result, orbitals, self.metric)
+         else:
+@@ -119,6 +124,7 @@
+             self.last_occupations = {key: max(0., weights.get(("h", key[0], key[1], key[0]), 0.))
+                                      for key in self.keys}
+         vectors = {key: np.concatenate(orbitals[key]) for key in self.keys}
++        one_body_actions = {}
+         gradient_terms = {}
+ 
+         for key, weight in weights.items():
+@@ -127,9 +133,13 @@
+                 a, b = (na, kappa), (nb, kappa)
+                 h = self.one_body[kappa]
+                 if a in gradient:
+-                    gradient[a] += weight * (h @ vectors[b])
++                    if b not in one_body_actions:
++                        one_body_actions[b] = h @ vectors[b]
++                    gradient[a] += weight * one_body_actions[b]
+                 if b in gradient:
+-                    gradient[b] += weight * (h @ vectors[a])
++                    if a not in one_body_actions:
++                        one_body_actions[a] = h @ vectors[a]
++                    gradient[b] += weight * one_body_actions[a]
+             else:
+                 _, rank, a, b, c, d = key
+                 for left, right, source_a, source_b in ((a, b, c, d), (c, d, a, b)):
+@@ -141,15 +151,25 @@
+         # immediately: memory does not grow with the two-particle RDM size.
+         for (rank, source_a, source_b), terms in gradient_terms.items():
+             pp, qq = self._pair_potential(rank, orbitals[source_a], orbitals[source_b])
++            # Each signed RDM term keeps its original accumulation order.
++            # Reuse only exact actions on the same target radial spinor;
++            # these arrays belong to this source pair and this evaluation.
++            actions = {}
+             for left, right, weight in terms:
+-                pl, ql = orbitals[left]
+-                pr, qr = orbitals[right]
+                 if left in gradient:
+-                    gradient[left][:self.ns] += weight * (pp @ pr)
+-                    gradient[left][self.ns:] += weight * (qq @ qr)
++                    if right not in actions:
++                        pr, qr = orbitals[right]
++                        actions[right] = pp @ pr, qq @ qr
++                    gp, gq = actions[right]
++                    gradient[left][:self.ns] += weight * gp
++                    gradient[left][self.ns:] += weight * gq
+                 if right in gradient:
+-                    gradient[right][:self.ns] += weight * (pp @ pl)
+-                    gradient[right][self.ns:] += weight * (qq @ ql)
++                    if left not in actions:
++                        pl, ql = orbitals[left]
++                        actions[left] = pp @ pl, qq @ ql
++                    gp, gq = actions[left]
++                    gradient[right][:self.ns] += weight * gp
++                    gradient[right][self.ns:] += weight * gq
+         if record_diagnostics:
+             self.last_gradient = gradient
+         return gradient
+@@ -187,23 +207,179 @@
+             energy += coefficient * value
+         return float(energy)
+ 
+-    def _pair_potential(self, rank, orbital_a, orbital_b):
++    def fixed_density_energy_difference(self, reference, trial, reference_ci, trial_ci):
++        """Exact finite-cell energy change when the objective RDM is unchanged.
++
++        Expand the complete quadratic/quartic integrals in orbital increments,
++        rather than subtract two large core totals. This is explicitly limited
++        to one-CSF symmetry blocks and identical objective densities. Mixed CI
++        response and charge-sector targets require another implementation;
++        ``None`` reports that unsupported case, without freezing its density.
++        The ket-normalized one-body convention matches the CI evaluator.
++        """
++        return self._fixed_density_energy_difference(reference, trial, reference_ci, trial_ci)
++
++    def _fixed_density_energy_difference(self, reference, trial, reference_ci, trial_ci,
++                                         *, increments=None):
++        if (type(self) is not CSFOrbitalFunctional or self.level_tracking is not None
++                or any(len(columns) != 1 for _, _, columns in self.blocks)):
++            return None
++        def objective_density(ci):
++            weights = (None if self.state_average is None else
++                       self.state_average.weights(self.csfs, ci))
++            return self.radial_density.contract(ci, weights)
++        weights = objective_density(reference_ci)
++        if weights != objective_density(trial_ci):
++            return None
++        explicit_increments = increments is not None
++        if increments is None:
++            increments = {key: tuple(new - old for new, old in
++                                      zip(trial[key], reference[key], strict=True))
++                          for key in self.keys}
++        changes, sources = [], {}
++        for term, coefficient in weights.items():
++            if term[0] != "h":
++                _, rank, a, b, c, d = term
++                sources.setdefault((rank, *sorted((c, d))), []).append((a, b, coefficient))
++                continue
++            _, na, kappa, nb = term
++            a, b = (na, kappa), (nb, kappa)
++            va, vb = np.concatenate(reference[a]), np.concatenate(reference[b])
++            da, db = np.concatenate(increments[a]), np.concatenate(increments[b])
++            h, metric = self.one_body[kappa], self.metric[kappa]
++            hb, hdb = h @ vb, h @ db
++            dn = math.fsum((float(db @ metric @ vb), float(vb @ metric @ db),
++                            float(db @ metric @ db)))
++            norm = float(vb @ metric @ vb)
++            dh = math.fsum((float(da @ hb), float(va @ hdb), float(da @ hdb)))
++            delta = (dh - float(va @ hb) / norm * dn) / (norm + dn)
++            changes.append(coefficient * delta)
++        # Stream one source pair at a time, as in the gradient: memory does
++        # not grow with the number of two-body density coordinates.
++        for (rank, c, d), terms in sources.items():
++            original = self._pair_potential(rank, reference[c], reference[d])
++            delta = self._pair_potential(
++                rank, reference[c], reference[d],
++                change=(increments[c], increments[d]))
++            for a, b, coefficient in terms:
++                components = []
++                for side in (0, 1):
++                    va, vb = reference[a][side], reference[b][side]
++                    da, db = increments[a][side], increments[b][side]
++                    old_b, old_db = original[side] @ vb, original[side] @ db
++                    components.extend((float(da @ old_b), float(va @ old_db),
++                                       float(da @ old_db)))
++                    if explicit_increments:
++                        # Evaluate the complete polynomial in the declared
++                        # linear-map increment. Adding it to the reference
++                        # first would reintroduce deep-core rounding noise.
++                        delta_b, delta_db = delta[side] @ vb, delta[side] @ db
++                        components.extend((float(va @ delta_b), float(da @ delta_b),
++                                           float(va @ delta_db), float(da @ delta_db)))
++                    else:
++                        components.append(float(trial[a][side] @ delta[side] @ trial[b][side]))
++                changes.append(coefficient * math.fsum(components))
++        return math.fsum(changes)
++
++    def constrained_energy_difference(self, reference, trial, reference_ci, trial_ci,
++                                      *, increments=None):
++        """Center a fixed-density difference on the same orthogonal manifold.
++
++        Subtract only the complete metric constraint defect. This Lagrangian
++        has exactly the same objective on the constrained physical manifold.
++        Both endpoints must already be orthogonal to floating-point precision;
++        larger constraint changes are not numerical noise and return ``None``.
++        The complete, uncentered difference API above retains its semantics.
++        """
++        if (type(self) is not CSFOrbitalFunctional or self.level_tracking is not None
++                or any(len(columns) != 1 for _, _, columns in self.blocks)):
++            return None
++        wide = np.longdouble
++        groups = {}
++        for key in self.keys:
++            groups.setdefault(key[1], []).append(key)
++        geometry = []
++        for kappa, keys in groups.items():
++            c = np.column_stack([np.concatenate(reference[key]) for key in keys]).astype(wide)
++            t = np.column_stack([np.concatenate(trial[key]) for key in keys]).astype(wide)
++            metric = self.metric[kappa].astype(wide)
++            identity = np.eye(len(keys), dtype=wide)
++            guard = 64 * np.finfo(float).eps * len(keys)
++            for columns in (c, t):
++                defect = columns.T @ metric @ columns - identity
++                if not np.all(np.isfinite(defect)) or np.max(np.sum(np.abs(defect), axis=1)) > guard:
++                    return None
++            dc = (t - c if increments is None else np.column_stack(
++                [np.concatenate(increments[key]) for key in keys]).astype(wide))
++            if increments is not None:
++                physical_trial = c + dc
++                defect = physical_trial.T @ metric @ physical_trial - identity
++                if (not np.all(np.isfinite(defect))
++                        or np.max(np.sum(np.abs(defect), axis=1)) > guard
++                        or np.max(np.abs(physical_trial - t)) >
++                        32 * np.finfo(float).eps * max(1, np.max(np.abs(c)))):
++                    return None
++            # Retain the quadratic term: the linear normal motion in a valid
++            # polar step cancels its curvature, rather than changing energy.
++            dg = c.T @ metric @ dc + dc.T @ metric @ c + dc.T @ metric @ dc
++            geometry.append((keys, c, dg))
++        delta = self._fixed_density_energy_difference(
++            reference, trial, reference_ci, trial_ci, increments=increments)
++        if delta is None:
++            return None
++        state_weights = (None if self.state_average is None else
++                         self.state_average.weights(self.csfs, reference_ci))
++        weights = self.radial_density.contract(reference_ci, state_weights)
++        actual = {key: value.astype(wide) for key, value in
++                  self.gradient_from_weights(reference, weights, record_diagnostics=False).items()}
++        # CI one-body integrals divide by the ket norm. Its ambient normal
++        # derivative differs from the raw polynomial gradient; their tangent
++        # derivatives agree on the normalized physical manifold.
++        for term, coefficient in weights.items():
++            if term[0] != "h":
++                continue
++            _, na, kappa, nb = term
++            a, b = (na, kappa), (nb, kappa)
++            va, vb = np.concatenate(reference[a]), np.concatenate(reference[b])
++            h, metric = self.one_body[kappa], self.metric[kappa]
++            ha, hb, sb = h @ va, h @ vb, metric @ vb
++            norm = float(vb @ sb)
++            actual[a] += coefficient * (1 / norm - 1) * hb
++            actual[b] += (coefficient * (1 / norm - 1) * ha
++                          - (2 * coefficient * float(va @ hb) / norm**2) * sb)
++        normal_changes = []
++        for keys, c, dg in geometry:
++            g = np.column_stack([actual[key] for key in keys])
++            multiplier = c.T @ g
++            lagrange = .25 * (multiplier + multiplier.T)
++            normal_changes.append(float(np.sum(lagrange * dg)))
++        return math.fsum((delta, -math.fsum(normal_changes)))
++
++    def _pair_potential(self, rank, orbital_a, orbital_b, *, change=None):
+         """Differentiate the exact four-component cell Slater integral."""
+         data, ns = self.data, self.ns
+         orders = (data.get("ksp", data["ks"]), data.get("ksq", data["ks"]))
+         output = [np.zeros((ns, ns)), np.zeros((ns, ns))]
++        def source_density(right, extent):
++            if change is None:
++                return _density_sym(orbital_a[right], orbital_b[right], extent, orders[right])
++            da, db = change
++            # Complete product increment, including the quadratic term.
++            return (_density_sym(da[right], orbital_b[right], extent, orders[right])
++                    + _density_sym(orbital_a[right], db[right], extent, orders[right])
++                    + _density_sym(da[right], db[right], extent, orders[right]))
+         for left, label_left in enumerate(("p", "q")):
+             for right, label_right in enumerate(("p", "q")):
+                 components = label_left + label_right + label_left + label_right
+                 if ns >= SEMISEPARABLE_DIRECT_NS:
+                     factors = self.cache.get_coulomb_factors(rank, components)
+                     extent = ns
+-                    density = _density_sym(orbital_a[right], orbital_b[right], ns, orders[right])
++                    density = source_density(right, ns)
+                     band = _convol_case1_semiseparable_t(*factors, density,
+                         ns, orders[left], orders[right])
+                 else:
+                     bank, extent, _ = self.cache.get_rkb_t(rank, components)
+-                    density = _density_sym(orbital_a[right], orbital_b[right], extent, orders[right])
++                    density = source_density(right, extent)
+                     band = _convol_case1_t(bank, density, extent, orders[left], orders[right])
+                 _banded_to_full_add(output[left], band, extent, orders[left], 1.0)
+         return tuple(output)
+--- before/src/atomx/methods/csf/solver.py
++++ after/src/atomx/methods/csf/solver.py
+@@ -393,7 +393,9 @@
+             tolerance=tolerance, energy_tolerance=energy_tolerance,
+             preconditioner_matrices=preconditioners,
+             projector_source=self.variational_projector,
+-            orbital_preconditioner=self.orbital_preconditioner)
++            orbital_preconditioner=self.orbital_preconditioner,
++            energy_difference=functional.constrained_energy_difference,
++            linear_energy_increments=True)
+ 
+     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
+                  include_breit=False, include_qed=False,
+@@ -1224,7 +1226,7 @@
+             orbital_energies = shoot_result.orbital_energies
+             dc_ci_kwargs = dict(csfs=self.csfs, orbitals_dict=orbitals_dict,
+                 orbital_basis=self.orbital_basis, bsp_data=grid_ws, Z=self.Z,
+-                ns=grid_ws.n, include_breit=False)
++                ns=grid_ws.n, include_breit=False, max_determinants=self.max_determinants)
+             final_ci = (ci_solve(**dict(dc_ci_kwargs, include_breit=True,
+                             breit_orbital_energies=self.breit_orbital_energies))
+                         if self._breit_in_ci else dc_ci)
+@@ -1239,7 +1241,8 @@
+             functional_class = ChargeStateOrbitalFunctional if joint_charge else CSFOrbitalFunctional
+             functional = functional_class(
+                 self.csfs, dhf.bsp_data, self.Z, dhf._nuclear_potential,
+-                getattr(dhf, "_convol_cache", None), state_average=self.state_average)
++                getattr(dhf, "_convol_cache", None), state_average=self.state_average,
++                max_determinants=self.max_determinants)
+             orbitals_dict, dc_ci, variational_diagnostics = self._optimize_bspline_state(
+                 functional, orbitals_dict, dhf, dhf_result,
+                 max_iter=max_iter, tolerance=scf_tol, energy_tolerance=ci_tol)
+--- before/src/atomx/physics/csf/radial_density.py
++++ after/src/atomx/physics/csf/radial_density.py
+@@ -8,7 +8,14 @@
+ class CIRadialDensity:
+     """Contract the Hamiltonian's own angular table with CI amplitudes."""
+ 
+-    def __init__(self, csfs):
++    def __init__(self, csfs, *, max_determinants=None):
++        if max_determinants is None:
++            max_determinants = exact_ci.MAX_BLOCK_DETERMINANTS
++        if (isinstance(max_determinants, (bool, np.bool_))
++                or not isinstance(max_determinants, (int, np.integer))
++                or max_determinants < 1):
++            raise ValueError('max_determinants must be a positive integer')
++        self.max_determinants = int(max_determinants)
+         self.signatures = tuple(exact_ci.csf_signature(c) for c in csfs)
+         self.blocks = []
+         for _, indices in matrix._group_csf_indices(csfs):
+@@ -16,7 +23,9 @@
+             groups = {}
+             for sig in signatures:
+                 groups.setdefault(sig.pattern, []).append(sig)
+-            structure = exact_ci.block_terms(tuple(groups), signatures[0].total_J2)
++            structure = exact_ci.block_terms(
++                tuple(groups), signatures[0].total_J2,
++                max_determinants=self.max_determinants)
+             grouped = tuple(tuple(groups[p]) for p in structure.patterns)
+             projection = exact_ci.csf_block_matrix(structure.patterns, structure.j2, grouped)
+             original = {sig: i for i, sig in enumerate(signatures)}
+--- before/src/atomx/methods/csf/charge_variational.py
++++ after/src/atomx/methods/csf/charge_variational.py
+@@ -47,7 +47,7 @@
+ 
+     def __init__(
+         self, csfs, bsp_data, Z, nuclear_potential=None, cache=None, *, state_average,
+-        level_tracking=None, dense_cluster_gap=None
++        level_tracking=None, dense_cluster_gap=None, max_determinants=None
+     ):
+         if not isinstance(state_average, CIChargeStateAverage):
+             raise TypeError("charge functional requires CIChargeStateAverage")
+@@ -79,7 +79,7 @@
+         )
+         super().__init__(
+             csfs, bsp_data, Z, nuclear_potential, cache, state_average=parent_target,
+-            dense_cluster_gap=dense_cluster_gap
++            dense_cluster_gap=dense_cluster_gap, max_determinants=max_determinants
+         )
+         self.charge_state_average = state_average
+         self.target_description = (
+@@ -101,7 +101,7 @@
+             n: (
+                 self.radial_density
+                 if n == self.parent_electrons
+-                else CIRadialDensity(space)
++                else CIRadialDensity(space, max_determinants=self.max_determinants)
+             )
+             for n, space in self.sector_csfs.items()
+         }
+@@ -128,6 +128,7 @@
+                     self.keys,
+                     convol_cache=self.cache,
+                     dense_cluster_gap=self.dense_cluster_gap,
++                    max_determinants=self.max_determinants,
+                 )
+                 for n, space in self.sector_csfs.items()
+             }
+--- before/src/atomx/methods/csf/grid_functional.py
++++ after/src/atomx/methods/csf/grid_functional.py
+@@ -60,7 +60,7 @@
+     Breit/QED/recoil are not included in this orbital functional.
+     """
+ 
+-    def __init__(self, csfs, workspace, Z):
++    def __init__(self, csfs, workspace, Z, *, max_determinants=None):
+         if not isinstance(workspace, matrix.GridCIWorkspace):
+             raise TypeError('GridCIWorkspace is required')
+         if workspace.n < 9 or np.any(np.diff(workspace.r) <= 0):
+@@ -68,7 +68,8 @@
+         self.csfs, self.data, self.Z = csfs, workspace, Z
+         self.ns = workspace.n
+         self.keys = tuple(sorted({(s.n, s.kappa) for c in csfs for s in c.subshells}))
+-        self.radial_density = CIRadialDensity(csfs)
++        self.radial_density = CIRadialDensity(csfs, max_determinants=max_determinants)
++        self.max_determinants = self.radial_density.max_determinants
+         self.index_weights = slag6_weights(workspace.n)
+         self.weights = self.index_weights*workspace.difr
+         if np.any(self.weights <= 0) or not np.all(np.isfinite(self.weights)):
+@@ -90,7 +91,8 @@
+     def evaluate(self, orbitals, *, gradient=True, ci_result=None):
+         result = ci_result
+         if result is None:
+-            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns)
++            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
++                              max_determinants=self.max_determinants)
+         energy = float(result.ground_energy)
+         if not gradient:
+             return energy, result
+--- before/src/atomx/methods/csf/grid_solver.py
++++ after/src/atomx/methods/csf/grid_solver.py
+@@ -28,7 +28,8 @@
+     rv = screened_nuclear_rv(solver.Z, r, jacobian, n, nuclear=solver.nuclear,
+                               screening_potential=solver.screening_potential)
+     workspace = GridCIWorkspace(r, jacobian, rv)
+-    functional = GridCSFFunctional(solver.csfs, workspace, solver.Z)
++    functional = GridCSFFunctional(solver.csfs, workspace, solver.Z,
++                                  max_determinants=solver.max_determinants)
+     space, initial = continuum_enriched_electron_space(functional,
+         n_bound=n_bound, n_continuum=controls.continuum_roots)
+     initializer = 'nuclear eigenfunctions'
+--- before/docs/atomx_hourly_progress_2026_10_10/parallel_planner.py
++++ after/docs/atomx_hourly_progress_2026_10_10/parallel_planner.py
+@@ -183,9 +183,14 @@
+     data = json.loads(path.read_bytes())
+     if data["fitted_corrections"] or data["highest_level_reached"]:
+         raise ValueError("physics estimates cannot certify fitted spectra")
+-    current = data["inputs"]["current_five_states"]
+-    if current["path"] != record["yb_comparison"]:
+-        raise ValueError("physics priority uses a different five-state comparison")
++    if record.get("yb_mcdhf_result"):
++        current = data["inputs"].get("current_mcdhf")
++        if current is None or current["path"] != record["yb_mcdhf_result"]:
++            raise ValueError("physics priority uses a different current MCDHF result")
++    else:
++        current = data["inputs"]["current_five_states"]
++        if current["path"] != record["yb_comparison"]:
++            raise ValueError("physics priority uses a different five-state comparison")
+     for binding in data["inputs"].values():
+         if sha(bound_file(repo, binding["path"])) != binding["sha256"]:
+             raise ValueError("physics priority input identity changed")
+--- /dev/null
++++ after/tests/test_mcdhf_determinant_cap.py
+@@ -0,0 +1,69 @@
++"""The same declared determinant budget reaches CI energies and their RDM."""
++
++import numpy as np
++import pytest
++
++from atomx.config.csf import enumerate_jj_csfs
++from atomx.methods.csf.variational import CSFOrbitalFunctional
++from atomx.methods.dirac_fock import DFSolver
++from atomx.methods.mcdhf.solver import MCDHFSolver
++from atomx.numerics.bspline.dirac_assembly import solve_dirac
++from atomx.physics.csf.radial_density import CIRadialDensity
++
++
++def model():
++    csfs = [c for cfg in ("1s2", "2s2") for c in enumerate_jj_csfs(cfg)]
++    seed = DFSolver(2, csfs[0].subshells, ns=24, ks=7)
++    return csfs, seed
++
++
++def test_budget_rejects_the_complete_rdm_space_instead_of_truncating():
++    from atomx.angular.csf_hamiltonian import ExactCISpaceError
++
++    csfs, seed = model()
++    with pytest.raises(ExactCISpaceError, match="cap of 1"):
++        CSFOrbitalFunctional(csfs, seed.bsp_data, 2, max_determinants=1)
++    assert CIRadialDensity(csfs, max_determinants=2).max_determinants == 2
++
++
++@pytest.mark.parametrize("limit", [True, 0, -1, 1.5])
++def test_invalid_budgets_reject_before_angular_allocation(limit):
++    csfs, _ = model()
++    with pytest.raises(ValueError, match="positive integer"):
++        CIRadialDensity(csfs, max_determinants=limit)
++
++
++def test_explicit_budget_preserves_full_energy_and_signed_gradient():
++    csfs, seed = model()
++    kwargs = dict(nuclear_potential=seed._nuclear_potential)
++    default = CSFOrbitalFunctional(csfs, seed.bsp_data, 2, **kwargs)
++    bounded = CSFOrbitalFunctional(csfs, seed.bsp_data, 2, max_determinants=2, **kwargs)
++    spectrum = solve_dirac(default.one_body[-1], default.metric[-1], default.ns, -1)
++    orbitals = {key: (spectrum.coefficients[:default.ns, i],
++                      spectrum.coefficients[default.ns:, i])
++                for i, key in enumerate(default.keys)}
++    e0, g0, c0 = default.evaluate(orbitals)
++    e1, g1, c1 = bounded.evaluate(orbitals)
++    assert e0 == e1
++    np.testing.assert_array_equal(c0.state_energies, c1.state_energies)
++    for key in default.keys:
++        np.testing.assert_array_equal(g0[key], g1[key])
++
++
++def test_public_solver_passes_budget_to_the_correlated_functional(monkeypatch):
++    import atomx.methods.csf.variational as module
++
++    seen = []
++    real = module.CSFOrbitalFunctional
++
++    class Capture(real):
++        def __init__(self, *args, **kwargs):
++            seen.append(kwargs["max_determinants"])
++            super().__init__(*args, **kwargs)
++
++    monkeypatch.setattr(module, "CSFOrbitalFunctional", Capture)
++    csfs, _ = model()
++    result = MCDHFSolver(2, csfs, ns=24, ks=7, use_physics_grid=False,
++                         max_determinants=2).solve(max_iter=1, scf_tol=1e-5)
++    assert seen == [2]
++    assert len(result.state_energies) == 2
+--- /dev/null
++++ after/tests/test_mcdhf_fock_projector.py
+@@ -0,0 +1,85 @@
++"""Complete screened Fock inputs define one fixed native no-pair projector."""
++
++import numpy as np
++import pytest
++
++from atomx.config.csf import enumerate_jj_csfs
++from atomx.methods.csf.variational import CSFOrbitalFunctional
++from atomx.numerics.bspline.basis import prepare_bspline_data
++from atomx.numerics.bspline.dirac_assembly import build_dirac_matrices, solve_dirac
++from atomx.numerics.bspline.knots import make_knots
++from atomx.numerics.bspline.orbital_optimization import optimize_orbitals
++from atomx.numerics.bspline.orbital_subspace import radial_projector_start
++from atomx.physics.csf.matrix import build_ci_matrix
++
++
++@pytest.fixture
++def screened_problem():
++    data = prepare_bspline_data(make_knots(35, 9, .005, 30), 35, 9)
++    csfs = [csf for config in ("1s2", "2s2")
++            for csf in enumerate_jj_csfs(config)]
++    functional = CSFOrbitalFunctional(csfs, data, 4)
++    metric = functional.metric[-1]
++    nuclear = solve_dirac(functional.one_body[-1], metric, 35, -1)
++    waves = {}
++    complete = {}
++    for key, charge in (((1, -1), 2.), ((2, -1), 1.)):
++        column = nuclear.coefficients[:, key[0] - 1]
++        waves[key] = (column[:35].copy(), column[35:].copy())
++        matrix, _ = build_dirac_matrices(35, -1, charge, data)
++        complete[key] = np.tril(matrix) + np.tril(matrix, -1).T
++    # The first reference has q(1s)=2; the absent 2s gets fallback weight 1.
++    average = (2 * complete[1, -1] + complete[2, -1]) / 3
++    return functional, waves, complete, average
++
++
++@pytest.mark.parametrize("projector", ["nuclear", "fock"])
++def test_complete_fock_input_is_averaged_without_extra_nuclear_operator(
++    screened_problem, monkeypatch, projector,
++):
++    functional, waves, complete, average = screened_problem
++    seen = []
++
++    def capture(matrix, metric, ns, kappa, **kwargs):
++        seen.append(matrix.copy())
++        return solve_dirac(matrix, metric, ns, kappa, **kwargs)
++
++    monkeypatch.setattr("atomx.numerics.bspline.dirac_assembly.solve_dirac", capture)
++    optimize_orbitals(functional, waves, max_iter=0,
++                      preconditioner_matrices=complete, projector_source=projector)
++    assert len(seen) == 2
++    np.testing.assert_array_equal(seen[0], functional.one_body[-1])
++    # The kernel receives full operators, including the same mass/kinetic
++    # terms. Adding nuclear.one_body a second time changes the model.
++    np.testing.assert_allclose(seen[1], average, rtol=0, atol=2e-12)
++
++
++def test_fock_projected_spinors_and_ci_match_independent_screened_spectrum(
++    screened_problem,
++):
++    functional, waves, complete, average = screened_problem
++    ns, metric = functional.ns, functional.metric[-1]
++    spectrum = solve_dirac(average, metric, ns, -1)
++    first = radial_projector_start(-1, 1, functional.data)
++    projector = spectrum.coefficients[:, first:]
++    seed = np.column_stack([np.concatenate(waves[key]) for key in functional.keys])
++    projected = projector @ (projector.T @ metric @ seed)
++    eigenvalues, eigenvectors = np.linalg.eigh(projected.T @ metric @ projected)
++    expected = projected @ ((eigenvectors / np.sqrt(eigenvalues)) @ eigenvectors.T)
++    optimized, ci, report = optimize_orbitals(
++        functional, waves, max_iter=0, preconditioner_matrices=complete,
++        projector_source="fock",
++    )
++    actual = np.column_stack([np.concatenate(optimized[key]) for key in functional.keys])
++    np.testing.assert_allclose(actual, expected, rtol=0, atol=2e-10)
++    np.testing.assert_allclose(actual.T @ metric @ actual, np.eye(2), rtol=0, atol=2e-12)
++    np.testing.assert_allclose(actual, projector @ (projector.T @ metric @ actual),
++                               rtol=0, atol=2e-10)
++    expected_waves = {key: (expected[:ns, i], expected[ns:, i])
++                      for i, key in enumerate(functional.keys)}
++    matrix = build_ci_matrix(functional.csfs, expected_waves, functional.keys,
++                             functional.data, 4, ns)
++    np.testing.assert_allclose(ci.state_energies, np.linalg.eigvalsh(matrix),
++                               rtol=0, atol=2e-10)
++    assert report["projector"] == "fixed positive-energy Fock-field (screened) B-spline subspace"
++    assert report["iterations"] == 0
+--- /dev/null
++++ after/tests/test_mcdhf_gradient_reuse.py
+@@ -0,0 +1,163 @@
++"""Exact radial action reuse must preserve signed constrained CI derivatives."""
++from collections import Counter
++
++import numpy as np
++import pytest
++
++from atomx.config.csf import enumerate_jj_csfs
++from atomx.methods.csf.variational import CSFOrbitalFunctional
++from atomx.numerics.bspline.basis import prepare_bspline_data
++from atomx.numerics.bspline.dirac_assembly import solve_dirac
++from atomx.numerics.bspline.knots import make_knots
++from atomx.physics.csf.state_average import CIStateAverage
++
++
++@pytest.fixture(scope="module", params=(35, 120))
++def coherent_problem(request):
++    """Native signed CI ensemble, below and above the cell-kernel threshold."""
++    ns, ks = request.param, 9
++    data = prepare_bspline_data(make_knots(ns, ks, .005, 30), ns, ks)
++    configs = ("1s2", "1s1 2s1", "1s1 3s1", "2s2", "2s1 3s1", "3s2",
++               "2p2", "2p1 3p1", "3p2")
++    csfs = [c for cfg in configs for c in enumerate_jj_csfs(cfg)
++            if c.total_J2 == 0 and c.parity == 1]
++    functional = CSFOrbitalFunctional(csfs, data, 2,
++        state_average=CIStateAverage(((0, 1, 0, 1), (0, 1, 1, 3))))
++    orbitals, projectors = {}, {}
++    for kappa in functional.metric:
++        spectrum = solve_dirac(functional.one_body[kappa], functional.metric[kappa], ns, kappa)
++        projectors[kappa] = spectrum.coefficients
++        ell = kappa if kappa > 0 else -kappa - 1
++        for n, k in functional.keys:
++            if k == kappa:
++                p, q, _ = spectrum.get_orbital(n - ell - 1 + int(kappa > 0))
++                orbitals[n, k] = p, q
++    _, _, ci = functional.evaluate(orbitals)
++    return functional, orbitals, projectors, ci
++
++
++def literal_gradient(functional, orbitals, weights, selected=None):
++    """Preserved pre-optimization contraction, including every signed term."""
++    selected = functional.keys if selected is None else selected
++    gradient = {k: np.zeros(2 * functional.ns) for k in selected}
++    vectors = {k: np.concatenate(orbitals[k]) for k in functional.keys}
++    terms = {}
++    for key, weight in weights.items():
++        if key[0] == "h":
++            _, na, kappa, nb = key
++            a, b = (na, kappa), (nb, kappa)
++            if a in gradient:
++                gradient[a] += weight * (functional.one_body[kappa] @ vectors[b])
++            if b in gradient:
++                gradient[b] += weight * (functional.one_body[kappa] @ vectors[a])
++        else:
++            _, rank, a, b, c, d = key
++            for left, right, source_a, source_b in ((a, b, c, d), (c, d, a, b)):
++                if left in gradient or right in gradient:
++                    terms.setdefault((rank, *sorted((source_a, source_b))), []).append((left, right, weight))
++    for (rank, source_a, source_b), items in terms.items():
++        pp, qq = functional._pair_potential(rank, orbitals[source_a], orbitals[source_b])
++        for left, right, weight in items:
++            if left in gradient:
++                gradient[left][:functional.ns] += weight * (pp @ orbitals[right][0])
++                gradient[left][functional.ns:] += weight * (qq @ orbitals[right][1])
++            if right in gradient:
++                gradient[right][:functional.ns] += weight * (pp @ orbitals[left][0])
++                gradient[right][functional.ns:] += weight * (qq @ orbitals[left][1])
++    return gradient
++
++
++@pytest.mark.parametrize("transition", (False, True))
++@pytest.mark.parametrize("partial", (False, True))
++def test_all_signed_actions_equal_literal_gradient(coherent_problem, transition, partial):
++    functional, orbitals, _, ci = coherent_problem
++    weights = (functional.radial_density.contract_bilinear(ci.mixing_coefficients[:, 0],
++                                                          ci.mixing_coefficients[:, 1])
++               if transition else functional.last_weights)
++    selected = functional.keys[::2] if partial else None
++    expected = literal_gradient(functional, orbitals, weights, selected)
++    actual = functional.gradient_from_weights(orbitals, weights, gradient_keys=selected,
++                                              record_diagnostics=False)
++    assert actual.keys() == expected.keys()
++    for key in actual:
++        np.testing.assert_array_equal(actual[key], expected[key])
++
++
++def test_response_preserves_accepted_state_and_invalidates_actions(coherent_problem):
++    functional, orbitals, _, ci = coherent_problem
++    weights = functional.radial_density.contract_bilinear(ci.mixing_coefficients[:, 0],
++                                                         ci.mixing_coefficients[:, 1])
++    old_weights, old_gradient = functional.last_weights, functional.last_gradient
++    old_occupations = dict(functional.last_occupations)
++    actual = functional.gradient_from_weights(orbitals, weights, record_diagnostics=False)
++    assert functional.last_weights is old_weights
++    assert functional.last_gradient is old_gradient
++    assert functional.last_occupations == old_occupations
++    changed = {key: (p.copy(), q.copy()) for key, (p, q) in orbitals.items()}
++    changed[functional.keys[0]][0][7] += 1e-4
++    fresh = functional.gradient_from_weights(changed, weights, record_diagnostics=False)
++    expected = literal_gradient(functional, changed, weights)
++    for key in fresh:
++        np.testing.assert_array_equal(fresh[key], expected[key])
++    assert any(not np.array_equal(actual[k], fresh[k]) for k in fresh)
++
++
++def test_reuse_does_not_repeat_matrix_action_on_same_spinor(coherent_problem, monkeypatch):
++    functional, orbitals, _, _ = coherent_problem
++    weights = dict(functional.last_weights)
++    actions = Counter()
++    original = functional._pair_potential
++
++    class CountActions:
++        def __init__(self, matrix, source, component):
++            self.matrix, self.source, self.component = matrix, source, component
++
++        def __matmul__(self, vector):
++            actions[self.source, self.component, id(vector)] += 1
++            return self.matrix @ vector
++
++    def counted_pair(rank, a, b):
++        pp, qq = original(rank, a, b)
++        source = rank, id(a[0]), id(b[0])
++        return CountActions(pp, source, "p"), CountActions(qq, source, "q")
++
++    monkeypatch.setattr(functional, "_pair_potential", counted_pair)
++    functional.gradient_from_weights(orbitals, weights, record_diagnostics=False)
++    assert actions
++    assert max(actions.values()) == 1
++
++
++@pytest.mark.parametrize("transition", (False, True))
++def test_independent_derivative_in_metric_positive_energy_tangent(coherent_problem, transition):
++    functional, orbitals, projectors, ci = coherent_problem
++    weights = (functional.radial_density.contract_bilinear(ci.mixing_coefficients[:, 0],
++                                                          ci.mixing_coefficients[:, 1])
++               if transition else functional.last_weights)
++    gradient = functional.gradient_from_weights(orbitals, weights, record_diagnostics=False)
++    rng = np.random.default_rng(81217)
++    direction = {}
++    for kappa, projector in projectors.items():
++        keys = [k for k in functional.keys if k[1] == kappa]
++        x = np.column_stack([np.concatenate(orbitals[k]) for k in keys])
++        metric = functional.metric[kappa]
++        d = projector @ rng.normal(size=(projector.shape[1], len(keys)))
++        cross = x.T @ metric @ d
++        d -= x @ (0.5 * (cross + cross.T))
++        d /= np.sqrt(np.trace(d.T @ metric @ d))
++        for i, key in enumerate(keys):
++            direction[key] = d[:, i]
++    analytical = sum(gradient[k] @ direction[k] for k in functional.keys)
++    energies = []
++    for step in (1e-6, -1e-6):
++        trial = {}
++        for kappa in functional.metric:
++            keys = [k for k in functional.keys if k[1] == kappa]
++            x = np.column_stack([np.concatenate(orbitals[k]) + step * direction[k] for k in keys])
++            values, vectors = np.linalg.eigh(x.T @ functional.metric[kappa] @ x)
++            x = x @ ((vectors / np.sqrt(values)) @ vectors.T)
++            for i, key in enumerate(keys):
++                trial[key] = x[:functional.ns, i].copy(), x[functional.ns:, i].copy()
++        energies.append(functional.energy_for_weights(trial, weights) if transition
++                        else functional.evaluate(trial, gradient=False)[0])
++    numerical = (energies[0] - energies[1]) / 2e-6
++    assert numerical == pytest.approx(analytical, rel=3e-6, abs=2e-7)
+--- /dev/null
++++ after/tests/test_mcdhf_stable_energy_difference.py
+@@ -0,0 +1,130 @@
++"""Finite-polynomial differences preserve the declared CI functional."""
++
++import numpy as np
++import pytest
++
++from atomx.config.csf import enumerate_jj_csfs
++from atomx.methods.csf.variational import CSFOrbitalFunctional
++from atomx.numerics.bspline.basis import prepare_bspline_data
++from atomx.numerics.bspline.dirac_assembly import solve_dirac
++from atomx.numerics.bspline.knots import make_knots
++from atomx.physics.csf.state_average import CIStateAverage
++
++
++def problem(ns, configs=("1s1 2s1",)):
++    data = prepare_bspline_data(make_knots(ns, 9, .005, 30), ns, 9)
++    csfs = [csf for config in configs for csf in enumerate_jj_csfs(config)]
++    functional = CSFOrbitalFunctional(csfs, data, 4, state_average=CIStateAverage())
++    eigen = solve_dirac(functional.one_body[-1], functional.metric[-1], ns, -1)
++    seed = eigen.coefficients[:, :len(functional.keys)]
++    waves = {key: (seed[:ns, i].copy(), seed[ns:, i].copy())
++             for i, key in enumerate(functional.keys)}
++    return functional, waves, eigen.coefficients
++
++
++@pytest.mark.parametrize("ns", [35, 120])
++def test_complete_quartic_change_matches_rediagonalized_CI(ns):
++    functional, waves, spectrum = problem(ns)
++    # A positive-energy, same-kappa orthonormal trial with both orbitals changed.
++    old = np.column_stack([np.concatenate(waves[key]) for key in functional.keys])
++    trial = old @ np.array([[np.cos(.08), -np.sin(.08)],
++                           [np.sin(.08), np.cos(.08)]])
++    trial = trial * np.cos(.03) + spectrum[:, 2:4] * np.sin(.03)
++    newer = {key: (trial[:ns, i], trial[ns:, i])
++             for i, key in enumerate(functional.keys)}
++    energy, _, ci = functional.evaluate(waves)
++    updated, _, other = functional.evaluate(newer)
++    delta = functional.fixed_density_energy_difference(waves, newer, ci, other)
++    assert delta == pytest.approx(updated - energy, abs=3e-11)
++    # Full finite polynomial, not a truncated first/second-order correction.
++    reverse = functional.fixed_density_energy_difference(newer, waves, other, ci)
++    assert reverse == pytest.approx(-delta, abs=1e-13)
++
++
++def test_unresolved_large_constant_does_not_hide_small_physical_change():
++    functional, waves, spectrum = problem(35)
++    _, gradient, ci = functional.evaluate(waves)
++    key = (1, -1)
++    direction = spectrum[:, 3]
++    derivative = float(gradient[key] @ direction)
++    step = 1e-8
++    old = np.concatenate(waves[key])
++    y = (old + step * direction) / np.sqrt(1 + step**2)
++    newer = dict(waves)
++    newer[key] = y[:35], y[35:]
++    _, other = functional.evaluate(newer, gradient=False)
++    delta = functional.fixed_density_energy_difference(waves, newer, ci, other)
++    assert delta == pytest.approx(step * derivative, rel=3e-5, abs=2e-16)
++    assert delta != 0
++    # The same density/space can include a constant spectator-core offset;
++    # its subtraction in double precision would completely lose this step.
++    assert float(1e12 + delta) - 1e12 == 0
++
++
++def test_CI_mixing_response_is_not_replaced_by_a_frozen_density():
++    functional, waves, spectrum = problem(35, ("1s2", "2s2"))
++    _, _, ci = functional.evaluate(waves)
++    newer = dict(waves)
++    vector = .9 * spectrum[:, 0] + np.sqrt(1 - .9**2) * spectrum[:, 2]
++    newer[1, -1] = vector[:35], vector[35:]
++    _, trial = functional.evaluate(newer, gradient=False)
++    assert functional.fixed_density_energy_difference(waves, newer, ci, trial) is None
++
++
++def test_constraint_centering_removes_only_roundoff_normal_extension():
++    functional, waves, _ = problem(35)
++    _, _, ci = functional.evaluate(waves)
++    newer = dict(waves)
++    newer[1, -1] = tuple(part * (1 + 6e-15) for part in waves[1, -1])
++    _, trial = functional.evaluate(newer, gradient=False)
++    complete = functional.fixed_density_energy_difference(waves, newer, ci, trial)
++    centered = functional.constrained_energy_difference(waves, newer, ci, trial)
++    assert abs(complete) > 1e-15
++    # Scaling is a pure normal change in exact arithmetic. Storing its
++    # products also introduces tiny tangent rounding, so demanding zero
++    # physical change would test the wrong state. Remove the dominant normal
++    # contribution; retain that rounded state's residual tangent change.
++    assert abs(centered) < abs(complete) * 1e-3
++    changed = dict(waves)
++    changed[1, -1] = tuple(part * (1 + 1e-8) for part in waves[1, -1])
++    _, bad = functional.evaluate(changed, gradient=False)
++    assert functional.constrained_energy_difference(waves, changed, ci, bad) is None
++
++
++@pytest.mark.parametrize("ns", [35, 120])
++def test_constraint_centering_retains_true_polar_step_curvature(ns):
++    functional, waves, spectrum = problem(ns)
++    newer = dict(waves)
++    old = np.concatenate(waves[1, -1])
++    angle = .08
++    new = np.cos(angle) * old + np.sin(angle) * spectrum[:, 3]
++    newer[1, -1] = new[:ns], new[ns:]
++    before, _, ci = functional.evaluate(waves)
++    after, other = functional.evaluate(newer, gradient=False)
++    centered = functional.constrained_energy_difference(waves, newer, ci, other)
++    assert centered == pytest.approx(after - before, abs=3e-11)
++    assert abs(centered) > 1e-3
++
++
++def test_explicit_linear_map_increment_has_exact_zero_and_tangent_limit():
++    functional, waves, spectrum = problem(35)
++    _, gradient, ci = functional.evaluate(waves)
++    zeros = {key: tuple(np.zeros_like(part) for part in waves[key])
++             for key in functional.keys}
++    assert functional.constrained_energy_difference(
++        waves, waves, ci, ci, increments=zeros) == 0
++    key = (1, -1)
++    angle = 1e-9
++    old = np.concatenate(waves[key])
++    # Complete polar rotation; form its exact finite coordinate increment
++    # without subtracting a second reconstructed orbital from the reference.
++    change = (np.cos(angle) - 1) * old + np.sin(angle) * spectrum[:, 3]
++    increments = dict(zeros)
++    increments[key] = change[:35], change[35:]
++    newer = dict(waves)
++    value = old + change
++    newer[key] = value[:35], value[35:]
++    _, other = functional.evaluate(newer, gradient=False)
++    delta = functional.constrained_energy_difference(
++        waves, newer, ci, other, increments=increments)
++    assert delta == pytest.approx(float(gradient[key] @ change), rel=2e-6, abs=2e-17)
+--- /dev/null
++++ after/tests/test_mcdhf_polar_retraction.py
+@@ -0,0 +1,43 @@
++"""The numerical polar successor preserves its map and tiny tangent changes."""
++
++import mpmath as mp
++import numpy as np
++import pytest
++
++from atomx.numerics.bspline.orbital_optimization import _polar_retraction
++
++
++def wide_polar(y):
++    # Independent high precision spectral oracle, including the near-degenerate
++    # eigenproblem rather than the production binomial correction.
++    with mp.workdps(65):
++        matrix = mp.matrix(y.tolist())
++        values, vectors = mp.eigsy(matrix.T * matrix)
++        inverse = vectors * mp.diag([1 / mp.sqrt(v) for v in values]) * vectors.T
++        return np.array((matrix * inverse).tolist(), dtype=float)
++
++
++@pytest.mark.parametrize("scale", [1e-3, 1e-8, 1e-13, 0.2])
++def test_same_polar_map_against_wide_spectral_oracle(scale):
++    rng = np.random.default_rng(81)
++    y, _ = np.linalg.qr(rng.normal(size=(24, 4)))
++    y = y + scale * rng.normal(size=y.shape)
++    result = _polar_retraction(y)
++    np.testing.assert_allclose(result, wide_polar(y), rtol=0, atol=9e-16)
++    np.testing.assert_allclose(result.T @ result, np.eye(4), rtol=0, atol=2e-15)
++
++
++def test_tiny_tangent_increment_preserved_without_core_rotation_noise():
++    y = np.zeros((24, 5))
++    y[:5] = np.eye(5)
++    direction = np.zeros_like(y)
++    direction[5:, 4] = np.arange(1, 20) * 1e-13
++    result = _polar_retraction(y + direction)
++    np.testing.assert_array_equal(result[:, :4], y[:, :4])
++    np.testing.assert_array_equal(result, wide_polar(y + direction))
++    np.testing.assert_array_equal(_polar_retraction(y), y)
++
++
++def test_rank_deficient_trial_is_rejected():
++    with pytest.raises(ValueError, match="rank-deficient"):
++        _polar_retraction(np.zeros((24, 4)))
+--- /dev/null
++++ after/tests/test_native_mcdhf_card.py
+@@ -0,0 +1,73 @@
++"""MCDHF cards expose original stationarity failures and separate references."""
++
++import hashlib
++import json
++import sys
++from pathlib import Path
++
++import pytest
++
++HERE = Path(__file__).resolve().parents[1] / "docs/atomx_hourly_progress_2026_10_10"
++sys.path.insert(0, str(HERE))
++import sync_card  # noqa: E402
++
++
++@pytest.fixture
++def record(tmp_path, monkeypatch):
++    monkeypatch.setattr(sync_card, "REPO", tmp_path)
++    source = tmp_path / "actual_run.json"
++    source.write_text(json.dumps({"converged": False}))
++    rows = []
++    for i, (label, j, parity) in enumerate((
++        ("6s_1/2", 1, 1), ("5d_3/2", 3, 1), ("5d_5/2", 5, 1),
++        ("6p_1/2", 1, -1), ("6p_3/2", 3, -1),
++    )):
++        reference, error = float(10000 * i), float(500 * i)
++        rows.append(dict(label=label, twoJ=j, parity=parity,
++                         computed_cm1=reference + error, experimental_cm1=reference,
++                         error_cm1=error, relative_error=.05 if i else None,
++                         gate_pass=False if i else None))
++    data = dict(method="MCDHF -> RCI", fitted_corrections=False,
++                highest_level_reached=False, production_certified=False,
++                computed_run="native-five-state", CSFs=5, radial_orbitals=24,
++                electrons=69, rows=rows, experimental_gate_passed=False,
++                card_summary="裸参考缺少核价动态关联；不能冒充空间收敛。",
++                stationarity=dict(converged=False, orbital_residual=5e-6,
++                                  orbital_tolerance=1e-7, estimated_energy_error=3e-11,
++                                  energy_tolerance=1e-8),
++                inputs=dict(run=dict(path=source.name,
++                                     sha256=hashlib.sha256(source.read_bytes()).hexdigest())))
++    return data, source
++
++
++def test_failed_stationarity_stays_next_to_the_actual_diagnostic_rows(record):
++    data, _ = record
++    citations = []
++    text = sync_card.mcdhf_summary(data, citations)
++    assert "驻值未通过，能级仅用于诊断" in text
++    assert "5.000e-06 / 门 1.0e-07" in text
++    assert "裸参考缺少核价动态关联" in text
++    assert "5d_3/2：10500.00 / 10000.00" in text
++    assert citations == [data["inputs"]["run"]]
++
++
++def test_failed_original_gate_cannot_be_promoted_by_flipping_status(record):
++    data, _ = record
++    data["stationarity"]["converged"] = True
++    with pytest.raises(ValueError, match="stationarity certification"):
++        sync_card.mcdhf_summary(data, [])
++
++
++@pytest.mark.parametrize("field", ["error_cm1", "experimental_cm1", "gate_pass"])
++def test_changed_reference_arithmetic_or_experiment_gate_rejects(record, field):
++    data, _ = record
++    data["rows"][1][field] = True if field == "gate_pass" else 123.
++    with pytest.raises(ValueError, match="arithmetic|experimental gate"):
++        sync_card.mcdhf_summary(data, [])
++
++
++def test_changed_bound_run_rejects_old_measurement(record):
++    data, source = record
++    source.write_text("changed physical input")
++    with pytest.raises(ValueError, match="input identity changed"):
++        sync_card.mcdhf_summary(data, [])

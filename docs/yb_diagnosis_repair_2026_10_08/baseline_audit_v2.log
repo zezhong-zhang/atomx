@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_diagnosis_repair_2026_10_08/audit_baseline.py", line 84, in <module>
+    if __name__ == "__main__": main()
+  File "/data/code/atomx/docs/yb_diagnosis_repair_2026_10_08/audit_baseline.py", line 61, in main
+    dynamic = angular_eL(lower[1],upper[1],1)*radial_eL(Pi,Qi,Pf,Qf,r.bsp_data,1,omega=line.energy_diff_hartree)
+  File "/data/code/atomx/src/atomx/properties/transitions/multipole.py", line 75, in radial_eL
+    _validate_electric_frequency(kappa_i, kappa_f, omega)
+  File "/data/code/atomx/src/atomx/properties/transitions/multipole.py", line 90, in _validate_electric_frequency
+    raise ValueError('electric radiation needs both kappas and signed omega=E_f-E_i')
+ValueError: electric radiation needs both kappas and signed omega=E_f-E_i

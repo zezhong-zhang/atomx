@@ -1,0 +1,95 @@
+{
+  "passed": false,
+  "created_utc": "2026-10-11T18:00:53.123543+00:00",
+  "message_id": "om_x100b6388a4f608a0c11b6c64647646b",
+  "chat_id": "oc_fb2fc627b3e98dc9555de31580878758",
+  "bot_open_id": "ou_c697e48a528ad9aa6157f62531561b59",
+  "position": 1620,
+  "actual_message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1620",
+  "cycle": "2026-10-11T18",
+  "source_stage": 28,
+  "source_stage_sha256": "16ee7d164892df7cba3995009125408174290064519636ea5d1ad06c2b809e05",
+  "registry_sha256": "42520518cd75d1eba84d6e1762b019f06337677f45b53d2bb2ac3af92f3991f0",
+  "actual_card": {
+    "schema": "2.0",
+    "elements": 15,
+    "raw_visible_string_equal": false,
+    "exact_observed_formatting_operations": [
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "replace",
+        "payload": ":",
+        "readback": "---"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "||||||"
+      },
+      {
+        "operation": "insert",
+        "payload": "",
+        "readback": "|||||"
+      }
+    ],
+    "all_table_rows_match": true,
+    "nonformatting_text_exact_by_bound_operation_list": false
+  },
+  "actual_send": {
+    "passed": true,
+    "started_at": "2026-10-11T18:00:01.144803+00:00",
+    "finished_at": "2026-10-11T18:00:04.208506+00:00"
+  },
+  "service_iteration": {
+    "status": "implementation_frontier",
+    "automatic_jobs_in_top_level": 0,
+    "decision_status": "implementation_frontier",
+    "highest_level_reached": false
+  },
+  "actual_readback_calls_by_root": 1,
+  "new_send_calls": 0,
+  "new_scientific_calls": 0,
+  "request_key": "b808873d-d4b3-51c6-8c11-8c7aff879377",
+  "files_sha256": {
+    "registry_stage028.json": "42520518cd75d1eba84d6e1762b019f06337677f45b53d2bb2ac3af92f3991f0",
+    "readback.json": "348feacd9605e2c188d45c045113bec43994cc55948b722867d557a52d817c48",
+    "readback_execution.json": "27f1bbdaea12d9a884f06d53ebca8226caad415f2b27cb803fd0ec8767bd8868",
+    "service_iteration_status.json": "4eb8c23beaa53071363c199d8e2c8eddef0435bfce44e736effdcb7121145d2a",
+    "once_marker.json": "3650e43dbdea36f9bfafa81ffa01d66e28afb5baf072e1753d6c137ff50be788",
+    "card.json": "119e1f01654a3ee6e9718f6a7fa0e9701cf0f8578979ee4f965394e4b7c51d50",
+    "send_status.json": "ed4a7739c5a99fc0346b518e89bba6944fcb21a0e09a66b34642772f7782a8e7",
+    "receipt.json": "c76ed55a86b1ab00feca526bd93d7adb7a15a84b1e358d76f38fcce0da8463ce",
+    "iteration_request.json": "4eb8c23beaa53071363c199d8e2c8eddef0435bfce44e736effdcb7121145d2a",
+    "contract.json": "1178a49134a183490a7d7e8b91e7e7d2b692136942c3d9b335e463fe032e919a"
+  },
+  "verifier_sha256": "42f2d5accc599270ccf38cf5827a9ad8fdd78c1c9619c91d7ffc9d377241515e"
+}

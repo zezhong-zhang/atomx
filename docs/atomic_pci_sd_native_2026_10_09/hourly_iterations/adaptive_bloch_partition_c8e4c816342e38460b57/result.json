@@ -1,0 +1,51 @@
+{
+  "partition_closure_Ha": 8.881784197001252e-15,
+  "partition_gate_pass": true,
+  "sector_contributions": [
+    {
+      "core_holes": 1,
+      "determinant_rows": 56,
+      "contribution_max_Ha": 0.00021783520771207886,
+      "wave_operator_max": 0.005384256034041051
+    },
+    {
+      "core_holes": 2,
+      "determinant_rows": 56,
+      "contribution_max_Ha": 1.0669337629454599e-05,
+      "wave_operator_max": 0.00026470164297946335
+    }
+  ],
+  "exact_omega_with_backend_heff_residual": [
+    {
+      "core_holes": 0,
+      "maximum_Ha": 8.749800883833814e-10
+    },
+    {
+      "core_holes": 1,
+      "maximum_Ha": 3.3253955145085e-12
+    },
+    {
+      "core_holes": 2,
+      "maximum_Ha": 1.2530948501066064e-13
+    }
+  ],
+  "backend_heff_max_Ha": 8.749837521193626e-10,
+  "backend_strict_1e10_gate_pass": false,
+  "interpretation": "Exact signed rank partition closes; residual uses exact Omega with saved backend HEFF. It does not identify the backend amplitude or a missing diagram.",
+  "bloch_equation_max_Ha": 8.272638428517695e-15,
+  "oracle_gate_pass": true,
+  "card_summary": "\u5b8c\u6574\u7b97\u7b26\u4e00\uff0f\u4e8c\u6838\u5b54\u5206\u89e3\u95ed\u5408 8.882e-15 Ha\uff1b\u66f4\u4e25\u540e\u7aef\u95e8\u4ecd\u672a\u901a\u8fc7\u3002\u4e0b\u4e00\u6b65\u68c0\u9a8c\u5168\u6a2a\u5411\u5f3a\u5ea6\u54cd\u5e94\uff1b\u5c1a\u672a\u786e\u5b9a\u7f3a\u5931\u56fe\u9879\u3002",
+  "job": {
+    "id": "adaptive_bloch_partition_c8e4c816342e38460b57",
+    "kind": "bloch_partition",
+    "source": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/finite_ns100_dynamic",
+    "result_sha256": "be073983cb9b3f44027182f0c9bfdeee7e84a34de2617c88b1b16bdd786cd164",
+    "arrays_sha256": "e91839b74f7bafafe72db8860312781a2d142c010e3f5cfb37eea8684e296458"
+  },
+  "sources_and_inputs_unchanged": true,
+  "highest_level_reached": false,
+  "observed_wall_seconds": 0.0059620889369398355,
+  "observed_peak_rss_bytes": 161783808,
+  "performance_claim": "Actual finite one-CPU task observation; no controlled or GPU/end-to-end speedup claim",
+  "arrays_sha256": "8883e3256739024723e596dee9f857e8730e10c09afc1e870214c4f7d199760b"
+}

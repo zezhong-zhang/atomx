@@ -1,0 +1,79 @@
+{
+  "prepared_files_sha256": {
+    "run.py": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996",
+    "contract.json": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201",
+    "screened_operator.py": "4b50850d1f78d2ec8793a6bd02a25fcac36613cd7f3d61981bd7b42fdd976742",
+    "models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "prepare.py": "3ad8648aeb3276c90c2ac5bf153bf4605fae3efaee4cc66fbc249d513f2dfe6b",
+    "preparation_verification.json": "2679c8c0546dfc53647444be261e5b014c13500a696a85436975bf0cced4e24c",
+    "execution_binding_proposal.json": "79c2615fd6b3bd579b1cc96e0a38c16482666c2d82293f736ed8f1c603b71578",
+    "README.md": "f27a11237ac417c06bedd0ba85eb9c302b36415adaf639bcdbd3e2dbc7540de8"
+  },
+  "handoff_sha256": "759ffa62cbc891cc689b1e0b1e7344dfa40e362f404e12a772d0154b17c66e21",
+  "documentation_links_passed": true,
+  "link_checks": [
+    {
+      "file": "README.md",
+      "target": "../virtual_only_discriminator/RESULTS.md",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "anchors/test_closed_shell_fock.py",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "../delivery_stage009/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "run.py",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "prepare.py",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "contract.json",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "models.json",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "screened_operator.py",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "preparation_verification.json",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "HANDOFF.md",
+      "passed": true
+    },
+    {
+      "file": "README.md",
+      "target": "../screened_core_virtual_field_review/README.md",
+      "passed": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "execution_binding_proposal.json",
+      "passed": true
+    }
+  ],
+  "scientific_calls": 0,
+  "source353_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "scope": "Frozen prepared files only; root launcher/execution binding owned separately; not a runtime pass."
+}

@@ -1,0 +1,56 @@
+{
+  "rows": [
+    {
+      "step": 1,
+      "direct_difference_Ha": 1.4370016288012266e-10,
+      "exact_difference_Ha": 6.722682310157065e-11,
+      "reverse_exact_difference_Ha": -6.722682321915059e-11,
+      "antisymmetry_error_Ha": 1.1757993713817104e-19,
+      "linear_prediction_Ha": -6.440027006638571e-11
+    },
+    {
+      "step": 0.5,
+      "direct_difference_Ha": 9.276845958083868e-11,
+      "exact_difference_Ha": -1.8781258479926005e-12,
+      "reverse_exact_difference_Ha": 1.8781258133305606e-12,
+      "antisymmetry_error_Ha": 3.466203987130926e-20,
+      "linear_prediction_Ha": -3.2200135033192855e-11
+    },
+    {
+      "step": 0.1,
+      "direct_difference_Ha": 6.548361852765083e-11,
+      "exact_difference_Ha": -7.951913616104541e-12,
+      "reverse_exact_difference_Ha": 7.951913617073732e-12,
+      "antisymmetry_error_Ha": 9.6919072162219e-22,
+      "linear_prediction_Ha": -6.4400270066385706e-12
+    },
+    {
+      "step": 0.01,
+      "direct_difference_Ha": 5.4569682106375694e-11,
+      "exact_difference_Ha": -3.2058369284527874e-12,
+      "reverse_exact_difference_Ha": 3.205836928626669e-12,
+      "antisymmetry_error_Ha": 1.7388160425302927e-22,
+      "linear_prediction_Ha": -6.440027006638571e-13
+    },
+    {
+      "step": -0.01,
+      "direct_difference_Ha": 5.820766091346741e-11,
+      "exact_difference_Ha": 1.2687075011625114e-12,
+      "reverse_exact_difference_Ha": -1.2687075006643495e-12,
+      "antisymmetry_error_Ha": 4.981618498711749e-22,
+      "linear_prediction_Ha": 6.440027006638571e-13
+    },
+    {
+      "step": -0.1,
+      "direct_difference_Ha": 1.0186340659856796e-10,
+      "exact_difference_Ha": 8.51165572081249e-12,
+      "reverse_exact_difference_Ha": -8.511655717153526e-12,
+      "antisymmetry_error_Ha": 3.6589639693815605e-21,
+      "linear_prediction_Ha": 6.4400270066385706e-12
+    }
+  ],
+  "gradient_replay_max_error": 0.0,
+  "production_certified": false,
+  "original_residual_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+  "source_map_sha256": "1960c27b68af53ca50f74174da6e1678919efdd51a7db39b4dfbc8bba2a763d1"
+}

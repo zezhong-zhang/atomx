@@ -1,0 +1,775 @@
+{
+  "core_energy_Ha": -14067.105098022084,
+  "sector_energies_Ha": [
+    -14067.531460045067,
+    -14067.531460045067,
+    -14067.415876425724,
+    -14067.415876425724,
+    -14067.408121149325,
+    -14067.408121149325,
+    -14067.408121149325,
+    -14067.408121149325,
+    -14067.404733891997,
+    -14067.404733891997,
+    -14067.404733891997,
+    -14067.404733891997,
+    -14067.404733891997,
+    -14067.404733891997,
+    -14067.400960726374,
+    -14067.400960726374,
+    -14067.400960726374,
+    -14067.400960726374
+  ],
+  "amplitude_update_max": 4.212559120975179e-14,
+  "equation_residual_bound_Ha": 7.481310069540103e-13,
+  "provenance": {
+    "backend": "EXP-T Atomx interface",
+    "executable_sha256": "9f06ef3a31a29856b99194d8fb0f305c68831c800cff3867e1c3585658290c2a",
+    "backend_source_manifest_sha256": "37f63cfce43a44c86192514b5739eeb89cca1130d89024785e26d1777a515277",
+    "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+    "backend_patch_sha256": "96a7c0dda82d2b551e45595a5af463963e514f3b9e63b960bf64c79843a11bf7",
+    "atomx_solver_sha256": "4bf1a15612cf522c189beb0a8f5c198d14c13b43fe965d214816cd6f18f976c1",
+    "model": "CCSD",
+    "sector": "0h1p",
+    "active_indices": [
+      22,
+      23,
+      30,
+      31,
+      38,
+      39,
+      40,
+      41,
+      54,
+      55,
+      56,
+      57,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75
+    ],
+    "model_matrix_order": "ascending global active indices, C1 one-particle/hole determinant basis",
+    "resources": {
+      "occupied": 22,
+      "virtual": 72,
+      "core_independent_amplitudes": 592020,
+      "raw_tensor_coordinates": 4564800,
+      "estimated_working_bytes": 3359661984,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+    },
+    "tolerance": 1e-13,
+    "residual_bound_tolerance_Ha": 1e-08,
+    "memory_bytes": 34359738368,
+    "tile_size": 16,
+    "threads": 2,
+    "integral_manifest_sha256": "4f815eb3e3d4bb916a2ac22d0d4da33fe71b0fd0650a9d4ac945c8a82440719c",
+    "input_sha256": "35699d33ddc712b86f4f5b5886905d7d34dcd5608dfc6c56e4f6d66314f28936",
+    "integrals": {
+      "abi": "ATXCC001",
+      "labels": [
+        [
+          5,
+          -1,
+          -1
+        ],
+        [
+          5,
+          -1,
+          1
+        ],
+        [
+          5,
+          1,
+          -1
+        ],
+        [
+          5,
+          1,
+          1
+        ],
+        [
+          5,
+          -2,
+          -3
+        ],
+        [
+          5,
+          -2,
+          -1
+        ],
+        [
+          5,
+          -2,
+          1
+        ],
+        [
+          5,
+          -2,
+          3
+        ],
+        [
+          4,
+          3,
+          -5
+        ],
+        [
+          4,
+          3,
+          -3
+        ],
+        [
+          4,
+          3,
+          -1
+        ],
+        [
+          4,
+          3,
+          1
+        ],
+        [
+          4,
+          3,
+          3
+        ],
+        [
+          4,
+          3,
+          5
+        ],
+        [
+          4,
+          -4,
+          -7
+        ],
+        [
+          4,
+          -4,
+          -5
+        ],
+        [
+          4,
+          -4,
+          -3
+        ],
+        [
+          4,
+          -4,
+          -1
+        ],
+        [
+          4,
+          -4,
+          1
+        ],
+        [
+          4,
+          -4,
+          3
+        ],
+        [
+          4,
+          -4,
+          5
+        ],
+        [
+          4,
+          -4,
+          7
+        ],
+        [
+          6,
+          -1,
+          -1
+        ],
+        [
+          6,
+          -1,
+          1
+        ],
+        [
+          7,
+          -1,
+          -1
+        ],
+        [
+          7,
+          -1,
+          1
+        ],
+        [
+          8,
+          -1,
+          -1
+        ],
+        [
+          8,
+          -1,
+          1
+        ],
+        [
+          9,
+          -1,
+          -1
+        ],
+        [
+          9,
+          -1,
+          1
+        ],
+        [
+          6,
+          1,
+          -1
+        ],
+        [
+          6,
+          1,
+          1
+        ],
+        [
+          7,
+          1,
+          -1
+        ],
+        [
+          7,
+          1,
+          1
+        ],
+        [
+          8,
+          1,
+          -1
+        ],
+        [
+          8,
+          1,
+          1
+        ],
+        [
+          9,
+          1,
+          -1
+        ],
+        [
+          9,
+          1,
+          1
+        ],
+        [
+          6,
+          -2,
+          -3
+        ],
+        [
+          6,
+          -2,
+          -1
+        ],
+        [
+          6,
+          -2,
+          1
+        ],
+        [
+          6,
+          -2,
+          3
+        ],
+        [
+          7,
+          -2,
+          -3
+        ],
+        [
+          7,
+          -2,
+          -1
+        ],
+        [
+          7,
+          -2,
+          1
+        ],
+        [
+          7,
+          -2,
+          3
+        ],
+        [
+          8,
+          -2,
+          -3
+        ],
+        [
+          8,
+          -2,
+          -1
+        ],
+        [
+          8,
+          -2,
+          1
+        ],
+        [
+          8,
+          -2,
+          3
+        ],
+        [
+          9,
+          -2,
+          -3
+        ],
+        [
+          9,
+          -2,
+          -1
+        ],
+        [
+          9,
+          -2,
+          1
+        ],
+        [
+          9,
+          -2,
+          3
+        ],
+        [
+          5,
+          2,
+          -3
+        ],
+        [
+          5,
+          2,
+          -1
+        ],
+        [
+          5,
+          2,
+          1
+        ],
+        [
+          5,
+          2,
+          3
+        ],
+        [
+          6,
+          2,
+          -3
+        ],
+        [
+          6,
+          2,
+          -1
+        ],
+        [
+          6,
+          2,
+          1
+        ],
+        [
+          6,
+          2,
+          3
+        ],
+        [
+          7,
+          2,
+          -3
+        ],
+        [
+          7,
+          2,
+          -1
+        ],
+        [
+          7,
+          2,
+          1
+        ],
+        [
+          7,
+          2,
+          3
+        ],
+        [
+          8,
+          2,
+          -3
+        ],
+        [
+          8,
+          2,
+          -1
+        ],
+        [
+          8,
+          2,
+          1
+        ],
+        [
+          8,
+          2,
+          3
+        ],
+        [
+          5,
+          -3,
+          -5
+        ],
+        [
+          5,
+          -3,
+          -3
+        ],
+        [
+          5,
+          -3,
+          -1
+        ],
+        [
+          5,
+          -3,
+          1
+        ],
+        [
+          5,
+          -3,
+          3
+        ],
+        [
+          5,
+          -3,
+          5
+        ],
+        [
+          6,
+          -3,
+          -5
+        ],
+        [
+          6,
+          -3,
+          -3
+        ],
+        [
+          6,
+          -3,
+          -1
+        ],
+        [
+          6,
+          -3,
+          1
+        ],
+        [
+          6,
+          -3,
+          3
+        ],
+        [
+          6,
+          -3,
+          5
+        ],
+        [
+          7,
+          -3,
+          -5
+        ],
+        [
+          7,
+          -3,
+          -3
+        ],
+        [
+          7,
+          -3,
+          -1
+        ],
+        [
+          7,
+          -3,
+          1
+        ],
+        [
+          7,
+          -3,
+          3
+        ],
+        [
+          7,
+          -3,
+          5
+        ],
+        [
+          8,
+          -3,
+          -5
+        ],
+        [
+          8,
+          -3,
+          -3
+        ],
+        [
+          8,
+          -3,
+          -1
+        ],
+        [
+          8,
+          -3,
+          1
+        ],
+        [
+          8,
+          -3,
+          3
+        ],
+        [
+          8,
+          -3,
+          5
+        ]
+      ],
+      "noccupied": 22,
+      "reference_energy_Ha": -14067.058077561127,
+      "frozen_energy_Ha": -13821.625544473063,
+      "identity": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce', '9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089', 'bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507', '19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee', 'fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c', '3f7bd22bf5f7d9be8131a03a2d5f6e8fad5d4fd84f0ee95968227ffbe0419df9', 'a61ea7f62588302fa989865038c0fdefc7c2cdc6b28e9e4dac513a8ced35b72f', '10f84a1a429f1d062f3c1965d37baa359f0d325649c543d5f051cf8fe2e59699', 'aac5ba326e5ac5f3bd2662871b66570a5b1c0146a2fd7708c49b8d1a9cfe6d17', '8234a63d4a16bb525f3481077641c4da20d11e208918c15514ce5146d620a239', '53c8a46a3a8482ee88b79a9f8ae5f8f9ec747d06b9b02b09e4e4756e319b98b6', 'a508d3bbea7132155fddcc91d9d31526a4b9b97ee96ff734dc3ac2383775a57e', '090e983eb7d01d3e861c557dfed4e27a2928cc92018ffd5006484cc5fe17ff16', 'f4aa01bd83a50262c312b911c9b325327cf88e05b527531e72ca80b1c4880da9', '4546fd0f7ac59313d14b6302457b3d41deef17e0311f6dee3daa7b9231437706', 'a061ce29fd7e4b0f4b1f61e26e00c59af223efbc8b7d4b0ec20673b29c66b053', 'd56c0094da73e619ee789c2f10593700ef921b93ace6bbf12a6ff98a5674bf65', '81956a40eb014be1eff3e179c2e892b84268ae0fa2f8d7f5ee5648aab460687f', '3015d0be19467da1effc4308b989d82c48fc32ef967550a2e6f93c09bbc2a450', '42b4852264b9e737862da1e187f7c019a9f64fb11dd2d73aaf80ea04f4a07884', '6be4322a83f1bd164ed99c0f5fc48ba960023a5229989aacefb03a031ca1929d', '6a92535dd50d5b1a2b4a38689052d1e44515f033ed813e0b16e934095e0b11f4', '704f514f116178cae0adfa1beccd1e88c2e9f97d6df81c234b39c33b56fcc947', '9647fab141fd2e47238350b62a27cb63494889de0a74b768b6903e636dc321be', '0b68b33a1aa8c8f07bd48fdac5b13f4d2b3abf05f8ffe41d208668bb83e3a006'), core=(((1, -1), '9fe88bbc36f07fceee442f456c2d2101e9837207a9cd6d81035d67d8240bce5c'), ((2, -2), '39600bd8a921e4212e5b30749ed69408c18de7ffef108a47f6c84ee0941064f6'), ((2, -1), '5b3ab8b07ba22574c7cac4db9bb1efd4f7f4ece8b47113b41906d0fcfcfc071a'), ((2, 1), '7dba2e8cab5160fed526701681b7de48cdb9c091dc144729a43d0c50583fbf48'), ((3, -3), '337d239b6ffd4de2bba455aa4657690e8d04aa91c75f6e66b78930db6acba8d9'), ((3, -2), '2de46754228edd5a0dac002a9306967f71a4f18cd6c45dcd103baabc3009d06a'), ((3, -1), '2729b39ba7e3ecdb983b6a748e84032e02402c7d32f88126d59fd76420808322'), ((3, 1), 'e2ffcb652ac5ae63da32e29a87d3a5787108a08c77762a174ead6077a564e16d'), ((3, 2), 'dc2903f22cc28cd1f3c3940a59ce605afdd101aa1071ccec75c26778af1bc95c'), ((4, -4), 'fdda87f7b41e0ec34acf03c57e58c2c919b058fa325b2f1cfad87f0cd9d3cd9c'), ((4, -3), '98ba050278ae4d324b6f0e5d117eb8ebe10092b06738d773aad85f4adf597e50'), ((4, -2), 'd58f5cdf91b417006ba02f2781622d1c7dd787ed10e6d405331550a53d26894c'), ((4, -1), '035fcf9b1f6e7b16437bc8355b6efd84db562090ec5b22adddb41b0363e5834e'), ((4, 1), 'b46f9cfeefda63ee0e931f5acc88c20456a02825fac74b97c903437bc5a62068'), ((4, 2), '1c314a71bebd2be6e13e3210c1981f5d1083792cf5034353fd37b5bb01dbbdae'), ((4, 3), '19c1ddb8fb127a93e20d8a75a8381e14efa3ae6d6dc186684d35b1a21fb342ee'), ((5, -2), 'bc4be81f8b11a06b04e5897fe857924c8fed63c23e835f813fd9a0bfdcf53507'), ((5, -1), 'c92e2366434d837e610efe8450c37129c41195881ac1c2fe1945e580f47521ce'), ((5, 1), '9f963222b80c25ef7cdb9dad14d6d01e78bb2c33f79de16031cc12a851eb3089')), geometry='d7430ef5694292aa979ef10229562e4c4361da5bc24a90b922e5f69c190b7b76', Z=70, ns=123, nuclear='f0b4da7432bef8c48492eb3dbcd4ea3ff2a6ca438b151ef6e22e911baa01cf7b')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            5,
+            -1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            -2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            -4
+          ]
+        ],
+        "virtual_keys": [
+          [
+            6,
+            -1
+          ],
+          [
+            7,
+            -1
+          ],
+          [
+            8,
+            -1
+          ],
+          [
+            9,
+            -1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            1
+          ],
+          [
+            9,
+            1
+          ],
+          [
+            6,
+            -2
+          ],
+          [
+            7,
+            -2
+          ],
+          [
+            8,
+            -2
+          ],
+          [
+            9,
+            -2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            5,
+            -3
+          ],
+          [
+            6,
+            -3
+          ],
+          [
+            7,
+            -3
+          ],
+          [
+            8,
+            -3
+          ]
+        ],
+        "frozen_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            -3
+          ]
+        ],
+        "metric_error": 1.5543122344752192e-15,
+        "hermitian_projection_max_Ha": 4.440892098500626e-15,
+        "integral_bytes": 282752,
+        "radial_pair_cache_size": 1024,
+        "representation": "native on-demand radial/angular DC",
+        "construction_scalar_radial_pairs": 109,
+        "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation"
+      },
+      "export": {
+        "logical_bytes": 155167332,
+        "max_integral_file_bytes": 2147483648,
+        "max_chunk_bytes": 4194304,
+        "producer": {
+          "matrix_builds": 1,
+          "radial_cache_hits": 2694859,
+          "radial_cache_misses": 208155,
+          "radial_cache_entries": 8192,
+          "radial_cache_capacity": 8192,
+          "pair_potential_cache_hits": 206962,
+          "pair_potential_cache_misses": 1070,
+          "pair_potential_cache_entries": 1024,
+          "pair_potential_cache_capacity": 1024,
+          "model": "immutable common B-spline Dirac-Coulomb orbital snapshot",
+          "hermitian_projection_max_Ha": 4.440892098500626e-15,
+          "signed_cache_entries": 65536,
+          "signed_cache_capacity": 65536,
+          "pair_cache_array_bound_bytes": 18137088,
+          "representation": "on_demand",
+          "resident_matrix_bytes": 282752,
+          "resident_eri_bytes": 0,
+          "dense_eri_bytes": 155024800
+        }
+      },
+      "files": {
+        "ATOMX_ONE": "a76f34a45c67bfaed47a970496e36d42e9f0e34d3da365f83f4ec52b0e1a4f1a",
+        "ATOMX_TWO": "91e7a1bdcde1f1274bf6de9741f77b7ba9f59a2acf03945063acff428ebc761b"
+      }
+    },
+    "statuses": {
+      "0h0p": [
+        1,
+        19,
+        1.627691037509038e-14,
+        2.3869971212293895e-14,
+        0.0
+      ],
+      "0h1p": [
+        1,
+        34,
+        1.1303458169464875e-14,
+        4.212559120975179e-14,
+        0.0
+      ]
+    },
+    "log_sha256": "98a24d688fc1d60a40bd963188cc22b22759547e64384e737af336b475a28934",
+    "heff_sha256": "2aefc785dab570f1167c8e534ba6749673e04c4a8cfd92e22c8ff62ebed2b1a1"
+  }
+}

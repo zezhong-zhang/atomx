@@ -1,0 +1,61 @@
+{
+  "completed_single_saved_only_run": true,
+  "exit_code": 0,
+  "all_document_links_passed": true,
+  "links": [
+    {
+      "document": "README.md",
+      "target": "root_execution.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "RESULTS.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "contract.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "diagnose_saved.py",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../correlated29_constraint_centering_diagnosis/RESULTS.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "target": "../../AGENT_INSIGHTS.md#preserve-metric",
+      "exists": true
+    },
+    {
+      "document": "RESULTS.md",
+      "target": "actual/result.json",
+      "exists": true
+    }
+  ],
+  "hashes": {
+    "contract.json": "7fc5cd47b20d91e11aa86d62bf02a12f79668c405d8128d84d813bb15bc641cf",
+    "diagnose_saved.py": "760fa3ae76181cf9357e9fc54d4903b0d1a408bf859e57f313ed8e098013c04f",
+    "root_authorization.json": "558674e526bc8ee1a1f3b0b3d314d3d4144d7e275cca2b88f5c9502f02319b71",
+    "outer_execution_contract.json": "9da44f202dcc799e15b121122623705889ffecd50d3cbdfdcd1cf6194d296cda",
+    "execution_seal.json": "8a4323f162300c5969469bf5d1e438b8bd5208d29cfd738aff24a331f44116c1",
+    "readonly_launch.py": "0c88b3d68eae80f5a444543249673709007a0b9602e3d12fe5dfe8bbe74a5393",
+    "root_execution.json": "f0a0261007732b901f33edd5caf14625ec284bacd78dd539cc1a502940f7a9c8",
+    "root_execution.log": "f01604b839de888fb04e15f5867db060cdc4a9ab964f329b051517d104120b38",
+    "actual/result.json": "c8fa10047367be325263b0d2664ab84de06e06a0570386e9dd0b58d8e0c665b3",
+    "README.md": "d98901aeacb275b8992ddb5da9d4502ecff2671dbc30b81dc927c3a70801ae07",
+    "RESULTS.md": "6d3defd63aed96d2cfcf674eda40d6a6d423d82310134cab9a40624d5bb4de3a",
+    "decision.json": "5034e04465c70677b6b31b44116bcfba66d46582b9ff8f57e6a4a1c2f6882e07"
+  },
+  "exact_products": 3432060,
+  "physical_producer_calls": 0,
+  "same_saved_point_conditional_gate_passed": true,
+  "original_failed_gates_preserved": true,
+  "optimizer_authorized": false
+}

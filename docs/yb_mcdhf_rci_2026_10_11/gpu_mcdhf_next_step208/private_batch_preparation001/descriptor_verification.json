@@ -1,0 +1,173 @@
+{
+  "checks_count": 36,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "unequal_RKB_orders_extent_admitted",
+      "passed": true
+    },
+    {
+      "name": "source_insertion_order_not_sorted",
+      "passed": true
+    },
+    {
+      "name": "exact_four_components_canonical",
+      "passed": true
+    },
+    {
+      "name": "unique_pair_pool_keeps_order",
+      "passed": true
+    },
+    {
+      "name": "factor_rank_pool_order",
+      "passed": true
+    },
+    {
+      "name": "ns95_no_fallback",
+      "passed": true
+    },
+    {
+      "name": "orders_not_tuple",
+      "passed": true
+    },
+    {
+      "name": "bool_is_not_ns",
+      "passed": true
+    },
+    {
+      "name": "over_order_budget",
+      "passed": true
+    },
+    {
+      "name": "extent_less_than_order",
+      "passed": true
+    },
+    {
+      "name": "extent_greater_than_ns",
+      "passed": true
+    },
+    {
+      "name": "invalid_source_SHA",
+      "passed": true
+    },
+    {
+      "name": "duplicate_keys",
+      "passed": true
+    },
+    {
+      "name": "source_union_SHA_mismatch",
+      "passed": true
+    },
+    {
+      "name": "negative_rank",
+      "passed": true
+    },
+    {
+      "name": "rank7",
+      "passed": true
+    },
+    {
+      "name": "duplicate_source",
+      "passed": true
+    },
+    {
+      "name": "wrong_source_order",
+      "passed": true
+    },
+    {
+      "name": "unknown_key",
+      "passed": true
+    },
+    {
+      "name": "chunk129",
+      "passed": true
+    },
+    {
+      "name": "frozen_plan_mutation",
+      "passed": true
+    },
+    {
+      "name": "exact_float64_descriptor",
+      "passed": true
+    },
+    {
+      "name": "no_float32_cast",
+      "passed": true
+    },
+    {
+      "name": "no_complex_cast",
+      "passed": true
+    },
+    {
+      "name": "no_noncontiguous_copy",
+      "passed": true
+    },
+    {
+      "name": "no_shape_clip",
+      "passed": true
+    },
+    {
+      "name": "no_big_endian_cast",
+      "passed": true
+    },
+    {
+      "name": "snapshot_only_through_owned_factory",
+      "passed": true
+    },
+    {
+      "name": "full3472_sources_no_amplitude_cutoff",
+      "passed": true
+    },
+    {
+      "name": "full13888_component_jobs",
+      "passed": true
+    },
+    {
+      "name": "independent_component_scan_memory",
+      "passed": true
+    },
+    {
+      "name": "factor_memory_complete_four",
+      "passed": true
+    },
+    {
+      "name": "source_density_H2D_complete",
+      "passed": true
+    },
+    {
+      "name": "full_D2H_inclusive",
+      "passed": true
+    },
+    {
+      "name": "owned_payload_within512MiB",
+      "passed": true
+    },
+    {
+      "name": "no_numerical_modules_loaded",
+      "passed": true
+    }
+  ],
+  "mechanical31_worst_case": {
+    "factor_bytes": 38930976,
+    "unique_density_bytes": 8785152,
+    "chunk_prefix_suffix_bytes": 9142272,
+    "chunk_band_bytes": 4534272,
+    "chunk_index_bytes": 16384,
+    "CPU_dense_postprocess_bytes": 30984192,
+    "owned_device_bytes_upper": 61409056,
+    "owned_host_bytes_upper": 196894048,
+    "all_band_D2H_bytes_upper": 122992128,
+    "source_jobs": 3472,
+    "component_jobs": 13888,
+    "chunks": 28,
+    "scan_kernel_calls_per_trial": 28,
+    "row_kernel_calls_per_trial": 28,
+    "scan_owned_rows": 124992,
+    "result_owned_rows": 15374016,
+    "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+  },
+  "numerical_imports": 0,
+  "arrays_or_NPZ": 0,
+  "numerical_calls": 0,
+  "scope": "descriptor/mock/source-admission only, not FP64 or CPU/GPU qualification"
+}

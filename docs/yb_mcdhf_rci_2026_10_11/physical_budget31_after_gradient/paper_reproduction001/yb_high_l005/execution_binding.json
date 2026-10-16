@@ -1,0 +1,17 @@
+{
+  "status": "SEALED_PARENT_AUTHORIZED_SINGLE_NATIVE005_EXECUTION",
+  "artifacts_sha256": {
+    "run.py": "30ead5fc5023b47178575d930df11d238d0e7e2d6aa6fb7ba78765571e98f180",
+    "contract.json": "fcec66f883b9ebee7c6ee71143e906d7612de392e4070f3580459915d56bb5a2",
+    "predecessor_headers.json": "67111d008a4cf4519218d5251fd80df62f76ebc64c7e8d3a2254d0cd800d7724",
+    "README.md": "c3a8f42ff797ba2e0cd1f90fd13948d93ca76b3a5ff81d6289d5a66f140ab492",
+    "preparation.json": "ae59f04754e422e8112e78d3b16434c12f98e953c57973da01175b9b58ef6991"
+  },
+  "SOURCE_metadata_PASS": true,
+  "AST_same_model_gate_and_native_block_PASS": true,
+  "Ruff_PASS": true,
+  "scientific_model_changed": false,
+  "numerical_projector_approximation_changed_explicitly": true,
+  "automatic_retry": false,
+  "parent_admission": "explicit parent message: freeze005 and execute once after source/metadata checks; independent shared-kernel review no blocking error"
+}

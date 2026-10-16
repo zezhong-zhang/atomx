@@ -1,0 +1,21 @@
+{
+  "hypothesis": "Distinguish finite complete-operator conditioning, matrix-free rounding and approximate recycled C versus actual A*U in the withdrawn strong4s case",
+  "fixed": "same C2+ all16magnetic/sixvirtual/ns40/point/nativeDC/.37virtual/.37occupied-reference,4s E=Fvv+.075; current certified CPU operator, no truncation",
+  "gate_Ha": 1e-11,
+  "matrix_cap_bytes": 67108864,
+  "solver_budget": {
+    "m": 30,
+    "k": 10,
+    "maxiter": 100,
+    "refinements": 3,
+    "inner_atol_Ha": 1e-14
+  },
+  "variants": "complete dense operator; native with retained C; native recomputing C=A*U at each inverse call",
+  "stop": "one matched4s problem and three variants only; retain all failures; no threshold/budget/physical input change or public solver adoption",
+  "load": [
+    23.30908203125,
+    23.13916015625,
+    24.22216796875
+  ],
+  "scope": "finite diagnostic complete matrix only; no full-space performance/spectral claim"
+}

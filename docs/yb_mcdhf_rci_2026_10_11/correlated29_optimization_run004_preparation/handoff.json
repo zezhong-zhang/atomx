@@ -1,0 +1,38 @@
+{
+  "status": "prepared_requires_exact_root_review_and_execution",
+  "scientific_calls": 0,
+  "numerical_imports": 0,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "files_sha256": {
+    "run.py": "413d1eec3d22ce3037c0e345f32710faf07979a6faf48cb5f36b6540d85a2ce4",
+    "contract.json": "b45c441817625fd09756a4e04a7427bac775a2f3e57ac8878e629d0e9637a6f4",
+    "verify_preparation.py": "ec6f0db3f633ecc662f94514af6131632a6cd467855976abfe650c3922bceb34",
+    "preparation_verification.json": "0c20b77157b38b31e92e338807ed848e8f23ed93e5360cf5db0d65bba49138c6",
+    "README.md": "deb308676bdc17d45b8a98254983e2f6dfcecea1aa96e6b3f7aa5b308046848c",
+    "documentation_impact.json": "42346588c7fac22febbec0e3701a304a1ad6b38d04405d08fc953dc24c6467c6"
+  },
+  "initial_terminal_manifest": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.json",
+    "sha256": "a9ce2ff0fc1236ea88d46280caa7b14ae6698c34b937b605b8d6f866e6c43c90"
+  },
+  "initial_terminal_arrays": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.npz",
+    "sha256": "0e7154ee19cca9181d20b4367f3cd6416ed742d5916d775bdaeff7e969687dfc"
+  },
+  "old_derivative_failures_unchanged": true,
+  "stationarity_or_experimental_certification": false,
+  "prospective_budget": {
+    "max_new_accepted_steps": 64,
+    "max_H": 257,
+    "max_CI": 257,
+    "max_full_gradient": 65,
+    "wall_seconds": 1200,
+    "outer_wall_seconds": 1215,
+    "CPU": 31,
+    "address_space_GiB": 3.95
+  },
+  "preparation_checks": 16,
+  "ruff_passed": true,
+  "exact_guard_resource_successor": "Reserve-only subclass65/325/8m; kernel/helper/physicalgates unchanged, original17point evidence retained",
+  "root_authorized_to_execute": false
+}

@@ -1,0 +1,49 @@
+{
+  "upstream": {
+    "commit": "f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1",
+    "files": {
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/LICENSE",
+        "bytes": 11357,
+        "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+      },
+      "examples/ccsdt.py": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/examples/ccsdt.py",
+        "bytes": 1647,
+        "sha256": "51e42574ef6c4be3365cbb95664157a4c1b8bf1c34af9c7f4da17c9138bc7ac8"
+      },
+      "examples/ea_eom_ccsdt.py": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/examples/ea_eom_ccsdt.py",
+        "bytes": 1646,
+        "sha256": "2284024aa11dfe92382d82acdb4f82e4b806ab9eb475d81418b0242bafcc8b96"
+      },
+      "examples/full_cc_codes/ccsdt.py": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/examples/full_cc_codes/ccsdt.py",
+        "bytes": 77527,
+        "sha256": "33e387fb1e659fbede7a711e9432ebd6dd067fd4e796bd793c8b71862420f13d"
+      },
+      "tests/reference_outputs/ccsdt.ref": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/tests/reference_outputs/ccsdt.ref",
+        "bytes": 82750,
+        "sha256": "eb3cfe5d7013f75bbff2028d815c61258486fdca5607c87846b9c856840981e0"
+      },
+      "tests/reference_outputs/ea_eom_ccsdt.ref": {
+        "url": "https://raw.githubusercontent.com/edeprince3/pdaggerq/f6fb6dec2c0edd2a02180ee84f395d74eed1c0a1/tests/reference_outputs/ea_eom_ccsdt.ref",
+        "bytes": 22292,
+        "sha256": "6761d45d4e5f875c2662bc30f1c9238f8448869ab8cb69810be219fb6d980c65"
+      }
+    }
+  },
+  "terms": {
+    "energy": 5,
+    "singles": 15,
+    "doubles": 37,
+    "triples": 174,
+    "ea1": 15,
+    "ea2": 59,
+    "ea3": 267
+  },
+  "adaptation": "Symbolic recipes only; no external electronic structure solver/import; exact listed coefficients; retain explicit free-index antisymmetrizers.",
+  "primary_paper": "https://arxiv.org/html/2504.01438v1",
+  "limits": "Reference algebra is independently generated pdaggerq, not the original Sahoo paper code. Full input reproduction remains incomplete."
+}

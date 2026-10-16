@@ -1,0 +1,7 @@
+{
+  "stage": "retained derivative gate",
+  "action_pass": true,
+  "root_pass": true,
+  "cause": "Second-order centered finite differences have measured O(h^2) truncation: errors1.33376e-6,1.20076e-7,1.39214e-8; coarser steps fail unchanged abs1e-9+rel1e-6 gate. Test independent analytic response and fourth-order stencils, preserving all failed coarse results.",
+  "replacement": "valence_fock_allorder005 with predeclared stencil and analytic gates, same Hamiltonian/space/tolerance"
+}

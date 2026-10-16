@@ -1,0 +1,31 @@
+{
+  "status": "pure_integer_upper_bounds_using_real_JSON_source_union",
+  "real_union": {
+    "factor_bytes": 38930976,
+    "unique_density_bytes": 8785152,
+    "chunk_prefix_suffix_bytes": 9142272,
+    "chunk_band_bytes": 4534272,
+    "chunk_index_bytes": 16384,
+    "CPU_dense_postprocess_bytes": 30984192,
+    "owned_device_bytes_upper": 61409056,
+    "owned_host_bytes_upper": 196894048,
+    "all_band_D2H_bytes_upper": 25009344,
+    "source_jobs": 706,
+    "component_jobs": 2824,
+    "chunks": 6,
+    "scan_kernel_calls_per_trial": 6,
+    "row_kernel_calls_per_trial": 6,
+    "scan_owned_rows": 25416,
+    "result_owned_rows": 3126168,
+    "scope": "array payload only; runtime/context/JIT/RSS/free device admission separate"
+  },
+  "assumed_bound_orders": [
+    9,
+    9
+  ],
+  "assumed_bound_ns": 123,
+  "actual_workspace_arrays_inspected": false,
+  "component_orders_and_extents": "deferred; factory validates actual data; these are bounds only",
+  "mechanical_full31_source_upper": 3472,
+  "no_NPZ_read_or_array_allocation": true
+}

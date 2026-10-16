@@ -1,0 +1,11 @@
+{
+  "hypothesis": "Bare velocity mismatch is supplied by the nonlocal Fock interaction commutator",
+  "scope": "Static dipole and leading photon velocity at identical retained V68 orbitals; radial projection explicitly retained",
+  "closure_gate_radial_au": 1e-06,
+  "local_commutator_gate_radial_au": 1e-06,
+  "published_signed_DF_RME_gate_au": 5e-05,
+  "published_source": "Safronova 2009 Table III: https://doi.org/10.1103/PhysRevA.79.022512",
+  "max_seconds": 120,
+  "script_sha256": "7871dd6e664601d0400b43b9acee2fcd9dca3905d8630b0c5c416e1a993cf316",
+  "not_claimed": "No RPA or correlated-current implementation; commutator closure is not an independent gauge validation of the approximate physical wavefunction"
+}

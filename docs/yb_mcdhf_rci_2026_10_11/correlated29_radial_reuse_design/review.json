@@ -1,0 +1,3153 @@
+{
+  "status": "source-only proposal; no physical or timing qualification",
+  "all_passed": true,
+  "checks_count": 761,
+  "checks": [
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/progress.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/profile.txt",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/performance/README.md",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/RESULTS.md",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "input_docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py",
+      "passed": true
+    },
+    {
+      "name": "input_tests/test_convol.py",
+      "passed": true
+    },
+    {
+      "name": "input_tests/test_cell_coulomb_features.py",
+      "passed": true
+    },
+    {
+      "name": "input_tests/test_cell_pair_contraction.py",
+      "passed": true
+    },
+    {
+      "name": "input_tests/test_slater_kernel_crosscheck.py",
+      "passed": true
+    },
+    {
+      "name": "input_tests/test_mcdhf_gradient_reuse.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/physics/csf/hamiltonian_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "input_src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "input_docs/ARCHITECTURE_DESIGN.md",
+      "passed": true
+    },
+    {
+      "name": "frozen_356_map",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/clebsch.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/clebsch.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/coefficients.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/csf.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/csf.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/csf_hamiltonian.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/csf_recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/csf_recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/ls_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/ls_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/mscheme.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/mscheme.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/rcfp.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/rcfp.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/recoupling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/sd_rho.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/sd_rho.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/spinor_harmonics.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/spinor_harmonics.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/angular/wigner.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/angular/wigner.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/atom.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/atom.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/atom_inputs.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/atom_inputs.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/calculation_spec.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/calculation_spec.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/compare.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/compare.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/config/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/config/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/config/csf.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/config/jj_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/config/jj_coupling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/config/parsing.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/config/parsing.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/config/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/constants.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/adapters.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/adapters.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/breit.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/breit.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/dbsr_breit.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/dbsr_breit.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/orbital_shifts.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/orbital_shifts.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/protocol.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/protocol.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qed.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qed.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/base.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/base.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/indelicato.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/indelicato.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/mohr.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/mohr.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/shabaev.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/shabaev.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/qedmod/welton.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/qedmod/welton.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/radiative_mass.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/radiative_mass.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/recoil.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/recoil.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/specific_recoil.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/specific_recoil.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/corrections/stack.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/corrections/stack.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/flambaum_ginges.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/hyperfine_presets.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/hyperfine_presets.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/mohr_se.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/mohr_se.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/nist_bethe_log.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/nist_bethe_log.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/data/nuclear_structure.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/data/nuclear_structure.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/fitting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/fitting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/fitting/slater.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/fitting/slater.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/io/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/io/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/io/fac_writer.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/io/fac_writer.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/io/results.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/io/results.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/ladder.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/ladder.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/lineshapes/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/lineshapes/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/lineshapes/profiles.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/lineshapes/profiles.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/lineshapes/stark.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/lineshapes/stark.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/log.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/log.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/_result_adapters.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/_result_adapters.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/atomic_space.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/atomic_space.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/base.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/base.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/ci_mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/ci_mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/ci_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/ci_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/concurrent_solve.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/concurrent_solve.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/core_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/core_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/coupled_cluster.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/coupled_cluster.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/charge_variational.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/charge_variational.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/complex_ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/complex_ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/crystal_field.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/crystal_field.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/direct_bspline.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/direct_bspline.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/direct_shooting.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/direct_shooting.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/grid_functional.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/grid_functional.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/grid_solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/grid_solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/lanthanide_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/lanthanide_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/slater_scaling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/slater_scaling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/csf/virtual_stability.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/csf/virtual_stability.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/dirac_fock.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/edm.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/edm.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/fscc.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/fscc.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/hamiltonian_df.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/hamiltonian_df.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/hartree_fock_slater.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/hartree_fock_slater.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/hydrogenic.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/hydrogenic.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/hydrogenic_cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/hydrogenic_cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/hydrogenic_reference.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/hydrogenic_reference.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/linearized_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/linearized_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mbpt.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mbpt_matrix.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mbpt_matrix.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mbpt_sigma2.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mbpt_sigma2.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mbpt_transitions.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mbpt_transitions.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mcdhf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mcdhf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mcdhf/excitations.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mcdhf/excitations.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/mcdhf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/mcdhf/solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/pnc.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/pnc.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/reduced_monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/reduced_monovalent_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/rpa.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/rpa.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/scf_observables.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/scf_observables.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/sd_pair_diagrams.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/sd_pair_diagrams.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/sd_transverse.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/sd_transverse.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/sigma2_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/sigma2_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/methods/valence_sd.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/methods/valence_sd.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/basis.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/basis.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/complex_dirac.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/complex_dirac.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/convol.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/coulomb_features.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/coulomb_features.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/dirac_assembly.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/evaluate.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/evaluate.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/inhomogeneous.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/inhomogeneous.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/integrals.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/integrals.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/knots.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/knots.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/local_potential.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/local_potential.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/orbital_geometry.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/orbital_geometry.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/orbital_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/pair_contraction.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/pair_contraction.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/shooting_seed.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/shooting_seed.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/slater.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/slater.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/bspline/slater_yk.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/bspline/slater_yk.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/ci_energy_increment.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/ci_energy_increment.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/complex_eigensolver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/complex_eigensolver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/density_tail.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/density_tail.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/diis.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/diis.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/extrapolation.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/extrapolation.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/fermion.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/fermion.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/helmholtz.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/helmholtz.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/hermitian_clusters.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/hermitian_clusters.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/local_dfs/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/local_dfs/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/local_dfs/asymptotic.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/local_dfs/asymptotic.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/local_dfs/hxs_tables.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/local_dfs/hxs_tables.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/orbital_rotations.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/orbital_rotations.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/radial_integration.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/radial_integration.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/radial_metric.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/radial_metric.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/radial_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/radial_workspace.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/adaptive.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/adaptive.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/box_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/box_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/constants.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/constants.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_bound.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_bound.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_green.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_green.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_orbital.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_orbital.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_response.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_response.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/dirac_sampling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/dirac_sampling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/electron_space.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/electron_space.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/energy.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/energy.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/exponential_quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/exponential_quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/grid.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/grid.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/local.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/local.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/local_scf.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/local_scf.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/operators.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/operators.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/preconditioner.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/preconditioner.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/problem.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/problem.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/quadrature.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/scf.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/scf.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/schrodinger_bound.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/schrodinger_bound.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/shooting/spline.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/shooting/spline.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/special.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/special.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/numerics/yk.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/numerics/yk.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/base.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/base.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/breit_pauli.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/breit_ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/breit_ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/complex_radial.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/complex_radial.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/effective_one_body.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/effective_one_body.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/frozen_core.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/hamiltonian_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/hamiltonian_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/levels.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/matrix.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/one_body.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/one_body.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/overlap.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/overlap_response.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/overlap_response.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/radial_fock.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/radial_fock.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/radial_increment.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/radial_increment.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/radial_snapshot.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/radial_symmetry.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/radial_symmetry.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/retardation.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/retardation.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/sparse_ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/sparse_ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/spinor_integrals.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/spinor_integrals.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/state_average.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/state_average.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/csf/transverse.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/csf/transverse.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/dirac.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/dirac.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/hartree_fock.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/local_exchange.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/local_exchange.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/schrodinger.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/schrodinger.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/physics/slater.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/physics/slater.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/average_atom.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/average_atom.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/crm.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/crm.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/rates.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/rates.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/plasma/screening.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/plasma/screening.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/frozen_field.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/frozen_field.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/nuclear.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/parametric.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/parametric.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/radial_nucleus.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/radial_nucleus.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/slater_seed.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/slater_seed.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/static_field.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/static_field.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/potentials/thomas_fermi.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/potentials/thomas_fermi.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/_sos_basis.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/_sos_basis.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/edm/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/edm/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/edm/scaling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/edm/scaling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/edm/sternheimer.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/edm/sternheimer.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/g_factor/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/g_factor/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/hyperfine/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/hyperfine/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/hyperfine/dipole.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/hyperfine/dipole.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/hyperfine/nuclear_moments.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/hyperfine/nuclear_moments.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/hyperfine/quadrupole.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/hyperfine/quadrupole.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/isotope_shift/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/isotope_shift/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/isotope_shift/field_shift.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/isotope_shift/field_shift.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/isotope_shift/isotope_shift.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/isotope_shift/isotope_shift.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/isotope_shift/mass_shift.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/isotope_shift/mass_shift.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/pnc/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/pnc/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/polarizability/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/polarizability/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/stark.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/stark.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/angular.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/angular.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/calculator.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/calculator.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/ci_effective.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/ci_lines.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/ci_lines.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/fluorescence.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/fluorescence.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/fscc_effective.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/fscc_effective.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/multipole.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/multipole.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/rates.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/rates.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/transitions/two_photon.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/transitions/two_photon.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/zeeman/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/zeeman/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/zeeman/lande.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/zeeman/lande.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/properties/zeeman/shift.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/properties/zeeman/shift.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/providers/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/providers/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/providers/contract.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/providers/contract.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/providers/native_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/providers/native_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/providers/pyscf_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/providers/pyscf_adapter.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/providers/pyscf_embedding.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/providers/pyscf_embedding.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/radial_state.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/radial_state.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/annotations.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/annotations.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/bibliography.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/bibliography.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/cowan.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/cowan.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/matching.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/matching.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/nist.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/nist.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/spectrum_notes.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/spectrum_notes.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/reference_data/structure_outputs.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/reference_data/structure_outputs.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/results.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/results.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/sampling.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/sampling.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/_jit_kernels.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/_jit_kernels.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/anomalous.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/anomalous.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/autoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/autoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/autoionization/auger.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/autoionization/auger.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/autoionization/jj_level.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/autoionization/jj_level.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/autoionization/molecular.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/autoionization/molecular.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/autoionization/mscheme_ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/autoionization/mscheme_ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/charge_exchange/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/charge_exchange/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/ci_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/ci_continuum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/dielectronic_recombination/solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/dielectronic_recombination/solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/dielectronic_recombination/widths.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/dielectronic_recombination/widths.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/distorted_wave/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/distorted_wave/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/distorted_wave/born.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/distorted_wave/born.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/distorted_wave/solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/distorted_wave/solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/electron_ionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/electron_ionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/electron_ionization/beb.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/electron_ionization/beb.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/electron_ionization/dw.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/electron_ionization/dw.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/models.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/models.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/msub.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/msub.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/multielectron_ci.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/multielectron_ci.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/photoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/photoionization/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/photoionization/direct.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/photoionization/direct.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/photoionization/fano.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/photoionization/fano.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/photoionization/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/photoionization/subshell.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/polarisation/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/polarisation/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/angular_cc.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/angular_cc.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/cc_inner.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/cc_inner.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/cc_outer.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/cc_outer.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/cc_potentials.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/cc_potentials.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/channel_table.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/channel_table.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/coupled_channels.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/coupled_channels.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/internal_region.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/internal_region.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/solver.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/solver.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/surface.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/surface.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/r_matrix/target_states.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/r_matrix/target_states.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/radiative_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/radiative_recombination/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/two_electron/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/two_electron/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/two_electron/angular.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/two_electron/angular.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/two_electron/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/two_electron/coulomb.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/two_electron/states.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/two_electron/states.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/scattering/xray.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/scattering/xray.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/spectrum/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/spectrum/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/spectrum/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/spectrum/continuum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/spectrum/crm_synth.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/spectrum/crm_synth.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/spectrum/spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/spectrum/spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/spectrum/uta.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/spectrum/uta.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/state_protocols.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/state_protocols.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/types.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/types.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/units.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/units.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/uta/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/uta/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/uta/moments.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/uta/moments.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/manim.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/manim.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/mpl.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/mpl.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/plotly.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/plotly.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/plotly3d.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/plotly3d.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/viz/scattering.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/viz/scattering.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/workflows/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/workflows/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/workflows/nist_comparison.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/workflows/nist_comparison.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/atomic_rates.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/atomic_rates.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/cascade.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/coherent.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/coherent.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/coherent_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/coherent_subspace.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/cross_sections.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/double_ionization.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/double_ionization.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/imaging.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/imaging.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/kinetics.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/kinetics.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/mcdhf_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/mcdhf_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/model.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/model.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/multielectron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/multielectron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/native_channels.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/native_channels.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/observables.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/observables.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/radiative_reservoir.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/radiative_reservoir.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/reservoir_errors.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/reservoir_errors.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/resonance.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/table_mc.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/table_mc.py",
+      "passed": true
+    },
+    {
+      "name": "current_src/atomx/xfel/two_electron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "archive_src/atomx/xfel/two_electron_coherent.py",
+      "passed": true
+    },
+    {
+      "name": "356_files",
+      "passed": true
+    },
+    {
+      "name": "CI_still_dense_bank",
+      "passed": true
+    },
+    {
+      "name": "existing_bounded_density_cache",
+      "passed": true
+    },
+    {
+      "name": "existing_bounded_pair_cache",
+      "passed": true
+    },
+    {
+      "name": "existing_bounded_radial_cache",
+      "passed": true
+    },
+    {
+      "name": "existing_pair_role_order",
+      "passed": true
+    },
+    {
+      "name": "gradient_existing_factored_branch",
+      "passed": true
+    },
+    {
+      "name": "gradient_existing_action_reuse",
+      "passed": true
+    },
+    {
+      "name": "fixed_threshold_96",
+      "passed": true
+    },
+    {
+      "name": "exact_overlap_plus_prefix_suffix",
+      "passed": true
+    },
+    {
+      "name": "proposal_bound",
+      "passed": true
+    },
+    {
+      "name": "proposal_single_shared_file",
+      "passed": true
+    },
+    {
+      "name": "no_proposal_screening",
+      "passed": true
+    },
+    {
+      "name": "saved_unfiltered_12403",
+      "passed": true
+    },
+    {
+      "name": "saved_actual_retained_10738",
+      "passed": true
+    },
+    {
+      "name": "original_4H4CI1g",
+      "passed": true
+    },
+    {
+      "name": "rotation_3H3CI0g",
+      "passed": true
+    },
+    {
+      "name": "original_failure_preserved",
+      "passed": true
+    },
+    {
+      "name": "rotation_failure_preserved",
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/progress.json": "64b059041e04975355cc951d93052435ff8ca9a6af84970899f644117c4bad13",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/progress.json": "63ca4c0bc66ceed5db158490c853ed9fe58546746ef51e74743b93e4e560e043",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/failure.json": "0eb615f94088b8f0c982b54ad92d9c95061d02530a78e535c4a9d34c77969680",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/contract.json": "eb890d11e49d0e28e5f2612d736993207996fabc04b2a2ddf6cd15d6620a9cd1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/profile.txt": "8186dfc7461d39a383441d7cb5e4e9aac3e7c1d66b61a3c59659120125e72759",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/result.json": "549be2307c15c55288f08fc549cb525934f95f008e0bcc480997ce6be1c8261c",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/README.md": "7dd9c7eb0165f3af9e5960943038e9bb31e869863a8345c733157ee74567fcf4",
+    "docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/RESULTS.md": "b556282b8580f22008c92f78acf0141a6ed274bf9f935e31ea9f3f0adb665fda",
+    "docs/yb_mcdhf_rci_2026_10_11/retained_hamiltonian_performance/actual/result.json": "e74a2a21555f2fd41dbe6f2889ab356a148da7babcfddd7bfcbc395fd43170e4",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/decimal_oracle.py": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+    "tests/test_convol.py": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+    "tests/test_cell_coulomb_features.py": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123",
+    "tests/test_cell_pair_contraction.py": "a9d3d751265c19b994a3f96371f253d7e3046554b6964f331334fd9c0caef1a2",
+    "tests/test_slater_kernel_crosscheck.py": "2fab4ad249c9c1e1a07c93caee70579cf4f4c8154e423e71668095f99779b36b",
+    "tests/test_mcdhf_gradient_reuse.py": "b0c282d52060f362853991672348e1ecbe0fd000b2efdccebe1abd2644546826",
+    "src/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "src/atomx/numerics/bspline/convol.py": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "src/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "src/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/ARCHITECTURE_DESIGN.md": "24aaf4b1127d36fb348d639a239b757a08c1179cf519e27716f9bf04bd1df88b"
+  },
+  "contract_sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c",
+  "verifier_sha256": "b0ed918822f474a152c089d5ce8e322fe9422aef122a0d18f20a0c5dc355adfb",
+  "proposal_sha256": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482",
+  "original_actual_completed": {
+    "H": 4,
+    "CI": 4,
+    "gradient": 1,
+    "validation_Dirac": 7,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_hS": 14,
+    "tracking_resolution": 13,
+    "tracking_SVD": 65,
+    "tracking_overlap": 14,
+    "geometry_eigvalsh": 36,
+    "scipy_eigh": 27,
+    "polar_retraction": 14,
+    "polar_numpy_eigh": 0
+  },
+  "rotation_actual_completed": {
+    "H": 3,
+    "CI": 3,
+    "gradient": 0,
+    "validation_Dirac": 7,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "mixed_hS": 14,
+    "tracking_resolution": 10,
+    "tracking_SVD": 50,
+    "tracking_overlap": 11,
+    "geometry_eigvalsh": 36,
+    "scipy_eigh": 22,
+    "polar_retraction": 14,
+    "polar_numpy_eigh": 0
+  },
+  "saved_density_key_statistics": {
+    "unfiltered": {
+      "saved_term_count": 12403,
+      "negative_terms": 6311,
+      "one_body_terms": 51,
+      "two_body_terms": 12352,
+      "unique_gradient_source_pairs": 593,
+      "implied_gradient_component_contractions": 2372,
+      "implied_reused_two_component_actions": 11296,
+      "provenance": "Stored signed JSON keys only; no new RDM or radial evaluation. Not a measurement of CI source cache misses/evictions."
+    },
+    "actual_gradient_retained": {
+      "saved_term_count": 10738,
+      "negative_terms": 5488,
+      "one_body_terms": 51,
+      "two_body_terms": 10687,
+      "unique_gradient_source_pairs": 593,
+      "implied_gradient_component_contractions": 2372,
+      "implied_reused_two_component_actions": 8724,
+      "provenance": "Stored signed JSON keys only; no new RDM or radial evaluation. Not a measurement of CI source cache misses/evictions."
+    }
+  },
+  "physical_and_performance_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "radial": 0,
+    "eigensolve": 0,
+    "optimizer": 0,
+    "timing_measurement": 0
+  },
+  "actual29_dominant_stage": null,
+  "speedup_claim": null,
+  "physical_gradient_qualification": false,
+  "optimizer_execution_authorized": false
+}

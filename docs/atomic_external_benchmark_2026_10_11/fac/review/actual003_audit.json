@@ -1,0 +1,383 @@
+{
+  "precision": {
+    "run": "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/precision/actual003",
+    "result_sha256": "1317ff395876e76cbf7827aed82500e3d9d3a67c7d48587f315291613167b6ce",
+    "actual_source_and_runtime": {
+      "source_files": 864,
+      "source_archive_bytes_decoded": 28233495,
+      "source_archive_hash_failures": [],
+      "source_before_equals_after": true,
+      "runtime_files": 121,
+      "runtime_first_equals_after": true,
+      "current_runtime_all_match": true
+    },
+    "cases": [
+      {
+        "z": 10,
+        "sequence": "helium_like",
+        "levels": 98,
+        "integrals": 1419,
+        "complete_arrays": 188,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 1.3500311979441904e-13,
+            "max_relative": 2.4732339714054463e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 98
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2486850664572557e-08,
+              "max_relative": 4.792329090925724e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2447038955087919e-08,
+              "max_relative": 4.788438828801267e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.063267677878457e-08,
+              "max_relative": 1.9970245423186688e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.062191455433961e-08,
+              "max_relative": 1.9970245423186688e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2486616185469757e-08,
+              "max_relative": 4.792286933772229e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2446882635686052e-08,
+              "max_relative": 4.788394985361633e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 98
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.063258385311741e-08,
+              "max_relative": 1.9964248890354638e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.062182162867245e-08,
+              "max_relative": 1.9964248890354638e-07,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 1419
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 6,
+        "sequence": "carbon_like",
+        "levels": 20,
+        "integrals": 34,
+        "complete_arrays": 124,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 5.684341886080802e-14,
+            "max_relative": 1.5288701466974132e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 20
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.6733295638005075e-08,
+              "max_relative": 4.4376392593012033e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.6723483042824228e-08,
+              "max_relative": 4.4350369770878147e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.6544776921564335e-09,
+              "max_relative": 3.5358233222537493e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.650189566746121e-09,
+              "max_relative": 3.5358233222537493e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.673090821441292e-08,
+              "max_relative": 4.437006118950951e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.6721095619232074e-08,
+              "max_relative": 4.4344038367375623e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 20
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 4.6544244014512515e-09,
+              "max_relative": 3.531937327833415e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 4.650136276040939e-09,
+              "max_relative": 3.531937327833415e-09,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 34
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 26,
+        "sequence": "neon_like",
+        "levels": 37,
+        "integrals": 275,
+        "complete_arrays": 175,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 3.410605131648481e-12,
+            "max_relative": 3.0488902427032272e-15,
+            "absolute_pass": true,
+            "relative_pass": true,
+            "strict_pass": true,
+            "count": 37
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2735540622088592e-07,
+              "max_relative": 1.1354552207003291e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2215605238452554e-07,
+              "max_relative": 1.0890996427712352e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 2.895802708735573e-08,
+              "max_relative": 8.541135322116793e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 2.7229020815866534e-08,
+              "max_relative": 8.541135322116793e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 1.2734813026327174e-07,
+              "max_relative": 1.1353903508663442e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.221474121848587e-07,
+              "max_relative": 1.0890226098433783e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 2.8956776532140793e-08,
+              "max_relative": 8.540512246184441e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 2.7227770260651596e-08,
+              "max_relative": 8.540512246184441e-06,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      },
+      {
+        "z": 82,
+        "sequence": "neon_like",
+        "levels": 37,
+        "integrals": 275,
+        "complete_arrays": 175,
+        "recomputed_gates": {
+          "common_integrals": {
+            "max_absolute_Ha": 3.092281986027956e-11,
+            "max_relative": 2.2862682102349357e-15,
+            "absolute_pass": false,
+            "relative_pass": true,
+            "strict_pass": false,
+            "count": 37
+          },
+          "2000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 2.1292325982358307e-06,
+              "max_relative": 1.5693383615517318e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2612017599167302e-06,
+              "max_relative": 9.352912435292458e-11,
+              "absolute_pass": false,
+              "relative_pass": true,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 1.0698370616069042e-06,
+              "max_relative": 4.86818900891652e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 1.0280804829676526e-06,
+              "max_relative": 4.86818900891652e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          },
+          "4000": {
+            "raw_eigenvalues": {
+              "max_absolute_Ha": 2.129327185684815e-06,
+              "max_relative": 1.5694080766746052e-10,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 37
+            },
+            "c_aligned_eigenvalues": {
+              "max_absolute_Ha": 1.2613163562491536e-06,
+              "max_relative": 9.353762267172358e-11,
+              "absolute_pass": false,
+              "relative_pass": true,
+              "strict_pass": false,
+              "count": 37
+            },
+            "raw_radial_integrals": {
+              "max_absolute_Ha": 1.069836908840216e-06,
+              "max_relative": 4.8628829727709834e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            },
+            "c_aligned_radial_integrals": {
+              "max_absolute_Ha": 1.0280803302009645e-06,
+              "max_relative": 4.8628829727709834e-08,
+              "absolute_pass": false,
+              "relative_pass": false,
+              "strict_pass": false,
+              "count": 275
+            }
+          }
+        },
+        "eigenvalue_recompute_max_Ha": 0.0,
+        "observed_peak_threads": 1,
+        "load_gate_pass": true,
+        "explicit_serial_initialization": true
+      }
+    ],
+    "complete_arrays_decoded": 662,
+    "complete_coordinates_decoded": 611443,
+    "complete_array_bytes_decoded": 4891544,
+    "same_H_absolute_gate_Ha": 1e-11,
+    "same_H_relative_gate": 1e-10,
+    "failed_gates_retained": true,
+    "experimental_accuracy_claim": false,
+    "performance_ranking_claim": false
+  },
+  "audit_is_read_only": true,
+  "new_scientific_measurements": false
+}

@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-11T00:24:53.088668+00:00",
+  "actual_completed_actions": [
+    {
+      "job_id": "adaptive_bloch_partition_c8e4c816342e38460b57",
+      "cycle": "adaptive-gap-policy-001",
+      "message_id": "om_x100b639914c198a0c120b4781150225",
+      "status": "completed",
+      "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_bloch_partition_c8e4c816342e38460b57",
+      "result_sha256": "a16d38d87c72f8dafdbc56371d303a60b20868559d1ad218124204444a78f577"
+    },
+    {
+      "job_id": "adaptive_whole_transverse_control_305bc66990493034e3d7",
+      "cycle": "adaptive-whole-transverse-threehalves-001",
+      "message_id": "om_x100b63992ed038a0c42ba9dccf009b0",
+      "status": "completed",
+      "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_305bc66990493034e3d7",
+      "result_sha256": "cf24e9ae98f1d7b276ee93710a4200e9a9cd463b2dff9f2d30c125f55708de4d"
+    },
+    {
+      "job_id": "adaptive_whole_transverse_control_8cdb1d19d577277ade5c",
+      "cycle": "adaptive-whole-transverse-half-001",
+      "message_id": "om_x100b639913d5c0a0c2feacc1f385780",
+      "status": "completed",
+      "output": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/adaptive_whole_transverse_control_8cdb1d19d577277ade5c",
+      "result_sha256": "a0238d005be263517080d3a796efcbb134f8401c38ecf5d2101c212812799679"
+    }
+  ],
+  "final_frontier_receipt": {
+    "message_id": "om_x100b63993c1baca4df39562f39c76a0",
+    "cycle": "adaptive-linear-equation-frontier-001",
+    "passed": true,
+    "iteration_preview_sha256": "1e6fab3a9ba05ba389c981da6a6aa3808df18668d95f710e04f0535153e270de"
+  },
+  "current_status": "implementation_frontier",
+  "direction": "优先审计非 canonical 核—价 Fock 耦合的线性依赖图项，推导完整 0h1p 方程并验证候选后端。",
+  "controller_source_archive": {
+    "files": {
+      "iteration_planner.py": "5e09eac91541f795c2ad311e8b96d08b94ccb2640c2358b1193e7914b39d61b8",
+      "iteration_worker.py": "5f3c316b4d66d6d8a31b1c8552592eb72b0ec4b7f30a273add1137b26dc031b3",
+      "run_gap_step.py": "6ba5603092cdee16a941015f7f99e5b45f56a0167d84776e2abf76f89c53842d",
+      "run_iteration_step.py": "538a063c9dc2429c4fedc225a1bd82d6a64b800d04c41a52eabd111884a2443b",
+      "sync_card.py": "9c350ba125b46971d74a4668fe29624830f97ec5ee9d0544a637374e77b7d684",
+      "iteration_policy.json": "eb0a96aa68cb3bcf39e8053306b4b6f37df506b603f5b1621fe18fe39a03173f",
+      "iteration_queue.json": "f1d58e37c2661a75cfc3c7884d4064a8644483c2944b29d7f23d2ed65554b937",
+      "progress.json": "03e78d5154ac903cee1729987f3916ed3346bc556b841539b98553fb32a35db8"
+    },
+    "archive": "/home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/iteration_decisions/01b34071-8b3d-5e0b-8c45-07b012fdb6b9_sources.tar.gz",
+    "archive_sha256": "6211fa6ce0320dee52d827c2e2055e4658c5f81290175ee095a0fbf8b60d9132"
+  },
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "18",
+    "time": "0.766",
+    "timestamp": "2026-10-11T08:23:33.030561+08:00",
+    "hostname": "fermi"
+  },
+  "local_doc_targets": 495,
+  "missing": [],
+  "source_sha256": {
+    "docs/atomx_hourly_progress_2026_10_10/run_iteration_step.py": "538a063c9dc2429c4fedc225a1bd82d6a64b800d04c41a52eabd111884a2443b",
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "9c350ba125b46971d74a4668fe29624830f97ec5ee9d0544a637374e77b7d684",
+    "docs/atomx_hourly_progress_2026_10_10/iteration_worker.py": "5f3c316b4d66d6d8a31b1c8552592eb72b0ec4b7f30a273add1137b26dc031b3",
+    "docs/atomx_hourly_progress_2026_10_10/run_gap_step.py": "6ba5603092cdee16a941015f7f99e5b45f56a0167d84776e2abf76f89c53842d",
+    "docs/atomx_hourly_progress_2026_10_10/iteration_planner.py": "5e09eac91541f795c2ad311e8b96d08b94ccb2640c2358b1193e7914b39d61b8",
+    "docs/atomx_hourly_progress_2026_10_10/iteration_policy.json": "eb0a96aa68cb3bcf39e8053306b4b6f37df506b603f5b1621fe18fe39a03173f",
+    "docs/atomx_hourly_progress_2026_10_10/progress.json": "03e78d5154ac903cee1729987f3916ed3346bc556b841539b98553fb32a35db8",
+    "tests/test_atomic_iteration_planner.py": "37f8f4789f8a1aae04586d35311cbd2246ba010a989cbaae3d3db69e18887eb7",
+    "tests/test_atomic_iteration_queue.py": "a94c8e5ea69b474f3b14c45781309f0cec2086b1491fc73ac2c37e49345c20e6"
+  },
+  "highest_level_reached": false,
+  "production_physics_changed": false,
+  "backend_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+  "limitations": [
+    "Registered bounded experiment execution and deterministic direction rules; no arbitrary automatic physics implementation",
+    "First three decisions retained source hashes/complete job inputs; exact controller archive starts with the final frontier receipt",
+    "No controlled performance ratio, changed-H correction or experiment pass inferred"
+  ],
+  "final_local_doc_targets": 499,
+  "final_link_review_at": "2026-10-11T00:25:58.814497+00:00",
+  "ruff_check": "6 affected Python files passed",
+  "ruff_format_check": "6 passed",
+  "diff_check": "passed"
+}

@@ -1,0 +1,62 @@
+{
+  "status": "source_patch_frozen_numeric_qualification_pending",
+  "source_preimage": {
+    "src/atomx/methods/ci.py": "aab2489390d86db1332b06cf1975576f112975b2e1e0bf72b43a28b163cb6358",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2",
+    "tests/test_ci_hamiltonian_snapshot.py": "6a2d09a5b831bc77dc01cf2606e762cfae0b16474beb98ba6042326eb5de77ec",
+    "docs/TRANSVERSE_INTERACTION.md": "50ed687681bc2576c37b0891d5f945cc3f89b316f9028729c58f3dafd49ecbcd"
+  },
+  "source_after": {
+    "src/atomx/methods/ci.py": "91c58c23f72fc9fb11f1bd37921e69627090d332eef538455ec5d90c1718fb7e",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "e4a19ab263cf487b41656bca05317e0f72ae7652bd336289d6dd0cf069166395",
+    "tests/test_ci_hamiltonian_snapshot.py": "ce17a8a8ec72740eff7a02e2e9ffc41099c186968573a14148d807396b11cd25",
+    "docs/TRANSVERSE_INTERACTION.md": "7f83f1fd30e41326104a70e745e958761f9f3dadfc4aa98eaeaf68553c48e901"
+  },
+  "unchanged_shared_dependencies": {
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "src/atomx/physics/csf/transverse.py": "ba3d72d8f6346b7aba3313147f91ff5e89e0a30cfb25ba0c5b6c6c151d431f41",
+    "src/atomx/physics/csf/radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b",
+    "src/atomx/physics/csf/matrix.py": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450"
+  },
+  "scope_patch_sha256": "88a3cae7964719f8dfd4e61b7865f2c59e90560379103cafb6aa7ef18abbc5cd",
+  "immutable_f043_relevant_sha256": {
+    "src/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2"
+  },
+  "checks": {
+    "Ruff": "PASS on three Python files",
+    "AST_compile": "PASS on three Python files; no imports/exec",
+    "preimage_exact": "PASS on four captured preimage files",
+    "source_after_exact": "PASS on four changed files",
+    "immutable_archive_relevant_identity": "PASS on two f043 files",
+    "physical_builds": 0,
+    "scientific_tests_executed": 0,
+    "API_calls": 0
+  },
+  "scope_boundary": "Two shared source files only; existing dirty CI performance changes preserved outside scope.patch. This is not a full-source hash or an upgrade of immutable f043 science. Root binds complete actual shared source for tests/new science.",
+  "test_plan": {
+    "primary": [
+      "tests/test_ci_hamiltonian_snapshot.py"
+    ],
+    "integration": [
+      "tests/test_mixed_ci_finite_increment.py",
+      "tests/test_finite_frequency_breit.py",
+      "tests/test_transverse_spinor_integrals.py",
+      "tests/test_ci_radial_snapshot.py"
+    ],
+    "resources": {
+      "CPU": 1,
+      "BLAS_threads": 1,
+      "AS_GiB": 3.95,
+      "primary_wall_s": 300,
+      "integration_wall_s": 900
+    },
+    "stop": "any failure retained; no physics gate relaxation"
+  },
+  "gates_unchanged": [
+    "MCDHF stationarity and experimental thresholds",
+    "science data and prior failures",
+    "retained DC consumer operator options; nonDC reject",
+    "ordinary default builder and solver"
+  ]
+}

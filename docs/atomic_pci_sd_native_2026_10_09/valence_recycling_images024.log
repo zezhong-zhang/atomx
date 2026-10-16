@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/audit_recycled_images.py", line 150, in <module>
+    audit()
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/audit_recycled_images.py", line 117, in audit
+    root, root_info, root_raw = inverse(source, "root")
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/audit_recycled_images.py", line 84, in inverse
+    x, info = gcrotmk(
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_isolve/_gcrotmk.py", line 276, in gcrotmk
+    A,M,x,b,postprocess = make_system(A,M,x0,b)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_isolve/utils.py", line 65, in make_system
+    A = aslinearoperator(A)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/scipy/sparse/linalg/_interface.py", line 921, in aslinearoperator
+    raise TypeError('type not understood')
+TypeError: type not understood

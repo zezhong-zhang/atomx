@@ -1,0 +1,311 @@
+
+		**********************************************************************************
+		**                                                                              **
+		**                                   E X P - T                                  **
+		**        Relativistic Fock-Space Multireference Coupled Cluster Program        **
+		**                                                                              **
+		**                         version 1.8.5 (10 June 2025)                         **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** EXP-T is free software: you can redistribute it and/or modify                **
+		** it under the terms of the GNU Lesser General Public License as published by  **
+		** the Free Software Foundation, either version 3 of the License, or            **
+		** (at your option) any later version.                                          **
+		**                                                                              **
+		** EXP-T is distributed in the hope that it will be useful,                     **
+		** but WITHOUT ANY WARRANTY; without even the implied warranty of               **
+		** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                **
+		** GNU Lesser General Public License for more details.                          **
+		**                                                                              **
+		** You should have received a copy of the GNU Lesser General Public License     **
+		** along with EXP-T.  If not, see <http://www.gnu.org/licenses/>.               **
+		**                                                                              **
+		**********************************************************************************
+		**                                                                              **
+		** For more information about the EXP-T program system see                      **
+		** http://www.qchem.pnpi.spb.ru/expt                                            **
+		**                                                                              **
+		** This is an experimental code. The authors accept no responsibility           **
+		** for the performance of the code or for the correctness of the results.       **
+		**                                                                              **
+		** If results obtained with this code are published, an                         **
+		** appropriate citation would be:                                               **
+		**                                                                              **
+		** [1] A. Oleynichenko, A. Zaitsevskii, E. Eliav.                               **
+		**     EXP-T, An Extensible Code for Fock Space Relativistic Coupled Cluster    **
+		**     Calculations. See http://www.qchem.pnpi.spb.ru/expt.                     **
+		** [2] A. V. Oleynichenko, A. Zaitsevskii, E. Eliav.                            **
+		**     Towards high performance relativistic electronic structure modelling:    **
+		**     the EXP-T program package. Commun. Comput. Inf. Sci. 1331, 375 (2020).   **
+		**     doi: 10.1007/978-3-030-64616-5_33                                        **
+		**                                                                              **
+		**********************************************************************************
+
+Authors:
+  Alexander Oleynichenko [alexvoleynichenko@gmail.com]
+  Andrei Zaitsevskii
+  Artem Rumyantsev
+  Ephraim Eliav
+Compiler: GNU C Compiler 15.2.0
+BLAS/LAPACK implementation: OpenBLAS
+Build date: Oct  9 2026 10:37:46
+Run date: Fri Oct  9 10:47:46 2026
+Hostname: fermi
+CUDA disabled
+Tensor trains (TT) disabled
+Reading input file: cc.inp
+
+
+				****************
+				** Input file **
+				****************
+
+ -----
+ title "Atomx signed native integrals"
+ interface pyscf
+ integrals ATOMX_ONE ATOMX_TWO
+ model ccsdt
+ sector 0h1p
+ active 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ maxiter 200
+ conv 1.0000000000000000e-13
+ diis 8
+ memory 32768 mb
+ tilesize 16
+ nthreads 2
+ disk_usage 0
+ -----
+
+
+
+				*************
+				** Options **
+				*************
+
+ title            title string - comment                    Atomx signed native integrals
+ scratch_dir      scratch directory for tmp files           scratch
+ --no-clean       retain scratch directory on exit          yes
+ print            print level                               medium
+ flush_amplitude  write formatted files with cluser ampl-s  no
+ arith            recommended arithmetic                    real
+ memory           max allowed RAM usage                     32768.0 Mb
+ compress         compression of integrals on disk          disabled
+ compress_triples compression of triples tensors in RAM     disabled
+ disk_usage       disk usage level                          0 (all data in RAM)
+ tilesize         max dimension of formal blocks (tiles)    16
+ nthreads         number of OpenMP parallel threads         2
+ openmp_algorithm  parallelization algorithm for mult        external
+ cuda             calculations on GPU (CUDA)                disabled
+ maxiter          maximum number of CC iterations           200
+ conv_thresh      convergence threshold (by amplitudes)     1e-13
+ div_thresh       divergence threshold (by amplitudes)      1000
+ reuse            reuse amplitudes and/or integrals         nothing
+
+ skip             skip computations in sectors:             
+ flush            flush amplitudes                          no
+ interface        source of transformed molecular integrals  PySCF
+ integrals        one-electron Hamiltonian integrals file   ATOMX_ONE
+                  two-electron (Coulomb) integrals file     ATOMX_TWO
+                  one-electron property integrals file      MDPROP
+ x2cmmf           X2Cmmf Hamiltonian                        no
+ new_sorting      new implementation of integral sorting    no
+ gaunt            two-electron (Gaunt) integrals file       not used
+ sector           target Fock space sector                  0h1p
+ model            coupled cluster model (level of theory)   CCSDT
+ goldstone        use Goldstone formalism                   no
+ shift_type       formula for denominator shifts            shifts are disabled
+ nroots           number of roots to be processed           all
+ roots_cutoff     energy cutoff for roots to be processed   all
+ degen_thresh     degeneracy threshold (a.u.)               1.00000e-08
+ occ_irreps       occupation numbers of spinors             default (from integral interface)
+ occ              occupation numbers of spinors             default
+ diis             DIIS technique for convergence            enabled
+ diis <n>         DIIS subspace dimension                   8
+ diis triples     DIIS for triples amplitudes               disabled
+ diis             DIIS technique for convergence            disabled
+ oneprop          interface to OneProp (by L.V.Skripnikov)  disabled
+ twoprop          interface to TwoProp (by D.E.Maison)      disabled
+ oneprop          interface to the MDPROP file              disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h0p     construct density matrix in 0h0p          disabled
+ density 0h1p     construct density matrix in 0h1p          disabled
+ density 0h2p     construct density matrix in 0h2p          disabled
+ density 0h3p     construct density matrix in 0h3p          disabled
+ density 1h0p     construct density matrix in 1h0p          disabled
+ density 1h1p     construct density matrix in 1h1p          disabled
+ density 1h2p     construct density matrix in 1h2p          disabled
+ density 1h3p     construct density matrix in 1h3p          disabled
+ density 2h0p     construct density matrix in 2h0p          disabled
+ density 2h1p     construct density matrix in 2h1p          disabled
+ density 2h2p     construct density matrix in 2h2p          disabled
+ density 2h3p     construct density matrix in 2h3p          disabled
+ density 3h0p     construct density matrix in 3h0p          disabled
+ density 3h1p     construct density matrix in 3h1p          disabled
+ density 3h2p     construct density matrix in 3h2p          disabled
+ density 3h3p     construct density matrix in 3h3p          disabled
+ lambda 0h1p      solve lambda equations in the 0h1p sector  disabled
+ overlap          calculate overlap int-s for target wfns   disabled
+ nohermit         hermitization of effective Hamiltonians   disabled
+ dltdm            model-space estimates of tran dipoles     disabled
+ natorb           model-space natural orbitals              disabled
+ prop             model-space estimates of properties       disabled
+ select           selection of cluster amplitudes           disabled
+ restrict_t3      restriction of triples                    disabled
+ use_oe           use orbital energies from DIRAC           disabled
+ ih_imms          simple intermediate Hamiltonian           disabled
+
+
+ Creating scratch directory 'scratch' ...
+ Current working directory:
+ /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt
+ Full path to one-electron integrals:
+ /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt/ATOMX_ONE
+ Full path to Coulomb integrals:
+ /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt/ATOMX_TWO
+ Full path to properties integrals:
+ /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt/MDPROP
+ Changing working directory to scratch ...
+ Current working directory:
+ /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt/scratch
+
+ ATOMX_INTEGRALS_V1 signed-antisymmetric complex Fock+ERI
+ file with molecular integrals: /data/code/atomx/docs/atomic_allorder_fscc_2026_10_09/yb_o14_r1_ccsdt/ATOMX_ONE
+begin reading two electron part
+ number of spinors = 32
+ number of occupied spinors = 14
+ nuclear repulsion energy = 0.0000000000000000
+ scf energy = -14067.0580775611397257
+ end interface to pyscf
+
+ retained requested tile size 16
+ switching openmp parallalization algorithm to 'internal'
+ Blocks of molecular spinors:
+ --------------------------------------------------------------------------------
+   #  size  irrep  spinor indices
+ --------------------------------------------------------------------------------
+ [ 0]   16      A  1-16
+ [ 1]   16      A  17-32
+ --------------------------------------------------------------------------------
+
+
+		Symmetry & irreducible representations
+		--------------------------------------
+
+ Point group: C1
+ Group type: quaternion
+ Arithmetic: complex
+ Is abelian: yes
+ Number of irreps: 2
+ Totally symmetric irrep: a
+ Representation names:
+   0 A    1 a 
+multiplication table (for abelian only):
+
+ ||A|a|
+=++=+=+
+A||a|A|
+-++-+-+
+a||A|a|
+-++-+-+
+
+
+				Spinors info
+				------------
+
+     no    rep         occ    active        one-el energy
+    -------------------------------------------------------
+       1   0 "A     "   1       -          -1.064580235193
+       2   0 "A     "   1       -          -1.064580235193
+       3   0 "A     "   1       -          -1.064580235193
+       4   0 "A     "   1       -          -1.064580235193
+       5   0 "A     "   1       -          -1.064580235193
+       6   0 "A     "   1       -          -1.064580235193
+       7   0 "A     "   1       -          -1.006137732104
+       8   0 "A     "   1       -          -1.006137732104
+       9   0 "A     "   1       -          -1.006137732104
+      10   0 "A     "   1       -          -1.006137732104
+      11   0 "A     "   1       -          -1.006137732104
+      12   0 "A     "   1       -          -1.006137732104
+      13   0 "A     "   1       -          -1.006137732104
+      14   0 "A     "   1       -          -1.006137732104
+      15   0 "A     "   0       a          -0.413665452730
+      16   0 "A     "   0       a          -0.413665452730
+      17   0 "A     "   0       a          -0.301112930525
+      18   0 "A     "   0       a          -0.301112930525
+      19   0 "A     "   0       a          -0.288306679458
+      20   0 "A     "   0       a          -0.288306679458
+      21   0 "A     "   0       a          -0.288306679458
+      22   0 "A     "   0       a          -0.288306679458
+      23   0 "A     "   0       a          -0.303071510940
+      24   0 "A     "   0       a          -0.303071510940
+      25   0 "A     "   0       a          -0.303071510940
+      26   0 "A     "   0       a          -0.303071510940
+      27   0 "A     "   0       a          -0.300886357806
+      28   0 "A     "   0       a          -0.300886357806
+      29   0 "A     "   0       a          -0.300886357806
+      30   0 "A     "   0       a          -0.300886357806
+      31   0 "A     "   0       a          -0.300886357806
+      32   0 "A     "   0       a          -0.300886357806
+    -------------------------------------------------------
+
+    irreps                 A
+    occupied inactive     14
+    occupied active        0
+    virtual active        18
+    virtual inactive       0
+
+
+
+				*****************
+				** Sector 0h0p **
+				*****************
+
+
+
+ Integral sorting for the 0h0p sector
+ started at Fri Oct  9 10:47:46 2026
+ number of spinors                              32
+ number of spinor blocks                        2
+ tile size                                      16
+ max spinor block size                          16
+ size of the buffer for two-elec integrals      2.000 MB
+ time for 2-e integrals sorting, sec: 0.00
+ time for PySCF interface (reading integrals), sec: 0.00
+ total time for sorting operations, sec: 0.00
+ finished at at Fri Oct  9 10:47:46 2026
+
+ Initial guess
+ -------------
+ Contributions to the MP2 energy:
+   one-particle     0.0000000000   0.0000000000
+   two-particle    -0.0029216991   0.0000000000
+ MP2 correlation energy =      -0.002921699139
+       Total MP2 energy =  -14067.060999260279
+
+ solution of amplitude equations (sector 0h0p)		 Fri Oct  9 10:47:46 2026
+ ---------------------------------------------------------------------------------------------------------------------
+ it.       diffmax(T1)       diffmax(T2)       diffmax(T3)     max(T1)     max(T2)     max(T3)    t,sec       mem,Gb
+ ---------------------------------------------------------------------------------------------------------------------
+   1    0.000000000000    0.001152210098    0.000064214131    0.000000    0.007960    0.000064      7.3    0.41/1.32
+   2    0.000000000000    0.000437188199    0.000057712954    0.000000    0.008192    0.000014      7.5    0.41/1.32
+   3    0.000000000000    0.000067113355    0.000046297579    0.000000    0.008140    0.000053      7.6    0.41/1.32
+   4    0.000000000000    0.000006593349    0.000035957637    0.000000    0.008142    0.000021      7.5    0.42/1.33
+   5    0.000000000000    0.000002652076    0.000028057902    0.000000    0.008141    0.000045      7.8    0.42/1.33
+   6    0.000000000000    0.000002433872    0.000022045281    0.000000    0.008142    0.000026      7.9    0.42/1.33
+   7    0.000000000000    0.000001707409    0.000018576239    0.000000    0.008141    0.000040      7.1    0.42/1.33
+   8    0.000000000000    0.000001618447    0.000017610677    0.000000    0.008142    0.000028     10.9    0.42/1.33
+   9    0.000000000000    0.000001278818    0.000016630725    0.000000    0.008141    0.000038      8.2    0.42/1.33
+  10    0.000000000000    0.000001267028    0.000015656012    0.000000    0.008142    0.000029      8.0    0.42/1.33
+  11    0.000000000000    0.000001085415    0.000014701261    0.000000    0.008141    0.000036      8.4    0.42/1.33
+  12    0.000000000000    0.000001083550    0.000013776266    0.000000    0.008141    0.000030      8.0    0.42/1.33
+  13    0.000000000000    0.000000955104    0.000012887865    0.000000    0.008141    0.000035      7.4    0.42/1.33
+  14    0.000000000000    0.000000917374    0.000012040062    0.000000    0.008141    0.000031      7.7    0.42/1.33
+  15    0.000000000000    0.000000832202    0.000011235463    0.000000    0.008141    0.000034      7.7    0.42/1.33
+  16    0.000000000000    0.000000776245    0.000010475054    0.000000    0.008141    0.000031      8.3    0.42/1.33
+  17    0.000000000000    0.000000740480    0.000009759145    0.000000    0.008141    0.000034      8.2    0.42/1.33
+  18    0.000000000000    0.000000644982    0.000009086913    0.000000    0.008141    0.000031      8.7    0.42/1.33
+  19    0.000000000000    0.000000636231    0.000008457349    0.000000    0.008141    0.000034      8.1    0.42/1.33
+  20    0.000000000000    0.000000567277    0.000007869081    0.000000    0.008141    0.000032      8.0    0.42/1.33
+  21    0.000000000000    0.000000535917    0.000007320297    0.000000    0.008141    0.000033      7.6    0.42/1.33
+  22    0.000000000000    0.000000519901    0.000006809382    0.000000    0.008141    0.000032      8.2    0.42/1.33

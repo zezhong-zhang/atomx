@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 555, in save
+    data_name = overloads[key]
+KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7427b5735000>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/atomx_worker.py", line 91, in <module>
+    main()
+  File "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/atomx_worker.py", line 54, in main
+    atom.solve(tol=1e-10, max_iter=150)
+  File "/data/code/atomx/src/atomx/atom.py", line 811, in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+  File "/data/code/atomx/src/atomx/atom.py", line 1093, in _solve_fixed
+    self._result = solver.solve(max_iter=max_iter, tol=tol)
+  File "/data/code/atomx/src/atomx/numerics/shooting/local.py", line 218, in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+  File "/data/code/atomx/src/atomx/numerics/shooting/local.py", line 41, in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 443, in _compile_for_args
+    raise e
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 376, in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 915, in compile
+    self._cache.save_overload(sig, cres)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 738, in save_overload
+    self._save_overload(sig, data)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 748, in _save_overload
+    self._cache_file.save(key, data)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 564, in save
+    self._save_index(overloads)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 608, in _save_index
+    data = self._dump(data)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 636, in _dump
+    return dumps(obj)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/serialize.py", line 58, in dumps
+    p.dump(obj)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py", line 1320, in dump
+    return super().dump(obj)
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/types/functions.py", line 486, in __getnewargs__
+    raise ReferenceError("underlying object has vanished")
+ReferenceError: underlying object has vanished

@@ -1,0 +1,538 @@
+{
+  "created_before_science_utc": "2026-10-11T13:09:26.402524+00:00",
+  "status": "prepared_requires_exact_root_execution",
+  "root_authorized": false,
+  "hypothesis": "The original unexecuted old/new same-kappa rotation tangent may satisfy the public correlated29 derivative when the declared observable is the normalized retained-vector Rayleigh EOL; the reported-root derivative is separately diagnostic and the original failure remains failed.",
+  "source": {
+    "original353_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "candidate356_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "candidate_archive": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source",
+    "critical_sources_sha256": {
+      "src/atomx/numerics/bspline/orbital_optimization.py": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+      "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+      "src/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+      "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "src/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+      "src/atomx/numerics/ci_energy_increment.py": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367",
+      "src/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554"
+    },
+    "original_epoch_is_physical_reference_only": true,
+    "candidate_changes": "retained DC owner and diagnostic mixed-CI finite increment opt-in; original operator/default pathway must match at canonical point"
+  },
+  "input_roles": {
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "tracking_ci": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "sha256": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a"
+    },
+    "tracking_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca"
+    },
+    "tracking_orbitals": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "geometry_workspace": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "screened_models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b"
+    },
+    "screened_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "screened_basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832"
+    },
+    "candidate_source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+      "sha256": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34"
+    },
+    "iteration_trigger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage013/delivery_proof.json",
+      "sha256": "29145e3cdf50ea2cc400639e59f3c17f00beb4bee4c79bfb27bd5411d0c11664"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_point": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "saved_point_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "saved_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/point_identity.json",
+      "sha256": "cfedc4bb5d1119ac80dc95dd778e89d69554598b328abafa2267b6f94ae36450"
+    },
+    "old_probe_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/failure.json",
+      "sha256": "5cc764859886a9b7cea3dc498ab3c6cb9a85a7c188be38e8df9a9f06e852a7bb"
+    },
+    "old_direction0_central": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_central.json",
+      "sha256": "3f19958aacbf70b6527889466dbe53c944ce4d4becc531471c41ef20916254d5"
+    },
+    "old_probe_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json",
+      "sha256": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195"
+    },
+    "old_probe_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py",
+      "sha256": "7489d91e9f5bc820ba71db94ef6449c886a544a22392ff117682721e737c7572"
+    },
+    "old_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/root_execution.json",
+      "sha256": "3680ed1f153294043a526dee6d7c75fd7626b8957b1a6d10f3bd9a9bf1ddc747"
+    },
+    "saved_gradient_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_gradient_audit_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/contract.json",
+      "sha256": "a0516f818d2283dbe6816fcc554b4638ab8e6d89a970575ab6f3fb4a9a4f85a8"
+    },
+    "saved_gradient_decomposition": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/decomposition.json",
+      "sha256": "2c527b35b364af0b31bde4c2947f04db07e82c9f5286c02c2edd4d3c3683915c"
+    },
+    "predecessor_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/contract.json",
+      "sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba"
+    },
+    "predecessor_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py",
+      "sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe"
+    },
+    "predecessor_preparation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/preparation_verification.json",
+      "sha256": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4"
+    },
+    "predecessor_root_binding": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/execution_contract.json",
+      "sha256": "230a627724fd116fe2d58b4b868d38c51028a37b6133bfba19f1026052ebf5a7"
+    },
+    "predecessor_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/root_execution.json",
+      "sha256": "5c43976eb42e1aefdd40e6fe9eb8ba39b8c395e66d19194683cf34f0424a96eb"
+    },
+    "predecessor_root_log": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/root_execution.log",
+      "sha256": "33a5121ef0b3e02f0f61ac5e6c382aaf823a39b36e376f4ea6f3a89a3a269151"
+    },
+    "predecessor_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/failure.json",
+      "sha256": "6413d1d04821a7253460d62a3adabdcff70d91b58d17c2cc368dfb0a37069d7d"
+    },
+    "predecessor_progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/progress.json",
+      "sha256": "03b50a18d6e627043fb4e0c4c256ced3ae5b1cc0804e8d8da795a88d9ee3061f"
+    },
+    "predecessor_actual_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/fresh_recovered_coordinate_point_owner.json",
+      "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+    },
+    "predecessor_root_failure_identity_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/failure_identity_review.json",
+      "sha256": "7e5d52e38f0c1cc2fc3dce396aec7f5d258c202a2f30177e3f465069b7c979b0"
+    }
+  },
+  "pending_prerequisites": {
+    "screened002_independent_saved_proof": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "sha256": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b"
+    },
+    "guard003_actual_qualification": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json",
+      "sha256": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a"
+    },
+    "guard003_independent_source_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/successor_consumer_source_review003/guard003_verification.json",
+      "sha256": "a5689d48d5bb6d8b2224f2dbc1d2d95c3385e1eeb7f6cbe93accbae3a802540c"
+    }
+  },
+  "fixed": {
+    "Z": 70,
+    "electrons": 69,
+    "nucleus": "native005 Fermi A175",
+    "ns": 123,
+    "keys29": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        3,
+        -2
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        4,
+        -3
+      ],
+      [
+        4,
+        -2
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        -3
+      ],
+      [
+        5,
+        -2
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        -2
+      ],
+      [
+        6,
+        -1
+      ],
+      [
+        6,
+        1
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "target_CSFs": 1046,
+    "target_blocks": [
+      [
+        1,
+        -1,
+        158
+      ],
+      [
+        1,
+        1,
+        150
+      ],
+      [
+        3,
+        -1,
+        256
+      ],
+      [
+        3,
+        1,
+        236
+      ],
+      [
+        5,
+        1,
+        246
+      ]
+    ],
+    "full_NR_parent_CSFs": 2163,
+    "full_model_not_computed": true,
+    "original_tracker": "balanced531 original DC eigenpairs/native005 original radial reference; never rebase",
+    "five_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ],
+    "all29_allowed_to_relax": true,
+    "operator": "same original nuclear no-pair Dirac-Coulomb; no Breit QED recoil empirical or effective additions",
+    "physical_label_binding": "Every point maps singleton tracker reference_levels by original (twoJ,parity,local_root) UID; insertion order is forbidden for target labels, centroids or splittings. Assert complete unique5 and selected J/parity match."
+  },
+  "point_policy": {
+    "point": "Exactly saved recovered-coordinate x and originalP@x from the closed failed probe; no canonical29 baseline, coordinate recovery or polar repair at baseline. Fresh public base H/CI must match saved recovered H/energies/signed mixing bitwise before trials.",
+    "saved_point_npz_sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87",
+    "same_original7_P_and_new3451_metric": true,
+    "same_original531_tracker_no_rebase": true,
+    "complete1046_all29": true,
+    "not_a_old24_resume_or_new_MCDHF_optimization": true
+  },
+  "metric": {
+    "coordinate_count": 3451,
+    "projector_source": "nuclear",
+    "occupation_floor": 0.05,
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+    "old_point_state_sha256": "0e2598fbcb036febd590d360efab257f547ee6de9a65a16fcd818cae07f27a5d",
+    "saved_inverse_and_coordinates_byte_preserved": true,
+    "objective_change_changes_state_hash_only": true
+  },
+  "new_scientific_target": {
+    "name": "EOL_Rayleigh",
+    "formula": "sum over the five original tracked targets of 0.2 * (c.T H c)/(c.T c), using actual retained complete finite DC H and signed numerical CI vectors at each point",
+    "finite_CI_response": "Both CI endpoint norms and residual terms retained by the public mixed diagnostic; neither reported lambda nor Hellmann-Feynman stationarity is substituted as exact.",
+    "reported_root_EO_is_diagnostic_only": true,
+    "shared_functional_reported_energy_API_unchanged": true,
+    "caller_objective_identity": "EOL_Rayleigh:contract_sha256=<actual immutable contract SHA>; scientific declaration, not optimizer or error-bound certification",
+    "old_reported_root_contract_not_passed": true
+  },
+  "direction": {
+    "original_direction_number": 1,
+    "name": "old_new_active_rotation",
+    "PCG64_seed": 20261012,
+    "formula": "Seed every old/new same-kappa antisymmetric pair; D=Y Omega. Frobenius normalize full concatenation.",
+    "new_keys": [
+      [
+        6,
+        -3
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        -2
+      ],
+      [
+        7,
+        -1
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "normalization": "Frobenius norm of concatenated3451 coordinates",
+    "no_gradient_dependent_choice": true,
+    "zero_norm_threshold": 1e-14,
+    "zero_outcome": "inconclusive fail; no replacement pair, direction or h scan"
+  },
+  "finite_step": {
+    "h": 1e-06,
+    "sign_order": [
+      1,
+      -1
+    ],
+    "shared_polar_retraction_only_at_trials": true,
+    "explicit_increment": "originalP@(candidate_y-base_y), all29 physical keys, with rounded endpoint reconstruction separately retained",
+    "same_absolute_derivative_gate": 1e-08,
+    "same_relative_derivative_gate": 1e-05,
+    "acceptance": "abs(Rayleigh central - saved analytic g.dot(direction)) <= max(1e-8,1e-5*abs(analytic)); complete original eigenpair/Gram/tracker/raw h gates also must pass",
+    "direct_saved_matrix_Rayleigh_central_also_reported": true,
+    "reported_central_diagnostic_not_acceptance": true,
+    "no_uniform_floating_error_bound_or_optimizer_adapter": true
+  },
+  "gates": {
+    "H_CI_baseline_bitwise": true,
+    "CI_max_column_residual_Ha": 1e-08,
+    "CI_Gram": 1e-10,
+    "radial_Gram": 1e-10,
+    "no_pair_S_leakage_squared": 1e-12,
+    "direction_tangent": 1e-12,
+    "explicit_increment_reconstruction_original_shared": 32,
+    "original_tracker_boundary_and_majority_unchanged": true,
+    "orbital_tolerance": 1e-07,
+    "energy_tolerance_Ha": 1e-08,
+    "stationarity_is_diagnostic_and_known_failed": true,
+    "saved_gradient_mapping_audit_required": true,
+    "saved_g_conditional_on_saved_public_radial_gradient_no_new_whole_gradient_replay": true
+  },
+  "resources": {
+    "CPU": 31,
+    "CPU_affinity_count": 1,
+    "threads": 1,
+    "address_space_GiB": 3.95,
+    "wall_seconds": 120,
+    "outer_seconds": 135,
+    "max_H": 3,
+    "max_CI": 3,
+    "max_full_gradient": 0,
+    "max_optimizer": 0,
+    "max_validation_Dirac": 7,
+    "initial_functional_hS": 7,
+    "max_CI_internal_hS": 21,
+    "max_mixed_increment_hS": 14,
+    "max_total_hS": 42,
+    "max_tracking_initializations": 1,
+    "max_mixed_increment_diagnostics": 2,
+    "max_tracking_resolutions": 10,
+    "max_tracking_SVD": 50,
+    "max_tracking_overlap": 11,
+    "max_geometry_eigvalsh": 36,
+    "max_scipy_eigh": 36,
+    "max_polar_retraction": 14,
+    "max_polar_numpy_eigh_fallback": 14,
+    "spectral_accounting": "3 complete five-sector CI solves require15 scipy eigh;7 public state Dirac validations spend at most3 internal eigh each, total<=36. No new physical generator or independent eigen solve. Geometry SPD36 and trial polar fallback<=14 separately counted.",
+    "no_retries_or_silent_model_reduction": true
+  },
+  "kinematic_resources": {
+    "dense1046H_bytes": 8752928,
+    "dense_raw_block_upper_bytes": 30751448,
+    "dense_CSF_block_bytes": 1833696,
+    "all29_inverse_blocks_bytes": 3285352,
+    "all7_P_bytes": 1639344,
+    "observed_screened002_peak_RSS_MiB": 997.02734375,
+    "observed_screened002_wall_uncontrolled_s": 25.77947995904833,
+    "cost_estimate_limit": "Original closed probe4H/4CI/1g took39.384s uncontrolled. This3H/3CI/0g is bounded120s, not a promised timing or performance claim."
+  },
+  "procedure": [
+    "Pure metadata/root seal admission before numerical imports; bind all356 source bytes and independent341 saved-array proof.",
+    "Construct same1046 public retained functional and original531 tracker; capture7rawh/S and bind logicalh/S seam.",
+    "Restore saved new3451 layout/x/P/inverse through public state validation;7Dirac checks; do not polar repair baseline.",
+    "Fresh recovered-coordinate public baseHCI; archive arrays/real owner before gates; require H/eigenvalues/signed C/waves bitwise to original recovered point.",
+    "Generate exactly original direction1 PCG64 seed20261012 independently of g; record saved g/pg residual and original1e-7/1e-8 stationarity flags.",
+    "Perform only plus and minus h1e-6 public polar trials with full native H/CI, original tracker and whole CI/radial/P gates.",
+    "Call two diagnostic mixed differences with full signed trial density/norm/finite CI response and explicit increments. Archive ordinary/reportroot/Rayleigh/normalized quotient and residual ledgers before Rayleigh-only derivative gate.",
+    "Report limited derivative qualification; preserve original failed contract. No optimizer, source/API change, uniform callback/error bound, experimental or full-spectrum certification."
+  ],
+  "scope": "Source-only preparation. No NumPy/Scipy/Atomx import or scientific call executed by preparer. Public functional reports lambda EOL unchanged; this owned qualification explicitly consumes the new normalized Rayleigh observable only.",
+  "execution_authority": "Only separately supplied exact root execution binding matching driver/contract/preparation/source/inputs/budgets authorizes runtime; preparation does not execute science.",
+  "predecessor_failure": {
+    "directory": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification",
+    "reason": "Direct Python dict comparison of tuple-containing live identity payload against JSON list fields; H/eigenvalues/signed C byte-identical, original rotation was not executed.",
+    "actual_control_count": 143,
+    "passed": 142,
+    "failed": 1,
+    "actual_H": 1,
+    "actual_CI": 1,
+    "actual_gradient": 0,
+    "failure_preserved": true,
+    "inputs": {
+      "contract": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/contract.json",
+        "sha256": "8941988b887620d72f311ed3b6119d463b8c7aa1d9a67d08601378f3676ba9ba"
+      },
+      "driver": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/run.py",
+        "sha256": "625dbc0e9b0642168559764f0e9f3b6d8f451f50752d95f2e6e1ed3f59a23ebe"
+      },
+      "preparation": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/preparation_verification.json",
+        "sha256": "e61b9d11c3bfd2a3154e6ccf938e5fcbeedd6dfe78588a87bd3a1f3d1f9cd2c4"
+      },
+      "root_binding": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/execution_contract.json",
+        "sha256": "230a627724fd116fe2d58b4b868d38c51028a37b6133bfba19f1026052ebf5a7"
+      },
+      "root_execution": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/root_execution.json",
+        "sha256": "5c43976eb42e1aefdd40e6fe9eb8ba39b8c395e66d19194683cf34f0424a96eb"
+      },
+      "root_log": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/root_execution.log",
+        "sha256": "33a5121ef0b3e02f0f61ac5e6c382aaf823a39b36e376f4ea6f3a89a3a269151"
+      },
+      "failure": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/failure.json",
+        "sha256": "6413d1d04821a7253460d62a3adabdcff70d91b58d17c2cc368dfb0a37069d7d"
+      },
+      "progress": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/progress.json",
+        "sha256": "03b50a18d6e627043fb4e0c4c256ced3ae5b1cc0804e8d8da795a88d9ee3061f"
+      },
+      "actual_owner": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/actual/fresh_recovered_coordinate_point_owner.json",
+        "sha256": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01"
+      },
+      "root_failure_identity_review": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification/failure_identity_review.json",
+        "sha256": "7e5d52e38f0c1cc2fc3dce396aec7f5d258c202a2f30177e3f465069b7c979b0"
+      }
+    }
+  },
+  "representation_successor": {
+    "only_driver_change": "plain(actual real owner.identity_payload()) versus the original loaded complete owner JSON; exact equality remains a zero-tolerance gate.",
+    "full_field_and_order_equality": true,
+    "no_physical_or_scientific_gate_changed": true,
+    "numeric_imports_or_science_by_preparer": 0,
+    "parent_root_owner_review_sha256": "7e5d52e38f0c1cc2fc3dce396aec7f5d258c202a2f30177e3f465069b7c979b0"
+  }
+}

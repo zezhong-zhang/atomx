@@ -1,0 +1,187 @@
+{
+  "status": "metadata_build_and_tests_foreground_closed",
+  "exit_code": 0,
+  "all_metadata_commands_passed": true,
+  "records": [
+    {
+      "phase": "manifest",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/make_manifest.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.06400804700388107,
+      "stdout_sha256": "08f9d9af12a3ae8dfb12d1102327d85c3e9411a9eb9160334d7b213b989f3f04",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "phase": "tests",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "-m",
+        "unittest",
+        "-v",
+        "test_dataset_builder"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.031878287001745775,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3d58cce86bcf2b55b3f0d740f78de02958f19dd596fde741de44caa12f8559e4"
+    },
+    {
+      "phase": "builder",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py",
+        "--repo",
+        "/data/code/atomx",
+        "--manifest",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/manifest.json",
+        "--output",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset.json"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.31452678199275397,
+      "stdout_sha256": "a40040772222740e3943b76c2f52ccfd616d55309f690dcb4e4da226e8e4ab8f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "summary": {
+    "rows": 8,
+    "physics_pairs": 7,
+    "trajectory_aggregates": 1,
+    "eligible_pairs": 6,
+    "effective_independent_point_groups_upper_bound": 3,
+    "groups_are_not_IID_certified": true,
+    "per_physics_class": {
+      "complete_static_Breit": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "c3bea88bbe4638876fefc25a79b149aad4c3c9dc175ce9b2034999ebeadc4cbe": 1
+        }
+      },
+      "core_5p_double_hole_space": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      },
+      "orbital_relaxation_trajectory": {
+        "eligible_pairs": 0,
+        "point_groups": 0,
+        "exact_context_group_counts": {}
+      },
+      "positive_inner_quadrature_operator_expectation": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "c1a60d216f83b62ae234d8a15749121d7c25648440323773fb47ca4ef0fec3fa": 1
+        }
+      },
+      "virtual_f_layer_closed68_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "f7f05ab49501f0e9e6f846e0f9d42fcd062520bf32be0d3ece8b525f37fbec5d": 1
+        }
+      },
+      "virtual_f_layer_nuclear_seed": {
+        "eligible_pairs": 0,
+        "point_groups": 0,
+        "exact_context_group_counts": {}
+      },
+      "virtual_sdp_layer_closed68_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      },
+      "virtual_sdp_layer_nuclear_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      }
+    },
+    "unsuitable_reason_counts": {
+      "original_executor_failed": 1,
+      "original_numeric_integrity_not_passed": 1,
+      "original_numerical_gate_failed": 1,
+      "correlated_optimization_trajectory_not_independent_physics_example": 1
+    },
+    "learned_prediction_performed": false,
+    "AI_speedup_or_uncertainty_certified": false
+  },
+  "metadata_IO": {
+    "JSON_files": 43,
+    "JSON_bytes": 33296799,
+    "NPZ_reads_or_hashes": 0,
+    "new_scientific_calls": 0
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_real_owner.json": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_real_owner.json": "98acffece917c7cab77d3457ebd8406bf08354e8a372ac0ffa2991d28431f53e",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/output_serialization_repair/actual/verification.json": "7bd5629f925662f450b3c9920b2f3908f30c805581bb60bea9b963720a8ee986",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+    "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point_owner.json": "9bbc9348b10ab887df24c574b6b4906f150c4494f72da0bbec541dccc4661a01",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/contract.json": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/root_execution.json": "872fa03a9b2f2f0d0855b7fd92b52c039e69783d07aad5f6a38e7d0d58278dd5",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/saved_array_verification.json": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/completion.json": "e3632edad132eb4dd17607264d2a7ee218a1f73fc734373d1d4b27a6fc6b5915",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/contract.json": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/root_execution.json": "bfe64f5fdbe61bfe1169091ef85f87396a497fb7fdd8abab9f92b84d00302d72",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/contract.json": "6b57e51639ebabb7415260d3aba1a1eb4b777708d82af738194326a75ed7ff21",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/root_execution.json": "9cbf1295040dd4d7f0be988b7a8eb891f042238c15ab8021861e728750ea392e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/saved_array_audit/verification.json": "c2b73619008d370d1443f361ce6ab4de456414bde2573f310fb79e6d84a10541",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/contract.json": "0d552b666b446e62f6804575f8b06ea8caaf1a62da1d155d60aed996986488de",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/root_execution.json": "a558b6878856a5fc1163892324abf9119de54d354f21378dc10d1f09b3f48a44",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/baseline_real_owner.json": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/baseline_same_point_evidence.json": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_real_owner.json": "d6a3ff6361311f73cbe7005aea93d074af49254628baeaa8e492411ccdf54ef6",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/complete5f_same_point_evidence.json": "1081af357943708a5ede027746cd90785d45402756dde63b8661821bdd713d40",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/actual/result.json": "160592a75ded6cea64936c5954696958534666d4fb47952e6cca0e748a1ab91d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/completion.json": "a180f7fea8d18ac1c7d5549863944af048557054fa134b9fa05a86c826e40c49",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/contract.json": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/root_execution.json": "241fa059f19e3807c565f9699ace4f28eff038eac744bfea72801bc89fb61ab5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/contract.json": "fc1bc5e4fb9ee29a0f7e2231a87277bbeb753dbbd2ee0d9b86edec993eb32d68",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/contract.json": "19a3e4a1faaf537ee0d25674540814b2563df009b57977751c852a7f1ff07512",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/root_execution.json": "4af68c620f41f5d42020641f746a379440c6216fb0116f24ca6240ae296cec4c",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/saved_array_audit/verification.json": "0fbdb236e3e8f4da203f8ba8f204be82094439ad04aba3a735c349fde43386d3"
+  },
+  "source_sha256": {
+    "dataset_builder.py": "a395000325162e031952bc9add28ccf9e30c465c0e29d058d69096619d0a5764",
+    "catalog_adapters.py": "b92a3adc8dbc699ab8d487d72ce4d11982e4cda6896eb1a2de94f6599fbddcb5",
+    "make_manifest.py": "c18cb2c7a815f1028d36bc1445c80377a9cc4c413eddd5561ef5ccc49ae48f4f",
+    "test_dataset_builder.py": "a3959e259b44282d551b5c25ddc1e6d08026579b9a654fea48e9cdfeae4948cf",
+    "run_metadata.py": "357b866c2b66cff78f691b5201ceb1ffcabea4a1b78c03ddeec589f014dbc07d"
+  },
+  "contract_sha256": "d220a703c453b748b5d41379e24373dfbd2a25fbae393305e2b2859f910bf7b7",
+  "manifest_sha256": "bb99575638f2237047302ab0886788b52d303d562ccffe6e374e6d0ffa782535",
+  "dataset_sha256": "a8e1d04685a6c5570cf7d9c46547e2b6eed36671b30eed6a57529c05b8a40b84",
+  "actual_affinity": [
+    31
+  ],
+  "address_space_cap_bytes": 1073741824,
+  "elapsed_uncontrolled_s": 0.43034249599440955,
+  "scientific_calls_or_NPZ_reads_hashes": 0,
+  "learned_prediction_or_performance_claim": false
+}

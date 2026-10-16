@@ -1,0 +1,17 @@
+{
+  "hypothesis": "The remaining Yb+ excitation discrepancy can be distinguished by independent positive-energy, partial-wave and radial self-energy controls.",
+  "fixed_conditions": "Z70 empirical Fermi nucleus, closed V68 [Xe]4f14 reference, all 19 occupied radial orbitals and five external DF valence spinors; pure Dirac-Coulomb, both second-order diagrams, scalar DF-connected Dyson roots. No fitting or radiative operator changes.",
+  "preflight": "Enumerate native virtual eigenspaces at coarse ns123/R60 l<=8/200Ha and refined ns230/R60 l<=6/50Ha; count every physical bound and positive-energy root without a root-number cap. Save the native basis identity before selecting the computational run layout.",
+  "preflight_resource_cap_seconds": 180,
+  "planned_controls": "Coarse-grid l<=6/50Ha retained anchor; l<=8/50Ha angular control; l<=6/200Ha positive-energy control; refined-grid l<=6/50Ha radial control. Each comparison uses all five states and a common closed-core energy reference.",
+  "acceptance": {
+    "independent_kernel_tests": "Keep previous nonzero on/off-shell spin-orbital and Hermitian Dyson controls",
+    "root_residual_Ha": 1e-10,
+    "denominator_floor_Ha": 1e-8,
+    "matched_old_space_Ha": 1e-10,
+    "metric_orthogonality": 1e-7,
+    "correlation_convergence_cm1": 1.0,
+    "experimental_goal_relative": 0.05
+  },
+  "stopping": "Declare measured workload and full-run resource caps after native space enumeration. Stop a failed numerical gate and preserve its data; do not choose windows or root identity by experimental proximity."
+}

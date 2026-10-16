@@ -1,0 +1,43 @@
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_overlapping_core_and_rotated_signed_fock[False-point] __________
+
+kinetic_balance = False, nucleus = 'point'
+
+    @pytest.mark.parametrize("kinetic_balance,nucleus", [(False, "point"), (True, "point"), (True, "fermi")])
+    def test_overlapping_core_and_rotated_signed_fock(kinetic_balance, nucleus):
+        occupied = ((1, -1), (2, -1))
+>       core = DFSolver(4, [Subshell(*a, 2) for a in occupied], ns=30, ks=7,
+                        kinetic_balance=kinetic_balance, nuclear_model=nucleus).solve()
+E       TypeError: DFSolver.__init__() got an unexpected keyword argument 'nuclear_model'
+
+tests/test_closed_shell_fock.py:16: TypeError
+__________ test_overlapping_core_and_rotated_signed_fock[True-point] ___________
+
+kinetic_balance = True, nucleus = 'point'
+
+    @pytest.mark.parametrize("kinetic_balance,nucleus", [(False, "point"), (True, "point"), (True, "fermi")])
+    def test_overlapping_core_and_rotated_signed_fock(kinetic_balance, nucleus):
+        occupied = ((1, -1), (2, -1))
+>       core = DFSolver(4, [Subshell(*a, 2) for a in occupied], ns=30, ks=7,
+                        kinetic_balance=kinetic_balance, nuclear_model=nucleus).solve()
+E       TypeError: DFSolver.__init__() got an unexpected keyword argument 'nuclear_model'
+
+tests/test_closed_shell_fock.py:16: TypeError
+__________ test_overlapping_core_and_rotated_signed_fock[True-fermi] ___________
+
+kinetic_balance = True, nucleus = 'fermi'
+
+    @pytest.mark.parametrize("kinetic_balance,nucleus", [(False, "point"), (True, "point"), (True, "fermi")])
+    def test_overlapping_core_and_rotated_signed_fock(kinetic_balance, nucleus):
+        occupied = ((1, -1), (2, -1))
+>       core = DFSolver(4, [Subshell(*a, 2) for a in occupied], ns=30, ks=7,
+                        kinetic_balance=kinetic_balance, nuclear_model=nucleus).solve()
+E       TypeError: DFSolver.__init__() got an unexpected keyword argument 'nuclear_model'
+
+tests/test_closed_shell_fock.py:16: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_closed_shell_fock.py::test_overlapping_core_and_rotated_signed_fock[False-point]
+FAILED tests/test_closed_shell_fock.py::test_overlapping_core_and_rotated_signed_fock[True-point]
+FAILED tests/test_closed_shell_fock.py::test_overlapping_core_and_rotated_signed_fock[True-fermi]
+3 failed, 1 passed in 0.31s

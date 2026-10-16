@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "candidates": [
+    {
+      "id": "producer_radial_H_closure",
+      "physics_class": "energy_producer_closure",
+      "physical_priority": 0,
+      "status": "source_proposal",
+      "planned_wall_cap_s": 180,
+      "predictor_features": {
+        "ion_Z": 70,
+        "electron_count": 69,
+        "n_radial_before": 31,
+        "n_radial_after": 31,
+        "n_target_CSF_before": 1595,
+        "n_target_CSF_after": 1595
+      },
+      "comparable_context": {
+        "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+        "nucleus": {
+          "declared_profile": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+          "native_workspace_archive_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+        },
+        "operator": "native full Dirac-Coulomb only",
+        "radial_representation": {
+          "kind": "native-DBSR-B-spline",
+          "ns": 123,
+          "no_pair": "unchanged original nuclear electronic P"
+        },
+        "ordered_state_UIDs": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            0
+          ],
+          [
+            5,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            0
+          ],
+          [
+            3,
+            -1,
+            0
+          ]
+        ]
+      },
+      "physical_point": "fixed accepted13, not terminal16",
+      "scope": "Advisory registry only; exact root binding and complete physical/resource gates remain separate"
+    },
+    {
+      "id": "saved_native_core_pair_diagnostic",
+      "physics_class": "core_5p_double_hole_space",
+      "physical_priority": 1,
+      "status": "failed",
+      "planned_wall_cap_s": 180,
+      "predictor_features": {
+        "ion_Z": 70,
+        "electron_count": 69,
+        "n_radial_before": 31,
+        "n_radial_after": 31,
+        "n_target_CSF_before": 1595,
+        "n_target_CSF_after": 2574
+      },
+      "comparable_context": {
+        "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+        "nucleus": {
+          "declared_profile": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+          "native_workspace_archive_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+        },
+        "operator": "native full Dirac-Coulomb only",
+        "radial_representation": {
+          "kind": "native-DBSR-B-spline",
+          "ns": 123,
+          "no_pair": "unchanged original nuclear electronic P"
+        },
+        "ordered_state_UIDs": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            0
+          ],
+          [
+            5,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            0
+          ],
+          [
+            3,
+            -1,
+            0
+          ]
+        ]
+      },
+      "physical_point": "fixed accepted13, not terminal16",
+      "scope": "Advisory registry only; exact root binding and complete physical/resource gates remain separate",
+      "closed_outcome": {
+        "receipt": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/root_execution.json",
+        "receipt_sha256": "8b8cece49c4cc6af05d8af0c8ba35ee13a2915ef03a3bf2f34e83fdd2532435d",
+        "failure_sha256": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+        "conditional_summary": "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/conditional_response_summary.json",
+        "conditional_summary_sha256": "e5cc20b9ad180d188229b48be22fdfc4b6d7d84b78fc3952b23a77d36772e0ec",
+        "automatic_retry": false,
+        "source_or_model_qualified": false
+      }
+    },
+    {
+      "id": "failed_core002_preserved",
+      "physics_class": "core_5p_double_hole_space",
+      "physical_priority": 1,
+      "status": "failed",
+      "planned_wall_cap_s": 900,
+      "predictor_features": {
+        "ion_Z": 70,
+        "electron_count": 69,
+        "n_radial_before": 31,
+        "n_radial_after": 31,
+        "n_target_CSF_before": 1595,
+        "n_target_CSF_after": 2574
+      },
+      "comparable_context": {
+        "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+        "nucleus": {
+          "declared_profile": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+          "native_workspace_archive_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+        },
+        "operator": "native full Dirac-Coulomb only",
+        "radial_representation": {
+          "kind": "native-DBSR-B-spline",
+          "ns": 123,
+          "no_pair": "unchanged original nuclear electronic P"
+        },
+        "ordered_state_UIDs": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            0
+          ],
+          [
+            5,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            0
+          ],
+          [
+            3,
+            -1,
+            0
+          ]
+        ]
+      },
+      "physical_point": "fixed accepted13, not terminal16",
+      "scope": "Advisory registry only; exact root binding and complete physical/resource gates remain separate"
+    },
+    {
+      "id": "whole31_exact_Gaunt_reuse",
+      "physics_class": "static_Gaunt_implementation_reuse",
+      "physical_priority": 2,
+      "status": "source_proposal",
+      "planned_wall_cap_s": 900,
+      "predictor_features": {
+        "ion_Z": 70,
+        "electron_count": 69,
+        "n_radial_before": 31,
+        "n_radial_after": 31,
+        "n_target_CSF_before": 1595,
+        "n_target_CSF_after": 1595
+      },
+      "comparable_context": {
+        "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+        "nucleus": {
+          "declared_profile": "native sampled Fermi A175 / Z70, unchanged workspace and original nuclear no-pair P",
+          "native_workspace_archive_sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+        },
+        "operator": "native full Dirac-Coulomb only",
+        "radial_representation": {
+          "kind": "native-DBSR-B-spline",
+          "ns": 123,
+          "no_pair": "unchanged original nuclear electronic P"
+        },
+        "ordered_state_UIDs": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            0
+          ],
+          [
+            5,
+            1,
+            0
+          ],
+          [
+            1,
+            -1,
+            0
+          ],
+          [
+            3,
+            -1,
+            0
+          ]
+        ]
+      },
+      "physical_point": "fixed accepted13, not terminal16",
+      "scope": "Advisory registry only; exact root binding and complete physical/resource gates remain separate"
+    }
+  ],
+  "operator_or_gate_changes": false,
+  "dispatch": false,
+  "metadata_resource_change": "Explicit JSON preflight64MiB matches frozen dataset budget;43 source JSON33,296,799bytes. No physical tolerance changes.",
+  "source_bindings": {
+    "dataset_sha256": "a8e1d04685a6c5570cf7d9c46547e2b6eed36671b30eed6a57529c05b8a40b84",
+    "dataset_handoff_sha256": "89a2b1a107f02c6720f7d67ee54a60fed595f73b2a16dd82f5a2f2509bd22bb0",
+    "fixed13_contract_sha256": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8"
+  },
+  "snapshot_successor_of": {
+    "path": "candidate_catalog.json",
+    "sha256": "b2e45c3e6cd9214dbc9f743b8af68a794406f81e259a5b3f8ff398d1622d538c"
+  },
+  "snapshot_reason": "Record closed saved-matrix failure so subsequent advice cannot select it for retry; historical advice and dataset unchanged."
+}

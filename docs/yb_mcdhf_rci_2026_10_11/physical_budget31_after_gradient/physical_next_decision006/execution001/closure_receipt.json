@@ -1,0 +1,37 @@
+{
+  "status": "closed_native_sparse_full_basis_qualification",
+  "files": {
+    "run.py": "4e10a7ddb34e3f2a6366b57c3725420138ff35dd2059e921958138bd0438d220",
+    "contract.json": "b78049cad488491af636bbd018a417629c844de217e8bb8c2801bb076cf486a2",
+    "README.md": "5b5650ff975025757d319e51c41edc6d18d13fbd6cbd0d2aef58c4a8a470d053",
+    "RESULTS.md": "0625ade38b9137c1ef978c3ff6b9873f723ffabd6d6d18880840f65398969612",
+    "root_execution_seal.json": "c2150fd3bd9789adf4f56df1f9834d32a57f153ba6004448b70827fe0469f150",
+    "launcher_failure001.json": "e5c483222da1f934abbf4fc8e98f4c57153cd8836a6238fd8f2197727046e958",
+    "review.py": "a73b6330a52b272e614a3b18e8284db1ca47b6617fe3eaf451c6c4b43a0156c4",
+    "result_review.json": "f6f266ac6a7b06a65c54d7c9f2010650e04f4951f153037490fb430424786e27",
+    "preparation_receipt.json": "e19b7043df0fdfa841614b4343c8532d2fea5c0b4d6d7a37c17ad87404cf45d3",
+    "actual/A.json": "06328f2e3da3873900c00bc94beaeee52987bf878a9bc2fb04e9a407a3da92bb",
+    "actual/A_selected.npz": "e8de477cd38b0e7e5a92a2e5448091db1ea6a62de60a44fe54fa907bf6149dfc",
+    "actual/B.json": "7e867cf045e485f090f05646b19cc27f07d90168690b38fa0f29fc9bed3ac28d",
+    "actual/B_selected.npz": "3a2b569e8046db412e59fc501a7e03a005bb43716d9f2be16c882a01f2c58095",
+    "actual/partial.json": "fb911f77ca13bb6d0edca00e1d222b2f26c847f5569b6c904a7aadea25d73bd0",
+    "actual/result.json": "fb911f77ca13bb6d0edca00e1d222b2f26c847f5569b6c904a7aadea25d73bd0"
+  },
+  "science_original": {
+    "status": "PASS_native_sparse_full_basis_Davidson_fixed_R0",
+    "controls": 273,
+    "passed": 273
+  },
+  "review": {
+    "checks": 158,
+    "NPZ_decode": 0,
+    "science_calls": 0
+  },
+  "source_scope": "f043 frozen native source; no shared-source edits",
+  "no_public_iterative_snapshot_tracker_or_larger_4f12_qualification": true,
+  "validation": {
+    "Ruff": "PASS",
+    "local_result_links": "PASS"
+  },
+  "distillation": "No new general insight; preserve existing same-operator complete-state rules."
+}

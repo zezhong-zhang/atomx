@@ -1,0 +1,366 @@
+{
+  "status": "CLOSED_JSON_METADATA_ONLY_NO_NUMERICAL_REPLAY",
+  "all_metadata_checks_passed": true,
+  "checks_count": 37,
+  "checks": [
+    {
+      "name": "actual foreground closed before result read",
+      "passed": true
+    },
+    {
+      "name": "root exact result receipt SHA",
+      "passed": true
+    },
+    {
+      "name": "same reviewed driver contract launcher",
+      "passed": true
+    },
+    {
+      "name": "matching root sealed scientific result",
+      "passed": true
+    },
+    {
+      "name": "16760 actual live controls PASS",
+      "passed": true
+    },
+    {
+      "name": "private f043 numerical epoch retained",
+      "passed": true
+    },
+    {
+      "name": "completed H",
+      "passed": true
+    },
+    {
+      "name": "completed CI",
+      "passed": true
+    },
+    {
+      "name": "completed public_full_gradient",
+      "passed": true
+    },
+    {
+      "name": "completed private_full_gradient",
+      "passed": true
+    },
+    {
+      "name": "completed ordinary_source_potential",
+      "passed": true
+    },
+    {
+      "name": "completed ordinary_band",
+      "passed": true
+    },
+    {
+      "name": "completed ordinary_density",
+      "passed": true
+    },
+    {
+      "name": "completed private_density",
+      "passed": true
+    },
+    {
+      "name": "completed factor_getter",
+      "passed": true
+    },
+    {
+      "name": "completed component_moment_getter",
+      "passed": true
+    },
+    {
+      "name": "completed CUDA_context",
+      "passed": true
+    },
+    {
+      "name": "completed optimizer",
+      "passed": true
+    },
+    {
+      "name": "no incomplete producer calls",
+      "passed": true
+    },
+    {
+      "name": "three backends present",
+      "passed": true
+    },
+    {
+      "name": "NumBa_CPU1 all four components bitwise exact",
+      "passed": true
+    },
+    {
+      "name": "NumBa_CPU1 no speed certificate",
+      "passed": true
+    },
+    {
+      "name": "NumBa_CPU4 all four components bitwise exact",
+      "passed": true
+    },
+    {
+      "name": "NumBa_CPU4 no speed certificate",
+      "passed": true
+    },
+    {
+      "name": "CUDA all four components bitwise exact",
+      "passed": true
+    },
+    {
+      "name": "CUDA no speed certificate",
+      "passed": true
+    },
+    {
+      "name": "same resident physical inputs",
+      "passed": true
+    },
+    {
+      "name": "CPU thread masks restored",
+      "passed": true
+    },
+    {
+      "name": "CPU4 current mask separate from original maximum",
+      "passed": true
+    },
+    {
+      "name": "no resource stop and sampled RSS within hard cap",
+      "passed": true
+    },
+    {
+      "name": "no whole HCI GPU optimizer stationarity speed certificate",
+      "passed": true
+    },
+    {
+      "name": "request/producer ledger hS",
+      "passed": true
+    },
+    {
+      "name": "request/producer ledger factors",
+      "passed": true
+    },
+    {
+      "name": "request/producer ledger dense_banks",
+      "passed": true
+    },
+    {
+      "name": "request/producer ledger component_moments",
+      "passed": true
+    },
+    {
+      "name": "declared full gradient archive identity without reading arrays",
+      "passed": true
+    },
+    {
+      "name": "original failed attempt retained",
+      "passed": true
+    }
+  ],
+  "actual_result": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+    "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+  },
+  "actual_receipt": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+    "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+  },
+  "root_seal": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/execution_binding.json",
+    "sha256": "4a887fd41275b50987115e87f967066c0196d7744502a118a42611a8eb499bee"
+  },
+  "prepared_handoff": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/handoff.json",
+    "sha256": "e4574b254b42b8a449e64e97952a71c331b2badbc14945cf3796aba934b8645c"
+  },
+  "original_failed_attempt": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/closure001/completion.json",
+    "sha256": "3e6e6a086a21cbe045d72e0d89f500ab31971dc66889bbc01dc891aa64078ccd"
+  },
+  "actual_live_controls_count": 16760,
+  "actual_calls": {
+    "H": {
+      "started": 1,
+      "completed": 1
+    },
+    "CI": {
+      "started": 1,
+      "completed": 1
+    },
+    "initial_hS": {
+      "started": 7,
+      "completed": 7
+    },
+    "CI_hS_producer": {
+      "started": 7,
+      "completed": 7
+    },
+    "hS_getter": {
+      "started": 38,
+      "completed": 38
+    },
+    "validation_Dirac": {
+      "started": 7,
+      "completed": 7
+    },
+    "SPD_eigvalsh": {
+      "started": 38,
+      "completed": 38
+    },
+    "scipy_eigh": {
+      "started": 12,
+      "completed": 12
+    },
+    "tracking_SVD": {
+      "started": 5,
+      "completed": 5
+    },
+    "tracking_resolve": {
+      "started": 1,
+      "completed": 1
+    },
+    "tracking_overlap": {
+      "started": 2,
+      "completed": 2
+    },
+    "target_RDM": {
+      "started": 5,
+      "completed": 5
+    },
+    "public_full_gradient": {
+      "started": 1,
+      "completed": 1
+    },
+    "private_full_gradient": {
+      "started": 3,
+      "completed": 3
+    },
+    "private_owner_factory": {
+      "started": 3,
+      "completed": 3
+    },
+    "ordinary_source_potential": {
+      "started": 706,
+      "completed": 706
+    },
+    "ordinary_band": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "ordinary_density": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "private_density": {
+      "started": 2976,
+      "completed": 2976
+    },
+    "H_density": {
+      "started": 992,
+      "completed": 992
+    },
+    "factor_getter": {
+      "started": 2908,
+      "completed": 2908
+    },
+    "component_moment_getter": {
+      "started": 56,
+      "completed": 56
+    },
+    "dense_bank_getter": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "same_component_inner_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "mixed_component_inner_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "NPZ_load": {
+      "started": 6,
+      "completed": 6
+    },
+    "CUDA_context": {
+      "started": 1,
+      "completed": 1
+    },
+    "optimizer": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "near_factor_producer": {
+      "started": 28,
+      "completed": 28
+    }
+  },
+  "actual_request_ledgers": {
+    "hS": {
+      "requests": 38,
+      "completed": 38,
+      "hits": 31,
+      "misses": 7
+    },
+    "factors": {
+      "requests": 2908,
+      "completed": 2908,
+      "hits": 2880,
+      "misses": 28
+    },
+    "dense_banks": {
+      "requests": 2824,
+      "completed": 2824,
+      "hits": 2796,
+      "misses": 28
+    },
+    "component_moments": {
+      "requests": 56,
+      "completed": 56,
+      "hits": 42,
+      "misses": 14
+    }
+  },
+  "declared_gradient_archive_hashes": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/ordinary_vs_saved438_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/NumBa_CPU1_vs_ordinary_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/NumBa_CPU1_vs_saved438_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/NumBa_CPU4_vs_ordinary_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/NumBa_CPU4_vs_saved438_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/CUDA_vs_ordinary_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/CUDA_vs_saved438_complete_gradient.npz",
+      "sha256": "8529888b66b707ac3e5cc6610855049953be626517663d52e9019d2c9b823326"
+    }
+  ],
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "sampled_peak_process_group_RSS_bytes": 1890205696,
+  "elapsed_uncontrolled_s": 50.60336517589167,
+  "qualification_scope": "One f043 recovered full1595 native31 point: existing HF-partial raw radial/tangent/pg consistency only; H/CI/angular/state/metric remain CPU.",
+  "NPZ_reads_or_rehashes": 0,
+  "new_physical_calls": 0,
+  "new_NumPy_Atomx_NumBa_CUDA_imports": 0,
+  "independent_numerical_array_replay": false,
+  "controlled_speedup": false,
+  "whole_HCI_GPU": false,
+  "public_adoption": false,
+  "optimizer_or_stationarity_or_experiment_certificate": false
+}

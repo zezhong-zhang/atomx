@@ -1,0 +1,1312 @@
+{
+  "status": "complete public signed maps and responses passed",
+  "full_numerical_gate": true,
+  "maximum_signed_error_Ha": 8.673617379884035e-19,
+  "maximum_relative_error": 1.6904893255408627e-15,
+  "timing_guard_pass": true,
+  "scaling": [
+    {
+      "backend": "original",
+      "median_per_five_column_map_seconds": 0.052125425997655836,
+      "observed_speedups_vs_current_one": [
+        0.5047225122187378,
+        0.5117793551141703,
+        0.5043655933186483,
+        0.5026650295704036,
+        0.5140875564669317
+      ],
+      "speedup": 0.5047225122187378,
+      "efficiency": null,
+      "observed_vs_original_diagrams": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "versus_original_diagrams_speedup": 1.0
+    },
+    {
+      "backend": 1,
+      "median_per_five_column_map_seconds": 0.026354539103340357,
+      "observed_speedups_vs_current_one": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "speedup": 1.0,
+      "efficiency": 1.0,
+      "observed_vs_original_diagrams": [
+        1.9812866987130102,
+        1.9539670563243312,
+        1.9826887742681918,
+        1.9893963995359643,
+        1.945193941033125
+      ],
+      "versus_original_diagrams_speedup": 1.9812866987130102
+    },
+    {
+      "backend": 2,
+      "median_per_five_column_map_seconds": 0.022120470507070424,
+      "observed_speedups_vs_current_one": [
+        1.1614796407494978,
+        1.2007386080770035,
+        1.1954248829101395,
+        1.1844969026362555,
+        1.1979036869218924
+      ],
+      "speedup": 1.1954248829101395,
+      "efficiency": 0.5977124414550697,
+      "observed_vs_original_diagrams": [
+        2.3012241630429453,
+        2.3462036834391973,
+        2.3701554958268014,
+        2.356433873366069,
+        2.3301549937417065
+      ],
+      "versus_original_diagrams_speedup": 2.3462036834391973
+    },
+    {
+      "backend": 4,
+      "median_per_five_column_map_seconds": 0.020375025097746403,
+      "observed_speedups_vs_current_one": [
+        1.28008502829551,
+        1.293472718532029,
+        1.285234053267363,
+        1.2921785322203896,
+        1.2925871703561582
+      ],
+      "speedup": 1.2921785322203896,
+      "efficiency": 0.3230446330550974,
+      "observed_vs_original_diagrams": [
+        2.5362154397835615,
+        2.527403080265859,
+        2.5482191297204078,
+        2.5706553195569097,
+        2.514332732033951
+      ],
+      "versus_original_diagrams_speedup": 2.5362154397835615
+    },
+    {
+      "backend": 8,
+      "median_per_five_column_map_seconds": 0.022412016103044153,
+      "observed_speedups_vs_current_one": [
+        1.2316694318268202,
+        1.1293355279119934,
+        1.15901390037213,
+        1.1988289230113804,
+        0.9489623869495459
+      ],
+      "speedup": 1.15901390037213,
+      "efficiency": 0.14487673754651625,
+      "observed_vs_original_diagrams": [
+        2.4402902624898895,
+        2.2066844170766826,
+        2.2979638494886148,
+        2.3849459430984177,
+        1.8459158853625885
+      ],
+      "versus_original_diagrams_speedup": 2.2979638494886148
+    }
+  ],
+  "setup_seconds": {
+    "original": 4.136024605948478,
+    "1": 4.183538964018226,
+    "2": 4.242421726929024,
+    "4": 4.190065140952356,
+    "8": 4.38829362206161
+  },
+  "scf_and_virtual_seconds": 0,
+  "complete_prepare_wall_seconds": 189.499773937976,
+  "peak_rss_bytes": 333312000,
+  "scope": "Complete public ValenceSD.evaluate for all 5 columns, including all retained affine source/Fock/diagram terms and total supplied response, context/channel construction and native C/Python copies; excludes backend build/native integral setup/SCF/core solve",
+  "core_control": {
+    "original": {
+      "maximum_full_raw_residual_Ha": 6.660123841317755e-14,
+      "same_physical_source": true,
+      "same_denominators": true
+    },
+    "1": {
+      "maximum_full_raw_residual_Ha": 6.660123841317755e-14,
+      "same_physical_source": true,
+      "same_denominators": true
+    },
+    "2": {
+      "maximum_full_raw_residual_Ha": 6.660123841317755e-14,
+      "same_physical_source": true,
+      "same_denominators": true
+    },
+    "4": {
+      "maximum_full_raw_residual_Ha": 6.660123841317755e-14,
+      "same_physical_source": true,
+      "same_denominators": true
+    },
+    "8": {
+      "maximum_full_raw_residual_Ha": 6.660123841317755e-14,
+      "same_physical_source": true,
+      "same_denominators": true
+    }
+  },
+  "core_provenance": {
+    "original": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7', 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783', 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c', '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f', '42d1bdf184bcc133c32f11bc9449d607aeb053bd90ed00abae1cd0f5f073e790', '441103d726e2daf0aa5eb39d362ad23694899579a5b3a7c08fdc10d903464661', '84699ae73aa9d092f34dc051451f7f439efce806f111b40cd5e21d5c3564847e', '65c1502406bb0a925b9852da139dcaf4631f0f94dd4dc3480211a8cffb20b7b4', '92a15199b9f21c8ac14b7fbbfec85606b128c639de336737d41e77da86f367ed', '95ebcf955d7a0eb2aceb7def66c92360d44ab217f3b2235c2d46604701d23a7b', '0c7bcc23e8f99612a256090a938e98396f692f3ffc4dc1a7df9504222accd287', '6c9737fbd7bb67e02f7ac84d73b815c93fedb3ab31b114a4881a9be2a458b649'), core=(((1, -1), '4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7'), ((2, -2), '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f'), ((2, -1), 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783'), ((2, 1), 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c')), geometry='f922d644b81e44797db1fb7d6ea0624607b33e5b6e98dc80a754bb3080504e63', Z=11, ns=38, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.5543122344752192e-15,
+      "hermitian_projection_max_Ha": 3.1086244689504383e-15,
+      "integral_bytes": 41472,
+      "radial_pair_cache_size": 16384,
+      "representation": "native on-demand radial/angular DC",
+      "construction_scalar_radial_pairs": 36,
+      "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+      "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+      "backend_sha256": "4e832f8d68991fbe4639da027d5e12db6b8d07ac9cf15214e523d53685d8f299",
+      "initialization": "exact native X1/X2 BLAS contractions",
+      "blas": {
+        "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+        "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+        "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+        "abi": "Fortran LP64 dgemm",
+        "runtime": {
+          "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+          "parallel": 2,
+          "threads": 1
+        }
+      },
+      "core_single_to_doubles": {
+        "mode": "exact native weighted BLAS term31/32",
+        "workers": 1,
+        "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+        "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+      },
+      "blas_runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      },
+      "term21": {
+        "mode": "exact shared virtual-pair streamed term21",
+        "threads": 1,
+        "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+        "writes": "disjoint complete core-pair channels; no reduction"
+      },
+      "core_singles": {
+        "mode": "exact component-tagged BLAS terma4",
+        "workers": 1,
+        "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+      },
+      "feature_identity": {
+        "representation": "native cell Coulomb polynomial density coordinates",
+        "geometry_sha256": "084af4a4ca105916356144059b055cbcb89d0723703dc33f788b7016815919cf",
+        "coefficient_sizes": [
+          38,
+          38
+        ],
+        "component_orders": [
+          7,
+          7
+        ],
+        "auxiliary_nodes": 832,
+        "same_cell_edges": 11232,
+        "quadrature_nodes": [
+          32,
+          13
+        ],
+        "payload_estimate_bytes": 4215296,
+        "rank_cache_capacity": 8,
+        "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+        "native_geometry_sha256": "0c373b66b0ff9a6dbff70eb8037b5ee1a31d183df6e5835deda58d764efb34ca",
+        "density_polynomial_degree": 12,
+        "interpolation_nodes_per_component_cell": 13
+      },
+      "method": "closed-core linearized SD, native DC",
+      "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+      "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+      "resources": {
+        "dimensions": {
+          "NHF": 832,
+          "NX": 5,
+          "NS": 4,
+          "KX1": 5,
+          "NXX": 4,
+          "NK": 5,
+          "NN": 4,
+          "KK": 5,
+          "NCH": 188,
+          "NXK": 99,
+          "NV": 32,
+          "NG": 13,
+          "NE": 11232
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ]
+        ],
+        "raw_amplitudes": 490,
+        "independent_scalar_amplitudes": 203,
+        "complete_payload_bound_bytes": 81641324,
+        "krylov_vector_bytes": 3920,
+        "radial_pair_cache_size": 16384,
+        "radial_pair_cache_array_bound_bytes": 69730304,
+        "blas_initialization_scratch_bytes": 79872,
+        "term21_threads": 1,
+        "term21_mode": "streamed",
+        "term21_worker_scratch_bytes": 67200,
+        "term21_parallel_scratch_bytes": 340176,
+        "core_singles_blas": true,
+        "core_singles_worker_scratch_bytes": 40064,
+        "core_singles_parallel_scratch_bytes": 233088,
+        "core_single_to_doubles_blas": true,
+        "core_single_to_doubles_scratch_bytes": 226816,
+        "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+      },
+      "direct_sd_source_sha256": {
+        "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+        "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+        "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+      }
+    },
+    "1": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7', 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783', 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c', '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f', '42d1bdf184bcc133c32f11bc9449d607aeb053bd90ed00abae1cd0f5f073e790', '441103d726e2daf0aa5eb39d362ad23694899579a5b3a7c08fdc10d903464661', '84699ae73aa9d092f34dc051451f7f439efce806f111b40cd5e21d5c3564847e', '65c1502406bb0a925b9852da139dcaf4631f0f94dd4dc3480211a8cffb20b7b4', '92a15199b9f21c8ac14b7fbbfec85606b128c639de336737d41e77da86f367ed', '95ebcf955d7a0eb2aceb7def66c92360d44ab217f3b2235c2d46604701d23a7b', '0c7bcc23e8f99612a256090a938e98396f692f3ffc4dc1a7df9504222accd287', '6c9737fbd7bb67e02f7ac84d73b815c93fedb3ab31b114a4881a9be2a458b649'), core=(((1, -1), '4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7'), ((2, -2), '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f'), ((2, -1), 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783'), ((2, 1), 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c')), geometry='f922d644b81e44797db1fb7d6ea0624607b33e5b6e98dc80a754bb3080504e63', Z=11, ns=38, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.5543122344752192e-15,
+      "hermitian_projection_max_Ha": 3.1086244689504383e-15,
+      "integral_bytes": 41472,
+      "radial_pair_cache_size": 16384,
+      "representation": "native on-demand radial/angular DC",
+      "construction_scalar_radial_pairs": 36,
+      "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+      "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+      "backend_sha256": "b831c2805f91eb2541506b863386afb9a5edf6814f3aa9dd53a547ba892ec551",
+      "initialization": "exact native X1/X2 BLAS contractions",
+      "blas": {
+        "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+        "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+        "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+        "abi": "Fortran LP64 dgemm",
+        "runtime": {
+          "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+          "parallel": 2,
+          "threads": 1
+        }
+      },
+      "core_single_to_doubles": {
+        "mode": "exact native weighted BLAS term31/32",
+        "workers": 1,
+        "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+        "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+      },
+      "blas_runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      },
+      "term21": {
+        "mode": "exact shared virtual-pair streamed term21",
+        "threads": 1,
+        "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+        "writes": "disjoint complete core-pair channels; no reduction"
+      },
+      "core_singles": {
+        "mode": "exact component-tagged BLAS terma4",
+        "workers": 1,
+        "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+      },
+      "feature_identity": {
+        "representation": "native cell Coulomb polynomial density coordinates",
+        "geometry_sha256": "084af4a4ca105916356144059b055cbcb89d0723703dc33f788b7016815919cf",
+        "coefficient_sizes": [
+          38,
+          38
+        ],
+        "component_orders": [
+          7,
+          7
+        ],
+        "auxiliary_nodes": 832,
+        "same_cell_edges": 11232,
+        "quadrature_nodes": [
+          32,
+          13
+        ],
+        "payload_estimate_bytes": 4215296,
+        "rank_cache_capacity": 8,
+        "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+        "native_geometry_sha256": "0c373b66b0ff9a6dbff70eb8037b5ee1a31d183df6e5835deda58d764efb34ca",
+        "density_polynomial_degree": 12,
+        "interpolation_nodes_per_component_cell": 13
+      },
+      "method": "closed-core linearized SD, native DC",
+      "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+      "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+      "resources": {
+        "dimensions": {
+          "NHF": 832,
+          "NX": 5,
+          "NS": 4,
+          "KX1": 5,
+          "NXX": 4,
+          "NK": 5,
+          "NN": 4,
+          "KK": 5,
+          "NCH": 188,
+          "NXK": 99,
+          "NV": 32,
+          "NG": 13,
+          "NE": 11232
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ]
+        ],
+        "raw_amplitudes": 490,
+        "independent_scalar_amplitudes": 203,
+        "complete_payload_bound_bytes": 81641324,
+        "krylov_vector_bytes": 3920,
+        "radial_pair_cache_size": 16384,
+        "radial_pair_cache_array_bound_bytes": 69730304,
+        "blas_initialization_scratch_bytes": 79872,
+        "term21_threads": 1,
+        "term21_mode": "streamed",
+        "term21_worker_scratch_bytes": 67200,
+        "term21_parallel_scratch_bytes": 340176,
+        "core_singles_blas": true,
+        "core_singles_worker_scratch_bytes": 40064,
+        "core_singles_parallel_scratch_bytes": 233088,
+        "core_single_to_doubles_blas": true,
+        "core_single_to_doubles_scratch_bytes": 226816,
+        "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+      },
+      "direct_sd_source_sha256": {
+        "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+        "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+        "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+      }
+    },
+    "2": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7', 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783', 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c', '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f', '42d1bdf184bcc133c32f11bc9449d607aeb053bd90ed00abae1cd0f5f073e790', '441103d726e2daf0aa5eb39d362ad23694899579a5b3a7c08fdc10d903464661', '84699ae73aa9d092f34dc051451f7f439efce806f111b40cd5e21d5c3564847e', '65c1502406bb0a925b9852da139dcaf4631f0f94dd4dc3480211a8cffb20b7b4', '92a15199b9f21c8ac14b7fbbfec85606b128c639de336737d41e77da86f367ed', '95ebcf955d7a0eb2aceb7def66c92360d44ab217f3b2235c2d46604701d23a7b', '0c7bcc23e8f99612a256090a938e98396f692f3ffc4dc1a7df9504222accd287', '6c9737fbd7bb67e02f7ac84d73b815c93fedb3ab31b114a4881a9be2a458b649'), core=(((1, -1), '4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7'), ((2, -2), '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f'), ((2, -1), 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783'), ((2, 1), 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c')), geometry='f922d644b81e44797db1fb7d6ea0624607b33e5b6e98dc80a754bb3080504e63', Z=11, ns=38, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.5543122344752192e-15,
+      "hermitian_projection_max_Ha": 3.1086244689504383e-15,
+      "integral_bytes": 41472,
+      "radial_pair_cache_size": 16384,
+      "representation": "native on-demand radial/angular DC",
+      "construction_scalar_radial_pairs": 36,
+      "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+      "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+      "backend_sha256": "5ea9678065ef6ab2b8637263c5264ead8772d676ee1365a72b3aae6bf08ee76e",
+      "initialization": "exact native X1/X2 BLAS contractions",
+      "blas": {
+        "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+        "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+        "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+        "abi": "Fortran LP64 dgemm",
+        "runtime": {
+          "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+          "parallel": 2,
+          "threads": 1
+        }
+      },
+      "core_single_to_doubles": {
+        "mode": "exact native weighted BLAS term31/32",
+        "workers": 1,
+        "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+        "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+      },
+      "blas_runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      },
+      "term21": {
+        "mode": "exact shared virtual-pair streamed term21",
+        "threads": 1,
+        "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+        "writes": "disjoint complete core-pair channels; no reduction"
+      },
+      "core_singles": {
+        "mode": "exact component-tagged BLAS terma4",
+        "workers": 1,
+        "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+      },
+      "feature_identity": {
+        "representation": "native cell Coulomb polynomial density coordinates",
+        "geometry_sha256": "084af4a4ca105916356144059b055cbcb89d0723703dc33f788b7016815919cf",
+        "coefficient_sizes": [
+          38,
+          38
+        ],
+        "component_orders": [
+          7,
+          7
+        ],
+        "auxiliary_nodes": 832,
+        "same_cell_edges": 11232,
+        "quadrature_nodes": [
+          32,
+          13
+        ],
+        "payload_estimate_bytes": 4215296,
+        "rank_cache_capacity": 8,
+        "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+        "native_geometry_sha256": "0c373b66b0ff9a6dbff70eb8037b5ee1a31d183df6e5835deda58d764efb34ca",
+        "density_polynomial_degree": 12,
+        "interpolation_nodes_per_component_cell": 13
+      },
+      "method": "closed-core linearized SD, native DC",
+      "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+      "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+      "resources": {
+        "dimensions": {
+          "NHF": 832,
+          "NX": 5,
+          "NS": 4,
+          "KX1": 5,
+          "NXX": 4,
+          "NK": 5,
+          "NN": 4,
+          "KK": 5,
+          "NCH": 188,
+          "NXK": 99,
+          "NV": 32,
+          "NG": 13,
+          "NE": 11232
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ]
+        ],
+        "raw_amplitudes": 490,
+        "independent_scalar_amplitudes": 203,
+        "complete_payload_bound_bytes": 81641324,
+        "krylov_vector_bytes": 3920,
+        "radial_pair_cache_size": 16384,
+        "radial_pair_cache_array_bound_bytes": 69730304,
+        "blas_initialization_scratch_bytes": 79872,
+        "term21_threads": 1,
+        "term21_mode": "streamed",
+        "term21_worker_scratch_bytes": 67200,
+        "term21_parallel_scratch_bytes": 340176,
+        "core_singles_blas": true,
+        "core_singles_worker_scratch_bytes": 40064,
+        "core_singles_parallel_scratch_bytes": 233088,
+        "core_single_to_doubles_blas": true,
+        "core_single_to_doubles_scratch_bytes": 226816,
+        "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+      },
+      "direct_sd_source_sha256": {
+        "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+        "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+        "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+      }
+    },
+    "4": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7', 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783', 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c', '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f', '42d1bdf184bcc133c32f11bc9449d607aeb053bd90ed00abae1cd0f5f073e790', '441103d726e2daf0aa5eb39d362ad23694899579a5b3a7c08fdc10d903464661', '84699ae73aa9d092f34dc051451f7f439efce806f111b40cd5e21d5c3564847e', '65c1502406bb0a925b9852da139dcaf4631f0f94dd4dc3480211a8cffb20b7b4', '92a15199b9f21c8ac14b7fbbfec85606b128c639de336737d41e77da86f367ed', '95ebcf955d7a0eb2aceb7def66c92360d44ab217f3b2235c2d46604701d23a7b', '0c7bcc23e8f99612a256090a938e98396f692f3ffc4dc1a7df9504222accd287', '6c9737fbd7bb67e02f7ac84d73b815c93fedb3ab31b114a4881a9be2a458b649'), core=(((1, -1), '4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7'), ((2, -2), '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f'), ((2, -1), 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783'), ((2, 1), 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c')), geometry='f922d644b81e44797db1fb7d6ea0624607b33e5b6e98dc80a754bb3080504e63', Z=11, ns=38, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.5543122344752192e-15,
+      "hermitian_projection_max_Ha": 3.1086244689504383e-15,
+      "integral_bytes": 41472,
+      "radial_pair_cache_size": 16384,
+      "representation": "native on-demand radial/angular DC",
+      "construction_scalar_radial_pairs": 36,
+      "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+      "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+      "backend_sha256": "051efff17a806d596ee081e1cc98af692a4b34190ab9e208c6b137aec708e6f0",
+      "initialization": "exact native X1/X2 BLAS contractions",
+      "blas": {
+        "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+        "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+        "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+        "abi": "Fortran LP64 dgemm",
+        "runtime": {
+          "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+          "parallel": 2,
+          "threads": 1
+        }
+      },
+      "core_single_to_doubles": {
+        "mode": "exact native weighted BLAS term31/32",
+        "workers": 1,
+        "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+        "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+      },
+      "blas_runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      },
+      "term21": {
+        "mode": "exact shared virtual-pair streamed term21",
+        "threads": 1,
+        "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+        "writes": "disjoint complete core-pair channels; no reduction"
+      },
+      "core_singles": {
+        "mode": "exact component-tagged BLAS terma4",
+        "workers": 1,
+        "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+      },
+      "feature_identity": {
+        "representation": "native cell Coulomb polynomial density coordinates",
+        "geometry_sha256": "084af4a4ca105916356144059b055cbcb89d0723703dc33f788b7016815919cf",
+        "coefficient_sizes": [
+          38,
+          38
+        ],
+        "component_orders": [
+          7,
+          7
+        ],
+        "auxiliary_nodes": 832,
+        "same_cell_edges": 11232,
+        "quadrature_nodes": [
+          32,
+          13
+        ],
+        "payload_estimate_bytes": 4215296,
+        "rank_cache_capacity": 8,
+        "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+        "native_geometry_sha256": "0c373b66b0ff9a6dbff70eb8037b5ee1a31d183df6e5835deda58d764efb34ca",
+        "density_polynomial_degree": 12,
+        "interpolation_nodes_per_component_cell": 13
+      },
+      "method": "closed-core linearized SD, native DC",
+      "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+      "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+      "resources": {
+        "dimensions": {
+          "NHF": 832,
+          "NX": 5,
+          "NS": 4,
+          "KX1": 5,
+          "NXX": 4,
+          "NK": 5,
+          "NN": 4,
+          "KK": 5,
+          "NCH": 188,
+          "NXK": 99,
+          "NV": 32,
+          "NG": 13,
+          "NE": 11232
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ]
+        ],
+        "raw_amplitudes": 490,
+        "independent_scalar_amplitudes": 203,
+        "complete_payload_bound_bytes": 81641324,
+        "krylov_vector_bytes": 3920,
+        "radial_pair_cache_size": 16384,
+        "radial_pair_cache_array_bound_bytes": 69730304,
+        "blas_initialization_scratch_bytes": 79872,
+        "term21_threads": 1,
+        "term21_mode": "streamed",
+        "term21_worker_scratch_bytes": 67200,
+        "term21_parallel_scratch_bytes": 340176,
+        "core_singles_blas": true,
+        "core_singles_worker_scratch_bytes": 40064,
+        "core_singles_parallel_scratch_bytes": 233088,
+        "core_single_to_doubles_blas": true,
+        "core_single_to_doubles_scratch_bytes": 226816,
+        "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+      },
+      "direct_sd_source_sha256": {
+        "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+        "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+        "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+      }
+    },
+    "8": {
+      "hamiltonian": "Dirac-Coulomb",
+      "binding": "CIReferenceBinding(external=('4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7', 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783', 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c', '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f', '42d1bdf184bcc133c32f11bc9449d607aeb053bd90ed00abae1cd0f5f073e790', '441103d726e2daf0aa5eb39d362ad23694899579a5b3a7c08fdc10d903464661', '84699ae73aa9d092f34dc051451f7f439efce806f111b40cd5e21d5c3564847e', '65c1502406bb0a925b9852da139dcaf4631f0f94dd4dc3480211a8cffb20b7b4', '92a15199b9f21c8ac14b7fbbfec85606b128c639de336737d41e77da86f367ed', '95ebcf955d7a0eb2aceb7def66c92360d44ab217f3b2235c2d46604701d23a7b', '0c7bcc23e8f99612a256090a938e98396f692f3ffc4dc1a7df9504222accd287', '6c9737fbd7bb67e02f7ac84d73b815c93fedb3ab31b114a4881a9be2a458b649'), core=(((1, -1), '4d72e50140833e29ecbd2528bf6e514e41c3d1721b06a1c37c4ec34c2d2dc3d7'), ((2, -2), '07cfb7eb4979f1f44b31ef4c216308bc8452c436d0d90617fe5c5475fa45439f'), ((2, -1), 'bfb281a13b9be60a579b9e8cf010ca5a4fcdb3c8e915eb7691cd26349569e783'), ((2, 1), 'bf3bfd99688856a850d64c34b5b3e3dbde06a9af9d79b3c910df10c187d8a72c')), geometry='f922d644b81e44797db1fb7d6ea0624607b33e5b6e98dc80a754bb3080504e63', Z=11, ns=38, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+      "physical_source_sha256": {
+        "spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+        "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+        "csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+        "radial_snapshot.py": "6d505228376b3f680494947e39303cd3e0214cc592174a11876a82f8d70a7e2b"
+      },
+      "occupied_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          -2
+        ]
+      ],
+      "virtual_keys": [
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          -3
+        ]
+      ],
+      "frozen_keys": [],
+      "metric_error": 1.5543122344752192e-15,
+      "hermitian_projection_max_Ha": 3.1086244689504383e-15,
+      "integral_bytes": 41472,
+      "radial_pair_cache_size": 16384,
+      "representation": "native on-demand radial/angular DC",
+      "construction_scalar_radial_pairs": 36,
+      "hermitian_projection_scope": "core/one-body at construction; every requested ERI checked on evaluation",
+      "backend_pin": "4d685d82bfdf27876098a87808dadc5fcf3038d1",
+      "backend_sha256": "a57d153e090ee84adad6b4b00f7209a84f177b2186dcd4d08ac1e709e7c50c76",
+      "initialization": "exact native X1/X2 BLAS contractions",
+      "blas": {
+        "path": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/openblas_openmp_runtime/root/usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.32.so",
+        "sha256": "1e59b8b133599f327a5a681bdc1131768e3d72f18c75070ed4dc9bb4df674d40",
+        "template_sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+        "abi": "Fortran LP64 dgemm",
+        "runtime": {
+          "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+          "parallel": 2,
+          "threads": 1
+        }
+      },
+      "core_single_to_doubles": {
+        "mode": "exact native weighted BLAS term31/32",
+        "workers": 1,
+        "template_sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+        "writes": "disjoint complete core-pair channels; no reduction or amplitude screening"
+      },
+      "blas_runtime": {
+        "config": "OpenBLAS 0.3.32 NO_LAPACKE DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Cooperlake MAX_THREADS=128",
+        "parallel": 2,
+        "threads": 1
+      },
+      "term21": {
+        "mode": "exact shared virtual-pair streamed term21",
+        "threads": 1,
+        "template_sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+        "writes": "disjoint complete core-pair channels; no reduction"
+      },
+      "core_singles": {
+        "mode": "exact component-tagged BLAS terma4",
+        "workers": 1,
+        "template_sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+      },
+      "feature_identity": {
+        "representation": "native cell Coulomb polynomial density coordinates",
+        "geometry_sha256": "084af4a4ca105916356144059b055cbcb89d0723703dc33f788b7016815919cf",
+        "coefficient_sizes": [
+          38,
+          38
+        ],
+        "component_orders": [
+          7,
+          7
+        ],
+        "auxiliary_nodes": 832,
+        "same_cell_edges": 11232,
+        "quadrature_nodes": [
+          32,
+          13
+        ],
+        "payload_estimate_bytes": 4215296,
+        "rank_cache_capacity": 8,
+        "contraction": "A.T K_native A weighted bilinear c-product; original quadrature retained",
+        "native_geometry_sha256": "0c373b66b0ff9a6dbff70eb8037b5ee1a31d183df6e5835deda58d764efb34ca",
+        "density_polynomial_degree": 12,
+        "interpolation_nodes_per_component_cell": 13
+      },
+      "method": "closed-core linearized SD, native DC",
+      "equation": "Q_SD(H+[H,T1+T2])|Phi>=0; full noncanonical scalar Fock",
+      "amplitude_representation": "original redundant direct rho_k, active virtual slots only",
+      "resources": {
+        "dimensions": {
+          "NHF": 832,
+          "NX": 5,
+          "NS": 4,
+          "KX1": 5,
+          "NXX": 4,
+          "NK": 5,
+          "NN": 4,
+          "KK": 5,
+          "NCH": 188,
+          "NXK": 99,
+          "NV": 32,
+          "NG": 13,
+          "NE": 11232
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "virtual_keys": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -2
+          ],
+          [
+            4,
+            -2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            -3
+          ]
+        ],
+        "raw_amplitudes": 490,
+        "independent_scalar_amplitudes": 203,
+        "complete_payload_bound_bytes": 81641324,
+        "krylov_vector_bytes": 3920,
+        "radial_pair_cache_size": 16384,
+        "radial_pair_cache_array_bound_bytes": 69730304,
+        "blas_initialization_scratch_bytes": 79872,
+        "term21_threads": 1,
+        "term21_mode": "streamed",
+        "term21_worker_scratch_bytes": 67200,
+        "term21_parallel_scratch_bytes": 340176,
+        "core_singles_blas": true,
+        "core_singles_worker_scratch_bytes": 40064,
+        "core_singles_parallel_scratch_bytes": 233088,
+        "core_single_to_doubles_blas": true,
+        "core_single_to_doubles_scratch_bytes": 226816,
+        "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+      },
+      "direct_sd_source_sha256": {
+        "core_sd.py": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+        "sd_rho.py": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+        "coulomb_features.py": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43"
+      }
+    }
+  },
+  "physical_inputs_sha256": "35934a3470e038c1042db5fab4e8d413e829314b1b22008d70cb5fac6f282b84",
+  "numerator_inputs_sha256": "b555496e47365f4f5af9e79ac889a83b528a79a065a4abc41b35029e47ef293d",
+  "source_changes": {},
+  "full_solve_speedup_claim": false,
+  "independent_standalone_pci_claim": false,
+  "pci_oracle_lineage": "pCI-derived pinned original scalar DC diagram suite compiled by Atomx native adapter. Shared upstream formulas/radial service; not independent standalone pCI production software or MPI scaling.",
+  "warmups": [
+    {
+      "backend": "original",
+      "seconds": 0.05312378401868045,
+      "maximum_signed_error_Ha": 0.0,
+      "relative_error": 0.0
+    },
+    {
+      "backend": 1,
+      "seconds": 0.02685265999753028,
+      "maximum_signed_error_Ha": 8.673617379884035e-19,
+      "relative_error": 1.6904893255408627e-15
+    },
+    {
+      "backend": 2,
+      "seconds": 0.023481264943256974,
+      "maximum_signed_error_Ha": 8.673617379884035e-19,
+      "relative_error": 1.6904893255408627e-15
+    },
+    {
+      "backend": 4,
+      "seconds": 0.021320641040802002,
+      "maximum_signed_error_Ha": 8.673617379884035e-19,
+      "relative_error": 1.6904893255408627e-15
+    },
+    {
+      "backend": 8,
+      "seconds": 0.028399466071277857,
+      "maximum_signed_error_Ha": 8.673617379884035e-19,
+      "relative_error": 1.6904893255408627e-15
+    }
+  ]
+}

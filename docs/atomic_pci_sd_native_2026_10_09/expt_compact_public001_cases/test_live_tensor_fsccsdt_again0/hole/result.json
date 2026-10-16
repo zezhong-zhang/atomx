@@ -1,0 +1,167 @@
+{
+  "core_energy_Ha": -13.614111051771697,
+  "sector_energies_Ha": [
+    -7.953783519814789,
+    -7.953783519814789
+  ],
+  "amplitude_update_max": 9.994722063866313e-13,
+  "equation_residual_bound_Ha": 3.399051268963444e-11,
+  "provenance": {
+    "backend": "EXP-T Atomx interface",
+    "executable_sha256": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "backend_source_manifest_sha256": "3c2c951c0700894a9fbe2922f21fa363ef99df7a8ba1e7888cfdb8d282927717",
+    "upstream_revision": "aa8d809ad5818d4aa618dcdadbd7f12257ecbc28",
+    "backend_patch_sha256": "6505d9766204c7b107c75867c69179bacec8a51a763fcef20aa4bacf2f370574",
+    "atomx_solver_sha256": "aa6028ddf7a4aa6f2deec67f35475679107166b03a6530ba6312de55d34e6fb8",
+    "model": "CCSDT",
+    "sector": "1h0p",
+    "active_indices": [
+      0,
+      1
+    ],
+    "model_matrix_order": "ascending global active indices, original EXP-T one-particle/hole determinant basis",
+    "tensor_symmetry": "C1",
+    "resources": {
+      "occupied": 2,
+      "virtual": 8,
+      "core_independent_amplitudes": 44,
+      "raw_tensor_coordinates": 5460,
+      "estimated_working_bytes": 2945584,
+      "estimate_scope": "32 uncompressed amplitude-sized arrays, two hhhh/pppp tensors, packed ERI; backend cap also enforced"
+    },
+    "tolerance": 1e-12,
+    "residual_bound_tolerance_Ha": 1e-09,
+    "memory_bytes": 8589934592,
+    "tile_size": 4,
+    "threads": 2,
+    "integral_manifest_sha256": "fc1fe6fc833aacd52962a0addec4127c9e9248c81dc88058571039747e6ea433",
+    "input_sha256": "6ba8b61e47843d0e0816684bc822af7358f02956992ca74247655ad5c54d8a0b",
+    "integrals": {
+      "abi": "ATXCC001",
+      "labels": [
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          2,
+          -1,
+          -1
+        ],
+        [
+          2,
+          -1,
+          1
+        ],
+        [
+          2,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          -2,
+          -3
+        ],
+        [
+          2,
+          -2,
+          -1
+        ],
+        [
+          2,
+          -2,
+          1
+        ],
+        [
+          2,
+          -2,
+          3
+        ]
+      ],
+      "noccupied": 2,
+      "reference_energy_Ha": -13.613943330793543,
+      "frozen_energy_Ha": 0.0,
+      "identity": {
+        "hamiltonian": "Dirac-Coulomb",
+        "binding": "CIReferenceBinding(external=('5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f', '72b52badf36f9c3b99eba7a1eba8f6b29792d8fdcf233e46224a23babb8b05bf', 'c7b46f238e5353390135da13777c3665d42ead3dd3e902f0dc957a40940cb52b', 'a5d0bf37cea3f67ff5c33777c8f40a06e60f0b3dea4c7ebfd8a89fa2da1598b2'), core=(((1, -1), '5131af2086ac18eabee901d7d81d3bef093233f597afb906ef1d54ccf4a8ee0f'),), geometry='104b1457e93d6197c82edd471c325341e7042f7bda9baa4dc79a9b1967007292', Z=4, ns=30, nuclear='dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91')",
+        "physical_source_sha256": {
+          "spinor_integrals.py": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+          "matrix.py": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+          "csf_hamiltonian.py": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+          "radial_snapshot.py": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430"
+        },
+        "occupied_keys": [
+          [
+            1,
+            -1
+          ]
+        ],
+        "virtual_keys": [
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            -2
+          ]
+        ],
+        "frozen_keys": [],
+        "metric_error": 2.220446049250313e-15,
+        "hermitian_projection_max_Ha": 4.0245584642661925e-16,
+        "integral_bytes": 21680,
+        "radial_pair_cache_size": 1024
+      },
+      "export": {
+        "logical_bytes": 20228,
+        "max_integral_file_bytes": 2147483648,
+        "max_chunk_bytes": 4194304,
+        "producer": {
+          "representation": "packed",
+          "resident_matrix_bytes": 3200,
+          "resident_eri_bytes": 18480,
+          "dense_eri_bytes": 18480
+        }
+      },
+      "files": {
+        "ATOMX_ONE": "8952d51042374285b6d587639aebb6e41019d330c42de0a65a0747b0752dd55c",
+        "ATOMX_TWO": "0879b5c7759eb344f605302c5cc66e8d583c45ab4fc8782ffd46a0d9b84050ad"
+      }
+    },
+    "statuses": {
+      "0h0p": [
+        1,
+        5,
+        3.433709208893604e-13,
+        9.994722063866313e-13,
+        9.431186312624673e-22
+      ],
+      "1h0p": [
+        1,
+        5,
+        0.0,
+        3.16760506713365e-14,
+        3.025909043420849e-21
+      ]
+    },
+    "log_sha256": "e0af54fd037e1cbff3f9345aa83e8e0b9163d4a20c49a6ff2a9ab6eaa8d0d5c6",
+    "heff_sha256": "ffecbe1ced9850512d5c88b50656f8372c8c1991142adbc8243c71b329b1a6ad",
+    "model_space_matrix_sha256": "d340e6408e828ab5c913d9ffbcce9c0177074cfc5bfdf990f15c30fa19baa46e"
+  }
+}

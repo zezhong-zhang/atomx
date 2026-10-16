@@ -1,0 +1,12 @@
+{
+  "logical_increment": "Physical order-of-magnitude budget on unchanged native Yb MCDHF run003 spinors",
+  "shared_source_changed": false,
+  "dispositions": [
+    {"path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/README.md", "action": "create", "reason": "Owns same-state correction sizes, explicit missing coverage, failed original stationarity, and SE model disagreement"},
+    {"path": "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/coverage_correction.json", "action": "create", "reason": "Corrects underdeclared local-SE d coverage without changing original contract, actual measured arrays, or scientific source"},
+    {"path": "docs/TRANSVERSE_INTERACTION.md", "action": "retain", "reason": "Public two-vertex fixed-frequency prescription is unchanged"},
+    {"path": "docs/RECOIL_OPERATORS.md", "action": "retain", "reason": "Public point-Coulomb first-order NMS/SMS consumers and omitted operators are unchanged"},
+    {"path": "docs/yb_mcdhf_rci_2026_10_11/README.md", "action": "root integration requested", "reason": "Root owns the current MCDHF route and physical gap prioritization"}
+  ],
+  "lasting_insight": "Compare differential corrections on unchanged lower and upper states; a large common core shift need not change the spectrum. Model-SE disagreement and missing tabulated/all-order/screened coverage must not be hidden by a small kernel residual or summed into a certified spectrum. Read producer code, not stale coverage docstrings."
+}

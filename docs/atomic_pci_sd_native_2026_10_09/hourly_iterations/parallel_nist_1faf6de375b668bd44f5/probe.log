@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py", line 448, in <module>
+    main(args.output)
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py", line 151, in main
+    raise ValueError(
+ValueError: current norm consumer/finite anchor/helper sources differ from actual whole-array norm audit

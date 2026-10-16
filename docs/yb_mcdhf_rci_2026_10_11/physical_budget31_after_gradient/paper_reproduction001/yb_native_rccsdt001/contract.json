@@ -1,0 +1,111 @@
+{
+  "hypothesis": "Iterative connected core triples and attachment3p2h have separately measurable effects in a complete finite actual-Yb DC pilot; fullCI on the identical operator quantifies the retained omitted-rank defect.",
+  "reference": "https://arxiv.org/html/2504.01438v1 Eq2:common68e reference with separate coreT and valenceSv ranks; this finiteEOM-EA pilot is not that fullFS-RCCSDT implementation.",
+  "fixed": {
+    "Z": 70,
+    "isotope": "A171 empiricalFermi, same actual native ns180/R500/ks9/RKB bank as precedingDHF baseline",
+    "physical_core_electrons": 68,
+    "target_electrons": 69,
+    "correlated_core_radials": [
+      [
+        5,
+        -1
+      ],
+      [
+        5,
+        1
+      ]
+    ],
+    "correlated_core_electrons": 4,
+    "frozen": "all other17 complete occupied radial multiplets,64electrons, including4f14 and5p3/2^4; noncontiguous explicit pilot partition",
+    "virtual_radials": [
+      [
+        6,
+        -1
+      ],
+      [
+        5,
+        2
+      ]
+    ],
+    "virtual_magnetic_spinors": 6,
+    "rationale": "Mixed5s2/5p1/2^2 permits parity-allowed nonzeroT3 with complete6s/5d3/2 multiplets within the native finite-sector cap. No fitted orbital/cutoff and no silent partition reduction.",
+    "full_core_determinants": 210,
+    "full_attached_determinants": 252,
+    "spinors": 10,
+    "core_amplitudes_by_rank": {
+      "1": 24,
+      "2": 90,
+      "3": 80
+    },
+    "attachment_R2": 66,
+    "attachment_R3": 186,
+    "omitted_attachment_R4_R5": 66,
+    "Hamiltonian": "nativeDirac-Coulomb; all frozen contractions and frozen constant retained; noBreit/QED/recoil",
+    "origin": "Subtract exactly the original common68e reference energy from both particle sectors; preserve it in the output ledger. This changes only the scalar energy zero.",
+    "factorial": [
+      [
+        "CCSD",
+        2
+      ],
+      [
+        "CCSD",
+        3
+      ],
+      [
+        "CCSDT",
+        2
+      ],
+      [
+        "CCSDT",
+        3
+      ]
+    ],
+    "continuation": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "root_matching": "Every2/4 roots with bare6s/5d3/2 model weight>=0.5; verify entire multiplet spread andJ2, not nearest experimental energy"
+  },
+  "acceptance": {
+    "amplitude_and_projected_Ha": 1e-10,
+    "independent_Ha": 1e-10,
+    "independent_similarity_Ha": 1e-09,
+    "multiplet_spread_Ha": 1e-08,
+    "J_squared_defect": 1e-07,
+    "core_T3_norm_min": 1e-12,
+    "attached_T3_action_norm_min": 1e-12,
+    "phase_energy_Ha": 1e-09,
+    "scope": "FullCI differences and full-H residuals are diagnostics; do not requireCCSDT=FCI when coreT4 or attachment4p3h/5p4h are omitted."
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "seconds": 900,
+    "load1_max": 24,
+    "available_min_bytes": 17179869184,
+    "determinant_cap": 256,
+    "amplitude_cap": 256,
+    "generator_memory_MiB": 512,
+    "dense_generator_bytes_largest": 167001408,
+    "estimated_EA_NumPy_upper": 182988864,
+    "logical_term_action_cap": 2000000,
+    "estimated_H_term_actions": 982212,
+    "note": "Public amplitude128 and generator128MiB defaults are explicitly raised for this declared194-amplitude case. No determinant cap or physics reduction. Dense bank chosen because prior same-model state-action timing was slower; no performance claim.",
+    "calls": "four factorial nativeEOM solves plus one signed-radial phase covariance solve; one complete independent4e/5e FCI pair; one fresh native packed integral operator; no external program"
+  },
+  "stopping": "First failed identity/operator/solver/multiplet/phase/resource control stops and preserves evidence. No automatic retry, rank/space/cutoff/threshold changes or borrowed paper correction.",
+  "limits": "Pilot freezes64electrons and omits5d5/2, highl andradial convergence. No paperprecision, full69e atomicRCCSDT or replacement of mainMCDHF route.",
+  "source_map_sha256": "0d73a18232a5ecb1b5dcb5871d71fd6fd7c56df6ab286658d90422d5da59b99a",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/run.py": "a29cc6b284b5045289c7bb44b315c1526a546c26be79253af6e7c4cc610d86bb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_native_rccsdt001/independent.py": "998c907bd4b32d09a577507250fe78b66cac03b4125208b9dc19bfda67c9d382",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/core_ns180.h5": "a4a100f9f30ab05cae5adcfcba6a7a7568ace7b0f71d0c1e2f9c23bb1e36c8fb",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/blocks_ns180.npz": "bf756c539eb1dda0aa9013082dcc4c46356892429ad98e0576eac7e368090c72",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/actual004/result.json": "77315b92676dbcb5e3a14d5f92fe52b05da656dd46a3f4feab4257b95d5c7661",
+    "tests/test_eom_attachment.py": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2"
+  }
+}

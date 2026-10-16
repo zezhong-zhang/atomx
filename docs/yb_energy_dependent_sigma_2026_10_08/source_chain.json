@@ -1,0 +1,16 @@
+{
+  "parent_archive_sha256": "1cd8ff83dbea4c58e9ee2658badceee3d6edbcf0b331366a64df8eb13ab49605",
+  "changes": [
+    {
+      "path": "src/atomx/methods/mbpt_transitions.py",
+      "parent_sha256": "5491758ba3d984dcc33826a8b7583b047d7f2bb378e4f897a0dbb56ba07c8e7c",
+      "current_sha256": "d4fb5bfa7b654e3613de5ebfe8a23d660e0a626e11a969e7efd9afeeab80e3c9"
+    },
+    {
+      "path": "tests/test_mbpt_transitions.py",
+      "parent_sha256": "9a1ef328982945325af420aaf74b418699d80ace1768ff920fb409f4a25d9288",
+      "current_sha256": "7da51d32eadc1b11a694ae12b379d0d053acb23d3834f7bdd892d453581d0c74"
+    }
+  ],
+  "matched_physics": "Both l<=4 and l<=6 on-shell spectral replay against retained prior results, with abs1e-10 Ha gate; new off-shell behavior independently tested."
+}

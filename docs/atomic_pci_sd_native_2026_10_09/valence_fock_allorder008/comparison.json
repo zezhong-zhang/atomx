@@ -1,0 +1,147 @@
+{
+  "core_residual_Ha": 1.627518920414156e-13,
+  "direct_error_Ha": 3.552713678800501e-15,
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.2854839020829964,
+      "affine_split_error_Ha": 2.7755575615628914e-17,
+      "raw_residual_Ha": 1.249000902703301e-16,
+      "derivative_residual_Ha": 9.992007221626409e-16,
+      "multiplets": [
+        {
+          "two_m": -1,
+          "oracle_affine_split_error_Ha": 3.469446951953614e-18,
+          "signed_action_error_Ha": 3.8163916471489756e-17,
+          "signed_root_error_Ha": 1.249000902703301e-16,
+          "oracle_residual_Ha": 1.3877787807814457e-17,
+          "signed_response_error_Ha": 2.0365653607967715e-15,
+          "native_root_magnetic_defect_Ha": 7.632783294297951e-17,
+          "native_prime_magnetic_defect_Ha": 7.771561172376096e-16,
+          "sigma1_analytic_derivative_error": 1.1102230246251565e-16,
+          "oracle_response_residual_Ha": 1.3877787807814457e-16,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.18296121194479353,
+            "condition_2": 22.254364079986743
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 3.971128981206107e-14,
+              "second_order_error": 1.3338247511207602e-06,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 4.411054854713825e-14,
+              "second_order_error": 1.2003574750146795e-07,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 4.893238592096338e-13,
+              "second_order_error": 1.333723317897828e-08,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "two_m": 1,
+          "oracle_affine_split_error_Ha": 3.469446951953614e-18,
+          "signed_action_error_Ha": 3.8163916471489756e-17,
+          "signed_root_error_Ha": 1.3183898417423734e-16,
+          "oracle_residual_Ha": 2.0816681711721685e-17,
+          "signed_response_error_Ha": 1.9290125052862095e-15,
+          "native_root_magnetic_defect_Ha": 7.632783294297951e-17,
+          "native_prime_magnetic_defect_Ha": 9.853229343548264e-16,
+          "sigma1_analytic_derivative_error": 1.1796119636642288e-16,
+          "oracle_response_residual_Ha": 2.3592239273284576e-16,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.18296121194479353,
+            "condition_2": 22.25436407998673
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 4.161254674173165e-14,
+              "second_order_error": 1.333824753285695e-06,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 8.858885847118358e-14,
+              "second_order_error": 1.2003575183827664e-07,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 3.7363862004369253e-13,
+              "second_order_error": 1.333721149493483e-08,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "energy_Ha": -0.10093112866632932,
+      "affine_split_error_Ha": 6.071532165918825e-18,
+      "raw_residual_Ha": 4.163336342344337e-17,
+      "derivative_residual_Ha": 1.0103029524088925e-14,
+      "multiplets": [
+        {
+          "two_m": -1,
+          "oracle_affine_split_error_Ha": 1.734723475976807e-18,
+          "signed_action_error_Ha": 2.2551405187698492e-17,
+          "signed_root_error_Ha": 4.9960036108132044e-15,
+          "oracle_residual_Ha": 2.7755575615628914e-17,
+          "signed_response_error_Ha": 1.0260570171283234e-11,
+          "native_root_magnetic_defect_Ha": 8.326672684688674e-17,
+          "native_prime_magnetic_defect_Ha": 1.149080830487037e-14,
+          "sigma1_analytic_derivative_error": 7.271960811294775e-15,
+          "oracle_response_residual_Ha": 6.356026815979021e-15,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.0003944638076250871,
+            "condition_2": 32254.568123790963
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 3.192893172077049e-11,
+              "second_order_error": 0.002826885691960157,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 3.655409308578328e-14,
+              "second_order_error": 0.00024642395500173997,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 1.735028787308579e-12,
+              "second_order_error": 2.7305136347938186e-05,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

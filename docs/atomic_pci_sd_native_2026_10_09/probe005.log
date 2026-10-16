@@ -1,0 +1,47 @@
+{
+  "case": "be4",
+  "virtual_count_per_kappa": 2,
+  "rotation": true,
+  "determinants": 135,
+  "dimensions": {
+    "NHF": 2688,
+    "NX": 4,
+    "NS": 2,
+    "KX1": 3,
+    "NXX": 4,
+    "NK": 3,
+    "NN": 2,
+    "KK": 3,
+    "NCH": 24,
+    "NXK": 15,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4704
+  },
+  "counts": [
+    24,
+    15,
+    9
+  ],
+  "workspace_bytes": 3525888,
+  "canonical_commutator_max_Ha": 6.245004513516506e-17,
+  "energy_pci_Ha": -1.3031803369581442e-05,
+  "energy_independent_Ha": -1.3031803369581557e-05,
+  "native_noncanonical_commutator_max_Ha": 5.898059818321144e-17,
+  "native_energy_pci_Ha": -1.3031803513124773e-05,
+  "native_energy_independent_Ha": -1.3031803513124077e-05,
+  "native_fock_fortran_vs_python_Ha": 1.734723475976807e-18,
+  "native_energy_fortran_Ha": -1.3031803513124775e-05,
+  "wall_seconds": 6.477562035084702,
+  "approximation": "canonical calibration and complete native noncanonical DC Hamiltonian",
+  "independent_projection": "complete fixed-M0/even SD determinants; exact linked SD residual"
+}
+ lin =           3
+CHANNEL     5  j1=  1  j2=  3  km= -2  kn= -2  k=  2    0.000006
+CHANNEL    15  j1=  2  j2=  3  km= -2  kn= -2  k=  2    0.000100
+          15
+          15           9
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    16  j1=  2  j2=  1  km= -2  kn= -2  k=  3    0.000001
+CHANNEL    24  j1=  2  j2=  2  km= -2  kn= -2  k=  3    0.000037
+ Number of channels =           24

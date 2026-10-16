@@ -1,0 +1,124 @@
+{
+  "all_passed": true,
+  "checks_count": 26,
+  "checks": [
+    {
+      "name": "link_README.md_source/",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_before/",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_source_change.diff",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_source_verification.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_exact_reported_guard.py",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_execution.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_failure_disposition.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_qualification002/driver_change.diff",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_qualification002/contract.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_qualification002/root_review_seal.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_array_qualification002/result.json",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_../accepted_line_search_metadata_implementation/README.md",
+      "passed": true
+    },
+    {
+      "name": "link_README.md_patch_contract.json",
+      "passed": true
+    },
+    {
+      "name": "source728_scope",
+      "passed": true
+    },
+    {
+      "name": "array19_scope",
+      "passed": true
+    },
+    {
+      "name": "array_no_physics",
+      "passed": true
+    },
+    {
+      "name": "actual_counts",
+      "passed": true
+    },
+    {
+      "name": "successful_single_foreground",
+      "passed": true
+    },
+    {
+      "name": "result_execution_binding",
+      "passed": true
+    },
+    {
+      "name": "helper_frozen",
+      "passed": true
+    },
+    {
+      "name": "optimizer_frozen",
+      "passed": true
+    },
+    {
+      "name": "original_failed_driver_frozen",
+      "passed": true
+    },
+    {
+      "name": "original_failed_contract_frozen",
+      "passed": true
+    },
+    {
+      "name": "original_shared_test_frozen",
+      "passed": true
+    },
+    {
+      "name": "future_metadata_runtime_not_claimed",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/README.md": "18a6242d314d41a294632308ee2a8616fb7c8836527c7b3b32f484e28a6f82e2",
+    "docs/yb_mcdhf_rci_2026_10_11/rayleigh_objective_implementation_preparation/README.md": "6f3642ef9fbd5a5cd36be5dbebbac7d7347338beca774e981e49774fd8f06424",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/docimpact.json": "f10cabb8f6ce1e3b380eb02e5979b35b9d2b481bd2e2cc40b39b40960cc97caa",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_identity.json": "42ac409c486154fff565351a3a2203848ef5c7647207de24f0374ed4f2f28f3a",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/source_verification.json": "feb63a8f82136798be4cedc2f475547e5bc99ed18eb7505c7f30a007b314521f",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/exact_reported_guard.py": "fb7342c3091a5f12b3caa1e0cf6f7d8017f70528b74b795842bf50e32d87c4ed",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/array_qualification002/result.json": "62aded8efd0475fb112f963604ac33ec35b9780fb3a6ee759de54b2098965d23",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/array_qualification002/execution.json": "a5b8beafc3b327d2ee76cf3c607ec2834d24bbc248302f908a51da21a28a8714",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/array_failure_disposition.json": "40d0b11e72fc682eaffa9e9eceec9269698a7b6f2acdd0c3b05f5395dd918e48",
+    "docs/yb_mcdhf_rci_2026_10_11/accepted_line_search_metadata_implementation/ruff_result.json": "fd986682ac29419624c9a3ba24d357d87c60ceac2a13f267724acd7ba4034273"
+  },
+  "physical_and_array_execution": 0,
+  "status": "Source-only documentation/frozen result binding; optimizer and physical gradient remain unqualified"
+}

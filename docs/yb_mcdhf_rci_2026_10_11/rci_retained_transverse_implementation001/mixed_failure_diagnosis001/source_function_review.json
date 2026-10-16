@@ -1,0 +1,21 @@
+{
+  "status": "additive_SOURCE_ONLY_AST_comparison_not_numerical_cause",
+  "old": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/checkpoint_hamiltonian_reuse_implementation/source002/atomx/methods/csf/variational.py",
+    "sha256": "d5ea615f5ca52d17f193de0de56d0140713a84d850a14c52bda8a1b9154d3a94"
+  },
+  "current": {
+    "path": "src/atomx/methods/csf/variational.py",
+    "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+  },
+  "preexisting_changed_functions": [],
+  "current_added_functions": [
+    "mixed_ci_energy_difference"
+  ],
+  "unchanged_relevant_functions": {
+    "evaluate": true,
+    "gradient_from_weights": true,
+    "_pair_potential": true
+  },
+  "limitations": "Function AST equality does not freeze imported kernel bank contents. No NumPy/NPZ/imported numerical function executed; no causal magnitude or pre-owner live qualification claimed."
+}

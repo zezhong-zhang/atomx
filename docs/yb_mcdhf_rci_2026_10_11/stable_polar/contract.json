@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-10-11T07:13:15.277985+00:00",
+  "hypothesis": "Near identity polar retractions formed through degenerate eigenvector reconstruction inject roundoff into deep occupied core orbitals, hiding tiny physical descent even with stable radial objective differences. Evaluate the same polar map as Y + Y*C using a convergent inverse-square-root series and wide precision Gram near identity.",
+  "source_before": {
+    "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+    "sha256": "f8a06ae04df4fbc0cc1812f997d42769e046ec1bca6e9ad9d0d6d15db1078aaa"
+  },
+  "fixed": [
+    "Seed initialization and original spectral residual metric",
+    "Same polar retraction map, no physical orbital subspace removed",
+    "Original stationarity and energy error tolerances, CI density and RCI operators",
+    "Existing failed runs and contracts retained"
+  ],
+  "acceptance": [
+    "Independent matrix polar and orthogonality checks for near and far Gram and rank rejection",
+    "Tiny tangent perturbations do not create degenerate-eigenvector gauge noise",
+    "Same original seed and residual metric replay in Yb successor",
+    "Actual original stationarity gate; a failed successor remains diagnostic"
+  ],
+  "limits": [
+    "No assertion that this alone removes all objective or unpack roundoff",
+    "No changing CI density is frozen",
+    "No end-to-end or parallel speed claim"
+  ]
+}

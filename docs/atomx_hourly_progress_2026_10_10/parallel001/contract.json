@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-10-11T01:08:26.281847+00:00",
+  "user_authorization": "Explicit parallel advancement; successful cards trigger admitted bounded independent lanes.",
+  "hypothesis": "FSCC equation audit, native-SD transverse representation and full-space resource preflight can progress independently under a shared resource budget.",
+  "fixed": [
+    "Unchanged original scientific precision gates",
+    "Separate lane source/input identity, signed full-space conventions",
+    "No replacement of validated EXP-T binary or full-space shrink",
+    "One BLAS/OMP/Numba thread per lane"
+  ],
+  "acceptance": [
+    "Actual overlapping child processes retained with their own receipt/job/result hashes",
+    "A failed or interrupted lane cannot erase or replay a completed sibling",
+    "Resource failure before claim; no unreviewed commands or implicit method promotion",
+    "Timeout terminates descendant backend process group",
+    "Finite diagnostics and resource counts distinguished from production/experimental certification"
+  ],
+  "stopping_condition": "One bounded batch per receipt; no repeated identical source/input/action. Implementation gaps remain explicit.",
+  "prior_service_caps": {
+    "MemoryMax_bytes": 6442450944,
+    "CPUQuota_percent": 100
+  },
+  "new_service_caps": {
+    "MemoryMax_bytes": 15032385536,
+    "CPUQuota_percent": 300,
+    "maximum_concurrent_jobs": 3,
+    "address_bytes_per_lane": 4294967296,
+    "reserved_bytes_total": 12884901888,
+    "host_headroom_bytes": 8589934592,
+    "timeout_seconds_registered_probe": 120
+  },
+  "highest_level_reached": false
+}

@@ -1,0 +1,244 @@
+{
+  "check_count": 19,
+  "checks": {
+    "all40_bitwise_complete_block_identities": true,
+    "all40_cache_repeat_identities": true,
+    "all40_signed_direct_action_checks": true,
+    "all40_signed_negative_controls": true,
+    "all_host_guards": true,
+    "all_source_imports_bound": true,
+    "complete_expected_CSF_counts": true,
+    "driver_hash": true,
+    "exact_root_seal": true,
+    "four_workers_ten_blocks_each": true,
+    "input_manifest": true,
+    "once_only_ABBA_success": true,
+    "same_numerical_versions": true,
+    "source_manifest": true,
+    "worker_caps": true,
+    "worker_hash/worker_00_old": true,
+    "worker_hash/worker_01_new": true,
+    "worker_hash/worker_02_new": true,
+    "worker_hash/worker_03_old": true
+  },
+  "evidence": {
+    "actual/result.json": "4f2b03589837b5cb657f1b91dde004a67aa1116f16d51f48265ca45fad32587e",
+    "actual/worker_00_old.json": "294f8e3783902553cd227370c98388056accc13d1b6644ff45fe51addfeadc70",
+    "actual/worker_01_new.json": "f8cfc3b7076b998cd87420e2d0f71ea706becaec63718063643b04a9da9396a9",
+    "actual/worker_02_new.json": "364c6ef5a2260ce4b5ca8f988433586f55892b84138ef3a594905a5d1c280e0f",
+    "actual/worker_03_old.json": "66128427c465cfcff4d7efd34ba651e288dfdf41b228a4b56c453130be1ecffe",
+    "contract.json": "8e1132a252267ecea85a3ba149b9d9bcfaa6d29f92fb02ae7f4246da8986d75a",
+    "root_execution_seal.json": "ddc01e3c67f60f1dc3449c385261e9d239f14166b67893d488222daaa28a7d26",
+    "run.py": "a2fbb2abe77939e7f5242a099255d70961895b01044132604d1a12ee3b40ffb7"
+  },
+  "max_signed_action_bilinear_error": 5.684341886080802e-14,
+  "mean_table_speed_ratio_old_over_new": 1.0394702223436003,
+  "mean_table_time_reduction_fraction": 0.0379714796010322,
+  "mean_worker_RSS_reduction_fraction": 0.03935684856759625,
+  "means": {
+    "new": {
+      "RSS_MiB": 780.548828125,
+      "connection_pull_seconds": 3.415311053953701,
+      "projection_seconds": 2.800839294503021,
+      "table_seconds": 54.684168477999265,
+      "worker_seconds": 59.06622451349995
+    },
+    "old": {
+      "RSS_MiB": 812.52734375,
+      "connection_pull_seconds": 6.151220404014566,
+      "projection_seconds": 2.78011573549702,
+      "table_seconds": 56.8425647665008,
+      "worker_seconds": 61.00437523349956
+    }
+  },
+  "min_signed_abs_control_difference": 22.079373799015528,
+  "pairwise_table_speed_ratios_old_over_new": [
+    1.0400191961282574,
+    1.038922211975086
+  ],
+  "pass_count": 19,
+  "retained_payload_identical": {
+    "blocks": [
+      {
+        "CSFs": 223,
+        "arm": "A",
+        "connected_candidates": 373353,
+        "projection_nnz": 2630,
+        "radial_keys": 12481,
+        "raw_determinants": 1705,
+        "sector": [
+          1,
+          1
+        ],
+        "table_bytes": 30552592,
+        "table_nnz": 2425747
+      },
+      {
+        "CSFs": 219,
+        "arm": "A",
+        "connected_candidates": 344584,
+        "projection_nnz": 2392,
+        "radial_keys": 12549,
+        "raw_determinants": 1640,
+        "sector": [
+          1,
+          -1
+        ],
+        "table_bytes": 28188152,
+        "table_nnz": 2238021
+      },
+      {
+        "CSFs": 370,
+        "arm": "A",
+        "connected_candidates": 378632,
+        "projection_nnz": 3762,
+        "radial_keys": 14059,
+        "raw_determinants": 1660,
+        "sector": [
+          3,
+          1
+        ],
+        "table_bytes": 29960124,
+        "table_nnz": 2377069
+      },
+      {
+        "CSFs": 367,
+        "arm": "A",
+        "connected_candidates": 359585,
+        "projection_nnz": 3421,
+        "radial_keys": 14441,
+        "raw_determinants": 1619,
+        "sector": [
+          3,
+          -1
+        ],
+        "table_bytes": 28359092,
+        "table_nnz": 2249299
+      },
+      {
+        "CSFs": 416,
+        "arm": "A",
+        "connected_candidates": 273940,
+        "projection_nnz": 3466,
+        "radial_keys": 14307,
+        "raw_determinants": 1324,
+        "sector": [
+          5,
+          1
+        ],
+        "table_bytes": 23000776,
+        "table_nnz": 1829976
+      },
+      {
+        "CSFs": 365,
+        "arm": "B",
+        "connected_candidates": 493283,
+        "projection_nnz": 5904,
+        "radial_keys": 13127,
+        "raw_determinants": 2659,
+        "sector": [
+          1,
+          1
+        ],
+        "table_bytes": 42330600,
+        "table_nnz": 3369584
+      },
+      {
+        "CSFs": 362,
+        "arm": "B",
+        "connected_candidates": 468891,
+        "projection_nnz": 6475,
+        "radial_keys": 13184,
+        "raw_determinants": 2623,
+        "sector": [
+          1,
+          -1
+        ],
+        "table_bytes": 40702828,
+        "table_nnz": 3241770
+      },
+      {
+        "CSFs": 596,
+        "arm": "B",
+        "connected_candidates": 479794,
+        "projection_nnz": 8006,
+        "radial_keys": 14693,
+        "raw_determinants": 2478,
+        "sector": [
+          3,
+          1
+        ],
+        "table_bytes": 39985812,
+        "table_nnz": 3180849
+      },
+      {
+        "CSFs": 599,
+        "arm": "B",
+        "connected_candidates": 465782,
+        "projection_nnz": 8545,
+        "radial_keys": 15018,
+        "raw_determinants": 2466,
+        "sector": [
+          3,
+          -1
+        ],
+        "table_bytes": 39110556,
+        "table_nnz": 3111938
+      },
+      {
+        "CSFs": 652,
+        "arm": "B",
+        "connected_candidates": 339278,
+        "projection_nnz": 6629,
+        "radial_keys": 14949,
+        "raw_determinants": 1918,
+        "sector": [
+          5,
+          1
+        ],
+        "table_bytes": 30019748,
+        "table_nnz": 2394416
+      }
+    ],
+    "ten_connected_candidates": 3977122,
+    "ten_table_CSR_bytes": 332210280,
+    "ten_table_nnz": 26418669
+  },
+  "samples_per_variant": 2,
+  "scope": "Angular construction, cold in-process caches, one CPU, n=2 per variant. No radial/H/CI solve, end-to-end or parallel scaling, 4f12 energy, or spectroscopy precision claim.",
+  "status": "PASS",
+  "timings": [
+    {
+      "RSS_MiB": 805.9921875,
+      "connection_pull_seconds": 6.1419621379263845,
+      "projection_seconds": 2.759760845996425,
+      "table_seconds": 56.82263712199892,
+      "variant": "old",
+      "worker_seconds": 60.970896468999854
+    },
+    {
+      "RSS_MiB": 794.65625,
+      "connection_pull_seconds": 3.423921949985015,
+      "projection_seconds": 2.764225189004719,
+      "table_seconds": 54.63614261499788,
+      "variant": "new",
+      "worker_seconds": 58.979743088999385
+    },
+    {
+      "RSS_MiB": 766.44140625,
+      "connection_pull_seconds": 3.406700157922387,
+      "projection_seconds": 2.8374534000013227,
+      "table_seconds": 54.73219434100065,
+      "variant": "new",
+      "worker_seconds": 59.15270593800051
+    },
+    {
+      "RSS_MiB": 819.0625,
+      "connection_pull_seconds": 6.160478670102748,
+      "projection_seconds": 2.8004706249976152,
+      "table_seconds": 56.86249241100268,
+      "variant": "old",
+      "worker_seconds": 61.037853997999264
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "hypothesis": "native on-demand radial/angular evaluation and bounded packed export avoid quartic resident integral storage without changing any retained integral; expanded virtual pool distinguishes tail from core/triples effects",
+  "fixed": [
+    "native DC shared kernels",
+    "Yb original Fermi V68 ns123 orbitals and original complete multiplets",
+    "same EXP-T executable and signed ATXCC001 ABI",
+    "matched lower/upper states; no empirical alignment or shifts"
+  ],
+  "controls": [
+    "old packed versus on-demand complete signed integral entries/exported bytes",
+    "Be full CI and FS-CCSDT electronic replay",
+    "Yb same 22-core/36-virtual model replay, then declared 54-virtual model"
+  ],
+  "gates": {
+    "integral_max_error_Ha": 1e-12,
+    "be_full_CI_Ha": 1e-09,
+    "same_model_energy_Ha": 1e-10,
+    "raw_update": 1e-13,
+    "equation_bound_Ha": 1e-08,
+    "physical_space_cm": 1.0,
+    "experiment_fraction": 0.01
+  },
+  "caps": {
+    "native_payload_bytes": 2147483648,
+    "integral_file_bytes": 2147483648,
+    "backend_memory_bytes": 34359738368,
+    "threads": 2,
+    "timeout_seconds": 1800,
+    "export_chunk_bytes": 4194304
+  },
+  "timing": "End-to-end scoped; record load and peak RSS; no speedup from a single unpaired run",
+  "stopping": [
+    "reject complete overbudget requests without truncating orbitals",
+    "preserve failed representations and solves",
+    "no extrapolation to a physical resonance or converged experimental spectrum"
+  ],
+  "optimization_followup": {
+    "hypothesis": "reuse closed-shell scalar one-body matrices across complete magnetic multiplets and raise explicitly bounded pair-potential cache to avoid convolution re-creation",
+    "full_band_radial_pair_cache_size": 16384,
+    "default_cache_size": 1024,
+    "native_cache_payload_estimate_bytes": 225705984,
+    "timeout_seconds": 300,
+    "physical_space_change": false,
+    "actual_pair_cache_array_bound_bytes": 290193408,
+    "estimate_review": "Original rough estimate used order7; the saved Yb workspace and actual bound use order9. The 16384-entry cap and physical space stayed fixed; measured full-process RSS was1.23GiB."
+  }
+}

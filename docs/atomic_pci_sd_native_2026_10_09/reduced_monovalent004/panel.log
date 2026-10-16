@@ -1,0 +1,335 @@
+F..F...F..F...F..F...F..F....F........                                   [100%]
+=================================== FAILURES ===================================
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[original-key0] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5e762590>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b5c5409d0>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+        physical = expanded(reduced, key, vector, finite)
+        energy, rhs = reduced.evaluate(key, vector)
+        expected, _ = dense_linked(finite, physical)
+        actual = expanded(reduced, key, rhs, finite) + finite.diagonal_gaps_Ha * physical
+        np.testing.assert_allclose(
+            energy + finite.orbital_energy_Ha, expected[0], rtol=0, atol=1e-11
+        )
+>       np.testing.assert_allclose(actual, expected[1:], rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 14 (7.14%)
+E       Max absolute difference among violations: 1.10556312e-05
+E       Max relative difference among violations: 0.00030207
+E        ACTUAL: array([ 0.000901, -0.037113,  0.028194, -0.053106,  0.081301,  0.036611,
+E               0.021793,  0.01098 ,  0.01098 , -0.019018, -0.01098 ,  0.      ,
+E              -0.003611,  0.003611])
+E        DESIRED: array([ 9.005351e-04, -3.711282e-02,  2.819428e-02, -5.310644e-02,
+E               8.130071e-02,  3.659958e-02,  2.179252e-02,  1.097990e-02,
+E               1.097990e-02, -1.901775e-02, -1.097990e-02, -7.954177e-19,
+E              -3.610786e-03,  3.610786e-03])
+
+tests/test_reduced_monovalent_sd.py:202: AssertionError
+_ test_reduced_feedback_root_matches_complete_finite_reference[original-key0] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5e762590>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b5c5409d0>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+>       np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 2.62482453e-11
+E       Max relative difference among violations: 3.0563652e-07
+E        ACTUAL: array(-8.588062e-05)
+E        DESIRED: array(-8.588059e-05)
+
+tests/test_reduced_monovalent_sd.py:221: AssertionError
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[streamed-key0] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5917b4f0>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b59179870>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+        physical = expanded(reduced, key, vector, finite)
+        energy, rhs = reduced.evaluate(key, vector)
+        expected, _ = dense_linked(finite, physical)
+        actual = expanded(reduced, key, rhs, finite) + finite.diagonal_gaps_Ha * physical
+        np.testing.assert_allclose(
+            energy + finite.orbital_energy_Ha, expected[0], rtol=0, atol=1e-11
+        )
+>       np.testing.assert_allclose(actual, expected[1:], rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 14 (7.14%)
+E       Max absolute difference among violations: 1.10556312e-05
+E       Max relative difference among violations: 0.00030207
+E        ACTUAL: array([ 0.000901, -0.037113,  0.028194, -0.053106,  0.081301,  0.036611,
+E               0.021793,  0.01098 ,  0.01098 , -0.019018, -0.01098 ,  0.      ,
+E              -0.003611,  0.003611])
+E        DESIRED: array([ 9.005351e-04, -3.711282e-02,  2.819428e-02, -5.310644e-02,
+E               8.130071e-02,  3.659958e-02,  2.179252e-02,  1.097990e-02,
+E               1.097990e-02, -1.901775e-02, -1.097990e-02, -7.954177e-19,
+E              -3.610786e-03,  3.610786e-03])
+
+tests/test_reduced_monovalent_sd.py:202: AssertionError
+_ test_reduced_feedback_root_matches_complete_finite_reference[streamed-key0] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5917b4f0>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b59179870>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+>       np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 2.62483009e-11
+E       Max relative difference among violations: 3.05637168e-07
+E        ACTUAL: array(-8.588062e-05)
+E        DESIRED: array(-8.588059e-05)
+
+tests/test_reduced_monovalent_sd.py:221: AssertionError
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[rotated-key0] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5894b460>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b58948610>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+        physical = expanded(reduced, key, vector, finite)
+        energy, rhs = reduced.evaluate(key, vector)
+        expected, _ = dense_linked(finite, physical)
+        actual = expanded(reduced, key, rhs, finite) + finite.diagonal_gaps_Ha * physical
+        np.testing.assert_allclose(
+            energy + finite.orbital_energy_Ha, expected[0], rtol=0, atol=1e-11
+        )
+>       np.testing.assert_allclose(actual, expected[1:], rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 14 (7.14%)
+E       Max absolute difference among violations: 2.79239046e-06
+E       Max relative difference among violations: 0.00010211
+E        ACTUAL: array([ 0.135466, -0.039832,  0.028312, -0.055962,  0.084274,  0.02735 ,
+E               0.02155 ,  0.010855,  0.010855, -0.018802, -0.010855,  0.      ,
+E              -0.003563,  0.003563])
+E        DESIRED: array([ 1.354660e-01, -3.983250e-02,  2.831197e-02, -5.596243e-02,
+E               8.427440e-02,  2.734745e-02,  2.154952e-02,  1.085512e-02,
+E               1.085512e-02, -1.880161e-02, -1.085512e-02,  1.784030e-18,
+E              -3.562850e-03,  3.562850e-03])
+
+tests/test_reduced_monovalent_sd.py:202: AssertionError
+__ test_reduced_feedback_root_matches_complete_finite_reference[rotated-key0] __
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5894b460>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b58948610>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+>       np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.15804523e-08
+E       Max relative difference among violations: 2.21269919e-07
+E        ACTUAL: array(-0.052336)
+E        DESIRED: array(-0.052336)
+
+tests/test_reduced_monovalent_sd.py:221: AssertionError
+_ test_complete_reduced_signed_map_against_fock_and_primary_anchor[occupied_rotated-key0] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b591f2d70>, CoreSDResult(reference_energy_Ha=-13.556090477188699, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b591f3130>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_complete_reduced_signed_map_against_fock_and_primary_anchor(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000)
+        vector = (
+            np.random.default_rng(962341).normal(size=reduced.plan["amplitudes"][key])
+            * 0.013
+        )
+        physical = expanded(reduced, key, vector, finite)
+        energy, rhs = reduced.evaluate(key, vector)
+        expected, _ = dense_linked(finite, physical)
+        actual = expanded(reduced, key, rhs, finite) + finite.diagonal_gaps_Ha * physical
+        np.testing.assert_allclose(
+            energy + finite.orbital_energy_Ha, expected[0], rtol=0, atol=1e-11
+        )
+>       np.testing.assert_allclose(actual, expected[1:], rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 14 (7.14%)
+E       Max absolute difference among violations: 4.06781431e-06
+E       Max relative difference among violations: 0.00011271
+E        ACTUAL: array([-0.007039, -0.038555,  0.026659, -0.054196,  0.080854,  0.036087,
+E               0.022461,  0.010927,  0.010927, -0.018926, -0.010927,  0.      ,
+E              -0.002841,  0.002841])
+E        DESIRED: array([-7.038625e-03, -3.855507e-02,  2.665891e-02, -5.419556e-02,
+E               8.085447e-02,  3.609131e-02,  2.246097e-02,  1.092673e-02,
+E               1.092673e-02, -1.892565e-02, -1.092673e-02, -1.235125e-18,
+E              -2.840703e-03,  2.840703e-03])
+
+tests/test_reduced_monovalent_sd.py:202: AssertionError
+_ test_reduced_feedback_root_matches_complete_finite_reference[occupied_rotated-key0] _
+
+reduced_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b591f2d70>, CoreSDResult(reference_energy_Ha=-13.556090477188699, correl..., 'experiment_validated': False})), <atomx.methods.reduced_monovalent_sd.ReducedMonovalentSD object at 0x7d8b591f3130>)
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_reduced_feedback_root_matches_complete_finite_reference(reduced_core, key):
+        core, result, reduced = reduced_core
+        v = core.integrals.labels.index((*key, -2 * abs(key[1]) + 1))
+        finite = FiniteMonovalentSD(core, result, v, work_cap=200_000_000).solve()
+        actual = reduced.solve(key, residual_tolerance_Ha=1e-12)
+>       np.testing.assert_allclose(
+            actual.correlation_energy_Ha, finite.correlation_energy_Ha, rtol=0, atol=1e-11
+        )
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.58265935e-11
+E       Max relative difference among violations: 5.4594229e-10
+E        ACTUAL: array(0.028989)
+E        DESIRED: array(0.028989)
+
+tests/test_reduced_monovalent_sd.py:221: AssertionError
+_ test_primary_canonical_equations_and_independent_noncanonical_commutator[key0] _
+
+live_core = (<atomx.methods.core_sd.CoreSD object at 0x7d8b5915df00>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...afb907b041c4da9f336a2d1d5', 'estimated_krylov_bytes': 3328, 'space_converged': False, 'experiment_validated': False})))
+key = (2, -1)
+
+    @pytest.mark.parametrize("key", [(2, -1), (2, 1), (2, -2)])
+    def test_primary_canonical_equations_and_independent_noncanonical_commutator(
+        live_core, key
+    ):
+        problem = problem_for(live_core, key)
+        n = len(problem.integrals.labels)
+        g = np.empty((n,) * 4)
+        for indices in itertools.product(range(n), repeat=4):
+            g[indices] = 0.5 * problem.integrals.eri(*indices).real
+        rng = np.random.default_rng(41319)
+        amplitudes = rng.normal(size=problem.plan["amplitudes"]) * 0.013
+        cs, cd, vs, vd = amplitude_tensors(problem, amplitudes)
+        rs, rd = paper_rhs(g, cs, cd, vs, vd, problem.valence_index)
+        paper = [rs[problem.valence_index] + problem.orbital_energy_Ha]
+        for particles, holes, _ in problem.excitations:
+            paper.append(
+                rs[particles[0]]
+                if len(particles) == 1
+                else rd[particles[0], particles[1], holes[1]]
+            )
+        paper = np.asarray(paper)
+        paper[1:] += problem.diagonal_gaps_Ha * amplitudes
+        f = problem.integrals.fock_Ha.real
+        off = f - np.diag(np.diag(f))
+        fterms = tuple(
+            (off[p, q], ((p, True), (q, False)))
+            for p, q in itertools.product(range(n), repeat=2)
+            if off[p, q] != 0
+        )
+        correction, _ = dense_linked(problem, amplitudes, fterms)
+        expected = paper + correction
+        actual = problem.linked_action(amplitudes)
+>       np.testing.assert_allclose(actual, expected, rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 1 / 15 (6.67%)
+E       Max absolute difference among violations: 9.43737536e-05
+E       Max relative difference among violations: 0.00413732
+E        ACTUAL: array([-0.666607, -0.008599, -0.05622 , -0.082678,  0.041899,  0.064229,
+E              -0.022716, -0.101837,  0.100009,  0.181769, -0.084811, -0.052678,
+E              -0.072757,  0.026482,  0.001421])
+E        DESIRED: array([-0.666607, -0.008599, -0.05622 , -0.082678,  0.041899,  0.064229,
+E              -0.02281 , -0.101837,  0.100009,  0.181769, -0.084811, -0.052678,
+E              -0.072757,  0.026482,  0.001421])
+
+tests/test_monovalent_sd.py:282: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[original-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[original-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[streamed-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[streamed-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[rotated-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[rotated-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_complete_reduced_signed_map_against_fock_and_primary_anchor[occupied_rotated-key0]
+FAILED tests/test_reduced_monovalent_sd.py::test_reduced_feedback_root_matches_complete_finite_reference[occupied_rotated-key0]
+FAILED tests/test_monovalent_sd.py::test_primary_canonical_equations_and_independent_noncanonical_commutator[key0]
+9 failed, 29 passed in 28.20s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.002246
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000022
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

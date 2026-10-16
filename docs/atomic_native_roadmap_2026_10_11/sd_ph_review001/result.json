@@ -1,0 +1,74 @@
+{
+  "all_blocks_caveat": "Saved Fock_K is the projected normal-ordered Fock matrix. In DD this equals its linked commutator action; in the DS block it excludes the noncanonical T1 Fock|reference> product subtraction. The archived all-block partial residual is not a full-Fock-commutator residual.",
+  "cases": {
+    "dc": {
+      "errors": {
+        "reconstructed_saved_decomposition_Ha": 8.881784197001252e-16,
+        "scalar_metric": 8.881784197001252e-16,
+        "signed_complete_DD_max_error_Ha": 1.2434497875801753e-14
+      },
+      "nonzero_PH_integral_terms": 168,
+      "normal_ordered_PH_diagonal_max_Ha": 2.0961860157921057,
+      "normal_ordered_PH_offdiagonal_max_Ha": 0.0793530494149022,
+      "saved_partial_projected_Fock_PP_HH_action_residual_Ha": 0.4263373267282687,
+      "signed_entries_checked": 100,
+      "status": "passed"
+    },
+    "dynamic": {
+      "errors": {
+        "reconstructed_saved_decomposition_Ha": 1.1102230246251565e-15,
+        "scalar_metric": 8.881784197001252e-16,
+        "signed_complete_DD_max_error_Ha": 7.771561172376096e-15
+      },
+      "nonzero_PH_integral_terms": 168,
+      "normal_ordered_PH_diagonal_max_Ha": 2.0962121395319713,
+      "normal_ordered_PH_offdiagonal_max_Ha": 0.07937382878793325,
+      "saved_partial_projected_Fock_PP_HH_action_residual_Ha": 0.4263649532424616,
+      "signed_entries_checked": 100,
+      "status": "passed"
+    },
+    "static": {
+      "errors": {
+        "reconstructed_saved_decomposition_Ha": 1.1102230246251565e-15,
+        "scalar_metric": 8.881784197001252e-16,
+        "signed_complete_DD_max_error_Ha": 5.773159728050814e-15
+      },
+      "nonzero_PH_integral_terms": 168,
+      "normal_ordered_PH_diagonal_max_Ha": 2.096212152651947,
+      "normal_ordered_PH_offdiagonal_max_Ha": 0.07937383408117535,
+      "saved_partial_projected_Fock_PP_HH_action_residual_Ha": 0.4263649323182872,
+      "signed_entries_checked": 100,
+      "status": "passed"
+    }
+  },
+  "contract_sha256": "ae3952b5e5896a3ffa8b771dca524a7eee85dbaf3789a713313228ac5b944730",
+  "elapsed_wall_seconds": 0.04285285295918584,
+  "external_solver_invoked": false,
+  "fitted_corrections": false,
+  "highest_level_reached": false,
+  "matrices_sha256": "a05b6bdd26a92233813e811444314de17d7b6cb7f879f5ad5077610b09aab2f5",
+  "peak_process_RSS_bytes": 408006656,
+  "runtime": {
+    "environment": {
+      "MKL_NUM_THREADS": "1",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "threadpools": [
+      {
+        "architecture": "SkylakeX",
+        "filepath": "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy.libs/libscipy_openblas64_-56d6093b.so",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "threading_layer": "pthreads",
+        "user_api": "blas",
+        "version": "0.3.29"
+      }
+    ]
+  },
+  "scope": "Finite unchanged native normal-ordered DD PH discriminator; no production solver change, Yb spectrum, experimental error, nonlinear CC, triples or performance comparison.",
+  "source_and_input_bindings_unchanged": true,
+  "status": "passed"
+}

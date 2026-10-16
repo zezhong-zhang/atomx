@@ -1,0 +1,120 @@
+{
+  "status": "all six native mixed-width raw gates passed",
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.6371321766115348,
+      "count": 64,
+      "ordinary_signed_error_Ha": 1.7901641540668534e-14,
+      "condition_number": 20.013166779428357,
+      "max_prime": "91.280877468121362",
+      "wide_raw_root_Ha": 8.673617379884035e-18,
+      "wide_raw_response_Ha": 1.7694179454963432e-16,
+      "wide_response_decomposition_Ha": 3.469446951953614e-18,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.552713678800501e-15,
+        "response": 3.552713678800501e-14
+      }
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "energy_Ha": -0.12697076931771356,
+      "count": 64,
+      "ordinary_signed_error_Ha": 2.436866355405576e-15,
+      "condition_number": 34.083645513257295,
+      "max_prime": "1.5324518959749425051",
+      "wide_raw_root_Ha": 1.3010426069826053e-18,
+      "wide_raw_response_Ha": 4.553649124439119e-18,
+      "wide_response_decomposition_Ha": 2.710505431213761e-20,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.164135620181696e-15,
+        "response": 5.773159728050814e-15
+      }
+    },
+    {
+      "key": [
+        2,
+        1
+      ],
+      "energy_Ha": -0.7560969798214787,
+      "count": 48,
+      "ordinary_signed_error_Ha": 1.008763385323963e-14,
+      "condition_number": 819.7716460305121,
+      "max_prime": "100865.911705374006594",
+      "wide_raw_root_Ha": 2.6942423986264785e-16,
+      "wide_raw_response_Ha": 6.789013795582832e-14,
+      "wide_response_decomposition_Ha": 1.7763568394002505e-14,
+      "public_double": {
+        "status": "failed",
+        "type": "RuntimeError",
+        "message": "full valence raw residual gate failed: info=0, max=1.7962520360015333e-11 Ha"
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "energy_Ha": -0.32949035322082393,
+      "count": 48,
+      "ordinary_signed_error_Ha": 3.0589680094506022e-15,
+      "condition_number": 622.1652902982523,
+      "max_prime": "311.6593090675935089",
+      "wide_raw_root_Ha": 1.0299920638612292e-18,
+      "wide_raw_response_Ha": 4.683753385137379e-17,
+      "wide_response_decomposition_Ha": 1.734723475976807e-18,
+      "public_double": {
+        "status": "passed",
+        "raw": 3.858025010572419e-15,
+        "response": 8.526512829121202e-14
+      }
+    },
+    {
+      "key": [
+        2,
+        -2
+      ],
+      "energy_Ha": -0.7821716433418835,
+      "count": 48,
+      "ordinary_signed_error_Ha": 2.7617665099288757e-14,
+      "condition_number": 104.36184067882976,
+      "max_prime": "2609.015112601912514",
+      "wide_raw_root_Ha": 1.3877787807814457e-17,
+      "wide_raw_response_Ha": 3.7470027081099033e-16,
+      "wide_response_decomposition_Ha": 1.6653345369377348e-16,
+      "public_double": {
+        "status": "passed",
+        "raw": 5.329070518200751e-15,
+        "response": 5.684341886080801e-13
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "energy_Ha": -0.30299324804060895,
+      "count": 48,
+      "ordinary_signed_error_Ha": 1.475490736535523e-15,
+      "condition_number": 402.9396253087614,
+      "max_prime": "5.6781290333465930763",
+      "wide_raw_root_Ha": 5.353248226647178e-19,
+      "wide_raw_response_Ha": 3.686287386450715e-18,
+      "wide_response_decomposition_Ha": 1.0842021724855044e-19,
+      "public_double": {
+        "status": "passed",
+        "raw": 1.5265566588595902e-15,
+        "response": 2.220446049250313e-15
+      }
+    }
+  ],
+  "scope": "finite mixed-width native diagnosis; no scalable solver/public/fullYb/physical precision claim"
+}

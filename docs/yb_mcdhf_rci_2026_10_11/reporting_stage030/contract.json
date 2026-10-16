@@ -1,0 +1,18 @@
+{
+  "hypothesis": "Reporting stale task/spectra labels can be updated without any physics or numerical evidence mutation",
+  "driver_sha256": "cd881f3dac81c1c7a1862e288ffb5cab6db5c6ac04e0a929ebc62deb1df71425",
+  "registry_before_sha256": "e55d6c1cc468fe31784566f67fd9d29486c5ebf99fa441d16e2a1434bc6b7255",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage029.json": "990630e7c0edf78ea3dbab12ee933273a19a94fe46f7fcc03186f5159ab8bcaa",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage029/current_card_evidence.json": "68534cab302477754891ba5ccee150acdbc979ddca17429d835ac5f4f02b00b9",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage029/integration_proof.json": "86797a0ebd54d90e384bbcda0223cd9976943869eb266f7782172e11eb866b3d",
+    "docs/atomx_hourly_progress_2026_10_10/sync_card.py": "02a2af97c2972766e19e84d4530ec72e85a255eb0d09e0de1c6700de6eac0b38",
+    "docs/atomx_hourly_progress_2026_10_10/parallel_planner.py": "f7be70c5c9e4e78fb7b7c7184c225294c652c3e8d71a87081943a89f68f32b3c"
+  },
+  "fixed": "All stage029 scientific fields unchanged; energy indicator explicitly not error bound; historical531 model not current",
+  "resources": {
+    "scientific_calls_arrays_API_cards": 0
+  },
+  "acceptance": "Exact source hashes, all original panel scientific fields unchanged, actual card schema/current metadata/live planner",
+  "stop": "First failure, preserve output and old scientific records"
+}

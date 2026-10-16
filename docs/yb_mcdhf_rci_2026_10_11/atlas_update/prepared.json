@@ -1,0 +1,79 @@
+{
+  "contract_sha256": "a38410d7a1437f0c892bbf7cfc6c0a507d15d096ebf2077f5d51681d57f50ea1",
+  "new_model_count": 8,
+  "new_matched_rows": 32,
+  "reference_binding": [
+    {
+      "label": "5d_3/2",
+      "configuration": "4f14 5d1",
+      "two_j": 3,
+      "parity": 1,
+      "level_id": "070002.000009",
+      "nist_row": 3,
+      "reference_cm1": 22960.8
+    },
+    {
+      "label": "5d_5/2",
+      "configuration": "4f14 5d1",
+      "two_j": 5,
+      "parity": 1,
+      "level_id": "070002.000010",
+      "nist_row": 4,
+      "reference_cm1": 24332.69
+    },
+    {
+      "label": "6p_1/2",
+      "configuration": "4f14 6p1",
+      "two_j": 1,
+      "parity": -1,
+      "level_id": "070002.000012",
+      "nist_row": 8,
+      "reference_cm1": 27061.82
+    },
+    {
+      "label": "6p_3/2",
+      "configuration": "4f14 6p1",
+      "two_j": 3,
+      "parity": -1,
+      "level_id": "070002.000015",
+      "nist_row": 9,
+      "reference_cm1": 30392.23
+    }
+  ],
+  "new_assets_sha256": {
+    "dist/updates/yb-mcdhf-stage002.json": "633b3e0e3f82070402e6b77b87e7c592ec28f891f1f913798a983044ae4ac36f",
+    "dist/evidence/yb-mcdhf-stage002/balanced-result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "dist/evidence/yb-mcdhf-stage002/balanced-verification.json": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+    "dist/evidence/yb-mcdhf-stage002/baseline-proof.json": "820b5f5fd4d639b8c844c43bc45cf1f8ce5a23661bc90737b837b70a9f614b19",
+    "dist/evidence/yb-mcdhf-stage002/baseline-result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "dist/evidence/yb-mcdhf-stage002/delivery-proof.json": "55a6a5111cc71f770e4a776b08794362d26f9da063f67f40ec596bd864b583c1",
+    "dist/evidence/yb-mcdhf-stage002/stage002.json": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+    "dist/evidence/yb-mcdhf-stage002/stage003.json": "e37fe166d453634402c0ea7fd4bd6b6ec260e360a0f25457f9bb502267f830a5",
+    "dist/evidence/yb-mcdhf-stage002/mixed-probe-result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "dist/evidence/yb-mcdhf-stage002/mixed-probe-proof.json": "40ebcb5b28be935109fd1d6c8549cb0d01861dbc9ee97149e1ae55e94436c08e",
+    "dist/evidence/yb-mcdhf-stage002/mixed-probe-independent-verification.json": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5"
+  },
+  "scientific_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage002.json": "b0b9c68a7ceca8c44d699ee4df3023f193362fbda7a5f8cd85c2c66dffd7bd66",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage002/receipt.json": "55a6a5111cc71f770e4a776b08794362d26f9da063f67f40ec596bd864b583c1",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/card_evidence_stationary_baseline.json": "820b5f5fd4d639b8c844c43bc45cf1f8ce5a23661bc90737b837b70a9f614b19",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/stationarity_replay002/result.json": "50f20c59136f2b49ff4c10d32a58cf214860a2da6affa8e10a829d411c69838e",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/verification.json": "32a2aa0eab25733eab56ebaa4bc9876135e5f065cd64907a0f44ff42a5881d9c",
+    "tools/export_nist_atlas.py": "7276e18a2de03969d6d4f5501bc4a3fca2fa668c651ee0edb2df008013deec41",
+    "docs/atomic_nist_atlas_2026_10_11/deployment.json": "e6dba21059cf4f1ae292fc3e7b84edf27b3f311d5969116a7bad962910081ec7"
+  },
+  "script_sha256": "a1f11790b80ac30e7070e8c2819dec2e0ba7695b53298727889f9f1795b80494",
+  "delivery_binding": "Receipt directly binds stage002/baseline; stage002.inputs transitively binds balanced result/verification. All links verified.",
+  "addendum_contract_sha256": "5ac5d6602834e68dd4fb51e5f5a1355877dac62adaae89faa785ccfdb3546fae",
+  "addendum_inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage003.json": "e37fe166d453634402c0ea7fd4bd6b6ec260e360a0f25457f9bb502267f830a5",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/card_evidence.json": "40ebcb5b28be935109fd1d6c8549cb0d01861dbc9ee97149e1ae55e94436c08e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/independent_verification.json": "483380e4f9c6049a6de3432586672f851dcf43a32fc3611561ab37b37a2e77c5"
+  },
+  "addendum_script_sha256": "bc572e6f48f9787c73223e37ed21172e58448ed570dee7c7cc26848a77ed7c3f",
+  "spectrum_rows_changed_by_addendum": false
+}

@@ -1,0 +1,130 @@
+{
+  "scope": "SOURCE/JSON-only route based on closed FD208 plus independently qualified nuclear-f response; screened actual findings added only in separately bound successor",
+  "physical_mainline": "Atomx native MCDHF -> RCI; foreignsoftware reference/comparison only",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "original_point": 208,
+  "original_geometry_metric": {
+    "residual_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+    "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+    "state_sha256": "effc6c6b13981c6cfb68271eb8c24ad319393f835ec53e2d5409e3ea533166eb",
+    "occupation_floor": 0.05,
+    "inverse": "literal208 saved inverse diagonal/blocks and seven P/layout byte identities; no from_arrays/Dirac revalidation or inverse rebuild required for diagnostic algebra"
+  },
+  "same_direction_two_steps": [
+    {
+      "h": 1e-05,
+      "analytic": -0.0030553666908236295,
+      "centered_Rayleigh_central": -0.003055366750701233,
+      "error": -5.98776033096382e-11,
+      "original_derivative_gate": 3.0553666908236295e-08,
+      "even_centered_curvature_observation": 13.603422753169252,
+      "fixed_connection_finite_remainder_not_uniformly_bounded": true,
+      "explicit_radial_central": -0.003055365504909735,
+      "reconstruction_radial_central": -1.9464344559815068e-08,
+      "reported_response_central": -9.628433533214959e-08,
+      "rayleigh_response_central": -3.2845309536729985e-10,
+      "reported_change_central": -0.0030554812535896272,
+      "rayleigh_change_central": -0.0030553852977073907,
+      "direct_reported_root_difference_central": -0.003054792614420876,
+      "direct_retained_quotient_difference_central": -0.003054696658538639
+    },
+    {
+      "h": 5e-06,
+      "analytic": -0.0030553666908236295,
+      "centered_Rayleigh_central": -0.0030553667442968628,
+      "error": -5.347323321983066e-11,
+      "original_derivative_gate": 3.0553666908236295e-08,
+      "even_centered_curvature_observation": 13.603436568367279,
+      "fixed_connection_finite_remainder_not_uniformly_bounded": true,
+      "explicit_radial_central": -0.003055350395476551,
+      "reconstruction_radial_central": 2.530971914197993e-08,
+      "reported_response_central": 9.780696845906978e-08,
+      "rayleigh_response_central": -7.695698224656743e-11,
+      "reported_change_central": -0.00305522727878895,
+      "rayleigh_change_central": -0.0030553251627143917,
+      "direct_reported_root_difference_central": -0.00305593857774511,
+      "direct_retained_quotient_difference_central": -0.003056036461670551
+    }
+  ],
+  "FD_is_one_direction_not_two": true,
+  "original_stationarity_passed": false,
+  "local_curvature_is_full_Hessian_or_error_bound": false,
+  "current_DC_model": {
+    "NR_configs": 69,
+    "complete_targets": 1046,
+    "uncomputed_parent_CSFs": 2163,
+    "radial_keys": 29,
+    "coordinate_dimension": 3451,
+    "particle_shells": [
+      "6s",
+      "5d",
+      "6p",
+      "7s",
+      "6d",
+      "7p"
+    ],
+    "single_hole_shells": [
+      "4f",
+      "5p",
+      "5s"
+    ],
+    "pairs_per_shell": 21,
+    "missing_classes": [
+      "4d or deeper core holes",
+      "two or more core holes including mixed core holes",
+      "virtual f/g in original29"
+    ],
+    "five_target_weights": [
+      0.2,
+      0.2,
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "conditional_nextstep": "Qualify same-original-target search geometry and independent new f radial seed before class enlargement; finite nuclear f smallresponse does not exclude radial f correlation. Same-model MCDHF stationarity precedes attribution of gap.",
+  "historical_corrections_additive_at208": false,
+  "highest_level_or_physical_cause_identified": false,
+  "workflows": [
+    {
+      "lane": "共同/分parity原生MCDHF驻值",
+      "status": "source-only bounded conditioning plan; one208 tangent supported, originalgatesFAIL",
+      "distinguishing": "先保持同目标检验搜索几何；分parity属于新objective，须各自原驻值门后同核同算符差能",
+      "forbidden": "由单方向曲率估全Hessian或谱界"
+    },
+    {
+      "lane": "相关f径向与新角通道",
+      "status": "closed68-screened fixedRCI admitted separately; actual new result is reserved for versioned successor",
+      "distinguishing": "保持旧29/P/UID；比较完整双jj同1595空间，再测31 correlated signed Euler",
+      "forbidden": "把辅助closed68Fock作为correlatedEuler或从小核f响应排除f"
+    },
+    {
+      "lane": "更深核/双核孔关联类",
+      "status": "integer structure estimate only, no newmodelsolve",
+      "distinguishing": "完整4d单孔1576与单独5p双孔9298，匹配同一驻值基线，不相加增量",
+      "forbidden": "泛称doubles/triples必然补好gap或静默删幅值"
+    },
+    {
+      "lane": "同点Breit/QED/反冲",
+      "status": "no current208 component ledger",
+      "distinguishing": "同一selectedmodel给每项五态upper/lower；dynamic−static单列避免重复",
+      "forbidden": "移植旧003/531分量作为208修正或上界"
+    },
+    {
+      "lane": "数值/效率与外部独立对照",
+      "status": "public numerics qualifications exist; controlledperformanceFAIL retained",
+      "distinguishing": "同H/核/空间/阈值对照native与FAC/GRASP等参考，受控窗口独占；先正确性再计时",
+      "forbidden": "用外部backend替代Atomx，声称未测的GPU/并行/全流程加速"
+    },
+    {
+      "lane": "NIST/周期表/小时证据",
+      "status": "saved-only publication/delivery upkeep",
+      "distinguishing": "保持唯一UID/NISTunknownuncertainty、完整轨迹及真实服务/独立rootiteration分账",
+      "forbidden": "按最小NISTgap选seed或把渲染/送达写成物理实算"
+    }
+  ],
+  "numeric_scheduling": "Preparation may proceed in six parallel lanes; numericaljobs require exact root admission, fixedwholemodel/source/UID/gates and host/memory/wall caps. No newjob/controller launch is authorized by this document. Root FD andscreenedf are separate serial scientifically admitted executions; timing windows must be isolated.",
+  "new_NumPy_NPZ_Atomx_physical_API_calls": 0,
+  "screened_result_consumed_in_this_initial_decision": false
+}

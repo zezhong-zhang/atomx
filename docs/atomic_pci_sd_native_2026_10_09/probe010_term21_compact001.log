@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/tools/benchmark_core_sd_term21.py", line 214, in <module>
+    main(parser.parse_args())
+  File "/data/code/atomx/tools/benchmark_core_sd_term21.py", line 57, in main
+    occupied = tuple(map(tuple, saved["occupied_keys"]))
+KeyError: 'occupied_keys'

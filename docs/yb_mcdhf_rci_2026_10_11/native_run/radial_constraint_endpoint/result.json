@@ -1,0 +1,542 @@
+{
+  "gradient_replay_max_error": 0.0,
+  "base_energy_Ha": -14067.391460357385,
+  "rows": [
+    {
+      "step": 0.0,
+      "retraction": "eigh_original",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 9.558326352632207e-16,
+          "metric_gram_change_max_wide": 0.0,
+          "normal_increment_max": 0.0
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 4.832289082767893e-16,
+          "metric_gram_change_max_wide": 3.748086910282389e-16,
+          "normal_increment_max": 1.8742454742261816e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 6.117335651535343e-16,
+          "metric_gram_change_max_wide": 2.289780778180761e-15,
+          "normal_increment_max": 1.1449280901215625e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 1.4988010832439613e-15,
+          "metric_gram_change_max_wide": 1.449090413635501e-15,
+          "normal_increment_max": 7.245177944063494e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 6.600766947514689e-16,
+          "metric_gram_change_max_wide": 2.6197577093767244e-15,
+          "normal_increment_max": 1.3098890886047364e-15
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 1.1128251098391218e-15,
+          "metric_gram_change_max_wide": 2.0682782743419725e-15,
+          "normal_increment_max": 1.0342683501473924e-15
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 3.5301622736128024e-16,
+          "metric_gram_change_max_wide": 0.0,
+          "normal_increment_max": 0.0
+        }
+      ],
+      "retained_exact_difference_Ha": 2.794303615628027e-12,
+      "unfiltered_exact_difference_Ha": 2.794303615628027e-12,
+      "angular_filter_increment_difference_Ha": 0.0,
+      "raw_euclidean_linear_Ha": -7.1713397818339294e-12,
+      "one_body_quotient_euclidean_linear_Ha": 2.7943036156280206e-12,
+      "raw_normal_lagrange_linear_Ha": -7.170692330144366e-12,
+      "quotient_normal_lagrange_linear_Ha": 2.79495106731756e-12,
+      "exact_minus_quotient_normal_Ha": -6.474516895331067e-16,
+      "coordinate_tangent_linear_Ha": 4.6467094360181784e-23,
+      "coordinate_linear_descent_Ha": 0.0,
+      "direct_total_energy_difference_Ha": 9.094947017729282e-12
+    },
+    {
+      "step": 0.0,
+      "retraction": "wide_gram_correction",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 6.670011765130823e-16,
+          "metric_gram_change_max_wide": 2.888314587501384e-16,
+          "normal_increment_max": 1.4454442628427548e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 8.456776945386935e-16,
+          "metric_gram_change_max_wide": 4.132978681514743e-16,
+          "normal_increment_max": 2.0665770211376126e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 8.656270145124267e-16,
+          "metric_gram_change_max_wide": 2.8679857967672806e-15,
+          "normal_increment_max": 1.4340485314957966e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 1.3912482277333993e-15,
+          "metric_gram_change_max_wide": 1.0142169222515651e-15,
+          "normal_increment_max": 5.071072422094238e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.3914650681678964e-15,
+          "metric_gram_change_max_wide": 1.219619023828944e-15,
+          "normal_increment_max": 6.097476017559291e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 7.556889142223966e-16,
+          "metric_gram_change_max_wide": 1.7111420787252474e-15,
+          "normal_increment_max": 8.555500187578941e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 3.5301622736128024e-16,
+          "metric_gram_change_max_wide": 0.0,
+          "normal_increment_max": 0.0
+        }
+      ],
+      "retained_exact_difference_Ha": 4.4855500690784915e-12,
+      "unfiltered_exact_difference_Ha": 4.4855500690784915e-12,
+      "angular_filter_increment_difference_Ha": 0.0,
+      "raw_euclidean_linear_Ha": -5.62698545957417e-12,
+      "one_body_quotient_euclidean_linear_Ha": 4.485550069078487e-12,
+      "raw_normal_lagrange_linear_Ha": -5.625488983504307e-12,
+      "quotient_normal_lagrange_linear_Ha": 4.487046545148327e-12,
+      "exact_minus_quotient_normal_Ha": -1.4964760698356694e-15,
+      "coordinate_tangent_linear_Ha": 8.165462455890034e-23,
+      "coordinate_linear_descent_Ha": 0.0,
+      "direct_total_energy_difference_Ha": 5.4569682106375694e-12
+    },
+    {
+      "step": 0.1,
+      "retraction": "eigh_original",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 1.4539151133030614e-16,
+          "metric_gram_change_max_wide": 8.104411239329146e-16,
+          "normal_increment_max": 4.48775349143852e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 1.1519648082658485e-15,
+          "metric_gram_change_max_wide": 6.621222667368976e-16,
+          "normal_increment_max": 2.2147693785386166e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 1.0076510705315198e-15,
+          "metric_gram_change_max_wide": 1.8365842700818202e-15,
+          "normal_increment_max": 1.7866919495937852e-14
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 2.0860049798621105e-15,
+          "metric_gram_change_max_wide": 2.2205544694675616e-15,
+          "normal_increment_max": 1.092037817284325e-15
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.513329392355267e-15,
+          "metric_gram_change_max_wide": 1.2578913605176822e-15,
+          "normal_increment_max": 6.507820798558206e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 1.0147048132291836e-15,
+          "metric_gram_change_max_wide": 1.9701579777320344e-15,
+          "normal_increment_max": 7.802214938385123e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 3.2526065174565133e-16,
+          "metric_gram_change_max_wide": 2.7755575615628914e-17,
+          "normal_increment_max": 2.4508964579142825e-17
+        }
+      ],
+      "retained_exact_difference_Ha": 2.057048482317746e-12,
+      "unfiltered_exact_difference_Ha": 2.0570484823180717e-12,
+      "angular_filter_increment_difference_Ha": 3.255408074793654e-25,
+      "raw_euclidean_linear_Ha": -9.819431402994364e-12,
+      "one_body_quotient_euclidean_linear_Ha": -5.7890990183758806e-12,
+      "raw_normal_lagrange_linear_Ha": -9.177746532456274e-12,
+      "quotient_normal_lagrange_linear_Ha": -5.147414144874403e-12,
+      "exact_minus_quotient_normal_Ha": 7.20446262719215e-12,
+      "coordinate_tangent_linear_Ha": -6.428182004512866e-13,
+      "coordinate_linear_descent_Ha": -6.428182002832338e-13,
+      "direct_total_energy_difference_Ha": -9.094947017729282e-12
+    },
+    {
+      "step": 0.1,
+      "retraction": "wide_gram_correction",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 1.4539151133030614e-16,
+          "metric_gram_change_max_wide": 8.104411239329146e-16,
+          "normal_increment_max": 4.487753491907317e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 1.1003567848555385e-15,
+          "metric_gram_change_max_wide": 5.542441505745899e-16,
+          "normal_increment_max": 2.504192506267253e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 9.512789861387816e-16,
+          "metric_gram_change_max_wide": 2.9536377683936355e-15,
+          "normal_increment_max": 1.7614823088157544e-14
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 1.5781646822699003e-15,
+          "metric_gram_change_max_wide": 1.7127141718753514e-15,
+          "normal_increment_max": 8.379280945767968e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.8949685570701646e-15,
+          "metric_gram_change_max_wide": 1.5800078259631256e-15,
+          "normal_increment_max": 8.117623887903804e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 1.2685165418080402e-15,
+          "metric_gram_change_max_wide": 2.223969706310891e-15,
+          "normal_increment_max": 9.0710111893657e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 3.2526065174565133e-16,
+          "metric_gram_change_max_wide": 2.7755575615628914e-17,
+          "normal_increment_max": 2.4508964579142825e-17
+        }
+      ],
+      "retained_exact_difference_Ha": 3.3858472651233526e-12,
+      "unfiltered_exact_difference_Ha": 3.3858472651236786e-12,
+      "angular_filter_increment_difference_Ha": 3.2594470426283854e-25,
+      "raw_euclidean_linear_Ha": -5.7523951659673065e-12,
+      "one_body_quotient_euclidean_linear_Ha": -4.4603002468410195e-12,
+      "raw_normal_lagrange_linear_Ha": -5.110001557878682e-12,
+      "quotient_normal_lagrange_linear_Ha": -3.8179066357923655e-12,
+      "exact_minus_quotient_normal_Ha": 7.2037539009157185e-12,
+      "coordinate_tangent_linear_Ha": -6.42818200488076e-13,
+      "coordinate_linear_descent_Ha": -6.428182002832338e-13,
+      "direct_total_energy_difference_Ha": -9.094947017729282e-12
+    },
+    {
+      "step": 0.01,
+      "retraction": "eigh_original",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 5.963111948670274e-16,
+          "metric_gram_change_max_wide": 3.5952144039619327e-16,
+          "normal_increment_max": 1.8034014932401768e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 4.894088606599567e-16,
+          "metric_gram_change_max_wide": 2.9967348047499343e-16,
+          "normal_increment_max": 1.5006084840467457e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 8.403651038935145e-16,
+          "metric_gram_change_max_wide": 2.773877048195539e-15,
+          "normal_increment_max": 1.3870422517884462e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 1.4091375635794101e-15,
+          "metric_gram_change_max_wide": 1.4942080599687696e-15,
+          "normal_increment_max": 7.470849291877926e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.4480604215716397e-15,
+          "metric_gram_change_max_wide": 1.2867311383057967e-15,
+          "normal_increment_max": 6.433996727853903e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 5.265969951762095e-16,
+          "metric_gram_change_max_wide": 1.4820501596790603e-15,
+          "normal_increment_max": 7.390347058300445e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 4.087442190270352e-17,
+          "metric_gram_change_max_wide": 3.1214180545857673e-16,
+          "normal_increment_max": 1.5572781127757823e-16
+        }
+      ],
+      "retained_exact_difference_Ha": 3.9206916334676965e-12,
+      "unfiltered_exact_difference_Ha": 3.92069163346773e-12,
+      "angular_filter_increment_difference_Ha": 3.311953624479896e-26,
+      "raw_euclidean_linear_Ha": -5.811528885578367e-12,
+      "one_body_quotient_euclidean_linear_Ha": 3.842230156714168e-12,
+      "raw_normal_lagrange_linear_Ha": -5.747513671978115e-12,
+      "quotient_normal_lagrange_linear_Ha": 3.9062453706108294e-12,
+      "exact_minus_quotient_normal_Ha": 1.444626285686711e-14,
+      "coordinate_tangent_linear_Ha": -6.428181983138989e-14,
+      "coordinate_linear_descent_Ha": -6.428182002832339e-14,
+      "direct_total_energy_difference_Ha": 7.275957614183426e-12
+    },
+    {
+      "step": 0.01,
+      "retraction": "wide_gram_correction",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 2.187919984075748e-16,
+          "metric_gram_change_max_wide": 7.370406368556459e-16,
+          "normal_increment_max": 3.691202808975064e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 9.365338365929787e-16,
+          "metric_gram_change_max_wide": 5.132070983460135e-16,
+          "normal_increment_max": 2.5828491347177584e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 8.736501105888195e-16,
+          "metric_gram_change_max_wide": 2.8760088928436733e-15,
+          "normal_increment_max": 1.4380976193060042e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 9.01730946856194e-16,
+          "metric_gram_change_max_wide": 1.0664883175406729e-15,
+          "normal_increment_max": 5.332354114768027e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.4449162352714318e-15,
+          "metric_gram_change_max_wide": 1.9006064083670893e-15,
+          "normal_increment_max": 9.502262286621561e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 4.939625097843958e-16,
+          "metric_gram_change_max_wide": 1.4494156742872466e-15,
+          "normal_increment_max": 7.227298690066707e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 1.9060274192295168e-16,
+          "metric_gram_change_max_wide": 1.6241348543832856e-16,
+          "normal_increment_max": 8.089060112718334e-17
+        }
+      ],
+      "retained_exact_difference_Ha": 2.9725175337597592e-12,
+      "unfiltered_exact_difference_Ha": 2.9725175337597915e-12,
+      "angular_filter_increment_difference_Ha": 3.2311742677852644e-26,
+      "raw_euclidean_linear_Ha": -4.299790245588618e-12,
+      "one_body_quotient_euclidean_linear_Ha": 2.8940560583571003e-12,
+      "raw_normal_lagrange_linear_Ha": -4.236036871535251e-12,
+      "quotient_normal_lagrange_linear_Ha": 2.9578094327067912e-12,
+      "exact_minus_quotient_normal_Ha": 1.470810105296796e-14,
+      "coordinate_tangent_linear_Ha": -6.428182001703137e-14,
+      "coordinate_linear_descent_Ha": -6.428182002832339e-14,
+      "direct_total_energy_difference_Ha": 7.275957614183426e-12
+    },
+    {
+      "step": 7.450580596923828e-09,
+      "retraction": "eigh_original",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 9.843471523995895e-16,
+          "metric_gram_change_max_wide": 2.8514517136368767e-17,
+          "normal_increment_max": 1.4230862127635858e-17
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 5.843849709696869e-16,
+          "metric_gram_change_max_wide": 8.965267764282636e-16,
+          "normal_increment_max": 4.483401692848358e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 1.1441585526239528e-15,
+          "metric_gram_change_max_wide": 2.119994717969531e-15,
+          "normal_increment_max": 1.059860506012166e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 1.4097880848829014e-15,
+          "metric_gram_change_max_wide": 1.5443375744883525e-15,
+          "normal_increment_max": 7.722094942463482e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.881416029914096e-15,
+          "metric_gram_change_max_wide": 9.996318604290864e-16,
+          "normal_increment_max": 4.998256551739827e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 1.4094628242311558e-15,
+          "metric_gram_change_max_wide": 2.3649159887340065e-15,
+          "normal_increment_max": 1.1825514406415535e-15
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 3.3881317890172014e-16,
+          "metric_gram_change_max_wide": 1.4203048459560108e-17,
+          "normal_increment_max": 7.167862744179873e-18
+        }
+      ],
+      "retained_exact_difference_Ha": 4.472997570232787e-12,
+      "unfiltered_exact_difference_Ha": 4.472997570232787e-12,
+      "angular_filter_increment_difference_Ha": 0.0,
+      "raw_euclidean_linear_Ha": -4.0706635740441455e-12,
+      "one_body_quotient_euclidean_linear_Ha": 4.472997570232739e-12,
+      "raw_normal_lagrange_linear_Ha": -4.0696906615615e-12,
+      "quotient_normal_lagrange_linear_Ha": 4.473970482715371e-12,
+      "exact_minus_quotient_normal_Ha": -9.729124825837788e-16,
+      "coordinate_tangent_linear_Ha": -4.810921758976568e-20,
+      "coordinate_linear_descent_Ha": -4.7893688103797576e-20,
+      "direct_total_energy_difference_Ha": 7.275957614183426e-12
+    },
+    {
+      "step": 7.450580596923828e-09,
+      "retraction": "wide_gram_correction",
+      "groups": [
+        {
+          "kappa": -4,
+          "base_metric_defect_max_wide": 9.558326352632207e-16,
+          "trial_metric_defect_max_wide": 4.498354813642358e-16,
+          "metric_gram_change_max_wide": 5.059971538989849e-16,
+          "normal_increment_max": 2.5302320295019205e-16
+        },
+        {
+          "kappa": -3,
+          "base_metric_defect_max_wide": 5.461126342809486e-16,
+          "trial_metric_defect_max_wide": 1.0139458717084437e-15,
+          "metric_gram_change_max_wide": 4.963477545638639e-16,
+          "normal_increment_max": 2.4829367672228473e-16
+        },
+        {
+          "kappa": -2,
+          "base_metric_defect_max_wide": 2.002358782254854e-15,
+          "trial_metric_defect_max_wide": 8.417745667177456e-16,
+          "metric_gram_change_max_wide": 2.8441333489725995e-15,
+          "normal_increment_max": 1.4220959657109458e-15
+        },
+        {
+          "kappa": -1,
+          "base_metric_defect_max_wide": 1.2188889624279442e-15,
+          "trial_metric_defect_max_wide": 9.604947046049084e-16,
+          "metric_gram_change_max_wide": 1.014000081817068e-15,
+          "normal_increment_max": 5.069804639878042e-16
+        },
+        {
+          "kappa": 1,
+          "base_metric_defect_max_wide": 2.3838353166438786e-15,
+          "trial_metric_defect_max_wide": 1.2776238400569184e-15,
+          "metric_gram_change_max_wide": 1.3419170288853088e-15,
+          "normal_increment_max": 6.709369187475454e-16
+        },
+        {
+          "kappa": 2,
+          "base_metric_defect_max_wide": 1.035846755592651e-15,
+          "trial_metric_defect_max_wide": 6.849989325763417e-16,
+          "metric_gram_change_max_wide": 1.6404520970791925e-15,
+          "normal_increment_max": 8.202970176432559e-16
+        },
+        {
+          "kappa": 3,
+          "base_metric_defect_max_wide": 3.5301622736128024e-16,
+          "trial_metric_defect_max_wide": 4.584006785268713e-16,
+          "metric_gram_change_max_wide": 1.0538445116559103e-16,
+          "normal_increment_max": 5.2590500496169305e-17
+        }
+      ],
+      "retained_exact_difference_Ha": 4.1047085409075335e-12,
+      "unfiltered_exact_difference_Ha": 4.1047085409075335e-12,
+      "angular_filter_increment_difference_Ha": 0.0,
+      "raw_euclidean_linear_Ha": -5.578749018666908e-12,
+      "one_body_quotient_euclidean_linear_Ha": 4.104708540907484e-12,
+      "raw_normal_lagrange_linear_Ha": -5.577259642182655e-12,
+      "quotient_normal_lagrange_linear_Ha": 4.106197917391715e-12,
+      "exact_minus_quotient_normal_Ha": -1.489376484181203e-15,
+      "coordinate_tangent_linear_Ha": -4.7766007661389147e-20,
+      "coordinate_linear_descent_Ha": -4.7893688103797576e-20,
+      "direct_total_energy_difference_Ha": 7.275957614183426e-12
+    }
+  ],
+  "longdouble_bits": 63,
+  "seconds_uncontrolled": 8.436485019978136,
+  "actual_radial_increments_sha256": "8385ced9e5758c503e34cbfcec06f9115eba4ab0d5f49c98effd31b921d96741",
+  "source_files_verified": 353,
+  "all_measurements_diagnostic": true,
+  "solver_acceptance_unchanged": true,
+  "production_certified": false,
+  "certifies_original_solve": false
+}

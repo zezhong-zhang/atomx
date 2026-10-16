@@ -1,0 +1,109 @@
+--- a/docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py
++++ b/docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py
+@@ -16,6 +16,7 @@
+ OWNER = HERE.parent
+ REPO = OWNER.parents[1]
+ KEYS = ((6, -1), (6, 1), (6, -2), (5, 2), (5, -3))
++DEFAULT_NORM_RUN = OWNER / "parallel_six_norm001/run002"
+ 
+ 
+ def digest(path):
+@@ -26,7 +27,18 @@
+     return h.hexdigest()
+ 
+ 
+-def main(out):
++def resolve_norm_run(norm_run):
++    """Select an actual in-repository producer, preserving its strict proof."""
++    path = Path(norm_run)
++    if not path.is_absolute():
++        path = REPO / path
++    path = path.resolve(strict=True)
++    if not path.is_relative_to(REPO) or not path.is_dir():
++        raise ValueError("norm producer must be an in-repository run directory")
++    return path
++
++
++def main(out, norm_run=DEFAULT_NORM_RUN):
+     started = time.monotonic()
+     out.mkdir(parents=True, exist_ok=False)
+ 
+@@ -50,7 +62,7 @@
+     signal.alarm(120)
+     root_run = OWNER / "yb_full_monovalent006"
+     compare = OWNER / "yb_monovalent_experiment003"
+-    norm_run = OWNER / "parallel_six_norm001/run002"
++    norm_run = resolve_norm_run(norm_run)
+     archive = REPO / "output/nist_spectra/spectra.sqlite"
+     source_paths = [Path(__file__)] + [
+         REPO / name
+@@ -117,6 +129,7 @@
+             hypothesis="Existing source-certified full five roots retain their real failed accuracy gates; a common-identity audit distinguishes evaluated levels, splittings and genuinely observed lines without invented uncertainties or missing-as-zero.",
+             fixed="Original Z70 Yb II V68/Fermi Dirac-Coulomb complete ns123/l3/E<5Ha wavefunctions, actual five certified root files, local ASD5.12 snapshot and original1% gate; no roots/physics/weights are changed.",
+             required_keys=KEYS,
++            norm_producer_directory=str(norm_run.relative_to(REPO)),
+             source_sha256=sources,
+             input_sha256=inputs,
+             distinguishing_outcomes="4/4 scored excitations and2/2splittings vs2/4 genuinely observed target lines; all unknown uncertainties and unmatched/ambiguous lines remain unknown; actual percentages must reproduce original comparison exactly.",
+@@ -378,6 +391,7 @@
+         original_producer_source_bound=True,
+         new_roots_computed=False,
+         fullnorm_current_source_actual=True,
++        norm_producer_directory=str(norm_run.relative_to(REPO)),
+         reference_metadata=metadata,
+         reference_source_files=snapshot["source_files"],
+     )
+@@ -443,9 +457,15 @@
+ if __name__ == "__main__":
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--output", type=Path, required=True)
++    parser.add_argument(
++        "--norm-run",
++        type=Path,
++        default=DEFAULT_NORM_RUN,
++        help="Actual whole-array norm proof directory, repo-relative or absolute; defaults to the historical parallel_six_norm001/run002 producer.",
++    )
+     args = parser.parse_args()
+     try:
+-        main(args.output)
++        main(args.output, norm_run=args.norm_run)
+     except Exception as error:
+         if args.output.is_dir():
+             failure = dict(type=type(error).__name__, message=str(error))
+--- a/docs/atomx_hourly_progress_2026_10_10/parallel_registry.json
++++ b/docs/atomx_hourly_progress_2026_10_10/parallel_registry.json
+@@ -1743,14 +1743,14 @@
+         "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/numeric64_result.json",
+         "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+         "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/reference.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/result.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/contract.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/source_sha256.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/input_sha256.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/source_and_input_postcheck.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/fresh_finite_anchor.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/resource.json",
+-        "docs/atomic_pci_sd_native_2026_10_09/parallel_six_norm001/run002/progress.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/result.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/contract.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/source_sha256.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/input_sha256.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/source_and_input_postcheck.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/fresh_finite_anchor.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/resource.json",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe/progress.json",
+         "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/root_6_-1.json",
+         "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/root_6_-1.npz",
+         "docs/atomic_pci_sd_native_2026_10_09/yb_full_monovalent006/cpu_root_recheck_6_-1.json",
+@@ -1786,7 +1786,10 @@
+       "reserved_bytes": 4294967296,
+       "address_bytes": 4294967296,
+       "enabled": true,
+-      "arguments": [],
++      "arguments": [
++        "--norm-run",
++        "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/probe"
++      ],
+       "next_direction": "按原五态共同H/space/nucleus/zero同时更新；优先核查d双态及精细分裂缺口，保留2/4观测覆盖与未知不确定度。"
+     }
+   ]

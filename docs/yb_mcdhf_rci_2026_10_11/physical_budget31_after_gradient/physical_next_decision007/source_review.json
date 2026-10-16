@@ -1,0 +1,88 @@
+{
+  "status": "READ_ONLY_SOURCE_REVIEW_NO_NUMERICAL_OR_FULL_DETERMINANT_ALLOCATION",
+  "source": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision007/angular_before.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+    "src/atomx/angular/csf_hamiltonian.py": "82a1ff35bbcdfbe54498b24958de59f349ee75b0c3017a69d89567ad8e938e61"
+  },
+  "caller_review": {
+    "production": "_coefficient_table iterates returned pairs; no indexing/len/reuse expectation found in src or benchmarks",
+    "test": "tests/test_csf_sparse_projection.py direct comparison now wraps list(...)",
+    "generator_lifetime": "Spectator map persists during generator iteration, then releases at exhaustion/close. Coefficient-table triplet buffers remain unchanged."
+  },
+  "equivalence": {
+    "predicate": "Before and after, (i,j) is connected iff i and j occur in at least one identical common spectator bucket.",
+    "row_order": "Rows ascending; sorted unique row neighbors gives same row-major order as sorted(i*D+j).",
+    "triangular": "Bucket index lists are ascending because built by enumerate(dets); old combinations_with_replacement yields exactly col>=row. New filter is identical.",
+    "low_active_number": "min(2, active occupation count) preserved. Empty list exhausts; vacuum/singleton has diagonal; 1 active electron uses same one-electron removal. Duplicate masks remain distinct determinant indices.",
+    "physical_scope": "Equal-particle-number determinant blocks from native CI. No radial or angular coefficient formula, frozen mask, signed phases, pruning policy, configuration, or basis changes."
+  },
+  "full_4f12_connection_only_admission": {
+    "finding": "Global pair set/sorted-list/output-list removal makes a 2 GiB bounded connection-only trial meaningful, but does not prove it fits.",
+    "retained_memberships_max": 23456895,
+    "retained_membership_reference_payload_bytes_max": 187655160,
+    "max_row_neighbor_ids": 92715,
+    "unknown_memory": "Number/bitwidth of distinct spectator integer keys, hash-table capacity, Python list headers/capacity and allocator fragmentation remain unmeasured.",
+    "required_scope": "One sector per fresh worker or explicit lifetime end; consume generator incrementally; do not list(), cache emitted pairs, form angular table, H, projection, NumPy determinant array, or launch all sectors simultaneously.",
+    "gate": "Compare full count/deterministic row order/rolling content digest against predeclared integer census; stop on cap/time/hash/model mismatch. Memory cap failure is retained data, not permission to reduce physical space.",
+    "not_authorized_by_this_review": "No full 4f12 Hamiltonian or CI memory admission and no performance speedup claim.",
+    "bucket_count_lower_bound_from_Cauchy": "For largest membership K=23456895 and ordered bucket-pair visits V=92428751, number of nonempty buckets U >= ceil(K*K/V) = 5952974. This is an integer bound, not allocated buckets or RSS."
+  },
+  "new_insight": "No new general insight; existing exact-sparsity, complete identity, bounded-resource and signed-equivalence rules cover this increment.",
+  "outside_connected_pairs_coefficient_table_and_array_import_AST_unchanged": true,
+  "typed_CSR_implemented_review": {
+    "storage": "FP64 angular data, int64 typed column IDs/row pointers/flat pair coordinates. No Python triplet list or COO row-index array retained.",
+    "dynamic_keys": "Existing first-encounter dictionary kept. Final shape uses actual key count; row pointers append once per retained connection.",
+    "canonicalization": "sum_duplicates plus sort_indices after direct CSR construction. No eliminate_zeros; duplicate cancellation remains an explicit stored zero exactly as prior CSR conversion.",
+    "complex_callback": "One-time real-to-complex128 promotion interleaves original real values with exact zero imaginary parts; later values retain both real and imaginary parts. Native Coulomb/Breit angular data remain real.",
+    "complex_radial": "Public evaluate_block complex radial values remain separate from real angular table. integral_dtype validation and transpose symmetry behavior unchanged.",
+    "buffer_lifetime": "np.frombuffer views own backing memoryviews/arrays; local variable expiry does not invalidate returned CSR data or coordinate views. int64-to-int32 SciPy conversion can allocate extra index arrays; count actual peak.",
+    "empty": "Typed zero-length data/indices, indptr[0], shape(0,1), pairs reshape(-1,2) preserve prior empty shape.",
+    "rest_AST_equal": true,
+    "numerical_validation": "Not executed by read-only reviewer; independent tests and full A/B benchmark owned by sibling/root."
+  },
+  "benchmark_prepare_review": {
+    "status": "SOURCE_ONLY_REVIEW_NO_WORKER_EXECUTION",
+    "driver_sha256": "c352b1d94bb647fcff9e18100c247e9b3e45cdbd7a70d17965967e718390232d",
+    "contract_sha256": "b81bf87e12dcb6597c89d1d2a6fd6607e7d6a02ab76da96ab83d900e6295314c",
+    "driver_hash_matches_contract": true,
+    "all_bound_sources_match": true,
+    "all_bound_inputs_match": true,
+    "old_arm": "Literal archived _connected_pairs and _coefficient_table compiled into same current angular module globals; wrapper binds selected original function before replacement, so old table calls measured old connection wrapper. Untouched dependencies are current and source-bound.",
+    "freshness": "ABBA old/new/new/old in fresh isolated Python workers; import-time angular caches verified empty; same A then B and 5-sector order.",
+    "physics": "Complete original A1595/B2574 CSF orders checked against owned signatures; original69e model. All raw determinants, radial keys, signed table data, projection arrays and row order content hashed. No H/CI/radial/NPZ calls.",
+    "identity_gates": "All40 worker-block identities must exactly match first old-worker identity; synthetic signed action/bilinear <=1e-10 and abs-amplitude negative control >1e-8.",
+    "resources": {
+      "CPU": 27,
+      "host_MemAvailable_GiB_min": 10,
+      "host_load1_max": 16,
+      "threads": 1,
+      "worker_AS_bytes": 6442450944,
+      "worker_alarm_seconds": 300,
+      "worker_outer_seconds": 310
+    },
+    "hard_stops": "Actual directory once-only; signed root seal binds driver/contract/resources. First source,input,cap,timeout,correctness failure ends run. Worker AS/alarm/outer caps; load failure allows correctness but bars controlled timing.",
+    "timing_limits": "Whole table construction includes 1024-pair batching/hash instrumentation and is an angular-stage comparison. Connection pull timing excludes hashing but coefficient remainder still includes hashing and timer overhead. No whole-H, spectrum, parallel or full4f12 performance inference.",
+    "source_review_blockers": []
+  },
+  "full_4f12_graph_preparation": {
+    "status": "SOURCE_ONLY_READY_ROOT_EXECUTION_REQUIRED",
+    "driver_sha256": "a06a94d4664d6f98e127aead86151c233ce679629674ef0014dd663578c05598",
+    "contract_sha256": "0dcc9af0c925483dffc15bfdd773dcdefe067d845e01167ac8b205502e3f084a",
+    "source_only_integer_census": [
+      738,
+      92715,
+      5717,
+      43720175
+    ],
+    "resources": {
+      "AS_bytes": 4294967296,
+      "CPU": 28,
+      "alarm_seconds": 300,
+      "host_MemAvailable_GiB_min": 10,
+      "host_load1_max": 16,
+      "outer_seconds": 310,
+      "threads": 1
+    },
+    "native_science_execution_by_reviewer": false
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "execution_authorized_by_root": true,
+  "preparation_contract_sha256": "0551848cf013549d2922dfc80a0dd10f90d62237bb7533582701a2b0e31d440e",
+  "driver_sha256": "9fb99648ce6ccde650076aa4b870a4412a752029ff5da74735a7e7fe8a5306cc",
+  "preparation_sha256": "939e0b4d0a0ac7732f1ae477429d9acb8ed2d6d956fa7efcd5e3790f9843a3d2",
+  "inputs_sha256": "88ec1c9b2f8be31d9f379f2d9ca04a41f01a4d298644051e706b7dfd957a9262",
+  "input_roles": {
+    "literal208": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "kind": "NPZ",
+      "sha256": "180d0f645141b69278b6ce5e0727530e927f4dfa176472f26a06c59d6b48d37c"
+    },
+    "geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "kind": "NPZ",
+      "sha256": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30"
+    },
+    "hS_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "kind": "NPZ",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "baseline_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_whole_CI.npz",
+      "kind": "NPZ",
+      "sha256": "bcae426a2efaa15b81aba91cf8fc143aca2037e241751a212219af196fa38456"
+    },
+    "complete5f_CI": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_whole_CI.npz",
+      "kind": "NPZ",
+      "sha256": "975bbad65ee865e45ce250747a83c378bf15708e0a03fa5931a74521b84c3dfc"
+    },
+    "raw_hS_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_01.npz",
+      "kind": "NPZ",
+      "sha256": "e7dd5b002b242354a3b3909c4814b9e030df5da4b7809bbe0c212f35184a45f3"
+    },
+    "raw_hS_2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_02.npz",
+      "kind": "NPZ",
+      "sha256": "38bac6eefc7654a0fddfcd8c82390a63a4a41e472cf1335dad749ff49d409122"
+    },
+    "raw_hS_3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_03.npz",
+      "kind": "NPZ",
+      "sha256": "7feafbac1f19cede1e3fa58f4149b592cc2343a5af495c2be5243cdc3ae09189"
+    },
+    "raw_hS_4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_04.npz",
+      "kind": "NPZ",
+      "sha256": "ab77ea9178e6cd888bfca4704f764a22f56cf7ddb5cde41785ade1726d8519dc"
+    },
+    "raw_hS_5": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_05.npz",
+      "kind": "NPZ",
+      "sha256": "327dbac64d366cec9d9280f1c7d9eed94716fc6559c5abbc1aef93e8dbc1c7c9"
+    },
+    "raw_hS_6": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_06.npz",
+      "kind": "NPZ",
+      "sha256": "224ffdde2e5fb288200b37769508f7a04e80fa0014bc37e5c8caa979cd726a8a"
+    },
+    "raw_hS_7": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/raw_CI_hS_07.npz",
+      "kind": "NPZ",
+      "sha256": "b076ccaca766b4072b32f0089c8da38350695a9d78377eed70c07ab07540d563"
+    },
+    "virtual_operator_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_original_operator.npz",
+      "kind": "NPZ",
+      "sha256": "ad7def2130181c74083e766c7e8eaff7f9e4f280bad48f719581c5b4c25b6636"
+    },
+    "qualified_virtual_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_qualified_complete.npz",
+      "kind": "NPZ",
+      "sha256": "a23fefbe77932d8d1dd7132590e5613d113defde628182d113b5e9b79e4e458e"
+    },
+    "initial_virtual_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_0_fullgvd_initial.npz",
+      "kind": "NPZ",
+      "sha256": "d0bc7001d5c49343efcd05d7517593af7fefea80bf8c1b0c9bc170bd709e52f7"
+    },
+    "virtual_operator_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_original_operator.npz",
+      "kind": "NPZ",
+      "sha256": "effa2d22a9d1ac0c50f54c62d3029c7aef9bbd8222d7e0d6b721a727ef366a8d"
+    },
+    "qualified_virtual_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_qualified_complete.npz",
+      "kind": "NPZ",
+      "sha256": "c0d21ec218a26c9c4740d2b38a92e386b04e67ce5b85eb490e08f2436b57f809"
+    },
+    "initial_virtual_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_1_fullgvd_initial.npz",
+      "kind": "NPZ",
+      "sha256": "1d4ece4db545805db1a6c16b5b14d7742434d7175d12dd454973e7ba5babca5e"
+    },
+    "original_failure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/failure.json",
+      "kind": "JSON",
+      "sha256": "4ae9e2a32dc501beab4455856d5c13cfda4fc7bea19db195fdd6aa3dd08fcae7"
+    },
+    "progress": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/progress.json",
+      "kind": "JSON",
+      "sha256": "bc8f894699409c73c14cc3af83d7f3a2010471da4d7c0c45a21449aadaccd195"
+    },
+    "basis": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/basis_rows.json",
+      "kind": "JSON",
+      "sha256": "171e0372631494db11cf27b4297ca284bf161b06532f55992279ca77eef7dd7a"
+    },
+    "mapping": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/nested_old1046_mapping.json",
+      "kind": "JSON",
+      "sha256": "3e09a03605ddf61f7564443f47194195ac0e497516c0e866f68597cf6222900c"
+    },
+    "virtual_controls": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/virtual_construction_controls.json",
+      "kind": "JSON",
+      "sha256": "49c3d0e04241515ef32f39524c7e75328d64c2ae3f10d30b1bd9055a8ada9c97"
+    },
+    "radial_support": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/radial_support.json",
+      "kind": "JSON",
+      "sha256": "bb5e52cfbe764d1895d16649e360c06ae2742b7803818ceb52b7a81f6e6fb3e9"
+    },
+    "baseline_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_real_owner.json",
+      "kind": "JSON",
+      "sha256": "5d3b18596439032d8e323733a9c61b2fda954a983e41651af3e17c6885da67fc"
+    },
+    "baseline_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_signed_tracking.json",
+      "kind": "JSON",
+      "sha256": "17fa93cbbedcb969f327b6da0048d3740820e9a172f39bb04d91f25b31a84e95"
+    },
+    "baseline_evidence": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/baseline_same_point_evidence.json",
+      "kind": "JSON",
+      "sha256": "6cf9a91e70a6eb6e57d6597035116db77104ba5c45ebdeb21213238011b0c65a"
+    },
+    "complete5f_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_real_owner.json",
+      "kind": "JSON",
+      "sha256": "98acffece917c7cab77d3457ebd8406bf08354e8a372ac0ffa2991d28431f53e"
+    },
+    "complete5f_tracking": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_signed_tracking.json",
+      "kind": "JSON",
+      "sha256": "6bf1004d5236031b187129712e773b8d39189f85d36c4ae05d2b29928b5b98e7"
+    },
+    "complete5f_evidence": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+      "kind": "JSON",
+      "sha256": "ec2c15c312edb88b9a697556d0616f40e37ed7b5a4ce55acb489a22f9aeff291"
+    },
+    "original_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/root_execution.json",
+      "kind": "JSON",
+      "sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9"
+    },
+    "original_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/contract.json",
+      "kind": "JSON",
+      "sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0"
+    },
+    "original_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py",
+      "kind": "source",
+      "sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57"
+    },
+    "models": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/models.json",
+      "kind": "JSON",
+      "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+    },
+    "forensic_review": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/source_JSON_review.json",
+      "kind": "JSON",
+      "sha256": "188cbed5c3c7597ccd155aa6efa54abd2e89cd1b41af59d7e1cdec8894898786"
+    },
+    "literal208_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "kind": "JSON",
+      "sha256": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c"
+    },
+    "layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "kind": "JSON",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "nominal_NIST": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "kind": "JSON",
+      "sha256": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "kind": "JSON",
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee"
+    },
+    "matrix_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "kind": "source",
+      "sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e"
+    },
+    "ci_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py",
+      "kind": "source",
+      "sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554"
+    },
+    "snapshot_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/hamiltonian_snapshot.py",
+      "kind": "source",
+      "sha256": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2"
+    },
+    "binding_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/effective_one_body.py",
+      "kind": "source",
+      "sha256": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013"
+    },
+    "constants_source": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/constants.py",
+      "kind": "source",
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d"
+    }
+  },
+  "original_failed_receipt_sha256": "1d65c4e979ce6b09c34fe93499df3502e6aba6fd3d6df44679fa886f4d951cb9",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "new_physical_producer_calls": 0,
+  "prior_saved_audit_failed_receipt_sha256": "4b4d8b572fb654e33dd468a38d2120f669464b2f62b5ee9ee053e12c4395e4c1",
+  "prior_saved_audit_failure_sha256": "519276a3cff97212c0b5f6fc2d4f276cf6908040ab7be5b2e1b1c758ff86b989",
+  "root_review_sha256": "cafd3bb917b21b8cac6c1ec5967756add4ff29bf698e7ba2f0911ea0e0432c74",
+  "launcher_sha256": "7cc1d066e4140fd686447735cb2fe5d8cb806009c3211bf81f1086510e0064b0",
+  "actual_iteration_trigger": {
+    "message_id": "om_x100b638847e328a0c3481985e0c6222",
+    "delivery_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_authorization_proof.json",
+    "delivery_proof_sha256": "1fdca9428d73bd08d76f989c8e588f80ea44c7c69bde6a6310835078a0014b80",
+    "service_status": "waiting_for_evidence_repair_no_scientific_jobs",
+    "root_separate_native_launch": true
+  }
+}

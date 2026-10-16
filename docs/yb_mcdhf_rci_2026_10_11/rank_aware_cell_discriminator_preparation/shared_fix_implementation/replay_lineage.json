@@ -1,0 +1,66 @@
+{
+  "status": "explicit_source_and_test_epoch_evolution_not_old_proof_rewrite",
+  "before_source_map_sha256": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "new_source_map_sha256": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+  "qualified_private_algorithm_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "immutable_before_files": {
+    "src/atomx/numerics/bspline/convol.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/before/src/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "tests/test_convol.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/before/tests/test_convol.py",
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4"
+    }
+  },
+  "current_shared_files": {
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "tests/test_convol.py": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+  },
+  "old058_reference_documents": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/contract.json",
+      "sha256": "cc52f0a609f4312aadb584565416dbf336c709bc102daaa67eb2b0879e7b900c"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/review_revision001.json",
+      "sha256": "e6fb53dfb02be12c880d86a4f805d6f1ba1b295eacbea457fb3d0843fa61cb58"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_design/review.json",
+      "sha256": "51cf7496e0db98f8c0dcfd1f084c763785970aef80f991b85afe3a2912e7851a"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification_preparation/contract.json",
+      "sha256": "8fa2b0dc8a54484a79ea6bf42591ee11fa3fe7733165d228aa25c10d4b468171"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/contract.json",
+      "sha256": "0c0f0be0030c6492de88f92f7a435f0ba6ba0f37a12a05ed9acca76512f43254"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/contract.json",
+      "sha256": "ce31d84469f3bee231448c6263822b5b6f1ac2e9a21479924a7d6196ca402476"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/preparation_verification.json",
+      "sha256": "475a77e31336686c865398885b3dfb030428e567a0a386f1598b56fadf5ad7c9"
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_implementation/application.json",
+      "sha256": "122d0eac163639ec634e73dbfe51b5bf5468dd9ee52f091cfe75313174ef696e"
+    }
+  ],
+  "old_original_path": "tests/test_convol.py",
+  "old_original_sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+  "old_epoch_reference_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/before/tests/test_convol.py",
+  "old_epoch_reference_sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+  "historical_closed_contracts_results_or_FAIL_flags_edited": false,
+  "replay_policy": "Old contracted runs bind original source/test bytes and remain historical. Their strict original shared-path058 guard intentionally no longer admits currenttestc543. A future numerical replay must receive an independently reviewed successor contract explicitly binding immutable beforebytes/old frozen source or a documented original-epoch filesystem view. Never silently redirect oldchecks, overwriteoldcontracts, or relabeloldFAIL. Currentnew3case proof applies onlynew62a109/c543 epoch.",
+  "prerequisite_private_discriminator": {
+    "actual_result_sha256": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65",
+    "completion_sha256": "e3632edad132eb4dd17607264d2a7ee218a1f73fc734373d1d4b27a6fc6b5915",
+    "all_current_fixed_CI_corrections_near_roundoff": true,
+    "not_new_HCIg_or_MCDHF_stationarity_pass": true
+  }
+}

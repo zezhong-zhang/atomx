@@ -1,0 +1,22 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "started_utc": "2026-10-11T18:55:13.974702+00:00",
+  "finished_utc": "2026-10-11T18:55:14.433465+00:00",
+  "elapsed_s": 0.45876516797579825,
+  "command": [
+    "timeout",
+    "30s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/gradient_proposal001/execution_preparation001/closure001/complete_metadata.py"
+  ],
+  "CPU_affinity": [
+    31
+  ],
+  "contract_sha256": "0a466801c34d29b6cdb43fc20a32f56839a941f33d9decd1b2d33456c0d5d61f",
+  "script_sha256": "cabd163ecd5b871e04f3a9e61a0c8ba271d2434758e6f839102eebe30aec02a1",
+  "log_sha256": "ac6a782e0ff20741543cfcada8eab363dd28e5dc08b87f209b3c31bd97d1dad3",
+  "NPZ_reads": 0,
+  "NumPy_Atomx_imports": 0,
+  "new_physical_calls": 0
+}

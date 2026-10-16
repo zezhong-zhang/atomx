@@ -1,0 +1,20 @@
+--- qualification_preparation001/run.py
++++ qualification_representation_repair001/run.py
+@@ -436,7 +436,8 @@
+                 nuclear_potential=nucleus, convol_cache=functional.cache, solver="dense",
+                 n_states=None, include_breit=False, max_determinants=2000, retain_hamiltonian=True)
+         h = ci.hamiltonian_for(csfs, waves, keys, data, 70, 123, nuclear_potential=nucleus, max_determinants=2000)
+-        check("saved_actual_owner_header", ci.hamiltonian_snapshot.identity_payload() != load(roles["recovered_owner"]))
++        write(output / "actual_owner.json", ci.hamiltonian_snapshot.identity_payload())
++        check("saved_actual_owner_header", plain(ci.hamiltonian_snapshot.identity_payload()) != load(roles["recovered_owner"]))
+         check("saved_same_epoch_H_bitwise", not np.array_equal(h, saved_ci["H"]))
+         check("saved_same_epoch_allroots_bitwise", not np.array_equal(ci.state_energies, saved_ci["energies"]))
+         check("complete_H_symmetry", not np.array_equal(h, h.T))
+@@ -497,7 +498,6 @@
+              x=state.coordinates, inverse_diagonal=state.inverse_diagonal,
+              **{f"projector_{i}": r[1] for i, r in enumerate(state.layout)},
+              **{f"inverse_blocks_{i}": np.stack(b) for i, b in enumerate(state.inverse_blocks)})
+-        write(output / "actual_owner.json", ci.hamiltonian_snapshot.identity_payload())
+         owner_identity = ci.hamiltonian_snapshot.identity_payload()
+         write(output / "actual_signed_tables.json", dict(targets=target_rows, full_normalized=[[k, v] for k, v in full_weights.items()]))
+ 

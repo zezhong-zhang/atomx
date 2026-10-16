@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/make_manifest.py", line 112, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/make_manifest.py", line 52, in main
+    anchor = contract["inputs_sha256"][contract["fixed"]["endpoint_arrays"]]
+KeyError: 'fixed'

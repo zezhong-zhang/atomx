@@ -1,0 +1,2506 @@
+{
+  "status": "saved_matrix_algebra_verified_only",
+  "all_passed": true,
+  "checks_count": 239,
+  "checks": [
+    {
+      "name": "input_SHA/FD_normalized_original_metric_descent_0.0001_minus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_original_metric_descent_0.0001_plus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_original_metric_descent_5e-05_minus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_original_metric_descent_5e-05_plus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_valence_focused_tangent_0.0001_minus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_valence_focused_tangent_0.0001_plus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_valence_focused_tangent_5e-05_minus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/FD_normalized_valence_focused_tangent_5e-05_plus.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/baseline_arrays.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/independent_verification.json",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/line_trial_0.npz",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "input_SHA/result.json",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "external_SHA/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "external_SHA/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.4999999993669677,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.49999999500057624,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.4999999990188049,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.4999999966690343,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.49999999629334413,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 7.945069783571831e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.435647096878118e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 4.304828853484952e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.230782338625044e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.720729417628455e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.1575650249645522e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.5964585822273434e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.1611087295227572e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.9580592310662374e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_plus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.2662500214347112e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999936700523,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999500061065,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999901884573,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999667028705,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999629440683,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 6.135612193612083e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.1331410602485763e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 2.828699200989932e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.3055159817009935e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.1864224407074835e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.9791589877354524e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 6.1273403874865525e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.1522603664213395e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 7.574906459454351e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_0.0001_minus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.857805557074367e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.49999999984176013,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.49999999875016465,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.4999999997547222,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.49999999916735627,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.49999999907342585,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.202513815498964e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.5561327001847708e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 6.735253514227672e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.783609623858553e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.33521807920795e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.0902396733036495e-18,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.4487034453100588e-21,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.1458376905019228e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.5158084725034232e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_plus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.7949475843046036e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999998417648,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.49999999875016443,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.49999999975472154,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999991675075,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999990735515,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.0804012775708233e-21,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.294967862874368e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.787582476697887e-23,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.1490389836455614e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 9.417839014828354e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.6520264884400788e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 8.545809703438467e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 8.851857637891502e-18,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.426595687500917e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_original_metric_descent_5e-05_minus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.4874530195276685e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.499999999629849,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.4999999949029752,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.499999999224392,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.49999999773977266,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/physical_overlap_squared",
+      "error": -0.4999999973481928,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 6.223500133695842e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 4.0498383466246833e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 8.408290926601526e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.9342357568234746e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.185388464941792e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 8.090790319846055e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.4658674430205342e-21,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 9.441369625258255e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.4855323061453204e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_plus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.767383579884553e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999962984965,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.4999999949029783,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999922439464,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999773990167,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/physical_overlap_squared",
+      "error": -0.49999999734828937,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 2.5921772445880505e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 6.605511031310069e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 4.413008567970403e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 9.12933411809186e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.8513012332586123e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 8.13425882130196e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.500751073477634e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 4.284944359035439e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.5726771396164439e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_0.0001_minus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.648992343165831e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.4999999999074829,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.4999999987257653,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.49999999980612153,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.4999999994349724,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/physical_overlap_squared",
+      "error": -0.4999999993370774,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 6.847504508290532e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.300426114243732e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.094915585443805e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.348910135129467e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.120958976980064e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.5747909753647003e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.15908683333993e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.4396700861683544e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 4.016478861827795e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_plus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 9.439062603020208e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999999074871,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.49999999872576883,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999998061211,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999994349942,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/physical_overlap_squared",
+      "error": -0.4999999993370854,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.293955920339377e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.7133458965419767e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.2764430827458908e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.7852585646036467e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 2.2189119931734967e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.982481323967306e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.388047715017284e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.29588206630806e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 3.284941007601211e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "FD_normalized_valence_focused_tangent_5e-05_minus.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.6979990952130794e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_overlap_squared",
+      "error": -0.4999135579479832,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_overlap_squared",
+      "error": -0.4993239636402097,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_overlap_squared",
+      "error": -0.4998663529695645,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_overlap_squared",
+      "error": -0.4995151307287484,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_UID_retained",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/physical_overlap_squared",
+      "error": -0.49947040339830917,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6s_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6s_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 5.293955920339377e-23,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6s_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 2.1026057668371107e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.1911400820763599e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 1.5348721401214633e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_5/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_5/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.852884572118782e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/5d_5/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 8.96071655037792e-17,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_1/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_1/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.3234889800848443e-21,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_1/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 3.395206631709143e-16,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_3/2/same_exact_symmetry",
+      "error": 0.0,
+      "limit": 1e-20,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_3/2/finite_reported_eigenvalue_identity_Ha",
+      "error": 1.0587911840678754e-22,
+      "limit": 5e-12,
+      "passed": true
+    },
+    {
+      "name": "line_trial_0.npz/6p_3/2/finite_Rayleigh_quotient_identity_Ha",
+      "error": 4.0513130586964036e-16,
+      "limit": 5e-12,
+      "passed": true
+    }
+  ],
+  "matched_target_pairs": 45,
+  "maximum_finite_eigenvalue_identity_error_Ha": 1.4658674430205342e-21,
+  "maximum_quotient_identity_error_Ha": 4.284944359035439e-16,
+  "records": [
+    {
+      "artifact": "FD_normalized_original_metric_descent_0.0001_plus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000004,
+          "aligned_coefficient_dot": 0.9999999989688795,
+          "reported_energy_delta_Ha": -1.9733779481612146e-06,
+          "trial_RDM_deltaH_Ha": -1.9756430184216506e-06,
+          "quadratic_CI_response_Ha": 2.253438904215046e-09,
+          "reference_residual_cross_Ha": -2.867349753384583e-18,
+          "reference_residual_offset_Ha": 4.535157080225594e-12,
+          "trial_residual_offset_Ha": 7.096202007263473e-12,
+          "full_formula_Ha": -1.9733779481612154e-06,
+          "identity_error_Ha": 7.945069783571831e-22,
+          "quotient_delta_Ha": -1.973389579745799e-06,
+          "quotient_identity_error_Ha": 3.435647096878118e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.971136180551418e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -7.02689930363797e-22
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.9999999989115522,
+          "reported_energy_delta_Ha": 1.992557372432202e-07,
+          "trial_RDM_deltaH_Ha": 1.969094110785658e-07,
+          "quadratic_CI_response_Ha": 2.34802207179632e-09,
+          "reference_residual_cross_Ha": 1.8582138647948043e-17,
+          "reference_residual_offset_Ha": -2.6972258812826184e-12,
+          "trial_residual_offset_Ha": 1.0013001576786446e-12,
+          "full_formula_Ha": 1.9925573724322063e-07,
+          "identity_error_Ha": 4.304828853484952e-22,
+          "quotient_delta_Ha": 1.9925743366400184e-07,
+          "quotient_identity_error_Ha": 3.230782338625044e-16,
+          "frozen_reference_RDM_deltaH_Ha": 2.0160541104263272e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 2.5380227638599694e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000002,
+          "aligned_coefficient_dot": 0.9999999988154629,
+          "reported_energy_delta_Ha": 2.5659574021119624e-07,
+          "trial_RDM_deltaH_Ha": 2.5396462484148665e-07,
+          "quadratic_CI_response_Ha": 2.6334889716477135e-09,
+          "reference_residual_cross_Ha": -1.3761502207692169e-17,
+          "reference_residual_offset_Ha": -2.668579168573728e-12,
+          "trial_residual_offset_Ha": 2.9499099138292327e-13,
+          "full_formula_Ha": 2.5659574021119566e-07,
+          "identity_error_Ha": 5.720729417628455e-22,
+          "quotient_delta_Ha": 2.565981143121121e-07,
+          "quotient_identity_error_Ha": 1.1575650249645522e-16,
+          "frozen_reference_RDM_deltaH_Ha": 2.5923153375443454e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 8.276976004358733e-23
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000009,
+          "aligned_coefficient_dot": 0.9999999984244141,
+          "reported_energy_delta_Ha": -2.79643245448824e-06,
+          "trial_RDM_deltaH_Ha": -2.7987438901135703e-06,
+          "quadratic_CI_response_Ha": 2.315233386368444e-09,
+          "reference_residual_cross_Ha": 1.0590131754647253e-16,
+          "reference_residual_offset_Ha": 1.1444288834983106e-13,
+          "trial_residual_offset_Ha": -3.91230982780813e-12,
+          "full_formula_Ha": -2.79643245448824e-06,
+          "identity_error_Ha": 1.5964585822273434e-22,
+          "quotient_delta_Ha": -2.7964286566373175e-06,
+          "quotient_identity_error_Ha": 1.1611087295227572e-16,
+          "frozen_reference_RDM_deltaH_Ha": -2.794113513043833e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -2.461482707804672e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.9999999985733798,
+          "reported_energy_delta_Ha": -2.2783078748034313e-06,
+          "trial_RDM_deltaH_Ha": -2.2803150765726684e-06,
+          "quadratic_CI_response_Ha": 2.0038866762892036e-09,
+          "reference_residual_cross_Ha": 9.695374139364464e-18,
+          "reference_residual_offset_Ha": 1.904782546843484e-12,
+          "trial_residual_offset_Ha": 1.410300706226532e-12,
+          "full_formula_Ha": -2.278307874803431e-06,
+          "identity_error_Ha": 3.9580592310662374e-22,
+          "quotient_delta_Ha": -2.278311190373472e-06,
+          "quotient_identity_error_Ha": 1.2662500214347112e-16,
+          "frozen_reference_RDM_deltaH_Ha": -2.27630739395379e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -2.921808718690432e-21
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": -1.318453359999694e-06,
+        "trial_RDM_deltaH_Ha": -1.3207655898375673e-06,
+        "quadratic_CI_response_Ha": 2.3108140020633452e-09,
+        "reference_residual_cross_Ha": 2.3509995674541654e-17,
+        "reference_residual_offset_Ha": 2.377154931125125e-13,
+        "trial_residual_offset_Ha": 1.1780968069486885e-12,
+        "full_formula_Ha": -1.318453359999694e-06,
+        "quotient_delta_Ha": -1.318454775756095e-06,
+        "frozen_reference_RDM_deltaH_Ha": -1.3161440285503948e-06
+      }
+    },
+    {
+      "artifact": "FD_normalized_original_metric_descent_0.0001_minus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000004,
+          "aligned_coefficient_dot": 0.999999998968964,
+          "reported_energy_delta_Ha": 1.9755007087951526e-06,
+          "trial_RDM_deltaH_Ha": 1.9732361921813676e-06,
+          "quadratic_CI_response_Ha": 2.2532740437459443e-09,
+          "reference_residual_cross_Ha": 2.8480679412896905e-18,
+          "reference_residual_offset_Ha": 4.535157080225593e-12,
+          "trial_residual_offset_Ha": 6.707410110219337e-12,
+          "full_formula_Ha": 1.975500708795152e-06,
+          "identity_error_Ha": 6.135612193612083e-22,
+          "quotient_delta_Ha": 1.975489466232716e-06,
+          "quotient_identity_error_Ha": 1.1331410602485763e-16,
+          "frozen_reference_RDM_deltaH_Ha": 1.977742780217741e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.038318463907188e-21
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.000000000000001,
+          "aligned_coefficient_dot": 0.9999999989116477,
+          "reported_energy_delta_Ha": -1.9708568288479e-07,
+          "trial_RDM_deltaH_Ha": -1.9943368343090474e-07,
+          "quadratic_CI_response_Ha": 2.3478420663932323e-09,
+          "reference_residual_cross_Ha": -1.8568155007735217e-17,
+          "reference_residual_offset_Ha": -2.6972258812826188e-12,
+          "trial_residual_offset_Ha": 2.855724171229083e-12,
+          "full_formula_Ha": -1.970856828847897e-07,
+          "identity_error_Ha": 2.828699200989932e-22,
+          "quotient_delta_Ha": -1.970858409805487e-07,
+          "quotient_identity_error_Ha": 2.3055159817009935e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.9473795509574535e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -2.338982428964397e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999999,
+          "aligned_coefficient_dot": 0.9999999988155855,
+          "reported_energy_delta_Ha": -2.514007064746693e-07,
+          "trial_RDM_deltaH_Ha": -2.540251859165851e-07,
+          "quadratic_CI_response_Ha": 2.6332249638489813e-09,
+          "reference_residual_cross_Ha": 1.3774491578528925e-17,
+          "reference_residual_offset_Ha": -2.6685791685737294e-12,
+          "trial_residual_offset_Ha": -6.076956539584785e-12,
+          "full_formula_Ha": -2.514007064746698e-07,
+          "identity_error_Ha": 5.1864224407074835e-22,
+          "quotient_delta_Ha": -2.513919605817705e-07,
+          "quotient_identity_error_Ha": 3.9791589877354524e-17,
+          "frozen_reference_RDM_deltaH_Ha": -2.4875866695559027e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 3.0269640540612356e-23
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.000000000000002,
+          "aligned_coefficient_dot": 0.999999998424997,
+          "reported_energy_delta_Ha": 2.800026777549647e-06,
+          "trial_RDM_deltaH_Ha": 2.79771074450403e-06,
+          "quadratic_CI_response_Ha": 2.3148992950074577e-09,
+          "reference_residual_cross_Ha": -1.0587869209973044e-16,
+          "reference_residual_offset_Ha": 1.1444288834983093e-13,
+          "trial_residual_offset_Ha": 1.0194136003304625e-12,
+          "full_formula_Ha": 2.8000267775496472e-06,
+          "identity_error_Ha": 6.1273403874865525e-22,
+          "quotient_delta_Ha": 2.800025643345805e-06,
+          "quotient_identity_error_Ha": 2.1522603664213395e-16,
+          "frozen_reference_RDM_deltaH_Ha": 2.8023406328459867e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 5.324354807850701e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.999999998574047,
+          "reported_energy_delta_Ha": 2.2817603166913614e-06,
+          "trial_RDM_deltaH_Ha": 2.2797542459305624e-06,
+          "quadratic_CI_response_Ha": 2.0035474299985596e-09,
+          "reference_residual_cross_Ha": -9.707560965723164e-18,
+          "reference_residual_offset_Ha": 1.9047825468434838e-12,
+          "trial_residual_offset_Ha": 6.185579602587165e-13,
+          "full_formula_Ha": 2.2817603166913605e-06,
+          "identity_error_Ha": 7.574906459454351e-22,
+          "quotient_delta_Ha": 2.281757793376471e-06,
+          "quotient_identity_error_Ha": 3.857805557074367e-16,
+          "frozen_reference_RDM_deltaH_Ha": 2.2837614315851994e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 3.1623114817902248e-21
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": 1.3217602827353403e-06,
+        "trial_RDM_deltaH_Ha": 1.319448462653694e-06,
+        "quadratic_CI_response_Ha": 2.310557559798835e-09,
+        "reference_residual_cross_Ha": -2.350636971067404e-17,
+        "reference_residual_offset_Ha": 2.377154931125119e-13,
+        "trial_residual_offset_Ha": 1.024829860490563e-12,
+        "full_formula_Ha": 1.3217602827353401e-06,
+        "quotient_delta_Ha": 1.3217590202785345e-06,
+        "frozen_reference_RDM_deltaH_Ha": 1.3240696445195183e-06
+      }
+    },
+    {
+      "artifact": "FD_normalized_original_metric_descent_5e-05_plus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 0.9999999999999989,
+          "aligned_coefficient_dot": 0.9999999997422242,
+          "reported_energy_delta_Ha": -9.869600035017356e-07,
+          "trial_RDM_deltaH_Ha": -9.875300854029622e-07,
+          "quadratic_CI_response_Ha": 5.633494077292827e-10,
+          "reference_residual_cross_Ha": -1.4312636559263158e-18,
+          "reference_residual_offset_Ha": 4.5351570802256e-12,
+          "trial_residual_offset_Ha": 2.1973378482540503e-12,
+          "full_formula_Ha": -9.869600035017358e-07,
+          "identity_error_Ha": 1.202513815498964e-22,
+          "quotient_delta_Ha": -9.86966735894157e-07,
+          "quotient_identity_error_Ha": 1.5561327001847708e-17,
+          "frozen_reference_RDM_deltaH_Ha": -9.864033915728479e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.0843303854804502e-21
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.0,
+          "aligned_coefficient_dot": 0.9999999997278936,
+          "reported_energy_delta_Ha": 9.934774425346404e-08,
+          "trial_RDM_deltaH_Ha": 9.875689283013064e-08,
+          "quadratic_CI_response_Ha": 5.869942615489447e-10,
+          "reference_residual_cross_Ha": 9.289313565415425e-18,
+          "reference_residual_offset_Ha": -2.697225881282622e-12,
+          "trial_residual_offset_Ha": 6.554378377110296e-12,
+          "full_formula_Ha": 9.934774425346472e-08,
+          "identity_error_Ha": 6.735253514227672e-22,
+          "quotient_delta_Ha": 9.934388689458729e-08,
+          "quotient_identity_error_Ha": 3.783609623858553e-16,
+          "frozen_reference_RDM_deltaH_Ha": 9.993087583834523e-08,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -7.625571271973224e-25
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999996,
+          "aligned_coefficient_dot": 0.9999999997038731,
+          "reported_energy_delta_Ha": 1.276766852242872e-07,
+          "trial_RDM_deltaH_Ha": 1.27024259436754e-07,
+          "quadratic_CI_response_Ha": 6.58355763650937e-10,
+          "reference_residual_cross_Ha": -6.8823822371017724e-18,
+          "reference_residual_offset_Ha": -2.6685791685737302e-12,
+          "trial_residual_offset_Ha": -3.2613900671206977e-12,
+          "full_formula_Ha": 1.2767668522428687e-07,
+          "identity_error_Ha": 3.33521807920795e-22,
+          "quotient_delta_Ha": 1.2768261559159555e-07,
+          "quotient_identity_error_Ha": 1.0902396733036495e-18,
+          "frozen_reference_RDM_deltaH_Ha": 1.2834096232460292e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -6.225826579168647e-23
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000022,
+          "aligned_coefficient_dot": 0.9999999996061409,
+          "reported_energy_delta_Ha": -1.3986737030791119e-06,
+          "trial_RDM_deltaH_Ha": -1.3992493523297842e-06,
+          "quadratic_CI_response_Ha": 5.787874787928242e-10,
+          "reference_residual_cross_Ha": 5.2947823866212055e-17,
+          "reference_residual_offset_Ha": 1.144428883498309e-13,
+          "trial_residual_offset_Ha": -3.25272395532376e-12,
+          "full_formula_Ha": -1.3986737030791104e-06,
+          "identity_error_Ha": 1.4487034453100588e-21,
+          "quotient_delta_Ha": -1.398670565144755e-06,
+          "quotient_identity_error_Ha": 2.1458376905019228e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.3980917885815227e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -3.1667575775826973e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 0.9999999999999997,
+          "aligned_coefficient_dot": 0.9999999996433865,
+          "reported_energy_delta_Ha": -1.1395859473850578e-06,
+          "trial_RDM_deltaH_Ha": -1.1400915573213718e-06,
+          "quadratic_CI_response_Ha": 5.009505281433375e-10,
+          "reference_residual_cross_Ha": 4.849205840163139e-18,
+          "reference_residual_offset_Ha": 1.904782546843487e-12,
+          "trial_residual_offset_Ha": 2.7546207747495245e-12,
+          "full_formula_Ha": -1.1395859473850576e-06,
+          "identity_error_Ha": 1.5158084725034232e-22,
+          "quotient_delta_Ha": -1.1395906067690476e-06,
+          "quotient_identity_error_Ha": 3.7949475843046036e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.1390896676404521e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 3.8960206851247603e-22
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": -6.596390448976309e-07,
+        "trial_RDM_deltaH_Ha": -6.602179685574468e-07,
+        "quadratic_CI_response_Ha": 5.776874879730652e-10,
+        "reference_residual_cross_Ha": 1.1754539475752507e-17,
+        "reference_residual_offset_Ha": 2.377154931125132e-13,
+        "trial_residual_offset_Ha": 9.984445955338828e-13,
+        "full_formula_Ha": -6.596390448976304e-07,
+        "quotient_delta_Ha": -6.596402810643553e-07,
+        "frozen_reference_RDM_deltaH_Ha": -6.590626019263749e-07
+      }
+    },
+    {
+      "artifact": "FD_normalized_original_metric_descent_5e-05_minus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.999999999742236,
+          "reported_energy_delta_Ha": 9.87471139524132e-07,
+          "trial_RDM_deltaH_Ha": 9.868984881291508e-07,
+          "quadratic_CI_response_Ha": 5.633288252961491e-10,
+          "reference_residual_cross_Ha": 1.426441453749273e-18,
+          "reference_residual_offset_Ha": 4.535157080225589e-12,
+          "trial_residual_offset_Ha": 4.787411177252697e-12,
+          "full_formula_Ha": 9.87471139524131e-07,
+          "identity_error_Ha": 1.0804012775708233e-21,
+          "quotient_delta_Ha": 9.874618172034388e-07,
+          "quotient_identity_error_Ha": 1.294967862874368e-16,
+          "frozen_reference_RDM_deltaH_Ha": 9.880251507711164e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.3368272674622619e-21
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 0.9999999999999981,
+          "aligned_coefficient_dot": 0.9999999997279045,
+          "reported_energy_delta_Ha": -9.883115126285702e-08,
+          "trial_RDM_deltaH_Ha": -9.941567825899043e-08,
+          "quadratic_CI_response_Ha": 5.86971773725409e-10,
+          "reference_residual_cross_Ha": -9.285827482221704e-18,
+          "reference_residual_offset_Ha": -2.6972258812826272e-12,
+          "trial_residual_offset_Ha": 2.5245757514326005e-13,
+          "full_formula_Ha": -9.883115126285698e-08,
+          "identity_error_Ha": 3.787582476697887e-23,
+          "quotient_delta_Ha": -9.882870610766759e-08,
+          "quotient_identity_error_Ha": 2.1490389836455614e-16,
+          "frozen_reference_RDM_deltaH_Ha": -9.824172918903058e-08,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.914923118060259e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999987,
+          "aligned_coefficient_dot": 0.999999999703888,
+          "reported_energy_delta_Ha": -1.2636155588552356e-07,
+          "trial_RDM_deltaH_Ha": -1.2701352674889227e-07,
+          "quadratic_CI_response_Ha": 6.583227280783167e-10,
+          "reference_residual_cross_Ha": 6.885615527924086e-18,
+          "reference_residual_offset_Ha": -2.6685791685737326e-12,
+          "trial_residual_offset_Ha": -3.683292427591105e-12,
+          "full_formula_Ha": -1.263615558855245e-07,
+          "identity_error_Ha": 9.417839014828354e-22,
+          "quotient_delta_Ha": -1.2635520363346586e-07,
+          "quotient_identity_error_Ha": 1.6520264884400788e-17,
+          "frozen_reference_RDM_deltaH_Ha": -1.2569687265230905e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.7288074802358278e-22
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999999,
+          "aligned_coefficient_dot": 0.9999999996062126,
+          "reported_energy_delta_Ha": 1.3995486369822174e-06,
+          "trial_RDM_deltaH_Ha": 1.3989713116324317e-06,
+          "quadratic_CI_response_Ha": 5.787457232969697e-10,
+          "reference_residual_cross_Ha": -5.294219223081656e-17,
+          "reference_residual_offset_Ha": 1.1444288834983116e-13,
+          "trial_residual_offset_Ha": -1.5347634565911641e-12,
+          "full_formula_Ha": 1.3995486369822183e-06,
+          "identity_error_Ha": 8.545809703438467e-22,
+          "quotient_delta_Ha": 1.3995500571795105e-06,
+          "quotient_identity_error_Ha": 8.851857637891502e-18,
+          "frozen_reference_RDM_deltaH_Ha": 1.4001288142407e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.264552361440441e-22
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 0.999999999999999,
+          "aligned_coefficient_dot": 0.9999999996434696,
+          "reported_energy_delta_Ha": 1.1404408724047244e-06,
+          "trial_RDM_deltaH_Ha": 1.1399355953646199e-06,
+          "quadratic_CI_response_Ha": 5.00908106728037e-10,
+          "reference_residual_cross_Ha": -4.852257993573855e-18,
+          "reference_residual_offset_Ha": 1.9047825468434886e-12,
+          "trial_residual_offset_Ha": 2.4641556815567124e-12,
+          "full_formula_Ha": 1.140440872404724e-06,
+          "identity_error_Ha": 3.426595687500917e-22,
+          "quotient_delta_Ha": 1.1404365034550779e-06,
+          "quotient_identity_error_Ha": 3.4874530195276685e-16,
+          "frozen_reference_RDM_deltaH_Ha": 1.1409374228332928e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.1420262332060238e-21
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": 6.604535883525387e-07,
+        "trial_RDM_deltaH_Ha": 6.59875238023664e-07,
+        "quadratic_CI_response_Ha": 5.776554314249762e-10,
+        "reference_residual_cross_Ha": -1.1753644144987752e-17,
+        "reference_residual_offset_Ha": 2.3771549311250976e-13,
+        "trial_residual_offset_Ha": 4.571937099540801e-13,
+        "full_formula_Ha": 6.604535883525383e-07,
+        "quotient_delta_Ha": 6.604528936193787e-07,
+        "frozen_reference_RDM_deltaH_Ha": 6.610305572007539e-07
+      }
+    },
+    {
+      "artifact": "FD_normalized_valence_focused_tangent_0.0001_plus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9999999997244662,
+          "reported_energy_delta_Ha": -1.5834375517442822e-06,
+          "trial_RDM_deltaH_Ha": -1.5840215103809432e-06,
+          "quadratic_CI_response_Ha": 5.750922407796316e-10,
+          "reference_residual_cross_Ha": -2.3673985821349492e-18,
+          "reference_residual_offset_Ha": 4.535157080225592e-12,
+          "trial_residual_offset_Ha": 4.331241167783485e-12,
+          "full_formula_Ha": -1.5834375517442829e-06,
+          "identity_error_Ha": 6.223500133695842e-22,
+          "quotient_delta_Ha": -1.5834464184294461e-06,
+          "quotient_identity_error_Ha": 4.0498383466246833e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.5828713286685098e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -9.888944223071446e-22
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 0.9999999999999977,
+          "aligned_coefficient_dot": 0.9999999997172456,
+          "reported_energy_delta_Ha": -4.9040318117477e-07,
+          "trial_RDM_deltaH_Ha": -4.909991466527787e-07,
+          "quadratic_CI_response_Ha": 5.992342841195792e-10,
+          "reference_residual_cross_Ha": 1.3249043314317329e-17,
+          "reference_residual_offset_Ha": -2.6972258812826285e-12,
+          "trial_residual_offset_Ha": -5.715934778581723e-13,
+          "full_formula_Ha": -4.904031811747692e-07,
+          "identity_error_Ha": 8.408290926601526e-22,
+          "quotient_delta_Ha": -4.903999117900071e-07,
+          "quotient_identity_error_Ha": 3.9342357568234746e-16,
+          "frozen_reference_RDM_deltaH_Ha": -4.898006820277744e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.1575358696913931e-21
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.9999999996623571,
+          "reported_energy_delta_Ha": -3.1640956876799464e-07,
+          "trial_RDM_deltaH_Ha": -3.171591543755565e-07,
+          "quadratic_CI_response_Ha": 7.48721826356856e-10,
+          "reference_residual_cross_Ha": -6.109595394343289e-18,
+          "reference_residual_offset_Ha": -2.6685791685737254e-12,
+          "trial_residual_offset_Ha": 3.53236648264409e-12,
+          "full_formula_Ha": -3.1640956876799517e-07,
+          "identity_error_Ha": 5.185388464941792e-22,
+          "quotient_delta_Ha": -3.164104320774186e-07,
+          "quotient_identity_error_Ha": 8.090790319846055e-17,
+          "frozen_reference_RDM_deltaH_Ha": -3.156617220916187e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -4.263857563769435e-22
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000027,
+          "aligned_coefficient_dot": 0.9999999995609204,
+          "reported_energy_delta_Ha": -1.6859521565493196e-06,
+          "trial_RDM_deltaH_Ha": -1.686534915288253e-06,
+          "quadratic_CI_response_Ha": 5.895381896299111e-10,
+          "reference_residual_cross_Ha": 5.2895044427424083e-17,
+          "reference_residual_offset_Ha": 1.1444288834983086e-13,
+          "trial_residual_offset_Ha": -6.893946478611685e-12,
+          "full_formula_Ha": -1.6859521565493181e-06,
+          "identity_error_Ha": 1.4658674430205342e-21,
+          "quotient_delta_Ha": -1.685945377083442e-06,
+          "quotient_identity_error_Ha": 9.441369625258255e-17,
+          "frozen_reference_RDM_deltaH_Ha": -1.685355847888416e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -4.504205230504374e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 1.0,
+          "aligned_coefficient_dot": 0.9999999996123298,
+          "reported_energy_delta_Ha": -1.1393476597731933e-06,
+          "trial_RDM_deltaH_Ha": -1.1398438923228545e-06,
+          "quadratic_CI_response_Ha": 4.914275802729315e-10,
+          "reference_residual_cross_Ha": 7.562380307151646e-18,
+          "reference_residual_offset_Ha": 1.9047825468434866e-12,
+          "trial_residual_offset_Ha": 2.900179279376785e-12,
+          "full_formula_Ha": -1.1393476597731929e-06,
+          "identity_error_Ha": 3.4855323061453204e-22,
+          "quotient_delta_Ha": -1.1393524648184439e-06,
+          "quotient_identity_error_Ha": 2.767383579884553e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.1388610474942603e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.209751645858803e-23
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": -1.043110023601912e-06,
+        "trial_RDM_deltaH_Ha": -1.043711723804077e-06,
+        "quadratic_CI_response_Ha": 6.008028242317819e-10,
+        "reference_residual_cross_Ha": 1.3045894814482965e-17,
+        "reference_residual_offset_Ha": 2.3771549311251117e-13,
+        "trial_residual_offset_Ha": 6.596493946669006e-13,
+        "full_formula_Ha": -1.0431100236019116e-06,
+        "quotient_delta_Ha": -1.0431109208397515e-06,
+        "frozen_reference_RDM_deltaH_Ha": -1.0425101256341157e-06
+      }
+    },
+    {
+      "artifact": "FD_normalized_valence_focused_tangent_0.0001_minus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 0.9999999999999989,
+          "aligned_coefficient_dot": 0.999999999724467,
+          "reported_energy_delta_Ha": 1.5835139492992312e-06,
+          "trial_RDM_deltaH_Ha": 1.582938015553372e-06,
+          "quadratic_CI_response_Ha": 5.750897898744454e-10,
+          "reference_residual_cross_Ha": 2.3623947754126684e-18,
+          "reference_residual_offset_Ha": 4.5351570802256e-12,
+          "trial_residual_offset_Ha": -3.691203457541108e-12,
+          "full_formula_Ha": 1.5835139492992314e-06,
+          "identity_error_Ha": 2.5921772445880505e-22,
+          "quotient_delta_Ha": 1.5835131055297325e-06,
+          "quotient_identity_error_Ha": 6.605511031310069e-17,
+          "frozen_reference_RDM_deltaH_Ha": 1.5840881979049074e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.6747305476901737e-21
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.0000000000000004,
+          "aligned_coefficient_dot": 0.9999999997172523,
+          "reported_energy_delta_Ha": 4.90623278892599e-07,
+          "trial_RDM_deltaH_Ha": 4.900311012305615e-07,
+          "quadratic_CI_response_Ha": 5.992244021787903e-10,
+          "reference_residual_cross_Ha": -1.3245420626542383e-17,
+          "reference_residual_offset_Ha": -2.6972258812826204e-12,
+          "trial_residual_offset_Ha": -4.349501014159217e-12,
+          "full_formula_Ha": 4.906232788925995e-07,
+          "identity_error_Ha": 4.413008567970403e-22,
+          "quotient_delta_Ha": 4.906303257001809e-07,
+          "quotient_identity_error_Ha": 9.12933411809186e-17,
+          "frozen_reference_RDM_deltaH_Ha": 4.912295539793428e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 2.624747481207326e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999987,
+          "aligned_coefficient_dot": 0.9999999996623774,
+          "reported_energy_delta_Ha": 3.1944000511430204e-07,
+          "trial_RDM_deltaH_Ha": 3.186936219214478e-07,
+          "quadratic_CI_response_Ha": 7.486742087376305e-10,
+          "reference_residual_cross_Ha": 6.114069781135869e-18,
+          "reference_residual_offset_Ha": -2.6685791685737326e-12,
+          "trial_residual_offset_Ha": 3.775571706876342e-13,
+          "full_formula_Ha": 3.1944000511430167e-07,
+          "identity_error_Ha": 3.8513012332586123e-22,
+          "quotient_delta_Ha": 3.1944229661462487e-07,
+          "quotient_identity_error_Ha": 8.13425882130196e-17,
+          "frozen_reference_RDM_deltaH_Ha": 3.2019098172389587e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -4.396723449660765e-22
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000009,
+          "aligned_coefficient_dot": 0.9999999995609709,
+          "reported_energy_delta_Ha": 1.687672920525074e-06,
+          "trial_RDM_deltaH_Ha": 1.6870837837357282e-06,
+          "quadratic_CI_response_Ha": 5.895113571641241e-10,
+          "reference_residual_cross_Ha": -5.289190050627527e-17,
+          "reference_residual_offset_Ha": 1.1444288834983106e-13,
+          "trial_residual_offset_Ha": -4.889578143302565e-13,
+          "full_formula_Ha": 1.6876729205250746e-06,
+          "identity_error_Ha": 5.500751073477634e-22,
+          "quotient_delta_Ha": 1.6876732953363671e-06,
+          "quotient_identity_error_Ha": 4.284944359035439e-16,
+          "frozen_reference_RDM_deltaH_Ha": 1.688262815472621e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.3269011001116255e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 0.9999999999999999,
+          "aligned_coefficient_dot": 0.9999999996123948,
+          "reported_energy_delta_Ha": 1.1409538274165243e-06,
+          "trial_RDM_deltaH_Ha": 1.14045824811161e-06,
+          "quadratic_CI_response_Ha": 4.91398851922493e-10,
+          "reference_residual_cross_Ha": -7.565901291369573e-18,
+          "reference_residual_offset_Ha": 1.9047825468434866e-12,
+          "trial_residual_offset_Ha": 2.2756780110124404e-12,
+          "full_formula_Ha": 1.1409538274165245e-06,
+          "identity_error_Ha": 1.5726771396164439e-22,
+          "quotient_delta_Ha": 1.1409496467607028e-06,
+          "quotient_identity_error_Ha": 1.648992343165831e-16,
+          "frozen_reference_RDM_deltaH_Ha": 1.1414410561793512e-06,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.5519976243026182e-22
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": 1.0444407962495462e-06,
+        "trial_RDM_deltaH_Ha": 1.043840954110544e-06,
+        "quadratic_CI_response_Ha": 6.007797219754966e-10,
+        "reference_residual_cross_Ha": -1.3045351573527737e-17,
+        "reference_residual_offset_Ha": 2.37715493112513e-13,
+        "trial_residual_offset_Ha": -1.1752854208661016e-12,
+        "full_formula_Ha": 1.0444407962495464e-06,
+        "quotient_delta_Ha": 1.0444417339883216e-06,
+        "frozen_reference_RDM_deltaH_Ha": 1.0450425210520236e-06
+      }
+    },
+    {
+      "artifact": "FD_normalized_valence_focused_tangent_5e-05_plus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9999999999311165,
+          "reported_energy_delta_Ha": -7.917242328403518e-07,
+          "trial_RDM_deltaH_Ha": -7.918686473455922e-07,
+          "quadratic_CI_response_Ha": 1.437728934932428e-10,
+          "reference_residual_cross_Ha": -1.1830762030347e-18,
+          "reference_residual_offset_Ha": 4.535157080225592e-12,
+          "trial_residual_offset_Ha": -3.893544149306018e-12,
+          "full_formula_Ha": -7.917242328403511e-07,
+          "identity_error_Ha": 6.847504508290532e-22,
+          "quotient_delta_Ha": -7.917248741051708e-07,
+          "quotient_identity_error_Ha": 2.300426114243732e-16,
+          "frozen_reference_RDM_deltaH_Ha": -7.915811018987662e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -5.1373085918371475e-22
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.0000000000000004,
+          "aligned_coefficient_dot": 0.999999999929312,
+          "reported_energy_delta_Ha": -2.4523069441784173e-07,
+          "trial_RDM_deltaH_Ha": -2.453746927425743e-07,
+          "quadratic_CI_response_Ha": 1.4980795606341222e-10,
+          "reference_residual_cross_Ha": 6.6240696183153765e-18,
+          "reference_residual_offset_Ha": -2.6972258812826204e-12,
+          "trial_residual_offset_Ha": -3.112412073121032e-12,
+          "full_formula_Ha": -2.452306944178412e-07,
+          "identity_error_Ha": 5.094915585443805e-22,
+          "quotient_delta_Ha": -2.452248848427985e-07,
+          "quotient_identity_error_Ha": 2.348910135129467e-16,
+          "frozen_reference_RDM_deltaH_Ha": -2.450750773244909e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.3604536137083077e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9999999999155907,
+          "reported_energy_delta_Ha": -1.5858313417993486e-07,
+          "trial_RDM_deltaH_Ha": -1.5876047939962354e-07,
+          "quadratic_CI_response_Ha": 1.8717749156669826e-10,
+          "reference_residual_cross_Ha": -3.0553602417887292e-18,
+          "reference_residual_offset_Ha": -2.668579168573727e-12,
+          "trial_residual_offset_Ha": -7.1636896539795675e-12,
+          "full_formula_Ha": -1.5858313417993475e-07,
+          "identity_error_Ha": 1.120958976980064e-22,
+          "quotient_delta_Ha": -1.5857330115665036e-07,
+          "quotient_identity_error_Ha": 3.5747909753647003e-16,
+          "frozen_reference_RDM_deltaH_Ha": -1.5838612584284988e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.1982486654654874e-22
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9999999998902332,
+          "reported_energy_delta_Ha": -8.431652531726286e-07,
+          "trial_RDM_deltaH_Ha": -8.433153363490438e-07,
+          "quadratic_CI_response_Ha": 1.473828757330734e-10,
+          "reference_residual_cross_Ha": 2.6447120064711444e-17,
+          "reference_residual_offset_Ha": 1.1444288834983108e-13,
+          "trial_residual_offset_Ha": 2.585831346810074e-12,
+          "full_formula_Ha": -8.431652531726285e-07,
+          "identity_error_Ha": 1.15908683333993e-22,
+          "quotient_delta_Ha": -8.431679532350245e-07,
+          "quotient_identity_error_Ha": 3.4396700861683544e-16,
+          "frozen_reference_RDM_deltaH_Ha": -8.430205716957466e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -5.464044933795593e-22
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 0.9999999999999986,
+          "aligned_coefficient_dot": 0.9999999999030861,
+          "reported_energy_delta_Ha": -5.698784661944956e-07,
+          "trial_RDM_deltaH_Ha": -5.700021477147963e-07,
+          "quadratic_CI_response_Ha": 1.22855076964067e-10,
+          "reference_residual_cross_Ha": 3.781625050623641e-18,
+          "reference_residual_offset_Ha": 1.9047825468434894e-12,
+          "trial_residual_offset_Ha": -1.0783429913910834e-12,
+          "full_formula_Ha": -5.698784661944951e-07,
+          "identity_error_Ha": 4.016478861827795e-22,
+          "quotient_delta_Ha": -5.698792930886043e-07,
+          "quotient_identity_error_Ha": 9.439062603020208e-17,
+          "frozen_reference_RDM_deltaH_Ha": -5.697564388256142e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 8.46360863006601e-22
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": -5.217163561610505e-07,
+        "trial_RDM_deltaH_Ha": -5.21864260710326e-07,
+        "quadratic_CI_response_Ha": 1.5019925876409874e-10,
+        "reference_residual_cross_Ha": 6.522875657765406e-18,
+        "reference_residual_offset_Ha": 2.3771549311251304e-13,
+        "trial_residual_offset_Ha": -2.532431504197525e-12,
+        "full_formula_Ha": -5.217163561610501e-07,
+        "quotient_delta_Ha": -5.217140612856497e-07,
+        "frozen_reference_RDM_deltaH_Ha": -5.215638631174935e-07
+      }
+    },
+    {
+      "artifact": "FD_normalized_valence_focused_tangent_5e-05_minus.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000009,
+          "aligned_coefficient_dot": 0.9999999999311168,
+          "reported_energy_delta_Ha": 7.917624316178262e-07,
+          "trial_RDM_deltaH_Ha": 7.916065323223763e-07,
+          "quadratic_CI_response_Ha": 1.4377260490075204e-10,
+          "reference_residual_cross_Ha": 1.181821378730015e-18,
+          "reference_residual_offset_Ha": 4.535157080225591e-12,
+          "trial_residual_offset_Ha": 7.59153228660028e-12,
+          "full_formula_Ha": 7.917624316178257e-07,
+          "identity_error_Ha": 5.293955920339377e-22,
+          "quotient_delta_Ha": 7.917503053178621e-07,
+          "quotient_identity_error_Ha": 2.7133458965419767e-16,
+          "frozen_reference_RDM_deltaH_Ha": 7.918940778804233e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 6.510945396558019e-22
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 0.9999999999999977,
+          "aligned_coefficient_dot": 0.9999999999293112,
+          "reported_energy_delta_Ha": 2.452652552165091e-07,
+          "trial_RDM_deltaH_Ha": 2.451213495627277e-07,
+          "quadratic_CI_response_Ha": 1.498067243715497e-10,
+          "reference_residual_cross_Ha": -6.623171792801966e-18,
+          "reference_residual_offset_Ha": -2.697225881282628e-12,
+          "trial_residual_offset_Ha": -3.203838085830273e-12,
+          "full_formula_Ha": 2.45265255216509e-07,
+          "identity_error_Ha": 1.2764430827458908e-22,
+          "quotient_delta_Ha": 2.452711562739296e-07,
+          "quotient_identity_error_Ha": 1.7852585646036467e-16,
+          "frozen_reference_RDM_deltaH_Ha": 2.454209635023898e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -5.697981950783247e-22
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000016,
+          "aligned_coefficient_dot": 0.9999999999155939,
+          "reported_energy_delta_Ha": 1.5933619579300284e-07,
+          "trial_RDM_deltaH_Ha": 1.591531562564071e-07,
+          "quadratic_CI_response_Ha": 1.871715324952618e-10,
+          "reference_residual_cross_Ha": 3.0564695574377808e-18,
+          "reference_residual_offset_Ha": -2.668579168573725e-12,
+          "trial_residual_offset_Ha": -1.463419787199549e-12,
+          "full_formula_Ha": 1.5933619579300306e-07,
+          "identity_error_Ha": 2.2189119931734967e-22,
+          "quotient_delta_Ha": 1.593403284871897e-07,
+          "quotient_identity_error_Ha": 2.982481323967306e-16,
+          "frozen_reference_RDM_deltaH_Ha": 1.595275007403903e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 2.5173432485461438e-22
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.9999999999999953,
+          "aligned_coefficient_dot": 0.9999999998902369,
+          "reported_energy_delta_Ha": 8.436218195129186e-07,
+          "trial_RDM_deltaH_Ha": 8.434778624828702e-07,
+          "quadratic_CI_response_Ha": 1.4737956966194797e-10,
+          "reference_residual_cross_Ha": -2.6446361356922924e-17,
+          "reference_residual_offset_Ha": 1.144428883498317e-13,
+          "trial_residual_offset_Ha": -3.5369560549753206e-12,
+          "full_formula_Ha": 8.436218195129191e-07,
+          "identity_error_Ha": 5.388047715017284e-22,
+          "quotient_delta_Ha": 8.436252416643697e-07,
+          "quotient_identity_error_Ha": 2.29588206630806e-16,
+          "frozen_reference_RDM_deltaH_Ha": 8.437726227089863e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -3.9777564694026564e-21
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 1.0000000000000013,
+          "aligned_coefficient_dot": 0.9999999999030955,
+          "reported_energy_delta_Ha": 5.702659109374508e-07,
+          "trial_RDM_deltaH_Ha": 5.701407392290423e-07,
+          "quadratic_CI_response_Ha": 1.2285153194330323e-10,
+          "reference_residual_cross_Ha": -3.782511714527131e-18,
+          "reference_residual_offset_Ha": 1.904782546843484e-12,
+          "trial_residual_offset_Ha": 4.153977005309226e-13,
+          "full_formula_Ha": 5.702659109374505e-07,
+          "identity_error_Ha": 3.284941007601211e-22,
+          "quotient_delta_Ha": 5.702635901272401e-07,
+          "quotient_identity_error_Ha": 2.6979990952130794e-16,
+          "frozen_reference_RDM_deltaH_Ha": 5.703864435732092e-07,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 7.439455634148793e-22
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": 5.220503226155415e-07,
+        "trial_RDM_deltaH_Ha": 5.218999279706847e-07,
+        "quadratic_CI_response_Ha": 1.5019639267456294e-10,
+        "reference_residual_cross_Ha": -6.522750785616845e-18,
+        "reference_residual_offset_Ha": 2.377154931125108e-13,
+        "trial_residual_offset_Ha": -3.945678817478794e-14,
+        "full_formula_Ha": 5.220503226155414e-07,
+        "quotient_delta_Ha": 5.220501243741182e-07,
+        "frozen_reference_RDM_deltaH_Ha": 5.222003216810799e-07
+      }
+    },
+    {
+      "artifact": "line_trial_0.npz",
+      "rows": [
+        {
+          "label": "6s_1/2",
+          "reference_column": 0,
+          "trial_column": 0,
+          "norm_reference": 0.999999999999999,
+          "norm_trial": 1.0000000000000004,
+          "aligned_coefficient_dot": 0.9998587188531605,
+          "reported_energy_delta_Ha": -0.0005848589607921895,
+          "trial_RDM_deltaH_Ha": -0.0008931189065928988,
+          "quadratic_CI_response_Ha": 0.00030825994979375636,
+          "reference_residual_cross_Ha": -2.3692448679198362e-15,
+          "reference_residual_offset_Ha": 4.535157080225594e-12,
+          "trial_residual_offset_Ha": -8.525834911932083e-12,
+          "full_formula_Ha": -0.0005848589607921895,
+          "identity_error_Ha": 5.293955920339377e-23,
+          "quotient_delta_Ha": -0.0005848589568016038,
+          "quotient_identity_error_Ha": 2.1026057668371107e-16,
+          "frozen_reference_RDM_deltaH_Ha": -0.00027842221697121575,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -3.4045430523702534e-19
+        },
+        {
+          "label": "5d_3/2",
+          "reference_column": 1,
+          "trial_column": 2,
+          "norm_reference": 0.9999999999999991,
+          "norm_trial": 1.0000000000000018,
+          "aligned_coefficient_dot": 0.9998506867854101,
+          "reported_energy_delta_Ha": 0.00021750618725491222,
+          "trial_RDM_deltaH_Ha": -0.00010389417722687885,
+          "quadratic_CI_response_Ha": 0.00032140037460868674,
+          "reference_residual_cross_Ha": 7.782834152466221e-15,
+          "reference_residual_offset_Ha": -2.697225881282617e-12,
+          "trial_residual_offset_Ha": -7.437452599234272e-12,
+          "full_formula_Ha": 0.00021750618725491222,
+          "identity_error_Ha": 1.1911400820763599e-22,
+          "quotient_delta_Ha": 0.00021750619738991617,
+          "quotient_identity_error_Ha": 1.5348721401214633e-16,
+          "frozen_reference_RDM_deltaH_Ha": 0.0005368819545305039,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -1.8335616330095433e-19
+        },
+        {
+          "label": "5d_5/2",
+          "reference_column": 3,
+          "trial_column": 3,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9998370505921147,
+          "reported_energy_delta_Ha": 0.00044119755148130935,
+          "trial_RDM_deltaH_Ha": 7.920520416186047e-05,
+          "quadratic_CI_response_Ha": 0.00036199234590470614,
+          "reference_residual_cross_Ha": -4.164794418759816e-15,
+          "reference_residual_offset_Ha": -2.668579168573727e-12,
+          "trial_residual_offset_Ha": 4.087486694525828e-12,
+          "full_formula_Ha": 0.00044119755148130935,
+          "identity_error_Ha": 1.852884572118782e-22,
+          "quotient_delta_Ha": 0.0004411975500628884,
+          "quotient_identity_error_Ha": 8.96071655037792e-17,
+          "frozen_reference_RDM_deltaH_Ha": 0.0007999481895723537,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 5.95305343242163e-20
+        },
+        {
+          "label": "6p_1/2",
+          "reference_column": 2,
+          "trial_column": 1,
+          "norm_reference": 0.9999999999999999,
+          "norm_trial": 0.999999999999999,
+          "aligned_coefficient_dot": 0.9997715488997576,
+          "reported_energy_delta_Ha": -0.0007897630202933215,
+          "trial_RDM_deltaH_Ha": -0.0011109557600031226,
+          "quadratic_CI_response_Ha": 0.0003211927355381909,
+          "reference_residual_cross_Ha": 4.0484993685579145e-14,
+          "reference_residual_offset_Ha": 1.1444288834983126e-13,
+          "trial_residual_offset_Ha": 4.016682335787912e-12,
+          "full_formula_Ha": -0.0007897630202933215,
+          "identity_error_Ha": 1.3234889800848443e-21,
+          "quotient_delta_Ha": -0.0007897630244242393,
+          "quotient_identity_error_Ha": 3.395206631709143e-16,
+          "frozen_reference_RDM_deltaH_Ha": -0.00047316367778970194,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": 1.0975429414047597e-18
+        },
+        {
+          "label": "6p_3/2",
+          "reference_column": 4,
+          "trial_column": 4,
+          "norm_reference": 1.0000000000000009,
+          "norm_trial": 1.0000000000000007,
+          "aligned_coefficient_dot": 0.9997888978498792,
+          "reported_energy_delta_Ha": -0.0006075149940443225,
+          "trial_RDM_deltaH_Ha": -0.0008870186919487172,
+          "quadratic_CI_response_Ha": 0.00027950369251925126,
+          "reference_residual_cross_Ha": 2.6593155872674166e-15,
+          "reference_residual_offset_Ha": 1.904782546843485e-12,
+          "trial_residual_offset_Ha": 3.477701560383442e-12,
+          "full_formula_Ha": -0.0006075149940443225,
+          "identity_error_Ha": 1.0587911840678754e-22,
+          "quotient_delta_Ha": -0.0006075149994275719,
+          "quotient_identity_error_Ha": 4.0513130586964036e-16,
+          "frozen_reference_RDM_deltaH_Ha": -0.00033283558876671254,
+          "raw_CI_norm_bias_if_trial_deltaH_unscaled_Ha": -6.795321819347624e-19
+        }
+      ],
+      "equal_weight_EOL": {
+        "reported_energy_delta_Ha": -0.00026468664727872235,
+        "trial_RDM_deltaH_Ha": -0.0005831564663219514,
+        "quadratic_CI_response_Ha": 0.00031846981967291823,
+        "reference_residual_cross_Ha": 8.878620827726626e-15,
+        "reference_residual_offset_Ha": 2.377154931125132e-13,
+        "trial_residual_offset_Ha": -8.762833840938346e-13,
+        "full_formula_Ha": -0.00026468664727872235,
+        "quotient_delta_Ha": -0.00026468664664012207,
+        "frozen_reference_RDM_deltaH_Ha": 5.048173211504546e-05
+      }
+    }
+  ],
+  "contract_sha256": "12682de3196b9f6fe28d0f2f370f5181a59ba20b2130502134e256d38ab486d9",
+  "script_sha256": "a766b3160649a8781ae07f28975478e72cc7e82931af41e1cb433e2ad84dab3c",
+  "same_frozen_probe_result_sha256": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+  "arithmetic": {
+    "dtype": "float128",
+    "mantissa_bits": 63,
+    "matrix_source": "existing stored rounded full DC matrices",
+    "radial_polynomial_implemented": false,
+    "new_CI_solves": 0,
+    "new_orbital_gradients": 0,
+    "new_optimization_steps": 0
+  },
+  "resource_uncontrolled": {
+    "elapsed_s": 0.43351821904070675,
+    "max_RSS_MiB": 346.109375
+  }
+}

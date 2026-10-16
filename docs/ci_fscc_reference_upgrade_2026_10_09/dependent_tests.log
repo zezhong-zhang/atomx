@@ -1,0 +1,4 @@
+..............................................x................          [100%]
+=========================== short test summary info ============================
+XFAIL tests/test_ci_matrix_vs_mscheme_reference.py::test_he_like_1s2p_j1_splitting_matches_two_thirds_g1[fac_frozen] - MEASURED: J=1 splitting 0.00187569 Ha against 2 G^1(1s,2p)/3 = 0.00012293 Ha on the same orbitals (factor 15.3).  The LS-limit identity needs a common radial 2p for the 3P1 and 1P1 CSFs; ``fac_frozen`` gives 2p1/2 and 2p3/2 independent 0.001-occupation radial functions in the frozen reference potential, so the pair has no single G^1 — the same protocol limitation that inverts the fine structure (tests/test_ci_levels_vs_nist.py).  Strict xfail: if a future protocol change restores a common 2p this turns green and the marker must be removed.
+62 passed, 1 xfailed in 59.67s

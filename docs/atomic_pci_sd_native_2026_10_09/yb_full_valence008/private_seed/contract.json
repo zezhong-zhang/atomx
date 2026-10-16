@@ -1,0 +1,14 @@
+{
+  "role": "complete private numerical guesses only; public GMRES must freshly certify source/root/response before screening",
+  "host_bound_bytes": 14636919076,
+  "host_cap_bytes": 34359738368,
+  "combined_device_bound_bytes": 1040006144,
+  "device_cap_bytes": 2147483648,
+  "resident_krylov": true,
+  "resident_krylov_pool_cap_bytes": 8589934592,
+  "total_declared_device_pool_cap_bytes": 10737418240,
+  "source_sha256": "7a32e0f2fd588f161dee652e8941cb1d62ca2dc4132c0efd21cd35cde20308c6",
+  "budget": "original m30/k10/maxiter100/three refinements, two full MGS passes, complete actual C refresh; no fallback or relaxed gate",
+  "callback_policy": "explicit owner activation before each full phase initialization; final public callback restored even on propagated failure",
+  "public_cuda_adopted": false
+}

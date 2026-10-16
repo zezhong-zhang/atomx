@@ -1,0 +1,42 @@
+{
+  "status": "full instrumented map equals retained original map; profile completed",
+  "gate_Ha": 1e-11,
+  "checks": {
+    "singles": {
+      "max_signed_error_Ha": 0.0,
+      "bitwise_equal": true
+    },
+    "doubles": {
+      "max_signed_error_Ha": 0.0,
+      "bitwise_equal": true
+    },
+    "prime_singles": {
+      "max_signed_error_Ha": 0.0,
+      "bitwise_equal": true
+    },
+    "prime_doubles": {
+      "max_signed_error_Ha": 0.0,
+      "bitwise_equal": true
+    }
+  },
+  "stage_seconds": {
+    "pci_val_outin": 0.008886563,
+    "pci_val_terma1": 9.5951e-05,
+    "pci_val_terma2": 6.3119e-05,
+    "pci_val_terma3": 0.00712383,
+    "pci_val_terma4": 2.738862865,
+    "pci_val_term1": 0.426958936,
+    "pci_val_term2": 613.092459255,
+    "pci_val_term32": 4.792425973,
+    "pci_val_term41": 1.463207688,
+    "pci_val_term42": 2.240124901,
+    "pci_val_term51": 0.001601229,
+    "pci_val_term52": 0.001040531,
+    "copy_source": 0.006355281,
+    "full_fock_and_copy": 0.174250945
+  },
+  "total_stage_seconds": 624.9534570669999,
+  "term2_fraction": 0.9810209901587466,
+  "map_sha256": "02c0f70c2346a2a87aef600bf148817fed11d26ac70f9d62cfa411aecde3d781",
+  "performance_scope": "one original map under observed load, not a controlled speedup"
+}

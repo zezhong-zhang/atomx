@@ -1,0 +1,40 @@
+{
+  "status": "pass",
+  "columns": 6,
+  "magnetic_columns": 16,
+  "source_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/probe_public_valence001.py": "ca03833e15d4305078a257a1d0af16c86f10f87c61722fdbc8a5dd78f6f5b05f",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_direct_coulomb.py": "be9b290bdd7fb117ae6e9d56ae7b1ea13c100fcf29bd650fff6159492bef9446",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_valence_direct_solver.py": "d7a2170bb106c591459f6c3c35a1f181efbce107a0d6bf3ab50dccaa750d5074",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_valence_fixture.py": "33d59cd0383697b16f50b9e8a665d327ce3acae241e8fdf53b5a04b84c2be9dc",
+    "docs/atomic_pci_sd_native_2026_10_09/general_rho_control.py": "d3d610d66a10351aaec5b041a9ccff55bf00c2a4165bdf760c82e84c29f4b2be",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_allorder_oracle.py": "a5fc234a6cad4679bcf21c756fb799c5eb6269d89b4035b5f3431385f2914190",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_energy_response_oracle.py": "55d84480cbddeaf389f876eb5fd60cffd2f2e4ad0a5029e4b41a31187605caf0",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_fock_oracle.py": "e52ec444c9b9d13898d503640229da3423f1d832002b7db08824bcfea5dc1c86",
+    "src/atomx/methods/valence_sd.py": "b19ceb5fa6ffa1cdee774490840c25d6b217eb35edc181435bd9ebd13af0458f",
+    "src/atomx/methods/_pci_valence.f90": "e7bea428c196abf2f8409f5820726ddb7962d84dc8522eed658097d5ecc9ba15",
+    "src/atomx/methods/core_sd.py": "ab3c53473172256edb31e3f6349e965097261d73665cfb70bcb93516be0f80d4",
+    "tools/build_pci_sd_backend.py": "30dee7d0da4ec30358baeed4ec6a4b849b10866d8b835aeb7fa68b84e466d901",
+    "tools/build_pci_valence_backend.py": "173f915b3d88f8ee2b71a9f4f0c615c0414a8dfe32dc7aa4fd66af743789851a"
+  },
+  "core_raw_residual_Ha": 2.596534098842085e-14,
+  "gate_summary": {
+    "action_Ha": 2.0822780348941916e-16,
+    "root_Ha": 2.816884341411076e-14,
+    "prime_Ha": 1.116632182429785e-12,
+    "sigma1_prime_Ha": 2.9321570128512664e-15,
+    "oracle_residual_Ha": 1.3552527156068805e-20,
+    "oracle_prime_residual_Ha": 1.1519648082658485e-19
+  },
+  "actual_valence_raw_residual_Ha": 3.4416913763379853e-15,
+  "actual_response_raw_residual_Ha": 2.2317217518441623e-15,
+  "matrix_vector_products": {
+    "[3, -1]": 70,
+    "[4, -1]": 111,
+    "[2, 1]": 44,
+    "[3, 1]": 52,
+    "[2, -2]": 44,
+    "[3, -2]": 52
+  },
+  "scope": "public finite same-input equation/signed response proof; no large-space or experimental convergence"
+}

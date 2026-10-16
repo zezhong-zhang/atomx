@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "finite_consumers": [
+    {
+      "job": "parallel_fscc_scope_7dfcbdd2c5046c49b1c4",
+      "execution_pass": true,
+      "output_count": 45,
+      "citation": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_7dfcbdd2c5046c49b1c4/result.json",
+        "sha256": "f88608fd8ae2aac282049324dac59b434afb2f5e4e1cc1a7275afa3494a0fffe"
+      }
+    },
+    {
+      "job": "parallel_properties_9f5d626cde40701f5d7b",
+      "execution_pass": true,
+      "output_count": 45,
+      "citation": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_9f5d626cde40701f5d7b/result.json",
+        "sha256": "cecf6513aa3e63e201578183c9ddb575e7844c6abcf9d15443ea04c7528a19b8"
+      }
+    },
+    {
+      "job": "parallel_norm_e6ad12dd6ef19ccd8b06",
+      "execution_pass": true,
+      "output_count": 64,
+      "citation": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/result.json",
+        "sha256": "dcc67d47989721f13d4d94975bd2a5726dfe95fb293340273e45db6a03508526"
+      }
+    }
+  ],
+  "new_production_yb_roots": 0,
+  "nist_receipt_triggered": {
+    "job": "parallel_nist_197bf57569266bd37188",
+    "citation": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_197bf57569266bd37188/result.json",
+      "sha256": "a90923dfac15a5e09bb97528ba5eb24525d1373f29e43faacf4a0f5ca7051bdb"
+    },
+    "output_count": 76,
+    "execution_pass": true
+  }
+}

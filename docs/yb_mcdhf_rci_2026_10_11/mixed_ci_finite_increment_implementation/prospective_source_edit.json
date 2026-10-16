@@ -1,0 +1,20 @@
+{
+  "status": "source_edit_only_prospective_record",
+  "root_source_edit_seal_sha256": "3b412b6bd3ac6c43ae3743cb6f537da526a63d019461494da6e62345430857f3",
+  "proposal_contract_sha256": "5165b10adc3c994fa3059c7595cf0824fbd0faa1f57d0bf46d6daa046588c060",
+  "original_source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "owned_source_scope": [
+    "src/atomx/numerics/ci_energy_increment.py",
+    "src/atomx/physics/csf/radial_increment.py",
+    "src/atomx/physics/csf/matrix.py:extract existing pair-band loop only",
+    "src/atomx/methods/csf/variational.py:new diagnostic method only",
+    "tests/test_mixed_ci_finite_increment.py:new finite tests"
+  ],
+  "qualification_execution_authorized": false,
+  "actual_H_CI_gradient_optimizer_calls": 0,
+  "new_decisions": {
+    "radial_reconstruction": "new radial evaluator also accepts explicit actual trial; stable second full pair-polynomial correction between declared explicit endpoint and rounded trial, separately reported",
+    "reported_vs_rayleigh": "both decompositions diagnostic; no recovered lost lambda; no scalar optimizer adapter",
+    "scope": "old fixed_density/constrained methods, CI/default/optimizer unchanged bytewise"
+  }
+}

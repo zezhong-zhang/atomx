@@ -1,0 +1,183 @@
+{
+  "created_utc": "2026-10-11T07:54:56.931264+00:00",
+  "status": "prospective_before_numerical_execution",
+  "hypothesis": "Complete allowed pair families from each bare reference supply direct ground and excited-state core-valence couplings absent in the earlier selective 68-CSF family. The same radial pool and Hamiltonian permit distinguishing balanced-family differential shifts from a larger radial cutoff effect. Angular support is not assumed to predict radial matrix elements or the sign of a transition shift.",
+  "scope": "Fixed native005 converged MCDHF orbitals: nested balanced-family fixed-orbital RCI discriminator only; not expanded-family MCDHF stationarity, not complete CV, not a production or experimental certification.",
+  "fixed_conditions": {
+    "native_run": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment",
+    "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source",
+    "source_map_sha256": "9dff33cc24acecff9e821c4f9b836e02efca0d615291d6f92ff5a7014a726c3f",
+    "frontier_enumeration": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json",
+    "frontier_preflight": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/preflight.json",
+    "nucleus": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    },
+    "electron_count": 69,
+    "Z": 70,
+    "radial_orbitals": 24,
+    "ns": 123,
+    "ks": 9,
+    "radial_pool": [
+      "6s",
+      "5d",
+      "6p"
+    ],
+    "core_families": [
+      "4f",
+      "5p",
+      "5s"
+    ],
+    "pair_configurations": [
+      "6s2",
+      "6s5d",
+      "6s6p",
+      "5d2",
+      "5d6p",
+      "6p2"
+    ],
+    "full_Nonrelativistic_configs": 21,
+    "complete_jj_CSF_enumeration": true,
+    "all_J_parity_blocks": true,
+    "max_determinants": 2000,
+    "operators": [
+      "public Dirac-Coulomb",
+      "public Dirac-Coulomb plus complete static Gaunt and retardation Breit"
+    ],
+    "no_QED_or_recoil_addition": true,
+    "no_empirical_fit": true,
+    "no_orbital_reoptimization": true,
+    "stages": [
+      {
+        "name": "stage_4f",
+        "CSFs": 294,
+        "families": [
+          "bare",
+          "4f"
+        ],
+        "frontier_space": "nested_4f",
+        "added_family": "4f"
+      },
+      {
+        "name": "stage_4f5p",
+        "CSFs": 468,
+        "families": [
+          "bare",
+          "4f",
+          "5p"
+        ],
+        "frontier_space": "nested_5p",
+        "added_family": "5p"
+      },
+      {
+        "name": "stage_4f5p5s",
+        "CSFs": 531,
+        "families": [
+          "bare",
+          "4f",
+          "5p",
+          "5s"
+        ],
+        "frontier_space": "nested_5s",
+        "added_family": "5s"
+      }
+    ]
+  },
+  "state_and_observable_contract": {
+    "primary_binding": "Full symmetry-resolved maximum squared signed-overlap assignment from previous DC all-root eigenvectors; current static states bound through complete current DC-to-static assignment. Independently compare adjacent static assignment and bare maximum-overlap state.",
+    "degenerate_subspace": "Archive all same-J/parity roots and signed CI coefficients; target flagged ambiguous for nearest same-symmetry gap <=1e-8 Ha; no isolated-column claim in degenerate cluster.",
+    "unambiguous_thresholds": {
+      "bare_character_weight_strict_greater": 0.5,
+      "previous_state_overlap_strict_greater": 0.5,
+      "DC_static_overlap_strict_greater": 0.5,
+      "primary_matches_bare_best_and_independent_adjacent_assignment": true
+    },
+    "energy_reference": "Report tracked6s referenced transitions separately from actual finite-H ground referenced excitations; report full actual ground family identity.",
+    "observables": [
+      "Absolute lower and upper energies and their previous/bare increments",
+      "Transition increments against identical preceding and bare DC/static operators",
+      "D/P degeneracy-weighted centroid and splitting",
+      "Full bare and previous signed-state spectral distributions and moment identities",
+      "NIST nominal energy residuals and unchanged 1% nominal comparison; diagnostic not certified even if comparison passes"
+    ],
+    "experimental_identity": "Original005 saved result rows and contract; no live experimental update or fitting"
+  },
+  "acceptance": {
+    "CI_residual_Ha": 1e-08,
+    "CI_orthogonality": 1e-08,
+    "matrix_hermiticity_Ha": 1e-10,
+    "cross_symmetry_Ha": 1e-10,
+    "previous_principal_matrix_Ha": 1e-08,
+    "symmetry_leakage": 1e-08,
+    "spectral_closure": 1e-08,
+    "spectral_centroid_Ha": 1e-08,
+    "spectral_variance_Ha2": 1e-08,
+    "independent_eigenvalue_replay_Ha": 1e-08,
+    "interlacing_Ha": 1e-08,
+    "near_degenerate_gap_Ha": 1e-08,
+    "stationarity_gate_unchanged_from_native005": true,
+    "production_certified": false,
+    "expanded_family_MCDHF_stationarity_passed": null
+  },
+  "distinguishing_outcomes": [
+    "Ground and upper shifts similar: previous selective-core space was unbalanced",
+    "Transition gap improves: these measured same-pool core families are supported next-MCDHF candidates",
+    "Transition gap worsens or bindings mix: missing additional correlation/orbital response remains; no inferred QED cure",
+    "Zero or cancellation-sized radial coupling: angular support alone is insufficient"
+  ],
+  "resource_contract": {
+    "threads": 1,
+    "max_address_space_GiB": 4,
+    "scientific_wall_seconds": 900,
+    "resident_estimate_GiB": 2.5,
+    "max_raw_determinants_by_stage": [
+      136,
+      209,
+      232
+    ],
+    "max_complete_CSF_block": 64,
+    "dense_all_block_CSF_bytes_by_stage": [
+      58160,
+      156224,
+      205944
+    ],
+    "scope": "Resource estimates are preflight evidence, observed elapsed times under machine load are not controlled speedups. Dense all-CSF arrays retained as forensic evidence fit this small diagnostic.",
+    "machine_load_at_contract": [
+      9.83349609375,
+      10.16796875,
+      9.95458984375
+    ],
+    "machine_cpu_count": 32
+  },
+  "stopping_condition": "Stop on unchanged numerical gate failure, source/input identity mismatch, complete determinant resource cap breach, 4 GiB limit, or 900 second timeout; retain completed and failed evidence; do not silently shrink any family or change physics, weights, state identity or thresholds.",
+  "efficiency_rationale": "Cheap discriminating same24 radial pool: no bigger n/l cutoff or repeated orbital optimization. Complete family/angular structure reused by Atomx public consumers. This fixed-orbital test can prioritize a physically balanced subsequent MCDHF model but cannot certify it.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/run.py": "ec494497970b1507811f451640618810a10c3a2819be52cc4817c46a95f70102",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/contract.json": "154fac6699fdbc0e53e2b8681dfda104be80fe58744ece6074a5d047d2f78757",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/result.json": "dd18dda2879edf3bfb715176a37a340d6f71e3ae9a278e36979eff70078a5c4c",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/enumeration.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/preflight.json": "6a75f02588726c9eac566e462a394d3565e7d37c7fa79a0e514500e38e5eb785",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_frontier/verification.json": "05031fa7e91d554d93f641d2bcab563b6b4b45319282847931c724c05cc4f005",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/contract.json": "c1257981f475158be1723ab634b12fb81b6491d88786af06876a0fcee944f461",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/source_identity.json": "aa0832ab1269c98020a2abac69f12526a18d795bfcd9278e2a7d85033e3dcdb0",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/result.json": "d1fe9e772565770e48264616c18cadcdcbedab2c1567e16165ad563b0211698b",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/ci_arrays.npz": "8832bdddd490acf14b40b39386e5bf200d7126a49a355ac3a4e64ab7cc796a6e",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/mcdhf_diagnostics.json": "9f7e45e34ea7d6b879365c18535a202333c4b300648fa4d6c6ef445e73626bf4",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/preflight.json": "b41e498133c5084bb3eb7208ae2702fb14da4accfa9c019e619748083dab3730"
+  },
+  "outputs": [
+    "result.json with card_summary and stages[].tracked_levels.static_Breit",
+    "verification.json independent numerical and archival gates",
+    "README.md scope and interpretation",
+    "basis_identity.json",
+    "per-stage complete matrices, signed all-root eigenvectors, target_binding, overlaps and results"
+  ]
+}

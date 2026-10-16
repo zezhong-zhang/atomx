@@ -1,0 +1,28 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "elapsed_uncontrolled_s": 0.5152967649046332,
+  "root_seal_sha256": "ad0017c3d24c114eacc5c467c63bee317fb5fc0c2964b6dbb001dfd2b2bcc015",
+  "contract_sha256": "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30",
+  "handoff_sha256": "ece8f9b02c443b6275237fb66d479e3aade81203d11aa9961c3da67ebc0d6ee6",
+  "registry_after_sha256": "a8ad6981ad32696081a252c466fd71e5d4f4ddac8e848ecd5c70347f8b8ac719",
+  "stdout_sha256": "17fbdc20e6ac14a64e531efb26ac1d83e6393b0b0e7e940a5493e5a6a9da04d8",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "command": [
+    "timeout",
+    "--kill-after=5s",
+    "60s",
+    "/data/code/atomx/.venv/bin/python",
+    "-I",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/refresh.py",
+    "--execute",
+    "--contract-sha256",
+    "27d414836aeada8d4f5b056d10dff7c75fa292e646aa6f2955d13da9a1860d30",
+    "--completion-binding",
+    "docs/yb_mcdhf_rci_2026_10_11/reporting_stage033/root_completion_binding.json"
+  ],
+  "scientific_NPZ_API_card_calls": 0,
+  "input_unchanged": true,
+  "integration_proof.json_sha256": "aaedb5c7fad7d30a85fb2d055e825e6fcd1f76177ada01f10bda43deda1628bd",
+  "current_card_evidence.json_sha256": "d8cac1ff11bc596203843332b19a97a1c6a8f75d03b4889d8e48ccb4d32069e3"
+}

@@ -1,0 +1,90 @@
+{
+  "status": "SOURCE_only_saved_matrix_preparation_checks_passed",
+  "default_result": {
+    "status": "SOURCE_ONLY_saved_matrix_diagnostic_ready_for_root_review",
+    "diagnostic_label": "SAVED_MATRIX_CONDITIONAL_DIAGNOSTIC",
+    "SOURCE_only": true,
+    "science_imports": 0,
+    "numerical_archive_reads": 0,
+    "numerical_archive_rehashes": 0,
+    "numerical_ZIP_header_reads": 0,
+    "new_H": 0,
+    "physical_calls": 0,
+    "planned_complete_eigh": 5,
+    "original_byte_gate_remains_failed": true,
+    "driver_sha256": "8b83e68ea74eab275b3ab3050d146c44804272dccc4e9771ff8f6142ff61cf37",
+    "contract_sha256": "5cab2c6eebe9e030aaf76f9f62679a33f9f9188704217cac6dcfdce008e97c6e"
+  },
+  "whole_source_files_checked": 356,
+  "parent_failure_controls": {
+    "PASS": 157,
+    "FAIL": 1
+  },
+  "source_inputs_and_closed_parent_manifest_verified": true,
+  "full_Ruff": "PASS",
+  "format_check": "PASS",
+  "whole_driver_AST_compiles": true,
+  "top_level_imports_stdlib_only": [
+    "from __future__ import annotations",
+    "import argparse",
+    "import hashlib",
+    "import json",
+    "import math",
+    "import os",
+    "import resource",
+    "import signal",
+    "import sys",
+    "import threading",
+    "import time",
+    "import traceback",
+    "import zipfile",
+    "from collections import Counter",
+    "from fractions import Fraction",
+    "from pathlib import Path"
+  ],
+  "no_saved_H_mutation_targets": true,
+  "no_physical_H_or_radial_module_imports": true,
+  "one_eigh_call_site_inside_five_native_complete_groups": [
+    "linalg.eigh(block, subset_by_index=None, driver='evd')"
+  ],
+  "upward_Fraction_helper_checks": [
+    {
+      "numerator": 0,
+      "denominator": 1,
+      "upper_binary64": 0.0,
+      "upper_binary64_hex": "0x0.0p+0"
+    },
+    {
+      "numerator": 1,
+      "denominator": 3,
+      "upper_binary64": 0.33333333333333337,
+      "upper_binary64_hex": "0x1.5555555555556p-2"
+    },
+    {
+      "numerator": 3,
+      "denominator": 8,
+      "upper_binary64": 0.375,
+      "upper_binary64_hex": "0x1.8000000000000p-2"
+    },
+    {
+      "numerator": 1,
+      "denominator": 202402253307310618352495346718917307049556649764142118356901358027430339567995346891960383701437124495187077864316811911389808737385793476867013399940738509921517424276566361364466907742093216341239767678472745068562007483424692698618103355649159556340810056512358769552333414615230502532186327508646006263307707741093494784,
+      "upper_binary64": 5e-324,
+      "upper_binary64_hex": "0x0.0000000000001p-1022"
+    },
+    {
+      "numerator": 1152921504606846977,
+      "denominator": 1152921504606846976,
+      "upper_binary64": 1.0000000000000002,
+      "upper_binary64_hex": "0x1.0000000000001p+0"
+    }
+  ],
+  "helper_scope": "Stdlib exact ratios only, no matrices or science.",
+  "numerical_archive_reads": 0,
+  "numerical_archive_rehashes": 0,
+  "numerical_ZIP_header_reads": 0,
+  "science_imports": 0,
+  "physical_calls": 0,
+  "actual_directory_absent": true,
+  "local_links_verified": 3
+}

@@ -1,0 +1,45 @@
+--- capture/mbpt_transitions.py
++++ final/mbpt_transitions.py
+@@ -66,7 +66,8 @@
+         if (poles.ndim != 1 or weights.shape != poles.shape
+                 or not np.isrealobj(poles) or not np.isrealobj(weights)
+                 or not np.all(np.isfinite(poles)) or not np.all(np.isfinite(weights))
+-                or np.any(weights < 0) or not np.isfinite(self.reference_energy_Ha)
++                or np.any(weights < 0) or np.ndim(self.reference_energy_Ha) != 0
++                or not np.isrealobj(self.reference_energy_Ha) or not np.isfinite(self.reference_energy_Ha)
+                 or not np.isfinite(self.denominator_floor_Ha) or self.denominator_floor_Ha <= 0
+                 or not isinstance(self.reference_identity, str) or not self.reference_identity.strip()):
+             raise ValueError("invalid real self-energy snapshot or missing reference identity")
+@@ -77,8 +78,8 @@
+             object.__setattr__(self, name, values)
+ 
+     def _denominators(self, energy_Ha):
+-        if not np.isfinite(energy_Ha):
+-            raise ValueError("self-energy energy must be finite")
++        if np.ndim(energy_Ha) != 0 or not np.isrealobj(energy_Ha) or not np.isfinite(energy_Ha):
++            raise ValueError("self-energy energy must be a finite real scalar")
+         denominators = energy_Ha - self.poles_Ha
+         if np.any(abs(denominators) < self.denominator_floor_Ha):
+             raise ValueError("resonant second-order self-energy denominator")
+@@ -103,7 +104,9 @@
+         from scipy.optimize import brentq
+ 
+         lo, hi = bracket_Ha
+-        if (not np.isfinite(lo) or not np.isfinite(hi) or lo >= hi
++        if (np.ndim(lo) != 0 or np.ndim(hi) != 0
++                or not np.isrealobj(lo) or not np.isrealobj(hi)
++                or not np.isfinite(lo) or not np.isfinite(hi) or lo >= hi
+                 or not lo <= self.reference_energy_Ha <= hi):
+             raise ValueError("Dyson bracket must contain the DF reference energy")
+         if np.any((self.poles_Ha >= lo - self.denominator_floor_Ha)
+@@ -219,8 +222,8 @@
+         a = (P, Q, sh_a.kappa, scf_result.orbital_energies[orbital_label])
+     data = scf_result._bsp_data
+     energy = a[3] if evaluation_energy_au is None else evaluation_energy_au
+-    if not np.isfinite(energy):
+-        raise ValueError("self-energy energy must be finite")
++    if np.ndim(energy) != 0 or not np.isrealobj(energy) or not np.isfinite(energy):
++        raise ValueError("self-energy energy must be a finite real scalar")
+     cache = ConvolCache(data)
+     virtuals = []
+     for kap in kappas:

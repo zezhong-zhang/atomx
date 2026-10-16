@@ -1,0 +1,10 @@
+{
+  "phase": "post-test artifact copy only",
+  "scientific_test": "1 passed, source unchanged",
+  "cause": "pytest numeric and current symlink aliases were counted as separate runs",
+  "aliases": [
+    "/tmp/atomx-heff-public-final-ig94b9qd/test_live_public_complex_nonhecurrent/run",
+    "/tmp/atomx-heff-public-final-ig94b9qd/test_live_public_complex_nonhe0/run"
+  ],
+  "fix": "deduplicate resolved paths; same existing test artifacts, no new solve"
+}

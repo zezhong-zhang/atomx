@@ -1,0 +1,652 @@
+{
+  "status": "PASS_JSON_source_review",
+  "checks": [
+    {
+      "name": "status",
+      "PASS": true
+    },
+    {
+      "name": "273_original_controls",
+      "PASS": true
+    },
+    {
+      "name": "driver_contract_seal",
+      "PASS": true
+    },
+    {
+      "name": "root_once_only",
+      "PASS": true
+    },
+    {
+      "name": "resources_source",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/basis_maps",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/checkpoint",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/checkpoint_arrays",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/layout",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/models",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/saved_S",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/source_identity",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/tracking_binding",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/workspace",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/A_R0",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/A_R0_record",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/B_R0",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/B_R0_record",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/preparation_driver",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/preparation_contract",
+      "PASS": true
+    },
+    {
+      "name": "input_SHA256/preparation_result",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.clebsch",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.coefficients",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.csf_hamiltonian",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.csf_recoupling",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.ls_coupling",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.mscheme",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.rcfp",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.recoupling",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.angular.wigner",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.compare",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.config",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.config.csf",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.config.parsing",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.config.subshell",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.constants",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.adapters",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.breit",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.protocol",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qed",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.base",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.flambaum_ginges",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.indelicato",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.mohr",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.shabaev",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.qedmod.welton",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.corrections.stack",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.data",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.data.flambaum_ginges",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.data.hyperfine_presets",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.data.mohr_se",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.base",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.breit_pauli",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.ci",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.csf",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.csf.solver",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.dirac_fock",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.hartree_fock_slater",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.hydrogenic",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.mbpt",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.mcdhf",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.mcdhf.solver",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.methods.scf_observables",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.basis",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.convol",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.dirac_assembly",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.evaluate",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.integrals",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.knots",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.bspline.orbital_optimization",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.diis",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.quadrature",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.radial_metric",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.radial_workspace",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.constants",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.coulomb",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.electron_space",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.operators",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.quadrature",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.shooting.spline",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.numerics.yk",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.base",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.csf",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.csf.effective_one_body",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.csf.levels",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.csf.matrix",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.csf.radial_snapshot",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.dirac",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.physics.schrodinger",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.potentials",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.potentials.nuclear",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.radial_state",
+      "PASS": true
+    },
+    {
+      "name": "imported_SHA256/atomx.types",
+      "PASS": true
+    },
+    {
+      "name": "81_imported_native_modules",
+      "PASS": true
+    },
+    {
+      "name": "attempted_calls_complete",
+      "PASS": true
+    },
+    {
+      "name": "call_caps",
+      "PASS": true
+    },
+    {
+      "name": "scope_limits",
+      "PASS": true
+    },
+    {
+      "name": "whole_angular_census",
+      "PASS": true
+    },
+    {
+      "name": "two_operators_ten_blocks_ten_Davidson",
+      "PASS": true
+    },
+    {
+      "name": "A/complete_CSF_rows_columns",
+      "PASS": true
+    },
+    {
+      "name": "A/complete_sector_set",
+      "PASS": true
+    },
+    {
+      "name": "A/five_owned_UIDs",
+      "PASS": true
+    },
+    {
+      "name": "A/same_radial_binding",
+      "PASS": true
+    },
+    {
+      "name": "A/full_action/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_residual/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/selected_direct_L2/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/iterations/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_action/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_residual/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/selected_direct_L2/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/iterations/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_action/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_residual/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/selected_direct_L2/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/iterations/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_action/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_residual/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/selected_direct_L2/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/iterations/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_action/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/full_residual/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/selected_direct_L2/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "A/iterations/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/complete_CSF_rows_columns",
+      "PASS": true
+    },
+    {
+      "name": "B/complete_sector_set",
+      "PASS": true
+    },
+    {
+      "name": "B/five_owned_UIDs",
+      "PASS": true
+    },
+    {
+      "name": "B/same_radial_binding",
+      "PASS": true
+    },
+    {
+      "name": "B/full_action/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_residual/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/selected_direct_L2/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/iterations/[1, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_action/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_residual/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/selected_direct_L2/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/iterations/[1, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_action/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_residual/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/selected_direct_L2/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/iterations/[3, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_action/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_residual/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/selected_direct_L2/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/iterations/[3, -1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_action/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/full_residual/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/selected_direct_L2/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "B/iterations/[5, 1]",
+      "PASS": true
+    },
+    {
+      "name": "table_projection_payloads",
+      "PASS": true
+    },
+    {
+      "name": "pre_interpreter_launcher_failure_preserved",
+      "PASS": true
+    }
+  ],
+  "checks_count": 158,
+  "NPZ_loads": 0,
+  "science_calls": 0,
+  "scope": "JSON and source/hash consistency; arrays are not independently decoded or recomputed",
+  "bindings": {
+    "run.py": "4e10a7ddb34e3f2a6366b57c3725420138ff35dd2059e921958138bd0438d220",
+    "contract.json": "b78049cad488491af636bbd018a417629c844de217e8bb8c2801bb076cf486a2",
+    "root_execution_seal.json": "c2150fd3bd9789adf4f56df1f9834d32a57f153ba6004448b70827fe0469f150",
+    "launcher_failure001.json": "e5c483222da1f934abbf4fc8e98f4c57153cd8836a6238fd8f2197727046e958",
+    "actual/result.json": "fb911f77ca13bb6d0edca00e1d222b2f26c847f5569b6c904a7aadea25d73bd0",
+    "actual/A.json": "06328f2e3da3873900c00bc94beaeee52987bf878a9bc2fb04e9a407a3da92bb",
+    "actual/B.json": "7e867cf045e485f090f05646b19cc27f07d90168690b38fa0f29fc9bed3ac28d",
+    "actual/A_selected.npz": "e8de477cd38b0e7e5a92a2e5448091db1ea6a62de60a44fe54fa907bf6149dfc",
+    "actual/B_selected.npz": "3a2b569e8046db412e59fc501a7e03a005bb43716d9f2be16c882a01f2c58095"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "hypothesis": "Original EXP-T Dinfh signed axial/parity blocking preserves full CCSD/CCSDT equations and complete magnetic multiplets",
+  "fixed": "Pinned aa8d809ad5818d4aa618dcdadbd7f12257ecbc28, original Atomx complex signed ABI001 and tensor equations; sidecar optional",
+  "comparison": "fresh same-executable C1 vs axial finite native and within-M/parity complex rotated full signed HEFF, then complete3electron FCI",
+  "signed_matrix_gate_Ha": 1e-09,
+  "energy_gate_Ha": 1e-09,
+  "amplitude_update_gate": 1e-12,
+  "raw_bound_gate_Ha": 1e-09,
+  "workers": 4,
+  "load": [
+    16.75244140625,
+    14.455078125,
+    14.97607421875
+  ],
+  "stop": "Reject changed tensors, missing multiplets/blocks, residual/signed gate failures; no production or performance claim before live proof",
+  "status": "experimental build and live proof pending"
+}

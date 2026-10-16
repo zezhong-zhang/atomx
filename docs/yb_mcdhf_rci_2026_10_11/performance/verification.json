@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "new_exact_reuse_and_fixed_ensemble_tests",
+      "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_mcdhf_gradient_reuse.py tests/test_ci_state_average.py -q",
+      "passed": true,
+      "summary": "30 passed in 2.81s"
+    },
+    {
+      "name": "shared_charge_response_history_consumers",
+      "command": "OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_ci_overlap_response.py tests/test_ci_charge_state_average.py tests/test_orbital_optimizer_history.py -q",
+      "passed": true,
+      "summary": "28 passed in 2.17s"
+    },
+    {
+      "name": "ruff",
+      "passed": true,
+      "summary": "All checks passed!"
+    }
+  ],
+  "controlled_performance_claim": false,
+  "reason": "load guard failed; no production timing lock acquired; no GPU compilation or execution",
+  "files": {
+    "src/atomx/methods/csf/variational.py": "0d7174a58052772d3b3ef774bf6c3c03ff91e7a683ea06a1d177979a11ae5a94",
+    "tests/test_mcdhf_gradient_reuse.py": "b0c282d52060f362853991672348e1ecbe0fd000b2efdccebe1abd2644546826",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/contract.json": "37c8411f51cca51262e49dcff98f3b3a0c0f83f84fa4314e4840da7c916049f2",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/probe_gradient.py": "683d3783c6ce2f36c1b85952ae077bec7b3d6c2a8ed9335e7684499b1d986340",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/result.json": "549be2307c15c55288f08fc549cb525934f95f008e0bcc480997ce6be1c8261c",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_probe001/arrays.npz": "ddb04638f3c36efe0dd923334945c034e7f4e6e1ed0322481043e6ca4e1a9336",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/gradient_action_reuse.patch": "db41c67cd9d2f542eaf37afdc39673f4386a3346e784affa04b6a207b9f1984d",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/README.md": "7dd9c7eb0165f3af9e5960943038e9bb31e869863a8345c733157ee74567fcf4",
+    "docs/yb_mcdhf_rci_2026_10_11/performance/documentation_impact.json": "8e0e90e0afdc4eb0520bfc605b591ccf235e117356d33a217d9e7a7f55bfa39d"
+  },
+  "source_scope": "Current full variational source may include independently validated root changes; function-only patch and AST manifest identify action-reuse change",
+  "source_files_before_and_after_sha256_verified": true,
+  "local_links_verified": true,
+  "broken_links": [],
+  "epoch_checks": {
+    "before_manifest_passed": true,
+    "after_full_source_and_function_AST_passed": true
+  }
+}

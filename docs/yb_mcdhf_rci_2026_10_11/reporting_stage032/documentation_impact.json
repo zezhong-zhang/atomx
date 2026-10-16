@@ -1,0 +1,10 @@
+{
+  "scope": "new reporting_stage032 only",
+  "disposition": {
+    "reporting_stage031": "retain all source/failure/result/panel bytes unchanged",
+    "reporting_stage032": "new exact schema-repair metadata successor, not executed",
+    "registry/main_README/trace/source/site": "untouched; root alone executes or updates later"
+  },
+  "durable_insight": "Renderer inputs are bound objects, not hash strings. Validate complete public object schemas at metadata producer seam before rendering.",
+  "new_numerical_API_render_calls": 0
+}

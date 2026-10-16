@@ -1,0 +1,250 @@
+{
+  "status": "primary_paper_contract_and_native_development_proposal_no_numerical_run",
+  "created_utc": "2026-10-13T14:57:36.698225+00:00",
+  "main_reference": {
+    "version": "arXiv:2504.01438v1",
+    "author": "B. K. Sahoo",
+    "submission_utc": "2025-04-02T07:48:10Z",
+    "html": "https://arxiv.org/html/2504.01438v1",
+    "pdf": "https://arxiv.org/pdf/2504.01438v1",
+    "pdf_sha256": "afb502039a473ad710fcfe4f5958626713a02b32a9c4c48d384820d0a0cecb6b",
+    "pdf_bytes": 144364,
+    "bindings": "Eq2; basis paragraph following Eq1; Table1 energy rows; RCCSDT/Extra/Breit paragraph following Eq2",
+    "scope": "Three levels and two D clock lines; not 6p/4f-hole/full-spectrum certification."
+  },
+  "reported_model": {
+    "ion": "171Yb+",
+    "Z": 70,
+    "total_electrons": 69,
+    "core_reference": "closed [Xe]4f14 Yb2+,68electrons; solve common core T before valence Sv",
+    "valence": [
+      "6s S1/2",
+      "5d D3/2",
+      "5d D5/2"
+    ],
+    "wavefunction": "exp(T)(1+Sv)|Phi_v>; coreT and valenceSv truncated separately at declared excitation rank",
+    "basis": "40 Gaussian functions for each relativistic s,p1/2,p3/2,d3/2,d5/2,f5/2,f7/2,g7/2,g9/2,h9/2,h11/2,i11/2,i13/2 symmetry, kinetic balance, radial extent500a.u.",
+    "DC_correlation": "RCCSD and RCCSDT use l<=4(g)",
+    "Extra": "h/i(l5/6) contribution computed at RCCSD; not RCCSDT h/i and not combined g/h/i increment",
+    "Breit": "Included self-consistently in DHF as described; additional correction estimated at RCCSD. Exact operator/frequency and differential reference details not specified.",
+    "nuclear_model": null,
+    "frozen_core_partition": null,
+    "active_virtual_truncation": null,
+    "notes": "68-electron core identity does not establish that all68 are correlated. 40GTO per symmetry is not a published active-spinor census.",
+    "finite_field_lambda_au": 1e-05,
+    "finite_field_scope": "Main Table2 IS finite-field parameter; not a transferred MCDHF orbital derivative step or AR qualification."
+  },
+  "unknown_inputs": [
+    "finite nuclear charge distribution and numerical radius/skin parameters for171Yb; cannot import legacy Atomx A175Fermi",
+    "all40 primitive GTO exponents per symmetry, even-temper alpha/beta if used, normalization/linear-dependence thresholds and quadrature grids",
+    "actual correlated/frozen occupied spinors, virtual counts or energy cuts, triple-space restrictions and model-space choices",
+    "DHF/CC numerical stopping thresholds, branch/initialization/intruder policy and independent amplitude/state residuals",
+    "Breit operator/frequency prescription and exact DC/Breit difference construction, including orbital relaxation",
+    "normal-ordered EA reference ledger/rest-energy convention details required for a matched implementation",
+    "for later properties: isotope nuclear magnetic/BW model and moments, EVE termination/AR residual controls and finite-field operator conventions"
+  ],
+  "published_reference_only": {
+    "value_role": "Reported paper inputs to comparison; NOT Atomx calculated results",
+    "units": "cm^-1",
+    "state_order": [
+      "6s S1/2",
+      "5d D3/2",
+      "5d D5/2"
+    ],
+    "EA_rows": {
+      "DHF": [
+        -90790,
+        -66517,
+        -66038
+      ],
+      "RCCSD": [
+        -97642,
+        -73525,
+        -72268
+      ],
+      "RCCSDT": [
+        -97859,
+        -74198,
+        -72915
+      ],
+      "Extra": [
+        -191,
+        -752,
+        -703
+      ],
+      "Breit": [
+        68,
+        -2,
+        -28
+      ],
+      "Final": [
+        -97982,
+        -74952,
+        -73646
+      ],
+      "Experiment": [
+        -98232,
+        -75271,
+        -73899
+      ]
+    },
+    "final_EA_uncertainties_cm1": [
+      300,
+      350,
+      350
+    ],
+    "native_computed": null
+  },
+  "dependent_scalar_arithmetic_only": {
+    "excitation_order": [
+      "6s->5d D3/2",
+      "6s->5d D5/2"
+    ],
+    "excitation_rows_cm1": {
+      "DHF": [
+        24273,
+        24752
+      ],
+      "RCCSD": [
+        24117,
+        25374
+      ],
+      "RCCSDT": [
+        23661,
+        24944
+      ],
+      "Extra": [
+        -561,
+        -512
+      ],
+      "Breit": [
+        -70,
+        -96
+      ],
+      "Final": [
+        23030,
+        24336
+      ],
+      "Experiment": [
+        22961,
+        24333
+      ]
+    },
+    "RCCSDT_minus_RCCSD_cm1": [
+      -456,
+      -430
+    ],
+    "final_minus_paper_experiment_cm1": [
+      69,
+      3
+    ],
+    "transition_uncertainty": null,
+    "limit": "No inter-state covariance given; +3cm^-1 center difference is not an error bound or reproduction threshold. No published correction applied to Atomx."
+  },
+  "reference_trace": [
+    {
+      "main_ref": 18,
+      "version": "arXiv:1408.4683v2",
+      "url": "https://arxiv.org/html/1408.4683v2",
+      "published": "Phys.Rev.A90,050503(R)(2014)",
+      "found": "Eq6-8: DC, N69, attachment from closed68e [Xe]4f14 and detachment from70e [Xe]4f14 6s2; SD plus perturbative important triples. No40-GTO exponent/charge-parameter table in this primary text.",
+      "transfer_to_main": false
+    },
+    {
+      "main_ref": 17,
+      "version": "arXiv:2408.09959v1",
+      "url": "https://arxiv.org/html/2408.09959v1",
+      "published_reference": "J.Phys.B58,042001(2025)",
+      "found": "Sections2.4/4 review multiple nuclear models and one-/multivalenceRCC formulations. Reviewed preprint does not bind the main40-GTO exponent/nucleus parameters.",
+      "transfer_to_main": false
+    },
+    {
+      "main_ref": 23,
+      "version": "arXiv:2502.06225v1",
+      "url": "https://arxiv.org/html/2502.06225v1",
+      "pdf_sha256": "46811cbb9468451bc91df014e7b845df0aeaa446298b2e1fe73d5f83934b79ed",
+      "pdf_bytes": 209564,
+      "published": "Phys.Rev.A111,032801(2025)",
+      "main_reference_typo": "2502.0622; resolved via exact Yu/Sahoo title and author publication link",
+      "found": "SectionIII/IV: distinct DC-Gaunt/Gaussian-nucleus DIRAC+MRCC/EOM calculation, dyall.cv2/3/4z; e23/e33 and virtual<10/<50Ha; radial extent50a.u. cited by main.",
+      "transfer_to_main": false,
+      "reason": "Different Hamiltonian, basis, correlated partition and method; its e23/<10 values cannot fill unknown main inputs."
+    }
+  ],
+  "native_source_snapshot_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/literature_precision_budget001/budget.json": "d2e35f060dbf1a2c89fea477d21472c99b2ea12336d2456727b03a4cc189e1ff",
+    "docs/ATOMIC_FSCC.md": "10c59c20891a2428308547c3e3f55b94f5c061ce9fcd27cf590c5d29e0dbcb83",
+    "docs/atomic_native_roadmap_2026_10_11/README.md": "bf9f85fc16438e3a52f5b49bd619fcb5f66bd29747447c09964ed69916e72199",
+    "docs/ARCHITECTURE_DESIGN.md": "24aaf4b1127d36fb348d639a239b757a08c1179cf519e27716f9bf04bd1df88b",
+    "src/atomx/methods/coupled_cluster.py": "47813a7a35ca918f91cd23726f97b6d82a1293ef5a557e69532c8d072191a3ba",
+    "src/atomx/methods/fscc.py": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de",
+    "src/atomx/methods/atomic_space.py": "705e6445fe35b35f018bdd11c37c3a75abac1cd92fea6967af8d4686072787e1",
+    "src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee"
+  },
+  "source_scope": "Actual dirty source during concurrent finite-triples/EA development; the new finiteCCSDT source was read and AST-parsed, not numerically validated here. Root binds each candidate/results separately. This is not a later production-source certification.",
+  "native_seams": [
+    {
+      "path": "src/atomx/methods/coupled_cluster.py",
+      "seam": "compute: complete fixed-N determinant masks, signed generators, exact nilpotent exp(+/-T), projected SD nonlinear solve",
+      "status_at_inspection": "Parallel candidate now declares iterative connectedT3 and separate CCSD/CCSDT ranks; production atomic RCCSDT/FSCC/left states remain excluded. SOURCE inspected only, validation belongs to the parallel owner."
+    },
+    {
+      "path": "src/atomx/numerics/fermion.py",
+      "seam": "apply_terms: complete signed creation/annihilation action",
+      "use": "Independent finite action/sign oracle; no new Coulomb/Breit implementation."
+    },
+    {
+      "path": "src/atomx/physics/csf/spinor_integrals.py",
+      "seam": "owned SpinorIntegrals and build_spinor_integrals",
+      "use": "Common h/F/antisymmetricERI/frozen constant/reference identities, full magnetic multiplets and static/dynamic native kernels; EA energy zero must be explicit."
+    },
+    {
+      "path": "src/atomx/methods/atomic_space.py",
+      "seam": "build_atomic_space: complete positive-energy VN complement through lmax/energy bound",
+      "use": "Native B-spline physical pilot; not the paper40GTO representation."
+    },
+    {
+      "path": "src/atomx/methods/fscc.py",
+      "seam": "atomic_integrals reusable factory vs compute external executable consumer",
+      "status": "compute is EXP-T and is NOT used as native reproduction backend."
+    }
+  ],
+  "smallest_native_milestone": {
+    "label": "native finite nonlinearCCSDT + separate finite EOM-EA-CCSDT equation qualification; no69e paper result",
+    "core_probe": {
+      "N": 3,
+      "spinors": 6,
+      "complete_determinants": 20,
+      "T1_T2_T3_counts": [
+        9,
+        9,
+        1
+      ],
+      "generator_FP64_bytes": 60800,
+      "controls": "Qualify the concurrent native candidate: nonzero connectedT3; allSDT projected residuals, independent full-N3 FCI energies/vectors, signed rotations/interference. N4 control reports unprojected omitted-rank4 defect separately.",
+      "reference_scope": "Generic fixed-N3 cluster algebra anchor, not an odd-electron spherical closed-shell Yb core model."
+    },
+    "EA_probe": "Common owned integral reference and expT; retain complete1p/2p1h/3p2h attachment pencil. Compare all signed nonsymmetric entries, rightroots/residuals and physical expT norms to complete retained Fock oracle. No Hermitian averaging or column/energy-only matching.",
+    "method_boundary": "Finite EOM-EA and valence-universal FS-RCC are distinct named methods; equivalence/sector coverage must be shown for stated truncation, not inferred from a small FCI match.",
+    "next_parallel_physics": "Native MCDHF/RCI g/h/i pilot can measure high-l response with full signed lower/upper states and common owned geometry, but label it RCI partial-wave contribution, not the paperRCCSD Extra.",
+    "resource_admission": "Reuse existing finite caps determinant256/amplitude128/generator128MiB for the tiny core anchor; each actual executor fixes all integral/state/work/wall/host caps before allocation. No69e tensor resource or timing claim.",
+    "stop": "No paper-number fitting, copying reference values as calculated, silent frozen-core/virtual cuts, external solver substitution or upgrading original Yb FD/stationarity failures."
+  },
+  "reproduction_labels": {
+    "strict_paper_numeric_reproduction": "Requires disclosed actualGTO/nuclear/core/virtual/Breit inputs, native scalable nonlinear coreT3+attachment amplitudes and matched stage-by-stage residuals; not achieved.",
+    "same_equation_native_development": "Concurrent finite coreT3 and proposed finite EA rank3 anchors; numerical results belong to separately bound candidate/result evidence.",
+    "same_physics_different_representation": "Explicitly declared native B-spline MCDHF/RCI or CC comparison, with convergence and operator checks; not40GTO numerical reproduction."
+  },
+  "performed": {
+    "primary_reading": true,
+    "stdlib_integer_table_arithmetic": true,
+    "NPZ_access": 0,
+    "numerical_imports": 0,
+    "native_science": 0,
+    "solver_edits": 0,
+    "external_solver_calls": 0,
+    "cards_or_timers": 0
+  },
+  "handoff": "Root owns current guide/EARS/result integration; parallel kernel and high-l executors own their actual source/model evidence. No automatic execution contract in this two-file paper note."
+}

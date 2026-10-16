@@ -1,0 +1,40 @@
+{
+  "hypothesis": "Skip unconsumed derivative contractions in value-only Krylov actions; full signed values stay bitwise to the original companion",
+  "fixed": "same full original physical/signed input and bound backend; both variants use8 heap workers and inner-one BLAS; derivative input affects only the full companion's derivative output",
+  "reference_case": "valence_term2_full003",
+  "original_reference_sha256": "efb673f24ee3516fcb35cb4e986699daf5a95aa2f0b020a568e4ba31b551f9c9",
+  "physical_input_sha256": "4e320b72f6517c6f016a1cd9a1f2f9462e3aebe571f1ddd0f0dc4473beadd153",
+  "parent_manifest_sha256": "5ca0263d07ce9ad4073684a2465839bda2f20e7eea697f3ae8487953abc6a0e0",
+  "kernel_sha256": "998f58fff2298cde2386b8af5beb8a9b49e50e49f3a0996fac3d16af65707fbc",
+  "signed_gate_Ha": 1e-11,
+  "bitwise_worker_equivalence_required": true,
+  "cap_bytes": 34359738368,
+  "warmups": [
+    "response",
+    "value_only"
+  ],
+  "alternating_pairs": [
+    [
+      "response",
+      "value_only"
+    ],
+    [
+      "value_only",
+      "response"
+    ],
+    [
+      "response",
+      "value_only"
+    ]
+  ],
+  "max_load_guard": 27.0,
+  "required_pair_speedup": 1.0,
+  "timing_scope": "warm signed value request: full-response companion versus value-only candidate including each C copy; no complete response or end-to-end speedup claim",
+  "stop": "Any input/source/cap/signed mismatch rejects; load failure suppresses controlled timing claim but signed controls still run; no tolerance/space change",
+  "value_kernel_sha256": "8ff293389887f11f4f1cd8445ff4c975c21b233f16f7243036eb3bdc4b3334c5",
+  "concurrent_workload": "unchanged production five-column003, up to8 workers; unrelated9CPU baseline retained",
+  "guard_reason": "32 logical CPUs; threshold27 retains5CPU headroom for the predeclared concurrently active8-worker production task; no after-result guard adjustment",
+  "baseline": "response",
+  "candidate": "value_only",
+  "unified_response_policy": true
+}

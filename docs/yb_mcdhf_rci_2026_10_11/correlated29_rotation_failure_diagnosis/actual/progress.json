@@ -1,0 +1,250 @@
+{
+  "phase": "exact_slopes_rounded_physical_odd",
+  "exact_products": 2270821,
+  "elapsed_s": 6.017947013955563,
+  "partial": {
+    "original_rotation002_passed": false,
+    "physical_producer_calls": 0,
+    "eigen_SVD_calls": 0,
+    "two_body_cells_or_potentials": 0,
+    "new_public_RDM_contracts": 0,
+    "optimizer_authorized": false,
+    "no_new_direction_or_step": true,
+    "table_comparison": {
+      "full_terms": 12403,
+      "retained_terms": 10738,
+      "h_keys": 51,
+      "missing_h_keys": [],
+      "changed_h_coefficients": 35,
+      "changed_r_coefficients": 8764,
+      "missing_r_keys": 1665,
+      "not_a_pure_cutoff_difference": true
+    },
+    "saved_h_representation_seams": [
+      {
+        "kappa": 1,
+        "raw_minus_logical_max": 137.03599917759033,
+        "raw_asymmetry_max": 137.03599917759033,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": 2,
+        "raw_minus_logical_max": 137.03599917759027,
+        "raw_asymmetry_max": 137.03599917759027,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": 3,
+        "raw_minus_logical_max": 137.03599917759038,
+        "raw_asymmetry_max": 137.03599917759038,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": -2,
+        "raw_minus_logical_max": 137.03599917759004,
+        "raw_asymmetry_max": 137.03599917759004,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": -4,
+        "raw_minus_logical_max": 137.03599917759016,
+        "raw_asymmetry_max": 137.03599917759016,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": -3,
+        "raw_minus_logical_max": 137.03599917758993,
+        "raw_asymmetry_max": 137.03599917758993,
+        "max_abs_raw_entry": 12134.013497175916
+      },
+      {
+        "kappa": -1,
+        "raw_minus_logical_max": 137.0359991775902,
+        "raw_asymmetry_max": 137.0359991775902,
+        "max_abs_raw_entry": 12134.013497175916
+      }
+    ],
+    "direction_modes": {
+      "ideal_P_times_seed": {
+        "logical_h_full_slope": 1.0893124428957803,
+        "logical_h_retained_slope": 1.0893124428957797,
+        "global_h_coefficient_difference_slope": 5.860384394624036e-16,
+        "largest_h_difference_contributions": [
+          {
+            "key": [
+              "h",
+              3,
+              -3,
+              3
+            ],
+            "contribution": 8.621198361302288e-16
+          },
+          {
+            "key": [
+              "h",
+              3,
+              2,
+              3
+            ],
+            "contribution": -8.453012984205271e-16
+          },
+          {
+            "key": [
+              "h",
+              5,
+              -1,
+              5
+            ],
+            "contribution": 5.815317053794606e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              2,
+              4
+            ],
+            "contribution": -4.686381080580722e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              -3,
+              4
+            ],
+            "contribution": 4.2004427257598366e-16
+          }
+        ],
+        "raw_h_retained_slope": 1.0893124428957788,
+        "raw_h_ket_normalized_retained_slope": 1.0893124428957637,
+        "raw_h_ket_normalized_full_slope": 1.0893124428957641,
+        "raw_minus_logical_h_slope": -9.689834757835471e-16,
+        "ket_norm_derivative_change": -1.513912654895741e-14,
+        "full_saved_raw_radial_gradient_action": 0.001494376612198415,
+        "conditional_saved_full_gradient_plus_onebody_seam": 0.001494376612182307,
+        "conditional_two_body_coefficients_and_curvature_unmeasured": true
+      },
+      "explicit_polar_odd": {
+        "logical_h_full_slope": 1.089312445737974,
+        "logical_h_retained_slope": 1.0893124457379733,
+        "global_h_coefficient_difference_slope": 5.860384443042079e-16,
+        "largest_h_difference_contributions": [
+          {
+            "key": [
+              "h",
+              3,
+              -3,
+              3
+            ],
+            "contribution": 8.621198548807301e-16
+          },
+          {
+            "key": [
+              "h",
+              3,
+              2,
+              3
+            ],
+            "contribution": -8.453013015676154e-16
+          },
+          {
+            "key": [
+              "h",
+              5,
+              -1,
+              5
+            ],
+            "contribution": 5.815317026613203e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              2,
+              4
+            ],
+            "contribution": -4.686381039011097e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              -3,
+              4
+            ],
+            "contribution": 4.2004426920915475e-16
+          }
+        ],
+        "raw_h_retained_slope": 1.0893124457379724,
+        "raw_h_ket_normalized_retained_slope": 1.0893123999569607,
+        "raw_h_ket_normalized_full_slope": 1.0893123999569614,
+        "raw_minus_logical_h_slope": -9.689834614589328e-16,
+        "ket_norm_derivative_change": -4.578101151429142e-08,
+        "full_saved_raw_radial_gradient_action": 0.001494343818183005,
+        "conditional_saved_full_gradient_plus_onebody_seam": 0.001494298037170522,
+        "conditional_two_body_coefficients_and_curvature_unmeasured": true
+      },
+      "rounded_physical_odd": {
+        "logical_h_full_slope": 1.0893125701905846,
+        "logical_h_retained_slope": 1.0893125701905841,
+        "global_h_coefficient_difference_slope": 5.860384556409718e-16,
+        "largest_h_difference_contributions": [
+          {
+            "key": [
+              "h",
+              3,
+              -3,
+              3
+            ],
+            "contribution": 8.621198154153116e-16
+          },
+          {
+            "key": [
+              "h",
+              3,
+              2,
+              3
+            ],
+            "contribution": -8.453013372818212e-16
+          },
+          {
+            "key": [
+              "h",
+              5,
+              -1,
+              5
+            ],
+            "contribution": 5.815316955155161e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              2,
+              4
+            ],
+            "contribution": -4.686381190658713e-16
+          },
+          {
+            "key": [
+              "h",
+              4,
+              -3,
+              4
+            ],
+            "contribution": 4.200442739753118e-16
+          }
+        ],
+        "raw_h_retained_slope": 1.089312570190583,
+        "raw_h_ket_normalized_retained_slope": 1.0893123069285646,
+        "raw_h_ket_normalized_full_slope": 1.089312306928565,
+        "raw_minus_logical_h_slope": -9.68982979073843e-16,
+        "ket_norm_derivative_change": -2.632620185524154e-07,
+        "full_saved_raw_radial_gradient_action": 0.0014944307370519225,
+        "conditional_saved_full_gradient_plus_onebody_seam": 0.001494167475032401,
+        "conditional_two_body_coefficients_and_curvature_unmeasured": true
+      }
+    }
+  }
+}

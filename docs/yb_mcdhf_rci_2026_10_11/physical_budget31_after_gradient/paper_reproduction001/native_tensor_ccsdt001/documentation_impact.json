@@ -1,0 +1,86 @@
+{
+  "timestamp_UTC": "2026-10-14T16:17:03.454777+00:00",
+  "scope": "Three new native modules, independent tests, source-bound actual-Yb tensor/5d-pair qualification and current guides.",
+  "dispositions": [
+    {
+      "path": "docs/ATOMIC_FSCC.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/ARCHITECTURE_CAPABILITIES.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/ARCHITECTURE_DESIGN.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/TESTING.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/AGENT_INSIGHTS.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/AGENT_REFERENCE.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md",
+      "action": "update",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/README.md",
+      "action": "add",
+      "reason": "Describe exact native tensor scope, APIs/ownership, tests and actual frozen-core/target-sector/experimental limits; preserve historical evidence."
+    }
+  ],
+  "retained": [
+    {
+      "path": "AGENTS.md",
+      "reason": "Existing physical-model, source, residual, ownership and performance rules suffice; no new global rule."
+    },
+    {
+      "path": "pyproject.toml",
+      "reason": "No dependency or packaging-policy change; new source and adjacent attributed Apache license stay in the existing src/atomx package."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/RESULTS.md",
+      "reason": "Preserve earlier sealed source epochs; current README links this successor."
+    }
+  ],
+  "knowledge": {
+    "action": "merge",
+    "target": "docs/AGENT_INSIGHTS.md: Integral backend and tensor CC audit",
+    "scope": "Signed reference-action normalization and both directed matrix endpoints; no new global rule"
+  },
+  "publication_scope": "Working-tree link targets checked, including present untracked/ignored scientific evidence; no clean-checkout or release publication claim."
+}

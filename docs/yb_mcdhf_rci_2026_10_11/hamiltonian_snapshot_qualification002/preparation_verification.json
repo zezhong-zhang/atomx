@@ -1,0 +1,156 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "synthetic_exact_metadata_predicate_only",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:execution_authorized_by_root",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:qualification_authorized",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:driver_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:preparation_contract_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:candidate_source_identity_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:candidate_source_map_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:point_arrays_sha256",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_full_gradients",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_CI_solves",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_public_H_builds",
+      "passed": true
+    },
+    {
+      "name": "reject_missing_or_wrong:max_optimizer_calls",
+      "passed": true
+    },
+    {
+      "name": "reject_empty_authority",
+      "passed": true
+    },
+    {
+      "name": "authorization_precedes_physical_imports",
+      "passed": true
+    },
+    {
+      "name": "no_optimizer_call_in_qualification_consumer",
+      "passed": true
+    },
+    {
+      "name": "declared_forward_counted_original_functions",
+      "passed": true
+    },
+    {
+      "name": "full_g_pg_original_gates_kept",
+      "passed": true
+    },
+    {
+      "name": "full_point_stays531_no_model_shrink",
+      "passed": true
+    },
+    {
+      "name": "preflight_current_driver_contract_bound",
+      "passed": true
+    },
+    {
+      "name": "no_Atomx_import_in_metadata_proof",
+      "passed": true
+    },
+    {
+      "name": "nested_NumPy_numeric_metadata_serializes_exactly",
+      "passed": true
+    },
+    {
+      "name": "serialization_rejects:array",
+      "passed": true
+    },
+    {
+      "name": "serialization_rejects:nonfinite",
+      "passed": true
+    },
+    {
+      "name": "serialization_rejects:arbitrary_object",
+      "passed": true
+    },
+    {
+      "name": "unchanged_context_and_science_boundary:prepare_point",
+      "passed": true
+    },
+    {
+      "name": "unchanged_context_and_science_boundary:source_and_input_checks",
+      "passed": true
+    },
+    {
+      "name": "unchanged_context_and_science_boundary:validate_execution",
+      "passed": true
+    },
+    {
+      "name": "unchanged_context_and_science_boundary:host_resources",
+      "passed": true
+    },
+    {
+      "name": "unchanged_model_gates_source_caps:acceptance",
+      "passed": true
+    },
+    {
+      "name": "unchanged_model_gates_source_caps:fixed_conditions",
+      "passed": true
+    },
+    {
+      "name": "unchanged_model_gates_source_caps:resources",
+      "passed": true
+    },
+    {
+      "name": "unchanged_model_gates_source_caps:candidate_source_map_required_sha256",
+      "passed": true
+    },
+    {
+      "name": "every_physical_call_and_arguments_AST_unchanged",
+      "passed": true
+    },
+    {
+      "name": "persistent_controls_before_after_gates_and_actual_calls",
+      "passed": true
+    },
+    {
+      "name": "failed_parent_has_arrays_but_no_final_numeric_certificate",
+      "passed": true
+    }
+  ],
+  "checks_count": 35,
+  "contract_sha256": "0c40968bcb55c38fc9c486657ba67c858a67460919acdea3ad06fc3a2fb7ea1d",
+  "driver_sha256": "d5b3b2fbf5090d7e59c6473b393cb2f36c152ec7dbd2710ffc1bc91980c1275e",
+  "new_CI_solves": 0,
+  "new_H_builds": 0,
+  "new_gradients": 0,
+  "optimizer_calls": 0,
+  "preflight_checks_count": 398,
+  "preflight_sha256": "63c85428810ceebc2f2067ce34719c7d14f82f157a818e8afd599107038c27b3",
+  "science_execution_pending_exact_root_contract": true,
+  "scope": "Metadata predicate, static AST and source/input admission only; not root authority or numerical qualification"
+}

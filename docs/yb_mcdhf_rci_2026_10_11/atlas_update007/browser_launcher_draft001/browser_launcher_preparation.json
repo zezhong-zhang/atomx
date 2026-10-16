@@ -1,0 +1,82 @@
+{
+  "status": "source_only_preparation_passed_no_server_browser_or_science_execution",
+  "all_passed": true,
+  "checks_count": 14,
+  "checks": [
+    {
+      "name": "frozen_browser_source",
+      "passed": true
+    },
+    {
+      "name": "frozen_browser_contract",
+      "passed": true
+    },
+    {
+      "name": "frozen_data_proof",
+      "passed": true
+    },
+    {
+      "name": "AST_parse_not_import",
+      "passed": true
+    },
+    {
+      "name": "zero_physical_imports",
+      "passed": true
+    },
+    {
+      "name": "rootseal_and_cli_exactSHA",
+      "passed": true
+    },
+    {
+      "name": "once_marker_exclusive",
+      "passed": true
+    },
+    {
+      "name": "no_cgroup_systemd_AS_mutation",
+      "passed": true
+    },
+    {
+      "name": "affinity30_thread1",
+      "passed": true
+    },
+    {
+      "name": "90deadline_three_seconds_cleanup_reserve",
+      "passed": true
+    },
+    {
+      "name": "RSS_observed_stop_plus_gap_refusal",
+      "passed": true
+    },
+    {
+      "name": "finally_cleanup_owned_identity_subreaper",
+      "passed": true
+    },
+    {
+      "name": "stdout_stderr_full_logs",
+      "passed": true
+    },
+    {
+      "name": "no_execution_in_preparation",
+      "passed": true
+    }
+  ],
+  "launcher_sha256": "01db7578f1f8dc9217c4495d6587d06bba8e900fea49056dfdf6789ceee74c8d",
+  "launcher_contract_sha256": "c4424e6033b610c2ee7fe1c2853f4129a8803ccd04ae85c438d13661693733ce",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_test.js": "878cce25756b6bf3e63cad4d8ddfe0ded57bc0585d6aeeaf25a88f2fa49e2575",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/browser_contract.json": "88aae767c07d3e04e49e31510dd047e8598490c0fd7dd1fd94029aeddf9f427b",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/contract.json": "28fba85ec2fd718cec692b48c7aeefa18a49ef6ffdd78a5e71687c85bd5f99d2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/data_verification.json": "aac6dff43b8007b7c109150c980f9067861adf7ea6cb0cf83d4fd466f7419751",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/prepared.json": "a658e53549219af7c4c910d0d1a697954148e467426bb40f7d2310a9ee65fec2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/old_models.json": "12527791c5a9e07a51bb3569373d4d5a510864a35671b1bbad6d2558c61926de",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/build_execution.json": "d9c91ce5a5882def9934b05158d2de86279f07c08bd70e67ef9b8b17de0ee4f6",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/site_manifest.json": "db684863681aeb573012f7621345bb92bdd5ac83b68624d002898181d5244116",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/handoff.json": "b4383fbd734938fc51fca4313518ce7756929a6804ddc6ef69e5369cac093956"
+  },
+  "server_launches": 0,
+  "browser_launches": 0,
+  "scientific_calls": 0,
+  "systemd_or_cgroup_mutations": 0,
+  "array_imports_or_replay": 0,
+  "publication_calls": 0
+}

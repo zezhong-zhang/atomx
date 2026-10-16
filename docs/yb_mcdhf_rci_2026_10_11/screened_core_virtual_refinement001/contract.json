@@ -1,0 +1,284 @@
+{
+  "created_before_refinement_execution_utc": "2026-10-11T11:47:01.360754+00:00",
+  "status": "prospective_pending_exact_root_execution_binding",
+  "hypothesis": "The saved complete gvd116-vector accuracy, rather than physical field construction or ill-conditioned S, dominates first\u03ba residual failure. Complete deterministic extended-precision Jacobi refinement in the same finite originalP complement may qualify all116 physical returned vectors under unchanged gates.",
+  "input_roles": {
+    "failed_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/contract.json",
+      "sha256": "7d8ac218370b77d55cee19ddd40597fdc3960216c281a8607dabc5519edda201"
+    },
+    "failed_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/run.py",
+      "sha256": "91146b180b1c60a9daed52b373f34d1f5d8d5c8ac44a8cf74232df336c69b996"
+    },
+    "failed_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/failure.json",
+      "sha256": "7056e3893c0c301a151b00a1f1935f93299c303e6298c1931da534cc7557cf33"
+    },
+    "failed_root_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/root_execution.json",
+      "sha256": "1bd1873506710576beb32cbb3fc4e6fdd1fb1756f36a4274c6c9251428f12c19"
+    },
+    "saved_audit": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verification.json",
+      "sha256": "a88c4b9b5d1bf7f5014fef075437c49a18f9c4c9c0ec3181f8cbd4d9130ba6c9"
+    },
+    "saved_audit_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/contract.json",
+      "sha256": "f4e1186e2196bd7923b0a73263c3cb4b60fc58e9c6760028d096248c8243c079"
+    },
+    "saved_audit_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/verify_arrays.py",
+      "sha256": "7340ccc4a1b461d5025c478bd153ba1f35362cb0a6c86d87a56a795c356410cf"
+    },
+    "saved_diagnostic_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/saved_failure_audit/diagnostic_arrays.npz",
+      "sha256": "5d37a131d92ca062b289c8122b759db8e738326bd03b043eb98256bceb496752"
+    },
+    "geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/native_hS_original_geometry.npz",
+      "sha256": "c7a4b718385fc49c84f45d6f87f2337b9d0d9bdda538d3efdc9d32605257fdd9"
+    },
+    "field": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_auxiliary_Fock.npz",
+      "sha256": "e562390834ffc4eb1d67f46115d7c226dfa0525c1d011149297e3b558bd0d317"
+    },
+    "complement": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_native_complement.npz",
+      "sha256": "f471cded1760a295392edba4ed589ac2612d84e3f951125a918dc80c36cd378e"
+    },
+    "raw_gvd": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_full_gvd_vectors.npz",
+      "sha256": "819ce573cfb0a0999029672a57415568414ce001b6f85baf95d456552c9edf5d"
+    },
+    "original_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/virtual_0_original_P_control.npz",
+      "sha256": "21fbc25e191cf6bf3c40385e74cce96170aa36d3311bd5124b30802164602070"
+    },
+    "checkpoint_manifest": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c"
+    },
+    "checkpoint_arrays": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "sha256": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1"
+    },
+    "source_identity": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source_identity.json",
+      "sha256": "34cbdbceebe5901db51f832204b2742939b5a74183bc8a7bb8061906ab43f04e"
+    },
+    "original_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "sha256": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14"
+    },
+    "field_scalar_control": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator/auxiliary_scalar_control.json",
+      "sha256": "ce38b2a8d487bc325d0861f4241c0b71f0b0fede67d980ba4b4efb8132b539a0"
+    },
+    "iteration_trigger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/delivery_stage010/delivery_proof.json",
+      "sha256": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed"
+    }
+  },
+  "fixed_conditions": {
+    "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+    "full_atomx_source_count": 353,
+    "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/source",
+    "original_metric_sha256": "aae3a596009a671fd905f3c97f935cf17408a344a3d08cced5fbfb3ab2dcb6fe",
+    "checkpoint": 160,
+    "Z": 70,
+    "nuclear_model": "Fermi A175",
+    "ns": 123,
+    "ks": 9,
+    "original24_waves_bitwise_unchanged": true,
+    "key": [
+      6,
+      -3
+    ],
+    "kappa": -3,
+    "full_spectrum_size": 116,
+    "all_spectrum_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115
+    ],
+    "original_nuclear_no_pair_P_unchanged": true,
+    "closed68_native_h_plus_JK_byte_unchanged": true,
+    "no_boundary_change": true,
+    "original_failure_preserved": true,
+    "original_stationarity_passed": false,
+    "minimum_state_not_retuned": true
+  },
+  "numerical_method": {
+    "name": "deterministic_complete_spectrum_longdouble_cyclic_Jacobi",
+    "initial_basis": "All saved116 generalized eigenvectors in original frozen complement; no selected subset.",
+    "projection": "Recontract B^T h B andB^T S B in longdouble; average transpose to implement original exactly Hermitian finite h/S; record difference and evaluate every final vector against original saved h/S.",
+    "whitening": "Near-I all116 basis Gram; fourth-order binomial inverse square root, fail ifGram infinity defect>1e-10; recompute actualGram.",
+    "rotations": "Lexicographic i<j for all116 pairs every complete sweep; stable hypot Jacobi rotation inlongdouble. Only exactzero offdiagonal skipped. Update full matrix and all116 coefficients; no amplitude/sector truncation.",
+    "stopping": "At complete sweep boundaries only; stop if full reduced offdiagonal relative2norm<=1e-12 AND all116 final physical original-relative residual<=1e-8. Maximum12sweeps; else fail with all arrays/counters. No alternative driver or scan.",
+    "final_order": "Sort all116 by actual originalh/S physical Rayleigh, retain full permutation and full vectors; pre/post original-root mapping saved. Lowest separated cluster must pass original1e-10gap and minimum1e-8 controls.",
+    "phase": "Lowest virtual only: originalP coordinate max-absolute anchor, jointP/Q phase; save unphasedraw and phase, no radialprojection or renormalization substitute."
+  },
+  "call_budgets": {
+    "complete_spectrum_refinement_attempts": 1,
+    "complete_spectrum_size": 116,
+    "maximum_complete_sweeps": 12,
+    "maximum_attempted_pair_rotations": 80040,
+    "maximum_saved_residual_evaluations": 13,
+    "new_LAPACK_eigensolves": 0,
+    "new_SVD": 0,
+    "new_matrix_linear_solves": 0,
+    "new_Atomx_Fock_Slater_Dirac_SCF_hS_H_CI_gradient_optimizer_calls": 0,
+    "Atomx_imports": 0
+  },
+  "resources": {
+    "CPU": 1,
+    "affinity": "original[-2] with>=3availableCPUs",
+    "address_space_GiB": 4,
+    "wall_s": 120,
+    "outer_wall_s": 135,
+    "timing_is_not_controlled_performance_claim": true
+  },
+  "acceptance": {
+    "actual_radial_Gram_error": 1e-10,
+    "saved_P_metric_Gram_error": 1e-10,
+    "nuclear_projector_leakage_S_norm_squared": 1e-12,
+    "new_spinor_projected_auxiliary_residual_relative": 1e-08,
+    "screened_complement_minimum_energy_match_Ha": 1e-08,
+    "screened_minimum_cluster_gap_Ha": 1e-10,
+    "screened_full_spectrum_SGram_error": 1e-10,
+    "screened_full_spectrum_constrained_residual_relative": 1e-08,
+    "screened_raw_lowest_vector_S_overlap_squared_strict_min": 0.5
+  },
+  "bounds": {
+    "near_identity_basis_Gram_inf": 1e-10,
+    "Jacobi_reduced_offdiagonal_relative_norm": 1e-12,
+    "exact_physical_operator_Hermitian_error_Ha": 0,
+    "positive_original_S_norm": true,
+    "all_checks_before_claim": true
+  },
+  "distinguishing_outcomes": {
+    "pass": "All116 original physical residual/Gram/minimum/no-pair gates qualify chosen numerical refinement forfirst\u03ba; no screenedCI response claimed.",
+    "fail": "Save complete attempted rotations/sweeps/all vectors/residuals and reason; do not relaxgates, choose subset, increaseprecision/iterations, ortrydriver withoutanothercontract."
+  },
+  "scope": "Numerical refinement of saved auxiliary operator in exactlytheoriginal finiteP/complement. No newphysical construction/CI or physical/stationarity/experimental pass; other4\u03ba andscreened1046 response still unmeasured.",
+  "actual_iteration_trigger": {
+    "message_id": "om_x100b6383208108a0dfe7bb2bfc0f771",
+    "delivery_proof_sha256": "8c8af4e405a04e5ebfbacf3b49d09fe4614be31a4e5a005de34dcb82658343ed",
+    "stage": 10,
+    "position": 1602
+  }
+}

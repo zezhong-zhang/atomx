@@ -1,0 +1,65 @@
+{
+  "metrics": {
+    "retained": {
+      "raw_radial_norm": 774.4017789313959,
+      "tangent_norm": 0.05264570395306823,
+      "metric_residual": 0.0051621809234006855,
+      "indicator_Ha": 9.089562518896989e-05,
+      "measured_new3689_metric": true,
+      "strict_thresholds": [
+        1e-07,
+        1e-08
+      ],
+      "energy_or_spectrum_error_bound": false
+    },
+    "retained_plus_delta": {
+      "raw_radial_norm": 774.4017789313959,
+      "tangent_norm": 0.052645703953006974,
+      "metric_residual": 0.005162180923394233,
+      "indicator_Ha": 9.089562518886977e-05,
+      "measured_new3689_metric": true,
+      "strict_thresholds": [
+        1e-07,
+        1e-08
+      ],
+      "energy_or_spectrum_error_bound": false
+    },
+    "full_normalized": {
+      "raw_radial_norm": 774.4017789313959,
+      "tangent_norm": 0.05264570395300886,
+      "metric_residual": 0.005162180923375838,
+      "indicator_Ha": 9.089562518880953e-05,
+      "measured_new3689_metric": true,
+      "strict_thresholds": [
+        1e-07,
+        1e-08
+      ],
+      "energy_or_spectrum_error_bound": false
+    },
+    "raw_h_quotient_corrected": {
+      "raw_radial_norm": 1333.0006623515026,
+      "tangent_norm": 0.052645703952321286,
+      "metric_residual": 0.005162180923071644,
+      "indicator_Ha": 9.08956251865907e-05,
+      "measured_new3689_metric": true,
+      "strict_thresholds": [
+        1e-07,
+        1e-08
+      ],
+      "energy_or_spectrum_error_bound": false
+    }
+  },
+  "full_vs_retained": {
+    "raw_coordinate": 1.4303861704845986e-11,
+    "tangent": 1.4143776437635348e-11,
+    "preconditioned_tangent": 5.970248758135636e-14
+  },
+  "corrected_vs_full": {
+    "raw_coordinate": 13400.41182005837,
+    "tangent": 1.560942245779377e-10,
+    "preconditioned_tangent": 5.098158854286499e-13
+  },
+  "declared_diagnostic_metric": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+  "HF_partial_not_finiteCIresponse": true,
+  "no_error_bound": true
+}

@@ -1,0 +1,26 @@
+{
+  "status": "withdrawn; not adopted in public API or production",
+  "observation": "60finite live gates passed, independent strong-reference4s diverges and unchanged raw gate rejects;3s independent gate passed",
+  "failure": {
+    "exception": "RuntimeError",
+    "message": "full valence raw residual gate failed: info=100, max=7.5524121014876365e+174 Ha"
+  },
+  "baseline_GMRES": {
+    "key": [
+      4,
+      -1
+    ],
+    "energy_Ha": -0.12572375669836727,
+    "matrix_vector_products": 117,
+    "raw_residual_Ha": 2.7131075164277263e-15,
+    "response_residual_Ha": 3.164135620181696e-15
+  },
+  "exact_restore_sha256": {
+    "src/atomx/methods/valence_sd.py": "24f934e9b4f44bf3c1c420211146df84296909a5b7ddb81a6e6a33373ffe061e",
+    "tests/test_valence_sd.py": "9bd710875d32819355f51f8636a372858f3760038f640ae0f2d90149de4beb01"
+  },
+  "source_restored_from": "valence_core_certificate_public021/source",
+  "failure_scope": "cause unassigned; no gate/space adjustment or automatic solver fallback; kernel/source/previous certified evidence unchanged",
+  "current_private_driver_restored": "public_valence011 actual archived source",
+  "candidate_code": "022actual source, tests, SciPy dependency source and full public_valence012 are preserved"
+}

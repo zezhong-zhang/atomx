@@ -1,0 +1,18 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "skipped": 0,
+  "selected": "4 FACrunner parser/loader tests +CIline inventory, trace sumrule, finitefrequencytrace, configurationreversal andgroundconfig test",
+  "log_sha256": "87fe388faff7daf05d2b6ebeed674b0ed8bb8cb31ad5f67f725a80b2eb780412",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "child_exit_code": 0,
+  "lint": "Ruff F821/F822/F823 allprivatePythonhelpers passed; frozenmeasuredhelpersnotformattedorrewritten",
+  "private_regression_cache": "regression_cache separatefromscientificmeasuredcompiler cache",
+  "complete_array_comparisons": {
+    "FAC": 576,
+    "Atomx_fresh": 5112,
+    "maximum_native_unit_difference": 0.0,
+    "failed": 0
+  },
+  "scope": "Selectedchecks only, notfullrepo suite; formal livecompletearrays independent."
+}

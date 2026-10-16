@@ -1,0 +1,2523 @@
+{
+  "status": "JSON_only_scalar_trajectory_analysis",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.json": "ad62197725b6f9f78996eeff72ac420a24418829c6f1cd05a963d5092c1195c1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0001.json": "95fdb18f6efdcc52c71347be663bf319481681d65ed392273fadb54a983eb0ef",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.json": "ef704d58230d67f845cc5e60cc8b6601f275e726382205b5e12ce2f5c859b1d1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0002.json": "32e5fc12507f14112ab40dec0ac853e3d564371fc9a4444d9d8e8b6677d916e1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.json": "3c516e89432d6c2743dcb328a97c23b070794e78edc30fc258de1be38bd3024a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0003.json": "fddb0927a55dfbfeb86b89b1b2e7f2297674024d8017ea33984811b18ba48cbd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.json": "c127790485212244efad695758e48e8a343512dbfac089f18083833ff18ff956",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0004.json": "9847f8cc400d54ffba8ed31df844a30fed832df3e07c4b95881c5397b55eff9a",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.json": "aff05f0ba80a9678ff8a9a665e9cc67aca5769d9756ff5bdf6314c415cc80564",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0006.json": "ecf3564fc870d2236d0154fbe95099ccc5b29d995259ee5998e4d2e5172a13b5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.json": "612f7baa5c2017895cbf9e9c5144c86b306f5fbb59debb24babc2724ba97db54",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0008.json": "d635d060d854402231850de58d026a23bc466e4994f6154f562294f9141eed59",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.json": "625f56bf5783a914a59e23d5623b5392739729a5384d379940435b5d61fe9ba3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0010.json": "9b00745bcf9179dd08b7adcf6904025ca8588e9a42546fe492b0da5d5d146de2",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.json": "90fd541c07db9ac679f9adc7c672aff5eca8a02fbac557ad872393b25e8de4d5",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0011.json": "b7f63ddf16ff6e8ff765e37796ffe25860881a6891e08ff3f4e58cc4face89b3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.json": "c5903d06b18a60b683db69d2a8162e1925c75dd67f1bcd92c90f8d467f7143e3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0012.json": "1f1dfe923ea6495945759e9c40668aacdd4b371361eaba9b620a17deb6d71eac",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.json": "b243d73e89367ba1b94b51740eb681bf16c7c8c883994c5df0cb0ed7c2977827",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0014.json": "4fcdb29e70350071e160706cd3730771222680db59ac57d59307d84a02eec900",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.json": "c96a081357948d7c95c23bca90982dddcc779b1a287bd3ef381a360ea1c4e842",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0015.json": "40d12bf285543e2093f3fe6b13ee28d270a232c66d4bed4fb779a5b60f3f748e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.json": "fe538c14946baa309a195aa37451c53371d9afc829f3348e98dab8bd446dd94d",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0016.json": "75ac29940e48f2849b1b935d98ae84e1b422f17393c67736f09d1a44db252319",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.json": "1ef22337a7f1b96731367bd0cb9b73b31068b91a7bce692112c63955c9bf7632",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0017.json": "d7d58ee898532009b1a7e9bae7fa8278843dfeaf0c46d53bdb06d52f3deed5b0",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0018.json": "a57e0de622cb1dbb0fec1af068c4145c22e71984965d2b512c039f5b084b57d7",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014.json": "37ca465e94779bf82599d0e4fa396c90358b5eb071eb4e1147847d82b018fec3",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0019.json": "e2044338df149d492edffb0b07098a92b01001aa3eb13457c544c545239839bd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015.json": "8f98725e4dbf30d96c4a902fb4bc33a6b6cedd2581178d484d9b05b976e130c9",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0021.json": "83d5e4ee92a842d83432bffdbb0d7483932bf6f73441ddf082d01e9c9842b4cf",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/trial_CI_0023.json": "70c93dd015109f6bb6e7e3dbcb0d50da81689c499f90e32090f617315992e11f"
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "original_metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+  "records": [
+    {
+      "iteration": 0,
+      "reported_EO_Ha": -14067.42402931245,
+      "tangent_norm": 0.05264570395306823,
+      "residual": 0.0051621809234006855,
+      "energy_indicator_Ha": 9.089562518896989e-05,
+      "raw_gradient_norm": 9760.794353685436,
+      "metric_action_ratio_not_condition_number": 0.09805512199062977,
+      "fullnormalized_minus_retained_residual": -2.4847311708153796e-14,
+      "ambientcorrected_minus_retained_residual": -3.290414815615428e-13,
+      "accepted_line_search": null,
+      "finite_stored_H_acceptance_margin_Ha": null,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9889947984124412
+          ],
+          "projected_probability": [
+            0.9889947984124412
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9907705118022989
+          ],
+          "projected_probability": [
+            0.9907705118022989
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9902749957645322
+          ],
+          "projected_probability": [
+            0.9902749957645322
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9812779769273628
+          ],
+          "projected_probability": [
+            0.9812779769273628
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9833229417554243
+          ],
+          "projected_probability": [
+            0.9833229417554243
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0000.npz",
+        "sha256": "9d318724e8fc233091a05e60efa1ce7c768df92f1a5edc963401384d839e5ada",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 1,
+      "reported_EO_Ha": -14067.424110859187,
+      "tangent_norm": 0.11430196818061711,
+      "residual": 0.014308103099097816,
+      "energy_indicator_Ha": 0.0003695731224009634,
+      "raw_gradient_norm": 9760.652207296058,
+      "metric_action_ratio_not_condition_number": 0.12517809909002187,
+      "fullnormalized_minus_retained_residual": -3.4769062629003145e-14,
+      "ambientcorrected_minus_retained_residual": 2.4703850076690514e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.42402931245,
+        "trial_energy_ha": -14067.424110859187,
+        "step": 1.0,
+        "directional_derivative": -0.00018179125037793978,
+        "energy_change_ha": -8.154673741955776e-05,
+        "armijo_rhs_ha": -1.817912503779398e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 5.127871764817553e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.988843033541368
+          ],
+          "projected_probability": [
+            0.988843033541368
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9906840212899818
+          ],
+          "projected_probability": [
+            0.9906840212899818
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9901528627394777
+          ],
+          "projected_probability": [
+            0.9901528627394777
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9808514774597847
+          ],
+          "projected_probability": [
+            0.9808514774597847
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9829648227792064
+          ],
+          "projected_probability": [
+            0.9829648227792064
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0001.npz",
+        "sha256": "146d340db796ed610b123ba303a75d16815db24391feb234f8a2dc0cb1a1b803",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 2,
+      "reported_EO_Ha": -14067.424126786083,
+      "tangent_norm": 0.1873345170318273,
+      "residual": 0.025433403252171752,
+      "energy_indicator_Ha": 0.0014968654847651501,
+      "raw_gradient_norm": 9760.652325740366,
+      "metric_action_ratio_not_condition_number": 0.1357646399347256,
+      "fullnormalized_minus_retained_residual": -1.8107043642245912e-14,
+      "ambientcorrected_minus_retained_residual": 5.968142646750607e-14,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424110859187,
+        "trial_energy_ha": -14067.424126786083,
+        "step": 1.0,
+        "directional_derivative": -0.00060355251675572,
+        "energy_change_ha": -1.592689659446478e-05,
+        "armijo_rhs_ha": -6.0355251675572e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 5.0889249718754635e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9888785049164002
+          ],
+          "projected_probability": [
+            0.9888785049164002
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.991085023207153
+          ],
+          "projected_probability": [
+            0.991085023207153
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9904755661454359
+          ],
+          "projected_probability": [
+            0.9904755661454359
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.980637108148262
+          ],
+          "projected_probability": [
+            0.980637108148262
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9827262726366328
+          ],
+          "projected_probability": [
+            0.9827262726366328
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0002.npz",
+        "sha256": "c01e92dd5a7774128dcfd1332f589128578cb89580718586dd9c40ce49d3d8d8",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 3,
+      "reported_EO_Ha": -14067.424181097442,
+      "tangent_norm": 0.17030721223986942,
+      "residual": 0.029482897415162444,
+      "energy_indicator_Ha": 0.0009529279203971674,
+      "raw_gradient_norm": 9760.833042492415,
+      "metric_action_ratio_not_condition_number": 0.1731159651279901,
+      "fullnormalized_minus_retained_residual": 1.199040866595169e-14,
+      "ambientcorrected_minus_retained_residual": -1.5602449887630598e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424126786083,
+        "trial_energy_ha": -14067.424181097442,
+        "step": 1.0,
+        "directional_derivative": -0.0009371017585333607,
+        "energy_change_ha": -5.431135832623113e-05,
+        "armijo_rhs_ha": -9.371017585333607e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 7.360428723810189e-13,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9892163968230155
+          ],
+          "projected_probability": [
+            0.9892163968230155
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9915839801823033
+          ],
+          "projected_probability": [
+            0.9915839801823033
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9909535097788413
+          ],
+          "projected_probability": [
+            0.9909535097788413
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9786130725245626
+          ],
+          "projected_probability": [
+            0.9786130725245626
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9816273311480295
+          ],
+          "projected_probability": [
+            0.9816273311480295
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0003.npz",
+        "sha256": "95f37b27757d9151b6ef05c4fe65db4113b34a76d3515486db1efd6ce9829ad0",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 4,
+      "reported_EO_Ha": -14067.42435057409,
+      "tangent_norm": 0.10475924981324602,
+      "residual": 0.015980701047721063,
+      "energy_indicator_Ha": 0.0003342113002534046,
+      "raw_gradient_norm": 9760.823667831473,
+      "metric_action_ratio_not_condition_number": 0.15254692140512469,
+      "fullnormalized_minus_retained_residual": -1.9897278269453977e-14,
+      "ambientcorrected_minus_retained_residual": -1.2452538999951912e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424181097442,
+        "trial_energy_ha": -14067.42435057409,
+        "step": 0.5,
+        "directional_derivative": -0.0007063779582264941,
+        "energy_change_ha": -0.0001694766488071764,
+        "armijo_rhs_ha": -3.531889791132471e-08,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 9.23146719804091e-13,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9891860115353903
+          ],
+          "projected_probability": [
+            0.9891860115353903
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9914651086305715
+          ],
+          "projected_probability": [
+            0.9914651086305715
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9908988782546239
+          ],
+          "projected_probability": [
+            0.9908988782546239
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9798384010897784
+          ],
+          "projected_probability": [
+            0.9798384010897784
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9823500486241876
+          ],
+          "projected_probability": [
+            0.9823500486241876
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0004.npz",
+        "sha256": "9c017242ec4d759c7b97fc99a4ddf068ab5307b265dfe032968643ab95ac9d0a",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 5,
+      "reported_EO_Ha": -14067.424421527774,
+      "tangent_norm": 0.0610162170824142,
+      "residual": 0.011763315126251022,
+      "energy_indicator_Ha": 0.00017918530952970715,
+      "raw_gradient_norm": 9760.752644335906,
+      "metric_action_ratio_not_condition_number": 0.19278997762779018,
+      "fullnormalized_minus_retained_residual": 7.478392904936015e-15,
+      "ambientcorrected_minus_retained_residual": 6.745472236335814e-14,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.42435057409,
+        "trial_energy_ha": -14067.424421527774,
+        "step": 0.5,
+        "directional_derivative": -0.0005252907759004488,
+        "energy_change_ha": -7.095368346199393e-05,
+        "armijo_rhs_ha": -2.626453879502244e-08,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 2.167346951459501e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890430505808009
+          ],
+          "projected_probability": [
+            0.9890430505808009
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9911677182641613
+          ],
+          "projected_probability": [
+            0.9911677182641613
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9906816866302122
+          ],
+          "projected_probability": [
+            0.9906816866302122
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9815693480402735
+          ],
+          "projected_probability": [
+            0.9815693480402735
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9833814958609325
+          ],
+          "projected_probability": [
+            0.9833814958609325
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0005.npz",
+        "sha256": "4fd414088d53e0c3fea1db002a2c78935b607d33ba345b058396ad43704b4efd",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 6,
+      "reported_EO_Ha": -14067.424439752547,
+      "tangent_norm": 0.0629436714455787,
+      "residual": 0.008958499401804994,
+      "energy_indicator_Ha": 0.00011659855195378823,
+      "raw_gradient_norm": 9760.729512535298,
+      "metric_action_ratio_not_condition_number": 0.14232565714808262,
+      "fullnormalized_minus_retained_residual": -1.5256892971216018e-14,
+      "ambientcorrected_minus_retained_residual": 3.4603916954090153e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424421527774,
+        "trial_energy_ha": -14067.424439752547,
+        "step": 0.5,
+        "directional_derivative": -0.00016426817323316294,
+        "energy_change_ha": -1.8224773157271557e-05,
+        "armijo_rhs_ha": -8.213408661658147e-09,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 1.8979818984608033e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890237055512959
+          ],
+          "projected_probability": [
+            0.9890237055512959
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9911096738019443
+          ],
+          "projected_probability": [
+            0.9911096738019443
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9906167184297469
+          ],
+          "projected_probability": [
+            0.9906167184297469
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9811250005323721
+          ],
+          "projected_probability": [
+            0.9811250005323721
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.983103406165902
+          ],
+          "projected_probability": [
+            0.983103406165902
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0006.npz",
+        "sha256": "90084413e97630dd050bbf08aa7e59e5a7aa613efbf907665a04d4ae3a0d3268",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 7,
+      "reported_EO_Ha": -14067.424460880873,
+      "tangent_norm": 0.06200296890326665,
+      "residual": 0.009525215265662907,
+      "energy_indicator_Ha": 9.365215049249248e-05,
+      "raw_gradient_norm": 9760.73929240092,
+      "metric_action_ratio_not_condition_number": 0.1536251478622513,
+      "fullnormalized_minus_retained_residual": -1.1711118186319425e-14,
+      "ambientcorrected_minus_retained_residual": -2.665558745951202e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424439752547,
+        "trial_energy_ha": -14067.424460880873,
+        "step": 1.0,
+        "directional_derivative": -0.00010482736064972373,
+        "energy_change_ha": -2.1128325897734612e-05,
+        "armijo_rhs_ha": -1.0482736064972372e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 1.5211595844185799e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890886935975323
+          ],
+          "projected_probability": [
+            0.9890886935975323
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9911563742220122
+          ],
+          "projected_probability": [
+            0.9911563742220122
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.990625961454873
+          ],
+          "projected_probability": [
+            0.990625961454873
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9790870100623236
+          ],
+          "projected_probability": [
+            0.9790870100623236
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9819151085512089
+          ],
+          "projected_probability": [
+            0.9819151085512089
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0007.npz",
+        "sha256": "0e4016f097cdb339960b67853cd73a441217f6f78d96b52ebb2dac43b63aff07",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 8,
+      "reported_EO_Ha": -14067.424485452235,
+      "tangent_norm": 0.09972886615531024,
+      "residual": 0.00596595127166825,
+      "energy_indicator_Ha": 0.00013733435413813675,
+      "raw_gradient_norm": 9760.772198490884,
+      "metric_action_ratio_not_condition_number": 0.05982170961792874,
+      "fullnormalized_minus_retained_residual": -1.701069840542857e-14,
+      "ambientcorrected_minus_retained_residual": -2.1898802216036017e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424460880873,
+        "trial_energy_ha": -14067.424485452235,
+        "step": 1.0,
+        "directional_derivative": -7.596207521319695e-05,
+        "energy_change_ha": -2.4571361791458912e-05,
+        "armijo_rhs_ha": -7.596207521319696e-09,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 2.0716681136386774e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890911864416633
+          ],
+          "projected_probability": [
+            0.9890911864416633
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9911754853401542
+          ],
+          "projected_probability": [
+            0.9911754853401542
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9906715220311029
+          ],
+          "projected_probability": [
+            0.9906715220311029
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9801058148035712
+          ],
+          "projected_probability": [
+            0.9801058148035712
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.982505291743282
+          ],
+          "projected_probability": [
+            0.982505291743282
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0008.npz",
+        "sha256": "70b83004b76f4d1bebf8349954199d88d8f3c1142751f4d6ae3eecbb822a4a87",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 9,
+      "reported_EO_Ha": -14067.424504153641,
+      "tangent_norm": 0.09071233204161919,
+      "residual": 0.006145119758469054,
+      "energy_indicator_Ha": 0.00010685197646033393,
+      "raw_gradient_norm": 9760.788251132952,
+      "metric_action_ratio_not_condition_number": 0.0677429366014937,
+      "fullnormalized_minus_retained_residual": -7.195632978351796e-15,
+      "ambientcorrected_minus_retained_residual": 1.51985195262494e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424485452235,
+        "trial_energy_ha": -14067.424504153641,
+        "step": 0.5,
+        "directional_derivative": -0.0001496095148820145,
+        "energy_change_ha": -1.8701406588661484e-05,
+        "armijo_rhs_ha": -7.480475744100725e-09,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 3.5433523986427445e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890640675452911
+          ],
+          "projected_probability": [
+            0.9890640675452911
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9911484293000433
+          ],
+          "projected_probability": [
+            0.9911484293000433
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9906762639771409
+          ],
+          "projected_probability": [
+            0.9906762639771409
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9813207218817979
+          ],
+          "projected_probability": [
+            0.9813207218817979
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9832341949716429
+          ],
+          "projected_probability": [
+            0.9832341949716429
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0009.npz",
+        "sha256": "2f9cfed64d0e4bf64d7a05870b7cce3c80770805ee25b72bd05f72440e8930d1",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 10,
+      "reported_EO_Ha": -14067.424548052655,
+      "tangent_norm": 0.07905657131545614,
+      "residual": 0.009596207478991385,
+      "energy_indicator_Ha": 0.00014096720946323038,
+      "raw_gradient_norm": 9760.773445824112,
+      "metric_action_ratio_not_condition_number": 0.12138405852057559,
+      "fullnormalized_minus_retained_residual": -3.4014457916953234e-14,
+      "ambientcorrected_minus_retained_residual": 2.5091040356528538e-14,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424504153641,
+        "trial_energy_ha": -14067.424548052655,
+        "step": 1.0,
+        "directional_derivative": -9.990033010134937e-05,
+        "energy_change_ha": -4.389901368995197e-05,
+        "armijo_rhs_ha": -9.990033010134937e-09,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 4.151546012602424e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9890094603073156
+          ],
+          "projected_probability": [
+            0.9890094603073156
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9909946044256371
+          ],
+          "projected_probability": [
+            0.9909946044256371
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9905340421784808
+          ],
+          "projected_probability": [
+            0.9905340421784808
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9812402263154569
+          ],
+          "projected_probability": [
+            0.9812402263154569
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9831883133836505
+          ],
+          "projected_probability": [
+            0.9831883133836505
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0010.npz",
+        "sha256": "b89565f22bcc4f0f533554367ba73c7931408de69f4d5ef5b0a270e105a6eae8",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 11,
+      "reported_EO_Ha": -14067.424669908636,
+      "tangent_norm": 0.13741820701698299,
+      "residual": 0.006762507644942842,
+      "energy_indicator_Ha": 0.0001590632462193559,
+      "raw_gradient_norm": 9760.684232794252,
+      "metric_action_ratio_not_condition_number": 0.049211147429009096,
+      "fullnormalized_minus_retained_residual": -3.3143626732012876e-14,
+      "ambientcorrected_minus_retained_residual": -2.7265429497491667e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424548052655,
+        "trial_energy_ha": -14067.424669908636,
+        "step": 1.0,
+        "directional_derivative": -0.00023919258894005717,
+        "energy_change_ha": -0.00012185598097858019,
+        "armijo_rhs_ha": -2.391925889400572e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 2.7370151365554854e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9888588703331043
+          ],
+          "projected_probability": [
+            0.9888588703331043
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9905197863794521
+          ],
+          "projected_probability": [
+            0.9905197863794521
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9900508507849134
+          ],
+          "projected_probability": [
+            0.9900508507849134
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9787958057538264
+          ],
+          "projected_probability": [
+            0.9787958057538264
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9817385040944899
+          ],
+          "projected_probability": [
+            0.9817385040944899
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0011.npz",
+        "sha256": "fa9b97c3f97c37c8cd0e9cc32270486bd90a81900d03ba5302986b841585933b",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 12,
+      "reported_EO_Ha": -14067.424973304853,
+      "tangent_norm": 0.19749864272082893,
+      "residual": 0.008436936470758398,
+      "energy_indicator_Ha": 0.0004993183821354846,
+      "raw_gradient_norm": 9760.674778968943,
+      "metric_action_ratio_not_condition_number": 0.04271895925221267,
+      "fullnormalized_minus_retained_residual": 2.2534057952938724e-15,
+      "ambientcorrected_minus_retained_residual": 2.5646151868841116e-14,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424669908636,
+        "trial_energy_ha": -14067.424973304853,
+        "step": 1.0,
+        "directional_derivative": -0.000359176859146344,
+        "energy_change_ha": -0.0003033962166227866,
+        "armijo_rhs_ha": -3.59176859146344e-08,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 4.455759057059689e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9885891465701706
+          ],
+          "projected_probability": [
+            0.9885891465701706
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9898715900426265
+          ],
+          "projected_probability": [
+            0.9898715900426265
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9893936961529693
+          ],
+          "projected_probability": [
+            0.9893936961529693
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9771856353822881
+          ],
+          "projected_probability": [
+            0.9771856353822881
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9807618018383762
+          ],
+          "projected_probability": [
+            0.9807618018383762
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0012.npz",
+        "sha256": "9a2dfa73a214c05a2534d77e0987b86bfc516aad70b9fa29020a4afb9d6951b4",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 13,
+      "reported_EO_Ha": -14067.43131550464,
+      "tangent_norm": 2.1989704642126493,
+      "residual": 0.15397840068607158,
+      "energy_indicator_Ha": 0.08405452468328684,
+      "raw_gradient_norm": 9762.328569579679,
+      "metric_action_ratio_not_condition_number": 0.07002295082722004,
+      "fullnormalized_minus_retained_residual": -6.139533326177116e-14,
+      "ambientcorrected_minus_retained_residual": -1.0305645226083016e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.424973304853,
+        "trial_energy_ha": -14067.43131550464,
+        "step": 1.0,
+        "directional_derivative": -0.00949997208089642,
+        "energy_change_ha": -0.006342199787468417,
+        "armijo_rhs_ha": -9.499972080896421e-07,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 3.865187096894587e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9788593583858127
+          ],
+          "projected_probability": [
+            0.9788593583858127
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9728873980070339
+          ],
+          "projected_probability": [
+            0.9728873980070339
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9730183038940053
+          ],
+          "projected_probability": [
+            0.9730183038940053
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9602002348411741
+          ],
+          "projected_probability": [
+            0.9602002348411741
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9676309980732365
+          ],
+          "projected_probability": [
+            0.9676309980732365
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.npz",
+        "sha256": "c211dad402abca18c43279c451d6c6cdd120e7e0f193700439af5c9c194bd3ee",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 14,
+      "reported_EO_Ha": -14067.447616324835,
+      "tangent_norm": 2.5242835611314045,
+      "residual": 0.18404446788883272,
+      "energy_indicator_Ha": 0.13303072457671783,
+      "raw_gradient_norm": 9762.137251625165,
+      "metric_action_ratio_not_condition_number": 0.072909585405826,
+      "fullnormalized_minus_retained_residual": 3.3112401709445294e-14,
+      "ambientcorrected_minus_retained_residual": -1.0871858968641845e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.43131550464,
+        "trial_energy_ha": -14067.447616324835,
+        "step": 1.0,
+        "directional_derivative": -0.024277680053887942,
+        "energy_change_ha": -0.016300820194373955,
+        "armijo_rhs_ha": -2.4277680053887942e-06,
+        "attempt": 0,
+        "backtrack": 0,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 2.7994741191368876e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9679632679889878
+          ],
+          "projected_probability": [
+            0.9679632679889878
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9583434571882158
+          ],
+          "projected_probability": [
+            0.9583434571882158
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9586213347608815
+          ],
+          "projected_probability": [
+            0.9586213347608815
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9467522190236142
+          ],
+          "projected_probability": [
+            0.9467522190236142
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9558419355215434
+          ],
+          "projected_probability": [
+            0.9558419355215434
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0014.npz",
+        "sha256": "e09ce35d022ca8fc1410d9f6a5c51fa467a1e7e7cb2d7d4d634b4735780e455a",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 15,
+      "reported_EO_Ha": -14067.470273717134,
+      "tangent_norm": 3.1821701465783265,
+      "residual": 0.7515805041729583,
+      "energy_indicator_Ha": 0.5213985290662554,
+      "raw_gradient_norm": 9760.469082159503,
+      "metric_action_ratio_not_condition_number": 0.23618488941614446,
+      "fullnormalized_minus_retained_residual": 9.2148511043888e-15,
+      "ambientcorrected_minus_retained_residual": -2.299271883998699e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.447616324835,
+        "trial_energy_ha": -14067.470273717134,
+        "step": 0.5,
+        "directional_derivative": -0.25904912903112187,
+        "energy_change_ha": -0.02265739229915198,
+        "armijo_rhs_ha": -1.2952456451556095e-05,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 3.720452230153056e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8928595985170173
+          ],
+          "projected_probability": [
+            0.8928595985170173
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8751186881619459
+          ],
+          "projected_probability": [
+            0.8751186881619459
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.875754780969598
+          ],
+          "projected_probability": [
+            0.875754780969598
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8864572860675198
+          ],
+          "projected_probability": [
+            0.8864572860675198
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8949379205911164
+          ],
+          "projected_probability": [
+            0.8949379205911164
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0015.npz",
+        "sha256": "04025fb7118324790988b28d43a705b7c2b6c0f8f37f8b6a721e38816bac01f0",
+        "deferred_not_read_or_rehashed": true
+      }
+    },
+    {
+      "iteration": 16,
+      "reported_EO_Ha": -14067.496296074172,
+      "tangent_norm": 5.062655404081547,
+      "residual": 0.68254770188387,
+      "energy_indicator_Ha": 0.6018594158445788,
+      "raw_gradient_norm": 9759.191706907046,
+      "metric_action_ratio_not_condition_number": 0.13482009882276313,
+      "fullnormalized_minus_retained_residual": -5.029310301551959e-14,
+      "ambientcorrected_minus_retained_residual": -1.2501111257279263e-13,
+      "accepted_line_search": {
+        "parent_energy_ha": -14067.470273717134,
+        "trial_energy_ha": -14067.496296074172,
+        "step": 0.5,
+        "directional_derivative": -0.2536956911312263,
+        "energy_change_ha": -0.026022357038527844,
+        "armijo_rhs_ha": -1.2684784556561316e-05,
+        "attempt": 0,
+        "backtrack": 1,
+        "stable_callback_used": false
+      },
+      "finite_stored_H_acceptance_margin_Ha": 2.338457260613009e-12,
+      "tracking": [
+        {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9166129988629798
+          ],
+          "projected_probability": [
+            0.9166129988629798
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9025880400306727
+          ],
+          "projected_probability": [
+            0.9025880400306727
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8952061315174281
+          ],
+          "projected_probability": [
+            0.8952061315174281
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.8961502416409751
+          ],
+          "projected_probability": [
+            0.8961502416409751
+          ]
+        },
+        {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9150657768805553
+          ],
+          "projected_probability": [
+            0.9150657768805553
+          ]
+        }
+      ],
+      "source_bound_saved_array_reference": {
+        "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.npz",
+        "sha256": "5afa25ebe0ad14248b028ee723ed45ce8d86b339872b9f051a8a3cbc1686a08e",
+        "deferred_not_read_or_rehashed": true
+      }
+    }
+  ],
+  "step12_to13": {
+    "EO_change_Ha": -0.006342199787468417,
+    "tangent_norm_growth_ratio": 11.134104183799224,
+    "residual_growth_ratio": 18.25051086016183,
+    "original_metric_steepest_slope_at12": -0.0009986367642709692,
+    "actual_LBFGS_step13_slope": -0.00949997208089642,
+    "LBFGS_to_original_metric_steepest_slope_magnitude_ratio": 9.5129404612213
+  },
+  "source_findings": [
+    "History starts empty, capacity10; pair entry and transport discard depend on relative curvature. Actual pair count/direction not saved.",
+    "Unit-step ordinary Armijo controls energy descent only; no Wolfe curvature or residual monotonicity gate.",
+    "Fixed original inverse blocks and projectors unchanged; changing tangent/action ratio is not a measured condition number."
+  ],
+  "not_established": [
+    "Core dominance",
+    "Optimizer or physical gradient defect",
+    "Whole-space finite derivative correctness",
+    "Stationarity or experimental accuracy"
+  ],
+  "scientific_calls": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "numerical_imports": 0
+}

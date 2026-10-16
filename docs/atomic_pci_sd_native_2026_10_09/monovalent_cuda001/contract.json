@@ -1,0 +1,27 @@
+{
+  "hypothesis": "Same complete standalone CPU/CUDA maps and eight-step directed feedback roots agree with the independent full finite primary/Fock oracle for every M",
+  "fixed": "Be+ Z4/point/ns30/ks7; complete declared12magnetic-spinor pool, real DC and native redundant direct-rho coordinates; matched .37virtual/.08occupied-virtual rotations, no amplitude/channel pruning",
+  "variants": [
+    "unchanged",
+    "virtual_rotated",
+    "occupied_rotated",
+    "combined_rotated"
+  ],
+  "signed_and_root_gate_Ha": 1e-11,
+  "numerical_raw_tolerance_Ha": 1e-14,
+  "independent_raw_gate_Ha": 1e-10,
+  "host_cap_bytes": 268435456,
+  "device_cap_bytes": 2147483648,
+  "private_scratch_allowance_bytes": 8388608,
+  "term2_cpu_workers": 8,
+  "core_cpu_workers": 2,
+  "inner_blas_threads": 1,
+  "load": [
+    19.26806640625,
+    21.521484375,
+    17.611328125
+  ],
+  "timing": "single complete root observations with context/JIT overhead; no controlled end-to-end gain",
+  "stop": "Any source/resource/independent/paired signed-map/root/raw/energy/branch failure rejects; no CPU fallback, weakened gates or changed space",
+  "scope": "Private finite standalone CUDA term2 control, original term31 GEMM and complete-image Davidson; no public adoption, full-Yb GPU solve, normalized large states or physical precision certificate"
+}

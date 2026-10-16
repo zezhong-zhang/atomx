@@ -1,0 +1,24 @@
+DAVIDSON S {'iteration': 1, 'EA_Ha': -0.4136377479018467, 'residual_Ha': 0.007603295756915816, 'bare_R1_weight': 1.0, 'action_seconds': 0.04416176799713867}
+DAVIDSON S {'iteration': 2, 'EA_Ha': -0.4138239359060447, 'residual_Ha': 0.00029573480933244847, 'bare_R1_weight': 0.999944911797416, 'action_seconds': 0.026444643997820094}
+DAVIDSON S {'iteration': 3, 'EA_Ha': -0.41382578365279454, 'residual_Ha': 2.9619771109783857e-06, 'bare_R1_weight': 0.999944826446806, 'action_seconds': 0.03869211499841185}
+DAVIDSON S {'iteration': 4, 'EA_Ha': -0.4138257452266654, 'residual_Ha': 2.966078655322813e-07, 'bare_R1_weight': 0.9999448260452819, 'action_seconds': 0.0260700490034651}
+DAVIDSON S {'iteration': 5, 'EA_Ha': -0.41382575191001436, 'residual_Ha': 3.5267935945114013e-09, 'bare_R1_weight': 0.999944826127126, 'action_seconds': 0.025874019003822468}
+DAVIDSON S {'iteration': 6, 'EA_Ha': -0.41382575188455384, 'residual_Ha': 2.420280170249441e-10, 'bare_R1_weight': 0.9999448261268842, 'action_seconds': 0.025771936001547147}
+DAVIDSON S {'iteration': 7, 'EA_Ha': -0.41382575188609394, 'residual_Ha': 8.067828740146443e-12, 'bare_R1_weight': 0.9999448261268891, 'action_seconds': 0.02592459500010591}
+DAVIDSON D3 {'iteration': 1, 'EA_Ha': -0.30235823039285314, 'residual_Ha': 0.015624726642651111, 'bare_R1_weight': 1.0, 'action_seconds': 0.025623467001423705}
+DAVIDSON D3 {'iteration': 2, 'EA_Ha': -0.30277642552179884, 'residual_Ha': 0.0004396809462342469, 'bare_R1_weight': 0.9998349905793757, 'action_seconds': 0.025650928997492883}
+DAVIDSON D3 {'iteration': 3, 'EA_Ha': -0.3027781263970155, 'residual_Ha': 2.2819163755570173e-05, 'bare_R1_weight': 0.9998349143819748, 'action_seconds': 0.026270537004165817}
+DAVIDSON D3 {'iteration': 4, 'EA_Ha': -0.3027780273693268, 'residual_Ha': 3.637671421004101e-07, 'bare_R1_weight': 0.9998349122779101, 'action_seconds': 0.026173454003583174}
+DAVIDSON D3 {'iteration': 5, 'EA_Ha': -0.30277803400642345, 'residual_Ha': 2.021496179625056e-08, 'bare_R1_weight': 0.9998349124970161, 'action_seconds': 0.02566799100168282}
+DAVIDSON D3 {'iteration': 6, 'EA_Ha': -0.30277803399102377, 'residual_Ha': 9.107206059099748e-10, 'bare_R1_weight': 0.999834912492515, 'action_seconds': 0.025750516004336532}
+END FAILED
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson.py", line 362, in <module>
+    prepare() if args.prepare else main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson.py", line 249, in main
+    energy, vector, indices, _ = solve_target(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson.py", line 114, in solve_target
+    gate(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson.py", line 218, in gate
+    raise AssertionError((name, measured, cap))
+AssertionError: ('D3:basis_J2', 6.77398050626853e-07, 1e-07)

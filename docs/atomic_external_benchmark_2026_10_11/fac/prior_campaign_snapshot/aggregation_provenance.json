@@ -1,0 +1,27 @@
+{
+  "inputs_sha256": {
+    "contract.json": "eb26d4b98848c9cfd3292d51162902b38a1eed2174176bf846552fba5e1d77a6",
+    "sd/finite_action001/result.corrected.json": "e58ba8fee7df5695f91d3b161a158f787f346b288b7a1f60d96dfdeece16cdff",
+    "sd/finite_action001/observations.json": "abaf7668e8854efad876351a4ff7744328329b30965606d1c14122f788e38ba5",
+    "sd/yb_round000/result.json": "d2ce1e85823a12c7a53d3e2324352fcf01c7b802f0e83ec63fcbd295d93cded4",
+    "sd/yb_round001/result.json": "fcdb717007b33eed06f11ded6a0dd98fbdbaf36af9e89d879af9453f0cacd8b8",
+    "sd/yb_round002/result.json": "96ddf9ee60604d1886456b73c94b02ad7e0eead5ac0f7e3477401720d9fbf0ed",
+    "sd/yb_round000/full_output_verification.json": "e38e3736e78812e76c42ec97e348f62eb0a09f98b47f91df2d0a3a739cfd317d",
+    "sd/yb_round000/observations.json": "0882e1543d13c7657a5d2dd6db5416d62fb7591fb14cb9656f3f1be7555f0f14",
+    "sd/yb_round001/full_output_verification.json": "a530bca6493d27a1661ff513470275ffa33a44ea4d0a6518ed59284d0b39086d",
+    "sd/yb_round001/observations.json": "c0dcb5e13a63beec486bbbd99ecded2353d251cd34b6e4ae7c6186098ae228f8",
+    "sd/yb_round002/full_output_verification.json": "27f4bab89345469e9772fff788a8230f1e66b7eba21e3405b636c3727a8725bc",
+    "sd/yb_round002/observations.json": "cd0397de7aaf043747235c60e1212fc00db284297490868e2db2d64a79077cd5",
+    "ambit/result.corrected.json": "2dbc38042f42325ac3266057df13fb4e4fe44e10f2397f41bedd8a427e4be759",
+    "fscc/run003/result.json": "1571dc97477a14bd0d14ced56393a8edd1233741fb94d3fc642d7197b44b016e",
+    "fscc/run003/raw_samples.json": "0501c7a7ca029d7a86a6454243dddc6cc4cad22cb941be8464dcdc3acb86710a",
+    "gpu/summary.json": "80ec6098d5b26a6b0c710811abe63d71345633564aa8d0d65c343893c4338b78",
+    "experimental_precision_context.json": "8539b3c640264486748c394748e9fb8e4564427c76131bd2c5329eae7a1b585a",
+    "fscc/thread_preflight002/p4/runtime_thread_cap_rejection.json": "f94bb04f2f8962ade451e0de7d489fcb79bbe66aabcc82785fbd43aca760ce64"
+  },
+  "script_sha256": "bd2e1f92777e21e023bfb2353e60c5bbb7fccc6c60fa5b3aee3958c157d7b57d",
+  "complete_groups_required": true,
+  "paired_statistic": "Median of same-round T1/Tp; error ranges show all observations, not confidence intervals.",
+  "actual_process_threads_scope": "FSCC 10 ms /proc sampled lower bound; AMBiT program team size and SD compile/runtime contract are recorded in their owners.",
+  "historical_experiment_not_rerun": true
+}

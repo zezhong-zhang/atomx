@@ -1,0 +1,109 @@
+{
+  "created_utc": "2026-10-11T20:29:33.895973+00:00",
+  "scope": "Current source/JSON status successor; original pre-FD evidence remains frozen. No numerical arrays consumed.",
+  "inputs": {
+    "original_pre_FD_priority_record": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/evidence.json",
+      "sha256": "35efa2e62132075f231ce394a4b1cf9920aa962418647764b3e8afdc193c7b43"
+    },
+    "FD": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/actual/result.json",
+      "sha256": "b1e1f6ef10f053025873aef0fa597d8a3792b7fb5f55350ef4b65b024e40fa31"
+    },
+    "FD_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/representation_repair001/root_execution.json",
+      "sha256": "11029baf01041f6a71413f22872c40b46f5200502bc07734aa8798ad8d12760f"
+    },
+    "GPU": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/actual/result.json",
+      "sha256": "c8ff085d35f133a93a46fee2363fe49da8a3c6aa8fa3c06a3b15a3eb3f487a84"
+    },
+    "GPU_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_representation_repair001/controller/execution_receipt.json",
+      "sha256": "fff9286f496985309f639804e5cc8c733150033ffc3dc2f6598d98c25608e1d0"
+    },
+    "matched_owner": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/actual/result.json",
+      "sha256": "771d5bd3edbedce0db97a7892af46a0e5b726831798f8a196097e9449af1f972"
+    },
+    "matched_owner_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/matched_preowner_baseline_replay_preparation001/root_execution.json",
+      "sha256": "dfa8b354a4830217c70910cc084c963c9c3588a2b3c832056d508468f6ac66e1"
+    },
+    "previous_status": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/current_status001.json",
+      "sha256": "c28a7d053dc4db785e43cf8e1051fcb7d96ae3384c91b61ba6b24c79eb8ab42f"
+    },
+    "native31_relaxation": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/result.json",
+      "sha256": "463d4e2c42f2521ca44d5729231f4fc6ccb7eb3dc6abbb65d2ad5fe91fe25739"
+    },
+    "native31_relaxation_receipt": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/root_execution.json",
+      "sha256": "fb2310d0f705d114b7f83bcd62be7ef2ad41905e092ed0a94929c5ab08014532"
+    },
+    "native31_relaxation_scalar_closure": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json",
+      "sha256": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607"
+    }
+  },
+  "native31_FD": {
+    "live_controls_passed": 730,
+    "single_combined_direction_two_predeclared_scales": true,
+    "full_space_derivative_certificate": false,
+    "stationarity_passed": false,
+    "optimized": false,
+    "experimental_accuracy_passed": false,
+    "scope": "Historical initial31 point direction qualification; relaxation trajectory separately recorded."
+  },
+  "private31_GPU": {
+    "live_controls_passed": 16760,
+    "all2824_bands_each_CPU1_CPU4_CUDA_bitwise": true,
+    "current_shared_source_adopted": false,
+    "controlled_parallel_efficiency_measured": false,
+    "whole_H_CI_GPU": false
+  },
+  "matched_owner_baseline": {
+    "full29x29_H_bitwise": true,
+    "full7x70_signed_g_bitwise": true,
+    "same_DC_schema1_header": true,
+    "H": 2,
+    "g": 2,
+    "CI_solves": 0,
+    "original_historical_source_and_large_h_failures_preserved": true,
+    "full31_current_optimizer_qualified": false
+  },
+  "pending_physical_evidence": [
+    "fixed step12 local derivative/state tracking diagnosis of step12-to13 gradient growth before optimizer continuation",
+    "same-point retained RCI31 static/zero-frequency/finite-frequency shifts with complete operator provenance",
+    "identified core-excitation classes at matched lower/upper states",
+    "qualified nonlocal self-energy and recoil operators"
+  ],
+  "new_NPZ_reads": 0,
+  "new_science_calls": 0,
+  "native31_relaxation": {
+    "live_controls_passed": 1582,
+    "saved_scalar_controls_passed": 77,
+    "accepted_steps": 16,
+    "qualified_points": 17,
+    "H": 23,
+    "CI": 23,
+    "complete_signed_gradients": 51,
+    "original_Armijo_stored_H_ledger_passed": true,
+    "frozen_source": "f043",
+    "current_source_adopted": false,
+    "source_and_inputs_unchanged": true,
+    "EO_delta_Ha": -0.07226676172285806,
+    "initial_RMS_cm1": 1915.9833377599443,
+    "terminal_RMS_cm1": 1283.7699121117464,
+    "original_terminal_residual": 0.68254770188387,
+    "original_terminal_indicator_Ha": 0.6018594158445788,
+    "stationarity_passed": false,
+    "experimental_accuracy_passed": false,
+    "converged": false,
+    "termination_reason": "maximum_iterations",
+    "no_gap_selected_checkpoint": true,
+    "no_automatic_continuation": true,
+    "error_indicator_is_not_spectrum_error_bound": true
+  }
+}

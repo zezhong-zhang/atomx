@@ -1,0 +1,415 @@
+{
+  "status": "chain_passed",
+  "label": "cold",
+  "variant": "candidate",
+  "directory": "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/actual/candidate/cold",
+  "timings": {
+    "energy_trial_seconds": 4.081078034825623,
+    "accepted_gradient_seconds": 1.168218795908615,
+    "primary_seconds": 5.249296830734238,
+    "trial_validation_seconds": 0.09956428408622742,
+    "sameworker_full_repeat_validation_seconds": 3.0105002224445343e-07,
+    "validation_metadata_seconds": 0.5922303670085967,
+    "checked_compressed_archive_seconds": 0.16035136696882546
+  },
+  "started": {
+    "npz_load": 6,
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI": 1,
+    "H": 1,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "CI_source_pair": 593,
+    "factor_get": 4744,
+    "direct_semiseparable": 4744,
+    "band_scalar": 49054,
+    "centered_dense_helper": 5,
+    "scipy_eigh": 5,
+    "tracking_resolution": 2,
+    "tracking_SVD": 10,
+    "gradient": 1,
+    "gradient_source_pair": 593,
+    "gradient_band_expand": 2372
+  },
+  "completed": {
+    "npz_load": 6,
+    "tracking_overlap": 3,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "density_band": 3242,
+    "factor_get": 4744,
+    "direct_semiseparable": 4744,
+    "CI_source_pair": 593,
+    "band_scalar": 49054,
+    "H": 1,
+    "scipy_eigh": 5,
+    "centered_dense_helper": 5,
+    "CI": 1,
+    "tracking_SVD": 10,
+    "tracking_resolution": 2,
+    "gradient_band_expand": 2372,
+    "gradient_source_pair": 593,
+    "gradient": 1
+  },
+  "checks": [
+    {
+      "name": "fresh_CI",
+      "passed": true
+    },
+    {
+      "name": "fresh_H_owner",
+      "passed": true
+    },
+    {
+      "name": "complete_five_centered_public_blocks",
+      "passed": true
+    },
+    {
+      "name": "actual_provenance_centered_origins",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "whole_H_exact_symmetric",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "full_CI_column_norm_residual",
+      "passed": true,
+      "error": 9.340528914883138e-12,
+      "limit": 1e-08
+    },
+    {
+      "name": "full_CI_Gram",
+      "passed": true,
+      "error": 2.886579864025407e-15,
+      "limit": 1e-10
+    },
+    {
+      "name": "read_only_owned_H",
+      "passed": true
+    },
+    {
+      "name": "stale_owner_rejected",
+      "passed": true
+    },
+    {
+      "name": "same_trial_CI_object",
+      "passed": true
+    },
+    {
+      "name": "same_reported_objective",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_complete_radial_gradient",
+      "passed": true,
+      "error": 3.5016434196677437e-13,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_raw_g",
+      "passed": true,
+      "error": 9.24362322796135e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_tangent_g",
+      "passed": true,
+      "error": 9.243619758514399e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "saved_original_metric_pg",
+      "passed": true,
+      "error": 5.549125612139272e-13,
+      "limit": 1e-10
+    },
+    {
+      "name": "original_equal5weights",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(5, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, 1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(3, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "rank_one_binding",
+      "passed": true
+    },
+    {
+      "name": "unique_UID_(1, -1, 0)",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6s_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_3/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_5d_5/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_1/2",
+      "passed": true
+    },
+    {
+      "name": "same_original_target_6p_3/2",
+      "passed": true
+    },
+    {
+      "name": "exact_five_UID_support",
+      "passed": true
+    },
+    {
+      "name": "same_raw_h_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_2",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_-4",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_raw_h_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "same_S_3",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "saved_full_H",
+      "passed": true,
+      "error": 7.275957614183426e-12,
+      "limit": 1e-09
+    },
+    {
+      "name": "historical_unshifted_full_roots_source_evolution",
+      "passed": true,
+      "error": 1.6370904631912708e-11,
+      "limit": 1e-08
+    },
+    {
+      "name": "archive_exact_H",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_energies",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_mixing",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_radial_gradient",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_raw_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_g",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_pg",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_weights",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_x",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_keys",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_P",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "archive_exact_Q",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "chain_calls_H",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_CI",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_centered_dense_helper",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_tracking_resolution",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_tracking_SVD",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_CI_source_pair",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient_source_pair",
+      "passed": true
+    },
+    {
+      "name": "chain_calls_gradient_band_expand",
+      "passed": true
+    },
+    {
+      "name": "per_chain_geometry_hS_after_cold",
+      "passed": true
+    }
+  ]
+}

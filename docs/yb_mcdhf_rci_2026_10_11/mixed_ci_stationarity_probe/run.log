@@ -1,0 +1,20 @@
+{"preflight": "pass", "CSFs": 531, "overlap_pair_upper": 227582}
+{"stage": "build_full_mixed_functional", "seconds_uncontrolled": 3.2472294960170984, "elapsed_s": 3.518428921001032}
+{"stage": "bind_full_physical_CI_reference", "seconds_uncontrolled": 0.23858140502125025, "elapsed_s": 3.757045161910355}
+{"stage": "actual_full_mixed_EO_gradient_and_CI", "seconds_uncontrolled": 1.5860910001210868, "elapsed_s": 5.396359356120229}
+{"stage": "baseline_full_numeric_identity", "seconds_uncontrolled": 0.5338802810292691, "elapsed_s": 5.930297116050497}
+{"baseline_orbital_residual": 0.036760718407053486, "quadratic_indicator_Ha": 0.00024264029207288364, "stationarity_passed": false}
+{"stage": "zero_reconstructed_coordinate_control", "seconds_uncontrolled": 0.5285230420995504, "elapsed_s": 6.623135678935796}
+{"trial": "FD_normalized_original_metric_descent_0.0001_plus", "EOL_delta_Ha": -1.318454451393336e-06, "elapsed_s": 7.723487361101434}
+{"trial": "FD_normalized_original_metric_descent_0.0001_minus", "EOL_delta_Ha": 1.3217595551395789e-06, "elapsed_s": 8.821390897966921}
+{"trial": "FD_normalized_original_metric_descent_5e-05_plus", "EOL_delta_Ha": -6.596401362912729e-07, "elapsed_s": 9.90062680398114}
+{"trial": "FD_normalized_original_metric_descent_5e-05_minus", "EOL_delta_Ha": 6.604550435440615e-07, "elapsed_s": 10.974837616086006}
+{"validated_direction": "normalized_original_metric_descent", "analytic": -0.013201063667261023, "central_slopes": [-0.013201070032664575, -0.013200951798353344]}
+{"trial": "FD_normalized_valence_focused_tangent_0.0001_plus", "EOL_delta_Ha": -1.0431085684103891e-06, "elapsed_s": 12.059825465083122}
+{"trial": "FD_normalized_valence_focused_tangent_0.0001_minus", "EOL_delta_Ha": 1.0444400686537847e-06, "elapsed_s": 13.156802946003154}
+{"trial": "FD_normalized_valence_focused_tangent_5e-05_plus", "EOL_delta_Ha": -5.217170837568119e-07, "elapsed_s": 14.237327611073852}
+{"trial": "FD_normalized_valence_focused_tangent_5e-05_minus", "EOL_delta_Ha": 5.220499588176608e-07, "elapsed_s": 15.329761425964534}
+{"validated_direction": "normalized_valence_focused_tangent", "analytic": -0.010437753461491618, "central_slopes": [-0.010437743185320869, -0.010437670425744727]}
+{"trial": "line_trial_0", "EOL_delta_Ha": -0.0002646866469149245, "elapsed_s": 16.41188891301863}
+{"stage": "accepted_mixed_EO_actual_gradient", "seconds_uncontrolled": 0.26665419596247375, "elapsed_s": 16.678572515025735}
+{"status": "bounded_probe_completed", "seconds_uncontrolled": 16.693895932054147, "result_sha256": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e"}

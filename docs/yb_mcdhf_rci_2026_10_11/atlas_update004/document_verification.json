@@ -1,0 +1,84 @@
+{
+  "all_links_passed": true,
+  "link_checks": 18,
+  "checks": [
+    {
+      "link": "contract.json",
+      "passed": true
+    },
+    {
+      "link": "prechange_manifest.json",
+      "passed": true
+    },
+    {
+      "link": "original_index.html",
+      "passed": true
+    },
+    {
+      "link": "../virtual_only_discriminator/result.json",
+      "passed": true
+    },
+    {
+      "link": "../virtual_only_discriminator/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "link": "../screened_core_virtual_discriminator002/result.json",
+      "passed": true
+    },
+    {
+      "link": "../screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "link": "../screened_core_virtual_discriminator002/decision.json",
+      "passed": true
+    },
+    {
+      "link": "local_preparation_execution.json",
+      "passed": true
+    },
+    {
+      "link": "data_verification.json",
+      "passed": true
+    },
+    {
+      "link": "browser_contract.json",
+      "passed": true
+    },
+    {
+      "link": "browser_execution.json",
+      "passed": true
+    },
+    {
+      "link": "browser_result.json",
+      "passed": true
+    },
+    {
+      "link": "desktop.png",
+      "passed": true
+    },
+    {
+      "link": "mobile.png",
+      "passed": true
+    },
+    {
+      "link": "completion.json",
+      "passed": true
+    },
+    {
+      "link": "site_manifest.json",
+      "passed": true
+    },
+    {
+      "link": "docimpact.json",
+      "passed": true
+    }
+  ],
+  "README_sha256": "e21194b0dacc01f3239ef33492a3e25a7e31ce4db8c73872ccecde5051b9b146",
+  "docimpact_sha256": "4f528deb5d1ca8644591da984fba29e09e668b604b4a1754e1deb2de24f07be8",
+  "completion_sha256": "4a6b574bdb635f8161f4f73959b18358e7db44eaa305639ac8946b5a9f06d16e",
+  "scope": "Website-only factual/link review; zero scientific calls/publication",
+  "ruff": "3 owning Python scripts passed",
+  "site_git_diff_check": "passed"
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py", line 421, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py", line 128, in main
+    parent_arrays = {name: data[name].copy() for name in (
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run003/completion/audit_saved.py", line 128, in <dictcomp>
+    parent_arrays = {name: data[name].copy() for name in (
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 261, in __getitem__
+    raise KeyError(f"{key} is not a file in the archive")
+KeyError: 'original_projected_gradient is not a file in the archive'

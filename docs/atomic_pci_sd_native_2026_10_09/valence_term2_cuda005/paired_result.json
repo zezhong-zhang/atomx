@@ -1,0 +1,27 @@
+{
+  "full_signed_gate_passed": true,
+  "load_guard_passed": false,
+  "pairs": [
+    {
+      "pair": 0,
+      "cpu": 34.66649840096943,
+      "cuda": 27.73698393604718,
+      "cpu_over_cuda": 1.2498294147950457
+    },
+    {
+      "pair": 1,
+      "cuda": 31.4506209139945,
+      "cpu": 31.616537409019656,
+      "cpu_over_cuda": 1.0052754600768894
+    },
+    {
+      "pair": 2,
+      "cpu": 30.96412010700442,
+      "cuda": 31.787871136097237,
+      "cpu_over_cuda": 0.9740859957067903
+    }
+  ],
+  "observed_median_cpu_over_cuda": 1.0052754600768894,
+  "controlled_speedup": null,
+  "scope": "warm complete term2 plus C copies, eight CPU workers/inner-one BLAS for both; GPU density transfers included; excludes preparation, compilation and full SD solve"
+}

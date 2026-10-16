@@ -1,0 +1,47 @@
+{
+  "status": "PREPARED",
+  "source_files": 362,
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 8589934592,
+    "wall_seconds": 1200,
+    "load1_max": 24,
+    "available_min_bytes": 17179869184,
+    "tensor_memory_MiB": 512,
+    "batch_size": 4,
+    "full_core_count": 1820,
+    "full_attachment_count": 4368,
+    "independent_core_M0_even": 190,
+    "independent_attachment_sector_counts": {
+      "-5": 237,
+      "-3": 322,
+      "-1": 374,
+      "1": 374,
+      "3": 322,
+      "5": 237
+    },
+    "tensor_plan": {
+      "core_amplitudes": 1324,
+      "attachment_coordinates": 1596,
+      "dense_core_coordinates": 112944,
+      "dense_attachment_coordinates": 28236,
+      "resident_integral_bytes": 528384,
+      "numerical_upper_bytes": 37375904,
+      "attachment_matrix_bytes": 20377728,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    },
+    "scalar_only_all68_plan": {
+      "core_amplitudes": 11176684,
+      "attachment_coordinates": 505660,
+      "dense_core_coordinates": 544005168,
+      "dense_attachment_coordinates": 8000076,
+      "resident_integral_bytes": 327782400,
+      "numerical_upper_bytes": 110989585312,
+      "attachment_matrix_bytes": 2045536284800,
+      "full_particle_sectors_enumerated": false,
+      "scope": "real NumPy payload including contraction workspace; Python/SciPy overhead extra"
+    }
+  }
+}

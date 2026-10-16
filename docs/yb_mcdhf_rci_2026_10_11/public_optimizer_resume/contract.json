@@ -1,0 +1,60 @@
+{
+  "status": "prospective_public_numerical_interface",
+  "hypothesis": "Validated immutable numerical state restores identical original no-pair coordinates/projectors/inverse residual metric without rebuilding spectrum, seed, occupation scaling, CI or secant history. A changed objective is explicit and recomputed.",
+  "owned_files": [
+    "src/atomx/numerics/bspline/orbital_optimization.py",
+    "tests/test_orbital_optimizer_resume.py",
+    "docs/yb_mcdhf_rci_2026_10_11/public_optimizer_resume"
+  ],
+  "source_before_manifest_sha256": "23d91fb51bf729c79ddd5b5e723ad28a069b941a8f1607a20fd42edb4fe19310",
+  "source_before_python_count": 353,
+  "source_before_optimizer_sha256": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192",
+  "inputs_sha256": {
+    "AGENTS.md": "614187973b27c5aa79f3f13ad187dfd36746b20f0dfc8d46a05303968d9e5cb6",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/result.json": "1c0663f5897fc13fd7f0734491fad81e354a5543ed82c2941172390eb400e31e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_stationarity_probe/PUBLIC_OPTIMIZATION_SUCCESSOR.md": "f4f66f6539da52afb74cc3bc2760951b57553778cbbb4f0919530cc5f5490914",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinates.npz": "6b32682b49d2c4f6272fd637a0e6cf4967a765a5636803cdf5c37c8ac2f467c7"
+  },
+  "physical_fixed": "No Hamiltonian, RDM, orbital gradient, CI matching, line-search Armijo or scientific gates altered. No mixed stable delta implemented. No full Yb solve.",
+  "interfaces": {
+    "state": "OrbitalOptimizationState.from_arrays(functional, layout, coordinates, inverse_diagonal, inverse_blocks, objective_identity, projector_source, projector_operators, occupation_floor)",
+    "resume": "optimize_orbitals(...,resume_state=None,objective_identity=None,allow_objective_change=False,checkpoint_callback=None,max_wall_time=None,return_state=False)",
+    "checkpoint": "callback(iteration, state, orbitals, ci, diagnostics), actual accepted state including iteration0",
+    "budget": "safe accepted-state return with wall_time_limit and converged=False; hard deadline remains caller protection"
+  },
+  "identity_and_validation": {
+    "legacy_metric_digest": "Original list-key repr/projector/inverse bytes unchanged",
+    "geometry_binding": "all numerical B-spline workspace entries, Z/ns, actual S/nuclear onebody and sampled nuclear values",
+    "arrays": "copy to immutable bytes-backed float64; ordered uniquekeys, exactshapes/contiguousslices, finite coordinate/diagonal/blocks",
+    "physical_projector": "S orthonormality and complete selected positive subspace of explicit original nuclear/Fock operator; active padded geometry supported",
+    "inverse": "diagonal positive; blocks finite symmetric strictly positive",
+    "point": "authoritative coordinates; no reprojection or seed polar; optional inputorbitals must equal unpacked point",
+    "objective": "caller-derived full scientific identity string, changedidentity requires explicitallow; no copiedCI/gradient/secant/convergence"
+  },
+  "acceptance": {
+    "legacy_metric_byte_identity": true,
+    "fresh_default_trajectory_bitwise_unchanged": true,
+    "initial_resume_inverse_action_independent": true,
+    "actual_energy_and_gradient_recomputed": true,
+    "analytic_Rayleigh_and_Gram_at_actualaccepted_state": true,
+    "wrong_workspace_nucleus_keys_shapes_projector_inverse_point_target_mutation_rejected": true,
+    "old_progress_callback_preserved": true,
+    "original_orbital_tolerance": 1e-07,
+    "original_energy_tolerance_Ha": 1e-08
+  },
+  "mathematical_guard_limits": {
+    "S/projector/coordinate_Gram": 1e-10,
+    "selected_positive_span_relative": 1e-10,
+    "inverse_symmetry_relative": 1e-12
+  },
+  "resource_caps": {
+    "CPU_threads": 1,
+    "test_wall_timeout_s": 300,
+    "process_memory_GiB": 3.95,
+    "new_independent_model_max_ns": 35,
+    "regression_existing_ns_up_to": 120,
+    "no_full_531_MCDHF_optimization": true
+  },
+  "stopping": "Complete focused independent roundtrip/mismatch/callback/budget tests plus relevant existing optimizer/polar/state-average/stable-delta regressions; preserve failures and do not relax gates. Deliver sourceepoch and docs for root integration."
+}

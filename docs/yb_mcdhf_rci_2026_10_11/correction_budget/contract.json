@@ -1,0 +1,111 @@
+{
+  "version": "same-orbital-Yb-correction-budget-001",
+  "hypothesis": "Measure differential transverse, approximate QED, and Breit recoil corrections on the same saved 24 MCDHF spinors and five CI states to rank physical gaps; a large common core correction must not be mistaken for a transition correction.",
+  "fixed_conditions": {
+    "input_run": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta",
+    "frozen_source_root": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta/source",
+    "source_map_sha256": "1960c27b68af53ca50f74174da6e1678919efdd51a7db39b4dfbc8bba2a763d1",
+    "source_python_files": 353,
+    "Z": 70,
+    "electrons": 69,
+    "charge": 1,
+    "same_24_radial_spinors": true,
+    "ns": 123,
+    "ks": 9,
+    "basis": "native RKB B-spline, exact saved Gauss workspace",
+    "nucleus": {
+      "model": "fermi",
+      "radius_mass_number": 175,
+      "requested_mass_number": null,
+      "rms_radius_fm": 5.246119777900239,
+      "reference_rms_radius_fm": 5.246119777900239,
+      "radius_source": "empirical_0.836_A_cuberoot_plus_0.570_fm",
+      "radius_clamped": false,
+      "diffuseness_bohr": 9.890591372451268e-06,
+      "half_density_radius_bohr": 0.00011885936071054029
+    },
+    "A": 175,
+    "levels": [
+      [
+        "6s_1/2",
+        1,
+        1
+      ],
+      [
+        "5d_3/2",
+        3,
+        1
+      ],
+      [
+        "5d_5/2",
+        5,
+        1
+      ],
+      [
+        "6p_1/2",
+        1,
+        -1
+      ],
+      [
+        "6p_3/2",
+        3,
+        -1
+      ]
+    ],
+    "exp_reference": "same original NIST handbook nominals; no isotope uncertainty supplied",
+    "no_optimization_or_orbital_substitution": true,
+    "mass_proxy": "public default_nuclear_mass_me(70,175)=175*PROTON_ELECTRON_MASS_RATIO, not measured isotope mass"
+  },
+  "components": {
+    "Dirac-Coulomb": "public ci_solve on fixed common spinors, replay saved energies/amplitudes",
+    "static_Breit": "public ci_solve include_breit=True, complete static Gaunt+retardation, replay saved RCI",
+    "dynamic_Breit": "public ci_solve include_breit=True plus complete 24-key orbital energy map; each orbital epsilon is diagonal EOL Lagrange multiplier/(2 objective occupation) from saved same-state gradient, or the existing public zero-occupation one-body convention; symmetric average of two vertex |epsilon_a-epsilon_c| frequencies, real one-photon model replaces static Breit",
+    "dynamic_zero_frequency_check": "same complete zero map must reproduce static Breit roots",
+    "Uehling": "public short_range_radial_matrix and scalar_one_body_expectations; point-source local VP on fixed Fermi orbitals, finite-charge convolution absent",
+    "WK": "public V_wichmann_kroll approximate local model and same full scalar CI expectation, not precision higher-loop VP",
+    "SE_default": "public self_energy_radial_matrix(method=indelicato): tabulated K/L/available SD rows plus warned leading analytic fallback, orbital-attraction overlap screening; diagonal radial model, screened many-body/nonlocal terms absent",
+    "SE_local_discriminator": "public shabaev_local matrix; actual local-model overlap for supported kappa -1,+1,-2 only; d/f components absent, no complete-SE claim",
+    "SE_full_coverage": "public shabaev request records actual NotImplementedError; no missing term substituted",
+    "NMS": "public one-body point-Coulomb Breit recoil radial/CSF matrix divided by A175 mass proxy; finite-size/radiative/higher-order recoil absent",
+    "SMS": "public two-body point-Coulomb Breit recoil CSF matrix with Z=70, VINTI/SMS2/SMS3 divided by same mass; finite-size/radiative/higher-order recoil absent"
+  },
+  "acceptance": {
+    "dc_replay_absolute_Ha": 1e-08,
+    "static_replay_absolute_Ha": 1e-08,
+    "zero_frequency_static_absolute_Ha": 1e-08,
+    "CI_residual_absolute_Ha": 1e-08,
+    "scalar_onebody_independent_occupation_absolute_Ha": 1e-10,
+    "finite_radial_and_state_values": true,
+    "unchanged_original_stationarity_residual_goal": 1e-07,
+    "unchanged_original_energy_error_goal_Ha": 1e-08,
+    "unchanged_original_NIST_relative_excitation_goal": 0.01,
+    "keep_failed_original_stationarity_as_failed": true,
+    "no_complete_corrected_spectrum_claim": true
+  },
+  "resource": {
+    "estimated_peak_GiB": 2.5,
+    "hard_address_space_cap_GiB": 4,
+    "hard_wall_seconds": 900,
+    "all_runtime_threads": 1,
+    "preflight_blocks": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "dense_CI_storage_bytes": 200,
+    "dynamic_cache_capacity_per_block": 128,
+    "hardware_performance_claim": false
+  },
+  "inputs": {
+    "contract.json": "de517cdbd74ce183ec9f13d7b71aa4689186f3c0b628571a5a1200fd01362b69",
+    "source_identity.json": "79816bf5aa6d521d90a63f03d87005048e777eddd7448fe4f8a5cbe1bcda33e8",
+    "preflight.json": "8137b885f536babbdff9b4ec592656e330f35bf69b36a861a01611d59a2ff2a9",
+    "result.json": "4bcb2be60a2edf90f3eb76642a526fcee0a5f5ca1c754af4fe74078ebba8b27c",
+    "mcdhf_diagnostics.json": "cd6d2b9fbffadcbd34fa3ae208c7030c48c40995198856f429052718c9166780",
+    "orbitals_workspace.npz": "0e3523c41ae085914d5d938fac1ecb8734e50adde10ae2954f0b3560279c2ecc",
+    "ci_arrays.npz": "1df41a0936a9c335aa5a20c0ac76d12a5cf73080d4d0328ec6bed03288c3bcf6"
+  },
+  "stopping": "Stop preserving failure if any saved identity/nucleus/replay numerical gate fails. Each unsupported correction remains explicitly unsupported. Stop at 900s/4GiB without reducing physical model or accepting failed stationarity."
+}

@@ -1,0 +1,14 @@
+{
+  "expectation": "Resolve the noncanonical full-H strict 1e-10 Ha gap with actual signed amplitudes rather than energy correlation. Preserve same H/space/metric and validated old executable.",
+  "action": "Decode complete ATXDG002 amplitudes; independently lift bra-first conjugates; compare all120x8 Bloch rows; isolate open Fov-T2 contraction; compile single-object candidate removing duplicate P(34); verify C1/axial/DC/static/complex/Fov0/Fov2/ns100 controls.",
+  "results": {
+    "original_bloch_residual_Ha": 4.1639109324767554e-07,
+    "residual_minus_open_Fov_T2_Ha": 1.7763568394002505e-15,
+    "candidate_original_heff_Ha": 4.218847493575595e-15,
+    "candidate_original_bloch_Ha": 1.7763568394002505e-15,
+    "independent_tests": 4,
+    "candidate_unique_controls": 9
+  },
+  "significance": "A specific doubled antisymmetric contraction is now source- and operator-identified and passes isolated finite repair. Default validated old backend remains unchanged; production high-space and experiment gates remain separate.",
+  "negative_results": "Whole Fov/T2 commutator is not the open contraction; first complex audit omitted bra-first conjugation and failed core gate; historical source hashes retained. Initial final_static directory was actually duplicate dynamic input, explicitly corrected with real static002."
+}

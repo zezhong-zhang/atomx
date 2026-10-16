@@ -1,0 +1,93 @@
+{
+  "setup_before_first_H_CI_gradient": true,
+  "generated_arrays_sha256": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978",
+  "raw_seed_arrays_sha256": "874079c342694329255244596caacc45c00e13151c025974803d6496bd264bd4",
+  "NumPy_version": "2.2.6",
+  "configs": [
+    "1s2",
+    "1s1 2s1",
+    "1s1 3s1",
+    "2s2",
+    "2s1 3s1",
+    "3s2",
+    "2p2",
+    "2p1 3p1",
+    "3p2"
+  ],
+  "targets": [
+    [
+      0,
+      1,
+      0,
+      1.0
+    ],
+    [
+      0,
+      1,
+      1,
+      3.0
+    ]
+  ],
+  "csf_count": 29,
+  "radial_keys": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      -2
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      3,
+      1
+    ]
+  ],
+  "data_keys": [
+    "bsp_p",
+    "bsp_p_d",
+    "bsp_q",
+    "bsp_q_d",
+    "gr",
+    "grw",
+    "ks",
+    "ksp",
+    "ksq",
+    "ns",
+    "nsp",
+    "nsq",
+    "nv",
+    "t",
+    "tp"
+  ],
+  "test_source_sha256": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8",
+  "oracle_sha256": "1bb12865575322dfc67d8dc339a1983f0905fca39703f1383686403a704d4d5b",
+  "setup_calls": {
+    "H_build": 0,
+    "CI_solve": 0,
+    "gradient": 0,
+    "one_body_assembly": 6,
+    "nuclear_Dirac_solve": 3,
+    "polar_retraction": 36,
+    "physical_overlap": 0,
+    "tracking_SVD": 0,
+    "SciPy_eigh": 3,
+    "optimizer": 0
+  }
+}

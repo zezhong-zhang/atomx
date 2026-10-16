@@ -1,0 +1,419 @@
+{
+  "verified_at": "2026-10-11T03:43:04.449384+00:00",
+  "actual_six_scientific_processes": true,
+  "actual_process_common_overlap_seconds": 0.814115,
+  "actual_output_files_verified": 244,
+  "start_receipt": {
+    "message_id": "om_x100b63841d4d74a0df35db5a498b480",
+    "key": "b2814604-3ff8-5474-a4b3-d88b2b3ea62b",
+    "cycle": "parallel-six-directions-002",
+    "passed": true,
+    "iteration_dispatch_ok": true,
+    "raw_file": "start_raw_receipt.json",
+    "raw_sha256": "6159247630020e2540bc3ab6af626df578e80149fa5ab1bc0ca365dabdd45fe2",
+    "card_sha256": "99af0c3bac5098786d417800f1b7dbdc79b4e9e0116845c685f1733fcd819ef5"
+  },
+  "worker_preflight": {
+    "available_bytes": 79119052800,
+    "free_disk_bytes": 2644644913152,
+    "load": [
+      15.32080078125,
+      23.5751953125,
+      18.599609375
+    ],
+    "threads": 1,
+    "passed": true,
+    "timing_claim": false,
+    "cpus": 32,
+    "reserved_bytes": 21474836480,
+    "host_headroom_bytes": 8589934592,
+    "service_memory_bytes": 27917287424,
+    "total_threads": 6
+  },
+  "retained_failed_preflight": "failed_preflight001.json",
+  "lanes": {
+    "fscc_scope": {
+      "job_id": "parallel_fscc_scope_0af5a0ee8a260d9ed134",
+      "process_pid": 1919940,
+      "process_spawned_at": "2026-10-11T03:40:41.350601+00:00",
+      "process_finished_at": "2026-10-11T03:40:49.974172+00:00",
+      "seconds_including_archive": 8.623571,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_0af5a0ee8a260d9ed134/result.json",
+        "sha256": "fde45c709dafd8177471b29d81c46f8161d48140abd411184ba2039eac068f9b"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_0af5a0ee8a260d9ed134/probe/result.json",
+        "sha256": "e36fd826a2ca1a646bd7965adcd551309bd8063c8c4b867764f1484ccbfeb45a"
+      },
+      "output_files_verified": 45,
+      "registered_sources": 578,
+      "complete_inputs": 47,
+      "gates": {
+        "core_retained_equations": true,
+        "attachment_retained_equations": true,
+        "signed_heff_projection": true,
+        "intermediate_normalization": true,
+        "complete_model_metric": true,
+        "nonzero_fov_stress": true,
+        "source_inputs_unchanged": true
+      },
+      "card_summary": "4-core CCSDT: retained core 5.62e-14 Ha; attachment 6.48e-14 Ha; complete FCI difference separately 9.09e-06 Ha.",
+      "highest_level_reached": false
+    },
+    "properties": {
+      "job_id": "parallel_properties_28ad9832abb62a38a9d3",
+      "process_pid": 1919943,
+      "process_spawned_at": "2026-10-11T03:40:41.350840+00:00",
+      "process_finished_at": "2026-10-11T03:40:44.167535+00:00",
+      "seconds_including_archive": 2.816695,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_28ad9832abb62a38a9d3/result.json",
+        "sha256": "eef7c5115a4b440d478476c7db77980b53832ca6baa269fecac99e195cbe155a"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_28ad9832abb62a38a9d3/probe/result.json",
+        "sha256": "11f4f9df8f7dbd6dcdd00eca914f98aa818a1d6689a596f418fd69e058e7118e"
+      },
+      "output_files_verified": 45,
+      "registered_sources": 579,
+      "complete_inputs": 44,
+      "gates": {
+        "full_signed_native_properties": true,
+        "actual_full_H_wave_equation": true,
+        "metric_adjoint_equation": true,
+        "physical_metric_matches_ci": true,
+        "complete_wave_matches_ci": true,
+        "native_spherical_adjoint": true,
+        "core_retained_equations": true,
+        "full_signed_heff": true,
+        "all_multipole_families_nonzero": true,
+        "source_inputs_unchanged": true
+      },
+      "card_summary": "Same-H complete native E1/E2/M1: 11 signed 8 x 8 matrices, defect 2.66e-15 au; actual e^T Omega full-H residual 5.26e-13 Ha. Fixed finite orbitals/long wavelength only.",
+      "highest_level_reached": false
+    },
+    "sd_diagrams": {
+      "job_id": "parallel_sd_diagrams_cb6f0284b148d183fe8e",
+      "process_pid": 1919948,
+      "process_spawned_at": "2026-10-11T03:40:41.351988+00:00",
+      "process_finished_at": "2026-10-11T03:40:42.166168+00:00",
+      "seconds_including_archive": 0.81418,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_cb6f0284b148d183fe8e/result.json",
+        "sha256": "c641abf35a5ddc5506ee488551c68e98ae8322d6ccb86f57d61da1c73d63a189"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_sd_diagrams_cb6f0284b148d183fe8e/probe/result.json",
+        "sha256": "e47f5c0037acf9df1d7ae05f733e8c2a9b1f62844f3a71ed767d936bc850f835"
+      },
+      "output_files_verified": 5,
+      "registered_sources": 87,
+      "complete_inputs": 1,
+      "gates": {
+        "dc": {
+          "scalar_metric_max": 8.881784197001252e-16,
+          "source_full_signed_max_Ha": 1.3877787807814457e-17,
+          "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+          "hh_all_directions_max_Ha": 1.3322676295501878e-15,
+          "hh_normal_ordered_reference_max_Ha": 0.0,
+          "signed_pp_max_Ha": 3.1031676915590914e-17,
+          "signed_hh_max_Ha": 2.618455766672135e-16,
+          "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+          "preserved_fock_max_Ha": 0.0,
+          "preserved_one_body_max_Ha": 0.0,
+          "preserved_reference_error_Ha": 0.0,
+          "preserved_frozen_scalar_error_Ha": 0.0
+        },
+        "static": {
+          "scalar_metric_max": 8.881784197001252e-16,
+          "source_full_signed_max_Ha": 1.3877787807814457e-17,
+          "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+          "hh_all_directions_max_Ha": 8.326672684688674e-16,
+          "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+          "signed_pp_max_Ha": 3.1031676915590914e-17,
+          "signed_hh_max_Ha": 1.3877787807814457e-16,
+          "linked_doubles_energy_error_Ha": 0.0,
+          "preserved_fock_max_Ha": 0.0,
+          "preserved_one_body_max_Ha": 0.0,
+          "preserved_reference_error_Ha": 0.0,
+          "preserved_frozen_scalar_error_Ha": 0.0
+        },
+        "dynamic": {
+          "scalar_metric_max": 8.881784197001252e-16,
+          "source_full_signed_max_Ha": 1.3877787807814457e-17,
+          "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+          "hh_all_directions_max_Ha": 9.43689570931383e-16,
+          "hh_normal_ordered_reference_max_Ha": 0.0,
+          "signed_pp_max_Ha": 2.501853776554201e-17,
+          "signed_hh_max_Ha": 1.8619006149354548e-16,
+          "linked_doubles_energy_error_Ha": 3.469446951953614e-18,
+          "preserved_fock_max_Ha": 0.0,
+          "preserved_one_body_max_Ha": 0.0,
+          "preserved_reference_error_Ha": 0.0,
+          "preserved_frozen_scalar_error_Ha": 0.0
+        },
+        "complex_phase": {
+          "scalar_metric_max": 8.881784197001252e-16,
+          "source_full_signed_max_Ha": 1.3877787807814457e-17,
+          "pp_all_directions_max_Ha": 1.1102230246251565e-16,
+          "hh_all_directions_max_Ha": 8.881784197001252e-16,
+          "hh_normal_ordered_reference_max_Ha": 8.881784197001252e-16,
+          "signed_pp_max_Ha": 3.1031676915590914e-17,
+          "signed_hh_max_Ha": 2.0014830212433607e-16,
+          "linked_doubles_energy_error_Ha": 3.878959614448864e-18,
+          "preserved_fock_max_Ha": 0.0,
+          "preserved_one_body_max_Ha": 0.0,
+          "preserved_reference_error_Ha": 0.0,
+          "preserved_frozen_scalar_error_Ha": 0.0
+        }
+      },
+      "card_summary": "原生 signed J/parity SD 已实际消费完整 doubles source＋PP＋normal-ordered HH 图集；DC/static/dynamic/复相位在全部 10 doubles、495 个四电子行列式独立 Fermi action 下通过 1e-11 Ha 门。保留 noncanonical Fock/reference，native_scalable_sd_transverse_complete=false；剩余 core/Fock/singles/ring、valence、Sigma2 图项未完成。",
+      "highest_level_reached": false
+    },
+    "gpu": {
+      "job_id": "parallel_gpu_79f973b7e03e7ab5d1c9",
+      "process_pid": 1919945,
+      "process_spawned_at": "2026-10-11T03:40:41.350891+00:00",
+      "process_finished_at": "2026-10-11T03:40:46.220046+00:00",
+      "seconds_including_archive": 4.869155,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_79f973b7e03e7ab5d1c9/result.json",
+        "sha256": "bd23c03bf30a5e39644c017885bfcec3099b447572b752c2d98ab1799918995a"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_gpu_79f973b7e03e7ab5d1c9/probe/result.json",
+        "sha256": "e7550e0c750461d4dfb4db7ead977e1e5538acee5c46d34c7d7dc93540a8beb5"
+      },
+      "output_files_verified": 9,
+      "registered_sources": 94,
+      "complete_inputs": 1,
+      "gates": {
+        "cpu_density": {
+          "rank0_public_full_signed_max": 0.0,
+          "rank1_public_full_signed_max": 0.0,
+          "rank2_public_full_signed_max": 0.0,
+          "rank3_public_full_signed_max": 0.0
+        },
+        "cpu_ladders": {
+          "dc": {
+            "pp_complete_max_Ha": 1.3877787807814457e-17,
+            "hh_complete_max_Ha": 6.938893903907228e-18
+          },
+          "static": {
+            "pp_complete_max_Ha": 6.938893903907228e-18,
+            "hh_complete_max_Ha": 2.7755575615628914e-17
+          },
+          "dynamic": {
+            "pp_complete_max_Ha": 3.469446951953614e-18,
+            "hh_complete_max_Ha": 0.0
+          }
+        },
+        "caller_workers_restored": true,
+        "cpu_complete_signed_correctness": true,
+        "gpu_admitted": true,
+        "gpu_complete_signed_correctness": true,
+        "gpu_controlled_timing": false,
+        "ptx_no_fma_or_atomic": true,
+        "source_and_input_unchanged": true,
+        "caller_workers_restored_after_cuda": true,
+        "complete_runtime_dependencies_unchanged": true
+      },
+      "card_summary": "共享 Numba CPU/CUDA ordered FP64 完整 signed DC/static/dynamic PP/HH 和 2688×25 全 native density、rank0..3逐元素及 bitwise 对照通过；真实 PTX 无 FMA/atomic，显存 payload 通过 32 MiB cap。只报告有界 kernel 分层计时；负载门失败则 speedup=null，完整 SD/GPU规模化仍未完成。",
+      "highest_level_reached": false,
+      "gpu_status": "correctness_passed",
+      "speedup_claim": null,
+      "initial_guard": {
+        "load": [
+          15.32080078125,
+          23.5751953125,
+          18.599609375
+        ],
+        "this_pid": 1919950,
+        "host_load_ceiling": 27,
+        "device": "NVIDIA GeForce RTX 4090, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 595.91.07, 49140, 47212, 0",
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "timing_guard_passed": false
+      },
+      "final_guard": {
+        "load": [
+          15.134765625,
+          23.3994140625,
+          18.5693359375
+        ],
+        "this_pid": 1919950,
+        "host_load_ceiling": 27,
+        "device": "NVIDIA GeForce RTX 4090, GPU-76b77463-6e89-9e58-cf8b-0e004d14167d, 595.91.07, 49140, 46816, 0",
+        "other_compute_pids": [
+          241814,
+          345497
+        ],
+        "timing_guard_passed": false
+      },
+      "realized_owned_device_bytes": 1361840
+    },
+    "norm": {
+      "job_id": "parallel_norm_309f8114261bfbf6d3d3",
+      "process_pid": 1919947,
+      "process_spawned_at": "2026-10-11T03:40:41.350931+00:00",
+      "process_finished_at": "2026-10-11T03:41:19.215345+00:00",
+      "seconds_including_archive": 37.864414,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_309f8114261bfbf6d3d3/result.json",
+        "sha256": "56124d8593ebcad9eb205973ebe5cacba3c9e8f96384092037a32d6b87ae8105"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_309f8114261bfbf6d3d3/probe/result.json",
+        "sha256": "073e0f366f0f66197e3fb92c59368b09645bb95315ad882db996d8b733862729"
+      },
+      "output_files_verified": 64,
+      "registered_sources": 21,
+      "complete_inputs": 35,
+      "gates": {
+        "current_adopted_source": true,
+        "fresh_independent_signed_finite_anchor": true,
+        "original_complete_core_raw_amplitudes": true,
+        "original_complete_five_valence_columns": true,
+        "original_certified_same_H_core_space": true,
+        "all18_actual_new_norm_contractions": true,
+        "original64MiB_scratch_cap": true,
+        "original1e11_component_and_M_gates": true,
+        "sources_and_inputs_unchanged": true
+      },
+      "card_summary": "当前有界helper已实际消费完整28,218,500核rho与五态全部18M，范数/符号/泡利/干涉和同空间门通过；未重新求根或产生新的尾部收敛谱，实验精度门仍未提升。",
+      "highest_level_reached": false
+    },
+    "nist": {
+      "job_id": "parallel_nist_b9d63532c7e444e11ab8",
+      "process_pid": 1919949,
+      "process_spawned_at": "2026-10-11T03:40:41.352053+00:00",
+      "process_finished_at": "2026-10-11T03:41:07.054941+00:00",
+      "seconds_including_archive": 25.702888,
+      "result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_b9d63532c7e444e11ab8/result.json",
+        "sha256": "84cafb93ec247b72202e780275aaa2aa8b1c9ad39a3a1add60967b2d0e3373aa"
+      },
+      "scientific_result": {
+        "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_nist_b9d63532c7e444e11ab8/probe/result.json",
+        "sha256": "b9816d2639591ae2d194187242bcf1b05e1e71914deb931c68f38f9b5cb0ed12"
+      },
+      "output_files_verified": 76,
+      "registered_sources": 30,
+      "complete_inputs": 36,
+      "gates": {
+        "actual_full_theory_same_H_core_space_zero": true,
+        "current_whole_array_norm_consumed": true,
+        "strict_unique_state_matching": true,
+        "observed_not_Ritz_or_level_derived": true,
+        "multipole_species_medium_coverage_preserved": true,
+        "missing_uncertainty_never_zero": true,
+        "original1percent_accuracy_failures_preserved": true,
+        "whole_state_gap_requests_emitted": true,
+        "source_and_input_unchanged": true
+      },
+      "card_summary": "YbII原完整五态同H/空间/零点审计通过；4能级、2精细分裂仍保留原失败，真实观测线仅2/4，缺失不确定度和E2观测线不计零误差；已输出必须全五态联合计算的gap队列，未产生新谱或精度提升。",
+      "highest_level_reached": false,
+      "scientific_accuracy_gates": {
+        "excitation": false,
+        "splitting": false,
+        "observed_wavelength": false
+      },
+      "metrics": {
+        "excitation_cm1": {
+          "required": 4,
+          "scored": 4,
+          "missing_or_ambiguous": 0,
+          "passing": 1,
+          "complete_and_all_pass": false,
+          "max_absolute_error": 950.8665190086285,
+          "mean_absolute_error": 594.6813576128679,
+          "rms_error": 665.0754031151098,
+          "max_absolute_relative_error": 0.041412604047273115
+        },
+        "splitting_cm1": {
+          "required": 2,
+          "scored": 2,
+          "missing_or_ambiguous": 0,
+          "passing": 0,
+          "complete_and_all_pass": false,
+          "max_absolute_error": 128.4361878975028,
+          "mean_absolute_error": 116.61321714985525,
+          "rms_error": 117.21102785719023,
+          "max_absolute_relative_error": 0.09361988781717402
+        },
+        "observed_wavelength_nm": {
+          "required": 4,
+          "scored": 2,
+          "missing_or_ambiguous": 2,
+          "passing": 1,
+          "complete_and_all_pass": false,
+          "max_absolute_error": 3.800607925385407,
+          "mean_absolute_error": 3.5935238340485682,
+          "rms_error": 3.599485708647824,
+          "max_absolute_relative_error": 0.011550876283721362
+        }
+      },
+      "coverage": {
+        "required_states": 5,
+        "unique_nominal_states": 5,
+        "snapshot_levels": 349,
+        "snapshot_lines": 327
+      }
+    }
+  },
+  "source_epoch_transition": {
+    "path": "src/atomx/methods/sd_pair_diagrams.py",
+    "before_sha256": "170115a474afabd4488bcacf4db50179b17e2a85101f3abad20375e3f6860983",
+    "after_sha256": "00331f4620849a7decccacf769f138612746996738fdd138a970a429717d83e2",
+    "all_executable_AST_equal": true,
+    "source_archive": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_fscc_scope001/frozen001/source_inputs.tar.gz",
+    "disposition": "Retain original broad FSCC source archive; admit current integrated epoch for fresh six-process science reexecution. Existing individual FSCC proof remains its recorded epoch."
+  },
+  "checks": {
+    "final-checks.xml": {
+      "cases": 150,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "2ddc88b270b8b688af915e7c7c395536a3d19a8bf57fded5ac74a5d7ffa345a2"
+    },
+    "runtime-guard-checks.xml": {
+      "cases": 1,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "sha256": "257a38d15d1e96619e3b2d029a464aa163eda308dd0a792f8065f4454a1c8ba3"
+    }
+  },
+  "affected_tests_passed": 151,
+  "completed_actions_reselected": 0,
+  "all_six_completed": true,
+  "execution_is_independent_of_accuracy_gates": true,
+  "highest_level_reached": false,
+  "results_receipt": {
+    "message_id": "om_x100b63841156a0a0c4b6bd9a58f2a1e",
+    "key": "e7c040fa-3cef-5c36-92be-d74d7438279e",
+    "cycle": "parallel-six-results-002",
+    "passed": true,
+    "iteration_dispatch_ok": true,
+    "next_jobs": 0,
+    "request_status": "implementation_frontier",
+    "raw_file": "results_raw_receipt.json",
+    "raw_sha256": "61ada27723fc9a81b8923c48d72283708484fc343ede3cc6cbd75d93438051d3",
+    "card_sha256": "3cfb94e4752568049770f460954977ef00b2ec8f160202d8b799d0e8ed0634fd"
+  },
+  "service_verification": "service_verified.txt",
+  "hourly_timer_verification": "hourly_timer_verified.txt",
+  "documentation_verification": {
+    "path": "documentation_checks.json",
+    "sha256": "f0a5a54f3bd9c7fff622a61e21d2bb981974f39af24b933b8791025f6bd8b247",
+    "actual_dirty_tree_documents": 16,
+    "errors": 0
+  },
+  "ruff": "All changed public modules, reporting/controller modules and new affected tests passed.",
+  "git_diff_check": "passed",
+  "final_verified_at": "2026-10-11T03:44:42.312313+00:00"
+}

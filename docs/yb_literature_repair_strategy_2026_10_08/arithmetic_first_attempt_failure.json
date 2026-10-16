@@ -1,0 +1,7 @@
+{
+  "stage": "archive manifest replay before comparisons",
+  "script_sha256": "11ba3cc29cf3e8493d9b9974b042957a0d3a6317fb789846e1bc30ca00c0955c",
+  "failure": "FileNotFoundError: repo/Atomx_MBPT_measurement_source.zip",
+  "cause": "The stage-1 manifest uses topic-relative keys and bare hash strings, unlike later repo-relative structured manifests.",
+  "correction": "Resolve keys and hash schema explicitly; retain all exact hash gates."
+}

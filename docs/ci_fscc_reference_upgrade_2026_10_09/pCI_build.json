@@ -1,0 +1,41 @@
+{
+  "code": "pCI",
+  "commands": [
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--with",
+      "cmake==3.31.6",
+      "cmake",
+      "-S",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI",
+      "-B",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build",
+      "-DCMAKE_Fortran_COMPILER=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/gfortran",
+      "-DCMAKE_PREFIX_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr",
+      "-DCMAKE_LIBRARY_PATH=/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/toolchain/usr/lib/x86_64-linux-gnu/openblas-serial",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DUSE_DP_INTEGRALS=ON"
+    ],
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--with",
+      "cmake==3.31.6",
+      "cmake",
+      "--build",
+      "/home/zzhang/code/atomx-references/2026-10-09-ci-fscc/pCI-build",
+      "--parallel",
+      "1"
+    ]
+  ],
+  "workers": 1,
+  "stages": [
+    0,
+    0
+  ],
+  "elapsed_seconds": 6.436500885058194,
+  "success": true
+}

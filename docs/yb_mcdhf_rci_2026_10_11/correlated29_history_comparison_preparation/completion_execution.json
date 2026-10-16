@@ -1,0 +1,33 @@
+{
+  "status": "foreground_closed",
+  "started_utc": "2026-10-11T16:42:59.235893+00:00",
+  "contract_sha256": "1c4ac9f0cb95313c0fbe5038cb4bd14b8006300f8d2357b67228a30b3864b7ba",
+  "script_sha256": "d0a27d693a125ff727b419b3cbcd0093352e4ad59c55662199bd3dd061bd7c43",
+  "launcher_sha256": "cdf9a7cbdf1291a6819da8e9fe853589123ac48c061b4d50550281baa2ec2065",
+  "resources": {
+    "CPU": 30,
+    "max_wall_seconds": 60,
+    "max_address_space_bytes": 1073741824,
+    "scientific_calls": 0,
+    "array_numerical_replays": 0
+  },
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "60s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_history_comparison_preparation/complete_saved.py"
+  ],
+  "scientific_calls": 0,
+  "array_numerical_replays": 0,
+  "exit_code": 0,
+  "elapsed_uncontrolled_seconds": 3.018702452071011,
+  "finished_utc": "2026-10-11T16:43:02.293929+00:00",
+  "log_sha256": "5b90057a2ab57babf04fb1c8c6cd4b49d97bf9046b622b1ac04e8e604273cc30",
+  "completion_files_sha256": {
+    "completion.json": "9e8b81c6faf1842b158510ec4bc9f812bfb8f9e7798abc6c6fe1a7c71934f576",
+    "history10/completion.json": "bea50700825ad740f8cce64ec0ada469b347b1dab556f3e41d257fcf444d7366",
+    "history40/completion.json": "e78a9ce9b72c1d6a7f9944a019282e78f783ecb85bf21c0d6cc7a5dabadc40aa"
+  }
+}

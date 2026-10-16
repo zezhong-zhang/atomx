@@ -1,0 +1,56 @@
+{
+  "case": "ne10",
+  "virtual_count_per_kappa": 2,
+  "rotation": true,
+  "determinants": 685,
+  "dimensions": {
+    "NHF": 2688,
+    "NX": 4,
+    "NS": 4,
+    "KX1": 3,
+    "NXX": 4,
+    "NK": 3,
+    "NN": 4,
+    "KK": 3,
+    "NCH": 76,
+    "NXK": 40,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4704
+  },
+  "counts": [
+    76,
+    40,
+    37
+  ],
+  "workspace_bytes": 3631616,
+  "canonical_commutator_max_Ha": 3.608224830031759e-15,
+  "energy_pci_Ha": 7.676205180627473e-07,
+  "energy_independent_Ha": 7.67620518063047e-07,
+  "native_noncanonical_commutator_max_Ha": 3.6637359812630166e-15,
+  "native_energy_pci_Ha": 7.67553332027855e-07,
+  "native_energy_independent_Ha": 7.675533320270114e-07,
+  "native_fock_fortran_vs_python_Ha": 5.551115123125783e-17,
+  "native_energy_fortran_Ha": 7.67553332027855e-07,
+  "wall_seconds": 86.23257873090915,
+  "approximation": "canonical calibration and complete native noncanonical DC Hamiltonian",
+  "independent_projection": "complete fixed-M0/even SD determinants; exact linked SD residual"
+}
+ lin =           3
+CHANNEL     5  j1=  1  j2=  5  km= -2  kn= -2  k=  2    0.451028
+CHANNEL    15  j1=  2  j2=  5  km= -2  kn= -2  k=  2    0.103351
+CHANNEL    24  j1=  3  j2=  5  km= -2  kn= -2  k=  2    0.117070
+CHANNEL    40  j1=  4  j2=  5  km= -2  kn= -2  k=  4    0.116817
+          40
+          40          37
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    16  j1=  2  j2=  1  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    24  j1=  2  j2=  2  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    30  j1=  3  j2=  1  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    36  j1=  3  j2=  2  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    44  j1=  3  j2=  3  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    50  j1=  4  j2=  1  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    56  j1=  4  j2=  2  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    64  j1=  4  j2=  3  km= -2  kn= -2  k=  3    0.000000
+CHANNEL    76  j1=  4  j2=  4  km= -2  kn= -2  k=  4    0.000000
+ Number of channels =           76

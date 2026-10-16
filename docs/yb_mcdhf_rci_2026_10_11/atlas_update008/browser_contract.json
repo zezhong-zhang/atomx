@@ -1,0 +1,77 @@
+{
+  "status": "source_only_prepared_pending_exact_once_root_browser_authorization",
+  "execution_authorized": false,
+  "local_only": true,
+  "base_url": "http://127.0.0.1:39319",
+  "driver_sha256": "38ca3f53a4b3fd84998d2ea92a098d91933cd7f3a4edf2ad65f5e9ebd7b7a0a7",
+  "site_contract_sha256": "217e0e874575678eb7fdc9ce4a05ea1438cbe7aeea0b84ec45393abd92ba75f4",
+  "overlay_sha256": "8f2fb4231b8a33d5589ce067662d4285be399c41fed374a871ebab76492a3204",
+  "page_sha256": "012e8427cb52d01eb8c4fadeea5660aa96aeb1ce16c811178b12f505b3df8d7e",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/contract.json": "217e0e874575678eb7fdc9ce4a05ea1438cbe7aeea0b84ec45393abd92ba75f4",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/data_verification.json": "62d0cf883d3f8f2da9ff6a8002af9738415c2c73aa7dd8f6611a66cd0ea69f07",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/prepared.json": "d9eaf00724faf3c8b6df77549a1928576cdca4fd9e59c247eeb1eb39528f962c",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/site_manifest.json": "957d1aaa46b8dcc3c49b0208fe319782120a772ebdad397d21a9ec3f7bbd647f",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/old_models.json": "489be1e6f9c15eb70e8ed589c8f0455e41416f879194a1a0584564f4a4778e12",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update008/build_execution.json": "5897d8592bb1d44195fa26e194de6070a81f23e9386e118b5eb48e9158ef3026"
+  },
+  "expected": {
+    "elements": 118,
+    "models": 23,
+    "rows": 92,
+    "unchanged_trajectory_records": 277,
+    "unchanged_five_state_records": 1385,
+    "old_models": 21,
+    "old_rows": 84,
+    "fixed31_models": 2,
+    "new_source_assets": 14,
+    "new_fixed5state_rows": 10,
+    "FD7053_direction_count": 1,
+    "FD_step_sizes": [
+      1e-05,
+      5e-06
+    ]
+  },
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "maximum_foreground_seconds": 90,
+    "cleanup_reserve_seconds": 3,
+    "aggregate_rss_stop_bytes": 2147483648,
+    "rss_sample_interval_seconds": 0.2,
+    "maximum_observed_sample_gap_seconds": 0.25,
+    "memory_limit_kind": "observed_aggregate_process_tree_RSS_stop_not_kernel_hard_bound",
+    "memory_sampling_may_overshoot": true,
+    "RLIMIT_AS_applied": false,
+    "systemd_or_cgroup_created": false,
+    "timing_scope": "uncontrolled_browser_QA_no_performance_claim"
+  },
+  "browser": "Existing Playwright/Chromium only; no install",
+  "node_executable": "/usr/bin/node",
+  "server_policy": "Own loopback-only stdlib server on dist; reject occupied port; no existing listener termination",
+  "maximum_attempts": 1,
+  "exclusive_outputs": [
+    "browser_once_marker.json",
+    "browser_execution.json",
+    "browser_result.json",
+    "browser_failure.json",
+    "browser_server.stdout.log",
+    "browser_server.stderr.log",
+    "browser.stdout.log",
+    "browser.stderr.log",
+    "browser_rss_samples.json",
+    "downloaded_update.json",
+    "desktop.png",
+    "mobile.png"
+  ],
+  "root_seal_requirement": "Root-owned once launcher validates exact driver/contract/all inputs/site_manifest and CPU30/resource/cleanup contract before launching; no automatic retry. No source/array/scientific/API/publication calls.",
+  "root_launcher_reuse": "atlas_update007 launch_browser.py resource and cleanup implementation already qualified. If root adapts launcher, new scope must be atlas_update008_local_browser_once and data verdict key all_static_saved_JSON_and_preservation_checks_passed; new launcher SHA requires root exact seal.",
+  "actions": [
+    "Desktop/mobile23models92rows and277old trajectoryrecords with no JS errors",
+    "Both fixed31 models: finite1595scope, original nuclear14gateFAIL and separate389 qualification, screened941 controls, no31optimizationtrajectory",
+    "FD7053 one direction/twoh values, original derivative gates, no stationary or uniform-bound claim",
+    "All old21 literal line values, new four lines/gaps permodel, ten absolute saved-state rows/null NIST uncertainty",
+    "Exact overlay download and14new evidence asset SHA, screenshotsdesktop/mobile"
+  ],
+  "stopping": "First failure saved; no automatic retry; root owns foreground lifecycle and cleanup, no publication authorized"
+}

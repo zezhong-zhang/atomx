@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 73, in <module>
+    if __name__=="__main__":main()
+  File "/data/code/atomx/docs/yb_correlation_tail_2026_10_08/audit_representation.py", line 39, in main
+    gram=(p*w)@p.T+(q*w)@q.T
+ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 115 is different from 9)

@@ -1,0 +1,30 @@
+{
+  "status": "frozen_SOURCE_JSON_preparation_no_numerical_execution",
+  "files": {
+    "contract.json": "d3da3916b195b152838b1bd8989db53ade4ebbdc5d733a9d416acc7fc17dcf2c",
+    "run.py": "6cc1f5f98fa959d602c4affcdf3b1c2577b8ef8f5cde0cdca66f7678d241f700",
+    "original_completion.json": "33b2d21c17c2c6c505f1b3c40fcc87f9e328ceb2b619e0d639fc1c0f9e220402",
+    "SOURCE_DISPOSITION.md": "a571948956da6efe0a4e4af065cb82cd0fa9f8d08c22a0190a18a6c9e006af85",
+    "README.md": "950e0d5d39121a478c2af01061aed23890e2889160e8506ac5eed94df12f77a7",
+    "EARS.md": "2e271b8d296722ea37dcd7bd93b1dc064ac76f6cfa4d3664ad9daa6fc89f465a",
+    "documentation_impact.json": "3bf742167ad18961f926c401d63401a29892102e970316ccb8b90c27bf0b4381"
+  },
+  "command": [
+    ".venv/bin/python",
+    "docs/yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/mixed_failure_diagnosis001/run.py",
+    "--execute"
+  ],
+  "root_admission_required": true,
+  "source_controls": {
+    "AST_compile": true,
+    "Ruff": true,
+    "all27_input_hashes": true,
+    "exact16_NPZ_declared": true,
+    "all_two_directions_three_scales": true,
+    "local_links": true
+  },
+  "NumPy_imports": 0,
+  "NPZ_reads": 0,
+  "H_CI_gradient_eigen_producers": 0,
+  "original_two_failures_preserved": true
+}

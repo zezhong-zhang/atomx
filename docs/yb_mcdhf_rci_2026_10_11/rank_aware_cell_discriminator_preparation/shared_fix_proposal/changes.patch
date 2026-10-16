@@ -1,0 +1,132 @@
+--- a/src/atomx/numerics/bspline/convol.py
++++ b/src/atomx/numerics/bspline/convol.py
+@@ -6,7 +6,8 @@
+ Algorithm (Zatsarinny, CPC 174, 728, 2006, Sec. 3.2):
+   1. Compute 1D moments <B_i B_j | r^k> per knot interval
+   2. For diagonal cells (both electrons in same interval): nested 2D quadrature
+-     via the 'triang' algorithm (exact for the B-spline representation)
++     via the 'triang' algorithm with rank-aware positive-multipole inner
++     quadrature; outer and negative-power moment errors remain separate
+   3. For off-diagonal cells (electrons in different intervals): factor into
+      product of 1D moments  moment_k × moment_{-(k+1)}
+   4. Assemble full rkb(i, j, ip, jp) array in symmetric upper-band storage
+@@ -135,7 +136,10 @@
+ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
+     """Diagonal cell R^k integrals for all intervals (symmetric basis).
+ 
+-    Exact reproduction of DBSR_HF triang_pppp algorithm:
++    DBSR_HF cell decomposition with rank-aware inner quadrature.
++    For k >= 0, B_j*B_jp*r^k has degree 2*ks-2+k on each cell, so
++    ks+floor(k/2) Gauss nodes cover this polynomial degree. This does not
++    certify the unchanged outer quadrature or negative-rank integrals.
+     For interval iv where both electrons are in the same cell:
+     rkd[ii, jj, iv] = ∫∫_{cell iv} B_i*B_{ip}(r₁) [r_<^k/r_>^{k+1}] B_j*B_{jp}(r₂) dr₁ dr₂
+ 
+@@ -161,8 +165,9 @@
+     kk = ks * (ks + 1) // 2
+     rkd = np.zeros((kk, kk, nv))
+ 
+-    # Sub-quadrature: ks Gauss-Legendre points on [0, 1] (DBSR_HF convention)
+-    n_sub = ks
++    # Positive-rank source polynomial degree is 2*ks-2+k.
++    # Keep the legacy order for negative ranks; their integrand is rational.
++    n_sub = ks + (k // 2 if k >= 0 else 0)
+     x_01 = np.empty(n_sub)
+     w_01 = np.empty(n_sub)
+     _gauss_legendre_01(n_sub, x_01, w_01)
+@@ -384,7 +389,9 @@
+     """Diagonal cell R^k integrals for pqpq type (P-pair × Q-pair).
+ 
+     DBSR_HF triang_pqpq: outer integral uses P-basis, inner uses Q-basis
+-    (and vice versa via the transpose symmetrization).
++    (and vice versa via the transpose symmetrization). For nonnegative k,
++    max(ksp, ksq)+floor(k/2) covers both inner source polynomial degrees.
++    Outer quadrature and negative-rank accuracy are unchanged.
+ 
+     Packed indices: ii packs (i, ip) with ip >= i for P-pair (ksp*(ksp+1)//2)
+                     jj packs (j, jp) with jp >= j for Q-pair (ksq*(ksq+1)//2)
+@@ -396,8 +403,9 @@
+     kkq = ksq * (ksq + 1) // 2
+     rkd = np.zeros((kkp, kkq, nv))
+ 
+-    # Sub-quadrature on [0, 1]
+-    n_sub = max(ksp, ksq)
++    # One rank-aware order covers both P and Q inner source polynomials.
++    # Negative ranks retain their original sub-quadrature order.
++    n_sub = max(ksp, ksq) + (k // 2 if k >= 0 else 0)
+     x_01 = np.empty(n_sub)
+     w_01 = np.empty(n_sub)
+     _gauss_legendre_01(n_sub, x_01, w_01)
+--- a/tests/test_convol.py
++++ b/tests/test_convol.py
+@@ -7,6 +7,8 @@
+ 4. Direct potential matrix matches Y^k-based matrix
+ 5. Exchange matrix matches Y^k-based matrix
+ """
++
++import math
+ 
+ import numpy as np
+ import pytest
+@@ -428,3 +430,61 @@
+     assert direct == pytest.approx(expected_j, rel=3e-13, abs=1e-11)
+     assert exchange == pytest.approx(expected_k, rel=3e-13, abs=1e-11)
+     np.testing.assert_array_equal(kpq, kqp.T)
++
++
++@pytest.mark.parametrize("ks,balanced,p_power,q_power,ranks", [
++    (4, False, 1, 1, (0, 1, 6)),
++    (6, False, 4, 5, (6,)),
++    (6, True, 4, 5, (6,)),
++])
++def test_positive_rank_origin_cell_signed_components(
++        ks, balanced, p_power, q_power, ranks):
++    """Independent monomial integral anchors signed PP/QQ/PQ/QP cells.
++
++    The linear rank6 example is a convergent mathematical kernel control,
++    not an allowed s-s angular transition. r4/r5 covers regular f7-like
++    components in ordinary and mixed RKB bases. Outer Gauss16 covers the
++    maximum monomial density sum degree20 in these cases, so this test
++    distinguishes inner underintegration from an outer quadrature error.
++    """
++    radius = .7
++    knots = np.r_[np.zeros(ks), np.full(ks, radius)]
++    data = prepare_bspline_data(
++        knots, ks, ks, n_gauss=16, kinetic_balance=balanced)
++    orders = data["ksp"], data["ksq"]
++    coefficients = []
++    for order, power in zip(orders, (p_power, q_power), strict=True):
++        vector = np.zeros(data["ns"])
++        for i in range(power, order):
++            vector[i] = (radius**power * math.comb(i, power)
++                         / math.comb(order-1, power))
++        coefficients.append(vector)
++    np.testing.assert_array_equal(coefficients[0][data["nsp"]:], 0.)
++    waves = [(scale*coefficients[0], scale*coefficients[1])
++             for scale in (1., -2., 3., 4.)]
++    target = [_density_sym(waves[0][i], waves[1][i], data["ns"], orders[i])
++              for i in range(2)]
++    source = [_density_sym(waves[2][i], waves[3][i], data["ns"], orders[i])
++              for i in range(2)]
++    cache = ConvolCache(data)
++    try:
++        for rank in ranks:
++            for left, right in ((0, 0), (1, 1), (0, 1), (1, 0)):
++                component = ("p", "q")[left]+("p", "q")[right]
++                component += component
++                bank, extent, _ = cache.get_rkb_t(rank, component)
++                full = _convol_case1_t(
++                    bank, source[right], extent, orders[left], orders[right])
++                factored = _convol_case1_semiseparable_t(
++                    *cache.get_coulomb_factors(rank, component), source[right],
++                    data["ns"], orders[left], orders[right])
++                a = 2*(p_power, q_power)[left]
++                b = 2*(p_power, q_power)[right]
++                expected = (-24*radius**(a+b+1)/(a+b+1)
++                            * (1/(a+rank+1)+1/(b+rank+1)))
++                for potential in (full, factored):
++                    value = convol._sum_amb_banded(
++                        target[left], potential, data["ns"], orders[left])
++                    assert value == pytest.approx(expected, rel=2e-13, abs=0.)
++    finally:
++        cache.release_shared_banks()

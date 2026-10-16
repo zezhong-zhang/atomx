@@ -1,0 +1,842 @@
+{
+  "scope": "Saved JSON metadata and frozen f043 source-only physical route review at global accepted80; no scientific qualification or execution",
+  "scientific_calls": 0,
+  "array_reads": 0,
+  "new_physics_qualified": false,
+  "current_point": {
+    "global_accepted_step": 80,
+    "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+    "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "geometry_sha256": "9fe1c5c92046a36cb7298b907b3c31d0659a598ab8ed3d19a4cbc360062fb29f",
+    "objective_sha256": "173713c57364754a95519c42832265ee883f39d7a3241bcba204c9343bf3cc90",
+    "reported_EO_Ha": -14067.422857490928,
+    "orbital_residual": 0.002641370231623412,
+    "orbital_tolerance": 1e-07,
+    "energy_indicator_Ha": 1.174884123374752e-05,
+    "energy_tolerance_Ha": 1e-08,
+    "stationarity_passed": false,
+    "indicator_is_strict_error_bound": false,
+    "nominal_four_gap_RMS_cm1": 2105.098759492958,
+    "targets": [
+      {
+        "label": "6s_1/2",
+        "UID": [
+          1,
+          1,
+          0
+        ],
+        "column": 0,
+        "selected_level": [
+          1,
+          1,
+          0
+        ],
+        "energy_Ha": -14067.52161645658,
+        "tracking": {
+          "reference_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9889840121645114
+          ],
+          "projected_probability": [
+            0.9889840121645114
+          ]
+        },
+        "excitation_cm1": 0.0,
+        "NIST_nominal_cm1": 0.0,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 0.0,
+        "delta_upper_Ha": -5.588688509305939e-06,
+        "delta_lower_Ha": -5.588688509305939e-06,
+        "transition_shift_cm1": 0.0
+      },
+      {
+        "label": "5d_3/2",
+        "UID": [
+          3,
+          1,
+          0
+        ],
+        "column": 1,
+        "selected_level": [
+          3,
+          1,
+          0
+        ],
+        "energy_Ha": -14067.403131865913,
+        "tracking": {
+          "reference_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9919827745341707
+          ],
+          "projected_probability": [
+            0.9919827745341707
+          ]
+        },
+        "excitation_cm1": 26004.361859122724,
+        "NIST_nominal_cm1": 22960.8,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 3043.561859122725,
+        "delta_upper_Ha": 1.0522384400246665e-05,
+        "delta_lower_Ha": -5.588688509305939e-06,
+        "transition_shift_cm1": 3.535971787688747
+      },
+      {
+        "label": "5d_5/2",
+        "UID": [
+          5,
+          1,
+          0
+        ],
+        "column": 3,
+        "selected_level": [
+          5,
+          1,
+          0
+        ],
+        "energy_Ha": -14067.399112813004,
+        "tracking": {
+          "reference_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              5,
+              1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9924176589443964
+          ],
+          "projected_probability": [
+            0.9924176589443964
+          ]
+        },
+        "excitation_cm1": 26886.442014736003,
+        "NIST_nominal_cm1": 24332.69,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": 2553.7520147360046,
+        "delta_upper_Ha": 1.1190417353645898e-05,
+        "delta_lower_Ha": -5.588688509305939e-06,
+        "transition_shift_cm1": 3.6825880738744745
+      },
+      {
+        "label": "6p_1/2",
+        "UID": [
+          1,
+          -1,
+          0
+        ],
+        "column": 2,
+        "selected_level": [
+          1,
+          -1,
+          0
+        ],
+        "energy_Ha": -14067.40292704541,
+        "tracking": {
+          "reference_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              1,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.983482604116121
+          ],
+          "projected_probability": [
+            0.983482604116121
+          ]
+        },
+        "excitation_cm1": 26049.31476338343,
+        "NIST_nominal_cm1": 27061.82,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -1012.5052366165692,
+        "delta_upper_Ha": -1.4840434232610278e-05,
+        "delta_lower_Ha": -5.588688509305939e-06,
+        "transition_shift_cm1": -2.030523482087737
+      },
+      {
+        "label": "6p_3/2",
+        "UID": [
+          3,
+          -1,
+          0
+        ],
+        "column": 4,
+        "selected_level": [
+          3,
+          -1,
+          0
+        ],
+        "energy_Ha": -14067.387499273726,
+        "tracking": {
+          "reference_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "selected_levels": [
+            [
+              3,
+              -1,
+              0
+            ]
+          ],
+          "per_level_weight": 0.2,
+          "principal_overlap_squared": [
+            0.9816142109058585
+          ],
+          "projected_probability": [
+            0.9816142109058585
+          ]
+        },
+        "excitation_cm1": 29435.319266637474,
+        "NIST_nominal_cm1": 30392.23,
+        "NIST_uncertainty_cm1": null,
+        "nominal_gap_cm1": -956.9107333625252,
+        "delta_upper_Ha": -2.2219544916879386e-05,
+        "delta_lower_Ha": -5.588688509305939e-06,
+        "transition_shift_cm1": -3.6500510793055154
+      }
+    ],
+    "multiplets": [
+      {
+        "label": "5d",
+        "degeneracy_weights": [
+          4,
+          6
+        ],
+        "centroid_cm1": 26533.60995249069,
+        "splitting_cm1": 882.0801556132792,
+        "NIST_nominal_centroid_cm1": 23783.933999999997,
+        "NIST_nominal_splitting_cm1": 1371.8899999999994,
+        "centroid_gap_cm1": 2749.675952490692,
+        "splitting_gap_cm1": -489.8098443867202
+      },
+      {
+        "label": "6p",
+        "degeneracy_weights": [
+          2,
+          4
+        ],
+        "centroid_cm1": 28306.651098886126,
+        "splitting_cm1": 3386.004503254044,
+        "NIST_nominal_centroid_cm1": 29282.093333333334,
+        "NIST_nominal_splitting_cm1": 3330.41,
+        "centroid_gap_cm1": -975.4422344472077,
+        "splitting_gap_cm1": 55.59450325404396
+      }
+    ],
+    "global16_to80": {
+      "EO_change_Ha": -0.009743582446390064,
+      "target_changes": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -0.008546552176994737,
+          "transition_shift_cm1": 0.0,
+          "terminal_excitation_cm1": 0.0,
+          "terminal_nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -0.008971441373432754,
+          "transition_shift_cm1": -93.25239975841396,
+          "terminal_excitation_cm1": 26004.361859122724,
+          "terminal_nominal_gap_cm1": 3043.561859122725
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "delta_energy_Ha": -0.010476851339262794,
+          "transition_shift_cm1": -423.65169705936205,
+          "terminal_excitation_cm1": 26886.442014736003,
+          "terminal_nominal_gap_cm1": 2553.7520147360046
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -0.009878174943878548,
+          "transition_shift_cm1": -292.2574158765892,
+          "terminal_excitation_cm1": 26049.31476338343,
+          "terminal_nominal_gap_cm1": -1012.5052366165692
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "delta_energy_Ha": -0.010844892392924521,
+          "transition_shift_cm1": -504.4273716382704,
+          "terminal_excitation_cm1": 29435.319266637474,
+          "terminal_nominal_gap_cm1": -956.9107333625252
+        }
+      ]
+    }
+  },
+  "declared_space": {
+    "electron_number": 69,
+    "radial_spinors": 29,
+    "coordinates": 3451,
+    "NR_configurations": 69,
+    "target_complete_CSFs": 1046,
+    "full_all_J_parent_CSFs": 2163,
+    "computed_other_J_sectors": false,
+    "other_J_omission_is_target_operator_coupling_error": false,
+    "core_hole_config_counts": {
+      "none": 6,
+      "4f": 21,
+      "5p": 21,
+      "5s": 21
+    },
+    "external_particle_counts": {
+      "1": 6,
+      "2": 63
+    },
+    "external_NR_labels": [
+      "6s",
+      "5d",
+      "6p",
+      "7s",
+      "6d",
+      "7p"
+    ],
+    "two_core_holes_present": false,
+    "higher_hole_rank_present": false,
+    "deeper_core_holes_present": false,
+    "new_f_g_higher_l_virtual_layers_present": false
+  },
+  "samepoint_historical_scales": [
+    {
+      "name": "stage_4f",
+      "origin": "same native005 bare five-CSF stationary orbitals; nested fixed-orbital DC RCI",
+      "source_result": "balanced_cv_replay/result.json",
+      "stage": "stage_4f",
+      "lower_delta_Ha": -0.0036491603113972815,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.001106110245018499,
+        "5d_5/2": -0.0008092637071968056,
+        "6p_1/2": -0.004780103325174423,
+        "6p_3/2": -0.0037885799629293615
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 558.1349758564938,
+        "5d_5/2": 623.2852603163374,
+        "6p_1/2": -248.21330104145818,
+        "6p_3/2": -30.599076624781446
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": 597.2251465324007,
+          "splitting": 65.15028445984353
+        },
+        "6p": {
+          "centroid": -103.13715143034278,
+          "splitting": 217.61422441667673
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "stage_4f5p",
+      "origin": "same native005 bare five-CSF stationary orbitals; nested fixed-orbital DC RCI",
+      "source_result": "balanced_cv_replay/result.json",
+      "stage": "stage_4f5p",
+      "lower_delta_Ha": -0.0048170368863793556,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.0012969753734068945,
+        "5d_5/2": -0.0010713472875067964,
+        "6p_1/2": -0.0035350545731489547,
+        "6p_3/2": -0.0026797966020239983
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 772.564202935213,
+        "5d_5/2": 822.083843913304,
+        "6p_1/2": 281.36259561030965,
+        "6p_3/2": 469.0700235433469
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": 802.275987522069,
+          "splitting": 49.51964097809105
+        },
+        "6p": {
+          "centroid": 406.500880899006,
+          "splitting": 187.70742793303725
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "stage_4f5p5s",
+      "origin": "same native005 bare five-CSF stationary orbitals; nested fixed-orbital DC RCI",
+      "source_result": "balanced_cv_replay/result.json",
+      "stage": "stage_4f5p5s",
+      "lower_delta_Ha": -0.00013532062621379737,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.0002529573976062238,
+        "5d_5/2": -0.00024304567887156736,
+        "6p_1/2": -7.233777978399303e-05,
+        "6p_3/2": -7.204325083876029e-05
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -25.818287036105176,
+        "5d_5/2": -23.642916220636835,
+        "6p_1/2": 13.823137002382282,
+        "6p_3/2": 13.88777863406358
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": -24.51306454682708,
+          "splitting": 2.175370815468341
+        },
+        "6p": {
+          "centroid": 13.866231423500722,
+          "splitting": 0.06464163168129744
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "5p_double_hole",
+      "origin": "same nonstationary full531 accepted160 old24 orbitals; fixed-orbital scalar DC discriminator",
+      "source_result": "rank_only_discriminator/result.json",
+      "stage": "rank_5p_double",
+      "lower_delta_Ha": -0.018811824495060137,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.01671023246672121,
+        "5d_5/2": -0.016093001802801155,
+        "6p_1/2": -0.017925682448549196,
+        "6p_3/2": -0.01813442640013818
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 461.2461356954022,
+        "5d_5/2": 596.7126081252829,
+        "6p_1/2": 194.4856989933681,
+        "6p_3/2": 148.67169716909012
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": 542.5260191533307,
+          "splitting": 135.4664724298782
+        },
+        "6p": {
+          "centroid": 163.9430311105134,
+          "splitting": -45.81400182427751
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "nuclear_auxiliary_virtuals",
+      "origin": "same nonstationary full531 accepted160 old24 orbitals; fixed-orbital scalar DC discriminator",
+      "source_result": "virtual_only_discriminator/result.json",
+      "stage": "balanced_virtual",
+      "lower_delta_Ha": -2.652910006872844e-05,
+      "upper_delta_Ha": {
+        "5d_3/2": -4.8316696847905405e-05,
+        "5d_5/2": -4.8380650696344674e-05,
+        "6p_1/2": -1.5208450349746272e-05,
+        "6p_3/2": -1.5088000509422272e-05
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -4.781824771398625,
+        "5d_5/2": -4.795861018709088,
+        "6p_1/2": 2.4845954238648584,
+        "6p_3/2": 2.5110311081677175
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": -4.790246519783977,
+          "splitting": -0.014036247310286853
+        },
+        "6p": {
+          "centroid": 2.50221921339471,
+          "splitting": 0.026435684303578455
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "screened_closed68_auxiliary_virtuals",
+      "origin": "same nonstationary full531 accepted160 old24 orbitals; fixed-orbital scalar DC discriminator",
+      "source_result": "screened_core_virtual_discriminator002/result.json",
+      "stage": "balanced_virtual",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.0011194230883120326,
+        "5d_5/2": -0.0012899023549834965,
+        "6p_1/2": -0.0012759242563333828,
+        "6p_3/2": -0.0012732416962535353
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 274.48287584490913,
+        "5d_5/2": 237.06700163713097,
+        "6p_1/2": 240.1348396855223,
+        "6p_3/2": 240.7235935701563
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": 252.03335132024222,
+          "splitting": -37.4158742077816
+        },
+        "6p": {
+          "centroid": 240.52734227527617,
+          "splitting": 0.5887538846363896
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "static_Breit",
+      "origin": "same nonstationary full531 accepted160 point; full static Gaunt plus zero-frequency retardation RCI",
+      "source_result": "public531_endpoint_static_rci/result.json",
+      "lower_delta_Ha": 14.148346124558884,
+      "upper_delta_Ha": {
+        "5d_3/2": 14.148356987272564,
+        "5d_5/2": 14.148215123850605,
+        "6p_1/2": 14.148251822922248,
+        "6p_3/2": 14.148144454080466
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 2.3840900804498233,
+        "5d_5/2": -28.751332157913566,
+        "6p_1/2": -20.696816937710537,
+        "6p_3/2": -44.26155390767235
+      },
+      "multiplet_delta_cm1": {
+        "5d": {
+          "centroid": -16.297163262566755,
+          "splitting": -31.13542223836339
+        },
+        "6p": {
+          "centroid": -36.406641584351746,
+          "splitting": -23.564736969961814
+        }
+      },
+      "additive_at_global80": false
+    },
+    {
+      "name": "dynamic_minus_static_Breit",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": -0.2504971068647137,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.25050008691141556,
+        "5d_5/2": -0.2505045879206591,
+        "6p_1/2": -0.2504988001783204,
+        "6p_3/2": -0.25051636812713696
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -0.6540446513335544,
+        "5d_5/2": -1.6419019958216887,
+        "6p_1/2": -0.3716393796050949,
+        "6p_3/2": -4.227358469929857
+      },
+      "component_coverage": "public ci_solve include_breit=True plus complete 24-key orbital energy map; each orbital epsilon is diagonal EOL Lagrange multiplier/(2 objective occupation) from saved same-state gradient, or the existing public zero-occupation one-body convention; symmetric average of two vertex |epsilon_a-epsilon_c| frequencies, real one-photon model replaces static Breit",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "Uehling_point_source",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": -2.0061990467160142,
+      "upper_delta_Ha": {
+        "5d_3/2": -2.0061315771006805,
+        "5d_5/2": -2.0061315696507136,
+        "6p_1/2": -2.0061348065001274,
+        "6p_3/2": -2.006131837906767
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 14.807868953592237,
+        "5d_5/2": 14.80950403232374,
+        "6p_1/2": 14.099097700444387,
+        "6p_3/2": 14.750628633899282
+      },
+      "component_coverage": "public short_range_radial_matrix and scalar_one_body_expectations; point-source local VP on fixed Fermi orbitals, finite-charge convolution absent",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "WK_local_model",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": 0.07303714853432168,
+      "upper_delta_Ha": {
+        "5d_3/2": 0.07303475535035323,
+        "5d_5/2": 0.07303475480666845,
+        "6p_1/2": 0.0730348912597173,
+        "6p_3/2": 0.07303477116439545
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -0.5252431692608167,
+        "5d_5/2": -0.525362494276992,
+        "6p_1/2": -0.4954145116830866,
+        "6p_3/2": -0.5217723881723553
+      },
+      "component_coverage": "public V_wichmann_kroll approximate local model and same full scalar CI expectation, not precision higher-loop VP",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "SE_indelicato_overlap_model",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": 11.710176119463496,
+      "upper_delta_Ha": {
+        "5d_3/2": 11.711678157312102,
+        "5d_5/2": 11.711969850007286,
+        "6p_1/2": 11.71158714639664,
+        "6p_3/2": 11.71200540690052
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 329.65920311636717,
+        "5d_5/2": 393.6783498631305,
+        "6p_1/2": 309.68461599538665,
+        "6p_3/2": 401.4821858981253
+      },
+      "component_coverage": "public self_energy_radial_matrix(method=indelicato): tabulated K/L/available SD rows plus warned leading analytic fallback, orbital-attraction overlap screening; diagonal radial model, screened many-body/nonlocal terms absent",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "SE_shabaev_local_partial",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": 10.746368309585028,
+      "upper_delta_Ha": {
+        "5d_3/2": 10.746117844442235,
+        "5d_5/2": 10.746134411081826,
+        "6p_1/2": 10.74613446301871,
+        "6p_3/2": 10.746147514592783
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -54.970744883817346,
+        "5d_5/2": -51.334787766696024,
+        "6p_1/2": -51.32338893839309,
+        "6p_3/2": -48.45889952980611
+      },
+      "component_coverage": "public shabaev_local matrix; actual local-model overlap for supported kappa -1,+1,-2 only; d/f components absent, no complete-SE claim",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "NMS_Breit_point_Coulomb",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": 0.041836641188008485,
+      "upper_delta_Ha": {
+        "5d_3/2": 0.04183853430357807,
+        "5d_5/2": 0.04183823651931715,
+        "6p_1/2": 0.041835258589003804,
+        "6p_3/2": 0.04183512214047971
+      },
+      "line_delta_cm1": {
+        "5d_3/2": 0.4154908417623792,
+        "5d_5/2": 0.35013475087200185,
+        "6p_1/2": -0.303445406875266,
+        "6p_3/2": -0.3333923964016336
+      },
+      "component_coverage": "public one-body point-Coulomb Breit recoil radial/CSF matrix divided by A175 mass proxy; finite-size/radiative/higher-order recoil absent",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "SMS_Breit_point_Coulomb",
+      "origin": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol003_stable_delta; five bare CSFs,24 radial spinors; orbital residual failed",
+      "source_result": "correction_budget/same_orbital001/result.json",
+      "lower_delta_Ha": -0.013394502692475968,
+      "upper_delta_Ha": {
+        "5d_3/2": -0.013396210803550268,
+        "5d_5/2": -0.01339604447095886,
+        "6p_1/2": -0.013393155768082431,
+        "6p_3/2": -0.013393019563344943
+      },
+      "line_delta_cm1": {
+        "5d_3/2": -0.3748870483593726,
+        "5d_5/2": -0.33838126417628633,
+        "6p_1/2": 0.2956157347454902,
+        "6p_3/2": 0.325509219295726
+      },
+      "component_coverage": "public two-body point-Coulomb Breit recoil CSF matrix with Z=70, VINTI/SMS2/SMS3 divided by same mass; finite-size/radiative/higher-order recoil absent",
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    },
+    {
+      "name": "positive_inner_quadrature_order_fix",
+      "origin": "same initial corrected29 reference; fixed signed CI expectations only, not new optimized roots",
+      "source_result": "rank_aware_cell_discriminator_preparation/actual/result.json",
+      "line_delta_cm1": {
+        "5d_3/2": 7.678100691439553e-12,
+        "5d_5/2": 5.377971392093731e-12,
+        "6p_1/2": -1.1602275642324652e-12,
+        "6p_3/2": -6.394257549544645e-13
+      },
+      "lower_delta_Ha": 1.6401188076565258e-14,
+      "additive_at_global80": false,
+      "uncertainty_bound": false
+    }
+  ],
+  "scales_are_additive_at80_or_error_bounds": false,
+  "correction_coverage_unresolved": {
+    "finite_charge_Uehling_and_WK": "local public potentials do not consume the A175 Fermi charge distribution",
+    "screened_many_body_SE_and_VP": "not supplied by these fixed one-body models",
+    "finite_size_radiative_higher_order_recoil": "point-Coulomb Breit recoil consumers omit these operators",
+    "SE_shabaev_full": "Full non-local Shabaev operator is not yet implemented. The non-local projector term requires hydrogenic Dirac-Coulomb Green's functions on the B-spline basis and a port of  f/potgen/se_pot.f:nonlocal_se_pot  +  fse_dat.f tables.  Use backend 'shabaev_local' for the local-only approximation, 'mohr' (default) for tabulated F(Zα), or 'flambaum_ginges' for the electric radiative potential."
+  },
+  "native_interface_review": {
+    "method_reference": "GRASP rmcdhf EOL -> rci active-set correlation/operator workflow; native Atomx implementation, not a backend or numerical-equivalence claim",
+    "shared_cross_parity_EOL_legal": true,
+    "state_specific_or_subgroup_variational_interface_exists": true,
+    "route": "CIStateAverage selected frozen UID subset + CIBasisTracking from the original reference + CSFOrbitalFunctional + optimize_orbitals with original P/layout/inverse and explicit changed objective",
+    "production_equal5_weights_change_authorized_by_this_review": false,
+    "per_block_DF_path_is_current_full_RDM_MCDHF_alternative": false,
+    "separate_orbital_transition_rates_qualified_here": false,
+    "history_restoration_api_exists": false
+  },
+  "nonstationary_saved_only_next": {
+    "current_manifest_has_per_kappa_or_orbital_gradient_decomposition": false,
+    "frozen_checkpoint_array_fields": [
+      "keys",
+      "radial_gradient",
+      "raw_coordinate_gradient",
+      "tangent_gradient",
+      "preconditioned_gradient",
+      "x",
+      "projector_i",
+      "inverse_blocks_i"
+    ],
+    "source_only_array_field_confirmation": true,
+    "no_array_read_or_execution": true,
+    "if005_nonstationary": "Prospective saved-only per-kappa/column ||pg_j||^2 and signed g_j dot pg_j; core19/barevalence5/new5; keep Stiefel TMT-induced cross terms if decomposing independent drives. No numerical inference of core dominance from totalcoreenergy.",
+    "new_physical_or_metric_bound": false
+  },
+  "next_discriminators_after_original_stationarity": [
+    {
+      "name": "common_orbital_compromise",
+      "minimum": "same1046/29/P/metric; first compare common five-state EOL against separately declared even6s+D and oddP EOL; singleton only if needed, no NIST-selected weights",
+      "distinguishes": "state-specific orbital relaxation versus a common-orbital compromise in the same finite Hamiltonian space",
+      "report": "each converged state energy; lower/upper difference; D/P centroid and splitting; UID/overlap and same original gates; no additive patch at80"
+    },
+    {
+      "name": "one_missing_correlation_class",
+      "minimum": "same converged common point; one prospectively balanced nested core-double family at fixed existing pool, before another indiscriminate large virtual layer; resource preflight needed separately",
+      "distinguishes": "core-hole excitation rank versus radial layer; old5pdouble and virtual increments motivate a samepoint comparison, not a correction prediction",
+      "report": "all five complete symmetry blocks and unchanged UID; full signed CI; lower/upper shifts and centroid/splitting; expanded-space orbital nonstationarity remains explicit"
+    },
+    {
+      "name": "samepoint_RCI_operator_stack",
+      "minimum": "same converged model and spinors; DC then full static Breit, then declared finite-frequency prescription and supported QED/recoil pieces individually",
+      "distinguishes": "operator correction from correlation/relaxation; actual manybody screened/nonlocal and finite-charge QED gaps stay unsupported",
+      "report": "absolute lower/upper shifts and transition difference; static is replaced by dynamic, not added twice; no cross-point splice or QED model spread treated as bound"
+    }
+  ],
+  "references": [
+    {
+      "title": "GRASP Manual for Users, section3.6 and4.3–4.4",
+      "url": "https://www.mdpi.com/2218-2004/11/4/68",
+      "use": "Primary theory/workflow reference only: EOL may share orbitals across both parities; orbital-set and excitation-class convergence are distinct."
+    },
+    {
+      "title": "An Introduction to Relativistic Theory as Implemented in GRASP, section8",
+      "url": "https://doi.org/10.3390/atoms11010007",
+      "use": "Primary reference only: separately optimized orbital sets require compatible nonorthogonal transition treatment; no foreign backend invocation."
+    },
+    {
+      "title": "Itano2006 MCDHF/RCI Yb+ quadrupole moments and hyperfine constants, sectionIII.D",
+      "url": "https://tf.nist.gov/general/pdf/2107.pdf",
+      "use": "Primary Yb+ method reference:4f/5s/5p CV virtual layers then deeperCV/CC; not energy accuracy certification for Atomx."
+    },
+    {
+      "title": "Porsev,Safronova,Kozlov2012 Correlation effects in Yb+",
+      "url": "https://doi.org/10.1103/PhysRevA.86.022504",
+      "use": "Primary correlation reference: some properties sensitive to single-particle/hole-two-particle mixing; not an external backend choice or Atomx error bound."
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_next_step80/review_saved.py": "1575c6baf00b77822d65c8ae712df411d827aae31ac9bcff93bc15593f19faaa",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_next_step80/contract.json": "3fda7993f0c9882b1766edfbb6d05c2e363eecd3337cb1f9ee6a7e164949490d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/completion.json": "31a9e12e5dcc2048b5b593219e329f62385b72dd4b9c1cdea386b4f99fc35897",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.json": "e59884335d38863b6adbed52abe0bb0a5fe4e0da3eab635a259fc45e4a33bdcd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/result.json": "a04354d90fa2a7fc00d70b3291675c1b58e33817e36eb9c98a284cc48f1d9009",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_only_discriminator/result.json": "135a32646c937a9635c3706c33080a0ad87974cec33d2e5c02fcb87ec61cdcb0",
+    "docs/yb_mcdhf_rci_2026_10_11/virtual_only_discriminator/result.json": "a5471756d6eab9d84a7676becea1af23dd5c94dbc115f385298c9d20f45aac23",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2",
+    "docs/yb_mcdhf_rci_2026_10_11/public531_endpoint_static_rci/result.json": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+    "docs/yb_mcdhf_rci_2026_10_11/correction_budget/same_orbital001/result.json": "aa4d3e0187b19d738516f72a1980c136b556caf6e077371521447ba3ba7a7eae",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/actual/result.json": "ff6551b49ebc59ecccf399e7f1d33c9669a06b579611d6df2ff336066b10fe65",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/state_average.py": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/run.py": "0e0186662e2daafe39b4be2f486d44826a5019a05b7186e801d768da2087e02c",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/solver.py": "52b935683e0f1c329c694744aee78099f2be64930413ac441eac4907d3b90f82"
+  },
+  "interpretation": "Global80 is not a converged finite-model answer. Historical shifts show differential core correlation/relaxation can be hundreds of cm−1 while some operator corrections are smaller; this neither identifies the missing term nor excludes a larger unmeasured one. Increasing radial/CSF cutoffs cannot repair an absent Hamiltonian operator, and convergence within fixed restrictions does not imply physical completeness."
+}

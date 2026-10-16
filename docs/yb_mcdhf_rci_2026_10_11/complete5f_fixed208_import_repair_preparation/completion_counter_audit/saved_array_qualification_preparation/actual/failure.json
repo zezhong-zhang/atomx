@@ -1,0 +1,2368 @@
+{
+  "status": "independent_saved_array_qualification_failed_no_retry",
+  "message": "Object of type longdouble is not JSON serializable",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/run.py\", line 406, in execute\n    write(output/\"verification.json\",dict(saved_array_qualification_passed=True,checks_count=len(checks),checks=checks,\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/completion_counter_audit/saved_array_qualification_preparation/run.py\", line 41, in write\n    temporary.write_text(json.dumps(value, indent=2) + \"\\n\")\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 201, in encode\n    chunks = list(chunks)\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 431, in _iterencode\n    yield from _iterencode_dict(o, _current_indent_level)\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 405, in _iterencode_dict\n    yield from chunks\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 325, in _iterencode_list\n    yield from chunks\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 405, in _iterencode_dict\n    yield from chunks\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 325, in _iterencode_list\n    yield from chunks\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 438, in _iterencode\n    o = _default(o)\n  File \"/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/json/encoder.py\", line 179, in default\n    raise TypeError(f'Object of type {o.__class__.__name__} '\nTypeError: Object of type longdouble is not JSON serializable\n",
+  "checks": [
+    {
+      "name": "literal29keys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original3451coordinates",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "wide_precision_exceeds_float64",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/0",
+      "error": 9.325873406851315e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/1",
+      "error": 6.035236233434861e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(3, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(5, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(6, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/2",
+      "error": 5.440092820663267e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(2, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(3, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(5, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(6, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(7, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/3",
+      "error": 4.9398885842513814e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(2, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(5, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(6, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(7, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/4",
+      "error": 8.104628079763643e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(2, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(6, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(7, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/5",
+      "error": 6.439293542825908e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(3, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(5, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(6, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "P119shape/6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "PactualSGram/6",
+      "error": 5.401461758238462e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "literalP_x_samewave/(4, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "originalmetricfingerprint",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/completeHCE_shapes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/real_finite64",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/wholeHsymmetry",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/whole_eigenresidual",
+      "error": 2.6212641987247152e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "baseline/whole_signedGram",
+      "error": 2.9976021664879227e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/ownerDC",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/ownerkeys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/ownerworkspace_digest",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/ownerZns",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/signedspinor_binding",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(2, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(2, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(2, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(3, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(3, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(3, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(4, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(5, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(5, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(5, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(5, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(6, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(6, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(6, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(6, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(6, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(7, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(7, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/old29bytewave/(7, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/only_declared_radialkeys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/-4",
+      "error": 4.610027637408365e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/-4",
+      "error": 2.627062050743467e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/-3",
+      "error": 1.0077659193252764e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/-3",
+      "error": 2.6519425617126438e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/-2",
+      "error": 7.2142812557185465e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/-2",
+      "error": 3.4837971581490825e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/-1",
+      "error": 1.4635645126381824e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/-1",
+      "error": 4.996239075506809e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/1",
+      "error": 1.7439391944429339e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/1",
+      "error": 3.970185567432798e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/2",
+      "error": 1.5601669262066409e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/2",
+      "error": 3.1952598620253426e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/actualradialGram/3",
+      "error": 2.8888566885876266e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "baseline/originalP_leakage/3",
+      "error": 1.5395392637696256e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_signedCSFcount",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/whole_signedowner_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_parent_and_target_sector_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/all_declared_sector_counts",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/crossH/(1, -1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/symmetry_purity/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_block/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/crossH/(1, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/symmetry_purity/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_block/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/crossH/(3, -1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/symmetry_purity/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_block/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/crossH/(3, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/symmetry_purity/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_block/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/crossH/(5, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/symmetry_purity/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_block/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/same_five_complete_blocks",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/five_equal_weights",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_nondegenerate_span/[[1, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/declaredUID/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/weight_selector/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/principal_span_gate/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/degenerate_equalweights/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/savedUIDcolumn_energy/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sigma_notinvented/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sameNISTnominal/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_nondegenerate_span/[[5, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/declaredUID/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/weight_selector/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/principal_span_gate/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/degenerate_equalweights/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/savedUIDcolumn_energy/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sigma_notinvented/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sameNISTnominal/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_nondegenerate_span/[[3, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/declaredUID/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/weight_selector/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/principal_span_gate/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/degenerate_equalweights/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/savedUIDcolumn_energy/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sigma_notinvented/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sameNISTnominal/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_nondegenerate_span/[[3, -1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/declaredUID/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/weight_selector/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/principal_span_gate/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/degenerate_equalweights/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/savedUIDcolumn_energy/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sigma_notinvented/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sameNISTnominal/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/complete_nondegenerate_span/[[1, -1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/declaredUID/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/weight_selector/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/principal_span_gate/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/degenerate_equalweights/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "baseline/savedUIDcolumn_energy/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sigma_notinvented/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/sameNISTnominal/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/fiveuniqueUIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/EOL_arithmetic",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/excitation_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/gap_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/relativegap_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/excitation_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/gap_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/relativegap_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/excitation_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/gap_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/relativegap_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/excitation_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/gap_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/relativegap_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/excitation_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/gap_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/relativegap_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/multiplet/5d",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/multiplet/6p",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/RMS_arithmetic",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "baseline/preserved_failed_scopes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal208_H_E_C_byteidentity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal208_owner_exact",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "literal208_UIDselectors",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/completeHCE_shapes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/real_finite64",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/wholeHsymmetry",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/whole_eigenresidual",
+      "error": 2.966207718182766e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete5f/whole_signedGram",
+      "error": 3.4416913763379853e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/ownerDC",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/ownerkeys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/ownerworkspace_digest",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/ownerZns",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/signedspinor_binding",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(2, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(2, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(2, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(3, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(3, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(3, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(4, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(5, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(5, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(5, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(5, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(6, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(6, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(6, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(6, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(6, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(7, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(7, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/old29bytewave/(7, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/only_declared_radialkeys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/-4",
+      "error": 4.610027637408365e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/-4",
+      "error": 2.74081563518909e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/-3",
+      "error": 1.0077659193252764e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/-3",
+      "error": 2.6519425617126438e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/-2",
+      "error": 7.2142812557185465e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/-2",
+      "error": 3.4837971581490825e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/-1",
+      "error": 1.4635645126381824e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/-1",
+      "error": 4.996239075506809e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/1",
+      "error": 1.7439391944429339e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/1",
+      "error": 3.970185567432798e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/2",
+      "error": 1.5601669262066409e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/2",
+      "error": 3.1952598620253426e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/actualradialGram/3",
+      "error": 2.8888566885876266e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "complete5f/originalP_leakage/3",
+      "error": 2.7218953880138203e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_signedCSFcount",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/whole_signedowner_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_parent_and_target_sector_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/all_declared_sector_counts",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/crossH/(1, -1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/symmetry_purity/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_block/(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/crossH/(1, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/symmetry_purity/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_block/(1, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/crossH/(3, -1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/symmetry_purity/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_block/(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/crossH/(3, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/symmetry_purity/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_block/(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/crossH/(5, 1)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/symmetry_purity/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_block/(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/same_five_complete_blocks",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/five_equal_weights",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_nondegenerate_span/[[1, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/declaredUID/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/weight_selector/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/principal_span_gate/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/degenerate_equalweights/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/savedUIDcolumn_energy/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sigma_notinvented/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sameNISTnominal/(1, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_nondegenerate_span/[[5, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/declaredUID/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/weight_selector/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/principal_span_gate/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/degenerate_equalweights/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/savedUIDcolumn_energy/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sigma_notinvented/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sameNISTnominal/(5, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_nondegenerate_span/[[3, 1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/declaredUID/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/weight_selector/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/principal_span_gate/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/degenerate_equalweights/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/savedUIDcolumn_energy/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sigma_notinvented/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sameNISTnominal/(3, 1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_nondegenerate_span/[[3, -1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/declaredUID/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/weight_selector/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/principal_span_gate/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/degenerate_equalweights/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/savedUIDcolumn_energy/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sigma_notinvented/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sameNISTnominal/(3, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/complete_nondegenerate_span/[[1, -1, 0]]",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/declaredUID/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/weight_selector/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/principal_span_gate/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/degenerate_equalweights/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "complete5f/savedUIDcolumn_energy/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sigma_notinvented/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/sameNISTnominal/(1, -1, 0)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/fiveuniqueUIDs",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/EOL_arithmetic",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/excitation_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/gap_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/relativegap_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/upperlower_arithmetic/6s_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/excitation_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/gap_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/relativegap_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/upperlower_arithmetic/5d_5/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/excitation_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/gap_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/relativegap_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/upperlower_arithmetic/5d_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/excitation_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/gap_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/relativegap_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/upperlower_arithmetic/6p_3/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/excitation_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/gap_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/relativegap_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/upperlower_arithmetic/6p_1/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/multiplet/5d",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/multiplet_delta/5d",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/multiplet/6p",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/multiplet_delta/6p",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/RMS_arithmetic",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete5f/preserved_failed_scopes",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "owner_same_cachedgeometry_nucleus/geometry",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "owner_same_cachedgeometry_nucleus/nuclear",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "owner_same_cachedgeometry_nucleus/Z",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "owner_same_cachedgeometry_nucleus/ns",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "owner_same_cachedgeometry_nucleus/core",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "signed_nested1046_mapping",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "whole_nested1046_H",
+      "error": 1.8189894035458565e-11,
+      "limit": 5e-09,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_Ritz/(1, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_Ritz/(1, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_Ritz/(3, -1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_Ritz/(3, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "complete_sector_Ritz/(5, 1)",
+      "error": 0.0,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/5",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/6",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "cached_raw_hS_exact/7",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "all_seven_kappas_once",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual118_complete/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_original_hSP/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_original4f_byteidentity/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_basis_exact_originalP_complement/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "whole_complement_SGram/0",
+      "error": 5.590796922638752e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "whole_complement_frozen4f/0",
+      "error": 8.168691279191504e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_SGram/0",
+      "error": 5.886715315513366e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_constrainedres/0",
+      "error": 3.046936598786699e-15,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_actualRayleigh/0",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "virtual_fullcoeff_normalizedphysical_identity/0",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_all118_actualRayleigh_record/0",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "virtual_same_minimum_Rayleigh/0",
+      "error": 2.7755575615628914e-15,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "virtual_unique_minimum/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_minimum_span/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_only_fixed_phase/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_unsignedlowest_fullvector_identity/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_CI_seed_bytes/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_scalar_record/0",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_record_energy_gap/0",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "virtual118_complete/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_original_hSP/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_original4f_byteidentity/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_basis_exact_originalP_complement/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "whole_complement_SGram/1",
+      "error": 6.890104806145381e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "whole_complement_frozen4f/1",
+      "error": 8.739723245106377e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_SGram/1",
+      "error": 4.847773974145238e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_constrainedres/1",
+      "error": 1.3607893988826615e-12,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "virtual_all118_actualRayleigh/1",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "virtual_fullcoeff_normalizedphysical_identity/1",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "raw_all118_actualRayleigh_record/1",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "virtual_same_minimum_Rayleigh/1",
+      "error": 3.3306690738754696e-16,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "virtual_unique_minimum/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_minimum_span/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_only_fixed_phase/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_unsignedlowest_fullvector_identity/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_CI_seed_bytes/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_scalar_record/1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "virtual_record_energy_gap/1",
+      "error": 0.0,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "exact_18_once_NPZloads",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "original14_expectedfailure_unchanged",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    }
+  ],
+  "load_roles_once": [
+    "literal208",
+    "geometry",
+    "hS_geometry",
+    "baseline_CI",
+    "complete5f_CI",
+    "raw_hS_1",
+    "raw_hS_2",
+    "raw_hS_3",
+    "raw_hS_4",
+    "raw_hS_5",
+    "raw_hS_6",
+    "raw_hS_7",
+    "virtual_operator_0",
+    "qualified_virtual_0",
+    "initial_virtual_0",
+    "virtual_operator_1",
+    "qualified_virtual_1",
+    "initial_virtual_1"
+  ],
+  "NPZ_loads": 18,
+  "new_scientific_producer_calls": 0,
+  "original_expected14gate_passed": false,
+  "original_failed_execution_preserved": true,
+  "contract_sha256": "693266d275d4d425e0c1312bbacd7186356ad08e0d93b677d3a7cbd7414586d3",
+  "driver_sha256": "62a95baebb97902fae6ac4931fd88627a01756d383bd7349dd232ea46a15f5c6",
+  "elapsed_uncontrolled_s": 1.0749364790972322
+}

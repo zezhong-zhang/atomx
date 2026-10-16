@@ -1,0 +1,26 @@
+{
+  "hypothesis": "Original reduced fixed-energy diagrams at bare ev keep core denominators fixed; physical valence singles term31 and full offdiagonal Fock close standalone Eq8/9/13; outer scalar feedback and matrix-free reduced solve equal finite independent anchor",
+  "fixed": "Native real DC common complete Be 1s2 core / 2s,3s,2p1/2,2p3/2; twelve spinors; later noncanonical rotations; full reduced rho gauge retained",
+  "gates": {
+    "signed_Ha": 1e-11,
+    "raw_Ha": 1e-10,
+    "root_Ha": 1e-11,
+    "physical_amplitudes": 1e-10
+  },
+  "caps": {
+    "fixture_host_bytes": 268435456,
+    "Krylov_vectors": 40,
+    "maximum_outer_iterations_per_stage": 16,
+    "continuation_steps": 8
+  },
+  "resources": "Full core/valence source and compiled arrays plus standalone buffers, packed coordinate/payload and both retained Arnoldi/inverse vectors preflight before calls; no determinant/full amplitude matrix in production",
+  "stop": "Any raw diagram/root/sign mismatch blocks promotion and large-space launch; preserve failed source/arrays; no deltaEv in core denominators, symmetrization, amplitude pruning or tolerance change",
+  "scope": "New opt-in reduced standalone real DC; finite comparison first; physical SD-state/property production, GPU/full-space/experimental/continuum certification require separate gates",
+  "load": [
+    10.060546875,
+    9.51708984375,
+    9.4970703125
+  ],
+  "diagnosis": "002 localizes one n=v core-single row to missing [F,S1] occupied term; restore rank0 rho(m,v,v,b)=[jv]*S_mv*F_vb. Correct exact different-J singles to zero in test expansion. Original scientific gates unchanged.",
+  "additional_control": "Explicit .08rad occupied/virtual rotation changes core projector; compare original diagrams, native Fock, core SD and independent finite standalone at the same changed Hamiltonian; no fixed-projector invariance claim."
+}

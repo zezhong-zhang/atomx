@@ -1,0 +1,55 @@
+{
+  "result_sha256": "d63caf5658ea47eb1e844230a2f825516cc81ac637749f8945f1a03163e49734",
+  "cases": [
+    {
+      "z": 18,
+      "excitation_levels_recomputed": 16,
+      "E1_lines_recomputed": 10,
+      "maximum_excitation_relative_spread": 0.0012429200579505938,
+      "maximum_A_relative_spread": 0.03785095825211626,
+      "maximum_S_relative_spread": 0.040469239397128653
+    },
+    {
+      "z": 26,
+      "excitation_levels_recomputed": 16,
+      "E1_lines_recomputed": 10,
+      "maximum_excitation_relative_spread": 0.0004442189389978025,
+      "maximum_A_relative_spread": 0.016177377206411436,
+      "maximum_S_relative_spread": 0.014864774282952298
+    },
+    {
+      "z": 54,
+      "excitation_levels_recomputed": 16,
+      "E1_lines_recomputed": 10,
+      "maximum_excitation_relative_spread": 6.903218791599722e-05,
+      "maximum_A_relative_spread": 0.013517278493474949,
+      "maximum_S_relative_spread": 0.013630778461558135
+    },
+    {
+      "z": 82,
+      "excitation_levels_recomputed": 16,
+      "E1_lines_recomputed": 10,
+      "maximum_excitation_relative_spread": 2.6235128334244824e-05,
+      "maximum_A_relative_spread": 0.0024247198858223795,
+      "maximum_S_relative_spread": 0.0023609004939760814
+    }
+  ],
+  "excitation_levels_recomputed": 64,
+  "E1_lines_recomputed": 40,
+  "inputs_sha256": {
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z018/science.json": "4b7e9e611123cd0cf9aaad599a494aac1ede5922b80cb2762336937873c6a383",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z018/science.json": "bcdf22aed06fd1ecdfdd0758a510a7f6bc9d79d6f211647f9908116be19b3476",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z026/science.json": "546dbfe8748c332c51f4785828af4d76c5cee6cabd1955b821e44ace3b5bd038",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z026/science.json": "43b07b405922590fe89c18a7ca5f9a3d46cd818e97ea55bb72dc4d64b2750b2b",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z054/science.json": "e8282e0b69b88e259f0ece840e33fbfa3897c7f294ad40b9ea628846f155bdb3",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z054/science.json": "141887f2928908320ff7b163ff7b1fb8311054c36f52e76b30fb381ba23d6ce6",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/measured/FAC/round000/p1/Z082/science.json": "4b9d25781d194c116271b7fd3c75014f917d196f6de5bd504c92f29cfb8e00e4",
+    "/data/code/atomx/docs/atomic_external_benchmark_2026_10_11/fac/performance/fresh_cache002/measured/round000/p1/Z082/science.json": "5d97467081cea6096453df57e7b22511855bceb7106931f46aa817e9db49e919"
+  },
+  "Hartree_eV": 27.211386245981167,
+  "matching": "Declared config/J/parity and energy rank only.",
+  "eigenstate_overlap_identity_claim": false,
+  "NIST_accuracy_claim": false,
+  "equal_accuracy_software_ranking_claim": false,
+  "FAC_line_strength_normalization_scope": "This pure-CI E1 fixture: S = reduced_matrix_element^2/2."
+}

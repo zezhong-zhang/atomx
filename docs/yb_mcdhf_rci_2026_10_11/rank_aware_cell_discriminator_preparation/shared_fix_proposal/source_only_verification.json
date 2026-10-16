@@ -1,0 +1,20 @@
+{
+  "all_source_only_controls_passed": true,
+  "numeric_tests_executed": false,
+  "science_calls": 0,
+  "checks": {
+    "exact_two_computational_assignments": true,
+    "all_other_source_meaningful_AST_unchanged": true,
+    "before_bytes_still_shared": true,
+    "old_shared_tests_retained_byte_prefix": "newtests append plus one mathimport only",
+    "syntax": true,
+    "actual_discriminator_all_passed": true,
+    "fixed_CI_only_not_globalbound": true
+  },
+  "contract_sha256": "ce31d84469f3bee231448c6263822b5b6f1ac2e9a21479924a7d6196ca402476",
+  "patch_sha256": "652004d4ad70b64ff31d1d1e81c40a7b79ee62c95c793ffe2b3a8e296d8db501",
+  "proposed_files_sha256": {
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "tests/test_convol.py": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+  }
+}

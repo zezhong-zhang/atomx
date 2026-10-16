@@ -1,0 +1,44 @@
+{
+  "hypothesis": "Full original Yb core solution remains a solution of the public exact optimized operator; complete fixed-energy valence/screening equations can be solved without dropping internal intermediates",
+  "fixed": "Z70/V68 Fermi/ns123/l<=3 and all414 bound+positive-energy virtual radial roots below5Ha; all68core electrons, real native Dirac-Coulomb, original redundant signed rho normalization",
+  "external_columns": [
+    [
+      6,
+      -1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      -2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      -3
+    ]
+  ],
+  "external_scope": "finite declared 6s/6p/5d P columns; every414virtual/core intermediate retained",
+  "energy_convention": "lowest declared virtual Fock diagonal for each kappa, no fitted shift",
+  "input_sha256": "4e320b72f6517c6f016a1cd9a1f2f9462e3aebe571f1ddd0f0dc4473beadd153",
+  "seed_file_sha256": "40e62b3daa22855174c4c874bb3dcbf2e6ace878c2abb8fe37f5b4788ab2a90d",
+  "raw_residual_gate_Ha": 1e-10,
+  "source_gate_Ha": 1e-11,
+  "core_energy_gate_Ha": 1e-11,
+  "core_workers": 8,
+  "blas_inner_threads": 1,
+  "cap_bytes": 34359738368,
+  "load": [
+    9.7216796875,
+    9.85009765625,
+    11.6103515625
+  ],
+  "stop": "Any changed physical input, complete-space mismatch, failed full source/denominator/energy/raw gate or cap overrun rejects; no tolerance/space alteration",
+  "scope": "fixed-energy directed operators and numerical residuals; no Hermitian CI substitution, radial convergence, precision or experimental claim",
+  "screening_requested": true
+}

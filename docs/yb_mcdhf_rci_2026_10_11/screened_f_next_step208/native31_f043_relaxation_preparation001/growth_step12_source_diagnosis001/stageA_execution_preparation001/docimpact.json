@@ -1,0 +1,36 @@
+{
+  "scope": "New stageA offline executor/preparation only",
+  "files_added": [
+    "run.py",
+    "contract.json",
+    "verify_preparation.py",
+    "preparation.json",
+    "README.md",
+    "source_review.json",
+    "docimpact.json",
+    "trace.md",
+    "handoff.json"
+  ],
+  "prior_proposal_resource_clarification": "Retained unchanged; new contract includes max7 <=7x7 numerical polar eig calls, all physical spectral/producer budgets0.",
+  "scientific_source_or_frozen_evidence_changed": false,
+  "public_method_defaults_or_capabilities_changed": false,
+  "main_campaign_registry_site_or_timer_changed": false,
+  "dispositions": [
+    {
+      "path": "../contract.json",
+      "action": "retain",
+      "reason": "Immutable original proposal; stageA executes only a separately contracted subset."
+    },
+    {
+      "path": "../stageA_polar_resource_clarification001.json",
+      "action": "retain",
+      "reason": "Correction remains explicit and independently SHA-bound."
+    },
+    {
+      "path": "README.md",
+      "action": "add",
+      "reason": "Concrete source-bound executor, exact deferred fields/work and pending runtime scope."
+    }
+  ],
+  "knowledge": "No new physical or numerical insight from preparation. Chronological native history must be reproduced and verified before diagnosing secant acceleration; capacity alone does not establish actual retained pairs."
+}

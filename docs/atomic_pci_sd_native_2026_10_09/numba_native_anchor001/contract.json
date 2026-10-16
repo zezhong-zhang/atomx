@@ -1,0 +1,6 @@
+{
+  "hypothesis": "original shared feature remains anchored to independently implemented cell convolution and analytic integrals under unchanged main runtime",
+  "scope": "existing23 finite radial checks, not full SD or experiment",
+  "command": ".venv/bin/python -m pytest -q tests/test_cell_coulomb_features.py",
+  "changed_public_physics": false
+}

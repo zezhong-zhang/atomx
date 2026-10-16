@@ -1,0 +1,22 @@
+{
+  "scope": "atlas_update007 once browser foreground launcher preparation",
+  "new": [
+    "launch_browser.py",
+    "browser_launcher_contract.json",
+    "browser_launcher_preparation.json",
+    "BROWSER_LAUNCHER.md",
+    "browser_launcher_handoff.json"
+  ],
+  "retained": {
+    "browser_test.js": "root-reviewed frozen browser QA",
+    "browser_contract.json": "immutable preparation phase; separate root seal supplies execution authorization",
+    "handoff.json": "local data prepared/browser pending historical phase",
+    "site/assets": "no changes by launcher preparation",
+    "registry/publication": "owned by root, untouched"
+  },
+  "new_insight": "No scientific insight. Chromium virtual address reservation makes a small RLIMIT_AS unsuitable; this consumer explicitly uses sampled aggregate RSS stopping instead, without claiming kernel hard memory enforcement.",
+  "science_calls": 0,
+  "server_browser_launches": 0,
+  "publication_calls": 0,
+  "correction": "Use actual data verification schema; preserve unexecuted initial source/proof in browser_launcher_draft001/"
+}

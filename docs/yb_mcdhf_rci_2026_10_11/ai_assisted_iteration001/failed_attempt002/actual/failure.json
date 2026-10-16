@@ -1,0 +1,49 @@
+{
+  "phase": "builder",
+  "records": [
+    {
+      "phase": "manifest",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/make_manifest.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.2152661620057188,
+      "stdout_sha256": "08f9d9af12a3ae8dfb12d1102327d85c3e9411a9eb9160334d7b213b989f3f04",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "phase": "tests",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "-m",
+        "unittest",
+        "-v",
+        "test_dataset_builder"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.06468156600021757,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "3d58cce86bcf2b55b3f0d740f78de02958f19dd596fde741de44caa12f8559e4"
+    },
+    {
+      "phase": "builder",
+      "command": [
+        "/data/code/atomx/.venv/bin/python",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset_builder.py",
+        "--repo",
+        "/data/code/atomx",
+        "--manifest",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/manifest.json",
+        "--output",
+        "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/dataset.json"
+      ],
+      "exit_code": 1,
+      "elapsed_s": 0.11404586999560706,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "972b83cb3a835d4f0f0d4f2d24c0d1a145a22aa7ef478655c361de6c90ebc9a7"
+    }
+  ],
+  "scientific_calls": 0,
+  "no_retry": true
+}

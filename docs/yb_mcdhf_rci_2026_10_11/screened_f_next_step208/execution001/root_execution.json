@@ -1,0 +1,41 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 0,
+  "started_utc": "2026-10-11T18:10:05.011311+00:00",
+  "finished_utc": "2026-10-11T18:11:04.625579+00:00",
+  "elapsed_uncontrolled_s": 59.614275648025796,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "915s",
+    "taskset",
+    "-c",
+    "31",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/run.py",
+    "--execute",
+    "--binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/execution_binding.json"
+  ],
+  "binding_sha256": "9a277807ddd237e65aeae0b2003b85103900d2607c0766d29af71866a70fcd3a",
+  "driver_sha256": "7a0bcd8cad1e25f51f5995c2184765e7ef15ba1cd4f8a21cae8be3a97466bfd4",
+  "contract_sha256": "90d0b5493e23093f774733ddb95e78a1db3d4524087ab173209b27c1a26538e3",
+  "launcher_sha256": "2192f944ffd1c3ffeef2733e5f0f1b944860f1566638905f37f9b1671ecbfb4c",
+  "log_sha256": "f57a0de77c4946af6409f0b8d54bbb113c874759e961ccbdf275d0e9a723d210",
+  "outer_wall_seconds": 915,
+  "kill_after_seconds": 5,
+  "partial_outputs_preserved": true,
+  "no_retry": true,
+  "timing_claim_valid": false,
+  "actual_iteration_trigger": {
+    "delivery_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour26/delivery_authorization_proof.json",
+    "delivery_proof_sha256": "4c5cb3b239bfead79da5f29f6756981a85eab6170fe8e8fce24c59d30718ff0f",
+    "cycle": "2026-10-11T18",
+    "message_id": "om_x100b6388a4f608a0c11b6c64647646b",
+    "request_key": "b808873d-d4b3-51c6-8c11-8c7aff879377",
+    "message_link": "https://applink.feishu.cn/client/chat/open?openChatId=oc_fb2fc627b3e98dc9555de31580878758&position=1620",
+    "separately_admitted_root_iteration": true,
+    "service_actual_scientific_jobs": 0
+  }
+}

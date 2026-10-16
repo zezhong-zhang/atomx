@@ -1,0 +1,136 @@
+{
+  "core_residual_Ha": 1.627518920414156e-13,
+  "direct_error_Ha": 3.1086244689504383e-15,
+  "records": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "energy_Ha": -0.2854839020829964,
+      "raw_residual_Ha": 9.71445146547012e-17,
+      "derivative_residual_Ha": 8.326672684688674e-16,
+      "multiplets": [
+        {
+          "two_m": -1,
+          "signed_action_error_Ha": 5.898059818321144e-17,
+          "signed_root_error_Ha": 1.3357370765021415e-16,
+          "oracle_residual_Ha": 2.42861286636753e-17,
+          "signed_response_error_Ha": 1.5300261058115439e-15,
+          "sigma1_analytic_derivative_error": 9.020562075079397e-17,
+          "oracle_response_residual_Ha": 2.7755575615628914e-16,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.1829612119447943,
+            "condition_2": 22.254364079986615
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 3.0003777240494856e-14,
+              "second_order_error": 1.3338247493166477e-06,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 1.1088352458443751e-13,
+              "second_order_error": 1.2003574309527032e-07,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 3.660058367493946e-13,
+              "second_order_error": 1.3337233109589341e-08,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "two_m": 1,
+          "signed_action_error_Ha": 5.898059818321144e-17,
+          "signed_root_error_Ha": 1.5959455978986625e-16,
+          "oracle_residual_Ha": 2.0816681711721685e-17,
+          "signed_response_error_Ha": 1.4085954624931674e-15,
+          "sigma1_analytic_derivative_error": 2.0816681711721685e-17,
+          "oracle_response_residual_Ha": 3.608224830031759e-16,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.18296121194479423,
+            "condition_2": 22.25436407998663
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 4.563710520599784e-14,
+              "second_order_error": 1.3338247523489444e-06,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 1.4747925103364423e-13,
+              "second_order_error": 1.2003575466240646e-07,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 2.732189474663471e-13,
+              "second_order_error": 1.3337228772780652e-08,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "energy_Ha": -0.10093112866632932,
+      "raw_residual_Ha": 5.551115123125783e-17,
+      "derivative_residual_Ha": 6.050715484207103e-15,
+      "multiplets": [
+        {
+          "two_m": -1,
+          "signed_action_error_Ha": 2.0816681711721685e-17,
+          "signed_root_error_Ha": 5.164271787982955e-15,
+          "oracle_residual_Ha": 2.7755575615628914e-17,
+          "signed_response_error_Ha": 1.635680479949997e-11,
+          "sigma1_analytic_derivative_error": 7.41073868937292e-15,
+          "oracle_response_residual_Ha": 5.342948306008566e-15,
+          "conditioning": {
+            "full_output_coordinates": 1600,
+            "complete_sector_coordinates": 168,
+            "excluded": "strict total-M/parity and occupied padding zeros only; full tensor preserved",
+            "smallest_singular_value": 0.0003944638076253159,
+            "condition_2": 32254.56812377224
+          },
+          "derivatives": [
+            {
+              "step_Ha": 0.001,
+              "max_error": 3.196756748202745e-11,
+              "second_order_error": 0.002826885691955411,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0003,
+              "max_error": 2.035038804137912e-13,
+              "second_order_error": 0.0002464239550173941,
+              "passed": true
+            },
+            {
+              "step_Ha": 0.0001,
+              "max_error": 9.367506770274758e-13,
+              "second_order_error": 2.730513643731114e-05,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

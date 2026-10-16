@@ -1,0 +1,159 @@
+{
+  "created_utc": "2026-10-11T13:39:39.740762+00:00",
+  "status": "source_math_review_only_no_numerical_execution_authorized",
+  "purpose": "Independent equation review and minimal reference-bound saved-pair diagnostic scope; peer owns and executes the separately sealed saved consumer.",
+  "inputs_sha256": {
+    "peer_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/contract.json",
+      "sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1"
+    },
+    "peer_saved_consumer": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/diagnose_saved.py",
+      "sha256": "0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d"
+    },
+    "source_functional": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "source_ci_response": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/numerics/ci_energy_increment.py",
+      "sha256": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367"
+    },
+    "source_radial_increment": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_increment.py",
+      "sha256": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f"
+    },
+    "source_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "previous_onebody_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/actual/result.json",
+      "sha256": "846453e8d8750ae360681e9d72e2b6794ae31d9b99419d99997e7b79805509ce"
+    },
+    "previous_onebody_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/root_execution.json",
+      "sha256": "cf454661ce2d200762aeeddfbfb86bd262607ad8705afa395fd3522b74e6f16e"
+    },
+    "failed_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/contract.json",
+      "sha256": "eb890d11e49d0e28e5f2612d736993207996fabc04b2a2ddf6cd15d6620a9cd1"
+    },
+    "failed_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/root_execution.json",
+      "sha256": "bb62b0c12164b6cf16b800bf2c1754bb01c70abf306f29420cecc26192192e22"
+    },
+    "failed_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_central.json",
+      "sha256": "faa8e969f1527352aeac79559dafc58cd332789b961b30aa14ed7d1f2b245c00"
+    },
+    "failed_diagnostics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/direction1_diagnostics.json",
+      "sha256": "2e7bc594b5f16c797cbb4ae663d9848b43e3ec821682667ac8b4c9ca8efbbc23"
+    },
+    "saved_gradient_proof": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    }
+  },
+  "inherited_saved_input_manifest": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/contract.json",
+    "field": "inputs",
+    "sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1",
+    "roles": [
+      "base_waves",
+      "direction",
+      "failed_contract",
+      "failed_diagnostics",
+      "failed_ledger",
+      "failed_root",
+      "logical_geometry",
+      "minus_coordinates",
+      "minus_waves",
+      "plus_coordinates",
+      "plus_waves",
+      "previous_onebody_completion",
+      "previous_onebody_contract",
+      "previous_onebody_execution",
+      "previous_onebody_result",
+      "raw_hS_0",
+      "raw_hS_1",
+      "raw_hS_2",
+      "raw_hS_3",
+      "raw_hS_4",
+      "raw_hS_5",
+      "raw_hS_6",
+      "saved_gradient",
+      "saved_gradient_proof",
+      "saved_layout",
+      "signed_density",
+      "source_density",
+      "source_functional",
+      "source_radial_increment"
+    ],
+    "all_bound_hashes_checked_without_array_loading": true
+  },
+  "source_epoch": {
+    "frozen_original356_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "shared_current_source_not_consumed": true
+  },
+  "fixed": {
+    "points": "original saved baseline and original plus/minus rotation002 only",
+    "seed": 20261012,
+    "h": 1e-06,
+    "model": "69e Z70 A175; 1046 complete target-sector CSFs; 29 radial keys; original7 nuclear P; fixed original five UID tracker/equal .2 weights; 3451 coordinates",
+    "metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "production_objective": "ordinary reported EOL unchanged",
+    "original_derivative_absolute_tolerance": 1e-08,
+    "original_derivative_relative_tolerance": 1e-05,
+    "original_pair_threshold": 1.494376612201439e-08
+  },
+  "prospective_saved_only_budget": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 2,
+    "wall_seconds": 90,
+    "max_saved_points": 3,
+    "max_exact_scalar_products": 8000000,
+    "H_CI_gradient_Dirac_optimizer_calls": 0,
+    "eigen_SVD_calls": 0,
+    "radial_cell_potential_calls": 0,
+    "new_public_RDM_contract_calls": 0,
+    "execution_requires_separately_root_bound_contract_and_driver": true
+  },
+  "distinguishing_control": {
+    "ambient_gradient": "conditional saved retained raw g minus retained logical-h action plus retained raw-h/ket-norm action; not full normalized/unfiltered mixed-CI g",
+    "multiplier": "baseline frozen .25*(V.T@gA+gA.T@V), all signed same-kappa entries",
+    "constraint": "actual physical full quadratic DeltaGram; preserve explicit/reconstruction identity",
+    "radial_anchor": "saved complete explicit mixed radial polynomial + rounded physical reconstruction + finite Rayleigh CI response",
+    "stored_H_quotient": "forensic operator-roundoff only; not alternate derivative oracle",
+    "candidate_result": "conditional same-pair Q-Lagrange central diagnostic under unchanged threshold vs both original and conditional analytic actions"
+  },
+  "required_unresolved_ledgers": [
+    "reported-minus-Rayleigh and floating EOL averaging offsets",
+    "mixed polynomial versus direct stored-H quotient closure gap",
+    "per-target CI norm/residual response retained, not frozen density",
+    "normalized/full-unfiltered two-body gradient not independently supplied",
+    "baseline Gram defect and finite fixed-multiplier remainder, no uniform bound"
+  ],
+  "refusals": [
+    "changed source/physical operator/nucleus/ordered signed basis/P/S/inverse/tracker/target/weight identity",
+    "incomplete same-kappa groups or finite trial response/reconstruction terms",
+    "invalid CI phase/norm/residual/Gram or physical Gram/reconstruction domain",
+    "new points/directions/h scans/producers, resource cap or numerical source mutation"
+  ],
+  "scope": {
+    "source_equations_reviewed": true,
+    "numerical_diagnostic_executed_by_this_review": false,
+    "original_reported_gate_upgraded": false,
+    "original_Rayleigh_gate_upgraded": false,
+    "optimizer_authorized": false,
+    "production_callback_qualified": false,
+    "stationarity_or_experimental_certification": false,
+    "future_admission": "Only a new prospective root-reviewed contract may cite same-pair conditional Q-Lagrange diagnosis plus finite stored-H exact Armijo guard; neither certifies a mixed radial objective or its gradient globally."
+  }
+}

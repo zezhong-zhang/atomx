@@ -1,0 +1,182 @@
+{
+  "targets": [
+    {
+      "label": "6s_1/2",
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "column": 0,
+      "energy_Ha": -14067.496517964526,
+      "tracking": {
+        "reference_levels": [
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9962918072392429
+        ],
+        "projected_probability": [
+          0.9962918072392429
+        ]
+      }
+    },
+    {
+      "label": "5d_3/2",
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "column": 2,
+      "energy_Ha": -14067.38012165637,
+      "tracking": {
+        "reference_levels": [
+          [
+            3,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            3,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.998093890397947
+        ],
+        "projected_probability": [
+          0.998093890397947
+        ]
+      }
+    },
+    {
+      "label": "5d_5/2",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "column": 3,
+      "energy_Ha": -14067.37665817637,
+      "tracking": {
+        "reference_levels": [
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9969503572942966
+        ],
+        "projected_probability": [
+          0.9969503572942966
+        ]
+      }
+    },
+    {
+      "label": "6p_1/2",
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "column": 1,
+      "energy_Ha": -14067.381616323433,
+      "tracking": {
+        "reference_levels": [
+          [
+            1,
+            -1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            1,
+            -1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9928915142318688
+        ],
+        "projected_probability": [
+          0.9928915142318688
+        ]
+      }
+    },
+    {
+      "label": "6p_3/2",
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "column": 4,
+      "energy_Ha": -14067.365672300451,
+      "tracking": {
+        "reference_levels": [
+          [
+            3,
+            -1,
+            0
+          ]
+        ],
+        "selected_levels": [
+          [
+            3,
+            -1,
+            0
+          ]
+        ],
+        "per_level_weight": 0.2,
+        "principal_overlap_squared": [
+          0.9920998322465907
+        ],
+        "projected_probability": [
+          0.9920998322465907
+        ]
+      }
+    }
+  ],
+  "spectrum_cm1": {
+    "6s_1/2": 0.0,
+    "5d_3/2": 25546.036824624473,
+    "5d_5/2": 26306.182820744383,
+    "6p_1/2": 25217.995321846607,
+    "6p_3/2": 28717.30388821924,
+    "5d_centroid": 26002.12442245611,
+    "5d_splitting": 760.1459961199095,
+    "6p_centroid": 27550.867699561437,
+    "6p_splitting": 3499.3085663726374
+  },
+  "owner_input_sha256": "a0fe27d17bf347fb6d678137f914951896297891d56eea86446b880bc1b216e3",
+  "owner_H_sha256": "d9518a2c8504e96f1cd9eda6442bccdca6d73536e14dbff27470c280b033921d"
+}

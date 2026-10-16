@@ -1,0 +1,38 @@
+{
+  "execution_authorized_by_root": true,
+  "once_only": true,
+  "driver_sha256": "35100628481f879099d407aa62d2bf1cd4ca204c961170f2855e49e54465756d",
+  "contract_sha256": "6f9327df82e35c88614d72afae480d548f03083ce091ddd98aefdf3674ec772e",
+  "resources": {
+    "AS_bytes": 8589934592,
+    "CPU": 27,
+    "calls": {
+      "CI": 4,
+      "CI_eigh": 20,
+      "H": 4,
+      "H_projection": 20,
+      "angular_nullspace": 43,
+      "angular_table": 10,
+      "banded_contraction": 675664,
+      "block_terms": 20,
+      "density": 3968,
+      "factor_getter": 1351328,
+      "pair_convolution": 1351328,
+      "pair_potential": 337832,
+      "polar_retraction": 7,
+      "radial_key": 337832,
+      "raw_hS": 28,
+      "tracking_overlap": 5,
+      "tracking_projection": 50,
+      "tracking_resolve": 4
+    },
+    "decoded_input_bytes": 268435456,
+    "host_MemAvailable_GiB_min": 10,
+    "host_load1_max": 16,
+    "inner_seconds": 900,
+    "outer_seconds": 915,
+    "threads": 1
+  },
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "launcher_preseal_note": "An overstrict equality check rejected added predecessor-failure metadata. A following no-seal invocation rejected before creating actual or importing scientific modules. The one scientific run remains unused."
+}

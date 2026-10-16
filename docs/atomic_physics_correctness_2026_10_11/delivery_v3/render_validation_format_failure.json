@@ -1,0 +1,7 @@
+{
+  "status": "corrected_documentation_validation_assumption",
+  "failed_check": "Expected --render-only summary to contain a complete card payload and searched its metadata for text",
+  "actual_schema": "--render-only returns rendered, integer elements count and evidence; actual card is latest_card.json",
+  "impact": "No science model or gate changed; sender has its own bot/delivery validation; actual saved schema2.0 card content verified",
+  "initial_probe_exit_code": 1
+}

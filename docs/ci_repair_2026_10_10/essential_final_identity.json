@@ -1,0 +1,18 @@
+{
+  "prior_trial_commit": "fcd4955e506744b08b2bbf7dfefc4fcc4a5d8eb9",
+  "numerical_source": "unchanged from 7a48845; see source_identity.json",
+  "selection_sha256": {
+    "pyproject.toml": "c4b0053b88580d174b6c29b11efe5310bfd8a673a7871d4b917c48f8ab757c05",
+    ".github/workflows/test.yml": "ecab5640339ba43a473a88f9f178c05ff231148c7d03a1763a24dd2842d6ec89",
+    "tests/test_determinism.py": "cb2ba141e7a72d638fbc756c762a6299443ec255f029af0774d3f2e1b7d36761",
+    "tests/test_numerical_bounds.py": "c29fb5320cad872a076197e3aacd822e1b06cdf06886f38ea23cd772b3b32e13",
+    "tests/test_xfel_multielectron_ci.py": "9b6b86d870de01eb7d7cc2a26803c465279aee89755eb55a06bb0a329212b9cd",
+    "tests/test_xfel_reservoir_campaign.py": "ce64ac0824714734f66b1cdb2a8949cbe4a6b2d1b7d1575a831cddf4cd14f31e"
+  },
+  "expected_collection": 452,
+  "scope_decision": "About three minutes; analytic live panel and absolute-reservoir campaigns outside default; original models and assertions retained",
+  "moved_functions_AST_unchanged": [
+    "test_absolute_reservoir_certification_reuses_three_electron_signed_model",
+    "test_four_electron_full_sparse_chain_retains_absolute_error_rejection"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "created_at_utc": "2026-10-11T09:01:28.463647+00:00",
+  "execution_authorized_by_root": true,
+  "independent_endpoint_replay_authorized": true,
+  "authorizing_user_scope": "Atomx-native MCDHF→RCI primary route, actual Yb example, preserve physical correctness/gates and high performance; earlier continuous iteration and parallel work authorization",
+  "scope": "One actual complete531 DC EOL public optimizer call and one subsequent separately admitted saved-endpoint full-H/CI/gradient replay; no changed metric or inferred experimental pass",
+  "driver_sha256": "52b045f3d71c17d55080dc8b9a6a40c760bd289bcb080cb6fb8b0c887d42654d",
+  "verifier_sha256": "9fb44a1b956adf6d42fcdd7481014fb0d7d8b80d1fe2d916364973165b54d407",
+  "preparation_contract_sha256": "785b20144d1b96ef5ca2e3cd0968fc4796054321955f4e389ff23a04be394201",
+  "source_identity_sha256": "13b43b3ec35f8e1ee42912fc213f53fc905b282ca168bf158598bd81af32978e",
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "reviewed_evidence_sha256": {
+    "public_optimizer_resume/contract.json": "d6cfd29740acd3a6e1051f4120525b746668c87e6736fdd06504d2f240576162",
+    "public_optimizer_resume/result.json": "865bb65936c34b9a6049893dfd6d07d56029382a783581e24a0500b555bf1268",
+    "public_optimizer_resume/verification.json": "72dee7c24605f1d35611990ce469166bd385d1ca1ffb421667ead1e64bf20974",
+    "public_optimizer_resume_audit/final_review.json": "602f94c0787de5c20ab7cd6d77310bb2e37e911c5f8b467c4a7bfc698d432cb8",
+    "public_resume_integration/contract.json": "17cae9074e7d876ccff1810e6dbb3e31f55d1723515304bc66005279618ea731",
+    "public_resume_integration/execution_binding.json": "071f347eca86c81451b08795873bfc5ad1f139590587c2a7d997358f90355606",
+    "public_resume_integration/verification.json": "bed5195a89f63e3ba9a70a8954bb6a29c992e8e74053aba4f4fb24063276b12b",
+    "public_resume_integration/eof_formatting_identity.json": "401d90178d5ec07a4558532a0c71e335279daa284aa97f5e9485584ccc79c2a3",
+    "public_mixed_resume_run/preparation_verification.json": "04a1cfe51b9bf7fbb83827c11e5e04bd2764c0f84959cc83727a6f5a2ab44423",
+    "public_mixed_resume_run/endpoint_guard_verification.json": "0508d5971897b704ca71a52b4bf7816cc60333842cb2de086cd31f3cfa776886"
+  },
+  "scientific_source_changes_from_tested_epoch": [
+    "src/atomx/numerics/bspline/orbital_optimization.py"
+  ],
+  "exact_EOF_only_successor_proven": true,
+  "original_residual_tolerance": 1e-07,
+  "original_estimated_energy_tolerance_Ha": 1e-08,
+  "optimizer_calls_authorized": 1,
+  "independent_saved_endpoint_replays_authorized": 1,
+  "wall_cap_s": 890,
+  "address_space_cap_GiB": 3.95,
+  "threads": 1,
+  "max_total_run_full_gradient_calls": 164,
+  "experimental_gate_not_inherited": true,
+  "highest_level_not_inherited": true,
+  "immutable_contract_for_checkpoint_and_replay": true
+}

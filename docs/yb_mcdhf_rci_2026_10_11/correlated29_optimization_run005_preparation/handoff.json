@@ -1,0 +1,40 @@
+{
+  "status": "prepared_requires_exact_root_review_and_execution",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "files_sha256": {
+    "run.py": "0e0186662e2daafe39b4be2f486d44826a5019a05b7186e801d768da2087e02c",
+    "contract.json": "2bc0a06209a39b6197a1da03ffa56c1649536cf97d5a583e1f2cf9a3b2fed739",
+    "verify_preparation.py": "e24da9b1ec889836fe83619a58d65f085d7c086c0a654b11a18b4842ed82769a",
+    "preparation_verification.json": "b9863013472f17c1bc4b4f78b9b6d753d2f2b11e92e1edf7c6abbdcc34443510",
+    "README.md": "2929d477c5cbe58bebefee1d44e9b1eb4069ad1d92f6a8975dc5cc8769280818",
+    "documentation_impact.json": "715227452083ce6e13aa18dc5b43de9af2c05ad3cbf683b83265d5459dc567ea"
+  },
+  "initial_terminal_manifest": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.json",
+    "sha256": "e59884335d38863b6adbed52abe0bb0a5fe4e0da3eab635a259fc45e4a33bdcd"
+  },
+  "initial_terminal_arrays": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run004_preparation/actual/checkpoints/accepted_0064.npz",
+    "sha256": "7af1e39cec8b031013afb849e79ebc5f19a8d47fd968b22f06e7dabf1b2f5504"
+  },
+  "initial_global_accepted_step": 80,
+  "oldFAIL_and_actualtrajectories_unchanged": true,
+  "stationarity_or_experimental_certification": false,
+  "prospective_budget": {
+    "max_new_accepted_steps": 128,
+    "max_H": 513,
+    "max_CI": 513,
+    "max_full_gradient": 129,
+    "wall_seconds": 2400,
+    "outer_wall_seconds": 2415,
+    "CPU": 31,
+    "address_space_GiB": 3.95
+  },
+  "history_restored": false,
+  "method_modified_to_savehistory": false,
+  "preparation_checks": 16,
+  "ruff_passed": true,
+  "numeric_imports": 0,
+  "scientific_calls": 0,
+  "root_authorized_to_execute": false
+}

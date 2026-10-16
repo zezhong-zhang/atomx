@@ -1,0 +1,61 @@
+{
+  "status": "prepared_source_only_requires_new_root_seal",
+  "files": {
+    "run.py": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61",
+    "contract.json": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+    "README.md": "ea0612657563e5529b5659bbbcde537f07d9dbee8cf34aeaaaa8634151696291",
+    "ordinary_source_identity.json": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827",
+    "candidate_source_identity.json": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8",
+    "ordinary.patch": "aefce434382c5a87376acf39a5e91d724255d6a55b32673e5a43bac6cc437f79",
+    "candidate.patch": "390b0c404a22fdd28f46f208b81513fb33c7f37a4fff060d54ca1a0743477d5e",
+    "preparation_verification.json": "97d597d4d8d63e31961a144a19ce3a9795437a879c5be7984e74a0635e572b86"
+  },
+  "root_execution_expected": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61",
+    "contract_sha256": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+    "preparation_sha256": "97d597d4d8d63e31961a144a19ce3a9795437a879c5be7984e74a0635e572b86",
+    "ordinary_source_map_sha256": "756938d54b66a5caf5507707cb352e787cb8e1338bbb2b8c54a9a6e586e0d349",
+    "candidate_source_map_sha256": "8a4324e1758587125e1cd94bb34881356ef628961b3e1e8c0da8f4276e539d4d",
+    "CPU": 30,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "max_scipy_eigh": 17,
+    "wall_seconds": 180,
+    "address_space_GiB": 3.95,
+    "purpose": "new_centered_epoch_complete29_equivalence_uncontrolled_profile"
+  },
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "195s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/run.py",
+    "--execution",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/execution_contract.json"
+  ],
+  "required_environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  },
+  "scientific_calls_not_executed": true,
+  "shared_source_changed": false,
+  "original002_status": "FAIL retained",
+  "new_epoch_counts": {
+    "H": 2,
+    "CI": 2,
+    "gradient": 2,
+    "hS": 28,
+    "scipy_eigh": 17,
+    "Gauss_eigvalsh": 7,
+    "tracking_SVD": 20,
+    "tracking_overlap": 6,
+    "tracking_resolution": 4,
+    "optimizer": 0,
+    "GPU": 0
+  }
+}

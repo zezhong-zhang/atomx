@@ -1,0 +1,10 @@
+# Large local run evidence; retain on disk, outside the software history.
+# Reports and replay drivers remain tracked. See ../repository_cleanup_2026_10_16/README.md.
+/fac/precision/fac-ci-diagnostic
+
+# Local test aliases and compiled executables.
+/ambit/child_timer
+/ambit/fresh_inputs001/ambit_sigma_probe
+/ambit/prepare/ambit_sigma_probe
+/ambit/timed_sigma
+/fac/performance/child_timer

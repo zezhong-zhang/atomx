@@ -1,0 +1,102 @@
+{
+  "ionization_energy_eV": 12.179185,
+  "ionization_cm1": 98231.75173860446,
+  "quoted_ionization_uncertainty_cm1": 0.2016385984337303,
+  "eV_to_cm1": 8065.543937349212,
+  "cases": {
+    "coarse_l8_e200": [
+      {
+        "label": "6s_1/2",
+        "experimental_attachment_cm1": -98231.75173860446,
+        "computed_attachment_cm1": -98887.77063044561,
+        "absolute_residual_cm1": -656.0188918411441,
+        "retained_excitation_residual_cm1": 0.0,
+        "closure_error_cm1": 0.0
+      },
+      {
+        "label": "5d_3/2",
+        "experimental_attachment_cm1": -75270.95173860446,
+        "computed_attachment_cm1": -75187.42285115895,
+        "absolute_residual_cm1": 83.52888744551456,
+        "retained_excitation_residual_cm1": 739.5477792866623,
+        "closure_error_cm1": -3.637978807091713e-12
+      },
+      {
+        "label": "5d_5/2",
+        "experimental_attachment_cm1": -73899.06173860446,
+        "computed_attachment_cm1": -73751.81404177667,
+        "absolute_residual_cm1": 147.24769682779151,
+        "retained_excitation_residual_cm1": 803.2665886689356,
+        "closure_error_cm1": 0.0
+      },
+      {
+        "label": "6p_1/2",
+        "experimental_attachment_cm1": -71169.93173860447,
+        "computed_attachment_cm1": -70359.44910442596,
+        "absolute_residual_cm1": 810.4826341785083,
+        "retained_excitation_residual_cm1": 1466.5015260196524,
+        "closure_error_cm1": 0.0
+      },
+      {
+        "label": "6p_3/2",
+        "experimental_attachment_cm1": -67839.52173860447,
+        "computed_attachment_cm1": -66828.41231212861,
+        "absolute_residual_cm1": 1011.1094264758576,
+        "retained_excitation_residual_cm1": 1667.1283183170053,
+        "closure_error_cm1": -3.637978807091713e-12
+      }
+    ],
+    "fine_l6_e200": [
+      {
+        "label": "6s_1/2",
+        "experimental_attachment_cm1": -98231.75173860446,
+        "computed_attachment_cm1": -98832.0636500391,
+        "absolute_residual_cm1": -600.3119114346337,
+        "retained_excitation_residual_cm1": 0.0,
+        "closure_error_cm1": 0.0
+      },
+      {
+        "label": "5d_3/2",
+        "experimental_attachment_cm1": -75270.95173860446,
+        "computed_attachment_cm1": -75013.63520966016,
+        "absolute_residual_cm1": 257.3165289442986,
+        "retained_excitation_residual_cm1": 857.6284403789432,
+        "closure_error_cm1": -1.0913936421275139e-11
+      },
+      {
+        "label": "5d_5/2",
+        "experimental_attachment_cm1": -73899.06173860446,
+        "computed_attachment_cm1": -73585.7377826228,
+        "absolute_residual_cm1": 313.3239559816575,
+        "retained_excitation_residual_cm1": 913.6358674163057,
+        "closure_error_cm1": -1.4551915228366852e-11
+      },
+      {
+        "label": "6p_1/2",
+        "experimental_attachment_cm1": -71169.93173860447,
+        "computed_attachment_cm1": -70331.41117542362,
+        "absolute_residual_cm1": 838.5205631808494,
+        "retained_excitation_residual_cm1": 1438.8324746154867,
+        "closure_error_cm1": -3.637978807091713e-12
+      },
+      {
+        "label": "6p_3/2",
+        "experimental_attachment_cm1": -67839.52173860447,
+        "computed_attachment_cm1": -66803.44557404131,
+        "absolute_residual_cm1": 1036.0761645631574,
+        "retained_excitation_residual_cm1": 1636.3880759977983,
+        "closure_error_cm1": -7.275957614183426e-12
+      }
+    ]
+  },
+  "source_zero_discrepancies": {
+    "handbook_limit_cm1": 98207,
+    "paper_2009_NIST_ground_binding_cm1": 98269,
+    "handbook_minus_current_ASD_cm1": -24.751738604463753,
+    "paper_minus_current_ASD_cm1": 37.24826139553625
+  },
+  "maximum_closure_error_cm1": 1.4551915228366852e-11,
+  "corrections_added": false,
+  "reference_excitation_values_changed": false,
+  "warning": "ASD ionization uncertainty is a common threshold uncertainty; missing level uncertainties, isotope/hyperfine/nuclear identity and non-DC operators still preclude a precision theory error budget."
+}

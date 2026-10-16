@@ -1,0 +1,105 @@
+{
+  "status": "COMPLETED_INDEPENDENTLY_SAVED_ARRAY_VERIFIED",
+  "scientific_result_sha256": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2",
+  "scientific_root_execution_sha256": "a558b6878856a5fc1163892324abf9119de54d354f21378dc10d1f09b3f48a44",
+  "independent_verification_sha256": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b",
+  "independent_audit_execution_sha256": "2905e115f1818d4b2cb29b0052f7cfd4eaf4efd46edeeb762c731a786c31f966",
+  "independent_checks": 586,
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "same_original_point_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "native_Dirac_Coulomb_only": true,
+  "old24_P_metric_tracker_unchanged": true,
+  "auxiliary_screened_field_not_in_retained_H": true,
+  "complete_target_CSFs": {
+    "baseline": 261,
+    "screened_virtual": 1046
+  },
+  "corresponding_full_spectrum_CSFs": {
+    "baseline": 531,
+    "screened_virtual": 2163
+  },
+  "transition_rows": [
+    {
+      "label": "6s_1/2",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": -0.002370059091845178,
+      "transition_delta_cm1": 0.0,
+      "baseline_gap_cm1": 0.0,
+      "screened_gap_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": -0.0011194230883120326,
+      "transition_delta_cm1": 274.48287584490913,
+      "baseline_gap_cm1": 2310.7541048753774,
+      "screened_gap_cm1": 2585.2369807202886
+    },
+    {
+      "label": "5d_5/2",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": -0.0012899023549834965,
+      "transition_delta_cm1": 237.06700163713097,
+      "baseline_gap_cm1": 1736.4257684060576,
+      "screened_gap_cm1": 1973.4927700431872
+    },
+    {
+      "label": "6p_1/2",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": -0.0012759242563333828,
+      "transition_delta_cm1": 240.1348396855223,
+      "baseline_gap_cm1": -2083.95947552138,
+      "screened_gap_cm1": -1843.8246358358592
+    },
+    {
+      "label": "6p_3/2",
+      "lower_delta_Ha": -0.002370059091845178,
+      "upper_delta_Ha": -0.0012732416962535353,
+      "transition_delta_cm1": 240.7235935701563,
+      "baseline_gap_cm1": -1915.649715331463,
+      "screened_gap_cm1": -1674.9261217613057
+    }
+  ],
+  "baseline_nominal_four_gap_RMS_cm1": 2022.8296956150211,
+  "screened_nominal_four_gap_RMS_cm1": 2048.3646380082146,
+  "RMS_change_cm1": 25.534942393193433,
+  "EOL_delta_Ha": -0.0014657101000921102,
+  "multiplet_responses": [
+    {
+      "label": "5d",
+      "centroid_delta_cm1": 252.03335132024222,
+      "splitting_delta_cm1": -37.4158742077816
+    },
+    {
+      "label": "6p",
+      "centroid_delta_cm1": 240.52734227527617,
+      "splitting_delta_cm1": 0.5887538846363896
+    }
+  ],
+  "observation": "The screened virtual construction has hundreds-cm1 differential effect in this finite model, rather than the few-cm1 nuclear auxiliary layer effect. Lower state gains more correlation energy than all four upper states, so every transition shifts positive: P gaps improve while D gaps worsen and aggregateRMS worsens. EOL lowering is not experimental improvement.",
+  "inference": "The nuclear virtual construction was not a representative sample of all finite-space radial responses. This screened layer still does not establish radial convergence or cure the gap; its closed68 auxiliary field is not the mixed-CI EOL Euler operator.",
+  "priority_choice": "Next measure and qualify native correlated29/complete1046 MCDHF orbital response inside original7kappaP: full mixed-CI EOL gradient, declared radial-new and old-new rotational tangent derivatives with completeCI re-solution, before a bounded self-consistent optimization.",
+  "next_route_bounds": {
+    "new_radial_coordinates": 3451,
+    "old_coordinates": 2856,
+    "additional_coordinates": 595,
+    "all29_orbitals_active": true,
+    "new_layout_and_metric_identity_required": true,
+    "no_original24_resume_claim": true,
+    "original_reference_tracker_not_rebased": true,
+    "no_new_physical_run_authorized_by_this_decision": true,
+    "complete_target_sectors_only": true
+  },
+  "competing_explanations_not_resolved": [
+    "Core doubles/higher excitation ranks may matter; measured5p-double response alone did not identify a universalgap cure.",
+    "More radial layers/continuum convergence remain unmeasured; a single screened layer is not a convergence certificate.",
+    "The originalnuclear no-pair boundary remains a modeling assumption; thisexperiment changesconstruction within fixedP, notboundary.",
+    "Same-state Breit/QED/recoil coverage still needs its ownmatched proof; no old003correction splicing."
+  ],
+  "original_stationarity_passed": false,
+  "expanded_stationarity_evaluated": false,
+  "experimental_gate_passed": false,
+  "full_spectrum_or_globalground_certified": false,
+  "controlled_performance_claim": false,
+  "limitations": "Only fixednonstationaryaccepted160 finite69config1046 target sectors. Native signedtracker outputs consumed with exactsource; independent saved arrayaudit recomputes fullH/CI/eigenpair/Gram/signed nesting/auxiliary spectra and response, but does not recontract angularH or determinantoverlaps. No physicalbuilders/eigensolves were added by independentaudit."
+}

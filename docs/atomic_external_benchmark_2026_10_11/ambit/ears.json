@@ -1,0 +1,103 @@
+{
+  "expectation": {
+    "hypothesis": "Independent native AMBiT diagrams agree on a full fixed signed input panel; scoped fixed-work timings permit bounded comparison and native strong scaling.",
+    "fixed": "19 orbitals/37350 integrals/27 entries x3; native BeII 4000 points; original scientific/resource/load gates; full signed outputs retained; all5 alternating pairs kept.",
+    "stop": "600 seconds and8GiB address per child; no silently changed dimensions or tolerance; failed admission/precision invalidates controlled ratios."
+  },
+  "action": {
+    "common_radial_prepare": "Fresh native Atomx inputs, pinned independent C++ AMBiT library, complete signed arrays.",
+    "warm_pairing": "5 alternating software pairs, complete fixed-energy output; both full cache warmups excluded.",
+    "native_scaling": "5 alternating 1/p pairs per p2/4/8, fresh full scientific workspace, full HF/basis/MBPT/CI andI/O.",
+    "timer_refinement": "Retain original timeout-wait observations; predeclare monotonic fork/exec/wait4 full child clock; same physics and complete outputs.",
+    "source_postchecks": {
+      "source_files_checked": 621,
+      "source_mismatches": {},
+      "angular_files_checked": 8,
+      "angular_mismatches": {},
+      "actual_runtime_files_checked": 137,
+      "runtime_mismatches": {},
+      "strict_all_pass": true
+    }
+  },
+  "results": {
+    "matched_max_error_Ha": 1.4293680984916318e-21,
+    "warm_statistics": {
+      "pairs": 5,
+      "controlled": true,
+      "left_median_seconds": 0.041159569984301925,
+      "right_median_seconds": 0.0186301,
+      "observational_ratios": [
+        2.2672523530729345,
+        2.251447193004979,
+        2.1611833863881516,
+        2.2587139119168884,
+        2.321109852531512
+      ],
+      "speedup": 2.2587139119168884
+    },
+    "native_scaling": {
+      "2": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.018314141,
+        "right_median_seconds": 0.824434738,
+        "observational_ratios": [
+          1.242524804674958,
+          1.2332046008473747,
+          1.242375043269693,
+          1.239094524547898,
+          1.2285546846333544
+        ],
+        "speedup": 1.239094524547898,
+        "parallel_efficiency": 0.619547262273949
+      },
+      "4": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.028347344,
+        "right_median_seconds": 0.751392575,
+        "observational_ratios": [
+          1.4130995301000102,
+          1.3580973487793646,
+          1.3881710485400545,
+          1.2337027236018165,
+          1.3788475260741953
+        ],
+        "speedup": 1.3788475260741953,
+        "parallel_efficiency": 0.3447118815185488
+      },
+      "8": {
+        "pairs": 5,
+        "controlled": true,
+        "left_median_seconds": 1.05617359,
+        "right_median_seconds": 0.762072999,
+        "observational_ratios": [
+          1.4006907050811153,
+          1.257818034148458,
+          1.3897680883455628,
+          1.354750513720361,
+          1.390617873372643
+        ],
+        "speedup": 1.3897680883455628,
+        "parallel_efficiency": 0.17372101104319534
+      }
+    },
+    "tests": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml": "final_test_checks.xml"
+    }
+  },
+  "significance_limits": [
+    "Finite19orbitalSigma panel does not independently validate radial physics/continuum convergence/experimental spectra.",
+    "Fixed-energy workflows differ in reusable energy-dependence and binding work; warm scope ratio is not a whole-software ranking.",
+    "Six-level BeII is small and uses separate native AMBiT physics; no matched Atomx BeII precision ranking exists.",
+    "OpenMP thread maxima are confirmed by actual program log; active OS worker occupancy was not sampled.",
+    "Shared-machine load gates pass but no exclusive-core/frequency isolation is claimed.",
+    "Native caches/angular data are warm; each scientific workspace is fresh; original and corrected entire observations retained."
+  ],
+  "insight": "Same fixed-energy output interfaces may perform different reusable binding/pole work; label scope. Python timeout wait polling must not be treated as native child lifetime. Full signed output identity and declared load guards precede performance ratios.",
+  "root_trace": "Parent owns shared ignored trace.md and current guide changes; this owner supplies EARS and evidence only."
+}

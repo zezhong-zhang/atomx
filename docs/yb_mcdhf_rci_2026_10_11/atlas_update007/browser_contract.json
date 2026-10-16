@@ -1,0 +1,59 @@
+{
+  "status": "prepared_pending_root_browser_authorization",
+  "execution_authorized": false,
+  "local_only": true,
+  "base_url": "http://127.0.0.1:39319",
+  "driver_sha256": "878cce25756b6bf3e63cad4d8ddfe0ded57bc0585d6aeeaf25a88f2fa49e2575",
+  "site_contract_sha256": "28fba85ec2fd718cec692b48c7aeefa18a49ef6ffdd78a5e71687c85bd5f99d2",
+  "overlay_sha256": "882c70442ea4c096085116ea42795f3193b6d01c635828b842424c165a02f541",
+  "page_sha256": "934e4b4d5401da2420c21d9926b2e30ef9283a27f57551e6b3c0bf1bd2e63c21",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/contract.json": "28fba85ec2fd718cec692b48c7aeefa18a49ef6ffdd78a5e71687c85bd5f99d2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/data_verification.json": "aac6dff43b8007b7c109150c980f9067861adf7ea6cb0cf83d4fd466f7419751",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/prepared.json": "a658e53549219af7c4c910d0d1a697954148e467426bb40f7d2310a9ee65fec2",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/old_models.json": "12527791c5a9e07a51bb3569373d4d5a510864a35671b1bbad6d2558c61926de",
+    "docs/yb_mcdhf_rci_2026_10_11/atlas_update007/build_execution.json": "d9c91ce5a5882def9934b05158d2de86279f07c08bd70e67ef9b8b17de0ee4f6"
+  },
+  "expected": {
+    "elements": 118,
+    "models": 21,
+    "rows": 84,
+    "trajectory_records": 277,
+    "five_state_records": 1385,
+    "each_new_fork_records": 33,
+    "common_lineage_points": 209,
+    "saved_distinct_point_identities": 262,
+    "shared_fork_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "preserved_old_models": 19,
+    "preserved_old_rows": 76,
+    "new_source_assets": 16
+  },
+  "resources": {
+    "CPU": 30,
+    "threads": 1,
+    "browser_max_seconds": 90,
+    "loopback_server": "selected site dist via owned static HTTP server only",
+    "browser": "existing installed Playwright/Chromium; no installation or alternate backend"
+  },
+  "actions": [
+    "Desktop and mobile render counts with no console/page errors.",
+    "Both fork titles, common209/66fork/277records/262identities and duplicate0–11 notes are visible; two global240 terminals stay separate.",
+    "Each full33point trajectory and all5UID states retained with original stationarity/experimentalFAIL and unchanged missing NIST sigma.",
+    "Literal terminal spectral values, old19models76rows, JSON download SHA and16new evidence assets exact.",
+    "Two trajectory artifacts each33points/5states, screenshot desktop/history10 and mobile/history40."
+  ],
+  "stopping": "Once after root review/seal; save first failure without retry. No science/arrays/publication/credentials/registry changes."
+}

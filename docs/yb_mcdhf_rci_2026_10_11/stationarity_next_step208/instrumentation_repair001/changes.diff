@@ -1,0 +1,52 @@
+--- failed_stationarity_next_step208/run.py
++++ instrumentation_repair001/run.py
+@@ -18,7 +18,7 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-REPO = HERE.parents[2]
++REPO = next(parent for parent in HERE.parents if (parent / "pyproject.toml").is_file())
+ 
+ 
+ def sha(path):
+@@ -121,6 +121,24 @@
+     if len(expected) != 5 or set(mapped) != expected:
+         raise ValueError("Incomplete original five targets")
+     return mapped
++
++
++def install_resolution_capture(tracker_type, target_tracker, capture):
++    """Observe only the target; delegate to the existing class counter wrapper.
++
++    Frozen tracker instances remain untouched. All other instances execute
++    their original resolution and return values without capture side effects.
++    """
++    previous = tracker_type.resolve
++
++    def resolve(self, *args, **kwargs):
++        result = previous(self, *args, **kwargs)
++        if self is target_tracker:
++            capture["weights"], capture["bindings"] = result
++        return result
++
++    tracker_type.resolve = resolve
++    return previous
+ 
+ 
+ def execute(contract, seal):
+@@ -346,14 +364,7 @@
+             check("literal_Px_" + str(key), not (np.array_equal(waves[key][0], saved["P"][j])
+                   and np.array_equal(waves[key][1], saved["Q"][j])))
+         capture = {}
+-        old_resolve = tracker.resolve
+-
+-        def resolve(*args, **kwargs):
+-            result = old_resolve(*args, **kwargs)
+-            capture["weights"], capture["bindings"] = result
+-            return result
+-
+-        tracker.resolve = resolve
++        install_resolution_capture(CIBasisTracking, tracker, capture)
+         guard = import_helper("stored_H_guard208", "exact_guard_helper")
+         class PointBudget(guard.ExactGuardBudget):
+             def reserve(self, roots, pairs):

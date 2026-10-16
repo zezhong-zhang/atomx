@@ -1,0 +1,20 @@
+{
+  "source_files": 334,
+  "changed_source_files": [
+    "src/atomx/methods/ci.py",
+    "src/atomx/methods/ci_mbpt.py",
+    "src/atomx/methods/mbpt_matrix.py",
+    "src/atomx/physics/csf/effective_one_body.py",
+    "src/atomx/physics/csf/matrix.py"
+  ],
+  "source_matches_native_replay": true,
+  "tests": {
+    "passed": 123,
+    "skipped": 1,
+    "strict_xfailed": 1
+  },
+  "native_replay_passed": true,
+  "reference_builds_passed": 3,
+  "new_Yb_accuracy_results": false,
+  "commit_created": false
+}

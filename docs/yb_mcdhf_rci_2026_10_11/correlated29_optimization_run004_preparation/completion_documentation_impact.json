@@ -1,0 +1,32 @@
+{
+  "scope": "Append-only actualrun004 results/closure; all frozen preparation and scientific actual records retained byte-identical",
+  "new": [
+    "complete_saved.py",
+    "completion_contract.json",
+    "closure_attempt001.json",
+    "closure_attempt001.log",
+    "complete_saved002.py",
+    "completion_contract002.json",
+    "closure_execution002.json",
+    "completion.json",
+    "RESULTS.md",
+    "completion_documentation_impact.json"
+  ],
+  "retained": [
+    {
+      "path": "README.md/run.py/contract.json/preparation_verification.json/handoff.json",
+      "reason": "Frozen exactroot preparation remains immutable; closure published separately"
+    },
+    {
+      "path": "actual/ and root_execution.json",
+      "reason": "Sole scientific run and complete qualified/forensic evidence preserved"
+    },
+    {
+      "path": "sharedsource/tests/globalprogress/site",
+      "reason": "Outside scope, no edits"
+    }
+  ],
+  "failed_metadata_attempt_preserved": true,
+  "no_scientific_rerun": true,
+  "source_only_resume_history_finding": "Current public state intentionally excludes secants; signature has no incominghistory; everycall starts history=[]; return_state/checkpoint do not export it. Do not claim exactalgorithmcontinuation or silently patch history for optimization speed."
+}

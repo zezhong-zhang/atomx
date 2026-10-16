@@ -1,0 +1,59 @@
+{
+  "status": "INDEPENDENT_SOURCE_AND_INTEGER_REVIEW_NO_NEW_SCIENCE",
+  "source_files": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/csf_hamiltonian_before.py": "da880507ac50da05db2db83a34352a701e50b8828deba0517e05c2e473b275d0",
+    "src/atomx/angular/csf_hamiltonian.py": "e10a3805067f545e5258cc809e596e96a653dc5a9ad5d9a97d2a1972c0e63a55",
+    "src/atomx/physics/csf/matrix.py": "7683c77db95c98687a7f66a066db51f69ab1dee2733adefad1bddb19fda7c1d0"
+  },
+  "shared_physics_AST_unchanged": {
+    "two_body_angular": true,
+    "_ops_sign": true,
+    "_radial_terms": true,
+    "_pair_terms": true,
+    "_core_contracted_pair_terms": true,
+    "_connected_pairs": true,
+    "csf_matrix": true,
+    "_block_csf_sparse_matrix": true,
+    "csf_block_matrix": true,
+    "verify_csf_span": true,
+    "_verify_cached": true,
+    "evaluate_block": true
+  },
+  "findings": [
+    {
+      "topic": "basis identity",
+      "conclusion": "_block_basis is literal determinant/sign-layout extraction from the old cached structure, preserving canonical patterns, raw-M cap, per-pattern slices and union spinor order."
+    },
+    {
+      "topic": "term algebra",
+      "conclusion": "Cached and streamed builders use _block_pair_terms, which reuses the unchanged signed core-contracted Slater-Condon algebra. Generic nonreciprocal evaluators retain radial_symmetry=False. No small amplitude/connection filtering is introduced."
+    },
+    {
+      "topic": "CSR row storage",
+      "conclusion": "Connection iterator is ordered. indptr advances through all determinant rows, including empty rows; all connections with nonempty angular terms survive, including exact zero numeric sums. Separate DC and Breit sums are combined after contraction, matching the cached physical operators."
+    },
+    {
+      "topic": "local numeric cache",
+      "conclusion": "Cache key includes complete radial key and lives only inside immutable operator construction. Separate evaluator caches prevent stale source identity or DC/Breit aliasing. Finite real/complex scalar and declared dtype checks are retained."
+    },
+    {
+      "topic": "diagonal locality proof",
+      "conclusion": "Each CSF belongs to exactly one occupation pattern p and has determinant support only S_p. Therefore H_CSF[k,k]=c_k.T Hdet[S_p,S_p] c_k. Cross-pattern Hdet entries cannot enter that diagonal. Projection after column permutation preserves this support. Matvec retains Hdet in full, including cross-pattern entries."
+    },
+    {
+      "topic": "exact nested A restriction",
+      "conclusion": "Same orbitals and all signed CSF signatures/coupling trees give a literal principal restriction of Bfull to Afull. This removes only the explicit nine B-specific NR rows; all82 additional4f12 NR rows remain in A and B."
+    },
+    {
+      "topic": "physical state matching",
+      "conclusion": "Use owned accepted13 A/B target eigenvectors as same-orbital reference embeddings; carry their already-qualified original531 tracking ancestry. Never directly index-embed the old531 coefficients across different orbitals."
+    },
+    {
+      "topic": "Bessel scope",
+      "conclusion": "For an isolated exact eigenvector, squared overlap>.5 outranks every omitted orthogonal vector by Bessel. Numerical residuals/Gram and the observed returned2-root gap qualify practical transport, not a rigorous omitted-spectrum gap certificate."
+    }
+  ],
+  "source_review_is_not_numerical_equivalence": true,
+  "root_must_admit_only_after_matched_small_source_pass": true,
+  "no_H_CI_eigenvalues_or_large_CSFs_evaluated_here": true
+}

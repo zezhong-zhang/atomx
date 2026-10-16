@@ -1,0 +1,42 @@
+{
+  "all_passed": true,
+  "all_three_proposed_files_parse": true,
+  "changes": {
+    "src/atomx/methods/ci.py": {
+      "before_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/before/src/atomx/methods/ci.py",
+      "before_sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+      "proposed_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/proposed/src/atomx/methods/ci.py",
+      "proposed_sha256": "aab2489390d86db1332b06cf1975576f112975b2e1e0bf72b43a28b163cb6358"
+    },
+    "src/atomx/physics/csf/matrix.py": {
+      "before_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/before/src/atomx/physics/csf/matrix.py",
+      "before_sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "proposed_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/proposed/src/atomx/physics/csf/matrix.py",
+      "proposed_sha256": "9bf727a9bf6d6a21eee0dbee75e0226757afb51b32872fd5f5dbfe5d8f577450"
+    },
+    "tests/test_ci_dense_orthogonality.py": {
+      "before_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/before/tests/test_ci_dense_orthogonality.py",
+      "before_sha256": "de285936d8017ceb38d65244f2e1f27b890439926f48004bc28615c48d71c1d1",
+      "proposed_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/shared_change_proposal/proposed/tests/test_ci_dense_orthogonality.py",
+      "proposed_sha256": "9cc78ff6b816f3f5660692cb8416920acb7b37c077be38931a054d71bc847ea3"
+    }
+  },
+  "complete_source356_map_equals_qualified003_candidate": true,
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/RESULTS.md": "c23397b06b770a1d2e02ce718a987862698d436004cff9a7fe1ac92762818c00",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/comparison.json": "a4bda374b3246398e480ac1d21ac50a17c7e1e4c7824989908d71deb74b79f76",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/actual/result.json": "04592757c7ef05a22b181453d31d708c6d41d3fe6d433b372447c42369c73836",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/candidate_source_identity.json": "0a0ab526e5de366253ddee8f3d75c4141ee28872e675efc2c1e2689e10fdf7b8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/completion.json": "b5b0cc9a5ab4a7b009058a197e9bde82043dfa068b5c064eba4a46458c2e98b0",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/contract.json": "dbbf3b09a5979ce55324c05dba0955d67afd5bcf33fa07068f4e7ac05cbfe78a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/ordinary_source_identity.json": "667e30c6472c4cd31857df173c1b3c27a4f50214be7d0880b7a4129949f40827",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/root_execution.json": "27fbab86c8be671bb0b390b96cf621e68444f70c5073e45fa61039e6d9649946",
+    "tests/data/ne_clustered_ci_block.json": "98e663af3ee7fd303fd0d44b78bf1c7d84ae50a35992edb8d6631715649eb817",
+    "tests/test_convol.py": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+  },
+  "legacy_six_testcases_body_byte_unchanged": true,
+  "numerical_calls": 0,
+  "shared_current_matches_all_three_before_images": true,
+  "shared_source_and_test_writes": 0,
+  "two_proposed_sources_byte_identical_to_qualified003_candidate": true
+}

@@ -1,0 +1,278 @@
+{
+  "dimensions": {
+    "NHF": 3696,
+    "NX": 4,
+    "NS": 2,
+    "KX1": 3,
+    "NXX": 4,
+    "NK": 3,
+    "NN": 2,
+    "KK": 3,
+    "NCH": 24,
+    "NXK": 15,
+    "NV": 24,
+    "NG": 7,
+    "NE": 4536
+  },
+  "occupied_keys": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -1
+    ]
+  ],
+  "virtual_keys": [
+    [
+      3,
+      -1
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      2,
+      -2
+    ],
+    [
+      3,
+      -2
+    ]
+  ],
+  "groups": [
+    [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ]
+    ],
+    [
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ]
+    ],
+    [
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        -2
+      ]
+    ]
+  ],
+  "channels": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      1
+    ],
+    [
+      0,
+      0,
+      2,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      2,
+      2,
+      1
+    ],
+    [
+      0,
+      0,
+      2,
+      2,
+      2
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      1,
+      0
+    ],
+    [
+      1,
+      0,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      2,
+      1
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      1
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      0
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    [
+      1,
+      1,
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      2,
+      2,
+      1
+    ],
+    [
+      1,
+      1,
+      2,
+      2,
+      2
+    ]
+  ],
+  "raw_amplitudes": 100,
+  "independent_scalar_amplitudes": 38,
+  "complete_payload_bound_bytes": 70332848,
+  "krylov_vector_bytes": 800,
+  "radial_pair_cache_size": 16384,
+  "radial_pair_cache_array_bound_bytes": 55050240,
+  "blas_initialization_scratch_bytes": 354816,
+  "term21_threads": 1,
+  "term21_mode": "streamed",
+  "term21_worker_scratch_bytes": 296192,
+  "term21_parallel_scratch_bytes": 1124120,
+  "core_singles_blas": true,
+  "core_singles_worker_scratch_bytes": 177536,
+  "core_singles_parallel_scratch_bytes": 650624,
+  "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+}

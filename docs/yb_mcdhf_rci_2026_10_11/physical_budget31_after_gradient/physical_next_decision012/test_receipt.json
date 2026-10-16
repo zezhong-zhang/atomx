@@ -1,0 +1,32 @@
+{
+  "status": "NEW_AND_AFFECTED_ANCHORS_PASS_LEGACY_MATCHED_FAILURES_PRESERVED",
+  "new_tests": 15,
+  "new_and_polar_state_tests_passed": 25,
+  "affected_panel": {
+    "passed": 67,
+    "failed": 2,
+    "seconds": 65.12,
+    "CPU": 25,
+    "threads": 1,
+    "AS_bytes": 4294967296
+  },
+  "before_panel": {
+    "passed": 42,
+    "failed": 2,
+    "seconds": 75.48,
+    "source_map_sha256": "f8307f6a107546aac9f528bf8344f127df0584ed352b3acd55678f2d731b49bf"
+  },
+  "unchanged_legacy_arrays": 39,
+  "before_after_review_sha256": "dd0b2a7a6e520841edb90f2f14b311cb2b91700a6c645f98392980bbeaa5352f",
+  "initial_setup_failure": "First unsealed invocation:37 passed/32 fixture setup errors, zero guarded-fixture producers; corrected by explicit resource/call contract, original result preserved.",
+  "preexecution_lint": "One loop-variable capture fixed before sealing; Ruff then PASS.",
+  "file_sha256": {
+    "src/atomx/numerics/variational_response.py": "50f0d92fa00b84ce62cf07b99dfa709378dff04a80f001c725221e6d8a459788",
+    "src/atomx/physics/csf/radial_increment.py": "ec98b42818ebf1fc7a816b1864e93f543d7d0a509f1d79ea5d4042b0ef00d4da",
+    "tests/test_variational_response.py": "7aa57ca01bd75717f149ac9694941540fb4eab577445848bdedcf053393156a4",
+    "tests/test_mcdhf_polar_retraction.py": "087ad7b00b39aee76e8eaf5fe2c817730dd4f800c1142803074383834559a810",
+    "tests/test_mcdhf_state_resolved_derivative.py": "ec99b5f65817e83d1738bafb9ad38becd62a2a564e385ecf2124e1d1ae9e5369",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8"
+  },
+  "scope": "Independent two-level closed-form, intermediate-normalization third-order recursion, signed phase, real/full-spectrum/gap/resource rejection; polar matrix derivatives including repeated Gram; native two/four-slot radial derivatives. Existing two legacy failures preserved."
+}

@@ -1,0 +1,7 @@
+{
+  "status": "pre-mutation provenance check failed",
+  "reason": "Runner incorrectly assumed every nested balanced RCI input appears directly in the delivered card source_identity. Actual receipt binds results_stage002 and baseline proof; results_stage002.inputs binds balanced result/verification transitively.",
+  "site_files_changed_before_failure": false,
+  "scientific_input_changed": false,
+  "resolution": "Require direct receipt-to-stage002/baseline hashes, then verify stage002-to-balanced result/verification hashes, without changing any scientific evidence or source."
+}

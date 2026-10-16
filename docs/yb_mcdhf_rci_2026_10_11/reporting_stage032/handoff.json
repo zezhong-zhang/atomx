@@ -1,0 +1,17 @@
+{
+  "status": "stage032_source_only_ready_pending_root_exact_execution",
+  "files_sha256": {
+    "registry_preparation_snapshot.json": "2b3c8001d1c47c580ea03b7b081ba00fbceb576efd206c3224d7275c9c2f518b",
+    "driver_diff.patch": "3e0f1eb80c323f321882ebf1fddcc28ebf1d0375238b8923ae2fc784e7595ced",
+    "EARS.md": "cd721ed671bb3f7a835ae92133e3c116cb1c6d0b92cb53df7a4c09737947a530",
+    "documentation_impact.json": "cc1df2381bc53924b47e79a5f433e7085f4f8ce2f25dc7ac1bc4f0348089a6ad",
+    "refresh.py": "2babafec2a4a2e7a9d84b6263dfe092674b4cccbd13be867ce23f41c5fb407a4",
+    "README.md": "b18198f854f2ae9f57ab77d60178f8e8f71f76bdfbdc736f48833de86b0b73aa",
+    "preparation.json": "79c9c2bfa9ba3268c18d747905f24b436a6d113a58801a4053da8eb152a1ab8b",
+    "contract.json": "265263f2e7468ce5c0b5751ec9b47cf4980f487176b0939c78ce2c9ba3ccd908"
+  },
+  "driver_command": "timeout --kill-after=5s 60s taskset -c 30 python docs/yb_mcdhf_rci_2026_10_11/reporting_stage032/refresh.py --execute --contract-sha256 265263f2e7468ce5c0b5751ec9b47cf4980f487176b0939c78ce2c9ba3ccd908",
+  "registry_changed": false,
+  "stage031_files_changed": false,
+  "new_API_science_NPZ_render_calls": 0
+}

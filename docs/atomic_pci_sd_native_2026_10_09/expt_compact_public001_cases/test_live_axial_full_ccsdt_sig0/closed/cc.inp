@@ -1,0 +1,14 @@
+title "Atomx signed native integrals"
+interface pyscf
+integrals ATOMX_ONE ATOMX_TWO
+model ccsdt
+sector 0h0p
+active 0 0 0 0 0 0 0 0 0 0
+maxiter 200
+conv 9.9999999999999998e-13
+diis 8
+diis triples
+memory 8192 mb
+tilesize 4
+nthreads 2
+disk_usage 0

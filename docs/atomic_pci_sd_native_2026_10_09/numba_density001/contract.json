@@ -1,0 +1,18 @@
+{
+  "hypothesis": "same complete ordered weighted cell arithmetic can compile to Numba CPU parallel and CUDA kernels at original signed FP64 gates",
+  "fixed": "Yb full008 68core/414radial-virtual/ns123/Fermi workspace; all59s keys,3481directed pair densities,3910tagged coordinates,all ranks0..7; same original polynomial A.T K_native A weights",
+  "direction": "fixed-geometry analytic density direction phi*dphi+dphi*phi, seed731050/native ns123 coefficient directions; not an SD energy/state derivative",
+  "gate": 1e-11,
+  "dtype": "real float64 C only; complex/other layout rejects",
+  "rounding": "CPU fastmath=False; CUDA explicit dadd_rn/dmul_rn; compiled PTX must contain no fma or atom instructions",
+  "threads": [
+    1,
+    8
+  ],
+  "host_cap_bytes": 2147483648,
+  "device_cap_bytes": 536870912,
+  "load_guard": 27,
+  "timing": "compile/first-use separate; three alternating warm CPU1/CPU8 full rank0 pairs. GPU resident and transfer-inclusive pairs only if load<=27 AND no other GPU compute PID before/after; otherwise no GPU ratio",
+  "stop": "failure of complete identity, cap, dtype, finite, signed or restoration gates rejects arithmetic. Failed load/device guards reject timing, not correctness. No public adoption or automatic backend fallback",
+  "scope": "one complete s-density radial subblock only, not all414partial waves, term2/SD/end-to-end/experimental accuracy or highest-level certification"
+}

@@ -1,0 +1,49 @@
+{
+  "script_sha256": "9882b49cde9b8d3543dce64ba6281229c25ffe402ef9a9ad828967e036926b65",
+  "primary_contract_sha256": "06498dce8d439a6848758c24ceb3b90551ef608e1c747d4e13d6d33063c65024",
+  "subset_policy": "Exact virtual-kappa and maximum virtual energy filtering; no amplitude threshold",
+  "cutoffs": [
+    {
+      "lmax": 4,
+      "emax_Ha": 5.0
+    },
+    {
+      "lmax": 4,
+      "emax_Ha": 20.0
+    },
+    {
+      "lmax": 4,
+      "emax_Ha": 50.0
+    },
+    {
+      "lmax": 5,
+      "emax_Ha": 5.0
+    },
+    {
+      "lmax": 5,
+      "emax_Ha": 20.0
+    },
+    {
+      "lmax": 5,
+      "emax_Ha": 50.0
+    },
+    {
+      "lmax": 6,
+      "emax_Ha": 5.0
+    },
+    {
+      "lmax": 6,
+      "emax_Ha": 20.0
+    },
+    {
+      "lmax": 6,
+      "emax_Ha": 50.0
+    }
+  ],
+  "bracket_policy": "For these additional subsets, choose [eps-.1,eps] if Sigma(eps)<0, otherwise [eps,eps+.1]; reject intervening weighted poles or missing roots",
+  "root_residual_Ha": 1e-10,
+  "cap_seconds": 120,
+  "matched_CI_energy_Ha": 1e-08,
+  "CI_residual_Ha": 1e-08,
+  "minimum_CI_squared_overlap": 0.99
+}

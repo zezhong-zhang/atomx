@@ -1,0 +1,204 @@
+{
+  "status": "FAILED_PARTIAL_METADATA_CLOSURE_NO_NUMERICAL_REPLAY",
+  "qualification_passed": false,
+  "original_result": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/actual/result.json",
+    "sha256": "001a2d0e49e62d4288c65538853d6bb2bd6911567212a14c9c489d56f3b6f7ee"
+  },
+  "foreground_receipt": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/controller/execution_receipt.json",
+    "sha256": "687af214a5f36bdeb19bc3350f0bbe51b84923735b67b36202fc45ef8bbb7cd5"
+  },
+  "root_seal": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/execution_binding.json",
+    "sha256": "565caad685fe5502fd5890c6deedcf1d8cffa08ad8ee00cdebf78e7e6175959d"
+  },
+  "original_contract": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/contract.json",
+    "sha256": "054e30a87e05809767ad0e35ce7efd292df0f0d519dc971432e5115ce854f083"
+  },
+  "original_driver": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py",
+    "sha256": "b701429af657575a006d8ca9ad05cc885162a5e973ae829b4842f04e6ffd91e7"
+  },
+  "controls": {
+    "total": 197,
+    "passed": 196,
+    "failed": [
+      {
+        "name": "saved_actual_owner_header",
+        "error": 1.0,
+        "limit": 0.0,
+        "passed": false
+      }
+    ]
+  },
+  "actual_calls": {
+    "H": {
+      "started": 1,
+      "completed": 1
+    },
+    "CI": {
+      "started": 1,
+      "completed": 1
+    },
+    "initial_hS": {
+      "started": 7,
+      "completed": 7
+    },
+    "CI_hS_producer": {
+      "started": 7,
+      "completed": 7
+    },
+    "hS_getter": {
+      "started": 38,
+      "completed": 38
+    },
+    "validation_Dirac": {
+      "started": 7,
+      "completed": 7
+    },
+    "SPD_eigvalsh": {
+      "started": 38,
+      "completed": 38
+    },
+    "scipy_eigh": {
+      "started": 12,
+      "completed": 12
+    },
+    "tracking_SVD": {
+      "started": 0,
+      "completed": 0
+    },
+    "tracking_resolve": {
+      "started": 0,
+      "completed": 0
+    },
+    "tracking_overlap": {
+      "started": 1,
+      "completed": 1
+    },
+    "target_RDM": {
+      "started": 0,
+      "completed": 0
+    },
+    "public_full_gradient": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_full_gradient": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_owner_factory": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_source_potential": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_band": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_density": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_density": {
+      "started": 0,
+      "completed": 0
+    },
+    "H_density": {
+      "started": 992,
+      "completed": 992
+    },
+    "factor_getter": {
+      "started": 0,
+      "completed": 0
+    },
+    "component_moment_getter": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_getter": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "same_component_inner_producer": {
+      "started": 14,
+      "completed": 14
+    },
+    "mixed_component_inner_producer": {
+      "started": 14,
+      "completed": 14
+    },
+    "NPZ_load": {
+      "started": 6,
+      "completed": 6
+    },
+    "CUDA_context": {
+      "started": 0,
+      "completed": 0
+    },
+    "optimizer": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "near_factor_producer": {
+      "started": 0,
+      "completed": 0
+    }
+  },
+  "actual_getter_ledgers": {
+    "hS": {
+      "requests": 38,
+      "completed": 38,
+      "hits": 31,
+      "misses": 7
+    },
+    "factors": {
+      "requests": 0,
+      "completed": 0,
+      "hits": 0,
+      "misses": 0
+    },
+    "dense_banks": {
+      "requests": 2824,
+      "completed": 2824,
+      "hits": 2796,
+      "misses": 28
+    },
+    "component_moments": {
+      "requests": 0,
+      "completed": 0,
+      "hits": 0,
+      "misses": 0
+    }
+  },
+  "first_failure_phase": "fresh_full1595_H_CI",
+  "unexecuted": [
+    "complete saved H/allroot/residual/Gram/span comparison",
+    "five target tracking and signed RDM qualification",
+    "ordinary full signed gradient",
+    "Numba CPU1/CPU4 gradients and masks",
+    "CUDA context/compile/bands/fullgradient",
+    "allbackend g/native metric gates"
+  ],
+  "cause_source_observation": "Driver compares identity_payload() nested tuples directly with persisted JSON lists. Original native31 FD consumer canonicalizes using plain() before exact comparison. This representation mismatch is not a numerical/Hamiltonian equivalence result. No field may be omitted or tolerance relaxed in successor.",
+  "source_epoch": "f043356; shared current owner epoch is separate and not certified by this run",
+  "elapsed_uncontrolled_s": 36.049154525855556,
+  "sampled_peak_RSS_bytes": 1330122752,
+  "resource_stop": null,
+  "new_NPZ_reads_or_rehashes": 0,
+  "new_numerical_imports_or_calls": 0,
+  "GPU_qualification": false,
+  "speedup_qualification": false,
+  "stationarity_or_experimental_certification": false,
+  "closed_files_preserved": true
+}

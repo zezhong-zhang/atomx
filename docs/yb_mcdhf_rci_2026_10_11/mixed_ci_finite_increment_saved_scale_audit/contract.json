@@ -1,0 +1,59 @@
+{
+  "status": "prospective_saved_array_causal_audit",
+  "authorization": {
+    "saved_arrays_only": true,
+    "physical_H_CI_gradient_optimizer": false,
+    "new_finite_evaluation": false
+  },
+  "hypotheses": [
+    "central difference truncation O(h^2) dominates failed h=1e-4 derivative",
+    "gradient or physical/numerical identity mismatch persists at smaller steps",
+    "roundoff/noise limits smallest finite step without diagnosing gradient"
+  ],
+  "fixed_conditions": "same archived13points/2directions/3signedscales/source/objective/weights/gradient; original failed contract and all gates unchanged",
+  "distinguishing_outcomes": "evaluate saved central derivatives against archived full gradient; order from errors and interscale deltas; Richardson uses already saved1e-4 and1e-6 only; no new radial/CI evaluation",
+  "original_derivative_gate": {
+    "relative": 1e-05,
+    "absolute": 1e-08
+  },
+  "classification": "h2 supported only if saved1e-6 is closer by >=20 and original derivative gate passes, plus two-scale extrapolation agrees with gradient; otherwise retain unresolved inconsistency. Tiny noise reported separately; no retrospective qualification upgrade",
+  "resources": {
+    "CPU_threads": 1,
+    "address_space_GiB": 1.0,
+    "wall_time_seconds": 60,
+    "max_H_builds": 0,
+    "max_CI_solves": 0,
+    "max_gradients": 0,
+    "max_optimizer": 0,
+    "maximum_saved_points": 13
+  },
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_00.npz": "335b12710fd48e736e85efcd2bde225648af633b46a0b20c6449475b89f02156",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_01.npz": "4a58cbf2739df72ed320473d34b8561ebdf099f072301eeffe0870693036b397",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_02.npz": "7893da6d4f86b2cddc56d8a6598c4ae75854d65323e3502faca4ca5af1a78eab",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_03.npz": "1743dd2e73249208df1a1759b71040180be7798a58cd0d4072a189146eed18a8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_04.npz": "f6f00d3c2bc20a6793b253092851c437d0c1c981dbfe0d1e906320b820af509b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_05.npz": "99b385796110c4b5a6055e7f3210c5a95798960462964be68a74a6f6a95ef22e",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_06.npz": "c704db7584b8d0e494cd4edadeb7599a2ac34f10d7440614b0df36daca0e7a68",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_07.npz": "74074926da038989731a760c0bdc5bcca60c9b7c60ae3d0662bc746e5f1a2a5b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_08.npz": "1b03b90d32bc940ea3779c7631993be92c8f5de283c5a5f7155c2e217c271460",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_09.npz": "7fd72c49640a958b5228593f7e602f00e03af616b2910362855168e5384dca02",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_10.npz": "c9399f6e302f9a071e4bd77302dbdc915de327273c345be98523990dd277adea",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_11.npz": "9566b8a5f866354b6061a0928be9e533c321dee934be9dfd170b866b845f1438",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/CI_12.npz": "8d3ce9d335316e6daae52f784ec9babd236c5dcb8ccd3703dabad6a93764c1e8",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/result.json": "375e51b6b72f44b61296b07178a27ae50be46c02cb59254963063b1e342d14d3",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/geometry_inputs.npz": "9fc4fb6af486a1178cbaa38b6b3f436a9762fea4186b350b4f06ddb382b83978",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_gradients.npz": "682be3fde73241248a75fd097dd100161463e0d6f8bfcb5a84625430e34c0c47",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/finite_diagnostics.json": "46fc04b7dfc381e873b9181184abe887be3659ecd7838abfb231f04ebd24da2f",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/generated_input_identity.json": "6a1a04fd1b74494a470244586b03ef20dda5ab9c54ca4a9ff141cedfedf68b13",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/candidate_calls.json": "08869bd076c78143139648f6a32a2ee2475a04d791f541fb6af2c20a86e4e259",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/frozen_calls.json": "f97f8b6dac7e3cd0ec462ea4a6ae3ae035d18da267fc7ac3ad5ac94388004a72",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/actual/oracle_signed_tables.json": "3b3dec9505690fabb4cb50a6302b8077146624ebab0e49c04c41a083c0d2519b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/qualification_contract.json": "76ef0081d4b96dce84db14917abc82e381f42a1a332337deb4611cbca80d1c73",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/execution_contract.json": "aac39a895035151da17bfdb1570d6358ea4ef0891850fb5d3b60caff88abbdfb",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/prepared_handoff.json": "1ef6cab59eac700bc8cfe7f3fd1ca441a18a452972fe4e0d5bc61aad1d3c94cc",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8"
+  },
+  "preserve": "closed failed actual/run/source/test/gates immutable; all outputs only this new audit directory"
+}

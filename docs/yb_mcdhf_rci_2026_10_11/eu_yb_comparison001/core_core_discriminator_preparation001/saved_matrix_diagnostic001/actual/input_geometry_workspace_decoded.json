@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "name": "orbital_keys",
+      "shape": [
+        24,
+        2
+      ],
+      "dtype": "<i8",
+      "bytes": 384
+    },
+    {
+      "name": "P",
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616
+    },
+    {
+      "name": "Q",
+      "shape": [
+        24,
+        123
+      ],
+      "dtype": "<f8",
+      "bytes": 23616
+    }
+  ],
+  "cumulative_decoded_bytes": 96151528
+}

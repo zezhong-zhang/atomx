@@ -1,0 +1,39 @@
+{
+  "scope": "Private measurement adapters/reports only; no production physics edits.",
+  "dispositions": [
+    {
+      "path": "README.md",
+      "action": "update",
+      "reason": "One current authoritative bounded AMBiT matched and native scaling report."
+    },
+    {
+      "path": "result.json",
+      "action": "retain",
+      "reason": "Original timeout-poll observations remain immutable; not native child lifetime."
+    },
+    {
+      "path": "result.corrected.json",
+      "action": "add",
+      "reason": "All paired corrected observations, full signed guards and clear scope."
+    },
+    {
+      "path": "failure_adapter001/",
+      "action": "retain",
+      "reason": "Tuple adapter failure/source/nonzero exit preserved."
+    },
+    {
+      "path": "../../BENCHMARKS_EXTERNAL.md",
+      "action": "parent_review",
+      "reason": "Parent merges overall comparison with other lanes; no child writes shared guidance."
+    },
+    {
+      "path": "../../AGENT_INSIGHTS.md",
+      "action": "parent_review",
+      "reason": "Stopwatch measurement and output-vs-method scope conclusions are bounded and source-backed."
+    }
+  ],
+  "ears": "ears.json",
+  "tests": "final_test_checks.xml",
+  "full_syntax_name_lint": "passed E9,F; full lint style observations retained in README, measured source bytes unchanged.",
+  "highest_level_claim": false
+}

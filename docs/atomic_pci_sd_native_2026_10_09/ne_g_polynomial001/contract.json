@@ -1,0 +1,35 @@
+{
+  "input": "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/ne_complete_s_p_d_f_g_50",
+  "Z": 10,
+  "seed": 314159,
+  "fixed": "all saved native DC orbitals, core/virtual channels, native cell rules, complete signed raw amplitudes",
+  "hypothesis": "disjoint core-pair work and component-tagged scratch improve full action without changed equations",
+  "action_gate_Ha": 1e-11,
+  "residual_gate_Ha": 1e-10,
+  "stop": "any complete signed action or root mismatch rejects optimization; no physical pruning",
+  "requested_threads": [
+    1,
+    4,
+    16
+  ],
+  "term21_mode": "streamed",
+  "core_singles_blas": true,
+  "radial_representation": "polynomial",
+  "load": [
+    29.119140625,
+    28.84423828125,
+    22.67041015625
+  ],
+  "load_guard": 24,
+  "timing_scope": "alternating warm full actions; initialization and root solve separately",
+  "memory_bytes": 4294967296,
+  "source_sha256": {
+    "/data/code/atomx/tools/benchmark_core_sd_term21.py": "39f9585cc32e922e5e8e7c59fa1d8779607f9969ae08c138885c967ef5a5aa33",
+    "/data/code/atomx/tools/build_pci_sd_backend.py": "30dee7d0da4ec30358baeed4ec6a4b849b10866d8b835aeb7fa68b84e466d901",
+    "/data/code/atomx/src/atomx/methods/core_sd.py": "01a47856201399b7c8a47162bed62f7cb66f1afd6766952d93258ded60b4cb7e",
+    "/data/code/atomx/src/atomx/methods/_pci_term21_compact.f90": "3b58e5b78562b03381711630832fcf1d163cea23ff0757126f2d33c95f8b3a2b",
+    "/data/code/atomx/src/atomx/methods/_pci_term21_streamed.f90": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+    "/data/code/atomx/src/atomx/methods/_pci_core_blas.f90": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+    "/data/code/atomx/src/atomx/methods/_pci_core_singles_blas.f90": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683"
+  }
+}

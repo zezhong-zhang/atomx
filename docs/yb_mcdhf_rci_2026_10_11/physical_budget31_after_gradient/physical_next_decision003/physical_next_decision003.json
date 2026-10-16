@@ -1,0 +1,233 @@
+{
+  "record_id": "physical-next-decision003",
+  "created_utc": "2026-10-13T02:10:02.723455+00:00",
+  "status": "source_JSON_only_physical_priority_decision_not_execution_contract",
+  "decision": "Prepare one native fixed31 paired correlation-by-radial-displacement experiment; no cutoff expansion, independent-arm optimization, fitted offset or automatic dispatch.",
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/diagnostic_summary002.json": "debba41e7d5726bcadea6cb4c4afa78440bfec402515d9368da5763558e12e79",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/actual/result.json": "c2178765aff7afb0a2a2897eeb0d26332b6f0b77cb04dcd6fd6b7be0f54673dd",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/gradient_producer_source_audit001/endpoint_radial_contraction_preparation002/root_execution.json": "57ba133937e5aa4bf20deaf188e572b15967b349b2f0a53221cbb07b16033b52",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/correlation_scope_audit001.json": "d8a0e939bf684b5345f745212d4f226318a130512f8f052ce759ae31e3cc9a7e",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/proposal.json": "ec4a18ba8a651750cd85bef9dbdf53ddec9a2d6c48df0a838222e3040cd32652",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/contract.json": "aebbe1c3526152623b9669393362946af8e0c16d94d3956fb088e0723a4cced2",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/actual/failure.json": "62ec06b7c03af18b6b8ce5cd9b9d1739ea8148472e759dea5f33e4c3975c3f64",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/execution_preparation002/root_execution.json": "43c9dc87a18e2cb69f782e936782b0b963454aa61f1aff1b794af22ecb83ffe9",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/conditional_response_summary.json": "e5cc20b9ad180d188229b48be22fdfc4b6d7d84b78fc3952b23a77d36772e0ec",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/root_execution.json": "8b8cece49c4cc6af05d8af0c8ba35ee13a2915ef03a3bf2f34e83fdd2532435d",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/actual/failure.json": "b37f29a691a8bdc29d4f9d877dc657fa2509912aadacff0b6d1bb35f74841b21",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0013.json": "74c307b2b5923aac23d03ce200fb6e34ecdd77195fb1eafbbf650250cccb1b19",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json": "7c6eb2f800c0595c004c38aaf869596569c7405a35a9851b88a18de8da77eb17",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/closure001/completion.json": "590a0113eb791303c45882876c0e0be678db16d164d9eaa11e0a4a1f789a3607",
+    "docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/terminal_observable_decomposition001.json": "b4111ba75a9fcdc9330187706e55a6e15eb5aa2e62ffe0cdc05d4681be73e224",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/contract.json": "52dba8b6423ed68f5a419dd6652ab0009e22aadc4623cc108df5fa2a89c167a8",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/root_execution.json": "06f62b9d1aa63fb44514403ba560476dbb58315c11b221b2f484db026290b2bd",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/growth_step12_source_diagnosis001/stageB_execution_preparation001/actual/failure.json": "7d56149359905d5747308879cbea66e2be55572f6b986f20936ad91226026e6c",
+    "docs/atomic_native_roadmap_2026_10_11/eu_baseline/evidence.json": "3280f7906883ce9ce230dc02a8845815440596cbc19559fdeb18191745f7ae80",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/state_average.py": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/orbital_optimization.py": "525085b5fc56fcc12d9423d677f067186793d7e83cc6ed12487a03e529de76e1",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167"
+  },
+  "measured_scales": {
+    "producer_endpoint_pair": {
+      "context": "StageB baseline/h0-plus; 1595 CI, 31 waves, original five signed UIDs",
+      "poly_minus_stored_Ha": 2.8954207644674315e-11,
+      "approximate_energy_cm1": 6.35e-06,
+      "scope": "One pair arithmetic difference; not a transition-error bound or a producer/gradient repair"
+    },
+    "accepted13": {
+      "RMS_cm1": 910.7150815960732,
+      "original_residual": 0.15397840068607158,
+      "indicator_Ha": 0.08405452468328684,
+      "four_nominal_gaps_cm1": [
+        1003.8092372270075,
+        453.40481419395655,
+        -1094.880759941232,
+        -951.6485961846192
+      ]
+    },
+    "accepted13_fixed_wave_5p_double_conditional": {
+      "four_transition_shifts_cm1": [
+        468.0649186095487,
+        673.7040794496625,
+        149.14131401822453,
+        160.82304122468898
+      ],
+      "RMS_before_cm1": 910.7150815960732,
+      "RMS_after_cm1": 1113.1729590120467,
+      "D_centroid_shift_cm1": 591.4484151136166,
+      "P_centroid_shift_cm1": 156.92913215587032,
+      "all_five_absolute_energies_lower": true,
+      "qualified_source_or_training_sample": false
+    },
+    "terminal16": {
+      "RMS_cm1": 1283.7699121117464,
+      "original_residual": 0.68254770188387,
+      "indicator_Ha": 0.6018594158445788,
+      "four_nominal_gaps_cm1": [
+        -1496.4984426797237,
+        -1480.1594931948785,
+        -1336.5403918365373,
+        -612.8138507942531
+      ],
+      "production_continuation_endpoint": true
+    },
+    "interpretation": "The recorded correlation response is hundreds of cm^-1 and the nonstationary radial trajectory changes spectra substantially. The local micro-cm^-1 producer discrepancy warrants correctness qualification but cannot account for thousand-cm^-1 gaps. No measured current31 Breit/QED/recoil contribution is asserted; indicator is not an energy or spectrum error bound."
+  },
+  "first_principles": [
+    "At fixed common orbitals R, each model defines X_C(R)=E_upper,C(R)-E_lower,C(R). Correlation lowers variational absolute energies without forcing X_C toward experiment; measured accepted13 core energies demonstrate this.",
+    "Both the retained-space CI coefficients and radial orbitals respond to an excitation-class change. Therefore delta_corr(R) depends on R; its value cannot be transferred as an additive offset to another checkpoint.",
+    "Balanced treatment retains the same allowed excitation classes, Hamiltonian and common radial variation for lower and upper states. It does not require equal CSF counts, equal level shifts, or degeneracy-weighted orbital targets.",
+    "Nonzero full constrained EOL gradient is evidence of unresolved stationarity; failed residual/indicator gates do not identify a missing operator or supply a quantitative spectrum error bound."
+  ],
+  "experiment": {
+    "hypothesis": "The substantial frozen-orbital 5p two-hole response changes under common correlated radial relaxation; a paired finite difference can separate that interaction from ordinary baseline relaxation.",
+    "anchor": "Literal accepted13 is used solely because the two model arms and failed complete-H diagnostic are already bound there; it is not selected by NIST. No rewind or replacement of terminal16 production trajectory.",
+    "fixed": {
+      "Z": 70,
+      "A": 175,
+      "electrons": 69,
+      "ns": 123,
+      "radial_orbitals": 31,
+      "coordinates": 3689,
+      "nucleus": "native sampled Fermi A175",
+      "operator": "unshifted native Dirac-Coulomb",
+      "kappas": [
+        -4,
+        -3,
+        -2,
+        -1,
+        1,
+        2,
+        3
+      ],
+      "original_UIDs": [
+        [
+          "6s_1/2",
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        [
+          "5d_3/2",
+          [
+            3,
+            1,
+            0
+          ]
+        ],
+        [
+          "5d_5/2",
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        [
+          "6p_1/2",
+          [
+            1,
+            -1,
+            0
+          ]
+        ],
+        [
+          "6p_3/2",
+          [
+            3,
+            -1,
+            0
+          ]
+        ]
+      ],
+      "equal_weights": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "metric_sha256": "feda81d4cf3349a9a36c7ca4959a9990a70a9cbfb71145711f9f85800075c8c9",
+      "geometry_sha256": "0abc1f536a971f6663daa7bb97f42b02ae0025633d9efd2adc6d24f58aa56f79",
+      "objective_identity": "b246bac2157825ff976636ad3394ac422fbcce14050c206666afd58ac8ab3e5e"
+    },
+    "arms": {
+      "A": "All91 original NR configurations / all1595 selected CSFs / five complete target symmetry sectors.",
+      "B": "The same91 plus the existing complete nine 5p4 three-particle NR rows / all100 configurations and2574 selected CSFs. No new radial keys, particle pool, deeper-hole class or correction."
+    },
+    "minimum_four_points": [
+      "A(R0)",
+      "B(R0)",
+      "A(Rdelta)",
+      "B(Rdelta)"
+    ],
+    "direction": "Use the full baseline-A correlated EOL gradient, its original constrained metric and original no-pair projector to form a complete preconditioned steepest direction. Preserve all same-kappa rotations, signed cross terms and native polar retraction; do not mask orbitals or reuse the measured large L-BFGS step12 direction.",
+    "step": "Later source preparation must freeze one finite step from the physical tangent norm before trial-energy evaluation. Check signed descent and the original Armijo inequality in both arms. If either fails, retain the directional response but stop without admitting a relaxation update or searching other steps.",
+    "main_observable": "For every upper-minus-common-lower line compute I = [X_B(Rdelta)-X_A(Rdelta)] - [X_B(R0)-X_A(R0)] = delta_relax_B - delta_relax_A. This is a measured correlation-by-relaxation interaction, not an extra correction.",
+    "also_save": "All five absolute energies, signed complete CI mixing/actual norms, physical UID tracking, original metric residual and indicator at all four points; each four-line transition, D/P centroid and splitting; full source/model/snapshot identities.",
+    "distinguishing_outcomes": {
+      "nonzero_resolved_interaction": "A fixed-wave 5p correction cannot stand in for reoptimized balance; qualify finite-budget five-state MCDHF in the named model before adding classes.",
+      "interaction_not_resolved": "Report that conclusion only at the chosen finite displacement. It does not prove absence at a stationary point or justify removing configurations; first reach qualified baseline radial stationarity, then consider complete 4f double-hole or mixed-core classes at a common endpoint.",
+      "tracking_or_identity_loss": "Stop. A changed root or projector cannot be interpreted as differential correlation."
+    },
+    "acceptance": "Complete same-point native residual/Gram/owner/projector/signed UID gates, plus qualified directional derivative and the original actual energy comparison. Either sign of I and either movement of NIST gap is a valid diagnostic outcome; no experimental-improvement filter.",
+    "stop": "One declared common displacement after qualification, no cutoff/seed/weight/step scan, no automatic retry or production checkpoint selection."
+  },
+  "required_before_execution": [
+    "Complete the root-owned same-pair forward/transpose discriminator. A pass there alone does not qualify an energy callback or restore the two original ordinary StageB finite-difference gates.",
+    "Any producer repair needs an explicitly frozen source epoch, matched complete-H/signed gradient/actual CI response controls and the original derivative criteria. Independently qualify the chosen common direction in both complete model arms; do not inherit the one-direction historical centered check as a general certificate.",
+    "Resolve or separately qualify the complete expanded-H source/representation, angular projection and live consumer call boundaries. The original core exact nested-byte FAIL and saved-diagnostic module-boundary FAIL remain archived FAIL; their small arithmetic bound is not a pass or permission to relax those gates.",
+    "Bind closed literal13 wave/state archive identities only in a reviewed execution contract; this record performs no NPZ access. Restore its exact projector/native metric and original531 signed tracker. The expanded arm has a new CSF objective identity even with the same five weights; do not silently resume baseline identity across it.",
+    "Predeclare raw2659 support, complete angular/gradient work, input decoding, memory/CPU/thread/wall caps and load gate before access/allocation. Existing8GiB H construction is a precedent, not a measured expanded-gradient peak or blanket admission.",
+    "Keep NIST validation-only, all experimental uncertainties unchanged/null where absent; use no Eu fitted scale and no imported FAC/GRASP/Breit/QED offset."
+  ],
+  "native_dependencies": {
+    "CSF_and_signed_angular_space": "config.csf.enumerate_jj_csfs/get_shared_orbital_basis; angular.csf_hamiltonian complete tables",
+    "objective_and_gradient": "methods.csf.variational.CSFOrbitalFunctional.evaluate / gradient_from_weights; physics.csf.radial_density.CIRadialDensity",
+    "physical_state_identity": "physics.csf.state_average.CIStateAverage; physics.csf.tracking.CIBasisTracking.resolve bound to the original531 reference",
+    "CI_and_H": "methods.ci.ci_solve; physics.csf.matrix complete native Dirac-Coulomb builder with retained Hamiltonian owner",
+    "geometry": "numerics.bspline.orbital_optimization.OrbitalOptimizationState.from_arrays and native polar retraction; same fixed no-pair space/inverse metric",
+    "future_production_continuation": "Only after separate qualification, optimize_orbitals resumes actual terminal16 with unchanged baseline objective. Expanded objective changes require explicit new identity. The diagnostic performs no optimizer call."
+  },
+  "work_before_science": {
+    "nominal_complete_H_builds": 4,
+    "nominal_complete_CI_solves": 4,
+    "nominal_full_gradients": 4,
+    "nominal_optimizer_calls": 0,
+    "counts_exclude_prerequisite_derivative_and_source_qualification": true,
+    "known_dense_H_bytes": {
+      "A": 20352200,
+      "B": 53003808
+    },
+    "known_raw_support_max_B": 2659,
+    "reuse": "Cache immutable complete angular structure per model; new immutable radial/H snapshot for every trial. Reuse same-point qualified CI only when owner and complete wave/source identity match; count qualification/archive overhead.",
+    "unmeasured": "Expanded-gradient nnz/peak memory and controlled timings. No performance or AI speedup claim."
+  },
+  "scope_boundaries": {
+    "current_shared_source_adopted": false,
+    "source_fixed": false,
+    "stationarity_qualified": false,
+    "experimental_accuracy_qualified": false,
+    "physics_complete": false,
+    "Eu_calibration_independent": false,
+    "Breit_QED_recoil_current31_measured_by_this_record": false,
+    "automatic_dispatch": false,
+    "cards_or_timers": false
+  },
+  "performed": {
+    "JSON_source_read_and_hash_only": true,
+    "NPZ_stat_hash_header_body_access": 0,
+    "numerical_imports": 0,
+    "H_CI_gradient_optimizer_calls": 0,
+    "shared_source_or_current_guide_edits": 0
+  },
+  "documentation_disposition": "New owned decision record only. Root owns current-topic navigation and EARS integration; architecture/public capability interfaces remain unchanged. No new cross-task insight is promoted."
+}

@@ -1,0 +1,29 @@
+{
+  "status": "implemented and small focused controls qualified; full531 consumer awaiting root review/authorization",
+  "complete_source_files": 354,
+  "source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "previous_source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "artifacts_sha256": {
+    "source_identity002.json": "5fa0e1d3ffc1c7cce00c6757fa8c6c821c5997500251cbdd635cd0e711b9c94d",
+    "unit_contract003.json": "0791e1bc6ad5186d00b052bb974c7290f3cce5fb2d2149449cced0aca6309cb1",
+    "unit_execution003.json": "017043c25c4b9f6bcc44fb589994e110e9ce84fa3493e5e3d8b64e49ed8f8314",
+    "unit_controls003.log": "a796547f72f3219f66d71dbfccf5810d63cd8ec1790f542360a843c89c4b8b1d",
+    "README.md": "1f084269d5c79317051db3267d2f0d442961a1cbcac970b72e585064576e3abc",
+    "verification.json": "edcab2da0a183da3497188150ba9c4a55bb746ce04f00ce22dd865a548220296",
+    "verify_implementation.py": "e2c9e50e295bf82e9e96e799532fc5e68d3c4a745662329387f0be1814efe55e",
+    "run_unit_controls.py": "3d42ce8f447dba7301b7cd9f5c702165c509d91820c4c6117e159348334b9eb4",
+    "documentation_source_identity.json": "f35992fa82579cd0f06291a92aba384420e78f23aa0e83eda924b4715c9700ba"
+  },
+  "changed_sources_sha256": {
+    "src/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "src/atomx/methods/csf/variational.py": "d5ea615f5ca52d17f193de0de56d0140713a84d850a14c52bda8a1b9154d3a94",
+    "src/atomx/physics/csf/hamiltonian_snapshot.py": "82880c2b47af7ae5b1451f2e7afbd4cdc0561b497738786fa73288100b3504b2"
+  },
+  "test_sha256": "6a2d09a5b831bc77dc01cf2606e762cfae0b16474beb98ba6042326eb5de77ec",
+  "actual_unit_tests_passed": 85,
+  "readonly_checks_passed": 767,
+  "physics_scope": "complete small native Bspline Dirac-Coulomb only; no large531 calls, no optimizer calls, no speedup",
+  "actual_build_counter_gate": "trial1 + accepted-gradient0 + checked-getter0 + independent fresh1",
+  "full531_consumer_owner": "yb_mcdhf_native/hamiltonian_snapshot_qualification",
+  "guard": "no further source/test/contract edits planned; full531 still requires sourcebound contract/root explicit execution"
+}

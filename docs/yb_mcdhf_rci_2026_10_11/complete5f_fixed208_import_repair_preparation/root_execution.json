@@ -1,0 +1,35 @@
+{
+  "status": "foreground_closed",
+  "exit_code": 1,
+  "started_utc": "2026-10-11T17:24:04.312443+00:00",
+  "finished_utc": "2026-10-11T17:25:01.664966+00:00",
+  "elapsed_uncontrolled_seconds": 57.35254703485407,
+  "command": [
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "2055s",
+    "/data/code/atomx/.venv/bin/python",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/run.py",
+    "--execute",
+    "--binding",
+    "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_import_repair_preparation/execution_binding.json"
+  ],
+  "binding_sha256": "c69c30e506c5729d41e68e10db7f773d538a497db9e5da3053d62b6dd84c6ce5",
+  "driver_sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57",
+  "launcher_sha256": "df0a9ee88c74c40cfa14c0ac84298237f0873a6a7108b1acb1997a42e569cd94",
+  "contract_sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+  "log_sha256": "7c72a87416533235c998cfb876f148fcfb55592b76a38def8929e845a13be45d",
+  "partial_outputs_retained": true,
+  "no_retry": true,
+  "timing_claim_valid": false,
+  "actual_card_trigger": {
+    "message_id": "om_x100b638847e328a0c3481985e0c6222",
+    "delivery_proof_path": "docs/yb_mcdhf_rci_2026_10_11/delivery_hour25/delivery_authorization_proof.json",
+    "delivery_proof_sha256": "1fdca9428d73bd08d76f989c8e588f80ea44c7c69bde6a6310835078a0014b80",
+    "service_status": "waiting_for_evidence_repair_no_scientific_jobs",
+    "root_separate_native_launch": true
+  },
+  "outer_wall_seconds": 2055,
+  "kill_after_seconds": 5
+}

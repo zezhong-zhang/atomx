@@ -1,0 +1,237 @@
+{
+  "source": "../yb_high_l003/actual/failed_arrays.npz",
+  "sha256": "76148f5821e0fa2cf1ab9fbada2ff898aca95382f19382ee38d05def858275c9",
+  "whole_field_plan": {
+    "occupied_keys": {
+      "shape": [
+        19,
+        2
+      ],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "occupied_P": {
+      "shape": [
+        19,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "occupied_Q": {
+      "shape": [
+        19,
+        123
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "nuclear_grid": {
+      "shape": [
+        115,
+        9
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_-4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_-4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_-3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_-3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_-2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_-2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_-1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_-1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_1": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_2": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "Fock_raw_3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_3": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "original_full_electron_E_4": {
+      "shape": [
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "original_full_electron_V_4": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "original_root_separation_4": {
+      "shape": [
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "original_column_overlap_4": {
+      "shape": [
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "refined_energy_shift_4": {
+      "shape": [
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "fixed_band_indices_4": {
+      "shape": [
+        67
+      ],
+      "dtype": "<i8",
+      "fortran_order": false
+    },
+    "Fock_raw_4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "S_4": {
+      "shape": [
+        246,
+        246
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "full_electron_E_4": {
+      "shape": [
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    },
+    "full_electron_V_4": {
+      "shape": [
+        246,
+        119
+      ],
+      "dtype": "<f8",
+      "fortran_order": false
+    }
+  },
+  "deferred_decode": [
+    "occupied_keys",
+    "occupied_P",
+    "occupied_Q",
+    "Fock_raw_4",
+    "S_4",
+    "original_full_electron_E_4",
+    "original_full_electron_V_4",
+    "fixed_band_indices_4"
+  ],
+  "excluded_failed_refined_columns": true,
+  "array_body_reads": 0,
+  "numerical_imports": 0
+}

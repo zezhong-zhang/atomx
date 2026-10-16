@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py", line 507, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py", line 496, in main
+    execute(args.execute)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py", line 366, in execute
+    check('fresh_DC_exact_whole_saved_H', not (np.array_equal(H, old['H']) and H.tobytes() == old['H'].tobytes()))
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/run.py", line 170, in check
+    raise ValueError('Original gate failed: ' + name)
+ValueError: Original gate failed: fresh_DC_exact_whole_saved_H

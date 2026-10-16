@@ -1,0 +1,688 @@
+{
+  "all_static_import_JSON_and_hash_checks_passed": true,
+  "checks_count": 113,
+  "checks": [
+    {
+      "name": "driver_exact_one_import_line_diff",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/fixed",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/source",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/hypothesis",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/models_sha256",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/acceptance",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/resources",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/numerical_method",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/stopping",
+      "passed": true
+    },
+    {
+      "name": "unchanged_physics_gates_caps/execution_binding_required",
+      "passed": true
+    },
+    {
+      "name": "models_exact_original_bytes",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/tracking_ci",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/tracking_orbitals",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/geometry_workspace",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/screened_geometry",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/screened_basis",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/nominal_NIST_rows",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/saved_layout",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/literal208_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/literal208_arrays",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/literal208_completion",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/literal208_receipt",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/literal208_contract",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/integer_preflight",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/refinement_helper",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/refinement_qualified_proof",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/historical_minimum_failure",
+      "passed": true
+    },
+    {
+      "name": "same_original_role/current_card_panel",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.npz",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/completion.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/physical_next_step208/integer_space_estimates.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/refine_spectrum.py",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/rank_vs_virtual_discriminator/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/reporting_stage024/current_card_evidence.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/run.py",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/contract.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/preparation.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/execution_binding.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/actual/failure.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/actual/execution_source.py",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/complete5f_fixed208_preparation/root_execution.json",
+      "passed": true
+    },
+    {
+      "name": "input_bytes/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "passed": true
+    },
+    {
+      "name": "original_import_failure_retained",
+      "passed": true
+    },
+    {
+      "name": "original_all_producer_counters_zero",
+      "passed": true
+    },
+    {
+      "name": "original_no_array_archives",
+      "passed": true
+    },
+    {
+      "name": "predecessor_source_retained",
+      "passed": true
+    },
+    {
+      "name": "original540_stays_original_SCOPE",
+      "passed": true
+    },
+    {
+      "name": "original_frozen356",
+      "passed": true
+    },
+    {
+      "name": "all356_source_bytes_exact",
+      "passed": true
+    },
+    {
+      "name": "driver_AST_not_evaluated_or_compiled",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.angular/mscheme",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.angular.csf_hamiltonian/csf_magnetic_vector",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.angular.csf_hamiltonian/csf_signature",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.config.csf",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.config.csf/enumerate_jj_csfs",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.config.csf/get_shared_orbital_basis",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.constants/HARTREE_CM1",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.methods",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.methods/ci",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.numerics.bspline/dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.numerics.bspline.convol/ConvolCache",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.physics.csf/matrix",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.physics.csf/tracking",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.physics.csf.levels",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.physics.csf.levels/ci_level_blocks",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.physics.csf.state_average",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.physics.csf.state_average/CIStateAverage",
+      "passed": true
+    },
+    {
+      "name": "import_parent_exists/atomx.potentials.nuclear",
+      "passed": true
+    },
+    {
+      "name": "import_name_exists/atomx.potentials.nuclear/make_nuclear_potential",
+      "passed": true
+    },
+    {
+      "name": "dirac_alias_has_exact_solve_dirac_API",
+      "passed": true
+    },
+    {
+      "name": "old_nonexistent_submodule_still_absent",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/candidate_source_identity",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/literal208_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/literal208_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/literal208_completion",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/literal208_completion",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/refinement_qualified_proof",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/refinement_qualified_proof",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/screened_basis",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/screened_basis",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/literal208_contract",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/literal208_contract",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/transitive_original_screened_models",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/transitive_original_screened_models",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/tracking_binding",
+      "passed": true
+    },
+    {
+      "name": "JSON_fields/nominal_NIST_rows",
+      "passed": true
+    },
+    {
+      "name": "JSON_semantics/nominal_NIST_rows",
+      "passed": true
+    },
+    {
+      "name": "layout7_exact_JSON_fields",
+      "passed": true
+    },
+    {
+      "name": "models_complete_JSON_fields",
+      "passed": true
+    },
+    {
+      "name": "root_actual_trigger_schema_example",
+      "passed": true
+    }
+  ],
+  "static_import_bindings": [
+    {
+      "module": "atomx.angular",
+      "import_name": "mscheme",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py",
+      "source_sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+      "kind": "submodule"
+    },
+    {
+      "module": "atomx.angular.csf_hamiltonian",
+      "import_name": "csf_magnetic_vector",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py",
+      "source_sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "kind": "FunctionDef"
+    },
+    {
+      "module": "atomx.angular.csf_hamiltonian",
+      "import_name": "csf_signature",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/csf_hamiltonian.py",
+      "source_sha256": "287d1cc46d4735a6f112754a945eadad7a06252f28d66dbab516eef046f85167",
+      "kind": "FunctionDef"
+    },
+    {
+      "module": "atomx.config.csf",
+      "import_name": "enumerate_jj_csfs",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py",
+      "source_sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+      "kind": "FunctionDef"
+    },
+    {
+      "module": "atomx.config.csf",
+      "import_name": "get_shared_orbital_basis",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py",
+      "source_sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+      "kind": "FunctionDef"
+    },
+    {
+      "module": "atomx.constants",
+      "import_name": "HARTREE_CM1",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/constants.py",
+      "source_sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+      "kind": "assigned_name"
+    },
+    {
+      "module": "atomx.methods",
+      "import_name": "ci",
+      "alias": "ci_module",
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/methods/ci.py",
+      "source_sha256": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+      "kind": "submodule"
+    },
+    {
+      "module": "atomx.numerics.bspline",
+      "import_name": "dirac_assembly",
+      "alias": "dirac",
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/dirac_assembly.py",
+      "source_sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+      "kind": "submodule"
+    },
+    {
+      "module": "atomx.numerics.bspline.convol",
+      "import_name": "ConvolCache",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/numerics/bspline/convol.py",
+      "source_sha256": "196c2c42b5ea88f8b27d6a5ffdcaafcbd80404d8391b391e35eabbcbba4e8dbe",
+      "kind": "ClassDef"
+    },
+    {
+      "module": "atomx.physics.csf",
+      "import_name": "matrix",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/matrix.py",
+      "source_sha256": "ec3daddf4f2208a0e14075ef1e596185691698e7cc262fe23ca2f7a7d0b7911e",
+      "kind": "submodule"
+    },
+    {
+      "module": "atomx.physics.csf",
+      "import_name": "tracking",
+      "alias": "tracking_module",
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/tracking.py",
+      "source_sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+      "kind": "submodule"
+    },
+    {
+      "module": "atomx.physics.csf.levels",
+      "import_name": "ci_level_blocks",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/levels.py",
+      "source_sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946",
+      "kind": "FunctionDef"
+    },
+    {
+      "module": "atomx.physics.csf.state_average",
+      "import_name": "CIStateAverage",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/physics/csf/state_average.py",
+      "source_sha256": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8",
+      "kind": "ClassDef"
+    },
+    {
+      "module": "atomx.potentials.nuclear",
+      "import_name": "make_nuclear_potential",
+      "alias": null,
+      "source_path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source/atomx/potentials/nuclear.py",
+      "source_sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0",
+      "kind": "FunctionDef"
+    }
+  ],
+  "JSON_field_schemas": [
+    {
+      "role": "candidate_source_identity",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/candidate_source_identity.json",
+      "fields": [
+        "source_map_sha256",
+        "all_atomx_python_sha256"
+      ],
+      "sha256": "69a3885100477cf7ba7064fd3a489cf00badeff067d6bde38c488215bdf7ceee",
+      "passed": true
+    },
+    {
+      "role": "literal208_checkpoint",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "fields": [
+        "global_accepted_step",
+        "iteration",
+        "checkpoint_qualified",
+        "stationarity_passed",
+        "source_map_sha256",
+        "metric_sha256",
+        "geometry_sha256",
+        "objective_sha256",
+        "array_sha256",
+        "owner",
+        "targets",
+        "diagnostics"
+      ],
+      "sha256": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c",
+      "passed": true
+    },
+    {
+      "role": "literal208_completion",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/completion.json",
+      "fields": [
+        "all_completion_metadata_checks_passed",
+        "all_actual_live_controls_passed",
+        "total_global_accepted_steps",
+        "stationarity_passed",
+        "actual_foreground_exit_code"
+      ],
+      "sha256": "ad155b2b9d5ecb2d3b942939664e2712a2ed0e63b053c424ed49e55b0ea55332",
+      "passed": true
+    },
+    {
+      "role": "refinement_qualified_proof",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "fields": [
+        "all_independent_saved_array_checks_passed"
+      ],
+      "sha256": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b",
+      "passed": true
+    },
+    {
+      "role": "screened_basis",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "fields": [
+        "balanced_virtual"
+      ],
+      "sha256": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832",
+      "passed": true
+    },
+    {
+      "role": "literal208_contract",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run005_preparation/contract.json",
+      "fields": [
+        "input_roles",
+        "fixed",
+        "source",
+        "metric"
+      ],
+      "sha256": "2bc0a06209a39b6197a1da03ffa56c1649536cf97d5a583e1f2cf9a3b2fed739",
+      "passed": true
+    },
+    {
+      "role": "transitive_original_screened_models",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "fields": [
+        "models"
+      ],
+      "sha256": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+      "passed": true
+    },
+    {
+      "role": "tracking_binding",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "fields": [
+        "targets"
+      ],
+      "sha256": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+      "passed": true
+    },
+    {
+      "role": "nominal_NIST_rows",
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/same_point_evidence.json",
+      "fields": [
+        "DC_rows"
+      ],
+      "sha256": "8f6071b1f302a38d9d6eb3ec573b2697fcd98f086eeb7e5fead8d5bafe6b7a89",
+      "passed": true
+    }
+  ],
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "contract_sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+  "driver_sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57",
+  "models_sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b",
+  "preparation_driver_sha256": "f1f5d97a1bdf94f2bccf98409cc6ac0f23a031e7b81024fff6f790cc00e59c83",
+  "failed_predecessor_receipt_sha256": "8bfb21f3aeae1f0f54d679a4d0f28757f00dcdf1e75508e917099818656b2f3c",
+  "prepared_scientific_calls": 0,
+  "prepared_NPZ_array_reads": 0,
+  "driver_evaluation_or_compilation": 0,
+  "numpy_scipy_Atomx_imports": 0,
+  "automatic_retry": false,
+  "import_smoke_executed": false,
+  "scientific_execution_authorized": false,
+  "scope": "Names/exports from actualfrozenPythonAST and allconsumedJSONfieldschemas verified; no dynamic import assurance or physical qualification. Original540proof/failedlaunch retained."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PREDECLARED_GUARDED_AFFECTED_REGRESSION",
+  "initial_panel": "37 passed,32 setup errors in2.35s; guarded finite fixture refused absent ATOMX_MIXED_INCREMENT_OUTPUT before any of its producers. Retain failure; no physics or tolerance changes.",
+  "CPU": 25,
+  "threads": 1,
+  "AS_bytes": 4294967296,
+  "seconds": 180,
+  "fixture_limits": {
+    "H_build": 13,
+    "CI_solve": 13,
+    "gradient": 2,
+    "one_body_assembly": 48,
+    "nuclear_Dirac_solve": 3,
+    "polar_retraction": 36,
+    "physical_overlap": 41,
+    "tracking_SVD": 80,
+    "SciPy_eigh": 64,
+    "optimizer": 0
+  },
+  "output": "mixed_finite_regression001",
+  "tests": [
+    "tests/test_variational_response.py",
+    "tests/test_mcdhf_polar_retraction.py",
+    "tests/test_mixed_ci_finite_increment.py",
+    "tests/test_mcdhf_state_resolved_derivative.py"
+  ],
+  "file_sha256": {
+    "src/atomx/numerics/variational_response.py": "50f0d92fa00b84ce62cf07b99dfa709378dff04a80f001c725221e6d8a459788",
+    "src/atomx/physics/csf/radial_increment.py": "ec98b42818ebf1fc7a816b1864e93f543d7d0a509f1d79ea5d4042b0ef00d4da",
+    "tests/test_variational_response.py": "7aa57ca01bd75717f149ac9694941540fb4eab577445848bdedcf053393156a4",
+    "tests/test_mixed_ci_finite_increment.py": "045ee541fc648ea9bbc51a476d04fe2a3bf31b0158bfcc02c9daa8357ab2caa8"
+  }
+}

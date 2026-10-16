@@ -1,0 +1,40 @@
+{
+  "hypothesis": "Exact scalar J/parity excitation coordinates and linked linearized SD commutator provide a native reduced correctness anchor; CISD diagonalization or nonlinear CCSD are different equations.",
+  "fixed": [
+    "native common orbital metric and shared signed CI kernels",
+    "complete reference-defined singles and doubles; exact symmetry only",
+    "fixed nuclear operator and explicitly declared frozen NR shells",
+    "no fitted energies or integral screening"
+  ],
+  "controls": [
+    "independent full determinant commutator at arbitrary amplitudes",
+    "size extensivity of two separated interacting electron pairs",
+    "first-order amplitude and second-order energy limits",
+    "native Be J0 matrix versus signed magnetic integral oracle",
+    "live pCI angular phase convention and upstream core equation inspection"
+  ],
+  "gates": {
+    "amplitude_residual_Ha": 1e-10,
+    "commutator_matrix_Ha": 1e-11,
+    "angular_count_exact": true,
+    "size_extensivity_Ha": 1e-11,
+    "experimental_fraction": 0.01,
+    "space_cm": 1.0
+  },
+  "caps": {
+    "CSFs": 512,
+    "determinants": 2000,
+    "solver_memory_bytes": 134217728,
+    "threads": 1
+  },
+  "stopping": [
+    "reject complete oversized native solve before materialization",
+    "do not claim general CI+all-order Sigma2 or monovalent Bloch SD from core solver",
+    "do not infer Yb optical improvement from core energy or coordinate count"
+  ],
+  "load": [
+    9.09765625,
+    9.130859375,
+    9.2490234375
+  ]
+}

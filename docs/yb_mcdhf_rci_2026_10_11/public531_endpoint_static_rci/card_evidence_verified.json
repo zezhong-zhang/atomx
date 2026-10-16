@@ -1,0 +1,173 @@
+{
+  "method": "Nonstationary531 DC endpoint -> fixed-orbital static Breit RCI",
+  "contract_sha256": "d2642300bb87dc0d7a19c42235f3b3534c818b5aa148f3209fe76aba49d89609",
+  "result_sha256": "f4e6acc7fb25cf7a0f0456d1e2636f096ee80642f104e4dd71f1639135d645f3",
+  "stationarity": {
+    "independent_verification_sha256": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "integrity_passed": true,
+    "orbital_residual": 4.717047646600387e-05,
+    "orbital_tolerance": 1e-07,
+    "estimated_energy_error_Ha": 6.8897239137767995e-09,
+    "energy_tolerance_Ha": 1e-08,
+    "stationarity_passed": false,
+    "new_gradient_calls": 0
+  },
+  "rows": [
+    {
+      "label": "6s_1/2",
+      "twoJ": 1,
+      "parity": 1,
+      "column": 0,
+      "local_root": 0,
+      "energy_Ha": -14053.345801784004,
+      "excitation_cm1": 0.0,
+      "excitation_from_actual_finite_ground_cm1": 0.0,
+      "NIST_nominal_cm1": 0.0,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 0.0,
+      "nominal_relative_gap": null,
+      "absolute_upper_static_minus_DC_Ha": 14.148346124558884,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": 0.0,
+      "nominal_1percent_pass": null
+    },
+    {
+      "label": "5d_3/2",
+      "twoJ": 3,
+      "parity": 1,
+      "column": 2,
+      "local_root": 0,
+      "energy_Ha": -14053.230645248426,
+      "excitation_cm1": 25273.938194955826,
+      "excitation_from_actual_finite_ground_cm1": 25273.938194955826,
+      "NIST_nominal_cm1": 22960.8,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 2313.138194955827,
+      "nominal_relative_gap": 0.10074292685602537,
+      "absolute_upper_static_minus_DC_Ha": 14.148356987272564,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": 2.3840900804498233,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "5d_5/2",
+      "twoJ": 5,
+      "parity": 1,
+      "column": 3,
+      "local_root": 0,
+      "energy_Ha": -14053.227153153524,
+      "excitation_cm1": 26040.364436248143,
+      "excitation_from_actual_finite_ground_cm1": 26040.364436248143,
+      "NIST_nominal_cm1": 24332.69,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": 1707.674436248144,
+      "nominal_relative_gap": 0.07018025694027852,
+      "absolute_upper_static_minus_DC_Ha": 14.148215123850605,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -28.751332157913566,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "6p_1/2",
+      "twoJ": 1,
+      "parity": -1,
+      "column": 1,
+      "local_root": 0,
+      "energy_Ha": -14053.23208857919,
+      "excitation_cm1": 24957.16370754091,
+      "excitation_from_actual_finite_ground_cm1": 24957.16370754091,
+      "NIST_nominal_cm1": 27061.82,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -2104.6562924590908,
+      "nominal_relative_gap": -0.0777721636038925,
+      "absolute_upper_static_minus_DC_Ha": 14.148251822922248,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -20.696816937710537,
+      "nominal_1percent_pass": false
+    },
+    {
+      "label": "6p_3/2",
+      "twoJ": 3,
+      "parity": -1,
+      "column": 4,
+      "local_root": 0,
+      "energy_Ha": -14053.216254607849,
+      "excitation_cm1": 28432.318730760864,
+      "excitation_from_actual_finite_ground_cm1": 28432.318730760864,
+      "NIST_nominal_cm1": 30392.23,
+      "NIST_uncertainty_cm1": null,
+      "nominal_gap_cm1": -1959.9112692391354,
+      "nominal_relative_gap": -0.06448724786694282,
+      "absolute_upper_static_minus_DC_Ha": 14.148144454080466,
+      "same_lower_static_minus_DC_Ha": 14.148346124558884,
+      "static_minus_DC_transition_cm1": -44.26155390767235,
+      "nominal_1percent_pass": false
+    }
+  ],
+  "multiplets": [
+    {
+      "label": "5d",
+      "degeneracy_weights": [
+        4,
+        6
+      ],
+      "DC": {
+        "centroid_cm1": 25750.091102993785,
+        "splitting_cm1": 797.5616635306797
+      },
+      "static_Breit": {
+        "centroid_cm1": 25733.79393973122,
+        "splitting_cm1": 766.4262412923163
+      },
+      "NIST_nominal": {
+        "centroid_cm1": 23783.933999999997,
+        "splitting_cm1": 1371.8899999999994
+      },
+      "static_minus_DC_centroid_cm1": -16.297163262566755,
+      "DC_gap_centroid_cm1": 1966.1571029937877,
+      "static_gap_centroid_cm1": 1949.859939731221,
+      "static_minus_DC_splitting_cm1": -31.13542223836339,
+      "DC_gap_splitting_cm1": -574.3283364693198,
+      "static_gap_splitting_cm1": -605.4637587076832
+    },
+    {
+      "label": "6p",
+      "degeneracy_weights": [
+        2,
+        4
+      ],
+      "DC": {
+        "centroid_cm1": 27310.340364605232,
+        "splitting_cm1": 3498.719760189917
+      },
+      "static_Breit": {
+        "centroid_cm1": 27273.93372302088,
+        "splitting_cm1": 3475.155023219955
+      },
+      "NIST_nominal": {
+        "centroid_cm1": 29282.093333333334,
+        "splitting_cm1": 3330.41
+      },
+      "static_minus_DC_centroid_cm1": -36.406641584351746,
+      "DC_gap_centroid_cm1": -1971.7529687281021,
+      "static_gap_centroid_cm1": -2008.1596103124539,
+      "static_minus_DC_splitting_cm1": -23.564736969961814,
+      "DC_gap_splitting_cm1": 168.30976018991714,
+      "static_gap_splitting_cm1": 144.74502321995533
+    }
+  ],
+  "production_certified": false,
+  "experimental_gate_passed": false,
+  "highest_level_reached": false,
+  "source_map_sha256": "10d4813c3ab626215f4bbc6b9f478fc0b4478a801d477d57fd35928338573f2f",
+  "completion_sha256": "2964421142d8132a73ea3096010ed3d81cba7faf77510a765e2128428ff30d62",
+  "independent_saved_array_verification": {
+    "all_passed": true,
+    "checks_count": 3710,
+    "proof_sha256": "8aada7b209c3cff00de30ba604a44ddb9c14c05204067dd2911feb0582c54978",
+    "new_physical_calls": 0
+  },
+  "static_RCI_numeric_integrity_passed": true,
+  "performance_comparison_valid": false,
+  "card_summary": "531 CSFs/24 radial orbitals; accepted160 DC nonstationary (4.7170e-5 >1e-7). Same-point static shifts +2.3841/−28.7513/−20.6968/−44.2616 cm^-1; four nominal NIST gaps remain ~1708–2313 cm^-1. All531 saved roots independently verified; no highest/experimental certificate."
+}

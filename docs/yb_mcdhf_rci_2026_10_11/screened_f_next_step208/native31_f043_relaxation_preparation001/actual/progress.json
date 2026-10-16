@@ -1,0 +1,57 @@
+{
+  "phase": "accepted_checkpoint_qualified",
+  "attempted": {
+    "H": 23,
+    "CI": 23,
+    "gradient_from_weights": 51,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "SciPy_eigh": 122,
+    "tracker_resolve": 62,
+    "tracking_SVD": 310,
+    "tracker_overlap": 63,
+    "polar": 154,
+    "polar_numpy_eigh": 32,
+    "unfiltered_target_RDM": 85,
+    "retained_RDM": 17,
+    "gradient_pair_source": 35679,
+    "optimizer": 1
+  },
+  "completed": {
+    "H": 23,
+    "CI": 23,
+    "gradient_from_weights": 51,
+    "initial_hS": 7,
+    "CI_hS": 7,
+    "validation_Dirac": 7,
+    "geometry_SPD": 38,
+    "SciPy_eigh": 122,
+    "tracker_resolve": 62,
+    "tracking_SVD": 310,
+    "tracker_overlap": 63,
+    "polar": 154,
+    "polar_numpy_eigh": 32,
+    "unfiltered_target_RDM": 85,
+    "retained_RDM": 17,
+    "gradient_pair_source": 35679,
+    "optimizer": 0
+  },
+  "checks_count": 1582,
+  "last_check": {
+    "name": "lower_physical_UID",
+    "error": 0.0,
+    "limit": 0.0,
+    "passed": true
+  },
+  "qualified_points": 17,
+  "last_qualified_checkpoint": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/native31_f043_relaxation_preparation001/actual/checkpoints/accepted_0016.json",
+  "exact_budget": {
+    "points": 17,
+    "quotients": 85,
+    "examined_pairs": 4623405,
+    "nonzero_H_pairs": 2001021
+  },
+  "elapsed_uncontrolled_s": 265.70712818112224
+}

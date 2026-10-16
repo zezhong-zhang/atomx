@@ -1,0 +1,152 @@
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+___ test_live_screening_common_restore_signed_query_and_full_joint_response ____
+
+native_sigma2 = (<atomx.methods.core_sd.CoreSD object at 0x7987d03544c0>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...tolerance_Ha': 1e-11, 'space_converged': False, 'forward_accuracy_certified': False, 'experiment_validated': False}))))
+
+    def test_live_screening_common_restore_signed_query_and_full_joint_response(
+        native_sigma2,
+    ):
+        core, core_result, valence, problem, columns = native_sigma2
+>       result = problem.evaluate(columns)
+
+tests/test_sigma2_sd.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <atomx.methods.sigma2_sd.Sigma2SD object at 0x7987b69aace0>
+columns = (ValenceSDResult(column_key=(2, -1), energy_parameter_Ha=-0.5910768909929702, orbital_energy_Ha=-0.6660768909929702, r..._tolerance_Ha': 1e-11, 'space_converged': False, 'forward_accuracy_certified': False, 'experiment_validated': False})))
+
+    def evaluate(self, columns, *, joint_response=True):
+        """Full directed screening and optional total common-energy derivative.
+    
+        Supplied column derivatives must include their implicit SD response.
+        The core remains fixed, and every column-energy slope is exactly one.
+        This derivative is not standalone pCI's single stored derivative field.
+        """
+        if not isinstance(joint_response, bool):
+            raise ValueError("joint response selection must be bool")
+        columns = tuple(columns)
+        keys = self.plan["valence_keys"]
+        if (
+            len(columns) != len(keys)
+            or any(not isinstance(c, ValenceSDResult) for c in columns)
+            or len({c.column_key for c in columns}) != len(keys)
+            or {c.column_key for c in columns} != set(keys)
+        ):
+            raise ValueError(
+                "every declared distinct source-bound valence result required"
+            )
+        by_key = {c.column_key: c for c in columns}
+        columns = tuple(by_key[key] for key in keys)
+        if self.plan["complete_payload_bound_bytes"] > self.core.memory_bytes:
+            raise MemoryError("complete screening payload exceeds current cap")
+        for c in columns:
+            if (
+                any(c.provenance.get(k) != v for k, v in self.core.provenance.items())
+                or c.provenance.get("core_identity_sha256")
+                != self.valence._core_identity
+                or c.provenance.get("core_amplitudes_sha256")
+                != self.valence._core_amplitudes_sha256
+                or c.provenance.get("equation_coverage")
+                != self.core._manifest["valence_sd"]
+            ):
+>               raise ValueError("valence result physical/source/core identity differs")
+E               ValueError: valence result physical/source/core identity differs
+
+src/atomx/methods/sigma2_sd.py:313: ValueError
+_________ test_live_screening_rejects_wrong_core_response_and_resource _________
+
+native_sigma2 = (<atomx.methods.core_sd.CoreSD object at 0x7987b41b4940>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...tolerance_Ha': 1e-11, 'space_converged': False, 'forward_accuracy_certified': False, 'experiment_validated': False}))))
+
+    def test_live_screening_rejects_wrong_core_response_and_resource(native_sigma2):
+        core, _, _, problem, columns = native_sigma2
+        bad = replace(
+            columns[0],
+            provenance=dict(columns[0].provenance, core_amplitudes_sha256="wrong"),
+        )
+        with pytest.raises(ValueError, match="identity differs"):
+            problem.evaluate((bad,) + columns[1:])
+        bad = replace(columns[0], numerator_derivative=columns[0].numerator_derivative + 1)
+        with pytest.raises(ValueError, match="implicit response residual"):
+>           problem.evaluate((bad,) + columns[1:])
+
+tests/test_sigma2_sd.py:173: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <atomx.methods.sigma2_sd.Sigma2SD object at 0x7987b6bec8e0>
+columns = (ValenceSDResult(column_key=(2, -1), energy_parameter_Ha=-0.5910768909929702, orbital_energy_Ha=-0.6660768909929702, r..._tolerance_Ha': 1e-11, 'space_converged': False, 'forward_accuracy_certified': False, 'experiment_validated': False})))
+
+    def evaluate(self, columns, *, joint_response=True):
+        """Full directed screening and optional total common-energy derivative.
+    
+        Supplied column derivatives must include their implicit SD response.
+        The core remains fixed, and every column-energy slope is exactly one.
+        This derivative is not standalone pCI's single stored derivative field.
+        """
+        if not isinstance(joint_response, bool):
+            raise ValueError("joint response selection must be bool")
+        columns = tuple(columns)
+        keys = self.plan["valence_keys"]
+        if (
+            len(columns) != len(keys)
+            or any(not isinstance(c, ValenceSDResult) for c in columns)
+            or len({c.column_key for c in columns}) != len(keys)
+            or {c.column_key for c in columns} != set(keys)
+        ):
+            raise ValueError(
+                "every declared distinct source-bound valence result required"
+            )
+        by_key = {c.column_key: c for c in columns}
+        columns = tuple(by_key[key] for key in keys)
+        if self.plan["complete_payload_bound_bytes"] > self.core.memory_bytes:
+            raise MemoryError("complete screening payload exceeds current cap")
+        for c in columns:
+            if (
+                any(c.provenance.get(k) != v for k, v in self.core.provenance.items())
+                or c.provenance.get("core_identity_sha256")
+                != self.valence._core_identity
+                or c.provenance.get("core_amplitudes_sha256")
+                != self.valence._core_amplitudes_sha256
+                or c.provenance.get("equation_coverage")
+                != self.core._manifest["valence_sd"]
+            ):
+>               raise ValueError("valence result physical/source/core identity differs")
+E               ValueError: valence result physical/source/core identity differs
+
+src/atomx/methods/sigma2_sd.py:313: ValueError
+
+During handling of the above exception, another exception occurred:
+
+native_sigma2 = (<atomx.methods.core_sd.CoreSD object at 0x7987b41b4940>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...tolerance_Ha': 1e-11, 'space_converged': False, 'forward_accuracy_certified': False, 'experiment_validated': False}))))
+
+    def test_live_screening_rejects_wrong_core_response_and_resource(native_sigma2):
+        core, _, _, problem, columns = native_sigma2
+        bad = replace(
+            columns[0],
+            provenance=dict(columns[0].provenance, core_amplitudes_sha256="wrong"),
+        )
+        with pytest.raises(ValueError, match="identity differs"):
+            problem.evaluate((bad,) + columns[1:])
+        bad = replace(columns[0], numerator_derivative=columns[0].numerator_derivative + 1)
+>       with pytest.raises(ValueError, match="implicit response residual"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'implicit response residual'
+E         Actual message: 'valence result physical/source/core identity differs'
+
+tests/test_sigma2_sd.py:172: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_sigma2_sd.py::test_live_screening_common_restore_signed_query_and_full_joint_response
+FAILED tests/test_sigma2_sd.py::test_live_screening_rejects_wrong_core_response_and_resource
+2 failed, 1 passed in 32.87s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

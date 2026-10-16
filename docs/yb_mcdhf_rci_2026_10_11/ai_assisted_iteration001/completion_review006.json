@@ -1,0 +1,74 @@
+{
+  "cards_timers": "remain stopped",
+  "commit_stage_publish": "none",
+  "created_UTC": "2026-10-13T15:24:54.214207+00:00",
+  "development_receipt_path": "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/development_receipt.json",
+  "development_receipt_sha256": "9c03e69e95985091203e4e2a2ac617a05ecda13e1150b7b410f0dd5cb1df628e",
+  "documentation": {
+    "files": {
+      "docs/ARCHITECTURE_CAPABILITIES.md": "4b34f99176d467d1cb211524c53ace08ab7a83858d916ba430054dd17ebf9f8d",
+      "docs/ARCHITECTURE_DESIGN.md": "24aaf4b1127d36fb348d639a239b757a08c1179cf519e27716f9bf04bd1df88b",
+      "docs/ATOMIC_FSCC.md": "472294d91abf14327b09d84f5ced25f5ce797b7b6aa4565334c71edf1628e4b1",
+      "docs/TESTING.md": "b36335d2dfecc8fc70550dd8526eb742e5b6fb95187b36a577d6dad2d00e57f9",
+      "docs/yb_mcdhf_rci_2026_10_11/README.md": "0600aef966fdea5341454b65fc2723f73595b8e10fd3d1ab0a7732c81452412e",
+      "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/documentation_impact.md": "a5eb5e2c03e892506ea11012959058e569324a9d3e1418bf075a33bf98616d02",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/README.md": "44f1ab882551442779909839830b8a115b7a4c7947a902e916684efbd74b504d",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/README.md": "afeb857b4f5d79aa0fcff5241aa7c3d064708557ecda9045cee3799175c2a82e",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/RESULTS.md": "c6f94946a4ff357c1ded28af29e6a6de133400b29007f71d46811ac8eb952046",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/documentation_impact.md": "7a75d35bd6c3d6c383f31ecf5dd24278d4aea26d263758e908f0a6276cdfa6b3",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/high_l_native003/RESULTS.md": "1234534e21e4d1f44f0498e98b79c7c7a4dfd72757d5f136b3f252fa6cf87562",
+      "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_triples.md": "21a512179e8ad4e38b0643aae1c5658e9608d50f5986736588d59862523d3b1d"
+    },
+    "local_links": 339,
+    "missing": [],
+    "trailing_whitespace": []
+  },
+  "final_affected_tests": 39,
+  "high_l": {
+    "complete_proof_sha256": "d49263260fabbc0f35f601957e61a3f85b2827ec260b3f14d09145552b55d888",
+    "live_controls": 127,
+    "loaded_unchanged_source_files": 78,
+    "scope": "finite g/h/i and g2 capability, no Yb run"
+  },
+  "production_Yb_paper_reproduction": "NOT completed; no new Yb spectrum/experimental/performance qualification",
+  "read_only_EA_review": "four required findings closed; review source/test hashes independently matched",
+  "retained_failures": [
+    {
+      "correction": "exact independently validated Jacobian; same equations/model/gates",
+      "observed": "1 failed/7 passed; unchanged noninteracting fragment stalled at continuation0.5",
+      "retained_in": "native_triples.md",
+      "scope": "first finite triples test panel"
+    },
+    {
+      "correction": "np.max(np.abs(triples)); no physics change",
+      "observed": "1 failed/3 passed; abs(list) TypeError in test assertion",
+      "scope": "first root EA test panel"
+    },
+    {
+      "correction": "exact failing tests2/2 passed with isolated cache; final expanded panel39/39; no shooting source/gate/test edits",
+      "observed": "36 passed/2 failed in shooting Numba cache serialization; ReferenceError underlying object has vanished",
+      "scope": "first root broader panel"
+    },
+    {
+      "path": "high_l_native001/preexecution_failure.json",
+      "scope": "high-l001",
+      "sha256": "9f42ca32eeb1c45254e0ea1f0c14c12673c01ae2f27eb05edaa87584a6361b3a"
+    },
+    {
+      "path": "high_l_native002/actual/failure_receipt.json",
+      "scope": "high-l002",
+      "sha256": "079e042439aeb6f1875037508fb008bb23756ffb7ef8c82c35d20cf0b03f831d"
+    }
+  ],
+  "ruff": "six changed CC/EA/FSCC-docstring/scaffold Python files PASS",
+  "schema": "atomx.paper-native-completion-review.v1",
+  "skips": 0,
+  "status": "PASS_finite_native_development_ONLY",
+  "unchanged_historical_completion_reviews": {
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/completion_review004.json": "db9a0686f49e0a0dc13983b738a96afb485d2ea386a2c5c4041c9c46f3a10de2",
+    "docs/yb_mcdhf_rci_2026_10_11/ai_assisted_iteration001/completion_review005.json": "f7667ab758fcebfde93129947a18fdb8a99c09d03440aae11f206dc7fed73b94"
+  },
+  "unchanged_paper_contract_sha256": "8fc3f09620b7da9b0fc71c30dc294afb2c84674af5a450d85dc7c654c7db6fd8",
+  "verified_code_test_bindings_and_AST": 17,
+  "whitespace": "scoped git diff and12 full current topic docs PASS"
+}

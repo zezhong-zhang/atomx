@@ -1,0 +1,59 @@
+{
+  "hypothesis": "The first complete p virtual pair changes core/valence correlation unequally; completeSDT and originalR3/J2 residuals must qualify the new spectrum independently of whether experimental agreement improves.",
+  "fixed": {
+    "nucleus": "empiricalA171",
+    "radial": "unchangedns180/order9/R500/RKB with original-constrained6p roots",
+    "Hamiltonian": "sameDC68eorigin;18active/50frozen; noBreit/QED/recoil/fittedcorrection",
+    "virtual": "complete6s,5d3,5d5,6p1,6p3:18magnetic spinors",
+    "core": "all689589SDT; exactM0/even coordinates, embedded oldT seed; Fock-Jacobi/DIIS Anderson candidates with unshifted Fock inverse, last6 errors, no coefficient clipping/regularization/history-rank cutoff; max60calls,1e-10Ha",
+    "EA": "complete127620R3; three prescribed unique bareR1>=0.5 target roots; complete highestM/even sectors, signed ker(Jplus) projector and unshifted Fock-diagonal Davidson; max48basis/target; every12magnetic partner full equation reapplied",
+    "norm": "canonical projectedR, not physical exp(T) norm"
+  },
+  "gates": {
+    "core_residual_Ha": 1e-10,
+    "EA_residual_Ha": 1e-10,
+    "J2": 1e-07,
+    "core_Jplus": 1e-07,
+    "canonical_R_norm": 1e-08,
+    "original_previous_root_Ha": 1e-09
+  },
+  "resources": {
+    "cpu": 27,
+    "threads": 1,
+    "AS_bytes": 25769803776,
+    "workspace_MiB": 8192,
+    "wall_seconds": 2400,
+    "core_residual_calls_max": 60,
+    "DIIS_history": 6,
+    "large_EA_search_calls_max": 144,
+    "large_direct_partner_and_target_checks": 15,
+    "old_direct_qualification_calls": 3,
+    "load1_max": 8,
+    "available_min_bytes": 34359738368,
+    "probe_core_seconds": 35.59869502400397,
+    "probe_EA_seconds": 7.448828729990055,
+    "estimated_total_seconds": 3320.285469508657
+  },
+  "stopping": "First failed equation/identity/source/resource gate stops; keep core/target partials. No automatic cut/rank/root/tolerance/restart change or fitting. Solve call and wall caps are independent; stop at whichever comes first.",
+  "source_map_sha256": "ea402a15130e5041dab452940c288804b300008b8c44dafb6e7a7d1c3f53c373",
+  "inputs": {
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/solve.py": "c6a7d51618d2f6961905274666aa01a216b2d68e1125353780484ae63ba1e6e1",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/prepare_virtuals.py": "769d87e77c7417344958dce80fb2c24dab802c0edc6adfb6ac8baeee91253dde",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/source.json": "698d6d00ec22cb055e9055834930bb5f49ddef97d902f0f95e589046fa22741c",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/diis_core.py": "a624ee333103637ac708b28a5edd253bb233a11d71fdbcfb44d5ab54dfc2a27b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/qualify_diis.py": "7cd63304a3bdfbc6868f16a377058b5076813e87dfdef8ef0d16ddd2d95285fa",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/diis_qualification_contract.json": "0cf0a78c4cae1455f3ec65521bb730f034cb17c46064390110ec7eded3919900",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/diis_qualification.json": "e816a98729ebcab7c84fac1ab9c6cef91e680255d0af48de9a2e2ca1cdb1dd3b",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/probe_contract.json": "c1301bfafb381abd6cfc66174fc82b61b0c3ed250da3c13a9df9b4980e801005",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/probe001/result.json": "019c3fa41b3209fe29c4576a5e0af0a446e574dad10ce0c027e87f24e0996405",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/probe001/virtuals.npz": "8a41e754bca0a23897dfdb7e52b8be22fa4f45091ba3bf7353ef77aaf2a26d61",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/operator.json": "9bfde7c8d18358fa13e77a3f026eadc293d04d11861edd1d769cb9ea04e1806d",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/integrals.npz": "822231dedf82c8ff29575c4065cecaff2276463b2f6773183a3c8d082a00246a",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/fixed_inputs.npz": "7a510f7af79c4ebdea9453d0130a4e7bbac7ceeab7310f79eaef7f42ffc343fe",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/angular.py": "9ce8e5af09909b8b42f8b57aac192139c91ae8ee2c05c2455577f4622e908eda",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/targeted_davidson_J.py": "a7b61aa35b2cc0fdceaafe36437e95b8acdea9b25a4e5692572f84499cced5c6",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual003/result.json": "7842ee12951593f9972fd597bc718c4bc658c238a8e41fb198aaa11ec527bf70",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/actual003/all_target_partners.npz": "dc82bc50814e7686b6bf586fac042f63ec2ba8faa827474d90f71026f4212d27",
+    "docs/yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/increment_receipt.json": "94f5bb5c6843498caf3e82c483089d8152499c6c8902db1c3b01500ec9685775"
+  }
+}

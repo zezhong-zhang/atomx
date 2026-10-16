@@ -1,0 +1,393 @@
+diff --git a/src/rcc/engine/mult.c b/src/rcc/engine/mult.c
+index abe260a..5091f3a 100644
+--- a/src/rcc/engine/mult.c
++++ b/src/rcc/engine/mult.c
+@@ -42,6 +42,10 @@
+ #include "utils.h"
+ #include "tt.h"
+ 
++#if defined BLAS_OPENBLAS
++  #include "cblas.h"
++#endif
++
+ #if defined BLAS_MKL
+   #include "mkl.h"
+ #endif
+--- a/src/rcc/interfaces/pyscf_interface.c
++++ b/src/rcc/interfaces/pyscf_interface.c
+@@ -47,13 +47,14 @@
+ 
+ double complex *pyscf_unique_eri = NULL;
+ size_t *pyscf_eri_index = NULL;
++double complex *atomx_fock = NULL;
+ 
+ 
+ void pyscf_interface(cc_options_t *opts)
+ {
+     timer_new_entry("pyscf", "Interface to pyscf");
+     timer_start("pyscf");
+-    printf("\n begin interface to pyscf\n");
++    printf("\n ATOMX_INTEGRALS_V1 signed-antisymmetric complex Fock+ERI\n");
+     printf(" file with molecular integrals: %s\n", opts->integral_file_1);
+ 
+     int nspinors = 0;
+@@ -76,8 +77,7 @@
+     opts->enuc = enuc;
+     opts->escf = escf;
+ 
+-    printf(" switching tile size to %d\n", CC_MAX_SPINORS);
+-    opts->tile_size = CC_MAX_SPINORS;
++    printf(" retained requested tile size %d\n", opts->tile_size);
+ 
+     printf(" switching openmp parallalization algorithm to 'internal'\n");
+     opts->openmp_algorithm = CC_OPENMP_ALGORITHM_INTERNAL;
+@@ -159,8 +159,16 @@
+     /*
+      * total number of spinors
+      */
++    char magic[8];
++    io_read(f, magic, 8);
++    if (memcmp(magic, "ATXCC001", 8) != 0 || cc_opts->use_goldstone) {
++        errquit("Atomx backend requires ATXCC001 antisymmetrized integrals");
++    }
+     *nspinors = 0;
+     io_read(f, nspinors, sizeof(int));
++    if (*nspinors < 2 || *nspinors > CC_MAX_SPINORS) {
++        errquit("Atomx spinor count exceeds this EXP-T build limit");
++    }
+     int64_t nspinors64 = *nspinors;
+ 
+     /*
+@@ -182,6 +190,9 @@
+         *nocc += (*occ)[i];
+     }
+ 
++    atomx_fock = cc_calloc(nspinors64 * nspinors64, sizeof(double complex));
++    io_read(f, atomx_fock, nspinors64 * nspinors64 * sizeof(double complex));
++
+     /*
+      * create index for fast random access to two-electron integrals
+      */
+@@ -213,24 +224,24 @@
+     /*
+      * allocate space for unique two-electron integrals
+      */
+-    /**eri = cc_calloc(num_unique_integrals, sizeof(double complex));
++    *eri = cc_calloc(num_unique_integrals, sizeof(double complex));
+     if (*eri == NULL) {
+         errquit("cannot allocate memory for two-electron integrals (required space: %.3f gb)",
+                 ((double) num_unique_integrals) / (1024.0 * 1024.0 * 1024.0));
+-    }*/
++    }
+ 
+     /*
+      * read two-electron integrals from disk
+      */
+     io_close(f);
+ 
+-    /*printf("begin reading two electron part\n");
++    printf("begin reading two electron part\n");
+     f = io_open(path_integrals_2e, "r");
+     if (f == -1) {
+         errquit("cannot open file with pyscf 2e integrals '%s'", path_integrals_2e);
+     }
+     io_read(f, *eri, num_unique_integrals * sizeof(double complex));
+-    io_close(f);*/
++    io_close(f);
+ }
+ 
+ 
+--- a/src/rcc/sorting/sort_pyscf.c
++++ b/src/rcc/sorting/sort_pyscf.c
+@@ -81,6 +81,7 @@
+ 
+ extern double complex *pyscf_unique_eri;
+ extern size_t *pyscf_eri_index;
++extern double complex *atomx_fock;
+ 
+ 
+ void fill_block_one_elec(block_t *block, double complex *ints_matrix, int ignore_diagonal);
+@@ -88,198 +89,37 @@
+ 
+ void sort_pyscf_one_electron()
+ {
+-    int nspinors = get_num_spinors();
+-    double complex *one_electron_ints = cc_calloc(nspinors * nspinors, sizeof(double complex));
+-
+-    // only for debug purposes:
+-    /*for (int i = 0; i < nspinors; i++) {
+-        for (int j = 0; j < nspinors; j++) {
+-            if (i != j) {
+-                one_electron_ints[i * nspinors + j] = 1e-2;
+-            }
++    for (int i = 0; i < n_requests; i++) {
++        diagram_t *dg = sorting_requests[i].dg;
++        if (dg->rank != 2) continue;
++        for (int j = 0; j < dg->n_blocks; j++) {
++            block_t *sb = dg->blocks[j];
++            if (!sb->is_unique) continue;
++            block_load(sb);
++            fill_block_one_elec(sb, atomx_fock, 1);
++            block_store(sb);
+         }
+-    }*/
+-
+-
+-    for (int ireq = 0; ireq < n_requests; ireq++) {
+-        sorting_request_t *req = &sorting_requests[ireq];
+-
+-        diagram_t *dg = req->dg;
+-        if (dg->rank != 2) {
+-            continue;
+-        }
+-
+-        int spinor_blocks_nums[2];
+-        spinor_blocks_nums[0] = 0;
+-        spinor_blocks_nums[1] = 0;
+-
+-        block_t *sb = diagram_get_block(dg, spinor_blocks_nums);
+-        if (sb == NULL) {
+-            continue;
+-        }
+-        if (sb->is_unique == 0) {
+-            continue;
+-        }
+-
+-        // block was found. fill it!
+-        block_load(sb);
+-
+-        fill_block_one_elec(sb, one_electron_ints, 1);
+-
+-        block_store(sb);
+-    } // end of loop over requests
+-
+-    cc_free(one_electron_ints);
++    }
+ }
+-
+ 
+ void sort_pyscf_two_electron()
+ {
+-    if (num_twoelec_requests(sorting_requests, n_requests) == 0) {
+-        // nothing to sort
+-        return;
++    for (int i = 0; i < n_requests; i++) {
++        sorting_request_t *req = &sorting_requests[i];
++        diagram_t *dg = req->dg;
++        if (dg->rank != 4) continue;
++        for (int j = 0; j < dg->n_blocks; j++) {
++            block_t *sb = dg->blocks[j];
++            if (!sb->is_unique) continue;
++            block_load(sb);
++            fill_block_twoelec_complex_pyscf(sb);
++            if (is_pppp_diagram(req->hp, req->valence, req->order)) {
++                conj_vector(sb->size, sb->buf);
++            }
++            block_store(sb);
++        }
+     }
+-
+-    for (int ireq = 0; ireq < n_requests; ireq++) {
+-        sorting_request_t *req = &sorting_requests[ireq];
+-
+-        diagram_t *dg = req->dg;
+-        if (dg->rank != 4) { // one-electron diagrams will be sorted later
+-            continue;
+-        }
+-
+-        if (strcmp(req->dg_name, "hhhh") == 0 ||
+-            strcmp(req->dg_name, "hhpp") == 0 ||
+-            strcmp(req->dg_name, "pphh") == 0 ||
+-            strcmp(req->dg_name, "phhp") == 0 ||
+-            strcmp(req->dg_name, "pphp") == 0 ||
+-            strcmp(req->dg_name, "phpp") == 0 ||
+-            strcmp(req->dg_name, "phhh") == 0 ||
+-            strcmp(req->dg_name, "hhhp") == 0 ||
+-            strcmp(req->dg_name, "hphh") == 0 ||
+-            strcmp(req->dg_name, "hphp") == 0 ||
+-            strcmp(req->dg_name, "pppxpr") == 0) {
+-
+-            block_t *block = dg->blocks[0];
+-            block_load(block);
+-
+-            size_t dims_1 = block->shape[0];
+-            size_t dims_2 = block->shape[1];
+-            size_t dims_3 = block->shape[2];
+-            size_t dims_4 = block->shape[3];
+-            printf(" reading %s...\n", req->dg_name);
+-
+-            char file_name[256];
+-            sprintf(file_name, "../pyscf_%s.dat", req->dg_name);
+-
+-            int f_hhhh = io_open(file_name, "r");
+-            io_read(f_hhhh, block->buf, sizeof(double complex) * dims_1 * dims_2 * dims_3 * dims_4);
+-            io_close(f_hhhh);
+-
+-            printf(" end %s\n", req->dg_name);
+-
+-            block_store(block);
+-
+-            continue;
+-        }
+-
+-        if (strcmp(req->dg_name, "ppppr") == 0) {
+-
+-            printf("begin pppp\n");
+-
+-            block_t *block = dg->blocks[0];
+-            size_t dims_1 = block->shape[0];
+-            size_t dims_2 = block->shape[1];
+-            size_t dims_3 = block->shape[2];
+-            size_t dims_4 = block->shape[3];
+-            size_t num_part = dims_1;
+-
+-            size_t coef_1 = num_part * num_part * num_part;
+-            size_t coef_2 = num_part * num_part;
+-            size_t coef_3 = num_part;
+-
+-            const size_t buf_size = 100000000;
+-            double complex *buf = cc_calloc(buf_size, sizeof(double complex));
+-
+-            int f_pppp = io_open("../pyscf_pppp.dat", "r");
+-
+-            //size_t index = 0;
+-            size_t total_size = dims_1 * dims_2 * dims_3 * dims_4;
+-            size_t num_remain = total_size;
+-            size_t index = 0;
+-
+-            while (num_remain > 0) {
+-
+-                size_t num_read = (num_remain < buf_size) ? num_remain : buf_size;
+-                io_read(f_pppp, buf, sizeof(double complex) * num_read);
+-                num_remain -= num_read;
+-
+-                printf("num_read = %ld\n", num_read);
+-
+-                //index += num_read;
+-
+-                for (size_t i = 0; i < num_read; i++) {
+-
+-                    // linear index -> 4-index
+-                    size_t linear_index = index;
+-
+-                    size_t idx_1 = linear_index / coef_1;
+-                    linear_index = linear_index % coef_1;
+-
+-                    size_t idx_2 = linear_index / coef_2;
+-                    linear_index = linear_index % coef_2;
+-
+-                    size_t idx_3 = linear_index / coef_3;
+-                    linear_index = linear_index % coef_3;
+-
+-                    size_t idx_4 = linear_index;
+-
+-                    //printf("%ld -> %ld %ld %ld %ld\n", index, idx_1, idx_2, idx_3, idx_4);
+-
+-                    block->buf[coef_1 * idx_1 + coef_2 * idx_3 + coef_3 * idx_2 + idx_4] = conj(buf[i]);
+-
+-                    // 4-index -> linear index
+-
+-                    index++;
+-                }
+-            }
+-
+-            io_close(f_pppp);
+-
+-            cc_free(buf);
+-
+-            printf("end pppp\n");
+-            continue;
+-        }
+-
+-        /*int spinor_blocks_nums[4];
+-        spinor_blocks_nums[0] = 0;
+-        spinor_blocks_nums[1] = 0;
+-        spinor_blocks_nums[2] = 0;
+-        spinor_blocks_nums[3] = 0;
+-
+-        block_t *sb = diagram_get_block(dg, spinor_blocks_nums);
+-        if (sb == NULL) {
+-            continue;
+-        }
+-        if (sb->is_unique == 0) {
+-            continue;
+-        }
+-
+-        // block was found. fill it!
+-        block_load(sb);
+-
+-        fill_block_twoelec_complex_pyscf(sb);
+-
+-        if (is_pppp_diagram(req->hp, req->valence, req->order) && (arith == CC_ARITH_COMPLEX)) {
+-            conj_vector(sb->size, sb->buf);
+-        }
+-
+-        //fill_block_twoelec(sb, 1, v_ints, CC_DIRECT);
+-        block_store(sb);*/
+-    } // end of loop over requests
+ }
+-
+ 
+ void fill_block_twoelec_complex_pyscf(block_t *block)
+ {
+@@ -329,6 +169,8 @@
+ 
+ void pyscf_data_free()
+ {
++    cc_free(atomx_fock);
++    atomx_fock = NULL;
+     if (pyscf_eri_index) {
+         cc_free(pyscf_eri_index);
+         pyscf_eri_index = NULL;
+--- a/src/rcc/models/ccutils.c
++++ b/src/rcc/models/ccutils.c
+@@ -259,6 +259,10 @@
+         }
+ 
+         if (converged || diverged) {
++            printf("\nATOMX_CC_STATUS %dh%dp %d %d %.16e %.16e %.16e\n",
++                sector_h, sector_p, converged, iter,
++                do_singles ? diff1 : 0.0, do_doubles ? diff2 : 0.0,
++                do_triples ? diff3 : 0.0);
+             goto end_of_iter;
+         }
+ 
+--- a/src/rcc/readinp/readinp.c
++++ b/src/rcc/readinp/readinp.c
+@@ -769,6 +769,7 @@
+         opts->active_each[i++] = flag;
+         token_type = next_token();
+     }
++    put_back(token_type);
+     opts->actsp_defined = CC_ACT_SPACE_SPEC_BINARY;
+ }
+ 
+--- a/src/rcc/heff/formatted_heff_file.c
++++ b/src/rcc/heff/formatted_heff_file.c
+@@ -80,10 +80,10 @@
+     fprintf(hefff, "0h0p         # sector\n");
+     fprintf(hefff, "   1     1   # rep No & heff size\n");
+     if (arith == CC_ARITH_COMPLEX) {
+-        fprintf(hefff, "%21.12E%21.12E\n", total_energy, 0.0);
++        fprintf(hefff, "%26.17E%26.17E\n", total_energy, 0.0);
+     }
+     else {
+-        fprintf(hefff, "%21.12E\n", total_energy);
++        fprintf(hefff, "%26.17E\n", total_energy);
+     }
+     fclose(hefff);
+ }
+@@ -131,11 +131,11 @@
+     fprintf(hefff, "%4d%6d   # rep No & heff size\n", rep_no, dim);
+     for (int i = 0; i < dim * dim; i++) {
+         if (carith) {
+-            fprintf(hefff, "%21.12E%21.12E", creal(heff[i]), cimag(heff[i]));
++            fprintf(hefff, "%26.17E%26.17E", creal(heff[i]), cimag(heff[i]));
+             if (i > 0 && i % 2 != 0) { fprintf(hefff, "\n"); }
+         }
+         else {
+-            fprintf(hefff, "%21.12E", creal(heff[i]));
++            fprintf(hefff, "%26.17E", creal(heff[i]));
+             if (i > 0 && (i + 1) % 4 == 0) { fprintf(hefff, "\n"); }
+         }
+     }

@@ -1,0 +1,16 @@
+{
+  "contract_sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+  "driver_sha256": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d",
+  "preparation_sha256": "aa03e9fb430899f1b731bddc06008331f62014b77b9c9fce5f1a420adb771255",
+  "document_proof_sha256": "dca47bfc81143859f05a090ce7b1f1c06e4b06a46be2eeed70094e2cefa8718d",
+  "readonly_root_fields": {
+    "readonly_execution_authorized_by_root": true,
+    "contract_sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e",
+    "driver_sha256": "7cdcb250b741bdce57a7fdf992d76c35ff95863caa9d302cf8ad448c5abe8a3d"
+  },
+  "command": "OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 .venv/bin/python docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/diagnose_saved.py --authorization <root-exact-readonly-authorization.json>",
+  "executed": false,
+  "physical_calls": 0,
+  "numeric_imports": 0,
+  "same_failed_gate_unchanged": true
+}

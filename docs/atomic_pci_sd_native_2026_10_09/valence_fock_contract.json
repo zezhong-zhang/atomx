@@ -1,0 +1,19 @@
+{
+  "hypothesis": "Noncanonical fixed-energy CI+all-order needs the full one-body commutator, including the connected core attachment difference; diagonalizing or clearing Fock blocks would hide missing physics.",
+  "fixed": "finite Be2+ 1s2/ns30 and C2+ 1s2 2s2/ns40 controls, each exactly two virtual radial roots per s/p partial wave and native DC integrals; all magnetic multiplets and direct rho coordinates retained; test native Fock plus a declared scalar operator perturbation (+.031 or -.023 Ha symmetric off-diagonal entries depending on radial parity), and canonical-zero negative control",
+  "formula": {
+    "single": "-sum_c F_cv t_mc + sum_rb F_br (t_mrvb-t_rmvb)",
+    "double": "sum_r Foff_mr t_rnvb + sum_r Foff_nr t_mrvb -sum_c Foff_cb t_mnvc -sum_c F_cv t_mncb",
+    "core_denominator": "original core numerator / (core diagonal denominator + E-eps_v)",
+    "valence_denominator": "valence numerator / (E+eps_b-eps_m-eps_n)",
+    "bare_single": "F_mv remains in the bare one-body Hamiltonian, not in correlation Sigma1",
+    "independent_anchor": "[Foff,Tcore+Sv2]|vCore> - a_v^dagger [Foff,Tcore]|Core>; project signed fermion states and retain full same-gauge magnetic comparison"
+  },
+  "gates_Ha": {"complete_signed_action": 1e-11, "fermion_commutator": 1e-11, "raw_root_residual": 1e-10},
+  "derivative_gate": "abs1e-9+rel1e-6, fixed numerator plus response declared separately",
+  "memory_cap_bytes": 536870912,
+  "workers": 1,
+  "timing_scope": "correctness first, no performance claim",
+  "stop": "retain any mismatch, reject promotion; no projection or gauge change without an algebraic proof; no omitted Fov term",
+  "scope": "isolated extension before production API"
+}

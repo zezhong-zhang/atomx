@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "name": "saved_matrix_Ha/complete_finite_float64",
+      "error": 0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "saved_energies_Ha/complete_finite_float64",
+      "error": 0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "saved_mixing/complete_finite_float64",
+      "error": 0,
+      "limit": 0,
+      "passed": true
+    },
+    {
+      "name": "saved_full_eigenpair_residual_Ha",
+      "error": 2.443941415115657e-11,
+      "limit": 1e-08,
+      "passed": true
+    },
+    {
+      "name": "saved_full_signed_CI_Gram",
+      "error": 3.1086244689504383e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "saved_H_Hermiticity_Ha",
+      "error": 0.0,
+      "limit": 1e-10,
+      "passed": true
+    }
+  ],
+  "actual_start_manifest_sha256": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+  "full_gradients": 0,
+  "physical_H_builds": 0,
+  "optimizer_calls": 0
+}

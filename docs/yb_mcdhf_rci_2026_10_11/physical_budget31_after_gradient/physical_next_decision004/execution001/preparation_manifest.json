@@ -1,0 +1,23 @@
+{
+  "NPZ_or_science_access": 0,
+  "UTC": "2026-10-14T00:28:55.888039+00:00",
+  "execution_coordination": "Root review/exact seal and CPU27 availability; no old failed-gate upgrade or automatic retry.",
+  "execution_launched": false,
+  "files_sha256": {
+    "README.md": "5a596d31e6abb6e65b8073773edbcb8ef3f33c7351e1c6b8514359b5f1f7f41a",
+    "contract.json": "59e982c87f4209b6c1ef1181564459cad42a7474e027cd21e068f0a78161448b",
+    "preparation.json": "8e4929f43519f1523ef7bf3d3768d92ae70dd93a1c3ecf6584e9ae170f7d7025",
+    "run.py": "04c0f56127c5aa5cbdbdb75c15494a68f7c146d11e3edb8151cbcdff006cf4f1"
+  },
+  "fresh_owner_policy": "Only actual native ci_solve(retain_hamiltonian=True), no oldB owner substitution",
+  "root_seal_needed": true,
+  "runtime_early_nucleus_control": "Actual quadrature/fullbinding deferred to sealed execute before polar/CSF/HCI",
+  "source_only_validation": [
+    "Ruff format/check PASS",
+    "stdlibPython-I SOURCEdefault PASS",
+    "356frozen source hashes+metadata input bindings PASS",
+    "stdlib independent source-loop census15keys/43nullspaces, maximumMdim4,cache512noeviction"
+  ],
+  "status": "SOURCE_ready_frozen_candidate_pending_exact_root_execution_seal",
+  "user_permission_needed": false
+}

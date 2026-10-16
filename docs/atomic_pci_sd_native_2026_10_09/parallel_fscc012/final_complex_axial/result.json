@@ -1,0 +1,369 @@
+{
+  "status": "finite_candidate_pass",
+  "highest_level_reached": false,
+  "fock_decode_max_Ha": 0.0,
+  "core_cluster_max": 5.20103489675261e-15,
+  "core_projected_residual_max_Ha": 5.5717933762917815e-14,
+  "core_energy_Ha": -13.613445203524865,
+  "exact_oracle_gate_pass": true,
+  "intermediate_normalization_max": 0.0,
+  "backend_wave_bloch_residual_max_Ha": 5.59727358352956e-14,
+  "backend_wave_bloch_by_core_holes_Ha": [
+    3.552782539069522e-15,
+    9.465272693605044e-15,
+    5.59727358352956e-14
+  ],
+  "backend_heff_minus_wave_projection_max_Ha": 2.886664614702932e-15,
+  "wave_minus_exact_max": 1.333364597353105e-15,
+  "backend_strict_heff_max_Ha": 6.470730568164772e-15,
+  "q1_residual_minus_Fov_T2_commutator_Ha": 4.163910841656969e-07,
+  "q1_residual_plus_Fov_T2_commutator_Ha": 4.163911028237902e-07,
+  "Fov_T2_commutator_max_Ha": 4.163910933585179e-07,
+  "residual_minus_open_Fov_T2_max_Ha": 4.1639108401508454e-07,
+  "residual_plus_open_Fov_T2_max_Ha": 4.1639110270970674e-07,
+  "open_Fov_T2_max_Ha": 4.163910933585179e-07,
+  "gates": {
+    "oracle_Ha": 1e-11,
+    "strict_backend_Ha": 1e-10,
+    "normalization": 1e-12
+  },
+  "decoder_metadata": {
+    "t1c": {
+      "name": "t1c",
+      "rank": 2,
+      "symmetry": 124,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 2,
+      "coordinates": 2,
+      "nonzero": 2,
+      "sha256": "0f41d1e252953bc446e24d87450cc5e2da96c1dfc9b905950f7e7d02acf711c7"
+    },
+    "t2c": {
+      "name": "t2c",
+      "rank": 4,
+      "symmetry": 124,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 20,
+      "coordinates": 42,
+      "nonzero": 24,
+      "sha256": "4ed13f11960c1720a0a7e9a00690da3cc749902d271c6fa3811d2cbbcfada576"
+    },
+    "t3c": {
+      "name": "t3c",
+      "rank": 6,
+      "symmetry": 124,
+      "only_unique": 1,
+      "qparts": [
+        104,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 176,
+      "coordinates": 416,
+      "nonzero": 0,
+      "sha256": "21429cf6d416430d59f3f5f36117d991c1d1bee6e8985f6998a592f61b0aefd2"
+    },
+    "s1c": {
+      "name": "s1c",
+      "rank": 2,
+      "symmetry": 124,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 6,
+      "coordinates": 12,
+      "nonzero": 0,
+      "sha256": "8d82fe7ba0bbcc682efa9b33a805fe2f7c060186c560006c2f431d6f74f9cc0d"
+    },
+    "s2c": {
+      "name": "s2c",
+      "rank": 4,
+      "symmetry": 124,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 48,
+      "coordinates": 114,
+      "nonzero": 110,
+      "sha256": "43e3eb29850b55a1b01179965092dc8cf0c0709a044685099abe932e56a98b92"
+    },
+    "s3c": {
+      "name": "s3c",
+      "rank": 6,
+      "symmetry": 124,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        104,
+        104,
+        112,
+        112,
+        112
+      ],
+      "valence": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "blocks": 500,
+      "coordinates": 1800,
+      "nonzero": 944,
+      "sha256": "fea03f8e0454e16e6dcc6b26fbafa6040978e090ed7f67dde13ba1c8e444e0f0"
+    },
+    "hp": {
+      "name": "hp",
+      "rank": 2,
+      "symmetry": 124,
+      "only_unique": 0,
+      "qparts": [
+        104,
+        112
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 2,
+      "coordinates": 2,
+      "nonzero": 2,
+      "sha256": "69674365cb87b5644ea71f58ba3f9c1b86a5c2bb35a0e60106baa32d7d90d1b9"
+    },
+    "ph": {
+      "name": "ph",
+      "rank": 2,
+      "symmetry": 124,
+      "only_unique": 0,
+      "qparts": [
+        112,
+        104
+      ],
+      "valence": [
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2
+      ],
+      "blocks": 2,
+      "coordinates": 2,
+      "nonzero": 2,
+      "sha256": "6cb98234807cc313c2f59da6c735b5a6a49d64b83f26b833f221100a7635dcec"
+    },
+    "pphh": {
+      "name": "pphh",
+      "rank": 4,
+      "symmetry": 124,
+      "only_unique": 1,
+      "qparts": [
+        112,
+        112,
+        104,
+        104
+      ],
+      "valence": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "t3space": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "blocks": 20,
+      "coordinates": 42,
+      "nonzero": 24,
+      "sha256": "7a75b7b613023bfa613cfb01e9fb8b621a69071586a8ea1b837a2e8750eaeed6"
+    }
+  },
+  "scope": "Complete finite source-bound actual signed amplitude audit, no production repair or scalability claim",
+  "decoder_and_core_gate_pass": true,
+  "strict_backend_gate_pass": true,
+  "card_summary": "FS-CCSDT \u65b9\u7a0b\u5ba1\u8ba1\uff1a\u5b8c\u6574\u5b9e\u9645\u5e45\u5ea6 Bloch \u6b8b\u5dee 5.597e-14 Ha\uff1bHEFF \u4e25\u683c\u95e8 \u901a\u8fc7\u3002\u6709\u9650\u8bca\u65ad\uff0c\u751f\u4ea7\u5927\u7a7a\u95f4\u4e0e\u6700\u9ad8\u7cbe\u5ea6\u8ba4\u8bc1\u7ee7\u7eed\u9a8c\u8bc1\u3002",
+  "candidate_energy_root_max_Ha": 2.6645352591003757e-14,
+  "candidate_raw_equation_bound_Ha": 1.8941520183375213e-13,
+  "original_integral_files_match": {
+    "ATOMX_ONE": true,
+    "ATOMX_TWO": true
+  },
+  "original_backend_unchanged": true,
+  "candidate_backend_sha256": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+  "source_and_inputs": {
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.c": "29f9c909bd9702be8643f3136fa8e1d5f53c827268b7f99f416e539c56e1a231",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/block.h": "50378d2fe774d9b37c37281441e83000c40c4774a818df71f8cd83e66c111b3b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.c": "74c45e1382c2bbb30146632ab09240f4928e09cae9cd139f2a1b2a9fc9cff1dd",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/engine/diagram.h": "eabd67839634ad299b0da6bd006e5f552a34b425578f15e27ee771f71bbb0b8b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/comdef.h": "616ba79360f52c3a74a332e4df0bf9a1895bc88f0b1af387e4ce627f36a6c2e8",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/include/options.h": "3c86fec4d2db6cdd2bea76ee53d06c9dce5ae95ada562a88a593b2aa573f074a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/interfaces/pyscf_interface.c": "5dcf0d92d69370682a11164ae8e3ccdfbc6fb1b56ca5ac104f5d17704cded70a",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/io/io.c": "73d28e2357c8ac33bcd3ed6d0cdbefe99e114e738551d6ebadd334df1de4c3e4",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector00.c": "cf5bfe9e1a843d505af782f3f2157ef60eaaf0ff2086da0e1a4274988dd60f18",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01.c": "42ee99ee532a00d8a29dbef5532b75d4717f46da71375ffbeb705334b980fc04",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/models/sector01_ccsdt.c": "2fe0b2b89289ca1dcd1ad7da82d3ff040b168e8e3eec8654ba5b08c855111db7",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/sorting/sort_1e.c": "04d65feddcd48b1bc133e40c9eeb68a1313b18595dea29c83c73af4e1923aa7b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001/src/rcc/sorting/sort_pyscf.c": "4b6a906a2b7c634f26cf1c61ebf9c68f3544bf9f1bbfa376501cfd5b1295250b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/expt_compact_public_source001-build/expt.x": "1605f4d9daf0adb5ecc543fc785da4cd5e32d96121260dc00e9951bdbdd0d33f",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/probe.py": "e564bdd5c2bc7886302c0dc15cdbaed61ba1ab2943436b6b195eea01a79773f3",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_bloch_oracle.py": "28fd62d8681dc9142b71e4605bc65b06fa1997f90d4219a3db5b8c8c6f393383",
+    "/data/code/atomx/src/atomx/methods/fscc.py": "45b6d58a953692a5d820ba0aa564dfa551c739a9c53ade5e056dc192b0a2d83e",
+    "/data/code/atomx/src/atomx/physics/csf/spinor_integrals.py": "1cc9e7f7b6a2a4ef00eca2c676f59bbe0f80ddb7099209e7d53a21304c3e8046",
+    "/data/code/atomx/tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/axial_phase_input002/ATOMX_ONE": "366da0bcd01ce244c99187d9bf1c8c8ef3d685347ebf8f8545bd62a49953b4e4",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/axial_phase_input002/ATOMX_TWO": "49782665c49a36023a83c53d10ade71abb792066500765daf99678a0532757f2",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/axial_phase_input002/integrals.json": "00845bb010259826d88e42bd316ec656d9a9fb41bb5f61c237e55fdf9d0a0f2e",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/axial_phase_input002/rotation.npz": "f947ea0bbbe6fa3d62b5d734addc6175cf183ca1cba0e042275f5291fbffc20b",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/axial_phase_input002/rotation_identity.json": "031c07610ce31617248a841305fdaeb5a47169cf24d38b41a73d21c0d2913964",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/validate_candidate.py": "d98f993c222767a414646ed8d04a186f83b27138028720b197beb4a034bc9951",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/expt.x": "36576b763bde756ef272770f0967de6282aaa3448748a5238439bba06886cfcc",
+    "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/parallel_fscc012/candidate001/atomx_backend.json": "fd610d05ff7e8ef385e157213e85ba6daed3a757c99d3516fc90cc09d3092451"
+  },
+  "complete_candidate_gate_pass": true,
+  "inputs_unchanged": true,
+  "arrays_sha256": "22733f3e0aa82aba189f761f5bfc4482dfac28bf96ce77145f22f1598cbabaa7",
+  "archive_sha256": "2d8fed5894f7bd0a49c9c39b211d3eb87c0e199794541c73b7674a167d78e171",
+  "observed_phase_wall_seconds": 1.2707337690517306,
+  "peak_RSS_bytes": 199688192
+}

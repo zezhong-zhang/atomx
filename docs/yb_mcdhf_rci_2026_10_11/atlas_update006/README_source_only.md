@@ -1,0 +1,7 @@
+本轮源文件准备沿用 Sites local-only 流程。只追加已声明run005末态 local128/global208 和全部129点，原v6的18模型72行、14来源下载资产、6019 NIST gzip、hosting及现有renderer保持。单overlay最终19模型76行，三个轮次211条点记录对应209个不同global点；共享global16和global80均不重复计更新。
+
+[待闭合前瞻合同](prospective_pending_completion_contract.json)明确completion路径；收到已完成且精确绑定的completion后才封final contract并执行一次保存JSON资产准备。当前只保存前像与薄包装器，没有写站点资产或运行物理生产者。[包装器](prepare.py)复用atlas005公共sha/load/write/LABELS和已经验证的run004模型schema/参考模板，不复制旧完整builder或改写JS。旧模型对象、全部旧轨迹与sourceassets保留原值。
+
+新增模型继续使用f043、全部29共同轨道、完整五个目标扇区1046有符号CSF、原七个核no-pair空间/3451逆度量/五UID等权0.2及DC；2163父空间其余扇区未计算。只取预声明末态，不按gap选中间点。驻值/实验/完整物理认证均失败；NIST缺失不确定度仍null。858.410008秒的保存运行墙钟属于未受控本轮耗时，不是并行加速或软件对比。没有添加Breit、QED、反冲或外部后端。
+
+本目录不发布、不持有凭据、不修改registry或主README。将来网站发布由root审查完成资产与验证后单独执行。

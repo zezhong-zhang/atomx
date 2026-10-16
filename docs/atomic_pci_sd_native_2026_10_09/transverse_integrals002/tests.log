@@ -1,0 +1,94 @@
+.....F..............................................................s... [ 88%]
+.........                                                                [100%]
+=================================== FAILURES ===================================
+_ test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian[axial] _
+
+native = (SCFResult(converged=True, iterations=9, residual=np.float64(3.1144199366160635e-09), total_energy=np.float64(-13.6139...       -1.49128527e-04,  1.38334110e-04, -8.57992409e-05,  2.96050030e-05,
+        0.00000000e+00,  0.00000000e+00]))})
+tmp_path = PosixPath('/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/transverse_integrals002/test_tmp/test_live_finite_frequency_fsc1')
+tensor_symmetry = 'axial'
+
+    @pytest.mark.parametrize("tensor_symmetry", ["C1", "axial"])
+    def test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian(
+        native, tmp_path, tensor_symmetry
+    ):
+        executable = os.environ.get("ATOMX_EXPT_EXECUTABLE")
+        if not executable:
+            pytest.skip("set ATOMX_EXPT_EXECUTABLE for the actual EXP-T gate")
+        a = integrals(
+            native,
+            include_breit=True,
+            breit_orbital_energies=energies(native),
+            representation="on_demand",
+            transverse_cache_size=2,
+        )
+        _, full = determinant_matrix(a, 3)
+>       result = compute(
+            a,
+            executable=executable,
+            directory=tmp_path / "fsccsdt",
+            model="CCSDT",
+            sector="0h1p",
+            active_indices=range(2, 10),
+            tile_size=4,
+            tolerance=1e-12,
+            residual_bound_tolerance_Ha=1e-9,
+            tensor_symmetry=tensor_symmetry,
+        )
+
+tests/test_transverse_spinor_integrals.py:226: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+integrals = OnDemandSpinorIntegrals(labels=((1, -1, -1), (1, -1, 1), (2, -1, -1), (2, -1, 1), (2, 1, -1), (2, 1, 1), (2, -2, -3), ...apper object at 0x7054b0ae57a0>, _diagnostics=<function build_spinor_integrals.<locals>.diagnostics at 0x7054b093dab0>)
+
+    def compute(integrals, *, executable, directory, model='CCSD', sector='0h0p',
+                active_indices=(), tolerance=1e-10, residual_bound_tolerance_Ha=1e-8,
+                maxiter=200, memory_bytes=8*1024**3, tile_size=32, threads=2,
+                timeout_seconds=600, environment=None, tensor_symmetry='C1'):
+        """Solve all retained amplitude equations, with explicit resource limits.
+    
+        ``active_indices`` supplies exact global model spinor indices. Complementary
+        virtuals remain in the amplitudes. No intruder shifts or selections are
+        added. Closed and requested valence sectors must both converge before a
+        result is returned. On failure, the complete run log remains in directory.
+        """
+        active = tuple(sorted(active_indices))
+        if tensor_symmetry not in ('C1', 'axial'):
+            raise ValueError('tensor symmetry must be C1 or axial')
+        n, o = len(integrals.labels), integrals.noccupied
+        allowed = range(o, n) if sector == '0h1p' else range(o)
+        if sector == '0h0p' and active or sector != '0h0p' and not active:
+            raise ValueError('valence sector requires explicit model-space indices')
+        if len(set(active)) != len(active) or any(i not in allowed for i in active):
+            raise ValueError('model spinors must belong to the requested particle/hole space')
+        if any(not isinstance(i, (int, np.integer)) or isinstance(i, bool) for i in active):
+            raise ValueError('model spinor indices must be integers')
+        model_groups = {}
+        for i in allowed:
+            model_groups.setdefault(tuple(integrals.labels[i][:2]), set()).add(i)
+        chosen = set(active)
+        if any(chosen & group and not group.issubset(chosen) for group in model_groups.values()):
+            raise ValueError('atomic model space must retain complete magnetic multiplets')
+        estimate = resource_estimate(integrals, model=model, sector=sector, active_count=len(active))
+        if estimate['estimated_working_bytes'] > memory_bytes:
+            raise MemoryError(f'full requested tensors exceed memory cap: {estimate}')
+        if not (0 < tolerance < 1e-3 and residual_bound_tolerance_Ha > 0
+                and maxiter > 0 and 0 < tile_size <= 2048 and threads > 0 and timeout_seconds > 0):
+            raise ValueError('invalid solver controls')
+        executable = Path(executable).resolve(strict=True)
+        if b'ATOMX_INTEGRALS_V1' not in executable.read_bytes():
+            raise ValueError('executable does not implement the Atomx integral ABI')
+        backend = json.loads((executable.parent/'atomx_backend.json').read_text())
+        if backend['abi'] != 'ATXCC001' or backend['executable_sha256'] != _sha(executable):
+            raise ValueError('backend executable/source manifest mismatch')
+        if tensor_symmetry == 'axial' and (
+                'axial' not in backend.get('tensor_symmetries', ()) or
+                backend.get('axial_max_omega_x2') != 62 or
+                b'ATOMX_AXIAL_V1' not in executable.read_bytes()):
+>           raise ValueError('backend lacks the bound exact axial/parity capability')
+E           ValueError: backend lacks the bound exact axial/parity capability
+
+src/atomx/methods/fscc.py:386: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_transverse_spinor_integrals.py::test_live_finite_frequency_fsccsdt_matches_full_three_electron_hamiltonian[axial]
+1 failed, 79 passed, 1 skipped in 12.55s

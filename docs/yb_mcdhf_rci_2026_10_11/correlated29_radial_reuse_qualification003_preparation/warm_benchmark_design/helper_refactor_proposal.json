@@ -1,0 +1,68 @@
+{
+  "boundaries_document_sha256": "bf4f94447f60f1b2f1e27d7628fac4eb514aa0c094c3f471357201c7b33881ee",
+  "driver_contract_sha256": "dc8b9584f4291385cf30c903ae32a58d3fc9f1901c590e3b28518973c7e16e38",
+  "functions": {
+    "compare_saved_chains": [
+      572,
+      632
+    ],
+    "finish_checked_chain": [
+      [
+        457,
+        458
+      ],
+      [
+        460,
+        512
+      ],
+      [
+        548,
+        568
+      ]
+    ],
+    "prepare_point": [
+      353,
+      421
+    ],
+    "validate_trial": [
+      [
+        427,
+        433
+      ],
+      [
+        439,
+        453
+      ]
+    ]
+  },
+  "literal_formula_inventory_preserved": {
+    "full1046_signed_span_lines": [
+      594,
+      621
+    ],
+    "native3451_projection_lines": [
+      460,
+      477
+    ],
+    "old_ordinary_extra_savedH_replay_excluded_both_sides": [
+      514,
+      547
+    ]
+  },
+  "new_kernels_or_alternative_backends_or_changed_gates": false,
+  "old_evidence_mutated": false,
+  "old_qualification_driver_path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification003_preparation/run.py",
+  "old_qualification_driver_sha256": "bd26b6d5c8848983a3853092daf5decb246996e2ec0876c134aeb103574b6f61",
+  "pending": [
+    "root boundary review",
+    "literal helper/driver implementation and source-only preparation proof",
+    "exact root numerical execution seal after two history32 pilots close"
+  ],
+  "physical_computation_routes": [
+    "CSFOrbitalFunctional.evaluate gradient=False ci_result=None",
+    "CSFOrbitalFunctional.evaluate gradient=True current genuine trial ci_result"
+  ],
+  "preparation_numerical_calls_array_loads": 0,
+  "runtime_AST_exec_text_extraction": false,
+  "status": "minimal_explicit_helper_refactor_proposal_root_review_pending"
+}

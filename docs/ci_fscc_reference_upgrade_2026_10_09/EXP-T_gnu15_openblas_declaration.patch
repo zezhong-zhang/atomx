@@ -1,0 +1,15 @@
+diff --git a/src/rcc/engine/mult.c b/src/rcc/engine/mult.c
+index abe260a..5091f3a 100644
+--- a/src/rcc/engine/mult.c
++++ b/src/rcc/engine/mult.c
+@@ -42,6 +42,10 @@
+ #include "utils.h"
+ #include "tt.h"
+ 
++#if defined BLAS_OPENBLAS
++  #include "cblas.h"
++#endif
++
+ #if defined BLAS_MKL
+   #include "mkl.h"
+ #endif

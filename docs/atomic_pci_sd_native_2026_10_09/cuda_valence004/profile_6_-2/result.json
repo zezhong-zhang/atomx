@@ -1,0 +1,71 @@
+{
+  "status": "pass",
+  "key": [
+    6,
+    -2
+  ],
+  "energy_Ha": -0.2133066794582305,
+  "complete_signed_errors_Ha": [
+    0.0,
+    8.131516293641283e-20
+  ],
+  "payload_bound_bytes": 9688215076,
+  "source_sha256": "f4751973f5de3716ad42fac32045f13d0d9ac63aae581d888c3e40eb61812bbf",
+  "library_sha256": "32b634a92a90a4bb6426cef32203028f255ae93e6034119a1640677360253d39",
+  "common_extents_bytes": {
+    "rhovout_": 35258880,
+    "drhovout_": 35258880
+  },
+  "observations": {
+    "complete_homogeneous_value": {
+      "seconds": 16.136234780889936,
+      "load_after": [
+        17.20458984375,
+        17.443359375,
+        16.0029296875
+      ]
+    },
+    "terma4_full_legacy_response": {
+      "seconds": 4.605107701034285,
+      "load_after": [
+        17.5087890625,
+        17.50244140625,
+        16.02978515625
+      ]
+    },
+    "term2_full_legacy_response": {
+      "seconds": 7.731527489959262,
+      "load_after": [
+        17.78857421875,
+        17.560546875,
+        16.056640625
+      ]
+    },
+    "term41_full_legacy_response": {
+      "seconds": 1.4105249400017783,
+      "load_after": [
+        18.0458984375,
+        17.61767578125,
+        16.08349609375
+      ]
+    },
+    "fock_zero_full_core_response": {
+      "seconds": 0.3372944389702752,
+      "load_after": [
+        18.0458984375,
+        17.61767578125,
+        16.08349609375
+      ]
+    },
+    "fock_vector_full_core_response": {
+      "seconds": 0.3401280000107363,
+      "load_after": [
+        18.0458984375,
+        17.61767578125,
+        16.08349609375
+      ]
+    }
+  },
+  "timing_scope": "single observed stage executions under recorded load; component term2/terma4/term41 retain legacy full-response work; Fock source subtraction is diagnostic only; no controlled or summed timing claim",
+  "role": "complete homogeneous decomposition, not a solve, convergence, or experimental result"
+}

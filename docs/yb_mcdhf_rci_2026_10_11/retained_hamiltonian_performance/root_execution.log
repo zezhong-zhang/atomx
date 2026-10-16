@@ -1,0 +1,59 @@
+{
+  "scope": "Same native531 accepted320 point: energy trial -> pre-gradient complete eigenpair gate -> accepted full signed gradient -> physical tracker and callback H -> complete original-metric validation -> identical compressed NPZ fsync/readback and JSON manifest. Warm chain ratio only; separate process-cold observations.",
+  "candidate_source_map_sha256": "3304f5895bcfce70708f1aa9a77bca8a7cfc3eca9a9d393380035c42ed67df2d",
+  "contract_sha256": "877b4a7c309ce68641b1c9533466c1c827c2bb6b57a1961f84202527401442c1",
+  "execution_contract_sha256": "8e35696ca3ad583087460aa566039a0dfac62b0d121ea8d1beb557797c8adc04",
+  "prerequisite_qualification_sha256": "aa9fcee094905e8529a69b4643004600ba408f0d73e59fae8fbbadad25f22473",
+  "actual_calls": {
+    "H": 21,
+    "CI": 14,
+    "gradient": 14
+  },
+  "warm_pairs": [
+    {
+      "pair": 1,
+      "ordinary_seconds": 2.2255880038719624,
+      "retained_seconds": 1.7840527440421283,
+      "ordinary_over_retained": 1.2474900258999337
+    },
+    {
+      "pair": 2,
+      "ordinary_seconds": 2.209006635006517,
+      "retained_seconds": 1.7007462768815458,
+      "ordinary_over_retained": 1.2988454921429593
+    },
+    {
+      "pair": 3,
+      "ordinary_seconds": 2.117228878196329,
+      "retained_seconds": 1.7340813491027802,
+      "ordinary_over_retained": 1.2209513004057109
+    },
+    {
+      "pair": 4,
+      "ordinary_seconds": 2.217375000938773,
+      "retained_seconds": 1.7844729160424322,
+      "ordinary_over_retained": 1.242593810757533
+    },
+    {
+      "pair": 5,
+      "ordinary_seconds": 2.184541934868321,
+      "retained_seconds": 1.8254413490649313,
+      "ordinary_over_retained": 1.1967198705054731
+    }
+  ],
+  "median_warm_ratio": 1.242593810757533,
+  "warm_ratio_range": [
+    1.1967198705054731,
+    1.2988454921429593
+  ],
+  "scientific_parity_passed": true,
+  "controlled_admission_passed": true,
+  "controlled_warm_chain_speedup_supported": true,
+  "stopping_condition": null,
+  "observed_panel_seconds": 55.92856850591488,
+  "optimizer_calls": 0,
+  "whole_optimizer_speedup_claim": false,
+  "GPU_speedup_claim": false,
+  "original_stationarity_passed": false,
+  "cold_scope": "one fresh process per mode with its own initially empty Numba cache; OS filesystem caches not flushed; cold observations only"
+}

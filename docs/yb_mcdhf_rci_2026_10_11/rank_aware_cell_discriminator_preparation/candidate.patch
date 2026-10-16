@@ -1,0 +1,20 @@
+--- a/src/atomx/numerics/bspline/convol.py
++++ b/src/atomx/numerics/bspline/convol.py
+@@ -162,7 +162,7 @@
+     rkd = np.zeros((kk, kk, nv))
+ 
+     # Sub-quadrature: ks Gauss-Legendre points on [0, 1] (DBSR_HF convention)
+-    n_sub = ks
++    n_sub = ks + (k // 2 if k >= 0 else 0)
+     x_01 = np.empty(n_sub)
+     w_01 = np.empty(n_sub)
+     _gauss_legendre_01(n_sub, x_01, w_01)
+@@ -397,7 +397,7 @@
+     rkd = np.zeros((kkp, kkq, nv))
+ 
+     # Sub-quadrature on [0, 1]
+-    n_sub = max(ksp, ksq)
++    n_sub = max(ksp, ksq) + (k // 2 if k >= 0 else 0)
+     x_01 = np.empty(n_sub)
+     w_01 = np.empty(n_sub)
+     _gauss_legendre_01(n_sub, x_01, w_01)

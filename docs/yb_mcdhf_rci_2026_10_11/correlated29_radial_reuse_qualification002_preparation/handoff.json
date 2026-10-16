@@ -1,0 +1,81 @@
+{
+  "status": "frozen_preparation_requires_exact_root_seal_no_science_executed",
+  "created_utc": "2026-10-11T15:12:19.081533+00:00",
+  "files_sha256": {
+    "run.py": "8c050f9ebbcab77301b36fe200457601a235d78b178344c05b50b6b89df4cd8e",
+    "contract.json": "265041933da6985de5bd22737d66faa47c6971b422216656d57fc04b93259c9e",
+    "preparation_verification.json": "0fdb6bb3931c803679618e818f665ea2efacc94af2608fa5542f719679e183f9",
+    "verify_preparation.py": "3de191fbb9c53f5d467f9c9ab86c2c4a53a5cbe9807ee0755baf53319d802916",
+    "candidate_source_identity.json": "be26c536c4365b9d4f8c11c9e1700d6883b567b6ff693e1e89ad9a1e45ec4938",
+    "candidate.patch": "d7d835b46a04072054ef246e1d12a2bbb1a776b727cf12a3593601ff516e6482",
+    "driver_successor.patch": "6859f1537c6c5383a79c846e0a4f049610f22d59694f88b9756b8c6094f4babc",
+    "README.md": "23d43d58fe584cec4ad59cda9237f2ca2e6d6fab112bad84a2f217a228e2b7d8",
+    "documentation_impact.json": "8e9498669f7d8b952c73a0f0e05d0086390897f548f7d6f0668b8e50900c35e4"
+  },
+  "source_maps": {
+    "ordinary": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+    "candidate": "608f8f9db0ba10476775d0d833c6eb0fcd186928f119131e44900ad640546917"
+  },
+  "input_count": 38,
+  "stdlib_source_preparation_checks": 1166,
+  "budget": {
+    "python": "/data/code/atomx/.venv/bin/python",
+    "CPU": 30,
+    "thread_variables": [
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "OMP_NUM_THREADS",
+      "NUMBA_NUM_THREADS"
+    ],
+    "memory_GiB": 3.95,
+    "shared_inner_wall_seconds": 300,
+    "outer_timeout_seconds": 315,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "max_optimizer": 0,
+    "max_total_hS": 28,
+    "max_tracking_resolutions": 4,
+    "max_tracking_SVD": 20,
+    "max_tracking_overlap": 6,
+    "max_scipy_eigh": 10,
+    "new_Dirac_eigensolves": 0,
+    "new_geometry_eigvalsh": 0,
+    "new_polar_retractions": 0,
+    "max_new_physical_points": 1,
+    "GPU_calls": 0,
+    "concurrency": "CPU30 single affinity, independent of root run004 CPU31; stage timing uncontrolled and no speedup certification.",
+    "Gauss_setup_eigvalsh": 7
+  },
+  "anchor_exact_calls": {
+    "basis_setup": 7,
+    "density_band": 28,
+    "direct_full_bank": 112,
+    "direct_semiseparable": 92,
+    "band_scalar": 170,
+    "CI_source_pair": 17,
+    "bank_get": 112,
+    "factor_get": 92,
+    "Gauss_setup_eigvalsh": 7
+  },
+  "root_execution_expected": {
+    "execution_authorized_by_root": true,
+    "driver_sha256": "8c050f9ebbcab77301b36fe200457601a235d78b178344c05b50b6b89df4cd8e",
+    "contract_sha256": "265041933da6985de5bd22737d66faa47c6971b422216656d57fc04b93259c9e",
+    "preparation_sha256": "0fdb6bb3931c803679618e818f665ea2efacc94af2608fa5542f719679e183f9",
+    "ordinary_source_map_sha256": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+    "candidate_source_map_sha256": "608f8f9db0ba10476775d0d833c6eb0fcd186928f119131e44900ad640546917",
+    "CPU": 30,
+    "max_H": 2,
+    "max_CI": 2,
+    "max_gradient": 2,
+    "wall_seconds": 300,
+    "address_space_GiB": 3.95,
+    "purpose": "same_operator_complete29_equivalence_uncontrolled_profile"
+  },
+  "CLI": "OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 timeout --signal=TERM --kill-after=5s 315s /data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/run.py --execution docs/yb_mcdhf_rci_2026_10_11/correlated29_radial_reuse_qualification002_preparation/execution_contract.json",
+  "source_only_scientific_calls": 0,
+  "ordinary_reference": "corrected native a6ba90/1d08466; f043 numeric AST, shared62a109 documentation epoch",
+  "original_failed_qualification_not_retried_or_upgraded": true,
+  "performance_or_physics_or_stationarity_certified": false
+}

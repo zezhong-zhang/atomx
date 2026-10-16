@@ -1,0 +1,13 @@
+[Unit]
+Description=Atomx receipt-triggered bounded atomic calculation
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/zzhang/code/atomx
+ExecStart=/usr/bin/python3 /home/zzhang/code/atomx/docs/atomx_hourly_progress_2026_10_10/iteration_worker.py --config /home/zzhang/.local/state/atomx-lark-hourly-aisi-codex/config.json
+TimeoutStartSec=45min
+MemoryMax=6G
+CPUQuota=100%
+Nice=10
+KillMode=control-group
+UMask=0077

@@ -1,0 +1,372 @@
+{
+  "scope": "Independent standard-library source/JSON/AST audit only; no numerical imports or arrays.",
+  "source_review_all_passed": false,
+  "checks_count": 80,
+  "checks": [
+    {
+      "name": "final_native_SHA/run.py",
+      "passed": true
+    },
+    {
+      "name": "final_native_SHA/contract.json",
+      "passed": true
+    },
+    {
+      "name": "final_native_SHA/preparation_verification.json",
+      "passed": true
+    },
+    {
+      "name": "final_native_SHA/handoff.json",
+      "passed": true
+    },
+    {
+      "name": "native_preparation_passed",
+      "passed": true
+    },
+    {
+      "name": "native_preparation_count424",
+      "passed": true
+    },
+    {
+      "name": "native_preparation_same_runner",
+      "passed": true
+    },
+    {
+      "name": "native_preparation_same_contract",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/canonical29_orbitals.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/balanced_virtual_H.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/balanced_virtual_CI.npz",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/delivery_stage013/delivery_proof.json",
+      "passed": true
+    },
+    {
+      "name": "bound_input/docs/yb_mcdhf_rci_2026_10_11/results_stage013.json",
+      "passed": true
+    },
+    {
+      "name": "bound_prerequisite/docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json",
+      "passed": true
+    },
+    {
+      "name": "bound_prerequisite/docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json",
+      "passed": true
+    },
+    {
+      "name": "bound_prerequisite/docs/yb_mcdhf_rci_2026_10_11/successor_consumer_source_review003/guard003_verification.json",
+      "passed": true
+    },
+    {
+      "name": "unchanged_original_shared_test",
+      "passed": true
+    },
+    {
+      "name": "same_candidate356_epoch",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/numerics/bspline/orbital_optimization.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/methods/csf/variational.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/physics/csf/tracking.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/physics/csf/radial_density.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/physics/csf/radial_increment.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/numerics/ci_energy_increment.py",
+      "passed": true
+    },
+    {
+      "name": "critical_source_unchanged/src/atomx/methods/ci.py",
+      "passed": true
+    },
+    {
+      "name": "no_top_level_numerical_imports",
+      "passed": true
+    },
+    {
+      "name": "no_optimizer_call",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_H",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_CI",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_full_gradient",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_optimizer",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_validation_Dirac",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_total_hS",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_tracking_resolutions",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_tracking_SVD",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_tracking_overlap",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_geometry_eigvalsh",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_polar_retraction",
+      "passed": true
+    },
+    {
+      "name": "declared_budget/max_polar_numpy_eigh_fallback",
+      "passed": true
+    },
+    {
+      "name": "tracker_resolution_accounting",
+      "passed": true
+    },
+    {
+      "name": "tracking_overlap_includes_constructor",
+      "passed": true
+    },
+    {
+      "name": "rank_one_SVD_accounting",
+      "passed": true
+    },
+    {
+      "name": "geometry_eigvalsh_accounting",
+      "passed": true
+    },
+    {
+      "name": "scipy_eigh_accounting",
+      "passed": true
+    },
+    {
+      "name": "raw_to_logical_operator_mapping",
+      "passed": true
+    },
+    {
+      "name": "raw_operator_separately_byte_checked",
+      "passed": true
+    },
+    {
+      "name": "original_P_byte_checked",
+      "passed": true
+    },
+    {
+      "name": "original_inverse_blocks_preserved",
+      "passed": true
+    },
+    {
+      "name": "coordinate_gradient_projected_from_full_radial",
+      "passed": true
+    },
+    {
+      "name": "native_tangent_formula",
+      "passed": true
+    },
+    {
+      "name": "preconditioned_gradient_reprojected",
+      "passed": true
+    },
+    {
+      "name": "explicit_new_metric",
+      "passed": true
+    },
+    {
+      "name": "no_legacy_gradient_replay_claim",
+      "passed": true
+    },
+    {
+      "name": "original_derivative_gate",
+      "passed": true
+    },
+    {
+      "name": "both_reported_and_Rayleigh_gated",
+      "passed": true
+    },
+    {
+      "name": "finite_h_declared",
+      "passed": true
+    },
+    {
+      "name": "ordinary_subtraction_reporting_only",
+      "passed": true
+    },
+    {
+      "name": "saved_symmetry_permutation_reproduced",
+      "passed": true
+    },
+    {
+      "name": "positional_target_zip_would_be_wrong",
+      "passed": true
+    },
+    {
+      "name": "positional_zip_removed",
+      "passed": true
+    },
+    {
+      "name": "complete_UID_matching_present",
+      "passed": false
+    },
+    {
+      "name": "explicit_3451_new_coordinates",
+      "passed": true
+    },
+    {
+      "name": "complete1046_target_sectors",
+      "passed": true
+    },
+    {
+      "name": "uncomputed_parent_scope",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/run.py": "7489d91e9f5bc820ba71db94ef6449c886a544a22392ff117682721e737c7572",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/preparation_verification.json": "32b5e2e8d881de4d1cb634a55ea5643fe046ed17f61966213bdc1dda15363ae4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/handoff.json": "180a957c37fccd740fa02ad0c6e7f2fe361c8acbdf6ab062f78a3bc6d62e3071",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.json": "1ce49cd2bcc49bb22ed7bf21ec8f1e21fe3f37f945a2ef5ca3a3669e1a15c93c",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/checkpoints/accepted_0160.npz": "b4ddfbd8cdb791d16bf01fb942dae1f9e5f387f60d080e18507aacea34a6b3a1",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/independent_endpoint_verification.json": "1d53aec685b0590e12c44497e42361ec07938d93b839d4d3c961e6e6226d6aeb",
+    "docs/yb_mcdhf_rci_2026_10_11/public_mixed_resume_run002/objective_identity.json": "90fcd348b71bcbe883b8a8fa3f383a1e11f4e3a9a67a75e60f0b02c03e477fb9",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/DC_arrays.npz": "976e49b9ed17b69c8b24dea7e523899034f8720c3536b46ad94637e4e091e04a",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/stage_4f5p5s/target_binding.json": "074a9c9eedefbd24ce56743ef893f59989f43a0de7c24f0f752fda82400791ca",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol005_projected_increment/orbitals_workspace.npz": "1e9195125c871492ec618872f70361d8d34016722ba942b71be90196d291bc30",
+    "docs/yb_mcdhf_rci_2026_10_11/balanced_cv_replay/basis_identity.json": "96e1da584d3fb9c2b18f79e437378c3b5841d82bed525bffd08234dab64ab8de",
+    "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/failed_coordinate_layout.json": "69d251c9cad837185041b6fdf3850c22fa332687406d5584f544ab6c96e81d14",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/canonical29_orbitals.npz": "47e0ffbf9ea9daf7a3c1244b5a5781993a18de4296e1f12f9c4778eed3c97b47",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/balanced_virtual_H.npz": "4266bf67b2f2236bf9051f7dc9bbee934ccd3f6760024939ed62f0876a4e8010",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/balanced_virtual_CI.npz": "35c76325df85149b8a9e84789376ff39835bba9486429d457b0a9e0bf5fe9ff1",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/basis_rows.json": "795077c2f9e04efab184459d380d94e72203140406f8dfbb23e40403d4afc832",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/result.json": "3ac4dca42bd9772008ecbee1650e7670b0aa224830fa6af0e1fd707dfcf399f2",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/candidate_source_identity.json": "4c7bd1eed5eef2a61412765ff7257fb3a9eb37590b0c729d08829951d5b6cc34",
+    "docs/yb_mcdhf_rci_2026_10_11/delivery_stage013/delivery_proof.json": "29145e3cdf50ea2cc400639e59f3c17f00beb4bee4c79bfb27bd5411d0c11664",
+    "docs/yb_mcdhf_rci_2026_10_11/results_stage013.json": "de48b8f060e0f1e8ea3f2fad778ded57d219483b26924a42be8d68a4a188a954",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/saved_array_audit/verification.json": "d5f6754c96efa5e427663d1b351893785c5227666d74ee826b2eea578dce0c0b",
+    "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_guard_qualification003/actual/result.json": "01801e16127b607c26a509f72a48ef382fb39b3133d64f1627fcd885e005665a",
+    "docs/yb_mcdhf_rci_2026_10_11/successor_consumer_source_review003/guard003_verification.json": "a5689d48d5bb6d8b2224f2dbc1d2d95c3385e1eeb7f6cbe93accbae3a802540c",
+    "src/atomx/numerics/bspline/orbital_optimization.py": "b381405479ad567442319bf8ae708520922261b99fb15f62679a4d1bfe6c20d7",
+    "src/atomx/methods/csf/variational.py": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4",
+    "src/atomx/physics/csf/tracking.py": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+    "src/atomx/physics/csf/radial_density.py": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+    "src/atomx/physics/csf/radial_increment.py": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f",
+    "src/atomx/numerics/ci_energy_increment.py": "e2e551a30637376afce59e15af2de4a083170a57c1fdcf25e299e4db4c63a367",
+    "src/atomx/methods/ci.py": "1f7a6708546a2f37470f8a4364703b78b80ce7d67f49641c09d9f10189bbf554",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_source_review/README.md": "b04e498e6d7c63b41272faf0a79230bbe3b6cb7697ed8a44989ed71de89348a8",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_source_review/verify_sources.py": "3a2c5779a6b75c63fc2cc9632a914a4c5446cb7552752972ae9a819a0b37bfc0"
+  },
+  "scientific_calls": 0,
+  "numerical_qualification_executed_by_reviewer": false,
+  "material_open_findings": [],
+  "root_execution_authority_inferred": false,
+  "draft_findings_closed": [
+    "physical target label permutation",
+    "unledgered geometry/tracking calls"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "import_smoke_authorized_by_root": true,
+  "scientific_execution_authorized": false,
+  "smoke_driver_sha256": "b34b8592a80f388d717fff3119b0a060be0dbe3f0cbe36833d46e57b0bf76bed",
+  "science_driver_sha256": "e421ea6c2ac40d3b624d44b8d9159f5268a196d0021a98f55b71447f6ab2ad57",
+  "contract_sha256": "ef68a12a6b483c1d652d9273cdebd59d562841ccf7a8d5e2acc3ea10fe99a2a0",
+  "preparation_sha256": "f0b9c2fffac69d8e0cf5cf292192abc2623d28203c625921af72070684290f4e",
+  "CPU": 31,
+  "threads": 1,
+  "address_space_GiB": 3.95,
+  "wall_seconds": 30,
+  "outer_wall_seconds": 45,
+  "original_failure_receipt_sha256": "8bfb21f3aeae1f0f54d679a4d0f28757f00dcdf1e75508e917099818656b2f3c",
+  "root_review": "One exact import alias line; fixed model/gates/resources/source identical. Import names/actual files only, zero NPZ loads and no scientific producers; no scientific run authorization."
+}

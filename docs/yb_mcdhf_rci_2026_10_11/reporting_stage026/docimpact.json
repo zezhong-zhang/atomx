@@ -1,0 +1,33 @@
+{
+  "status": "closed",
+  "logical_change": "Current preserved-failure report; new panel and live planner pointer bound consistently",
+  "updated": [
+    "reporting_stage026/README.md",
+    "../results_stage026.json",
+    "reporting_stage026/current_card_evidence.json",
+    "../../atomx_hourly_progress_2026_10_10/progress.json"
+  ],
+  "retained": {
+    "original5f_failed_gate": "No edits or promotion",
+    "stage025_and_hour25_refusal": "Immutable prior status",
+    "publicphysics_and_numericalsource": "No source changes in this increment",
+    "existinghourlytimer": "No newtimer/no manualcard",
+    "old_current_panel": "Retained historical binding"
+  },
+  "actual_public_entrypoints_checked": [
+    "sync_card.render",
+    "parallel_planner.annotate_physics_priority proposed andlive"
+  ],
+  "integration_proof_sha256": "4e4744714302a05d8c2f190b16f109b8660eeda6fa1b680111bed03398e5b886",
+  "local_links_passed": [
+    "integration_proof.json",
+    "../complete5f_fixed208_import_repair_preparation/root_execution.json",
+    "../complete5f_fixed208_import_repair_preparation/actual/complete5f_same_point_evidence.json",
+    "../correlated29_radial_reuse_qualification003_preparation/warm_benchmark_preparation/completion.json",
+    "../atlas_update007/publication_completion.json",
+    "current_card_evidence.json",
+    "../delivery_hour25/delivery_proof.json"
+  ],
+  "new_science_API_cards": 0,
+  "new_general_insight": "No new general rule; already existing failed-gate/load-guard and identity requirements apply."
+}

@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "columns": 6,
+  "magnetic_columns": 16,
+  "source_sha256": {
+    "docs/atomic_pci_sd_native_2026_10_09/probe_public_valence002.py": "f849beef4a9ee2ca5bdb4bb6785e3b0f4d52d261ccc0ad72eb26079f7a2e43b7",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_direct_coulomb.py": "be9b290bdd7fb117ae6e9d56ae7b1ea13c100fcf29bd650fff6159492bef9446",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_valence_direct_solver.py": "d7a2170bb106c591459f6c3c35a1f181efbce107a0d6bf3ab50dccaa750d5074",
+    "docs/atomic_pci_sd_native_2026_10_09/finite_valence_fixture.py": "d1282cdc6604b8fcab962417d7a44b1bda7998c8190f8770425a7432e581f478",
+    "docs/atomic_pci_sd_native_2026_10_09/general_rho_control.py": "d3d610d66a10351aaec5b041a9ccff55bf00c2a4165bdf760c82e84c29f4b2be",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_allorder_oracle.py": "a5fc234a6cad4679bcf21c756fb799c5eb6269d89b4035b5f3431385f2914190",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_energy_response_oracle.py": "55d84480cbddeaf389f876eb5fd60cffd2f2e4ad0a5029e4b41a31187605caf0",
+    "docs/atomic_pci_sd_native_2026_10_09/valence_fock_oracle.py": "e52ec444c9b9d13898d503640229da3423f1d832002b7db08824bcfea5dc1c86",
+    "src/atomx/methods/valence_sd.py": "1e2507769d8b6dc9db0eee35f732d21ea068d52f7c6511f36b8329547970cfaf",
+    "src/atomx/methods/_pci_valence.f90": "0cc0738b87245f91c91c3fd19572aad2374851419ecb6a8bc11ec34e1b5d2887",
+    "src/atomx/methods/_pci_valence_term2_streamed.f90": "746b41b86f762fc75cebcecc5e99ff16830e8d3214f69b4a51440bc3829a9cd4",
+    "src/atomx/methods/core_sd.py": "106c1e42c4c4e44e107ce550341d0acd80ca360d5671510d8bc6195b47dbd201",
+    "tools/build_pci_sd_backend.py": "0a754185bcdd73e69343154f8d5948172e712c698228f89329d6f568d9ba491b",
+    "tools/build_pci_valence_backend.py": "c5d28a3b9f915ea6a5edb58d295ca9847a26a21a6c68343af0c31e0feea61345"
+  }
+}

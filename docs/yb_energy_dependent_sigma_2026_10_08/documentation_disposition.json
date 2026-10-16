@@ -1,0 +1,18 @@
+{
+  "updated": [
+    "docs/README.md",
+    "docs/AGENT_REFERENCE.md",
+    "docs/AGENT_INSIGHTS.md",
+    "docs/ARCHITECTURE_CAPABILITIES.md",
+    "docs/TESTING.md",
+    "docs/VERIFICATION.md",
+    "src/atomx/methods/mbpt_transitions.py public docstrings"
+  ],
+  "retained": {
+    "docs/ARCHITECTURE_DESIGN.md": "Existing method ownership and SciPy numerical solver dependency remain valid; scalar snapshot does not add an Atom.solve backend or change physical state assembly.",
+    "src/atomx/methods/ci_mbpt.py": "Existing explicit one-body shift injection already consumes each solved scalar Dyson shift; no new automatic Sigma generation or two-valence screening is claimed.",
+    "prior dated Yb reports and bundles": "Unique immutable baseline, on-shell, gauge and QED coverage evidence preserved and linked as earlier stages.",
+    "AGENTS.md": "No new root rule. State-specific energy response and separate spatial/numerical/experimental gates fit existing principles."
+  },
+  "insight_disposition": "Merge the finite-space energy-response evidence into transition-feedback-priority; do not promote scalar Dyson solving to universal precision or full self-consistency."
+}

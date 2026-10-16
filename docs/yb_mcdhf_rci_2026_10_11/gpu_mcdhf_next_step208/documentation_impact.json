@@ -1,0 +1,37 @@
+{
+  "status": "source_only_proposal",
+  "authoritative_account": "PROPOSAL.md",
+  "added": [
+    "PROPOSAL.md",
+    "contract.json",
+    "source_review.json",
+    "documentation_impact.json",
+    "handoff.json"
+  ],
+  "retained": [
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/MCDHF_GPU_ROUTE.md",
+      "reason": "Root-owned current roadmap; this draft narrows one numerical primitive and does not claim implementation."
+    },
+    {
+      "path": "src/atomx",
+      "reason": "No public source/test/dependency/default or physical consumer edits authorized."
+    },
+    {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/numba_density001",
+      "reason": "Old SD scalar controls and isolated runtime are reference practices only; no transfer of physical qualification to MCDHF."
+    },
+    {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/README.md",
+      "reason": "Root-owned maincampaign/registry unchanged."
+    }
+  ],
+  "new_insight": "no new production insight; source-bound consumer proof and first-primitive design only",
+  "limitations": [
+    "real31 fixedRCI has gradient0 and no expandedMCDHF certification",
+    "primitive stage fraction and device-exclusive admission unknown",
+    "CPU-CUDA scalar equations not yet implemented or run",
+    "all fullH/g/constraints and originalstationarity/experiment failures retain scopes"
+  ],
+  "documentation_checks": "Local links and frozen source/JSON identities checked with stdlib; no execution imports/arrays."
+}

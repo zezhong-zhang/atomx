@@ -1,0 +1,1159 @@
+{
+  "scope": "Saved-JSON/source review and exact integer kinematic size estimate only; no scientific producer or execution authorization.",
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "contract_sha256": "d41a6c94a65ff1c8dd7bfbbbfa27335e78c75a9c07b0b75692e9143ae47b5f60",
+  "driver_sha256": "239cbe012dc3e71e02aac43d307b50164c8709493ee4b9cc021151d6b9eef3ca",
+  "inputs_sha256": {
+    "correlated29_optimization_run005_preparation/completion.json": "ad155b2b9d5ecb2d3b942939664e2712a2ed0e63b053c424ed49e55b0ea55332",
+    "correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json": "d8fa4fdd4d17c00cb03bad2a3f6402a79d814a8f3c932c646d8510f808b3043c",
+    "screened_core_virtual_discriminator002/models.json": "3f20e1307e61faeb2874a48b368086a0bf092e77c139234e1211ab3bba1e2c9b",
+    "physical_next_step80/result.json": "01169f99bde98364edbd0d7b5480d3ce651d2017806f5d7b2bb36d1537f03f6a",
+    "physical_next_step80/verification.json": "b52f2778f052b12a191065a3b791b6f0ba61b48b11235ced434c89232fd7561d",
+    "correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925",
+    "rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+    "rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/parsing.py": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+    "rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2"
+  },
+  "models": {
+    "current": {
+      "valid_NR_configs": 69,
+      "full_CSF_integer_multiplicity": 2163,
+      "full_magnetic_dimension": 13896,
+      "full_J_parity_sectors": 17,
+      "complete_target_CSF_integer_multiplicity": 1046,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 158,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1140
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 150,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1023
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 256,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 982
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 236,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 873
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 246,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 637
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "radial_key_count": 29,
+      "one_dense_block_diagonal_H_or_C_bytes": 1833696,
+      "one_dense_unblocked_target_H_or_C_bytes": 8752928,
+      "count_scope": "Exact kinematic multiplicities only; no public coupling-tree enumeration, signed determinant transform or H/CI execution.",
+      "coordinate_layout_size": 3451
+    },
+    "balanced5f": {
+      "valid_NR_configs": 91,
+      "full_CSF_integer_multiplicity": 3789,
+      "full_magnetic_dimension": 27000,
+      "full_J_parity_sectors": 20,
+      "complete_target_CSF_integer_multiplicity": 1595,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 219,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1872
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 223,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1917
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 367,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1653
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 370,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1694
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 416,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1324
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -4
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "radial_key_count": 31,
+      "one_dense_block_diagonal_H_or_C_bytes": 4338680,
+      "one_dense_unblocked_target_H_or_C_bytes": 20352200,
+      "count_scope": "Exact kinematic multiplicities only; no public coupling-tree enumeration, signed determinant transform or H/CI execution.",
+      "coordinate_layout_size_if_same_original_P_retained": 3689
+    },
+    "single4d": {
+      "valid_NR_configs": 90,
+      "full_CSF_integer_multiplicity": 3186,
+      "full_magnetic_dimension": 20196,
+      "full_J_parity_sectors": 17,
+      "complete_target_CSF_integer_multiplicity": 1576,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 230,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1616
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 228,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1570
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 372,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1386
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 364,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 1342
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 382,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 978
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "radial_key_count": 29,
+      "one_dense_block_diagonal_H_or_C_bytes": 4173504,
+      "one_dense_unblocked_target_H_or_C_bytes": 19870208,
+      "count_scope": "Exact kinematic multiplicities only; no public coupling-tree enumeration, signed determinant transform or H/CI execution.",
+      "coordinate_layout_size_if_same_original_P_retained": 3451
+    },
+    "double5p": {
+      "valid_NR_configs": 123,
+      "full_CSF_integer_multiplicity": 18931,
+      "full_magnetic_dimension": 120996,
+      "full_J_parity_sectors": 18,
+      "complete_target_CSF_integer_multiplicity": 9298,
+      "complete_target_blocks": [
+        {
+          "twoJ": 1,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 1342,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 9454
+        },
+        {
+          "twoJ": 1,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 1350,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 9477
+        },
+        {
+          "twoJ": 3,
+          "parity": -1,
+          "CSFs_integer_multiplicity": 2172,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 8112
+        },
+        {
+          "twoJ": 3,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 2164,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 8127
+        },
+        {
+          "twoJ": 5,
+          "parity": 1,
+          "CSFs_integer_multiplicity": 2270,
+          "all_NR_patterns_M_equals_J_magnetic_dimension": 5963
+        }
+      ],
+      "radial_keys": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          3,
+          -2
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          5,
+          -2
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          -3
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          -2
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "radial_key_count": 29,
+      "one_dense_block_diagonal_H_or_C_bytes": 145414752,
+      "one_dense_unblocked_target_H_or_C_bytes": 691622432,
+      "count_scope": "Exact kinematic multiplicities only; no public coupling-tree enumeration, signed determinant transform or H/CI execution.",
+      "coordinate_layout_size_if_same_original_P_retained": 3451
+    }
+  },
+  "family_multiset_counts": {
+    "current": {
+      "bare": {
+        "formal_unordered_particle_multisets": 6,
+        "valid_NR_configs": 6,
+        "invalid_Pauli_multisets": []
+      },
+      "single_4f": {
+        "formal_unordered_particle_multisets": 21,
+        "valid_NR_configs": 21,
+        "invalid_Pauli_multisets": []
+      },
+      "single_5p": {
+        "formal_unordered_particle_multisets": 21,
+        "valid_NR_configs": 21,
+        "invalid_Pauli_multisets": []
+      },
+      "single_5s": {
+        "formal_unordered_particle_multisets": 21,
+        "valid_NR_configs": 21,
+        "invalid_Pauli_multisets": []
+      }
+    },
+    "balanced5f": {
+      "bare": {
+        "formal_unordered_particle_multisets": 7,
+        "valid_NR_configs": 7,
+        "invalid_Pauli_multisets": []
+      },
+      "single_4f": {
+        "formal_unordered_particle_multisets": 28,
+        "valid_NR_configs": 28,
+        "invalid_Pauli_multisets": []
+      },
+      "single_5p": {
+        "formal_unordered_particle_multisets": 28,
+        "valid_NR_configs": 28,
+        "invalid_Pauli_multisets": []
+      },
+      "single_5s": {
+        "formal_unordered_particle_multisets": 28,
+        "valid_NR_configs": 28,
+        "invalid_Pauli_multisets": []
+      }
+    },
+    "single4d": {
+      "additional_family": {
+        "formal_unordered_particle_multisets": 21,
+        "valid_NR_configs": 21,
+        "invalid_Pauli_multisets": []
+      }
+    },
+    "double5p": {
+      "additional_family": {
+        "formal_unordered_particle_multisets": 56,
+        "valid_NR_configs": 54,
+        "invalid_Pauli_multisets": [
+          {
+            "particles": [
+              "6s",
+              "6s",
+              "6s"
+            ],
+            "reason": "exact Pauli shell-capacity exclusion",
+            "violations": [
+              [
+                6,
+                0,
+                3
+              ]
+            ]
+          },
+          {
+            "particles": [
+              "7s",
+              "7s",
+              "7s"
+            ],
+            "reason": "exact Pauli shell-capacity exclusion",
+            "violations": [
+              [
+                7,
+                0,
+                3
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "all_integer_controls_passed": true,
+  "scientific_calls": {
+    "new_H": 0,
+    "new_CI": 0,
+    "new_gradient": 0,
+    "new_radial": 0,
+    "new_CSF_enumeration": 0,
+    "new_orbitals": 0,
+    "new_spectral_solve": 0,
+    "array_reads": 0,
+    "source_edit": false,
+    "API_or_publication": false,
+    "physical_certification": false,
+    "stationarity_upgrade": false,
+    "historical_corrections_additive_at208": false
+  },
+  "controls": [
+    {
+      "name": "input_SHA/correlated29_optimization_run005_preparation/completion.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/correlated29_optimization_run005_preparation/actual/checkpoints/accepted_0128.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/screened_core_virtual_discriminator002/models.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/physical_next_step80/result.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/physical_next_step80/verification.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/csf.py",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/rank_aware_cell_discriminator_preparation/candidate_source/atomx/config/parsing.py",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "input_SHA/rank_aware_cell_discriminator_preparation/candidate_source/atomx/angular/mscheme.py",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "valid_NR_token/1s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/1s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/2s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/2s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/2p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/2p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/3s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/3s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/3p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/3p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/3d10",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/3d10",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/4s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/4s2",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/4p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/4p6",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/4d10",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "distinct_NR_shell/4d10",
+      "passed": true,
+      "instances": 70
+    },
+    {
+      "name": "valid_NR_token/5s2",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "distinct_NR_shell/5s2",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "valid_NR_token/5p6",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "distinct_NR_shell/5p6",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "valid_NR_token/4f14",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "distinct_NR_shell/4f14",
+      "passed": true,
+      "instances": 49
+    },
+    {
+      "name": "valid_NR_token/6s1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/6s1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/5d1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/5d1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/6p1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/6p1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/4f13",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "distinct_NR_shell/4f13",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "valid_NR_token/6s2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/6s2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "valid_NR_token/5d2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/5d2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "valid_NR_token/6p2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/6p2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "valid_NR_token/5p5",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "distinct_NR_shell/5p5",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "valid_NR_token/5s1",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "distinct_NR_shell/5s1",
+      "passed": true,
+      "instances": 21
+    },
+    {
+      "name": "valid_NR_token/7s1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/7s1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/6d1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/6d1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/7p1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "distinct_NR_shell/7p1",
+      "passed": true,
+      "instances": 16
+    },
+    {
+      "name": "valid_NR_token/7s2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/7s2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "valid_NR_token/6d2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/6d2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "valid_NR_token/7p2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "distinct_NR_shell/7p2",
+      "passed": true,
+      "instances": 3
+    },
+    {
+      "name": "complete_current_family_identity",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "unique_configuration",
+      "passed": true,
+      "instances": 373
+    },
+    {
+      "name": "electron_count69",
+      "passed": true,
+      "instances": 373
+    },
+    {
+      "name": "shell_capacity",
+      "passed": true,
+      "instances": 17,
+      "last_detail": [
+        1,
+        3
+      ]
+    },
+    {
+      "name": "shell_magnetic_binomial",
+      "passed": true,
+      "instances": 17
+    },
+    {
+      "name": "nonnegative_J_multiplicity",
+      "passed": true,
+      "instances": 3894
+    },
+    {
+      "name": "complete_magnetic_dimension",
+      "passed": true,
+      "instances": 373
+    },
+    {
+      "name": "current_full2163",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "current_target1046",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "current_target_all5_blocks",
+      "passed": true,
+      "instances": 1
+    },
+    {
+      "name": "current_target_all_pattern_M_dimensions",
+      "passed": true,
+      "instances": 1
+    }
+  ],
+  "memory_runtime_and_overlap_qualification": false
+}

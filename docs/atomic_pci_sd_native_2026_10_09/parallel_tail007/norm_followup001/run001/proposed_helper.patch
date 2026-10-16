@@ -1,0 +1,57 @@
+--- monovalent_norm_control.py
++++ owned-cache/monovalent_norm_control.py
+@@ -117,15 +117,9 @@
+         or twoM not in projections(key[1])
+     ):
+         raise ValueError("actual valence magnetic projection required")
+-    kappas = {k for _, k in core_plan["occupied_keys"] + core_plan["virtual_keys"]}
+-    maxrank = core_plan["dimensions"]["KK"] + 1
+-    maxradial = max(
+-        sum(k in core_plan["virtual_keys"] for k in g) for g in core_plan["groups"]
+-    )
+-    # Four rank Gram families per quartet plus conservative Python/cache scratch.
+-    extra = (
+-        2 * 1024**2 + 128 * len(kappas) ** 4 * maxrank**2 + 64 * maxrank * maxradial**2
+-    )
++    resource_plan = plan_scratch(core_plan, valence_plan, key)
++    extra = resource_plan['required_bytes']
++    angular_grams = BoundGrams(grams.__wrapped__)
+     if (
+         isinstance(memory_bytes, bool)
+         or not isinstance(memory_bytes, int)
+@@ -153,7 +147,7 @@
+             if (b, jn, im) in valence_tables
+             else ((), np.empty((0, len(groups[jn]), len(groups[im]))))
+         )
+-        dd, _, cross = grams(
++        dd, _, cross = angular_grams(
+             groups[im][0][1],
+             groups[jn][0][1],
+             key[1],
+@@ -184,7 +178,7 @@
+                 raise ValueError("equal-hole complete reverse channels required")
+             u = 0.5 * (u + reverse.transpose(0, 2, 1))
+             reverse = u.transpose(0, 2, 1)
+-        dd, _, cross = grams(
++        dd, _, cross = angular_grams(
+             groups[im][0][1],
+             groups[jn][0][1],
+             occupied[a][1],
+@@ -223,7 +217,7 @@
+                     raise ValueError("equal-hole complete reverse channels required")
+                 u = 0.5 * (u + r)
+                 r = u
+-            dd, ee, cross = grams(
++            dd, ee, cross = angular_grams(
+                 key[1],
+                 group[0][1],
+                 occupied[a][1],
+@@ -271,6 +265,8 @@
+         core_doubles_pauli_blocked=blocked_double,
+         core_doubles_unblocked=core_double - blocked_double,
+         extra_scratch_bound_bytes=extra,
++        resource_plan=resource_plan,
++        angular_cache=dict(hits=angular_grams.hits, misses=angular_grams.misses, evictions=angular_grams.evictions, peak_array_bytes=angular_grams.peak_bytes),
+     )
+     norm_squared = sum(
+         result[k]

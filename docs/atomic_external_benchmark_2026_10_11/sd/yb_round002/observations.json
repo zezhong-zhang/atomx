@@ -1,0 +1,122 @@
+[
+  {
+    "ordinal": 0,
+    "round": null,
+    "warmup": true,
+    "workers": 8,
+    "seconds": 16.790448629995808,
+    "lock_wait_seconds": 4.6406988985836506e-05,
+    "global_round": 2,
+    "load_before": [
+      10.439453125,
+      11.1455078125,
+      11.8720703125
+    ],
+    "load_after": [
+      11.0732421875,
+      11.2529296875,
+      11.89599609375
+    ],
+    "timing_guard_pass": true,
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "bitwise_equal_to_prior_serial": true,
+    "finite": true
+  },
+  {
+    "ordinal": 1,
+    "round": 0,
+    "warmup": false,
+    "workers": 2,
+    "seconds": 43.95367749792058,
+    "lock_wait_seconds": 1.1992990039288998e-05,
+    "global_round": 2,
+    "load_before": [
+      11.0732421875,
+      11.2529296875,
+      11.89599609375
+    ],
+    "load_after": [
+      11.0859375,
+      11.23095703125,
+      11.85791015625
+    ],
+    "timing_guard_pass": true,
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "bitwise_equal_to_prior_serial": true,
+    "finite": true
+  },
+  {
+    "ordinal": 2,
+    "round": 0,
+    "warmup": false,
+    "workers": 8,
+    "seconds": 17.468902196967974,
+    "lock_wait_seconds": 1.2103002518415451e-05,
+    "global_round": 2,
+    "load_before": [
+      11.0859375,
+      11.23095703125,
+      11.85791015625
+    ],
+    "load_after": [
+      12.17431640625,
+      11.474609375,
+      11.92578125
+    ],
+    "timing_guard_pass": true,
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "bitwise_equal_to_prior_serial": true,
+    "finite": true
+  },
+  {
+    "ordinal": 3,
+    "round": 0,
+    "warmup": false,
+    "workers": 1,
+    "seconds": 82.11935197201092,
+    "lock_wait_seconds": 1.1972966603934765e-05,
+    "global_round": 2,
+    "load_before": [
+      12.17431640625,
+      11.474609375,
+      11.92578125
+    ],
+    "load_after": [
+      10.6728515625,
+      11.15478515625,
+      11.77392578125
+    ],
+    "timing_guard_pass": true,
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "bitwise_equal_to_prior_serial": true,
+    "finite": true
+  },
+  {
+    "ordinal": 4,
+    "round": 0,
+    "warmup": false,
+    "workers": 4,
+    "seconds": 25.265839557047002,
+    "lock_wait_seconds": 1.2053060345351696e-05,
+    "global_round": 2,
+    "load_before": [
+      10.61865234375,
+      11.13525390625,
+      11.76416015625
+    ],
+    "load_after": [
+      11.44970703125,
+      11.28662109375,
+      11.79833984375
+    ],
+    "timing_guard_pass": true,
+    "maximum_signed_error_Ha": 3.1170812458958252e-19,
+    "maximum_relative_error": 4.898035365302726e-15,
+    "bitwise_equal_to_prior_serial": true,
+    "finite": true
+  }
+]

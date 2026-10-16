@@ -1,0 +1,833 @@
+{
+  "status": "closed_JSON_configuration_scope_audit",
+  "source": {
+    "path": "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/execution001/models.json",
+    "sha256": "f093ac0e1d4dcae14acde59a2aad93b053eb0ea2d20e2452cb1ba3ca490b160b"
+  },
+  "configuration_count": 91,
+  "family_counts": {
+    "bare": 4,
+    "4f": 13,
+    "5p": 13,
+    "5s": 13,
+    "bare_new_virtual": 3,
+    "4f_new_virtual": 15,
+    "5p_new_virtual": 15,
+    "5s_new_virtual": 15
+  },
+  "core_hole_counts": {
+    "0": 7,
+    "1": 84
+  },
+  "all_charge69": true,
+  "rows": [
+    {
+      "family": "bare",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "bare",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "bare",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6p1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5d1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5d1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5d1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "bare_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7s1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "bare_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6d1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "bare_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 7p1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7s1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 6d1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 7p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7s1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 6d1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 7p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7s1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 6d1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 7p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 6d1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 7p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d1 7p1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7p2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7s1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 6d1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 7p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7s1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 6d1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 7p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7s1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 6d1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 7p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 6d1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 7p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d1 7p1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7p2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7s1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 6d1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 7p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7s1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 6d1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 7p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7s1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 6d1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 7p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 6d1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 7p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d1 7p1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s_new_virtual",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7p2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "bare",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5f1",
+      "core_holes": {},
+      "total_core_holes": 0,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5d1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6p1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7s1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6d1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 7p1 5f1",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "4f",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 5f2",
+      "core_holes": {
+        "4f": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6s1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5d1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6p1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7s1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 6d1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 7p1 5f1",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5p",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5 4f14 5f2",
+      "core_holes": {
+        "5p": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6s1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5d1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6p1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7s1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 6d1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 7p1 5f1",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    },
+    {
+      "family": "5s",
+      "config": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s1 5p6 4f14 5f2",
+      "core_holes": {
+        "5s": 1
+      },
+      "total_core_holes": 1,
+      "electrons": 69
+    }
+  ],
+  "basis_or_integral_or_NPZ_or_Atomx_calls": 0,
+  "missing_core_core_correlation_quantified": false,
+  "scope": "NR occupation census only, not full jj wavefunction or a gap cause estimate."
+}

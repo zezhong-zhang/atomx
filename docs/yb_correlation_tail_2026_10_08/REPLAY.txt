@@ -1,0 +1,16 @@
+Yb correlation-tail and radial controls, 2026-10-08.
+
+The delivery includes complete production source, coarse/refined DF inputs, all measured JSON/CSV summaries, the 200-Ha virtual-orbital snapshots, and scientific drivers. Full large poles.npz coupling arrays are excluded from this delivery, retained locally and individually sealed in artifact_manifest.json. The bundle therefore supports native recapture, not immediate offline full-pole replay.
+
+Extract Atomx_capture_source.zip into the same directory as this bundle, preserving src/ and pyproject.toml. Use the existing numerical environment or install pyproject.toml dependencies in an isolated environment. Rendering uses a separate Markdown/WeasyPrint environment; numerical dependencies must not change to render a PDF. For the test panel, extract the included unchanged Affected_tests_source.zip into the same checkout.
+
+Drivers reject overwriting scientific evidence. Retain a complete unchanged copy of the extracted delivery first. To recapture in a second independent checkout, move this topic's existing results/, analysis/, coarse_preliminary/, capture_coverage/ and absolute_anchor/ aside. Keep the bundled preflight/, representation_audit_v4/, literature_check/ and earlier-stage reference inputs unchanged. Set PYTHONPATH=src and run:
+python docs/yb_correlation_tail_2026_10_08/run_controls.py
+python docs/yb_correlation_tail_2026_10_08/analyze_controls.py
+python docs/yb_correlation_tail_2026_10_08/verify_capture_coverage.py
+python docs/yb_correlation_tail_2026_10_08/absolute_energy_anchor.py
+python docs/yb_correlation_tail_2026_10_08/build_report.py
+
+The original full-workspace audit_representation.py checks the native Gram matrices and also complete manifests of the two original sealed evidence folders. Those earlier folders include large artifacts excluded here, so that archival-preservation audit requires the original workspace. For an independent bundle recapture, retain the included already sealed representation_audit_v4/ result; do not move it aside or describe it as a new preservation pass. verify_capture_coverage.py checks the newly constructed complete virtual manifests against the same bundled, metric-validated snapshots. The original audit script is retained as evidence of the actual measurement.
+
+Pure Dirac-Coulomb, frozen-orbital scalar Sigma2 Dyson roots. No fitted shifts or imported higher-order corrections. Space increments, numerical residuals and experimental errors are distinct. The report states which gates failed.

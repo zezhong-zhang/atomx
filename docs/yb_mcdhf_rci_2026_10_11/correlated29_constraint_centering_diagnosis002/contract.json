@@ -1,0 +1,193 @@
+{
+  "created_before_saved_numeric_audit_utc": "2026-10-11T13:48:03.948559+00:00",
+  "status": "prospective_requires_root_review",
+  "hypothesis": "Original saved external d0 may share finite Gram-normal sensitivity. Reuse the same baseline conditional signed Lambda and exact full-Gram/quadratic algebra at original d0 +/-h only; no new point, producer or step.",
+  "inputs": {
+    "failed_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/contract.json",
+      "sha256": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195"
+    },
+    "failed_root": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/root_execution.json",
+      "sha256": "3680ed1f153294043a526dee6d7c75fd7626b8957b1a6d10f3bd9a9bf1ddc747"
+    },
+    "failed_ledger": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_central.json",
+      "sha256": "3f19958aacbf70b6527889466dbe53c944ce4d4becc531471c41ef20916254d5"
+    },
+    "failed_diagnostics": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_diagnostics.json",
+      "sha256": "f00dd7610a0e10d0d0b75e92bae5a1c83f5e459abc1f90ca1c6467d17f63acd4"
+    },
+    "base_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/recovered_coordinate_point.npz",
+      "sha256": "94f42c2b5348aff5837d2ce51304c4e404fd14d40920eb29eaa06bab182bed87"
+    },
+    "direction": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_coordinates.npz",
+      "sha256": "3e5d56a271f4976469d82f602e186def00624f287606490018b82066e5a31739"
+    },
+    "plus_coordinates": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_plus_coordinates.npz",
+      "sha256": "b29a11cecc9eb614be1ea70567c1bf8d3402ee56c3ce8ca98dad8bc0e1777260"
+    },
+    "minus_coordinates": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_minus_coordinates.npz",
+      "sha256": "34f722b080a75179be2341e7eb7d7827c2df45d74ef5fab6a50d6c5ce1e9ea23"
+    },
+    "plus_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_plus.npz",
+      "sha256": "b204ef50fb134e89c954b6b38616a5cd8a4a125804b282ca43a5fd9b26909bb6"
+    },
+    "minus_waves": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/direction0_minus.npz",
+      "sha256": "f2eee7ffa0cf8eac39860a2b9dcb86629e75e7f6accf902c8997c70a712b2777"
+    },
+    "saved_gradient": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/full_gradient_metric.npz",
+      "sha256": "e8baadd35b656b3dbebaebf606db90f809f35d5f6cc92945d75dda81488c98a2"
+    },
+    "signed_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/signed_density.json",
+      "sha256": "19e7588941dda3b60c4c2f7c9fbcc123b49eeed616c67fa785e3833dbaf987b8"
+    },
+    "saved_layout": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/actual/new_coordinate_layout.json",
+      "sha256": "f26c7bb1e4b9a03469dec822da243e7b6a1a9b379506de3f1c7304a1d50d7925"
+    },
+    "saved_gradient_proof": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_mcdhf_probe_preparation/saved_array_audit/verification.json",
+      "sha256": "78acd5e986e6c0d38c5dd4c2ce92674ba3b214e4e53020388af9843dd391e5e6"
+    },
+    "raw_hS_0": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_000.npz",
+      "sha256": "18f17fb61bdbc461eee0236ee661d646a6e6a09a42110d258c496fbad3bcb3e4"
+    },
+    "raw_hS_1": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_001.npz",
+      "sha256": "b6033d65f5a5bcf7dc5df125f1e286ac20c6346ac626dd95561b3ab623325d4f"
+    },
+    "raw_hS_2": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_002.npz",
+      "sha256": "26c6ff5d634701db6acbb2dbb0bb474d01d28fd027f43ebba8aa59e2e12f424d"
+    },
+    "raw_hS_3": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_003.npz",
+      "sha256": "a5d2ef5af96cf94621dd56b27c6736e050ae3a8d13cf95625a9080a0e6266e03"
+    },
+    "raw_hS_4": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_004.npz",
+      "sha256": "162e42ee0141f3507c277f1714b69e173a4ca6ce09e97e2c7299559dca920e0a"
+    },
+    "raw_hS_5": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_005.npz",
+      "sha256": "66c9974c080cf88d1fe1477d59220c35a5e4598837fea276a2738482f7041532"
+    },
+    "raw_hS_6": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_rayleigh_qualification002/actual/native_raw_hS_006.npz",
+      "sha256": "ba07f98c34afd6f220ac8c66f5fafce369804bb0ecc05007f60ecf08385038f8"
+    },
+    "logical_geometry": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/screened_core_virtual_discriminator002/native_hS_original_geometry.npz",
+      "sha256": "35c6f23b63e60beab315ceba90ecbad4a5c77459dc0e2a9a7684685b4b9c4754"
+    },
+    "source_functional": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/methods/csf/variational.py",
+      "sha256": "1cae3162c711b47d4a3bcb46d39771b81638c1633d9ddd1f86b3378b65bde1c4"
+    },
+    "source_radial_increment": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_increment.py",
+      "sha256": "a075bbf461ab5127805f0c388d2d3dc6a86ba3b5605b9decc679d1ca9867293f"
+    },
+    "source_density": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/mixed_ci_finite_increment_implementation/source/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f"
+    },
+    "previous_onebody_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/contract.json",
+      "sha256": "7a5bcf04b40c39c92bbc7afbe70ca6ef733e6432677581db8b2f59b740ce9f7e"
+    },
+    "previous_onebody_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/actual/result.json",
+      "sha256": "846453e8d8750ae360681e9d72e2b6794ae31d9b99419d99997e7b79805509ce"
+    },
+    "previous_onebody_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/root_execution.json",
+      "sha256": "cf454661ce2d200762aeeddfbfb86bd262607ad8705afa395fd3522b74e6f16e"
+    },
+    "previous_onebody_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_rotation_failure_diagnosis/completion.json",
+      "sha256": "c298bb218926c71cd8ef257e5a3243ed53e8c4ef84759b5e220a18192d46d177"
+    },
+    "d1_centering_contract": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/contract.json",
+      "sha256": "868f9a69ae14b0d291949e0ed19a42a4ba97e5b9ed01e4c4436b35977085ffe1"
+    },
+    "d1_centering_driver": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/diagnose_saved.py",
+      "sha256": "0d0fd826d265822a3a4852e5d851c352521bae96b1f6c0f90b59349f2789606d"
+    },
+    "d1_centering_result": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/actual/result.json",
+      "sha256": "4ae752a551ebc32777742ca0982c7e1db2fa5ea18cb5fd0015bc13c63cda90d3"
+    },
+    "d1_centering_execution": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/root_execution.json",
+      "sha256": "05b7b6baa187c183d604643e5997477bb3ea785d26c07bb612c9783fa30bd2a7"
+    },
+    "d1_centering_completion": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/correlated29_constraint_centering_diagnosis/completion.json",
+      "sha256": "6aa39654636ae53637892e8dcf3be1dce5490cfa0d6271a20fa39961a1fe19c6"
+    }
+  },
+  "fixed": {
+    "original_source356_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+    "complete_model": "same1046 target-sector CSFs, all29 radial keys, original7 nuclear P, original five-target531 tracker and new3451 metric",
+    "original_metric_sha256": "a96f1aecd3e18316376121d8255c156a5f5b4c01a21fd0ba86ca91131ae66d73",
+    "PCG64_seed": 20261011,
+    "h": 1e-06,
+    "unchanged_derivative_gate": 1e-08,
+    "gate_origin": "Original probe d0 max(abs1e-8, rel1e-5*abs(analytic)); abs1e-8 dominates. Require against both original and conditional-centered analytic.",
+    "actual_Gram_gate": 1e-10,
+    "no_new_points_or_steps": true,
+    "original_reported_production_objective_unchanged": true,
+    "original_qualification002_stays_failed": true,
+    "no_production_callback_or_optimizer_authorization": true,
+    "direction": "Original external new-five complement d0",
+    "original_probe_stays_failed": true
+  },
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "address_space_GiB": 2,
+    "wall_seconds": 90,
+    "outer_wall_seconds": 105,
+    "max_exact_scalar_products": 8000000,
+    "max_physical_H_CI_gradient_Dirac_optimizer_calls": 0,
+    "max_eigen_SVD_calls": 0,
+    "max_two_body_cells_or_potentials": 0,
+    "max_new_public_RDM_contracts": 0,
+    "no_retries": true,
+    "cost_estimate": "Below4million counted Fraction products from 29 dense original-P actions, sparse archived h/S actions and every pair in7 complete Gram blocks; rational correction denominators retained. No full-cell or full-CI contraction."
+  },
+  "method": {
+    "arithmetic": "Fraction.from_float archived binary64 values. Exact dyadic products and exact rational ket-norm divisions. Only NumPy saved-array loading/element inspection; no Atomx/Scipy imports.",
+    "actual_conditional_gradient": "gA = archived full retained raw radial g - retained logical symmetric onebody gradient + retained raw h_ab/n_b onebody gradient. For raw nonsymmetric h, bra derivative=hVb/n_b and ket derivative=h.T Va/n_b -2(Va.T h Vb)S Vb/n_b^2. All51 signed h keys including offdiagonal retained. Two-body unfiltered/normalized response remains unmeasured.",
+    "fixed_multiplier": "For each complete same-kappa C block, Lambda=.25*(C.T gA+gA.T C). Baseline only, never fitted to observed failure/normal error. All signed offdiagonal entries. Report raw-g multiplier separately, never use it for primary centering.",
+    "finite_Gram": "For actual archived delta=Ctrial-Cbase, exact DeltaG=C.T S delta+delta.T S C+delta.T S delta. Verify against exact direct full trial-minus-base Gram and exact explicit-plus-reconstruction split. Retain full quadratic curvature; report diagonal/offdiagonal and linear/quadratic normal contributions separately.",
+    "finite_energy": "Consume original probe d0 explicit_radial+reconstruction_radial+Rayleigh_response per saved sign; keep full finite CI response/norm/residual diagnostics. The prior d0 ledger uses analytic instead of analytic_saved_g and has no direct quotient central key, so derive that existing diagnostic-only central from the two saved direct_retained_quotient_difference values after authorization. Never use it for the primary gate.",
+    "centered_target": "Diagnostic DeltaL_Q=archived complete finite Rayleigh increment-Tr(Lambda DeltaG). Compare central difference with original analytic and with gA dot exact P*seed -Tr(Lambda idealGramDerivative), under the unchanged original threshold. This is only conditional fixed-Lambda finite same-point constrained-gradient control.",
+    "no_certification": "Original production lambda target, failed original lambda/Q gates, stationarity and experimental gaps unchanged. No universal finite remainder/sign bound. A pass neither qualifies a callback nor supplies omitted two-body or normalized full-CI response."
+  },
+  "expected_outcomes": [
+    "Within original threshold: measured samepoint full-Gram normal sensitivity explains this conditional finite diagnostic; retain unresolved gradient/RDM/CI/cell error bounds before production use.",
+    "Outside original threshold: preserve failed result and report residual; no h scan, new gradient or gate relaxation."
+  ],
+  "stop": [
+    "Changed source/input/key/order/target/weight or exact Gram identity: save failure and stop.",
+    "Any original actualGram gate or resources/forbidden import fails: save failure/partial evidence, no point repair.",
+    "Conditional derivative comparison failure remains visible; no upgrade of original002."
+  ],
+  "existing_insight": "docs/AGENT_INSIGHTS.md#preserve-metric: finite Gram defect centering retains a remainder; a roundoff guard alone provides no universal descent-sign bound.",
+  "execution": "Separate exact root review/authorization matches this successor contract and driver before one saved-only d0 execution. Frozen d1 and both original failures remain unchanged."
+}

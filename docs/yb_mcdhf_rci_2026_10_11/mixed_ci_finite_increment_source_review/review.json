@@ -1,0 +1,118 @@
+{
+  "status": "accepted_read_only_source_review_pending_independent_numerical_qualification",
+  "created_at": "2026-10-11T11:50:37.070073+00:00",
+  "candidate_source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "verification_sha256": "2c2e25221bcf9dc8c2fd2f3b2bb4e05ed417ebd0377400090dbb9497162f4c53",
+  "final_inputs_sha256": "2267b863f37fbf62390906a47f95592e04cc3708669490b366007f9a4a50bff6",
+  "all_passed": true,
+  "readonly_check_count": 1193,
+  "material_findings_unresolved": [],
+  "finding_dispositions": [
+    {
+      "id": "F01",
+      "finding": "Complete CI residual used an entrywise maximum, weakening the original column 2-norm gate.",
+      "disposition": "Owner changed to max column Euclidean norm; read in current draft.",
+      "qualification": "source review only",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "F02",
+      "finding": "Radial factory silently cast bound endpoint arrays to float64.",
+      "disposition": "Owner now rejects non-float64 reference, trial and increment arrays before radial assembly.",
+      "qualification": "source review only",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "F03",
+      "finding": "Mutable ordered CSFs could leave the constructor angular table stale while new valid owners matched the current CSFs.",
+      "disposition": "Owner added exact captured signatures, orbital keys and determinant cap admission.",
+      "qualification": "source review only",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "F04",
+      "finding": "A changed functional target declaration could silently retain the old tracker objective.",
+      "disposition": "Owner added tracker.state_average == functional.state_average.",
+      "qualification": "source review only",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "F05",
+      "finding": "CSFSignature omits explicit parity while captured angular blocks use parity.",
+      "disposition": "Owner added physical parity and single electron-count admission; signature then fixes the same physical block model.",
+      "qualification": "source review only",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "F06",
+      "finding": "Decimal oracle add_point rounded binary64 assets at ambient default precision28 before the precision80 matrix oracle.",
+      "disposition": "Owner and root notified; final corrected oracle not yet frozen.",
+      "qualification": "unresolved until final candidate read",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    },
+    {
+      "id": "C01",
+      "finding": "Final H-owner revalidation verifies physical inputs, not concurrently mutable CI eigenpair arrays.",
+      "disposition": "Clarify unsupported concurrent eigenpair mutation; no new concurrency mechanism requested.",
+      "qualification": "documentation boundary, not numerical rejection proof",
+      "final_disposition": "Resolved at the exact frozen candidate; verified in final source/AST/metadata audit."
+    }
+  ],
+  "mathematical_review": {
+    "reported_identity": "The whole reference column and its residual are phase aligned; all four finite response terms, n0/n1, and separately normalized trial signed RDM are retained.",
+    "rayleigh_identity": "The reference quotient is centered without restoring a large absolute intermediate; its distinct three-term response is retained. Reported eigenvalue precision is not reconstructed.",
+    "one_body_identity": "Ordered native h_ab=N_ab/s_b keeps complete quadratic numerator/ket-norm increments and an additional complete rounded-endpoint correction.",
+    "Coulomb_identity": "Native source/target ordering and every P/Q component are retained; complete pair-quadratic and quartic explicit terms plus all five reconstruction density/potential products are present.",
+    "source_math_is_not_numerical_certificate": true
+  },
+  "physical_identity_review": [
+    "Both endpoints require native complete owned dense real DC H and exact native float64 point/vector data.",
+    "Complete signed CSF table/order/keys/cap, physical parity and single N prevent stale mutable consumer use.",
+    "Functional target must still equal immutable tracker target; rank-one isolated target identities and normalized weights must match at both endpoints.",
+    "Full eigenpair column2norm1e-8, CI/radialGram1e-10 and frozen metric matching precede new radial work.",
+    "Concurrent eigenpair mutation is explicitly unsupported; final owner checks validate physical inputs rather than certifying mutable eigenvectors."
+  ],
+  "legacy_path_review": [
+    "352 pre-existing source files other than allowed matrix/variational edits remain byte identical to old354.",
+    "Every pre-existing function in the changed matrix/variational files is byte and AST identical except the contracted radial evaluator extraction.",
+    "The extracted pair-band loop body is AST identical, original grid branch is identical and the enclosing evaluator has no other AST changes.",
+    "Ordinary CI, signed-density gradient machinery, fixed-density/constrained guards and original optimizer remain unchanged."
+  ],
+  "test_preparation_review": [
+    "Root-sealed bounded fixture has13 candidate completeH/CI,2signed gradients, five oldsource completeH comparators and one oldsource signed gradient: aggregate18H/13CI/3g/0optimizer.",
+    "Native one-body assembly aliases are explicitly counted48candidate+6old; finite Dirac/polar/overlap/SVD/SciPy counters are separately bounded.",
+    "Independent Decimal80 entry contexts cover point creation and all cached public density/potential/radial arithmetic; it imports no Atomx.",
+    "Signed/tiny/zero/reverse/phase/common-offset, native-Decimal, oldbitwise and unsupported-zero-call test controls are prepared but were not executed in this review."
+  ],
+  "resources_actual": {
+    "CPU_affinity": [
+      0
+    ],
+    "maximum_address_space_GiB": 1,
+    "outer_timeout_seconds": 30,
+    "elapsed_seconds": 0.05825345800258219,
+    "max_RSS_KiB": 27648
+  },
+  "actual_physical_calls": {
+    "H": 0,
+    "CI": 0,
+    "gradient": 0,
+    "Dirac": 0,
+    "optimizer": 0
+  },
+  "actual_test_execution": 0,
+  "qualification_claims": {
+    "finite_numerical_qualification_passed": false,
+    "optimizer_adapter_approved": false,
+    "general_decrement_error_bound": false,
+    "Yb_stationarity": false,
+    "experimental_gap_improvement": false,
+    "performance_or_GPU_gain": false
+  },
+  "limitations": [
+    "The source-level finite identities apply to real finite assets; binary64 native accumulation, existing fastmath, angular projection and rounded-domain accuracy must still pass the numerical oracle.",
+    "Finite reported roots and retained-vector Rayleigh quotients have separate meanings.",
+    "No postulated cancellation explanation is certified by source completeness.",
+    "No full531 continuation or Armijo adoption is authorized by this audit."
+  ]
+}

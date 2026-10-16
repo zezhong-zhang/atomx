@@ -1,0 +1,2599 @@
+{
+  "all_completion_metadata_checks_passed": true,
+  "checks": 11,
+  "controls": [
+    {
+      "name": "foreground_closed_exit0",
+      "passed": true
+    },
+    {
+      "name": "receipt_driver_contract_execution_bound",
+      "passed": true
+    },
+    {
+      "name": "successful_bounded_return",
+      "passed": true
+    },
+    {
+      "name": "all1175_actual_controls_passed",
+      "passed": true
+    },
+    {
+      "name": "complete0_to16_trajectory",
+      "passed": true
+    },
+    {
+      "name": "all17_manifests_arrays_bound_UID_metric_geometry_and16_exact_ledgers",
+      "passed": true
+    },
+    {
+      "name": "terminal16_not_best_gap_selected",
+      "passed": true
+    },
+    {
+      "name": "original_stationarity_failure_not_upgraded",
+      "passed": true
+    },
+    {
+      "name": "exactscope27H27CI17g_1optimizer",
+      "passed": true
+    },
+    {
+      "name": "oldFAIL_ordinary_reported_and_no_callback_preserved",
+      "passed": true
+    },
+    {
+      "name": "zero_physical_imports",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0001.json": "f2b96e0d121d5e7712d0ae1a66c305447389ea53b0937490e27f565985b78a5d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0002.json": "5789c968c960789bbae69a93aaac4f45cdb5c9aadafd63de4937844dc0d27c92",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0003.json": "ae1e168d4036e125133da486f6aafcd0d8d9a202632d034d6c9599322e037e36",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0004.json": "a127aab8dd5584771634f8750ca20faa9b0d5afbbaad50e3e169c31dcaf74005",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0005.json": "4584656837d519a9c806ed85a96ddd78a62a063ecd927ac3e1ddbd33902db589",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0006.json": "ba2e2f8c3cb4d259fec7a5938e2ca9500dda5d666ab02cecaea8957384fdd3d4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0007.json": "2987a95b27caef46d8cffcfe2b69ebadf525fe422a8e14359d95c7f7f4800e39",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0008.json": "75987b03445ef2a799f00e5923df2b62c1d228e319938eec1df085da44c5cc72",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0009.json": "dceec01248f1cd7bd84116ab21699d907bc313451f025ce8e8e060bb8bcf3920",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0010.json": "7002d912c87fc36ec0e4a91ea2b0b559261624533709ea24e7b9dd5389cde3b1",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0011.json": "a6851b9801304ebc4a5bc27bdc4a6b4695eb54f05f42352f288d1b4ee5251376",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0012.json": "30b5bc744344496a27c977de815c62befb787ab332c5a6c571b395ae3cff603f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0013.json": "6dd968541e558ecda729e19aa0c3292ad3dddca8b70686d802ef6d1290cbbed0",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0014.json": "fa67aa11b653680f191736bb6e2f77e318bbc5a1a747260e0426bd3ba0686eb0",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0015.json": "a6d73a36405358169b314ab4790793dedba594a531e597a02c050f6a9e1a4271",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/accepted_trial_before_gradient_0016.json": "e073f8051735b250a05dd38b4afeaba4227446817533914c9ea67e60bbeec717",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0000.json": "e9c747bcb3f0a694a7bf6a42749c3e96fa732880b6ffde11d7cf85a6be2d7c03",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0000_signed_density.json": "3589f5c779821852c0da9086058664a6c3e7732dcbac1b43a25d83516f464f7b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0001.json": "bed80f47b0cb8a06c69443fb89e5ed151fa6bf4ad8fa448d88b23dd36c50171d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0001_signed_density.json": "23ffcc8e1b31652be5c35f28512da44b3cc1b81f383896fae4c50594b1476c81",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0002.json": "54eab553de4bf2b11fb0c275d6a9d7138bd4698ed11c2efa87c2a712c24ff61b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0002_signed_density.json": "d5bf26bba1a2b0984906161ca1f69e87a851ba7538c1c6a6b44e5435f73e3d81",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0003.json": "8daaf80f928600ab911720d2b21a353400c606585e46aec9db182550ce915028",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0003_signed_density.json": "6a2008c725231f1928898bc9f559655ab047945ab6c790c58f6d0c82e5f89355",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0004.json": "d2e2359b70c4937503e39ebe3b37b435e2120c822656025502d8c5eab313196e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0004_signed_density.json": "d64a8dccde32a14893eb5c9d6c8addeea305bad3878c5ebe4842a55e802e96d9",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0005.json": "953a17df14ceccb691b6740a9eace37e131cc1f5ecf91b573b9717cda6f90f75",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0005_signed_density.json": "07ffde121ab1b7abb1a6dde1e8c1ae527061e71e6de3105a555d874a08162694",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0006.json": "2252e6a0f3209ee9a978114be2047094602288079fe10ece1a932b6dd00e7ab6",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0006_signed_density.json": "bc6697cbd1585c3e0e89f4ee80151800c2eb3f48523e63b11fdcd56468524ff3",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0007.json": "0394051b1ef3eb6e4d45f99075a1e06800c67c155a09c8dda8c9561b3c2b39ec",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0007_signed_density.json": "f535dbad970c19b858c4ebd6c859fb7e87535fd30ae3fcd7de837deea1d6b24a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0008.json": "c6b84964d522ced8f44c1c0db018f60fb733889b0adc886e8b884f84fa252998",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0008_signed_density.json": "825398c501721c9980700db5e53344903ae2616b9e1d8043e3092e01c8b6443a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0009.json": "ea4cfec76e0089ed689934ae163b558ca9c2348865738f3d966fa349d1e42a9d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0009_signed_density.json": "d6a3b7845d6fdf96200fd340870bf3ebfbf670c9b486579c878fdff261e99f3f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0010.json": "d9e90dd6464df7f61654d18243e7ef7eae56792592c1250be4b737e1f6b5ff07",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0010_signed_density.json": "693f14b337ea249abf563eb08c141b2b3ae4ecfe8752c4b6f5f95cca74f5d70c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0011.json": "af08fb1406869715d597a749956583af0706ab923d2c71d83bfe4fb7dcf8c0df",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0011_signed_density.json": "ef7bd730934f7559d2fafb7623c394256e7938416134ab418dd843e8af903ee4",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0012.json": "61efbd7611047d3461dda28cf40de83c1fd13bdd05de682bdf5eb5f8ab8590ab",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0012_signed_density.json": "43fdbed630295c09690cc0835c9d0f7a57b7fd8a052e580491b54f1f5826c69e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0013.json": "442c6643581406a404bd6be05dfba79af66bd6e9e8e9062834be64ea786da90e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0013_signed_density.json": "be4c245c96db3eaad331b0b36c9781ca63a5ed59a4bd1aa3f0e1581703d39ec3",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0014.json": "ec05ff70712d7149b7290ebc1f949f484afa0fec664dc32f8a0cffacb24c8a64",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0014_signed_density.json": "1ffcef786e4ce9bcbe63d1cfd635e536f90da5b01fcb05a7ff195870be31b9c7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0015.json": "228a76ef7c9f42ca2e3586ff49b5fb8db69259e0949496661720da1ec8d5cbbd",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0015_signed_density.json": "2f147a12f9c0433864edf9f004700db4e31216904c086a51b7c142a507d2bbcb",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.json": "a9ce2ff0fc1236ea88d46280caa7b14ae6698c34b937b605b8d6f866e6c43c90",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016_signed_density.json": "13c4bba425d40ac4144dc13dc42d598604f17f9ffbc8d43ef397bec2319c3551",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/objective_identity.json": "f97b9f0e678c258f41a31aab02cd6ab3a1aaf8a5ab09b5362e683831bdd9e43f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/progress.json": "5004571df623120a0af0c19220daafe8dd77b3f414dd2364099353c390be374f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/result.json": "d73ce5d790786a719a31d08a87c84a13194c7dc358cb060faced9b6008e12f6d",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/root_execution.json": "87db434fb353c5356f18fe08817148ca8c00a4de6261b8d3a728b53a8f713d1f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/execution_contract.json": "71347989fe8a495c0211307585c5a21b7e49d32a5d49c81b5d6fe53a01d53e6c",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/run.py": "6cc8b788515c4eeb0d87bf58f7e53a07bbecda2fae97d157db182974ca37fa9a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/contract.json": "97744a8356c10d09381efc2d1e791657ac47a4274759149df05e77d2d4a7f83a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/preparation_verification.json": "64960f65e969855994415e927203d89b0b593e4dc9f154c30e77f66f1d1aa445",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0000.npz": "79c90abd3de0c5ae4d7faa803fd74172cdc6ccfbe3f30488e4c4c314685b94dc",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0001.npz": "88d286b32d1934c2e2ecd81bf92b6d864188d5a129c4665643cf537279e9fe6a",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0002.npz": "80da0f45e9cd30640be9046accc215433512bbc0ce33d5bec455ed25120270b2",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0003.npz": "cea92be653932160a1e9393f583bb69e7bfbe43477883318e2d494ba9bcc594b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0004.npz": "e6b35b99b2e5a634adbb2ce60ab38d911ca536169a43d24dac4c3d780e22e6cd",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0005.npz": "7857fb4cfd3bbad8e882451017892d9681cd36dd203c7dfe5653b6f567135f6e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0006.npz": "002695f8a53971e0cd54967f93746c1409dd4a0478efcc376cc6c9ca2b66f522",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0007.npz": "b2c89ec8a0b1c682abc27b8e95fde5f211dee11f4b25bd14298647c90dad9b30",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0008.npz": "2a2c9bc22b2e6feff4a58485026548884d10d9a2b758c14fdaf7714d31cb2a23",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0009.npz": "f22f31b7b04619f2af4320eb934b8a81106938f17a6bc03627415ea0364d741f",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0010.npz": "2d86055bc04fb0119725092942dabda04f92ba067987619685e9f748237b02ae",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0011.npz": "8f24c89b3773868d94ae7f7bcaf590dfdd0a64e6acb655cf961b64f955e8d49b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0012.npz": "27a1674072cbe05536ff978688973ae4593fc04cfa0bfef2dd0e3a9af15db90b",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0013.npz": "ec30f4d215a8ab6a1ef5d0cc5a9c91fe839c4f13a666b3dee69e231eb6d7ca7e",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0014.npz": "ed302e81f985c404330270f6439a4542a528e8347b97c78798399fbc3c3fdb14",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0015.npz": "e5e2d725fe701345d4ddd1d81e40fe48ceaa2916b78b08d7ea181b7beefe3dc7",
+    "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.npz": "0e7154ee19cca9181d20b4367f3cd6416ed742d5916d775bdaeff7e969687dfc"
+  },
+  "completion_driver_sha256": "9006a7a4a237ba7213817f21f2657f59835d1b4830887b1cd54dc1172ade1492",
+  "actual_live_controls": 1175,
+  "live_control_scope": "Sole public run; closure is metadata/saved-ledger arithmetic, not independent H/C/g replay",
+  "scientific_calls_in_completion": 0,
+  "array_numerical_replays": 0,
+  "trajectory": [
+    {
+      "iteration": 0,
+      "reported_EO_Ha": -14067.40011728723,
+      "orbital_residual": 0.021499084147010395,
+      "energy_indicator_Ha": 0.0001207034808866711,
+      "nominal_four_gap_RMS_cm1": 2048.36463776004,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.496517967646,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.380121658784,
+          "excitation_cm1": 25546.03697952262,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2585.2369795226223
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.376658179728,
+          "excitation_cm1": 26306.1827684463,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1973.4927684463
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.381616326365,
+          "excitation_cm1": 25217.995362966474,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1843.8246370335255
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.365672303622,
+          "excitation_cm1": 28717.303877041028,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1674.926122958972
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26002.124452876826,
+          "splitting_cm1": 760.1457889236772
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27550.867705682846,
+          "splitting_cm1": 3499.3085140745534
+        }
+      ],
+      "exact_acceptance_qualified": null
+    },
+    {
+      "iteration": 1,
+      "reported_EO_Ha": -14067.400311719506,
+      "orbital_residual": 0.017574967949825628,
+      "energy_indicator_Ha": 8.453740899603307e-05,
+      "nominal_four_gap_RMS_cm1": 2075.5089643715655,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.496781620803,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00026365315716248006,
+          "delta_lower_Ha": -0.00026365315716248006,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.380184256976,
+          "excitation_cm1": 25590.163443881745,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2629.363443881746,
+          "delta_upper_Ha": -6.259819201659411e-05,
+          "delta_lower_Ha": -0.00026365315716248006,
+          "transition_shift_cm1": 44.1264643591225
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.376722623816,
+          "excitation_cm1": 26349.904105484373,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2017.2141054843742,
+          "delta_upper_Ha": -6.444408791139722e-05,
+          "delta_lower_Ha": -0.00026365315716248006,
+          "transition_shift_cm1": 43.72133703807586
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.381923970439,
+          "excitation_cm1": 25208.340472825883,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1853.4795271741168,
+          "delta_upper_Ha": -0.0003076440734730568,
+          "delta_lower_Ha": -0.00026365315716248006,
+          "transition_shift_cm1": -9.654890140590618
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.365946125501,
+          "excitation_cm1": 28715.072100544337,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1677.1578994556621,
+          "delta_upper_Ha": -0.0002738218790909741,
+          "delta_lower_Ha": -0.00026365315716248006,
+          "transition_shift_cm1": -2.231776496690521
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26046.007840843326,
+          "splitting_cm1": 759.7406616026274
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27546.161557971518,
+          "splitting_cm1": 3506.7316277184545
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 2,
+      "reported_EO_Ha": -14067.400464501136,
+      "orbital_residual": 0.02055533804299603,
+      "energy_indicator_Ha": 0.0004701398425940909,
+      "nominal_four_gap_RMS_cm1": 2033.694326534468,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.497036127712,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00025450690918660257,
+          "delta_lower_Ha": -0.00025450690918660257,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38050553956,
+          "excitation_cm1": 25575.507877050455,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2614.707877050456,
+          "delta_upper_Ha": -0.0003212825849914225,
+          "delta_lower_Ha": -0.00025450690918660257,
+          "transition_shift_cm1": -14.655566831287471
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.377085117743,
+          "excitation_cm1": 26326.203694504813,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1993.5136945048143,
+          "delta_upper_Ha": -0.000362493927241303,
+          "delta_lower_Ha": -0.00025450690918660257,
+          "transition_shift_cm1": -23.700410979560246
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.38187278801,
+          "excitation_cm1": 25275.4315276713,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1786.388472328701,
+          "delta_upper_Ha": 5.1182429160689935e-05,
+          "delta_lower_Ha": -0.00025450690918660257,
+          "transition_shift_cm1": 67.09105484541455
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.36582293265,
+          "excitation_cm1": 28797.967616150614,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1594.2623838493855,
+          "delta_upper_Ha": 0.00012319285087869503,
+          "delta_lower_Ha": -0.00025450690918660257,
+          "transition_shift_cm1": 82.89551560627804
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26025.92536752307,
+          "splitting_cm1": 750.6958174543579
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27623.788919990842,
+          "splitting_cm1": 3522.5360884793154
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 3,
+      "reported_EO_Ha": -14067.400536144847,
+      "orbital_residual": 0.02491527792556547,
+      "energy_indicator_Ha": 0.00039840292001565053,
+      "nominal_four_gap_RMS_cm1": 2017.7712267040129,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.49720136129,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00016523357771802694,
+          "delta_lower_Ha": -0.00016523357771802694,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.380628540037,
+          "excitation_cm1": 25584.7769713983,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2623.9769713983005,
+          "delta_upper_Ha": -0.00012300047637836542,
+          "delta_lower_Ha": -0.00016523357771802694,
+          "transition_shift_cm1": 9.269094347844392
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.377248598352,
+          "excitation_cm1": 26326.588426770075,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 1993.8984267700762,
+          "delta_upper_Ha": -0.00016348060853488278,
+          "delta_lower_Ha": -0.00016523357771802694,
+          "transition_shift_cm1": 0.38473226526151105
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.381850250178,
+          "excitation_cm1": 25316.642588530063,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1745.1774114699365,
+          "delta_upper_Ha": 2.253783168271184e-05,
+          "delta_lower_Ha": -0.00016523357771802694,
+          "transition_shift_cm1": 41.21106085876459
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.36575197438,
+          "excitation_cm1": 28849.805735068727,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1542.4242649312728,
+          "delta_upper_Ha": 7.095827095326968e-05,
+          "delta_lower_Ha": -0.00016523357771802694,
+          "transition_shift_cm1": 51.83811891811163
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26029.863844621366,
+          "splitting_cm1": 741.8114553717751
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27672.084686222504,
+          "splitting_cm1": 3533.1631465386636
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 4,
+      "reported_EO_Ha": -14067.40073800764,
+      "orbital_residual": 0.024227818457850922,
+      "energy_indicator_Ha": 0.0004282044368457659,
+      "nominal_four_gap_RMS_cm1": 2090.165363660362,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.497505461228,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0003040999381482834,
+          "delta_lower_Ha": -0.0003040999381482834,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.380485535166,
+          "excitation_cm1": 25682.90513446838,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2722.10513446838,
+          "delta_upper_Ha": 0.0001430048705515219,
+          "delta_lower_Ha": -0.0003040999381482834,
+          "transition_shift_cm1": 98.12816307007749
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.377114259038,
+          "excitation_cm1": 26422.814720048285,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2090.1247200482867,
+          "delta_upper_Ha": 0.00013433931417239364,
+          "delta_lower_Ha": -0.0003040999381482834,
+          "transition_shift_cm1": 96.22629327821181
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.382324107306,
+          "excitation_cm1": 25279.38519189417,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1782.4348081058306,
+          "delta_upper_Ha": -0.00047385712787217926,
+          "delta_lower_Ha": -0.0003040999381482834,
+          "transition_shift_cm1": -37.25739663589485
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.366260675462,
+          "excitation_cm1": 28804.900974190135,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1587.329025809864,
+          "delta_upper_Ha": -0.0005087010831630323,
+          "delta_lower_Ha": -0.0003040999381482834,
+          "transition_shift_cm1": -44.9047608785886
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26126.850885816326,
+          "splitting_cm1": 739.909585579906
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27629.729046758148,
+          "splitting_cm1": 3525.5157822959663
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 5,
+      "reported_EO_Ha": -14067.40079483825,
+      "orbital_residual": 0.02949428218970384,
+      "energy_indicator_Ha": 0.0018172010077853462,
+      "nominal_four_gap_RMS_cm1": 2182.4603009503726,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.497742803635,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00023734240676276386,
+          "delta_lower_Ha": -0.00023734240676276386,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38007291344,
+          "excitation_cm1": 25825.555772983596,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2864.755772983597,
+          "delta_upper_Ha": 0.0004126217263547005,
+          "delta_lower_Ha": -0.00023734240676276386,
+          "transition_shift_cm1": 142.65063851521907
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.376777074982,
+          "excitation_cm1": 26548.908703617086,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2216.218703617087,
+          "delta_upper_Ha": 0.0003371840557520045,
+          "delta_lower_Ha": -0.00023734240676276386,
+          "transition_shift_cm1": 126.0939835687983
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.382683383921,
+          "excitation_cm1": 25252.62372644693,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1809.1962735530687,
+          "delta_upper_Ha": -0.00035927661519963294,
+          "delta_lower_Ha": -0.00023734240676276386,
+          "transition_shift_cm1": -26.761465447238255
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.366698015274,
+          "excitation_cm1": 28761.006617518557,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1631.223382481443,
+          "delta_upper_Ha": -0.00043733981146942824,
+          "delta_lower_Ha": -0.00023734240676276386,
+          "transition_shift_cm1": -43.89435667158011
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26259.56753136369,
+          "splitting_cm1": 723.3529306334894
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27591.545653828012,
+          "splitting_cm1": 3508.3828910716256
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 6,
+      "reported_EO_Ha": -14067.401399391745,
+      "orbital_residual": 0.030289391103784005,
+      "energy_indicator_Ha": 0.0014836855497531755,
+      "nominal_four_gap_RMS_cm1": 2156.6810014712396,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.4986306051,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0008878014650690602,
+          "delta_lower_Ha": -0.0008878014650690602,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38073910749,
+          "excitation_cm1": 25874.192978779127,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2913.3929787791276,
+          "delta_upper_Ha": -0.0006661940496996976,
+          "delta_lower_Ha": -0.0008878014650690602,
+          "transition_shift_cm1": 48.63720579552934
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.377581738274,
+          "excitation_cm1": 26567.155423503325,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2234.4654235033267,
+          "delta_upper_Ha": -0.0008046632920013508,
+          "delta_lower_Ha": -0.0008878014650690602,
+          "transition_shift_cm1": 18.246719886240555
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.383013313492,
+          "excitation_cm1": 25375.062454678056,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1686.7575453219433,
+          "delta_upper_Ha": -0.00032992957130772993,
+          "delta_lower_Ha": -0.0008878014650690602,
+          "transition_shift_cm1": 122.4387282311254
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.367032194365,
+          "excitation_cm1": 28882.51268404445,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1509.7173159555496,
+          "delta_upper_Ha": -0.00033417909071431495,
+          "delta_lower_Ha": -0.0008878014650690602,
+          "transition_shift_cm1": 121.50606652589462
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26289.970445613646,
+          "splitting_cm1": 692.9624447241986
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 27713.362607588988,
+          "splitting_cm1": 3507.4502293663936
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 7,
+      "reported_EO_Ha": -14067.402053468713,
+      "orbital_residual": 0.03485254075336638,
+      "energy_indicator_Ha": 0.002275760562199981,
+      "nominal_four_gap_RMS_cm1": 2035.0066251740245,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.499828691893,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0011980867930105887,
+          "delta_lower_Ha": -0.0011980867930105887,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.381910008804,
+          "excitation_cm1": 25880.159501707752,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2919.359501707753,
+          "delta_upper_Ha": -0.0011709013142535696,
+          "delta_lower_Ha": -0.0011980867930105887,
+          "transition_shift_cm1": 5.966522928627283
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.37901390458,
+          "excitation_cm1": 26515.780908751374,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2183.0909087513755,
+          "delta_upper_Ha": -0.001432166305676219,
+          "delta_lower_Ha": -0.0011980867930105887,
+          "transition_shift_cm1": -51.37451475195294
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.382736376197,
+          "excitation_cm1": 25698.792822642474,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1363.027177357526,
+          "delta_upper_Ha": 0.00027693729498423636,
+          "delta_lower_Ha": -0.0011980867930105887,
+          "transition_shift_cm1": 323.73036796441767
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.366778362093,
+          "excitation_cm1": 29201.17208549323,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1191.0579145067713,
+          "delta_upper_Ha": 0.00025383227148267906,
+          "delta_lower_Ha": -0.0011980867930105887,
+          "transition_shift_cm1": 318.6594014487767
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26261.532345933927,
+          "splitting_cm1": 635.6214070436217
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28033.71233120964,
+          "splitting_cm1": 3502.3792628507545
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 8,
+      "reported_EO_Ha": -14067.40290713203,
+      "orbital_residual": 0.036451153085611955,
+      "energy_indicator_Ha": 0.001878779287699337,
+      "nominal_four_gap_RMS_cm1": 2019.2118956735492,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.501278315582,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.001449623689040891,
+          "delta_lower_Ha": -0.001449623689040891,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.382844226342,
+          "excitation_cm1": 25993.27807669044,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3032.4780766904405,
+          "delta_upper_Ha": -0.000934217538087978,
+          "delta_lower_Ha": -0.001449623689040891,
+          "transition_shift_cm1": 113.11857498268601
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.380245636117,
+          "excitation_cm1": 26563.602708343748,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2230.912708343749,
+          "delta_upper_Ha": -0.001231731537700398,
+          "delta_lower_Ha": -0.001449623689040891,
+          "transition_shift_cm1": 47.82179959237646
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.383024496381,
+          "excitation_cm1": 25953.713376339114,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -1108.1066236608858,
+          "delta_upper_Ha": -0.000288120183540741,
+          "delta_lower_Ha": -0.001449623689040891,
+          "transition_shift_cm1": 254.92055369664155
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.367142985719,
+          "excitation_cm1": 29439.30207446767,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -952.9279255323308,
+          "delta_upper_Ha": -0.00036462362550082617,
+          "delta_lower_Ha": -0.001449623689040891,
+          "transition_shift_cm1": 238.1299889744404
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26335.472855682427,
+          "splitting_cm1": 570.3246316533077
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28277.439175091484,
+          "splitting_cm1": 3485.588698128555
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 9,
+      "reported_EO_Ha": -14067.404749952935,
+      "orbital_residual": 0.05830721663003828,
+      "energy_indicator_Ha": 0.0048825623242683466,
+      "nominal_four_gap_RMS_cm1": 2162.793113869326,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.504344604598,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.003066289016715018,
+          "delta_lower_Ha": -0.003066289016715018,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38436040789,
+          "excitation_cm1": 26333.487341929063,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3372.687341929064,
+          "delta_upper_Ha": -0.0015161815481405938,
+          "delta_lower_Ha": -0.003066289016715018,
+          "transition_shift_cm1": 340.20926523862363
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.381942749136,
+          "excitation_cm1": 26864.102105721606,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2531.412105721607,
+          "delta_upper_Ha": -0.0016971130189631367,
+          "delta_lower_Ha": -0.003066289016715018,
+          "transition_shift_cm1": 300.4993973778551
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.384341881243,
+          "excitation_cm1": 26337.553470989667,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -724.2665290103323,
+          "delta_upper_Ha": -0.0013173848619771888,
+          "delta_lower_Ha": -0.003066289016715018,
+          "transition_shift_cm1": 383.840094650551
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.368760121804,
+          "excitation_cm1": 29757.354379775697,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -634.8756202243021,
+          "delta_upper_Ha": -0.0016171360857697437,
+          "delta_lower_Ha": -0.003066289016715018,
+          "transition_shift_cm1": 318.0523053080296
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26651.85620020459,
+          "splitting_cm1": 530.6147637925424
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28617.42074351369,
+          "splitting_cm1": 3419.80090878603
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 10,
+      "reported_EO_Ha": -14067.405123900171,
+      "orbital_residual": 0.09212333577815127,
+      "energy_indicator_Ha": 0.028670628181838208,
+      "nominal_four_gap_RMS_cm1": 2198.2322299502907,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.505423304656,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0010787000574055128,
+          "delta_lower_Ha": -0.0010787000574055128,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.385232089206,
+          "excitation_cm1": 26378.922704015462,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3418.1227040154627,
+          "delta_upper_Ha": -0.0008716813154023839,
+          "delta_lower_Ha": -0.0010787000574055128,
+          "transition_shift_cm1": 45.43536208639792
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.382245591212,
+          "excitation_cm1": 27034.383250169118,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2701.693250169119,
+          "delta_upper_Ha": -0.0003028420760529116,
+          "delta_lower_Ha": -0.0010787000574055128,
+          "transition_shift_cm1": 170.28114444751296
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.38445594413,
+          "excitation_cm1": 26549.266858474224,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -512.5531415257756,
+          "delta_upper_Ha": -0.00011406288649595808,
+          "delta_lower_Ha": -0.0010787000574055128,
+          "transition_shift_cm1": 211.71338748455787
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.368262571657,
+          "excitation_cm1": 30103.301312318054,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -288.92868768194603,
+          "delta_upper_Ha": 0.0004975501469743904,
+          "delta_lower_Ha": -0.0010787000574055128,
+          "transition_shift_cm1": 345.9469325423551
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26772.199031707656,
+          "splitting_cm1": 655.4605461536557
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28918.62316103678,
+          "splitting_cm1": 3554.0344538438294
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 11,
+      "reported_EO_Ha": -14067.40532618418,
+      "orbital_residual": 0.09706989079298042,
+      "energy_indicator_Ha": 0.030216142780196707,
+      "nominal_four_gap_RMS_cm1": 2251.8345980658983,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.505687886172,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.00026458151660335716,
+          "delta_lower_Ha": -0.00026458151660335716,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.385503388554,
+          "excitation_cm1": 26377.448310393036,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3416.648310393037,
+          "delta_upper_Ha": -0.0002712993482418824,
+          "delta_lower_Ha": -0.00026458151660335716,
+          "transition_shift_cm1": -1.4743936224249734
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.381794020104,
+          "excitation_cm1": 27191.56058345095,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2858.870583450953,
+          "delta_upper_Ha": 0.0004515711079875473,
+          "delta_lower_Ha": -0.00026458151660335716,
+          "transition_shift_cm1": 157.17733328183473
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.385065651231,
+          "excitation_cm1": 26473.520547882556,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -588.2994521174442,
+          "delta_upper_Ha": -0.0006097071018302813,
+          "delta_lower_Ha": -0.00026458151660335716,
+          "transition_shift_cm1": -75.74631059166752
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.368579974831,
+          "excitation_cm1": 30091.70829863394,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -300.52170136605855,
+          "delta_upper_Ha": -0.00031740317353978753,
+          "delta_lower_Ha": -0.00026458151660335716,
+          "transition_shift_cm1": -11.593013684113362
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26865.915674227785,
+          "splitting_cm1": 814.1122730579154
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28885.64571505015,
+          "splitting_cm1": 3618.1877507513855
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 12,
+      "reported_EO_Ha": -14067.407078560693,
+      "orbital_residual": 0.1050252849683603,
+      "energy_indicator_Ha": 0.021381448707792884,
+      "nominal_four_gap_RMS_cm1": 2294.10238663051,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.507490503196,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0018026170237135375,
+          "delta_lower_Ha": -0.0018026170237135375,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38711694525,
+          "excitation_cm1": 26418.942255989186,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3458.142255989187,
+          "delta_upper_Ha": -0.0016135566966113402,
+          "delta_lower_Ha": -0.0018026170237135375,
+          "transition_shift_cm1": 41.493945596149636
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38325452739,
+          "excitation_cm1": 27266.644991903315,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2933.954991903316,
+          "delta_upper_Ha": -0.0014605072865379043,
+          "delta_lower_Ha": -0.0018026170237135375,
+          "transition_shift_cm1": 75.08440845236319
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.386940392766,
+          "excitation_cm1": 26457.691047516826,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -604.1289524831736,
+          "delta_upper_Ha": -0.0018747415342659224,
+          "delta_lower_Ha": -0.0018026170237135375,
+          "transition_shift_cm1": -15.829500365731656
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.370590434859,
+          "excitation_cm1": 30046.092031879747,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -346.1379681202525,
+          "delta_upper_Ha": -0.0020104600280319573,
+          "delta_lower_Ha": -0.0018026170237135375,
+          "transition_shift_cm1": -45.61626675419294
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26927.56389753766,
+          "splitting_cm1": 847.7027359141284
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28849.958370425436,
+          "splitting_cm1": 3588.400984362921
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 13,
+      "reported_EO_Ha": -14067.41017237257,
+      "orbital_residual": 0.08114835330885525,
+      "energy_indicator_Ha": 0.011387053029621218,
+      "nominal_four_gap_RMS_cm1": 2164.03534533923,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.510426414428,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0029359112322708825,
+          "delta_lower_Ha": -0.0029359112322708825,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.391115434837,
+          "excitation_cm1": 26185.733263379938,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3224.9332633799386,
+          "delta_upper_Ha": -0.003998489586592768,
+          "delta_lower_Ha": -0.0029359112322708825,
+          "transition_shift_cm1": -233.20899260924904
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38667777774,
+          "excitation_cm1": 27159.686418813293,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2826.9964188132944,
+          "delta_upper_Ha": -0.0034232503494422417,
+          "delta_lower_Ha": -0.0029359112322708825,
+          "transition_shift_cm1": -106.95857309002271
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.38949587171,
+          "excitation_cm1": 26541.186283636867,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -520.6337163631324,
+          "delta_upper_Ha": -0.002555478944486822,
+          "delta_lower_Ha": -0.0029359112322708825,
+          "transition_shift_cm1": 83.49523612004309
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.373146364134,
+          "excitation_cm1": 30129.488431803675,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -262.7415681963248,
+          "delta_upper_Ha": -0.0025559292753314367,
+          "delta_lower_Ha": -0.0029359112322708825,
+          "transition_shift_cm1": 83.39639992392983
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26770.10515663995,
+          "splitting_cm1": 973.9531554333553
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28933.387715748075,
+          "splitting_cm1": 3588.3021481668075
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 14,
+      "reported_EO_Ha": -14067.411619840988,
+      "orbital_residual": 0.06635517596611916,
+      "energy_indicator_Ha": 0.0045138214694966615,
+      "nominal_four_gap_RMS_cm1": 2176.297264665257,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.511811157327,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0013847428981534904,
+          "delta_lower_Ha": -0.0013847428981534904,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.392497002498,
+          "excitation_cm1": 26186.430147349514,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3225.630147349515,
+          "delta_upper_Ha": -0.0013815676611557137,
+          "delta_lower_Ha": -0.0013847428981534904,
+          "transition_shift_cm1": 0.6968839695776404
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.387949778604,
+          "excitation_cm1": 27184.430435299884,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2851.7404352998856,
+          "delta_upper_Ha": -0.0012720008635369595,
+          "delta_lower_Ha": -0.0013847428981534904,
+          "transition_shift_cm1": 24.74401648659361
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.390994684583,
+          "excitation_cm1": 26516.150817902704,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -545.6691820972956,
+          "delta_upper_Ha": -0.001498812873251154,
+          "delta_lower_Ha": -0.0013847428981534904,
+          "transition_shift_cm1": -25.03546573416243
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.374846581928,
+          "excitation_cm1": 30060.24969538427,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -331.9803046157285,
+          "delta_upper_Ha": -0.0017002177937683882,
+          "delta_lower_Ha": -0.0013847428981534904,
+          "transition_shift_cm1": -69.23873641940513
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26785.230320119736,
+          "splitting_cm1": 998.00028795037
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28878.883402890413,
+          "splitting_cm1": 3544.098877481567
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 15,
+      "reported_EO_Ha": -14067.412521287777,
+      "orbital_residual": 0.04829729892894701,
+      "energy_indicator_Ha": 0.002937912859024762,
+      "nominal_four_gap_RMS_cm1": 2234.4945807188656,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.512601266357,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0007901090302766534,
+          "delta_lower_Ha": -0.0007901090302766534,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.393252053476,
+          "excitation_cm1": 26194.12450042422,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3233.32450042422,
+          "delta_upper_Ha": -0.0007550509781140136,
+          "delta_lower_Ha": -0.0007901090302766534,
+          "transition_shift_cm1": 7.694353074705141
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.38818179379,
+          "excitation_cm1": 27306.91787580452,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2974.2278758045213,
+          "delta_upper_Ha": -0.00023201518706628121,
+          "delta_lower_Ha": -0.0007901090302766534,
+          "transition_shift_cm1": 122.4874405046351
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.392458021734,
+          "excitation_cm1": 26368.394324459525,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -693.4256755404749,
+          "delta_upper_Ha": -0.0014633371501986403,
+          "delta_lower_Ha": -0.0007901090302766534,
+          "transition_shift_cm1": -147.75649344317864
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.376113303522,
+          "excitation_cm1": 29955.64532860973,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -436.58467139026834,
+          "delta_upper_Ha": -0.0012667215942201437,
+          "delta_lower_Ha": -0.0007901090302766534,
+          "transition_shift_cm1": -104.60436677453907
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26861.8005256524,
+          "splitting_cm1": 1112.7933753803009
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28759.894993892998,
+          "splitting_cm1": 3587.2510041502064
+        }
+      ],
+      "exact_acceptance_qualified": true
+    },
+    {
+      "iteration": 16,
+      "reported_EO_Ha": -14067.413113908482,
+      "orbital_residual": 0.04090991741227255,
+      "energy_indicator_Ha": 0.003408179199100851,
+      "nominal_four_gap_RMS_cm1": 2203.8622162949996,
+      "targets": [
+        {
+          "label": "6s_1/2",
+          "UID": [
+            1,
+            1,
+            0
+          ],
+          "column": 0,
+          "selected_level": [
+            1,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.513069904404,
+          "excitation_cm1": 0.0,
+          "NIST_nominal_cm1": 0.0,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 0.0,
+          "delta_upper_Ha": -0.0004686380470957374,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": 0.0
+        },
+        {
+          "label": "5d_3/2",
+          "UID": [
+            3,
+            1,
+            0
+          ],
+          "column": 1,
+          "selected_level": [
+            3,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.39416042454,
+          "excitation_cm1": 26097.614258881138,
+          "NIST_nominal_cm1": 22960.8,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 3136.814258881139,
+          "delta_upper_Ha": -0.0009083710629056441,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -96.51024154308156
+        },
+        {
+          "label": "5d_5/2",
+          "UID": [
+            5,
+            1,
+            0
+          ],
+          "column": 3,
+          "selected_level": [
+            5,
+            1,
+            0
+          ],
+          "energy_Ha": -14067.388635961664,
+          "excitation_cm1": 27310.093711795365,
+          "NIST_nominal_cm1": 24332.69,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": 2977.4037117953667,
+          "delta_upper_Ha": -0.0004541678736131871,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": 3.175835990843429
+        },
+        {
+          "label": "6p_1/2",
+          "UID": [
+            1,
+            -1,
+            0
+          ],
+          "column": 2,
+          "selected_level": [
+            1,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.393048870466,
+          "excitation_cm1": 26341.57217926002,
+          "NIST_nominal_cm1": 27061.82,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -720.2478207399799,
+          "delta_upper_Ha": -0.0005908487328269985,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -26.822145199505208
+        },
+        {
+          "label": "6p_3/2",
+          "UID": [
+            3,
+            -1,
+            0
+          ],
+          "column": 4,
+          "selected_level": [
+            3,
+            -1,
+            0
+          ],
+          "energy_Ha": -14067.376654381333,
+          "excitation_cm1": 29939.746638275745,
+          "NIST_nominal_cm1": 30392.23,
+          "NIST_uncertainty_cm1": null,
+          "nominal_gap_cm1": -452.4833617242548,
+          "delta_upper_Ha": -0.0005410778103396297,
+          "delta_lower_Ha": -0.0004686380470957374,
+          "transition_shift_cm1": -15.898690333986467
+        }
+      ],
+      "multiplets": [
+        {
+          "label": "5d",
+          "degeneracy_weights": [
+            4,
+            6
+          ],
+          "centroid_cm1": 26825.101930629673,
+          "splitting_cm1": 1212.4794529142273
+        },
+        {
+          "label": "6p",
+          "degeneracy_weights": [
+            2,
+            4
+          ],
+          "centroid_cm1": 28740.35515193717,
+          "splitting_cm1": 3598.174459015725
+        }
+      ],
+      "exact_acceptance_qualified": true
+    }
+  ],
+  "terminal_checkpoint": "docs/yb_mcdhf_rci_2026_10_11/correlated29_optimization_run003_preparation/actual/checkpoints/accepted_0016.json",
+  "terminal_array_sha256": "0e7154ee19cca9181d20b4367f3cd6416ed742d5916d775bdaeff7e969687dfc",
+  "terminal_manifest_sha256": "a9ce2ff0fc1236ea88d46280caa7b14ae6698c34b937b605b8d6f866e6c43c90",
+  "reported_EO_delta_Ha": -0.012996621251659235,
+  "four_line_RMS_delta_cm1": 155.49757853495976,
+  "terminal_target_changes": [
+    {
+      "label": "6s_1/2",
+      "UID": [
+        1,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.016551936758332886,
+      "transition_shift_cm1": 0.0,
+      "terminal_excitation_cm1": 0.0,
+      "terminal_nominal_gap_cm1": 0.0
+    },
+    {
+      "label": "5d_3/2",
+      "UID": [
+        3,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.014038765755685745,
+      "transition_shift_cm1": 551.5772793585165,
+      "terminal_excitation_cm1": 26097.614258881138,
+      "terminal_nominal_gap_cm1": 3136.814258881139
+    },
+    {
+      "label": "5d_5/2",
+      "UID": [
+        5,
+        1,
+        0
+      ],
+      "delta_energy_Ha": -0.011977781936366227,
+      "transition_shift_cm1": 1003.9109433490667,
+      "terminal_excitation_cm1": 27310.093711795365,
+      "terminal_nominal_gap_cm1": 2977.4037117953667
+    },
+    {
+      "label": "6p_1/2",
+      "UID": [
+        1,
+        -1,
+        0
+      ],
+      "delta_energy_Ha": -0.011432544100898667,
+      "transition_shift_cm1": 1123.5768162935456,
+      "terminal_excitation_cm1": 26341.57217926002,
+      "terminal_nominal_gap_cm1": -720.2478207399799
+    },
+    {
+      "label": "6p_3/2",
+      "UID": [
+        3,
+        -1,
+        0
+      ],
+      "delta_energy_Ha": -0.010982077710650628,
+      "transition_shift_cm1": 1222.4427612347172,
+      "terminal_excitation_cm1": 29939.746638275745,
+      "terminal_nominal_gap_cm1": -452.4833617242548
+    }
+  ],
+  "completed_calls": {
+    "H": 27,
+    "CI": 27,
+    "gradient": 17,
+    "optimizer": 1,
+    "validation_Dirac": 7,
+    "initial_hS": 7,
+    "CI_internal_hS": 7,
+    "geometry_eigvalsh": 36,
+    "scipy_eigh": 142,
+    "tracking_resolution": 43,
+    "tracking_SVD": 215,
+    "tracking_overlap": 44,
+    "polar_retraction": 182,
+    "polar_numpy_eigh": 37,
+    "unfiltered_target_density": 85
+  },
+  "exact_guard_budget": {
+    "points": 17,
+    "quotients": 85,
+    "examined_pairs": 1957193,
+    "nonzero_H_pairs": 929712
+  },
+  "all16_finite_stored_H_acceptances_qualified": true,
+  "stationarity_passed": false,
+  "experimental_certification": false,
+  "physical_completeness_certification": false,
+  "historical_derivative_failures_unchanged": true,
+  "optimizer_successor_authorized": false,
+  "timing_scope": "uncontrolled correctness measurement",
+  "actual_elapsed_uncontrolled_s": 116.51327545009553,
+  "outer_elapsed_uncontrolled_s": 116.915610200027,
+  "peak_RSS_MiB": 1144.9921875
+}

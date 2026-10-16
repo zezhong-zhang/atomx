@@ -1,0 +1,37 @@
+{
+  "status": "concrete_native31_FD_executor_frozen_prepared_not_executed",
+  "all_source_JSON_preparation_checks_passed": true,
+  "source_JSON_controls": 24,
+  "Ruff": "passed",
+  "numerical_imports": 0,
+  "NPZ_reads_or_rehashes": 0,
+  "physical_calls": 0,
+  "execution_authorized": false,
+  "root_exact_once_seal_required": true,
+  "source_map_sha256": "f0435dd68e31a8c5cca5a4edd033c061f7bcff605dcb233c7afce190139496fe",
+  "files_sha256": {
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/run.py": "48520606612269018472287f1d134357fead848a4a6d9d7f61a7c90c4710f729",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/contract.json": "83909d5af5b0a2d9e28c3d5720b1b86a889b392d74fccc17097964315c87c12f",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/prepare.py": "544885bad86f7a02cae279c2ce607fb10e6a78c3ab50bf30c9ae0d0f4aad5840",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/preparation.json": "09ed4bf3682ac1424598e35ccaea63de079906dca1320b7bd734b41a1b81280b",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/README.md": "058d520413ada9b6a9aacf093b7cae0a13efc55868b0518008d6fadf91401614",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/docimpact.json": "e09d9c12927aee36cc71fbbea2e2c40097f408e65bf9e0b992467cd27caba17e",
+    "docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/preparation_draft_failure.json": "63cc0fbaab4df010b20e052535563f8390491823486808e915b9c20b597935c4"
+  },
+  "root_command": "/data/code/atomx/.venv/bin/python docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/run.py --execution-binding docs/yb_mcdhf_rci_2026_10_11/screened_f_next_step208/constrained_fd_proposal001/execution_preparation001/execution_binding.json",
+  "exact_root_binding_fields": [
+    "execution_authorized_by_root=true",
+    "preparation_contract_sha256",
+    "driver_sha256",
+    "preparation_sha256",
+    "source_map_sha256",
+    "scientific_inputs_sha256 == contract.input_roles",
+    "resources == contract.resources"
+  ],
+  "runtime_output": "actual/result.json and independent root_execution.json after foreground closure only",
+  "original_stationarity_passed": false,
+  "whole31_gradient_certificate": false,
+  "production_objective": "ordinary reported equal-five EOL, unchanged",
+  "independent_diagnostic": "finite samepoint Q-Lagrange with full signed quadratic Gram; no callback/global bound",
+  "all_old_FAIL_and_original_proposal_unchanged": true
+}

@@ -1,0 +1,28 @@
+{
+  "hypothesis": "A complete independent Bloch effective operator distinguishes a model-Hamiltonian defect from state sorting and iterative residuals, while keeping nonzero Fov unchanged.",
+  "fixed": "Saved complete signed 10-spinor 2-core/8-valence Hamiltonian; exact core exponential; all 120 three-electron determinants and 8 low roots.",
+  "gates": {
+    "oracle_Ha": 1e-11,
+    "core_and_normalization": 1e-12,
+    "backend_strict_Ha": 1e-10
+  },
+  "stop": "One complete unchanged-H diagnosis; 2 GiB address space; no backend source edits or fitted shift.",
+  "source_and_inputs": {
+    "docs/atomic_pci_sd_native_2026_10_09/probe_bloch_oracle.py": "a89b57967e399cfc72033421d7c25c1faa41f358987148e3ccde32287d87f5ee",
+    "tests/test_transverse_spinor_integrals.py": "4e00099382291440e10183b475876956b9bdbf32d07fc448f8d1247e5eccf92c",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_precision007/tight/model_space_matrix.npz": "6f2c475ba8e81ea2338d7c8c9529d3ce95f651a048c018ea0e87b6a9ba518e33",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/cc.inp": "7a1e8dc1b59b02d8fdb8ddec2780761590b2bbab7c5720d4cf121ab2c9677ae8",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/result.json": "2b2a58ba095ea592226938f4d7c5d5578e4b9be7ca04307578aca5b81af9c987",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/integrals.json": "2299b015022fb5fc133243e561586d98f88bdf9582061ba436d79a2fdf3ffece",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/ATOMX_ONE": "adb35347d0d31a0fdbe0fcce6f7a0736de3e4f6283f5b1a32988238c348c4183",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/request.json": "3624dc0ef839723a8271bb37a8fda79cd83c06547794632bf0aef97f451a07ef",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/cc.log": "33f57b0169e120a829049edf169072db4f5a528c69cd3813658aece7b8565ebd",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/ATOMX_TWO": "af04aea9671e03108eaf3cbfa4c555eb185632b4a9f415d3b132e6336c6c1788",
+    "docs/atomic_pci_sd_native_2026_10_09/transverse_integrals004/test_tmp/test_live_finite_frequency_fsc0/fsccsdt/model_space_matrix.npz": "e18fe74779645f138eeb2f07cb4c1baff1025ad220e3a96d14951edf755179b2"
+  },
+  "load": [
+    9.18115234375,
+    9.14697265625,
+    9.27001953125
+  ]
+}

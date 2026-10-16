@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py", line 1012, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py", line 987, in main
+    execute(args.execution_binding)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py", line 881, in execute
+    check(
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/eu_yb_comparison001/core_core_discriminator_preparation001/saved_matrix_diagnostic001/run.py", line 227, in check
+    raise ValueError("Saved-matrix diagnostic gate failed: " + name)
+ValueError: Saved-matrix diagnostic gate failed: no_H_radial_or_MCDHF_producer_module_imports

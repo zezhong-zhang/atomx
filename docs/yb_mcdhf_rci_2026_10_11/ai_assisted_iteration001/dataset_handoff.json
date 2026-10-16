@@ -1,0 +1,106 @@
+{
+  "status": "frozen_metadata_dataset_ready_for_root_review_no_prediction_or_dispatch",
+  "artifacts_sha256": {
+    "dataset_builder.py": "a395000325162e031952bc9add28ccf9e30c465c0e29d058d69096619d0a5764",
+    "catalog_adapters.py": "b92a3adc8dbc699ab8d487d72ce4d11982e4cda6896eb1a2de94f6599fbddcb5",
+    "make_manifest.py": "c18cb2c7a815f1028d36bc1445c80377a9cc4c413eddd5561ef5ccc49ae48f4f",
+    "test_dataset_builder.py": "a3959e259b44282d551b5c25ddc1e6d08026579b9a654fea48e9cdfeae4948cf",
+    "run_metadata.py": "357b866c2b66cff78f691b5201ceb1ffcabea4a1b78c03ddeec589f014dbc07d",
+    "execution_contract.json": "d220a703c453b748b5d41379e24373dfbd2a25fbae393305e2b2859f910bf7b7",
+    "manifest.json": "bb99575638f2237047302ab0886788b52d303d562ccffe6e374e6d0ffa782535",
+    "dataset.json": "a8e1d04685a6c5570cf7d9c46547e2b6eed36671b30eed6a57529c05b8a40b84",
+    "actual/result.json": "cd24534b5f946050a01141f19b32d39a92d6f66fbe1dbef6e0e65f7d22c757d1",
+    "DATA_CARD.md": "5f2239668d4b9f91c29af822d33bc6a593b9b6d32d00dbe643c6ccd199adf958"
+  },
+  "metadata_test_cases_passed": 17,
+  "synthetic_tests_do_not_qualify_physics_or_AI": true,
+  "actual_summary": {
+    "rows": 8,
+    "physics_pairs": 7,
+    "trajectory_aggregates": 1,
+    "eligible_pairs": 6,
+    "effective_independent_point_groups_upper_bound": 3,
+    "groups_are_not_IID_certified": true,
+    "per_physics_class": {
+      "complete_static_Breit": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "c3bea88bbe4638876fefc25a79b149aad4c3c9dc175ce9b2034999ebeadc4cbe": 1
+        }
+      },
+      "core_5p_double_hole_space": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      },
+      "orbital_relaxation_trajectory": {
+        "eligible_pairs": 0,
+        "point_groups": 0,
+        "exact_context_group_counts": {}
+      },
+      "positive_inner_quadrature_operator_expectation": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "c1a60d216f83b62ae234d8a15749121d7c25648440323773fb47ca4ef0fec3fa": 1
+        }
+      },
+      "virtual_f_layer_closed68_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "f7f05ab49501f0e9e6f846e0f9d42fcd062520bf32be0d3ece8b525f37fbec5d": 1
+        }
+      },
+      "virtual_f_layer_nuclear_seed": {
+        "eligible_pairs": 0,
+        "point_groups": 0,
+        "exact_context_group_counts": {}
+      },
+      "virtual_sdp_layer_closed68_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      },
+      "virtual_sdp_layer_nuclear_seed": {
+        "eligible_pairs": 1,
+        "point_groups": 1,
+        "exact_context_group_counts": {
+          "a8d10dca38dbe12fc7e0a5677bcaa7ebd8bd7733bdf9d8e3152ed787c789d3ba": 1
+        }
+      }
+    },
+    "unsuitable_reason_counts": {
+      "original_executor_failed": 1,
+      "original_numeric_integrity_not_passed": 1,
+      "original_numerical_gate_failed": 1,
+      "correlated_optimization_trajectory_not_independent_physics_example": 1
+    },
+    "learned_prediction_performed": false,
+    "AI_speedup_or_uncertainty_certified": false
+  },
+  "actual_IO": {
+    "JSON_files": 43,
+    "JSON_bytes": 33296799,
+    "NPZ_reads_or_hashes": 0,
+    "new_scientific_calls": 0
+  },
+  "source_input_hashes_verified_before_after": true,
+  "new_scientific_or_NPZ_reads_hashes": 0,
+  "root_owned_files_not_modified": [
+    "README.md",
+    "documentation_impact.md",
+    "experiment_selector.py",
+    "test_experiment_selector.py"
+  ],
+  "failed_attempts_retained": [
+    "failed_attempt001",
+    "failed_attempt002"
+  ],
+  "new_records_require_successor_manifest": true
+}

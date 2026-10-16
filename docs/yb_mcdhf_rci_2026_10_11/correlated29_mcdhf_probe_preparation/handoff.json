@@ -1,0 +1,38 @@
+{
+  "status": "prepared_for_root_exact_admission",
+  "scientific_execution_by_preparer": false,
+  "preparation_controls_passed": 424,
+  "Ruff_passed": true,
+  "files_sha256": {
+    "run.py": "7489d91e9f5bc820ba71db94ef6449c886a544a22392ff117682721e737c7572",
+    "contract.json": "1459db8b950e749f6d88932f5b1a876624bb6dcef40a4987cb448f814fd59195",
+    "preparation_verification.json": "32b5e2e8d881de4d1cb634a55ea5643fe046ed17f61966213bdc1dda15363ae4",
+    "verify_preparation.py": "95419cfc8479f6403be8d508dce0555d3ad470b16a9b0e3090694f2a1e4f54fe",
+    "README.md": "13cf53318e16018b4a4a284d55187b010fb66374cd371bc67841bd0005fc2693",
+    "documentation_impact.json": "0b3a7950fd44b06a303b71030b1d9692078f009d9cefe0b3a7b831a672fb5f8a"
+  },
+  "source_map_sha256": "0e5496eb7eab63df2e44d08c4d986574821b33b806a7d3c760e243bda5cc2193",
+  "root_execution_required_fields": [
+    "execution_authorized_by_root",
+    "driver_sha256",
+    "contract_sha256",
+    "preparation_sha256",
+    "source_map_sha256",
+    "max_H",
+    "max_CI",
+    "max_full_gradient",
+    "max_optimizer",
+    "max_validation_Dirac",
+    "max_total_hS",
+    "CPU",
+    "maximum_system_load1"
+  ],
+  "no_changes_to_shared_source_tests_prior_evidence_or_site": true,
+  "qualification_claimed": false,
+  "immutable_science_preparation_files": [
+    "run.py",
+    "contract.json",
+    "preparation_verification.json",
+    "verify_preparation.py"
+  ]
+}

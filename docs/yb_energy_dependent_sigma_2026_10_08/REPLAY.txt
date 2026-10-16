@@ -1,0 +1,7 @@
+Yb energy-dependent self-energy replay bundle, 2026-10-08.
+
+Extract this bundle into an independent directory. Extract docs/yb_energy_dependent_sigma_2026_10_08/Atomx_Dyson_final_source.zip and Affected_tests_source.zip into the same directory, preserving their src/ and tests/ paths. Use the repository virtual environment or install pyproject.toml dependencies in a new environment; do not replace numerical dependencies to render a PDF.
+
+Summaries and captured baseline inputs are included. The exact large pole arrays are sealed in the local artifact manifest and remain in the original calculation directory. To recapture, retain the bundled scientific results and move the existing results/l6_e50_all and replay_and_ci folders aside before running run_dyson.py and analyze_and_inject.py in a new checkout. Drivers reject overwriting existing evidence. Preserve all original outputs. No experimental adjustment is used.
+
+PDF/README describe numerical, spatial and experimental gates separately. Frozen-orbital scalar Dyson solving does not implement full Brueckner orbital response, self-consistent GF2, all-order screening or correlated radiative rates.

@@ -1,0 +1,857 @@
+{
+  "status": "pass",
+  "checks": 168,
+  "cases": 20,
+  "maximum_error": 2.220446049250313e-16,
+  "rows": [
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "twoM": -1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 2.168404344971009e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939186,
+        "core_singles_valence_doubles_interference": -0.0012543415318842857,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0010258117710465371,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0107992626988809,
+        "wavefunction_norm": 1.00538513152865,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939181,
+        "core_singles_valence_doubles_interference": -0.0012543415318842855,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0010258117710465397,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "norm_squared": 1.0107992626988809
+      }
+    },
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "twoM": -1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 2.168404344971009e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939186,
+        "core_singles_valence_doubles_interference": 0.0012543415318842857,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0010258117710465371,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0133079457626493,
+        "wavefunction_norm": 1.0066319812933868,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939181,
+        "core_singles_valence_doubles_interference": 0.0012543415318842855,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0010258117710465397,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "norm_squared": 1.0133079457626495
+      }
+    },
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "twoM": 1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939186,
+        "core_singles_valence_doubles_interference": -0.0012543415318842857,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0010258117710465371,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0107992626988809,
+        "wavefunction_norm": 1.00538513152865,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832823,
+        "core_singles_unblocked": 0.0017541466537939181,
+        "core_singles_valence_doubles_interference": -0.0012543415318842857,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0010258117710465397,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "norm_squared": 1.0107992626988809
+      }
+    },
+    {
+      "key": [
+        3,
+        -1
+      ],
+      "twoM": 1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832822,
+        "core_singles_unblocked": 0.0017541466537939186,
+        "core_singles_valence_doubles_interference": 0.0012543415318842857,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0010258117710465371,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0133079457626493,
+        "wavefunction_norm": 1.0066319812933868,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.00031221189669317865,
+        "valence_doubles": 0.004364858239832823,
+        "core_singles_unblocked": 0.0017541466537939181,
+        "core_singles_valence_doubles_interference": 0.0012543415318842857,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0010258117710465397,
+        "core_doubles_unblocked": 0.005622387440445261,
+        "norm_squared": 1.0133079457626495
+      }
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "twoM": -1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 2.168404344971009e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 3.0357660829594124e-18,
+        "core_doubles_unblocked": 8.673617379884035e-19,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.004305372195526051,
+        "core_singles_unblocked": 0.002251334503193751,
+        "core_singles_valence_doubles_interference": -0.0017769857865472978,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.002225036380170671,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.009583976489876,
+        "wavefunction_norm": 1.0047805613614726,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.0022513345031937504,
+        "core_singles_valence_doubles_interference": -0.001776985786547298,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.002225036380170674,
+        "core_doubles_unblocked": 0.004423162831321127,
+        "norm_squared": 1.009583976489876
+      }
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "twoM": -1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 2.168404344971009e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 3.0357660829594124e-18,
+        "core_doubles_unblocked": 8.673617379884035e-19,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.004305372195526051,
+        "core_singles_unblocked": 0.002251334503193751,
+        "core_singles_valence_doubles_interference": 0.0017769857865472978,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.002225036380170671,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0131379480629705,
+        "wavefunction_norm": 1.0065475388986704,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.0022513345031937504,
+        "core_singles_valence_doubles_interference": 0.001776985786547298,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.002225036380170674,
+        "core_doubles_unblocked": 0.004423162831321127,
+        "norm_squared": 1.0131379480629705
+      }
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "twoM": 1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.168404344971009e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.002251334503193751,
+        "core_singles_valence_doubles_interference": -0.001776985786547298,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.002225036380170671,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.009583976489876,
+        "wavefunction_norm": 1.0047805613614726,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.0022513345031937504,
+        "core_singles_valence_doubles_interference": -0.001776985786547298,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0022250363801706733,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "norm_squared": 1.009583976489876
+      }
+    },
+    {
+      "key": [
+        4,
+        -1
+      ],
+      "twoM": 1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 4.336808689942018e-19,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.168404344971009e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.002251334503193751,
+        "core_singles_valence_doubles_interference": 0.001776985786547298,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.002225036380170671,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0131379480629705,
+        "wavefunction_norm": 1.0065475388986704,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0.000381092746382388,
+        "valence_doubles": 0.00430537219552605,
+        "core_singles_unblocked": 0.0022513345031937504,
+        "core_singles_valence_doubles_interference": 0.001776985786547298,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0022250363801706733,
+        "core_doubles_unblocked": 0.004423162831321128,
+        "norm_squared": 1.0131379480629705
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "twoM": -1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 1.0842021724855044e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": 0.0006755002059142663,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0018865613726153007,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0113146473531929,
+        "wavefunction_norm": 1.0056414109180234,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": 0.0006755002059142664,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0018865613726153033,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "norm_squared": 1.011314647353193
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "twoM": -1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 1.0842021724855044e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": -0.0006755002059142663,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0018865613726153007,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0099636469413644,
+        "wavefunction_norm": 1.00496947562668,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": -0.0006755002059142664,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0018865613726153033,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "norm_squared": 1.0099636469413646
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "twoM": 1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 3.2526065174565133e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": 0.0006755002059142662,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0018865613726153007,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0113146473531929,
+        "wavefunction_norm": 1.0056414109180234,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.00377224532281182,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": 0.0006755002059142665,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0018865613726153033,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "norm_squared": 1.011314647353193
+      }
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "twoM": 1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 8.673617379884035e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 3.2526065174565133e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 2.6020852139652106e-18,
+        "core_doubles_unblocked": 0.0,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.003772245322811819,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": -0.0006755002059142662,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0018865613726153007,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0099636469413644,
+        "wavefunction_norm": 1.00496947562668,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.00377224532281182,
+        "core_singles_unblocked": 0.0021052639855905072,
+        "core_singles_valence_doubles_interference": -0.0006755002059142665,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0018865613726153033,
+        "core_doubles_unblocked": 0.004761637838876498,
+        "norm_squared": 1.0099636469413646
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": -3,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.8431436932253575e-18,
+        "core_doubles_unblocked": 4.336808689942018e-18,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.002170070741822263,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0071703183715406,
+        "wavefunction_norm": 1.0035787554405187,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.002170070741822263,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.000755394843829642,
+        "core_doubles_unblocked": 0.005892804367662159,
+        "norm_squared": 1.0071703183715404
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": -3,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.8431436932253575e-18,
+        "core_doubles_unblocked": 4.336808689942018e-18,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.002170070741822263,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.011510459855185,
+        "wavefunction_norm": 1.005738763225911,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.002170070741822263,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.000755394843829642,
+        "core_doubles_unblocked": 0.005892804367662159,
+        "norm_squared": 1.011510459855185
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": -1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 2.168404344971009e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 4.336808689942018e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.6263032587282567e-18,
+        "core_doubles_unblocked": 8.673617379884035e-19,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.002170070741822263,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0071703183715406,
+        "wavefunction_norm": 1.0035787554405187,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087254,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296454,
+        "core_doubles_unblocked": 0.005892804367662156,
+        "norm_squared": 1.0071703183715404
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": -1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 2.168404344971009e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 4.336808689942018e-19,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.6263032587282567e-18,
+        "core_doubles_unblocked": 8.673617379884035e-19,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.002170070741822263,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.011510459855185,
+        "wavefunction_norm": 1.005738763225911,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087254,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296454,
+        "core_doubles_unblocked": 0.005892804367662156,
+        "norm_squared": 1.011510459855185
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": 1,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 2.168404344971009e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.0842021724855044e-19,
+        "core_doubles_unblocked": 2.6020852139652106e-18,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.0021700707418222634,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0071703183715406,
+        "wavefunction_norm": 1.0035787554405187,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087254,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296437,
+        "core_doubles_unblocked": 0.005892804367662157,
+        "norm_squared": 1.0071703183715404
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": 1,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 2.168404344971009e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 1.0842021724855044e-19,
+        "core_doubles_unblocked": 2.6020852139652106e-18,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.0021700707418222634,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.011510459855185,
+        "wavefunction_norm": 1.005738763225911,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.0013549121911087254,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296437,
+        "core_doubles_unblocked": 0.005892804367662157,
+        "norm_squared": 1.011510459855185
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": 3,
+      "sign": 1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 6.505213034913027e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 9.75781955236954e-19,
+        "core_doubles_unblocked": 3.469446951953614e-18,
+        "norm_squared": 2.220446049250313e-16
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.0021700707418222634,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.0071703183715406,
+        "wavefunction_norm": 1.0035787554405187,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.001354912191108725,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": -0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296428,
+        "core_doubles_unblocked": 0.005892804367662158,
+        "norm_squared": 1.0071703183715404
+      }
+    },
+    {
+      "key": [
+        3,
+        -2
+      ],
+      "twoM": 3,
+      "sign": -1,
+      "errors": {
+        "valence_singles": 0.0,
+        "valence_doubles": 6.505213034913027e-19,
+        "core_singles_unblocked": 0.0,
+        "core_singles_valence_doubles_interference": 0.0,
+        "core_doubles_total": 2.6020852139652106e-18,
+        "core_doubles_pauli_blocked": 9.75781955236954e-19,
+        "core_doubles_unblocked": 3.469446951953614e-18,
+        "norm_squared": 0.0
+      },
+      "actual": {
+        "reference": 1.0,
+        "valence_singles": 0.0,
+        "valence_doubles": 0.0013549121911087256,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.0021700707418222634,
+        "core_doubles_total": 0.0066481992114917985,
+        "core_doubles_pauli_blocked": 0.0007553948438296438,
+        "core_doubles_unblocked": 0.005892804367662155,
+        "extra_scratch_bound_bytes": 2264064,
+        "norm_squared": 1.011510459855185,
+        "wavefunction_norm": 1.005738763225911,
+        "scope": "private real linearized SD wave norm only; no property/eigenstate/resonance certificate"
+      },
+      "expected": {
+        "valence_singles": 0,
+        "valence_doubles": 0.001354912191108725,
+        "core_singles_unblocked": 0.0020926725545917946,
+        "core_singles_valence_doubles_interference": 0.0021700707418222634,
+        "core_doubles_total": 0.006648199211491801,
+        "core_doubles_pauli_blocked": 0.0007553948438296428,
+        "core_doubles_unblocked": 0.005892804367662158,
+        "norm_squared": 1.011510459855185
+      }
+    }
+  ],
+  "source_match": true,
+  "core_amplitudes": 139,
+  "valence_amplitudes": {
+    "(3, -1)": 53,
+    "(4, -1)": 53,
+    "(3, 1)": 49,
+    "(3, -2)": 53
+  },
+  "scope": "abstract finite orthonormal fermion wave norm; different and same radial/core-kappa holes; no large-space/performance/property claim"
+}

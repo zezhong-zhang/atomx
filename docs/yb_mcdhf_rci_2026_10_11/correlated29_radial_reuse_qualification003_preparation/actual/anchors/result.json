@@ -1,0 +1,2289 @@
+{
+  "all_passed": true,
+  "phase": "anchors",
+  "calls_started": {
+    "centered_dense_helper": 2,
+    "scipy_eigh": 2,
+    "basis_setup": 7,
+    "Gauss_setup_eigvalsh": 7,
+    "density_band": 28,
+    "factor_get": 92,
+    "bank_get": 112,
+    "direct_full_bank": 112,
+    "direct_semiseparable": 92,
+    "band_scalar": 170,
+    "CI_source_pair": 17
+  },
+  "calls_completed": {
+    "scipy_eigh": 2,
+    "centered_dense_helper": 2,
+    "Gauss_setup_eigvalsh": 7,
+    "basis_setup": 7,
+    "density_band": 28,
+    "factor_get": 92,
+    "bank_get": 112,
+    "direct_full_bank": 112,
+    "direct_semiseparable": 92,
+    "band_scalar": 170,
+    "CI_source_pair": 17
+  },
+  "call_wall_seconds_uncontrolled": {
+    "scipy_eigh": 0.000170642277225852,
+    "centered_dense_helper": 0.00022105686366558075,
+    "Gauss_setup_eigvalsh": 0.00047933170571923256,
+    "basis_setup": 2.077812365721911,
+    "density_band": 0.23991635954007506,
+    "factor_get": 6.850079715717584,
+    "bank_get": 1.3671091450378299,
+    "direct_full_bank": 0.2869875770993531,
+    "direct_semiseparable": 0.3479778808541596,
+    "band_scalar": 0.08229884970933199,
+    "CI_source_pair": 0.007604897487908602
+  },
+  "stages_uncontrolled_seconds": {
+    "anchors_total": 11.751640280941501
+  },
+  "checks": [
+    {
+      "name": "toy_alpha_-1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "toy_energy_-1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-08
+    },
+    {
+      "name": "toy_Gram_-1.0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "toy_original_H_residual_-1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-08
+    },
+    {
+      "name": "toy_signed_projector_-1.0_0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-12
+    },
+    {
+      "name": "toy_signed_projector_-1.0_1",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-12
+    },
+    {
+      "name": "toy_original_H_bytes_-1.0",
+      "passed": true
+    },
+    {
+      "name": "toy_alpha_1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 0.0
+    },
+    {
+      "name": "toy_energy_1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-08
+    },
+    {
+      "name": "toy_Gram_1.0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-10
+    },
+    {
+      "name": "toy_original_H_residual_1.0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1e-08
+    },
+    {
+      "name": "toy_signed_projector_1.0_0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-12
+    },
+    {
+      "name": "toy_signed_projector_1.0_1",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1e-12
+    },
+    {
+      "name": "toy_original_H_bytes_1.0",
+      "passed": true
+    },
+    {
+      "name": "near_0_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.332494552045821e-14
+    },
+    {
+      "name": "potential_0_0_pppp",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 1.0750452154930826e-12
+    },
+    {
+      "name": "signed_0_0_pppp",
+      "passed": true,
+      "error": 1.4224732503009818e-16,
+      "limit": 1.0003688724649126e-10
+    },
+    {
+      "name": "near_0_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.332494552045821e-14
+    },
+    {
+      "name": "potential_0_0_pqpq",
+      "passed": true,
+      "error": 1.5265566588595902e-16,
+      "limit": 1.236739360965072e-12
+    },
+    {
+      "name": "signed_0_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0035425820536967e-10
+    },
+    {
+      "name": "near_0_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.332494552045821e-14
+    },
+    {
+      "name": "potential_0_0_qpqp",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 1.0750452154930826e-12
+    },
+    {
+      "name": "signed_0_0_qpqp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0018051443161966e-10
+    },
+    {
+      "name": "near_0_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.332494552045821e-14
+    },
+    {
+      "name": "potential_0_0_qqqq",
+      "passed": true,
+      "error": 1.5265566588595902e-16,
+      "limit": 1.236739360965072e-12
+    },
+    {
+      "name": "signed_0_0_qqqq",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 1.0346466116211466e-10
+    },
+    {
+      "name": "route_0_0",
+      "passed": true
+    },
+    {
+      "name": "routed_0_0_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.3117845764581545e-12
+    },
+    {
+      "name": "routed_0_0_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.3117845764581545e-12
+    },
+    {
+      "name": "near_0_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.934141493107196e-14
+    },
+    {
+      "name": "potential_0_1_pppp",
+      "passed": true,
+      "error": 8.326672684688674e-17,
+      "limit": 1.114372373090215e-12
+    },
+    {
+      "name": "signed_0_1_pppp",
+      "passed": true,
+      "error": 2.699663409488906e-17,
+      "limit": 1.000014279705225e-10
+    },
+    {
+      "name": "near_0_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.934141493107196e-14
+    },
+    {
+      "name": "potential_0_1_pqpq",
+      "passed": true,
+      "error": 1.249000902703301e-16,
+      "limit": 1.1394340852971391e-12
+    },
+    {
+      "name": "signed_0_1_pqpq",
+      "passed": true,
+      "error": 1.249000902703301e-16,
+      "limit": 1.001835153273312e-10
+    },
+    {
+      "name": "near_0_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.934141493107196e-14
+    },
+    {
+      "name": "potential_0_1_qpqp",
+      "passed": true,
+      "error": 8.326672684688674e-17,
+      "limit": 1.114372373090215e-12
+    },
+    {
+      "name": "signed_0_1_qpqp",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 1.0019842973355126e-10
+    },
+    {
+      "name": "near_0_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.934141493107196e-14
+    },
+    {
+      "name": "potential_0_1_qqqq",
+      "passed": true,
+      "error": 1.249000902703301e-16,
+      "limit": 1.1394340852971391e-12
+    },
+    {
+      "name": "signed_0_1_qqqq",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1.0236987846383902e-10
+    },
+    {
+      "name": "route_0_1",
+      "passed": true
+    },
+    {
+      "name": "routed_0_1_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.2495662793364406e-12
+    },
+    {
+      "name": "routed_0_1_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.2495662793364406e-12
+    },
+    {
+      "name": "near_0_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.4349479664232875e-14
+    },
+    {
+      "name": "potential_0_6_pppp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0722401554516291e-12
+    },
+    {
+      "name": "signed_0_6_pppp",
+      "passed": true,
+      "error": 1.1449174941446927e-16,
+      "limit": 1.0004347072024357e-10
+    },
+    {
+      "name": "near_0_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.4349479664232875e-14
+    },
+    {
+      "name": "potential_0_6_pqpq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.061424072298151e-12
+    },
+    {
+      "name": "signed_0_6_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0004212132006582e-10
+    },
+    {
+      "name": "near_0_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.4349479664232875e-14
+    },
+    {
+      "name": "potential_0_6_qpqp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0722401554516291e-12
+    },
+    {
+      "name": "signed_0_6_qpqp",
+      "passed": true,
+      "error": 2.0816681711721685e-17,
+      "limit": 1.0006499977708463e-10
+    },
+    {
+      "name": "near_0_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.4349479664232875e-14
+    },
+    {
+      "name": "potential_0_6_qqqq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.061424072298151e-12
+    },
+    {
+      "name": "signed_0_6_qqqq",
+      "passed": true,
+      "error": 1.6653345369377348e-16,
+      "limit": 1.0084036797588737e-10
+    },
+    {
+      "name": "route_0_6",
+      "passed": true
+    },
+    {
+      "name": "routed_0_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1071459160951604e-12
+    },
+    {
+      "name": "routed_0_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1071459160951604e-12
+    },
+    {
+      "name": "near_1_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.21532117090443e-14
+    },
+    {
+      "name": "potential_1_0_pppp",
+      "passed": true,
+      "error": 1.249000902703301e-16,
+      "limit": 1.2009746877403917e-12
+    },
+    {
+      "name": "signed_1_0_pppp",
+      "passed": true,
+      "error": 1.1102230246251565e-16,
+      "limit": 1.0139741930565971e-10
+    },
+    {
+      "name": "near_1_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.21532117090443e-14
+    },
+    {
+      "name": "potential_1_0_pqpq",
+      "passed": true,
+      "error": 7.632783294297951e-17,
+      "limit": 1.08014804422168e-12
+    },
+    {
+      "name": "signed_1_0_pqpq",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1.0050381090343854e-10
+    },
+    {
+      "name": "near_1_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.21532117090443e-14
+    },
+    {
+      "name": "potential_1_0_qpqp",
+      "passed": true,
+      "error": 1.249000902703301e-16,
+      "limit": 1.2009746877403917e-12
+    },
+    {
+      "name": "signed_1_0_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-16,
+      "limit": 1.0083786898538266e-10
+    },
+    {
+      "name": "near_1_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.21532117090443e-14
+    },
+    {
+      "name": "potential_1_0_qqqq",
+      "passed": true,
+      "error": 7.632783294297951e-17,
+      "limit": 1.08014804422168e-12
+    },
+    {
+      "name": "signed_1_0_qqqq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 1.0040751124446287e-10
+    },
+    {
+      "name": "route_1_0",
+      "passed": true
+    },
+    {
+      "name": "routed_1_0_0",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 2.2738497527008565e-12
+    },
+    {
+      "name": "routed_1_0_1",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 2.2738497527008565e-12
+    },
+    {
+      "name": "near_1_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.82847952733901e-14
+    },
+    {
+      "name": "potential_1_1_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-17,
+      "limit": 1.144968478025814e-12
+    },
+    {
+      "name": "signed_1_1_pppp",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1.0109700732533779e-10
+    },
+    {
+      "name": "near_1_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.82847952733901e-14
+    },
+    {
+      "name": "potential_1_1_pqpq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0881976206902505e-12
+    },
+    {
+      "name": "signed_1_1_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0024761560078224e-10
+    },
+    {
+      "name": "near_1_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.82847952733901e-14
+    },
+    {
+      "name": "potential_1_1_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-17,
+      "limit": 1.144968478025814e-12
+    },
+    {
+      "name": "signed_1_1_qpqp",
+      "passed": true,
+      "error": 3.3306690738754696e-16,
+      "limit": 1.0050853857375838e-10
+    },
+    {
+      "name": "near_1_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.82847952733901e-14
+    },
+    {
+      "name": "potential_1_1_qqqq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0881976206902505e-12
+    },
+    {
+      "name": "signed_1_1_qqqq",
+      "passed": true,
+      "error": 8.326672684688674e-17,
+      "limit": 1.0032633500744509e-10
+    },
+    {
+      "name": "route_1_1",
+      "passed": true
+    },
+    {
+      "name": "routed_1_1_0",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 2.1797998032285045e-12
+    },
+    {
+      "name": "routed_1_1_1",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 2.1797998032285045e-12
+    },
+    {
+      "name": "near_1_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.368389149418792e-14
+    },
+    {
+      "name": "potential_1_6_pppp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0644968767367537e-12
+    },
+    {
+      "name": "signed_1_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0058226834192004e-10
+    },
+    {
+      "name": "near_1_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.368389149418792e-14
+    },
+    {
+      "name": "potential_1_6_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0656582661122433e-12
+    },
+    {
+      "name": "signed_1_6_pqpq",
+      "passed": true,
+      "error": 6.938893903907228e-17,
+      "limit": 1.0022988323288404e-10
+    },
+    {
+      "name": "near_1_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.368389149418792e-14
+    },
+    {
+      "name": "potential_1_6_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0644968767367537e-12
+    },
+    {
+      "name": "signed_1_6_qpqp",
+      "passed": true,
+      "error": 6.938893903907228e-17,
+      "limit": 1.0017923047311933e-10
+    },
+    {
+      "name": "near_1_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.368389149418792e-14
+    },
+    {
+      "name": "potential_1_6_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0656582661122433e-12
+    },
+    {
+      "name": "signed_1_6_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0023841247114523e-10
+    },
+    {
+      "name": "route_1_6",
+      "passed": true
+    },
+    {
+      "name": "routed_1_6_0",
+      "passed": true,
+      "error": 4.5102810375396984e-17,
+      "limit": 2.091611578537563e-12
+    },
+    {
+      "name": "routed_1_6_1",
+      "passed": true,
+      "error": 4.5102810375396984e-17,
+      "limit": 2.091611578537563e-12
+    },
+    {
+      "name": "near_2_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 8.408243358344345e-14
+    },
+    {
+      "name": "potential_2_0_pppp",
+      "passed": true,
+      "error": 3.729655473350135e-17,
+      "limit": 1.042000544142122e-12
+    },
+    {
+      "name": "signed_2_0_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-17,
+      "limit": 1.0014241784018027e-10
+    },
+    {
+      "name": "near_2_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.821510376766522e-14
+    },
+    {
+      "name": "potential_2_0_pqpq",
+      "passed": true,
+      "error": 1.0408340855860843e-16,
+      "limit": 1.1138621126615295e-12
+    },
+    {
+      "name": "signed_2_0_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0017044998173071e-10
+    },
+    {
+      "name": "near_2_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.821510376766522e-14
+    },
+    {
+      "name": "potential_2_0_qpqp",
+      "passed": true,
+      "error": 2.5153490401663703e-17,
+      "limit": 1.03743330903622e-12
+    },
+    {
+      "name": "signed_2_0_qpqp",
+      "passed": true,
+      "error": 2.42861286636753e-17,
+      "limit": 1.0004937520132702e-10
+    },
+    {
+      "name": "near_2_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.332494552045821e-14
+    },
+    {
+      "name": "potential_2_0_qqqq",
+      "passed": true,
+      "error": 7.632783294297951e-17,
+      "limit": 1.107239169161963e-12
+    },
+    {
+      "name": "signed_2_0_qqqq",
+      "passed": true,
+      "error": 2.1337098754514727e-16,
+      "limit": 1.0002306274425632e-10
+    },
+    {
+      "name": "route_2_0",
+      "passed": true
+    },
+    {
+      "name": "routed_2_0_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1389162710028018e-12
+    },
+    {
+      "name": "routed_2_0_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1309146653646962e-12
+    },
+    {
+      "name": "near_2_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.965616302363282e-14
+    },
+    {
+      "name": "potential_2_1_pppp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.0739442013410942e-12
+    },
+    {
+      "name": "signed_2_1_pppp",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 1.002264709825877e-10
+    },
+    {
+      "name": "near_2_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.354047352349908e-14
+    },
+    {
+      "name": "potential_2_1_pqpq",
+      "passed": true,
+      "error": 7.632783294297951e-17,
+      "limit": 1.1401514296881808e-12
+    },
+    {
+      "name": "signed_2_1_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-17,
+      "limit": 1.003271952052116e-10
+    },
+    {
+      "name": "near_2_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.354047352349908e-14
+    },
+    {
+      "name": "potential_2_1_qpqp",
+      "passed": true,
+      "error": 1.734723475976807e-17,
+      "limit": 1.0663386585354147e-12
+    },
+    {
+      "name": "signed_2_1_qpqp",
+      "passed": true,
+      "error": 9.71445146547012e-17,
+      "limit": 1.0007798968552522e-10
+    },
+    {
+      "name": "near_2_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.934141493107196e-14
+    },
+    {
+      "name": "potential_2_1_qqqq",
+      "passed": true,
+      "error": 1.1102230246251565e-16,
+      "limit": 1.131267862931282e-12
+    },
+    {
+      "name": "signed_2_1_qqqq",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 1.001240872049039e-10
+    },
+    {
+      "name": "route_2_1",
+      "passed": true
+    },
+    {
+      "name": "routed_2_1_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1700210701628428e-12
+    },
+    {
+      "name": "routed_2_1_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.160283951953069e-12
+    },
+    {
+      "name": "near_2_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.276639604103561e-14
+    },
+    {
+      "name": "potential_2_6_pppp",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 1.0939373125559207e-12
+    },
+    {
+      "name": "signed_2_6_pppp",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.0022111412669995e-10
+    },
+    {
+      "name": "near_2_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.634436431917829e-14
+    },
+    {
+      "name": "potential_2_6_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.110970017481634e-12
+    },
+    {
+      "name": "signed_2_6_pqpq",
+      "passed": true,
+      "error": 8.326672684688674e-17,
+      "limit": 1.0020668345112392e-10
+    },
+    {
+      "name": "near_2_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.63443643191783e-14
+    },
+    {
+      "name": "potential_2_6_qpqp",
+      "passed": true,
+      "error": 1.734723475976807e-17,
+      "limit": 1.0856396163993268e-12
+    },
+    {
+      "name": "signed_2_6_qpqp",
+      "passed": true,
+      "error": 3.469446951953614e-17,
+      "limit": 1.0004433282812047e-10
+    },
+    {
+      "name": "near_2_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.4349479664232875e-14
+    },
+    {
+      "name": "potential_2_6_qqqq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.1068837377121013e-12
+    },
+    {
+      "name": "signed_2_6_qqqq",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.0012016455031258e-10
+    },
+    {
+      "name": "route_2_6",
+      "passed": true
+    },
+    {
+      "name": "routed_2_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.141362793630181e-12
+    },
+    {
+      "name": "routed_2_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.1341335893107496e-12
+    },
+    {
+      "name": "near_3_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 8.268435365817788e-14
+    },
+    {
+      "name": "potential_3_0_pppp",
+      "passed": true,
+      "error": 6.938893903907228e-17,
+      "limit": 1.1193703385894846e-12
+    },
+    {
+      "name": "signed_3_0_pppp",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 1.0026632330861052e-10
+    },
+    {
+      "name": "near_3_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.694250229453995e-14
+    },
+    {
+      "name": "potential_3_0_pqpq",
+      "passed": true,
+      "error": 7.632783294297951e-17,
+      "limit": 1.0500064718105098e-12
+    },
+    {
+      "name": "signed_3_0_pqpq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 1.0058812817307785e-10
+    },
+    {
+      "name": "near_3_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.694250229453996e-14
+    },
+    {
+      "name": "potential_3_0_qpqp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.1080847935756674e-12
+    },
+    {
+      "name": "signed_3_0_qpqp",
+      "passed": true,
+      "error": 1.1102230246251565e-16,
+      "limit": 1.0057198779118727e-10
+    },
+    {
+      "name": "near_3_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.21532117090443e-14
+    },
+    {
+      "name": "potential_3_0_qqqq",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.047224430153554e-12
+    },
+    {
+      "name": "signed_3_0_qqqq",
+      "passed": true,
+      "error": 3.608224830031759e-16,
+      "limit": 1.0039974112981386e-10
+    },
+    {
+      "name": "route_3_0",
+      "passed": true
+    },
+    {
+      "name": "routed_3_0_0",
+      "passed": true,
+      "error": 8.326672684688674e-17,
+      "limit": 2.101627424867404e-12
+    },
+    {
+      "name": "routed_3_0_1",
+      "passed": true,
+      "error": 5.551115123125783e-17,
+      "limit": 2.096116127349161e-12
+    },
+    {
+      "name": "near_3_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.838789220349752e-14
+    },
+    {
+      "name": "potential_3_1_pppp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.1187449942832722e-12
+    },
+    {
+      "name": "signed_3_1_pppp",
+      "passed": true,
+      "error": 1.6653345369377348e-16,
+      "limit": 1.0033436708941108e-10
+    },
+    {
+      "name": "near_3_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.240191854011141e-14
+    },
+    {
+      "name": "potential_3_1_pqpq",
+      "passed": true,
+      "error": 3.122502256758253e-17,
+      "limit": 1.0552117095777964e-12
+    },
+    {
+      "name": "signed_3_1_pqpq",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 1.0074986261709206e-10
+    },
+    {
+      "name": "near_3_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 7.240191854011144e-14
+    },
+    {
+      "name": "potential_3_1_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.1036470292272439e-12
+    },
+    {
+      "name": "signed_3_1_qpqp",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 1.0026340708434318e-10
+    },
+    {
+      "name": "near_3_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.82847952733901e-14
+    },
+    {
+      "name": "potential_3_1_qqqq",
+      "passed": true,
+      "error": 3.122502256758253e-17,
+      "limit": 1.0475560081036558e-12
+    },
+    {
+      "name": "signed_3_1_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.002569524406529e-10
+    },
+    {
+      "name": "route_3_1",
+      "passed": true
+    },
+    {
+      "name": "routed_3_1_0",
+      "passed": true,
+      "error": 4.85722573273506e-17,
+      "limit": 2.0993585429720037e-12
+    },
+    {
+      "name": "routed_3_1_1",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 2.0953695887965514e-12
+    },
+    {
+      "name": "near_3_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 6.194787392452566e-14
+    },
+    {
+      "name": "potential_3_6_pppp",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 1.1110475775111156e-12
+    },
+    {
+      "name": "signed_3_6_pppp",
+      "passed": true,
+      "error": 1.942890293094024e-16,
+      "limit": 1.0032291918264769e-10
+    },
+    {
+      "name": "near_3_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.564838576196604e-14
+    },
+    {
+      "name": "potential_3_6_pqpq",
+      "passed": true,
+      "error": 3.122502256758253e-17,
+      "limit": 1.041996098683366e-12
+    },
+    {
+      "name": "signed_3_6_pqpq",
+      "passed": true,
+      "error": 1.3877787807814457e-16,
+      "limit": 1.0028312179364918e-10
+    },
+    {
+      "name": "near_3_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.564838576196606e-14
+    },
+    {
+      "name": "potential_3_6_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0916204421370974e-12
+    },
+    {
+      "name": "signed_3_6_qpqp",
+      "passed": true,
+      "error": 9.71445146547012e-17,
+      "limit": 1.0007637284011118e-10
+    },
+    {
+      "name": "near_3_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 5.368389149418792e-14
+    },
+    {
+      "name": "potential_3_6_qqqq",
+      "passed": true,
+      "error": 3.122502256758253e-17,
+      "limit": 1.0367667832598427e-12
+    },
+    {
+      "name": "signed_3_6_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.003535755527233e-10
+    },
+    {
+      "name": "route_3_6",
+      "passed": true
+    },
+    {
+      "name": "routed_3_6_0",
+      "passed": true,
+      "error": 4.163336342344337e-17,
+      "limit": 2.0945117822360653e-12
+    },
+    {
+      "name": "routed_3_6_1",
+      "passed": true,
+      "error": 3.469446951953614e-17,
+      "limit": 2.0889927491326918e-12
+    },
+    {
+      "name": "near_4_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.0205350205350163e-13
+    },
+    {
+      "name": "potential_4_0_pppp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "signed_4_0_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.01075648e-10
+    },
+    {
+      "name": "analytic_dense_4_0_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factored_4_0_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "near_4_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.0205350205350163e-13
+    },
+    {
+      "name": "potential_4_0_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "signed_4_0_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.01075648e-10
+    },
+    {
+      "name": "analytic_dense_4_0_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factored_4_0_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "near_4_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.0205350205350163e-13
+    },
+    {
+      "name": "potential_4_0_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "signed_4_0_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.01075648e-10
+    },
+    {
+      "name": "analytic_dense_4_0_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factored_4_0_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "near_4_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.0205350205350163e-13
+    },
+    {
+      "name": "potential_4_0_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.582555555555555e-12
+    },
+    {
+      "name": "signed_4_0_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.01075648e-10
+    },
+    {
+      "name": "analytic_dense_4_0_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "analytic_factored_4_0_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 1.0756479999999995e-13
+    },
+    {
+      "name": "route_4_0",
+      "passed": true
+    },
+    {
+      "name": "routed_4_0_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.16511111111111e-12
+    },
+    {
+      "name": "analytic_routed_4_0_0",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 2.151295999999999e-13
+    },
+    {
+      "name": "routed_4_0_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.16511111111111e-12
+    },
+    {
+      "name": "analytic_routed_4_0_1",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 2.151295999999999e-13
+    },
+    {
+      "name": "near_4_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.409598734598733e-13
+    },
+    {
+      "name": "potential_4_1_pppp",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "signed_4_1_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.00806736e-10
+    },
+    {
+      "name": "analytic_dense_4_1_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factored_4_1_pppp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "near_4_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.409598734598733e-13
+    },
+    {
+      "name": "potential_4_1_pqpq",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "signed_4_1_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.00806736e-10
+    },
+    {
+      "name": "analytic_dense_4_1_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factored_4_1_pqpq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "near_4_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.409598734598733e-13
+    },
+    {
+      "name": "potential_4_1_qpqp",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "signed_4_1_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.00806736e-10
+    },
+    {
+      "name": "analytic_dense_4_1_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factored_4_1_qpqp",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "near_4_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.409598734598733e-13
+    },
+    {
+      "name": "potential_4_1_qqqq",
+      "passed": true,
+      "error": 1.3877787807814457e-17,
+      "limit": 1.3429999999999992e-12
+    },
+    {
+      "name": "signed_4_1_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.00806736e-10
+    },
+    {
+      "name": "analytic_dense_4_1_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "analytic_factored_4_1_qqqq",
+      "passed": true,
+      "error": 5.551115123125783e-16,
+      "limit": 8.067359999999997e-14
+    },
+    {
+      "name": "route_4_1",
+      "passed": true
+    },
+    {
+      "name": "routed_4_1_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.6859999999999985e-12
+    },
+    {
+      "name": "analytic_routed_4_1_0",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 1.6134719999999994e-13
+    },
+    {
+      "name": "routed_4_1_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.6859999999999985e-12
+    },
+    {
+      "name": "analytic_routed_4_1_1",
+      "passed": true,
+      "error": 1.1102230246251565e-15,
+      "limit": 1.6134719999999994e-13
+    },
+    {
+      "name": "near_4_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 4.2913007091328704e-14
+    },
+    {
+      "name": "potential_4_6_pppp",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "signed_4_6_pppp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0035854933333334e-10
+    },
+    {
+      "name": "analytic_dense_4_6_pppp",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factored_4_6_pppp",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "near_4_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 4.2913007091328704e-14
+    },
+    {
+      "name": "potential_4_6_pqpq",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "signed_4_6_pqpq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0035854933333334e-10
+    },
+    {
+      "name": "analytic_dense_4_6_pqpq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factored_4_6_pqpq",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "near_4_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 4.2913007091328704e-14
+    },
+    {
+      "name": "potential_4_6_qpqp",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "signed_4_6_qpqp",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0035854933333334e-10
+    },
+    {
+      "name": "analytic_dense_4_6_qpqp",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factored_4_6_qpqp",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "near_4_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 4.2913007091328704e-14
+    },
+    {
+      "name": "potential_4_6_qqqq",
+      "passed": true,
+      "error": 6.938893903907228e-18,
+      "limit": 1.1719886039886037e-12
+    },
+    {
+      "name": "signed_4_6_qqqq",
+      "passed": true,
+      "error": 2.7755575615628914e-17,
+      "limit": 1.0035854933333334e-10
+    },
+    {
+      "name": "analytic_dense_4_6_qqqq",
+      "passed": true,
+      "error": 2.220446049250313e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "analytic_factored_4_6_qqqq",
+      "passed": true,
+      "error": 2.498001805406602e-16,
+      "limit": 3.5854933333333316e-14
+    },
+    {
+      "name": "route_4_6",
+      "passed": true
+    },
+    {
+      "name": "routed_4_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.3439772079772073e-12
+    },
+    {
+      "name": "analytic_routed_4_6_0",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 7.170986666666663e-14
+    },
+    {
+      "name": "routed_4_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.3439772079772073e-12
+    },
+    {
+      "name": "analytic_routed_4_6_1",
+      "passed": true,
+      "error": 4.440892098500626e-16,
+      "limit": 7.170986666666663e-14
+    },
+    {
+      "name": "near_5_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.038307955574192e-14
+    },
+    {
+      "name": "potential_5_6_pppp",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "signed_5_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000087578546443e-10
+    },
+    {
+      "name": "analytic_dense_5_6_pppp",
+      "passed": true,
+      "error": 3.7947076036992655e-19,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "analytic_factored_5_6_pppp",
+      "passed": true,
+      "error": 3.7947076036992655e-19,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "near_5_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.038307955574192e-14
+    },
+    {
+      "name": "potential_5_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "signed_5_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000036137673901e-10
+    },
+    {
+      "name": "analytic_dense_5_6_pqpq",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factored_5_6_pqpq",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "near_5_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.038307955574192e-14
+    },
+    {
+      "name": "potential_5_6_qpqp",
+      "passed": true,
+      "error": 2.168404344971009e-19,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "signed_5_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000036137673901e-10
+    },
+    {
+      "name": "analytic_dense_5_6_qpqp",
+      "passed": true,
+      "error": 2.439454888092385e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factored_5_6_qpqp",
+      "passed": true,
+      "error": 2.439454888092385e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "near_5_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.038307955574192e-14
+    },
+    {
+      "name": "potential_5_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "signed_5_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000015019720715e-10
+    },
+    {
+      "name": "analytic_dense_5_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "analytic_factored_5_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "route_5_6",
+      "passed": true
+    },
+    {
+      "name": "routed_5_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.0090551994902786e-12
+    },
+    {
+      "name": "analytic_routed_5_6_0",
+      "passed": true,
+      "error": 7.589415207398531e-19,
+      "limit": 1.2371622034262052e-16
+    },
+    {
+      "name": "routed_5_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.0090551994902786e-12
+    },
+    {
+      "name": "analytic_routed_5_6_1",
+      "passed": true,
+      "error": 2.710505431213761e-19,
+      "limit": 5.115739461522257e-17
+    },
+    {
+      "name": "exact_RKB_unused_P_tail_zero",
+      "passed": true
+    },
+    {
+      "name": "near_6_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.517528954989532e-14
+    },
+    {
+      "name": "potential_6_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.007595973082353e-12
+    },
+    {
+      "name": "signed_6_6_pppp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000087578546443e-10
+    },
+    {
+      "name": "analytic_dense_6_6_pppp",
+      "passed": true,
+      "error": 1.0299920638612292e-18,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "analytic_factored_6_6_pppp",
+      "passed": true,
+      "error": 1.0299920638612292e-18,
+      "limit": 8.757854644224253e-17
+    },
+    {
+      "name": "near_6_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.253034033609652e-14
+    },
+    {
+      "name": "potential_6_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.003134338366613e-12
+    },
+    {
+      "name": "signed_6_6_pqpq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000036137673901e-10
+    },
+    {
+      "name": "analytic_dense_6_6_pqpq",
+      "passed": true,
+      "error": 1.6263032587282567e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factored_6_6_pqpq",
+      "passed": true,
+      "error": 1.6263032587282567e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "near_6_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.253034033609652e-14
+    },
+    {
+      "name": "potential_6_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0063966089114551e-12
+    },
+    {
+      "name": "signed_6_6_qpqp",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000036137673901e-10
+    },
+    {
+      "name": "analytic_dense_6_6_qpqp",
+      "passed": true,
+      "error": 1.8973538018496328e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "analytic_factored_6_6_qpqp",
+      "passed": true,
+      "error": 1.8973538018496328e-19,
+      "limit": 3.613767390037798e-17
+    },
+    {
+      "name": "near_6_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 3.038307955574192e-14
+    },
+    {
+      "name": "potential_6_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0026585905788235e-12
+    },
+    {
+      "name": "signed_6_6_qqqq",
+      "passed": true,
+      "error": 0.0,
+      "limit": 1.0000015019720715e-10
+    },
+    {
+      "name": "analytic_dense_6_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "analytic_factored_6_6_qqqq",
+      "passed": true,
+      "error": 8.131516293641283e-20,
+      "limit": 1.501972071484459e-17
+    },
+    {
+      "name": "route_6_6",
+      "passed": true
+    },
+    {
+      "name": "routed_6_6_0",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.010730311448966e-12
+    },
+    {
+      "name": "analytic_routed_6_6_0",
+      "passed": true,
+      "error": 8.673617379884035e-19,
+      "limit": 1.2371622034262052e-16
+    },
+    {
+      "name": "routed_6_6_1",
+      "passed": true,
+      "error": 0.0,
+      "limit": 2.0090551994902786e-12
+    },
+    {
+      "name": "analytic_routed_6_6_1",
+      "passed": true,
+      "error": 2.710505431213761e-19,
+      "limit": 5.115739461522257e-17
+    },
+    {
+      "name": "exact_calls_basis_setup",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_density_band",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_direct_full_bank",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_direct_semiseparable",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_band_scalar",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_CI_source_pair",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_bank_get",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_factor_get",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_Gauss_setup_eigvalsh",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_scipy_eigh",
+      "passed": true
+    },
+    {
+      "name": "exact_calls_centered_dense_helper",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.types",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.compare",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.basis",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.integrals",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.knots",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.convol",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.dirac",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.schrodinger",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.wigner",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.clebsch",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.mscheme",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.rcfp",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.ls_coupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.recoupling",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.coefficients",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.angular.csf_hamiltonian",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.dirac_assembly",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.constants",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.quadrature",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.spline",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.coulomb",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.operators",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.physics.csf.matrix",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.subshell",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.breit_pauli",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.hyperfine_presets",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.scf_observables",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.bspline.evaluate",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.diis",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.yk",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.radial_metric",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.radial_state",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.dirac_fock",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.hartree_fock_slater",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.hydrogenic",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mbpt",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.parsing",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.config.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.csf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.base",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.flambaum_ginges",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.data.mohr_se",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.mohr",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.indelicato",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.shabaev",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod.welton",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qedmod",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.protocol",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.adapters",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.quadrature",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.radial_workspace",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.breit",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.qed",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections.stack",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.corrections",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.ci",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.csf.solver",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mcdhf.solver",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.numerics.shooting.electron_space",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods.mcdhf",
+      "passed": true
+    },
+    {
+      "name": "source_import_atomx.methods",
+      "passed": true
+    }
+  ],
+  "versions": {
+    "Python": "3.10.21 (main, Aug 14 2026, 15:33:52) [Clang 22.1.3 ]",
+    "NumPy": "2.2.6",
+    "SciPy": "1.15.3",
+    "Numba": "0.65.0"
+  },
+  "physical_stationarity_qualification": false,
+  "GPU_called": false,
+  "controlled_speedup_certified": false,
+  "host_load": [
+    9.49169921875,
+    9.40283203125,
+    9.5849609375
+  ],
+  "source_map_sha256": "8a4324e1758587125e1cd94bb34881356ef628961b3e1e8c0da8f4276e539d4d",
+  "arrays_sha256": null,
+  "owner_sha256": null
+}

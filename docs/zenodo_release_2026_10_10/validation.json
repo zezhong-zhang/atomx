@@ -1,0 +1,4550 @@
+{
+  "stage": "candidate release copy",
+  "python": "3.10.21",
+  "base_commit": "233fec1a9710e95cf42bf64ecb821d287d4336e2",
+  "source_test_tool_identity_sha256": "adbfacd586768b1aa562aaee5cb744e41c16a9363ba5b8c4580e40d8384b56d7",
+  "files": [
+    {
+      "path": "src/atomx/__init__.py",
+      "bytes": 6293,
+      "sha256": "46160ab916bb98e8d2dfc546f09b900b05b9f694c8e8226b28ddb2d2fec973a3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/__init__.py",
+      "bytes": 1175,
+      "sha256": "d98cfab8e7691851009714d9c4dfecb3b9118c5106bdfdfc48e20ac6c3a05d61",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/clebsch.py",
+      "bytes": 1002,
+      "sha256": "32da9e9954e0bd31963e255320d042aa080091023b72436996325d33689cd6cd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/coefficients.py",
+      "bytes": 11121,
+      "sha256": "0299bc96e53ddf7f529dae4aeab8caaaaf48687abd02dd9a7ee01e997ee57710",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/csf.py",
+      "bytes": 11065,
+      "sha256": "815ef80ae6d211be7d0a8103f298044f9acc0ca25a1390699046a5886fc4afb2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/csf_hamiltonian.py",
+      "bytes": 68209,
+      "sha256": "bda0fe0ac326bc67dec3660d447355f58e77a74a76590dfaab92247cf072d6be",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/csf_recoupling.py",
+      "bytes": 40840,
+      "sha256": "d4b10577ed8b59d3045c4c60e33ac7b7025c29f81469cf3d85b4d277e0d71035",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/ls_coupling.py",
+      "bytes": 5569,
+      "sha256": "4a05a6f9f4f3147ab2e034e2567ef8a8edd2156d1fb9eae3c193f004e2fe18a1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/mscheme.py",
+      "bytes": 21058,
+      "sha256": "21edff730e25c3d3945583cb830b50f5bf52f1f0d3a1585800885902b5fbfdf2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/rcfp.py",
+      "bytes": 5225,
+      "sha256": "3a9576b244c61d315f48e1de7d3298f622f5665afa8d917f71c50c438c1f54dd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/recoupling.py",
+      "bytes": 5363,
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/sd_rho.py",
+      "bytes": 1854,
+      "sha256": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/spinor_harmonics.py",
+      "bytes": 5575,
+      "sha256": "9d35900460870c3c298eecf0dd00a76f4b437cfca783b0bd9b866bb5cfe0c0af",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/angular/wigner.py",
+      "bytes": 9396,
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/atom.py",
+      "bytes": 97670,
+      "sha256": "d7ff417f5b8b689083287bcb2975138d94a0cc0505d43aba7f7f9a23b06447d6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/atom_inputs.py",
+      "bytes": 27197,
+      "sha256": "efbc114328891f1ab14a4781744efdd424908856dd4f9fbc38d1a2a52d86a9fa",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/calculation_spec.py",
+      "bytes": 6300,
+      "sha256": "c5672b13ac257a5f93033ed20f3a5a321d84bbebb7f2c0d871445886f7ae5536",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/compare.py",
+      "bytes": 10833,
+      "sha256": "2efde517f27a39a43d8384d33e63544127354c276297acc6423550a12a6d958c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/config/__init__.py",
+      "bytes": 4823,
+      "sha256": "09a008eff100a4f1ab5448689cb445c7bb964d8cded5a4d987d981c95c0578f3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/config/csf.py",
+      "bytes": 19832,
+      "sha256": "eb16dfb987b4eda342a862e7af6e58cb4d530808817c6f95ba848579f5b43999",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/config/jj_coupling.py",
+      "bytes": 7905,
+      "sha256": "56a300b28f527d04b153e4fb2b36e14fddd73fb5c7b9c8cf63d5214aadf527cb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/config/parsing.py",
+      "bytes": 3545,
+      "sha256": "e7a5b7878f12a4b969aae7925cddad2539560177a442def4892b018d23b5ba4e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/config/subshell.py",
+      "bytes": 1877,
+      "sha256": "4572ba40d89a6681006d9ae773017a7347d6452edb8a27dbf1f38242d0c86cce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/constants.py",
+      "bytes": 9293,
+      "sha256": "85e55d5b2f87ac120faf68c66a9e5f945548f35629f8b235a99fc1ae2015ac9d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/__init__.py",
+      "bytes": 1401,
+      "sha256": "9bb7be6c30ca338f46d6dfc180ecf67ed4a49a892c90ec79c0abf7b4fba7f081",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/adapters.py",
+      "bytes": 28776,
+      "sha256": "dd3fb86aa1db96b00b376cb547fa607c22a2dce75d26f5cd39977f5c0bf7371d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/breit.py",
+      "bytes": 14927,
+      "sha256": "e81ce4b9ccb9f108befea00d961043d32750b385bb63d871538c10f34eb54596",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/dbsr_breit.py",
+      "bytes": 8656,
+      "sha256": "91a0f70da3fec49a5baa1a270908b8fab193d0bf6061ff52b12fa603d6a63c09",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/orbital_shifts.py",
+      "bytes": 3445,
+      "sha256": "937729b40da56e5cabc34094d5032222b1f5de39b2643f7d2722b99842ebf656",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/protocol.py",
+      "bytes": 4410,
+      "sha256": "e5df01ebece23ded54a25a847b49c4a1fe5e6407568fcf85804a27e61a5c23ce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qed.py",
+      "bytes": 15829,
+      "sha256": "51f29a98b96e80de890779ff541d0a35e7327ddea7c7002e010bece14506c3bd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/__init__.py",
+      "bytes": 2792,
+      "sha256": "fb7a42dc2fec4de64d99f448d6b3760b99e1268d54e2a3d5915d04c83f4ea951",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/base.py",
+      "bytes": 3313,
+      "sha256": "858b3ee217a769de848f39072cbd05151b7c873b55b979c2f0284bbd94e12c30",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/flambaum_ginges.py",
+      "bytes": 10497,
+      "sha256": "3f9bfd9fbfce98c0bd2744718e1dd448b96e965155f351391254313c42d2b280",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/indelicato.py",
+      "bytes": 3306,
+      "sha256": "dd2d1a2a89c9fc6054583fc6d4ad050a1d61203f57e874910982eb154865052d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/mohr.py",
+      "bytes": 7136,
+      "sha256": "6b8132cc91b697bff1e09d1e1cc585df1b930562179e5f314e7c3d11189f09d7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/shabaev.py",
+      "bytes": 16381,
+      "sha256": "f4e1943c0339eef362f1cb5f84ab040640a0b875b2d56329f38bf61ced4b051b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/qedmod/welton.py",
+      "bytes": 4918,
+      "sha256": "2a9b7a35fab4b6e5dcc0c85e8931fe7824c62092bbe50788fc3870725b88ab9a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/radiative_mass.py",
+      "bytes": 1966,
+      "sha256": "7242e91baf8a2f215c45b75b7d68975e502d480da5f492e1158cfa401ec49248",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/recoil.py",
+      "bytes": 4500,
+      "sha256": "62761ae5ded8913f3d7c33590021687f67a6cd6efe0c595e58860fafe2c6dda7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/specific_recoil.py",
+      "bytes": 7574,
+      "sha256": "31d5b7e6df6d4c690196cbbb8cb88a6697cf453b94c65501db80ea8c3c2916c1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/corrections/stack.py",
+      "bytes": 17763,
+      "sha256": "01084e6b1c7caecc7568db224d897c568dda2e69ae48b22a555f7bf009c69526",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/__init__.py",
+      "bytes": 2309,
+      "sha256": "ca97c09c80a66e02944345786c95dbf05c404052356dbbe5308a5285d85b2a5d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/flambaum_ginges.py",
+      "bytes": 1855,
+      "sha256": "708a1e4c86832f56137997837d0591f637c29d9685ea5411ec5784e9c562a839",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/hyperfine_presets.py",
+      "bytes": 2827,
+      "sha256": "231cda8b1118d5cd2eb210cf706650544ced497b0007aa11946e2e5b4be828dc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/mohr_se.py",
+      "bytes": 15299,
+      "sha256": "b9264e8a0b02bdb55317925e408ccc0928baf61e7a57de4d0b7ff4d234e8242c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/nist_bethe_log.py",
+      "bytes": 362237,
+      "sha256": "4b467181d1da31cd34e3660fdf4b5c5d82a11878d2894695eaa69c8fa1da35f2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/data/nuclear_structure.py",
+      "bytes": 1633,
+      "sha256": "8237f9490b279e2a93335d3b7ac2ee369364ff62e459989e83975f346ea0ff8f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/fitting/__init__.py",
+      "bytes": 1781,
+      "sha256": "6b6865489ff8aaf04ca221a964a2769bab524402ab1cb3b0e9597182aae7ccff",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/fitting/slater.py",
+      "bytes": 5906,
+      "sha256": "15856585f0a6b7fc567a7d1819d1ee403a724eeab76932120fb9d0ebdc72719a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/io/__init__.py",
+      "bytes": 634,
+      "sha256": "ba89a6e25733fa87b6be7d5bd33ff60c5e87b2d40be137f0dbdfb8caceff7acb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/io/fac_writer.py",
+      "bytes": 31928,
+      "sha256": "3bb2ae4e35a7a6aa7c851a2ad53132fa37e4839855d677c84343310f0dae4875",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/io/results.py",
+      "bytes": 19014,
+      "sha256": "a9e276b6ec148c2db8bbac82bbec5e7bf8554651987636fc53eb9356bae432f2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/ladder.py",
+      "bytes": 12358,
+      "sha256": "fc58829e7a97d798d6710e598381fe0f463d2831559aa9afa084c004a5884303",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/lineshapes/__init__.py",
+      "bytes": 1653,
+      "sha256": "32c4b3165501247d0666e9c8d732d72e3a1bcd7aa491c1a0cea7104ff85e44cf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/lineshapes/profiles.py",
+      "bytes": 4634,
+      "sha256": "921a9f058dab84b82075c23156f7fd0527d1f42b0eabc7f055997db151b409f2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/lineshapes/stark.py",
+      "bytes": 3352,
+      "sha256": "8eda7d41d8ef40eef4856a27936930893ffc37560211aac5161cc3816b85ae9d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/log.py",
+      "bytes": 5911,
+      "sha256": "ec8fff58ed333cfea09eed5feab438fe98b52c404cc9046f098b2cb32b6c40fc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/__init__.py",
+      "bytes": 1046,
+      "sha256": "d8c8b8b98bc796787ace2eec05b88a0ba31b577acdb04a85885bef823383fb09",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_core_blas.f90",
+      "bytes": 2750,
+      "sha256": "a518942871455ade02ec5e8ebd3cb70ab8dc2fa483446282994e43fb7ca3c79c",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_core_single_to_doubles_blas.f90",
+      "bytes": 3846,
+      "sha256": "705907dadd8f44e752dc19e9a66f5c542f2f82d8c69eefa052ba3a7fa5689643",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_core_singles_blas.f90",
+      "bytes": 4011,
+      "sha256": "52e32c9763abeeebd8c34a4038a773b5f39fb7635732cdb0666886ebe2584683",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_sigma2.f90",
+      "bytes": 5962,
+      "sha256": "5502a0b6c989e329109044a9fff2fe682e15c6f0bc22e9c91236812f6cec1c2c",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_term21_compact.f90",
+      "bytes": 4456,
+      "sha256": "3b58e5b78562b03381711630832fcf1d163cea23ff0757126f2d33c95f8b3a2b",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_term21_streamed.f90",
+      "bytes": 4644,
+      "sha256": "8d7b5b64800acf04ce509ef31f27a75daf55405970349664a8bd2cd517d737ee",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_valence.f90",
+      "bytes": 10527,
+      "sha256": "09b4d6871179d725a4780c442bf971e19233961fc52ef4b966ac08ef2988c941",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_pci_valence_term2_streamed.f90",
+      "bytes": 6021,
+      "sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/_result_adapters.py",
+      "bytes": 1551,
+      "sha256": "16376db419b9b9b4aba100b04f78e650ade01900e3d2b8dd28f8a6655b5fa5a8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/atomic_space.py",
+      "bytes": 3056,
+      "sha256": "705e6445fe35b35f018bdd11c37c3a75abac1cd92fea6967af8d4686072787e1",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/base.py",
+      "bytes": 734,
+      "sha256": "562e063d3a1d0267531a2f9320bbc1b3bbe9b2622e6dd2c0b755dc2a6cd7ea95",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/breit_pauli.py",
+      "bytes": 9248,
+      "sha256": "891da6014b1ba44fb4c6d8abcd9878b5f4a56da86545b700df8e6af6720e7208",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/ci.py",
+      "bytes": 17828,
+      "sha256": "0514fc2bd5110fe7a8284f0d448d3d9ee984665a1f9e028142d8c35d6c12549b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/ci_effective.py",
+      "bytes": 20768,
+      "sha256": "2f477cfdad9aee7d7792edf46a983b4b79b035b958c83947271ced09dc639383",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/ci_mbpt.py",
+      "bytes": 6397,
+      "sha256": "aa878ba1341f2250875d5a95cf3b5bfb9a195b5b1464ee1d38578c8a719d9ebf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/ci_sd.py",
+      "bytes": 7798,
+      "sha256": "a49bac8ee475901315cc96e54e5580ea9db28d788e9ca11c028ba0e86b99c0d5",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/concurrent_solve.py",
+      "bytes": 4323,
+      "sha256": "365775ffd82f30ae2bc0919279f4bf8c964c193da2f7a83af9d3e7507ecc912a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/core_sd.py",
+      "bytes": 32259,
+      "sha256": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/coupled_cluster.py",
+      "bytes": 10293,
+      "sha256": "9116734e3f523521e00cf94fb700fa88402acffccef8a21e543b90cdb7f32ee8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/__init__.py",
+      "bytes": 301,
+      "sha256": "624ba287588bbbdedd51597888fd0742ce6f79c0fb988f0e09e374b137e766e0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/charge_variational.py",
+      "bytes": 8937,
+      "sha256": "fca4674fd96ac036cee020e467105a7327c98467915fbfb4b1118c6984102586",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/complex_ci.py",
+      "bytes": 8659,
+      "sha256": "d3e33468419ca8a263d0bb2a52db89feaf44ab1417c629df863323b111d81e55",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/crystal_field.py",
+      "bytes": 11296,
+      "sha256": "9c47bb6c742f32b074121c7388c1b9168c479023f2681baf9d567bfdc02669d3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/direct_bspline.py",
+      "bytes": 8673,
+      "sha256": "742b754a00416de1566f236ecfe62ff92fd405418a53026e55e6d3f1a3a851ee",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/direct_shooting.py",
+      "bytes": 4269,
+      "sha256": "1024819f886af552ebd75c1833440765e8ee2cf86f2252d13c74ac289eb2d06c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/grid_functional.py",
+      "bytes": 10318,
+      "sha256": "b1a227fae381df8fc58dcd6d534d9c5b748dc0536b20c60970199eaa05c68cb1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/grid_solver.py",
+      "bytes": 3976,
+      "sha256": "d8a7966eb9f3bf2b74d52981f0da4422dd8ce3b2637f7ac1adadc538fd2a4a6f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/lanthanide_workspace.py",
+      "bytes": 1378,
+      "sha256": "d4d5567e823fcfaf43ee419d3c3d70eafbecae70438a369f6bff24aaf21c0ba6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/slater_scaling.py",
+      "bytes": 9607,
+      "sha256": "4d165148ffa8a059fd748bcbe93f23e3ad6564a23283ce2129238c886fb33d52",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/solver.py",
+      "bytes": 94995,
+      "sha256": "5d662eede52009e4852907f3ce10a95be9edae6c03cb75115ce44dafc6599164",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/variational.py",
+      "bytes": 11348,
+      "sha256": "652be6483d93f439f7200421fcde19d3af8342c86cbfe97543a5a26b295d9103",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/csf/virtual_stability.py",
+      "bytes": 5531,
+      "sha256": "b00b1cc1c037a0b941ef6420da7059d8acf9621a34f7a1b79d42e3f7287f43b2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/dirac_fock.py",
+      "bytes": 132597,
+      "sha256": "f71d24262e2bee06214c5cf7ed387f523eec5bf6be774dfb229bb8d75544ef52",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/edm.py",
+      "bytes": 3232,
+      "sha256": "2d0ebcf3e82af6b442a8989a3e477d785d7e8fef801b154b2879d03f93fae3a9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/fscc.py",
+      "bytes": 23512,
+      "sha256": "aa6028ddf7a4aa6f2deec67f35475679107166b03a6530ba6312de55d34e6fb8",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/hamiltonian_df.py",
+      "bytes": 4326,
+      "sha256": "c45a0d707d16f48e1dea796fa06ad2c29be5f6e7d0104e17eb5b95683f827478",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/hartree_fock_slater.py",
+      "bytes": 2027,
+      "sha256": "f823ccc189e29479787fada91f76a26a04a084c2b0e85d4a753571882caeeea4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/hydrogenic.py",
+      "bytes": 4677,
+      "sha256": "095a11605aada6a4954537f87fe588794a9e76879d8dcc65f2511753d9e3a942",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/hydrogenic_cross_sections.py",
+      "bytes": 8637,
+      "sha256": "4920dbc1171c7def0c99f013a77e40734e79df4fdd41d36883e8e1e359938ec9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/hydrogenic_reference.py",
+      "bytes": 4453,
+      "sha256": "e401c4a29f00c31b9cdadb451559e0772f548df049a2c7c0e0dea19c389a251f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/linearized_sd.py",
+      "bytes": 16481,
+      "sha256": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mbpt.py",
+      "bytes": 45582,
+      "sha256": "a87ba8b0330dd9ef269611662a67ec525406b2a5900acb043baaf444319003d7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mbpt_matrix.py",
+      "bytes": 14393,
+      "sha256": "2686b60d67c85ac1d040d80b2471bcdeb7cfad8a3e1585c14f5937b1355e7aba",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mbpt_sigma2.py",
+      "bytes": 30648,
+      "sha256": "fe671a8a4808b42ed9b9a57ee28ac854744390050293f5d0e32cd62f70dcd8d1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mbpt_transitions.py",
+      "bytes": 20086,
+      "sha256": "c3d3143dc158860eb77491b3741fbca5d4f08d24b44ef813124098b1b54146d8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mcdhf/__init__.py",
+      "bytes": 7765,
+      "sha256": "c3ec27c953cfed4c6682566245c6ff9e5d309af0ff5c75e00f9ff7da38250167",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mcdhf/excitations.py",
+      "bytes": 8082,
+      "sha256": "264679be4318273fa533ffd70d41af6ed3df0183437db5f60f97ba2612b00386",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/mcdhf/solver.py",
+      "bytes": 434,
+      "sha256": "6cdabbb99ec319abba2972ea6ae060af97eb5939fab2ff892045ad9da479d69c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/pnc.py",
+      "bytes": 4246,
+      "sha256": "57da5e9eee632de339d4b8fc2fb20e2b5411467ba30a9e3f64d7a0e3fc545f39",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/rpa.py",
+      "bytes": 15602,
+      "sha256": "386313334fcb43d239ae68dfe211d9724ba3b3fe1a984003e54ed44cc1f18051",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/scf_observables.py",
+      "bytes": 22111,
+      "sha256": "ea01f829b87d819a34d70f26b7a053f9ebc9f29f94c4221b8f22f3b2031f4739",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/sigma2_sd.py",
+      "bytes": 19855,
+      "sha256": "6decb48827655993735bcaaaedeba15ac0d8b6a7fe66101edd5d9dab8753d366",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/methods/valence_sd.py",
+      "bytes": 28824,
+      "sha256": "24f934e9b4f44bf3c1c420211146df84296909a5b7ddb81a6e6a33373ffe061e",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/__init__.py",
+      "bytes": 773,
+      "sha256": "6c37b1e6e703b9f709db3ae140bb55e8ba5be7a48de3bb1bf6e18219a8da2125",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/__init__.py",
+      "bytes": 818,
+      "sha256": "90bf0a4ba030d8ffade7e28d6c11e36aea626264cb8e4efa85297cf3a83bdcf9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/basis.py",
+      "bytes": 12970,
+      "sha256": "765ac983776aea9cae66e4f7fb148313fb178c2db92286d2bf9e706d0b82f1fb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/complex_dirac.py",
+      "bytes": 11468,
+      "sha256": "cf70325cec5a52a01a803b1cb33ed43d3fc9166ae14a7e690504ad0150235369",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/continuum.py",
+      "bytes": 10647,
+      "sha256": "a0449cd6c275b46adcdd80733448c7d60fbd74ec98017341b94fcf2404704903",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "bytes": 86747,
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/coulomb_features.py",
+      "bytes": 20172,
+      "sha256": "72ff6d195628117e0df5b67bd1763f9295992b8e4ac3a4f565af65851c7d4a43",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/dirac_assembly.py",
+      "bytes": 22049,
+      "sha256": "6c41f684abdd617f4857c2df3627c4da60d945aa122785c8072f2a3d67bebf28",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/evaluate.py",
+      "bytes": 5066,
+      "sha256": "233d9a2fd7bb466cf4ca4bd589ed3b90e828451f90500bd562d14f16c6b9c059",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/inhomogeneous.py",
+      "bytes": 3892,
+      "sha256": "c4f1a9a35c306c5b4acf30b928c641b7c3a91f4f40bdf06eb400fb18933fdbc8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/integrals.py",
+      "bytes": 4185,
+      "sha256": "f1c2ae8d7f0692894be9bdd9893f5461a8165506f4fc8e3abd362815ebe8f80c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/knots.py",
+      "bytes": 7849,
+      "sha256": "dfaf3c99d729b3baaac2a703cdc2ce569c57e7b9df12a7adbe2d6ac67be7f69a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/local_potential.py",
+      "bytes": 20645,
+      "sha256": "74eba6341ad8b3d6959b90338c8413dfedab4aba18e054389df76119a2dc6730",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/orbital_geometry.py",
+      "bytes": 1762,
+      "sha256": "b1c6af5206b2099b51797928535b1d9aabf7623d30c1886b7421d80dfed24233",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "bytes": 22836,
+      "sha256": "28611e8b557977652a273f13021cc07a08086f6fbd6f82ef4105d5b17886d319",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/orbital_subspace.py",
+      "bytes": 5178,
+      "sha256": "d272864d46278e4c94990f3523b46b9f5e3350dee95c82a0ab431222f6b999ed",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/pair_contraction.py",
+      "bytes": 6036,
+      "sha256": "ceba826b95b08a3a43e6f77d9648c2b3557ab9e3caf38ad058adeabc20cd0b64",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/shooting_seed.py",
+      "bytes": 4144,
+      "sha256": "4550b34eb780b692e0abf0746b388dde3eca9c407a7704557a67adde3d911a97",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/slater.py",
+      "bytes": 6719,
+      "sha256": "cc2ab74c7f7fd79b4a8f88a3c1c478c5ae1e4c780517b7f94f7471283a0d1f73",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/bspline/slater_yk.py",
+      "bytes": 7165,
+      "sha256": "76df7faf9d40ed919be382c1b140ecd784bc86762d8e7cd4c77fbcbd49914841",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/complex_eigensolver.py",
+      "bytes": 9276,
+      "sha256": "345f11cc00c79b9db3fb8e9dc793ef23933ac6a4a915a8d8caf3251cee785d07",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/density_tail.py",
+      "bytes": 3496,
+      "sha256": "c6b82e69a5630d89aa2589346cf6b43d40b376b6611a9413a80eddd2a090e4bd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/diis.py",
+      "bytes": 2682,
+      "sha256": "d261003ef00e73a70f640c26ef37267b16a3966889f8674f6e78dbbfe9f6fb37",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/extrapolation.py",
+      "bytes": 1064,
+      "sha256": "26416a50962f79224227d771c0c9d6416c571671a5a57552cdb1cc6cee1227fb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/helmholtz.py",
+      "bytes": 5155,
+      "sha256": "dd3fc6b8794f61f7c244bc0ab84ffb4862e42b262afb429ff0caa92ef8b3643d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/hermitian_clusters.py",
+      "bytes": 8563,
+      "sha256": "03302082a993ec2767495247f27e8bdf38aa877e07c94290c2d941c289e4e732",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/local_dfs/__init__.py",
+      "bytes": 576,
+      "sha256": "f622cf911e11240e7b816d5567b65c38e3b360525a1ddbb31a9eee90109c6b9d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/local_dfs/asymptotic.py",
+      "bytes": 7775,
+      "sha256": "4210f8897d961c797b0d5cc0333a859be183c52261ee67121bcb6b0a1016bed0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/local_dfs/hxs_tables.py",
+      "bytes": 3977,
+      "sha256": "8341bf101d6695b28fae8921013b9c00fe02caac13510fe7b454036be2aca703",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/orbital_rotations.py",
+      "bytes": 3262,
+      "sha256": "9af97daa09de200def2f6267943523889cd6bfdba9faf337606793de9e4333ad",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/quadrature.py",
+      "bytes": 17233,
+      "sha256": "22a5bab9474ab8e3984f31125be18356f82fddc3746be28547b17fddbfd25021",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/radial_integration.py",
+      "bytes": 1848,
+      "sha256": "a8892b0befdf710dd0e75ca6abf88bfbf19a3e33c432641bbd695cca32851a20",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/radial_metric.py",
+      "bytes": 2664,
+      "sha256": "c01f99711f77d1c2b472afc9f8b75fd5ae9cd2c6eb8c655ab98ae5efdd3563b4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/radial_workspace.py",
+      "bytes": 4231,
+      "sha256": "fe3cab56781f656f1409c21cea3c18b61e1d49341502a90d4e9fae855694ae21",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/__init__.py",
+      "bytes": 1616,
+      "sha256": "c48e2d8f9217e5a9102b58735322a42fdad904b2a55011ed648e7aac29e7ef01",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/adaptive.py",
+      "bytes": 7590,
+      "sha256": "c74f9affee9769a1848958627cc03b178aad6513493ad30efd2c25aaed2734f8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/box_continuum.py",
+      "bytes": 11024,
+      "sha256": "c0c4ad7aa8aa0682818a1554d3662ae0b5ede0b53f7f4c59c57c585894387f2f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/constants.py",
+      "bytes": 1021,
+      "sha256": "9e35f3e613b555b3942edc88ec539c9fc76ce64068ce9b36a96c9e665a338643",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/coulomb.py",
+      "bytes": 9263,
+      "sha256": "1de14e89abe921f60d07e9e7be771e5bdc7efce0fe8e89bbe77548b3469ac158",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_bound.py",
+      "bytes": 9071,
+      "sha256": "ee5d4c61f62f9cd57652db4bd3492a289a38252edce9ab7f20b328d230b69139",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_continuum.py",
+      "bytes": 14369,
+      "sha256": "63e4596a04a8e8504b6cd327272d49c0396029cc4f250e5c21140ba174a3d520",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_coulomb.py",
+      "bytes": 5357,
+      "sha256": "3d019f60f96533a03a481978ebb52ec7e1fe36ec29c53399604e77574e8c04fc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_green.py",
+      "bytes": 10529,
+      "sha256": "ae6cccfed933f099cc8af2b3f306a28a5d385bcce6755ccab1f3697d9ddb364b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_integrator.py",
+      "bytes": 10431,
+      "sha256": "075f7cd5ca198ef13246e874c9dc0d9b76f418509fd86a70585e5b00d18ab037",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_orbital.py",
+      "bytes": 12162,
+      "sha256": "00d5a052221f0712406fb6834d0676eff8f849c531db982933afb91f07c328a0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_power_series.py",
+      "bytes": 11521,
+      "sha256": "adad12edb5608f9b6937060a6f77e0dfc4b82cd6b566d322253d6a214d43d354",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_response.py",
+      "bytes": 6011,
+      "sha256": "710c3277b1ede7d542788c4801aff610d366147dc004e63ff00217dcfac8eb96",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/dirac_sampling.py",
+      "bytes": 6376,
+      "sha256": "03bdd74bbcc9bff0775d64e43713f155efbf79408182e7a182aebba7fbb6f373",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/electron_space.py",
+      "bytes": 10699,
+      "sha256": "7f0b6f767f0336c03b6a3ff4ddcbfa5af4a4ff93be9a2658e5426840b35b5cf2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/energy.py",
+      "bytes": 6717,
+      "sha256": "b4ae425e3bf05e3a55142be933d191a1372e428f98be425004ae8f81720d0338",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/exponential_quadrature.py",
+      "bytes": 4220,
+      "sha256": "1da38d4134f98eaaab2b178392e1fcdec193377ed796aa0e6cfa77e9fe8273b7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/grid.py",
+      "bytes": 5521,
+      "sha256": "bcad8272938ca99b49340d2a31e019a33df55e1f3941ecb2abe4af6cfe4d6d49",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/hartree_fock.py",
+      "bytes": 21486,
+      "sha256": "5a8fcd69ba00995ca225cfb2c5bd180dcb92794eaf9de509b19e235c082221b4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/local.py",
+      "bytes": 13670,
+      "sha256": "ea7dfbec24d7c2b6ae95b981c68866ea05af87615e388277399ce8ea00053ff1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/local_scf.py",
+      "bytes": 6748,
+      "sha256": "984a80b9a864f89bb68c24cac48e52d961b6d92ec4bc6cefb9e35bf5bf6e0228",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/nonlocal_eigen.py",
+      "bytes": 8089,
+      "sha256": "766db1923b42bd9ddbf291d9028285a1fa340168cf37cde5978205ea5c4bfd3f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/operators.py",
+      "bytes": 3000,
+      "sha256": "50f2028120d07efc80b26f127f12cff6720a6510dcbd5d99b3457ac125a0934d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/orbital_optimization.py",
+      "bytes": 12807,
+      "sha256": "03da872e82a56ebc19ee70f6e3b5ec9208550fb9d608c351698ad124dd4659ea",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/preconditioner.py",
+      "bytes": 6917,
+      "sha256": "e2d82b6ed353e8e934b216a80fd364a79d6237486bcac057a6c014cfd2b4c51b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/problem.py",
+      "bytes": 3062,
+      "sha256": "b38361f6ef278f5a3a3eb5ff8dcb72c89d04c618d103f425589f2a4040f8ba92",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/quadrature.py",
+      "bytes": 3053,
+      "sha256": "6c4f1522ccc40179b29be3847984aaefa03569093ff2f41b161afa72d13e849a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/scf.py",
+      "bytes": 10654,
+      "sha256": "0243a6e2a192136e66887fc2d5c164352aecffee9d1a7ec532ec583cc22b6fa6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/schrodinger_bound.py",
+      "bytes": 7829,
+      "sha256": "ad67ee48782bf74d8eae7772cf7ef4c8a20e02635df83dc199ebe19c33d18993",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/schrodinger_integrator.py",
+      "bytes": 6209,
+      "sha256": "25f49ad5b5c36a404bba70fe7f7db837c4fe041d3111f5f7df700e9c66cccae5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/schrodinger_power_series.py",
+      "bytes": 5193,
+      "sha256": "e00117b1de5c4ef7523a0c4e70561d022a50db6d3721624f47634320330afd21",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/shooting/spline.py",
+      "bytes": 7807,
+      "sha256": "f64b9a129842474ad318ed1d3b69e405e4e2f9712db5665c4b0eacbf5551ed4e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/special.py",
+      "bytes": 961,
+      "sha256": "4dc3401d174f23d96de9e004868c068e2361ca199140f364d8246dd7832fd99a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/numerics/yk.py",
+      "bytes": 7329,
+      "sha256": "2f2115c3668a1b9e0241190f59bc1da169b025e24cc881c086558bbb04fc2ca8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/__init__.py",
+      "bytes": 1437,
+      "sha256": "f0582bfd8f8ce7e84bee4d4d6228d7883928924f5e1e55b7d4f4099713a0bb7c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/base.py",
+      "bytes": 2224,
+      "sha256": "6947dcf304518ebc3fb18cce95c9dd68c4025f68636550e5df950ecc4a6ca8be",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/breit_pauli.py",
+      "bytes": 2771,
+      "sha256": "9f9666522767584ff71cc488adb6e5e417b6723675b912b9664ef57ec9959f5e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/__init__.py",
+      "bytes": 73,
+      "sha256": "d69cb89d35e8a5b00c748650ac33534dcae8cddd8f361caab69678a3dc95a3d7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/breit_ci.py",
+      "bytes": 24310,
+      "sha256": "f9d9dcc1cd170717374762ee0b8c5f3bb1a9b8830f35c7b6fc67f119fb1502d1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/complex_radial.py",
+      "bytes": 12623,
+      "sha256": "0f90a57bfbfc23db1681d0cdc9396cfad6199c9f8e36aaba22d9c0cfa3cdc55c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/effective_one_body.py",
+      "bytes": 6910,
+      "sha256": "bd222c75db834b32e44c05f45feb5564accdd9f544938591475e022e3f927013",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/frozen_core.py",
+      "bytes": 2873,
+      "sha256": "c855bb565add20c563881c14bf8ead669d8c0260fb50af14490ff6db65bd29c8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/levels.py",
+      "bytes": 7111,
+      "sha256": "5ec9986ca2f8a24eaec8b6bfc555859b40d27aa729d1a7cd3bc99ac5da361946",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/matrix.py",
+      "bytes": 45582,
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/one_body.py",
+      "bytes": 1551,
+      "sha256": "77efa760226bfce57d21effb9185501b87e2cf9e0c022008eea1ba7dc882fd25",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/overlap.py",
+      "bytes": 11155,
+      "sha256": "8bbce90137a8712a093d7c205fe8b257396213f0fd7142420ca66be975081b4b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/overlap_response.py",
+      "bytes": 4896,
+      "sha256": "4887b03e77c7b093fe510c6d7d8b2a6d8fa2f0123af7d616241cac8034b54302",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "bytes": 3756,
+      "sha256": "4761534a0660ae92034420cf7064bb538cf5cbd7716bb8cb23203684de9bde27",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_fock.py",
+      "bytes": 6652,
+      "sha256": "f42afeff8880ac0b4c332f5dc4edd5a22ccdf0cf1737bf0d7dd137d586da09b6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_snapshot.py",
+      "bytes": 6037,
+      "sha256": "2736915fea9866b689d2727c8021fcb2e10b2e3e347dfb79317c049d92d38430",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/radial_symmetry.py",
+      "bytes": 1466,
+      "sha256": "ec22bdb76a48b3be09d653d371b99fbc1a79ab921c7c7199747a06d095b25fa2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/retardation.py",
+      "bytes": 7252,
+      "sha256": "b0c1fc137c7d9c1667deda89f99d8b4146cd88c8b591e1c98c9dd83702f00928",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/sparse_ci.py",
+      "bytes": 44898,
+      "sha256": "f098f2ec0cb792501b7afe12bb0c8ee0d632c0f300f224f3576dd2d08b2f7abb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/spinor_integrals.py",
+      "bytes": 19603,
+      "sha256": "37d8cb59bd17428e36a6b149002420dc9b479ccd76ff36a5077b8adef2eff60e",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/state_average.py",
+      "bytes": 6697,
+      "sha256": "7eb4b5cb4f182f18d19a632e3729857d3366bf8c84e6a2083b47d20e90ee33e8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/tracking.py",
+      "bytes": 7207,
+      "sha256": "cf075c9b307c74f7c9229ce8d5476e5e35614439992f39c894e98a80458c0c12",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/csf/transverse.py",
+      "bytes": 4906,
+      "sha256": "a91faaabe71718e249f9df8fa8c0800f5d8f2139949005d9d8b391ddb0bcda77",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/dirac.py",
+      "bytes": 7094,
+      "sha256": "f71be0f457cc2c859be04edbbc62b8f23113dc186cc5d2e7f69ef5a8fbaf9c1c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/hartree_fock.py",
+      "bytes": 13743,
+      "sha256": "b2de2fcb942b46a02fe13a650c29807c7aeab8c676679656fba571a02fbcc079",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/local_exchange.py",
+      "bytes": 5934,
+      "sha256": "20afbb4a8287393317a4c0a20e8774daaa34831d8ea7a802bc81b42c77f64aa5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/schrodinger.py",
+      "bytes": 1305,
+      "sha256": "7571c54b92eb01fbdd952a1703aaa5d8cbcc5c4126b22561ec2e381e3acc585d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/physics/slater.py",
+      "bytes": 11094,
+      "sha256": "570bc61973c32ae36dd6b6e1d01f55fd464d2304012210823ec0d467b14bd635",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/__init__.py",
+      "bytes": 203,
+      "sha256": "e91ac52742e935938d8e7b9cc00b8373e2e446f651b32360dcaf0a24980c4b52",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/average_atom.py",
+      "bytes": 8535,
+      "sha256": "c44f928ace9b1a77227b40b2b3eec70faa9b779cc4cf72111b70f99f3fd80409",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/cascade.py",
+      "bytes": 6702,
+      "sha256": "a5b571d697ce25a66c3f91d8789f93552ea14969d037c8b2b851857efc6bc208",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/crm.py",
+      "bytes": 39144,
+      "sha256": "a250baaeb095e68adfdce9b2452c9323ea92857e8c8a1f63108de5c5a57d1974",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/rates.py",
+      "bytes": 3519,
+      "sha256": "fd98fccc78df742fee28152d14a60390529d3affddd011e27de2c9d77496cddd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/plasma/screening.py",
+      "bytes": 14815,
+      "sha256": "b3fe905b664c200ab010389b78d6a9c01667c112eb3b8f679e5494b618e56ffc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/__init__.py",
+      "bytes": 470,
+      "sha256": "f24488e62ba7f173f4bf22df533ba4d44d1a83a4ae0d76a9e07a2d3e4f821f13",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/frozen_field.py",
+      "bytes": 3989,
+      "sha256": "d934e9f016887e78281a801bbd0d0f3f0ec35b0fe16e24749fc3ac574ba88287",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/nuclear.py",
+      "bytes": 9340,
+      "sha256": "ad995198978ea1a2ec59a4fc9d1cd2c02c5dad694dfca3be834b31c7a921d7f0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/parametric.py",
+      "bytes": 4866,
+      "sha256": "49a7d2f668313a5d070f729a9102611624ed8deeea495d43bc3494ea39beb34e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/radial_nucleus.py",
+      "bytes": 2118,
+      "sha256": "72f41ed9d84931d6c53e1917d3904a884422135d10a12646ff18eff3e4997388",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/slater_seed.py",
+      "bytes": 2706,
+      "sha256": "ebc25eaf2f507c0419ca844518bf5a144bb7b7fa04cfe10a1dc7e77c14c679e5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/static_field.py",
+      "bytes": 15310,
+      "sha256": "b451b0eca6933093d4504e7c9627801edeb4f1b515ba9774c89bcb8e26239e61",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/potentials/thomas_fermi.py",
+      "bytes": 5183,
+      "sha256": "2eb371cea5c2f87e1b50f2f603122e25d963738198a56dc0519e0415b0742918",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/__init__.py",
+      "bytes": 1274,
+      "sha256": "25fee6252d8bea657d7ef0a373696f370c866fb6039399574bc2ba9226363607",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/_sos_basis.py",
+      "bytes": 2704,
+      "sha256": "37d004cac37690f542b0beee6fb220ebcf5a23c417316c637274f37da34b3925",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/edm/__init__.py",
+      "bytes": 2212,
+      "sha256": "0f63407af939e15613216db451d30a7e3828e6bcba9f663c994de7fb9d5f81e3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/edm/scaling.py",
+      "bytes": 6068,
+      "sha256": "68c684cbe14852da4f119430445e7b0206bce950453a480d8ac41a30118de4a1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/edm/sternheimer.py",
+      "bytes": 17365,
+      "sha256": "98b5923e341c1814ac93e1cbd79a0ad07466af8a3e6b47bf3cf291fe0f3dd319",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/g_factor/__init__.py",
+      "bytes": 8533,
+      "sha256": "da74dc1f9123cf75d8aaeca64ffb8b1d538d6ea3bbf34a118b831e710fbb2ae7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/hyperfine/__init__.py",
+      "bytes": 1824,
+      "sha256": "4d9466386dfd2c62d9f7658df906fa589a4f97e7a1615e1433763fc7eb86924b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/hyperfine/dipole.py",
+      "bytes": 8862,
+      "sha256": "14eba9b6ca83e918a23b26b4ecee15423de722e074f0daef20f86e9d286dff01",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/hyperfine/nuclear_moments.py",
+      "bytes": 7554,
+      "sha256": "55e0955579ad611361031ad8adf3a15753a61ca1f11ca7693332e6a5f31baa5c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/hyperfine/quadrupole.py",
+      "bytes": 5473,
+      "sha256": "3785445f187970eccb673712f424ce5d506ad125c45f084011a2c2e8703a3277",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/isotope_shift/__init__.py",
+      "bytes": 1903,
+      "sha256": "415964ba36119e1fbd730be344d0ca784454ed5d70beb44bb430e1784f8b72f8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/isotope_shift/field_shift.py",
+      "bytes": 4453,
+      "sha256": "67fa33e43a0c89cb908067fcb47a6ed90cc0e3120eaa8b89c411ea6075da27a0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/isotope_shift/isotope_shift.py",
+      "bytes": 3275,
+      "sha256": "58070006c8bdad3d56edcf91a19612f28c0a815e9ee9d59e5147a73de6946bfe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/isotope_shift/mass_shift.py",
+      "bytes": 7347,
+      "sha256": "b010551f76b649c1a2777feecd096f7107e3d3d076ea67fa739f25002df66562",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/isotope_shift/sms_abinitio.py",
+      "bytes": 3581,
+      "sha256": "5474536a3156620b397fa2464e1ad2d5db409a648304d7232a96b8ddaa26d24a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/pnc/__init__.py",
+      "bytes": 6111,
+      "sha256": "190ebcbdde4e3f28527cd809a04be1178da5c0777dd9d59ab2d754e1b1e7d277",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/polarizability/__init__.py",
+      "bytes": 12361,
+      "sha256": "07efbc0e99cee4f9a7305d145b98847c933e0af4c56a1279dd8f1d18025adbb4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/stark.py",
+      "bytes": 5752,
+      "sha256": "e32e3c84ccfa620ee9ea2bc865a6dc333b07411b4da3e78e94126612b8cc42ad",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/__init__.py",
+      "bytes": 159,
+      "sha256": "f61c779daabdcb56a8c72ae5a7812b96851454afba0c60ee2c0f2c4ef57b6d65",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/angular.py",
+      "bytes": 7261,
+      "sha256": "8c63cfad3d69316a58fddd4d6ef04a0078121a453df17e33ea7f3623871de802",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/calculator.py",
+      "bytes": 30439,
+      "sha256": "31284fb260e95ade61808d072f7868c0086fa8350ad2b210b696d389a1797790",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/ci_lines.py",
+      "bytes": 25811,
+      "sha256": "c6e7d3e15444f951af3374f923342fa1bd2354f200aca0df2c465c852d8e1701",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/fluorescence.py",
+      "bytes": 3959,
+      "sha256": "973d86924943ec5ab5da7f72aa8303c31d7cbe8016789fcefebfa89d97fafb52",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/multipole.py",
+      "bytes": 7646,
+      "sha256": "261c16fd6f607c1dbfe6047a5950a32f45e8b7ab9aff5b98a41c0eefd4059609",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/rates.py",
+      "bytes": 6483,
+      "sha256": "12e312a4ac3d76b17a0f3a86c5ac42a93d442eda646b0fc9eee97208b50df97e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/transitions/two_photon.py",
+      "bytes": 14014,
+      "sha256": "5d54cd4cea8dd6707f338e445f6cf646a2a98f999c1d1f4a79e0f52327b971c4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/zeeman/__init__.py",
+      "bytes": 1815,
+      "sha256": "72da62af0a44384836a650c5cb37a7d5013af3e819719a4b6d754b985393ac94",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/zeeman/lande.py",
+      "bytes": 7602,
+      "sha256": "f1cab7c0fc6b4ded0156ffb1d7a6792795086b5405066f08f135c187ff0ae72d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/properties/zeeman/shift.py",
+      "bytes": 3073,
+      "sha256": "ac1c89f6308e31591eacc806d66d5df737b1487b311f268e993ec8ed62a89083",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/providers/__init__.py",
+      "bytes": 1830,
+      "sha256": "e4642d6c590170098b4eb798f9b86d3af1bdf0f889f3c8d85ba09d146cc22ec6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/providers/contract.py",
+      "bytes": 37867,
+      "sha256": "faeef57853b4603aa756b6b5eab621bb0c424529ae4656a18bbc330aca326f2f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/providers/native_adapter.py",
+      "bytes": 5567,
+      "sha256": "e966f5c2e610f54d4bf098edda54ac85e921a066b924d0e8e5451ee167f4ae78",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/providers/pyscf_adapter.py",
+      "bytes": 18910,
+      "sha256": "95365bd5839b54183d2b3c3ed09d2e233a6db6b4b7cc4e34745a359c8d21f179",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/providers/pyscf_embedding.py",
+      "bytes": 33447,
+      "sha256": "afdfb8afc76cdf5d75eedf9feab4d765c592b9471ea1eb04ecc7e6bc3a2d00a3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/radial_state.py",
+      "bytes": 4751,
+      "sha256": "5fa95f0ccf1f12de952fc3cb3d602b1570985373d49f5a39c24918b2aa8637de",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/__init__.py",
+      "bytes": 78,
+      "sha256": "9e9f4a75155d3940c8f035c5f56e824c42383bbadb3b1f25b17b47e64b557dcd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/annotations.py",
+      "bytes": 2437,
+      "sha256": "2c900fc7e49bb3fcbd4bb5cc5dea0f8dc48bec06d3657235857add204a7863b9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/bibliography.py",
+      "bytes": 3508,
+      "sha256": "9405a2966b65ee492776cd620571c8a331a1847ee5da3b58242a5b3086ecc1a9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/cowan.py",
+      "bytes": 7031,
+      "sha256": "3e467807ddabe6c261c7077a6d9532564e38a34ff9019875a9ca8b2efadd95fe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/matching.py",
+      "bytes": 6464,
+      "sha256": "5ff30138bc4fed0b1b6ef0f94a41c71953099669166e59fe45fa8f39f7fd11ae",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/nist.py",
+      "bytes": 21773,
+      "sha256": "5197635c01eea7245b0b19684d3e42d6de25c66d9285b116a42f12aadbd3bbba",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/spectrum_notes.py",
+      "bytes": 2141,
+      "sha256": "4f347c382912b053ef94b74556625b7eca0336b202824fa8b8dc1ae8140ac7ae",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/reference_data/structure_outputs.py",
+      "bytes": 7395,
+      "sha256": "01978b9a3d10fe8b8a46a2d3ca187ec8de7abcc9da5926dc3a41acb94bc8d76c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/results.py",
+      "bytes": 26209,
+      "sha256": "41664c21643848eeef11e5225b5d0ce33a67fefba22628091df6716e4c9e2dd7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/sampling.py",
+      "bytes": 6696,
+      "sha256": "f72e5d3bf10d59baa6c82603d72ca4932a73ec97cb653b3b84c5c3720e9e3301",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/__init__.py",
+      "bytes": 1189,
+      "sha256": "5f59aaa3923fc721d99fdd72a6567a5b3af255988f6df6447599dd01fbaffbea",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/_jit_kernels.py",
+      "bytes": 10502,
+      "sha256": "43775e0e4143a10c497fa15e32351abc411a0567eb3cbad9b9754299efdb4d10",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/anomalous.py",
+      "bytes": 9076,
+      "sha256": "31e5fad201c5308a50f27dafc00fd61956c82c129ee90e4237336a67ff3291da",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/autoionization/__init__.py",
+      "bytes": 41996,
+      "sha256": "fb1743c800d920803f10c8b49b37f1197b5426381d9031460c41806caad821bc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/autoionization/auger.py",
+      "bytes": 6632,
+      "sha256": "10535488bea6c71926487b121049d0f6432973d43acc22bf2a3eef57cd3b4c39",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/autoionization/jj_level.py",
+      "bytes": 10898,
+      "sha256": "1ffb451bc6c6ac81e3bd7db6cbebc5f868062654a970fe3fe24691d18f1385ba",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/autoionization/molecular.py",
+      "bytes": 49661,
+      "sha256": "ba7c0993e4dda80afd52f8a4b4a2c7fd98e9652e9daa5f047aafc496353d1c9a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/autoionization/mscheme_ci.py",
+      "bytes": 58409,
+      "sha256": "2c0ec37cc241d7721dc399e4b8761e4833d9e9b49f6ed72bd637c78b0bcd0e50",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/charge_exchange/__init__.py",
+      "bytes": 6336,
+      "sha256": "527f0a9ee6eb370100050110e1f881581ba812400e3352435991c9a9ad0eec32",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/ci_continuum.py",
+      "bytes": 29042,
+      "sha256": "fc8edc89298ce2323c6b44de6269c52752f32546a9a3682c56442971a339faf2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/dielectronic_recombination/__init__.py",
+      "bytes": 652,
+      "sha256": "a0489df86c1340603ff5ab0a26b929dc2eac795dd3e61a09d4bf5319fcc9cd3c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/dielectronic_recombination/enumerate.py",
+      "bytes": 17139,
+      "sha256": "99890f693dfacff295d7aa906b6c81cda215cb53c385c57484c9f7ecbd65f013",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/dielectronic_recombination/fac_reference.py",
+      "bytes": 7542,
+      "sha256": "5787f89cc34cce6440021e6d357dfdaa0d267673d7d67e7676e27e1c58f3e799",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/dielectronic_recombination/solver.py",
+      "bytes": 22781,
+      "sha256": "625ac453c4ae66d3821444acda1e1d7c5b38547fb90da6ffd4418bfad343cd2b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/dielectronic_recombination/widths.py",
+      "bytes": 5631,
+      "sha256": "0225b15e008dd7d7fc3599e415a292ab36fddf5cab3f3f9ffe7ced5a6b2d672e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/distorted_wave/__init__.py",
+      "bytes": 295,
+      "sha256": "c33436c5c5b3b57fd2a3ecd3947c34c6d8b69a9c15df8cb2acfde7b158366cdd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/distorted_wave/born.py",
+      "bytes": 11763,
+      "sha256": "b7e876048732cb9513d17bf39813fe094ff39968ef656bd9a594b0b17e23eef6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/distorted_wave/solver.py",
+      "bytes": 34128,
+      "sha256": "5953547ba272adfd80c3c5ab8bcdf745f4780f3c622304368ea27808fb1c0f7e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/electron_ionization/__init__.py",
+      "bytes": 50411,
+      "sha256": "fffc2843b36875a2b68a1492e8f35611050ce68cc4672317444da954b38b4bb9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/electron_ionization/beb.py",
+      "bytes": 3295,
+      "sha256": "b063a154844383213c6e0edcc6ef137be52849d92103207c74f2a5915eb6dd61",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/electron_ionization/coulomb_born.py",
+      "bytes": 6345,
+      "sha256": "f07ca66f228f29fb450d1f37ec8c887647a3d590ea2d78c8505f27a582f81f5e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/electron_ionization/dw.py",
+      "bytes": 5408,
+      "sha256": "53a859d5180700f2b95237b091c195ea3584303cda1a15deeaaec9405cc16fd5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/models.py",
+      "bytes": 8133,
+      "sha256": "5d4de2bf7bc7ccac480f873efa7b80cd76d16a6b24a5cb184a34f396838d0238",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/msub.py",
+      "bytes": 5382,
+      "sha256": "e920d505764419cb9febf3d238a69f54db2f0235c653ef6fae484d9498576e82",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/multielectron_ci.py",
+      "bytes": 8039,
+      "sha256": "8f2156a5c9f3885842f05d5320df629fc10534e1983362991df279b74d97b5cc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/photoionization/__init__.py",
+      "bytes": 1540,
+      "sha256": "071b85c20286ce444777a07db8d75244a911acbb8f27326c26a2f4fec6a8de4b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/photoionization/direct.py",
+      "bytes": 3464,
+      "sha256": "8ecc3a8d51d2ea4839c67eb6eed1dee63880640cc61ba9127467989bf591c231",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/photoionization/fano.py",
+      "bytes": 5411,
+      "sha256": "0ddbee48c2e6d4fdb2065cda29d607aa403eec68abc16609e488800b73e990ff",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/photoionization/subshell.py",
+      "bytes": 5248,
+      "sha256": "fa46ae984d4c92c5123ea7b6317325eaf13f6756f7532f2f2ad6ff599d15675f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/polarisation/__init__.py",
+      "bytes": 5088,
+      "sha256": "19ec2e738ce886810ecd7a3dd6bc86c8204242c269c02eb5ecf69afa5e671856",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/__init__.py",
+      "bytes": 1611,
+      "sha256": "3603380c47b95633cd440c02022588ddafcc26fc89567aee1fb7276e71cec053",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/angular_cc.py",
+      "bytes": 6325,
+      "sha256": "46c206d2d2e4cde9c27e494c451d9b81d219ce58de98e83a2d1f1ec6caed5dcc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/cc_inner.py",
+      "bytes": 17461,
+      "sha256": "86ee6eaaa3afb886a15dadbbfd4bbd1c2fe52ce3b86932b966633b8e21aac84e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/cc_outer.py",
+      "bytes": 24153,
+      "sha256": "a8692106724332000b431982b7b05b6eb4bd6ba4db8629f67036e023cd5181f6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/cc_potentials.py",
+      "bytes": 4219,
+      "sha256": "f6998a7a1aa84991d92aece97cb5995e14339fa6d76b5f30d3a8c1a61698fe90",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/channel_table.py",
+      "bytes": 4108,
+      "sha256": "fee2de1be2c899fa09563cd0ec3df9170775b32717d0c302054b9df60098c47a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/coulomb_fn.py",
+      "bytes": 8974,
+      "sha256": "82a81017e855fbe7ed82c6fcad3d9a65136a876d80193a887439e8dd8618a4bd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/coupled_channels.py",
+      "bytes": 17400,
+      "sha256": "59f45a451dcb49ab9a6c5b62616b4baef225a93189797d6da39e4d07ccfc6f79",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/internal_region.py",
+      "bytes": 5443,
+      "sha256": "02cee4751812084c35ef54f1b906af75a7522b59f5cd1be3fc5fdf93f838e750",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/l2_pseudostates.py",
+      "bytes": 2852,
+      "sha256": "c12b0e8d0098dcc79505de58edec4b59ad47d3b261686a7e6bc53e187706c3da",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/resonance.py",
+      "bytes": 3901,
+      "sha256": "cf8ee645e8ee7d2e2225c8afc09484bb6a2f5c393f2624a8dbe323d2b6370a15",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/solver.py",
+      "bytes": 4979,
+      "sha256": "dcbcd0c8e57034439ad3f7f2c2244079a67c15744759274bb63e45a60cf86b2d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/surface.py",
+      "bytes": 2866,
+      "sha256": "7c72d0a8afdf9603d76899c04d4d9abadd256ad48ee313ff7b3a77d663338329",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/r_matrix/target_states.py",
+      "bytes": 5921,
+      "sha256": "48806be642c8ada9a9d3b723ee64605a54342f8a9620496f80768b4fd0273f47",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/radiative_recombination/__init__.py",
+      "bytes": 31089,
+      "sha256": "df0a4fa4d85bc23b766b67533ba0c71149fd6c22f4cbf49063562a07834e6c5d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/two_electron/__init__.py",
+      "bytes": 218,
+      "sha256": "26ae9bf82789723ac3004dba5e499be7b3a30831d870616df6e43baf960298c9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/two_electron/angular.py",
+      "bytes": 15312,
+      "sha256": "b855abb2d4c10b3ef79749b350b046f2fa7076fc632228c900b4060a8a0b9430",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/two_electron/coulomb.py",
+      "bytes": 4266,
+      "sha256": "edd8b701f08bc9318b384229d9d9251807c9a6544739eb06560566d26aef84e5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/two_electron/states.py",
+      "bytes": 4630,
+      "sha256": "74edff8293f15a02289acb05800c21d5750e8d6bec9cabcba9cccc5cd10d4c5a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/scattering/xray.py",
+      "bytes": 9854,
+      "sha256": "246040174cc88db82cd606acb86e09cc4a88a9f5640e73907e44f9d4c4e34312",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/spectrum/__init__.py",
+      "bytes": 1188,
+      "sha256": "7783c8859139bab4202b12d04c5be84d630bdbcfaca39551eb8f71485ae1c980",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/spectrum/continuum.py",
+      "bytes": 4272,
+      "sha256": "5e1e4148a5d82207015f53bc7ae56bb9ab1cdb72f9c1523ecc23bc9e09505095",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/spectrum/crm_synth.py",
+      "bytes": 17949,
+      "sha256": "c2d1aed0aa0b602ad17194d94958bbb25d048e81a04e4f90a7076acbfb8ec7ce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/spectrum/spectrum.py",
+      "bytes": 12922,
+      "sha256": "e4ba4ab5b37113b20b2f0156797efd5236277f4f3e8a57ec5d31347809223513",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/spectrum/uta.py",
+      "bytes": 1356,
+      "sha256": "0d31d150df7cc3fe1fdd0f431dc77717e8a4f9582ed3235373c285007c14338e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/state_protocols.py",
+      "bytes": 3410,
+      "sha256": "d045c6e77cc9b5efd2a9ec9beda2cbca6e2125680680553756405bcc26fa54e2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/types.py",
+      "bytes": 6601,
+      "sha256": "8acc7db335f723bfe232ca96c86c24554599834891d7425f6939284d3cf80f8d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/units.py",
+      "bytes": 8742,
+      "sha256": "2f6256fd5115d74ecb33174e65c6337cdee635c51c9086bc246768c157298424",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/uta/__init__.py",
+      "bytes": 1643,
+      "sha256": "4e8b7bc45cb1add7b3df8ba0ff5074c1ead2711ee570e6696948d4da5ed1bd61",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/uta/moments.py",
+      "bytes": 7562,
+      "sha256": "92aacbb8864dcb9dbee226ba7b3846cd15248a7d6e300ea09db4fd36923766c1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/__init__.py",
+      "bytes": 1502,
+      "sha256": "a6813c867c9efe335f4955dd928a1f5fdb44a3a64362986f94fe4913d3a73abd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/manim.py",
+      "bytes": 17060,
+      "sha256": "4b8a1b832bfa923929dcdfbbb6a142ab51981ca30546131f915b4d2217c8bace",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/mpl.py",
+      "bytes": 14458,
+      "sha256": "0ad4c06ac21e61708a177c12df4e82e4fd09ebbac04787e98692a2bd6e94f3cd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/plotly.py",
+      "bytes": 6975,
+      "sha256": "cfc23ca692015b442c4c9b4455c95fd3746a2bd507ef1b5cd1f4a94a662e2783",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/plotly3d.py",
+      "bytes": 13101,
+      "sha256": "7c91071c94fb05bd35560a2068bcf9fd3b9e4697b37d36d23e5172995f9af19c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/viz/scattering.py",
+      "bytes": 12941,
+      "sha256": "70c5c0435ee490447d768373452cf5d411502444f91e62a99eef0391de1d29f3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/workflows/__init__.py",
+      "bytes": 79,
+      "sha256": "a0ea2e48f8ba0b4ab24018c31aae7a92f05a6b7d29a4024ddc307a282344007e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/workflows/nist_comparison.py",
+      "bytes": 19954,
+      "sha256": "2f1c60f2014e691a22420fc08e0ddd87d7c3eae4b47b753b90f424722aa4b9dc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/__init__.py",
+      "bytes": 2466,
+      "sha256": "309014e6f4f2491a9798b6496bb92d11dc289fd25b0e4a15baf88be4fb810c7c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/atomic_rates.py",
+      "bytes": 12094,
+      "sha256": "c8bbcd797e6d0cd962daabc7504b84d620090960ecef82b81efd8a0ad405292f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/cascade.py",
+      "bytes": 39386,
+      "sha256": "76c3f6472b2be020293850589ac37806a4f26ecb5140e23b63cb5226ef60fa3d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/coherent.py",
+      "bytes": 37334,
+      "sha256": "1555ff859ead1e18f588c5ffafef27d2a64ed28f6916f92fa0f0d897e07884a2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/coherent_subspace.py",
+      "bytes": 1797,
+      "sha256": "7d936d67da53965d7d75a8fde65086b7af7d1d0bf3f1444add567c6c2199198f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/cross_sections.py",
+      "bytes": 1972,
+      "sha256": "6191bb68aa2389bc5767117b968196a51ef50cce7226de0489009363853603c9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/double_ionization.py",
+      "bytes": 3593,
+      "sha256": "fb445b673441a955e47e7bb65f470053fe8c0673937f311ed59c537e0621ef30",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/imaging.py",
+      "bytes": 7938,
+      "sha256": "c7861511737dc4069eef11b7e282ec91160192e80e490e653a296227e6c0edb9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/kinetics.py",
+      "bytes": 16601,
+      "sha256": "ba0e6ac3abd7ed456dbb30af1c20d3cc529c6ef679c67e420c42b690c126688a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/mcdhf_coherent.py",
+      "bytes": 14708,
+      "sha256": "acaaa26e2233b8835a778bb6d0807fbe5fb8cef23f93f051c51e9181b2177fed",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/model.py",
+      "bytes": 18777,
+      "sha256": "a712651a7e39ae38991efb4b847af63639cf4cda62f9a32c0e1e9001b4743a68",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/multielectron_coherent.py",
+      "bytes": 17224,
+      "sha256": "0ee70b2b437c0964a0ef2bc926ac0a5c792b510dab5ebd388a23364461d32ded",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/native_channels.py",
+      "bytes": 8792,
+      "sha256": "23e06bbe16a3fde5e4197769e034110bb6e6618d96310d9ef3a1cdab6678a93e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/observables.py",
+      "bytes": 6172,
+      "sha256": "166f14bf2b6610f8df3785c2c4bb9142731e5240747526b003af91e91c9f2674",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/radiative_reservoir.py",
+      "bytes": 4675,
+      "sha256": "47e318d07e76dba48bf131832abcd5c5a7b2c49d632c466dab7c39c914d9d831",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/reservoir_errors.py",
+      "bytes": 2119,
+      "sha256": "ae2dfff651d284ee71c09139b5058b65f322235a2921742c34e3ace53ed95173",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/resonance.py",
+      "bytes": 10257,
+      "sha256": "5b90df9c9cf94d241fe9c5f0a5aea49851fde16fbeb41c5160aae75706458dc7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/table_mc.py",
+      "bytes": 13340,
+      "sha256": "09e723d3487379dae5904e1667f37ec4416883c0e25d7f1b6beae0f9b4e184d2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "src/atomx/xfel/two_electron_coherent.py",
+      "bytes": 13544,
+      "sha256": "ed6e44ea11438510359efb1f29f9fb85ab9cb09726e5537aff5fc6dfebc60159",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/_be_reference.py",
+      "bytes": 3082,
+      "sha256": "f57a0af034200b8bbe0abf119e42e2de4838f7807c8ead31629722790e27e732",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/dbsr_ne_reference.json",
+      "bytes": 3804,
+      "sha256": "6202741a7d16ba3fbcc594f95eafa298d279961fab968acdfbea982a445080df",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/dbsr_ne_spinors.npz",
+      "bytes": 14671,
+      "sha256": "1b662ef479bda11e69b23670c1799d9293c95ef305277447e0ed24b0a119b63d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_ci_operator.json",
+      "bytes": 829155,
+      "sha256": "b66a694e07b785ee2d5585aaa12665bfa8ce832ad082341daa329ff6e6fd9f75",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_ci_spinors.npz",
+      "bytes": 4300111,
+      "sha256": "4a5cfed619225e339fd9df67edb7ad142ccb7256ad22a28a9861aad09fd36be8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_dr_radiative_reference.json",
+      "bytes": 959668,
+      "sha256": "21a944c73d85e56948f840e289caaffd090c92d29fd222bddab091b5e90e240a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_fe_dr33_matched.json",
+      "bytes": 45741,
+      "sha256": "1fb28de2d5105b0ca5c601bb1c711ff1e63685af3f2d14597bc148a77fae5411",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_ne_magnetic.json",
+      "bytes": 1356,
+      "sha256": "04bf8e5abbc6c61b5da1d3ab3acc12ae43d1c318153070508bc3ce50e9c9316a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_ne_magnetic.txt",
+      "bytes": 2608,
+      "sha256": "cdca05ed0cfd426c0eca9184c850823651d8e87c4daaf0333880f523a94b846b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_ne_multipoles.json",
+      "bytes": 778,
+      "sha256": "588186f49ab2d4c1ade9fd6dfef5f0324a9d1bfb7fb34375a1d151a4f149c383",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_ne_multipoles.txt",
+      "bytes": 494,
+      "sha256": "f47060cfbe3068017b957fb5a49a9f3e6edfc7b6c3d35528552abaa045e11e46",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_pb_multipoles.json",
+      "bytes": 1524,
+      "sha256": "ee1588e7b6838bb3f0471d88aabfddcbd6f2b28eb46400fbaaee2356d5895576",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_hlike_pb_multipoles.txt",
+      "bytes": 2608,
+      "sha256": "00240171f370601bd7791a8d5cd3a3b00b6eda92a0bc192895923ad8be1e244d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_ne_like_ci_reference.json",
+      "bytes": 39967,
+      "sha256": "4464812ee31f7f0288de897a595b1aa02fab27a1c8f9b1024c5125af40a5931b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_pb_dr33_matched.json",
+      "bytes": 46037,
+      "sha256": "fdc98b81ffbb1768bf7f1888ad1f34fdc021db7634aae2340e277265ec03b9eb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_photon_reference.json",
+      "bytes": 29266,
+      "sha256": "8d7d7195e8d4be2e75fb10f7a09b6956c5a5ab83c8bfb8959f7678ed16ec0b32",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_photon_spinors.npz",
+      "bytes": 2334537,
+      "sha256": "19c592cc49045a7006e2fcc2843bd0243e19f24021ee127a5e3545a4fbf91efe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_transverse_common.json",
+      "bytes": 11253,
+      "sha256": "e637d5d89f2d1eb4dcd475048e1ab9df9f63dab3280feb97af8fa46b4ad1b66f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_transverse_reference.json",
+      "bytes": 9615,
+      "sha256": "82302d31b6f44ca8917c6b8b8c2ce8d8b0844d55118f092018f22875f94d2381",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_transverse_spinors.npz",
+      "bytes": 289213,
+      "sha256": "365d441955658975dbfb2d48a15fe0a87357e6f8c6e17c0a0fc6779fd56db6bc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fac_vinti_reference.json",
+      "bytes": 18623,
+      "sha256": "05566601d1cbb289c2a15d54d692bbe8b17d58dbb9a27ed72565928c1cc9794e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/facwave/Fe_k-1_e1000.txt",
+      "bytes": 156776,
+      "sha256": "d77acb7bf8333c0fc6ec76cc787a6cd3274c0a560a2830b020f8c7baa0035343",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/facwave/Fe_k-1_e40000.txt",
+      "bytes": 156776,
+      "sha256": "7aac3210f93dfa1a6aab7891b3fff38f5f9b1576a1b283d4af119c745aad8473",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/facwave/Fe_k-5_e10000.txt",
+      "bytes": 156776,
+      "sha256": "08e26cefd56201f2122459630541ab22824c9c16938e8c9febe3f7139b1f2c36",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/facwave/Xe_k-1_e200000.txt",
+      "bytes": 156776,
+      "sha256": "077b366bfebde59562aa01667a3b923b309d1960e82a280c412661356604c776",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fe17_dr33_fac_cleanroom.json",
+      "bytes": 34857,
+      "sha256": "0c2ca0cbc29d9ebacfe994a56e84ee0ea4139d673431aa916b88462da6ea7972",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fe17_dr_fac.json",
+      "bytes": 45598,
+      "sha256": "14955d064e05697106d086c037a8fb6635c35a740fc50999fabe8a2e944317a2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fe17_kll_auger_fac.json",
+      "bytes": 3009,
+      "sha256": "36d5454b895fe61a72ff6b491fde817f313b89d40ba512063f1c7c9028a8e2c8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fe17_lmm_tr_totals.json",
+      "bytes": 899,
+      "sha256": "568156224cdc7e97f9cf8f94606c234853c1b468a2a4687a0dd6b04b7e9f5e07",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/fe17_tr_fac_cleanroom.json",
+      "bytes": 3046,
+      "sha256": "3effea814f6adb98159d163ddf0503c967086cb0d37c859f39d2232f692fcec7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/molecular_auger_hyp1066_cleanroom.json",
+      "bytes": 4891,
+      "sha256": "dbc89c5afbf27d17994e1b3a7bbc5706cd7335d6269747837567ef56dd8305d7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/ne_1keV_rate_table.json",
+      "bytes": 24292,
+      "sha256": "7f216300f55e252b0b9c69238f6a9454eb024a4b9afdfc722895680b8cde05ad",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/ne_clustered_ci_block.json",
+      "bytes": 843,
+      "sha256": "98e663af3ee7fd303fd0d44b78bf1c7d84ae50a35992edb8d6631715649eb817",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/data/ne_native_1000eV.json",
+      "bytes": 420431,
+      "sha256": "17d9126593cda0a18a7e47f1d62833b125e57d5110e603eea351402765c008ae",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/data/ne_xfel_cascade_sweep.json",
+      "bytes": 1340,
+      "sha256": "45747bbb15f5e458a4069e619bc41e341e44a5f74bf7ea660184adc0481c01b0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/ne_xfel_charge_vs_fluence.json",
+      "bytes": 4587,
+      "sha256": "e296819e8a4950c3dc2bd8d7c1179b4166ea6347180c6859184343e8799d2d0c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/nlte9_au/README.md",
+      "bytes": 3244,
+      "sha256": "7616a4ab4a9e02879620f1c10c18c2630c4c99bf61a6921962ec5fcfd3a5f858",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/nlte9_au/mean_charge.csv",
+      "bytes": 4340,
+      "sha256": "ccb8ad81ca319970819b29b281fb133ac8c163b80e6f48d8676c980f85bc9b36",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/putterich2008_W_cooling_digitized.csv",
+      "bytes": 956,
+      "sha256": "37c7bf9c0e3fa62a5674006c291308c263090d566e0df642eb7eb0ca7b443790",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/radial_continuum_reference.json",
+      "bytes": 78030,
+      "sha256": "9302259de5dc486409bd1bbf1b5aa068e8e821eef4eb801b2aa5ed8326c5445f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/radial_dcoul_reference.json",
+      "bytes": 48798,
+      "sha256": "7f466828953dee48e2f8f87c0c28d3308125c178cc6c49025894145a3e19b54c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/data/radial_screened_continuum_reference.json",
+      "bytes": 281941,
+      "sha256": "a56304011661574b1dfc664a8ccd514bfdf1e0f3e328c22081418b874cb5728b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/fixtures/ci_near_zero_residual.json",
+      "bytes": 2021,
+      "sha256": "05b3fe9b63beffeb613bff73976fe5a2c8d333482244ad548365b4221a72301a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/fixtures/ci_near_zero_residual.npz",
+      "bytes": 2055326,
+      "sha256": "7f1cb01b439aebf390ead43a3d0d903ad821188f68364d66613278cac1018759",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/fixtures/grasp_breit_open_shell/README.md",
+      "bytes": 353,
+      "sha256": "ccd3b35b98f9e3e2f1f58dc06b90cff1599e2011c044850b309ffdb1c0b99704",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/fixtures/grasp_breit_open_shell/metadata.json",
+      "bytes": 12394,
+      "sha256": "13637937b909e706304bfeecc18a4aa9bf7e7b8717ae589e90f3c68b568383ab",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/fixtures/grasp_breit_open_shell/native.npz",
+      "bytes": 35228,
+      "sha256": "de3bd59b48672be61a447ba0bfe918de9e827f3195a1cc9758ce4767c1a6722d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/methods/test_mcdhf_J_blocks.py",
+      "bytes": 6761,
+      "sha256": "70b89805580b54b3c2c71208c65029d50c085636e8eabb1e395ad04db54c6081",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_M1_E2_rates.py",
+      "bytes": 30407,
+      "sha256": "151044a47711c1ea02ed5db511808d872e8fd3384457001b4734480fffe22f23",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_W_cooling_curve_vs_putterich2008.py",
+      "bytes": 5611,
+      "sha256": "f3cd61db5698e957a3a062127ffbbccaab0270db70089a84d70bb7bd702d3d61",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_angular.py",
+      "bytes": 11359,
+      "sha256": "14770f852e50579b391f5b8b690c9aca17db3af74f4a54c19964c7355587e32d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_angular_harmonics.py",
+      "bytes": 3430,
+      "sha256": "eb44e5ebef82a5c2424a2030e3f166b93034e4b39e402bc4e873e6e9e5f861f8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_anomalous_principal_value.py",
+      "bytes": 2203,
+      "sha256": "94d0a11a7e14f2dc80ddc89e821ff4d0d3592f15041c49405bb6e129bd7e8562",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_architecture_boundaries.py",
+      "bytes": 4908,
+      "sha256": "0731b497c40c3909e2e9688e8bf696e895cdfa408969a0574474510e110382e0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_architecture_scientific_fidelity.py",
+      "bytes": 3625,
+      "sha256": "370159e6b2da4d44ec6622671970ec4aa7a8db3f6007af06c1357e6ad8e2343a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_api.py",
+      "bytes": 6504,
+      "sha256": "a95c84cae8fbeba343db95cee0a6f9fe41a94dae7988e26f8d9748d703d2eced",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_input_surface.py",
+      "bytes": 18057,
+      "sha256": "1bd184caa9a1b79747a8c8309f3716c05065e63e61d9635a773121eaa3d08c71",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_inputs_wired.py",
+      "bytes": 16394,
+      "sha256": "03b1561004333a3e00edd8d3e9e07f8377374c869b9036997fec4dbd48ac98aa",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_numerics_exchange.py",
+      "bytes": 9208,
+      "sha256": "1550dabbab03d8009d257eb4c39d9fdaea4853878de1a73f2fe5ca4a1c8b25ba",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_surface_equivalence.py",
+      "bytes": 8798,
+      "sha256": "ba322a1678ace8c62dc46f317dc16d8b726a621d62d697ca41affe55ca7a1a3f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_atom_unified_api.py",
+      "bytes": 14323,
+      "sha256": "ad4dfc1a0ceb2fa2c10f2f17c056aa050698d0bd87b13b32224e40f12a750bbc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_au_nlte9_workshop.py",
+      "bytes": 7502,
+      "sha256": "66cdef9d223ad72a6fb15636ee50bb1b36099ec82acbcccd8f5dc2224775a625",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_auger_continuum_cache.py",
+      "bytes": 1724,
+      "sha256": "a2fdbcb38198df4e36e028d1152f39a1b740a29d12ef21285745edc349499bd8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_auger_fac_panel.py",
+      "bytes": 10772,
+      "sha256": "974acd476ff23f5ece83554f2c22f3e1ea04d228fc8fc7bd395fc7dc11e1b140",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_auger_kll_vs_fac.py",
+      "bytes": 7354,
+      "sha256": "c2791f9ad59e0236985c5d66b8c58c82fcc63c317ac27d75d5732d7286282004",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_auger_mscheme_ci.py",
+      "bytes": 8214,
+      "sha256": "1b0352ac33103f9e2c1a510f54f09e2322e004ecd234eb3a8a7f1a45eb7b7927",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_auger_ne_kll_xatom.py",
+      "bytes": 3855,
+      "sha256": "c8f1e20cb418ef1e48805508b15987e9c3138daac3fdc62231c1dbc008141a9e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_autoionization.py",
+      "bytes": 13714,
+      "sha256": "a47d4779617d69a7ef649b329555b0223044f3a0bf9fd4824c40b05ea7404791",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_average_atom.py",
+      "bytes": 2519,
+      "sha256": "dd062f77c2176eb559fee22eaa343cd9e6a16d080a5e73b983b5eb3b77b8f089",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_averaging_decoupling.py",
+      "bytes": 9094,
+      "sha256": "6e74b53d6da229292256b578ddff97488c4ee1478f1be1e506e14b50ca41a59a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_book_preface.py",
+      "bytes": 5440,
+      "sha256": "f8cf2a7a84eb06dfbee51959c40fcaed102f8370dfc4a50c51dc395eb43d124d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_born_cb.py",
+      "bytes": 3938,
+      "sha256": "5ce9c98a59335ce2317bfba3165975222373945261b44fce4d3b32ee5de808c9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_breit_configuration_average.py",
+      "bytes": 3222,
+      "sha256": "6474ea00ce8fdb40d7c314f5c1a28dd95f85da0cdc23378d5b5c7d3539a0237e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_breit_one_electron.py",
+      "bytes": 927,
+      "sha256": "d6738c7987941bd82dfa41805e91b368816f9de7f077e8db2cefadfa55bff82b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_breit_open_shell_reference.py",
+      "bytes": 1848,
+      "sha256": "562ee87ff2b1d96cc38aab4fdc71c245ac5a1064f23bd691fd6ed69aa6664cd5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_breit_operator.py",
+      "bytes": 20761,
+      "sha256": "c630fb9f5a539520d24c5318441ed47c35cc251f72b09fc5b0764cb31b8a4b1e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_breit_pauli.py",
+      "bytes": 7787,
+      "sha256": "18698015c5e688698e7f84c95e161dfa53ef79ecf7af82947a132cd74215dff4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline.py",
+      "bytes": 2966,
+      "sha256": "ae52c14af95787864b2ed5bebab20ea5522d9e6133c36b84d5e807749f55875b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline_dirac_action.py",
+      "bytes": 2862,
+      "sha256": "9729ac1fa06699e2d58ec4c1e8f7db88c075f35975a57f0425aafc6bfeb5f2a4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline_grid_accuracy.py",
+      "bytes": 5933,
+      "sha256": "c0050d0198a98eeba0e8dabff08648fbc5ba168c50a05353d1d3fa7839fde33e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline_local_potential.py",
+      "bytes": 18255,
+      "sha256": "276db0789f97c774d180869877bfa3cf252b12b49a71f757f7190a5d2b6d5d0e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline_radial_phase.py",
+      "bytes": 1130,
+      "sha256": "d2b8497cf419beed986ab04160e50345dade20365a5e3629077dd53cb1cb6706",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_bspline_sampling.py",
+      "bytes": 1493,
+      "sha256": "548d1e0db282d71e9b9fa4b82f27e76b5611370acbe64276f473754e1bb3f72f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_calculation_log.py",
+      "bytes": 821,
+      "sha256": "31c3a56ab1972ca901f4f5caded16b9ca2c1cd9c223d0a9ee1a3b876e45b8f2d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_cascade.py",
+      "bytes": 3524,
+      "sha256": "11f85589e4008660a09740c92477ba4ca77b6903014dcf74730e84aafa3da730",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_cell_coulomb_features.py",
+      "bytes": 5899,
+      "sha256": "8c49c999240e46a7a470f375b67b9dcf36ed2b4b6ed1094edb5d29928d3ff123",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_cell_pair_contraction.py",
+      "bytes": 3207,
+      "sha256": "a9d3d751265c19b994a3f96371f253d7e3046554b6964f331334fd9c0caef1a2",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_ci.py",
+      "bytes": 4405,
+      "sha256": "735cd69dcb74c7a83ad1a2cee996a50c9cde9af4b07558ab6af4b10b86ee2777",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_J_block.py",
+      "bytes": 17378,
+      "sha256": "1a9367196044041d39f988cc28f3e4a32980df37255359ee922c506dc11e1b25",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_analytic_slater_condon.py",
+      "bytes": 5029,
+      "sha256": "18e4b05fe17a1a16375515824d9b3d7cbb53b5b0c5c691e0019d55b070df4146",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_basis_overlap.py",
+      "bytes": 4855,
+      "sha256": "ccd868cf6a6d11a2db28517183b417e36b5fa5754f2a8d4d7541014bc8476738",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_basis_tracking.py",
+      "bytes": 12060,
+      "sha256": "8b22a4c5ac303bd080b7a9abf16385850f8191be07adc7acc2fc2671d754857e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_charge_state_average.py",
+      "bytes": 9487,
+      "sha256": "4379f2f179c8805e9414ee8aed1d8ddfb452aa6bbf9154466c09443ac18cd4a6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_complete_trace.py",
+      "bytes": 2820,
+      "sha256": "ec9c23e1b05ac8ab852f2283e9b91f8a9397e37effd4b5e88f5ae5352273b262",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_dense_orthogonality.py",
+      "bytes": 1572,
+      "sha256": "de285936d8017ceb38d65244f2e1f27b890439926f48004bc28615c48d71c1d1",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_ci_double_excitation_sign.py",
+      "bytes": 1775,
+      "sha256": "5e7b16c06e4dcaa2480398c53097136a04f3ba747f2a3c9f07f3c0f3230dbeab",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_effective_one_body.py",
+      "bytes": 8805,
+      "sha256": "ca384917cc130152a6af2ba5509ceac616d5327875a42e86b997b3c18facb6ca",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_ci_effective_qspace.py",
+      "bytes": 14875,
+      "sha256": "320d9c4e74656437082b333e7bc07151ca136f84a38090849be3e8fcdb86d0f3",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_ci_grid_kernel.py",
+      "bytes": 13278,
+      "sha256": "3d9ceb646805e9e92fc4c0bfa14c6b014ad09e1cda69abb9db1df749ebad0521",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_level_block_validation.py",
+      "bytes": 1693,
+      "sha256": "fc81bd32e7715901ed11919d8ef9d37af46fe42d9a841b3d2f9554f64f773164",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_level_selection.py",
+      "bytes": 4109,
+      "sha256": "a768aa34a93991b4f521823b4781f16d81c784e64f3b67682f0b8d1af2ae0fb0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_levels_vs_nist.py",
+      "bytes": 10391,
+      "sha256": "fafd15f538c2427bb246820e79d00f03e08608a06a77184711bdbf628c1256b2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_line_strengths.py",
+      "bytes": 14378,
+      "sha256": "cd17352a83c77978d5658980857eb0ac3e5f007fa14f6c42eaa0335fc4aba9f1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_matrix_vs_mscheme_reference.py",
+      "bytes": 21635,
+      "sha256": "efbd8a1e2b65f6dde40ad4e77e99706ebdff360398e9835fdde76d30e0762b99",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_max_determinants.py",
+      "bytes": 1891,
+      "sha256": "ea03cc62be168c9e63d564db9461e49dd96d83e151a422fa23047d63658a200f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_mbpt_sigma1.py",
+      "bytes": 3484,
+      "sha256": "3bfca38f62d269f1e801669589a853793f469137a558de7f447c2ff57ffd3d87",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_memo_reuse.py",
+      "bytes": 8901,
+      "sha256": "4c73440afd0ecf428f12ad54f10feeadf25a5afd95549199c5afd3fd348f4804",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_overlap_response.py",
+      "bytes": 11872,
+      "sha256": "5dc9f39db7bd7063ec283426139ec9e86098aa0bde1f2aa91a59ab0b970933b9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_radial_snapshot.py",
+      "bytes": 8630,
+      "sha256": "ed19cdd203086e949d28724fbb5417b692c872ee5e211aafecb959cf20b6ffb8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ci_sd_space.py",
+      "bytes": 3659,
+      "sha256": "d0c0cef81551340199908260abb23a11cbc924064506ed6613b033edacce9ef3",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_ci_state_average.py",
+      "bytes": 11960,
+      "sha256": "5c2b2ca19654a963b0979c9e781c3139e19a84e881d849cc42db015379e0e82d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_closed_shell_fock.py",
+      "bytes": 3477,
+      "sha256": "b30f9cb3fcc825b4f6f1419752e658c4f519c2e3f298aad3f5487fa070104506",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_complex_breit.py",
+      "bytes": 7486,
+      "sha256": "03c21d936d99af570103e08d97aa4a045686fe6861a1cfae39093a43ee6c2870",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_complex_csf_contraction.py",
+      "bytes": 2592,
+      "sha256": "d6cb8a82205b039b199e3d340cec3466bc19ac6bfd671347a6bae832785c55b7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_complex_radial_ci.py",
+      "bytes": 6103,
+      "sha256": "292632afd70635b6d717049ee9055aa4ab76a9891025be3dc1c6667d1fa69af1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_complex_scaled_dirac.py",
+      "bytes": 4624,
+      "sha256": "f46000ab8921c9acac57e02833593968a553a8a8411c68959efefaf9466b1aa7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_complex_target_spectrum.py",
+      "bytes": 7640,
+      "sha256": "95491598ade24dca85285993c4e7e5876b38eddbb7a958162e5dc6947c839d84",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_concurrent_solve.py",
+      "bytes": 2741,
+      "sha256": "1aa3cfa460aa2c7beaae1d5f366abb494d8afc3f86b284ff53bd13c10ff086ee",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_config_validation.py",
+      "bytes": 4097,
+      "sha256": "469af4efb611526587096378416057539525cac4581ba6fd5f0203f3b3505f33",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_configuration_spectroscopy.py",
+      "bytes": 5712,
+      "sha256": "b2bb17833a315648ff3974aa801e851fd82da5c108fe37ce2c40e2cad8061ce6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_constants.py",
+      "bytes": 2547,
+      "sha256": "708f4a1c054db0f76fc69c2e2f0dc076e950fd5fd25aa5dbdee1ce0738d02cc1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_constants_hygiene.py",
+      "bytes": 6176,
+      "sha256": "8b65b5620075afd23dff96f71728b2e89d3a39dee37c48811bf90db069b6c625",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_continuum.py",
+      "bytes": 12289,
+      "sha256": "a751a4fa2908058889e9b5145637802617d90d959b724d108acb5f50abe837c7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_continuum_knots.py",
+      "bytes": 3532,
+      "sha256": "dd12aece9ed4c00c80b177a261f496230162ee8db369cf364431e197d50ac10f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_continuum_vs_fac.py",
+      "bytes": 3365,
+      "sha256": "3b9e627829bf8b4f93a15b5a2d0b70f65f1247f6191d82e8e72f7bb393597525",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_convol.py",
+      "bytes": 16525,
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_core_sd.py",
+      "bytes": 15912,
+      "sha256": "c37fc46c9bc9cb5488519754c7e3d58e289e3e0c263a743fbbacf22ad3c71d45",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_correction_application_contract.py",
+      "bytes": 5731,
+      "sha256": "9badeb0dd357f0bb827aa0e44fea26282b52ba48fb30bc39ea98504f75f94e73",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_correction_stack_injection.py",
+      "bytes": 2477,
+      "sha256": "95afa1137eafeaa8889e27fbb66411176ee9a1dd169d8e3a4465844c0b6b729c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_corrections_stack.py",
+      "bytes": 7579,
+      "sha256": "e4234abb1eb93a42bb34ef9c1042756373b7378981fc8767dbcffae7917bfbd3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_coulomb_grid_stability.py",
+      "bytes": 5338,
+      "sha256": "aecc29f084bc7255d0da80e867b5f05a0a69925c4c10643b7d16ad634bfa5717",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_coupled_coulomb.py",
+      "bytes": 3771,
+      "sha256": "f70f3412deb4c48dbe901fdf1a779ab9e6448fda75deb40dfe919364dc1fffca",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_cowan_reference.py",
+      "bytes": 3976,
+      "sha256": "512c9349cb69802a4acc924b73ea9d56261cb921305e8d830831ede6dd32a7dc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_Au_band.py",
+      "bytes": 2677,
+      "sha256": "441d388a8930bf9c1efca8c2b0493622d86c611b878d3ec027592211d9f7890c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_Au_cooling.py",
+      "bytes": 2265,
+      "sha256": "a5cd7dafaad7b4b1a36a533706c8a013fec2e3136fa4ebb9e578280c7def070e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_Fe_3C3D.py",
+      "bytes": 1264,
+      "sha256": "c15abe930b04245e998988ccd01d160776e328a81d9d1d34a4a7c1d4fb36428b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_Fe_balance.py",
+      "bytes": 2445,
+      "sha256": "61a66085b86791d033cb748cb2e15707ff5fb16dd26b69f20d7ae8b71187a078",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_W_balance.py",
+      "bytes": 9965,
+      "sha256": "b3ed1d58111e3edca15695bbb3d138a4f659fa74988dd451786b76520078f19f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_dw_rates.py",
+      "bytes": 2705,
+      "sha256": "aeb7293362bd4b6a0dbfc516386d569308c77884327875de8ea9a1beee9604fb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_native_photoionization.py",
+      "bytes": 2467,
+      "sha256": "2c9ce2715c7e00d584af086e4aa4f905912edc6c4b46d802e31967010ac1ff3f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crm_satellites.py",
+      "bytes": 8339,
+      "sha256": "d364b7bcb0e913cc45b0d53866db0ec143289c14833059fb2056764420d78b3b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_crystal_field.py",
+      "bytes": 11974,
+      "sha256": "0453cc73f58ac6f0f95cebb4afeb2344a3c445125f0ada71a926939bd02ecc5e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_csf_J_enum.py",
+      "bytes": 3493,
+      "sha256": "1e8960a2e2daf147e9c1c5712f57e44ad8ca0f3f1165f99e7d031ad3153fa7b5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_csf_angular.py",
+      "bytes": 3894,
+      "sha256": "562c5e172a90f35bf47cb90a53717e8ba68d303af9c9b025880615f18ac3eed7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_csf_core_contractions.py",
+      "bytes": 1382,
+      "sha256": "502df8de5aa2c9c2bbe987723f3cbe8241c5341eca8ade924edd88d8b6bb65b5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_csf_recoupling.py",
+      "bytes": 27541,
+      "sha256": "38ed7ec6b5c319a32efaa2aaec752c70f024b71306df86fb3dfa96974369f6d4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_csf_sparse_projection.py",
+      "bytes": 3321,
+      "sha256": "df6197c41387a367046e2a76f4480094669f8180f29aee0a5000e36642228f11",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_cx_models.py",
+      "bytes": 3750,
+      "sha256": "5b50ca81ff3d147df0320575ac8eedbd17cd1668471672df378092b709595c8a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_data_loaders.py",
+      "bytes": 3715,
+      "sha256": "c1d40f26a64ae8fd59162b4a3b39a41c98a6b514810366ee1afe0175af6df244",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_davidson.py",
+      "bytes": 2019,
+      "sha256": "c7ac0d6fed174ee73e0fe361e618157eaac0688d2ebf9f9cd6d228c81a148019",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dbound_heavy_z.py",
+      "bytes": 6272,
+      "sha256": "ba1dd208ce2b16ffc840e9e4010d0cbffd40c02375cec61a0f6f91a5b352a29b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dbsr_breit.py",
+      "bytes": 1914,
+      "sha256": "9251a7c11d488dbd1dd732e0086f0435f6aff7473c5572b716118457f1693399",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dbsr_common_spinors.py",
+      "bytes": 2806,
+      "sha256": "a7d7f96903382ca0dd1d13eb2a529827ff195b1670918d4c7633833180cfde1f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_density_gs_cli.py",
+      "bytes": 2580,
+      "sha256": "32ee614b320d6f04b41408679fb28a2e49d74e37a059bf12fd273ec84dd3b68a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_density_tail.py",
+      "bytes": 2102,
+      "sha256": "a6d16cceb23b86c10cc6f6399929c77061cf17e0c36a4364aa11fc986c53a93f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_determinism.py",
+      "bytes": 3117,
+      "sha256": "cb2ba141e7a72d638fbc756c762a6299443ec255f029af0774d3f2e1b7d36761",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dfs_frozen_orbitals.py",
+      "bytes": 3811,
+      "sha256": "96f8c3ba6ff5b0851ccc88e93f84e1ff7750310c54f88a75f41a88a4122e3583",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dfsolver_fac.py",
+      "bytes": 4479,
+      "sha256": "7032957edce25d552ccfb9aafe978e5f3f8acc6ed0a8ed5bbb18b3756810e960",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dfsolver_slater.py",
+      "bytes": 8960,
+      "sha256": "7a7dd768fc245ebc8eb4fa632c4557880c29b74dfde59ad225afbd91d342d4d4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dhf_diis_residual.py",
+      "bytes": 1260,
+      "sha256": "1fa7d3806ae2f9fed8e4b51546a471999e990466ac5c5ae8f586c1c7382f155f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dhf_nuclear_profile.py",
+      "bytes": 2728,
+      "sha256": "0235bd7c61b02f3fd0e033f04faa61d5dc35c9dfd011fc1f40335b1deb6b1094",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dhf_pair_rotation_performance.py",
+      "bytes": 3335,
+      "sha256": "440648ef8a17abf0531772fbeb35c4c7011b2b89b1493e4bb0d10dcfeb36e8bc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dhf_radial_identity.py",
+      "bytes": 7509,
+      "sha256": "aa25639c4198f6e39bfd08397516b9c8c2e42687682c6ef0b54f035093f17113",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dhf_seeded.py",
+      "bytes": 735,
+      "sha256": "bdc7240c1cc58cf90ec2be761bef70f01a8d78ba57c01976b72290262f44bcec",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dirac_continuum_shooting.py",
+      "bytes": 9824,
+      "sha256": "6194f7579a2102496d2a90868f60bdcaad2d59ee1cc65d8c8115df3af8525878",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dirac_coulomb_reference.py",
+      "bytes": 2900,
+      "sha256": "1afd2802345df4dcebdc9cd90fa4b8575c6060b2284a5401bfd00877135321d5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dirac_dense_output.py",
+      "bytes": 10377,
+      "sha256": "a1644657f577853281d3bd20bf3b0caf5ef63697338970bc37d9f03a6d0e5717",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dirac_hydrogenic.py",
+      "bytes": 11120,
+      "sha256": "f177b3c37eb7cf3ff0a46f60b1852cf7224ae56bafc0a98729f984a041b5f91d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_direct_hamiltonian_df.py",
+      "bytes": 8177,
+      "sha256": "84cf0263331563fb44bb25fb9aa2aa1ae71f6b25b4d6218cad88357fcdeb1db1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_documentation_links.py",
+      "bytes": 1321,
+      "sha256": "4977192919c18e8ae600a407a91e70a4e8847e4ee0221e97a3785d2c9cd1c00a",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_dr_density_suppression.py",
+      "bytes": 4510,
+      "sha256": "6c792805ae7424d35404eec6c0b7e15209d06dddfff6e130641ad975508e82a3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dr_fac_reference.py",
+      "bytes": 6853,
+      "sha256": "660bea3ac90cd625b87ecd602ddcafd83800ea184896745d7dee33c08217b0d2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dr_manifold_e2e.py",
+      "bytes": 5341,
+      "sha256": "3868c892e1e4259a318cd34ed39b55c457f749496db19fa1de1fb921975ab38d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dr_public_heavy.py",
+      "bytes": 2719,
+      "sha256": "daab6ff374f43eb38b92e96d90f48193361e3edb746296b94d125fadfdc11335",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dr_radiative_ci.py",
+      "bytes": 4022,
+      "sha256": "9b506ab0cd35483f4e01ad9be890b96faa9a77e82f80838f84a2413bea2d161d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dr_vs_fac.py",
+      "bytes": 10541,
+      "sha256": "11eebfd24a5b112d6d81105eee4f90081693a35ab3abdead783e8416b67ee0a0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dw_angular_coupling.py",
+      "bytes": 17972,
+      "sha256": "a49ccd15034049b0718b38152d7b4c6be3b647af8e7dd16df423aa345f5b0d33",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_dw_born_completion.py",
+      "bytes": 25094,
+      "sha256": "5d7680c07210a0c8e0501d076b66009db070bc52e0d1d81d4aa02bf3f7c0adbd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_edm.py",
+      "bytes": 6385,
+      "sha256": "c032df6e72a81109754197bba9fa811d14f4f2b1859cb652bc7055234d2da24a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_eii.py",
+      "bytes": 27535,
+      "sha256": "dc1d96fb488997bd9d2cdccf2886069a8a6e95d61a9b93028925596cd9db2a9f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_eii_ea.py",
+      "bytes": 8298,
+      "sha256": "02503f37c7c64dc1313a03a3fd2c4721e4bc2ecb0d7ff5ad189797bc57e53c83",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_eii_quadrature.py",
+      "bytes": 6637,
+      "sha256": "59a19bc84a1542655ba96ce7dfa08efb7de89e901dc87e089aba5bbf881b29cf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_energy_quadrature.py",
+      "bytes": 1323,
+      "sha256": "3840ce12c79769d2abbd20d81fc5619b5f822eda4a16b233fba49bff0ad13b57",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_exact_ci_kernel.py",
+      "bytes": 14841,
+      "sha256": "7c7175ee2c669c6dc354370e9e70e9c9eb4c71011bd200dca304f4e8f8978b76",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_exchange_model_is_honoured.py",
+      "bytes": 4445,
+      "sha256": "f3536f15418cad6c01209f685a745709c319abeb4396a46f5f155ec41ee5cbf5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_exponential_quadrature.py",
+      "bytes": 5571,
+      "sha256": "43297fe04889d935222061fa7aa6f916152d701bb180cffff4ccfa41c62e95c8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_external_structure_contracts.py",
+      "bytes": 4626,
+      "sha256": "2be31831c732f2d9a0982326e84fbd59865fc3075d5e15040f3a677735a56fa0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_angular_conventions.py",
+      "bytes": 2041,
+      "sha256": "3949406e4d3babc66bdd90b6a272a3a4e11f8351b87467516d12134f4d4b61e3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_asymptotic.py",
+      "bytes": 6579,
+      "sha256": "41be2b2828f214a504259825d98a3a2cd963a0d59df537ea0801daeee76d43e4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_ci_operator.py",
+      "bytes": 4287,
+      "sha256": "c7176919651b8f152ecf1086a149171b6a487d0f3d11921fa63d2f529482834c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_ci_reference.py",
+      "bytes": 3629,
+      "sha256": "916edded3814e649cbe42a53e3d5b6ff174d60de63919bbaa9acf4ed7522a816",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_dfs_shooting.py",
+      "bytes": 6928,
+      "sha256": "1c34bf23c97053d52b450530034798158e2907b0fa6b11d6d63d1b02a55ff73b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_dr_radiative.py",
+      "bytes": 2489,
+      "sha256": "3629fbe9a1edffe6d438d58dab8523dd290c0b86bb5e90eae300e1ab79e4059d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_dw_benchmarks.py",
+      "bytes": 12528,
+      "sha256": "2efb4ed4aba81c333b109e0e4244de8e285d2e760b6940d98a30613f202b672a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_eii_controls.py",
+      "bytes": 1254,
+      "sha256": "93c885b24fe2f59c02a4d1cb62e5c8ad0ef9a97a95c9b16efeb0df183c483874",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_hamiltonian_parser.py",
+      "bytes": 2581,
+      "sha256": "244ad47271db78355c29ad707bc580d395934f4dbee5e683aa94e6424f5afcd3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_io_roundtrip.py",
+      "bytes": 9498,
+      "sha256": "f06576599cd24a6daf72a56b0681bfc32a6bea5fea3526a560d183c62a680abb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_parity_gates.py",
+      "bytes": 4382,
+      "sha256": "e9af72f2e1cf73530783005a0400c589f37e3a3bc0eb42dcb738bbe85a44e0fd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_photon_operator.py",
+      "bytes": 3373,
+      "sha256": "bc0dfb69090b78cb643639d5d23436a1e1b85f4ad517104e3783c95bc0f3c022",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_runner_parsers.py",
+      "bytes": 2478,
+      "sha256": "c8464767e43ed146e985976b3ba76e88d7d9d7d3ecb36e538b4ec72dd28c6a2a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fac_structure_snapshot.py",
+      "bytes": 3786,
+      "sha256": "81bcc33c8d1706e8195955315b13768e57e5aa35a40abd1ca9d3387ab7f24fa7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fe17_3c_3d_vs_bernitt2012.py",
+      "bytes": 8647,
+      "sha256": "39cabc974c22447de77de2e371ad3da40b2b154a5aacab0183cea6331c1d834e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fe17_e1_lines_cleanroom.py",
+      "bytes": 2965,
+      "sha256": "3cfb361db53725f54567cdc06765fa1fb973a2bb276cd1cf689f50e5ae028657",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_finite_ccsd.py",
+      "bytes": 6726,
+      "sha256": "fc810af1a49e3c5a473e8600c704abf80ce1902af685c91381afd0a135211063",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_finite_frequency_breit.py",
+      "bytes": 9379,
+      "sha256": "f6d39d5bf51c0606c26028857350471ae0bfdd27ea521342488d74af369cefbb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_finite_frequency_electric.py",
+      "bytes": 4204,
+      "sha256": "e08317dce3b9433daff83ffc7fe82607436f0fbda2bf4ccb8a3e84f0d6df7ad7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_finite_frequency_public.py",
+      "bytes": 7916,
+      "sha256": "d4f0f4e7e1885adcbd41996b7279146d31ade6d96c680d1883c66e57c53997ef",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_first_principles_invariants.py",
+      "bytes": 22003,
+      "sha256": "6db779d3bb7a59a84f0c31c96e4c038f07a56c1da5a5e3da86f8d0f07bfaa37f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_fitting.py",
+      "bytes": 4831,
+      "sha256": "2fef08d831f430dd42c0cfdf2ce5afa1e330d1dc27b651947975bd81aa127178",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_frozen_core_hamiltonian.py",
+      "bytes": 8731,
+      "sha256": "4ebee6669f97acbae5f719fd76fd1dc6093fe609cc05acda94e6f3324acb1943",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_frozen_gu_field.py",
+      "bytes": 7868,
+      "sha256": "a7f17e4273018162efefc97394ce437072ac1216f8dbcc1ffd8a93a8d5bd32c9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_full_shooting_integration.py",
+      "bytes": 4645,
+      "sha256": "8b54f65ce2aca49f99c062951c45b8b87a6aba647e0d726eb0d9786b68a9046f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_g_factor.py",
+      "bytes": 2315,
+      "sha256": "a5968ea031bb15a0ca2af24cbc977d01f4ae4f04a932f9e973eb558849f6e953",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_gauge_invariance.py",
+      "bytes": 12231,
+      "sha256": "2e13abb6dc8c2fd2f6fca0c96bd42ec4e900249e09c802615271709c842b6bff",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_gauss_legendre_rule.py",
+      "bytes": 1019,
+      "sha256": "b7d90963b92bea1ed4d707a128524776661713991f0e7059d2a042d229a0bbe7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_hermitian_clusters.py",
+      "bytes": 5370,
+      "sha256": "2a5ee1bb8773f3f3a90133bdd54ad21cd849356bd3f6aa5fa6a365d9ca3daff4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_high_l_configuration.py",
+      "bytes": 3705,
+      "sha256": "08992b1a4f7add20533c4d6cca969ba72161f52e0b898ea56505ef99959966ca",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_higher_multipoles.py",
+      "bytes": 4385,
+      "sha256": "0f5d764f4b009dd85a9519275b598c82a1ca076f87f6c6b50bef34cb65f134a6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_hydrogenic_cross_sections.py",
+      "bytes": 4226,
+      "sha256": "4f9cc1673c9424b793af884e5aa9931c7fce4ca09ae435e6127dc9c7ea0aa544",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_hydrogenic_mass_remainder.py",
+      "bytes": 3523,
+      "sha256": "7140b646eab7d62c2a830e5c6da76c7142226e86d11e44c259f36648b3152c7a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_hyperfine.py",
+      "bytes": 22239,
+      "sha256": "8101ced35c3785eeea9cb8634c9cb6fd6d74d377fd36e90e37b25fc4738c42fa",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_isolated_ci_residual.py",
+      "bytes": 3331,
+      "sha256": "445bd0087709078091cbd5721be10f6a91e0dea1a127e321683203294c2e51e6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_isotope.py",
+      "bytes": 18504,
+      "sha256": "fb0b24d2428e07f8c0342cd451cd2f64f93ed80dcf33170f48446067bb78f50e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_jj_coupling.py",
+      "bytes": 6658,
+      "sha256": "18a25aeca928f148063efa4ef9ddf7a64be6f24cadf7584dcf02d376c75188f5",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_jj_level_auger.py",
+      "bytes": 8056,
+      "sha256": "a2e6477fb864d2b22c9c094e7b809d7178e62b03968ef73fa489d263ce610c0b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ladder_and_sampling.py",
+      "bytes": 10543,
+      "sha256": "6267bffb069417a5514cc97301d8e8640fffeca4a8ea9310fba005e3a215d51d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_linearized_sd.py",
+      "bytes": 11069,
+      "sha256": "6e323e499c2635622d48dcd8dfcbb4926557e744f22e23752a1c5fd93879f123",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_lineshapes.py",
+      "bytes": 5513,
+      "sha256": "f2bd5ded67169aaea2e19ce485b95e81915ebf16126a4a8831fe6aa577589849",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_local_exchange.py",
+      "bytes": 5215,
+      "sha256": "dfbdc29504cbd6b9b66314cc94e8ae32063588c2eef9350ec686c90c2211f9be",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mbpt2.py",
+      "bytes": 4536,
+      "sha256": "1b3df42050744a10cc0aa4e1bf21bf6215d58b0bdc9e72fa81ed67db47eafe64",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mbpt_matrix.py",
+      "bytes": 8482,
+      "sha256": "7b125b4d7ad3fe3f21eaaab965a662b0c30c9be3dfb76257ea28245fd66ca940",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_mbpt_sigma2.py",
+      "bytes": 8806,
+      "sha256": "662aad2f8b38d228a6afd47a435468be856582eb8946b1b03df90c4d464da842",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mbpt_transitions.py",
+      "bytes": 9963,
+      "sha256": "95e340fcf0c2b34245ca8035658e8e4f960ee4981fc8a0dd7de9b0044137f749",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mcdhf.py",
+      "bytes": 16686,
+      "sha256": "8c87ed22201a7b037e7a413c5e0c38e584d4d08a7a52ee48ff0f76ab95c2c59b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mcdhf_ci_silent_zeros.py",
+      "bytes": 7699,
+      "sha256": "39e3de95de9b182468bae46c8aea9f0ad8b540303957ca51cc00e4649daf3f51",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mcdhf_local_qed.py",
+      "bytes": 8321,
+      "sha256": "1766bf8ea10db532ffcae7b317e154a4e4922077e7860c3f5b8645f5d18391f1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mcdhf_shooting_preconditioner.py",
+      "bytes": 6951,
+      "sha256": "0ff00d53f2f10477ae4c822d82a1a2e20bbb513bfb2aa7d2877424de6068a503",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mean_hartree_field.py",
+      "bytes": 4795,
+      "sha256": "b659feb66b9764c6322a47d17528beab8f22c7223c3494908dfe28406ee8e8ce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_method_request_controls.py",
+      "bytes": 2946,
+      "sha256": "92130d32bf86f8fa7d44174e6f4e589dd3ad0cc1531367d5a7982d1611b89f5a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mohr_dirac_reference.py",
+      "bytes": 2753,
+      "sha256": "86f5fa7646176739b15780ee6b900f037e7a7b8253dfb5455196ce986a09d2e9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_molecular_auger_hyp1066_regression.py",
+      "bytes": 10081,
+      "sha256": "2b08fc3c3d4bd41ede68284568d87c6758038bb97f5040142ae3b3292a96dc20",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_molecular_auger_initial_state.py",
+      "bytes": 17427,
+      "sha256": "ecf669f6b0e3dd3fa0b6956a2369735de0a88ebcafdda257183d9d4234819975",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_molecular_auger_spectrum.py",
+      "bytes": 27027,
+      "sha256": "38dab5d2e9778bdf582bc238f2d47aec9cbe9608288004577994a2d67d8e974f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_mscheme.py",
+      "bytes": 4162,
+      "sha256": "04be4ae7eaaeaf1dc808d78e184c60716cd4977e39f5077292ad1da379cb3824",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_msub.py",
+      "bytes": 2692,
+      "sha256": "53b063d5b71c10ff37e7477f491346dcb61dfdd918ec994d268d195da74fc2a8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_native_correction_convergence.py",
+      "bytes": 2726,
+      "sha256": "b1c9bd17995d2606421c204e639c4c57d289b0155d8da64c4cf9a359e78923ea",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_native_provider.py",
+      "bytes": 4070,
+      "sha256": "f2e6c56afb6c154fbdb377c1a56107e3b62c6ffed19106f464ce0a6fec254d1e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ne_native_rate_table.py",
+      "bytes": 2318,
+      "sha256": "adc0438dc8cc3e476434117fd6bf8ab36764a941042db114d909fb39921eb81a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ne_xfel_anchor.py",
+      "bytes": 2548,
+      "sha256": "f378b0ff1ff0d76ee349e22602d906aaf4521b9b2c39d4bbc93577ee485d13ce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_ne_xfel_cascade_live.py",
+      "bytes": 4652,
+      "sha256": "f9a82ae4da97c3fc09e0a889800269b3032d0513b1118e5d99dd57ae2bd31e1f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_bibliography.py",
+      "bytes": 1964,
+      "sha256": "a3e28ab3bf5d6baf848de99a73027c80caa5abf8101bec315fc8f1d6eab51ad7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_comparison_workflow.py",
+      "bytes": 5006,
+      "sha256": "7256a2e9e98bc7c5f5c8697056a01130da325d03acd5971c963b43582a940411",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_levels.py",
+      "bytes": 14540,
+      "sha256": "789b4ea14d27085816531417d4104161fd583a5a33c7080297f47483cfa6358f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_parentage_parser.py",
+      "bytes": 678,
+      "sha256": "3d23ba77e9163c9fd6418408b23f6b7a6c8ccc9907768f9d0c11bcc85d8e5ac8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_reference_annotations.py",
+      "bytes": 1745,
+      "sha256": "5a146ebfe9133e3fb5ccabafa1aa913d3e84499ff1096beb91b3e42ffcf8ea8b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nist_spectrum_notes.py",
+      "bytes": 1038,
+      "sha256": "b4cb8b0cc2d688bfdadf92621d24e371bce087e9cbbd1583632865e855c9bcb4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_nuclear_virtual_orbitals.py",
+      "bytes": 4923,
+      "sha256": "736e354babec119002037356c595f02070b7a6de3f05657621f7bba3cd74da7f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_numerical_bounds.py",
+      "bytes": 313,
+      "sha256": "c29fb5320cad872a076197e3aacd822e1b06cdf06886f38ea23cd772b3b32e13",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_numerical_design_contracts.py",
+      "bytes": 3943,
+      "sha256": "05227a37c6b937560763b089e7af5d7327a8bd992363b60fbd302d5499fa32dc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_one_electron_j_resolution.py",
+      "bytes": 702,
+      "sha256": "1d61037af5e09db08fdd3486551ddeace975cebf1fa3c271e4d05c8cd4f1e68b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_orbital_accuracy_controls.py",
+      "bytes": 6372,
+      "sha256": "8a1066d3f958637ac1d76a08c69ee38c476d6714df4d08a0d75505225fbac26b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_orbital_geometry.py",
+      "bytes": 2176,
+      "sha256": "e261275bf51ef571179a517d132c779df96cc06a0a7a73dc87f36fdf7aa38563",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_orbital_optimizer_history.py",
+      "bytes": 4118,
+      "sha256": "67311907677369bbf41ad3459f0754300944fbc8cf0189375e97a368e969ddaf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_orbital_source_numerics.py",
+      "bytes": 2269,
+      "sha256": "c495f119dbdec1472f79a10991d2f47265454a4d83a21f2bcd50231d68c3b5a2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pair_ladder.py",
+      "bytes": 3975,
+      "sha256": "ea802ba976dc3e9a36a4205f1a75b0707b46b86dca896a2c9f3007f2046481db",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_photoionization.py",
+      "bytes": 5348,
+      "sha256": "182e5fae262db829198e26d674ab75ff902217b4fd109aa128e1db97864182c6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pi_rr_vs_fac.py",
+      "bytes": 7227,
+      "sha256": "9d9cc6eb3c28667ad29edf54df1ac20cb126b20740d00c6a5e1efdd8845d339f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_plasma.py",
+      "bytes": 18431,
+      "sha256": "61b2e4fe510e6811e3668cc36cbf951bc80e85f4e07401374c9df1d7f2f219aa",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_plasma_physics.py",
+      "bytes": 22794,
+      "sha256": "e27bf7a6391610b5eed08ebdaab405541a6d08bf9d4817bce38338e3775c1c0e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pnc.py",
+      "bytes": 7048,
+      "sha256": "1eed4b30660c8f5329ffce332897c4d686f807853f97e9c4282f7b59a01e9e88",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_polarisation_F2.py",
+      "bytes": 2637,
+      "sha256": "ac51f070ae23dfa93b477c5abdb905c467ff21f5e162118cdfdbb6f537087b20",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_polarizability.py",
+      "bytes": 7227,
+      "sha256": "4415ba4d53c0d0ed63d8ddeace48bb305e719be9cc1333233c8ba1786fbe7dfe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_potentials.py",
+      "bytes": 7069,
+      "sha256": "55fb1e726293fbefbbadc1a70da6f5282f928ec5db4fd0bebfa15301ec873e52",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_project_index.py",
+      "bytes": 6243,
+      "sha256": "4f1ed2baae9378f88c99df3d71cdd5936e0ef6cf65925ae01507f6ff718cace9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_property_regressions.py",
+      "bytes": 9848,
+      "sha256": "acb8c9755fb861df65bf9be25c095eb68f39797cf7d5c8d37c6519da8f6261d3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_protocols.py",
+      "bytes": 2934,
+      "sha256": "19d4196010f9ea83e56842e8b801b5d3a428c3f62964d49ce03394a4bbbadf86",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_providers_contract.py",
+      "bytes": 45103,
+      "sha256": "1b38f65ad5694fdd66738b2e76f4acfee2920601dd11ddfe22d253724500320c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_public_api_ladder_and_compare.py",
+      "bytes": 9289,
+      "sha256": "191ec4817579473cbc5906eb756900d2f78745ad46723d9c4b64213b701e6f1b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pyscf_adapter.py",
+      "bytes": 12916,
+      "sha256": "5d4db3ef4e7b3f35ee6c307f36e6afbd1f7beb561543d56d88aa9b0707f71c97",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pyscf_embedding.py",
+      "bytes": 12921,
+      "sha256": "4a093292de25b1e341e2495b4ec7455818026231f61a9250ed6b421142bbc9e1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_pyscf_embedding_model.py",
+      "bytes": 8818,
+      "sha256": "c25167e667e820f0653478689b0b3023bed324b770a70930478ef05e8723c715",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qa_provider_finite_contract.py",
+      "bytes": 19713,
+      "sha256": "89eb156c9f835e4aef9728e860c4cd02cfbff8b68c015464315532d761d870fe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed.py",
+      "bytes": 27244,
+      "sha256": "58ca2e45c5d319ca9a78d520e0a762d1e6843700fdc5b9687dbaa5eef67ad746",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed_approximation_coverage.py",
+      "bytes": 993,
+      "sha256": "44afebdb7bdf6668ce0eeea2c84402ae2f64e3265711cc22cdc1abf01ce6a8bc",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_qed_backend_auto.py",
+      "bytes": 745,
+      "sha256": "4229c7d834a2121225319ae3feed9530827248e640b6c92e0465854196dd3d59",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed_indelicato_vs_fac.py",
+      "bytes": 4479,
+      "sha256": "73fa337acb18ddfcf375216ea95431851ce632654ed48d28e290d3dacb7c20e8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed_orbital_shifts.py",
+      "bytes": 2103,
+      "sha256": "d99598b74c72d56180aec7f4851133ff9730d401162b693a07578f9dea47af7c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed_self_energy_table.py",
+      "bytes": 9088,
+      "sha256": "595b5ac9f22b9b045ee49ab930d1577594a7df783a94e6dee9f4d4d03e173bf8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qed_uehling.py",
+      "bytes": 8269,
+      "sha256": "b0e0b80c7f0841a236b0771cd86e14e8af888377f2c885acbfb9c6686a0fd86a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_qedmod.py",
+      "bytes": 20231,
+      "sha256": "b8acbf9aa6b17540bbdc44109d393c6b57c0a020a6663984a9879d7c961d56fe",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_r_matrix.py",
+      "bytes": 12966,
+      "sha256": "7de5399549818cbbf9d440ef1fe5a2c1ec70d2964423244cced007ded897aa77",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_r_matrix_phase2_vs_burke1971.py",
+      "bytes": 7267,
+      "sha256": "5508aa0a1e3d82328d8a80517bebef303c707803ff6f5557c71b2eacee8d09eb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_radial_metric.py",
+      "bytes": 2169,
+      "sha256": "3f855e266f3a3087c7c4e80b4897dc17cdfcecb7dfc7750c5b234c85f5d1f02b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_radiative_mass.py",
+      "bytes": 3164,
+      "sha256": "7e4aca8b9df36241ebc9a65d1c46f38733068c41a9bb9e08d242568d0c6b5791",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_radiative_normalization.py",
+      "bytes": 1590,
+      "sha256": "ef144ab9ef7600230e86f79786b38c78b1e05ba53ae5f4641491f165d1be030f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rcfp.py",
+      "bytes": 2289,
+      "sha256": "b01d69384a60378679bd78f8ad15c2123eb88548855b85bbaf3fb140583674ce",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_recoil_operator.py",
+      "bytes": 6415,
+      "sha256": "b49b2f45e86a6c0711d20ff4ccb730fc7fe4ba811b51db7309b6697651743139",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_review_fail_closed.py",
+      "bytes": 2295,
+      "sha256": "a14c69ab727293abcc98b18279be4a132b6e69e96c705f47c79178162888b547",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_review_m9_m13_gates.py",
+      "bytes": 14941,
+      "sha256": "569089c4165587ad1f0825e7b02e497afd25503ce993d05d8b0e18ca97eed1b1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_review_regressions.py",
+      "bytes": 7729,
+      "sha256": "ce8df4d7c1f9c98a3167726abe2758e06f5fc2a6364ba25a7779f335f582040a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_review_scattering_kinetics.py",
+      "bytes": 5124,
+      "sha256": "04a84a6a6afc8f68882e725b77a5b2c0892710aaf6a2cd0e739b8084f7ad61bf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_review_structure_numerics.py",
+      "bytes": 14505,
+      "sha256": "89888386913029341cc9f5cb28df5e52e5dd5c7c5893b6b8a13b9e646de15413",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rkb_bank_sharing.py",
+      "bytes": 7494,
+      "sha256": "ba68e45863dbdf996a76318b4cecac32d1b680e8545e8cfc776845801393c2e8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rpa_tdhf.py",
+      "bytes": 10711,
+      "sha256": "0016b63e435cf9b6cecb248e6754aad808d5689a02080697873c1683e541682e",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rr.py",
+      "bytes": 6941,
+      "sha256": "53ff52c8217da933736fb682331e2346ffa66ed7bd55b6e531f7201f0d6784a2",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rr_vs_fac.py",
+      "bytes": 5055,
+      "sha256": "f31d5a34af8c4d3fd08ae10a9d45824d2db46b8ad27f6346258fdbb696f9159c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_rydberg_eigenvector_refinement.py",
+      "bytes": 4697,
+      "sha256": "962cec1aab04d27a2cbce94f195fdbd5b6f3f1e57cb24593c3fa7400bdf8bd73",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scaffolds.py",
+      "bytes": 1494,
+      "sha256": "7c0516a09cd2d98a22924333ddaf2d9ce69c6ed464a207ac086d28077c93c19d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scattering_models.py",
+      "bytes": 6411,
+      "sha256": "6e44ee9d828c16d198d0f54cf9ce4e5468c7999fabec3d42d77cc6d22a8126f0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scattering_spectroscopy_consistency.py",
+      "bytes": 3992,
+      "sha256": "255637df67c73180643b9496bdda561eca3e11b4461beb3a8886d44fb4fef522",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scattering_spectrum_review_fixes.py",
+      "bytes": 11145,
+      "sha256": "0013885212222ed27984a00d2917be0b70b2d5d7060643ad7bf8416e68233f3a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scf.py",
+      "bytes": 7661,
+      "sha256": "b9f6941cf5810070d0c13009411de2dae0a5bc0bfdffad9af05f4e97ca75d2cc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scf_nan_sentinel.py",
+      "bytes": 14381,
+      "sha256": "f7fcfe02d54af1f588ecfb1ad1cf6acb321b009601ff4cfb87cd71305fe518f3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scf_potential.py",
+      "bytes": 6092,
+      "sha256": "3bf7921386e1280eef0d31abe09e5bf24127159c00c8ade1292315a75b87e340",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_scfresult_save_load.py",
+      "bytes": 10038,
+      "sha256": "486b96dcf3c1a1e893826320055af35e5bcd280c75b964c995884dbff7a37b5f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_schrodinger_bound_shooting.py",
+      "bytes": 2917,
+      "sha256": "977e9062220c2f3d28e2469ddf40aec41cdc81b785ecd9a128a04834ed56486d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_sd_space_variational.py",
+      "bytes": 9409,
+      "sha256": "42c005b5f8509467e51ecba60998c74d92187a00e18a297af239844157b47e57",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_adaptive_grid.py",
+      "bytes": 6625,
+      "sha256": "860fe3e6891102ba98082f53f760eb4a346a584e6e3ca5077a1cc346a0e6b09a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_box_continuum.py",
+      "bytes": 7545,
+      "sha256": "2ce5800e9ce31a4dc9b3d28a2eef4e41265e83f0974bb0a648c3c542a550ee7f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_core_hole_stationarity.py",
+      "bytes": 2298,
+      "sha256": "7902c16bb1d29600fd536529220200e99c04f0b924291a96c51a113c3f01a697",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_corrections.py",
+      "bytes": 8480,
+      "sha256": "814e61d62e71f6115aada6f15961535f5313ffb04d7a8e4a21226463c73e0b80",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_correlated_grid.py",
+      "bytes": 9544,
+      "sha256": "8aa8e3d4a814564838e165667331b6489ca45a8afe0dbb68a4f9ffb8d819a095",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_electron_reference.py",
+      "bytes": 6411,
+      "sha256": "a0f3b39208b6a7eebea7e498cdb3693141b59994acc96e694f7a3494376c2993",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_guerra.py",
+      "bytes": 8591,
+      "sha256": "6274244ceced8e1088b855cab22dc78df96213c44e30aed5f60781d269f2cadf",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_hf.py",
+      "bytes": 6230,
+      "sha256": "6570abd97120394094d1421b4008ed520224122f17a8c9f5f2d1f852263972a6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_hf_warm_start.py",
+      "bytes": 2526,
+      "sha256": "2f99354eafb94efa06181ff59a086fd5db24b34537a7ceec9737ba341aaf92d6",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_injection.py",
+      "bytes": 1488,
+      "sha256": "a01f2378bcf41fd8d549bc4f81f7140bbdf11f8e46b44ddd5f51f1d71731b220",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_ionization_comparison.py",
+      "bytes": 3234,
+      "sha256": "2cff5da580b2430ba0b0d70a25cdfa4fb75c96f32b2fc35e0576cda3b49a8c96",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_nonlocal_eigen.py",
+      "bytes": 3684,
+      "sha256": "a06b36a32685a1cc5eba14f251dcd13d874730cbd2649cdd26053a89c9b86ec1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_open_shell_constraints.py",
+      "bytes": 4099,
+      "sha256": "3e64d5044e6d8fc1cabd09f455b119e61d512cb6c5d21d6d29b8e94ebdb3c0fb",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_radial_operators.py",
+      "bytes": 2592,
+      "sha256": "477fafe08bddb724899de8737639fbe1c297fd104603a6c856ff47b0afb3621a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_result_persistence.py",
+      "bytes": 4526,
+      "sha256": "1726a520da050f5ae9aaeffc691c0d1fa92604a013bb2d89856646a66fd966ab",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_rotation_energy.py",
+      "bytes": 5228,
+      "sha256": "aa7b25929e2bbe3bab4583205202b6966f4348bd7366cc6c819c0f22b3de4d34",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_scf_convergence.py",
+      "bytes": 2653,
+      "sha256": "4a94d6b47bd2d36387a0cb387e1dd479b3b33748ccfbc0a5b03dc5513cdb484d",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_seed.py",
+      "bytes": 2179,
+      "sha256": "b10c00abcb25f9d56be6e36385d5e4fd484f17fe1c7ddf17b19dfa8a30abf150",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_stagnation_recovery.py",
+      "bytes": 1669,
+      "sha256": "42caeaec39c21fa841e5940e4616b8f2cf7560f4f05bd0e30f517be8548f5fcc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_shooting_weak_exchange.py",
+      "bytes": 4797,
+      "sha256": "7766acb8fcb36b5fa3d6af2639949556d7ec99c1b8da30b4af9ad1cd122f421a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_sigma2_sd.py",
+      "bytes": 8172,
+      "sha256": "95eab35ca204908367773bbed38c6f8821d0a80642c5fdd61f7be53277ffa991",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_silent_failure_guards.py",
+      "bytes": 6857,
+      "sha256": "5d9424eefc918338e6b284f5fae9905e163042f350ad2ce1bc39fa9a9f2b34af",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_batch_parity.py",
+      "bytes": 2069,
+      "sha256": "b782bb9a51944b8a72d04da95f9f75faa2776ce4e55666f1a8a58f562035cf6f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_batch_quadrature.py",
+      "bytes": 1983,
+      "sha256": "7cb4efe28e62528dbeeffe576aef2052faa219d5b3f66b24988ce66e9c153680",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_integral_slag6.py",
+      "bytes": 7261,
+      "sha256": "0cae6130a7746dfbc5a07ade1c8157f048178847e7d5c95910db1e8986e5b8bc",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_integrator.py",
+      "bytes": 8033,
+      "sha256": "f45266a2713bf9d0bb880eb7547fc6ae2aebcb5f134f57b7e7ba3f9799dff0ca",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_kernel_crosscheck.py",
+      "bytes": 25334,
+      "sha256": "2fab4ad249c9c1e1a07c93caee70579cf4f4c8154e423e71668095f99779b36b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_slater_scaling.py",
+      "bytes": 3780,
+      "sha256": "57041a3da282fcf1cf1bb54e3227813d98167814da9980a7d951787efa9505e0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_sos_basis.py",
+      "bytes": 2873,
+      "sha256": "dd208d5a7b6663dc565713989fc2d87ccafceb7f7e9c95589e69650bc8c98a38",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_sparse_ci.py",
+      "bytes": 7359,
+      "sha256": "4e6fe6cda5b9f25324ca4e9817e734af00417620aa26d45cd26ba45c3834d570",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_specific_recoil.py",
+      "bytes": 12839,
+      "sha256": "b2ffc1f3d236fd7adcfd7375c3f793529e401dec730581197a652da16324efb4",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_spectrum_and_uta.py",
+      "bytes": 10254,
+      "sha256": "41723c140a74ca9f6b3556d5ab40b8a4e92404cf464b2de6c3d8317b89e2d9f0",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_spectrum_continuum.py",
+      "bytes": 5460,
+      "sha256": "80d2711c5086157712bcf4b3b5b7d2cac9989cb553dc8fe7bc0f6f969433cd89",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_spinor_integrals_fscc.py",
+      "bytes": 15306,
+      "sha256": "94974b0f9fb38def073249e7821546b0c5871008eccd31c5a86e542e367f3d2c",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_stark.py",
+      "bytes": 5165,
+      "sha256": "06e29fe94fe295774b8364fc992549dcc039a5a454fa31f04088c849a84f5592",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_static_breit_retardation.py",
+      "bytes": 3261,
+      "sha256": "55336839f05f5e81ecfd343c3ac75942046aeeb521355c24074494a53f4ddd48",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_static_radial_symmetry.py",
+      "bytes": 6205,
+      "sha256": "c2aeff3b50e34d0c548ac93407c0396a4a236c432be600bd36607f72ce25c27a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_sternheimer_edm.py",
+      "bytes": 13877,
+      "sha256": "a2f4a6dc904b5231571db023fd9b917adf025e1add6ef060bc77542f9d5ae30a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_streaming_spinor_integrals.py",
+      "bytes": 5871,
+      "sha256": "97c9a2e8cfb0993bbdec47c39c5ab44d6041e79de572820880f3782580c38ad9",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_transition_conventions.py",
+      "bytes": 5133,
+      "sha256": "ad3175abd2dcbe19a4c9c58d6e06490779de91ddd16072d5a500c24e6873ea1c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_transitions.py",
+      "bytes": 13097,
+      "sha256": "4df7988b99f0ebcd3cd028bc69b49f5af5c2f127944e327b89459035e12e6341",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_transitions_engine_uniform.py",
+      "bytes": 19302,
+      "sha256": "a1f2ea782ca74de014a0fbc9bbe4332db8e816e85fffb1d0b747331326ab4399",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_two_electron_angular.py",
+      "bytes": 1872,
+      "sha256": "ea565a5101fe7c2b35b89a97197eb10ff8da1dd06bff133b0232c2805d7b58f1",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_two_electron_replacement.py",
+      "bytes": 9185,
+      "sha256": "891cc6d0bbe866ee28c9bbce4294b37b4503aa37322bbdf6e1a60d2b75d60d53",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_two_electron_states.py",
+      "bytes": 5077,
+      "sha256": "a8ac7612b33ba1133715e2d0d26201eb509457f117250688b5ad0cd7abb2a1ef",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_two_photon.py",
+      "bytes": 5380,
+      "sha256": "97667836180597799b7eefdfbaedfb8eb8169e1540e71aff8edb1d1e3df12d32",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_two_photon_vs_literature.py",
+      "bytes": 5919,
+      "sha256": "fe16a173c3efba51a579fdfd89ce521f17536416167e9c3ce74d576feee3c83f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_units.py",
+      "bytes": 8256,
+      "sha256": "2bc32220ebf763e079c95b0b27024edb82e08b2439f9b702fd2bc39c3fff0267",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_uta_fac_moments_gates.py",
+      "bytes": 9859,
+      "sha256": "349cf938f42ab68b7b85a7f14cd6e51d66f471449edf1ebcf437ad91684e501a",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_valence_sd.py",
+      "bytes": 17313,
+      "sha256": "9bd710875d32819355f51f8636a372858f3760038f640ae0f2d90149de4beb01",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_velocity_gauge_full_order.py",
+      "bytes": 3957,
+      "sha256": "c510628e685a13856416f788d12cb26fc03408102489c8aea22d294d3f0e9f30",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_virtual_stability.py",
+      "bytes": 4216,
+      "sha256": "303324d982b93b90f566e457e880524ddc4f83c02449bce5af39d0f64f4b383f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_viz.py",
+      "bytes": 10586,
+      "sha256": "1849041ad18ba36daf51f7066aa491d644a350749cd87a468217c3faed96a7de",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_viz_plotly3d.py",
+      "bytes": 4835,
+      "sha256": "1cfcc63eb96cd81fd9ae183ad5ac74c49e939874084a04ccb9be5843fc02dd4b",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_viz_scattering.py",
+      "bytes": 4560,
+      "sha256": "34f4c5db2f03a1640bcada9fb0330f5a1a3503da9e3ad913fad5727436d1a706",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_wigner_cancellation.py",
+      "bytes": 2026,
+      "sha256": "aa0334e457c61a17dbb04e5988dea845c90e1a7e39563dcb2841886e69465e31",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_atomic_rates.py",
+      "bytes": 5898,
+      "sha256": "37ac073c76c4f6ff5bb8975484ce9ab3ced225230dd1dbb041703918ec4c231f",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_cascade.py",
+      "bytes": 5515,
+      "sha256": "2e065af388b19cf81fcc0293c00baceff602f525e92efdcd1e1e0fb6e13c11e9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_ci_continuum.py",
+      "bytes": 16266,
+      "sha256": "75ad63fa9bbd06bf2b72cf45c273403d921fc0a4e632b1268451b2baffa38ef8",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_coherent.py",
+      "bytes": 8091,
+      "sha256": "8daf391c2f58ec65d53c059827b90743fc3b7ff46082c56afc4a09efbdaf3cb9",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_compiled_mc.py",
+      "bytes": 8554,
+      "sha256": "e35a13a3c692a6b99c4b948879bb15bdac1b59f3f5d981bfda79493bd45bc5d3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_double_ionization.py",
+      "bytes": 3926,
+      "sha256": "997bf508864cd9dd9bd6a761f93fdb5847bc8823b50190d1293cd5d7be45738c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_kinetics.py",
+      "bytes": 6163,
+      "sha256": "747d5b49051ca1706d0b6ecdbbb3a584abf638990ca0fde2e1bf991c289d9c88",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_mcdhf_coherent.py",
+      "bytes": 12465,
+      "sha256": "ddd1135b483d5307013488ee81d2bc677a3ce42e455b3376d0983544aa33a381",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_multielectron_ci.py",
+      "bytes": 16502,
+      "sha256": "9b6b86d870de01eb7d7cc2a26803c465279aee89755eb55a06bb0a329212b9cd",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_native_model.py",
+      "bytes": 14183,
+      "sha256": "a92c2972fda9ded5e009a5b077d2b2a260fdc932123b92a186c0b13d5113ce8c",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_radiative_reservoir.py",
+      "bytes": 12423,
+      "sha256": "44aa76d2d78917688a4a24c810ac06d284a0711911cc3accb1554c6cf6761ee7",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_reservoir_campaign.py",
+      "bytes": 2702,
+      "sha256": "ce64ac0824714734f66b1cdb2a8949cbe4a6b2d1b7d1575a831cddf4cd14f31e",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_residual_certificate.py",
+      "bytes": 10274,
+      "sha256": "e3914d1947d055284b2e003c0f7aea016287d5ab461596c6c1a9626b08709d54",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xfel_table_v4.py",
+      "bytes": 8476,
+      "sha256": "836001b007863fad03d6b4e1fc28f0169763d1b4ce1710510386ba98703eee69",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_xray_scattering.py",
+      "bytes": 4227,
+      "sha256": "db2477fc4740e73275ee09fbe630feb2b55032af1149d395cb9c24da23d902e3",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tests/test_zeeman.py",
+      "bytes": 10501,
+      "sha256": "ea6e914b42a26fd9292c63c7e2ba9f6791e90d78668dc56afc2c00fa530a65aa",
+      "origin": "tracked working tree"
+    },
+    {
+      "path": "tools/benchmark_core_sd_initialization.py",
+      "bytes": 9726,
+      "sha256": "2812b2cc46eb53f8c3f893b1eb35ae9da345e1580c316532ab35634098e8c741",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/benchmark_core_sd_term21.py",
+      "bytes": 10231,
+      "sha256": "39f9585cc32e922e5e8e7c59fa1d8779607f9969ae08c138885c967ef5a5aa33",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/build_expt_backend.py",
+      "bytes": 10620,
+      "sha256": "4c41fa4f9a5fb774779546ba18e1602a53118a5ca44613a197370cb67c37229a",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/build_pci_sd_backend.py",
+      "bytes": 30357,
+      "sha256": "0a754185bcdd73e69343154f8d5948172e712c698228f89329d6f568d9ba491b",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/build_pci_sigma2_backend.py",
+      "bytes": 7155,
+      "sha256": "531ddc161ead8fba0ce90cf0f4ea1afa2ae251afbc6017421ab0fa09cf0beb26",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/build_pci_valence_backend.py",
+      "bytes": 9907,
+      "sha256": "f55a38969f5d77e0e54c97f32e139496774adc6367181f1fdbcfaa464ccdbbc3",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/expt_axial_patch.py",
+      "bytes": 3947,
+      "sha256": "bd83b5dc536c82a98bad815eefe0095f718dd4703221de980d19d76df8badba2",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/expt_compact_index_patch.py",
+      "bytes": 9657,
+      "sha256": "faf161c27c77cc92a0ff740a9b5f42dc57f896a1fc85b20799f20010a43aebb3",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/profile_native_core_sd.py",
+      "bytes": 8195,
+      "sha256": "04aa3a17afaf0b973585592ff2c59309b422971f0877004c45bac6006224fd7f",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/run_native_core_sd.py",
+      "bytes": 8812,
+      "sha256": "1f16764ab84dbf55208a341df15f64af0146b548190d911a37077569acb3b44a",
+      "origin": "untracked working tree"
+    },
+    {
+      "path": "tools/validate_pci_native_sd.py",
+      "bytes": 27142,
+      "sha256": "e7ab531ea5f643b792e64a5548d01e1cbf8db3f9b15e6dbb74991006f3e0e0cc",
+      "origin": "untracked working tree"
+    }
+  ],
+  "essential_suite": {
+    "passed": 452,
+    "warnings": 25,
+    "seconds": 63.84,
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 NUMBA_NUM_THREADS=1 PYTHONPATH=src:. /data/code/atomx/.venv/bin/python -m pytest -q --durations=15",
+    "log": "essential-tests.log"
+  },
+  "wheel": {
+    "installed_outside_checkout": true,
+    "fortran_templates": 8,
+    "hydrogen_converged": true,
+    "hydrogen_energy_Ha": -0.5000054122283553
+  },
+  "metadata": {
+    "cff_schema": "passed full official schema",
+    "zenodo": "shared legacy schema passed; version/language checked separately against current official API documentation"
+  },
+  "limits": "Essential suite only; optional external pCI/EXP-T campaigns not rerun. Creator additions pending."
+}

@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 531, in <module>
+    main()
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 520, in main
+    execute(args.execute)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 365, in execute
+    result = ci_module.ci_solve(csfs, waves, keys, data, 70, 123, nuclear_potential=nucleus,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/methods/ci.py", line 235, in ci_solve
+    retained = build_ci_hamiltonian_snapshot(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/physics/csf/hamiltonian_snapshot.py", line 200, in build_ci_hamiltonian_snapshot
+    h = build_ci_matrix(csfs, orbitals, orbital_basis, workspace, Z, ns,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/physics/csf/matrix.py", line 648, in build_ci_matrix
+    h_block = exact_block_matrix(signatures, evaluate,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1550, in exact_block_matrix
+    b_struct = breit_block_terms(structure.patterns, j2,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1308, in breit_block_terms
+    return _breit_block_table(tuple(patterns), int(j2),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1298, in _breit_block_table
+    keys, table, pairs = _coefficient_table(dets, spinor_labels, breit_terms,
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1140, in _coefficient_table
+    terms = pair_terms(dets[row], dets[col])
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1205, in pair
+    _pair_terms(active_a, active_b, labels, term_fn=operator)]
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 1015, in _pair_terms
+    sign = _ops_sign(mask_b, [(pa, True), (pb, True),
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/csf_hamiltonian.py", line 934, in _ops_sign
+    applied = _create(occ, idx) if create else _annihilate(occ, idx)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/mscheme.py", line 79, in _create
+    return _occupation_sign(mask, orbital), mask | (1 << orbital)
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/source/atomx/angular/mscheme.py", line 67, in _occupation_sign
+    return -1 if (_popcount(mask & ((1 << orbital) - 1)) % 2) else 1
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 224, in profile
+    def profile(frame, event, value):
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 134, in <lambda>
+    signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError('Declared1200s cap')))
+  File "/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/transverse31_samepoint_preparation001/phaseA_owned_execution_preparation001/scalar_request_observation_successor001/same_epoch_DC_baseline_successor001/run.py", line 134, in <genexpr>
+    signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(TimeoutError('Declared1200s cap')))
+TimeoutError: Declared1200s cap

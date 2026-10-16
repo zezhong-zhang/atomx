@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm.py", line 202, in <module>
+    main(parser.parse_args())
+  File "/data/code/atomx/docs/atomic_pci_sd_native_2026_10_09/probe_monovalent_norm.py", line 85, in main
+    core, core_result, reduced = helper["reduced_core"].__wrapped__(
+  File "/data/code/atomx/tests/test_reduced_monovalent_sd.py", line 36, in reduced_core
+    pytest.skip("pinned pCI source/compiler required for reduced standalone SD")
+  File "/data/code/atomx/.venv/lib/python3.10/site-packages/_pytest/outcomes.py", line 139, in __call__
+    raise Skipped(msg=reason, allow_module_level=allow_module_level)
+Skipped: pinned pCI source/compiler required for reduced standalone SD

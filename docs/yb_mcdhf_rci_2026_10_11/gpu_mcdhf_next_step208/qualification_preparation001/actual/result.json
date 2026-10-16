@@ -1,0 +1,1345 @@
+{
+  "status": "failed_partial",
+  "all_declared_controls_passed": false,
+  "failure_type": "AssertionError",
+  "failure": "saved_actual_owner_header",
+  "traceback": "Traceback (most recent call last):\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py\", line 439, in execute\n    check(\"saved_actual_owner_header\", ci.hamiltonian_snapshot.identity_payload() != load(roles[\"recovered_owner\"]))\n  File \"/data/code/atomx/docs/yb_mcdhf_rci_2026_10_11/gpu_mcdhf_next_step208/qualification_preparation001/run.py\", line 209, in check\n    raise AssertionError(name)\nAssertionError: saved_actual_owner_header\n",
+  "phase": "fresh_full1595_H_CI",
+  "checks": [
+    {
+      "name": "actual_CPU1_affinity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_OPENBLAS_NUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_OMP_NUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_MKL_NUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_BLIS_NUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_VECLIB_MAXIMUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "thread_environment_NUMEXPR_NUM_THREADS",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "configured_NumBa_max4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.constants",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.types",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.compare",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.base",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.config",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.wigner",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.clebsch",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.mscheme",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.rcfp",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.csf_recoupling",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.ls_coupling",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.recoupling",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.config.subshell",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.breit_pauli",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.coefficients",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.data",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.data.hyperfine_presets",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.scf_observables",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.basis",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.integrals",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.knots",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.convol",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.dirac_assembly",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.evaluate",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.diis",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.yk",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.radial_metric",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.radial_state",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.dirac_fock",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.hartree_fock_slater",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.hydrogenic",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.mbpt",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.angular.csf_hamiltonian",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.config.parsing",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.config.csf",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.csf",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.base",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.data.flambaum_ginges",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.flambaum_ginges",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.data.mohr_se",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.base",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.dirac",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.schrodinger",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.mohr",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.indelicato",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.shabaev",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod.welton",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qedmod",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.protocol",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.adapters",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.quadrature",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.radial_workspace",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.breit",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.qed",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections.stack",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.corrections",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.ci",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.constants",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.quadrature",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.spline",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.coulomb",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.operators",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.matrix",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.csf.solver",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.mcdhf.solver",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.shooting.electron_space",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.mcdhf",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.methods.csf.variational",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.numerics.bspline.orbital_optimization",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.levels",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.overlap",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.state_average",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.tracking",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.physics.csf.radial_density",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.potentials",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "loaded_source_atomx.potentials.nuclear",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_numpy",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_numba",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_scipy",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_llvmlite",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_numba-cuda",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "runtime_version_cuda-toolkit",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "NumPy_literal_module",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "Numba_literal_module",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_public_radial_gradient31_contiguous246",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_complete3689_full_normalized_raw_coordinate",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_complete3689_full_normalized_tangent",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_complete3689_full_normalized_preconditioned_tangent",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "saved_complete31_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "complete3789_parent1595_targets",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "charge69",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "signed_CSF_order",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "public31_orbitals",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "public_functional_keys",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_-4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_-4",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_-3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_-3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_-2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_-2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_-1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_1",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_2",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_L_completed_h_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "same_S_3",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native3689_metric_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native3689_geometry_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "native3689_state_identity",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_-4",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, -4)",
+      "error": 2.9323584671684437e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, -4)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, -4)",
+      "error": 3.7827268988957914e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_-3",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(3, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(3, -3)",
+      "error": 1.680919408959125e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, -3)",
+      "error": 2.8429296888460946e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, -3)",
+      "error": 1.603430792648097e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(6, -3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(6, -3)",
+      "error": 3.180186725127734e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_-2",
+      "error": 8.881784197001252e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(2, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(2, -2)",
+      "error": 1.624860736693064e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(3, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(3, -2)",
+      "error": 2.2798258391817658e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, -2)",
+      "error": 2.4392339709798334e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, -2)",
+      "error": 3.245922025846265e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(6, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(6, -2)",
+      "error": 2.7121535879763072e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(7, -2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(7, -2)",
+      "error": 3.288158993116642e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_-1",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(1, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(1, -1)",
+      "error": 2.4978582868004328e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(2, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(2, -1)",
+      "error": 2.06205728526046e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(3, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(3, -1)",
+      "error": 3.736764603407134e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, -1)",
+      "error": 3.428988954577522e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, -1)",
+      "error": 3.150780059334298e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(6, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(6, -1)",
+      "error": 4.142151557154813e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(7, -1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(7, -1)",
+      "error": 4.767948068216501e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_1",
+      "error": 1.1102230246251565e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(2, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(2, 1)",
+      "error": 2.5868636687982625e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(3, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(3, 1)",
+      "error": 1.9121268648657543e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, 1)",
+      "error": 3.15725843876082e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, 1)",
+      "error": 3.370345348893399e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(6, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(6, 1)",
+      "error": 1.7808272502972073e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(7, 1)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(7, 1)",
+      "error": 4.424777407852617e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_2",
+      "error": 1.5543122344752192e-15,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(3, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(3, 2)",
+      "error": 1.5588795484084954e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, 2)",
+      "error": 1.7425791978756663e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, 2)",
+      "error": 2.9335454285184334e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(6, 2)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(6, 2)",
+      "error": 2.5640948728171784e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_SGram_3",
+      "error": 7.771561172376096e-16,
+      "limit": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(4, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(4, 3)",
+      "error": 1.7034288497121557e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "actual_stored_point_(5, 3)",
+      "error": 0.0,
+      "limit": 0.0,
+      "passed": true
+    },
+    {
+      "name": "actual_originalP_leakage_(5, 3)",
+      "error": 4.6823810537290894e-30,
+      "limit": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "saved_actual_owner_header",
+      "error": 1.0,
+      "limit": 0.0,
+      "passed": false
+    }
+  ],
+  "calls": {
+    "H": {
+      "started": 1,
+      "completed": 1
+    },
+    "CI": {
+      "started": 1,
+      "completed": 1
+    },
+    "initial_hS": {
+      "started": 7,
+      "completed": 7
+    },
+    "CI_hS_producer": {
+      "started": 7,
+      "completed": 7
+    },
+    "hS_getter": {
+      "started": 38,
+      "completed": 38
+    },
+    "validation_Dirac": {
+      "started": 7,
+      "completed": 7
+    },
+    "SPD_eigvalsh": {
+      "started": 38,
+      "completed": 38
+    },
+    "scipy_eigh": {
+      "started": 12,
+      "completed": 12
+    },
+    "tracking_SVD": {
+      "started": 0,
+      "completed": 0
+    },
+    "tracking_resolve": {
+      "started": 0,
+      "completed": 0
+    },
+    "tracking_overlap": {
+      "started": 1,
+      "completed": 1
+    },
+    "target_RDM": {
+      "started": 0,
+      "completed": 0
+    },
+    "public_full_gradient": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_full_gradient": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_owner_factory": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_source_potential": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_band": {
+      "started": 0,
+      "completed": 0
+    },
+    "ordinary_density": {
+      "started": 0,
+      "completed": 0
+    },
+    "private_density": {
+      "started": 0,
+      "completed": 0
+    },
+    "H_density": {
+      "started": 992,
+      "completed": 992
+    },
+    "factor_getter": {
+      "started": 0,
+      "completed": 0
+    },
+    "component_moment_getter": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_getter": {
+      "started": 2824,
+      "completed": 2824
+    },
+    "same_component_inner_producer": {
+      "started": 14,
+      "completed": 14
+    },
+    "mixed_component_inner_producer": {
+      "started": 14,
+      "completed": 14
+    },
+    "NPZ_load": {
+      "started": 6,
+      "completed": 6
+    },
+    "CUDA_context": {
+      "started": 0,
+      "completed": 0
+    },
+    "optimizer": {
+      "started": 0,
+      "completed": 0
+    },
+    "dense_bank_producer": {
+      "started": 28,
+      "completed": 28
+    },
+    "near_factor_producer": {
+      "started": 0,
+      "completed": 0
+    }
+  },
+  "request_ledgers": {
+    "hS": {
+      "requests": 38,
+      "completed": 38,
+      "hits": 31,
+      "misses": 7
+    },
+    "factors": {
+      "requests": 0,
+      "completed": 0,
+      "hits": 0,
+      "misses": 0
+    },
+    "dense_banks": {
+      "requests": 2824,
+      "completed": 2824,
+      "hits": 2796,
+      "misses": 28
+    },
+    "component_moments": {
+      "requests": 0,
+      "completed": 0,
+      "hits": 0,
+      "misses": 0
+    }
+  },
+  "archives": [],
+  "root_execution_binding_sha256": "565caad685fe5502fd5890c6deedcf1d8cffa08ad8ee00cdebf78e7e6175959d",
+  "elapsed_uncontrolled_s": 35.771885839058086,
+  "controlled_speedup_qualified": false,
+  "original_stationarity_passed": false
+}

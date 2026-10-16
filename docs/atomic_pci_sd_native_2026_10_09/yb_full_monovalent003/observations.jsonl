@@ -1,0 +1,22 @@
+{"stage": "complete_space_preflight_pass", "maximum_bound_bytes": 12844848516, "elapsed_seconds": 0.4901036729570478}
+{"stage": "core_prepared", "seconds": 116.95943785796408, "elapsed_seconds": 121.00894996896386}
+{"stage": "enter_complete_core_action", "matvecs": 0, "elapsed_seconds": 123.19956149195787}
+{"stage": "complete_core_action", "seconds": 131.36961321695708, "matvecs": 1, "elapsed_seconds": 254.56917730392888}
+{"stage": "enter_complete_core_action", "matvecs": 1, "elapsed_seconds": 255.38589868193958}
+{"stage": "complete_core_action", "seconds": 139.01008275710046, "matvecs": 2, "elapsed_seconds": 394.39598335302435}
+{"stage": "enter_complete_core_action", "matvecs": 2, "elapsed_seconds": 394.61361917702015}
+{"stage": "complete_core_action", "seconds": 148.68038674397394, "matvecs": 3, "elapsed_seconds": 543.2940073140198}
+{"stage": "standalone_prepared", "key": [6, -1], "seconds": 7.893614222062752, "amplitudes": 2016460, "elapsed_seconds": 553.2687580459751}
+{"stage": "complete_standalone_map", "map_call": 1, "linear": false, "seconds": 33.59397834201809, "reference_Ha": -0.0002819341597251601, "peak_rss_bytes": 4073177088, "load_after": [15.54833984375, 15.2119140625, 12.80810546875], "elapsed_seconds": 586.8630300220102}
+{"stage": "complete_standalone_map", "map_call": 2, "linear": true, "seconds": 20.907876363955438, "reference_Ha": -1.0545824992590163e-06, "peak_rss_bytes": 4073177088, "load_after": [14.87841796875, 15.08349609375, 12.8173828125], "elapsed_seconds": 607.7888453300111}
+{"stage": "complete_standalone_map", "map_call": 3, "linear": false, "seconds": 33.79320811107755, "reference_Ha": -0.00028298874222441894, "peak_rss_bytes": 4073177088, "load_after": [14.89208984375, 15.08544921875, 12.9033203125], "elapsed_seconds": 641.5822721439181}
+{"stage": "complete_standalone_map", "map_call": 4, "linear": true, "seconds": 22.557449173997156, "reference_Ha": -1.0545824921891662e-06, "peak_rss_bytes": 4099526656, "load_after": [14.76171875, 15.05810546875, 12.95361328125], "elapsed_seconds": 664.1432281680172}
+{"stage": "complete_signed_map_controls_pass", "key": [6, -1], "amplitudes": 2016460, "singles": 58, "affine_error_Ha": 3.710343122152737e-17, "fixed_double_only_error_Ha": 0.0, "elapsed_seconds": 681.4093266569544}
+{"stage": "standalone_prepared", "key": [6, -1], "seconds": 7.880065542994998, "amplitudes": 2016460, "elapsed_seconds": 689.5528986100107}
+{"stage": "complete_standalone_map", "map_call": 5, "linear": false, "seconds": 33.86473476001993, "reference_Ha": -0.0002819341597251601, "peak_rss_bytes": 4242587648, "load_after": [15.17578125, 15.150390625, 13.107421875], "elapsed_seconds": 723.4179247189313}
+{"stage": "complete_standalone_map", "map_call": 6, "linear": true, "seconds": 21.09470385592431, "reference_Ha": -0.08933461519366095, "peak_rss_bytes": 4392067072, "load_after": [14.662109375, 15.03955078125, 13.125], "elapsed_seconds": 744.5232874959474}
+{"stage": "complete_standalone_map", "map_call": 7, "linear": true, "seconds": 20.9783083780203, "reference_Ha": 0.04531271845971894, "peak_rss_bytes": 4440813568, "load_after": [15.20849609375, 15.14892578125, 13.20263671875], "elapsed_seconds": 765.5074390389491}
+{"stage": "complete_standalone_map", "map_call": 8, "linear": true, "seconds": 21.28380780504085, "reference_Ha": 0.03332358883444914, "peak_rss_bytes": 4487884800, "load_after": [16.080078125, 15.35009765625, 13.31005859375], "elapsed_seconds": 786.7990696909837}
+{"stage": "complete_standalone_map", "map_call": 9, "linear": true, "seconds": 20.995753152063116, "reference_Ha": -0.01580496650206564, "peak_rss_bytes": 4505014272, "load_after": [14.84619140625, 15.11572265625, 13.275390625], "elapsed_seconds": 807.8071466219844}
+{"stage": "complete_standalone_map", "map_call": 10, "linear": true, "seconds": 21.006667215027846, "reference_Ha": -0.013044709384387046, "peak_rss_bytes": 4521734144, "load_after": [14.47265625, 15.01123046875, 13.2802734375], "elapsed_seconds": 828.8229724409757}
+{"stage": "complete_standalone_map", "map_call": 11, "linear": true, "seconds": 21.192580521921627, "reference_Ha": -0.023261162939284662, "peak_rss_bytes": 4538392576, "load_after": [14.771484375, 15.0419921875, 13.33642578125], "elapsed_seconds": 850.0262096310034}

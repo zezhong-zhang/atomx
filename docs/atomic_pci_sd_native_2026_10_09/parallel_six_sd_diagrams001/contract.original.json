@@ -1,0 +1,27 @@
+{
+  "fixed_model": "Z4, ns30, 12 spinors; closed 1s2+2s2 core and complete 3s,2p1/2,2p3/2 virtual multiplets on common Be2+ native DC orbital owner",
+  "modes": [
+    "dc",
+    "static",
+    "dynamic"
+  ],
+  "identity": "Same signed public integral Hamiltonian, fixed complete orbital-difference frequencies, unchanged core/frozen/Fock/reference ledger",
+  "gate_Ha": 1e-11,
+  "raw_gate_not_relaxed": true,
+  "caps": {
+    "threads": 1,
+    "address_bytes": 4294967296,
+    "cpu_seconds": 120
+  },
+  "highest_level_reached": false,
+  "hypothesis": "Full core doubles source and full particle-particle/hole-hole ladder subgraph contract as normalized J pair matrices without electric C division or Coulomb parity pruning.",
+  "controls": [
+    "independent complete signed fermion normal-ordered PP and HH action",
+    "scalar doubles metric",
+    "all directions and complex radial phases",
+    "all source and homogeneous coordinates",
+    "resource rejection before copies"
+  ],
+  "scope": "Actual complete core doubles source+PP+HH subgraph; other SD diagrams, standalone valence and Sigma2 are unfinished",
+  "stop": "Stop and preserve any failed original gate; do not fit, prune or claim full native SD."
+}

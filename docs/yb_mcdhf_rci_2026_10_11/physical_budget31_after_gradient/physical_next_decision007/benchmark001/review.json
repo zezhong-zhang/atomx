@@ -1,0 +1,244 @@
+{
+  "check_count": 19,
+  "checks": {
+    "all40_bitwise_complete_block_identities": true,
+    "all40_cache_repeat_identities": true,
+    "all40_signed_direct_action_checks": true,
+    "all40_signed_negative_controls": true,
+    "all_host_guards": true,
+    "all_source_imports_bound": true,
+    "complete_expected_CSF_counts": true,
+    "driver_hash": true,
+    "exact_root_seal": true,
+    "four_workers_ten_blocks_each": true,
+    "input_manifest": true,
+    "once_only_ABBA_success": true,
+    "same_numerical_versions": true,
+    "source_manifest": true,
+    "worker_caps": true,
+    "worker_hash/worker_00_old": true,
+    "worker_hash/worker_01_new": true,
+    "worker_hash/worker_02_new": true,
+    "worker_hash/worker_03_old": true
+  },
+  "evidence": {
+    "actual/result.json": "bf208cc0a6235c218b63b80737b926ec5226c3235fc703a864bfaf39527050da",
+    "actual/worker_00_old.json": "e6078c0979efdb085b07a69728844a81ec435f0ae7568bb85c0351f9305c9f38",
+    "actual/worker_01_new.json": "d10e5c5c77086ff4d348cc54cdc03be8ccb2814b5ea0b41c705f3b8b0c3f07a7",
+    "actual/worker_02_new.json": "ceba86209084f5eff964473f63481b83b2b1ce360adae6b4c4f981aadbd74d0c",
+    "actual/worker_03_old.json": "a36732d9cf8373078f2366d52cb3e72d30c0815a189a31645216ee069aaf9700",
+    "contract.json": "b81bf87e12dcb6597c89d1d2a6fd6607e7d6a02ab76da96ab83d900e6295314c",
+    "root_execution_seal.json": "8b9c49826ce6fdfc3ba2d4ebe738a2b4b5ab9722aa4066cf820a8e2a5734eec4",
+    "run.py": "c352b1d94bb647fcff9e18100c247e9b3e45cdbd7a70d17965967e718390232d"
+  },
+  "max_signed_action_bilinear_error": 5.684341886080802e-14,
+  "mean_table_speed_ratio_old_over_new": 1.1126391982576167,
+  "mean_table_time_reduction_fraction": 0.10123605067483576,
+  "mean_worker_RSS_reduction_fraction": 0.17973292569219623,
+  "means": {
+    "new": {
+      "RSS_MiB": 800.69921875,
+      "connection_pull_seconds": 6.489967625500867,
+      "projection_seconds": 2.7680790704953324,
+      "table_seconds": 56.848688702998516,
+      "worker_seconds": 60.82855112800007
+    },
+    "old": {
+      "RSS_MiB": 976.14453125,
+      "connection_pull_seconds": 7.422282506450756,
+      "projection_seconds": 2.767249595000976,
+      "table_seconds": 63.252079420501104,
+      "worker_seconds": 67.69254639749943
+    }
+  },
+  "min_signed_abs_control_difference": 22.079373799015528,
+  "pairwise_table_speed_ratios_old_over_new": [
+    1.1113841983116697,
+    1.1138744912276024
+  ],
+  "pass_count": 19,
+  "retained_payload_identical": {
+    "blocks": [
+      {
+        "CSFs": 223,
+        "arm": "A",
+        "connected_candidates": 373353,
+        "projection_nnz": 2630,
+        "radial_keys": 12481,
+        "raw_determinants": 1705,
+        "sector": [
+          1,
+          1
+        ],
+        "table_bytes": 30552592,
+        "table_nnz": 2425747
+      },
+      {
+        "CSFs": 219,
+        "arm": "A",
+        "connected_candidates": 344584,
+        "projection_nnz": 2392,
+        "radial_keys": 12549,
+        "raw_determinants": 1640,
+        "sector": [
+          1,
+          -1
+        ],
+        "table_bytes": 28188152,
+        "table_nnz": 2238021
+      },
+      {
+        "CSFs": 370,
+        "arm": "A",
+        "connected_candidates": 378632,
+        "projection_nnz": 3762,
+        "radial_keys": 14059,
+        "raw_determinants": 1660,
+        "sector": [
+          3,
+          1
+        ],
+        "table_bytes": 29960124,
+        "table_nnz": 2377069
+      },
+      {
+        "CSFs": 367,
+        "arm": "A",
+        "connected_candidates": 359585,
+        "projection_nnz": 3421,
+        "radial_keys": 14441,
+        "raw_determinants": 1619,
+        "sector": [
+          3,
+          -1
+        ],
+        "table_bytes": 28359092,
+        "table_nnz": 2249299
+      },
+      {
+        "CSFs": 416,
+        "arm": "A",
+        "connected_candidates": 273940,
+        "projection_nnz": 3466,
+        "radial_keys": 14307,
+        "raw_determinants": 1324,
+        "sector": [
+          5,
+          1
+        ],
+        "table_bytes": 23000776,
+        "table_nnz": 1829976
+      },
+      {
+        "CSFs": 365,
+        "arm": "B",
+        "connected_candidates": 493283,
+        "projection_nnz": 5904,
+        "radial_keys": 13127,
+        "raw_determinants": 2659,
+        "sector": [
+          1,
+          1
+        ],
+        "table_bytes": 42330600,
+        "table_nnz": 3369584
+      },
+      {
+        "CSFs": 362,
+        "arm": "B",
+        "connected_candidates": 468891,
+        "projection_nnz": 6475,
+        "radial_keys": 13184,
+        "raw_determinants": 2623,
+        "sector": [
+          1,
+          -1
+        ],
+        "table_bytes": 40702828,
+        "table_nnz": 3241770
+      },
+      {
+        "CSFs": 596,
+        "arm": "B",
+        "connected_candidates": 479794,
+        "projection_nnz": 8006,
+        "radial_keys": 14693,
+        "raw_determinants": 2478,
+        "sector": [
+          3,
+          1
+        ],
+        "table_bytes": 39985812,
+        "table_nnz": 3180849
+      },
+      {
+        "CSFs": 599,
+        "arm": "B",
+        "connected_candidates": 465782,
+        "projection_nnz": 8545,
+        "radial_keys": 15018,
+        "raw_determinants": 2466,
+        "sector": [
+          3,
+          -1
+        ],
+        "table_bytes": 39110556,
+        "table_nnz": 3111938
+      },
+      {
+        "CSFs": 652,
+        "arm": "B",
+        "connected_candidates": 339278,
+        "projection_nnz": 6629,
+        "radial_keys": 14949,
+        "raw_determinants": 1918,
+        "sector": [
+          5,
+          1
+        ],
+        "table_bytes": 30019748,
+        "table_nnz": 2394416
+      }
+    ],
+    "ten_connected_candidates": 3977122,
+    "ten_table_CSR_bytes": 332210280,
+    "ten_table_nnz": 26418669
+  },
+  "samples_per_variant": 2,
+  "scope": "Angular construction, cold in-process caches, one CPU, n=2 per variant. No radial/H/CI solve, end-to-end or parallel scaling, 4f12 energy, or spectroscopy precision claim.",
+  "status": "PASS",
+  "timings": [
+    {
+      "RSS_MiB": 969.46484375,
+      "connection_pull_seconds": 7.397469590936453,
+      "projection_seconds": 2.760079619001772,
+      "table_seconds": 62.680752488004146,
+      "variant": "old",
+      "worker_seconds": 67.12141159999919
+    },
+    {
+      "RSS_MiB": 795.37109375,
+      "connection_pull_seconds": 6.367093190026935,
+      "projection_seconds": 2.7597800369931065,
+      "table_seconds": 56.39881562399751,
+      "variant": "new",
+      "worker_seconds": 60.3663987660002
+    },
+    {
+      "RSS_MiB": 806.02734375,
+      "connection_pull_seconds": 6.612842060974799,
+      "projection_seconds": 2.7763781039975584,
+      "table_seconds": 57.298561781999524,
+      "variant": "new",
+      "worker_seconds": 61.29070348999994
+    },
+    {
+      "RSS_MiB": 982.82421875,
+      "connection_pull_seconds": 7.447095421965059,
+      "projection_seconds": 2.7744195710001804,
+      "table_seconds": 63.82340635299806,
+      "variant": "old",
+      "worker_seconds": 68.26368119499966
+    }
+  ]
+}

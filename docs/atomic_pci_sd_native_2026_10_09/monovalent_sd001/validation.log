@@ -1,0 +1,149 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_primary_canonical_equations_and_independent_noncanonical_commutator[key0] _
+
+live_core = (<atomx.methods.core_sd.CoreSD object at 0x7efe86642890>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...afb907b041c4da9f336a2d1d5', 'estimated_krylov_bytes': 3328, 'space_converged': False, 'experiment_validated': False})))
+key = (2, -1)
+
+    @pytest.mark.parametrize('key', [(2, -1), (2, 1), (2, -2)])
+    def test_primary_canonical_equations_and_independent_noncanonical_commutator(live_core, key):
+        problem = problem_for(live_core, key)
+        n = len(problem.integrals.labels)
+        g = np.empty((n,)*4)
+        for indices in itertools.product(range(n), repeat=4):
+            g[indices] = .5*problem.integrals.eri(*indices).real
+        rng = np.random.default_rng(41319)
+        amplitudes = rng.normal(size=problem.plan['amplitudes'])*.013
+        cs, cd, vs, vd = amplitude_tensors(problem, amplitudes)
+        rs, rd = paper_rhs(g, cs, cd, vs, vd, problem.valence_index)
+        paper = [rs[problem.valence_index]+problem.orbital_energy_Ha]
+        for particles, holes, _ in problem.excitations:
+            paper.append(rs[particles[0]] if len(particles) == 1
+                         else rd[particles[0], particles[1], holes[1]])
+        paper = np.asarray(paper)
+        paper[1:] += problem.diagonal_gaps_Ha*amplitudes
+        f = problem.integrals.fock_Ha.real
+        off = f-np.diag(np.diag(f))
+        fterms = tuple((off[p, q], ((p, True), (q, False)))
+                       for p, q in itertools.product(range(n), repeat=2) if off[p, q] != 0)
+        correction, _ = dense_linked(problem, amplitudes, fterms)
+        expected = paper+correction
+        actual = problem.linked_action(amplitudes)
+>       np.testing.assert_allclose(actual, expected, rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 2 / 15 (13.3%)
+E       Max absolute difference among violations: 0.00018969
+E       Max relative difference among violations: 0.00382329
+E        ACTUAL: array([-0.666607, -0.008599, -0.05622 , -0.082678,  0.041899,  0.064039,
+E              -0.022723, -0.101837,  0.100009,  0.181769, -0.084811, -0.052678,
+E              -0.072757,  0.026482,  0.001421])
+E        DESIRED: array([-0.666607, -0.008599, -0.05622 , -0.082678,  0.041899,  0.064229,
+E              -0.02281 , -0.101837,  0.100009,  0.181769, -0.084811, -0.052678,
+E              -0.072757,  0.026482,  0.001421])
+
+tests/test_monovalent_sd.py:204: AssertionError
+_ test_primary_canonical_equations_and_independent_noncanonical_commutator[key1] _
+
+live_core = (<atomx.methods.core_sd.CoreSD object at 0x7efe86642890>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...afb907b041c4da9f336a2d1d5', 'estimated_krylov_bytes': 3328, 'space_converged': False, 'experiment_validated': False})))
+key = (2, 1)
+
+    @pytest.mark.parametrize('key', [(2, -1), (2, 1), (2, -2)])
+    def test_primary_canonical_equations_and_independent_noncanonical_commutator(live_core, key):
+        problem = problem_for(live_core, key)
+        n = len(problem.integrals.labels)
+        g = np.empty((n,)*4)
+        for indices in itertools.product(range(n), repeat=4):
+            g[indices] = .5*problem.integrals.eri(*indices).real
+        rng = np.random.default_rng(41319)
+        amplitudes = rng.normal(size=problem.plan['amplitudes'])*.013
+        cs, cd, vs, vd = amplitude_tensors(problem, amplitudes)
+        rs, rd = paper_rhs(g, cs, cd, vs, vd, problem.valence_index)
+        paper = [rs[problem.valence_index]+problem.orbital_energy_Ha]
+        for particles, holes, _ in problem.excitations:
+            paper.append(rs[particles[0]] if len(particles) == 1
+                         else rd[particles[0], particles[1], holes[1]])
+        paper = np.asarray(paper)
+        paper[1:] += problem.diagonal_gaps_Ha*amplitudes
+        f = problem.integrals.fock_Ha.real
+        off = f-np.diag(np.diag(f))
+        fterms = tuple((off[p, q], ((p, True), (q, False)))
+                       for p, q in itertools.product(range(n), repeat=2) if off[p, q] != 0)
+        correction, _ = dense_linked(problem, amplitudes, fterms)
+        expected = paper+correction
+        actual = problem.linked_action(amplitudes)
+>       np.testing.assert_allclose(actual, expected, rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 4 / 16 (25%)
+E       Max absolute difference among violations: 0.00036442
+E       Max relative difference among violations: 0.00869067
+E        ACTUAL: array([-5.198069e-01, -2.855652e-04, -8.210718e-02, -6.562948e-02,
+E               2.761672e-02,  5.576248e-02, -3.744743e-02, -9.869173e-02,
+E               1.011181e-01,  1.870117e-01, -8.580046e-02, -5.804293e-02,
+E              -7.929198e-02,  3.117009e-03,  2.665390e-02, -9.570761e-02])
+E        DESIRED: array([-5.198069e-01, -2.855652e-04, -8.210718e-02, -6.562948e-02,
+E               2.785883e-02,  5.576248e-02, -3.744743e-02, -9.869173e-02,
+E               1.014825e-01,  1.870117e-01, -8.580046e-02, -5.795622e-02,
+E              -7.929198e-02,  3.117009e-03,  2.665390e-02, -9.558533e-02])
+
+tests/test_monovalent_sd.py:204: AssertionError
+_ test_primary_canonical_equations_and_independent_noncanonical_commutator[key2] _
+
+live_core = (<atomx.methods.core_sd.CoreSD object at 0x7efe86642890>, CoreSDResult(reference_energy_Ha=-13.613943330793543, correl...afb907b041c4da9f336a2d1d5', 'estimated_krylov_bytes': 3328, 'space_converged': False, 'experiment_validated': False})))
+key = (2, -2)
+
+    @pytest.mark.parametrize('key', [(2, -1), (2, 1), (2, -2)])
+    def test_primary_canonical_equations_and_independent_noncanonical_commutator(live_core, key):
+        problem = problem_for(live_core, key)
+        n = len(problem.integrals.labels)
+        g = np.empty((n,)*4)
+        for indices in itertools.product(range(n), repeat=4):
+            g[indices] = .5*problem.integrals.eri(*indices).real
+        rng = np.random.default_rng(41319)
+        amplitudes = rng.normal(size=problem.plan['amplitudes'])*.013
+        cs, cd, vs, vd = amplitude_tensors(problem, amplitudes)
+        rs, rd = paper_rhs(g, cs, cd, vs, vd, problem.valence_index)
+        paper = [rs[problem.valence_index]+problem.orbital_energy_Ha]
+        for particles, holes, _ in problem.excitations:
+            paper.append(rs[particles[0]] if len(particles) == 1
+                         else rd[particles[0], particles[1], holes[1]])
+        paper = np.asarray(paper)
+        paper[1:] += problem.diagonal_gaps_Ha*amplitudes
+        f = problem.integrals.fock_Ha.real
+        off = f-np.diag(np.diag(f))
+        fterms = tuple((off[p, q], ((p, True), (q, False)))
+                       for p, q in itertools.product(range(n), repeat=2) if off[p, q] != 0)
+        correction, _ = dense_linked(problem, amplitudes, fterms)
+        expected = paper+correction
+        actual = problem.linked_action(amplitudes)
+>       np.testing.assert_allclose(actual, expected, rtol=0, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-11
+E       
+E       Mismatched elements: 4 / 16 (25%)
+E       Max absolute difference among violations: 0.00036446
+E       Max relative difference among violations: 0.02116815
+E        ACTUAL: array([-5.196634e-01, -3.809763e-04, -7.922322e-02, -6.316506e-02,
+E               1.866404e-02,  5.227719e-02, -1.167989e-02, -1.235542e-01,
+E               8.141669e-02,  1.886135e-01, -8.508164e-02, -6.141436e-02,
+E              -8.030675e-02,  1.138734e-02,  1.941066e-02, -1.022094e-01])
+E        DESIRED: array([-5.196634e-01, -3.809763e-04, -7.885876e-02, -6.316506e-02,
+E               1.866404e-02,  5.227719e-02, -1.143777e-02, -1.235542e-01,
+E               8.141669e-02,  1.887358e-01, -8.508164e-02, -6.141436e-02,
+E              -8.030675e-02,  1.147405e-02,  1.941066e-02, -1.022094e-01])
+
+tests/test_monovalent_sd.py:204: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_monovalent_sd.py::test_primary_canonical_equations_and_independent_noncanonical_commutator[key0]
+FAILED tests/test_monovalent_sd.py::test_primary_canonical_equations_and_independent_noncanonical_commutator[key1]
+FAILED tests/test_monovalent_sd.py::test_primary_canonical_equations_and_independent_noncanonical_commutator[key2]
+3 failed, 7 deselected in 2.08s
+ lin =           3
+CHANNEL     5  j1=  1  j2=  2  km= -2  kn= -2  k=  2    0.003217
+           5
+           5           3
+CHANNEL     8  j1=  1  j2=  1  km= -2  kn= -2  k=  3    0.000030
+ Number of channels =            8

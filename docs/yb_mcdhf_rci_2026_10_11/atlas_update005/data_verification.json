@@ -1,0 +1,166 @@
+{
+  "all_saved_data_and_preservation_checks_passed": true,
+  "checks_count": 29,
+  "checks": [
+    {
+      "name": "sole_changed_v5_asset_is_page",
+      "passed": true
+    },
+    {
+      "name": "all6019_gzip_payloads_exact",
+      "passed": true
+    },
+    {
+      "name": "all16_old_model_objects64_rows_unchanged",
+      "passed": true
+    },
+    {
+      "name": "prior_native003_model_and17point_run_unchanged",
+      "passed": true
+    },
+    {
+      "name": "two_terminal_models_total18_rows72_unique_ids",
+      "passed": true
+    },
+    {
+      "name": "predeclared_local16_and_local64_global80_endpoints",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/all_points_no_selection",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/original_source_metric_identity",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/native_target_space_DC_original_P_tracker",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/allFAIL_certifications_retained",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/same_lower_transitions_RMS_and_moments",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/ASD_ids_missing_uncertainty_exact",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/model_is_exact_terminal",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/all_step_acceptance_scope",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/asset/evidence/yb-correlated29-run004-endpoint80/actual-result.json",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run004_endpoint80_DC/asset/evidence/yb-correlated29-run004-endpoint80/completion.json",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/all_points_no_selection",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/original_source_metric_identity",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/native_target_space_DC_original_P_tracker",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/allFAIL_certifications_retained",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/same_lower_transitions_RMS_and_moments",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/ASD_ids_missing_uncertainty_exact",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/model_is_exact_terminal",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/all_step_acceptance_scope",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/asset/evidence/yb-correlated29-run003-endpoint16/actual-result.json",
+      "passed": true
+    },
+    {
+      "name": "correlated29_run003_endpoint16_DC/asset/evidence/yb-correlated29-run003-endpoint16/completion.json",
+      "passed": true
+    },
+    {
+      "name": "shared16_exact_arrays_and_energy_not_extra_update",
+      "passed": true
+    },
+    {
+      "name": "all14_exact_scientific_source_assets",
+      "passed": true
+    },
+    {
+      "name": "no_speedup_or_physics_certification_claim",
+      "passed": true
+    }
+  ],
+  "models": 18,
+  "rows": 72,
+  "original_models_preserved": 16,
+  "original_rows_preserved": 64,
+  "unchanged_gzip_payloads": 6019,
+  "trajectory_points_by_run": [
+    17,
+    65
+  ],
+  "distinct_global_points": 81,
+  "outputs": [
+    {
+      "model": "correlated29_run004_endpoint80_DC",
+      "points": 65,
+      "RMS_initial_cm1": 2203.8622162949996,
+      "RMS_terminal_cm1": 2105.098759492958,
+      "EOL_delta_Ha": -0.009743582446390064,
+      "orbital_residual": 0.002641370231623412,
+      "energy_indicator_Ha": 1.174884123374752e-05,
+      "max_saved_transition_reconstruction_error_cm1": 0.0,
+      "max_RMS_reconstruction_error_cm1": 0.0,
+      "max_moment_reconstruction_error_cm1": 0.0
+    },
+    {
+      "model": "correlated29_run003_endpoint16_DC",
+      "points": 17,
+      "RMS_initial_cm1": 2048.36463776004,
+      "RMS_terminal_cm1": 2203.8622162949996,
+      "EOL_delta_Ha": -0.012996621251659235,
+      "orbital_residual": 0.04090991741227255,
+      "energy_indicator_Ha": 0.003408179199100851,
+      "max_saved_transition_reconstruction_error_cm1": 0.0,
+      "max_RMS_reconstruction_error_cm1": 0.0,
+      "max_moment_reconstruction_error_cm1": 0.0
+    }
+  ],
+  "contract_sha256": "447db4d1032d7478f50a80ede99f269fc8ce95fe59fa9be01331a05fed5e4ebc",
+  "append_contract_sha256": "19c9b5f78455879318dac9fa257e16b0226c5c2c6b9c59c901b1c7db2e0c4541",
+  "overlay_sha256": "fb09b3fd4f2480807c3708adb2a6c6dd57de569830625f3d2eda0b3337072e6b",
+  "page_sha256": "934e4b4d5401da2420c21d9926b2e30ef9283a27f57551e6b3c0bf1bd2e63c21",
+  "verifier_sha256": "d776ee2e245a699bd3b320e66e98eeaf4c7a2af95df9e085f91b2e969488919c",
+  "science_calls": 0,
+  "physical_array_replay": false,
+  "publication_performed": false
+}

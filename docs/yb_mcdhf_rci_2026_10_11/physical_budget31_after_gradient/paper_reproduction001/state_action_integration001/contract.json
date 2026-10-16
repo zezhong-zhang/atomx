@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "scope": "synthetic seven-spinor three-core-electron complete finite CCSDT/EA",
+  "representations": [
+    "dense",
+    "state_action"
+  ],
+  "seed": 194025,
+  "repetitions": 5,
+  "order": "alternating dense/state_action then state_action/dense",
+  "acceptance": 1e-10,
+  "residual_gate_Ha": 1e-10,
+  "omitted_rank4_defect": "preserved, not required to vanish",
+  "source_sha256": {
+    "src/atomx/numerics/cluster_actions.py": "1f33a5d1a2deba979324eb27679b41412914ce0539960d41e9b4ff2cae3d13b6",
+    "src/atomx/numerics/fermion.py": "9076966225b2426f6a75403c92cd9146f45f5e212d9d810f5b807fb88a0c1bee",
+    "src/atomx/methods/coupled_cluster.py": "8779fc7b74482e91e9a2e974b4eac559c19da25703eba9bdb33eea48fd17bdf8",
+    "src/atomx/methods/eom_attachment.py": "2f892865e5b9310b6c272951a024bb37a2e7bdb5618ea0fbafeb6247847d7128",
+    "tests/test_eom_attachment.py": "b783559530ea51f1624dd72b27f76a3de7376dcff7e2701fb3c1f8a8d3640fc2",
+    "tests/test_cc_state_action.py": "ddb46bbd0843c703aeee0c65435008ee1abc48e7304eeb6fffc4663738df8571"
+  },
+  "affinity": [
+    26
+  ],
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "load_start": [
+    0.34716796875,
+    0.27734375,
+    0.29296875
+  ],
+  "timing_scope": "warm end-to-end finite core solve plus complete attachment solve; tracemalloc disabled",
+  "memory_scope": "one separate tracemalloc peak per representation; not RSS or production bound"
+}

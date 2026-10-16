@@ -1,0 +1,121 @@
+{
+  "status": "pass_complete_finite_domain_and_guard_review",
+  "contract_sha256": "2320bcaa926d53dab7e0f43dafb553b367215134e9e38e5a3de02dc1c52abe64",
+  "reviewer_script_sha256": "965bad5a7ca78228c4e6c35941cced58d8072d4764eb04442ba45c7ff9f868fe",
+  "inputs": {
+    "quotient_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient_arrays.npz",
+      "sha256": "329332ca931c29d1a6c76cd906d55a048e90497887d2c7778d90f6c1b99c37ab"
+    },
+    "quotient_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient.json",
+      "sha256": "0663869f826671525c89edce55265570b371ecf22bcc9b987dd0055ed35cd0d1"
+    },
+    "quotient_metadata": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient_metadata.json",
+      "sha256": "0884d839b2c3441caacee8fc392f8ffc25aea4d902516f4815da1c6e05ec5c8e"
+    },
+    "localization_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/localization_arrays.npz",
+      "sha256": "e3d9142e59c596c81e602945e2f9b38c57c3e5ec849f313e72ca6fb1437d1962"
+    },
+    "localization_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/localization.json",
+      "sha256": "47277082789d23e4f0a9e35a46268842cb1401a1973d4839e32643c81fd85126"
+    },
+    "failed_raw_probe_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/four-core-run002/result.json",
+      "sha256": "06d1b89717cfe04563b94697b10fb692a3707d9f796e3e5fca37c80e1152f10a"
+    },
+    "frozen_core": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/methods/core_sd.py",
+      "sha256": "668e51fec5b3c456a87d6c9f439c25a3799a75a1d1c520e6a50a2a3d25bdc1d3"
+    },
+    "frozen_lift": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/methods/monovalent_sd.py",
+      "sha256": "9f559d78a95c060a037463b04203edaa82fffa406edaaaf7a855bbb1ef9db751"
+    },
+    "frozen_scalar_plan": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/methods/linearized_sd.py",
+      "sha256": "2c5389387f540583dd745665e5d31f94a1028f7645a3dad583771ae0973b4548"
+    },
+    "frozen_angular_rho": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/angular/sd_rho.py",
+      "sha256": "d5de6bedd1ab18cd48acd1f5af8bd8a245a14eefd33cff763731ab86c221f48c"
+    },
+    "frozen_angular_recoupling": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/angular/recoupling.py",
+      "sha256": "b57a353cbeded0e5c38a63ca40e415aff37bc8e8df19ce552ea3cfbe3661c5ba"
+    },
+    "frozen_angular_wigner": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/source/src/atomx/angular/wigner.py",
+      "sha256": "40795ca4fca543be1a819b8cb1d4b3f9b06837febd7ca563d1ec071879546fc7"
+    },
+    "guard_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/result.json",
+      "sha256": "e34d28f5748c45b246e9d27d97a99819da7227b4e16a599908403361fe0caf28"
+    },
+    "guard_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/full_arrays.npz",
+      "sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd"
+    },
+    "guard_archive": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/source_inputs.tar.gz",
+      "sha256": "b130627baec53f9130aad8e213d09e5a0f8fac5c4a3f5d2904e93a4a844f9133"
+    },
+    "guard_request": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/fscc/request.json",
+      "sha256": "7bf36a8d3ce381a1a0d5aba1140165dd08160703a95a8f9960b3ae24dfe2aa24"
+    },
+    "guard_root_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/fscc/result.json",
+      "sha256": "b2432851796ceb93c3ecf6b059c7f35f0c53c6d9a6e0624eee350626ec263cd0"
+    },
+    "coverage": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/coverage/evidence.json",
+      "sha256": "54e1f423a8946278648cffb52e57d700651c868222eda6b2cd944d6a65ebf620"
+    }
+  },
+  "sd": {
+    "raw_coordinates": 34,
+    "pair_domain_dimension": 30,
+    "physical_dimension": 17,
+    "independently_counted_scalar_sd_dimension": 17,
+    "constrained_null_dimension": 13,
+    "lift_reconstruction_error": 0.0,
+    "commutator_reconstruction_error_Ha": 3.469446951953614e-18,
+    "projector_reconstruction_error": 0.0,
+    "projector_idempotence_error": 0.0,
+    "excluded_directions_are_lift_null": 0.0,
+    "raw_random_failure_Ha": 0.0014510700700586688,
+    "symmetrized_random_error_Ha": 3.911797019941011e-16,
+    "complete_domain_column_error_Ha": 1.5987211554602254e-14,
+    "constrained_null_action_error_Ha": 7.706203352158563e-15,
+    "domain_invariance_error_Ha": 1.1102230246251565e-16,
+    "source_domain_error_Ha": 6.938893903907228e-18,
+    "solved_domain_error": 1.734723475976807e-18,
+    "independently_solved_QSD_residual_Ha": 5.336009412104659e-15,
+    "native_solved_raw_residual_Ha": 4.4164514710273717e-14,
+    "localization_same_H_error_Ha": 0.0,
+    "declared_equations_pass_on_complete_finite_domain": true,
+    "missing_diagram_inference_from_failed_random": false,
+    "Yb_or_omitted_physics_certificate": false,
+    "production_core_nondoc_AST_unchanged": true
+  },
+  "fscc_guard": {
+    "hbar_reconstruction_error_Ha": 0.0,
+    "complete_120_by_8_Bloch_residual_Ha": 1.7763568394002505e-15,
+    "retained_independent_heff_error_Ha": 4.218847493575595e-15,
+    "all_8_roots_vs_FCI_Ha": 1.5987211554602254e-14,
+    "intermediate_normalization_error": 0.0,
+    "source_and_archive_bindings": 59,
+    "residual_scopes_explicit": true,
+    "guard_scope": "Nonzero actual occupied-virtual Fock in sector0h1p only; before export/launch; no coupling deletion or tolerance change.",
+    "trusted_provenance_limit": "Manifest checks bind trusted builder provenance; they do not authenticate an arbitrary malicious manifest copying the accepted source hash onto another binary.",
+    "highest_level_reached": false
+  },
+  "retained_vs_omitted_rank_distinction_preserved": true,
+  "new_orbital_or_amplitude_solves": 0,
+  "source_mutations": 0,
+  "highest_level_reached": false
+}

@@ -1,0 +1,26 @@
+{
+  "scope": "Append-only run003 completion and results; all frozen preparation and actual records unchanged",
+  "new": [
+    "complete_saved.py",
+    "completion.json",
+    "RESULTS.md",
+    "completion_documentation_impact.json"
+  ],
+  "retained": [
+    {
+      "path": "README.md",
+      "reason": "Frozen root-admission preparation; actual closure is RESULTS.md, not a rewrite"
+    },
+    {
+      "path": "run.py and contract.json",
+      "reason": "Exact executed scientific consumer remains immutable"
+    },
+    {
+      "path": "actual/ and root_execution.json",
+      "reason": "Sole scientific trajectory/receipt preserved"
+    }
+  ],
+  "no_shared_src_tests_progress_or_site_changes": true,
+  "numerical_replay": false,
+  "insight": "Finite EOL descent may worsen experimental gaps while stationarity remains unresolved; preserve full trajectory and continue from terminal declared point, not best-gap selection."
+}

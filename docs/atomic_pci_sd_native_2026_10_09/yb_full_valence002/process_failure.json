@@ -1,0 +1,7 @@
+{
+  "exit_status": 139,
+  "stage": "after source/denominator/energy/raw core gates and before first returned valence column",
+  "observation": "native SIGSEGV, no Python exception or returned physical column",
+  "hypothesis": "OpenMP compile flag makes original large valence local arrays stack allocated; unchanged complete-static preflight remains belowcap",
+  "status": "cause under matched full-entry diagnosis; no solve/accuracy claim"
+}

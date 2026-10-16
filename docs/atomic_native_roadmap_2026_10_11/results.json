@@ -1,0 +1,288 @@
+{
+  "version": "native-atomic-roadmap-001",
+  "status": "native_direction_adopted_and_bounded_control_executed",
+  "updated_at": "2026-10-11T06:41:38.672357+00:00",
+  "fitted_corrections": false,
+  "highest_level_reached": false,
+  "inputs": {
+    "current_five_states": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/yb_monovalent_experiment003/comparison.json",
+      "sha256": "6f8a3fd71a22bf7c67b62bc6e49945f05cf95776795a9ccc91ebf1ab37814da9"
+    },
+    "physics_scale_assessment": {
+      "path": "docs/atomic_physics_budget_2026_10_11/results.json",
+      "sha256": "933fa6eaf322f154204093c7e52cfed340fe7a197fbc9096cc642118aff07f32"
+    },
+    "consumer_coverage": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/coverage/evidence.json",
+      "sha256": "54e1f423a8946278648cffb52e57d700651c868222eda6b2cd944d6a65ebf620"
+    },
+    "fscc_live": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/result.json",
+      "sha256": "e34d28f5748c45b246e9d27d97a99819da7227b4e16a599908403361fe0caf28"
+    },
+    "fscc_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/full_arrays.npz",
+      "sha256": "174e75efb7d27dad656121c9ab6aaf6e5cda13f9333b7d9f8761c87093c24bcd"
+    },
+    "fscc_source_archive": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/live001/source_inputs.tar.gz",
+      "sha256": "b130627baec53f9130aad8e213d09e5a0f8fac5c4a3f5d2904e93a4a844f9133"
+    },
+    "original_binary_rejection": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/fscc_guard/original_rejection.json",
+      "sha256": "0d2292c3b7b4c1bb8f3e9645b6e0c9e1373895d264823c8e9e9d1aec4b22ccdf"
+    },
+    "fscc_current_entry": {
+      "path": "src/atomx/methods/fscc.py",
+      "sha256": "6e41d9ce370693e2f7ec480c6f1e01b424602799d7c0490b6fb268da494e06de"
+    },
+    "sd_two_core": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/result.json",
+      "sha256": "01d62c3e4a55fa056b65a4aeb7e2e5d158daa7fd608a4dfd4605ca9cb26e825d"
+    },
+    "sd_two_core_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/arrays.npz",
+      "sha256": "a7f99ce8f34b142311aeeb92b2a4036064df353cc93daef68bed2bd490bef28a"
+    },
+    "sd_four_core_initial_negative": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/four-core-run002/result.json",
+      "sha256": "06d1b89717cfe04563b94697b10fb692a3707d9f796e3e5fca37c80e1152f10a"
+    },
+    "sd_complete_domain": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient.json",
+      "sha256": "0663869f826671525c89edce55265570b371ecf22bcc9b987dd0055ed35cd0d1"
+    },
+    "sd_complete_domain_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/quotient_arrays.npz",
+      "sha256": "329332ca931c29d1a6c76cd906d55a048e90497887d2c7778d90f6c1b99c37ab"
+    },
+    "independent_review": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/review/evidence.json",
+      "sha256": "b276e43b380723762465d72d0cd969de5072f2e60d81e9761855382b8fcd6224"
+    },
+    "core_current_entry": {
+      "path": "src/atomx/methods/core_sd.py",
+      "sha256": "6a9938294c89ab4493a55b6e771c3545df2c0a70a8eb828a4e3148549d11846f"
+    },
+    "sd_final_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/summary.json",
+      "sha256": "7f0249dcb7ca61135a8d36b933fecfbc399b3b963c82210c8e87d496ed75b1e8"
+    },
+    "sd_documentation_identity": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd/docstring_identity_chain.json",
+      "sha256": "82a4244719767545279086a43731bf628fd70f3d801663a77e4933fc0d935083"
+    },
+    "fresh_fscc_four_core": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_fscc_scope_7dfcbdd2c5046c49b1c4/result.json",
+      "sha256": "f88608fd8ae2aac282049324dac59b434afb2f5e4e1cc1a7275afa3494a0fffe"
+    },
+    "fresh_finite_properties": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_properties_9f5d626cde40701f5d7b/result.json",
+      "sha256": "cecf6513aa3e63e201578183c9ddb575e7844c6abcf9d15443ea04c7528a19b8"
+    },
+    "fresh_complete_norm": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/hourly_iterations/parallel_norm_e6ad12dd6ef19ccd8b06/result.json",
+      "sha256": "dcc67d47989721f13d4d94975bd2a5726dfe95fb293340273e45db6a03508526"
+    },
+    "nist_dependency_repair": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/hourly_dependency/handoff.json",
+      "sha256": "fc9b934be63984de48e051b8416de4dff4b93450770dac9b6bf15774033b5415"
+    },
+    "nist_current_direct_consumer": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/hourly_dependency/actual001/result.json",
+      "sha256": "113c4996353099b6ef8d77fd2e7eed5b638f827bc6c99d76dcd0d8ffd475ac59"
+    },
+    "nist_registered_consumer": {
+      "path": "docs/atomic_pci_sd_native_2026_10_09/parallel_six_nist001/probe.py",
+      "sha256": "9a258fa4a4504ca4030b4842cb04a2f41691357f89ebc4bbef2f5ff444c8586c"
+    },
+    "current_parallel_registry": {
+      "path": "docs/atomx_hourly_progress_2026_10_10/parallel_registry.json",
+      "sha256": "4666fda2dbf3458b3d1f418b9e7c4c03de47d7d1ff6b1c15e79f36b048a1df0a"
+    },
+    "sd_occupied_p_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/summary.json",
+      "sha256": "629ccf8ae5225f6d6386adb321f98e96662260224e69c8dab4b38f16750fdc8a"
+    },
+    "sd_occupied_p_verification": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/verification.json",
+      "sha256": "9cddaad3f5c4a461614a3a64c4cc32556d80a6747af75db308f41a0a2b01e223"
+    },
+    "sd_occupied_p_signal_replay": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/signal.json",
+      "sha256": "399bd87503409557f799ad1da59f2fd5de95cd1f826cca74acf08997ee078a2a"
+    },
+    "sd_occupied_p_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/result.json",
+      "sha256": "827c9091d2a19adbb35923c706f14248aa1d6ec4e0d45f88aa3f8f3461c36a7a"
+    },
+    "sd_occupied_p_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/arrays.npz",
+      "sha256": "b655f2fb1da242140349cc003ce13f9e1b8d1bbd057a81195286762296ea46c8"
+    },
+    "sd_occupied_p_separated_action_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/signal_arrays.npz",
+      "sha256": "1b22ca7b4b425f27b5796a90fab3eb5dbe466af67742b3d81798535b57df2ea7"
+    },
+    "sd_occupied_p_coordinates": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/sd_pcore/coordinates.json",
+      "sha256": "4bc545e7d8b3b70abe5821803ec0ab62ed16f8ac1f393e680d7c15ad23fb5df7"
+    },
+    "fixed_H_method_ladder_summary": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/results.json",
+      "sha256": "ec91f7013c308bb046c128d4a1361f570ae72362cc071b1d84bfe4cadf1a2897"
+    },
+    "fixed_H_method_ladder_replay": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/replay.json",
+      "sha256": "d3aaeadb83c4d6c0f956cb212895d9bc93c02baa0069bec0eb3dd0caef97ee88"
+    },
+    "fixed_H_method_ladder_contract": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/contract.json",
+      "sha256": "2099cafb0b27bb3d7248b622cf1b4bcac4b2d3c2aa099a026c8619cdfd51e097"
+    },
+    "fixed_H_fci_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/fci_result.json",
+      "sha256": "3e0063b68d1f68be46993985eb40bed610ea3c5c9d5c9a5f23dfba17678fa45a"
+    },
+    "fixed_H_lccsd_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/lccsd_result.json",
+      "sha256": "cf05dc5eba51752d103b7b331aefc430ded655bea56fe66dd7226a726b4f881a"
+    },
+    "fixed_H_ccsd_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsd_result.json",
+      "sha256": "68b6b0785867eb4c1827db0bd809d3c997a83683c068cf9153d1d7ca6bb55464"
+    },
+    "fixed_H_ccsdt_actual_result": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsdt_result.json",
+      "sha256": "3acce5622e94e51d8150dbe77001a1f3bac85ea8d312769192883931fcddc3c4"
+    },
+    "fixed_H_fci_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/fci_arrays.npz",
+      "sha256": "329800fcb4a8d48508eeb099a3496cee9aeac37d0207c1eedbbfb88c2c04fe2d"
+    },
+    "fixed_H_lccsd_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/lccsd_arrays.npz",
+      "sha256": "336f2b89c3ec2aa38f9bddf85e9501a37ffa20ec5ca1d0bb75ad74130edb6223"
+    },
+    "fixed_H_ccsd_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsd_arrays.npz",
+      "sha256": "3cd354502db67993ca5758095c72b08ff887c44bb1c632bb1253d56e4337a6be"
+    },
+    "fixed_H_ccsdt_complete_arrays": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/ccsdt_arrays.npz",
+      "sha256": "ae05d9df0a1b5b9209a6d388fc5d4b30b9b804550b393651682579daa913cc4f"
+    },
+    "fixed_H_method_ladder_source_inputs": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/source_inputs.tar.gz",
+      "sha256": "98acfc5446ae0f2bbeae47fa735569532e68fa107e39d9e6283c07354094d6e6"
+    },
+    "fixed_H_method_ladder_scientific_outputs": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/method_rank/run002/scientific_outputs.tar.gz",
+      "sha256": "6f17aa33784f8e1781f36e41b10ab85750d83ed99bfba8872f53a1f465b8230a"
+    },
+    "actual_v2_before_integration": {
+      "path": "docs/atomic_physics_correctness_2026_10_11/delivery_v2_source/manifest.json",
+      "sha256": "fa9c017b8790a588ade5bd8b97b5f55780e4f02a947d071a3c3d0c9389ae93aa"
+    },
+    "native_route": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/README.md",
+      "sha256": "4ff3f40e69e4bf89546c732febb19f0894725083960568060bb5c132e050c1b8"
+    },
+    "user_contract": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/contract.json",
+      "sha256": "d43314cac9fddfb8d05f01458488de12ee78818b0a03b461a4d375bdb5f44fec"
+    },
+    "ne_positions": {
+      "path": "docs/xfel_tail_breit_pole_2026_10_06/e3200/analysis.json",
+      "sha256": "8c47f6d97153769c9f7263b74f10aa4171faab36c6fbd075e63ef2afaab855fb"
+    },
+    "ne_experimental_reference": {
+      "path": "docs/xfel_tail_breit_pole_2026_10_06/experimental_nominals.json",
+      "sha256": "dc4efefc41f6f3de569ea24d86d38990038986ba3a2ad00ec5c69f9eee6ae842"
+    },
+    "eu_success": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/evidence.json",
+      "sha256": "3280f7906883ce9ce230dc02a8845815440596cbc19559fdeb18191745f7ae80"
+    },
+    "eu_reference_rows": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/query_snapshot.json",
+      "sha256": "8378fa6797dc78d5e5a15a614c4e842a69f497f68a948b45c6359ff1150ec153"
+    },
+    "native_SD_contract": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/contract.json",
+      "sha256": "5216d9fe85294588e351cbe7f36d563c1843071a2e2501cafa5061c65dc4385a"
+    },
+    "native_SD_actual": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/result.json",
+      "sha256": "c1523e30ff9f3628923774be54093a56700a89d5420959537b8543aa9aa9de91"
+    },
+    "native_SD_arrays": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/arrays.npz",
+      "sha256": "27fb2937c6701c7771d27910f0fc09364699e6e7ac8010ba0125c6da7aa96aba"
+    },
+    "native_SD_verified": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/verification.json",
+      "sha256": "5d16b5ac23c36db4bd2b613ccd0d33071c5c35138639aeca04d491e0af8afcb3"
+    },
+    "native_SD_style_successor": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/result.json",
+      "sha256": "0ccdcd1903642a129ce7ce2704f2768b9026d2eb3f3ab99a6cb935c060dee3a8"
+    },
+    "native_SD_successor_replay": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/verification.json",
+      "sha256": "e68d1bcf05517328ea4e784d67326cb778c42ea3a5d82595cb949935498494bb"
+    },
+    "native_SD_style_checks": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/style_checks.json",
+      "sha256": "82f224baa304bf923c54aad49100fa763e396b4ed44f57309e8c95fd746862b2"
+    },
+    "native_SD_science_identity": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_linked001/style_successor/science_identity_chain.json",
+      "sha256": "fe3f8f214261d0097788be715ad2922d462b3ab738496596c0a5955f6826901e"
+    },
+    "eu_verified": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/eu_baseline/verification.json",
+      "sha256": "7a2d458d0f90861ca64b54fc3e48ab9ca0c27632f0695e913072a85d5d53272f"
+    },
+    "native_PH_contract": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_ph_review001/contract.json",
+      "sha256": "ae3952b5e5896a3ffa8b771dca524a7eee85dbaf3789a713313228ac5b944730"
+    },
+    "native_PH_independent": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_ph_review001/result.json",
+      "sha256": "5f873546478b24719c7e2b5b9a121c03b046d1547a11fadf457f7e4d3a480c03"
+    },
+    "native_PH_matrices": {
+      "path": "docs/atomic_native_roadmap_2026_10_11/sd_ph_review001/matrices.npz",
+      "sha256": "a05b6bdd26a92233813e811444314de17d7b6cb7f879f5ad5077610b09aab2f5"
+    }
+  },
+  "user_decision": "Native Atomx physics/solver implementation is the goal; external programs supply reference physics and independent precision/performance benchmarks.",
+  "historical_success_fit_status": {
+    "Ne7plus": "unfitted native RCI, experiment Togawa2024",
+    "Eu3plus": "calibrated native CI/CF; historical aquo-ion targets and current NIST semiempirical references separate"
+  },
+  "current_production_dependencies": {
+    "large_Yb_SD": "pCI-derived diagram shared library",
+    "public_FSCC": "EXP-T process"
+  },
+  "selected_next": [
+    "Implement native normal-ordered PH and mixed-rank/Fock/singles linked SD contractions on the validated shared J blocks; independent300-element PH anchor closes the DD gap. Then complete core/valence/Sigma2 and allowed amplitude domain, without claiming the finite matrix projection scalable.",
+    "Native nonlinear CCSDT/FSCC from finite same-H oracle to real block contractions; reference EXP-T only independently.",
+    "Reuse native Eu CI/MCDHF and Ne RCI/state tracking; balanced open-f and core-hole P/Q without double counting.",
+    "Complete same-wavefunction transverse/QED/recoil/property chain with differential upper-minus-lower physics scales.",
+    "Validated observed/semiempirical/calibrated NIST/reference atlas and native same-state properties.",
+    "CPU/GPU share physical/array identity; optimize contraction representation, then controlled end-to-end/parallel benchmarks."
+  ],
+  "selection_reason": "后期Ne原生RCI与Eu原生多重态标定已成功；生产SD外部图库与部分原生PP/HH覆盖仍有限。新固定空间原生12方向判别通过并实测部分图集缺口，优先补全物理方程与平衡模型，不以接入参考程序或扩大截断代替原生完成。 独立正常序PH投影逐元素闭合DD差，排除DD的Fock/HH双计数；优先补PH与混合图。",
+  "next_execution_status": "已在Atomx运行固定四电子/12spinor/495行列式/12scalar的DC、static、dynamic完整linked SD。生产分块图项与原生CCSDT/FSCC待实现；新的生产Yb原生executor尚未注册。发卡触发已有有界选择器，不宣称新Yb求根。",
+  "card_summary": "主线纠正为Atomx原生物理与求解器，其他软件仅参考方程及物理/精度/效率独立对照。恢复成功基线：Ne⁷⁺原生3200Ha RCI，q/r实验差−8.896/−13.881meV；Eu³⁺原生4f⁶/3003行列式，历史标定RMS8.2cm⁻¹，当前NIST半经验对比9.03cm⁻¹，参考分类不混同。新原生四电子12scalar linked SD三种DC/static/dynamic完整方向K差≤1.97e−14Ha、原保留根残差≤5.22e−15Ha，真实Fov*T2非零；独立正常序PH作用重现DD漏项，三模式300个signed元素差≤1.244e−14Ha；优先补原生PH/Fock/singles/mixed-rank及核/价/Σ₂，生产分块缩并仍待实现。并行推进原生SD、CCSDT/FSCC、开放f壳/空穴、完整物理算符、性质/NIST、CPU/GPU六方向；按缺失物理差分响应选推进。Yb既有pCI/EXP-T依赖和实验失败仍保留；没有新生产谱或最高水准认证。",
+  "limits": [
+    "Historical baselines are not current-source full reruns.",
+    "Complete finite linked SD is not scalable native production SD.",
+    "Neither native SD finite response nor Ne/Eu precision transfers to Yb.",
+    "No controlled GPU/parallel efficiency claim this increment."
+  ],
+  "native_control_scope_correction": "Historical fock_K=C_Q†F_N C_Q is a projection, not complete Fock commutator over all12 blocks. DD normal-order coverage conclusion and complete native K/root are valid; the0.426Ha projected-partial control is not a complete-Fock residual or a spectrum error."
+}

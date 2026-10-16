@@ -1,0 +1,22 @@
+{
+  "scope": "Once-only pure stdlib SOURCE/JSON closure after literal root foreground_closed; no numerical array replay",
+  "script_sha256": "cabd163ecd5b871e04f3a9e61a0c8ba271d2434758e6f839102eebe30aec02a1",
+  "closed_result_sha256": "cc085154a25df3a0dde5c3ba7f961662d57ecb2efacf75c070cc1378113ee0e0",
+  "closed_root_receipt_sha256": "e6dca7629a7341e51e710cd6c17f5cea81f7c4aee2497df83e7f0c01790cba6f",
+  "preserve_prepared_handoff_sha256": "9ccc5c6b2e25d3068309f6c02d806b2708112770a86311cb25ff74424175e18c",
+  "resources": {
+    "CPU": 31,
+    "threads": 1,
+    "inner_seconds": 30,
+    "memory_scope": "small source/JSON only; no numerical allocation"
+  },
+  "authorization": "Root message explicitly authorizes JSON-only closure after session56993 foreground_closed",
+  "forbidden": [
+    "NumPy/Atomx import",
+    "NPZ reads/rehashes",
+    "H/CI/gradient/Dirac/eigensolver/optimizer/cell",
+    "frozen preparation/source/actual mutation"
+  ],
+  "stop": "first metadata mismatch, no overwrite or automatic retry",
+  "independent_array_qualification_claimed": false
+}

@@ -1,0 +1,16 @@
+{
+  "hypothesis": "Optional exact native term31/32 pass independent full signed finite equations, source guards and serial BLAS rejection without changing Hamiltonian or tolerances",
+  "scope": "Public core/valence/Sigma2 affected live regression, all environments supplied",
+  "tests": [
+    "tests/test_core_sd.py",
+    "tests/test_valence_sd.py",
+    "tests/test_sigma2_sd.py"
+  ],
+  "source_capture": "before launch",
+  "load": [
+    9.75830078125,
+    12.796875,
+    16.35205078125
+  ],
+  "no_skips_expected": true
+}

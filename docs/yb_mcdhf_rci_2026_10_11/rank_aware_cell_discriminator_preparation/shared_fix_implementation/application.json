@@ -1,0 +1,38 @@
+{
+  "status": "authorized_exact_two_files_applied",
+  "applied_utc": "2026-10-11T14:50:40.485534+00:00",
+  "parent_full_map": "500ac4c3c372e0eb51e6d9910ef3830bf8eb323b211b52ba3ec08ccbf7b1b794",
+  "new_full_map": "62a109f5033d7a2f7b8c1f5affc5b8b10c78277cf311efe3b88bdd8042766661",
+  "source_identity_sha256": "043b27875b22edfd635986d8a1a2d2d7fd9de2bcab2a7659025c47308e9a3eac",
+  "changed_source_paths": [
+    "src/atomx/numerics/bspline/convol.py"
+  ],
+  "test_file_changed": true,
+  "before_file_locations": {
+    "src/atomx/numerics/bspline/convol.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/before/src/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe"
+    },
+    "tests/test_convol.py": {
+      "path": "docs/yb_mcdhf_rci_2026_10_11/rank_aware_cell_discriminator_preparation/shared_fix_proposal/before/tests/test_convol.py",
+      "sha256": "0580e22bbcc00230a892f3599210066517ee7ec5e4d2b1fa16171e6d4925d0d4"
+    }
+  },
+  "after_files": {
+    "src/atomx/numerics/bspline/convol.py": "209143a1ee3f20c3c4de4341806fe5e183e4b52fda7f65fa167d2eada960de6b",
+    "tests/test_convol.py": "c5438ac35cc3c36a23d6c7a8f589c1b75b322867194b7e2cf41b87dfe355aa97"
+  },
+  "qualified_f043_all_computational_AST_equal_ignoring_docstrings": true,
+  "other355_source_files_preserved": true,
+  "proposal_contract_sha256": "ce31d84469f3bee231448c6263822b5b6f1ac2e9a21479924a7d6196ca402476",
+  "proposal_patch_sha256": "652004d4ad70b64ff31d1d1e81c40a7b79ee62c95c793ffe2b3a8e296d8db501",
+  "root_prior_to_run_resource_revision": {
+    "from_proposal_CPU": 31,
+    "CPU": 30,
+    "from_proposal_memory_GiB": 1,
+    "memory_GiB": 3.95,
+    "reason": "Root explicitly revised CPU to avoid active native CPU31 and memory to demonstrated SciPy/NumBa import allowance before any test launch."
+  },
+  "old_contracts_or_results_modified": false,
+  "old_FAIL_auto_PASS": false
+}

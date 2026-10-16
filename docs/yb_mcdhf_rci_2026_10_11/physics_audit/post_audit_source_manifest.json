@@ -1,0 +1,82 @@
+{
+  "files": [
+    {
+      "epoch": "stable_difference",
+      "path": "src/atomx/methods/csf/variational.py",
+      "sha256": "875c642f9d697f218c5db12670c639083124b9e7ad2f5d1bfbe1293899ba89ef",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/methods/csf/variational.py",
+      "copied_from": "src/atomx/methods/csf/variational.py"
+    },
+    {
+      "epoch": "stable_difference",
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "f8a06ae04df4fbc0cc1812f997d42769e046ec1bca6e9ad9d0d6d15db1078aaa",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/numerics/bspline/orbital_optimization.py",
+      "copied_from": "docs/yb_mcdhf_rci_2026_10_11/native_run/nuclear_eol004_stable_delta_trace/source/atomx/numerics/bspline/orbital_optimization.py"
+    },
+    {
+      "epoch": "stable_difference",
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/physics/csf/radial_density.py",
+      "copied_from": "src/atomx/physics/csf/radial_density.py"
+    },
+    {
+      "epoch": "stable_difference",
+      "path": "src/atomx/physics/csf/matrix.py",
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/physics/csf/matrix.py",
+      "copied_from": "src/atomx/physics/csf/matrix.py"
+    },
+    {
+      "epoch": "stable_difference",
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/stable_difference/src/atomx/numerics/bspline/convol.py",
+      "copied_from": "src/atomx/numerics/bspline/convol.py"
+    },
+    {
+      "epoch": "polar",
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "e5262bd480033f6816ae03061f036bd48d42a8c0cf8274d60a0a628f11cdf133",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/polar/src/atomx/numerics/bspline/orbital_optimization.py",
+      "copied_from": "src/atomx/numerics/bspline/orbital_optimization.py"
+    },
+    {
+      "epoch": "constraint_center",
+      "path": "src/atomx/methods/csf/variational.py",
+      "sha256": "5f20b492161f44c1be76c5a610ccb9978cfb7ceb0a683dc67cf52bdb1369bf72",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/methods/csf/variational.py",
+      "copied_from": "src/atomx/methods/csf/variational.py"
+    },
+    {
+      "epoch": "constraint_center",
+      "path": "src/atomx/physics/csf/radial_density.py",
+      "sha256": "41e9c292e1558ee434f3512a61244fbd07ce1173da545d927c37962edd71ae4f",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/physics/csf/radial_density.py",
+      "copied_from": "src/atomx/physics/csf/radial_density.py"
+    },
+    {
+      "epoch": "constraint_center",
+      "path": "src/atomx/numerics/bspline/convol.py",
+      "sha256": "270ac7a453588d0bacc746fb90f062ade4ea5af58e6e690f491db2e5b8ac72fe",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/numerics/bspline/convol.py",
+      "copied_from": "src/atomx/numerics/bspline/convol.py"
+    },
+    {
+      "epoch": "constraint_center",
+      "path": "src/atomx/physics/csf/matrix.py",
+      "sha256": "a42cd4347309719ddd29d0ec118f7f1e36259e3510a034de0f6605aaa54ca180",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/physics/csf/matrix.py",
+      "copied_from": "src/atomx/physics/csf/matrix.py"
+    },
+    {
+      "epoch": "constraint_center",
+      "path": "src/atomx/numerics/bspline/orbital_optimization.py",
+      "sha256": "88d019feb4e8bee315ba2671675278579d74ea4850c260f71e0e5196b9105192",
+      "snapshot": "docs/yb_mcdhf_rci_2026_10_11/physics_audit/post_audit_source/constraint_center/src/atomx/numerics/bspline/orbital_optimization.py",
+      "copied_from": "src/atomx/numerics/bspline/orbital_optimization.py"
+    }
+  ],
+  "scope": "Exact bound post-repair stable-difference, polar and separately constrained-energy API source epochs; pre-repair and earlier follow-up epochs retained"
+}

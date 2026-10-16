@@ -1,0 +1,24 @@
+{
+  "status": "prospective_metadata_only_build_and_tests",
+  "source_sha256": {
+    "dataset_builder.py": "abf92484ac6fe2278be9c3e6cfe788d7ab5b2e012fc2ca1d8652e1f56073149a",
+    "catalog_adapters.py": "b92a3adc8dbc699ab8d487d72ce4d11982e4cda6896eb1a2de94f6599fbddcb5",
+    "make_manifest.py": "1b7104523fff0a34ab9c8f4fc48005210706ea833573e392ad7a8ae065f75b7e",
+    "test_dataset_builder.py": "a3959e259b44282d551b5c25ddc1e6d08026579b9a654fea48e9cdfeae4948cf",
+    "run_metadata.py": "357b866c2b66cff78f691b5201ceb1ffcabea4a1b78c03ddeec589f014dbc07d"
+  },
+  "whole_wall_cap_s": 60,
+  "CPU": 31,
+  "threads": 1,
+  "address_space_cap_bytes": 1073741824,
+  "metadata_census": {
+    "records": 8,
+    "maximum_distinct_bound_JSON_files": 64,
+    "maximum_JSON_bytes": 16777216,
+    "numerical_archive_reads_hashes": 0,
+    "new_physical_calls": 0
+  },
+  "acceptance": "Full signed paired quantities and UID identities; failed and missing provenance remain ineligible; NIST validation-only; effective independent point groups counted once; meaningful synthetic mechanics tests and actual source-bound builder exit0",
+  "forbidden": "Science or numerical imports/NPZ reads or hashes, dispatch, fitting or learned predictions, current-source adoption, cards, edits to prior evidence",
+  "authorization": "Parent explicitly requested implementation and metadata-only actual builder/test run; no scientific execution"
+}
