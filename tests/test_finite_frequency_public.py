@@ -39,7 +39,7 @@ def test_dhf_public_finite_operator_replaces_static_without_mc(engine, monkeypat
     assert set(dict(ledger.shifts)) == {'breit'}
     assert dict(ledger.shifts)['breit'] == pytest.approx(expected, abs=2e-12)
     assert result.total_energy == pytest.approx(ledger.base_energy+expected, abs=2e-12)
-    provenance = result.__dict__['_breit_provenance']
+    provenance = result.solver_diagnostics['_breit_provenance']
     assert provenance['energy_source'] == 'converged_orbital_energies'
     assert len(provenance['orbital_energies_Ha']) == 4
     assert 'finite-frequency' in provenance['operator']
@@ -59,7 +59,7 @@ def test_explicit_zero_frequencies_recover_static_open_shell_ensemble():
     orbitals, workspace, z, ns = _ci_radial_inputs(result)
     expected = breit_configuration_average(orbitals, workspace, z, ns, result._jj_configs)
     assert result.energy_components['E_Breit'] == pytest.approx(expected, abs=2e-12)
-    assert result._breit_provenance['energy_source'] == 'explicit'
+    assert result.solver_diagnostics['_breit_provenance']['energy_source'] == 'explicit'
 
 
 @pytest.mark.parametrize('engine', ['shooting', 'bspline'])
@@ -134,7 +134,7 @@ def test_method_objects_share_the_frequency_controls():
                    breit_frequency='orbital_differences')
     result = df.solve(2, [Subshell(1, -1, 2)], tol=1e-8, ns=45)
     assert result.converged
-    assert result._breit_provenance['operator'] == 'finite-frequency-transverse'
+    assert result.solver_diagnostics['_breit_provenance']['operator'] == 'finite-frequency-transverse'
     mc = MCDHF(breit=True, qed=False, nuclear=NuclearModel.POINT,
                 breit_frequency='orbital_differences',
                 breit_orbital_energies={(1, -1): -1.9})

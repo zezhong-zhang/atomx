@@ -64,7 +64,7 @@ def test_local_core_hole_rotation_removes_false_sulfur_stationarity(monkeypatch)
         result = Atom(Z=16, config='1s2 2s2 2p6 3s2 3p3 5p1',
                       engine='bspline', basis=Basis(r_max=75, grid_hmax=1)).solve(
             DiracFock(starting_potential=start),
-            tol=1e-8, max_iter=200)
+            tol=1e-8, max_iter=200).result
         assert result.converged
         solver = captured[-1]
         orbitals = result.orbitals_raw

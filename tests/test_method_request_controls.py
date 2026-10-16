@@ -12,7 +12,7 @@ from atomx.types import NuclearModel
 def test_dirac_method_preserves_explicit_basis_and_box():
     atom = Atom(1, config='1s1', basis=Basis(ns=40, r_max=23.))
     result = atom.solve(DiracFock(nuclear=NuclearModel.POINT),
-                        max_iter=2)
+                        max_iter=2).result
     assert result._bsp_data['ns'] == 40
     assert result._bsp_data['t'][-1] == pytest.approx(23.)
     assert result.calculation_spec.numerics['r_max'] == pytest.approx(23.)
@@ -61,7 +61,7 @@ def test_mcdhf_atom_dispatch_preserves_basis_box_and_screening(monkeypatch):
     def screening(r):
         return np.zeros_like(r)
     monkeypatch.setattr(atom, '_screening_shift', lambda: screening)
-    assert atom.solve(MCDHF(), max_iter=7, tol=2e-7) is sentinel
+    assert atom.solve(MCDHF(), max_iter=7, tol=2e-7).result is sentinel
     assert captured['ns'] == 47
     assert captured['r_max'] == 31.
     assert captured['use_physics_grid'] is False

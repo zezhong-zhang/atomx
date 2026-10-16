@@ -300,7 +300,11 @@ def resolve_se_method(method: str, Z: int) -> str:
 
 
 def self_energy_radial_matrix(orbitals, Z, bsp_data, *, method=DEFAULT_SE_METHOD):
-    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models."""
+    """Matrix for (P,Q,kappa,label) orbitals; diagonal fallback for table models.
+
+    Untabulated Mohr/Indelicato orbitals warn when a leading Zα estimate
+    replaces tabulated F(Zα). A finite matrix is not a QED accuracy bound.
+    """
     backend = get_backend(resolve_se_method(method, Z))
     matrix_builder = getattr(backend, "radial_matrix", None)
     if callable(matrix_builder):
@@ -322,7 +326,9 @@ def compute_se_energy(orbitals, Z, bsp_data=None, *, method=DEFAULT_SE_METHOD):
         on the radial grid (mohr overlap ratio, welton, ...).
     method : str
         Backend name.  One of :func:`atomx.corrections.qedmod.available_backends`.
-        Default ``"mohr"`` reproduces the behaviour of atomx ≤ 0.2.
+        Default ``"auto"`` chooses Mohr for Z<=36 and Indelicato otherwise;
+        these share the same tables and analytic fallback. Untabulated
+        orbitals emit a warning rather than implying precision QED.
 
     Returns
     -------

@@ -6,7 +6,8 @@ Implements the cell algorithm for R^k integrals:
 Algorithm (Zatsarinny, CPC 174, 728, 2006, Sec. 3.2):
   1. Compute 1D moments <B_i B_j | r^k> per knot interval
   2. For diagonal cells (both electrons in same interval): nested 2D quadrature
-     via the 'triang' algorithm (exact for the B-spline representation)
+     via the 'triang' algorithm with rank-aware positive-multipole inner
+     quadrature; outer and negative-power moment errors remain separate
   3. For off-diagonal cells (electrons in different intervals): factor into
      product of 1D moments  moment_k × moment_{-(k+1)}
   4. Assemble full rkb(i, j, ip, jp) array in symmetric upper-band storage
@@ -135,7 +136,10 @@ def _compute_moments_nonsym(bsp1, bsp2, gr, grw, nv, ks1, ks2, k):
 def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
     """Diagonal cell R^k integrals for all intervals (symmetric basis).
 
-    Exact reproduction of DBSR_HF triang_pppp algorithm:
+    DBSR_HF cell decomposition with rank-aware inner quadrature.
+    For k >= 0, B_j*B_jp*r^k has degree 2*ks-2+k on each cell, so
+    ks+floor(k/2) Gauss nodes cover this polynomial degree. This does not
+    certify the unchanged outer quadrature or negative-rank integrals.
     For interval iv where both electrons are in the same cell:
     rkd[ii, jj, iv] = ∫∫_{cell iv} B_i*B_{ip}(r₁) [r_<^k/r_>^{k+1}] B_j*B_{jp}(r₂) dr₁ dr₂
 
@@ -161,8 +165,9 @@ def _triang_sym(bsp, gr, grw, t, nv, ks, ns, k):
     kk = ks * (ks + 1) // 2
     rkd = np.zeros((kk, kk, nv))
 
-    # Sub-quadrature: ks Gauss-Legendre points on [0, 1] (DBSR_HF convention)
-    n_sub = ks
+    # Positive-rank source polynomial degree is 2*ks-2+k.
+    # Keep the legacy order for negative ranks; their integrand is rational.
+    n_sub = ks + (k // 2 if k >= 0 else 0)
     x_01 = np.empty(n_sub)
     w_01 = np.empty(n_sub)
     _gauss_legendre_01(n_sub, x_01, w_01)
@@ -384,7 +389,9 @@ def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
     """Diagonal cell R^k integrals for pqpq type (P-pair × Q-pair).
 
     DBSR_HF triang_pqpq: outer integral uses P-basis, inner uses Q-basis
-    (and vice versa via the transpose symmetrization).
+    (and vice versa via the transpose symmetrization). For nonnegative k,
+    max(ksp, ksq)+floor(k/2) covers both inner source polynomial degrees.
+    Outer quadrature and negative-rank accuracy are unchanged.
 
     Packed indices: ii packs (i, ip) with ip >= i for P-pair (ksp*(ksp+1)//2)
                     jj packs (j, jp) with jp >= j for Q-pair (ksq*(ksq+1)//2)
@@ -396,8 +403,9 @@ def _triang_pqpq(bsp_p, bsp_q, gr, grw, tp, tq, nv, ksp, ksq, ns, k):
     kkq = ksq * (ksq + 1) // 2
     rkd = np.zeros((kkp, kkq, nv))
 
-    # Sub-quadrature on [0, 1]
-    n_sub = max(ksp, ksq)
+    # One rank-aware order covers both P and Q inner source polynomials.
+    # Negative ranks retain their original sub-quadrature order.
+    n_sub = max(ksp, ksq) + (k // 2 if k >= 0 else 0)
     x_01 = np.empty(n_sub)
     w_01 = np.empty(n_sub)
     _gauss_legendre_01(n_sub, x_01, w_01)

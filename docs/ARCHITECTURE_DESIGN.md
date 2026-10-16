@@ -3,6 +3,44 @@
 Methods select the physical problem. Numerical engines solve it. Shared result
 objects carry native radial data, physical identity and convergence evidence.
 
+The external FSCC interface source-binds the denominator engine when translating
+raw fixed-point updates into retained-equation bounds. Known legacy numerator
+skips contribute an explicit residual floor. The optional builder patch for
+exact nonzero division changes only numerical division, with its own source
+capability; it adds no Hamiltonian or sector. See [the contract](ATOMIC_FSCC.md#numerator-division-source-contract).
+
+`numerics.axial_eri.AxialPairLayout` owns only exact coordinate packing and
+signed/conjugated random access for supplied integer M/parity labels. Physical
+selection and full multiplet/Fock/ERI validation remain in `methods.fscc`.
+Its optional compact backend integral storage preserves every allowed value;
+versioned sidecars, source binding and explicit replay/decompression budgets
+belong to the FSCC interface. It does not change amplitude equations or default
+packed storage. See [the storage contract](ATOMIC_FSCC.md).
+
+`numerics.fermion.canonical_body_matrix` projects supplied canonical zero-
+through-three-body coefficients on explicit finite fixed-N masks. Exact
+spectator sums retain complex directed entries; work/output/index budgets
+are admitted before projection. It constructs no Hamiltonian approximation,
+orbital reference or physical state. The [core-hole research controls](EUV_SOURCE_MODEL.md#finite-second-order-core-hole-operator-controls)
+use it for a bounded native projection. The separate `numerics.canonical_sparse`
+engine applies the same supplied coefficients through occupied annihilator
+subsets. Default colexicographic row indices retain the full fixed-N
+combinatorial map; explicit `row_index="hash"` stores only declared masks
+with exact uint64 keys, collision comparisons and load at most1/2. Row and
+accumulation order stay identical. An exact prefix-population support derived
+from every declared row rejects only impossible row hits before full-key
+lookup; it introduces no physical screen. It counts every reachable directed
+coordinate before admitting CSC output, including SciPy int64 index
+promotion above the int32 coordinate limit, retains arbitrarily weak words
+and does no Hermitian averaging. Physical coefficient generation and complete
+Sn CI+MBPT qualification remain with the consuming research workflow.
+
+`MagneticCSFProjectionCache.project_active` owns the existing filled-shell
+contraction and signed exterior-product conversion into an explicit active
+spinor order. Native spinor CI and supplied effective operators share this
+angular mapping; neither needs a fabricated SCF/reference object to transform
+a CSF basis. Consumers still preflight construction memory and bind all states.
+
 ## Ownership
 
 | Area | Responsibility |
@@ -20,6 +58,84 @@ objects carry native radial data, physical identity and convergence evidence.
 | `reference_data/`, `workflows/` | Source parsing, matching and comparison services |
 | `viz/`, `spectrum/`, `plasma/` | Rendering, spectral synthesis and population/rate models |
 | `scripts/` | Supported command-line workflows |
+
+The [reduced EUV source](EUV_SOURCE_MODEL.md) composes shared CRM physical
+rates (dense/CSR), `spectrum.slab_transfer` angular transport and
+`plasma.laser_absorption` deposition in `plasma.euv_source`. The native
+`workflows.tin_source` binds input identity; `tools/run_tin_source.py` is its
+explicit local CLI. Fixed-charge LTE and small supplied-rate non-LTE modes
+share one energy ledger. The separate `charge_mixture`/`mixture_radiation`
+composition supplies finite Saha EOS and explicit LTE continuum data to
+`lagrangian_source`: conservative smooth-flow cells, layered radiation, Drude
+waves and conduction. `reference_data.euv_experiment` owns measured-count
+calibration. The finite `nonlte_source` composes the same CRM with explicit
+partial-Auger/inverse-capture and shared Milne photon moments, retaining electron
+number and ionization energy in an optically thin isochoric closure. It rejects
+effective synthetic satellites as physical resonances. No atomic solver owns
+hydrodynamic policy; complete real Sn kinetic data, nonLTE spatial coupling,
+neutral/solid EOS and shock/ablation remain absent.
+
+`scattering.photoionization.ExplicitCIPhotoionization` consumes explicitly supplied
+adjacent blocked CI sectors, including closed spectators, instead of generating
+a full residual Fock cascade. It binds common DC/nuclear/radial identity and
+all roots by default, with explicit degenerate-cluster-safe root selection;
+shared signed Dyson removal feeds final-level projected Hartree
+continuum E1 PI and direct-node Milne rate/photon moments. Optional
+`numerics.fock_removal` kernels operate on supplied finite bitsets/coefficient
+arrays; angular J-support meaning stays in the Dyson consumer. Explicit
+`dipole_mode="reduced-dyson"` reconstructs the full magnetic trace from signed
+highest pure-J components without changing true g or radial interference;
+the complete-M default rejects incomplete initial/final partners. The complete4d Sn
+pilot supplies partial rates only, with distinct radial/continuum/quadrature
+checks; it is not data for the full n=4 source or experimental CE acceptance.
+`scattering.autoionization.ci.ExplicitCIAutoionization` reuses that snapshot and
+actual thresholds for full signed h_D+Coulomb widths. Complete magnetic sums
+and exact coupled scalar reduction are independently checked. A highest-M
+scalar density and shared streamed root projection avoid redundant lowering;
+`numerics.continuum_actions` owns the bounded compiled signed Fock action,
+including exact common-core contraction. Selection and scalar representation
+never screen weak amplitudes. The active full-n4 Sn resonance campaign has
+balanced daughter CI but does not yet certify complete rates or experiment;
+The separate `numerics.acyclic_rates` owns bounded positive topological
+residence/edge/terminal integration and an explicit positive finite-time
+backward-Euler triangular consumer. Caller-owned time grids require independent
+refinement; callers also own physical channels and isolation. Neither
+eventual nor finite-time one-capture flow supplies complete nonLTE kinetics.
+See the [owning contract](EUV_SOURCE_MODEL.md#finite-capture-time-window).
+
+`scattering.electron_ionization.ci.ExplicitCIElectronIonization` reuses the
+adjacent CI snapshot for coherent removal, selected final-ion fields and
+actual thresholds. Immutable explicit radial-channel inputs feed the same
+DW driver as its SCF adapter; the generic driver receives fields and radial
+arrays, never a fabricated solved state. Complete unpolarized magnetic-trace
+reduction preserves same-kappa radial interference and all supplied Pauli
+projectors. The [source guide](EUV_SOURCE_MODEL.md#explicit-coherent-ci-direct-electron-impact-ionization)
+records the spectator-ion approximation, preserved initial partial-wave
+failures and later passed numerical controls for three partial cross sections.
+Direct-node Maxwellian averaging evaluates every quadrature node; thermal
+observable convergence and complete physical channel coverage remain separate.
+
+The explicit `methods.csf.blocked_functional.BlockedCSFOrbitalFunctional`
+selects a fixed symmetry/root orbital ensemble on complete DC H blocks.
+Owned selected-root trials carry the complete-H residual, point binding and
+objective identity; they are not complete plasma/continuum spectra.
+`physics.csf.spinor_density` maps exact finite directed RDMs to shared radial
+keys, including closed-core radial derivatives and phases. The compiled
+`numerics.fock_density` owns only supplied finite masks/coefficient algebra
+and numerical resource admission. No physical state or orbital policy lives
+there. `angular.projection_cache.MagneticCSFProjectionCache` reuses bounded
+canonical signed bases for H and RDM with fresh root/radial data; complete
+frozen-core phase and row-order conversion remains in the physical builder.
+The blocked functional owns its cache and admits its budget alongside matrix
+scratch. Complete blocked radial weights use canonical key order across
+process hash seeds. An opt-in ground-only variational comparison composes the
+existing full finite-density/constraint math; it still requires both complete
+CI solutions and does not supply an FP error bound or stationarity result.
+The existing constrained optimizer retains projector, S metric and
+stationarity gates. The [state guide](ATOMIC_STATE_DESIGN.md#explicit-complete-block-orbital-objective-15-october-2026)
+records limits; the current160-check combined panel passes with3 optional
+external EXP-T skips, while the actual full8543-CSF Sn DC orbital objective now passes its original
+stationarity gate; the subsequent static-DCB optical experiment still fails.
 
 ## Shooting ownership
 
@@ -99,6 +215,58 @@ evaluators within a declared Hamiltonian snapshot.
 The [atomic-state design](ATOMIC_STATE_DESIGN.md) distinguishes these implemented
 pieces from the unfinished unified state-view and independent-orbital interfaces.
 
+Density storage is a separate explicit choice from eigensolver storage.
+`CIRadialDensity` defaults to cached angular tables; its streamed real DC
+bilinears share the Hamiltonian's signed pair/core algebra and sparse ordered
+CSF projection without retaining the angular table. Batched columns share a
+complete connection traversal. `CSFOrbitalFunctional(density_storage='streamed')`
+only selects this density representation. Raw bilinears carry no inferred
+eigenstate, normalization, Hamiltonian or radial-snapshot ownership.
+
+Analytic directional response is also explicit. `numerics/variational_response.py`
+checks a complete real finite eigensystem and forms an isolated-state first
+coefficient response, energy second derivative and the CI-response portion of
+the third Taylor coefficient. It rejects partial/target-degenerate spectra;
+it does not supply the fixed-vector H''' term or a physical ownership object.
+Its polar-path derivatives include the finite input Gram and constraint
+acceleration. `physics/csf/radial_increment.py` separately binds actual first/
+second radial jets to native ket-normalized one-body and full four-slot real
+DC cell integrals. Callers retain metric, operator, state and parameter identity.
+These ingredients do not alter the optimizer or provide a matrix-free response
+for the large selected-root spaces. See the
+[source-bound analytic qualification](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/README.md).
+
+`methods/ci_blocks.py` is an explicit complete-real-DC J/parity storage
+consumer, with all roots and full H/Gram gates. Its streamed builder shares
+the ordinary radial snapshot. Its optional `physics/csf/spinor_ci.py` builder
+consumes the shared native `h_eff/g/E_frozen` export and compiled numerical
+Slater–Condon values, without consuming the exporter's reference Fock or
+assuming its reference particle count is the target CI count. Exact common
+closed-core contraction retains opened active holes. It explicitly maps
+the sorted magnetic layout and fermionic phase into the integral layout;
+real active layouts are limited to63 spinors. The [tin consumer](TIN_EUV_BASELINE.md)
+selects the physical space and emission endpoints; this lower-level path
+does not add MBPT or Atom facade dispatch.
+
+Native spin-orbital tensor CC/EA follows the same dependency boundary.
+`methods/tensor_coupled_cluster.py` owns native-integral consumption, complete
+SDT/attachment coordinates, resource admission and nonlinear solving.
+`physics/csf/ccsdt_terms.py` owns attributed spin-orbital equations;
+`numerics/tensor_recipes.py` applies caller-supplied signed contractions and
+shape-only paths, including optional indexed accumulation that preserves nested
+free-index subtraction. Methods choose the complete canonical coordinates and
+exact M/parity admission; numerics does not screen physical terms. Fock inverse
+preconditioning and owned warm starts remain method controls. This lower-level
+consumer enumerates no full particle
+sector. Dense orbital tensors and projected EA matrices retain separate
+limits; projected roots do not supply full-H states or dressed observables.
+The [independent Yb qualification](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/README.md)
+constructs complete target-sector states only in its external diagnostic code.
+The [complete4f continuation](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/README.md) uses only polynomial retained coordinates
+for18 correlated electrons. Its diagnostic signed highest-weight projection and
+matrix-free Davidson remain outside the production API. All original equations
+and magnetic partners are rechecked; no full-H state is inferred.
+
 ### Channels and time evolution
 
 `scattering/ci_continuum.py` and `multielectron_ci.py` construct common-orbital
@@ -175,3 +343,13 @@ declared controls and enter the resolved calculation identity. CI audit reuse
 requires unchanged orbital and radial content; successful validation is the
 only event that records a reusable metric pass. See the
 [review disposition](code_review_2026_10_05/SOLVER_CONTRACTS.md).
+
+
+`physics.csf.one_body_composition` composes a complete point-bound scalar
+operator with existing packed or native on-demand spinor integrals and normal-ordering ledgers;
+it generates no physical correction. Operator producers retain approximation
+and source ownership, including the separately qualified native QEDMOD matrix.
+`plasma.rates.maxwellian_rate_direct` owns physical thermal averaging of a
+complete callable cross section on explicit shifted quadrature nodes. CI EII
+owns state/threshold/field selection and records those nodes; generic numerical
+rules do not decide physical coverage or experimental acceptance.

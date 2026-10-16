@@ -24,7 +24,7 @@ def test_selected_mass_number_reaches_finite_nuclear_hamiltonian():
     energies = []
     for a in (40, 45):
         result = Atom(Z=18, config='1s1', engine='bspline').solve(
-            DiracFock(nuclear_mass_number=a), tol=1e-9)
+            DiracFock(nuclear_mass_number=a), tol=1e-9).result
         assert result.converged
         assert result.solver_diagnostics['_nuclear_profile']['radius_mass_number'] == a
         energies.append(result.total_energy)
@@ -32,7 +32,7 @@ def test_selected_mass_number_reaches_finite_nuclear_hamiltonian():
     point = []
     for a in (40, 45):
         result = Atom(Z=18, config='1s1', engine='bspline').solve(
-            DiracFock(nuclear=NuclearModel.POINT, nuclear_mass_number=a))
+            DiracFock(nuclear=NuclearModel.POINT, nuclear_mass_number=a)).result
         point.append(result.total_energy)
     assert point[0] == pytest.approx(point[1], abs=1e-12)
 

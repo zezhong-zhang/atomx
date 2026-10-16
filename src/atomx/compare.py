@@ -29,8 +29,8 @@ def compare(*results, unit: EnergyUnit = EnergyUnit.HARTREE):
 
     Example
     -------
-    >>> r1 = atom.solve(HartreeFockSlater())
-    >>> r2 = atom.solve(DiracFock())
+    >>> r1 = atom.solve(HartreeFockSlater()).result
+    >>> r2 = atom.solve(DiracFock()).result
     >>> compare(r1, r2)
     """
     if len(results) < 2:
@@ -162,34 +162,34 @@ def theory_ladder(Z: int, config: str = None) -> list:
     results = []
 
     if Z == 1:
-        results.append(atom.solve(HydrogenicSchrodinger()))
-        results.append(atom.solve(HydrogenicDirac()))
+        results.append(atom.solve(HydrogenicSchrodinger()).result)
+        results.append(atom.solve(HydrogenicDirac()).result)
     else:
         # Non-relativistic HF
         with contextlib.suppress(Exception):
-            results.append(atom.solve(HartreeFockSlater()))
+            results.append(atom.solve(HartreeFockSlater()).result)
 
         # Scalar relativistic corrections
         with contextlib.suppress(Exception):
             results.append(atom.solve(
                 BreitPauli(corrections=[
                     RelativisticCorrection.MASS_VELOCITY,
-                    RelativisticCorrection.DARWIN])))
+                    RelativisticCorrection.DARWIN])).result)
 
         # Full relativistic corrections (+ spin-orbit)
         with contextlib.suppress(Exception):
-            results.append(atom.solve(BreitPauli()))
+            results.append(atom.solve(BreitPauli()).result)
 
         # Full Dirac-Fock
-        results.append(atom.solve(DiracFock()))
+        results.append(atom.solve(DiracFock()).result)
 
         # Breit for heavier atoms
         if Z >= 20:
-            results.append(atom.solve(DiracFock(breit=True)))
+            results.append(atom.solve(DiracFock(breit=True)).result)
 
         # QED for heavy atoms
         if Z >= 36:
-            results.append(atom.solve(DiracFock(breit=True, qed=True)))
+            results.append(atom.solve(DiracFock(breit=True, qed=True)).result)
 
     return results
 

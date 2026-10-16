@@ -804,7 +804,7 @@ def _mbpt2_pair_contribution(
 def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
               Pr, Qr, kappa_r, Ps, Qs, kappa_s,
               tJ, bsp_data, cache, multipole_max=None,
-              rk_bilinear=None):
+              rk_bilinear=None, rk_evaluator=None):
     """Antisymmetrised J-coupled pair matrix element <ab;J|v|rs;J>_A.
 
     Exactly the V_J combination used by :func:`_mbpt2_pair_contribution`
@@ -818,10 +818,17 @@ def _pair_v_J(Pa, Qa, kappa_a, Pb, Qb, kappa_b,
     :func:`build_slater_rk_bilinear` matrices and reused across every
     (r, s) sharing the bra pair (direct and exchange use the same M).
     One M build costs ≈ one scalar R^k; each reuse is O(ns²).
+
+    ``rk_evaluator(k, P2, Q2, P4, Q4)`` can supply the same signed radial
+    integral from a caller-owned batch table. Angular/antisymmetry factors
+    remain in this shared kernel. The evaluator must bind the complete bra,
+    radial basis and ket snapshots; no cache is transferable between trials.
     """
 
     def _rk(k, P2, Q2, P4, Q4):
         # R^k(a ·, b ·) with slot-2/slot-4 orbitals (·) varying
+        if rk_evaluator is not None:
+            return rk_evaluator(k, P2, Q2, P4, Q4)
         if rk_bilinear is None:
             return compute_slater_rk_cell(Pa, Qa, P2, Q2, Pb, Qb, P4, Q4,
                                           bsp_data, k, cache=cache)

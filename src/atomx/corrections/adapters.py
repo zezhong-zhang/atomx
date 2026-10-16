@@ -377,7 +377,7 @@ class BreitCorrection:
             compute_breit_energy,
         )
 
-        operator = result.__dict__.get("_E_Breit_operator")
+        operator = result.solver_diagnostics.get("_E_Breit_operator")
         if self.mode == "dbsr_hf":
             from atomx.corrections.dbsr_breit import compute_dbsr_breit_energy
 

@@ -111,7 +111,7 @@ def transition_current_divergence(a, c, wave_a, wave_c, r):
             + (c[1]-a[1])*(qa*pc+pa*qc)/r)
 
 
-def transition_current_fields(orbitals, workspace):
+def transition_current_fields(orbitals, workspace, *, cache_size=None):
     """Shared Gauss cells, spinors and exact transition-current divergences.
 
     Return ``r, weights, wave(key), divergence(a, c)``. B-spline spinors
@@ -134,45 +134,39 @@ def transition_current_fields(orbitals, workspace):
     else:
         r = workspace["gr"]
         weights = workspace["grw"]
-    waves = {}
-    densities = {}
+    if cache_size is not None and (
+            isinstance(cache_size, (bool, np.bool_))
+            or not isinstance(cache_size, (int, np.integer)) or cache_size < 1):
+        raise ValueError("current-field cache capacity must be a positive integer")
 
+    @lru_cache(maxsize=cache_size)
     def wave(key):
-        if key not in waves:
-            P, Q = orbitals[key][:2]
-            if grid:
-                sp = CubicSpline(workspace.r, P)
-                sq = CubicSpline(workspace.r, Q)
-                waves[key] = (sp(r), sq(r), sp(r, 1), sq(r, 1))
-            else:
+        P, Q = orbitals[key][:2]
+        if grid:
+            sp = CubicSpline(workspace.r, P)
+            sq = CubicSpline(workspace.r, Q)
+            return sp(r), sq(r), sp(r, 1), sq(r, 1)
 
-                def evaluate(c, comp, derivative=False):
-                    name = "bsp_" + comp + ("_d" if derivative else "")
-                    return eval_orbital_on_grid(
-                        c,
-                        workspace[name],
-                        workspace["nv"],
-                        workspace.get("ks" + comp, workspace["ks"]),
-                        workspace.get("ns" + comp, workspace["ns"]),
-                    )
+        def evaluate(c, comp, derivative=False):
+            name = "bsp_" + comp + ("_d" if derivative else "")
+            return eval_orbital_on_grid(
+                c, workspace[name], workspace["nv"],
+                workspace.get("ks" + comp, workspace["ks"]),
+                workspace.get("ns" + comp, workspace["ns"]))
 
-                waves[key] = (
-                    evaluate(P, "p"),
-                    evaluate(Q, "q"),
-                    evaluate(P, "p", True),
-                    evaluate(Q, "q", True),
-                )
-        return waves[key]
+        return (evaluate(P, "p"), evaluate(Q, "q"),
+                evaluate(P, "p", True), evaluate(Q, "q", True))
+
+    @lru_cache(maxsize=cache_size)
+    def ordered_density(a, c):
+        if a == c:
+            return np.zeros_like(r)
+        return transition_current_divergence(a, c, wave(a), wave(c), r)
 
     def density(a, c):
-        if (a, c) not in densities:
-            if a == c:
-                densities[a, c] = np.zeros_like(r)
-            elif (c, a) in densities:
-                densities[a, c] = -densities[c, a]
-            else:
-                densities[a, c] = transition_current_divergence(a, c, wave(a), wave(c), r)
-        return densities[a, c]
+        return ordered_density(a, c) if a <= c else -ordered_density(c, a)
+
+    density.cache_info = ordered_density.cache_info
 
     return r, weights, wave, density
 

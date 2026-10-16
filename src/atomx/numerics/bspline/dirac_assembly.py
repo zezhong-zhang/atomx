@@ -325,7 +325,7 @@ def _eigh_finite(H_red, S_red, max_retries=2):
     )
 
 
-def _refine_eigenpair(H, S, energy, vector, gap):
+def _refine_eigenpair(H, S, energy, vector, gap, *, residual_norm=None):
     """Bordered Newton refinement in the actual constrained eigenbasis.
 
     The border enforces S-normalization and removes the eigenvector's null
@@ -336,7 +336,8 @@ def _refine_eigenpair(H, S, energy, vector, gap):
     original = vector.copy()
     x = original.copy()
     initial_energy = float(energy)
-    best = (float(linalg.norm(h @ x - energy * (s @ x))), energy, x.copy())
+    measure = linalg.norm if residual_norm is None else residual_norm
+    best = (float(measure(h @ x - energy * (s @ x))), energy, x.copy())
     for _ in range(2):
         sx = s @ x
         residual = h @ x - energy * sx
@@ -357,10 +358,114 @@ def _refine_eigenpair(H, S, energy, vector, gap):
         if (abs(energy-initial_energy) > 0.25 * gap
                 or abs(original @ s @ x) < 0.99):
             raise linalg.LinAlgError('eigenvector refinement left the selected root')
-        error = float(linalg.norm(h @ x - energy * (s @ x)))
+        error = float(measure(h @ x - energy * (s @ x)))
         if error < best[0]:
             best = (error, energy, x.copy())
     return best[1], best[2]
+
+
+def refine_generalized_eigenblock(H, S, energies, coefficients, *, leading_count,
+                                dimension_cap=256, column_cap=128,
+                                memory_cap_bytes=128*1024**2):
+    """Refine a leading block in the original full real generalized pencil.
+
+    H's lower triangle defines the symmetric operator. S is its explicit
+    positive metric. All supplied sorted columns are returned; only the
+    declared leading block receives two-step bordered corrections. Corrections
+    may leave the input numerical span: no restriction to that approximate
+    invariant subspace is imposed. This does not select a physical branch.
+
+    Ordered metric Cholesky QR jointly restores all columns. A shifted Ritz
+    solve only in the leading block avoids mixing its small energies with
+    the unselected high-energy spectrum. Wide contractions preserve the same
+    supplied FP64 H/S. No eigenstate or coordinate is screened. Input/output
+    Gram, ordering, root shifts and overlap are checked; full S-dual residuals
+    are returned for the caller's unchanged scientific admission threshold.
+    NumPy working-payload admission excludes Python/BLAS/SciPy RSS overhead.
+    """
+    arrays = tuple(np.asarray(a) for a in (H, S, energies, coefficients))
+    if any(np.iscomplexobj(a) for a in arrays):
+        raise ValueError('real generalized eigenblock required')
+    h0, s0, e0, v0 = arrays
+    n = h0.shape[0] if h0.ndim == 2 else 0
+    m = e0.size if e0.ndim == 1 else 0
+    for name, value, minimum in [('dimension_cap', dimension_cap, 1),
+                                  ('column_cap', column_cap, 1),
+                                  ('memory_cap_bytes', memory_cap_bytes, 1),
+                                  ('leading_count', leading_count, 1)]:
+        if (isinstance(value, (bool, np.bool_)) or
+                not isinstance(value, (int, np.integer)) or value < minimum):
+            raise ValueError(f'positive integer {name} required')
+    if (not n or not m or h0.shape != (n, n) or s0.shape != (n, n)
+            or v0.shape != (n, m) or leading_count > m or m > n):
+        raise ValueError('inconsistent complete generalized eigenblock dimensions')
+    estimate = 128*(2*n*n+n*m+m*m+2*n+1)
+    if n > dimension_cap or m > column_cap or estimate > memory_cap_bytes:
+        raise MemoryError('complete generalized eigenblock exceeds resource admission')
+    if any(not np.all(np.isfinite(a)) for a in arrays):
+        raise ValueError('finite generalized eigenblock arrays required')
+    if not np.array_equal(s0, s0.T):
+        raise ValueError('exactly symmetric overlap metric required')
+    if m < 2 or np.any(np.diff(e0) <= 0):
+        raise ValueError('strictly ordered isolated input roots required')
+    if np.finfo(np.longdouble).nmant <= np.finfo(float).nmant:
+        raise RuntimeError('block refinement requires extended contractions')
+    h = np.array(np.tril(h0)+np.tril(h0, -1).T, dtype=float)
+    s = np.array(s0, dtype=float, copy=True)
+    e = np.array(e0, dtype=float, copy=True)
+    original = np.array(v0, dtype=float, copy=True)
+    v = original.copy()
+    gram0 = float(np.max(abs(v.T @ s @ v-np.eye(m))))
+    if gram0 > 1e-10:
+        raise ValueError('input generalized eigenblock failed Gram gate')
+    lower = linalg.cholesky(s, lower=True, check_finite=False)
+
+    def dual_norm(r):
+        return float(linalg.norm(linalg.solve_triangular(lower, r, lower=True,
+                                                        check_finite=False)))
+
+    gaps = np.minimum(np.r_[np.inf, np.diff(e)], np.r_[np.diff(e), np.inf])
+    for column in range(leading_count):
+        e[column], v[:, column] = _refine_eigenpair(
+            h, s, e[column], v[:, column], gaps[column], residual_norm=dual_norm)
+    wide = np.longdouble
+    sw, hw, vw = s.astype(wide), h.astype(wide), v.astype(wide)
+    gram = np.asarray(vw.T @ (sw @ vw), float)
+    upper = linalg.cholesky(gram, lower=False, check_finite=False)
+    v = linalg.solve_triangular(upper.T, v.T, lower=True,
+                                check_finite=False).T
+    leading = v[:, :leading_count].astype(wide)
+    center = np.mean(e[:leading_count].astype(wide))
+    reduced = leading.T @ ((hw-center*sw) @ leading)
+    reduced_s = leading.T @ (sw @ leading)
+    shifted, rotation = linalg.eigh(np.asarray(reduced, float), np.asarray(reduced_s, float),
+                                    driver='gvd', check_finite=False)
+    v[:, :leading_count] = np.asarray(leading @ rotation.astype(wide), float)
+    e[:leading_count] = np.asarray(center+shifted.astype(wide), float)
+    overlap = np.sum(original*(s @ v), axis=0)
+    v[:, overlap < 0] *= -1
+    overlap = abs(overlap)
+    change = abs(e-np.asarray(e0)) / gaps
+    if np.any(np.diff(e) <= 0) or np.max(change) > .25 or np.min(overlap) < .99:
+        raise linalg.LinAlgError('joint generalized block left an original root')
+    gram_error = float(np.max(abs(v.T @ s @ v-np.eye(m))))
+    if gram_error > 1e-10:
+        raise linalg.LinAlgError('joint generalized eigenblock failed original Gram gate')
+    residual = h @ v - (s @ v)*e
+    whitened = linalg.solve_triangular(lower, residual, lower=True, check_finite=False)
+    residuals = np.linalg.norm(whitened, axis=0)
+    if not np.all(np.isfinite(residuals)):
+        raise linalg.LinAlgError('nonfinite joint generalized block residual')
+    info = dict(dimension=n, columns=m, leading_count=int(leading_count),
+                estimated_working_bytes=estimate, bordered_solves_max=2*int(leading_count),
+                cholesky_calls=2, leading_ritz_solves=1,
+                original_gram_error=gram0, gram_error=gram_error,
+                minimum_original_column_overlap=float(overlap.min()),
+                maximum_root_shift_gap_ratio=float(change.max()),
+                full_dual_residuals_Ha=residuals.tolist(),
+                maximum_leading_dual_residual_Ha=float(residuals[:leading_count].max()),
+                numerical_span_policy='full original coordinates, joint metric orthogonalization; no fixed-span restriction')
+    return e, v, info
 
 
 def solve_dirac(H, S, ns, kappa, n_remove_boundary=1, nsp=None, nsq=None,

@@ -6,6 +6,257 @@ per-version summary.
 
 ## Unreleased
 
+### Optional declared-mask sparse row index (2026-10-16)
+
+`numerics.canonical_sparse.canonical_body_sparse(..., row_index="hash")`
+adds an exact declared-mask index for selected fixed-N spaces. The default
+`"colex"` representation remains unchanged. Hash collisions compare complete
+uint64 determinant masks; row order, signed values, accumulation order and
+complete CSC output are preserved. Exact prefix-population support from all
+declared rows rejects only impossible matches before full-key lookup.
+Both modes retain explicit work/memory
+admission. Large CSC outputs account for SciPy's int64 index promotion.
+This is a numerical representation option, not a new physical approximation,
+core-correlation method or experimental accuracy certificate.
+
+
+### Explicit native tensor CCSDT/EA consumer (2026-10-15)
+
+`methods.tensor_coupled_cluster.CCSDTTensorOperator(integrals, memory_MiB=512)`
+adds an opt-in real packed-native-integral consumer. `solve_core(retained_rank=2|3)`
+returns core amplitudes, total/correlation energies and the projected equation
+residual. `attachment_action(core, vector)` applies the complete directed R3
+operator, including a final batch axis; `attachment_matrix` explicitly admits
+its dense projected storage. `resource_plan` performs scalar tensor planning.
+Existing finite CC/EA and external FSCC interfaces/defaults remain unchanged;
+these result types are not interchangeable. Full physical states/residuals,
+J-reduced production, valence-universal FSCC and dressed properties are not
+inferred from the new core result. See [equations, provenance and live scope](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/README.md).
+
+`projection_storage='canonical'` now opts into complete independent output
+accumulation; the default is still `'dense'`. `solve_core` adds opt-in
+`scalar_sector=False`, `preconditioner=None|'fock_diagonal'` and
+`initial=None|TensorCoreResult`. Exact complete-multiplet M/parity admission,
+finite/nonzero unshifted denominators, same-operator initial ownership, exact
+forbidden-coordinate zeros and final complete retained-residual checks apply.
+An already-converged initial point avoids an unnecessary root call. These
+options change numerical storage/solving, not retained equations or declared
+ranks. See [complete4f physics, failures and matched timing](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/README.md); the local
+J-projected Davidson driver is not an added public eigensolver API.
+
+### Explicit analytic real-CI response ingredients (2026-10-14)
+
+`numerics.variational_response.polar_path_derivatives(point, direction)` returns
+the polar path's zero/first/second derivatives, retaining finite Gram and
+tangency defects. `real_eigenstate_response(H0, H1, H2, energies, vectors, root)`
+requires a complete real ordinary-metric finite eigensystem, checks residual/
+Gram, rejects target degeneracy and enforces an explicit dense dimension cap.
+It returns a read-only first coefficient response, first/second energy
+derivatives and the **CI-response portion** of E'''/6; it supplies no H3 term,
+total FD bound or state/physical-input ownership.
+
+`physics.csf.radial_increment.bspline_dc_radial_derivatives(reference, first,
+second, workspace, Z, ns, ...)` binds actual first/second P/Q derivatives to
+native real B-spline DC integral keys. `components(key)` returns actual first/
+second integral derivatives, including raw-h ket normalization and all Coulomb
+cross terms. Breit/QED, grid and generalized-metric CI response are outside
+these interfaces. These explicit lower-level ingredients change no existing
+default, CI result/owner, finite-increment behavior or optimizer. See the
+[analytic qualification and retained failures](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/README.md).
+
+### Explicit streamed DC radial density and batched bilinears (2026-10-14)
+
+`physics.csf.radial_density.CIRadialDensity` accepts
+`angular_storage='streamed'`; `CSFOrbitalFunctional` selects this with
+`density_storage='streamed'`. Both defaults remain cached. The new
+`contract_bilinears(left, right)` accepts matching real CSF-by-column arrays
+and returns one unnormalized signed radial-key dictionary per column pair.
+Streamed contraction shares one complete connection traversal across columns,
+without retaining angular tables or pair-by-state arrays. Bilinears remove
+exact zeros only; the legacy ensemble `contract` retains a magnitude cutoff.
+This does not change CI solver storage or create a full-spectrum state owner.
+See [qualification and physical scope](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision010/README.md).
+
+### Explicit numeric CI assembly without retained angular tables (2026-10-14)
+
+`physics.csf.matrix.build_ci_matrix` and `angular.csf_hamiltonian.exact_block_matrix`
+accept `angular_storage='streamed'`. The default remains `'cached'`. Streamed
+assembly contracts the same signed angular terms directly into numeric
+determinant CSR, with a fresh radial-key value cache for each operator build.
+It preserves complete declared spaces, static Breit and complex c-products;
+it does not add sparse full-spectrum state ownership. Density storage is
+selected separately as described above. Both modes now evaluate projected
+diagonals from exact occupation-pattern principal blocks, avoiding a global
+`Hdet @ projection` temporary. Full cross-pattern actions are retained.
+See [source-bound qualification and physical-run status](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision009/README.md).
+
+### Exact angular connection and CSR storage (2026-10-14)
+
+Internal `_connected_pairs` now returns an ordered iterator. Diagnostic callers
+that need a list must materialize it explicitly. Singleton spectator buckets
+are discarded after compact first-occurrence indexing; their exact diagonals
+are emitted explicitly. `_coefficient_table` builds typed CSR buffers directly
+and preserves imaginary callback values through complex promotion. Native
+real-angular coefficients remain FP64, with unchanged keys, coordinates and
+CSR results in the complete A/B controls. Public CSF/Hamiltonian entry points
+and physical spaces are unchanged. See [measured scope](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision008/README.md).
+
+### Sparse internal orbital-density projection (2026-10-14)
+
+`CIRadialDensity.blocks` now stores the existing CSR CSF projection instead of
+a dense array. `contract` and `contract_bilinear` keep their signatures and
+coefficient policies. Internal diagnostic consumers that need an array must
+explicitly call `.toarray()`; ordinary density/gradient consumers use `@`.
+The physical CSF space and public full-spectrum state contracts are unchanged.
+See [qualification and limits](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision006/README.md).
+
+### Explicit generalized eigenblock refinement (2026-10-14)
+
+`numerics.bspline.dirac_assembly.refine_generalized_eigenblock` adds an opt-in
+full-coordinate leading-band refinement with joint metric controls and full
+residual reporting. It retains all supplied columns and the caller's real
+H/S. No DF/virtual factory default or MCDHF frozen-projector policy changes.
+Existing `_refine_eigenpair` callers keep their Euclidean selection objective;
+the new block consumer explicitly supplies the original S-dual objective.
+See [scope, resource limits and live evidence](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/eigenblock_native001/README.md).
+
+### Result-metadata channel, solve() return, and CI metric audit (2026-10-10)
+
+`Atom.solve(method=...)` now always returns the `Atom` with the result on
+`.result`; previously the method path returned the raw result object.
+
+The `ATOMX_CI_METRIC_CHECK_EVERY` environment knob was removed. The CI
+orbital-metric audit now runs content-fingerprinted: on the first build per
+workspace and again on any orbital content change.
+
+Corrections-layer provenance (`_breit_provenance`, `_nms_provenance`,
+`_sms_provenance`, `_hydrogenic_mass_remainder_provenance`) and the
+`_E_Breit_operator*` expectation values moved from loose result attributes
+into the declared `solver_diagnostics` dict. Archives written with the
+legacy top-level metadata keys migrate into `solver_diagnostics` on load;
+an explicit `solver_diagnostics` entry takes precedence.
+
+### Native scalar linearized SD (2026-10-09)
+
+`methods.linearized_sd` is a separate lower-level closed-core linked linearized
+equation solver and scalar resource planner. Existing nonlinear CCSD/FSCC and
+finite NR-CISD APIs keep their equations and defaults. No Atom dispatch or
+automatic substitution is added. [Scope and caps](ATOMIC_LINEARIZED_SD.md)
+distinguish the finite J=0 DC/DCB anchor from the direct reduced DC core path
+in `methods.core_sd`. The latter requires an isolated source-bound pCI build;
+it does not automatically replace FSCC or add valence screening. SD and FSCC
+now share `methods.atomic_space.build_atomic_space` for complete native VN
+virtual bands, without a per-kappa count cutoff.
+
+The optional exact `core_single_to_doubles_blas` kernel now has matching
+planner, `CoreSD`, and core/valence/screening-builder options (CLI
+`--core-single-to-doubles-blas`). Its default remains false; explicit positive
+workers and LP64 BLAS are required, with a bound OpenMP runtime and one inner
+thread for concurrent calls. Complete scratch is included in preflight.
+`CoreSD.solve(initial_amplitudes=...)` accepts a complete signed iterative seed,
+records its hash, and freshly validates the current full equation and energy;
+it does not import a prior result's identity or residual claim.
+
+`methods.valence_sd` adds a separate fixed-energy CI+all-order interface on a
+solved `CoreSD`. Plan with `plan_valence_sd`, build a fresh combined backend
+with `tools/build_pci_valence_backend.py`, then use `ValenceSD` with the matching
+core result and explicit column energies. Full scalar noncanonical Fock,
+signed correlation Sigma1 rows and implicit energy response are retained.
+Core amplitudes and physical/source identities must match. Results do not
+represent a solved excitation spectrum or a complete CI+all-order Hamiltonian;
+no default method substitution or CI effective-Hamiltonian consumer is added. See the
+[fixed-energy usage and finite validation](ATOMIC_LINEARIZED_SD.md#fixed-energy-native-ciall-order-valence-equations).
+
+`methods.sigma2_sd` separately adds complete directed reduced screening and
+joint energy response from source-bound `ValenceSDResult` columns. Plan with
+`plan_sigma2_sd`, compile exact dimensions with `build_pci_sigma2_backend.py`,
+then use `Sigma2SD(valence).evaluate(columns)`. Its public magnetic query restores
+original S1 normalization. This does not inject raw directed results into a
+Hermitian CI matrix: the current finite consumer audit measures nonzero adjoint
+defects. Source/core identity, energy and effective-metric contracts must be
+preserved; [scope and gates](ATOMIC_LINEARIZED_SD.md#complete-fixed-energy-reduced-sigma2)
+remain distinct from physical excitation accuracy.
+
+### Separate tensor CCSD/FS-CCSDT backend
+
+`methods.fscc.compute` now source-binds the numerator-division engine and
+includes the known legacy1e-14 numerator-skip floor in its raw residual bound.
+A zero legacy fixed-point update can therefore return a positive bound.
+Known legacy source manifests remain admitted; unknown/mislabeled engine
+versions reject before export. The optional builder flag
+`--exact-nonzero-division` preserves every nonzero numerator without changing
+denominators or physical equations. It requires the qualified source SHA,
+capability and binary marker; defaults and sector coverage are unchanged.
+Provenance adds `numerator_skip_threshold_Ha`,
+`numerator_skip_residual_floor_Ha` and `denominator_kernel_source_sha256`.
+Historical saved bounds are unchanged; see the [source contract](ATOMIC_FSCC.md#numerator-division-source-contract).
+
+For `sector="0h1p"`, `FSCCResult.model_space_matrix_Ha` and its saved NPZ now
+use the qualified physical ket convention (raw formatted HEFF adjoint),
+relative to the correlated core. `read_heff` and `effective_matrices` remain
+raw. Do not reinterpret older saved matrices under the new convention without
+checking their source/provenance. Every 0h1p request now rejects missing or
+changed producer-convention signatures before export. Closed energies and the
+raw hole-sector convention remain unchanged. No Hermitian averaging, property
+metric or omitted-rank certificate is added. See [source-bound complex and
+live validation](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/public_heff_convention001/README.md).
+
+Noncanonical `methods.fscc.compute(..., sector="0h1p")` now raises `ValueError`
+before export when any actual occupied–virtual Fock element is nonzero and the
+backend lacks the source-bound `ATOMX_FOV_T2_001` attachment equation repair.
+Rebuild the pinned backend with the existing `--noncanonical-attachment-fix`
+flag; do not delete Fov to bypass the check. The historical builder default,
+exactly zero-Fov attachment and other sectors retain their separate contracts.
+No result fields are renamed. Request provenance adds
+`occupied_virtual_fock_max_Ha`, `noncanonical_attachment_equation` and
+`residual_scope`. See the [same-H public-entry validation](atomic_physics_correctness_2026_10_11/README.md).
+
+The native factories now accept `representation="on_demand"` and an explicit
+`radial_pair_cache_size`. Packed remains the default. `export_integrals` streams
+the same ATXCC001 signed file order and now rejects a logical file request above
+2 GiB before creating output (override `max_integral_file_bytes` explicitly when
+appropriate). Resource estimates continue to include the backend's dense ERIs
+and tensors. See [current contracts](ATOMIC_FSCC.md); native streaming is not an
+angular-reduced CC amplitude solver.
+
+`methods.fscc` is the new external integral-driven interface; it does not expand
+the finite `methods.coupled_cluster` API or its determinant caps. Explicit source-
+bound EXP-T builds, native signed DC integrals, frozen-core normal ordering and
+complete declared virtual bands are required. Full triples use DIIS for triples;
+unsupported physics and over-budget spaces fail explicitly. See [current usage
+and limits](ATOMIC_FSCC.md).
+
+### Explicit finite CCSD/CCSDT, attachment and SD/DCB interfaces
+
+The former `methods.coupled_cluster.compute` scaffold now requires aligned
+`hamiltonian_Ha`, complete fixed-N `determinants`, `reference_mask`, and explicit
+`spinor_count` / `reference_identity`. It returns a finite nonlinear CCSD or
+connected CCSDT result, including total energy, immutable amplitudes/coefficient
+vector, separate projected and full-state residuals, and
+`n_function_evaluations`. Higher ranks and FSCC reject. The separate
+`methods.eom_attachment.compute` consumes owned native integrals and declares
+its retained 1p/2p1h/3p2h space; omitted-rank full-H defects remain separate.
+Both finite solvers now accept `action_representation="state_action"` and
+`cluster_term_application_cap=2_000_000` without increasing determinant or
+amplitude caps. Default dense remains. The option removes generator banks;
+complete sectors/dense Hamiltonians remain and the current small case runs
+slower. See [matched finite integration](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/state_action_integration001/README.md).
+Neither interface has Atom facade dispatch or production atomic scaling.
+
+`methods.ci_sd.plan_sd_ci_space` materializes complete declared reference-union
+NR single/double configurations with resource guards. The finite P/Q factory
+accepts `include_breit=True` for static Breit in every matrix block; default DC
+behavior is unchanged. Do not append its restricted second-order controls to an
+already solved DCB state. See [contracts and measured limits](yb_sd_breit_completion_2026_10_09/README.md).
+
+`FiniteCIModel.bloch_reduction(root_indices)` explicitly selects a complete
+finite invariant subspace and returns its owned wave operator, physical metric,
+directed/orthonormal Hamiltonians and biorthogonal states. Transform full-space
+properties with `effective_operator(..., representation="bloch"|"orthonormal")`.
+It rejects split degeneracy, singular projection and excess resource requests;
+it supplies no inferred metric for the separate SD/EXP-T effective matrices.
+See the [current metric contract](ATOMIC_LINEARIZED_SD.md#exact-finite-bloch-wave-operator-and-physical-metric).
+
 ### Independent DF orbital controls and explicit-size basis correction
 
 `Atom.solve(orbital_tolerance=...)` and `Sampling(orbital_tolerance=...)`
@@ -818,3 +1069,48 @@ must supply their total radiative rate and statistical weight. Calculation
 provenance cannot guess a nuclear model when the solver supplies neither model
 nor atomic weight. [Review disposition](code_review_2026_10_05/SOLVER_CONTRACTS.md)
 records the retained contracts and limitations.
+
+The optional EXP-T `--axial-parity` build enables `fscc.compute(..., tensor_symmetry="axial")`; C1 remains the default. Complete magnetic multiplets, rank-six irrep range and exact signed forbidden-integral zeros are required. `FSCCResult.model_space_matrix_Ha` restores all directed model blocks in ascending global active order; `effective_matrices` preserves original block keys. The current resource estimate remains uncompressed. Valence/Sigma2 builders now bind their own complete valence sizes and compile serial large-array units separately from OpenMP core workers.
+
+Valence/Sigma2 planners and builders optionally accept
+`valence_term2_blas=True, valence_term2_threads=8` (CLI
+`--valence-term2-blas --valence-term2-threads 8`). The exact heap-only term2
+unit compiles separately with OpenMP; original wrappers/diagrams remain serial.
+The default still uses original term2 with one worker. Fresh build manifests
+bind the complete source, worker count and per-worker memory; `ValenceSD`
+derives those options and rejects unbound or incompatible parallel BLAS.
+Use identical options for valence and screening plans. Historical retained
+images keep their archived source; rebuild to exercise the current optional
+path. See the [current contract](ATOMIC_LINEARIZED_SD.md#fixed-energy-native-ciall-order-valence-equations).
+
+Rebuild the combined valence/Sigma2 image for the homogeneous value-only ABI.
+`solve` uses that action for Krylov iterations and homogeneous response values;
+`evaluate`, full root checks and the implicit-response source still return or
+consume the complete derivative. The optional streamed kernel has one explicit
+response policy, with three full-response call sites and one value-only site
+bound in the manifest. Original diagrams remain the default; full worker
+scratch remains in the preflight for both modes.
+
+Native fixed-energy valence `solve` optionally accepts complete real `initial_numerators` and `initial_numerator_derivative`; they are numerical guesses, always re-certified with the current operator. No saved result automatically acquires current source/state identity. The caller must bind physical input/energy/channel/denominator identity before archive reuse; see [the current contract](ATOMIC_LINEARIZED_SD.md).
+
+
+Native fixed-energy valence `solve` also accepts an optional
+`iteration_callback`. It receives complete read-only uncertified guesses at
+GMRES restart boundaries with current source/coordinate hashes; exceptions
+propagate. Caller persistence must bind physical and source identity and repeat
+all current solution gates. Two callback scratch vectors count toward the
+library cap; retained snapshots and disk storage are the caller's responsibility.
+Existing calls and iteration-budget semantics are unchanged.
+
+Fresh `ValenceSD` binding reuses a same-instance `CoreSD` residual certificate
+only for that owner's most recent unchanged immutable result. The certificate
+is private and transient, with full input/operator/provenance/amplitude/scalar
+identity; archive reconstruction and changed results still receive the original
+complete raw check. No constructor argument, saved format, equation or residual
+threshold changes. See the [current certificate gates](atomic_pci_sd_native_2026_10_09/valence_core_certificate_public021/pytest.log).
+
+The proposed native valence GCROT subspace-reuse option was withdrawn after
+an independent strong-reference4s raw-gate failure. It is absent from the
+current public API and production driver; GMRES remains the certified path.
+[Source restoration and failure](atomic_pci_sd_native_2026_10_09/valence_recycling_public022/withdrawal.json)
+are preserved separately from the60 passing small live candidate checks.

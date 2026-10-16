@@ -144,7 +144,7 @@ def _nuclear_field(result):
         def evaluate(r):
             return spline(np.clip(r, radius[0], radius[-1]))/r
         return evaluate
-    profile = getattr(result, 'solver_diagnostics', {}).get('_nuclear_profile', {})
+    profile = result.solver_diagnostics.get('_nuclear_profile', {})
     if profile.get('model', 'point') != 'point':
         raise ValueError('finite-nucleus field is missing; solve again with radial field data')
     return bare_nuclear_potential(float(result.Z))

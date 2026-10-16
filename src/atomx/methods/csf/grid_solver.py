@@ -28,7 +28,8 @@ def solve_variational_shooting(solver, *, max_iter, tolerance):
     rv = screened_nuclear_rv(solver.Z, r, jacobian, n, nuclear=solver.nuclear,
                               screening_potential=solver.screening_potential)
     workspace = GridCIWorkspace(r, jacobian, rv)
-    functional = GridCSFFunctional(solver.csfs, workspace, solver.Z)
+    functional = GridCSFFunctional(solver.csfs, workspace, solver.Z,
+                                  max_determinants=solver.max_determinants)
     space, initial = continuum_enriched_electron_space(functional,
         n_bound=n_bound, n_continuum=controls.continuum_roots)
     initializer = 'nuclear eigenfunctions'

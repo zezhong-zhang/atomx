@@ -60,7 +60,7 @@ def test_open_shell_scf_corrections_preserve_density():
                     breit_mode="operator"))).solve(tol=1e-6)
     assert atom.converged
     assert np.isfinite(atom.total_energy)
-    assert atom.result.__dict__["_E_Breit_operator"] != 0.0
+    assert atom.result.solver_diagnostics["_E_Breit_operator"] != 0.0
     waves = atom.result.waves
     count = sum(sh.occupation * np.trapezoid(
         waves.orbitals[sh.label].P**2 + waves.orbitals[sh.label].Q**2, waves.grid)

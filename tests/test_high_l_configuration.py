@@ -74,7 +74,7 @@ def test_q_through_z_notation_and_full_principal_number():
 @pytest.mark.parametrize('n,l,letter',[(13,12,'q'),(20,19,'y')])
 def test_high_l_point_dhf_matches_weighted_dirac(n,l,letter):
     result=Atom(Z=10,config=f'{n}{letter}1',engine='bspline',
-        basis=Basis(r_max=250,grid_hmax=1)).solve(DiracFock(nuclear=NuclearModel.POINT),max_iter=40)
+        basis=Basis(r_max=250,grid_hmax=1)).solve(DiracFock(nuclear=NuclearModel.POINT),max_iter=40).result
     expected=(2*l*hydrogenic_dirac_energy(n,l,10)+(2*l+2)*hydrogenic_dirac_energy(n,-l-1,10))/(4*l+2)
     assert result.converged
     assert result.total_energy==pytest.approx(expected,abs=1e-9)

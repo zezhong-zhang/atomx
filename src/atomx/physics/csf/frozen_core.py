@@ -22,9 +22,22 @@ def closed_core_one_body(active, core, radial, *, bare_one_body=None):
     The constant core energy is omitted; it cancels between states sharing
     the same frozen core.
     """
-    active = sorted(set(active))
+    active = tuple(active)
     if set(active) & core.keys():
         raise ValueError('active and frozen-core orbitals must be disjoint')
+    return closed_shell_one_body(active, core, radial, bare_one_body=bare_one_body)
+
+
+def closed_shell_one_body(active, core, radial, *, bare_one_body=None):
+    """Full scalar closed-shell Fock contraction, including occupied targets.
+
+    The same analytic magnetic-substate sum used for frozen-core normal
+    ordering applies to the full core Fock operator. ``active`` may therefore
+    overlap ``core`` here: self-interaction cancels between direct and
+    exchange contributions, rather than removing a subshell. The frozen-core
+    interface above retains its strict disjoint-space contract.
+    """
+    active = sorted(set(active))
     for c, occupation in core.items():
         if occupation != 2 * abs(c[1]):
             raise ValueError(f'frozen core orbital {c} must be a closed subshell')

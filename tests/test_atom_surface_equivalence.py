@@ -35,7 +35,15 @@ PANEL = {
         dict(Z=7, config=["1s2 2s2 2p3"], correlation=Correlation(averaging="ci")),
         # Canonical 2p labels make the applied Mohr shift match the reported
         # QED components; the old per-state label "21" was read as n=21.
-        -54.424528752960605,
+        # Re-recorded 2026-10-10 at -54.42454889375931: the previous value was
+        # measured with the convention-mixing open-shell Breit bug that
+        # `breit_ci._ci_two_body_phase` (commit 233fec1) fixed. The new value
+        # is the correct one — the GRASP native full-matrix gate
+        # (tests/test_breit_open_shell_reference.py, atol 3.7e-10 Ha) passes
+        # with the phase and fails with it reverted; diagnosis archived in
+        # docs/xfel_breit_open_shell_diagnosis_2026_10_04/. Only the Breit
+        # correction moved (+4.73286e-3 -> +4.71272e-3 Ha); DC/QED unchanged.
+        -54.42454889375931,
     ),
     "n_open_statistical": (
         dict(

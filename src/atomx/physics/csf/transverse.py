@@ -15,6 +15,8 @@ are fixed throughout CI. This is an effective one-photon prescription,
 not a full energy-dependent bound-state QED calculation.
 """
 
+from functools import lru_cache
+
 import numpy as np
 
 from atomx.constants import ALPHA
@@ -46,7 +48,7 @@ def frequency_provenance(energies):
              "interaction or higher-order QED terms.")
 
 
-def radial_evaluator(orbitals, workspace, orbital_energies):
+def radial_evaluator(orbitals, workspace, orbital_energies, *, cache_size=128):
     """Evaluate existing Gaunt/retardation keys at the two vertex frequencies.
 
     ``orbital_energies`` maps every ``(n, kappa)`` to an energy in Hartree.
@@ -55,52 +57,70 @@ def radial_evaluator(orbitals, workspace, orbital_energies):
     The real dispersive interaction preserves Hermiticity and electron
     exchange symmetry; absorptive photon terms are outside this model.
     """
+    if (isinstance(cache_size, (bool, np.bool_))
+            or not isinstance(cache_size, (int, np.integer)) or cache_size < 1):
+        raise ValueError("transverse cache capacity must be a positive integer")
+    cache_size = int(cache_size)
     energies = validate_orbital_energies(orbitals, orbital_energies)
-    r, weights, wave, divergence = transition_current_fields(orbitals, workspace)
-    densities, potentials, values, kernels = {}, {}, {}, {}
+    r, weights, wave, divergence = transition_current_fields(
+        orbitals, workspace, cache_size=cache_size)
+
+    @lru_cache(maxsize=cache_size)
+    def gaunt_density(a, c):
+        return (wave(a[1:])[0 if a[0] == "P" else 1]
+                * wave(c[1:])[0 if c[0] == "P" else 1])
 
     def density(kind, a, c):
         if kind == "t":
             return divergence(a, c)
-        pair = tuple(sorted((a, c)))
-        if pair not in densities:
-            densities[pair] = (wave(a[1:])[0 if a[0] == "P" else 1]
-                               * wave(c[1:])[0 if c[0] == "P" else 1])
-        return densities[pair]
+        return gaunt_density(*sorted((a, c)))
+
+    @lru_cache(maxsize=cache_size)
+    def kernel(rank, omega):
+        return HelmholtzKernel(r, weights, rank, ALPHA * omega)
+
+    @lru_cache(maxsize=cache_size)
+    def cached_potential(kind, rank, a, c, omega):
+        return kernel(rank, omega).potential(
+            density(kind, a, c),
+            component="retardation" if kind == "t" else "full")
 
     def potential(kind, rank, a, c, omega):
         if kind == "g":
             a, c = sorted((a, c))
-        key = kind, rank, a, c, omega
-        if key not in potentials:
-            geometry = rank, omega
-            if geometry not in kernels:
-                kernels[geometry] = HelmholtzKernel(r, weights, rank, ALPHA * omega)
-            potentials[key] = kernels[geometry].potential(
-                density(kind, a, c),
-                component="retardation" if kind == "t" else "full")
-        return potentials[key]
+        return cached_potential(kind, rank, a, c, omega)
 
+    @lru_cache(maxsize=8192)
     def evaluate(key):
-        if key not in values:
-            kind, rank, a, c, b, d = key
-            if kind not in {"g", "t"}:
-                raise ValueError("transverse interaction expects Gaunt/retardation keys")
-            orbital_keys = [s[1:] if kind == "g" else s for s in (a, c, b, d)]
-            ea, ec, eb, ed = (energies[s] for s in orbital_keys)
-            frequencies = abs(ea - ec), abs(eb - ed)
-            if frequencies[0] == frequencies[1]:
-                frequencies = frequencies[:1]
-            value = 0.0
-            for omega in frequencies:
-                # Average radial integration directions to remove quadrature
-                # asymmetry, separately from the physical frequency average.
-                value += 0.5 * np.sum(weights * (
-                    density(kind, a, c) * potential(kind, rank, b, d, omega)
-                    + density(kind, b, d) * potential(kind, rank, a, c, omega)))
-            values[key] = float(value / len(frequencies))
-            if not np.isfinite(values[key]):
-                raise FloatingPointError(f"non-finite transverse integral {key}")
-        return values[key]
+        kind, rank, a, c, b, d = key
+        if kind not in {"g", "t"}:
+            raise ValueError("transverse interaction expects Gaunt/retardation keys")
+        orbital_keys = [s[1:] if kind == "g" else s for s in (a, c, b, d)]
+        ea, ec, eb, ed = (energies[s] for s in orbital_keys)
+        frequencies = abs(ea - ec), abs(eb - ed)
+        if frequencies[0] == frequencies[1]:
+            frequencies = frequencies[:1]
+        value = 0.0
+        for omega in frequencies:
+            # Average radial integration directions to remove quadrature
+            # asymmetry, separately from the physical frequency average.
+            value += 0.5 * np.sum(weights * (
+                density(kind, a, c) * potential(kind, rank, b, d, omega)
+                + density(kind, b, d) * potential(kind, rank, a, c, omega)))
+        value = float(value / len(frequencies))
+        if not np.isfinite(value):
+            raise FloatingPointError(f"non-finite transverse integral {key}")
+        return value
+
+    def diagnostics():
+        caches = dict(waves=wave.cache_info(), divergence=divergence.cache_info(),
+                      densities=gaunt_density.cache_info(), kernels=kernel.cache_info(),
+                      potentials=cached_potential.cache_info(), values=evaluate.cache_info())
+        return dict(caches={name: info._asdict() for name, info in caches.items()},
+                    retained_array_bound_bytes=12 * cache_size * r.size * 8,
+                    scope="Cached FP64 array payload only; excludes inputs, Python keys, "
+                          "scalar cache, active temporaries and peak RSS")
+
+    evaluate.diagnostics = diagnostics
 
     return evaluate

@@ -79,6 +79,8 @@ class SCFResult(SCFObservablesMixin, RadialStateMixin):
     #: (same contract as ``results.ShootingResult._jj_configs``); written
     #: by :meth:`DFSolver._finalize_with_corrections`.
     _jj_configs: Optional[list] = field(default=None, repr=False)
+    # Set by the actual solve; an unsolved result has no guessed nucleus.
+    _nuclear_potential: object = field(init=False, repr=False)
 
     @property
     def energy_breakdown(self) -> Dict[str, float]:

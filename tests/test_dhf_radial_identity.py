@@ -72,7 +72,7 @@ def test_sc_x_stationary_branch_matches_independent_dbsr_reference():
         DiracFock(nuclear_mass_number=45, starting_potential="tfda"),
         tol=1e-09,
         max_iter=250,
-    )
+    ).result
     assert result.converged
     dc = result.energy_components["E_1e"] + result.energy_components["E_2e"]
     assert abs(dc - -729.2225473824016) < 3e-07
@@ -93,7 +93,7 @@ def test_mn_ii_core_d_branches_have_distinct_node_patterns():
             scf_damping=0.35,
         ),
         max_iter=100,
-    )
+    ).result
     good = Atom(Z=25, config=config, engine="bspline", basis=Basis()).solve(
         DiracFock(
             core_hole_stationary=False,
@@ -104,7 +104,7 @@ def test_mn_ii_core_d_branches_have_distinct_node_patterns():
             scf_damping=0.35,
         ),
         max_iter=100,
-    )
+    ).result
     assert bad.converged and good.converged
     assert energies_ordered(bad) and energies_ordered(good)
     assert not has_node_signature(bad, {(3, 2): 0, (4, 2): 1})
@@ -125,7 +125,7 @@ def test_co_ii_slater_seed_recovers_core_d_node_pattern():
             scf_damping=0.35,
         ),
         max_iter=100,
-    )
+    ).result
     seed = Atom(Z=27, config=config, engine="bspline", basis=Basis()).solve(
         DiracFock(
             core_hole_stationary=False,
@@ -138,7 +138,7 @@ def test_co_ii_slater_seed_recovers_core_d_node_pattern():
         ),
         max_iter=120,
         tol=0.001,
-    )
+    ).result
     assert seed.converged
     good = Atom(Z=27, config=config, engine="bspline", basis=Basis()).solve(
         DiracFock(
@@ -151,7 +151,7 @@ def test_co_ii_slater_seed_recovers_core_d_node_pattern():
             seed_orbitals=seed.orbitals_raw,
         ),
         max_iter=100,
-    )
+    ).result
     assert bad.converged and good.converged
     assert energies_ordered(bad) and energies_ordered(good)
     assert not has_node_signature(bad, {(3, 2): 0, (4, 2): 1})
@@ -170,7 +170,7 @@ def test_rb_x_ni_like_core_d_branches_have_distinct_node_patterns():
             starting_potential="gsz",
         ),
         max_iter=100,
-    )
+    ).result
     good = Atom(Z=37, config=config, engine="bspline", basis=Basis()).solve(
         DiracFock(
             core_hole_stationary=False,
@@ -181,7 +181,7 @@ def test_rb_x_ni_like_core_d_branches_have_distinct_node_patterns():
             scf_damping=0.35,
         ),
         max_iter=100,
-    )
+    ).result
     assert bad.converged and good.converged
     assert energies_ordered(bad) and energies_ordered(good)
     assert not has_node_signature(bad, {(3, 2): 0, (4, 2): 1})
@@ -201,7 +201,7 @@ def test_sr_iii_starting_potential_selects_distinct_4p_5p_branches():
             starting_potential="gsz",
         ),
         max_iter=100,
-    )
+    ).result
     good = Atom(Z=38, config=config, engine="bspline", basis=Basis()).solve(
         DiracFock(
             core_hole_stationary=False,
@@ -212,7 +212,7 @@ def test_sr_iii_starting_potential_selects_distinct_4p_5p_branches():
             scf_damping=0.35,
         ),
         max_iter=100,
-    )
+    ).result
     assert bad.converged and good.converged
     assert energies_ordered(bad) and energies_ordered(good)
     assert not has_node_signature(bad, {(4, 1): 2, (5, 1): 3})

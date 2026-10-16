@@ -781,8 +781,8 @@ class Atom:
         Parameters
         ----------
         method : Method, optional
-            Explicit theory-level method. Returns its AtomicResult; otherwise
-            dispatches from the Atom inputs and returns self for chaining.
+            Explicit theory-level method. Either way the result is stored on
+            the atom (``.result``) and solve returns ``self`` for chaining.
         tol : float
             SCF tolerance. Its default is replaced by the sampling tolerance.
             Adaptive refinement may tighten it further, as recorded in the
@@ -1243,17 +1243,17 @@ class Atom:
         subshells_raw = _parse_config_string(config_str)
 
         if isinstance(method, (HydrogenicSchrodinger, HydrogenicDirac)):
-            return method.solve(self.Z, subshells_raw,
-                                tol=tol, max_iter=max_iter)
+            result = method.solve(self.Z, subshells_raw,
+                                  tol=tol, max_iter=max_iter)
 
-        if isinstance(method, (HartreeFockSlater, BreitPauli)):
-            return method.solve(self.Z, subshells_raw,
-                                tol=tol, max_iter=max_iter,
-                                n_grid=self._shooting_n_grid(1000),
-                                r_max=self.r_max if self.r_max is not None else 75.0,
-                                screening_potential=self._screening_shift())
+        elif isinstance(method, (HartreeFockSlater, BreitPauli)):
+            result = method.solve(self.Z, subshells_raw,
+                                  tol=tol, max_iter=max_iter,
+                                  n_grid=self._shooting_n_grid(1000),
+                                  r_max=self.r_max if self.r_max is not None else 75.0,
+                                  screening_potential=self._screening_shift())
 
-        if isinstance(method, DiracFock):
+        elif isinstance(method, DiracFock):
             # Use jj-average with statistical weights
             from atomx.config.jj_coupling import JJConfig, generate_jj_average
             subshells, jj_configs = generate_jj_average(config_str, averaging="statistical")
@@ -1274,10 +1274,9 @@ class Atom:
             if calc_log:
                 calc_log.converged(result)
                 calc_log.close()
-            return result
 
-        if isinstance(method, MCDHF):
-            return method.solve(
+        elif isinstance(method, MCDHF):
+            result = method.solve(
                 self.Z, self._config_strings,
                 tol=tol, max_iter=max_iter, ns=self.ns,
                 use_physics_grid=self._use_physics_grid,
@@ -1285,7 +1284,13 @@ class Atom:
                 grid_he=self.grid_he, grid_hmax=self.grid_hmax,
                 screening_potential=self._screening_shift())
 
-        raise TypeError(f"Unknown method type: {type(method).__name__}")
+        else:
+            raise TypeError(f"Unknown method type: {type(method).__name__}")
+
+        # One return contract: the result is stored on the atom and solve()
+        # always returns self for chaining (same as the dispatched path).
+        self._result = result
+        return self
 
     # ------------------------------------------------------------------
     # Result-flavor introspection (back-compat aliases)

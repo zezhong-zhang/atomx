@@ -268,11 +268,11 @@ class Ladder:
         outcomes: List[RungOutcome] = []
         for rung in self.rungs:
             try:
-                result = atom.solve(rung, sampling=sampling)
-                if result is None or not hasattr(result, "total_energy"):
-                    # ``Atom.solve()`` (no method) returns ``self``; pull
-                    # the actual result off the atom.
-                    result = getattr(atom, "_result", None) or getattr(atom, "result", None)
+                # ``Atom.solve()`` always returns the atom and stores the
+                # fresh result on ``.result`` — snapshot it per rung.
+                result = atom.solve(rung, sampling=sampling).result
+                if result is None:
+                    raise RuntimeError("solve() returned without storing a result")
                 outcomes.append(RungOutcome(
                     rung=rung,
                     name=_rung_label(rung),

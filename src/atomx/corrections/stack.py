@@ -327,7 +327,7 @@ def finalize_with_corrections(result: "AtomicResult",
             continue
         if name == "breit":
             comps["E_Breit"] = cr.energy_shift
-            result._breit_provenance = dict(cr.provenance)
+            result.solver_diagnostics["_breit_provenance"] = dict(cr.provenance)
         elif name.startswith("self_energy"):
             comps["E_SE"] = cr.energy_shift
             se_method = name.split("[", 1)[1].rstrip("]")
@@ -354,7 +354,7 @@ def finalize_with_corrections(result: "AtomicResult",
             has_qed = True
         elif name in ("nms", "sms", "hydrogenic_mass_remainder"):
             comps[name] = cr.energy_shift
-            setattr(result, f"_{name}_provenance", dict(cr.provenance))
+            result.solver_diagnostics[f"_{name}_provenance"] = dict(cr.provenance)
         else:
             comps[name] = cr.energy_shift
         result.total_energy += cr.energy_shift
@@ -385,7 +385,7 @@ def breit_provenance(result) -> Dict:
     prop = getattr(result, "breit_provenance", None)
     if prop:
         return dict(prop)
-    return dict(getattr(result, "_breit_provenance", None) or {})
+    return dict(result.solver_diagnostics.get("_breit_provenance") or {})
 
 
 __all__ = ["CorrectionStack", "breit_provenance", "finalize_with_corrections"]

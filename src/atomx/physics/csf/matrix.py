@@ -22,7 +22,9 @@ from atomx.angular.csf_hamiltonian import (
     exact_block_matrix,
 )
 from atomx.numerics.bspline.convol import (
+    SEMISEPARABLE_DIRECT_NS,
     ConvolCache,
+    _convol_case1_semiseparable_t,
     _convol_case1_t,
     _density_sym,
     _sum_amb_banded,
@@ -486,7 +488,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     nuclear_potential=None, convol_cache=None,
                     max_determinants=None, include_breit=False, as_operator=False,
                     *, breit_orbital_energies=None, one_body_shifts=None,
-                    radial_snapshot=None):
+                    radial_snapshot=None, one_body_operator=None,
+                    angular_storage='cached'):
     """Build the exact CI Hamiltonian matrix H_{rs} in the CSF basis.
 
     ``H[r, s]`` is the true expectation value ``<CSF_r|H|CSF_s>`` of the
@@ -546,9 +549,29 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         Reuse Dirac-Coulomb radial values across CI spaces on exactly the same
         B-spline orbital/Hamiltonian snapshot. Mismatches raise. One-body
         shifts and Breit remain independently applied per matrix build.
+    one_body_operator : CIEffectiveOneBody or None
+        Bound signed scalar matrix added to the one-body radial keys. Requires
+        the producer's orbital/core/nuclear reference and filled correlated
+        core in every CSF. Cannot be combined with legacy one_body_shifts.
+    angular_storage : {'cached', 'streamed'}
+        Reuse the cached angular coefficient table (default), or contract
+        identical signed terms directly into numeric sparse determinant H.
+        Streamed storage keeps a build-local radial-value cache and the
+        complete physical CSF space; orbital-density tables remain separate.
     """
     if breit_orbital_energies is not None and not include_breit:
         raise ValueError("breit_orbital_energies requires include_breit=True")
+    effective_evaluate = None
+    if angular_storage not in ('cached', 'streamed'):
+        raise ValueError("angular_storage must be 'cached' or 'streamed'")
+    if one_body_operator is not None:
+        from atomx.physics.csf.effective_one_body import CIEffectiveOneBody
+        if not isinstance(one_body_operator, CIEffectiveOneBody):
+            raise TypeError("one_body_operator must be CIEffectiveOneBody")
+        if one_body_shifts is not None:
+            raise ValueError("cannot combine effective operator and legacy one-body shifts")
+        effective_evaluate = one_body_operator.evaluator_for(
+            csfs, orbitals_dict, bsp_data, Z, ns, nuclear_potential=nuclear_potential)
     # ``_reset_memo`` drops every memoised integral, including the CI's
     # stashed rkb cache and the orbital-independent h0 blocks.  The
     # entry-point reset carries the rkb cache (as before) and, when the
@@ -618,6 +641,12 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                     value = value + one_body_shifts[(n_a, kappa)]
             return value
 
+    if effective_evaluate is not None:
+        base_with_effective = evaluate
+
+        def evaluate(key):
+            return base_with_effective(key) + effective_evaluate(key)
+
     breit_evaluate = (_breit_radial_evaluator(orbitals_dict, bsp_data, Z, ns,
                                            orbital_energies=breit_orbital_energies)
                       if include_breit else None)
@@ -627,7 +656,8 @@ def build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
         h_block = exact_block_matrix(signatures, evaluate,
                                      max_determinants=max_determinants,
                                      breit_evaluator=breit_evaluate,
-                                     as_operator=as_operator)
+                                     as_operator=as_operator,
+                                     angular_storage=angular_storage)
         if as_operator:
             operator_blocks.append((np.asarray(idx), h_block))
         else:
@@ -670,7 +700,28 @@ def _group_csf_indices(csfs):
     return sorted(groups.items(), key=lambda kv: (kv[0][0], -kv[0][1]))
 
 
-def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None):
+def _bspline_pair_potential(cache, ns, orders, rank, source):
+    """The ordinary CI cell operator on one explicit pair-density tuple."""
+    potentials = []
+    for left, label_left in enumerate(("p", "q")):
+        value = np.zeros((ns, orders[left]))
+        for right, label_right in enumerate(("p", "q")):
+            components = label_left + label_right + label_left + label_right
+            if ns >= SEMISEPARABLE_DIRECT_NS:
+                factors = cache.get_coulomb_factors(rank, components)
+                contracted = _convol_case1_semiseparable_t(
+                    *factors, source[right], ns, orders[left], orders[right])
+            else:
+                bank, extent, _ = cache.get_rkb_t(rank, components)
+                contracted = _convol_case1_t(
+                    bank, source[right], extent, orders[left], orders[right])
+            value += contracted
+        potentials.append(value)
+    return tuple(potentials)
+
+
+def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None,
+                      pair_potential_cache_size=None):
     """Map an exact-CI radial key to its numeric value.
 
     Two key shapes, evaluated with the same radial kernels as the SCF
@@ -684,6 +735,9 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None)
       four orbitals in the role order ``Pa, Pc, Pb, Pd``.
     """
     is_grid = isinstance(bsp_data, GridCIWorkspace)
+    pair_capacity = (256 if is_grid else 1024) if pair_potential_cache_size is None else pair_potential_cache_size
+    if not isinstance(pair_capacity, int) or isinstance(pair_capacity, bool) or pair_capacity < 1:
+        raise ValueError('pair potential cache capacity must be a positive integer')
     if is_grid:
         weights = slag6_weights(bsp_data.n) * bsp_data.difr
     else:
@@ -709,20 +763,13 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None)
         return tuple(_density_sym(x, y, ns, order)
                      for x, y, order in zip(orbitals_dict[a], orbitals_dict[b], orders, strict=True))
 
-    @lru_cache(maxsize=256 if is_grid else 1024)
+    @lru_cache(maxsize=pair_capacity)
     def pair_potential(rank, a, b):
         source = density(a, b)
         if is_grid:
             return weights * _yk_over_r(source, rank, bsp_data.r,
                                         bsp_data.difr, bsp_data.n)
-        potentials = []
-        for left, label_left in enumerate(("p", "q")):
-            value = np.zeros((ns, orders[left]))
-            for right, label_right in enumerate(("p", "q")):
-                bank, extent, _ = cache.get_rkb_t(rank, label_left + label_right + label_left + label_right)
-                value += _convol_case1_t(bank, source[right], extent, orders[left], orders[right])
-            potentials.append(value)
-        return tuple(potentials)
+        return _bspline_pair_potential(cache, ns, orders, rank, source)
 
     @lru_cache(maxsize=8192)
     def evaluate(key):
@@ -766,6 +813,7 @@ def _radial_evaluator(orbitals_dict, bsp_data, Z, ns, *, nuclear_potential=None)
         target = tuple(sorted((key_b, key_d)))
         return float(np.dot(pair_potential(k, *source), density(*target)))
 
+    evaluate.pair_cache_info = pair_potential.cache_info
     return evaluate
 
 

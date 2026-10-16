@@ -797,7 +797,9 @@ def _vnl_from_csf(csf) -> int:
     best = None
     for sh in getattr(csf, "subshells", []):
         # Closed shells (full j-occupancy) shouldn't drive the label.
-        j2 = 2 * abs(getattr(sh, "kappa", 0)) - 1
+        # A subshell without kappa violates the Subshell contract and
+        # must fail loudly: defaulting it to 0 would encode l=-1 in VNL.
+        j2 = 2 * abs(sh.kappa) - 1
         max_occ = j2 + 1
         occ = float(getattr(sh, "occupation", 0.0))
         if occ >= max_occ - 1e-6:

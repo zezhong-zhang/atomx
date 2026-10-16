@@ -13,8 +13,9 @@ from typing import Dict, List
 import numpy as np
 from scipy import linalg
 
+from atomx.angular.recoupling import l_of_kappa, twoj_of_kappa
 from atomx.config.csf import CSF, get_shared_orbital_basis
-from atomx.config.subshell import Subshell
+from atomx.config.subshell import Subshell, l_letter
 from atomx.corrections.qed import DEFAULT_SE_METHOD
 from atomx.methods.ci import ci_solve
 from atomx.methods.dirac_fock import DFSolver
@@ -226,9 +227,8 @@ class VariationalCSFResult(RadialStateMixin):
 
         orbitals = {}
         for (n, kappa), (P_coeffs, Q_coeffs) in self.orbitals_dict.items():
-            l = kappa if kappa > 0 else -kappa - 1
-            j2 = 2 * abs(kappa) - 1
-            l_char = "spdfghiklmno"[l] if l < 12 else f"l{l}"
+            l_char = l_letter(l_of_kappa(kappa))
+            j2 = twoj_of_kappa(kappa)
             label = f"{n}{l_char}{j2}/2"
             if self.bsp_data:
                 P_grid = _eval_bspline_on_grid(P_coeffs, self.bsp_data, "p")
@@ -238,7 +238,7 @@ class VariationalCSFResult(RadialStateMixin):
                 Q_grid = np.asarray(Q_coeffs)
             orbitals[label] = OrbitalWavefunction(
                 P=P_grid, Q=Q_grid,
-                n=n, l=l, kappa=kappa,
+                n=n, l=l_of_kappa(kappa), kappa=kappa,
                 # Guerra-averaged ground-state effective occupation;
                 # 0.0 if the solver did not populate ``occupations``
                 # (back-compat for callers constructing MCDHFResult by hand).
@@ -393,7 +393,9 @@ class VariationalCSFSolver:
             tolerance=tolerance, energy_tolerance=energy_tolerance,
             preconditioner_matrices=preconditioners,
             projector_source=self.variational_projector,
-            orbital_preconditioner=self.orbital_preconditioner)
+            orbital_preconditioner=self.orbital_preconditioner,
+            energy_difference=functional.constrained_energy_difference,
+            linear_energy_increments=True)
 
     def __init__(self, Z, csfs, ns=50, ks=9, r_min=None, r_max=None,
                  include_breit=False, include_qed=False,
@@ -1224,7 +1226,7 @@ class VariationalCSFSolver:
             orbital_energies = shoot_result.orbital_energies
             dc_ci_kwargs = dict(csfs=self.csfs, orbitals_dict=orbitals_dict,
                 orbital_basis=self.orbital_basis, bsp_data=grid_ws, Z=self.Z,
-                ns=grid_ws.n, include_breit=False)
+                ns=grid_ws.n, include_breit=False, max_determinants=self.max_determinants)
             final_ci = (ci_solve(**dict(dc_ci_kwargs, include_breit=True,
                             breit_orbital_energies=self.breit_orbital_energies))
                         if self._breit_in_ci else dc_ci)
@@ -1239,7 +1241,8 @@ class VariationalCSFSolver:
             functional_class = ChargeStateOrbitalFunctional if joint_charge else CSFOrbitalFunctional
             functional = functional_class(
                 self.csfs, dhf.bsp_data, self.Z, dhf._nuclear_potential,
-                getattr(dhf, "_convol_cache", None), state_average=self.state_average)
+                getattr(dhf, "_convol_cache", None), state_average=self.state_average,
+                max_determinants=self.max_determinants)
             orbitals_dict, dc_ci, variational_diagnostics = self._optimize_bspline_state(
                 functional, orbitals_dict, dhf, dhf_result,
                 max_iter=max_iter, tolerance=scf_tol, energy_tolerance=ci_tol)

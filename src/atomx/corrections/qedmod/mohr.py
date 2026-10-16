@@ -27,6 +27,7 @@ for high-``l`` states.  See
 from __future__ import annotations
 
 import re
+import warnings
 
 import numpy as np
 
@@ -86,6 +87,9 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
     ``Z`` is allowed to be a float so that interpolation on a screened or
     effective charge remains continuous.  The selection mirrors FAC's
     ``HydrogenicSelfEnergy`` (see the module docstring).
+    Untabulated orbitals emit a RuntimeWarning: their leading Zα estimate
+    has no supplied finite-Z remainder or precision error bound. The
+    warning also reaches scalar energies and diagonal operator builders.
     """
     key = (n, kappa)
     if key in _SE_TABLE:
@@ -100,6 +104,13 @@ def _interpolate_se_f(Z: float, n: int, kappa: int) -> float:
         # This restores the leading terms, not an all-order QED result.
         from atomx.data.nist_bethe_log import BETHE_LOG_NIST
         value = (4.0/3.0)*np.log((ALPHA*Z)**-2) + 10.0/9.0 - (4.0/3.0)*BETHE_LOG_NIST[n][0]
+    warnings.warn(
+        f"self-energy n={n}, kappa={kappa}, Z={Z:g} is outside tabulated orbital "
+        "coverage; using a leading Z*alpha analytic estimate, not precision QED. "
+        "Higher powers, screened many-body terms and an uncertainty bound are not supplied.",
+        RuntimeWarning,
+        stacklevel=2,
+    )
     return value
 
 

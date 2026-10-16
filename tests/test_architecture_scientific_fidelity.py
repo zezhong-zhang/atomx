@@ -15,7 +15,7 @@ from atomx.types import NuclearModel
 @pytest.mark.parametrize('method', [HartreeFockSlater, BreitPauli])
 def test_local_methods_preserve_sampling_nucleus_and_radial_payload(method):
     atom = Atom(2, config='1s2', basis=Basis(sampling=Sampling(n_grid=1200), r_max=50.))
-    result = atom.solve(method(nuclear=NuclearModel.POINT))
+    result = atom.solve(method(nuclear=NuclearModel.POINT)).result
     spec = result.calculation_spec
     assert spec.physics['nuclear'] == 'point'
     assert spec.numerics['n_grid'] == 1200

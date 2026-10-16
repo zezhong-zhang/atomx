@@ -1,10 +1,8 @@
-"""Phase-7 scaffold smoke tests.
+"""Scaffold migrations must still reject missing physical inputs.
 
-Each planned calculator exposes a `compute` entry point that raises
-``NotImplementedError`` with a tracking-issue reference until the
-implementation lands.  These tests pin that contract so the
-scaffolds stay loud (importable + documented raise) and can't
-silently become no-ops.
+Implemented limited entry points require explicit aligned physical inputs.
+Actual numerical CCSD/CCSDT gates live in test_finite_ccsd.py and
+test_finite_ccsdt.py; unsupported higher ranks and FSCC remain explicit errors.
 """
 
 from __future__ import annotations
@@ -16,11 +14,13 @@ import pytest
 # ---------------------------------------------------------------------------
 
 
-def test_coupled_cluster_scaffold_import_and_raises():
+def test_finite_coupled_cluster_requires_explicit_physical_inputs():
     from atomx.methods import coupled_cluster
 
     assert hasattr(coupled_cluster, "CoupledClusterResult")
-    with pytest.raises(NotImplementedError, match="ccsd"):
+    # Finite nonlinear CCSD/CCSDT require aligned H/masks/reference.
+    # Missing physical inputs still raise before any numerical work.
+    with pytest.raises(TypeError):
         coupled_cluster.compute()
 
 

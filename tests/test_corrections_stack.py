@@ -87,7 +87,7 @@ class TestApplyOnDHF:
         attach_breit_operator_energy(ne_result)
         gaunt = gaunt_stack.apply(ne_result)["breit"]
         assert gaunt.energy_shift == pytest.approx(
-            ne_result.__dict__["_E_Breit_operator"], rel=1e-12)
+            ne_result.solver_diagnostics["_E_Breit_operator"], rel=1e-12)
         assert gaunt.provenance["retardation_included"] is True
         assert gaunt.provenance["operator"] == "Gaunt plus static retardation"
         legacy = CorrectionStack(

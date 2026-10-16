@@ -1,5 +1,8 @@
 # Dirac–Fock controls and solver routing
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 ## Argument and mechanism table
 
 This describes the current working implementation. An SCF convergence flag
@@ -50,6 +53,76 @@ nine-point Fourier reconstruction retains harmonics 1–4; diagonal ensembles
 can retain the cheaper five-point reconstruction of harmonics 2 and 4.
 
 ## Design assessment
+
+The [Yb⁺ paper-DHF baseline](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/yb_dhf_table001/README.md)
+now compares two fresh68-electron empirical-A171 Fermi DC cores with the
+published three-state DHF energy/moment row. Its local driver qualifies
+complete stored virtual columns in the original physical metric, retains the
+corrected target column through reconstruction, and independently rechecks
+68/69-electron CI energy zeros. This does not alter factory defaults or prove
+correlated69-electron MCDHF stationarity. A complement-coordinate Gram check
+alone did not qualify the embedded physical vectors; that failure is preserved.
+
+An explicit lower-level
+`numerics.bspline.dirac_assembly.refine_generalized_eigenblock` refines a
+declared leading band in the caller's original real H/S coordinates. Full-pencil
+bordered residual correction is followed by ordered joint metric Cholesky QR
+and a shifted leading-block Ritz solve. Every supplied column is retained;
+the routine reports complete S-dual residuals for the caller's original gate.
+It does not choose the physical branch or impose extra occupied constraints;
+constrained callers must supply their actual allowed coordinates. Its default
+admission is 256 coordinates, 128 columns and 128 MiB estimated NumPy working
+payload, with Python/BLAS/SciPy overhead additional. Existing DF/virtual-factory
+defaults and the single-root refinement path retain their behavior. The
+[complete frozen-Yb68 g example](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/eigenblock_native001/README.md)
+passes the original full-band residual, joint Gram, Gauss and projector gates;
+this qualifies a numerical band at that frozen operator, not a correlated
+69-electron spectrum, current core stationarity or fixed-projector migration
+inside an MCDHF optimization.
+
+The current atomic development route is native correlated MCDHF followed by
+RCI; see the [Yb five-state contract](yb_mcdhf_rci_2026_10_11/README.md).
+Its shared `CIStateAverage` uses the full signed CI density and retains the
+original constrained orbital residual and energy-error gates. Population-only
+per-block orbital sets do not establish this correlated EOL stationarity.
+
+`max_determinants` is propagated to the optimized CI Hamiltonian and its RDM
+consumer in both radial engines and the shared charge-state objective. Exceeding
+the cap is an explicit failure, not a reduced physical state space. A screened
+no-pair projector uses the occupation-weighted complete seed Fock operator,
+including the nuclear term once; this projector remains fixed during a run.
+
+For the B-spline optimizer, a stable full quadratic/quartic objective difference
+is available only for unchanged densities in one-CSF symmetry blocks. Mixed CI,
+level tracking and charge-state response explicitly retain the ordinary CI
+energy comparison. Near-unit polar trial retractions evaluate the same map
+through a wide-precision Gram and an inverse-square-root correction series;
+the initial seed and run-initial residual metric are unchanged. These numerical
+paths neither certify physical correlation coverage nor relax the original gates.
+
+The shared B-spline `optimize_orbitals` accepts an opt-in immutable
+`OrbitalOptimizationState`. `from_arrays` checks the complete same-κ positive
+subspaces, original S geometry, coordinates and positive inverse metric without
+repairing the point. A resume keeps those arrays, clears secant history and
+recomputes the supplied full CI objective and gradient. A changed caller-declared
+`objective_identity` requires `allow_objective_change=True`; that declaration
+does not itself prove physical state identity. `checkpoint_callback` receives
+only accepted points, and `max_wall_time` returns the last complete point with
+an explicit stop reason. Large sealed geometry is shared between checkpoints.
+The [implementation evidence](yb_mcdhf_rci_2026_10_11/public_optimizer_resume/README.md)
+and [bounded 531-CSF consumer](yb_mcdhf_rci_2026_10_11/public_mixed_resume_run/README.md)
+retain separate interface and physical gates. This lower-level interface does
+not add transparent resume to `MCDHFSolver.solve`; neither it nor the existing
+fixed-density difference supplies a mixed-CI stable radial energy increment.
+
+For roundoff-scale constraint defects, the fixed-density comparison can use a
+separate constrained objective extension. It subtracts the complete quadratic
+change in each same-κ metric Gram matrix using the actual CI ket-normalized
+one-body gradient multipliers. This equals the same physical energy on the
+orthogonal manifold; larger endpoint defects return unsupported. Explicit
+`projector @ (trial_coordinates - reference_coordinates)` increments preserve
+tiny physical changes that would be lost by subtracting two separately rebuilt
+orbitals. The complete uncentered difference API retains its original meaning.
 
 The DF/MCDHF dispatch and coherent operator contracts are separated. Both direct
 DF engines follow the same physical stationary equations. Numerical rotations
@@ -130,7 +203,7 @@ Xe and Cf. Both starter choices converged throughout. Maximum changes were
 2.2e-11 Ha in total energy and 9.5e-12 Ha in orbital energies.
 
 Raw probes and scripts are in
-[`shooting-refinement`](../benchmarks/runs/2026-09-29-shooting-refinement/).
+`shooting-refinement` (local evidence: `../benchmarks/runs/2026-09-29-shooting-refinement/`).
 `benchmarks/bench_df_solver.py --refine --z 98 --repeats 1 --out <new-directory>`
 reproduces the adaptive measurement. Set OpenBLAS and OMP to one thread for
 comparisons; JIT and first-use angular setup affect first solves.
@@ -192,7 +265,8 @@ agreement. Automatic continuum box selection remains unfinished.
 Focused suites pass 155, 123 and 113 tests (overlapping selections), including
 poisoned scratch-buffer reuse, heavy bound states, sourced orbitals, adaptive
 grids and Breit operators. The earlier grouped-change gate passed 681 tests;
-the current full suite collects 3817 tests. These are not a full-suite pass.
+the then-current full suite collected 3817 tests. These historical counts are
+not a full-suite pass or the current essential selection; see [Testing](TESTING.md).
 
 Use `benchmarks/bench_radial_bound_kernels.py --probe <DBOUND-probe>
 --radial-source <matched-radial.f> --out <new-directory>` for the frozen-field
@@ -238,7 +312,7 @@ these cases show no material speedup from this change. The first measured
 solve may reuse disk JIT caches and is not described as a cold compilation.
 
 Raw measurements and source hashes are in
-[`benchmarks/runs/2026-09-29-df-optimization`](../benchmarks/runs/2026-09-29-df-optimization/).
+`benchmarks/runs/2026-09-29-df-optimization` (local evidence: `../benchmarks/runs/2026-09-29-df-optimization/`).
 Reproduce the current implementation with a new output directory:
 
 ```sh
@@ -370,7 +444,7 @@ is a stopping test, not a certified distance to the exact orbital.
 
 ### Public property checks and balanced direct DF (2026-09-30)
 
-The [public control panel](../benchmarks/runs/2026-09-30-orbital-controls/)
+The public control panel (local evidence: `../benchmarks/runs/2026-09-30-orbital-controls/`)
 holds the Ne SCF tolerance at 1e-9 and compares 2000-point shooting against
 120 B-splines. Corrections use the same converged orbitals; QED is off.
 For the point nucleus:
@@ -410,7 +484,7 @@ automatic physics grid. Explicitly supplied `r_min` is still honored.
 A larger radial dynamic range can require a larger fixed `ns`; the change
 does not certify an arbitrary basis size at every element.
 
-The [Ne radial audit](../benchmarks/runs/2026-09-29-neon-radial-audit/) retains
+The Ne radial audit (local evidence: `../benchmarks/runs/2026-09-29-neon-radial-audit/`) retains
 before/after values, raw DBSR output, solver controls and timing scripts.
 With 120 B-splines and 2000 shooting points, corrections disabled:
 
@@ -473,7 +547,7 @@ relaxed. The resolved inner threshold is recorded in `CalculationSpec`.
 The alternate per-orbital HF mode also rejects a missing bound root instead
 of substituting the last physical/continuum eigenvector.
 
-The [retained panel](../benchmarks/runs/2026-09-30-bspline-convergence/)
+The retained panel (local evidence: `../benchmarks/runs/2026-09-30-bspline-convergence/`)
 compares identical 120-spline calculations with the previous low-root
 extraction and the new accuracy check. Corrections are disabled. At
 `tol=1e-11`:
@@ -594,6 +668,7 @@ Two additional safety gates now exercise the current Atom API directly,
 replacing calls to the retired determinism CLI. Three fresh full-panel
 processes return identical energies and wave hashes; a separate fresh
 compilation passes Numba bounds checking. The panel covers shooting,
-B-splines, explicit MCDHF and Cf. Test and nightly workflows retain their
-full-panel repeat counts through the new tests. Together with the numerical
+B-splines, explicit MCDHF and Cf. These are historical full-panel results.
+Since 2026-10-10, routine CI retains C/Ne/Be with two fresh processes and the
+nightly workflow is removed; [Testing](TESTING.md) owns current coverage. Together with the numerical
 suite, **163 checks pass**, repairing eight failures from the initial audit.

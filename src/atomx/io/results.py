@@ -9,8 +9,6 @@ from dataclasses import asdict
 
 _METADATA_FIELDS = (
     "Z", "_equation", "provenance", "solver_diagnostics", "operator_stages", "radial_convergence",
-    "_breit_provenance", "_nms_provenance", "_sms_provenance",
-    "_hydrogenic_mass_remainder_provenance",
 )
 
 
@@ -41,6 +39,13 @@ def _restore_metadata(result, data, version):
     for key in _METADATA_FIELDS:
         if key in data:
             setattr(result, key, data[key])
+    # Archives written before the declared solver_diagnostics channel
+    # carried corrections provenance as top-level metadata keys; migrate
+    # them into solver_diagnostics, where an explicit entry wins.
+    for key in ("_breit_provenance", "_nms_provenance", "_sms_provenance",
+                "_hydrogenic_mass_remainder_provenance"):
+        if key in data:
+            result.solver_diagnostics.setdefault(key, data[key])
     if 'operator_stages' in data:
         result.operator_stages = tuple(tuple(item) for item in data['operator_stages'])
     spec = data.get("calculation_spec")

@@ -8,6 +8,8 @@ Verifies:
 5. Exchange matrix matches Y^k-based matrix
 """
 
+import math
+
 import numpy as np
 import pytest
 
@@ -428,3 +430,61 @@ def test_full_dirac_direct_and_exchange_blocks_contract_to_slater(he_setup, rank
     assert direct == pytest.approx(expected_j, rel=3e-13, abs=1e-11)
     assert exchange == pytest.approx(expected_k, rel=3e-13, abs=1e-11)
     np.testing.assert_array_equal(kpq, kqp.T)
+
+
+@pytest.mark.parametrize("ks,balanced,p_power,q_power,ranks", [
+    (4, False, 1, 1, (0, 1, 6)),
+    (6, False, 4, 5, (6,)),
+    (6, True, 4, 5, (6,)),
+])
+def test_positive_rank_origin_cell_signed_components(
+        ks, balanced, p_power, q_power, ranks):
+    """Independent monomial integral anchors signed PP/QQ/PQ/QP cells.
+
+    The linear rank6 example is a convergent mathematical kernel control,
+    not an allowed s-s angular transition. r4/r5 covers regular f7-like
+    components in ordinary and mixed RKB bases. Outer Gauss16 covers the
+    maximum monomial density sum degree20 in these cases, so this test
+    distinguishes inner underintegration from an outer quadrature error.
+    """
+    radius = .7
+    knots = np.r_[np.zeros(ks), np.full(ks, radius)]
+    data = prepare_bspline_data(
+        knots, ks, ks, n_gauss=16, kinetic_balance=balanced)
+    orders = data["ksp"], data["ksq"]
+    coefficients = []
+    for order, power in zip(orders, (p_power, q_power), strict=True):
+        vector = np.zeros(data["ns"])
+        for i in range(power, order):
+            vector[i] = (radius**power * math.comb(i, power)
+                         / math.comb(order-1, power))
+        coefficients.append(vector)
+    np.testing.assert_array_equal(coefficients[0][data["nsp"]:], 0.)
+    waves = [(scale*coefficients[0], scale*coefficients[1])
+             for scale in (1., -2., 3., 4.)]
+    target = [_density_sym(waves[0][i], waves[1][i], data["ns"], orders[i])
+              for i in range(2)]
+    source = [_density_sym(waves[2][i], waves[3][i], data["ns"], orders[i])
+              for i in range(2)]
+    cache = ConvolCache(data)
+    try:
+        for rank in ranks:
+            for left, right in ((0, 0), (1, 1), (0, 1), (1, 0)):
+                component = ("p", "q")[left]+("p", "q")[right]
+                component += component
+                bank, extent, _ = cache.get_rkb_t(rank, component)
+                full = _convol_case1_t(
+                    bank, source[right], extent, orders[left], orders[right])
+                factored = _convol_case1_semiseparable_t(
+                    *cache.get_coulomb_factors(rank, component), source[right],
+                    data["ns"], orders[left], orders[right])
+                a = 2*(p_power, q_power)[left]
+                b = 2*(p_power, q_power)[right]
+                expected = (-24*radius**(a+b+1)/(a+b+1)
+                            * (1/(a+rank+1)+1/(b+rank+1)))
+                for potential in (full, factored):
+                    value = convol._sum_amb_banded(
+                        target[left], potential, data["ns"], orders[left])
+                    assert value == pytest.approx(expected, rel=2e-13, abs=0.)
+    finally:
+        cache.release_shared_banks()

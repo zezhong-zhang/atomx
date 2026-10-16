@@ -60,7 +60,7 @@ class GridCSFFunctional:
     Breit/QED/recoil are not included in this orbital functional.
     """
 
-    def __init__(self, csfs, workspace, Z):
+    def __init__(self, csfs, workspace, Z, *, max_determinants=None):
         if not isinstance(workspace, matrix.GridCIWorkspace):
             raise TypeError('GridCIWorkspace is required')
         if workspace.n < 9 or np.any(np.diff(workspace.r) <= 0):
@@ -68,7 +68,8 @@ class GridCSFFunctional:
         self.csfs, self.data, self.Z = csfs, workspace, Z
         self.ns = workspace.n
         self.keys = tuple(sorted({(s.n, s.kappa) for c in csfs for s in c.subshells}))
-        self.radial_density = CIRadialDensity(csfs)
+        self.radial_density = CIRadialDensity(csfs, max_determinants=max_determinants)
+        self.max_determinants = self.radial_density.max_determinants
         self.index_weights = slag6_weights(workspace.n)
         self.weights = self.index_weights*workspace.difr
         if np.any(self.weights <= 0) or not np.all(np.isfinite(self.weights)):
@@ -90,7 +91,8 @@ class GridCSFFunctional:
     def evaluate(self, orbitals, *, gradient=True, ci_result=None):
         result = ci_result
         if result is None:
-            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns)
+            result = ci_solve(self.csfs, orbitals, self.keys, self.data, self.Z, self.ns,
+                              max_determinants=self.max_determinants)
         energy = float(result.ground_energy)
         if not gradient:
             return energy, result

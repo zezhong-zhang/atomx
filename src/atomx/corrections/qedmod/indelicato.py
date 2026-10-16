@@ -27,9 +27,8 @@ from atomx.data.mohr_se import Z_GRID
 
 # ``TABLE[(n, kappa)][Z] -> F(alpha Z)``.
 # Rows are FAC ``faclib/coulomb.c:_qed_se0`` + ``_qed_se1`` at the
-# tabulated Fermi nuclear radius.  Grid values are every 10 charge units;
-# the backend uses a shape-preserving cubic spline when SciPy is present
-# and linear interpolation otherwise.
+# tabulated Fermi nuclear radius. The interpolation is shape-preserving
+# PCHIP with SciPy as a required dependency, not a linear fallback.
 # ``TABLE[(n, kappa)][Z] -> F(alpha Z)`` for the K/L shells, derived from
 # the single tabulated source (:mod:`atomx.data.mohr_se`).  Kept as a
 # public name for callers that introspect the coverage.

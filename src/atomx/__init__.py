@@ -8,7 +8,7 @@ Quick start:
 
 Method-based API:
     from atomx import Atom, DiracFock, Exchange
-    result = Atom(Z=10).solve(DiracFock(breit=True))
+    result = Atom(Z=10).solve(DiracFock(breit=True)).result
 
 Self-describing constructor inputs (same physics, grouped by concern):
     from atomx import Atom, Basis, Corrections

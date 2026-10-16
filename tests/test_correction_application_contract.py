@@ -105,7 +105,8 @@ def test_operator_stages_persist_and_guard_reapplication():
     import json
 
     from atomx.io.results import _encode_metadata, _restore_metadata
-    result = SimpleNamespace(total_energy=-1., energy_components={})
+    result = SimpleNamespace(total_energy=-1., energy_components={},
+                             solver_diagnostics={})
     finalize_with_corrections(result, stack(Term('breit', shift=0.)))
     restored = SimpleNamespace()
     _restore_metadata(restored, json.loads(_encode_metadata(result)), 2)
@@ -117,7 +118,8 @@ def test_operator_stages_persist_and_guard_reapplication():
 
 
 def test_read_only_reevaluation_does_not_add_correction_again():
-    result = SimpleNamespace(total_energy=-1., energy_components={})
+    result = SimpleNamespace(total_energy=-1., energy_components={},
+                             solver_diagnostics={})
     term = Term('breit')
     s = stack(term)
     finalize_with_corrections(result, s)

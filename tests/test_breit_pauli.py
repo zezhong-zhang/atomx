@@ -71,7 +71,7 @@ class TestBreitPauliSolve:
         from atomx.atom import Atom
         from atomx.methods.breit_pauli import BreitPauli
 
-        result = Atom(Z=1, config="2p1").solve(BreitPauli())
+        result = Atom(Z=1, config="2p1").solve(BreitPauli()).result
 
         assert set(result.orbital_energies) == {"2p1/2", "2p3/2"}
         splitting = (
@@ -88,13 +88,13 @@ class TestBreitPauliSolve:
         from atomx.methods.breit_pauli import BreitPauli
         from atomx.methods.hartree_fock_slater import HartreeFockSlater
 
-        result = Atom(Z=2, config="1s2").solve(BreitPauli())
+        result = Atom(Z=2, config="1s2").solve(BreitPauli()).result
 
         # Exactly one jj key — no stale "1s1/2" (uncorrected) next to a
         # synthesized NR-style "1s" key.
         assert set(result.orbital_energies) == {"1s1/2"}
 
-        nr = Atom(Z=2, config="1s2").solve(HartreeFockSlater())
+        nr = Atom(Z=2, config="1s2").solve(HartreeFockSlater()).result
         expected = (
             nr.orbital_energies["1s1/2"]
             + mass_velocity_shift(n=1, l=0, Z_eff=2.0)

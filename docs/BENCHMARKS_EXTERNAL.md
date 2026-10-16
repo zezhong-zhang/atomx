@@ -1,15 +1,32 @@
-# External-Code Benchmark Campaign (2026-10-02)
+# External-code accuracy and performance
+
+The [2026-10-11 matched comparison and scaling campaign](atomic_external_benchmark_2026_10_11/README.md)
+adds live AMBiT, pCI-derived SD, EXP-T and CPU/CUDA controls under a fixed
+input and resource contract. Its report separates numerical agreement,
+experimental precision, whole-process timing and individual operator stages.
+Shared reference backends are labelled explicitly; performance on a finite
+fixture does not rank production heavy-atom spectra. Its subsequent
+[FAC extension](atomic_external_benchmark_2026_10_11/fac/README.md) reruns all
+192 common-input levels and 2003 radial integrals, retains the failed Pb
+absolute and common-spinor gates, and measures complete four-ion CI/E1
+workflows with actual process-thread observation. Independently optimized
+models and different diagnostic export costs prohibit equal-accuracy speed
+ranking. The following campaign
+retains its original 2026-10-02 models, measurements and evidence.
+
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
 
 Cross-code accuracy campaign: atomx (Dirac atomic structure, this repo)
 against five independent external codes living in `../`:
 
 | Code | Model | Speed of light (a.u.) | Role in this campaign |
 |---|---|---|---|
-| [DBSR_HF](../dbsr_hf) | Dirac–Coulomb / Breit MCDHF, B-splines | 137.03599976 (stock build) | structure, wavefunctions, density |
-| [RADIAL (Salvat)](../radial) | local-exchange DHFS + Dirac continuum | 137.035999139 (SL, matched to 137.03599917759013 for probes) | structure (DHFS), Coulomb/screened scattering |
-| [FAC](../fac) | optimized central potential | — | He-like structure (different orbital model) |
-| [Cowan](../cowan) | nonrelativistic HFS | — | neutral-atom energies (model-difference check) |
-| [GRASP2018](../grasp2018) | MCDHF/RCI | 137.035999139 | He-like/Ne-like single-CSF DC + Breit + SE |
+| DBSR_HF (local evidence: `../dbsr_hf`) | Dirac–Coulomb / Breit MCDHF, B-splines | 137.03599976 (stock build) | structure, wavefunctions, density |
+| RADIAL (Salvat) (local evidence: `../radial`) | local-exchange DHFS + Dirac continuum | 137.035999139 (SL, matched to 137.03599917759013 for probes) | structure (DHFS), Coulomb/screened scattering |
+| FAC (local evidence: `../fac`) | optimized central potential | — | He-like structure (different orbital model) |
+| Cowan (local evidence: `../cowan`) | nonrelativistic HFS | — | neutral-atom energies (model-difference check) |
+| GRASP2018 (local evidence: `../grasp2018`) | MCDHF/RCI | 137.035999139 | He-like/Ne-like single-CSF DC + Breit + SE |
 
 Evidence root: `benchmarks/runs/2026-10-02-external-benchmark/`.
 Every run directory keeps raw inputs, stdout/stderr, process metadata and

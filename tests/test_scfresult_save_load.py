@@ -84,7 +84,7 @@ def test_gapped_config_save_load_roundtrip(tmp_path):
 
 
 def test_gapped_configuration_exposes_both_radial_waves():
-    result = Atom(Z=3, config="1s2 3s1").solve(DiracFock())
+    result = Atom(Z=3, config="1s2 3s1").solve(DiracFock()).result
     assert result.converged
     assert set(result.waves.orbitals) == {"1s1/2", "3s1/2"}
     assert result.waves.orbitals["3s1/2"].P.size == result.waves.grid.size
@@ -215,3 +215,25 @@ def test_legacy_component_provenance_migrates_to_diagnostics(tmp_path):
     assert loaded.solver_diagnostics['se_method'] == 'mohr'
     assert loaded.solver_diagnostics['_nuclear_profile'] == {
         'model': 'fermi', 'radius': .001}
+
+
+def test_legacy_top_level_provenance_migrates_to_diagnostics(tmp_path):
+    # Archives written before the declared solver_diagnostics channel
+    # carried corrections provenance as top-level metadata keys; loading
+    # migrates them into solver_diagnostics, where an explicit entry wins.
+    import json
+    _gapped_result().save(tmp_path/'legacy_provenance')
+    with h5py.File(tmp_path/'legacy_provenance.h5', 'a') as archive:
+        dataset = archive['physical_metadata']
+        metadata = json.loads(dataset[()])
+        metadata['_sms_provenance'] = {'nuclear_mass_me': 20000.}
+        metadata['_breit_provenance'] = {'mode': 'dbsr_hf'}
+        metadata['solver_diagnostics'] = {
+            '_breit_provenance': {'mode': 'operator'}}
+        dataset[()] = json.dumps(metadata)
+    loaded = SCFResult.load(tmp_path/'legacy_provenance')
+    assert loaded.solver_diagnostics['_sms_provenance'] == {
+        'nuclear_mass_me': 20000.}
+    assert loaded.solver_diagnostics['_breit_provenance'] == {'mode': 'operator'}
+    assert not hasattr(loaded, '_sms_provenance')
+    assert not hasattr(loaded, '_breit_provenance')

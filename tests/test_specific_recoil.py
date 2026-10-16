@@ -184,9 +184,9 @@ def test_explicit_dirac_fock_method_retains_sms_option():
     from atomx import Atom
     from atomx.methods.dirac_fock import DiracFock
     result = Atom(Z=10, config='1s2 2s2 2p6', engine='bspline').solve(
-        DiracFock(nuclear_mass_me=20000., include_sms=True))
+        DiracFock(nuclear_mass_me=20000., include_sms=True)).result
     assert result.energy_components['sms'] < 0
-    assert result._sms_provenance['nuclear_mass_me'] == 20000.
+    assert result.solver_diagnostics['_sms_provenance']['nuclear_mass_me'] == 20000.
 
 
 @pytest.mark.parametrize('z', [1, 2, 20])

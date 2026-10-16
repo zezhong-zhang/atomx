@@ -1,9 +1,331 @@
 # Verification status and comparison contracts
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
+The [reduced laser/EUV source](EUV_SOURCE_MODEL.md) adds analytic particle,
+photon, pressure-work and laser-energy gates, plus an all-level Sn12+ LTE
+demonstration with native line powers. Its paired laser-off control separates
+preheat emission from added-pulse response. The large run supplies no matched
+multi-charge rates or spatial ablation and is not an experimental CE certificate.
+The spatial extension adds finite multi-charge Saha response, LTE continua,
+conservative layered radiation, critical-layer Drude waves and conduction;
+191 affected checks pass, including18 new finite nonLTE resonance/energy
+cases. The explicit unbranched resonance/RR-moment isochoric kinetic extension
+is qualified on manufactured mixtures, while complete real Sn rate/resonance
+and solid-target shock/ablation coverage are
+absent. The conditional native peak13.1096nm fails the paper Fig.4a envelope
+comparison; experimental CE remains unaccepted. The 2025 diode-calibration
+erratum supersedes the old 2um 5% reference. NIST atomic checks cannot validate
+this additional source physics; see the owning guide for source-specific scope.
+
+The separate complete4d Sn12+/13+/14+ pilot now supplies native signed partial
+PI/RR in12 levels. Its73-test affected panel passes, with ten new independent
+controls. Order16->32, shooting4000->8000 and ns90->110 changes in all nonzero
+partial RR rates/photon moments are at most1.201e-4,2.169e-6 and1.474e-4 relative.
+Ground IP offsets+0.5655/+2.2436eV compare with NIST's theoretical258/282eV;
+they are not experimental rate/CE validation. The full n=4 source still lacks
+matched complete excited-ion/resonance/collision data; see the [native rate contract](EUV_SOURCE_MODEL.md#native-adjacent-ci-partial-pi-and-rr).
+
+The subsequent signed explicit-CI Auger and blocked-orbital increment passes
+160 operator/density/gradient/architecture checks, with3 optional external EXP-T skips,
+including full magnetic/coupled scalar h/V interference and closed-core Fock
+controls. Balanced full-n4 Sn13+ ground-partner CI has8543 levels and residuals
+below5.457e-12Ha. The actual ground IP258.79915055eV is consistent with NIST's
+auxiliary theoretical258(3)eV. The same model's Sn13+ fine splitting
+13709.229696cm^-1 is **530.229696cm^-1 high,4.02329%**, against the measured
+13179(8)cm^-1: **experimental gate failed**. The full476-parent first rate run and all27 omitted-threshold audits are
+complete. It exposes94 incomplete E1 parents and3 failed isolation checks;
+the original partial widths pass shooting refinement at5.960e-5 relative.
+Complete energy-window E1 now has1727701 lines from1471 upper resonances.
+All995 new even-parent channels pass shooting refinement at2.906e-5 relative.
+The complete3165162-line cascade over6289 Sn12+ states and two Sn13+ states
+closes its energy ledger within3.350e-15 relative in six single-capture cases.
+Three isolation failures remain;1.24--1.47% of conditional capture flow reaches
+a first unadmitted node. This is neither a rigorous Fano bound nor complete
+DR or CE certification. Three independent acyclic numerical checks pass. Explicit highest-J Dyson
+reconstruction also passes signed complete-M, radial phase/darkness and
+native PI/Milne controls in a33-test affected panel; full-n4 RR is active. The [owning guide](EUV_SOURCE_MODEL.md#explicit-signed-ci-auger-and-balanced-sn-thresholds)
+retains source identity, failed fresh-SCF replay, numerical/operator scope
+and outstanding native Breit/QED/correlation requirements. Native static
+Breit reduces the optical gap to104.3277cm^-1, still outside8cm^-1. Changing
+to closed Sn14+ reference orbitals instead gives a207.4601cm^-1 low gap;
+neither is a pass. A full8543-CSF equal-ground-state orbital gradient replays
+the original energy and passes independent radial finite differences within
+4.822e-9Ha. Common-orbital optimization is active with unchanged stationarity
+gates; no experimental target enters the objective. Actual bounded angular
+reuse preserves both full H hashes, energy and every gradient coordinate
+bitwise, with29 affected cache controls; the original metric is replayed
+before continued optimization. The subsequent compiled-removal/PI/Auger/cache
+architecture panel passes45 tests. The same native partial-RR pilot replays
+all rate/photon moments bitwise under compiled removal. The latest combined
+operator/density/gradient/resume/cache/architecture panel passes233 tests
+in11.91s; experiment remains unaccepted. See the [current orbital
+contract](EUV_SOURCE_MODEL.md#full-ci-orbital-stationarity-and-reference-field-dependence).
+
+The separate fixed-space Sn13+ DCB FSCC control uses a freshly source-qualified
+backend and54 distinct public equation/convention/axial controls. Native
+core18CCSD/core8CCSD/core8CCSDT splittings are12964.1665/12966.8745/12962.5180cm^-1,
+respectively: all fail the13179(8)cm^-1 experiment. The same-core8 triples
+increment is-4.3565cm^-1, with raw residual bounds below9.346e-10Ha; it does
+not close the retained-space physical gap. The full n4 RR order16/4000 inventory
+has4818 bound roots/9636 candidate channels and bitwise replays2484 moment
+values from414 earlier Python channels. Its full refinements remain active.
+See the [current native scope](EUV_SOURCE_MODEL.md#fixed-space-native-sn13-fscc-core-valence-controls).
+
+An exact optional hash row index in `canonical_body_sparse` passes19 finite
+checks, including independent complex signed actions and selected18-electron
+spaces. Native1086326-state Sn sparse data/indices/indptr hashes match all
+507892914 colex entries byte for byte, with the same1.197e-12Ha root residual.
+The row-index storage falls from1509395976 to50331648 bytes; no controlled
+solver speedup follows. Large-output memory admission includes the actual
+SciPy int64 index rule. This numerical option does not certify new core-hole
+energies or experimental agreement.
+
+A separate numerical audit of the original backend shows that its1e-14
+numerator skip can leave an8.008e-12 amplitude error with a zero reported
+update in an analytic two-spinor case. The [current source contract](ATOMIC_FSCC.md#numerator-division-source-contract)
+adds the conservative legacy residual floor and an optional exact-nonzero
+division build. Actual legacy/exact analytic replays, byte-exact source patch,
+producer rejection and existing equation/convention controls pass74 tests
+without skips. The actual fresh public factory binary also repeats all74
+live cases in22.73s with --runxfail, with its own source/binary receipt.
+Native42 full C1/axial CCSD/CCSDT and complex finite0h2p
+FCI/Bloch checks pass independently; this numerical repair does not certify
+Sn radial/model/experimental convergence or add public0h2p coverage.
+
+The [complete6p native virtual continuation](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_virtual_p003/README.md) now retains18 core and18
+virtual spinors in the same DC/nuclear/radial model. All689589 SDT equations
+(max1.933e-11Ha), original R3 equations/all12 partners and526 live controls
+pass. A frozen4f/18-virtual companion passes288 live controls. The new lines
+25164.078643/25572.326411cm⁻¹ increase the experimental gap. Four-model
+conditional increments differ by441.120927/489.197981cm⁻¹, directly excluding
+portable additive4f corrections between these two virtual spaces. The numerical
+DIIS driver passes independent finite FCI/previous-Yb anchors; current12 tensor
+tests pass. No production source/default, full-H state, f-channel energy,
+physical-space/experimental certificate or MCDHF failed gate is changed.
+
+The [complete4f native tensor continuation](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_4f002/README.md) now correlates18 core
+electrons with50 frozen and the same12 complete S/D virtual spinors. All189834
+SDT equations pass (max1.00018e-17Ha); three target roots and all12 magnetic
+partners pass original R3/J² checks. Lines24582.690888/24855.914777cm⁻¹ rise
+by210.533942/147.061213cm⁻¹ from the prior frozen4f model, so experimental
+agreement is not improved. Current affected tests59PASS/2 external-only SKIP;
+514 live/96 saved controls pass. SR resource-cap and small unprojected
+Davidson J² failures remain before the successful signed highest-weight solve.
+A fixed-input ABBA trial measures1.74× complete-residual acceleration with
+all full output coordinates bitwise identical; no solver-wide speedup is claimed.
+Large-model full-H/exp(T)-state, radial/virtual/core and experimental convergence
+are uncomputed. Original MCDHF failed gates are unaffected.
+
+The earlier [native spin-orbital CCSDT/EA Yb continuation](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/paper_reproduction001/native_tensor_ccsdt001/README.md)
+passes196 live and353 saved controls on complete target M/parity sectors.
+Every directed tensor Hbar entry agrees with independent signed full-sector
+exponentials within3.325e-12Ha. Both D lines are computed with all target
+magnetic partners; CCSDT/R3 minus same-model CI is−0.001356/+0.004524cm⁻¹.
+The core and targets retain nonzero full-H defects. Four core electrons are
+correlated and64 frozen, including4f14; this is neither production full-core
+RCCSDT nor paper/experimental precision. The isolated affected panels pass54
+tests with2 external-only skips; the first shared-cache Numba serialization
+failure remains recorded. Prior MCDHF derivative/stationarity failures below
+are unaffected by this separate method.
+
+The [native analytic CI-response qualification](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision012/README.md)
+uses independently anchored polar and real-DC radial derivatives to predict16
+finite-response terms for the ten original complete Yb A/B target states.
+All155 live controls pass; maximum prediction discrepancy9.144e-13Ha.
+This response-only2n+1 coefficient excludes fixed-vector H3 and higher remainders,
+so the original ordinary-FD/stationarity/experimental failures remain. Fifteen
+new tests pass; the broad affected run is67PASS/2FAIL. Both legacy failures also
+occur in the actual before source with all39 H/eigen arrays bitwise equal;
+they are retained rather than relabelled or hidden by a passing new panel.
+
+The [2026-10-11 external accuracy and efficiency campaign](atomic_external_benchmark_2026_10_11/README.md)
+replays complete signed Ne Sigma1 matrices against the independent pinned AMBiT
+libraries, complete finite ValenceSD maps against the original pCI-derived
+diagram ABI, and finite FSCC equations against full determinant projections.
+Fixed-work CPU scaling, executable lifecycle cost and CPU/CUDA observations
+have separate scopes and resource/load gates. The
+[FAC continuation](atomic_external_benchmark_2026_10_11/fac/README.md) adds
+192 complete same-input levels, 2003 radial integrals and complete four-ion
+CI/E1 workflows. Failed absolute/common-spinor gates remain visible; numerical
+implementation agreement does not certify experimental accuracy. The SD ABI shares pCI lineage;
+Atomx FSCC uses an explicitly patched EXP-T backend. These are not independent
+production-spectrum rankings. The original complete Yb II experimental panel
+still fails its 1% targets; numerical agreement does not close that gap.
+
+The [current native SD owner](atomic_pci_sd_native_2026_10_09/README.md#能量约定强核价耦合与物理度量续验)
+adds common-partial-wave energy diagnostics, a real changed occupied-projector
+Fov=0.07740 Ha control, and 25 same-reference signed screening/re-solved response
+checks. The exact finite CI Bloch/metric extension passes nine tests with no
+skips and a native 17-CSF/two-P-state full signed property anchor. Its physical
+metric-adjoint residual is 1.94e-17 Ha despite a directed adjoint defect
+4.79e-6 Ha. This establishes the finite metric contract; the SD/EXP-T metric,
+large-workload convergence and experimental gates remain unfinished.
+
+The subsequent finite native electric-line consumer passes 21 finite CI checks
+and a broader 240-check angular/CSF/transition panel without skips. Four shared
+angular magnitude cutoffs are removed; a normalized degenerate-state rotation
+retains a 2.78e-17 component. Three complete Be+ J/parity sectors and 16 photon/gauge controls
+agree with independent signed magnetic determinant action and full normalized
+states to 2.67e-15 a.u. (complete operator) and 5.78e-15 a.u. (amplitude).
+Both endpoint metrics and each line's many-electron photon energy are retained.
+This extends finite CI consumption only; the production SD metric, basis and
+experimental gates remain unfinished. Full local evidence:
+`atomic_pci_sd_native_2026_10_09/native_bloch_transitions004/`.
+
+A separate finite standalone monovalent SD increment closes valence singles
+and correlation-energy feedback with a fixed actual native core. Ten live
+tests pass without skips; the local `monovalent_sd006/` replay preserves 195
+arrays for ten magnetic states and eight actual-energy E1 controls. Primary
+equation differences are at most 2.81e-15 Ha, independent feedback-root
+differences 9.17e-17 Ha and line-bilinear differences 1.78e-15 a.u.
+Its full eigenstate residual reaches 2.552e-3 Ha, and length/velocity reduced
+amplitudes differ by about 2.5%. These are finite SD model/space limitations,
+not a numerical precision certification or an error bar on experiment.
+The failed ordinary attached commutator is retained alongside its independent
+singles-only diagnosis. [Current API and scope](ATOMIC_LINEARIZED_SD.md#finite-standalone-monovalent-sd).
+An affected 15-file panel validates 162 distinct checks across the original
+159-pass/three-runtime-failure run and a 13-pass revalidation of those three
+external launches plus the ten new checks. Source formatting is AST-equivalent;
+the complete 005/006 scientific arrays are bitwise equal. Timing is not a
+controlled performance measurement.
+
+The subsequent opt-in J-reduced standalone interface is verified on all ten
+M of four valence columns and four complete matched native fixtures, including
+streamed BLAS and virtual/occupied–virtual rotations. A five-file panel records
+147 passed and three missing-serial-BLAS skips; explicitly supplying that runtime
+passes those three checks, completing 150 distinct checks across the two runs.
+Source-bound `reduced_monovalent008` retains 824 arrays for 40 exact-total-J
+finite comparisons. Maximum random map/root differences are 3.96e-16/4.16e-15 Ha;
+full independent raw defects reach 1.73e-15 Ha and normalized exact-J states
+differ by 1.78e-15. Stronger unrestricted-M state comparisons remain failed in
+two cases at up to 2.353e-11; the independent angular decomposition measures
+the same outside-J leakage and at most 2.17e-15 within-J difference. Failure 006
+and the stricter numerical retry 007 are preserved, not retrospectively passed.
+
+Current-source `monovalent_sd008` revalidates all ten previous finite states,
+eight actual-energy E1 cases and 195 complete arrays after the bare-core Fock
+correction. 155 arrays are bitwise equal to historical 006; per-array differences
+are recorded for the other 40. Historical formatting-only 005/006 equality is
+not asserted for this physics change. Complete original Yb planning counts
+2.02–3.77 million amplitudes per column and at most 9,750,842,316 payload bytes
+with forty Krylov vectors; no new large-space solve or performance execution
+is inferred from arithmetic. [API, resource scope and remaining gates](ATOMIC_LINEARIZED_SD.md#j-reduced-standalone-monovalent-sd).
+
+Subsequent actual full-space diagnostics are tracked separately from arithmetic:
+003 re-certifies the complete core and passes the first complete 6s signed-map
+gate, then explicitly stops before a feedback root. Private terminal term31
+GEMM plus full-image directed Davidson passes 84 independent finite checks and
+seven numerical restart/rejection checks. The distinct standalone CPU/CUDA
+finite control passes 164 checks and all sixteen paired roots in each of two
+source-bound executions; its small GPU roots are slower, and no controlled
+timing claim follows. Full-Yb004 passes all five complete signed maps and is
+explicitly stopped before roots to avoid CPU/GPU contention. Full-GPU005 passes
+five paired maps and two CPU-rechecked feedback roots, then explicitly stops
+duplicate numerical16 iterations. Finite numerical64 retains96 arrays bitwise
+and passes164gates; an independent complete42-matrix stress passes3checks.
+Full006 completes all five feedback roots and actual complete CPU rechecks in
+the unchanged physical window/32GiB cap. Its maximum raw defect2.320e-11 Ha is
+separate from the frozen experiment: only one of four excitations passes1%,
+and both fine splittings fail. Independent private physical-norm controls pass
+840 finite component/M checks, retaining all core spectators, Pauli blocking
+and signed interference. Complete-Yb norm001 passes all18M, freshly measured
+bitwise core-seed identity and381 source/33 payload postchecks. These checks
+and the16-pass private numerical/boundary panel are distinguished in the
+[owner](atomic_pci_sd_native_2026_10_09/README.md); scalar norm is not full-H,
+dressed-property or correlation-convergence certification.
+
 Updated 2026-09-30. The objective remains agreement in physics, numerical
 accuracy and performance across structure, spectra, properties and collision
 calculations. The current live panel below covers only a subset. Neither a
 converged SCF flag nor a small total-energy difference validates every output.
+
+The [2026-10-09 finite CCSD, complete NR-SD and static-Breit increment](yb_sd_breit_completion_2026_10_09/README.md)
+implements real nonlinear CCSD in a resource-bounded complete determinant space,
+plus full declared NR-SD CSF generation and static Breit in all P/Q blocks.
+Its 119-test affected panel passes. Native Be²⁺ CCSD agrees with independent
+complete CSF CI within 3.553e-15 Ha; a four-electron pair-additivity check
+retains disconnected quadruples. These small anchors do not implement scalable
+atomic SD or FS-CCSDT. All five Yb DC/DCB sectors pass dense-state/residual
+gates. Two-hole excitation increments are 32--45 cm^-1; full static DCB yields
+9.904% maximum experimental error, failing the 1% experiment and 1-cm^-1
+space gates. Restricted C--B second order is only 0.08--0.22 cm^-1 in this
+low-orbital Q pool and is not a bound on full atomic B2. The earlier large-virtual
+Sigma and this explicit-hole model have different Hamiltonians.
+
+The [2026-10-09 matched AMBiT and finite P/Q increment](ci_mbpt_matched_qspace_2026_10_09/README.md)
+executes the unmodified upstream second-order library on identical signed radial
+tables and fixed arguments: 27 scalar matrix entries, separately checked 2p1h,
+2h1p and total, maximum difference 1.4294e-21 Ha. This independently anchors
+angular/diagram sums, not radial or tail convergence. Native finite bare-DC CSF
+Q elimination now supports explicit core holes, with no closed-core Sigma
+injection; full Q-Q propagation is exact only in the declared finite space.
+Its 53-test affected panel and five Yb one-4f-hole sectors pass full-state/dense
+anchors (maximum energy difference 5.457e-12 Ha). Q-interaction versus restricted
+Born responses are 95--733 cm^-1, while repeated energy-argument responses are
+0.4--25 cm^-1. Four ground-referenced experimental residuals worsen in this
+incomplete model; no new experimental accuracy, SD/CC or Breit gate passes.
+
+The [2026-10-09 pCI/AMBiT/EXP-T reference and CI-consumer upgrade](ci_fscc_reference_upgrade_2026_10_09/README.md)
+adds the bound full signed scalar one-body matrix to exact CI, preserving producer
+phases/core/metric/nuclear identity and rejecting correlated-core holes. All ten
+archived Yb snapshots pass native CI replay: maximum energy mismatch is
+1.394e-11 Ha. An explicit legacy Hermitian roundoff projection changes Sigma by
+at most 1.735e-18 Ha; the strict native consumer does not silently symmetrize.
+This is operator/representation closure, not a new Yb accuracy result. General
+two-body screening, all-order SD, general particle-hole MBPT operators, FS-CCSDT
+and dressed radiative observables remain unfinished. Pinned external builds and
+their local compiler adaptations are recorded separately from physical benchmarks.
+
+The [2026-10-08 signed matrix attachment stage](yb_matrix_self_energy_2026_10_08/README.md)
+implements both complete second-order diagram classes for an explicit same-κ
+external block. Its affected panel has 99 passing tests, including independent
+signed magnetic-state off-diagonals and auxiliary-Hamiltonian eigenvector/residue
+anchors. Complete matched ten-state capture and final-source saved-matrix replay
+pass numerical/identity gates. Refined maximum excitation deviation increases
+from scalar 5.384% to matrix 5.868%; the experimental 5% target and external/radial
+1-cm⁻¹ gates remain failed. The ground attachment becomes more overbound relative
+to the independent ASD threshold (-865.740 cm⁻¹). Further enlargement of the
+external space cannot raise the lowest root for this fixed self-energy in the
+same pole-free interval; this is a conditional model result, not a bound on
+changed high-order kernels or core self-consistency. The post-capture restoration
+of old scalar input coercions has a separate source identity and is verified
+to leave all 30 actual capture inputs unchanged. The finite matrix does not implement
+all-order SD, complete radial Brueckner or a dressed radiative operator.
+
+The [preceding 2026-10-08 Yb⁺ complete tail/radial controls](yb_correlation_tail_2026_10_08/README.md)
+retain full five-state coarse l8/200-Ha and refined l6/200-Ha captures,
+exact shared-space subsets, complete virtual metric/count/identity checks,
+DF-connected scalar Dyson roots and native CI injection. Numerical gates pass.
+The last coarse l7→l8 excitation increment is 39.156 cm⁻¹, the refined
+100→200-Ha increment is 17.577 cm⁻¹, and the shared l6/200-Ha radial response
+is 2.300 cm⁻¹. Finite increments are not infinite-tail error bounds.
+Maximum experimental deviations are 5.485% and
+5.384%; the 1-cm⁻¹ spatial and four-level 5% targets
+remain failed. That measurement's production source and affected test/dependency hashes match the
+[preceding 137-test validated stage](yb_energy_dependent_sigma_2026_10_08/README.md);
+unaffected unit tests were not repeated in that measurement-only increment.
+The subsequent matrix stage has a separate changed-source identity and test panel.
+The independently checked ASD 5.12 ionization threshold adds an absolute
+attachment comparison: refined ground residual -600.31 cm⁻¹,
+upper-state residuals 257.32, 313.32,
+838.52, 1036.08 cm⁻¹. These pure-DC versus
+physical-experiment residuals do not isolate missing correlation or QED. Legacy
+Handbook/paper thresholds differ and are not mixed into the new absolute zero.
+Frozen-orbital scalar Dyson is not off-diagonal Brueckner response, self-consistent
+GF2 or a correlated-rate gate. The [earlier convention controls](yb_diagnosis_repair_2026_10_08/README.md)
+preserve independent DF/dipole/current/Breit checks and analytic-QED warnings.
+These dated controls do not refresh the older structure panel below.
+
+The [Yb literature-backed next-step review](yb_literature_repair_strategy_2026_10_08/README.md)
+replays primary-table comparisons and audits actual consumer coverage; it is not
+a new atomic accuracy gate. A verified first-order static-Breit shift does not
+bound second-order Coulomb–Breit correlation. Monovalent all-order SD, balanced
+large-virtual particle-hole P/Q operators and complete atomic cross terms remain
+unfinished. Restricted NR-SD/DCB and matched-H0 cross controls now exist in the
+latest increment above; they do not establish high-order/radial convergence. Adding
+explicit hole CI to the unchanged full-core self-energy can double count channels.
 
 ## Current live structure evidence
 
@@ -43,7 +365,7 @@ general performance ratio. All eight SCF calculations met their requested
 stopping criteria, whose definitions are recorded separately.
 
 Raw evidence:
-[`2026-09-30-dbsr-orbital-accuracy`](../benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/).
+`2026-09-30-dbsr-orbital-accuracy` (local evidence: `../benchmarks/runs/2026-09-30-dbsr-orbital-accuracy/`).
 All 26 reported orbital mean radii across these four atoms agree within DBSR's
 three-decimal print rounding. That coarse output does not demonstrate high
 precision for individual radii. Orbital energies need the separate convention
@@ -109,7 +431,7 @@ at the then-default Atomx controls were 7.8e-9 Ha (He), 5.4e-6 Ha (C),
 5.1e-6 Ha (Ne), and 8.5e-6 Ha (Xe). Tightening Xe to 4000 points and SCF
 tolerance 1e-12 reduces its maximum difference to 3.5e-7 Ha. The diagnostic
 does not alter reference orbitals or total energies; outputs and its patch
-are in [`final-fock`](../benchmarks/runs/2026-09-29-dbsr-final-fock/).
+are in `final-fock` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-final-fock/`).
 
 Atomx Xe point-nucleus energies at 2,000 and 4,000 grid points differ by
 1.2e-10 Ha; reducing the inner grid radius from 1e-7 to 1e-8 bohr at 4,000
@@ -117,9 +439,9 @@ points changes the energy by about 3e-12 Ha. These refinement observations
 apply to this calculation, not to all atoms or operators.
 
 Refinement traces are in
-[`cusp-refinement`](../benchmarks/runs/2026-09-29-dbsr-cusp-refinement/),
-[`cusp-tight`](../benchmarks/runs/2026-09-29-dbsr-cusp-tight/) and
-[`grid-check`](../benchmarks/runs/2026-09-29-dbsr-grid-check/).
+`cusp-refinement` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-cusp-refinement/`),
+`cusp-tight` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-cusp-tight/`) and
+`grid-check` (local evidence: `../benchmarks/runs/2026-09-29-dbsr-grid-check/`).
 The earlier full-grid run timed out after 180 seconds; its partial trace is
 retained and is not used as a converged reference.
 
@@ -147,7 +469,7 @@ models. These discrepancies are not treated as numerical errors or passes.
 The current FAC output also does not certify the radial convergence residual.
 
 RADIAL/FAC raw data:
-[`2026-09-29-structure-matched`](../benchmarks/runs/2026-09-29-structure-matched/).
+`2026-09-29-structure-matched` (local evidence: `../benchmarks/runs/2026-09-29-structure-matched/`).
 Its original DBSR rows have been annotated with the later grid/constant findings.
 The first `2026-09-29-structure` run also had unmatched carbon occupations and
 FAC mass shifts; it is retained as an audited failed comparison setup.
@@ -193,7 +515,7 @@ spread), consistent with the independent leading-order Drake benchmark.
 The initial FAC hydrogen discrepancy is **not** an agreement pass.
 
 Electric finite-frequency operators are now implemented in both gauges.
-The follow-up [live panel](../benchmarks/runs/2026-09-29-electric-finite-frequency-live/)
+The follow-up live panel (local evidence: `../benchmarks/runs/2026-09-29-electric-finite-frequency-live/`)
 compares FAC mode 0 with the full Atomx operator: E1–E2 rate differences
 are below 9e-6 relative and E1–E4 below 2.7e-4 over Z=1,10,26,54,82.
 The maximum electric gauge **rate** discrepancy is 4.2e-12.
@@ -216,8 +538,8 @@ K_SMS(ns=70) = -117.83870438580823, outside its 1e-9 relative gate.
 It is unresolved and is not caused by adding photon retardation. Logs and
 the isolated baseline script are retained with the follow-up live panel.
 
-Evidence: [initial convention panel](../benchmarks/runs/2026-09-29-transition-conventions-live/),
-[magnetic correction panel](../benchmarks/runs/2026-09-29-magnetic-retardation-live/).
+Evidence: initial convention panel (local evidence: `../benchmarks/runs/2026-09-29-transition-conventions-live/`),
+magnetic correction panel (local evidence: `../benchmarks/runs/2026-09-29-magnetic-retardation-live/`).
 Tests cover Einstein absorption/emission consistency, live FAC data columns,
 M2–M4 radial operators, B-spline hydrogenic M1, and recombination dispatch.
 The focused physics run passed 104 tests with two existing He-like M1 xfails;
@@ -258,7 +580,7 @@ Neutral Ne point/Fermi shooting and B-spline finite-frequency expectations
 agree within 2.7e-12 Ha. This internal engine comparison does not establish
 the same precision against an external code.
 
-The [public orbital-control panel](../benchmarks/runs/2026-09-30-orbital-controls/)
+The public orbital-control panel (local evidence: `../benchmarks/runs/2026-09-30-orbital-controls/`)
 now reproduces that comparison through `Atom.solve`/`Sampling`, with an
 independent L2 update threshold. At fixed Ne energy tolerance 1e-9, tightening
 shooting's orbital threshold to 1e-9 reduces its difference from B-splines
@@ -282,7 +604,7 @@ and failed 12: one new test used a wrong enum import (fixed; the seven-test
 rerun passes), and 11 failures remain in the older API snapshot/control file.
 The Ne snapshot difference matches a retained pre-change run; these old
 expected numbers were not replaced. The full suite is still not green.
-The [public Ne audit](../benchmarks/runs/2026-09-30-transverse-public/)
+The public Ne audit (local evidence: `../benchmarks/runs/2026-09-30-transverse-public/`)
 converges on both engines at an SCF tolerance of 1e-9; B-splines missed a
 1e-11 target within 100 iterations. Both outcomes are retained.
 That tighter B-spline failure is superseded by the
@@ -1337,6 +1659,10 @@ explicit MCDHF. CI and nightly workflows now use these tests, retaining their
 existing full-panel repeat counts. The final numerical and safety gates total
 163 passes and repair eight failures identified by the full audit.
 
+Current workflow scope changed on 2026-10-10: the full Cf/repeated campaign and
+nightly schedule were removed in favor of the essential suite. The preceding
+counts describe the historical audit, not current CI. See [Testing](TESTING.md).
+
 Inputs, outputs, source hashes, baseline failure reproductions and profiles
 are retained in
 [`2026-09-30-shooting-moments`](../benchmarks/runs/2026-09-30-shooting-moments/README.md).
@@ -1364,3 +1690,454 @@ See [the radial operator review](../benchmarks/runs/2026-09-30-shooting-radial-k
 for matched timings, source/output hashes, profiling evidence and requirements
 for safe sparse contraction and field reuse. This is focused verification;
 the existing full-suite issues reported above were not re-audited.
+
+## Integral-driven electronic CCSD/FS-CCSDT
+
+The [current backend](ATOMIC_FSCC.md) has independent native signed-integral
+and frozen-core anchors, full two-/three-electron CI comparisons, multiple-tile
+and complex-rotation controls. [Measured Yb and Ne workloads](atomic_allorder_fscc_2026_10_09/README.md)
+separate numerical convergence from core, virtual-band and experimental gates.
+The raw amplitude equation bound is not a full FCI residual or basis-error bound.
+
+The [streaming continuation](atomic_streaming_tail_2026_10_09/README.md) verifies
+complete native on-demand band construction, exact signed ERI exports, bounded
+cache changes and actual streamed CC equations. A native operator fitting in
+memory does not certify a full-band tensor solve or physical convergence.
+
+The [native scalar SD continuation](atomic_reduced_sd_2026_10_09/README.md)
+adds a bounded J=0 linked linearized-SD equation anchor, independent exact
+scalar counting, native DC/DCB/frozen-core probes and a live pCI angular-phase
+comparison. It does not replace EXP-T nonlinear equations or certify a
+complete pCI SD bridge, large-pool direct contractions, valence operators or
+Yb optical accuracy. See the [current API](ATOMIC_LINEARIZED_SD.md).
+
+The subsequent [direct native core-SD increment](atomic_pci_sd_native_2026_10_09/README.md)
+binds original pCI reduced DC diagrams to the exact public cell-Coulomb
+quadrature, keeps full noncanonical Fock blocks and solves complete virtual
+bands without a magnetic quartic ERI array. Independent signed and rotated
+Be/Ne commutators, energies and projected amplitudes pass; 97 affected tests
+pass with the live pCI/EXP-T toolchains at the recorded pre-runtime-guard source,
+and 10 later live core tests verify stage logging and OpenMP BLAS guards.
+Complete Ne s/p/d/f/g bands below 50 Ha have raw equation residuals below
+3e-12 Ha, but the f-to-g correlation change is still about 0.012 Ha.
+Optional exact BLAS initialization and compact/streamed contractions retain
+the original signed equation anchor. Parallel streamed use of serial BLAS was
+rejected after a full-Yb memory-pool warning; old small-case numerical
+observations are preserved. The bound OpenMP replay passes full Ne signed
+actions and roots, with controlled four-worker actions around 0.345 s versus
+2.32 s. A later exact singles BLAS batch also passes correctness, but its
+failed load guard rejects controlled timing claims. The polynomial density
+coordinate transform passes the current 43 core/radial checks without skips
+and 256 Yb native radial values at maximum error 1.07e-14 Ha. The archived
+broader dependency panel passes 120 checks before the final provenance/finite
+guards. Complete Ne g signed actions differ by at most 3.34e-16 Ha and solved
+amplitudes by 1.95e-16, with raw residual 8.44e-13 Ha. In the all-68-core,
+14-virtual Yb control, original pCI evaluation at the new solution has residual
+1.31e-12 Ha and correlation-energy difference 1.39e-17 Ha. The two worker
+solutions are bitwise identical; the reused original action is explicitly
+conditioned on that equality. These batches supply no controlled speedup
+claim. The production 414-virtual Yb gate remains separate. A rejected
+intermediate source passed an earlier test without detecting a zero matvec
+counter; its log/source are retained, and the final panel adds that assertion.
+These results certify the recorded equation implementation,
+not radial/correlation convergence, monovalent operators or experimental
+spectroscopic precision. Full retained Yb remains an active workload.
+
+
+In the active native continuation, the complete 68-core/414-virtual Yb
+28,218,500-coordinate action now matches the original-node reference to
+1.39e-16 Ha; the complete solve remains active. Isolated canonical CI+all-order
+controls independently match the full signed valence root to 5.11e-13 and the
+response derivative to 3.29e-14. The full finite two-valence screening comparison
+covers 65,536 elements and passes at 7.05e-19 Ha. These archived source-bound
+controls verify equations and conventions, not production valence precision or
+correlation-space convergence. No new Yb optical result is claimed.
+The same finite owner separately verifies the total joint Sigma2 energy
+derivative: the full signed analytic comparison passes at 3.18e-19, and six
+re-solved controls at three declared steps pass the fixed abs1e-9+rel1e-6 gate
+(smallest-step maximum 2.77e-13). The original single derivative field and the
+joint two-energy variable are explicitly distinguished; this is not a QED
+response or production error estimate.
+
+Complete finite noncanonical valence Fock operators pass independent magnetic
+and fermionic checks (four-electron maxima 1.30e-18/1.75e-18 Ha). Failed full
+root/response runs004–008 remain archived. Control009 keeps identical float64
+physical inputs, space, energies and gates, and improves the independent
+reference contraction arithmetic and actual-operator refinement. All six radial
+columns/16 magnetic states pass: full signed action/root/response maxima
+6.34e-17/5.40e-15/1.35e-12, Sigma1 derivative 2.95e-14; independent response
+residual <=1.14e-18. All three declared re-solved finite differences pass.
+
+The new public `methods.valence_sd` interface has separate source-bound evidence:
+three live tests pass with no skips, including NX>NXX and core COMMON restoration.
+[Current public replay](atomic_pci_sd_native_2026_10_09/public_valence002/result.json)
+uses all six s/p radial columns/16 magnetic states and actual native DC Fock
+with 0.37-rad virtual rotations. Independent full action/root/response maxima
+are 2.09e-16/2.82e-14/1.12e-12; all five output arrays remain bitwise identical
+after packed-index/buffer reuse. The core raw residual is 2.60e-14 Ha. No solved
+physical excitation energy, space convergence or Yb spectral improvement is
+inferred from this fixed-energy finite equation proof.
+
+[Noncanonical Sigma2 Fock primitive](atomic_pci_sd_native_2026_10_09/sigma2_fock002/comparison.json)
+checks all 65,536 signed values and joint derivatives (3.40e-16/1.53e-13 Ha)
+and all 14,400 independent fermion pair elements (4.79e-16 Ha). Reverse P S F P
+is exactly zero. The raw pair projection contains embedded Sigma1; independently
+calculating and subtracting it with identical denominators corrects the retained
+failed001 comparison. This primitive uses declared complete input directions;
+the later public fixed-energy solved Sigma2 passes the complete finite gates
+below, while its CI metric/energy consumption remains unverified. Full production Yb solve, correlation/radial convergence and
+experiment remain separate gates.
+
+The public reduced `Sigma2SD` continuation passes six combined live tests with
+no skips and [25 complete independently checked cases](atomic_pci_sd_native_2026_10_09/sigma2_solved005/result.json).
+All 65,536 signed values and implicit joint derivatives pass at maxima
+4.09e-17/3.73e-16 Ha; the baseline public magnetic query passes at
+4.19e-17/4.28e-16 Ha. All three original steps pass O(h8) re-solved differences,
+maximum error 1.18e-11 under the unchanged abs1e-9+rel1e-6 gate.
+The earlier O(h2) failures and public method-role identity failure are retained.
+Checked packed-index reuse removes a redundant native valence initialization;
+all 25 complete cases remain bitwise unchanged. No controlled speedup is claimed.
+
+The [same-case effective-operator audit](atomic_pci_sd_native_2026_10_09/directed_effective_audit001/comparison.json)
+checks all 14,400 pair elements. Particle-swap covariance passes at 2.09e-17 Ha,
+while Sigma1 and physical pairSigma2 adjoint defects are 0.01674/0.03687 Ha;
+combined frozen-valence matrix defect is 0.03933 Ha. Bare Coulomb pair defect
+is 5.56e-17 Ha. These directed fixed-energy probes are not automatically
+Hermitian CI input; energy conventions, left/right states and effective metric
+remain required. The defects are convention diagnostics, not Yb/experimental
+error budgets. Full Yb, radial/correlation convergence and experiment remain open.
+
+The active native-SD continuation now retains the completed [all-68-core/414-virtual Yb solution](atomic_pci_sd_native_2026_10_09/yb_full_run008/yb_full_result.json): 36 actions, maximum raw residual 4.44e-13 Ha, correlation energy -0.6363421005996561 Ha. A fresh [public exact term31/32 full-band replay](atomic_pci_sd_native_2026_10_09/single_to_doubles003/result.json) passes the complete action and both stimulated full-coordinate diagram gates. Launch-source public regression passes 32 checks without skips, followed by 26 no-skip full iterative-seed core checks. Full fixed-energy Yb valence/screening has been launched with unchanged internal intermediates; physical metric, correlation/radial convergence and experimental spectra remain outstanding.
+
+Full Yb valence001 passed raw core replay then failed channel layout; independent owned NXV/NVH fixed the mismatch. Full002 again passed the same complete core gates, then SIGSEGV occurred at an OpenMP-induced 67.25MiB stack allocation; actual entry replay and old/new assembly retained. Serial-static original valence/screening compilation passes10finite original/optimized checks, complete full-space source entry repair passed; solved production valence and controlled performance remain active. Optional public exact axial FSCC passes19checks with no skips across signed native/complex matrices, full3electron FCI, closed/particle/hole sectors and export guards; public001 return-matrix overwrite failure remains preserved.
+
+The [source-separated valence response panel](atomic_pci_sd_native_2026_10_09/valence_response_split001/pytest.log) passes10checks with no skips, including original full derivative and re-solved joint screening gates. The [independent 16-magnetic-state replay005](atomic_pci_sd_native_2026_10_09/public_valence005/result.json) passes unchanged signed gates. A stronger .61rad changed occupied reference fails the raw response gate; [same-input conditioning/70-digit coefficient-matrix diagnosis](atomic_pci_sd_native_2026_10_09/valence_condition006/result.json) retains the failure without substituting a high precision native operator. Exact term2 batching passes the complete original68core/414virtual signed/analytic-response gate003. The public optional serial/8-worker paths pass [18 affected checks](atomic_pci_sd_native_2026_10_09/valence_term2_public_parallel007/pytest.log) without skips and [independent six-column/16-magnetic-state equations](atomic_pci_sd_native_2026_10_09/public_valence008/result.json). The [complete eight-worker replay](atomic_pci_sd_native_2026_10_09/valence_term2_parallel_full006/post_binding_check.json) retains bitwise equality with the serial input/output arrays. [Three alternating warm pairs](atomic_pci_sd_native_2026_10_09/valence_term2_paired008/result.json) pass the predeclared load and full signed gates: term2 one/eight-worker median speedup4.84, range4.82–4.91. The production003 archive retains its certified6s column; fresh004 continues p/d/screening. No end-to-end or experimental claim follows.
+
+The [explicit response-policy public panel](atomic_pci_sd_native_2026_10_09/valence_response_policy_public016/adoption_gates.json) passes22 checks without skips across four backend modes; homogeneous values and full responses share the physical action. [Independent replay009](atomic_pci_sd_native_2026_10_09/public_valence009/result.json) retains all6 radial columns/16 magnetic states and unchanged signed gates. [Complete Yb mode recovery014](atomic_pci_sd_native_2026_10_09/valence_term2_policy_full014/post_binding_check.json) retains all866 radial arrays and original signed values/responses bitwise. [Three alternating policy pairs015](atomic_pci_sd_native_2026_10_09/valence_term2_policy_paired015/result.json) pass numerical and load guards (1.34–1.60, median1.36) for warm value requests at fixed8 workers, including C copies. Full response, full solves, radial/space convergence and experiment are separate gates; the production003 archive retains its original full-response source; fresh004 uses the current kernel.
+
+The [complete checkpoint panel](atomic_pci_sd_native_2026_10_09/valence_checkpoint_public017/pytest.log) passes26 checks without skips across all four original/optimized backends. Perturbed complete real numerator/response guesses are re-solved and retain current raw/signed gates; wrong shape, complex, nonfinite or unrequested-response guesses reject. Same-input private mixed-width native [arithmetic controls](atomic_pci_sd_native_2026_10_09/README.md#强参考响应的实际算符精度控制) retain public double/80-bit reference failures and compare actual113-bit native contractions, without changing physical coverage or claiming scalable/public extended precision. Production full003 stopped after a certified6s column; [fresh004](atomic_pci_sd_native_2026_10_09/yb_full_valence004/contract.json) binds the unchanged archive and re-certifies complete checkpoints before continuing.
+
+Private [GPU arithmetic controls](atomic_pci_sd_native_2026_10_09/README.md#gpu实际径向批量控制) now retain complete59s/3481-pair/ranks0..7 bitwise density outputs, full68core/414virtual term2 values/analytic responses and mode recovery, and full414virtual whole-GPU projection outputs. Both complete eight-worker CPU/CUDA pairings fail the predeclared load guard, so no controlled full-map gain or public/production GPU adoption is claimed. All physical inputs, full signed outputs, actual CUDA runtime and failed builds remain replayable in the owner.
+
+
+The [restart callback panel](atomic_pci_sd_native_2026_10_09/valence_iteration_public018/pytest.log)
+passes26 affected checks with no skips across original/optimized backends:
+complete immutable restart guesses, fresh signed/root/response certification,
+callback consumer failure and malformed input rejection. The separate
+[atomic persistence panel](atomic_pci_sd_native_2026_10_09/valence_restart_storage019/pytest.log)
+passes five private checks, including actual interrupted native solves and
+corrupt/changed-identity/uncommitted archive rejection. These establish finite
+restart integrity; older loaded production004 cannot acquire the new callback.
+
+The [current core certificate panel](atomic_pci_sd_native_2026_10_09/valence_core_certificate_public021/pytest.log)
+passes56 affected checks with no skips across original/optimized live images.
+Only the same owner's most recent unchanged immutable core result reuses its
+actual complete raw residual. Reconstruction, changed complete data/scalars/
+provenance/operator or an insufficient residual bound still requires the
+original raw action. Initial020 missing-runtime skips and their three-check
+complement are preserved. The [current-source GPU independent replay](atomic_pci_sd_native_2026_10_09/public_valence011/comparison.json)
+passes all16 magnetic states: maximum signed action/root/numerator-response/
+Sigma1-response errors6.597e-16/4.173e-15/6.092e-14/1.322e-14Ha against the
+unchanged1e-11 gate. These are finite model/representation gates; physical
+spectral convergence and production GPU performance remain unverified.
+
+The proposed same-column GCROT candidate passed60 small live checks but failed
+the independent rotated4s raw gate, with residual7.552e174Ha. The matched
+GMRES011 column passes with117 matvecs and2.713e-15/3.164e-15Ha root/response
+residuals. [Withdrawal and exact source restoration](atomic_pci_sd_native_2026_10_09/valence_recycling_public022/withdrawal.json)
+preserve this failure; the public solver and production remain GMRES. Its
+initial causal mechanism was unresolved; the later complete026 diagnosis below
+records image/Gram drift. No acceptance gate was changed.
+
+The [full-Yb additive CUDA control002](atomic_pci_sd_native_2026_10_09/cuda_valence002/result.json)
+passes complete affine/homogeneous/value/analytic-response and mode recovery in
+all five s/p/d columns with68core/414virtual, maximum signed error1.388e-17 Ha.
+These are complete maps, not fresh full production solutions or controlled
+performance. After current-source independent011 and56 no-skip public checks,
+[fresh private CUDA production005](atomic_pci_sd_native_2026_10_09/yb_full_valence005/contract.json)
+has completed all five original fixed-energy roots/responses and directed
+screening/joint response with certified GMRES; its [complete result](atomic_pci_sd_native_2026_10_09/yb_full_valence005/result.json) retains the declared model and gates. A [full64-coordinate recycling diagnosis023](atomic_pci_sd_native_2026_10_09/valence_recycling_diagnosis023/result.json)
+reproduces retained-image failures in both dense and native operators; refreshing
+actual C=A U before each inverse passes this finite raw response gate. Independent
+013 still fails, so this finite refresh result is insufficient for adoption.
+
+Complete root-dependent026 repeats the retained recycled-image divergence;
+fixed dense-root025 is a different rhs condition. Two full MGS passes retain
+all C/V coefficients: [027](atomic_pci_sd_native_2026_10_09/valence_recycling_reorthogonal027/result.json)
+passes dense/native full64-coordinate root and implicit-response gates,
+[014](atomic_pci_sd_native_2026_10_09/public_valence014/result.json) passes all6radial/16magnetic independent
+physical equations, and [015](atomic_pci_sd_native_2026_10_09/public_valence015/result.json)
+passes actual public GMRES recertification of complete private guesses.
+These are private numerical controls; full production006 is now complete in
+the declared space. Physical space convergence, metric/CI spectral consumers
+and experiment remain open.
+[Resident GPU Krylov002](atomic_pci_sd_native_2026_10_09/cuda_krylov002/result.json)
+passes the complete retained64-coordinate matrix with root/response raw
+2.375e-15/4.240e-15Ha, signed errors4.420e-15/2.465e-14Ha and unchanged caller
+allocator/default-pool limit. It retains FP64, the original iteration budgets
+and all coordinates, and makes no controlled performance claim.
+
+
+The source-bound [finite stage019](atomic_pci_sd_native_2026_10_09/public_valence019/result.json)
+retains all six radial/16 magnetic independent action/root/response gates;
+complete homogeneous decomposition differs by at most3.968e-17Ha.
+[Full stage003](atomic_pci_sd_native_2026_10_09/cuda_valence003/result.json)
+re-certifies the current complete core then reconstructs all five original
+68core/414virtual homogeneous columns with maximum6.133e-19Ha signed error.
+It validates actual COMMON extents before reading arrays. Legacy component
+response timings are individual observations, not additive value-map times.
+[Exactly reachable GPU projection002](atomic_pci_sd_native_2026_10_09/batched_projection002/result.json)
+passes retained original CPU full414virtual term2 values/analytic responses
+and full/value/full recovery; this frozen-field replay is not a fresh solve.
+The complete callback's [independent020](atomic_pci_sd_native_2026_10_09/public_valence020/result.json) passes all six radial/16 magnetic equations and public roots, with maximum signed response1.558e-12Ha against unchanged1e-11. All-projection001 is
+retained but performs3.182 times the exact-reach projection multiplication work;
+neither projection candidate has controlled timing or public adoption.
+[Production005 6p3/2](atomic_pci_sd_native_2026_10_09/yb_full_valence005/valence_6_-2.json)
+passes actual raw root/response3.070e-15/1.631e-15Ha in183 matvecs;
+all five original columns and directed screening are now complete in005/006;
+resident GPU008, physical convergence and controlled performance remain separate.
+
+
+The private [term41 BLAS control021](atomic_pci_sd_native_2026_10_09/public_valence021/result.json)
+retains all original angular/denominator rows and replaces only the terminal
+complete value/response matrix sums. All six radial/16 magnetic independent
+and public root gates pass. [Full same-input five-column comparison004](atomic_pci_sd_native_2026_10_09/cuda_valence004/result.json)
+passes every retained original homogeneous component/map array, maximum signed
+difference5.319e-19Ha. This is not a new production-root or performance gate.
+Production005 now also certifies5d3/2 raw root/response1.519e-15/1.027e-15Ha,
+95 actual matvecs. [Final5d5/2](atomic_pci_sd_native_2026_10_09/yb_full_valence005/valence_5_-3.json)
+also passes raw root/response1.660e-15/1.372e-15Ha with95 actual matvecs;
+all five columns and directed screening/joint response now pass in005 and006.
+CPU-vector MGS006 produces numerical guesses then re-certifies every column
+through actual public GMRES. The [complete comparison](atomic_pci_sd_native_2026_10_09/yb_full_public_screening005_006.json)
+passes original signed gates: columns1.348e-12Ha maximum, Sigma2 value/joint
+response1.123e-15/3.635e-14Ha. Different source epochs remain explicitly bound.
+
+
+[Complete P/Q singles023](atomic_pci_sd_native_2026_10_09/public_valence023/result.json)
+keeps original angular rows/native RINT, full P/Q and derivative intermediates,
+and passes all six radial/16 magnetic independent action/root/response gates.
+The22 source-boundary failure precedes candidate arithmetic and is preserved.
+Four complete buffers add8,007,680B in full Yb, predeclared before loading.
+[Full five-column comparison005](atomic_pci_sd_native_2026_10_09/cuda_valence005/result.json)
+passes every retained original affine/homogeneous/value/analytic-response and
+restoration array, maximum8.674e-17Ha. This is an arithmetic gate, without
+controlled stage/production speedup or public adoption.
+
+[Fused angular control024](atomic_pci_sd_native_2026_10_09/public_valence024/result.json)
+passes all six radial/16 magnetic independent action/root/response gates at the
+unchanged1e-11 threshold. It retains every signed angular row and rejects
+non-disjoint output channels before fused accumulation; FP64 FMA is disabled.
+[Complete frozen6s replay003](atomic_pci_sd_native_2026_10_09/batched_projection003/result.json)
+passes the retained original CPU value/analytic response, with576,486,752B
+predeclared under the original2GiB pool. [All-five frozen-field replay001](atomic_pci_sd_native_2026_10_09/fused_full_fields001/result.json)
+passes original GPU values/responses/mode restoration, maximum5.421e-20Ha.
+The latter uses the complete CPU/GPU map002 anchor transitively and does not
+claim a fresh COMMON/full-map/production solve or controlled performance.
+
+[ResidentGPU008 p3/2 public certification](atomic_pci_sd_native_2026_10_09/yb_full_valence008/valence_6_-2.json)
+passes raw root/response1.055e-15/1.520e-15Ha,7 public actions. [Complete matched
+005/006/008 p3 arrays](atomic_pci_sd_native_2026_10_09/yb_full_p3_public_comparison002.json)
+pass unchanged signed1e-11 gates, maximum1.348e-12Ha. Full fused map006 and
+005/006 directed screening now pass their separate gates. Production011 is
+resource planning only; its candidate is running as012.
+
+[Fresh fused full-map006](atomic_pci_sd_native_2026_10_09/cuda_valence006/result.json)
+passes all five same-input original complete arrays, maximum8.674e-17Ha.
+Original certified CPU arrays are explicitly reused; fresh GPU/core execution
+is distinguished from CPU timing. The [011 pure resource plan](atomic_pci_sd_native_2026_10_09/yb_full_valence011/resource.json)
+bounds host storage21,203,747,428B under32GiB and one complete fused context
+577,761,248B under the original2GiB diagram pool. [Production012](atomic_pci_sd_native_2026_10_09/yb_full_valence012/contract.json)
+has completed all five saved005 guesses with actual public GMRES and full
+directed screening; the complete005/012 comparison below passes. The
+transfer-inclusive term2 driver ran four signed warmups and rejected timing
+under its exclusive-device guard.
+
+[Resident GPU production008](atomic_pci_sd_native_2026_10_09/yb_full_valence008/result.json)
+and [fused/GEMM production012](atomic_pci_sd_native_2026_10_09/yb_full_valence012/result.json)
+now complete every original fixed-energy column and directed screening/joint
+response. Actual public GMRES independently certifies every private guess.
+[Full005/008](atomic_pci_sd_native_2026_10_09/yb_full_public_screening005_008.json)
+passes signed column maximum1.330e-12Ha, screening value/joint response
+1.118e-15/3.626e-14Ha. [Full005/012](atomic_pci_sd_native_2026_10_09/yb_full_public_screening005_012.json)
+has column maximum1.735e-17Ha and bitwise identical screening arrays.
+The comparator now checks full root and screening archive extents before
+allocation and immutable screening hashes; [resource/refusal controls](atomic_pci_sd_native_2026_10_09/comparison_archive_resource001/result.json)
+and [complete005/006 replay](atomic_pci_sd_native_2026_10_09/yb_full_public_screening005_006_v2.json) pass.
+[Transfer-inclusive term2 timing001](atomic_pci_sd_native_2026_10_09/fused_term2_pair001/result.json)
+passes four complete original-CPU signed warmups at2.982e-19Ha; unrelated GPU
+contexts fail the declared exclusive-device guard, so paired timings were
+skipped and controlled speedup remains null. Physical space/metric/spectral
+convergence, experiment and public GPU adoption remain unverified.
+
+[Compact complete EXP-T block storage002](atomic_pci_sd_native_2026_10_09/expt_compact_index002/result.json)
+and [exact nonempty-axis construction003](atomic_pci_sd_native_2026_10_09/expt_compact_index003/result.json)
+pass all native/complex C1/axial fresh and seven-diagram restart gates with
+bitwise original signed HEFF and independent three-electron FCI error<=4.45e-14Ha.
+Duplicate keys, overflow and legacy files reject. The001 driver argument
+failure remains archived. [Actual optional public CLI build](atomic_pci_sd_native_2026_10_09/expt_compact_public_build001_source_proof.json)
+reproduces validated003 engine source. [Public source-bound002 panel](atomic_pci_sd_native_2026_10_09/expt_compact_public002/result.json)
+passes12 checks without skips, preserving original physical/raw gates and
+complete package/test/tool sources before and after. Default dense layout
+is unchanged; experimental compact diagrams explicitly useATXDG002. This
+adds verified storage coverage, without a large-space FS-CCSDT or timing claim.
+
+[Numba density001](atomic_pci_sd_native_2026_10_09/numba_density001/result.json)
+passes all complete3481 directed pairs/3910 tagged coordinates/ranks0..7:
+CPU1/CPU8 values and CUDA values/fixed-geometry density directions are bitwise
+identical to the original public action. Three alternating warm CPU pairs give
+0.44847/0.09722s medians and4.6131 ratio within the host-load guard. Other GPU
+compute contexts reject exclusive-device timing, leaving GPU ratios null.
+[Full frozen-field002](atomic_pci_sd_native_2026_10_09/numba_full_fields002/result.json)
+passes five complete term2 columns, analytic energy responses and mode recovery
+at maximum5.421e-20Ha, retaining the original CPU/map002 anchor transitively.
+Zero-copy pointers, explicit nondefault-stream ordering and actual no-FMA PTX
+are checked. [The independent radial anchor](atomic_pci_sd_native_2026_10_09/numba_native_anchor001/result.json)
+passes22 checks without skips. [The first integration failure](atomic_pci_sd_native_2026_10_09/numba_full_fields001/failure.json)
+was cuBLAS discovery before arithmetic and remains preserved. These finite
+controls do not certify a new public GPU backend, large triples, spectroscopy
+or end-to-end performance; [current execution details](atomic_pci_sd_native_2026_10_09/README.md#numba-cpu与cuda共享数值核)
+retain runtime and source identities.
+
+The native signed transverse integral/FSCC extension has
+[81 no-skip affected checks](atomic_pci_sd_native_2026_10_09/transverse_integrals004/result.json)
+and [110 no-skip native DC regressions](atomic_pci_sd_native_2026_10_09/transverse_native_dc005/result.json).
+The finite complete static/finite CI and frozen-core projections retain signed
+off-diagonals. Actual C1/axial FS-CCSDT retains all eight low model roots in a
+120-determinant three-electron oracle: maximum FCI root defect8.729e-10Ha
+against the original1e-9 gate, directed complete HEFF difference8.957e-21Ha.
+The smaller amplitude residual bounds are not a full-state precision bound.
+The [current paired Yb factor003](atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json)
+matches fixed orbitals/nucleus/states and exact zero-frequency static matrices;
+finite-minus-static excitation shifts are−0.3770..−3.8873cm⁻¹. The original5%
+experimental goal fails. No transverse large-space SD, production FS-CCSDT,
+orbital-relaxation/QED/dressed-property or highest-level certificate is implied.
+The hourly report [deployment](atomx_hourly_progress_2026_10_10/README.md)
+has actual manual and00:00Hong-Kong timer receipts; it reports saved evidence.
+
+The [stricter continuation009](atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json)
+retains six original passes/one strict expected failure/no actual skips:
+nonzero transverse Fov attachment roots fail the1e-10Ha full-FCI target.
+[Same-H stopping007](atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json)
+reduces the equation bound to2.035e-15Ha without changing the8.729e-10Ha defect.
+[Changed-H Fov controls008](atomic_pci_sd_native_2026_10_09/transverse_fov008/result.json)
+support an association, not a missing-diagram proof or adopted zero-Fov fix.
+General noncanonical attachment precision remained open in those controls. Preserved004/005
+source epochs and the later docstring-only AST identity are explicitly recorded.
+
+The later [signed amplitude equation audit](atomic_pci_sd_native_2026_10_09/parallel_fscc012/README.md)
+finds the repeated `P(34)` of an already antisymmetric open Fov×T2 contraction.
+Nine isolated finite candidate controls pass unchanged strict HEFF and complete
+Bloch gates, including complex rotations; production higher-space/other-sector
+and experimental certification remain open. The optional public builder applies
+this exact patch without replacing the validated original executable.
+The [SD transverse pair bridge](atomic_pci_sd_native_2026_10_09/parallel_sd_transverse001/README.md)
+passes complete magnetic and independent jj-CSF comparisons; its finite core SD
+anchor does not supply large-core transverse diagram contractions.
+The [actual three-lane card batch](atomx_hourly_progress_2026_10_10/parallel001/delivery_proof.json)
+records separate subprocess intervals and 388 verified probe artifacts. Execution
+completion is kept separate from the retained original-backend failure and
+the deferred full-tail production admission.
+
+The [bounded norm integration](atomic_pci_sd_native_2026_10_09/parallel_tail007/norm_integration001/README.md)
+replays840 finite/multicore signed component/M gates on the adopted source,
+with maximum errors4.441e−16 and2.220e−16. Complete four-band/five-state
+coordinate counts remain unchanged; the new owned cache clears only the
+original64MiB norm scratch budget. Full-Yb actual norm, new convergence roots
+and experimental improvements remain uncertified. The original failure,
+missing-native setup and mixed serial/OpenMP BLAS rejections are preserved.
+The public optional FSCC builder was actually compiled and checked in both
+C1 and axial modes; its [source and executable proof](atomx_hourly_progress_2026_10_10/parallel001/public_builder_proof.json)
+is separate from the isolated candidate panel.
+
+
+## Sn full-channel refinement and ground comparison (16 October 2026)
+
+The [owning EUV guide](EUV_SOURCE_MODEL.md#exact-highest-component-dyson-reconstruction-for-pi-and-rr)
+records all9636 partial-RR candidates,57816 rate/photon comparisons and both
+unchanged1% refinement passes. The20 original bound E1 terminals now have317
+additional M1/E2 lines; all8 previously completed amplitudes replay bitwise,
+with full-operator static reconstruction retained. These remain partial
+channels and conditional lifetimes, without experimental source closure.
+
+The [full-CI numerical continuation](EUV_SOURCE_MODEL.md#measured-exact-angular-reuse-in-the-full-ci-objective)
+keeps the original projector/inverse metric/objective/gates. Hash-seed controls
+identify and repair only unordered complete radial-key accumulation; all full
+H/energy/gradient/residual outputs replay bitwise after canonical ordering.
+The opt-in isolated-ground Rayleigh comparison has signed independent full-H
+and actual Sn finite-increment controls, without an FP error certificate.
+The current combined panel passes246 checks; the independent current mixed-
+CI panel retains42 passes and2 failures (frozen-source bitwise H parity and
+one signed central finite-difference precision gate). No experimental or full
+mixed-CI qualification is inferred from the passing subset.
+
+The [source-qualified FSCC controls](EUV_SOURCE_MODEL.md#fixed-space-native-sn13-fscc-core-valence-controls)
+complete both full-core18 CCSDT and all50 additional n5 virtual spinors at CCSD.
+Their optical splittings12961.030309 and13076.402401cm^-1 both fail the original
+13179(8)cm^-1 benchmark. Full n5 CCSDT is not admitted at its1.885TB estimate;
+nested complete n6 CCSD finishes at13098.077452cm^-1,80.922548cm^-1 low,
+without dropping orbitals or changing the experimental gate. This does not
+certify a saturated basis, full RCCSDT EUV
+spectrum, plasma populations or conversion efficiency.
+
+
+The [coherent CI direct-EII increment](EUV_SOURCE_MODEL.md#explicit-coherent-ci-direct-electron-impact-ionization)
+adds124 passing affected checks and2 retained strict high-energy failures.
+Actual old/factored native SCF arrays are bitwise identical. Sn numerical
+sharing/shooting/box controls pass; the initial partial-wave convergence fails, so no
+complete EII source rate or experimental inference is made. The separate
+full-CI DC orbital solve now passes its original stationarity gate, followed
+by full two-state static-DCB recalculation; its107.0441cm^-1 optical discrepancy
+still fails experiment. Nested full n6 CCSD is80.9225cm^-1 low; numerical and
+physical-space/experimental acceptance remain separate.
+
+
+The high-partial-wave Sn direct-EII corner now passes its declared three-energy
+numerical checks, with retained failed low-L histories. Its new direct thermal
+integrals remain active and are not complete ionic rates. The separately
+[qualified native model-QED matrices](EUV_SOURCE_MODEL.md#native-model-qed-operator-qualification)
+pass independent component/nuclear/full signed operator and model-grid controls;
+they are not pasted orbital shifts. The complete core18/n6 amplitude solve
+with that matrix finishes at13125.806220cm^-1,53.193780cm^-1 below experiment
+and outside the unchanged8cm^-1 gate. The full-solver QED shift is27.728768cm^-1;
+complete model multiplet and raw-equation gates pass. Original compiler/link/parser, wrong-component and
+signed-origin-log failures are retained. Generic bound one-body composition
+and explicit export admission are checked independently, without claiming
+QED generation or experimental closure from internal tests.
+
+
+The [finite acyclic time-window increment](EUV_SOURCE_MODEL.md#finite-capture-time-window)
+passes14 mathematical finite/eventual controls and67 affected source/kinetic/
+architecture checks in a private Numba cache; initial collection/cache failures
+remain. The actual6291-state15ns graph retains every supplied E1/M1/E2/Auger
+edge. Its256->512-step population L1/capture changes3.17953e-4 and photon
+energy changes1.58926e-4; ledger relative defects remain below5e-13. This
+certifies the declared numerical observables, not omitted physical channels,
+resonance isolation, real pulse populations, transport or experimental CE.
+
+
+The exact axial admission increment preserves C1/default256 behavior, adds
+source-bound512-irrep support with the same rank-six range rejection, and
+counts all ordered M/parity support without Pauli or weak-value screening.
+The new512 and old256 live panels each pass50;7 separate transverse original
+gates pass with `--runxfail`. Native high-j complete CCSD/CCSDT Heff matrices
+match C1 within1.777e-15Ha, and independent three-electron FCI energies agree
+within1.819e-12Ha. Mixed g/u raw-block numbering initially failed and was
+fixed by binding the offset to the actual table capacity; the failure is kept.
+Full n7/core18 amplitudes and49-key QED now pass their numerical gates,
+but the complete-pool splitting13133.551567cm^-1 fails experiment by
+-45.448433cm^-1. All36-core n6 gives13135.464848cm^-1 and still fails by
+-43.535152cm^-1. Joint core/basis convergence and calibrated CE remain unaccepted. See the [source guide](EUV_SOURCE_MODEL.md#native-model-qed-operator-qualification).
+
+
+The optional exact compact-ERI increment passes80 affected live checks and
+seven transverse original-target checks under `--runxfail`. Independent
+all-coordinate complex/duplicate/chunk/replay controls retain every allowed
+value. Native high-j C1 versus compact-axial complete CCSD/CCSDT matrices
+agree within2.061e-13Ha; independent three-electron FCI agrees within
+5.457e-12Ha. Complete Sn n4/n5/n6 ERI/Fock arrays replay bitwise; n6
+solved Heff agrees with its original C1 matrix within6.138e-16Ha, with
+identical core/lower/upper energies. Four actual-backend malformed-input
+controls reject before amplitudes. Reduced bank size is not controlled
+performance, physical convergence or experimental acceptance. See the
+[storage contract](ATOMIC_FSCC.md).

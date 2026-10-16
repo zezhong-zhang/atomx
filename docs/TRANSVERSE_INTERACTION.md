@@ -1,5 +1,8 @@
 # Frequency-dependent transverse exchange
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 ## Operator and frequency prescription
 
 The explicit frozen-orbital CI path now supports the real Coulomb-gauge
@@ -23,6 +26,11 @@ exchange symmetry with a fixed, real set of orbital energies.
 
 These frequencies describe virtual photon exchange. They are not the
 many-electron emitted photon frequency in a radiative transition.
+
+The Coulomb-gauge frequency-dependent exchange and static limit are also
+given in the [NIST atomic-structure review, equations 18–20](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=920054).
+The orbital-difference prescription is an effective choice on fixed spinors;
+it does not solve an exact energy-dependent bound-state QED problem.
 
 ## Explicit CI API
 
@@ -56,6 +64,17 @@ shift, compare CI eigenvalues with and without the mapping, keeping the
 spinors, nuclear potential, CSFs and all other settings fixed. Match states
 by symmetry and mixing when their ordering changes. The result records
 the frequency prescription and the numerical energies supplied to it.
+
+The lower-level `physics.csf.spinor_ci.SpinorCIHamiltonian` also accepts
+`include_breit`, `breit_orbital_energies` and `transverse_cache_size`, forwarding
+them to the same signed integral exporter. Its common frozen-core energy,
+one-body and two-body matrices all contain the selected operator. The separate
+`methods.ci_blocks.solve_ci_blocks` remains DC-only. Six signed opened-core
+and orbital-phase controls compare every same-space H entry for static,
+explicit-zero and finite frequencies. The [Sn13+ same-orbital diagnostic](EUV_SOURCE_MODEL.md#explicit-signed-ci-auger-and-balanced-sn-thresholds)
+replays both complete DC H matrices bitwise, then recomputes both DCB levels;
+the optical experimental gate remains failed. No DCB energy is silently
+substituted into the separate DC continuum rate model.
 
 ## Public calculation controls
 
@@ -105,6 +124,79 @@ and whether energies came from DHF or explicit input.
 There is no finite-frequency orbital relaxation or absorptive interaction
 in this implementation. An orbital-difference prescription is an effective
 one-photon model; it is not exact energy-dependent bound-state QED.
+
+`ci_solve(..., retain_hamiltonian=True)` retains the complete dense real
+B-spline RCI matrix for DC, static Breit, or finite-frequency transverse
+exchange. Supply the same `include_breit` and `breit_orbital_energies` options
+when calling `CIResult.hamiltonian_for(...)`. Retained finite maps must contain
+exactly all provided orbital keys, including spinors unused by the CSFs.
+The immutable operator header records the shared frequency prescription and
+canonical binary64 energies in hexadecimal and little-endian bytes, separately
+from the signed CSF/radial/nuclear binding. Static and explicit zero-frequency
+maps have distinct operator identities; finite transverse exchange replaces
+static Breit. The DC header keeps its existing schema. Grid, incomplete spectra
+and scalar/effective one-body shifts remain unsupported for retention.
+
+DC orbital functionals and their mixed finite-difference consumers reject these
+Breit owners. Retaining an RCI Hamiltonian does not qualify an orbital gradient,
+stationarity, experimental agreement or a higher-order QED model. The
+[implementation and pending numerical qualification](yb_mcdhf_rci_2026_10_11/rci_retained_transverse_implementation001/README.md)
+binds this shared source increment; immutable earlier scientific archives keep
+their original source and operator scope.
+
+## Signed integral and FSCC consumers
+
+`physics.csf.spinor_integrals.build_spinor_integrals` now accepts
+`include_breit=True`, optional complete `breit_orbital_energies`, and
+`transverse_cache_size`. Packed and on-demand representations use the same
+Gaunt and retardation angular/radial operator as CI, including all signed
+off-diagonals and exchange phases. The same Hamiltonian enters frozen-core
+normal ordering, reference energy, effective one-body, Fock and two-body ERIs.
+The snapshot owns orbital and frequency data; transverse caches remain
+separate from its DC caches.
+
+The [atomic FSCC factory](ATOMIC_FSCC.md#native-integral-and-space-contracts)
+exposes `include_breit=True, breit_frequency="orbital_differences"` and
+obtains complete frequencies from the actual core and VN virtual
+eigenenergies. It retains every orbital in the declared energy/partial-wave
+band and exports this Hamiltonian to the existing nonlinear CCSD/FS-CCSDT
+equations. Frequencies stay fixed during iteration. Neither the exporter nor
+EXP-T tensor interface implements transverse operators in the separate native
+J-reduced SD diagrams.
+
+Array-valued caches are bounded, with the retained FP64 array payload bound
+`12 * transverse_cache_size * Gauss_node_count * 8` bytes. Scalar radial values
+have a separate bounded cache. Input snapshots, Python overhead and active
+temporaries are excluded from this payload bound. The integral factory checks
+required integral plus transverse array payload before allocation; actual
+peak RSS and complete backend tensors are separate resource gates. Cache
+eviction changes recomputation only. No amplitude cutoff is introduced.
+
+The [81-check source-bound panel](atomic_pci_sd_native_2026_10_09/transverse_integrals004/result.json)
+passes static/finite signed complete CI matrices, frozen-core determinant
+projection, caller-mutation protection, stream replay, cache eviction and
+actual C1/axial FS-CCSDT. All eight low roots in the finite three-electron
+oracle agree with its complete 120-determinant Hamiltonian within 8.729e-10 Ha
+(original gate 1e-9). The complete directed C1/axial matrix agrees within
+8.957e-21 Ha. The [110 native DC regressions](atomic_pci_sd_native_2026_10_09/transverse_native_dc005/result.json)
+also pass without skips. These tests do not certify large-space transverse
+SD, production Yb FS-CCSDT, dressed properties or experimental precision.
+
+Subsequent [same-H stopping control](atomic_pci_sd_native_2026_10_09/transverse_precision007/result.json)
+retains the 8.729e-10 Ha even-attachment root defect despite a 2.035e-15 Ha
+equation residual bound. A stricter 1e-10 Ha target is retained as a
+[strict expected failure](atomic_pci_sd_native_2026_10_09/transverse_precision_gate009/result.json).
+Consistent changed-H Fov controls associate it with noncanonical attachment
+terms; the [FSCC guide](ATOMIC_FSCC.md#unfinished-noncanonical-attachment-precision)
+describes the evidence and unverified tensor repair. Dropping Fov is not adopted.
+
+The [paired Yb factor experiment](atomic_pci_sd_native_2026_10_09/yb_dynamic_breit003/result.json)
+keeps the same 24 frozen radial orbitals, nucleus and five states in DC,
+static, zero-frequency and finite-frequency CI. Zero frequency reproduces
+the complete static matrix; finite-minus-static excitation shifts range from
+−0.3770 to −3.8873 cm⁻¹. Its original 5% experimental goal fails. These are
+frozen-orbital results, not corrections certified for addition to the archived
+DC-SD roots, and not an upper bound on correlated transverse contributions.
 
 ## Numerical and physical boundaries
 
@@ -157,9 +249,9 @@ matrix with the existing independently checked static implementation.
 Tracked FAC Ne/Pb fixtures make those external checks reproducible without
 requiring the FAC executable in the test environment.
 
-Artifacts: [full matrix-element panel](../benchmarks/runs/2026-09-29-transverse-ci-live/),
-[grid refinement](../benchmarks/runs/2026-09-29-transverse-refinement/),
-[kernel reuse panel](../benchmarks/runs/2026-09-29-transverse-cached-live/).
+Artifacts: full matrix-element panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-ci-live/`),
+grid refinement (local evidence: `../benchmarks/runs/2026-09-29-transverse-refinement/`),
+kernel reuse panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-cached-live/`).
 Broad correlated-state, finite-nucleus and continuum validation remains open.
 
 ### Reference refinement and common-spinor diagnosis
@@ -205,14 +297,14 @@ Tracked tests now impose 0.1-ppm agreement on common Ne/Pb spinors and
 30-ppm external gate. The compressed common-spinor fixture includes its
 source hash and reference settings. No Atomx operator was fitted to FAC.
 
-Evidence: [common spinors](../benchmarks/runs/2026-09-29-transverse-common-panel/),
-[independent precision panel](../benchmarks/runs/2026-09-29-transverse-precision-panel/).
+Evidence: common spinors (local evidence: `../benchmarks/runs/2026-09-29-transverse-common-panel/`),
+independent precision panel (local evidence: `../benchmarks/runs/2026-09-29-transverse-precision-panel/`).
 The numerical grid and orbital controls are shared by the transition and
 recoil benchmark runners in `benchmarks/fac_runner.py`.
 
 ### Public-path integration checks
 
-The [public API audit](../benchmarks/runs/2026-09-30-transverse-public/)
+The public API audit (local evidence: `../benchmarks/runs/2026-09-30-transverse-public/`)
 checks both engines, a statistical open-shell ensemble, explicit
 multi-configuration final CI, the method objects, input contradictions and
 duplicate correction rejection. Seven dedicated integration tests pass.
@@ -253,3 +345,21 @@ contractions, exclude orbital solving/imports, and use one BLAS/OMP thread.
 They are an operator optimization measurement, not a whole-SCF speedup.
 FAC's retained process timings also include orbital solving and output,
 so they must not be divided by these operator timings as a speed ratio.
+
+
+## Native reduced-SD consuming boundary
+
+The [complete J-pair bridge](ATOMIC_LINEARIZED_SD.md#complete-transverse-j-pair-bridge-and-finite-core-anchor)
+now reconstructs all signed magnetic ERIs from normalized antisymmetric
+J/parity blocks and carries the full core one-body/Fock/reference ledger.
+DC, static and fixed-frequency finite core SD anchors share the existing
+physical kernels. This is not a scalar Breit replacement for Coulomb RINT;
+`methods.sd_pair_diagrams` separately implements the complete scalar doubles
+source and PP/normal-ordered HH ladder subset, with full signed finite
+four-electron anchors in DC/static/dynamic and complex-phase controls.
+Large-core original pCI reduced diagrams still require the remaining transverse
+angular invariants and matching noncanonical Fock/singles/ring terms, plus
+valence and Sigma2. Private shared FP64 Numba CPU/CUDA controls execute the
+same complete real ladder batches and public density actions; actual device
+correctness and failed timing guards are recorded separately in the
+[six-direction evidence](atomx_hourly_progress_2026_10_10/parallel_six002/README.md).

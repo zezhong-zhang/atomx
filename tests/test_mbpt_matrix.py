@@ -1,0 +1,155 @@
+"""Signed matrix Sigma anchored in independent magnetic-state contractions."""
+from itertools import product
+from unittest.mock import patch
+
+import numpy as np
+import pytest
+from test_review_regressions import _coulomb
+
+from atomx.methods.dirac_fock import DFSolver, Subshell
+from atomx.methods.mbpt import build_virtual_basis
+from atomx.methods.mbpt_matrix import MatrixSelfEnergy, build_mbpt2_matrix_self_energy
+from atomx.methods.mbpt_transitions import mbpt2_orbital_energy_shift
+
+
+@pytest.fixture(scope="module")
+def core():
+    return DFSolver(Z=4, subshells=[Subshell(1, -1, 2.)], ns=30, ks=7).solve()
+
+
+@pytest.mark.parametrize("kappa", [-1, -2, -3])
+def test_complete_matrix_and_phases_against_mscheme(core, kappa):
+    from atomx.angular.csf_hamiltonian import _m2_values, twoj
+
+    kappas = (-1, 1, -2, 2, -3)
+    blocks = {k: build_virtual_basis(core, k, e_max=50., potential_mode="VN",
+                                    orthogonal_to_occupied=True)[1][:2] for k in kappas}
+    od = {(1, -1): core.orbitals_by_subshell()[(1, -1)][:2]}
+    eps = {(1, -1): core.orbital_energies["1s1/2"]}
+    for k, states in blocks.items():
+        for i, (P, Q, e) in enumerate(states):
+            od[(100+i, k)] = (P, Q)
+            eps[(100+i, k)] = e
+    targets = [(P, Q, kappa, e) for P, Q, e in blocks[kappa]]
+    for i, (P, Q, _, _e) in enumerate(targets):
+        od[(200+i, kappa)] = (P, Q)
+    def spin(keys):
+        return [(*key, m) for key in keys for m in _m2_values(twoj(key[1]))]
+    occupied = spin([(1, -1)])
+    virtual = spin([key for key in od if 100 <= key[0] < 200])
+    g = _coulomb(od, core._bsp_data)
+    energy = targets[0][3]+.071
+    reference = np.zeros((2, 2))
+    for i, j in product(range(2), repeat=2):
+        for m in _m2_values(twoj(kappa)):
+            a, aa = (200+i, kappa, m), (200+j, kappa, m)
+            for b, r, s in product(occupied, virtual, virtual):
+                v = g(a, b, r, s)-g(a, b, s, r)
+                vv = g(aa, b, r, s)-g(aa, b, s, r)
+                reference[i, j] += .5*v*vv/(energy+eps[b[:2]]-eps[r[:2]]-eps[s[:2]])/(2*abs(kappa))
+            for b, c, r in product(occupied, occupied, virtual):
+                v = g(a, r, b, c)-g(a, r, c, b)
+                vv = g(aa, r, b, c)-g(aa, r, c, b)
+                reference[i, j] += .5*v*vv/(energy+eps[r[:2]]-eps[b[:2]]-eps[c[:2]])/(2*abs(kappa))
+    def basis(_, k, **kwargs):
+        assert kwargs["potential_mode"] == "VN" and kwargs["orthogonal_to_occupied"]
+        return [], blocks[k]
+    terms = []
+    options = dict(reference_identity=f"Z4:signed:{kappa}", virtual_kappas=kappas)
+    with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis) as build:
+        model = build_mbpt2_matrix_self_energy(core, targets, term_recorder=lambda p, r, d: terms.append(d), **options)
+    assert build.call_count == len(kappas)
+    assert set(terms) == {"2p1h", "2h1p"}
+    assert abs(reference[0, 1]) > 1e-7  # Off-diagonal sign is actually exercised.
+    np.testing.assert_allclose(model.evaluate(energy), reference, rtol=1e-11, atol=1e-13)
+    with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis):
+        scalar_path = build_mbpt2_matrix_self_energy(core, targets, radial_backend="scalar", **options)
+    np.testing.assert_allclose(model.residues_Ha2, scalar_path.residues_Ha2, rtol=1e-11, atol=1e-13)
+    np.testing.assert_allclose(model.evaluate(energy), scalar_path.evaluate(energy), rtol=1e-11, atol=1e-13)
+    np.testing.assert_array_equal(model.evaluate(energy), model.evaluate(energy).T)
+    step = 1e-5
+    np.testing.assert_allclose(model.derivative(energy),
+                               (model.evaluate(energy+step)-model.evaluate(energy-step))/(2*step), rtol=1e-7, atol=1e-11)
+    assert np.linalg.eigvalsh(model.derivative(energy))[-1] <= 1e-14
+    for i, target in enumerate(targets):
+        with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis):
+            old = mbpt2_orbital_energy_shift(core, "external", valence_orbital=target,
+                                            virtual_kappas=kappas, evaluation_energy_au=energy)
+        assert model.diagonal(i).evaluate(energy) == pytest.approx(old, abs=1e-13)
+    phase = np.diag([1., -1.])
+    P, Q, k, e = targets[1]
+    flipped = [targets[0], (-P, -Q, k, e)]
+    with patch("atomx.methods.mbpt.build_virtual_basis", side_effect=basis):
+        changed = build_mbpt2_matrix_self_energy(core, flipped, **options)
+    np.testing.assert_allclose(changed.evaluate(energy), phase@reference@phase, rtol=1e-11, atol=1e-13)
+    np.testing.assert_allclose(model.subspace((0,)).evaluate(energy),
+                               [[model.diagonal(0).evaluate(energy)]], rtol=0, atol=1e-13)
+
+
+@pytest.mark.parametrize("pole", [-3., 2.])
+def test_matrix_root_residue_and_orbital_mixing_match_auxiliary_hamiltonian(pole):
+    eps = np.array([-.5, .25])
+    c = np.array([.3, -.17])
+    H = np.block([[np.diag(eps), c[:, None]], [c[None, :], np.array([[pole]])]])
+    energies, vectors = np.linalg.eigh(H)
+    model = MatrixSelfEnergy(eps, np.array([pole]), np.array([np.outer(c, c)]), "analytic:2P1Q")
+    for index in (0, 1):
+        root = model.solve_dyson((-1., 1.), reference_index=index)
+        column = index if pole > 0 else index+1
+        assert root.energy_Ha == pytest.approx(energies[column], abs=1e-13)
+        Z = np.sum(vectors[:2, column]**2)
+        assert root.residue == pytest.approx(Z, abs=1e-13)
+        expected = np.outer(vectors[:2, column], vectors[:2, column])/Z
+        np.testing.assert_allclose(np.outer(root.coefficients, root.coefficients), expected, atol=1e-13)
+        assert root.df_weight < 1
+        assert root.residual_Ha < 1e-13
+        with pytest.raises(ValueError):
+            root.coefficients.flags.writeable = True
+    phase = np.diag([1., -1.])
+    other = MatrixSelfEnergy(eps, np.array([pole]), np.array([phase@np.outer(c, c)@phase]), "phase")
+    assert other.solve_dyson((-1., 1.)).energy_Ha == pytest.approx(model.solve_dyson((-1., 1.)).energy_Ha, abs=1e-13)
+    # Rayleigh-Ritz at fixed energy, plus Sigma'<=0, makes the lowest
+    # root non-increasing under nested external-space enlargement. This
+    # holds for poles above or below the shared pole-free bracket.
+    assert model.solve_dyson((-1., 1.)).energy_Ha <= model.subspace((0,)).solve_dyson((-1., 1.)).energy_Ha
+
+
+def test_matrix_snapshot_contracts_and_branch_rejections():
+    eps, poles = np.array([-.5, .2]), np.array([2.])
+    W = np.array([[[.09, -.03], [-.03, .01]]])
+    model = MatrixSelfEnergy(eps, poles, W, "identity")
+    eps[0], poles[0], W[0, 0, 0] = -1., 3., 1.
+    assert model.reference_energies_Ha[0] == -.5 and model.poles_Ha[0] == 2.
+    for value in (model.reference_energies_Ha, model.poles_Ha, model.residues_Ha2):
+        with pytest.raises(ValueError):
+            value.flags.writeable = True
+    with pytest.raises(ValueError, match="pole"):
+        model.solve_dyson((-1., 3.))
+    with pytest.raises(ValueError, match="resonant"):
+        model.evaluate(2.)
+    with pytest.raises(ValueError, match="real scalar"):
+        model.evaluate(-.5+.01j)
+    with pytest.raises(ValueError, match="contain"):
+        model.solve_dyson((-.4, .1))
+    with pytest.raises(ValueError, match="semidefinite"):
+        MatrixSelfEnergy([-.5], [2.], [[[-.1]]], "bad")
+    with pytest.raises(ValueError, match="semidefinite"):
+        MatrixSelfEnergy([-.5, .2], [2.], [[[1., 1.], [0., 1.]]], "bad")
+    with pytest.raises(ValueError, match="identity"):
+        MatrixSelfEnergy([-.5], [2.], [[[.1]]], "")
+    zero = MatrixSelfEnergy([-.5], [2.], [[[0.]]], "zero")
+    assert not len(zero.poles_Ha)
+    assert zero.solve_dyson((-1., 1.)).energy_Ha == -.5
+    degenerate = MatrixSelfEnergy([-.5, -.5], [], np.empty((0, 2, 2)), "degenerate")
+    with pytest.raises(ValueError, match="degenerate DF"):
+        degenerate.solve_dyson((-1., 1.))
+
+
+def test_matrix_external_space_rejects_nonorthogonal_or_mixed_kappa(core):
+    _, states = build_virtual_basis(core, -1, e_max=50., potential_mode="VN", orthogonal_to_occupied=True)
+    P, Q, e = states[0]
+    target = (P, Q, -1, e)
+    with pytest.raises(ValueError, match="mutually orthogonal"):
+        build_mbpt2_matrix_self_energy(core, [target, target], reference_identity="same", virtual_kappas=(-1,))
+    with pytest.raises(ValueError, match="same-kappa"):
+        build_mbpt2_matrix_self_energy(core, [target, (P, Q, 1, e)], reference_identity="mixed", virtual_kappas=(-1,))

@@ -93,7 +93,7 @@ def test_sampling_override_reaches_every_adaptive_solve(monkeypatch):
 def test_explicit_method_and_persistence_keep_orbital_controls(tmp_path):
     from atomx.methods.dirac_fock import SCFResult
     result = Atom(2, corrections='none', basis=Basis(ns=60)).solve(
-        DiracFock(breit=False, qed=False), tol=1e-8, orbital_tolerance=1e-7)
+        DiracFock(breit=False, qed=False), tol=1e-8, orbital_tolerance=1e-7).result
     assert result.converged
     assert result.solver_diagnostics['orbital_update_tolerance'] == 1e-7
     assert result.calculation_spec.numerics['orbital_tolerance'] == 1e-7

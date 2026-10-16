@@ -264,7 +264,7 @@ class Cache:
             self.hits += 1
             return float(self.data[key])
         self.misses += 1
-        result = Atom(Z=z, config=config).solve(DiracFock(breit=breit, qed=qed))
+        result = Atom(Z=z, config=config).solve(DiracFock(breit=breit, qed=qed)).result
         self.data[key] = float(result.total_energy)
         return float(self.data[key])
 

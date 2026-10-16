@@ -1,5 +1,8 @@
 # 原子态、弛豫与 XFEL 的统一设计
 
+Repository availability: paths marked “local evidence” are outside the tracked
+checkout. They retain the original evidence location and are not GitHub links.
+
 日期：2026-10-04。用户要求：尽可能自洽、复用模块且高性能；可自由设置
 基态、激发态与制备方式。本文件区分已接入的增量与后续设计。一般 N
 有限空间 REXMI 链已接入，完整物理与任意脉冲认证仍未完成（见 §8）。
@@ -26,6 +29,80 @@ The source contracts are in [level selection](../src/atomx/physics/csf/levels.py
 [joint-charge](../src/atomx/methods/csf/charge_variational.py) functionals.
 Current [architecture](ARCHITECTURE_DESIGN.md) and
 [capabilities](ARCHITECTURE_CAPABILITIES.md) provide the module-level summary.
+
+### Explicit complete-block orbital objective (15 October 2026)
+
+`methods.csf.blocked_functional.BlockedCSFOrbitalFunctional` is a separate
+lower-level bare-DC orbital functional. It takes explicit `CIStateAverage`
+symmetry/root weights, `reference_keys`, complete CSFs and resource caps.
+Every CSF row remains in each native H; selected observable eigenvectors
+retain a neighboring-root check for unequal exactly degenerate weights.
+Complete-H residuals, Gram and source-point bindings qualify an owned
+`BlockedOrbitalTrial`, which is not a complete spectrum for plasma/continuum
+consumers. Reuse rejects changed orbitals, metric, nuclear samples or objective.
+The caller keeps CSFs, workspace and nuclear callable immutable for the
+functional's lifetime, as for the original orbital functional.
+
+`physics.csf.spinor_density.SpinorRadialDensity` composes
+`numerics.fock_density.fock_bilinear_density`: complete directed one-/two-body
+finite Fock densities, canonical antisymmetric pairs and exact common filled
+subshell contraction, including core radial derivatives and exterior phases.
+No magnitude cutoff or connected determinant-pair bank is used. The numerical
+engine admits at most63 active spinors, with separate numerical payload/work
+caps; bounded angular caches and process RSS are distinct limits.
+`CSFOrbitalFunctional(..., density_storage='spinor')` explicitly selects the
+same density engine; cached defaults and existing CI solve policy remain.
+
+The blocked objective owns a bounded128MiB default
+`angular.projection_cache.MagneticCSFProjectionCache`, sharing canonical signed
+basis projections between full-H assembly and exact RDM contraction.
+`projection_cache_bytes=0` selects the original uncached/streamed path;
+its explicit budget is included in the objective's matrix/scratch admission.
+Cache identity contains ordered complete CSFs, canonical orbital layout and M;
+radial data and root coefficients are reapplied on every call, never cached
+as a physical state. Oversized entries are computed completely without
+retention. Frozen-core exterior phases and active determinant row order remain
+explicit in `SpinorCIHamiltonian(..., projection_cache=...)`; the default
+standalone builder remains unchanged. This is numerical reuse, with the same
+orbital target, energy and convergence metric. Blocked ensemble contractions
+now accumulate complete radial keys in canonical order across Python hash
+seeds, retaining every signed value. The actual Sn cross-process control gives
+bitwise H/energy/all-gradient/residual equality, with the same original metric;
+the earlier unordered-order replay failure is archived in the source guide.
+
+The opt-in `ground_variational_upper_change` contracts every signed old CI
+bilinear for isolated root0 in each selected complete symmetry block. On the
+same orthogonal manifold, the fixed-old-CI Rayleigh change is an upper bound
+on the optimized trial ground change. Complete finite density increments and
+the full metric-normal defect are shared with the existing one-CSF comparison;
+complete trial CI and gradient remain mandatory. Endpoint objective/point
+binding, original homogeneous Dirac boundary coordinates and full Gram guards
+are checked. Excited roots and unsupported constraints return `None`.
+This is neither the optimized energy difference nor a rigorous floating-point
+error bound. It does not change optimizer defaults, residual/energy tolerances,
+physical spaces or experimental criteria. Signed phase and independent complete
+H/Rayleigh controls pass; Sn near-floor ownership/replay remains a separate gate.
+
+The existing constrained `optimize_orbitals` consumes these trials with its
+explicit no-pair projector, full-S orthogonality, original residual metric,
+fixed ensemble, accepted checkpoints and convergence gates. Breit/QED remain
+subsequent RCI/operators. There is no Atom facade dispatch or automatic
+correlation-space generation. Independent finite controls check every signed
+density coordinate/key, small-Fock actions, radial gradients, owned-trial
+admission and actual optimizer consumption. The
+[Sn13+ full8543-CSF measurement](EUV_SOURCE_MODEL.md#full-ci-orbital-stationarity-and-reference-field-dependence)
+has a live full-H/finite-directional-derivative gate; stationarity and
+experimental agreement remain separate measurements.
+
+`CIRadialDensity` contracts through the existing sparse signed CSF projections.
+The full declared CSF rows, signed amplitudes and radial-key algebra remain in
+the contraction. [Complete Yb A/B before/after controls](yb_mcdhf_rci_2026_10_11/physical_budget31_after_gradient/physical_next_decision006/README.md)
+qualify this storage change. Existing state-average, basis-tracking and
+orbital-response consumers still require their complete-spectrum contracts.
+`ci_solve(n_states=k)` selects globally after the block solves; callers cannot
+assume that it retains every desired symmetry sector. The matched Davidson
+qualification instead requests roots explicitly in each complete sector and
+does not fabricate a retained-H snapshot or a partial-spectrum optimizer.
 
 ## 1. 五个独立输入
 
@@ -215,7 +292,7 @@ SCF。不同视图共享昂贵原子数据，仅缓存与状态相关的收缩�
 | 随后 | 静态交换 DW、合法的独立轨道转换 | 方程残差、渐近相位/归一化、正交、PI/RR 互逆与参考对照 |
 | 最后按适用性 | 非世俗、多通道/近阈值及一般 REXMI | 弱场、时间/空间收敛、概率守恒、真实共振电离与实验/代码比较 |
 
-上一轮独立实验见 [CI 态平均归档](xfel_state_average_2026_10_03/README.md)：
+上一轮独立实验见 CI 态平均归档 (local evidence: `xfel_state_average_2026_10_03/README.md`)：
 Ne EOL 的离子根均束缚；statistical EOL Auger 相对 FAC 仍高 15.53%，
 原因未隔离，不能归因于某单项或调整权重抹平。N3 的 85.97% 峰值是
 bound-only 共振占率，电荷恒为 7。历史归档保持原样；新接口的实现
@@ -224,7 +301,7 @@ bound-only 共振占率，电荷恒为 7。历史归档保持原样；新接口�
 
 ## 8. 第二增量及识别边界
 
-[一般 N CI REXMI 归档](xfel_multielectron_2026_10_04/README.md)保留三电子真实
+一般 N CI REXMI 归档 (local evidence: `xfel_multielectron_2026_10_04/README.md`)保留三电子真实
 共振电离、四电子费米/PI 检查及 K 共振门禁失败。N3 的末电荷现在升到
 7.18726049；此前 bound-only 的电荷恒为 7 的记录保持原样。
 
@@ -239,7 +316,7 @@ prepared channel provider 可直接复用于 driver，共同缓存包含末态�
 原子快照的全局振幅缓存，也没有取代尚未实现的 AtomicStateView。
 
 Finite-time reservoir certification and exact sparse representation have since
-been added: see [the reservoir increment](xfel_radiative_bound_2026_10_04/README.md).
+been added: see the reservoir increment (local evidence: `xfel_radiative_bound_2026_10_04/README.md`).
 It preserves the state/optimization distinction, signed operators and old gates.
 N3 is verified under explicit conditional error budgets; the complete N4 K chain
 still fails its conservative budget. No joint-charge relaxation, root tracking,
@@ -247,7 +324,7 @@ nonlocal exchange, vacuum shifts or microscopic bath certification is implied.
 
 ## 9. 轨迹比较与光子阶梯身份
 
-[轨迹残差增量](xfel_residual_certificate_2026_10_04/README.md)现已在保持1e−3
+轨迹残差增量 (local evidence: `xfel_residual_certificate_2026_10_04/README.md`)现已在保持1e−3
 预算和旧默认门的条件下验证有限 N4 parent K pumping；此结果更新上一节
 “仍失败”的当前状态，保留历史归档。photon ladder 应绑定实际谱学态/
 基底快照：激发根不自动等于载频附近的根，新增孔态伙伴可能引入低能
@@ -276,7 +353,7 @@ Atom/MCDHF 求解器。显式 parent 空间与完整 retained-orbital daughter
 选择；Ne N3 高轨道重叠及小载频移动仍伴随近相消 Auger 率大幅变化，
 因此基底身份之外也必须记录完整 signed 算符与明确的空间收敛范围。
 具体契约、失败记录与数值证据见
-[联合电荷优化归档](xfel_charge_average_2026_10_04/README.md)。
+联合电荷优化归档 (local evidence: `xfel_charge_average_2026_10_04/README.md`)。
 
 ## 11. 同一 Hamiltonian 快照的径向复用与空间闭合
 
@@ -295,4 +372,14 @@ Ne N3 的 n=1,2空间验证到1.56e−13Ha；受限组态空间的谱改变0.433
 扩展空间的XFEL轨迹。原受限空间强Auger相消在扩展后明显减弱；
 全有符号算符与literal-zero分解项也需留档。性能只测量声明阶段，
 小面板收益不稳定时明确记录。见
-[跨电荷积分与空间诊断](xfel_ci_snapshot_2026_10_04/README.md)。
+跨电荷积分与空间诊断 (local evidence: `xfel_ci_snapshot_2026_10_04/README.md`)。
+
+
+Explicit bound scalar operators may be composed into an existing packed or native on-demand
+normal-ordered spinor H through `physics.csf.one_body_composition.add_bound_one_body`.
+The complete orbital/core/nuclear point and every occupied/virtual/frozen key
+must match; h/Fock/frozen/reference ledgers change together while ERIs retain
+their signed values. This all-electron path rejects correlated-core self-energy
+re-addition and duplicate producer identity. It is not an operator generator
+or orbital optimization stage. See [the native model-QED consumer](EUV_SOURCE_MODEL.md#native-model-qed-operator-qualification)
+for its explicit physical/numerical limits.

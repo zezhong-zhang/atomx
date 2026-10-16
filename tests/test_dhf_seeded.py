@@ -9,9 +9,9 @@ from atomx.types import Exchange
 
 def test_slater_seeded_dhf_recovers_plain_lithium_energy():
     atom = Atom(Z=3, config="1s2 2s1", engine="bspline", basis=Basis())
-    slater = atom.solve(DiracFock(exchange=Exchange.SLATER), max_iter=50)
-    plain = atom.solve(DiracFock(), max_iter=50)
+    slater = atom.solve(DiracFock(exchange=Exchange.SLATER), max_iter=50).result
+    plain = atom.solve(DiracFock(), max_iter=50).result
     seeded = atom.solve(DiracFock(seed_orbitals=slater.orbitals_raw),
-                        max_iter=50)
+                        max_iter=50).result
     assert slater.converged and plain.converged and seeded.converged
     assert seeded.total_energy == pytest.approx(plain.total_energy, abs=1e-8)

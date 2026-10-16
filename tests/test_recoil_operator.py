@@ -135,4 +135,4 @@ def test_bspline_dhf_recoil_matches_hydrogenic_identity(z):
                   corrections=Corrections(stack=stack)).solve().result
     assert result.converged
     assert result.energy_components["nms"] == pytest.approx(z**2 / (2 * mass), rel=2e-5)
-    assert "GRASP" in result._nms_provenance["operator"]
+    assert "GRASP" in result.solver_diagnostics["_nms_provenance"]["operator"]

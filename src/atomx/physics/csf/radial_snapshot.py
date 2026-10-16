@@ -55,7 +55,8 @@ class CIRadialSnapshot:
     The object is local to a serial snapshot, not a process-wide cache.
     """
 
-    def __init__(self, orbitals, workspace, Z, ns, *, nuclear_potential=None):
+    def __init__(self, orbitals, workspace, Z, ns, *, nuclear_potential=None,
+                 pair_potential_cache_size=None):
         from atomx.numerics.bspline.integrals import SampledNuclearPotential
         from atomx.physics.csf.matrix import GridCIWorkspace, _radial_evaluator
 
@@ -84,6 +85,7 @@ class CIRadialSnapshot:
             Z,
             ns,
             nuclear_potential=self._frozen_potential,
+            pair_potential_cache_size=pair_potential_cache_size,
         )
         self._builds = 0
 
@@ -135,13 +137,30 @@ class CIRadialSnapshot:
             **options,
         )
 
+    def transverse_evaluator(self, orbital_energies, *, cache_size=128):
+        """Real transverse exchange from this snapshot's owned frozen inputs.
+
+        The caller owns the returned bounded evaluator and its energy map;
+        changing orbital frequencies creates a new evaluator. This does not
+        insert transverse terms into the snapshot's Coulomb cache.
+        """
+        from atomx.physics.csf.transverse import radial_evaluator
+
+        return radial_evaluator(self._orbitals, self._workspace, orbital_energies,
+                                cache_size=cache_size)
+
     def diagnostics(self):
         info = self._evaluate.cache_info()
+        pairs = self._evaluate.pair_cache_info()
         return dict(
             matrix_builds=self._builds,
             radial_cache_hits=info.hits,
             radial_cache_misses=info.misses,
             radial_cache_entries=info.currsize,
             radial_cache_capacity=info.maxsize,
+            pair_potential_cache_hits=pairs.hits,
+            pair_potential_cache_misses=pairs.misses,
+            pair_potential_cache_entries=pairs.currsize,
+            pair_potential_cache_capacity=pairs.maxsize,
             model="immutable common B-spline Dirac-Coulomb orbital snapshot",
         )

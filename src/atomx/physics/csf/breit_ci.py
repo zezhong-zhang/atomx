@@ -437,9 +437,10 @@ def attach_breit_operator_energy(result, config: str | None = None,
     operators in ``physics/csf/``; no numerical or correction module imports
     an SCF method. The expectation is stored as:
 
-        ``result.__dict__["_E_Breit_operator"]``
+        ``result.solver_diagnostics["_E_Breit_operator"]``
 
-    exactly like ``_breit_provenance``.  The SCF solvers call this just
+    in the declared diagnostics channel, exactly like ``_breit_provenance``.
+    The SCF solvers call this just
     before finalising their corrections stack; the ``breit`` adapter
     reads the value and **raises** if it is absent rather than falling
     back to anything.
@@ -468,9 +469,10 @@ def attach_breit_operator_energy(result, config: str | None = None,
     else:
         value = breit_configuration_average(
             orbitals_dict, bsp_data, Z, ns, jj_configs)
-        result.__dict__["_E_Breit_operator_averaging"] = "jj_configuration_ensemble"
-    result.__dict__["_E_Breit_operator"] = float(value)
-    result.__dict__["_E_Breit_operator_config"] = config
+        result.solver_diagnostics["_E_Breit_operator_averaging"] = (
+            "jj_configuration_ensemble")
+    result.solver_diagnostics["_E_Breit_operator"] = float(value)
+    result.solver_diagnostics["_E_Breit_operator_config"] = config
     return float(value)
 
 

@@ -217,8 +217,9 @@ def _hydrogenic_r_exp_integral_dirac_cached(n: int, kappa: int, Z: int) -> float
     A failed solve propagates: silently substituting the non-relativistic
     analytic formula here would mis-calibrate ``A_κ(Z)`` at O((Zα)²) and
     the cache would make the degraded value permanent for the session.
-    The explicit ``use_dirac_reference=False`` switch on
-    :func:`_amplitude_A_kappa` remains the honest way to select the
+    The explicit ``use_dirac_reference=False`` switch on the
+    :class:`ShabaevLocalBackend` entries (forwarded to
+    :func:`_amplitude_A_kappa`) remains the honest way to select the
     non-relativistic reference.
     """
     from atomx.methods.hydrogenic_reference import hydrogenic_r_exp_integral_dirac
@@ -293,11 +294,14 @@ class ShabaevLocalBackend(SEBackend):
         "Non-local projector term deferred."
     )
 
-    def radial_matrix(self, orbitals, bsp_data, Z):
+    def radial_matrix(self, orbitals, bsp_data, Z, *,
+                      use_dirac_reference: bool = True):
         """Full local-model matrix for (P,Q,kappa) orbitals.
 
         Uses the same quadrature and calibration as ``compute``. The
         nonlocal part of the Shabaev operator remains absent.
+        ``use_dirac_reference=False`` selects the non-relativistic
+        analytic reference density in the ``A_κ`` calibration.
         """
         from atomx.numerics.radial_workspace import eval_orbital_pair, workspace_arrays
 
@@ -307,7 +311,8 @@ class ShabaevLocalBackend(SEBackend):
         matrix = np.zeros((len(orbitals), len(orbitals)))
         for kappa in {orbital[2] for orbital in orbitals}:
             indices = [i for i, orbital in enumerate(orbitals) if orbital[2] == kappa]
-            amplitude = _amplitude_A_kappa(Z, kappa)
+            amplitude = _amplitude_A_kappa(
+                Z, kappa, use_dirac_reference=use_dirac_reference)
             if amplitude == 0.:
                 continue
             p = np.array([waves[i][0].ravel() for i in indices])
@@ -316,7 +321,11 @@ class ShabaevLocalBackend(SEBackend):
                 (p * weights) @ p.T + (q * weights) @ q.T)
         return (matrix + matrix.T) / 2
 
-    def compute(self, orbitals, bsp_data, Z) -> SEResult:
+    def compute(self, orbitals, bsp_data, Z, *,
+                use_dirac_reference: bool = True) -> SEResult:
+        """Per-orbital local-model SE; ``use_dirac_reference=False`` selects
+        the non-relativistic analytic reference density in the ``A_κ``
+        calibration."""
         if bsp_data is None:
             raise ValueError(
                 "shabaev_local backend requires bsp_data to evaluate "
@@ -340,7 +349,8 @@ class ShabaevLocalBackend(SEBackend):
                 continue
 
             if kappa not in A_cache:
-                A_cache[kappa] = _amplitude_A_kappa(Z, kappa)
+                A_cache[kappa] = _amplitude_A_kappa(
+                    Z, kappa, use_dirac_reference=use_dirac_reference)
             A_kap = A_cache[kappa]
 
             if A_kap == 0.0:

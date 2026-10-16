@@ -47,7 +47,7 @@ class ChargeStateOrbitalFunctional(CSFOrbitalFunctional):
 
     def __init__(
         self, csfs, bsp_data, Z, nuclear_potential=None, cache=None, *, state_average,
-        level_tracking=None, dense_cluster_gap=None
+        level_tracking=None, dense_cluster_gap=None, max_determinants=None
     ):
         if not isinstance(state_average, CIChargeStateAverage):
             raise TypeError("charge functional requires CIChargeStateAverage")
@@ -79,7 +79,7 @@ class ChargeStateOrbitalFunctional(CSFOrbitalFunctional):
         )
         super().__init__(
             csfs, bsp_data, Z, nuclear_potential, cache, state_average=parent_target,
-            dense_cluster_gap=dense_cluster_gap
+            dense_cluster_gap=dense_cluster_gap, max_determinants=max_determinants
         )
         self.charge_state_average = state_average
         self.target_description = (
@@ -101,7 +101,7 @@ class ChargeStateOrbitalFunctional(CSFOrbitalFunctional):
             n: (
                 self.radial_density
                 if n == self.parent_electrons
-                else CIRadialDensity(space)
+                else CIRadialDensity(space, max_determinants=self.max_determinants)
             )
             for n, space in self.sector_csfs.items()
         }
@@ -128,6 +128,7 @@ class ChargeStateOrbitalFunctional(CSFOrbitalFunctional):
                     self.keys,
                     convol_cache=self.cache,
                     dense_cluster_gap=self.dense_cluster_gap,
+                    max_determinants=self.max_determinants,
                 )
                 for n, space in self.sector_csfs.items()
             }

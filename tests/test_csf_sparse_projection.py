@@ -73,4 +73,4 @@ def test_encoded_connections_match_full_slater_condon_graph(electrons, triangula
         dets = [mask | 1 for mask in dets]
     expected = [(i, j) for i, a in enumerate(dets) for j, b in enumerate(dets)
                 if (a ^ b).bit_count() <= 4 and (not triangular or i <= j)]
-    assert ci._connected_pairs(dets, triangular=triangular) == expected
+    assert list(ci._connected_pairs(dets, triangular=triangular)) == expected

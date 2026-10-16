@@ -21,10 +21,13 @@ possible:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict
+from typing import TYPE_CHECKING, Any, Dict
 
 import numpy as np
 from scipy import linalg
+
+if TYPE_CHECKING:
+    from atomx.physics.csf.hamiltonian_snapshot import CIHamiltonianSnapshot
 
 
 @dataclass
@@ -43,16 +46,47 @@ class CIResult:
     provenance
         Free-form notes on the basis, CSF count, and whether Breit/QED
         were folded into the CI matrix.
+    hamiltonian_snapshot
+        Optional typed immutable complete DC, static Breit or finite-frequency
+        transverse Hamiltonian. Use
+        ``hamiltonian_for`` to validate physical inputs before reading it.
+        Ownership does not certify the mutable eigenpairs: consumers still
+        check their full Hamiltonian residual and orthonormality.
     """
 
     state_energies: np.ndarray
     mixing_coefficients: np.ndarray
     ground_energy: float = 0.0
     provenance: Dict[str, Any] = field(default_factory=dict)
+    hamiltonian_snapshot: CIHamiltonianSnapshot | None = field(default=None, repr=False, compare=False)
 
     def __post_init__(self):
+        if self.hamiltonian_snapshot is not None:
+            from atomx.physics.csf.hamiltonian_snapshot import CIHamiltonianSnapshot
+            if not isinstance(self.hamiltonian_snapshot, CIHamiltonianSnapshot):
+                raise TypeError('hamiltonian_snapshot must be a bound CIHamiltonianSnapshot')
         if self.state_energies.size:
             self.ground_energy = float(self.state_energies[0])
+
+    def hamiltonian_for(self, *args, **kwargs):
+        """Return retained H only after checking its actual physical inputs."""
+        if self.hamiltonian_snapshot is None:
+            raise ValueError('CI result has no retained bound Hamiltonian')
+        return self.hamiltonian_snapshot.matrix_for(*args, **kwargs)
+
+
+def _centered_dense_eigh(block, *, subset_by_index=None, driver=None):
+    """Solve a dense block after removing its nearest-integer diagonal origin.
+
+    The scalar changes no exact eigenvectors or energy differences. A private
+    qualification must still verify returned pairs against the original block.
+    Copy the input so a retained read-only Hamiltonian remains unchanged.
+    """
+    shifted = np.array(block, copy=True)
+    origin = float(np.rint(shifted[0, 0].real))
+    shifted[np.diag_indices(len(shifted))] -= origin
+    values, vectors = linalg.eigh(shifted, subset_by_index=subset_by_index, driver=driver)
+    return values + origin, vectors, origin
 
 
 def ci_solve(
@@ -73,8 +107,10 @@ def ci_solve(
     breit_orbital_energies=None,
     max_determinants: int | None = None,
     one_body_shifts: dict | None = None,
+    one_body_operator=None,
     radial_snapshot=None,
     dense_cluster_gap=None,
+    retain_hamiltonian=False,
 ) -> CIResult:
     """Build the CI matrix and diagonalise it.
 
@@ -109,7 +145,8 @@ def ci_solve(
     solver
         ``"dense"`` (LAPACK ``eigh``), ``"davidson"`` (Davidson-Liu
         block-iterative for large CI spaces), or ``"auto"`` (default
-        — picks dense if n_csf ≤ 1500, Davidson otherwise).
+        — a complete spectrum always picks dense; a requested subset uses
+        Davidson only if n_csf > 1500).
     tol
         Convergence tolerance on the residual norm (Davidson only).
     max_iter
@@ -127,6 +164,10 @@ def ci_solve(
         Optional immutable common B-spline ``CIRadialSnapshot`` sharing
         signed Coulomb integral values across charge/CSF spaces. Exact
         orbital, geometry and nuclear Hamiltonian matches are required.
+    one_body_operator
+        Bound ``CIEffectiveOneBody`` scalar matrix, including signed
+        off-diagonals, at a frozen energy argument. The core ledger prevents
+        opening holes in orbitals already integrated out by its producer.
     dense_cluster_gap
         Optional positive absolute Hartree gap for extended-precision
         Rayleigh--Ritz refinement of complete dense real symmetry blocks.
@@ -138,6 +179,15 @@ def ci_solve(
         Add the static Breit interaction (Gaunt plus retardation) to every
         ``(2J, parity)`` block of the CI matrix, so it shifts levels
         differentially. Off by default.
+    retain_hamiltonian
+        Explicit bool, default False. Retain the one public-built complete
+        dense real B-spline H in an immutable typed snapshot. DC, static
+        Breit and finite-frequency transverse replacement are supported.
+        ``CIResult.hamiltonian_for`` requires matching actual inputs and
+        explicit identical operator options. Retained finite maps require
+        exactly every provided orbital, including unused ones. Grid,
+        Davidson/subset and effective/scalar one-body shifts reject retention;
+        the ordinary default routes and DC orbital functionals are unchanged.
     breit_orbital_energies
         Optional explicit ``{(n, kappa): energy_in_Hartree}`` mapping.
         With ``include_breit=True``, replace static Breit by the real
@@ -159,6 +209,8 @@ def ci_solve(
     from atomx.physics.csf.matrix import build_ci_matrix
 
     n = len(csfs)
+    if not isinstance(retain_hamiltonian, bool):
+        raise TypeError('retain_hamiltonian must be bool')
     if solver not in ("dense", "davidson", "auto"):
         raise ValueError(f"Unknown solver {solver!r}; expected 'dense', 'davidson', or 'auto'.")
     if n_states is not None and (not isinstance(n_states, (int, np.integer))
@@ -166,6 +218,9 @@ def ci_solve(
         raise ValueError(f"n_states must be between 1 and {n}")
     if solver == "auto":
         solver = "dense" if (n <= 1500 or n_states is None) else "davidson"
+    if retain_hamiltonian and (solver != 'dense' or n_states is not None
+                              or one_body_shifts is not None or one_body_operator is not None):
+        raise ValueError('Hamiltonian retention requires the complete dense unshifted spectrum')
     if dense_cluster_gap is not None:
         from numbers import Real
         if (isinstance(dense_cluster_gap, (bool, np.bool_))
@@ -174,13 +229,25 @@ def ci_solve(
             raise ValueError('dense_cluster_gap must be a finite positive real number')
         if solver != 'dense' or n_states is not None:
             raise ValueError('cluster refinement requires the complete dense CI spectrum')
-    H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+    retained = None
+    if retain_hamiltonian:
+        from atomx.physics.csf.hamiltonian_snapshot import build_ci_hamiltonian_snapshot
+        retained = build_ci_hamiltonian_snapshot(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                           nuclear_potential=nuclear_potential, convol_cache=convol_cache,
+                           max_determinants=max_determinants, radial_snapshot=radial_snapshot,
+                           include_breit=include_breit, breit_orbital_energies=breit_orbital_energies)
+        H_ci = retained.matrix_for(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
+                                  nuclear_potential=nuclear_potential, max_determinants=max_determinants,
+                                  include_breit=include_breit, breit_orbital_energies=breit_orbital_energies)
+    else:
+        H_ci = build_ci_matrix(csfs, orbitals_dict, orbital_basis, bsp_data, Z, ns,
                            nuclear_potential=nuclear_potential,
                            convol_cache=convol_cache,
                            include_breit=include_breit,
                            breit_orbital_energies=breit_orbital_energies,
                            max_determinants=max_determinants,
                            one_body_shifts=one_body_shifts,
+                           one_body_operator=one_body_operator,
                            radial_snapshot=radial_snapshot,
                            as_operator=(solver == "davidson"))
     groups = _group_csfs_by_J_parity(csfs) or [((0, 1), list(range(n)))]
@@ -190,6 +257,7 @@ def ci_solve(
         blocks = [(np.asarray(idx), H_ci[np.ix_(idx, idx)]) for _, idx in groups]
     values, vectors, iterations = [], [], []
     refinement = []
+    dense_centering_shifts = []
     for idx, block in blocks:
         size = len(idx)
         if size == 0:
@@ -201,7 +269,12 @@ def ci_solve(
             iterations.append(n_iter)
         else:
             subset = (0, k - 1) if k < size else None
-            w, v = linalg.eigh(block, subset_by_index=subset)
+            # Complete ionic spectra feed signed closure contractions. MRRR
+            # can lose orthogonality for clustered roots; divide-and-conquer
+            # preserves it without rotating or truncating the returned states.
+            driver = "evd" if subset is None else "evr"
+            w, v, origin = _centered_dense_eigh(block, subset_by_index=subset, driver=driver)
+            dense_centering_shifts.append(origin)
             if dense_cluster_gap is not None:
                 from atomx.numerics.hermitian_clusters import (
                     refine_real_symmetric_clusters,
@@ -221,8 +294,12 @@ def ci_solve(
         "n_blocks": len(blocks), "block_sizes": [len(idx) for idx, _ in blocks],
         "matrix_free": solver == "davidson",
     }
+    if dense_centering_shifts:
+        provenance['dense_centering_shifts_Ha'] = dense_centering_shifts
     if iterations:
         provenance.update(n_iter=max(iterations), block_iterations=iterations, tol=tol)
+    if one_body_operator is not None:
+        provenance['effective_one_body'] = one_body_operator.provenance()
     if refinement:
         provenance['dense_cluster_refinement'] = refinement
     if include_breit:
@@ -231,8 +308,11 @@ def ci_solve(
             provenance.update(breit="static-breit-gaunt-retardation-in-blocks", breit_note=RETARDATION_NOTE)
         else:
             from atomx.physics.csf.transverse import frequency_provenance
-            frequency = frequency_provenance({key: breit_orbital_energies[key]
-                                               for key in orbitals_dict})
+            energies = ({key: float.fromhex(value)
+                         for key, value in retained.breit_orbital_energies_hex}
+                        if retained is not None else
+                        {key: breit_orbital_energies[key] for key in orbitals_dict})
+            frequency = frequency_provenance(energies)
             provenance.update(
                 breit="finite-frequency-transverse-in-blocks",
                 **{'breit_'+key: value for key, value in frequency.items()})
@@ -241,6 +321,7 @@ def ci_solve(
         state_energies=np.asarray(state_energies),
         mixing_coefficients=np.asarray(mixing),
         provenance=provenance,
+        hamiltonian_snapshot=retained,
     )
 
 
@@ -387,7 +468,8 @@ def davidson_eigh(
             return eigvals, ritz_vec, it
 
         # Davidson preconditioner: t_i = -r_i / (D - λ_i)
-        if V.shape[1] + block_size > max_subspace:
+        available = max_subspace - V.shape[1]
+        if available == 0:
             # Restart: shrink subspace to current Ritz vectors
             V = ritz_vec.copy()
             HV = ritz_HV.copy()
@@ -415,6 +497,8 @@ def davidson_eigh(
                 t /= nrm
             if nrm > 1e-14:
                 new_dirs.append(t)
+                if len(new_dirs) == available:
+                    break
 
         if not new_dirs:
             raise RuntimeError(

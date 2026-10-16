@@ -139,7 +139,7 @@ def test_tabulated_hydrogenic_density_has_analytic_hartree_field():
         Z=2, _bsp_data=None, _grid=radius,
         _difr=np.full_like(radius, radius[1]),
         _pa=p[None, :], _qa=np.zeros((1, radius.size)),
-        subshells=[Subshell(1, -1, 2)])
+        subshells=[Subshell(1, -1, 2)], solver_diagnostics={})
     sample = np.array([0.05, 0.2, 1., 3., 10.])
     one_electron = -np.expm1(-2 * sample) / sample - np.exp(-2 * sample)
     for hole, number in ((None, 2), ("1s1/2", 1)):

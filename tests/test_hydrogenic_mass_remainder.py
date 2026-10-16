@@ -66,13 +66,13 @@ def test_dhf_transition_receives_remainder_once_and_preserves_nms():
         energies = []
         for n in (1, 2):
             result = Atom(Z=1, config=f'{n}s1', engine='bspline').solve(DiracFock(
-                nuclear_mass_me=mass, include_hydrogenic_mass_remainder=enabled))
+                nuclear_mass_me=mass, include_hydrogenic_mass_remainder=enabled)).result
             assert result.converged
             assert result.energy_components['nms'] > 0
             if enabled:
                 assert result.energy_components['hydrogenic_mass_remainder'] == pytest.approx(
                     hydrogenic_mass_remainder(1, n, mass), rel=1e-12)
-                assert result._hydrogenic_mass_remainder_provenance['first_order_subtracted']
+                assert result.solver_diagnostics['_hydrogenic_mass_remainder_provenance']['first_order_subtracted']
             energies.append(result.total_energy)
         gaps.append(energies[1]-energies[0])
     assert gaps[1]-gaps[0] == pytest.approx(.375/(mass*(mass+1)), rel=1e-8)
