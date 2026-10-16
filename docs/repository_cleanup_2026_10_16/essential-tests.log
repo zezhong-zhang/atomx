@@ -1,0 +1,734 @@
+.....F.................................................................. [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 47%]
+........................................................................ [ 63%]
+........................................................................ [ 78%]
+............EEEEE...E................................................... [ 94%]
+...............F.........                                                [100%]
+==================================== ERRORS ====================================
+____ ERROR at setup of TestApplyOnDHF.test_default_stack_runs_all_backends _____
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+_______ ERROR at setup of TestApplyOnDHF.test_default_stack_rung_values ________
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+_ ERROR at setup of TestApplyOnDHF.test_default_stack_breit_rung_matches_dbsr_hf _
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+________ ERROR at setup of TestApplyOnDHF.test_disabling_se_removes_it _________
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+_______ ERROR at setup of TestApplyOnDHF.test_provenance_records_method ________
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+___________ ERROR at setup of test_add_custom_correction_is_honoured ___________
+
+self = <numba.core.caching.IndexDataCacheFile object at 0x7ed7f3c0e0b0>
+key = ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', Fal...7cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+data = (('iterate_local_orbitals', 'object', (b'\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00>\x00\x01\x00\...at64, 1d, C), bool, int64, int64, array(float64, 1d, C), array(float64, 2d, C), array(float64, 2d, C)), False, (), ...)
+
+    def save(self, key, data):
+        """
+        Save a new cache entry with *key* and *data*.
+        """
+        overloads = self._load_index()
+        try:
+            # If key already exists, we will overwrite the file
+>           data_name = overloads[key]
+E           KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x7ed7f3c2d1b0>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+
+.venv/lib/python3.10/site-packages/numba/core/caching.py:555: KeyError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(scope="module")
+    def ne_result():
+>       ne = Atom(Z=10).solve()
+
+tests/test_corrections_stack.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/atomx/atom.py:811: in solve
+    return self._solve_fixed(method, tol, max_iter, log, sampling,
+src/atomx/atom.py:1058: in _solve_fixed
+    self._result = solver.solve(
+src/atomx/numerics/shooting/hartree_fock.py:239: in solve
+    base = ShootingSolver(
+src/atomx/numerics/shooting/local.py:218: in solve
+    rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+src/atomx/numerics/shooting/local.py:41: in _dhfs_scf
+    ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:443: in _compile_for_args
+    raise e
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:376: in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+.venv/lib/python3.10/site-packages/numba/core/dispatcher.py:915: in compile
+    self._cache.save_overload(sig, cres)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:738: in save_overload
+    self._save_overload(sig, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:748: in _save_overload
+    self._cache_file.save(key, data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:564: in save
+    self._save_index(overloads)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:608: in _save_index
+    data = self._dump(data)
+.venv/lib/python3.10/site-packages/numba/core/caching.py:636: in _dump
+    return dumps(obj)
+.venv/lib/python3.10/site-packages/numba/core/serialize.py:58: in dumps
+    p.dump(obj)
+.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py:1320: in dump
+    return super().dump(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <weakref at 0x7ed7e3e16140; dead>
+
+    def __getnewargs__(self):
+        obj = self()
+        if obj is None:
+>           raise ReferenceError("underlying object has vanished")
+E           ReferenceError: underlying object has vanished
+
+.venv/lib/python3.10/site-packages/numba/core/types/functions.py:486: ReferenceError
+=================================== FAILURES ===================================
+_______________ test_shooting_drivers_run_without_method_imports _______________
+
+    def test_shooting_drivers_run_without_method_imports():
+        """Numerical drivers and physical operators cannot reach into methods."""
+        source = Path(__file__).resolve().parents[1] / 'src'
+        code = '''
+    import importlib.abc
+    import sys
+    class RejectMethods(importlib.abc.MetaPathFinder):
+        def find_spec(self, fullname, path=None, target=None):
+            if fullname == 'atomx.methods' or fullname.startswith('atomx.methods.'):
+                raise AssertionError('Numerical engine imported methods: ' + fullname)
+    sys.meta_path.insert(0, RejectMethods())
+    from atomx.config.subshell import Subshell
+    from atomx.numerics.shooting.local import ShootingSolver
+    from atomx.numerics.shooting.hartree_fock import ShootingHFSolver
+    from atomx.numerics.shooting.electron_space import ShootingSpace
+    shells = [Subshell(1, -1, 2)]
+    seed = ShootingSolver(2, shells, n_grid=800).solve()
+    result = ShootingHFSolver(2, shells, n_grid=800).solve(seed=seed)
+    assert seed.converged and result.converged
+    assert result.waves.orbitals
+    assert ShootingSpace().n_grid > 0
+    '''
+>       subprocess.run([sys.executable, '-c', code], cwd='/tmp',
+                       env=dict(os.environ, PYTHONPATH=str(source)), check=True,
+                       capture_output=True, text=True)
+
+tests/test_architecture_boundaries.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = True, timeout = None, check = True
+popenargs = (['/data/code/atomx/.venv/bin/python', '-c', '\nimport importlib.abc\nimport sys\nclass RejectMethods(importlib.abc.Me...eed)\nassert seed.converged and result.converged\nassert result.waves.orbitals\nassert ShootingSpace().n_grid > 0\n'],)
+kwargs = {'cwd': '/tmp', 'env': {'ACE_ROOT': '/data/code/ace', 'AUTOJUMP_ERROR_PATH': '/home/zzhang/.local/share/autojump/errors.log', 'AUTOJUMP_SOURCED': '1', 'BLIS_NUM_THREADS': '1', ...}, 'stderr': -1, 'stdout': -1, ...}
+process = <Popen: returncode: 1 args: ['/data/code/atomx/.venv/bin/python', '-c', "\ni...>
+stdout = ''
+stderr = 'Traceback (most recent call last):\n  File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py...ewargs__\n    raise ReferenceError("underlying object has vanished")\nReferenceError: underlying object has vanished\n'
+retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout is given, and the process takes too long, a TimeoutExpired
+        exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/data/code/atomx/.venv/bin/python', '-c', "\nimport importlib.abc\nimport sys\nclass RejectMethods(importlib.abc.MetaPathFinder):\n    def find_spec(self, fullname, path=None, target=None):\n        if fullname == 'atomx.methods' or fullname.startswith('atomx.methods.'):\n            raise AssertionError('Numerical engine imported methods: ' + fullname)\nsys.meta_path.insert(0, RejectMethods())\nfrom atomx.config.subshell import Subshell\nfrom atomx.numerics.shooting.local import ShootingSolver\nfrom atomx.numerics.shooting.hartree_fock import ShootingHFSolver\nfrom atomx.numerics.shooting.electron_space import ShootingSpace\nshells = [Subshell(1, -1, 2)]\nseed = ShootingSolver(2, shells, n_grid=800).solve()\nresult = ShootingHFSolver(2, shells, n_grid=800).solve(seed=seed)\nassert seed.converged and result.converged\nassert result.waves.orbitals\nassert ShootingSpace().n_grid > 0\n"]' returned non-zero exit status 1.
+
+/home/zzhang/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/subprocess.py:526: CalledProcessError
+_________________ test_panel_is_deterministic_across_processes _________________
+
+    def test_panel_is_deterministic_across_processes():
+        """Identical input must give bit-identical output in fresh processes."""
+        # Fresh interpreters test process-dependent values and scratch memory.
+        # Reuse compiled kernels; the ordinary suite already exercises cold JIT.
+>       results = [_run(None) for _ in range(2)]
+
+tests/test_determinism.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_determinism.py:80: in <listcomp>
+    results = [_run(None) for _ in range(2)]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cache = None
+
+    def _run(cache, *, boundscheck=False):
+        env = os.environ.copy()
+        env.update(PYTHONPATH=str(ROOT/'src'),
+                   NUMBA_BOUNDSCHECK=str(int(boundscheck)),
+                   NUMBA_DISABLE_JIT='0', NUMBA_NUM_THREADS='1',
+                   OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1')
+        if cache is not None:
+            env['NUMBA_CACHE_DIR'] = str(cache)
+        process = subprocess.run([sys.executable, '-c', PANEL],
+            capture_output=True, text=True, cwd=ROOT, env=env, timeout=1800)
+>       assert process.returncode == 0, (
+            f'numerical panel failed ({process.returncode}):\n'
+            f'{process.stdout}\n{process.stderr}')
+E       AssertionError: numerical panel failed (1):
+E         
+E         Traceback (most recent call last):
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 555, in save
+E             data_name = overloads[key]
+E         KeyError: ((Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), Array(float64, 1, 'C', False, aligned=True), Array(int64, 1, 'C', False, aligned=True), int64, int64, float64, bool, type(CPUDispatcher(<function _local_field at 0x703e0df82170>)), Tuple((float64, float64, int64, float64))), ('x86_64-unknown-linux-gnu', 'znver5', '+64bit,+adx,+aes,-amx-avx512,-amx-bf16,-amx-complex,-amx-fp16,-amx-fp8,-amx-int8,-amx-movrs,-amx-tf32,-amx-tile,-amx-transpose,+avx,-avx10.1-256,-avx10.1-512,-avx10.2-256,-avx10.2-512,+avx2,+avx512bf16,+avx512bitalg,+avx512bw,+avx512cd,+avx512dq,+avx512f,-avx512fp16,+avx512ifma,+avx512vbmi,+avx512vbmi2,+avx512vl,+avx512vnni,+avx512vp2intersect,+avx512vpopcntdq,-avxifma,-avxneconvert,+avxvnni,-avxvnniint16,-avxvnniint8,+bmi,+bmi2,-ccmp,-cf,-cldemote,+clflushopt,+clwb,+clzero,+cmov,-cmpccxadd,+crc32,+cx16,+cx8,-egpr,-enqcmd,+evex512,+f16c,+fma,-fma4,+fsgsbase,+fxsr,+gfni,-hreset,+invpcid,-kl,-lwp,+lzcnt,+mmx,+movbe,+movdir64b,+movdiri,-movrs,+mwaitx,-ndd,-nf,+pclmul,-pconfig,+pku,+popcnt,-ppx,-prefetchi,+prfchw,-ptwrite,-push2pop2,-raoint,+rdpid,+rdpru,+rdrnd,-rdseed,-rtm,+sahf,-serialize,-sgx,+sha,-sha512,+shstk,-sm3,-sm4,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+sse4a,+ssse3,-tbm,-tsxldtrk,-uintr,-usermsr,+vaes,+vpclmulqdq,-waitpkg,+wbnoinvd,-widekl,-xop,+xsave,+xsavec,+xsaveopt,+xsaves,-zu'), ('eabead9673a9bcf17cd300eeddda678e196e8a31c13056f61770197687f2487b', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'))
+E         
+E         During handling of the above exception, another exception occurred:
+E         
+E         Traceback (most recent call last):
+E           File "<string>", line 15, in <module>
+E           File "/data/code/atomx/src/atomx/atom.py", line 811, in solve
+E             return self._solve_fixed(method, tol, max_iter, log, sampling,
+E           File "/data/code/atomx/src/atomx/atom.py", line 966, in _solve_fixed
+E             self._result = solver.solve(max_iter=max_iter, scf_tol=tol, **orbital_controls)
+E           File "/data/code/atomx/src/atomx/methods/hamiltonian_df.py", line 80, in solve
+E             result = super().solve(**kwargs)
+E           File "/data/code/atomx/src/atomx/methods/csf/solver.py", line 1221, in solve
+E             self._solve_shooting_state(max_iter=max_iter, tolerance=scf_tol))
+E           File "/data/code/atomx/src/atomx/methods/hamiltonian_df.py", line 67, in _solve_shooting_state
+E             return solve_direct_shooting(self, max_iter=max_iter, tolerance=tolerance,
+E           File "/data/code/atomx/src/atomx/methods/csf/direct_shooting.py", line 19, in solve_direct_shooting
+E             seed = native.solve(max_iter=max_iter, tol=min(tolerance, 1e-7))
+E           File "/data/code/atomx/src/atomx/numerics/shooting/hartree_fock.py", line 239, in solve
+E             base = ShootingSolver(
+E           File "/data/code/atomx/src/atomx/numerics/shooting/local.py", line 218, in solve
+E             rv_conv, pa_conv, qa_conv, rv_nuc) = _dhfs_scf(
+E           File "/data/code/atomx/src/atomx/numerics/shooting/local.py", line 41, in _dhfs_scf
+E             ev, converged, iteration, ier_max, rv, pa, qa = iterate_local_orbitals(
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 443, in _compile_for_args
+E             raise e
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 376, in _compile_for_args
+E             return_val = self.compile(tuple(argtypes))
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/dispatcher.py", line 915, in compile
+E             self._cache.save_overload(sig, cres)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 738, in save_overload
+E             self._save_overload(sig, data)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 748, in _save_overload
+E             self._cache_file.save(key, data)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 564, in save
+E             self._save_index(overloads)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 608, in _save_index
+E             data = self._dump(data)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/caching.py", line 636, in _dump
+E             return dumps(obj)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/serialize.py", line 58, in dumps
+E             p.dump(obj)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/cloudpickle/cloudpickle.py", line 1320, in dump
+E             return super().dump(obj)
+E           File "/data/code/atomx/.venv/lib/python3.10/site-packages/numba/core/types/functions.py", line 486, in __getnewargs__
+E             raise ReferenceError("underlying object has vanished")
+E         ReferenceError: underlying object has vanished
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/data/code/atomx/.venv/bin/python', '-c', "\nimport hashlib\nimport json\nimport numpy as np\n...wargs__\n    raise ReferenceError("underlying object has vanished")\nReferenceError: underlying object has vanished\n').returncode
+
+tests/test_determinism.py:70: AssertionError
+=============================== warnings summary ===============================
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_multidigit_orbital_label_uses_full_principal_number
+  /data/code/atomx/src/atomx/corrections/qedmod/mohr.py:159: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    F_val = _interpolate_se_f(Z, n, kappa)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=6, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=6, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=6, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=8, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=8, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=8, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=10, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=10, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=10, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=2 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=10 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:188: RuntimeWarning: self-energy n=30, kappa=-1, Z=36 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(z, n, -1) == pytest.approx(expected, abs=2e-8)
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:189: RuntimeWarning: self-energy n=30, kappa=-1, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -1) > 0
+
+tests/test_qed_self_energy_table.py::TestCoverageAndLdependence::test_high_ns_contains_codata_log_and_constant
+  /data/code/atomx/tests/test_qed_self_energy_table.py:190: RuntimeWarning: self-energy n=30, kappa=-2, Z=1 is outside tabulated orbital coverage; using a leading Z*alpha analytic estimate, not precision QED. Higher powers, screened many-body terms and an uncertainty bound are not supplied.
+    assert _interpolate_se_f(1, n, -2) == klamaq_f(n, -2)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 15 durations =============================
+2.45s call     tests/test_xfel_multielectron_ci.py::test_clustered_three_electron_pulse_changes_charge_and_rejects_stale_carrier
+2.43s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+1.97s setup    tests/test_slater_kernel_crosscheck.py::test_scalar_rk_matches_reference[cc_potentials-0]
+1.92s call     tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+1.88s call     tests/test_determinism.py::test_panel_is_deterministic_across_processes
+1.70s call     tests/test_architecture_boundaries.py::test_public_imports_do_not_load_renderers_or_optional_backends
+1.62s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig]
+1.48s setup    tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_runs_all_backends
+1.35s call     tests/test_xfel_multielectron_ci.py::test_prepared_multielectron_snapshot_reuses_native_channel_caches
+1.14s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[n_open_ci_averaging]
+1.12s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[ne_closed_shooting]
+1.07s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[be_multiconfig_fac_frozen]
+0.93s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]
+0.76s call     tests/test_shooting_result_persistence.py::test_local_checkpoint_loads_without_importing_methods[dirac]
+0.58s call     tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+=========================== short test summary info ============================
+FAILED tests/test_architecture_boundaries.py::test_shooting_drivers_run_without_method_imports
+FAILED tests/test_determinism.py::test_panel_is_deterministic_across_processes
+ERROR tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_runs_all_backends
+ERROR tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_rung_values
+ERROR tests/test_corrections_stack.py::TestApplyOnDHF::test_default_stack_breit_rung_matches_dbsr_hf
+ERROR tests/test_corrections_stack.py::TestApplyOnDHF::test_disabling_se_removes_it
+ERROR tests/test_corrections_stack.py::TestApplyOnDHF::test_provenance_records_method
+ERROR tests/test_corrections_stack.py::test_add_custom_correction_is_honoured
+2 failed, 449 passed, 25 warnings, 6 errors in 34.69s

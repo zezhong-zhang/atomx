@@ -1,0 +1,43 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+........................................................................ [ 29%]
+.....................................................................ss. [ 34%]
+...................................................................sssss [ 39%]
+ssssssssssssssssss...................................................... [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 54%]
+.................s.....ssss............................................. [ 59%]
+........................................................................ [ 64%]
+.................ssssssssssssssssssssssssssssssssssssssssss............. [ 69%]
+........................................................................ [ 74%]
+..............................................................ssssssssss [ 79%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 84%]
+ss................................ssssssss.............................. [ 89%]
+...........................................ss....................s...... [ 94%]
+............................sss.ssssssssssssssssssss.................... [ 99%]
+.........                                                                [100%]
+============================= slowest 20 durations =============================
+32.69s call     tests/test_numerical_bounds.py::test_panel_has_no_out_of_bounds_reads
+25.45s call     tests/test_xfel_reservoir_campaign.py::test_four_electron_full_sparse_chain_retains_absolute_error_rejection
+12.86s call     tests/test_dhf_pair_rotation_performance.py::test_local_core_hole_rotation_removes_false_sulfur_stationarity
+10.85s call     tests/test_dhf_radial_identity.py::test_sr_iii_starting_potential_selects_distinct_4p_5p_branches
+10.85s call     tests/test_determinism.py::test_panel_is_deterministic_across_processes
+8.79s call     tests/test_dhf_radial_identity.py::test_sc_x_stationary_branch_matches_independent_dbsr_reference
+8.66s call     tests/test_sternheimer_edm.py::TestSternheimerEDM::test_thallium_scf_enforces_orthogonality
+5.70s call     tests/test_dhf_radial_identity.py::test_co_ii_slater_seed_recovers_core_d_node_pattern
+4.88s call     tests/test_dhf_radial_identity.py::test_mn_ii_core_d_branches_have_distinct_node_patterns
+4.73s call     tests/test_xfel_reservoir_campaign.py::test_absolute_reservoir_certification_reuses_three_electron_signed_model
+4.13s call     tests/test_tensor_coupled_cluster.py::test_tensor_radial_phase_covariance_and_energy_zero
+3.99s call     tests/test_tensor_coupled_cluster.py::test_complete_three_electron_tensor_core_and_ea_match_fci
+3.83s call     tests/test_dhf_radial_identity.py::test_rb_x_ni_like_core_d_branches_have_distinct_node_patterns
+3.44s call     tests/test_tensor_coupled_cluster.py::test_preconditioned_core_and_explicit_warm_start_preserve_equations
+2.45s call     tests/test_xfel_multielectron_ci.py::test_clustered_three_electron_pulse_changes_charge_and_rejects_stale_carrier
+2.31s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+2.27s setup    tests/test_xfel_reservoir_campaign.py::test_absolute_reservoir_certification_reuses_three_electron_signed_model
+2.13s call     tests/test_orbital_accuracy_controls.py::test_public_df_checks_and_records_requested_orbital_accuracy[6-bspline]
+1.86s call     tests/test_dhf_radial_identity.py::test_neon_and_sodium_core_p_branches_preserve_distinct_node_patterns[10]
+1.76s call     tests/test_blocked_orbital_functional.py::test_blocked_gradient_is_reproducible_across_python_hash_seeds
+1259 passed, 190 skipped, 4 deselected in 219.53s (0:03:39)

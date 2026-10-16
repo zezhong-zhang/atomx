@@ -1,0 +1,12 @@
+........................F.................ss..............ssssssssssssss [ 80%]
+ssssssssssssssssss                                                       [100%]
+=================================== FAILURES ===================================
+____________________ test_whole_payload_and_geometry_guards ____________________
+tests/test_cell_coulomb_features.py:126: in test_whole_payload_and_geometry_guards
+    f.rank_arrays(100_000_000)
+src/atomx/numerics/bspline/coulomb_features.py:276: in rank_arrays
+    rising = self._weights * self._gr**rank
+E   FloatingPointError: overflow encountered in power
+=========================== short test summary info ============================
+FAILED tests/test_cell_coulomb_features.py::test_whole_payload_and_geometry_guards
+1 failed, 55 passed, 34 skipped in 27.26s

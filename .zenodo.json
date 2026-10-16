@@ -1,0 +1,32 @@
+{
+  "title": "atomx: Relativistic Atomic Structure, Spectroscopy, and X-ray Dynamics",
+  "upload_type": "software",
+  "version": "0.2.0",
+  "creators": [
+    {"name": "Zhang, Zezhong"}
+  ],
+  "description": "<p>atomx is an open-source Python library for relativistic atomic structure, spectroscopy, and X-ray dynamics. It computes atomic energies, radial orbitals, radiative transitions, and other atomic properties using shared physical operators and numerical engines.</p><p>The theory interfaces include hydrogenic and mean-field models, Hartree–Fock and Dirac–Fock, multiconfiguration Dirac–Hartree–Fock and configuration interaction, second-order many-body perturbation theory, and explicit lower-level correlation solvers. B-spline Galerkin and ODE shooting engines support method-dependent radial calculations. Additional modules address scattering, recombination, spectrum synthesis, plasma kinetics, and pulse-driven XFEL populations and coherent dynamics.</p><p>This deposit preserves a source snapshot of version 0.2.0 with tests, reference fixtures, documentation, examples, and retained research reports. The release manifest identifies the base Git commit, working-tree changes, included file hashes, and excluded local artifacts. The Python wheel provides the installable library.</p><p>Supported operators, approximations, result types, convergence controls, and unfinished capabilities are documented in the included guides. Optional pCI and EXP-T interfaces require separately obtained, pinned upstream sources and suitable build tools. Passing software and internal consistency checks does not establish experimental accuracy or convergence for every physical system. Large local research arrays, compiler caches, and copied dependency/build trees are outside this software deposit; retained reports identify their original provenance.</p>",
+  "access_right": "open",
+  "license": "gpl-3.0-only",
+  "keywords": [
+    "atomic physics",
+    "relativistic atomic structure",
+    "Dirac–Fock",
+    "configuration interaction",
+    "atomic spectroscopy",
+    "X-ray spectroscopy",
+    "XFEL dynamics",
+    "B-splines",
+    "Python"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/zezhong-zhang/atomx",
+      "scheme": "url",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ],
+  "language": "eng",
+  "notes": "Prepared as a working-tree source snapshot, including uncommitted work, rather than an existing tagged GitHub release. See RELEASE_MANIFEST.json for the deposited file identities and omissions. Historical research attachments retain their original provenance and third-party notices."
+}

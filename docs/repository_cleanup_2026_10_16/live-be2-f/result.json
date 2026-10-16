@@ -1,0 +1,117 @@
+{
+  "case": "be2",
+  "virtual_count_per_kappa": 1,
+  "requested_lmax": 3,
+  "kinetic_balance": true,
+  "rotation": false,
+  "determinants": 51,
+  "dimensions": {
+    "NHF": 4320,
+    "NX": 7,
+    "NS": 1,
+    "KX1": 7,
+    "NXX": 2,
+    "NK": 7,
+    "NN": 1,
+    "KK": 7,
+    "NCH": 24,
+    "NXK": 13,
+    "NV": 24,
+    "NG": 7,
+    "NE": 13272
+  },
+  "counts": [
+    24,
+    13,
+    7
+  ],
+  "workspace_bytes": 14731840,
+  "canonical_commutator_max_Ha": 6.938893903907228e-17,
+  "energy_pci_Ha": 0.0004104530615345987,
+  "energy_independent_Ha": 0.00041045306153459846,
+  "native_noncanonical_commutator_max_Ha": 1.942890293094024e-16,
+  "native_energy_pci_Ha": 0.00041045305909625325,
+  "native_energy_independent_Ha": 0.0004104530590962536,
+  "native_fock_fortran_vs_python_Ha": 1.0339757656912846e-25,
+  "native_energy_fortran_Ha": 0.00041045305909625325,
+  "vector_action_error_Ha": 2.7755575615628914e-17,
+  "solved_physical_amplitudes_error": 8.318737044764085e-16,
+  "native_core_correlation_Ha": -0.00016773486211710866,
+  "independent_correlation_Ha": -0.00016773486211710967,
+  "solve_residual_max_Ha": 7.043953433234253e-14,
+  "solve_matvecs": 11,
+  "solve_wall_seconds": 0.04273261399794137,
+  "resources": {
+    "dimensions": {
+      "NHF": 4320,
+      "NX": 7,
+      "NS": 1,
+      "KX1": 7,
+      "NXX": 2,
+      "NK": 7,
+      "NN": 1,
+      "KK": 7,
+      "NCH": 24,
+      "NXK": 13,
+      "NV": 24,
+      "NG": 7,
+      "NE": 13272
+    },
+    "occupied_keys": [
+      [
+        1,
+        -1
+      ]
+    ],
+    "virtual_keys": [
+      [
+        2,
+        -1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        -2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        -3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        -4
+      ]
+    ],
+    "raw_amplitudes": 25,
+    "independent_scalar_amplitudes": 8,
+    "complete_payload_bound_bytes": 90778176,
+    "krylov_vector_bytes": 200,
+    "radial_pair_cache_size": 16384,
+    "radial_pair_cache_array_bound_bytes": 55050240,
+    "blas_initialization_scratch_bytes": 207360,
+    "term21_threads": 0,
+    "term21_mode": "original",
+    "term21_worker_scratch_bytes": 0,
+    "term21_parallel_scratch_bytes": 0,
+    "core_singles_blas": false,
+    "core_singles_worker_scratch_bytes": 0,
+    "core_singles_parallel_scratch_bytes": 0,
+    "core_single_to_doubles_blas": false,
+    "core_single_to_doubles_scratch_bytes": 0,
+    "scope": "bound for complete static arrays/scratch and initialization payload; add requested Krylov storage; excludes JIT/interpreter/runtime RSS"
+  },
+  "wall_seconds": 12.567916541996965,
+  "approximation": "canonical calibration and complete native noncanonical DC Hamiltonian",
+  "independent_projection": "complete fixed-M0/even SD determinants; exact linked SD residual"
+}

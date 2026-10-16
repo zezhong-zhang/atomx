@@ -1,0 +1,43 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+........................................................................ [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+........................................................................ [ 29%]
+.....................................................................ss. [ 34%]
+...................................................................sssss [ 39%]
+ssssssssssssssssss...................................................... [ 44%]
+........................................................................ [ 49%]
+........................................................................ [ 54%]
+.................s.....ssss............................................. [ 59%]
+........................................................................ [ 64%]
+.................ssssssssssssssssssssssssssssssssssssssssss............. [ 69%]
+........................................................................ [ 74%]
+..............................................................ssssssssss [ 79%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 84%]
+ss................................ssssssss.............................. [ 89%]
+...........................................ss....................s...... [ 94%]
+............................sss.ssssssssssssssssssss.................... [ 99%]
+.........                                                                [100%]
+============================= slowest 20 durations =============================
+32.26s call     tests/test_numerical_bounds.py::test_panel_has_no_out_of_bounds_reads
+18.15s call     tests/test_xfel_reservoir_campaign.py::test_four_electron_full_sparse_chain_retains_absolute_error_rejection
+10.86s call     tests/test_dhf_pair_rotation_performance.py::test_local_core_hole_rotation_removes_false_sulfur_stationarity
+10.50s call     tests/test_dhf_radial_identity.py::test_sr_iii_starting_potential_selects_distinct_4p_5p_branches
+9.35s call     tests/test_determinism.py::test_panel_is_deterministic_across_processes
+8.66s call     tests/test_dhf_radial_identity.py::test_sc_x_stationary_branch_matches_independent_dbsr_reference
+8.52s call     tests/test_sternheimer_edm.py::TestSternheimerEDM::test_thallium_scf_enforces_orthogonality
+5.64s call     tests/test_dhf_radial_identity.py::test_co_ii_slater_seed_recovers_core_d_node_pattern
+4.90s call     tests/test_dhf_radial_identity.py::test_mn_ii_core_d_branches_have_distinct_node_patterns
+4.88s call     tests/test_atom_surface_equivalence.py::test_canonical_form_reproduces_the_recorded_number[ne_closed_bspline]
+4.49s call     tests/test_xfel_reservoir_campaign.py::test_absolute_reservoir_certification_reuses_three_electron_signed_model
+4.07s call     tests/test_tensor_coupled_cluster.py::test_tensor_radial_phase_covariance_and_energy_zero
+4.00s call     tests/test_tensor_coupled_cluster.py::test_complete_three_electron_tensor_core_and_ea_match_fci
+3.76s call     tests/test_dhf_radial_identity.py::test_rb_x_ni_like_core_d_branches_have_distinct_node_patterns
+3.45s call     tests/test_tensor_coupled_cluster.py::test_preconditioned_core_and_explicit_warm_start_preserve_equations
+3.05s setup    tests/test_atomic_iteration_planner.py::test_full_operator_scaling_matches_signed_hamiltonian_and_fock_ledger
+2.47s call     tests/test_xfel_multielectron_ci.py::test_clustered_three_electron_pulse_changes_charge_and_rejects_stale_carrier
+2.32s setup    tests/test_xfel_multielectron_ci.py::test_live_three_electron_residual_spaces_particle_number_and_Hartree_tail
+2.23s setup    tests/test_xfel_reservoir_campaign.py::test_absolute_reservoir_certification_reuses_three_electron_signed_model
+2.13s call     tests/test_orbital_accuracy_controls.py::test_public_df_checks_and_records_requested_orbital_accuracy[6-bspline]
+1259 passed, 190 skipped, 4 deselected in 218.59s (0:03:38)

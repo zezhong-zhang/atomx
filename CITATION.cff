@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use atomx in research, please cite this software. Add the Zenodo DOI after publication."
+type: software
+title: "atomx: Relativistic Atomic Structure, Spectroscopy, and X-ray Dynamics"
+version: 0.2.0
+authors:
+  - family-names: Zhang
+    given-names: Zezhong
+repository-code: "https://github.com/zezhong-zhang/atomx"
+url: "https://github.com/zezhong-zhang/atomx"
+license: GPL-3.0-only
+abstract: >-
+  A Python library for relativistic atomic structure, spectroscopy, and
+  X-ray dynamics, with shared physical operators, B-spline and shooting
+  numerical engines, and explicit model and convergence contracts.
+keywords:
+  - atomic physics
+  - relativistic atomic structure
+  - configuration interaction
+  - atomic spectroscopy
+  - XFEL dynamics

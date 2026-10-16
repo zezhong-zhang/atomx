@@ -1,0 +1,43 @@
+[
+  {
+    "path": "src/atomx/methods/_pci_valence_term2_streamed.f90",
+    "before_sha256": "65c3bd1047e4ae1191c4fecb89268faf91d3ed6fbb78a8c1573a34ae95d0d98a",
+    "after_sha256": "0d98cb2fcf148566fa25576fbe5adbf89d90ca1d6cbc66ffef8dd553b6d5fb80",
+    "change": "remove surplus terminal blank lines only",
+    "python_AST_unchanged": false
+  },
+  {
+    "path": "tests/test_ci_hamiltonian_snapshot.py",
+    "before_sha256": "ce17a8a8ec72740eff7a02e2e9ffc41099c186968573a14148d807396b11cd25",
+    "after_sha256": "78d484749782e8b6a166276d04ca8e784d0428b7082ecd622040d4b39adb4d76",
+    "change": "remove surplus terminal blank lines only",
+    "python_AST_unchanged": true
+  },
+  {
+    "path": "tests/test_orbital_optimizer_resume.py",
+    "before_sha256": "e3a4cdb43f90d430d12d8a8f52229b14d725e18e192e57acb71a2107e7b83114",
+    "after_sha256": "62b975becbde1d06f1cecc6d915ab09cf784aa04b6435433d7bee59c535d17fd",
+    "change": "remove surplus terminal blank lines only",
+    "python_AST_unchanged": true
+  },
+  {
+    "path": "docs/DEVELOPMENT.md",
+    "before_sha256": "f39a591fa439ae6f2f7341d47c1afbd46ce289ebfe39dfdb2338b491cfe92009",
+    "after_sha256": "5ebf101eb875fff218443cebbb719cca8d009efdb8d7ee8352accc60dc799749",
+    "change": "remove surplus terminal blank lines only",
+    "python_AST_unchanged": false
+  },
+  {
+    "path": "docs/VALIDATION_HISTORY.md",
+    "before_sha256": "e6705816e25643a0579409fed97ede094f054ae72ec5f93b130ecf3ef1135208",
+    "after_sha256": "c0b06f2932ea3b93fa108a796bffee97cb4bd1fde822d465dec2be1f0797b90c",
+    "change": "remove surplus terminal blank lines only",
+    "python_AST_unchanged": false
+  },
+  {
+    "path": "src/atomx/physics/csf/CCSDT_EQUATIONS_LICENSE.txt",
+    "before_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "after_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "change": "pre-commit normalized terminal newline only; license text unchanged"
+  }
+]

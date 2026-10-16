@@ -1,0 +1,76 @@
+........FFFFFFFF.............                                            [100%]
+=================================== FAILURES ===================================
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-0-False] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(-0...0057325093303) == 0.06575416977980983 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: -0.11440057325093303
+E     Expected: 0.06575416977980983 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-0-True] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(-0...3320451154055) == 0.04697670359841431 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: -0.1513320451154055
+E     Expected: 0.04697670359841431 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-1-False] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(-0...6739707150118) == 0.10173903627789371 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: -0.05796739707150118
+E     Expected: 0.10173903627789371 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-1-True] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(-0...7760328351557) == 0.08043205258508639 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: -0.09357760328351557
+E     Expected: 0.08043205258508639 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-3-False] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(0....8621765719174) == 0.08307389687977092 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: 0.11148621765719174
+E     Expected: 0.08307389687977092 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-3-True] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(0....6721500732899) == 0.06379734218585849 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: 0.10206721500732899
+E     Expected: 0.06379734218585849 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-7-False] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(0....0974974088259) == 0.05556058778778424 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: 0.07840974974088259
+E     Expected: 0.05556058778778424 ± 1.0e-11
+_ test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-7-True] _
+tests/test_cell_coulomb_features.py:37: in test_signed_quartets_match_full_native_cell_integral
+    assert actual == pytest.approx(expected, abs=1e-11, rel=1e-13)
+E   assert np.float64(0.0654716712883287) == 0.03836667516795213 ± 1.0e-11
+E     
+E     comparison failed
+E     Obtained: 0.0654716712883287
+E     Expected: 0.03836667516795213 ± 1.0e-11
+=========================== short test summary info ============================
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-0-False]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-0-True]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-1-False]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-1-True]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-3-False]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-3-True]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-7-False]
+FAILED tests/test_cell_coulomb_features.py::test_signed_quartets_match_full_native_cell_integral[PolynomialCellCoulombFeatures-7-True]
+8 failed, 21 passed in 1.37s
