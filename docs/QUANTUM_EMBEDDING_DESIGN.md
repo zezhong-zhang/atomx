@@ -65,4 +65,5 @@ workflows/dmft_loop.py  # 薄驱动器（v1 只做一击式；自洽迭代为 v2
 - **E1**：`impurity.py` 原子极限 + 谱矩校验 + `impurity-greens@1` 负载（小；全复用）✅ 已交付（含 E1.5 DF 原生参数：F2/F4 vs Cowan 0.04%）
 - **E2**：离散 bath = 团簇统一超集 ✅ 已交付——hyperx NiO 电荷转移团簇作为 ClusterSpec 配置实例，**120 能级跨仓逐位一致（平移 0.0、残差 0.0）**；L1 非相互作用闭式（杂化二能级）通过；调试过程抓出镜像直项传参错与第三处旧自旋检查残留
 - **E1.5+（CSF 原生装配，暂缓）**：验收标准已由 E2 锚定义——CSF/jj 装配必须复现同一 120 能级谱（当前 LS 装配已与 hyperx 机器精度互证）。相对论 CSF 空间的置换簿记是独立研究量级，且当前物理收益有限（3d 壳相对论修正小）；待有 jj 分辨可观测需求时启动
-- **E3**：驱动器 + L2 CT-QMC 基准对账 → 一击式 DFT+atomic 光谱成品
+- **E3 v1**：一击式成品 ✅ 已交付——`one_shot_spectral`：DF SCF → 屏蔽约定（#26 的 0.65/0.453，随负载 provenance 全程携带）→ Lehmann 求解 → `impurity-greens@1` 负载；全链无借表
+- **E3 v2（开放）**：DMFT 自洽驱动器 + L2 CT-QMC 基准对账（需 TRIQS 参考集接入）

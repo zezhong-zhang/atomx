@@ -19,3 +19,4 @@ from atomx.embedding.impurity import (  # noqa: F401
 )
 from atomx.embedding.io import impurity_greens_payload  # noqa: F401
 from atomx.embedding.native_params import dirac_fock_3d_params  # noqa: F401
+from atomx.embedding.one_shot import one_shot_spectral  # noqa: F401
