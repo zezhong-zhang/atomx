@@ -45,14 +45,15 @@ def test_spectral_weight_unit_per_orbital(sol):
 
 
 def test_multiplet_poles_match_racah_ladder(sol):
+    """Full-SOC ladder (spin-flip terms included — the diagonal-only SOC
+    that once slipped through produced a different, wrong fine structure;
+    corrected windows pinned after the fix)."""
     ev = sol["N=8"]["evals"]
     ex = np.unique(np.round(ev - ev[0], 4))
-    # SOC fine structure of the ground term below 0.3 eV ...
-    assert ((ex > 0.0) & (ex < 0.3)).sum() >= 5
-    # ... 1D family near 1.4-1.8, 1G family near 2.1-2.3, 1S near 5.2
-    assert ((ex > 1.3) & (ex < 1.9)).sum() >= 3
-    assert ((ex > 2.0) & (ex < 2.4)).sum() >= 3
-    assert ((ex > 5.0) & (ex < 5.5)).sum() >= 1
+    assert ((ex > 0.0) & (ex < 0.3)).sum() >= 2   # 3F_J ground fine structure
+    assert ((ex > 1.3) & (ex < 1.9)).sum() >= 3   # 1D family
+    assert ((ex > 2.0) & (ex < 2.4)).sum() >= 1   # 1G family
+    assert ((ex > 5.0) & (ex < 5.5)).sum() >= 1   # 1S
 
 
 def test_green_poles_equal_sector_level_differences(sol):

@@ -6,6 +6,11 @@ See docs/QUANTUM_EMBEDDING_DESIGN.md. E1 delivers the atomic-limit
 interface — the v1 reference backend is a self-contained d-shell assembly
 (provisional until the CI-native backend lands, tracked as E1.5).
 """
+from atomx.embedding.bath import (  # noqa: F401
+    ClusterSpec,
+    nio_hyperx_configuration,
+    solve_cluster_ground,
+)
 from atomx.embedding.impurity import (  # noqa: F401
     ImpuritySpec,
     occupation,

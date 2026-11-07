@@ -155,8 +155,10 @@ def _hamiltonian(n: int, spec: ImpuritySpec, vraw) -> np.ndarray:
             onlyB = sorted(sets[b] - common)
             if len(onlyA) == 1 and len(onlyB) == 1:
                 i, j = onlyA[0], onlyB[0]
-                if i % 2 == j % 2:
-                    el += h1[i, j] * _sign_apply(B, j, i)[1]
+                # h1 carries its own spin structure (SOC spin-flip); the
+                # diagonal-only SOC left by a spin check here masquerades
+                # as fine structure — caught by the E2 reduction anchor
+                el += h1[i, j] * _sign_apply(B, j, i)[1]
             elif not onlyA and not onlyB:
                 for i in B:
                     el += h1[i, i]
