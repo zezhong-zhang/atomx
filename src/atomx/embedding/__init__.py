@@ -15,6 +15,10 @@ from atomx.embedding.bath import (  # noqa: F401
     nio_hyperx_configuration,
     solve_cluster_ground,
 )
+from atomx.embedding.division_of_labor import (  # noqa: F401
+    PHYSICS_GAP_EV,
+    dft_vs_many_body,
+)
 from atomx.embedding.impurity import (  # noqa: F401
     ImpuritySpec,
     occupation,
