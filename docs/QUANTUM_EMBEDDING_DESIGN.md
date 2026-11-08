@@ -67,3 +67,50 @@ workflows/dmft_loop.py  # 薄驱动器（v1 只做一击式；自洽迭代为 v2
 - **E1.5+（CSF 原生装配，暂缓）**：验收标准已由 E2 锚定义——CSF/jj 装配必须复现同一 120 能级谱（当前 LS 装配已与 hyperx 机器精度互证）。相对论 CSF 空间的置换簿记是独立研究量级，且当前物理收益有限（3d 壳相对论修正小）；待有 jj 分辨可观测需求时启动
 - **E3 v1**：一击式成品 ✅ 已交付——`one_shot_spectral`：DF SCF → 屏蔽约定（#26 的 0.65/0.453，随负载 provenance 全程携带）→ Lehmann 求解 → `impurity-greens@1` 负载；全链无借表
 - **E3 v2（开放）**：DMFT 自洽驱动器 + L2 CT-QMC 基准对账（需 TRIQS 参考集接入）
+
+## 8. 嵌入方向辨析（响应"是不是应该把 atomx 嵌入到 ABACUS"）
+
+### 两个方向、两种物理
+
+**方向 A（当前架构）: ABACUS → atomx（"quantum embedding"）**
+```
+ABACUS DFT/DFT+U          atomx impurity solver
+  CF 矩阵 ──────────────→  Slater + SOC + CF
+  杂化/配体能级 ──────→  多体 ED
+  带隙/单粒子谱          多体谱（RIXS/XAS 级）
+```
+- **通信方式**：文件交换（data-*-H）或 Python 负载（impurity-greens@1）
+- **物理**：一次性（one-shot）——DFT 给环境，atomx 给谱
+- **适用**：**光谱计算**（RIXS、XAS、光学 dd 激发）——要的是多体谱，不需要反馈
+- **类比**：TRIQS 生态的 DFT→converter→impurity solver 流向
+
+**方向 B: atomx 嵌入 ABACUS（self-consistent embedding）**
+```
+ABACUS SCF loop ←──────── atomx impurity solver
+  杂化函数 Δ(iω) ←──────  G_imp(iω), Σ_imp(iω)
+  自洽直到收敛
+```
+- **通信方式**：需要进程内调用或紧密文件循环
+- **物理**：自洽——atomx 的自能反馈进 ABACUS 的电子结构
+- **适用**：**基态性质改进**（更准的带隙、磁矩、自洽电荷密度）
+- **类比**：DFT+DMFT（如 ABACUS+TRIQS 的完整循环）
+- **代价**：需要修改 ABACUS C++ 源码（或走 DMFT 驱动器外循环）
+
+### 判断：当前方向 A 是正确的
+
+| 判据 | 方向 A（当前） | 方向 B |
+|---|---|---|
+| 项目目标（SHINE RIXS） | ✓ 直接产出多体谱 | ✗ 不需要自洽 |
+| 实现代价 | ✓ 已完成（零 C++ 修改） | ✗ 需改 ABACUS 源码 |
+| 验证体系 | ✓ 37 测试 + 26 锚 | ✗ 需重建验证 |
+| 国际先例 | ✓ TRIQS 同方向 | 相同但更重 |
+| 物理增益（光谱） | ✓ 多体谱是 DFT 给不了的 | 同样得到，但代价大 |
+
+**方向 B 的正确时机**：当需要改进基态性质（如把 NiO 带隙从 2.2 eV 推到实验 4.0 eV）
+时，才需要自洽循环。这等价于 E3 v2 的 DMFT 驱动器——届时 atomx 作为第 8 个
+TRIQS-style 求解器（实现 AbstractDMFTSolver 接口）接入 DMFT 循环，而不需要
+直接修改 ABACUS 内部。
+
+### 结论
+> **当前架构（ABACUS 给环境、atomx 给多体、通过负载通信）是正确的。**
+> 方向 B 是它的自洽扩展，留作 E3 v2。
