@@ -125,19 +125,34 @@ def _cf_matrix(dq10: float, ds: float, dt: float) -> np.ndarray:
 # ------------------------------------------------------------------ spec ---
 @dataclass(frozen=True)
 class ImpuritySpec:
-    """One correlated d-shell impurity at the atomic limit."""
+    """One correlated d-shell impurity at the atomic limit.
+
+    ``cf`` parametrizes a tetragonal crystal field (Dq10, ds, dt);
+    ``cf_matrix`` accepts an EXPLICIT 5x5 complex matrix in the spherical
+    |m = -2..2> basis (e.g. an ABACUS-derived d-block projection) and
+    takes precedence when both are given.
+    """
 
     n_electrons: int = 8
     slater_eV: dict = field(default_factory=dict)   # F0, F2, F4
     zeta_d_eV: float = 0.0
     cf: dict = field(default_factory=dict)          # Dq10, ds, dt
+    cf_matrix: object = None                        # explicit 5x5 spherical
     temperature_K: float = 300.0
 
 
 def _hamiltonian(n: int, spec: ImpuritySpec, vraw) -> np.ndarray:
     basis = _basis(n)
     h1 = _soc_matrix(spec.zeta_d_eV)
-    if spec.cf:
+    if getattr(spec, "cf_matrix", None) is not None:
+        cf5 = np.asarray(spec.cf_matrix, dtype=complex)
+        if cf5.shape != (5, 5):
+            raise ValueError("cf_matrix must be 5x5 in the spherical basis")
+        cf10 = np.zeros((10, 10), dtype=complex)
+        cf10[0:10:2, 0:10:2] = cf5
+        cf10[1:10:2, 1:10:2] = cf5
+        h1 = h1 + cf10
+    elif spec.cf:
         h1 = h1 + _cf_matrix(
             spec.cf.get("Dq10", 0.0), spec.cf.get("ds", 0.0), spec.cf.get("dt", 0.0)
         )
