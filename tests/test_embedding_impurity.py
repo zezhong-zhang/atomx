@@ -57,18 +57,32 @@ def test_multiplet_poles_match_racah_ladder(sol):
 
 
 def test_green_poles_equal_sector_level_differences(sol):
-    """The removal edge sits at E_0^(N-1) - E_0^(N) (Hubbard-I identity)."""
+    """The removal edge sits at E_0^(N) - E_0^(N-1) (Hubbard-I identity; Lehmann
+    removal poles are at w = E_g^N - E_n^(N-1)). Corrected 2026-11-15: the
+    previous version pinned the energy-mirrored value E_0^(N-1) - E_0^(N)."""
     eN = sol["N=8"]["evals"]
     em = sol["N=7"]["evals"]
-    omega = np.linspace(-20, 5, 4001)
+    expected = float(eN[0] - em[0])
+    omega = np.linspace(expected - 25, expected + 5, 6001)
     A, _ = spectral_function(sol, omega, eta=0.05)
     tot = A.sum(axis=0)
-    # the REMOVAL EDGE: strongest pole in the near-edge window (deep d7
-    # multiplet tails extend to ~-10 eV and are not the edge)
-    expected = float(em[0] - eN[0])
-    mask = (omega > expected - 1.5) & (omega < expected + 0.5)
+    mask = (omega > expected - 0.5) & (omega < expected + 1.5)
     peak = omega[mask][np.argmax(tot[mask])]
     assert abs(peak - expected) < 0.05
+
+
+def test_green_matrix_moments_and_occupation(sol):
+    """Independent anchors for the Lehmann matrix: z G(z) -> identity as
+    |z| -> inf, and the removal weight equals the density-matrix occupation."""
+    from atomx.embedding.impurity import _eigen_amplitudes, green_function_matrix
+
+    zbig = np.array([1e5j])
+    G = green_function_matrix(sol, zbig)[:, :, 0]
+    assert np.allclose(zbig[0] * G, np.eye(10), atol=1e-3)
+    Am, _ = _eigen_amplitudes(sol)
+    w = sol["weights_N"]
+    n_rem = np.einsum("g,nga->a", w, np.abs(Am) ** 2)
+    assert np.allclose(n_rem, occupation(sol), atol=1e-10)
 
 
 def test_payload_schema_and_provenance(sol):

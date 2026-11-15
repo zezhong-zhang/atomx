@@ -270,36 +270,58 @@ def solve_atomic_limit(spec: ImpuritySpec) -> dict:
     return out
 
 
-def green_function(
-    sol: dict, z: np.ndarray, eta: float = 0.1
-) -> np.ndarray:
-    """Retarded G_orb,orb(z) (diagonal in spin-orbital) on complex grid z.
+def _eigen_amplitudes(sol: dict):
+    """<n(N-1)|c_a|g(N)> and <m(N+1)|c^dag_a|g(N)> in the EIGENBASIS.
 
-    Lehmann (retarded):
-        G_a(w) = sum_g w_g [ sum_n |<n(N-1)|c_a|g(N)>|^2 / (w - (E_n - E_g) - i*eta)
-                           + sum_m |<m(N+1)|c^dag_a|g(N)>|^2 / (w + (E_m - E_g) + i*eta) ]
+    Cm_minus / Cm_plus are built in the Fock (determinant) basis; they must be
+    rotated by the sector eigenvectors before pairing with eigen-energies and
+    Boltzmann weights. (Pairing Fock-basis elements with eigenstate weights is
+    only correct when every eigenstate is a single determinant -- false for
+    any interacting multiplet, e.g. the 3A2g ground state of NiO d8.)
     """
-    eN = sol[f"N={sol['spec'].n_electrons}"]["evals"]
-    em = sol[f"N={sol['spec'].n_electrons-1}"]["evals"]
-    ep = sol[f"N={sol['spec'].n_electrons+1}"]["evals"]
+    n0 = sol["spec"].n_electrons
+    VN = sol[f"N={n0}"]["evecs"]
+    Vm = sol[f"N={n0 - 1}"]["evecs"]
+    Vp = sol[f"N={n0 + 1}"]["evecs"]
+    Am = np.einsum("ni,ija,jg->nga", Vm.conj().T, sol["Cm_minus"], VN, optimize=True)
+    Ap = np.einsum("mi,ija,jg->mga", Vp.conj().T, sol["Cm_plus"], VN, optimize=True)
+    return Am, Ap
+
+
+def green_function_matrix(
+    sol: dict, z: np.ndarray, eta: float = 0.0, wcut: float = 1e-12
+) -> np.ndarray:
+    """Full spin-orbital matrix G_ab(z) (10 x 10 x len(z)), Lehmann form:
+
+        G_ab(z) = sum_g w_g [ sum_n <g|c_b^dag|n><n|c_a|g> / (z + i eta - (E_g - E_n))
+                            + sum_m <g|c_a|m><m|c_b^dag|g> / (z + i eta - (E_m - E_g)) ]
+
+    Removal poles at w = E_g^(N) - E_n^(N-1); addition poles at w = E_m^(N+1) - E_g^(N).
+    """
+    n0 = sol["spec"].n_electrons
+    eN = sol[f"N={n0}"]["evals"]
+    em = sol[f"N={n0 - 1}"]["evals"]
+    ep = sol[f"N={n0 + 1}"]["evals"]
     w = sol["weights_N"]
-    Cm, Cp = sol["Cm_minus"], sol["Cm_plus"]
-    G = np.zeros((10, len(z)), dtype=complex)
-    for a in range(10):
-        amp_m = (np.abs(Cm[:, :, a]) ** 2) * w[np.newaxis, :]  # (nN-1, nN)
-        amp_p = (np.abs(Cp[:, :, a]) ** 2) * w[np.newaxis, :]  # (nN+1, nN)
-        for gi in range(len(eN)):
-            G[a] += np.sum(
-                amp_m[:, gi, None]
-                / (z - (em[:, None] - eN[gi]) + 1j * eta),
-                axis=0,
-            )
-            G[a] += np.sum(
-                amp_p[:, gi, None]
-                / (z + (ep[:, None] - eN[gi]) + 1j * eta),
-                axis=0,
-            )
+    Am, Ap = _eigen_amplitudes(sol)
+    zz = np.asarray(z, dtype=complex) + 1j * eta
+    G = np.zeros((10, 10, len(zz)), dtype=complex)
+    for g in np.nonzero(w > wcut)[0]:
+        num_m = Am[:, g, :, None] * Am[:, g, None, :].conj()
+        den_m = zz[None, :] - (eN[g] - em)[:, None]
+        G += w[g] * np.einsum("nab,nz->abz", num_m, 1.0 / den_m, optimize=True)
+        num_p = Ap[:, g, :, None].conj() * Ap[:, g, None, :]
+        den_p = zz[None, :] - (ep - eN[g])[:, None]
+        G += w[g] * np.einsum("mab,mz->abz", num_p, 1.0 / den_p, optimize=True)
     return G
+
+
+def green_function(sol: dict, z: np.ndarray, eta: float = 0.1) -> np.ndarray:
+    """Retarded G_aa(z) (diagonal in spin-orbital): the diagonal of
+    green_function_matrix (eigenbasis Lehmann, poles at the physical
+    excitation energies)."""
+    G = green_function_matrix(sol, z, eta=eta)
+    return np.einsum("aaz->az", G)
 
 
 def spectral_function(sol: dict, omega: np.ndarray, eta: float = 0.1):
