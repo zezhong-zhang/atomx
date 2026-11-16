@@ -105,7 +105,14 @@ def sector_states(N: int):
     return sorted(sum(1 << i for i in c) for c in itertools.combinations(range(NS), N))
 
 
+def _spin2(x):
+    """(5,) -> (5, 2) spin-degenerate; (5, 2) passes through (orbital, spin)."""
+    x = np.asarray(x, float)
+    return np.stack([x, x], 1) if x.ndim == 1 else x
+
+
 def build_sector(N, eps, eb, Vb, table):
+    eps, eb, Vb = _spin2(eps), _spin2(eb), _spin2(Vb)
     states = sector_states(N)
     idx = {s: n for n, s in enumerate(states)}
     H = np.zeros((len(states), len(states)), complex)
@@ -117,18 +124,18 @@ def build_sector(N, eps, eb, Vb, table):
         for a in range(5):
             for sp in (0, 1):
                 if (s >> (2 * a + sp)) & 1:
-                    e += eps[a]
+                    e += eps[a, sp]
                 if (s >> (ND + 2 * a + sp)) & 1:
-                    e += eb[a]
+                    e += eb[a, sp]
         H[n, n] += e
         # interaction (d only; bath bits untouched, d indices lowest -> no extra sign)
         for d2, amp in table[d]:
             H[idx[d2 | (b << ND)], n] += amp
         # hybridization V_a (c+_{d a s} c_{b a s} + h.c.)
         for a in range(5):
-            if Vb[a] == 0:
-                continue
             for sp in (0, 1):
+                if Vb[a, sp] == 0:
+                    continue
                 i, j = 2 * a + sp, ND + 2 * a + sp
                 for src, dst in ((j, i), (i, j)):
                     s1, g1 = _apply_c(s, src)
@@ -137,7 +144,7 @@ def build_sector(N, eps, eb, Vb, table):
                     s2, g2 = _apply_cdag(s1, dst)
                     if s2 is None:
                         continue
-                    H[idx[s2], n] += Vb[a] * g1 * g2
+                    H[idx[s2], n] += Vb[a, sp] * g1 * g2
     return states, H
 
 
@@ -165,7 +172,12 @@ def solve_ed(
     T_K=100.0,
     wtol=1e-10,
     max_dim=6000,
+    spins=(0,),
 ):
+    """spins: spin channels for which G/Sigma are computed ((0,) for PM; (0, 1) for magnetic
+    solutions). PM fields (poles, sigma_inf, sigma_poles) are spin-up; per-spin results are in
+    poles_s / sigma_inf_s / sigma_poles_s keyed by (a, s)."""
+    eps2, eb2, Vb2 = _spin2(eps), _spin2(eb), _spin2(Vb)
     if table is None:
         table = interaction_table(coulomb_cubic(slater))
     sect = {}
@@ -221,78 +233,87 @@ def solve_ed(
     im = {s: n for n, s in enumerate(stm)}
     ip = {s: n for n, s in enumerate(stp)}
     sig_inf = np.zeros(5)
-    for a in range(5):
-        orb = 2 * a  # spin-up (PM)
-        Cm = np.zeros((len(stm), len(st0)))
-        Cp = np.zeros((len(stp), len(st0)))
+    sol.poles_s, sol.sigma_poles_s, sol.sigma_inf_s = {}, {}, np.zeros((5, 2))
+    for sp in spins:
+        for a in range(5):
+            orb = 2 * a + sp
+            Cm = np.zeros((len(stm), len(st0)))
+            Cp = np.zeros((len(stp), len(st0)))
+            for n, s in enumerate(st0):
+                s1, g1 = _apply_c(s, orb)
+                if s1 is not None:
+                    Cm[im[s1], n] = g1
+                s2, g2 = _apply_cdag(s, orb)
+                if s2 is not None:
+                    Cp[ip[s2], n] = g2
+            Am = vm.conj().T @ Cm @ v0[:, gs]
+            Ap = vp.conj().T @ Cp @ v0[:, gs]
+            p = np.concatenate([np.concatenate([e0[g] - em for g in gs]), np.concatenate([ep - e0[g] for g in gs])])
+            r = np.concatenate(
+                [
+                    np.concatenate([w[g] * np.abs(Am[:, k]) ** 2 for k, g in enumerate(gs)]),
+                    np.concatenate([w[g] * np.abs(Ap[:, k]) ** 2 for k, g in enumerate(gs)]),
+                ]
+            )
+            keep = r > wtol
+            p, r = p[keep], r[keep]
+            o = np.argsort(p)
+            p, r = p[o], r[o]
+            P, R = [p[0]], [r[0]]
+            for pi, ri in zip(p[1:], r[1:], strict=True):
+                if pi - P[-1] < 1e-9:
+                    R[-1] += ri
+                else:
+                    P.append(pi)
+                    R.append(ri)
+            p, r = np.array(P), np.array(R)
+            m1 = float((r * p).sum() / r.sum())
+
+            def f(x, r=r, p=p):
+                return float((r / (x - p)).sum())
+
+            zs, Rs = [], []
+            for i in range(len(p) - 1):
+                try:
+                    zj = brentq(
+                        f,
+                        p[i] + 1e-10 * max(1, abs(p[i])),
+                        p[i + 1] - 1e-10 * max(1, abs(p[i + 1])),
+                        xtol=1e-13,
+                        maxiter=300,
+                    )
+                except ValueError:
+                    continue
+                zs.append(zj)
+                Rs.append(1.0 / float((r / (zj - p) ** 2).sum()))
+            zs, Rs = np.array(zs), np.array(Rs)
+            # cancel the bath pole of Delta: zero of G at eb with 1/G residue Vb^2
+            vb, ebv = Vb2[a, sp], eb2[a, sp]
+            if vb != 0 and len(zs):
+                j = int(np.argmin(np.abs(zs - ebv)))
+                # pruned poles (w < wtol) next to the zero perturb R at ~1e-5
+                if abs(zs[j] - ebv) > 1e-4 or abs(Rs[j] - vb**2) > 1e-3 * max(1, vb**2):
+                    raise RuntimeError(
+                        f"bath-pole cancellation failed for orbital {a} spin {sp}: zeta={zs[j]:.6f} vs "
+                        f"eb={ebv:.6f}, R={Rs[j]:.6f} vs V^2={vb**2:.6f}"
+                    )
+                zs, Rs = np.delete(zs, j), np.delete(Rs, j)
+            sol.poles_s[(a, sp)] = (p, r)
+            sol.sigma_poles_s[(a, sp)] = (zs, Rs)
+            sol.sigma_inf_s[a, sp] = m1 - eps2[a, sp]
+            if sp == spins[0]:
+                sol.poles.append((p, r))
+                sol.sigma_poles.append((zs, Rs))
+                sig_inf[a] = m1 - eps2[a, sp]
+    # d moment (n_up - n_dn) of the thermal ground multiplet
+    mom = 0.0
+    for g in gs:
+        prob = np.abs(v0[:, g]) ** 2
         for n, s in enumerate(st0):
-            s1, g1 = _apply_c(s, orb)
-            if s1 is not None:
-                Cm[im[s1], n] = g1
-            s2, g2 = _apply_cdag(s, orb)
-            if s2 is not None:
-                Cp[ip[s2], n] = g2
-        Am = vm.conj().T @ Cm @ v0[:, gs]
-        Ap = vp.conj().T @ Cp @ v0[:, gs]
-        p = np.concatenate(
-            [
-                np.concatenate([e0[g] - em for g in gs]),
-                np.concatenate([ep - e0[g] for g in gs]),
-            ]
-        )
-        r = np.concatenate(
-            [
-                np.concatenate(
-                    [w[g] * np.abs(Am[:, k]) ** 2 for k, g in enumerate(gs)]
-                ),
-                np.concatenate(
-                    [w[g] * np.abs(Ap[:, k]) ** 2 for k, g in enumerate(gs)]
-                ),
-            ]
-        )
-        keep = r > wtol
-        p, r = p[keep], r[keep]
-        o = np.argsort(p)
-        p, r = p[o], r[o]
-        P, R = [p[0]], [r[0]]
-        for pi, ri in zip(p[1:], r[1:], strict=True):
-            if pi - P[-1] < 1e-9:
-                R[-1] += ri
-            else:
-                P.append(pi)
-                R.append(ri)
-        p, r = np.array(P), np.array(R)
-        sol.poles.append((p, r))
-        m1 = float((r * p).sum() / r.sum())
-        def f(x, r=r, p=p):
-            return float((r / (x - p)).sum())
-        zs, Rs = [], []
-        for i in range(len(p) - 1):
-            try:
-                zj = brentq(
-                    f,
-                    p[i] + 1e-10 * max(1, abs(p[i])),
-                    p[i + 1] - 1e-10 * max(1, abs(p[i + 1])),
-                    xtol=1e-13,
-                    maxiter=300,
-                )
-            except ValueError:
-                continue
-            zs.append(zj)
-            Rs.append(1.0 / float((r / (zj - p) ** 2).sum()))
-        zs, Rs = np.array(zs), np.array(Rs)
-        # cancel the bath pole of Delta: zero of G at eb with 1/G residue Vb^2
-        if Vb[a] != 0 and len(zs):
-            j = int(np.argmin(np.abs(zs - eb[a])))
-            if abs(zs[j] - eb[a]) > 1e-4 or abs(Rs[j] - Vb[a] ** 2) > 1e-3 * max(
-                1, Vb[a] ** 2
-            ):  # pruned poles (w<wtol) next to the zero perturb R at ~1e-5
-                raise RuntimeError(
-                    f"bath-pole cancellation failed for orbital {a}: zeta={zs[j]:.6f} vs eb={eb[a]:.6f}, R={Rs[j]:.6f} vs V^2={Vb[a] ** 2:.6f}"
-                )
-            zs, Rs = np.delete(zs, j), np.delete(Rs, j)
-        sig_inf[a] = m1 - eps[a]
-        sol.sigma_poles.append((zs, Rs))
+            nu = sum((s >> (2 * a)) & 1 for a in range(5))
+            ndn = sum((s >> (2 * a + 1)) & 1 for a in range(5))
+            mom += w[g] * prob[n] * (nu - ndn)
+    sol.moment = float(mom)
     sol.sigma_inf = sig_inf
     return sol
 
@@ -420,10 +441,14 @@ def ed_dmft_loop(
     tol=2e-3,
     bath="project",
     window=(-10.0, 0.0),
+    edc_shift=0.0,
+    init=None,
     log=print,
 ):
     """bath = "project" (default): ligand bath from the real-axis hybridization in `window`
-    (relative to the fixed reference mu0); "matsubara": bounded fit c + V^2/(z - eb)."""
+    (relative to the fixed reference mu0); "matsubara": bounded fit c + V^2/(z - eb).
+    edc_shift: constant added to the FLL double counting (double-counting scan).
+    init: optional dict(eb, Vb, cb, mu, n_d) to warm-start from a converged solution."""
     slater = slater_from_UJ(U, J)
     table = interaction_table(coulomb_cubic(slater))
     Hloc = np.real(np.diag(np.einsum("ia,kij,jb->ab", W.conj(), Hl, W) / len(Hl)))
@@ -443,13 +468,17 @@ def ed_dmft_loop(
         for a in range(5):
             eb[a], Vb[a], cb[a] = fit_bath(D0[a], z, wts, mu0)
     eb, Vb, cb = symmetrize(eb), symmetrize(Vb), symmetrize(cb)
+    if init is not None:
+        eb, Vb, cb = (np.asarray(init[k], float).copy() for k in ("eb", "Vb", "cb"))
     log(
         f"  bath(PBE): eb-mu eg={eb[0] - mu0:+.3f} t2g={eb[1] - mu0:+.3f}  V eg={Vb[0]:.3f} t2g={Vb[1]:.3f}  c eg={cb[0]:+.3f} t2g={cb[1]:+.3f}"
     )
     mu, n_d = mu0, n_d0
+    if init is not None:
+        mu, n_d = float(init.get("mu", mu0)), float(init.get("n_d", n_d0))
     hist = []
     for it in range(maxit):
-        edc = edc_fll(n_d, U, J)
+        edc = edc_fll(n_d, U, J) + edc_shift
         eps = Hloc - edc
         sol = solve_ed(
             eps + cb, eb, Vb, slater, mu, table=table
@@ -522,7 +551,7 @@ def ed_dmft_loop(
         mu=mu,
         n_d=n_d,
         sol=sol,
-        edc=edc_fll(n_d, U, J),
+        edc=edc_fll(n_d, U, J) + edc_shift,
         E=E,
         V=V,
         nb=nb,

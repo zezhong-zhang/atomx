@@ -84,3 +84,21 @@ def test_B4_projected_bath_recovers_ligand_and_ignores_high_energy():
     assert np.allclose(eb, e1, atol=0.02)
     # static remainder = high-energy pole seen at the reference energy
     assert np.allclose(c, np.real(v2**2 / (0.5j - e2)), atol=0.05)
+
+
+def test_B5_spin_resolved_solver(tab8):
+    """Spin-resolved ED: spin-symmetric input -> identical spin channels and zero moment;
+    a level splitting favouring spin-up -> positive moment (and spin-down channel differs)."""
+    sl = dmft.slater_from_UJ(8.0, 1.0)
+    eps = np.array([1.3, 0, 0, 1.3, 0]) - 56.0
+    eb = np.array([-60.0, -61.0, -61.0, -60.0, -61.0])
+    Vb = np.array([2.0, 1.0, 1.0, 2.0, 1.0])
+    sym = ed.solve_ed(eps, eb, Vb, sl, -4.0, table=tab8, spins=(0, 1))
+    z = np.array([0.3 + 0.1j, -7 + 0.2j, 3 + 0.05j])
+    for a in range(5):
+        assert np.allclose(_G(sym.poles_s[(a, 0)], z), _G(sym.poles_s[(a, 1)], z), atol=1e-8)
+    assert abs(sym.moment) < 1e-8
+    h = 0.3
+    split = ed.solve_ed(np.stack([eps - h, eps + h], 1), eb, Vb, sl, -4.0, table=tab8, spins=(0, 1))
+    assert split.moment > 1.5      # d8 high spin: ~2 mu_B
+    assert not np.allclose(_G(split.poles_s[(0, 0)], z), _G(split.poles_s[(0, 1)], z), atol=1e-4)
