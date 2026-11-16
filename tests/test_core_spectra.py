@@ -16,8 +16,8 @@ import numpy as np
 import pytest
 
 from atomx.embedding import core_spectra as cs
-from atomx.embedding.ed_dmft import coulomb_cubic, interaction_table
 from atomx.embedding.dmft import slater_from_UJ
+from atomx.embedding.ed_dmft import coulomb_cubic, interaction_table
 
 ZETA_P = 11.5
 
