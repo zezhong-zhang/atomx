@@ -124,3 +124,113 @@ OPENBLAS_NUM_THREADS=4 python -m pytest \
 - DMFT 自能 → L 边 XAS/RIXS 谱（对接 RIXS 主线的天然出口）
 - E3 v2：CT-QMC 杂质求解器（TRIQS 依赖待装；三方对账见 DMFT 生态备忘录）
 - PM vs AFM 总能量比较（判断基态相）
+
+---
+
+## 7. L₂,₃ 边 XAS/RIXS：从 DMFT 自能到谱（2026-11-16 追加）
+
+代码：`embedding/core_spectra.py`（atomx `51d97f0f`），锚测试 `tests/test_core_spectra.py`
+C1–C5 全绿；谱数据与绘图 `~/data/dmft/spectra/`。本节把物理、定义与公式写全。
+
+### 7.1 模型：在 DMFT 团簇上加 2p 芯壳
+
+DMFT 收敛给出 d 壳 + 每立方轨道一个离散 bath 轨道的安德森团簇（20 个自旋轨道）。
+L 边谱需要 2p 芯电子参与，把 2p 壳（3 m × 2 自旋 = 6 个自旋轨道）加在单粒子
+指标最高位（比特 20–25）。总哈密顿量：
+
+```
+H = H_2p + H_3d + H_bath + H_hyb + H_pd
+
+H_2p  = ε_p Σ_{mσ} n_{mσ} + ζ_p Σ_i l_i·s_i                    (m = -1,0,1)
+H_3d  = Σ_{aσ} ε_a n_{aσ} + H_U(F⁰, F², F⁴) [+ ζ_d Σ l_i·s_i]   (a = 5 个立方轨道)
+H_bath= Σ_{aσ} ε_b,a n^b_{aσ}
+H_hyb = Σ_{aσ} V_a ( c†_{daσ} c_{baσ} + h.c. )
+H_pd  = 直接项 (F⁰_pd, F²_pd) + 交换项 (G¹_pd, G³_pd)
+```
+
+- **d-d 库仑** H_U：与 ed_dmft 同一个 Slater 表（U=8, J=1 → F²/F⁴，球谐→立方用
+  同一个 cubic_to_spherical_5 变换）。
+- **p-d 库仑** H_pd：两电子积分按 Slater 展开
+  `(p₁d₂|p₃d₄) = Σ_{k=0,2} F^k_pd · c^k(p₁,p₃) · c^k(d₂,d₄)`
+  `(p₁d₂|d₄p₃) = Σ_{k=1,3} G^k_pd · c^k(p₁,d₄) · c^k(d₂,p₃)`
+  其中 c^k(lm, l'm') = ⟨lm|C^k|l'm'⟩，C^k_q = √(4π/(2k+1)) Y_kq；
+  交换项**只允许同自旋**（锚 C4 抓出的双倍计数 bug）。
+- **2p/3d SOC**：ζ_p、ζ_d 下的 l·s（升降+对角，l=1/2 通用构造）。
+- **杂质能级**：ε_a = H_loc,a − E_dc + c_a（E_dc = FLL 双计数，c_a = bath 静态余项）。
+
+**关键简化（sector 论证）**：H 的每一项一次只挪动一个 p 电子（SOC、H_pd 都守恒
+n_core），所以 n_core 是好的量子数。基态在 2p⁶ 块，XAS/RIXS 中间态在 2p⁵ 块，
+RIXS 末态回到 2p⁶ 块——**全谱只在一个 N₀+6 电子 sector 内**（NiO：310×310 矩阵），
+一次对角化得到全部本征态。
+
+### 7.2 谱公式
+
+**偶极算符**（径向积分 ⟨3d|r|2p⟩ 提出来归一为 1，只影响绝对强度）：
+
+```
+T_q = Σ_{m_d m_p σ} ⟨2 m_d|C¹_q|1 m_p⟩ · c†_{d m_d σ} c_{p m_p σ},  q = -1,0,1
+```
+
+**XAS**（Fermi 黄金规则，2p 芯空穴寿命 Γ 作 Lorentzian 展宽）：
+
+```
+I(ω) = Σ_f |⟨f|T_q|g⟩|² · L_Γ(ω − (E_f − E_g)),   L_Γ(x) = (Γ/π)/(x² + Γ²)
+```
+
+**RIXS**（Kramers–Heisenberg，中间态 n 在 2p⁵ 块、末态 f 在 2p⁶ 块）：
+
+```
+I(ω_in, ω_loss) = Σ_f | A_f(ω_in) |² · L_γ(ω_in − ω_out − (E_f − E_g))
+A_f(ω_in) = Σ_n ⟨f|T†_{q_out}|n⟩⟨n|T_{q_in}|g⟩ / (ω_in − (E_n − E_g) + iΓ_n)
+```
+
+弹性道（f = g）在 ω_loss = 0；非弹性道给出 dd 激发/电荷转移激发，位置严格等于
+2p⁶ 块内的本征值差（锚 C5）。
+
+### 7.3 参数与展宽约定
+
+| 参数 | 取值 | 来源 |
+|---|---|---|
+| ζ_2p | 11.53 eV | Ni²⁺ 文献值 |
+| ζ_3d | 0.102 eV | Ni²⁺ 文献值 |
+| F⁰_pd / F²_pd | 7.5 / 8.23 eV | Ni²⁺ L 边拟合文献（**占位**，待 atomx DF 积分） |
+| G¹_pd / G³_pd | 6.43 / 3.65 eV | 同上 |
+| Γ (XAS 芯空穴) | 0.4 eV | 展宽约定 |
+| γ (RIXS 中间态) / 末态展宽 | 0.35 / 0.12 eV | 展宽约定 |
+
+d-d 的 U=8, J=1 与 §3.2 一致；bath 三参数 (ε_b, V, c) 直接取收敛 pickle
+（PM δ=0 投影 bath；AFM 取位点 A 的自旋分辨 bath）。
+
+### 7.4 结果
+
+**PM（δ=0，投影 bath，d⁸=88.7%，n_d=7.95）**
+
+![NiO L23 XAS PM](figures/dmft_l23/nio_L23_xas_pm.png)
+
+L3 组 ~930–948 eV（标称 850 eV 仅为显示偏移）、L2 组 ~958–968 eV，权重比 ≈2:1
+（锚 C2 保证）；多重态劈裂来自 G¹/G³ 交换 + 立方晶场 + bath 杂化的联合作用。
+
+**AFM（位点 A，m=1.89 μB，d⁸=89.5%）**
+
+![NiO L23 XAS AFM](figures/dmft_l23/nio_L23_xas_afm.png)
+
+自旋分辨 bath 进团簇后 L3 主结构保留、伴线 sharper——单格点 AFM 关联使 d 壳
+组态更纯（d⁸ 89.5% vs PM 88.7%）。
+
+**RIXS 图（PM，入射扫 L3）**
+
+![NiO RIXS PM](figures/dmft_l23/nio_rixs_map_pm.png)
+
+两个入射能带对应 L3 多重态子峰；能量损失 0.5–3 eV 的谱带即 dd 激发区
+（与 §3.2 之前 atomx d/f 验证锚的光学 dd 1.05/1.70/1.90/2.90 eV 同区间），
+弹性线 ω_loss=0 全程在位。
+
+### 7.5 本节的诚实边界
+
+1. **p-d Slater 积分是文献占位值**——谱的绝对能量与多重态劈裂定量上受此约束；
+   atomx DF 积分器出 F^k_pd/G^k_pd 后整套谱可一键重算。
+2. **单极点 bath 无 Zhang-Rice 单态**：RIXS 的电荷转移激发道（~4–6 eV 损失）
+   在本模型里偏弱，换 2-bath 后才定量。
+3. **2p⁶ 闭壳近似**：n_core ≥ 5 的截断对基态是精确的（H 守恒 n_core），
+   但芯壳极化（2p shake）未含。
+4. **径向偶极积分归一为 1**：谱形（相对强度与位置）可信，绝对截面不可比实验。
