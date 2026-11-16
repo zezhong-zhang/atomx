@@ -202,6 +202,57 @@ def dipole_tensor():
     return t
 
 
+def multipole_tensor(L, radial=1.0):
+    """General electric multipole operator of the ``e^{iq.r}`` partial-wave
+    expansion.
+
+    ``t[(d_idx, p_idx, q)] = radial * <d md|C^L_q|p mp>`` with ``q = md - mp``
+    (same convention as :func:`dipole_tensor`, which is exactly
+    ``multipole_tensor(1, 1.0)``).  ``radial`` is the q-dependent radial
+    integral ``<3d|j_L(qr)|2p>`` (atomic units; for L=1, small-q limit
+    ``R_1(q) -> q * <r> / 3`` in the length gauge).
+
+    Selection rules carried by the Gaunt tables: ``|md - mp| <= L`` and the
+    3j triangle (2 L 1) **with the parity condition 1 + L + 2 even** — the
+    (l1 l2 l3; 0 0 0) 3j kills every even L for 2p -> 3d.  Concretely:
+    L=1 (dipole) and L=3 (octupole) are the only nonzero channels at the
+    L-edge; L=2 (quadrupole) is parity-forbidden and yields an EMPTY tensor
+    (pinned by test_E2a).  L=3 enters e^{iq.r} with radial j_3(qr) ~ q^3,
+    so it is the leading non-dipole correction to the EELS cross section.
+    """
+    if L < 0:
+        raise ValueError(f"L must be >= 0, got {L}")
+    _, D_mix = _gaunt_tables()
+    t = {}
+    for md in range(-2, 3):
+        for mp in range(-1, 2):
+            q = md - mp
+            if abs(q) > L:
+                continue
+            v = D_mix.get((L, mp, md, mp - md))
+            if v is None or abs(v) < 1e-14:
+                continue
+            for s in (0, 1):
+                t[(2 * (md + 2) + s, core_index(mp, s), q)] = radial * np.conj(v)
+    return t
+
+
+def merge_multipoles(*weighted_tensors):
+    """Merge ``(phase, tensor)`` pairs into one transition operator.
+
+    The double-differential EELS cross section at momentum transfer q needs
+    the coherent sum over multipolarities L with partial-wave phases
+    ``i^L`` (and the (2L+1) j_L convention absorbed into the caller's
+    radial weights).  Amplitudes sharing a ``(d_idx, p_idx, q)`` key are
+    summed, so interference terms survive ``xas_sticks``.
+    """
+    out = {}
+    for phase, t in weighted_tensors:
+        for k, v in t.items():
+            out[k] = out.get(k, 0.0) + complex(phase) * v
+    return out
+
+
 # ---------------------------------------------------------------- sector ED
 def _apply4(s, i, j, l, k):
     """Amplitude of c^+_i c^+_j c_l c_k |s> on the full NT-bit state."""

@@ -163,3 +163,84 @@ def test_C5_rixs_elastic_and_loss_positions():
     for wi, ai in zip(w_loss, A):
         if abs(ai) > 1e-6 and wi > 1e-6:
             assert np.min(np.abs(E - E[g] - wi)) < 1e-8
+
+
+def test_E1_multipole_L1_is_dipole():
+    """multipole_tensor(1, radial) must equal dipole_tensor() scaled by radial."""
+    r = 0.37
+    t1 = cs.multipole_tensor(1, radial=r)
+    td = cs.dipole_tensor()
+    assert set(t1) == set(td)
+    for k in td:
+        assert t1[k] == pytest.approx(r * td[k], rel=1e-12)
+
+
+def test_E2a_quadrupole_is_parity_forbidden():
+    """2p -> 3d quadrupole (L=2) is parity-forbidden: 1+2+2 = 5 odd kills the
+    (1 2 2; 0 0 0) 3j, so the L=2 tensor is EMPTY.  (A vacuous sum-rule test
+    here once passed 0 == 0 -- the emptiness must be pinned explicitly.)"""
+    assert cs.multipole_tensor(2, radial=1.0) == {}
+
+
+def test_E2b_octupole_closed_shell_sumrule():
+    """L=3 on the closed-shell d^0 reference: F0_pd pins every stick to the
+    same line (multiplet-independent), and the total weight is the L=3 Gaunt
+    sum rule with both spins.  Truth values from sympy wigner_3j with the
+    C^k normalization -- an independent external angular source."""
+    from sympy import N
+    from sympy.physics.wigner import wigner_3j
+
+    F0, R3 = 6.0, 0.21
+    Wpd = cs.pd_coulomb({"F0pd": F0, "F2pd": 0.0, "G1pd": 0.0, "G3pd": 0.0})
+    E, V, states = _d0_system(zeta_p=0.0, Wpd=Wpd)
+    t = cs.multipole_tensor(3, radial=R3)
+    assert len(t) > 0
+    w_all, a_all = [], []
+    for q in range(-3, 4):
+        w, a = cs.xas_sticks(E, V, states, t, q=q)
+        w_all.append(w)
+        a_all.append(a)
+    w = np.concatenate(w_all)
+    a = np.concatenate(a_all)
+    sel = np.abs(a) > 1e-8
+    w, a = w[sel], a[sel]
+    assert np.allclose(w, -EPS_P + 5 * F0, atol=1e-6)  # 5 p-d pairs, c^0 = 1
+    # truth: <1 mp|C^3_q|2 md> = (-1)^mp sqrt(3*7*5/4pi) (1 3 2;000)(1 3 2;-mp q md)
+    # truth: <1 mp|C^3_q|2 md> with C^k = sqrt(4pi/(2k+1)) Y_kq:
+    #   = sqrt(4pi/7) * (-1)^mp sqrt(3*7*5/4pi) (1 3 2;000) (1 3 2;-mp q3j md)
+    # (the two prefactors collapse to sqrt(15))
+    pref = float(np.sqrt(4 * np.pi / 7.0) * np.sqrt(3 * 7 * 5 / (4 * np.pi)))
+    g000 = float(N(wigner_3j(1, 3, 2, 0, 0, 0)))
+    expect = 0.0
+    for mp in (-1, 0, 1):
+        for md in range(-2, 3):
+            q3j = mp - md  # 3j m-conservation: -mp + q3j + md = 0
+            g = ((-1) ** mp) * pref * g000 * float(
+                N(wigner_3j(1, 3, 2, -mp, q3j, md)))
+            expect += 2 * R3**2 * g**2  # both spins
+    assert np.sum(np.abs(a) ** 2) == pytest.approx(expect, rel=1e-8)
+
+
+def test_E3_merge_multipoles_interference():
+    """merge_multipoles keeps coherent amplitudes: same tensor merged with
+    itself at phase i gives 4x the weight; dipole+quadrupole at relative
+    phase i on real Gaunt amplitudes gives the incoherent sum (the EELS
+    i^L (2L+1) convention)."""
+    F0 = 5.0
+    Wpd = cs.pd_coulomb({"F0pd": F0, "F2pd": 0.0, "G1pd": 0.0, "G3pd": 0.0})
+    E, V, states = _d0_system(zeta_p=0.0, Wpd=Wpd)
+    t1 = cs.multipole_tensor(1, radial=0.5)
+    t3 = cs.multipole_tensor(3, radial=0.7)
+
+    def total(t):
+        return sum(
+            np.sum(np.abs(cs.xas_sticks(E, V, states, t, q=q)[1]) ** 2)
+            for q in (-1, 0, 1)
+        )
+
+    i1, i3 = total(t1), total(t3)
+    m_same = cs.merge_multipoles((1j, t1), (1j, t1))
+    assert total(m_same) == pytest.approx(4 * i1, rel=1e-10)
+    m_cross = cs.merge_multipoles((1j, t1), (-1.0, t3))
+    # Gaunt amplitudes are real here: |i a1 - a3|^2 = a1^2 + a3^2
+    assert total(m_cross) == pytest.approx(i1 + i3, rel=1e-10)
