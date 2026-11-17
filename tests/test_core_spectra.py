@@ -352,3 +352,62 @@ def test_E6_core_mf_normal_ordering_ground_conf():
     assert raw[9] < 0.3 * ref[9], (
         f"raw d^9 {raw[9]:.4f} should be far below ref {ref[9]:.4f} "
         "(double counting demo)")
+
+
+def _core_bits():
+    return 0b111111 << 20  # six occupied 2p spin-orbitals (p^6 selector)
+
+
+def test_E7a_van_vleck_spin_half():
+    """R5 anchor: Kramers doublet (M = +/-1, g=2) -> mu_eff^2 = 3, chi->0
+    when frozen; T*chi plateau at 1/k_B."""
+    delta = 0.01
+    states = [_core_bits() | 0b01, _core_bits() | 0b10]  # d up / d down
+    E = np.array([-delta / 2, delta / 2])
+    V = np.eye(2)
+    # delta = 0.01 eV: frozen at 0.1 K, but only ~2.6 kT at 300 K -- fit the
+    # Curie plateau only on T >= 1000 K (delta/kT <= 0.12, < 0.4% Schottky
+    # correction), assert the asymptote directly at 5000 K.
+    r = cs.thermal_response(E, V, states, (0.1, 300.0, 1000.0, 5000.0, 10000.0))
+    assert r["mu_eff2"] is not None
+    assert abs(r["mu_eff2"] - 3.0) < 0.03, f"spin-1/2 mu_eff^2 = {r['mu_eff2']}"
+    assert r["chi"][0.1] < 1e-3 * r["chi"][300.0], (
+        f"frozen doublet should be diamagnetic: chi(0.1K)={r['chi'][0.1]}")
+    KB = 8.617333262e-5
+    assert abs(r["chi"][5000.0] * 5000.0 - 1.0 / KB) < 0.001 / KB
+
+
+def test_E7b_van_vleck_spin_one():
+    """R5 anchor: spin-1 triplet (M = +2, 0, -2) -> mu_eff^2 = 8 (spin-only
+    Ni2+ value) at high T."""
+    delta = 0.01
+    states = [_core_bits() | 0b0101,   # up,up   Sz=+1
+              _core_bits() | 0b0011,   # up,down Sz=0
+              _core_bits() | 0b1010]   # down,down Sz=-1
+    E = np.array([-delta, 0.0, delta])
+    V = np.eye(3)
+    r = cs.thermal_response(E, V, states, (300.0, 1000.0, 5000.0, 10000.0))
+    assert abs(r["mu_eff2"] - 8.0) < 0.08, f"spin-1 mu_eff^2 = {r['mu_eff2']}"
+
+
+def test_E7c_thermal_response_on_cluster():
+    """R5 integration: thermal_response runs end-to-end on a full XAS
+    cluster build; chi and mu_eff are physical.  (BR(T) flatness at 300 K
+    is a property of the REAL NiO cluster -- the toy build here has
+    near-equal core-hole jj mixing, so its BR is classifier-noise; the
+    flatness check lives in the R5 production run on the real cluster.)"""
+    eps = np.full(5, -10.0)
+    eb = np.full(5, 10.0)
+    Vb = np.full(5, 2.0)
+    PD = {"F0pd": 7.5, "F2pd": 8.23, "G1pd": 6.43, "G3pd": 3.65}
+    Wpd = cs.pd_coulomb(PD)
+    table = interaction_table(coulomb_cubic(slater_from_UJ(8.0, 1.0)))
+    st, H = cs.build_core_sector(24, eps, eb, Vb, table, Wpd, zeta_d=0.11,
+                                 eps_p=-100.0, core_window=(5, 6))
+    E, V = np.linalg.eigh(H)
+    r = cs.thermal_response(E, V, st, (0.0, 300.0, 1000.0, 5000.0))
+    for T in (0.0, 300.0):
+        assert np.isfinite(r["BR"][T]), f"BR({T}) = {r['BR'][T]}"
+    assert r["chi"][300.0] > 0.0
+    assert r["chi_vv"] is not None and r["chi_vv"] >= 0.0
+    assert 4.0 < r["mu_eff2"] < 16.0, f"mu_eff^2 = {r['mu_eff2']}"

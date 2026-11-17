@@ -527,6 +527,122 @@ def ground_observables(E, V, states, temperatures=(0.0,)):
     return out
 
 
+def thermal_response(E, V, states, temperatures):
+    """R5: temperature-dependent branching ratio and Van Vleck susceptibility.
+
+    BR(T): XAS probes a Boltzmann ensemble of 2p^6-block initial states, not
+    only the T=0 ground state.  Each initial state n contributes dipole
+    sticks classified by the core-hole jj character (same shift-invariant
+    convention as the ground-state BR: p^5-shell <l.s> = -0.5 for an L3
+    hole, +1 for L2); BR(T) = sum_n w_n I_L3(n) / sum_n w_n I_L2(n) with
+    w_n = exp(-(E_n - E_min)/kT) / Z over the p^6 block.
+
+    chi(T): Van Vleck susceptibility of the p^6 block with M = g*S_z(d),
+    g = 2 (M in mu_B units; the orbital response enters through the
+    eigenstate matrix elements, no explicit L operator needed):
+
+        chi = sum_n w_n (M_nn - Mbar)^2 / (k_B T)                 [Curie]
+            + 2 sum_{n<m} (w_n - w_m)/(E_m - E_n) |M_mn|^2        [Van Vleck]
+
+    The symmetrized off-diagonal form stays finite for degenerate pairs
+    ((w_n - w_m)/(E_m - E_n) -> w_n/k_B T).  chi is per cluster in 1/eV.
+    T*chi(T) = C + chi_VV*T (Curie constant plus T-independent Van Vleck
+    term), fitted on T >= 1000 K (below that, Schottky curvature from
+    sub-kT multiplets biases the intercept); mu_eff^2 = 3 k_B C, chi_VV =
+    slope.  Inter-site exchange (Curie-Weiss theta) is out of scope
+    for a single cluster.
+
+    Returns {'BR': {T: float}, 'chi': {T: float}, 'mu_eff2': float|None,
+    'chi_vv': float|None, 'p6_dim': int}.
+    """
+    KB = 8.617333262e-5
+    ncore = np.array([bin(s >> NS).count("1") for s in states])
+    p6sel = ncore == 6
+    fsel = ncore == 5  # XAS final-state block
+    w6 = (np.abs(V[p6sel, :]) ** 2).sum(axis=0)
+    p6 = np.where(w6 > 0.5)[0]
+    E6 = E[p6]
+
+    # --- core-hole jj operator (WITH the diagonal one-body term) ---
+    ls6 = _soc_matrix(1.0, l=1)
+    idx = {s: n for n, s in enumerate(states)}
+    Jz = np.zeros((len(states), len(states)), complex)
+    for n, s in enumerate(states):
+        for i in range(NC):
+            if not (s >> (NS + i)) & 1:
+                continue
+            Jz[n, n] += ls6[i, i]  # diagonal part (j == i)
+            s1, g1 = _apply_c(s, NS + i)
+            for j in range(NC):
+                if i == j or (s >> (NS + j)) & 1 or abs(ls6[j, i]) < 1e-14:
+                    continue
+                s2, g2 = _apply_cdag(s1, NS + j)
+                Jz[idx[s2], n] += ls6[j, i] * g1 * g2
+    jz_eig = np.real(np.diag(V.conj().T @ Jz @ V))
+
+    # --- dipole intensity per initial state, jj-classified ---
+    # A is in the EIGENBASIS (both axes index eigenstates): the final-state
+    # selector must be the eigenbasis projection of the n_core == 5 subspace.
+    w5 = (np.abs(V[fsel, :]) ** 2).sum(axis=0)
+    f5 = np.where(w5 > 0.5)[0]
+    t1 = dipole_tensor()
+    A = np.zeros((len(E), len(E)))
+    for q in (-1, 0, 1):
+        terms = [(d, p, v) for (d, p, qq), v in t1.items() if qq == q]
+        O = _one_body_matrix(E, V, states, terms)
+        A += np.abs(O) ** 2
+    Af = A[np.ix_(f5, p6)]
+    l3f = jz_eig[f5] < -0.25
+    I3 = Af[l3f].sum(axis=0)
+    I2 = Af[~l3f].sum(axis=0)
+
+    # --- M = 2 S_z(d) in the eigenbasis, restricted to the p^6 block ---
+    maskd = (1 << ND) - 1
+    sz_state = np.zeros(len(states))
+    for n, s in enumerate(states):
+        for a in range(5):
+            up = (s >> (2 * a)) & 1
+            dn = (s >> (2 * a + 1)) & 1
+            sz_state[n] += 0.5 * (up - dn)
+    M = (V.conj().T * (2.0 * sz_state)) @ V
+    M6 = M[np.ix_(p6, p6)]
+    mn = np.real(np.diag(M6))
+
+    dE = E6 - E6.min()
+    BR, CHI = {}, {}
+    for T in temperatures:
+        if T <= 0:
+            w = np.zeros(len(p6))
+            w[np.argmin(E6)] = 1.0
+        else:
+            w = np.exp(-dE / (KB * T))
+            w /= w.sum()
+        i3, i2 = float(w @ I3), float(w @ I2)
+        BR[float(T)] = i3 / i2 if i2 > 1e-12 else float("nan")
+        if T <= 0:
+            CHI[float(T)] = 0.0  # frozen doublet: defined as 0 (see docstring)
+            continue
+        mbar = float(w @ mn)
+        curie = float(w @ (mn - mbar) ** 2) / (KB * T)
+        D = E6[None, :] - E6[:, None]  # D_nm = E_m - E_n
+        x = np.clip(D / (KB * T), -700.0, 700.0)
+        with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+            f = np.where(np.abs(x) > 1e-8, -np.expm1(-x) / x, 1.0 - x / 2)
+        VV = 2.0 * np.triu(w[:, None] * f / (KB * T) * np.abs(M6) ** 2, 1).sum()
+        CHI[float(T)] = float(curie + VV)
+    hi = [T for T in temperatures if T >= 1000]
+    mu_eff2 = None
+    chi_vv = None
+    if len(hi) >= 2:
+        # T*chi(T) = C + chi_VV*T + (decaying Schottky terms): the Curie
+        # constant C is the INTERCEPT, chi_VV the slope.
+        slope, intercept = np.polyfit(hi, [CHI[float(T)] * T for T in hi], 1)
+        mu_eff2 = 3.0 * KB * float(intercept)
+        chi_vv = float(slope)
+    return {"BR": BR, "chi": CHI, "mu_eff2": mu_eff2, "chi_vv": chi_vv,
+            "p6_dim": int(len(p6))}
+
+
 def xas_sticks(E, V, states, t_dip, q=0):
     """XAS stick spectrum from the 2p^6 ground state.
 
