@@ -244,3 +244,61 @@ def test_E3_merge_multipoles_interference():
     m_cross = cs.merge_multipoles((1j, t1), (-1.0, t3))
     # Gaunt amplitudes are real here: |i a1 - a3|^2 = a1^2 + a3^2
     assert total(m_cross) == pytest.approx(i1 + i3, rel=1e-10)
+
+
+def test_E5a_soc_cubic_basis_triplet_degeneracy():
+    """d^8 ^3A2g ground in Oh is EXACTLY 3-fold degenerate (S=1 x orbital
+    singlet) for any zeta_d: build_core_sector must apply zeta_d * l.s in
+    the CUBIC d-orbital basis (bits 2a+s), not the spherical (m,s) order of
+    _soc_matrix. A basis-mixed SOC lifts the triplet (caught here)."""
+    import itertools
+    table = interaction_table(coulomb_cubic(slater_from_UJ(8.0, 1.0)))
+
+    # reuse the d-only CF+U 45-state model: N=8 in the 10 d spin-orbitals,
+    # eg = (0,3) at +0.51 eV, t2g = (1,2,4) at -0.34 eV (10Dq = 0.85).
+    from atomx.embedding.core_spectra import ND
+    states = sorted(
+        sum(1 << i for i in c) for c in itertools.combinations(range(ND), 8)
+    )
+    idx = {s: n for n, s in enumerate(states)}
+    cf5 = np.zeros(5)
+    cf5[[0, 3]] = 0.51
+    cf5[[1, 2, 4]] = -0.34
+
+    def build(zeta_d):
+        H = np.zeros((len(states), len(states)), complex)
+        for n, st in enumerate(states):
+            for a in range(5):
+                for sp in (0, 1):
+                    if (st >> (2 * a + sp)) & 1:
+                        H[n, n] += cf5[a]
+            for st2, amp in table[st]:
+                H[idx[st2], n] += amp
+        # zeta_d through the SAME code path as build_core_sector
+        T5 = cs.cubic_to_spherical_5()
+        U2 = np.kron(T5, np.eye(2))
+        from atomx.embedding.impurity import _soc_matrix
+        ls10 = U2 @ _soc_matrix(zeta_d, l=2) @ U2.conj().T
+        for n, st in enumerate(states):
+            for i in range(ND):
+                if not (st >> i) & 1:
+                    continue
+                for j in range(ND):
+                    if i == j or (st >> j) & 1:
+                        continue
+                    v = ls10[j, i]
+                    if abs(v) < 1e-14:
+                        continue
+                    s1 = st ^ (1 << i)
+                    g = -1 if bin(st & ((1 << i) - 1)).count("1") % 2 else 1
+                    s2 = s1 | (1 << j)
+                    g2 = -1 if bin(s1 & ((1 << j) - 1)).count("1") % 2 else 1
+                    H[idx[s2], n] += v * g * g2
+        return np.linalg.eigvalsh(H)
+
+    e = build(0.33)  # deliberately large zeta to expose any basis mixing
+    gaps = np.diff(e[:4])
+    assert gaps[0] < 1e-10 and gaps[1] < 1e-10, (
+        f"3A2g triplet lifted by zeta_d path: e[:4] = {e[:4]}"
+    )
+    assert gaps[2] > 0.1, f"expected a gap to the spin-orbit excitations: {e[:4]}"

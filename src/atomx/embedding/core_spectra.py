@@ -291,7 +291,16 @@ def build_core_sector(N, eps_d, eb, Vb, table_dd, Wpd, zeta_p=0.0, zeta_d=0.0, e
     idx = {s: n for n, s in enumerate(states)}
     H = np.zeros((len(states), len(states)), complex)
     soc_p = _soc_matrix(zeta_p, l=1)
-    soc_d = _soc_matrix(zeta_d, l=2) if zeta_d else None
+    if zeta_d:
+        # d bits are CUBIC orbitals (2a+s) while _soc_matrix is built in the
+        # spherical (m,s) order: rotate into the cubic basis, otherwise the
+        # "zeta_d" term is a basis-mixed operator that lifts the 3A2g triplet
+        # degeneracy (regression anchor E5a).
+        T5 = cubic_to_spherical_5()  # rows cubic a, cols spherical m+2
+        U2 = np.kron(T5, np.eye(2))
+        soc_d = U2 @ _soc_matrix(zeta_d, l=2) @ U2.conj().T
+    else:
+        soc_d = None
     maskd = (1 << ND) - 1
     maskb = (1 << NS) - 1
     terms = [(i, j, k, l, v) for (i, j, k, l), v in Wpd.items() if abs(v) > 1e-12]
