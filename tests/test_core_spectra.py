@@ -32,7 +32,8 @@ def _d0_system(zeta_p=ZETA_P, Wpd=None, eps_d=0.0):
     sl = slater_from_UJ(8.0, 1.0)
     table = interaction_table(coulomb_cubic(sl))
     states, H = cs.build_core_sector(
-        6, np.zeros(5), np.zeros(5), np.zeros(5), table, Wpd, zeta_p=zeta_p, eps_p=EPS_P
+        6, np.zeros(5), np.zeros(5), np.zeros(5), table, Wpd, zeta_p=zeta_p,
+        eps_p=EPS_P, subtract_core_mf=False,  # probe the raw Wpd tensor
     )
     E, V = np.linalg.eigh(H)
     return E, V, states
@@ -100,7 +101,8 @@ def test_C4_exchange_closed_shell_sumrule():
     sl = slater_from_UJ(8.0, 1.0)
     table = interaction_table(coulomb_cubic(sl))
     states, H = cs.build_core_sector(
-        7, np.zeros(5), np.zeros(5), np.zeros(5), table, Wpd, zeta_p=0.0, eps_p=EPS_P
+        7, np.zeros(5), np.zeros(5), np.zeros(5), table, Wpd, zeta_p=0.0,
+        eps_p=EPS_P, subtract_core_mf=False,  # probe the raw Wpd tensor
     )
     E, V = np.linalg.eigh(H)
     # the d-SO subset of the p^6 block (10 states; bath SOs carry no p-d
@@ -302,3 +304,51 @@ def test_E5a_soc_cubic_basis_triplet_degeneracy():
         f"3A2g triplet lifted by zeta_d path: e[:4] = {e[:4]}"
     )
     assert gaps[2] > 0.1, f"expected a gap to the spin-orbit excitations: {e[:4]}"
+
+
+def test_E6_core_mf_normal_ordering_ground_conf():
+    """R4 anchor: the p^6 ground block of the XAS cluster must reproduce the
+    ed_dmft ground sector's configuration weights when the closed 2p^6
+    mean-field is normal-ordered out of Wpd (double-counting fix).
+
+    With identical eps/eb/Vb/U/J, the raw build (subtract off) double-counts
+    the 2p^6 Hartree+exchange on 3d (eps_d from DFT already contains it),
+    crushing the d^9 (ZRS) weight; with subtract_core_mf=True both builds
+    agree. Reference numbers from build_sector (the DMFT ground sector)."""
+    eps = np.full(5, -10.0)
+    eb = np.full(5, 10.0)
+    Vb = np.full(5, 2.0)
+    PD = {"F0pd": 7.5, "F2pd": 8.23, "G1pd": 6.43, "G3pd": 3.65}
+    Wpd = cs.pd_coulomb(PD)
+    table = interaction_table(coulomb_cubic(slater_from_UJ(8.0, 1.0)))
+
+    def conf_of(states, vec):
+        maskd = (1 << cs.ND) - 1
+        prob = np.abs(vec) ** 2
+        nd = np.array([bin(s & maskd).count("1") for s in states])
+        return {k: float(prob[nd == k].sum()) for k in (8, 9, 10)}
+
+    # reference: the DMFT ground sector (no core shell at all)
+    from atomx.embedding.ed_dmft import build_sector
+    st0, H0 = build_sector(18, eps, eb, Vb, table)
+    _, v0 = np.linalg.eigh(H0)
+    ref = conf_of(st0, v0[:, 0])
+
+    st, H = cs.build_core_sector(24, eps, eb, Vb, table, Wpd, zeta_d=0.11,
+                                 eps_p=-100.0, core_window=(6, 6))
+    _, v = np.linalg.eigh(H)
+    fixed = conf_of(st, v[:, 0])
+
+    st_raw, H_raw = cs.build_core_sector(24, eps, eb, Vb, table, Wpd, zeta_d=0.11,
+                                         eps_p=-100.0, core_window=(6, 6),
+                                         subtract_core_mf=False)
+    _, v_raw = np.linalg.eigh(H_raw)
+    raw = conf_of(st_raw, v_raw[:, 0])
+
+    for k in (8, 9, 10):
+        assert abs(fixed[k] - ref[k]) < 0.01, (
+            f"d^{k}: fixed {fixed[k]:.4f} vs DMFT ref {ref[k]:.4f}")
+    # the double-counted raw build visibly crushes the ZRS weight
+    assert raw[9] < 0.3 * ref[9], (
+        f"raw d^9 {raw[9]:.4f} should be far below ref {ref[9]:.4f} "
+        "(double counting demo)")

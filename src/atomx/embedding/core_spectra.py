@@ -271,7 +271,8 @@ def _apply4(s, i, j, l, k):
     return s4, g1 * g2 * g3 * g4
 
 
-def build_core_sector(N, eps_d, eb, Vb, table_dd, Wpd, zeta_p=0.0, zeta_d=0.0, eps_p=0.0, core_window=(5, 6)):
+def build_core_sector(N, eps_d, eb, Vb, table_dd, Wpd, zeta_p=0.0, zeta_d=0.0,
+                      eps_p=0.0, core_window=(5, 6), subtract_core_mf=True):
     """Hamiltonian of the N-electron (2p + 3d + bath) sector.
 
     eps_d/eb/Vb: (5,) or (5,2) as in ed_dmft; eps_p is the core on-site
@@ -280,8 +281,21 @@ def build_core_sector(N, eps_d, eb, Vb, table_dd, Wpd, zeta_p=0.0, zeta_d=0.0, e
     Coulomb move one p electron at a time), so the restriction to (5,6) is
     exact: p^6 holds the ground state, p^5 the XAS/RIXS intermediates.
     Returns (states, H).
+
+    subtract_core_mf: the eps_d passed in comes from DFT and already contains
+    the closed 2p^6 shell's Coulomb mean field on 3d. Wpd would add that same
+    field a second time (its p^6 expectation). Normal-ordering Wpd w.r.t. the
+    p^6 core removes the double counting; R4 cross-check: without it the
+    ground-state d^9 (ZRS) weight collapses 11% -> 0.4% vs the ed_dmft
+    ground sector with identical parameters.
     """
     eps_d, eb, Vb = _spin2(eps_d), _spin2(eb), _spin2(Vb)
+    if subtract_core_mf and Wpd:
+        vmf = np.zeros(ND)
+        for t in range(ND):
+            for p in range(NS, NT):  # the 6 core 2p spin-orbitals
+                vmf[t] += Wpd.get((p, t, p, t), 0.0) - Wpd.get((p, t, t, p), 0.0)
+        eps_d = eps_d - vmf.reshape(5, 2)
     lo, hi = core_window
     states = [
         s
@@ -406,6 +420,111 @@ def ground_p6(E, V, states):
     w6 = (np.abs(V[p6, :]) ** 2).sum(axis=0)
     candidates = np.where(w6 > 0.5)[0]
     return int(candidates[np.argmin(E[candidates])])
+
+
+def ground_observables(E, V, states, temperatures=(0.0,)):
+    """Many-body observables of the 2p^6 ground multiplet (R4 cross-check).
+
+    From the SAME diagonalization that yields the XAS spectrum:
+      - d-shell S^2, S_z of the T=0 ground state (d^8 ^3A2g anchor: S^2 ~ 2);
+      - d-shell <L.S> (unit l.s operator, cubic basis) — the Thole-van der
+        Laan sum-rule numerator — Boltzmann-averaged over the p^6 multiplet
+        at each requested temperature;
+      - <n_d> per cubic orbital, eg/t2g totals, and d^n configuration
+        weights (the d^9 weight is the ZRS ligand-hole fraction rho);
+      - sum-rule branch ratio BR = (2 - r)/(1 + r), r = <L.S>/<n_h>,
+        <n_h> = 10 - <n_d>.
+
+    Returns {'E0', 'ground': {...}, 'thermal': {T_K: {...}}}.
+    """
+    idx = {s: n for n, s in enumerate(states)}
+    maskd = (1 << ND) - 1
+    ls10 = np.zeros((ND, ND), complex)
+    T5 = cubic_to_spherical_5()
+    U2 = np.kron(T5, np.eye(2))
+    ls10 = U2 @ _soc_matrix(1.0, l=2) @ U2.conj().T  # unit l.s, cubic basis
+
+    nd_state = np.array([bin(s & maskd).count("1") for s in states])
+    cnt = np.zeros((len(states), 5))
+    sz_state = np.zeros(len(states))
+    ndn_state = np.zeros(len(states))
+    for n, s in enumerate(states):
+        for a in range(5):
+            up = (s >> (2 * a)) & 1
+            dn = (s >> (2 * a + 1)) & 1
+            cnt[n, a] = up + dn
+            sz_state[n] += 0.5 * (up - dn)
+            ndn_state[n] += dn
+
+    # L.S: one-body over the d spin-orbitals
+    LSo = np.zeros((len(states), len(states)), complex)
+    # S^2 = Sz^2 + Sz + S-S+ ; S-S+ = N_down - sum_ab c+_{a dn} c+_{b up} c_{a up} c_{b dn}
+    S2o = np.diag(sz_state**2 + sz_state + ndn_state).astype(complex)
+    for n, s in enumerate(states):
+        for i in range(ND):
+            if not (s >> i) & 1:
+                continue
+            s1, g1 = _apply_c(s, i)
+            for j in range(ND):
+                v = ls10[j, i]
+                if i == j or (s >> j) & 1 or abs(v) < 1e-14:
+                    continue
+                s2, g2 = _apply_cdag(s1, j)
+                LSo[idx[s2], n] += v * g1 * g2
+        for a in range(5):
+            for b in range(5):
+                s4, g = _apply4(s, 2 * a + 1, 2 * b, 2 * a, 2 * b + 1)
+                if s4 is not None:
+                    S2o[idx[s4], n] -= g
+    P2 = np.abs(V) ** 2  # states x eigen: per-eigenstate diagonal expectations
+    LS_eig = np.real(np.diag(V.conj().T @ LSo @ V))
+    S2_eig = np.real(np.diag(V.conj().T @ S2o @ V))
+    nd_eig = P2.T @ nd_state
+    nd_orb_eig = P2.T @ cnt
+    conf_eig = {k: P2.T @ (nd_state == k) for k in (7, 8, 9, 10)}
+
+    ncore = np.array([bin(s >> NS).count("1") for s in states])
+    w6 = (np.abs(V[ncore == 6, :]) ** 2).sum(axis=0)
+    p6 = np.where(w6 > 0.5)[0]
+    g = p6[np.argmin(E[p6])]
+
+    def entry(i):
+        return {
+            "S2": float(S2_eig[i]),
+            "Sz": float(sz_state @ P2[:, i]),
+            "LS": float(LS_eig[i]),
+            "n_d": float(nd_eig[i]),
+            "n_d_orb": [float(x) for x in nd_orb_eig[i]],
+            "eg": float(nd_orb_eig[i][[0, 3]].sum()),
+            "t2g": float(nd_orb_eig[i][[1, 2, 4]].sum()),
+            "conf": {k: float(v[i]) for k, v in conf_eig.items()},
+        }
+
+    KB = 8.617333262e-5
+    out = {"E0": float(E[g]), "ground": entry(g), "thermal": {}}
+    for T in temperatures:
+        if T <= 0:
+            tg = entry(g)
+            n_h = 10.0 - tg["n_d"]
+            r = tg["LS"] / n_h if n_h > 1e-9 else 0.0
+            out["thermal"][0.0] = {
+                "Z": 1, "LS": tg["LS"], "n_d": tg["n_d"], "n_h": n_h,
+                "r": r, "BR_sumrule": (2 - r) / (1 + r),
+            }
+            continue
+        dE = E[p6] - E[g]
+        wgt = np.exp(-dE / (KB * T))
+        Z = float(wgt.sum())
+        wgt /= Z
+        LS_T = float(wgt @ LS_eig[p6])
+        nd_T = float(wgt @ nd_eig[p6])
+        n_h = 10.0 - nd_T
+        r = LS_T / n_h if n_h > 1e-9 else 0.0
+        out["thermal"][T] = {
+            "Z": int(len(p6)), "LS": LS_T, "n_d": nd_T, "n_h": n_h,
+            "r": r, "BR_sumrule": (2 - r) / (1 + r),
+        }
+    return out
 
 
 def xas_sticks(E, V, states, t_dip, q=0):
