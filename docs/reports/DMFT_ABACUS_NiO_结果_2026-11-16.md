@@ -1,6 +1,6 @@
 # ABACUS + atomx 自洽 DMFT：NiO 计算结果与方法（2026-11-16）
 
-> 本文档对应代码：atomx main `5609cf9a`（`embedding/abacus_hr.py`、`embedding/dmft.py`、
+> 本文档对应代码：atomx main `45993080`（`embedding/abacus_hr.py`、`embedding/dmft.py`、
 > `embedding/ed_dmft.py`、`embedding/afm_dmft.py`；测试 `tests/test_dmft_abacus.py`
 > A1–A4 + `tests/test_ed_dmft.py` B1–B5，共 29 项全绿）。
 > 计算数据：`~/data/dmft/nio_pm/`（顺磁）与 `~/data/dmft/nio_afm/`（反铁磁）。
