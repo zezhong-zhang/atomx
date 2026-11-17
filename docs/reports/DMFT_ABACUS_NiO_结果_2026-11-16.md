@@ -1,8 +1,9 @@
 # ABACUS + atomx 自洽 DMFT：NiO 计算结果与方法（2026-11-16）
 
-> 本文档对应代码：atomx main `45993080`（`embedding/abacus_hr.py`、`embedding/dmft.py`、
-> `embedding/ed_dmft.py`、`embedding/afm_dmft.py`；测试 `tests/test_dmft_abacus.py`
-> A1–A4 + `tests/test_ed_dmft.py` B1–B5，共 29 项全绿）。
+> 本文档对应代码：atomx main `eaaaea1c`（`embedding/abacus_hr.py`、`embedding/dmft.py`、
+> `embedding/ed_dmft.py`、`embedding/afm_dmft.py`、`embedding/core_spectra.py`；测试
+> `tests/test_dmft_abacus.py` A1–A4 + `tests/test_ed_dmft.py` B1–B5 +
+> `tests/test_core_spectra.py` 11 项（C1–C5、E5a、E6），全绿）。
 > 计算数据：`~/data/dmft/nio_pm/`（顺磁）与 `~/data/dmft/nio_afm/`（反铁磁）。
 > 设计层面的定位讨论见 `docs/QUANTUM_EMBEDDING_DESIGN.md` §8 与
 > `docs/reports/调研_DMFT生态克隆对比_2026-11-08.md`。
@@ -503,7 +504,7 @@ df_integrals.py`，配方 = E1.5 验证路径：`bspline Basis(ns=120,ks=11,r_ma
 3. **第三次修正（R4，本节主体）**：多体观测量交叉验证发现 **2p⁶ 闭壳
    层 Hartree+交换平均场被双重计数**——DFT 给的 ε_d 已含其 41.5 eV 贡献，
    Wpd 又加一次，把 d 层顶高、压垮 ZRS 权重（d⁹ 11%→0.4%）。修复 =
-   对 p⁶ 核正规排序 `subtract_core_mf=True`（atomx `60b874b9`，E6 锚：
+   对 p⁶ 核正规排序 `subtract_core_mf=True`（atomx `eaaaea1c`，E6 锚：
    p⁶ 块组态权重 ≡ ed_dmft 基态部门，偏差 <0.01）。**第二次修正的地貌
    结论（BR=2.8 可达、ζ_d 有效 2–2.4×）随之作废**。
 
